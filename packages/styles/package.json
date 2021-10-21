@@ -1,0 +1,28 @@
+{
+  "name": "@bubbles/styles",
+  "description": "Styles for the Bubbles Design System",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leemonade/bubbles.git",
+    "directory": "packages/styles"
+  },
+  "bugs": "https://github.com/leemonade/bubbles/issues",
+  "keywords": [
+    "leemons",
+    "bubbles",
+    "bubbles-design-system",
+    "components",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}

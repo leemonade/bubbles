@@ -1,0 +1,25 @@
+@import '~@bubbles/styles/scss/typography';
+@import '~@bubbles/styles/scss/colors';
+
+.container-welcome {
+  padding: 0 !important;
+}
+
+.welcome__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 3rem;
+}
+
+.welcome__heading {
+  @include type-style('productive-heading-07');
+
+  color: $main-primary;
+}
+
+.welcome__heading--subtitle {
+  font-weight: 600;
+}

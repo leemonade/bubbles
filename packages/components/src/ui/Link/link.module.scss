@@ -1,0 +1,87 @@
+@import '~@bubbles/styles/scss/typography';
+@import '~@bubbles/styles/scss/utilities/component-reset';
+@import '~@bubbles/styles/scss/utilities/focus-outline';
+@import '~@bubbles/styles/scss/spacing';
+@import '~@bubbles/styles/scss/motion';
+
+/// Link styles
+.link {
+  @include component-reset;
+  @include type-style('body-short-01');
+
+  display: inline-flex;
+  color: $link-primary;
+  outline: none;
+  text-decoration: none;
+  transition: color $duration-fast-01 motion(standard, productive);
+
+  &:hover {
+    color: $link-primary-hover;
+    text-decoration: underline;
+  }
+
+  &:active,
+  &:active:visited,
+  &:active:visited:hover {
+    color: $link-primary;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    @include focus-outline;
+  }
+
+  &:visited {
+    color: $link-primary;
+  }
+
+  &:visited:hover {
+    color: $link-primary-hover;
+  }
+}
+
+.link--disabled,
+.link--disabled:hover {
+  @include component-reset;
+  @include type-style('body-short-01');
+
+  color: $link-disabled;
+  cursor: not-allowed;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.link.link--visited:visited {
+  color: $link-visited;
+}
+
+.link.link--visited:visited:hover {
+  color: $link-primary-hover;
+}
+
+.link.link--inline {
+  text-decoration: underline;
+
+  &:focus,
+  &:visited {
+    text-decoration: none;
+  }
+}
+
+.link--disabled.link--inline {
+  text-decoration: underline;
+}
+
+.link--sm {
+  @include type-style('helper-text-01');
+}
+
+.link--lg {
+  @include type-style('body-short-02');
+}
+
+.link__icon {
+  display: inline-flex;
+  align-self: center;
+  margin-left: $spacing-03;
+}

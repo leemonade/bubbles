@@ -1,0 +1,31 @@
+@import 'styles';
+@import 'font-family';
+
+/// Create type classes for font families, weights, styles
+@mixin bubbles--type-classes {
+  // Font families
+  @each $name, $value in $bubbles--font-families {
+    .type-#{$name} {
+      font-family: $value;
+    }
+  }
+
+  // Font weights
+  @each $name, $value in $bubbles--font-weights {
+    .type-#{$name} {
+      font-weight: $value;
+    }
+  }
+
+  // Font styles
+  .type-italic {
+    font-style: italic;
+  }
+
+  // Type styles
+  @each $name, $value in $tokens {
+    .type-#{$name} {
+      @include bubbles--type-style($name, map-has-key($value, breakpoints));
+    }
+  }
+}

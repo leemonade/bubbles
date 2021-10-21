@@ -1,0 +1,10 @@
+@import 'config';
+@import './type/font-face/mono';
+@import './type/font-face/sans';
+@import './type/font-face/serif';
+
+@if $css--font-face == true {
+  @include font-face-mono;
+  @include font-face-sans;
+  @include font-face-serif;
+};

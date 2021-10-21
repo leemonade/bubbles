@@ -1,0 +1,51 @@
+@import '../../config';
+@import '../../colors/default';
+
+@mixin theme {
+  // - 01 + FONTS
+
+  // - 02 + COLORS
+  --#{$prefix}--color-main-primary: #{$main-primary};
+  --#{$prefix}--color-main-secondary: #{$main-secondary};
+
+  --#{$prefix}--color-main-white: #{$main-white};
+  --#{$prefix}--color-main-black: #{$main-black};
+  --#{$prefix}--color-main-variations-100: #{$main-variations-100};
+  --#{$prefix}--color-main-variations-40: #{$main-variations-40};
+  --#{$prefix}--color-main-variations-20: #{$main-variations-20};
+  --#{$prefix}--color-main-variations-10: #{$main-variations-10};
+
+  --#{$prefix}--color-fatic-error: #{$fatic-error};
+  --#{$prefix}--color-fatic-error-light: #{$fatic-error-light};
+  --#{$prefix}--color-fatic-success: #{$fatic-success};
+  --#{$prefix}--color-fatic-success-light: #{$fatic-success-light};
+  --#{$prefix}--color-fatic-warning: #{$fatic-warning};
+  --#{$prefix}--color-fatic-info: #{$fatic-info};
+
+  --#{$prefix}--color-alternative-pink-d: #{$alternative-pink-d};
+  --#{$prefix}--color-alternative-pink-l: #{$alternative-pink-l};
+  --#{$prefix}--color-alternative-green-d: #{$alternative-green-d};
+  --#{$prefix}--color-alternative-green-l: #{$alternative-green-l};
+  --#{$prefix}--color-alternative-pearl-d: #{$alternative-pearl-d};
+  --#{$prefix}--color-alternative-pearl-l: #{$alternative-pearl-l};
+  --#{$prefix}--color-alternative-purple-d: #{$alternative-purple-d};
+  --#{$prefix}--color-alternative-purple-l: #{$alternative-purple-l};
+
+  --#{$prefix}--color-neutrals-100: #{$neutrals-100-dark};
+  --#{$prefix}--color-neutrals-90: #{$neutrals-90-dark};
+  --#{$prefix}--color-neutrals-80: #{$neutrals-80-dark};
+  --#{$prefix}--color-neutrals-70: #{$neutrals-70-dark};
+  --#{$prefix}--color-neutrals-60: #{$neutrals-60-dark};
+  --#{$prefix}--color-neutrals-50: #{$neutrals-50};
+  --#{$prefix}--color-neutrals-40: #{$neutrals-40-light};
+  --#{$prefix}--color-neutrals-30: #{$neutrals-30-light};
+  --#{$prefix}--color-neutrals-20: #{$neutrals-20-light};
+  --#{$prefix}--color-neutrals-10: #{$neutrals-10-light};
+  --#{$prefix}--color-neutrals-5: #{$neutrals-5-light};
+
+  --#{$prefix}--color-bg-dots-petrol-10: #{$bg-dots-petrol-10};
+  --#{$prefix}--color-bg-edit-dark: #{$bg-edit-dark};
+
+  // - 04 + SHADOWS
+  --#{$prefix}--shadow-level-00: 0.00px 2.00px 0.00px #333f560d;
+}

@@ -1,0 +1,43 @@
+/// Font family fallbacks
+/// @type Map
+$bubbles--font-families: (
+  'mono': unquote("'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace"),
+  'sans': unquote("'Lexend', sans-serif"),
+  'serif': unquote("'Inter', sans-serif"),
+) !default;
+
+/// Get the font-family for an IBM Plex font
+/// @param {String} $name
+/// @return {String}
+
+@function font-family($name) {
+  @return map-get($bubbles--font-families, $name);
+}
+
+/// Include the `font-family` definition for the given name in your selector
+/// @param {String} $name
+@mixin font-family($name) {
+  font-family: font-family($name);
+}
+
+/// Suggested font weights to be used in product
+/// @type Map
+$bubbles--font-weights: (
+  'light': 200,
+  'regular': 400,
+  'semibold': 600,
+) !default;
+
+/// Retrieve the font-weight value for a given name
+/// @param {String} $weight
+/// @return {Number}
+
+@function font-weight($weight) {
+  @return map-get($bubbles--font-weights, $weight);
+}
+
+/// Set the `font-weight` property with the value for a given name
+/// @param {String} $weight
+@mixin font-weight($weight) {
+  font-weight: font-weight($weight);
+}
