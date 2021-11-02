@@ -1,19 +1,17 @@
 import React from 'react';
-import bg from './img/carbon_bg.png';
-import './welcome.scss';
 import PackageInfo from './../../package.json';
+import { Title } from '@mantine/core';
 
 export const Welcome = () => {
   return (
-    <div
-      className="welcome__container"
-      style={{
-        background: `url(${bg}) no-repeat center center fixed`,
-        backgroundSize: 'cover',
-      }}
-    >
-      <h2 className="welcome__heading">Carbon Components</h2>
-      <h4 className="welcome__heading welcome__heading--subtitle">{`React v${PackageInfo.version}`}</h4>
+    <div>
+      <Title order={1} sx={({ colors }) => ({ color: colors.interactive01 })}>
+        Bubbles Components
+      </Title>
+      <Title
+        order={2}
+        sx={({ colors }) => ({ color: colors.text02 })}
+      >{`React v${PackageInfo.version}`}</Title>
     </div>
   );
 };

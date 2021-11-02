@@ -1,8 +1,0 @@
-@import '~@bubbles/styles/scss/themes/admin/mixins';
-@import '~@bubbles/styles/scss/typography';
-
-.theme--admin {
-  @include theme;
-
-  font-family: font-family('serif');
-}
