@@ -4,8 +4,15 @@ export const TabsStyles = createStyles((theme, { orientation, tabPadding }, getR
   const tabsList = { ref: getRef('tabsList') };
 
   return {
-    tabsListWrapper: {},
+    tabsListWrapper: {
+      position: 'relative',
+    },
     tabsList,
+    tabsShowMore: {
+      position: 'absolute',
+      top: 5,
+      right: 4,
+    },
 
     root: {
       display: orientation === 'vertical' ? 'flex' : 'block',

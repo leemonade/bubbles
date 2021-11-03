@@ -13,6 +13,7 @@ export const Tab = forwardRef(
       label,
       leftIcon,
       rightIcon,
+      buttonRef,
       ...props
     },
     ref
@@ -22,7 +23,7 @@ export const Tab = forwardRef(
     return (
       <button
         {...props}
-        ref={ref}
+        ref={buttonRef}
         tabIndex={active ? 0 : -1}
         className={cx(
           classes.tabControl,

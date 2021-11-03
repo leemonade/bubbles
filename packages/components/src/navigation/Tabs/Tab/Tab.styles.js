@@ -56,6 +56,7 @@ export const TabStyles = createStyles((theme, { color, orientation }, getRef) =>
       justifyContent: orientation === 'horizontal' ? 'center' : 'flex-start',
       lineHeight: 1,
       height: '100%',
+      whiteSpace: 'nowrap',
     },
 
     tabIcon: {
