@@ -41,7 +41,7 @@ export default {
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
-    iconOnly: { control: { type: 'boolean' } },
+    //iconOnly: { control: { type: 'boolean' } },
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
@@ -57,9 +57,8 @@ export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   size: 'sm',
   color: 'primary',
-  variant: 'filled',
+  variant: 'default',
   rounded: false,
-  iconOnly: false,
 };
 
 export const ButtonWithIcons = Template.bind({});
@@ -67,7 +66,7 @@ export const ButtonWithIcons = Template.bind({});
 ButtonWithIcons.args = {
   size: 'sm',
   color: 'primary',
-  variant: 'filled',
+  variant: 'default',
   rounded: true,
   iconOnly: false,
   rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
@@ -85,7 +84,7 @@ export const IconButton = IconButtonTemplate.bind({});
 IconButton.args = {
   size: 'sm',
   color: 'primary',
-  variant: 'filled',
+  variant: 'default',
   iconOnly: true,
   rounded: true,
 };

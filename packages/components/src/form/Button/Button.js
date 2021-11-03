@@ -4,8 +4,9 @@ import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_SIZES = ['xs', 'sm'];
-export const BUTTON_VARIANTS = ['filled', 'outline', 'link'];
-export const BUTTON_COLORS = ['primary', 'secondary', 'ghost', 'light'];
+export const BUTTON_VARIANTS = ['default', 'outline', 'link'];
+
+export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative'];
 
 export const Button = forwardRef(
   (
@@ -13,7 +14,7 @@ export const Button = forwardRef(
       as,
       color: colorProp = 'primary',
       size = 'sm',
-      variant: variantProp = 'filled',
+      variant: variantProp = 'default',
       rounded = false,
       iconOnly = false,
       sx,
@@ -26,7 +27,7 @@ export const Button = forwardRef(
   ) => {
     const radius = rounded ? 'xl' : 'xs';
     const color = BUTTON_COLORS.includes(colorProp) ? colorProp : 'primary';
-    const variant = BUTTON_VARIANTS.includes(variantProp) ? variantProp : 'filled';
+    const variant = BUTTON_VARIANTS.includes(variantProp) ? variantProp : 'default';
 
     return (
       <MantineButton

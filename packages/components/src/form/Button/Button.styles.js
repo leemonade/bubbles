@@ -1,10 +1,11 @@
+import { initial } from 'lodash';
 import { pxToRem, getPaddings } from './../../theme.mixins';
 
 const getSizes = (size, spacing, iconOnly) => {
   return {
     xs: {
       fontSize: pxToRem(14),
-      height: 'initial',
+      height: spacing['7'],
       ...getPaddings(spacing['1'], iconOnly ? 0 : spacing['4']),
     },
 
@@ -36,7 +37,7 @@ const getSizes = (size, spacing, iconOnly) => {
 
 const getVariant = (variant, theme, color) => {
   const variants = {
-    filled: {
+    default: {
       primary: {
         backgroundColor: theme.colors.interactive01,
         color: theme.colors.text07,
@@ -59,7 +60,7 @@ const getVariant = (variant, theme, color) => {
           borderColor: theme.colors.interactive01,
         },
       },
-      ghost: {
+      tertiary: {
         backgroundColor: theme.colors.interactive03,
         color: theme.colors.text02,
         '&:hover': {
@@ -70,13 +71,13 @@ const getVariant = (variant, theme, color) => {
           borderColor: theme.colors.interactive03h,
         },
       },
-      light: {
-        backgroundColor: theme.colors.uiBackground04,
-        color: theme.colors.text02,
+      negative: {
+        backgroundColor: 'transparent',
+        color: theme.colors.text07,
         '&:hover': {
-          backgroundColor: theme.colors.interactive03h,
+          opacity: '0.8',
           '.mantine-Button-icon': {
-            color: theme.colors.interactive01,
+            //color: current,
           },
         },
         '&:active': {
@@ -102,7 +103,7 @@ const getVariant = (variant, theme, color) => {
           color: theme.colors.interactive02h,
         },
       },
-      ghost: {
+      tertiary: {
         borderColor: theme.colors.interactive03,
         color: theme.colors.text02,
         '&:hover': {
@@ -110,16 +111,16 @@ const getVariant = (variant, theme, color) => {
           color: theme.colors.text03,
         },
       },
-      light: {
-        borderColor: theme.colors.interactive03,
-        color: theme.colors.text02,
+      negative: {
+        borderColor: theme.colors.text07,
+        color: theme.colors.text07,
         '&:hover': {
-          borderColor: theme.colors.interactive03h,
-          color: theme.colors.text03,
+          opacity: '0.8',
         },
         '&:active': {
-          borderColor: theme.colors.interactive01,
-          color: theme.colors.text03,
+          borderColor: theme.colors.text07,
+          color: theme.colors.text07,
+          boxShadow: theme.shadows.drop01,
         },
       },
     },
@@ -143,9 +144,9 @@ export const ButtonStyles = (theme, { size, color, iconOnly }) => {
         marginLeft: pxToRem(-5),
       },
     },
-    filled: {
+    default: {
       border: '2px solid transparent',
-      ...getVariant('filled', theme, color),
+      ...getVariant('default', theme, color),
     },
     outline: {
       borderWidth: 2,
