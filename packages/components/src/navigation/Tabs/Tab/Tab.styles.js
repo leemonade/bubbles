@@ -1,14 +1,11 @@
-import { createStyles, getFocusStyles, getThemeColor } from '@mantine/styles';
+import { createStyles, getFocusStyles } from '@mantine/styles';
 import { pxToRem, getPaddings } from './../../../theme.mixins';
 
-export const TabStyles = createStyles((theme, { color, orientation }, getRef) => {
+export const TabStyles = createStyles((theme, { orientation, active, disabled }, getRef) => {
   const tabActive = { ref: getRef('tabActive') };
 
   return {
-    tabActive,
-    tabLabel: {},
-
-    tabControl: {
+    root: {
       ...getFocusStyles(theme),
       ...getPaddings(theme.spacing['4'], theme.spacing['3']),
       WebkitTapHighlightColor: 'transparent',
@@ -26,29 +23,36 @@ export const TabStyles = createStyles((theme, { color, orientation }, getRef) =>
         color: theme.colors.text06,
       },
     },
-
     default: {
       transition: 'border-color 150ms ease, color 150ms ease',
-      color: theme.colors.text05,
-      [orientation === 'horizontal' ? 'borderBottom' : 'borderRight']: '3px solid transparent',
+      [orientation === 'vertical' ? 'borderRight' : 'borderBottom']: '3px solid transparent',
 
       '&:hover': {
         '&:not(:disabled)': {
           [`&:not(.${tabActive.ref})`]: {
             color: theme.colors.text02,
-            [orientation === 'horizontal' ? 'borderBottomColor' : 'borderRightColor']: theme.colors
+            [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors
               .text02,
           },
         },
       },
 
       [`&.${tabActive.ref}`]: {
-        color: theme.colors.text01,
-        [orientation === 'horizontal' ? 'borderBottomColor' : 'borderRightColor']: theme.colors
-          .interactive01,
+        [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors.ui01,
+        '&:not(:disabled)': {
+          color: theme.colors.text01,
+          [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors
+            .interactive01,
+        },
       },
     },
-
+    tabActive,
+    tabLabel: {
+      fontFamily: "'Lexend', sans-serif",
+      fontSize: theme.fontSizes['1'],
+      color: active && !disabled ? theme.colors.text01 : theme.colors.text05,
+      lineHeight: 1,
+    },
     tabInner: {
       boxSizing: 'border-box',
       display: 'flex',

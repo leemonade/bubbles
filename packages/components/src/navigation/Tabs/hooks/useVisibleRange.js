@@ -7,22 +7,12 @@ export const useVisibleRange = (
   containerSize, // { width: number, height: number, left: number, top: number },
   tabContentNodeSize, // { width: number, height: number },
   addNodeSize, // { width: number, height: number },
-  { tabs, tabPosition, rtl }
+  { tabs, rtl }
 ) => {
   // { tabs: Tab[] } & TabNavListProps
-  let unit; // 'width' | 'height';
-  let position; // 'left' | 'top' | 'right';
-  let transformSize; // number;
-
-  if (['top', 'bottom'].includes(tabPosition)) {
-    unit = 'width';
-    position = rtl ? 'right' : 'left';
-    transformSize = Math.abs(containerSize.left);
-  } else {
-    unit = 'height';
-    position = 'top';
-    transformSize = -containerSize.top;
-  }
+  let unit = 'width'; // 'width' | 'height';
+  let position = rtl ? 'right' : 'left'; // 'left' | 'top' | 'right';
+  let transformSize = Math.abs(containerSize.left); // number;
 
   const basicSize = containerSize[unit];
   const tabContentSize = tabContentNodeSize[unit];
@@ -58,12 +48,5 @@ export const useVisibleRange = (
     }
 
     return [startIndex, endIndex];
-  }, [
-    tabOffsets,
-    transformSize,
-    mergedBasicSize,
-    tabPosition,
-    tabs.map((tab) => tab.key).join('_'),
-    rtl,
-  ]);
+  }, [tabOffsets, transformSize, mergedBasicSize, tabs.map((tab) => tab.key).join('_'), rtl]);
 };
