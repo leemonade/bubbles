@@ -20,6 +20,7 @@ export const COLORS = {
   text05: PALETTE.neutral50,
   text06: PALETTE.neutral40,
   text07: PALETTE.mainWhite,
+  text08: PALETTE.neutral40,
 
   interactive01: PALETTE.interactive50,
   interactive01h: PALETTE.interactive100,

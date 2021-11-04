@@ -58,15 +58,14 @@ const getLinkSizes = ({ ...props }) =>
       </Button>
     ));
 
-    
+
 
 export default {
   title: 'Form/Button',
   parameters: {
     component: Button,
-    docs: {
-      page: mdx,
-    },
+    componentSubtitle: 'Displays an image that represents a user or organization',
+     
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
@@ -77,9 +76,9 @@ export default {
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
-
+ 
 const Template = (props) => {
-  return <Button {...props}>Button</Button>;
+  return <Button {...props}>Button Label</Button>;
 };
 
 export const DefaultButton = Template.bind({});
@@ -89,29 +88,12 @@ DefaultButton.args = {
   color: 'primary',
   variant: 'default',
   rounded: false,
-  includeLIcon: true,
-  includeRIcon: false,
+  showLeftIcon: false,
+  showRightIcon: false,
   rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
   leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
 };
 
-/* 
-const IconButtonTemplate = (props) => {
-  return (
-    <Button {...props}>
-      <ChevronRightIcon style={{ height: '1.2rem' }} />
-    </Button>
-  );
-};
-export const IconButton = IconButtonTemplate.bind({});
-
-IconButton.args = {
-  size: 'sm',
-  color: 'primary',
-  variant: 'default',
-  iconOnly: true,
-  rounded: true,
-}; */
 
 export const Examples = () => (
   <>

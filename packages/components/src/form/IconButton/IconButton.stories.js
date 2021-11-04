@@ -1,25 +1,7 @@
 import React from 'react';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { IconButton, ICON_BUTTON_SIZES } from './IconButton';
+import { IconButton, ICON_BUTTON_SIZES, ICON_BUTTON_COLORS, ICON_BUTTON_VARIANTS } from './IconButton';
 import mdx from './IconButton.mdx'; 
-
-
-const sizes = ICON_BUTTON_SIZES.map((size) => (
-  <IconButton key={size} size={size}>
-    Button {size}
-  </IconButton>
-));
-
-
-const getSizes = ({ ...props }) =>
-  ICON_BUTTON_SIZES.map((size) => (
-    <IconButton key={size} size={size} {...props}>
-      Button {size}
-    </IconButton>
-  ));
-
-
-
 
 export default {
   title: 'Form/IconButton',
@@ -31,13 +13,13 @@ export default {
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
-    iconOnly: { control: { type: 'boolean' } },
-    size: { options: ICON_BUTTON_SIZES, control: { type: 'select' } }, 
+    size: { options: ICON_BUTTON_SIZES, control: { type: 'select' } },
+    color: { options: ICON_BUTTON_COLORS, control: { type: 'select' } }, 
   },
 };
 
 const Template = (props) => {
-  return <IconButton {...props}>Button</IconButton>;
+  return <IconButton {...props}></IconButton>;
 };
 
 export const DefaultIconButton = Template.bind({});
@@ -45,6 +27,6 @@ export const DefaultIconButton = Template.bind({});
 DefaultIconButton.args = {
   size: 'sm',
   rounded: true,
-  rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
-  leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
+  color: 'positive', 
+  leftIcon: <ChevronRightIcon style={{ height: '1.4rem' }} />,
 };
