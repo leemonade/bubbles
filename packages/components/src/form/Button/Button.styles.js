@@ -18,19 +18,19 @@ const getSizes = (size, spacing, iconOnly) => {
     md: {
       fontSize: pxToRem(14),
       height: 'initial',
-      ...getPaddings(spacing['3'], iconOnly ? 0 : spacing['8']),
+      ...getPaddings(spacing['3'], iconOnly ? spacing['3'] : spacing['8']),
     },
 
     lg: {
       fontSize: pxToRem(14),
       height: 'initial',
-      ...getPaddings(spacing['4'], iconOnly ? 0 : spacing['9']),
+      ...getPaddings(spacing['4'], iconOnly ? spacing['4'] : spacing['9']),
     },
 
     xl: {
       fontSize: pxToRem(14),
       height: 'initial',
-      ...getPaddings(spacing['5'], iconOnly ? 0 : spacing['10']),
+      ...getPaddings(spacing['5'], iconOnly ? spacing['5'] : spacing['10']),
     },
   }[size];
 };
@@ -129,7 +129,6 @@ const getVariant = (variant, theme, color) => {
 };
 
 export const ButtonStyles = (theme, { size, color, iconOnly }) => {
-  console.log(theme.spacing);
   return {
     root: {
       fontFamily: "'Lexend', sans-serif",

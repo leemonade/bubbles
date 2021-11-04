@@ -1,9 +1,11 @@
-import React, { useRef, forwardRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { useUncontrolled, useMergedRef, clamp } from '@mantine/hooks';
-import { Group } from '@mantine/core';
+import { useUncontrolled, useMergedRef, clamp, useResizeObserver } from '@mantine/hooks';
+import { Group, Menu } from '@mantine/core';
+import { ChevronRightIcon } from '@heroicons/react/outline';
 import { Tab } from './Tab/Tab';
 import { TabsStyles } from './Tabs.styles';
+import { Button } from './../../form';
 
 export const TABS_POSITION = ['left', 'right', 'center', 'apart'];
 export const TABS_ORIENTATION = ['horizontal', 'vertical'];
@@ -56,7 +58,7 @@ export const Tabs = forwardRef(
     },
     ref
   ) => {
-    const controlRefs = useRef({});
+    const tabRefs = useRef({});
 
     const { classes, cx } = TabsStyles({ tabPadding, orientation }, { sx, name: 'Tabs' });
 
@@ -80,22 +82,16 @@ export const Tabs = forwardRef(
         event.preventDefault();
         const nextTab = getNextTab(activeTab, tabs);
         handleActiveTabChange(nextTab);
-        controlRefs.current[nextTab].focus();
+        tabRefs.current[nextTab].focus();
       }
 
       if (event.nativeEvent.code === previousTabCode) {
         event.preventDefault();
         const previousTab = getPreviousTab(activeTab, tabs);
         handleActiveTabChange(previousTab);
-        controlRefs.current[previousTab].focus();
+        tabRefs.current[previousTab].focus();
       }
     };
-
-    /*
-buttonRef={useMergedRef((node) => {
-          controlRefs.current[index] = node;
-        }, tab.ref)}
-    */
 
     const panes = tabs.map((tab, index) => (
       <Tab
@@ -106,10 +102,70 @@ buttonRef={useMergedRef((node) => {
         variant={variant}
         orientation={orientation}
         onClick={() => activeTab !== index && handleActiveTabChange(index)}
+        buttonRef={useMergedRef((node) => {
+          tabRefs.current[index] = node;
+        }, tab.ref)}
       />
     ));
 
     const content = tabs[activeTab].props.children;
+
+    // ········································································
+    // Hidden Tabs
+    const [showMore, setShowMore] = useState(false);
+    const [showHiddenTabs, setShowHiddenTabs] = useState(false);
+    const [hiddenTabs, setHiddenTabs] = useState([]);
+    const [resizeRef, rect] = useResizeObserver();
+    const [tabSizes, setTabSizes] = useState([]);
+
+    useEffect(() => {
+      setShowHiddenTabs(false);
+
+      if (tabs && tabs.length && tabRefs.current) {
+        const newSizes = tabSizes;
+
+        // At first time
+        if (newSizes.length === 0) {
+          tabs.forEach((item, index) => {
+            const btnNode = tabRefs.current[index];
+            if (btnNode) {
+              newSizes.push({
+                width: btnNode.offsetWidth,
+                height: btnNode.offsetHeight,
+                left: btnNode.offsetLeft,
+                top: btnNode.offsetTop,
+              });
+            }
+          });
+          setTabSizes(newSizes);
+        }
+        // End first time
+
+        const tabListWidth = rect.width || 0;
+        let startHiddenTabIndex = 0;
+        let tabsWidth = 80;
+        for (let i = 0, l = tabs.length; i < l; i++) {
+          tabsWidth += newSizes[i].width;
+          if (tabsWidth > tabListWidth) {
+            setShowMore(true);
+            break;
+          }
+          tabRefs.current[i].style.display = 'block';
+          startHiddenTabIndex = i;
+        }
+        // Check if any hidden Tab
+        const tabsHidden = [];
+        if (startHiddenTabIndex < tabs.length - 1) {
+          for (let i = startHiddenTabIndex + 1, l = tabs.length; i < l; i++) {
+            tabRefs.current[i].style.display = 'none';
+            tabsHidden.push({ key: i, props: tabs[i].props });
+          }
+        } else {
+          setShowMore(false);
+        }
+        setHiddenTabs(tabsHidden);
+      }
+    }, [rect]);
 
     return (
       <div {...props} ref={ref} className={cx(classes.root)}>
@@ -122,9 +178,38 @@ buttonRef={useMergedRef((node) => {
             spacing={2}
             position={position}
             grow={grow}
+            noWrap
+            ref={resizeRef}
           >
             {panes}
           </Group>
+          {showMore && (
+            <>
+              <div className={cx(classes.tabsShowMore)}>
+                <Menu
+                  control={
+                    <Button color="ghost" iconOnly rounded onClick={() => setShowHiddenTabs(true)}>
+                      <ChevronRightIcon style={{ width: 16 }} />
+                    </Button>
+                  }
+                  withArrow
+                  position="bottom"
+                  opened={showHiddenTabs}
+                  onOpen={() => setShowHiddenTabs(true)}
+                  onClose={() => setShowHiddenTabs(false)}
+                >
+                  {hiddenTabs.map((item) => (
+                    <Menu.Item
+                      key={item.key}
+                      onClick={() => activeTab !== item.key && handleActiveTabChange(item.key)}
+                    >
+                      {item.props.label}
+                    </Menu.Item>
+                  ))}
+                </Menu>
+              </div>
+            </>
+          )}
         </div>
 
         {content && (

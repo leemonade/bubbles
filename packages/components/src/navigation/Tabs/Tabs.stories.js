@@ -74,6 +74,12 @@ const Template = ({ orientation, variant, grow, position, initialTab, ...props }
           framework.
         </Paragraph>
       </Tab>
+
+      {[...Array(9).keys()].map((val) => (
+        <Tab key={val} label={`Tab ${val}`} {...props}>
+          <Paragraph>Content of Tab {val}</Paragraph>
+        </Tab>
+      ))}
     </Tabs>
   );
 };
