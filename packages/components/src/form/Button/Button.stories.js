@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, MemoryRouter } from 'react-router-dom';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { Group } from '@mantine/core';
+import { Group, Title, Text, Box } from '@mantine/core';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
-import mdx from './Button.mdx';
+import mdx from './Button.mdx'; 
 
 const sizes = BUTTON_SIZES.map((size) => (
   <Button key={size} size={size}>
@@ -31,6 +31,35 @@ const getLinkSizes = ({ ...props }) =>
     </Button>
   ));
 
+  const variations = BUTTON_VARIANTS.map((variant) => (
+    <Button key={variant} variant={variant} >
+      Button {variant}
+    </Button>
+  ));
+
+  const getVariations = ({ ...props }) =>
+    BUTTON_VARIANTS.map((variant) => (
+      <Button key={variant} variant={variant} {...props}>
+        Button {variant}
+      </Button>
+    ));
+
+    
+  const colors = BUTTON_COLORS.map((color) => (
+    <Button key={color} color={color}>
+      Button {color}
+    </Button>
+  ));
+
+  const getColors = ({ ...props }) =>
+    BUTTON_COLORS.map((color) => (
+      <Button key={color} color={color} variant='outline'>
+        Button {color}
+      </Button>
+    ));
+
+    
+
 export default {
   title: 'Form/Button',
   parameters: {
@@ -41,7 +70,8 @@ export default {
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
-    //iconOnly: { control: { type: 'boolean' } },
+    showLeftIcon: { control: { type: 'boolean' } },
+    showRightIcon: { control: { type: 'boolean' } },
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
@@ -59,19 +89,13 @@ DefaultButton.args = {
   color: 'primary',
   variant: 'default',
   rounded: false,
-};
-
-export const ButtonWithIcons = Template.bind({});
-
-ButtonWithIcons.args = {
-  size: 'sm',
-  color: 'primary',
-  variant: 'default',
-  rounded: true,
-  iconOnly: false,
+  includeLIcon: true,
+  includeRIcon: false,
   rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
+  leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
 };
 
+/* 
 const IconButtonTemplate = (props) => {
   return (
     <Button {...props}>
@@ -87,6 +111,112 @@ IconButton.args = {
   variant: 'default',
   iconOnly: true,
   rounded: true,
+}; */
+
+export const Examples = () => (
+  <>
+    <Title order={3}>Button variants </Title>
+    <Text>
+      We have three button variants:
+      <Text weight={600} component="span">
+        {' '}
+        Solid (by default),
+      </Text>{' '}
+      outline, and link.
+    </Text>
+    <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
+      {getVariations({
+        //leftIcon: <CalendarIcon style={{ width: 14 }} />,
+        size: 'sm',
+      })}
+    </Group>
+    <Title order={3}>Rounded style </Title>
+    <Text mt="8px" mb="4px">
+      The rounded style is used for user interface suggested actions for the rest of actions use the
+      default button.
+    </Text>
+    <Text color="grey" size="sm">
+      Examples:
+    </Text>
+    <Group style={{ gap: 32 }} mt="16px" mb="44px" mx="2px">
+      <Button rounded={true} variant="outline">
+        Skip and go to Users <ChevronRightIcon style={{ height: '1.2rem', marginLeft: '8px' }} />
+      </Button>
+      <Button rounded={true}>
+        Mach profiles <ChevronRightIcon style={{ height: '1.2rem', marginLeft: '8px' }} />
+      </Button>
+    </Group>
+    <Title order={3}>Button Colors </Title>
+    <Text>
+      We have four button colors:
+      <Text weight={600} component="span">
+        {' '}
+        Primary (Main actions),
+      </Text>{' '}
+      Secondary, Terciary and negative.{' '}
+    </Text>{' '}
+    <Text> Negative color only works with outline variations.</Text>
+    <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
+      {getColors({
+        leftIcon: <CalendarIcon style={{ width: 14 }} />,
+        size: 'sm',
+      })}
+    </Group>
+    <Box
+      sx={(theme) => ({
+        backgroundColor: theme.colors.uiBackground03,
+        textAlign: 'center',
+        padding: theme.spacing.xl,
+        borderRadius: theme.radius.md,
+        cursor: 'pointer',
+      })}
+    >
+      <Button color="negative" variant="outline">
+        Negative color
+      </Button>
+    </Box>
+    <Group style={{ gap: 10 }}>
+      {getSizes({
+        leftIcon: <CalendarIcon style={{ width: 14 }} />,
+        color: 'primary',
+      })}
+
+      {getSizes({
+        rightIcon: <CalendarIcon style={{ width: 14 }} />,
+        color: 'primary',
+      })}
+    </Group>
+    <Group style={{ marginTop: 20, gap: 10 }}>
+      {getLinkSizes({
+        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
+        variant: 'outline',
+      })}
+    </Group>
+    <Group style={{ marginTop: 20, gap: 10 }}>
+      {getLinkSizes({
+        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
+        variant: 'link',
+      })}
+    </Group>
+    <Group style={{ marginTop: 20, gap: 10 }}>
+      {getLinkSizes({
+        leftIcon: <CalendarIcon style={{ width: 14 }} />,
+        rightIcon: <ExternalLinkIcon style={{ width: 14 }} />,
+      })}
+    </Group>
+  </>
+);
+/*
+
+ export const ButtonWithIcons = Template.bind({});
+
+ButtonWithIcons.args = {
+  size: 'sm',
+  color: 'primary',
+  variant: 'default',
+  rounded: true,
+  iconOnly: false,
+  rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
 };
 
 export const Sizes = () => <Group style={{ gap: 10 }}>{sizes}</Group>;
@@ -165,7 +295,7 @@ export const ReactRouter = () => (
       </Button>
     </Group>
   </MemoryRouter>
-);
+); */
 
 /*
 

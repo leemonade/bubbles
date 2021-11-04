@@ -6,7 +6,7 @@ export const Container = ({ story, id }) => {
     <React.StrictMode>
       <ThemeProvider>
         <div className={id.toLowerCase()} data-floating-menu-container role="main">
-          {story()}
+          {story()} 
         </div>
       </ThemeProvider>
     </React.StrictMode>

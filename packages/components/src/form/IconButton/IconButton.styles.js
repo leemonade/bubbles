@@ -128,7 +128,7 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = (theme, { size, color, iconOnly }) => {
+export const IconButtonStyles = (theme, { size, color, iconOnly }) => {
   console.log(theme.spacing);
   return {
     root: {

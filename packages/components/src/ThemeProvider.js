@@ -30,7 +30,7 @@ export const ThemeProvider = ({ children, theme }) => {
           },
           breakpoints: {},
           shadows: { ...SHADOWS },
-          // TODO HACER PROPIEDAD EFECTOS
+          // TODO HACER PROPIEDAD FILTERS
           headings: {
             fontFamily: "'Lexend', sans-serif",
           },

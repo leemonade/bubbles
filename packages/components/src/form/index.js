@@ -1,3 +1,4 @@
 import { Button } from './Button/Button';
+import { IconButton } from './IconButton/IconButton';
 
-export { Button };
+export { Button, IconButton};

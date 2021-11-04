@@ -5,7 +5,6 @@ import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_SIZES = ['xs', 'sm'];
 export const BUTTON_VARIANTS = ['default', 'outline', 'link'];
-
 export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative'];
 
 export const Button = forwardRef(
@@ -15,8 +14,12 @@ export const Button = forwardRef(
       color: colorProp = 'primary',
       size = 'sm',
       variant: variantProp = 'default',
-      rounded = false,
+      rounded = false, 
       iconOnly = false,
+      leftIcon,
+      rightIcon,
+      showLeftIcon = true,
+      showRightIcon = false,
       sx,
       styles,
       className,
@@ -26,8 +29,10 @@ export const Button = forwardRef(
     ref
   ) => {
     const radius = rounded ? 'xl' : 'xs';
-    const color = BUTTON_COLORS.includes(colorProp) ? colorProp : 'primary';
+    const color = BUTTON_COLORS.includes(colorProp) ? colorProp : 'primary'; 
     const variant = BUTTON_VARIANTS.includes(variantProp) ? variantProp : 'default';
+    const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
+    const buttonRightIcon = showRightIcon ? rightIcon : undefined;
 
     return (
       <MantineButton
@@ -35,6 +40,8 @@ export const Button = forwardRef(
         component={as}
         variant={variant}
         radius={radius}
+        leftIcon={buttonLeftIcon}
+        rightIcon={buttonRightIcon}
         size={size}
         styles={(theme) => ButtonStyles(theme, { color, size, iconOnly })}
         ref={ref}
@@ -45,14 +52,16 @@ export const Button = forwardRef(
 
 Button.propTypes = {
   size: PropTypes.oneOf(BUTTON_SIZES),
-  color: PropTypes.oneOf(BUTTON_COLORS),
+  color: PropTypes.oneOf(BUTTON_COLORS), 
   variant: PropTypes.oneOf(BUTTON_VARIANTS),
   rounded: PropTypes.bool,
+  iconOnly: PropTypes.bool,
   // Adds icon before button label
+
   leftIcon: PropTypes.node,
 
   // Adds icon after button label,
-  rightIcon: PropTypes.node,
+   rightIcon: PropTypes.node,
 
   // Sets button width to 100% of parent element
   fullWidth: PropTypes.bool,
