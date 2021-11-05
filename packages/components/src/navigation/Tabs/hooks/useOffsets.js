@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 const DEFAULT_SIZE = { width: 0, height: 0, left: 0, top: 0 };
 
-export default function useOffsets(tabs, tabSizes, holderScrollWidth) {
+export const useOffsets = (tabs, tabSizes, holderScrollWidth) => {
   return useMemo(() => {
     const map = new Map();
 
@@ -29,4 +29,4 @@ export default function useOffsets(tabs, tabSizes, holderScrollWidth) {
 
     return map;
   }, [tabs.map((tab) => tab.key).join('_'), tabSizes, holderScrollWidth]);
-}
+};

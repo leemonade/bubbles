@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-docs',
+    '@storybook/addon-a11y',
     // '@storybook/addon-react-native-web',
   ],
 };

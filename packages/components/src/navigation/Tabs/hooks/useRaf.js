@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import raf from './wrapperRaf';
 
-export default function useRaf(callback) {
+export const useRaf = (callback) => {
   const rafRef = useRef();
   const removedRef = useRef(false);
 
@@ -22,9 +22,9 @@ export default function useRaf(callback) {
   }, []);
 
   return trigger;
-}
+};
 
-export function useRafState(defaultState) {
+export const useRafState = (defaultState) => {
   const batchRef = useRef([]);
   const [, forceUpdate] = useState({});
   const state = useRef(typeof defaultState === 'function' ? defaultState() : defaultState);
@@ -46,4 +46,4 @@ export function useRafState(defaultState) {
   }
 
   return [state.current, updater];
-}
+};

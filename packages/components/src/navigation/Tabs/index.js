@@ -1,4 +1,4 @@
-import { Tab } from './Tab/Tab';
 import { Tabs } from './Tabs';
+import { Tab } from './TabPanelList/TabPane';
 
-export { Tab, Tabs };
+export { Tabs, Tab };

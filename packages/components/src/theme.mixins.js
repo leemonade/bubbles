@@ -36,3 +36,20 @@ export function getSpacing(spaces) {
 
   return spacing;
 }
+
+export function getFocusStyles(theme) {
+  return {
+    WebkitTapHighlightColor: 'transparent',
+
+    '&:focus': {
+      outline: 'none',
+      boxShadow: `0 0 0 1px ${
+        theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.white
+      }, 0 0 0 3px ${theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 7 : 5]}`,
+    },
+
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
+  };
+}
