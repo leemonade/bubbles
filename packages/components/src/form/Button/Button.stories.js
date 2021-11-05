@@ -101,65 +101,7 @@ DefaultButton.args = {
 };
 
 
- const Examples = () => (
-  <>
-    <Title order={3}> </Title>
-    <Text>
-      
-    </Text>
-    <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
-      {getVariations({
-        //leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        size: 'sm',
-      })}
-    </Group>
-    <Title order={3}>Rounded style </Title>
-    <Text>
-      The rounded style is used for user interface suggested actions for the rest of actions use the
-      default button.
-    </Text>
-    <Text color="grey" size="sm">
-      Examples:
-    </Text>
-    <Group style={{ gap: 32 }} mt="16px" mb="44px" mx="2px">
-      <Button rounded={true} variant="outline">
-        Skip and go to Users <ChevronRightIcon style={{ height: '1.2rem', marginLeft: '8px' }} />
-      </Button>
-      <Button rounded={true}>
-        Mach profiles <ChevronRightIcon style={{ height: '1.2rem', marginLeft: '8px' }} />
-      </Button>
-    </Group>
-    <Title order={3}>Button Colors </Title>
-    <Text>
-      We have four button colors:
-      <Text weight={600} component="span">
-        {' '}
-        Primary (Main actions),
-      </Text>{' '}
-      Secondary, Terciary and negative.{' '}
-    </Text>{' '}
-    <Text> Negative color only works with outline variations.</Text>
-    <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
-      {getColors({
-        leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        size: 'sm',
-      })}
-    </Group>
-    <Box
-      sx={(theme) => ({
-        backgroundColor: theme.colors.uiBackground03,
-        textAlign: 'center',
-        padding: theme.spacing.xl,
-        borderRadius: theme.radius.md,
-        cursor: 'pointer',
-      })}
-    >
-      <Button color="negative" variant="outline">
-        Negative color
-      </Button>
-    </Box>
-  </>
-);
+
 /*
  
 

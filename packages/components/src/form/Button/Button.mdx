@@ -2,7 +2,7 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Button.stories.js';
 import { Button } from './Button.js';
 import { Group, Box } from '@mantine/core';
-import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/react/outline';
+import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { ThemeProvider } from './../../ThemeProvider';
 
 
@@ -18,6 +18,8 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Button variants](#button-variants)
+- [Rounded style] (#rounded-style)
 - [Component API](#component-api)
   - [Button `as`](#button-as)
 - [References](#references)
@@ -30,13 +32,13 @@ communicate calls to action to the user and allow users to interact with pages
 in a variety of ways. `Button` labels express what action will occur when the
 user interacts with it.
 
-<Preview>
-  <Story id="form-button--default-button" />
-</Preview>
+<ThemeProvider> 
+    <Button color="primary" variant="default" size="sm"> 
+      Button label
+    </Button>
+</ThemeProvider>
 
-## Component API
 
-<Props />
 
 ## Button variants
 We have three button variants:
@@ -49,8 +51,8 @@ We have three button variants:
     <Button color="primary" variant="outline" size="sm"> 
       Outline Button
     </Button>
-     <Button color="primary" variant="link" size="sm"> 
-      <ExternalLinkIcon style={{ height: '1.2rem' }} /> Link Button
+     <Button color="primary" variant="link" size="sm" showLeftIcon > 
+      <ExternalLinkIcon style={{ height: '1.2rem', margin:'0 8px 0 0'}} /> Link Button
     </Button>
   </Group>
 </ThemeProvider>
@@ -61,10 +63,10 @@ We have three button variants:
 <ThemeProvider>
   <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
     <Button color="primary" rounded  variant="outline" size="sm"> 
-      Skip and go to Users <ChevronRightIcon style={{ height: '1.2rem' }} />
+      Skip and go to Users <ChevronRightIcon style={{ height: '1.2rem', margin:'0 -4px 0 8px'}} />
     </Button>
     <Button color="primary" rounded variant="default" size="sm"> 
-     Mach profiles <ChevronRightIcon style={{ height: '1.2rem' }} />
+     Mach profiles <ChevronRightIcon style={{ height: '1.2rem', margin:'0 -4px 0 8px'}} />
     </Button>
   </Group>
 </ThemeProvider>
@@ -84,7 +86,7 @@ Negative color only works for outline and link buttons.
     <Button color="terciary" variant="default" size="sm"> 
       Terciary
     </Button>
-      <Box className='hola' sx={(theme) => ({
+      <Box  sx={(theme) => ({
         backgroundColor: theme.colors.uiBackground03,
         textAlign: 'center',
         padding: theme.spacing.sm,
@@ -114,10 +116,19 @@ The xs value is for buttons inside tables or information list.
 </ThemeProvider>
 
 ## Icons
-
-
-Additional props passed into `Button` will be forwarded along to the underlying
-button element.
+As a rule, the buttons with the icons on the left will be used, except to indicate actions that imply progress (continue, view, go to...) 
+<ThemeProvider>
+  <Group style={{ gap: 32 }} my="16px" mx="2px">
+  <Button color="primary" variant="default" size="sm"> 
+      <CalendarIcon style={{ height: '1.2rem', margin:'0 8px 0 0'}} /> Default use icons
+    </Button>
+    <Button color="primary" variant="outline" size="sm"> 
+     Next step  <ChevronRightIcon style={{ height: '1.2rem', margin:'0 -4px 0 8px'}} />
+    </Button>
+  </Group> 
+</ThemeProvider>
+ 
+------
 
 ### Button `as`
 
@@ -130,6 +141,16 @@ an element other than a `button` is rendered.
   I'm a div tag
 </Button>
 ```
+
+## Component API
+
+<Preview>
+  <Story id="form-button--default-button" />
+</Preview>
+
+<Props />
+
+
 
 ## References
 
