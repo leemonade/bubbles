@@ -1,10 +1,15 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
 import * as stories from './Button.stories.js';
 import { Button } from './Button.js';
+import { Group, Box } from '@mantine/core';
+import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/react/outline';
+import { ThemeProvider } from './../../ThemeProvider';
+
 
 # Button
 
 [Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/button/Button)
+
 
 
 ## Table of Contents
@@ -32,6 +37,84 @@ user interacts with it.
 ## Component API
 
 <Props />
+
+## Button variants
+We have three button variants:
+ **Solid (by default),** outline, and link.
+<ThemeProvider>
+  <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
+    <Button color="primary" variant="default" size="sm"> 
+      Default Button
+    </Button>
+    <Button color="primary" variant="outline" size="sm"> 
+      Outline Button
+    </Button>
+     <Button color="primary" variant="link" size="sm"> 
+      <ExternalLinkIcon style={{ height: '1.2rem' }} /> Link Button
+    </Button>
+  </Group>
+</ThemeProvider>
+
+## Rounded style
+ The rounded style is used for user interface suggested actions for the rest of actions use the default button.
+
+<ThemeProvider>
+  <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
+    <Button color="primary" rounded  variant="outline" size="sm"> 
+      Skip and go to Users <ChevronRightIcon style={{ height: '1.2rem' }} />
+    </Button>
+    <Button color="primary" rounded variant="default" size="sm"> 
+     Mach profiles <ChevronRightIcon style={{ height: '1.2rem' }} />
+    </Button>
+  </Group>
+</ThemeProvider>
+
+## Button Colors
+We have four button colors:
+**Primary (Main actions),** Secondary, Terciary and negative.
+Negative color only works for outline and link buttons.
+<ThemeProvider>
+  <Group style={{ gap: 32 }} my="16px" mx="2px">
+    <Button color="primary" variant="default" size="sm"> 
+      Primary Color
+    </Button>
+    <Button color="secondary" variant="default" size="sm"> 
+      Secondary Color
+    </Button>
+    <Button color="terciary" variant="default" size="sm"> 
+      Terciary
+    </Button>
+      <Box className='hola' sx={(theme) => ({
+        backgroundColor: theme.colors.uiBackground03,
+        textAlign: 'center',
+        padding: theme.spacing.sm,
+        borderRadius: theme.radius.md,
+        cursor: 'pointer',
+      })}> 
+      <Button color="negative" variant="outline" size="sm"> 
+        Negative color
+      </Button>
+    </Box>
+  </Group>
+ 
+  
+</ThemeProvider>
+
+## Sizes
+The xs value is for buttons inside tables or information list.
+<ThemeProvider>
+  <Group style={{ gap: 32 }} my="16px" mx="2px">
+    <Button color="primary" variant="default" size="sm"> 
+      Default size
+    </Button>
+    <Button color="primary"  variant="default" size="xs"> 
+     Small size
+    </Button>
+  </Group>
+</ThemeProvider>
+
+## Icons
+
 
 Additional props passed into `Button` will be forwarded along to the underlying
 button element.

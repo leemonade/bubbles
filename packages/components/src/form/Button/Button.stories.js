@@ -3,7 +3,8 @@ import { Link, MemoryRouter } from 'react-router-dom';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { Group, Title, Text, Box } from '@mantine/core';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
-import mdx from './Button.mdx'; 
+ 
+
 
 const sizes = BUTTON_SIZES.map((size) => (
   <Button key={size} size={size}>
@@ -37,13 +38,17 @@ const getLinkSizes = ({ ...props }) =>
     </Button>
   ));
 
-  const getVariations = ({ ...props }) =>
+ const getVariations = ({ ...props }) =>
     BUTTON_VARIANTS.map((variant) => (
       <Button key={variant} variant={variant} {...props}>
         Button {variant}
       </Button>
     ));
-
+  getVariations.parameters ={
+    docs: {
+      // a ver si se ve esto o no
+    }
+  }
     
   const colors = BUTTON_COLORS.map((color) => (
     <Button key={color} color={color}>
@@ -64,7 +69,6 @@ export default {
   title: 'Form/Button',
   parameters: {
     component: Button,
-    componentSubtitle: 'Displays an image that represents a user or organization',
      
   },
   argTypes: {
@@ -95,16 +99,11 @@ DefaultButton.args = {
 };
 
 
-export const Examples = () => (
+ const Examples = () => (
   <>
-    <Title order={3}>Button variants </Title>
+    <Title order={3}> </Title>
     <Text>
-      We have three button variants:
-      <Text weight={600} component="span">
-        {' '}
-        Solid (by default),
-      </Text>{' '}
-      outline, and link.
+      
     </Text>
     <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
       {getVariations({
@@ -113,7 +112,7 @@ export const Examples = () => (
       })}
     </Group>
     <Title order={3}>Rounded style </Title>
-    <Text mt="8px" mb="4px">
+    <Text>
       The rounded style is used for user interface suggested actions for the rest of actions use the
       default button.
     </Text>
@@ -157,80 +156,11 @@ export const Examples = () => (
         Negative color
       </Button>
     </Box>
-    <Group style={{ gap: 10 }}>
-      {getSizes({
-        leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        color: 'primary',
-      })}
-
-      {getSizes({
-        rightIcon: <CalendarIcon style={{ width: 14 }} />,
-        color: 'primary',
-      })}
-    </Group>
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'outline',
-      })}
-    </Group>
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'link',
-      })}
-    </Group>
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        rightIcon: <ExternalLinkIcon style={{ width: 14 }} />,
-      })}
-    </Group>
   </>
 );
 /*
+ 
 
- export const ButtonWithIcons = Template.bind({});
-
-ButtonWithIcons.args = {
-  size: 'sm',
-  color: 'primary',
-  variant: 'default',
-  rounded: true,
-  iconOnly: false,
-  rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
-};
-
-export const Sizes = () => <Group style={{ gap: 10 }}>{sizes}</Group>;
-export const Rounded = () => <Group style={{ gap: 10 }}>{getSizes({ rounded: true })}</Group>;
-export const Icons = () => (
-  <>
-    <Group style={{ gap: 10 }}>
-      {getSizes({ leftIcon: <CalendarIcon style={{ width: 14 }} /> })}
-    </Group>
-
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'outline',
-      })}
-    </Group>
-
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'link',
-      })}
-    </Group>
-
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        rightIcon: <ExternalLinkIcon style={{ width: 14 }} />,
-      })}
-    </Group>
-  </>
-);
 export const Disabled = () => (
   <>
     <Group style={{ gap: 20 }}>{getSizes({ disabled: true })}</Group>

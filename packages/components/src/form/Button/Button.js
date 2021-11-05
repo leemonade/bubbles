@@ -51,18 +51,27 @@ export const Button = forwardRef(
 );
 
 Button.propTypes = {
+  /**
+    The xs value is for buttons inside tables or information list.
+    */
   size: PropTypes.oneOf(BUTTON_SIZES),
-  color: PropTypes.oneOf(BUTTON_COLORS), 
+  /**
+    Main actions use de primary color, the secondary color is for empahis buttons. 
+    */
+  color: PropTypes.oneOf(BUTTON_COLORS),
+  /**
+    Main actions use de Default variation, the outline buttons is for  actions suggestion. 
+    For secondary actions use the button Link variation.
+    */
   variant: PropTypes.oneOf(BUTTON_VARIANTS),
+  /**
+   Use rounded style with outline variation for  the  actions suggestion buttons
+    */
   rounded: PropTypes.bool,
-  iconOnly: PropTypes.bool,
-  // Adds icon before button label
-
+  /** Adds icon before button label */
   leftIcon: PropTypes.node,
-
-  // Adds icon after button label,
-   rightIcon: PropTypes.node,
-
-  // Sets button width to 100% of parent element
+  /** Adds icon after button label, */ 
+  rightIcon: PropTypes.node,
+  /** Sets button width to 100% of parent element */
   fullWidth: PropTypes.bool,
 };

@@ -135,12 +135,12 @@ export const ButtonStyles = (theme, { size, color, iconOnly }) => {
       fontWeight: 400,
       ...getSizes(size || 'md', theme.spacing, iconOnly),
       '.mantine-Button-rightIcon': {
-        marginLeft: pxToRem(5),
-        marginRight: pxToRem(-5),
+        marginLeft: pxToRem(8),
+        marginRight: pxToRem(8),
       },
       '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(5),
-        marginLeft: pxToRem(-5),
+        marginRight: pxToRem(8),
+        marginLeft: pxToRem(8),
       },
       '.mantine-Button-label': {
          with: '100%',
