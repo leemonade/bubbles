@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text, Box } from '@mantine/core';
+import { ExclamationCircleIcon } from '@heroicons/react/solid';
 import { TabStyles } from './Tab.styles';
 
 export const Tab = forwardRef(
@@ -8,7 +9,7 @@ export const Tab = forwardRef(
     {
       id,
       active,
-      tab: { key, label, leftIcon, rightIcon, disabled },
+      tab: { key, label, leftIcon, rightIcon, disabled, notification, hasError },
       renderWrapper,
       onClick,
       onFocus,
@@ -36,7 +37,7 @@ export const Tab = forwardRef(
         className={cx(classes.root, classes.default, { [classes.tabActive]: active })}
         aria-controls={id && `${id}-panel-${key}`}
         aria-disabled={disabled}
-        tabIndex={disabled ? null : 0}
+        tabIndex={active ? 0 : -1}
         onClick={(e) => {
           e.stopPropagation();
           onInternalClick(e);
@@ -50,6 +51,12 @@ export const Tab = forwardRef(
             <Text component="span" className={classes.tabLabel}>
               {label}
             </Text>
+          )}
+          {notification && <Box className={classes.tabBadge}>{notification}</Box>}
+          {hasError && (
+            <Box className={classes.tabError}>
+              <ExclamationCircleIcon className={classes.tabErrorIcon} />
+            </Box>
           )}
           {rightIcon && (
             <Box className={cx(classes.tabIcon, classes.tabRightIcon)}>{rightIcon}</Box>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Box } from '@mantine/core';
-import { ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronDownIcon } from '@heroicons/react/outline';
 import { Button } from './../../../form';
 import { DropdownStyles } from './Dropdown.styles';
 
@@ -39,8 +39,8 @@ export const Dropdown = forwardRef(({ tabs, rtl, onTabClick }, ref) => {
     <Box className={cx(classes.root)} ref={ref}>
       <Menu
         control={
-          <Button color="ghost" iconOnly rounded onClick={() => setOpen(true)}>
-            <ChevronRightIcon style={{ width: 16 }} />
+          <Button color="ghost" iconOnly onClick={() => setOpen(true)}>
+            <ChevronDownIcon style={{ width: 16 }} />
           </Button>
         }
         withArrow

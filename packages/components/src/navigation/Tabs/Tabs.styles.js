@@ -5,7 +5,7 @@ export const TabsStyles = createStyles((theme, { direction, position }, getRef) 
     root: {
       display: 'flex',
       flexDirection: 'column',
-      overflow: 'hidden',
+      // overflow: 'hidden',
     },
   };
 });

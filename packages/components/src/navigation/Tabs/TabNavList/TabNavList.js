@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, forwardRef, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useResizeObserver } from '@mantine/hooks';
+import { useResizeObserver, useMergedRef } from '@mantine/hooks';
 import { Box, Group } from '@mantine/core';
 import { Tab } from '../Tab/Tab';
 import {
@@ -16,23 +16,23 @@ import { Dropdown } from './Dropdown';
 import TabContext from '../TabContext';
 import { TabNavListStyles } from './TabNavList.styles';
 
-function getPreviousTab(active, tabs) {
+function getPreviousTab(activeKey, tabs) {
+  const active = tabs.map((tab) => tab.key).indexOf(activeKey);
   for (let i = active - 1; i >= 0; i -= 1) {
-    if (!tabs[i].props.disabled) {
-      return i;
+    if (!tabs[i].disabled) {
+      return tabs[i];
     }
   }
-
   return active;
 }
 
-function getNextTab(active, tabs) {
+function getNextTab(activeKey, tabs) {
+  const active = tabs.map((tab) => tab.key).indexOf(activeKey);
   for (let i = active + 1; i < tabs.length; i += 1) {
-    if (!tabs[i].props.disabled) {
-      return i;
+    if (!tabs[i].disabled) {
+      return tabs[i];
     }
   }
-
   return active;
 }
 
@@ -310,24 +310,22 @@ export const TabNavList = forwardRef(
     const hasDropdown = !!hiddenTabs.length;
 
     const { classes, cx } = TabNavListStyles({ animated: animated.inkBar }, { name: 'TabNavList' });
-    const controlRefs = useRef({});
     const nextTabCode = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
     const previousTabCode = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
 
     const handleKeyDown = (event) => {
-      console.log(tabs);
       if (event.nativeEvent.code === nextTabCode) {
         event.preventDefault();
-        // const nextTab = getNextTab(activeTab, tabs);
-        // handleActiveTabChange(nextTab);
-        // controlRefs.current[nextTab].focus();
+        const nextTab = getNextTab(activeKey, tabs);
+        onTabClick(nextTab.key);
+        getBtnRef(nextTab.key).current.focus();
       }
 
       if (event.nativeEvent.code === previousTabCode) {
         event.preventDefault();
-        // const previousTab = getPreviousTab(activeTab, tabs);
-        // handleActiveTabChange(previousTab);
-        // controlRefs.current[previousTab].focus();
+        const previousTab = getPreviousTab(activeKey, tabs);
+        onTabClick(previousTab.key);
+        getBtnRef(previousTab.key).current.focus();
       }
     };
 
@@ -361,7 +359,7 @@ export const TabNavList = forwardRef(
                   active={tab.key === activeKey}
                   renderWrapper={children}
                   onKeyDown={handleKeyDown}
-                  ref={getBtnRef(tab.key)}
+                  ref={useMergedRef((node) => {}, getBtnRef(tab.key))}
                   onClick={(e) => {
                     onTabClick(tab.key, e);
                   }}

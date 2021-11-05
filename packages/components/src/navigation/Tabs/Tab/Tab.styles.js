@@ -1,5 +1,5 @@
-import { createStyles, getFocusStyles } from '@mantine/styles';
-import { pxToRem, getPaddings } from './../../../theme.mixins';
+import { createStyles } from '@mantine/styles';
+import { pxToRem, getPaddings, getFocusStyles } from './../../../theme.mixins';
 
 export const TabStyles = createStyles((theme, { orientation, active, disabled }, getRef) => {
   const tabActive = { ref: getRef('tabActive') };
@@ -77,6 +77,28 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
     tabRightIcon: {
       marginLeft: pxToRem(theme.spacing['3']),
       marginRight: pxToRem(theme.spacing['1'] * -1),
+    },
+
+    tabBadge: {
+      backgroundColor: theme.colors.interactive01,
+      width: 15,
+      height: 15,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 99,
+      fontSize: 10,
+      color: theme.colors.text07,
+      marginLeft: theme.spacing['2'],
+      transform: `translateY(-2px)`,
+    },
+    tabError: {
+      marginLeft: theme.spacing['2'],
+      transform: `translateY(-${theme.spacing['1']}px)`,
+    },
+    tabErrorIcon: {
+      width: 10,
+      color: theme.colors.fatic01,
     },
   };
 });

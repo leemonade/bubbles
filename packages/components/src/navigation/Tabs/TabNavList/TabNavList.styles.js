@@ -21,6 +21,7 @@ export const TabNavListStyles = createStyles((theme, {}, getRef) => {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       display: 'flex',
+      padding: '3px 0 0 0',
     },
     navList: {
       position: 'relative',
