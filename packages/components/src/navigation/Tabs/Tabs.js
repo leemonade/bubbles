@@ -39,6 +39,7 @@ export const Tabs = forwardRef(
       activeKey,
       defaultActiveKey,
       position = 'left',
+      orientation = 'horizontal',
       destroyInactiveTabPane,
       animated = false,
       onChange,
@@ -104,6 +105,7 @@ export const Tabs = forwardRef(
       activeKey: mergedActiveKey,
       animated,
       position,
+      orientation,
       rtl,
     };
 

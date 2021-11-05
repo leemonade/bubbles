@@ -12,6 +12,7 @@ export const Tab = forwardRef(
       renderWrapper,
       onClick,
       onFocus,
+      ...props
     },
     ref
   ) => {
@@ -26,6 +27,7 @@ export const Tab = forwardRef(
 
     const node = (
       <button
+        {...props}
         role="tab"
         key={key}
         ref={ref}
