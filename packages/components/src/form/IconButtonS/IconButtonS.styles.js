@@ -74,19 +74,19 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const IconButtonSStyles = createStyles((theme, { size, color, iconOnly }) => {
+export const IconButtonSStyles = createStyles((theme, { size, color  }) => {
   return {
     root: {
       fontFamily: "'Lexend', sans-serif",
       fontWeight: 400,
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
+      border: '2px solid #fabada', // para probar 
+      ...getSizes(size || 'md', theme.spacing),
       '.mantine-Button-leftIcon': {
         marginRight: pxToRem(0),
         marginLeft: pxToRem(0),
       },
     },
     default: {
-      border: '2px solid transparent',
       ...getVariant('default', theme, color),
     },
   };

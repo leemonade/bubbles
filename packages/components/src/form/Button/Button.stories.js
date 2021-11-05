@@ -3,7 +3,7 @@ import { Link, MemoryRouter } from 'react-router-dom';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { Group, Title, Text, Box } from '@mantine/core';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
- 
+import mdx from './Button.mdx'; 
 
 
 const sizes = BUTTON_SIZES.map((size) => (
@@ -69,7 +69,9 @@ export default {
   title: 'Form/Button',
   parameters: {
     component: Button,
-     
+     docs: {
+      page: mdx,
+    },
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },

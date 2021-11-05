@@ -2,7 +2,6 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
 import { IconButtonSStyles } from './IconButtonS.styles';
-import { IconButtonStyles } from '../IconButton/IconButton.styles';
 
 export const ICON_BUTTONS_SIZES = ['xs', 'sm'];
 export const ICON_BUTTONS_VARIANTS = ['default'];
