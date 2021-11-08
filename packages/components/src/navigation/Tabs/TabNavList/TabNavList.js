@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, forwardRef, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useResizeObserver, useMergedRef } from '@mantine/hooks';
+import { useResizeObserver } from '@mantine/hooks';
 import { Box, Group } from '@mantine/core';
 import { Tab } from '../Tab/Tab';
 import {
@@ -297,7 +297,7 @@ export const TabNavList = forwardRef(
 
     // Should recalculate when rtl changed
     useEffect(() => {
-      onListHolderResize();
+      // onListHolderResize();
     }, [rtl, activeKey, tabs.map((tab) => tab.key).join('_')]);
 
     // Should recalculate when resize
@@ -359,7 +359,7 @@ export const TabNavList = forwardRef(
                   active={tab.key === activeKey}
                   renderWrapper={children}
                   onKeyDown={handleKeyDown}
-                  ref={useMergedRef((node) => {}, getBtnRef(tab.key))}
+                  ref={getBtnRef(tab.key)}
                   onClick={(e) => {
                     onTabClick(tab.key, e);
                   }}
