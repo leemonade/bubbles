@@ -1,0 +1,34 @@
+import React from 'react';
+import { XCircleIcon } from '@heroicons/react/solid';
+
+import { TextInput, TINPUT_SIZES } from './TextInput';
+import mdx from './TextInput.mdx';
+
+export default {
+  title: 'Form/Input/TextInput',
+  parameters: {
+    component: TextInput,
+    docs: {
+      page: mdx,
+    },
+  },
+  argTypes: {
+    size: { options: TINPUT_SIZES, control: { type: 'select' } },
+  },
+};
+
+const Template = (props) => {
+  return <TextInput {...props} rightSection={<XCircleIcon style={{ height: '1.2rem' }} />} />;
+};
+
+export const DefaultTextInput = Template.bind({});
+
+DefaultTextInput.args = {
+  size: 'sm',
+  placeholder: 'Placeholder',
+  disabled: false,
+  label: 'Label for texfield',
+  description: 'Optional descriptive text for this text field ',
+  required: true,
+  error: 'Descriptive text for error ',
+};

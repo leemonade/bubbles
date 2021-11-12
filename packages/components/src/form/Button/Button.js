@@ -1,18 +1,19 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
-import { ButtonStyles } from './Button.styles';
+import { ButtonStyles } from './Button.styles'; 
 
 export const BUTTON_SIZES = ['xs', 'sm'];
 export const BUTTON_VARIANTS = ['default', 'outline', 'link'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative'];
+
 
 export const Button = forwardRef(
   (
     {
       as,
       color: colorProp = 'primary',
-      size = 'sm',
+      size: sizeProp = 'sm',
       variant: variantProp = 'default',
       rounded = false, 
       iconOnly = false,
@@ -31,6 +32,7 @@ export const Button = forwardRef(
     const radius = rounded ? 'xl' : 'xs';
     const color = BUTTON_COLORS.includes(colorProp) ? colorProp : 'primary'; 
     const variant = BUTTON_VARIANTS.includes(variantProp) ? variantProp : 'default';
+    const size = BUTTON_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
     const buttonRightIcon = showRightIcon ? rightIcon : undefined;
 

@@ -19,7 +19,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Button variants](#button-variants)
-- [Rounded style] (#rounded-style)
+- [Rounded style](#rounded-style)
 - [Component API](#component-api)
   - [Button `as`](#button-as)
 - [References](#references)
@@ -33,7 +33,7 @@ in a variety of ways. `Button` labels express what action will occur when the
 user interacts with it.
 
 <ThemeProvider> 
-    <Button color="primary" variant="default" size="sm"> 
+    <Button color="primary" variant="default" size="sm" leftIcon={<ChevronRightIcon style={{ height: '1.2rem'}} />}> 
       Button label
     </Button>
 </ThemeProvider>
@@ -51,8 +51,8 @@ We have three button variants:
     <Button color="primary" variant="outline" size="sm"> 
       Outline Button
     </Button>
-     <Button color="primary" variant="link" size="sm" showLeftIcon > 
-      <ExternalLinkIcon style={{ height: '1.2rem', margin:'0 8px 0 0'}} /> Link Button
+     <Button color="primary" variant="link" size="sm" leftIcon={<ExternalLinkIcon style={{ height: '1.2rem'}} />}>
+      Link Button
     </Button>
   </Group>
 </ThemeProvider>
