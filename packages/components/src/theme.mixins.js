@@ -37,6 +37,17 @@ export function getSpacing(spaces) {
   return spacing;
 }
 
+export function getFontSize(spaces) {
+  let fs = {};
+
+  fs = Object.assign(
+    {},
+    spaces.map((val) => pxToRem(val, true))
+  );
+
+  return fs;
+}
+
 export function getFocusStyles(theme) {
   return {
     WebkitTapHighlightColor: 'transparent',

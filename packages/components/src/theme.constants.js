@@ -26,7 +26,7 @@ export const PALETTE = {
   neutral90: '#333F56',
   neutral80: '#485264',
   neutral70: '#5B6577',
-  neutral60: '#737D8D',
+  neutral60: '#636D7D',
   neutral50: '#8E97A3',
   neutral40: '#B9BEC4',
   neutral30: '#D9DDE2',
