@@ -1,7 +1,7 @@
 import React from 'react';
 import { XCircleIcon } from '@heroicons/react/solid';
 
-import { TextInput, TINPUT_SIZES } from './TextInput';
+import { TextInput, TINPUT_SIZES, TINPUT_ORIENTATION } from './TextInput';
 import mdx from './TextInput.mdx';
 
 export default {
@@ -14,6 +14,7 @@ export default {
   },
   argTypes: {
     size: { options: TINPUT_SIZES, control: { type: 'select' } },
+    orientation: { options: TINPUT_ORIENTATION, control: { type: 'select' } },
   },
 };
 
@@ -25,6 +26,7 @@ export const DefaultTextInput = Template.bind({});
 
 DefaultTextInput.args = {
   size: 'sm',
+  orientation: 'vertical',
   placeholder: 'Placeholder',
   disabled: false,
   label: 'Label for texfield',

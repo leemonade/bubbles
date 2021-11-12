@@ -2,8 +2,10 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { TextInput as MantineTextInput, Group, Text } from '@mantine/core';
+import {Input} from './../Input/Input'
 import { TextInputStyles } from './TextInput.styles';
 export const TINPUT_SIZES = ['xs', 'sm'];
+export const TINPUT_ORIENTATION = ['horizontal', 'vertical'];
 
 const InputDescription = ({ className, message }) => {
   return <Text className={className}>{message}</Text>;
@@ -20,14 +22,15 @@ const InputError = ({ className, message }) => {
   );
 };
 
+
 export const TextInput = forwardRef(
   (
     {
       radius,
       variant,
       icon,
-      label,
-      input,
+      label, 
+      orientation: orientationProp = 'vertical',
       description,
       showRightSection = false,
       rightSection,
@@ -38,27 +41,26 @@ export const TextInput = forwardRef(
     ref
   ) => {
     const size = TINPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes, cx } = TextInputStyles({ size });
+    const orientation = TINPUT_ORIENTATION.includes(orientationProp) ? orientationProp : 'vertical';
+    const { classes, cx } = TextInputStyles({ size, orientation });
     const buttonRightSection = showRightSection ? rightSection : undefined;
+    console.log(orientation);
     const customError = error ? (
       <InputError className={classes.error} message={error} />
     ) : undefined;
 
-    return (
-      <MantineTextInput
-        {...props}
-        size={size}
-        description={<InputDescription className={classes.description} message={description} />}
-        error={customError}
-        label={label}
-        rightSection={buttonRightSection}
-        classNames={{
-          input: classes.input,
-          label: classes.label,
-          required: classes.required,
-          rightSection: classes.rightSection,
-        }}
-      />
+    return ( 
+        <MantineTextInput
+          {...props}
+          size={size}
+          orientation={orientation}
+          description={<InputDescription className={classes.description} message={description} />}
+          error={customError}
+          label={label}
+          rightSection={buttonRightSection}
+          className={orientation}
+          classNames={classes}
+        /> 
     );
   }
 );

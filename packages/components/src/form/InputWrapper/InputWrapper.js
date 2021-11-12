@@ -4,6 +4,7 @@ import { ExclamationIcon } from '@heroicons/react/solid';
 import { InputWrapper as MantineInputWrapper, Group, Text } from '@mantine/core';
 import { InputWrapperStyles } from './InputWrapper.styles';
 export const WINPUT_SIZES = ['xs', 'sm'];
+export const WINPUT_ORIENTATION = ['horizontal', 'vertical'];
 
 const InputDescription = ({ className, message }) => {
   return <Text className={className}>{message}</Text>;
@@ -23,27 +24,36 @@ const InputError = ({ className, message }) => {
 
 export const InputWrapper = forwardRef(
   (
-    { radius, variant, icon, label, input, description, error, size: sizeProp = 'sm', ...props },
+    {
+      radius,
+      variant,
+      icon,
+      orientation: orientationProp = 'vertical',
+      label,
+      input,
+      description,
+      error,
+      size: sizeProp = 'sm',
+      ...props
+    },
     ref
   ) => {
     const size = WINPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes, cx } = InputWrapperStyles({ size });
+    const orientation = WINPUT_ORIENTATION.includes(orientationProp) ? orientationProp : 'vertical';
+
+    const { classes, cx } = InputWrapperStyles({ size, orientation });
     const customError = error ? (
       <InputError className={classes.error} message={error} />
     ) : undefined;
-  
+
     return (
       <MantineInputWrapper
         {...props}
         description={<InputDescription className={classes.description} message={description} />}
         error={customError}
         label={label}
-        classNames={{
-          input: classes.input,
-          label: classes.label,
-          required: classes.required,
-          rightSection: classes.rightSection,
-        }}
+        className={orientation}
+        classNames={classes}
       />
     );
   }

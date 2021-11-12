@@ -6,27 +6,23 @@ import {
   getDescriptionStyle,
   getLabelStyle,
   getRequiredStyle,
-  getRightSection
+  getRightSection,
+  getOrientation,
+  getSizes,
 } from '../mixins/fieldStyles.mixins';
 
-const getSizes = (size, spacing) => {
+export const InputWrapperStyles = createStyles((theme, { size, orientation }) => {
   return {
-    xs: {
-      height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+    root: {
+      ...getOrientation(orientation || 'vertical', theme.spacing),
+      // TODO -- REVISAR FORMA DE HACERLO SIN ATACAR A LA CLASE
+      '.mantine-InputWrapper-description ~ &': {
+        display: 'contents',
+      },
     },
-
-    sm: {
-      height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
-    },
-  }[size];
-};
-export const InputWrapperStyles = createStyles((theme) => {
-  return {
-    root: {},
     input: {
       ...getFocusStyles(theme),
+      ...getSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
     },
 

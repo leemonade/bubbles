@@ -1,5 +1,5 @@
-import { createStyles } from '@mantine/styles';
-import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
+import { createStyles } from '@mantine/styles'; 
+import { getFocusStyles} from '../../theme.mixins';
 import {
   getInputStyle,
   getErrorStyle,
@@ -7,24 +7,21 @@ import {
   getLabelStyle,
   getRequiredStyle,
   getRightSection,
+  getOrientation,
+  getSizes
 } from '../mixins/fieldStyles.mixins';
 
-const getSizes = (size, spacing) => {
+
+export const TextInputStyles = createStyles((theme, { size, orientation }) => {
   return {
-    xs: {
-      height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+    root: {
+      ...getOrientation(orientation || 'vertical', theme.spacing),
+      // TODO -- REVISAR FORMA DE HACERLO SIN ATACAR A LA CLASE
+      '.mantine-TextInput-description ~ &': {
+        display: 'contents',
+      },
     },
 
-    sm: {
-      height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
-    },
-  }[size];
-};
-export const TextInputStyles = createStyles((theme, { size }) => {
-  return {
-    root: {},
     input: {
       ...getFocusStyles(theme),
       ...getSizes(size || 'md', theme.spacing),
