@@ -12,7 +12,6 @@ export default {
     },
   },
   argTypes: {
-    size: { options: WINPUT_SIZES, control: { type: 'select' } },
     orientation: { options: WINPUT_ORIENTATION, control: { type: 'select' } },
   },
 };
