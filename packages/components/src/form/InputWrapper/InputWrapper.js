@@ -1,10 +1,12 @@
-import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react'; 
+import { useId } from '@mantine/hooks';
 import { ExclamationIcon } from '@heroicons/react/solid'; 
-import { InputWrapper as MantineInputWrapper, Group, Text } from '@mantine/core';
+import { InputWrapper as MantineInputWrapper, Group, Text, Input } from '@mantine/core';
 import { InputWrapperStyles } from './InputWrapper.styles';
+
 export const WINPUT_SIZES = ['xs', 'sm'];
 export const WINPUT_ORIENTATION = ['horizontal', 'vertical'];
+export const WINPUT_AS = ['input', 'select', 'textarea'];
 
 const InputDescription = ({ className, message }) => {
   return <Text className={className}>{message}</Text>;
@@ -29,18 +31,21 @@ export const InputWrapper = forwardRef(
       variant,
       icon,
       orientation: orientationProp = 'vertical',
+      as = 'input',
       label,
-      input,
+      input, 
       description,
       error,
       size: sizeProp = 'sm',
+      placeholder,
       ...props
     },
     ref
   ) => {
     const size = WINPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const orientation = WINPUT_ORIENTATION.includes(orientationProp) ? orientationProp : 'vertical';
-
+    const component = WINPUT_AS.includes(as) ? as : 'input'; 
+    const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
     const customError = error ? (
       <InputError className={classes.error} message={error} />
@@ -52,9 +57,18 @@ export const InputWrapper = forwardRef(
         description={<InputDescription className={classes.description} message={description} />}
         error={customError}
         label={label}
-        className={orientation}
+        id={uuid}
         classNames={classes}
-      />
+      >
+        <Input
+          id={uuid}
+          ref={ref}
+          component={component}
+          size={size}
+          placeholder={placeholder}
+          classNames={{ root: classes.inputRoot }}
+        />
+      </MantineInputWrapper>
     );
   }
 );

@@ -27,9 +27,9 @@ export function getInputStyle(theme) {
 export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
-    fontSize: '0.79rem',
-    margin: theme.spacing['1'],
+    fontSize: '0.79rem', 
     gridArea: 'error',
+    marginTop: theme.spacing[2],
   };
 }
 
@@ -88,10 +88,10 @@ export const getOrientation = (orientation, spacing) => {
     vertical: {},
     horizontal: {
       display: 'grid',
-      gridTemplateColumns: `calc(${spacing['2']}px * 22) auto`,
+      gridTemplateColumns: `calc(${spacing['2']}px * 23) auto`,
       gridTemplateRows: `${spacing['5']}px ${spacing['5']}px auto  auto`,
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
-      gap: `0 ${spacing['4']}px`,
+      gap: `0 ${spacing['5']}px`,
     },
   };
   return layout[orientation];

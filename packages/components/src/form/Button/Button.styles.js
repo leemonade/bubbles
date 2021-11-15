@@ -1,37 +1,21 @@
-import { initial } from 'lodash';
+import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings } from './../../theme.mixins';
 
-const getSizes = (size, spacing, iconOnly) => {
+const getSizes = (size, spacing) => {
   return {
     xs: {
       fontSize: pxToRem(14),
       height: spacing['7'],
-      ...getPaddings(spacing['1'], iconOnly ? 0 : spacing['4']),
+      ...getPaddings(spacing['1'], spacing['4']),
     },
 
     sm: {
       fontSize: pxToRem(14),
       height: spacing['9'],
-      ...getPaddings(spacing['2'], iconOnly ? 0 : spacing['7']),
-    },
+      ...getPaddings(spacing['2'], spacing['7']),
 
-    md: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['3'], iconOnly ? spacing['3'] : spacing['8']),
     },
-
-    lg: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['4'], iconOnly ? spacing['4'] : spacing['9']),
-    },
-
-    xl: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['5'], iconOnly ? spacing['5'] : spacing['10']),
-    },
+    
   }[size];
 };
 
@@ -76,9 +60,6 @@ const getVariant = (variant, theme, color) => {
         color: theme.colors.text07,
         '&:hover': {
           opacity: '0.8',
-          '.mantine-Button-icon': {
-            //color: current,
-          },
         },
         '&:active': {
           backgroundColor: theme.colors.interactive03,
@@ -128,22 +109,22 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = (theme, { size, color, iconOnly }) => {
+export const ButtonStyles = createStyles((theme, { size, color  }) => {
   return {
     root: {
       fontFamily: "'Lexend', sans-serif",
       fontWeight: 400,
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
+      ...getSizes(size || 'md', theme.spacing),
       '.mantine-Button-rightIcon': {
         marginLeft: pxToRem(8),
-        marginRight: pxToRem(8),
+        marginRight: pxToRem(-8),
       },
       '.mantine-Button-leftIcon': {
         marginRight: pxToRem(8),
-        marginLeft: pxToRem(8),
+        marginLeft: pxToRem(-8),
       },
       '.mantine-Button-label': {
-         with: '100%',
+        with: '100%',
       },
     },
     default: {
@@ -155,12 +136,15 @@ export const ButtonStyles = (theme, { size, color, iconOnly }) => {
       ...getVariant('outline', theme, color),
     },
     link: {
-      borderWidth: 0,
-      ...getSizes(size || 'md', iconOnly),
+      borderWidth: 5,
+      ...getSizes(size || 'md', theme.spacing),
       ...getVariant('outline', theme, color),
+      paddingLeft: 0,
+      paddingRight: 0,
+
       '&:hover': {
         textDecoration: 'none',
       },
     },
   };
-};
+});

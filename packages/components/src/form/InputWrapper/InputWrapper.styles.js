@@ -15,19 +15,18 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
   return {
     root: {
       ...getOrientation(orientation || 'vertical', theme.spacing),
-      // TODO -- REVISAR FORMA DE HACERLO SIN ATACAR A LA CLASE
-      '.mantine-InputWrapper-description ~ &': {
-        display: 'contents',
-      },
     },
     input: {
       ...getFocusStyles(theme),
       ...getSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
     },
-
+    inputRoot: {
+      display: 'contents',
+    },
     error: {
       ...getErrorStyle(theme),
+       
     },
     description: {
       ...getDescriptionStyle(theme),

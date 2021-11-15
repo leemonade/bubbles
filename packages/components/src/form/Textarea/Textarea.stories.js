@@ -16,7 +16,7 @@ export default {
 };
 
 const Template = (props) => {
-  return <Textarea {...props}/>;
+  return <Textarea {...props} />;
 };
 
 export const DefaultTextarea = Template.bind({});

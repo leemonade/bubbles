@@ -35,6 +35,7 @@ export const Button = forwardRef(
     const size = BUTTON_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
     const buttonRightIcon = showRightIcon ? rightIcon : undefined;
+    const { classes, cx } = ButtonStyles({ size, color, iconOnly });
 
     return (
       <MantineButton
@@ -45,7 +46,7 @@ export const Button = forwardRef(
         leftIcon={buttonLeftIcon}
         rightIcon={buttonRightIcon}
         size={size}
-        styles={(theme) => ButtonStyles(theme, { color, size, iconOnly })}
+        classNames={classes}
         ref={ref}
       />
     );
