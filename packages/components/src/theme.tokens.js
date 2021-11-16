@@ -8,6 +8,7 @@ export const COLORS = {
   uiBackground02: PALETTE.neutral5,
   uiBackground03: PALETTE.neutral90,
   uiBackground04: PALETTE.mainWhite,
+  uiBackground05: PALETTE.mainPrimary,
 
   ui01: PALETTE.neutral30,
   ui02: PALETTE.neutral10,

@@ -5,7 +5,82 @@
     "packages": {
       "name": "packages",
       "isOrdered": true,
-      "folders": {},
+      "folders": {
+        "components": {
+          "name": "components",
+          "isOrdered": true,
+          "folders": {
+            "scripts": {
+              "name": "scripts",
+              "isOrdered": true,
+              "folders": {},
+              "files": {}
+            },
+            "src": {
+              "name": "src",
+              "isOrdered": true,
+              "folders": {
+                "feedback": {
+                  "name": "feedback",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "form": {
+                  "name": "form",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "layout": {
+                  "name": "layout",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "misc": {
+                  "name": "misc",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "navigation": {
+                  "name": "navigation",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "overlay": {
+                  "name": "overlay",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                },
+                "typography": {
+                  "name": "typography",
+                  "isOrdered": true,
+                  "folders": {},
+                  "files": {}
+                }
+              },
+              "files": {}
+            }
+          },
+          "files": {}
+        },
+        "compositions": {
+          "name": "compositions",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "styles": {
+          "name": "styles",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        }
+      },
       "files": {}
     }
   },
