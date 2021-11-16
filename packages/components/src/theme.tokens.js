@@ -1,4 +1,4 @@
-import { PALETTE, SPACING as SPACES, FONT_SIZES as FS } from './theme.constants';
+import { PALETTE, EFFECTS, SPACING as SPACES, FONT_SIZES as FS } from './theme.constants';
 
 export const COLORS = {
   mainWhite: PALETTE.mainWhite,
@@ -21,6 +21,7 @@ export const COLORS = {
   text05: PALETTE.neutral50,
   text06: PALETTE.neutral40,
   text07: PALETTE.mainWhite,
+  text08: PALETTE.neutral40,
 
   interactive01: PALETTE.interactive50,
   interactive01h: PALETTE.interactive100,
@@ -47,3 +48,8 @@ export const COLORS = {
 export const SPACING = Object.assign({}, SPACES);
 
 export const FONT_SIZES = Object.assign({}, FS);
+
+export const SHADOWS = {
+  drop01: EFFECTS.drowpSahdow01,
+  shadow01: EFFECTS.boxShadow01,
+};

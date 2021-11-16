@@ -37,7 +37,7 @@ export function getSpacing(spaces) {
   return spacing;
 }
 
-export function getFocusStyles(theme) {
+ export function getFocusStyles(theme) {
   return {
     WebkitTapHighlightColor: 'transparent',
 

@@ -1,42 +1,27 @@
+import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings } from './../../theme.mixins';
 
-const getSizes = (size, spacing, iconOnly) => {
+const getSizes = (size, spacing) => {
   return {
     xs: {
       fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['1'], iconOnly ? spacing['1'] : spacing['4']),
+      height: spacing['7'],
+      ...getPaddings(spacing['1'], spacing['4']),
     },
 
     sm: {
       fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['2'], iconOnly ? spacing['2'] : spacing['7']),
-    },
+      height: spacing['9'],
+      ...getPaddings(spacing['2'], spacing['7']),
 
-    md: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['3'], iconOnly ? spacing['3'] : spacing['8']),
     },
-
-    lg: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['4'], iconOnly ? spacing['4'] : spacing['9']),
-    },
-
-    xl: {
-      fontSize: pxToRem(14),
-      height: 'initial',
-      ...getPaddings(spacing['5'], iconOnly ? spacing['5'] : spacing['10']),
-    },
+    
   }[size];
 };
 
 const getVariant = (variant, theme, color) => {
   const variants = {
-    filled: {
+    default: {
       primary: {
         backgroundColor: theme.colors.interactive01,
         color: theme.colors.text07,
@@ -59,7 +44,7 @@ const getVariant = (variant, theme, color) => {
           borderColor: theme.colors.interactive01,
         },
       },
-      ghost: {
+      tertiary: {
         backgroundColor: theme.colors.interactive03,
         color: theme.colors.text02,
         '&:hover': {
@@ -70,14 +55,11 @@ const getVariant = (variant, theme, color) => {
           borderColor: theme.colors.interactive03h,
         },
       },
-      light: {
-        backgroundColor: theme.colors.uiBackground04,
-        color: theme.colors.text02,
+      negative: {
+        backgroundColor: 'transparent',
+        color: theme.colors.text07,
         '&:hover': {
-          backgroundColor: theme.colors.interactive03h,
-          '.mantine-Button-icon': {
-            color: theme.colors.interactive01,
-          },
+          opacity: '0.8',
         },
         '&:active': {
           backgroundColor: theme.colors.interactive03,
@@ -102,7 +84,7 @@ const getVariant = (variant, theme, color) => {
           color: theme.colors.interactive02h,
         },
       },
-      ghost: {
+      tertiary: {
         borderColor: theme.colors.interactive03,
         color: theme.colors.text02,
         '&:hover': {
@@ -110,16 +92,16 @@ const getVariant = (variant, theme, color) => {
           color: theme.colors.text03,
         },
       },
-      light: {
-        borderColor: theme.colors.interactive03,
-        color: theme.colors.text02,
+      negative: {
+        borderColor: theme.colors.text07,
+        color: theme.colors.text07,
         '&:hover': {
-          borderColor: theme.colors.interactive03h,
-          color: theme.colors.text03,
+          opacity: '0.8',
         },
         '&:active': {
-          borderColor: theme.colors.interactive01,
-          color: theme.colors.text03,
+          borderColor: theme.colors.text07,
+          color: theme.colors.text07,
+          boxShadow: theme.shadows.drop01,
         },
       },
     },
@@ -127,36 +109,42 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = (theme, { size, color, iconOnly }) => {
+export const ButtonStyles = createStyles((theme, { size, color  }) => {
   return {
     root: {
       fontFamily: "'Lexend', sans-serif",
       fontWeight: 400,
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
+      ...getSizes(size || 'md', theme.spacing),
       '.mantine-Button-rightIcon': {
-        marginLeft: pxToRem(5),
-        marginRight: pxToRem(-5),
+        marginLeft: pxToRem(8),
+        marginRight: pxToRem(-8),
       },
       '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(5),
-        marginLeft: pxToRem(-5),
+        marginRight: pxToRem(8),
+        marginLeft: pxToRem(-8),
+      },
+      '.mantine-Button-label': {
+        with: '100%',
       },
     },
-    filled: {
+    default: {
       border: '2px solid transparent',
-      ...getVariant('filled', theme, color),
+      ...getVariant('default', theme, color),
     },
     outline: {
       borderWidth: 2,
       ...getVariant('outline', theme, color),
     },
     link: {
-      borderWidth: 0,
-      ...getSizes(size || 'md', iconOnly),
+      borderWidth: 5,
+      ...getSizes(size || 'md', theme.spacing),
       ...getVariant('outline', theme, color),
+      paddingLeft: 0,
+      paddingRight: 0,
+
       '&:hover': {
         textDecoration: 'none',
       },
     },
   };
-};
+});

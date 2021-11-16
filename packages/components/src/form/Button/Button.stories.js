@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, MemoryRouter } from 'react-router-dom';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { Group } from '@mantine/core';
+import { Group, Title, Text, Box } from '@mantine/core';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
-import mdx from './Button.mdx';
+import mdx from './Button.mdx'; 
+
 
 const sizes = BUTTON_SIZES.map((size) => (
   <Button key={size} size={size}>
@@ -31,25 +32,59 @@ const getLinkSizes = ({ ...props }) =>
     </Button>
   ));
 
+  const variations = BUTTON_VARIANTS.map((variant) => (
+    <Button key={variant} variant={variant} >
+      Button {variant}
+    </Button>
+  ));
+
+ const getVariations = ({ ...props }) =>
+    BUTTON_VARIANTS.map((variant) => (
+      <Button key={variant} variant={variant} {...props}>
+        Button {variant}
+      </Button>
+    ));
+  getVariations.parameters ={
+    docs: {
+      // a ver si se ve esto o no
+    }
+  }
+    
+  const colors = BUTTON_COLORS.map((color) => (
+    <Button key={color} color={color}>
+      Button {color}
+    </Button>
+  ));
+
+  const getColors = ({ ...props }) =>
+    BUTTON_COLORS.map((color) => (
+      <Button key={color} color={color} variant='outline'>
+        Button {color}
+      </Button>
+    ));
+
+
+
 export default {
   title: 'Form/Button',
   parameters: {
     component: Button,
-    docs: {
+     docs: {
       page: mdx,
     },
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
-    iconOnly: { control: { type: 'boolean' } },
+    showLeftIcon: { control: { type: 'boolean' } },
+    showRightIcon: { control: { type: 'boolean' } },
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
-
+ 
 const Template = (props) => {
-  return <Button {...props}>Button</Button>;
+  return <Button {...props}>Button Label</Button>;
 };
 
 export const DefaultButton = Template.bind({});
@@ -57,69 +92,19 @@ export const DefaultButton = Template.bind({});
 DefaultButton.args = {
   size: 'sm',
   color: 'primary',
-  variant: 'filled',
+  variant: 'default',
   rounded: false,
-  iconOnly: false,
-};
-
-export const ButtonWithIcons = Template.bind({});
-
-ButtonWithIcons.args = {
-  size: 'sm',
-  color: 'primary',
-  variant: 'filled',
-  rounded: true,
-  iconOnly: false,
+  showLeftIcon: false,
+  showRightIcon: false,
   rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
+  leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
 };
 
-const IconButtonTemplate = (props) => {
-  return (
-    <Button {...props}>
-      <ChevronRightIcon style={{ height: '1.2rem' }} />
-    </Button>
-  );
-};
-export const IconButton = IconButtonTemplate.bind({});
 
-IconButton.args = {
-  size: 'sm',
-  color: 'primary',
-  variant: 'filled',
-  iconOnly: true,
-  rounded: true,
-};
 
-export const Sizes = () => <Group style={{ gap: 10 }}>{sizes}</Group>;
-export const Rounded = () => <Group style={{ gap: 10 }}>{getSizes({ rounded: true })}</Group>;
-export const Icons = () => (
-  <>
-    <Group style={{ gap: 10 }}>
-      {getSizes({ leftIcon: <CalendarIcon style={{ width: 14 }} /> })}
-    </Group>
+/*
+ 
 
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'outline',
-      })}
-    </Group>
-
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        rightIcon: <ExternalLinkIcon style={{ width: '1em' }} />,
-        variant: 'link',
-      })}
-    </Group>
-
-    <Group style={{ marginTop: 20, gap: 10 }}>
-      {getLinkSizes({
-        leftIcon: <CalendarIcon style={{ width: 14 }} />,
-        rightIcon: <ExternalLinkIcon style={{ width: 14 }} />,
-      })}
-    </Group>
-  </>
-);
 export const Disabled = () => (
   <>
     <Group style={{ gap: 20 }}>{getSizes({ disabled: true })}</Group>
@@ -166,7 +151,7 @@ export const ReactRouter = () => (
       </Button>
     </Group>
   </MemoryRouter>
-);
+); */
 
 /*
 
