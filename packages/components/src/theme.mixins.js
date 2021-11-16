@@ -37,7 +37,7 @@ export function getSpacing(spaces) {
   return spacing;
 }
 
- export function getFocusStyles(theme) {
+export function getFocusStyles(theme) {
   return {
     WebkitTapHighlightColor: 'transparent',
 
@@ -52,4 +52,30 @@ export function getSpacing(spaces) {
       boxShadow: 'none',
     },
   };
+}
+
+const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
+
+function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {
+  const result = {
+    fontFamily: type === FONT_TYPES.EXPRESSIVE ? "'Lexend', sans-serif" : "'Inter', sans-serif",
+  };
+
+  if (size) {
+    result['fontSize'] = size;
+  }
+
+  if (weight) {
+    result['fontWeight'] = weight;
+  }
+
+  return result;
+}
+
+export function getFontExpressive(size, weight) {
+  return getFontFamily(FONT_TYPES.EXPRESSIVE, size, weight);
+}
+
+export function getFontProductive(size, weight) {
+  return getFontFamily(FONT_TYPES.PRODUCTIVE, size, weight);
 }

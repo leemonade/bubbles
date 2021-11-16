@@ -1,5 +1,5 @@
 import { initial } from 'lodash';
-import { pxToRem, getPaddings, getSpacing } from './../../theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
 const getSizes = (size, spacing, iconOnly) => {
   return {
@@ -14,7 +14,6 @@ const getSizes = (size, spacing, iconOnly) => {
       width: spacing['8'],
       height: spacing['8'],
     },
-
   }[size];
 };
 
@@ -78,8 +77,7 @@ const getVariant = (variant, theme, color) => {
 export const IconButtonStyles = (theme, { size, color, iconOnly }) => {
   return {
     root: {
-      fontFamily: "'Lexend', sans-serif",
-      fontWeight: 400,
+      ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing, iconOnly),
       '.mantine-Button-leftIcon': {
         marginRight: pxToRem(0),
@@ -92,4 +90,3 @@ export const IconButtonStyles = (theme, { size, color, iconOnly }) => {
     },
   };
 };
-

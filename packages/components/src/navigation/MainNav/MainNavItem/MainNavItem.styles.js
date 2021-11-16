@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings } from '../../../theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive } from '../../../theme.mixins';
 
 export const MainNavItemStyles = createStyles((theme, { itemWidth, active }, getRef) => {
   return {
@@ -19,14 +19,15 @@ export const MainNavItemStyles = createStyles((theme, { itemWidth, active }, get
       color: theme.colors.text07,
     },
     tooltipBody: {
-      fontFamily: '"Lexend", sans-serif',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       backgroundColor: theme.colors.interactive01,
       height: pxToRem(itemWidth),
       borderRadius: '2px',
+      ...getFontExpressive(),
       ...getPaddings(0, theme.spacing['4']),
+      boxShadow: theme.shadows.shadow04,
     },
     tooltipArrow: {
       backgroundColor: theme.colors.interactive01,

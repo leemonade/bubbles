@@ -1,7 +1,6 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFocusStyles } from './../../../theme.mixins';
+import { pxToRem, getPaddings, getFocusStyles, getFontExpressive } from './../../../theme.mixins';
 import { errorIcon } from './../../../commons.mixins';
-
 
 export const TabStyles = createStyles((theme, { orientation, active, disabled }, getRef) => {
   const tabActive = { ref: getRef('tabActive') };
@@ -10,13 +9,13 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
     root: {
       ...getFocusStyles(theme),
       ...getPaddings(theme.spacing['4'], theme.spacing['3']),
+      ...getFontExpressive(),
       WebkitTapHighlightColor: 'transparent',
       boxSizing: 'border-box',
       display: 'block',
       backgroundColor: 'transparent',
       border: 0,
       fontSize: pxToRem(theme.fontSizes['1']),
-      fontFamily: "'Lexend', sans-serif",
       cursor: 'pointer',
       width: orientation === 'vertical' ? '100%' : 'auto',
 
@@ -50,8 +49,7 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
     },
     tabActive,
     tabLabel: {
-      fontFamily: "'Lexend', sans-serif",
-      fontSize: theme.fontSizes['1'],
+      ...getFontExpressive(theme.fontSizes['1']),
       color: active && !disabled ? theme.colors.text01 : theme.colors.text04,
       lineHeight: 1,
     },
@@ -94,9 +92,9 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
       marginLeft: theme.spacing['2'],
       transform: `translateY(-2px)`,
     },
-     
+
     tabErrorIcon: {
-      ...errorIcon(theme), 
+      ...errorIcon(theme),
     },
   };
 });
