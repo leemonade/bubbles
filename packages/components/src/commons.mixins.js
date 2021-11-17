@@ -1,6 +1,6 @@
+import { getFontExpressive } from './theme.mixins';
 
-
-export function errorIcon(theme){
+export function errorIcon(theme) {
   return {
     width: 10,
     color: theme.colors.fatic01,
@@ -23,22 +23,19 @@ export function modulevspacing(theme) {
     marginBottom: theme.spacing['8'],
   };
 }
-   
 
 export function editModuleTeme(theme) {
   return {
-    marginBottom: theme.spacing['5'], 
-    fontFamily: "'Lexend', sans-serif",
-    fontSize: '1.266rem', //fs02
+    marginBottom: theme.spacing['5'],
+    ...getFontExpressive('1.266rem'), //fs02
   };
 }
 
 export function buttonsGroup01(theme) {
-    return {
-      marginLeft: 0,
-      marginRight: 0,
-      marginTop: theme.spacing['5'],
-      marginBottom: theme.spacing['9'],
-    };
+  return {
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: theme.spacing['5'],
+    marginBottom: theme.spacing['9'],
+  };
 }
-   

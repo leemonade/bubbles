@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings } from './../../theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
 const getSizes = (size, spacing) => {
   return {
@@ -13,9 +13,7 @@ const getSizes = (size, spacing) => {
       fontSize: pxToRem(14),
       height: spacing['9'],
       ...getPaddings(spacing['2'], spacing['7']),
-
     },
-    
   }[size];
 };
 
@@ -109,11 +107,10 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = createStyles((theme, { size, color  }) => {
+export const ButtonStyles = createStyles((theme, { size, color }) => {
   return {
     root: {
-      fontFamily: "'Lexend', sans-serif",
-      fontWeight: 400,
+      ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing),
       '.mantine-Button-rightIcon': {
         marginLeft: pxToRem(8),

@@ -18,7 +18,7 @@ export default {
 };
 
 const Template = ({ position, disabled, ...props }) => {
-  const [numberOfTabs, setNumberOfTabs] = useState(40);
+  const [numberOfTabs, setNumberOfTabs] = useState(10);
   return (
     <Group noWrap>
       <Box style={{ width: '80%' }}>
@@ -53,8 +53,8 @@ const Template = ({ position, disabled, ...props }) => {
   );
 };
 
-export const DefaultTabs = Template.bind({});
-DefaultTabs.args = {
+export const Playground = Template.bind({});
+Playground.args = {
   position: 'left',
   disabled: false,
 };
