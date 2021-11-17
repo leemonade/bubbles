@@ -5,6 +5,7 @@ import SimpleBar from 'simplebar-react';
 import { Link, useHistory } from 'react-router-dom';
 import { MainNavStyles } from './MainNav.styles';
 import { MainNavItem } from './MainNavItem/MainNavItem';
+import { SubNav } from '../SubNav';
 import { Logo } from '../../misc';
 
 const MAINNAV_WIDTH = 52;
@@ -102,16 +103,46 @@ const MENU = [
   },
 ];
 
-export const MainNav = ({ children, ...props }) => {
+export const MainNav = ({ children, onClose, onOpen, ...props }) => {
   const [state, setState] = useState({ menuActive: MENU[0].childrens[0], menu: MENU });
   const { classes, cx } = MainNavStyles({ itemWidth: MAINNAV_WIDTH });
 
   const onNavItemClick = useCallback(
     (parent) => {
-      setState({ menuActive: { ...state.menuActive, parent } });
+      setState({ ...state, menuActive: { ...state.menuActive, parent } });
+
+      let openSubMenu = true;
+      let closeSubMenu = false;
+      if (parent.url) {
+        openSubMenu = false;
+        closeSubMenu = true;
+      }
+      if (parent.childrens) {
+        openSubMenu = true;
+        closeSubMenu = false;
+      }
+      if (closeSubMenu) {
+        closeMenu();
+      }
+      if (openSubMenu) {
+        openMenu();
+      }
     },
     [state]
   );
+
+  const openMenu = useCallback(() => {
+    if (onOpen) onOpen();
+  }, [state]);
+
+  const closeMenu = useCallback(() => {
+    if (onClose) onClose();
+  }, [state]);
+
+  const onCloseSubMenu = async () => {
+    setState({ ...state, menuActive: MENU[0].childrens[0] });
+    closeMenu();
+  };
 
   const getItem = (item) => {
     if (item.url) {
@@ -139,6 +170,7 @@ export const MainNav = ({ children, ...props }) => {
 
   return (
     <Box className={classes.root}>
+      {/* MainNav */}
       <Box className={classes.navWrapper}>
         <Box className={classes.navContainer}>
           <Logo isotype className={classes.logo} />
@@ -151,6 +183,17 @@ export const MainNav = ({ children, ...props }) => {
           </Avatar>
         </Box>
       </Box>
+
+      {/* Sub Nav */}
+      {state.menuActive ? (
+        <SubNav
+          item={state.menuActive.parent}
+          activeItem={state.menuActive.child}
+          onClose={onCloseSubMenu}
+          state={state}
+          setState={setState}
+        />
+      ) : null}
     </Box>
   );
 };
