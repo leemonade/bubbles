@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import Translator from './Translator';  
+import { from } from 'form-data';
+import React, { useState, useContext} from 'react';
+import Translator from './Translator';    
+
 
 export default {
   component: Translator,
   title: 'Leemons/Translator',
+ 
 };
 
+
 const Template = (args) => {
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(false); 
   return (
-    
+    <>
       <Translator {...args} />
+     
+    </>
      
   );
 };

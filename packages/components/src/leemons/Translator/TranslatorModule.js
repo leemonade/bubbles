@@ -8,12 +8,11 @@ import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
 import { TranslatorContext } from './TranslatorContext';
 import { TranslatorStyles } from './Translator.styles';
 import { Button } from '../../form';
+ 
 
 export default function TranslatorModule({ moduleTitle, ...args }) {
   const { hasError, setHasError, errorLang } = useContext(TranslatorContext);
-  const { classes, cx } = TranslatorStyles({});
-  
- 
+  const { classes, cx } = TranslatorStyles({}); 
    return (
      <Container size="sm" context="" action="" level="">
        <Title order={2} className={classes.title}>
