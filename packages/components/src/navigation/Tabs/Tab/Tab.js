@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { IconError } from './../../../assets/FaticIcons.js';
 import { Group, Text, Box } from '@mantine/core';
 import { ExclamationCircleIcon } from '@heroicons/react/solid';
 import { TabStyles } from './Tab.styles';
@@ -55,7 +56,7 @@ export const Tab = forwardRef(
           {notification && <Box className={classes.tabBadge}>{notification}</Box>}
           {hasError && (
             <Box className={classes.tabError}>
-              <ExclamationCircleIcon className={classes.tabErrorIcon} />
+              <IconError />
             </Box>
           )}
           {rightIcon && (

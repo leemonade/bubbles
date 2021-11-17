@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 import { getFocusStyles } from '../../theme.mixins';
-import { errorIcon, editModuleTeme, buttonsGroup01 } from '../../commons.mixins';
+import { errorIcon, editModuleTeme, buttonsGroup01, successIcon } from '../../commons.mixins';
 
 
 export const TranslatorStyles = createStyles((theme) => {
@@ -8,6 +8,9 @@ export const TranslatorStyles = createStyles((theme) => {
     root: {},
     errorIcon: {
       ...errorIcon(theme),
+    },
+    successIcon: {
+      ...successIcon(theme),
     },
     title: {
       ...editModuleTeme(theme),
