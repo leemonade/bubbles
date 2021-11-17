@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
- import { IconButtonStyles } from './IconButton.styles';
+import { IconButtonStyles } from './IconButton.styles';
 
 export const ICON_BUTTON_SIZES = ['xs', 'sm'];
 export const ICON_BUTTON_VARIANTS = ['default'];
@@ -14,12 +14,13 @@ export const IconButton = forwardRef(
       color: colorProp = 'positive',
       size = 'sm',
       variant: variantProp = 'default',
-      rounded = false, 
+      rounded = false,
       sx,
-      iconOnly = true,
       styles,
       className,
       classNames,
+      icon,
+      children,
       ...props
     },
     ref
@@ -34,9 +35,9 @@ export const IconButton = forwardRef(
         component={as}
         variant={variant}
         radius={radius}
-        iconOnly={false}
-        size={size} 
+        size={size}
         styles={(theme) => IconButtonStyles(theme, { color, size })}
+        leftIcon={icon}
         ref={ref}
       />
     );
@@ -48,7 +49,6 @@ IconButton.propTypes = {
   color: PropTypes.oneOf(ICON_BUTTON_COLORS),
   rounded: PropTypes.bool,
   variant: PropTypes.oneOf(ICON_BUTTON_VARIANTS),
-  //iconOnly: PropTypes.bool,
   // Adds icon before button label
-  leftIcon: PropTypes.node,
+  icon: PropTypes.node,
 };
