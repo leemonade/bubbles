@@ -16,13 +16,37 @@ export const SubNavStyles = createStyles((theme, { itemWidth = 52 }, getRef) => 
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      ...getPaddings(theme.spacing['3'], theme.spacing['5']),
+      paddingTop: pxToRem(theme.spacing['3']),
+      paddingLeft: pxToRem(theme.spacing['5']),
+      paddingRight: pxToRem(theme.spacing['3']),
       marginBottom: pxToRem(theme.spacing['5']),
     },
     navHeaderLabel: {
-      ...getFontExpressive(),
+      ...getFontExpressive(pxToRem(13)),
+      textTransform: 'uppercase',
+      letterSpacing: '0.09em',
       color: theme.colors.text07,
       width: '100%',
+    },
+    navHeaderActionIcon: {
+      color: theme.colors.text07,
+      height: pxToRem(20),
+    },
+    navDropZone: {
+      flexGrow: 1,
+      height: 1,
+    },
+    navBar: {
+      height: '100%',
+    },
+    navList: {
+      padding: 0,
+      margin: 0,
+    },
+    navListItem: {
+      padding: 0,
+      margin: 0,
+      listStyle: 'none',
     },
   };
 });

@@ -6,7 +6,7 @@ import { ImageLoader } from './../../../misc';
 
 export const MainNavItem = ({ item, itemWidth, active, onClick, ...props }) => {
   const { classes, cx } = MainNavItemStyles({ itemWidth, active });
-  console.log('active:', active);
+
   return (
     <Tooltip
       position="right"
@@ -23,6 +23,7 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, ...props }) => {
           src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
           alt={item.iconAlt}
           strokeCurrent
+          fillCurrent={active}
         />
       </Button>
     </Tooltip>
