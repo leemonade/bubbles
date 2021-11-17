@@ -8,6 +8,14 @@ export function errorIcon(theme) {
     transform: `translateY(-${theme.spacing['1']}px)`,
   };
 }
+export function successIcon(theme) {
+  return {
+    width: 10,
+    color: theme.colors.fatic02,
+    marginLeft: theme.spacing['1'],
+    transform: `translateY(-${theme.spacing['1']}px)`,
+  };
+}
 
 export function modulevspacing(theme) {
   return {

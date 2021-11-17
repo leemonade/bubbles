@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/styles';
+import { getFocusStyles } from '../../theme.mixins'; 
 import { getFontExpressive } from '../../theme.mixins';
 import { errorIcon, editModuleTeme, buttonsGroup01 } from '../../commons.mixins';
 
@@ -6,7 +7,10 @@ export const TranslatorStyles = createStyles((theme) => {
   return {
     root: {},
     errorIcon: {
-      ...errorIcon(theme),
+       
+    },
+    successIcon: {
+      
     },
     title: {
       ...editModuleTeme(theme),

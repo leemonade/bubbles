@@ -1,16 +1,27 @@
-import React from 'react';
-import Translator from './Translator';
+import { from } from 'form-data';
+import React, { useState, useContext} from 'react';
+import Translator from './Translator';    
+
 
 export default {
   component: Translator,
   title: 'Leemons/Translator',
+ 
 };
 
-const Template = (args) => <Translator {...args} />;
+
+const Template = (args) => {
+  const [opened, setOpened] = useState(false); 
+  return (
+    <>
+      <Translator {...args} />
+     
+    </>
+     
+  );
+};
 
 export const Default = Template.bind({});
-Default.args = { 
-    title: 'Configuration & languages',
-    state: '', 
+Default.args = {
+  moduleTitle: 'Configuration & languages',
 };
-
