@@ -104,7 +104,10 @@ const MENU = [
 ];
 
 export const MainNav = ({ children, onClose, onOpen, ...props }) => {
-  const [state, setState] = useState({ menuActive: MENU[0].childrens[0], menu: MENU });
+  const [state, setState] = useState({
+    menuActive: { ...MENU[0].childrens[0], parent: MENU[0] },
+    menu: MENU,
+  });
   const { classes, cx } = MainNavStyles({ itemWidth: MAINNAV_WIDTH });
 
   const onNavItemClick = useCallback(
