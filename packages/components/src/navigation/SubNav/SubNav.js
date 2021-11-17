@@ -22,8 +22,9 @@ export const SubNav = ({ children, item, onClose, activeItem, state, setState, .
         {/* Close button */}
         <Box className={classes.navHeaderAction}>
           <IconButton
-            rounded
-            icon={<ChevronLeftIcon styles={{ height: '14px' }} />}
+            size='xs'
+            color='negative'
+            icon={<ChevronLeftIcon height='14' />}
             onClick={onClose}
           />
         </Box>

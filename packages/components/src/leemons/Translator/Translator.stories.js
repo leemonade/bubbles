@@ -6,22 +6,22 @@ import Translator from './Translator';
 export default {
   component: Translator,
   title: 'Leemons/Translator',
- 
+  argTypes: {
+  },
 };
 
 
-const Template = (args) => {
-  const [opened, setOpened] = useState(false); 
+const Template = (args) => {  
+  
   return (
     <>
-      <Translator {...args} />
-     
+      <Translator {...args} lang='fr' />
     </>
-     
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
   moduleTitle: 'Configuration & languages',
+
 };
