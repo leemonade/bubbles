@@ -38,10 +38,10 @@ export const SubNav = ({ children, item, onClose, activeItem, state, setState, .
         {/* Close button */}
         <Box className={classes.navHeaderAction}>
           <IconButton
-            rounded
             color="negative"
             icon={<ChevronLeftIcon className={classes.navHeaderActionIcon} />}
             onClick={onClose}
+            aria-label="Close"
           />
         </Box>
       </Box>

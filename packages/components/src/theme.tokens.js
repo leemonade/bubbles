@@ -45,12 +45,6 @@ export const COLORS = {
   fatic04v0: PALETTE.faticInfoLight,
 };
 
-export const SPACING = Object.assign({}, SPACES);
+export const SPACING = Object.assign({}, SPACES); 
 
-export const FONT_SIZES = Object.assign({}, FS);
-
-export const SHADOWS = {
-  drop01: EFFECTS.drowpSahdow01,
-  shadow01: EFFECTS.boxShadow01,
-  shadow04: EFFECTS.boxShadow04,
-};
+ 

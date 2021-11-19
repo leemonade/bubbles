@@ -38,7 +38,7 @@ export const PALETTE = {
   interactive50: '#4F96FF',
   interactive40: '#82B4FF',
   interactive20: '#D8E8FF',
-  interactive10: '#212B3D',
+  interactive10: '#F1F7FF',
 
   faticError: '#D13B3B',
   faticErrorLight: '#FFF7F7',

@@ -1,18 +1,20 @@
-import { initial } from 'lodash';
+import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing, iconOnly) => {
+const getSizes = (size, spacing) => {
   return {
     xs: {
       fontSize: pxToRem(14),
       width: spacing['7'],
       height: spacing['7'],
+      svg: { height: spacing['4'] },
     },
 
     sm: {
       fontSize: pxToRem(14),
       width: spacing['8'],
       height: spacing['8'],
+      svg: { height: spacing['5'] },
     },
   }[size];
 };
@@ -74,19 +76,16 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const IconButtonStyles = (theme, { size, color, iconOnly }) => {
+export const IconButtonStyles  = createStyles((theme, { size, color }) => {
   return {
     root: {
-      ...getFontExpressive(null, 400),
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
-      '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(0),
-        marginLeft: pxToRem(0),
-      },
+      ...getSizes(size || 'md', theme.spacing),
+      marginRight: pxToRem(0),
+      marginLeft: pxToRem(0),
     },
     default: {
       border: '2px solid transparent',
       ...getVariant('default', theme, color),
     },
   };
-};
+});

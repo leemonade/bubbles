@@ -112,17 +112,17 @@ export const ButtonStyles = createStyles((theme, { size, color }) => {
     root: {
       ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing),
-      '.mantine-Button-rightIcon': {
-        marginLeft: pxToRem(8),
-        marginRight: pxToRem(-8),
-      },
-      '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(8),
-        marginLeft: pxToRem(-8),
-      },
-      '.mantine-Button-label': {
-        with: '100%',
-      },
+    },
+    rightIcon: {
+      marginLeft: pxToRem(8),
+      marginRight: pxToRem(-8), 
+    },
+    leftIcon: {
+      marginRight: pxToRem(8),
+      marginLeft: pxToRem(-8),
+    },
+    label: {
+      with: '100%',
     },
     default: {
       border: '2px solid transparent',

@@ -11,7 +11,9 @@ import { TranslatorStyles } from './Translator.styles';
 export default function TranslatorTrigger({ moduleTitle, state }) {
     const { classes, cx } = TranslatorStyles({});
     const [opened, setOpened] = useState(false);
-    const { hasError} = useContext(TranslatorContext);
+    const { errorLang } = useContext(TranslatorContext);
+
+    const hasError = errorLang?.length;
     
    return (
      <Container>

@@ -11,6 +11,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-docs',
     '@storybook/addon-a11y',
+    'storybook-addon-designs',
     // '@storybook/addon-react-native-web',
   ],
 };

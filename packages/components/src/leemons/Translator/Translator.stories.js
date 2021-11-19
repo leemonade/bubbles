@@ -1,27 +1,30 @@
-import { from } from 'form-data';
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext} from 'react'; 
 import Translator from './Translator';    
 
+
+const LANGUAGES = ['en', 'es', 'fr'];
 
 export default {
   component: Translator,
   title: 'Leemons/Translator',
- 
+  argTypes: {
+    langError: { options: LANGUAGES, control: { type: 'multi-select' } },
+  },
 };
 
 
-const Template = (args) => {
-  const [opened, setOpened] = useState(false); 
+
+const Template = ({langError, ...args}) => {  
+     
   return (
     <>
-      <Translator {...args} />
-     
+      <Translator {...args} lang={langError} />
     </>
-     
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
   moduleTitle: 'Configuration & languages',
+
 };

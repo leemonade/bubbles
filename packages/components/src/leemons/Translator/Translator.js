@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TranslatorContext } from './TranslatorContext';
 import TranslatorTrigger from './TranslatorTrigger';
 
-export default function Translator({moduleTitle, ...args}) { 
-  const [emptyTranslations, setEmptyTranslations] = useState(true);
-  const [errorLang, setErrorLang] = useState('en');
+export default function Translator({moduleTitle, lang, ...args}) { 
+  const [errorLang, setErrorLang] = useState(lang);
   const contextValues = {
-    hasError: emptyTranslations,
-    setHasError: setEmptyTranslations,
     errorLang,
   };
-   
+
+  useEffect(() => {
+    console.log('El idioma ha cambiado');
+    setErrorLang(lang)
+  }, [lang])
+   console.log('Algo ha cambiado', lang, errorLang)
   return (
     <TranslatorContext.Provider value={contextValues}>
         <TranslatorTrigger moduleTitle={moduleTitle} />
