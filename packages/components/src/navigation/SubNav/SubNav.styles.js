@@ -29,7 +29,6 @@ export const SubNavStyles = createStyles((theme, { itemWidth = 52 }, getRef) => 
       width: '100%',
     },
     navHeaderActionIcon: {
-      color: theme.colors.text07,
       height: pxToRem(20),
     },
     navDropZone: {
