@@ -11,7 +11,8 @@ import { Button } from '../../form';
  
 
 export default function TranslatorModule({ moduleTitle, ...args }) {
-  const { hasError, setHasError, errorLang } = useContext(TranslatorContext);
+  const { errorLang } = useContext(TranslatorContext);
+  const hasError = errorLang?.length;
   const { classes, cx } = TranslatorStyles({}); 
    return (
      <Container size="sm" context="" action="" level="">
@@ -22,7 +23,7 @@ export default function TranslatorModule({ moduleTitle, ...args }) {
          <Tab
            key="1"
            label="Spanish"
-           hasError={hasError && errorLang === 'es'}
+           hasError={hasError && errorLang?.includes('es')}
            rightIcon={<StarIcon style={{ width: 14, color: '#B9BEC4' }} />}
          >
            <Box>
@@ -46,7 +47,7 @@ export default function TranslatorModule({ moduleTitle, ...args }) {
              ></TextInput>
            </Box>
          </Tab>
-         <Tab key="2" label="English" hasError={hasError && errorLang === 'en'}>
+         <Tab key="2" label="English" hasError={hasError && errorLang?.includes('en')}>
            <Box>
              <TextInput
                orientation="horizontal"
@@ -68,7 +69,7 @@ export default function TranslatorModule({ moduleTitle, ...args }) {
              ></TextInput>
            </Box>
          </Tab>
-         <Tab key="3" label="French" hasError={hasError && errorLang === 'fr'}>
+         <Tab key="3" label="French" hasError={hasError && errorLang?.includes('fr')}>
            <Box>
              <TextInput
                orientation="horizontal"
