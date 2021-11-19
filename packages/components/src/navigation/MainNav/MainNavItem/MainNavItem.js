@@ -17,6 +17,7 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, ...props }) => {
       <Button
         className={classes.root}
         onClick={(e) => (item.disabled ? e.preventDefault() : onClick(e))}
+        aria-label={item.label}
       >
         <ImageLoader
           className={cx(classes.icon)}

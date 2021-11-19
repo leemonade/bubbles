@@ -7,9 +7,7 @@ export default {
   title: 'Form/IconButton',
   parameters: {
     component: IconButton,
-    docs: {
-      page: mdx,
-    },
+     
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
@@ -19,7 +17,7 @@ export default {
 };
 
 const Template = (props) => {
-  return <IconButton {...props}></IconButton>;
+  return <IconButton {...props} aria-label="Next" title="Next"></IconButton>;
 };
 
 export const DefaultIconButton = Template.bind({});
