@@ -26,5 +26,5 @@ DefaultIconButton.args = {
   size: 'sm',
   rounded: true,
   color: 'positive',
-  icon: <ChevronRightIcon height="14" />,
+  children: <ChevronRightIcon/>,
 };

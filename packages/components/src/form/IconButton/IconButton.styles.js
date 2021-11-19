@@ -7,12 +7,14 @@ const getSizes = (size, spacing) => {
       fontSize: pxToRem(14),
       width: spacing['7'],
       height: spacing['7'],
+      svg: { height: spacing['4'] },
     },
 
     sm: {
       fontSize: pxToRem(14),
       width: spacing['8'],
       height: spacing['8'],
+      svg: { height: spacing['5'] },
     },
   }[size];
 };
@@ -77,11 +79,7 @@ const getVariant = (variant, theme, color) => {
 export const IconButtonStyles  = createStyles((theme, { size, color }) => {
   return {
     root: {
-      ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing),
-    },
-    leftIcon: {
-      height: '14px',
       marginRight: pxToRem(0),
       marginLeft: pxToRem(0),
     },

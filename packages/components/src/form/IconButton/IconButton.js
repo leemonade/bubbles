@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Button as MantineButton } from '@mantine/core';
+import { ActionIcon as MantineActionIcon } from '@mantine/core';
 import { IconButtonStyles } from './IconButton.styles';
 
 export const ICON_BUTTON_SIZES = ['xs', 'sm'];
@@ -31,7 +31,7 @@ export const IconButton = forwardRef(
     const { classes, cx } = IconButtonStyles({ color, size, iconOnly });
 
     return (
-      <MantineButton
+      <MantineActionIcon
         {...props}
         component={as}
         variant={variant}
