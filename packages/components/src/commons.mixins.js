@@ -24,7 +24,7 @@ export function modulevspacing(theme) {
   };
 }
 
-export function editModuleTeme(theme) {
+export function editModuleTitle(theme) {
   return {
     marginBottom: theme.spacing['5'],
     ...getFontExpressive('1.266rem'), //fs02
