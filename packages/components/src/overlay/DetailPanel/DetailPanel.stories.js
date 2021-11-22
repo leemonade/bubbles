@@ -64,7 +64,7 @@ const [opened, setOpened] = useState(false);
 export const DefaultDetailPanel = Template.bind({});
 
 DefaultDetailPanel.args = { 
-  title: ' ',  
+  title: '',  
   ActionBack: true,
   ActionExpand: true,
   ActionEdit: true,
