@@ -36,10 +36,7 @@ const Template = (props) => {
     ].map(
       (item, index) => (
         console.log(item.href),
-        (
-              <Anchor href={item.href} key={index} ><Text component='span'></Text> {item.title} </Anchor>
-            
-        )
+        (<Anchor href={item.href} key={index} ><Text component='span'></Text> {item.title} </Anchor>)
       )
     );
   return <Breadcrumbs separator="›">{items}</Breadcrumbs>;

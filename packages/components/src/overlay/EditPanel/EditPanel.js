@@ -80,7 +80,7 @@ export const EditPanel = forwardRef (
             {props.children}
           </Box>
 
-          <Group className={classes.buttonsGroup01} position="apart">
+          <Group className={classes.buttonsGroup01}>
             <Button variant="link">Cancel</Button>
             <Button>Save</Button>
           </Group>

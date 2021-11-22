@@ -1,5 +1,5 @@
-import React, { useState, Children } from 'react';
-import { EditPanel, DrawerBody} from './EditPanel';
+import React, { useState  } from 'react';
+import { EditPanel } from './EditPanel';
 import { Button, Group, Box, Divider, } from '@mantine/core';
 import mdx from './EditPanel.mdx'; 
 import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 

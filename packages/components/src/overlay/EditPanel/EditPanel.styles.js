@@ -27,7 +27,7 @@ export const EditPanelStyles = createStyles((theme) => {
       marginBottom: theme.spacing[4],
     },
     title: { ...editModuleTitle(theme) },
-    buttonsGroup01: { ...buttonsGroup01(theme) },
+    buttonsGroup01: { ...buttonsGroup01(theme)},
     body: {
       display: 'flex',
       flexDirection: 'column',
