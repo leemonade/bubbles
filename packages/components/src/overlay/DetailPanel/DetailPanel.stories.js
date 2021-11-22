@@ -1,15 +1,17 @@
 import React, { useState  } from 'react';
-import { EditPanel } from './EditPanel';
+import { DetailPanel } from './DetailPanel';
 import { Button, Group, Box, Divider, } from '@mantine/core';
-import mdx from './EditPanel.mdx'; 
+import mdx from './DetailPanel.mdx'; 
 import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 
 import Translator from './../../leemons/Translator/Translator'
+import { Tabs } from '../../navigation/Tabs/Tabs';
+import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
 
 
 export default {
-  title: 'Overlay/Panels/Edit',
+  title: 'Overlay/Panels/Details',
   parameters: {
-    component: EditPanel,
+    component: DetailPanel,
     docs: {
       page: mdx,
     },
@@ -30,33 +32,39 @@ const [opened, setOpened] = useState(false);
   return (
     <>
       <Group position="center">
-        <Button onClick={() => setOpened(true)}>Open Edit Panel</Button>
+        <Button onClick={() => setOpened(true)}>Open Details Panel</Button>
       </Group>
-      <EditPanel
+      <DetailPanel
         {...props}
         opened={opened}
         onClose={() => setOpened(false)}
-        EditPanelTitle={props.title}
+        DetailPanelTitle={props.title}
       >
-        <Box>
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
-        </Box>
-        <Divider/> 
-        <Translator></Translator>
-      </EditPanel>
+        <Tabs>
+          <Tab
+            key="1"
+            label="Family"
+          >
+            <Box>
+              
+            </Box>
+          </Tab>
+          <Tab key="2" label="Notes">
+            <Box>
+               
+            </Box>
+          </Tab>
+ 
+        </Tabs>
+      </DetailPanel>
     </>
   );
 };
 
-export const DefaultEditPanel = Template.bind({});
+export const DefaultDetailPanel = Template.bind({});
 
-DefaultEditPanel.args = { 
-  title: 'Edit Panel',  
+DefaultDetailPanel.args = { 
+  title: ' ',  
   ActionBack: true,
   ActionExpand: true,
   ActionEdit: true,
