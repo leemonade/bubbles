@@ -3,6 +3,7 @@ import { EditPanel, DrawerBody} from './EditPanel';
 import { Button, Group, Box, Divider, } from '@mantine/core';
 import mdx from './EditPanel.mdx'; 
 import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 
+import Translator from './../../leemons/Translator/Translator'
 
 
 export default {
@@ -44,41 +45,9 @@ const [opened, setOpened] = useState(false);
             as="input"
             description="Descripción de este campo"
           ></InputWrapper>
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
         </Box>
-        <Divider/>
-        <Box>
-
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
-          <InputWrapper
-            label="label"
-            orientation="horizontal"
-            as="input"
-            description="Descripción de este campo"
-          ></InputWrapper>
-        </Box>
+        <Divider/> 
+        <Translator></Translator>
       </EditPanel>
     </>
   );

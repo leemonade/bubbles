@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 import { editModuleTitle, buttonsGroup01 } from '../../commons.mixins';
  
 
@@ -13,6 +12,10 @@ export const EditPanelStyles = createStyles((theme) => {
       flexDirection: 'column',
       height: '100%',
       justifyContent: 'space-between',
+      boxShadow: '0px 10px 36px rgba(35, 43, 60, 0.17)',
+      '&:focus:not(:focus-visible)': {
+        boxShadow: '0px 10px 36px rgba(35, 43, 60, 0.17)',
+      },
     },
     header: {},
     Actions: {
@@ -30,6 +33,7 @@ export const EditPanelStyles = createStyles((theme) => {
       flexDirection: 'column',
       flexWrap: 'wrap',
       gap: theme.spacing[7],
+      height: '100%',
     },
   };
 });

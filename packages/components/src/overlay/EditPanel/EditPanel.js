@@ -28,8 +28,7 @@ export const EditPanel = forwardRef (
       <MantineDrawer
         {...props}
         position="right"
-        padding="md"
-        shadow="xl"
+        padding="md" 
         size="760px"
         hideCloseButton
         onClose={() => setOpened(false)}
