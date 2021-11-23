@@ -1,5 +1,5 @@
 import React, { useState  } from 'react';
-import { EditPanel } from './EditPanel';
+import { EditPanel, ACTIONBUTTONS } from './EditPanel';
 import { Button, Group, Box, Divider, } from '@mantine/core';
 import mdx from './EditPanel.mdx'; 
 import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 
@@ -15,6 +15,7 @@ export default {
     },
   },
   argTypes: {
+    layoutButtonsRight: { control: { type: 'boolean' } },
     ActionBack: { control: { type: 'boolean' } },
     ActionExpand: { control: { type: 'boolean' } },
     ActionEdit: { control: { type: 'boolean' } },
@@ -46,7 +47,7 @@ const [opened, setOpened] = useState(false);
             description="Descripción de este campo"
           ></InputWrapper>
         </Box>
-        <Divider/> 
+        <Divider />
         <Translator></Translator>
       </EditPanel>
     </>
@@ -55,11 +56,17 @@ const [opened, setOpened] = useState(false);
 
 export const DefaultEditPanel = Template.bind({});
 
-DefaultEditPanel.args = { 
-  title: 'Edit Panel',  
+DefaultEditPanel.args = {
+  layoutButtonsRight: false,
+  title: 'Edit Panel',
   ActionBack: true,
+  LabelActionBack: 'Back',
   ActionExpand: true,
+  LabelActionExpand: 'Expand',
   ActionEdit: true,
+  LabelActionEdit: 'Edit',
   ActionDelete: true,
+  LabelActionDelete: 'Delete',
   ActionMore: true,
+  LabelActionMore: 'More',
 };

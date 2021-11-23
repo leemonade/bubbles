@@ -1,9 +1,7 @@
 import React, { useState  } from 'react';
 import { DetailPanel } from './DetailPanel';
 import { Button, Group, Box, Divider, } from '@mantine/core';
-import mdx from './DetailPanel.mdx'; 
-import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 
-import Translator from './../../leemons/Translator/Translator'
+import mdx from './DetailPanel.mdx';  
 import { Tabs } from '../../navigation/Tabs/Tabs';
 import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
 
@@ -17,11 +15,9 @@ export default {
     },
   },
   argTypes: {
+    layoutButtonsRight: { control: { type: 'boolean' } },
     ActionBack: { control: { type: 'boolean' } },
-    ActionExpand: { control: { type: 'boolean' } },
-    ActionEdit: { control: { type: 'boolean' } },
-    ActionDelete: { control: { type: 'boolean' } },
-    ActionMore: { control: { type: 'boolean' } },
+    ActionExpand: { control: { type: 'boolean' } }, 
   },
 };
 
@@ -63,11 +59,11 @@ const [opened, setOpened] = useState(false);
 
 export const DefaultDetailPanel = Template.bind({});
 
-DefaultDetailPanel.args = { 
-  title: '',  
+DefaultDetailPanel.args = {
+  layoutButtonsRight: false,
+  title: '',
   ActionBack: true,
+  LabelActionBack: 'Back',
   ActionExpand: true,
-  ActionEdit: true,
-  ActionDelete: true,
-  ActionMore: true,
+  LabelActionExpand: 'Expand',
 };

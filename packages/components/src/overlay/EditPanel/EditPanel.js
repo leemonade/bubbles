@@ -6,29 +6,26 @@ import { EditPanelStyles } from "./EditPanel.styles";
  
 
  
-
-
-export const EditPanel = forwardRef (
-    (
-        {
-            position,
-            size,
-            title,
-            shadow,
-            onClose,
-            transitionDuration,
-            ...props
-        },        
-        ref
-    ) => {
-    
-    const { classes, cx } = EditPanelStyles({ }); 
+export const EditPanel = forwardRef(
+  (
+    {
+      position,
+      size,
+      title,
+      shadow,
+      onClose, 
+      transitionDuration,
+      ...props
+    },
+    ref
+  ) => {
+    const { classes, cx } = EditPanelStyles({});
 
     return (
       <MantineDrawer
         {...props}
         position="right"
-        padding="md" 
+        padding="md"
         size="760px"
         hideCloseButton
         onClose={() => setOpened(false)}
@@ -42,36 +39,93 @@ export const EditPanel = forwardRef (
       >
         <>
           <header {...props}>
-            <Group className={classes.Actions}>
-              <Group className={classes.RRActions}>
-                {props.ActionBack && (
-                  <ActionButton leftIcon={<ChevronLeftIcon />} description="Back"></ActionButton>
-                )}
-                {props.ActionExpand && (
-                  <ActionButton
-                    leftIcon={<ArrowsExpandIcon />}
-                    description="Open as page"
-                  ></ActionButton>
-                )}
-                {props.ActionEdit && (
-                  <ActionButton leftIcon={<PencilIcon />} description="Edit"></ActionButton>
-                )}
-                {props.ActionDelete && (
-                  <ActionButton leftIcon={<TrashIcon />} description="Delete"></ActionButton>
-                )}
-                {props.ActionMore && (
-                  <ActionButton
-                    leftIcon={<DotsHorizontalIcon />}
-                    description="More actions"
-                  ></ActionButton>
-                )}
+            {props.layoutButtonsRight ? (
+              <Group className={classes.Actions}>
+                <Box m={0}>
+                  {props.ActionBack && (
+                    <ActionButton leftIcon={<ChevronLeftIcon />}>
+                      {props.LabelActionBack}
+                    </ActionButton>
+                  )}
+                </Box>
+                <Group className={cx(classes.RRActions, classes.RRActionsRight)}>
+                  <Box m={0}>
+                    {props.ActionExpand && (
+                      <ActionButton
+                        leftIcon={<ArrowsExpandIcon />}
+                        description="Open as page"
+                      ></ActionButton>
+                    )}
+                    {props.ActionEdit && (
+                      <ActionButton
+                        leftIcon={<PencilIcon />}
+                        description={props.LabelActionEdit}
+                      ></ActionButton>
+                    )}
+                    {props.ActionDelete && (
+                      <ActionButton
+                        leftIcon={<TrashIcon />}
+                        description={props.LabelActionDelete}
+                      ></ActionButton>
+                    )}
+                    {props.ActionMore && (
+                      <ActionButton
+                        leftIcon={<DotsHorizontalIcon />}
+                        description={props.LabelActionMore}
+                      ></ActionButton>
+                    )}
+                  </Box>
+                  <Box m={0}>
+                    <ActionButton
+                      leftIcon={<XIcon />}
+                      description="Close"
+                      onClick={onClose}
+                    ></ActionButton>
+                  </Box>
+                </Group>
               </Group>
-              <ActionButton
-                leftIcon={<XIcon />}
-                description="Close"
-                onClick={onClose}
-              ></ActionButton>
-            </Group>
+            ) : (
+              <Group className={classes.Actions}>
+                <Group className={classes.RRActions}>
+                  {props.ActionBack && (
+                    <ActionButton
+                      leftIcon={<ChevronLeftIcon />}
+                      description={props.LabelActionBack}
+                    ></ActionButton>
+                  )}
+                  {props.ActionExpand && (
+                    <ActionButton
+                      leftIcon={<ArrowsExpandIcon />}
+                      description="Open as page"
+                    ></ActionButton>
+                  )}
+                  {props.ActionEdit && (
+                    <ActionButton
+                      leftIcon={<PencilIcon />}
+                      description={props.LabelActionEdit}
+                    ></ActionButton>
+                  )}
+                  {props.ActionDelete && (
+                    <ActionButton
+                      leftIcon={<TrashIcon />}
+                      description={props.LabelActionDelete}
+                    ></ActionButton>
+                  )}
+                  {props.ActionMore && (
+                    <ActionButton
+                      leftIcon={<DotsHorizontalIcon />}
+                      description={props.LabelActionMore}
+                    ></ActionButton>
+                  )}
+                </Group>
+                <ActionButton
+                  leftIcon={<XIcon />}
+                  description="Close"
+                  onClick={onClose}
+                ></ActionButton>
+              </Group>
+            )}
+
             <Title id="drawer-title" order={1} {...props} className={classes.title}>
               {props.EditPanelTitle}
             </Title>
@@ -86,7 +140,6 @@ export const EditPanel = forwardRef (
           </Group>
         </>
       </MantineDrawer>
-    );    
-
-    }
-)
+    );
+  }
+);

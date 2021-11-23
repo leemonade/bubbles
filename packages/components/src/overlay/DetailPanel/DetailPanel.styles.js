@@ -20,11 +20,19 @@ export const DetailPanelStyles = createStyles((theme) => {
     header: {},
     Actions: {
       justifyContent: 'space-between',
+      alignItems: 'center',
+      height: theme.spacing[12],
+      marginBottom: theme.spacing[4],
     },
     RRActions: {
       gap: theme.spacing[2],
-      height: theme.spacing[10],
-      marginBottom: theme.spacing[4],
+      marginTop: 0,
+      marginLeft: theme.spacing[4],
+      marginRight: theme.spacing[4],
+      marginBottom: 0,
+    },
+    RRActionsRight: {
+      gap: theme.spacing[7],
     },
     title: { ...editModuleTitle(theme) },
     buttonsGroup01: { ...buttonsGroup01(theme) },
