@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
 import {Input as MantineInput } from '@mantine/core';
 import { InputStyles } from './Inputn.styles'; 
+
+
+
 export const INPUT_SIZES = ['xs', 'sm'];
-
-
 export const Input = forwardRef(
   (
     {

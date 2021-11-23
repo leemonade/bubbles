@@ -5,7 +5,7 @@ import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_SIZES = ['xs', 'sm'];
 export const BUTTON_VARIANTS = ['default', 'outline', 'link'];
-export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative'];
+export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative', 'fatic'];
 
 
 export const Button = forwardRef(

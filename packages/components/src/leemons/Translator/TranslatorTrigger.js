@@ -16,7 +16,7 @@ export default function TranslatorTrigger({ moduleTitle, state }) {
     const hasError = errorLang?.length;
     
    return (
-     <Container>
+     <Box>
        <Box className={classes.moduleLegend}>
          <Text component="span" className={classes.moduleLegendTitle}>
            <Button variant="link" onClick={() => setOpened(true)}>
@@ -40,7 +40,7 @@ export default function TranslatorTrigger({ moduleTitle, state }) {
        >
          <TranslatorModule moduleTitle={moduleTitle} />
        </Drawer>
-     </Container>
+     </Box>
    );
 }
  
