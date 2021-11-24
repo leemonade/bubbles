@@ -41,16 +41,30 @@ export const Avatar = forwardRef(({ radius, size: sizeProp = 'sm', state: stateP
           )}
         </Box>
       ) : (
-        <MantineAvatar
-          {...props}
-          ref={ref}
-          size={size}
-          state={state}
-          classNames={classes}
-          color={color}
-        >
-          {props.AvatarIcon ? props.avataricon : props.initials}
-        </MantineAvatar>
+        <Box className={classes.avatarWrapper}>
+          <MantineAvatar
+            {...props}
+            ref={ref}
+            size={size}
+            state={state}
+            classNames={classes}
+            className={cx(classes, classes.avatarsolid)}
+            color={color}
+          >
+            {props.AvatarIcon ? props.avataricon : props.initials}
+          </MantineAvatar>
+          {state === 'notifications' && (
+            <Text componet="span" className={classes.avatarBadgeNumber}>
+              2
+            </Text>
+          )}
+          {state === 'alert' && <Text componet="span" className={classes.avatarBadge} />}
+          {state === 'error' && (
+            <Text componet="span" className={classes.avatarError}>
+              <ExclamationIcon />{' '}
+            </Text>
+          )}
+        </Box>
       )}
     </>
   );

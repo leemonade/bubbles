@@ -1,5 +1,6 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem,  getFontExpressive } from './../../../theme.mixins';
+import { avatarBadge, avatarBadgeNumber, avatarError } from '../../../commons.mixins';
 
 
 const getSizes = (size, spacing) => {
@@ -41,6 +42,9 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       borderColor: theme.colors.ui01,
       ...getSizes(size || 'md', theme.spacing),
     },
+    avatarsolid: {
+        borderColor: `${color}`,
+    },
     placeholder: {
       background: `${color}`,
       color: theme.colors.text07,
@@ -52,42 +56,22 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       display: 'inline-block',
     },
     avatarBadgeNumber: {
-      background: theme.colors.interactive01,
-      color: theme.colors.text07,
-      position: 'absolute',
+      ...avatarBadgeNumber(theme),
       top: 0,
       right: 0,
-      borderRadius: '100%',
-      textAlign: 'center',
-      width: theme.spacing[4],
-      height: theme.spacing[4],
-      ...getFontExpressive(10, 400, 'inter'),
+      transform: 'translateY(2%)',
     },
     avatarBadge: {
-      background: theme.colors.interactive01,
-      color: theme.colors.text07,
-      position: 'absolute',
+      ...avatarBadge(theme),
       top: 0,
       right: 0,
-      borderRadius: '100%',
-      textAlign: 'center',
-      width: theme.spacing[2],
-      height: theme.spacing[2],
+      transform: 'translateY(2%)',
     },
     avatarError: {
-      background: theme.colors.fatic01,
-      color: theme.colors.text07,
-      position: 'absolute',
+      ...avatarError(theme),
       top: 0,
       right: 0,
-      borderRadius: '100%',
-      textAlign: 'center',
-      width: theme.spacing[4],
-      height: theme.spacing[4],
-      display:"inline-flex",
-      justifyContent: "center",
-      alignItems: "center",
-      svg: { width: "90%"}
+      transform: 'translateY(2%)',
     },
   };
 });
