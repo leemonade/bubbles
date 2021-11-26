@@ -49,7 +49,7 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ActionButtonStyles = createStyles((theme, { size, color }) => {
+export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }) => {
   return {
     root: {
       ...getFontExpressive(13, 400),
@@ -59,7 +59,7 @@ export const ActionButtonStyles = createStyles((theme, { size, color }) => {
       border: '2px solid transparent',
       ...getVariant('default', theme, color),
     },
-    inner: { gap: '4px' },
+    inner: { gap: iconOnly ? 0 : 4 },
     rightIcon: {
       marginLeft: pxToRem(0),
       marginRight: pxToRem(0),
@@ -70,7 +70,7 @@ export const ActionButtonStyles = createStyles((theme, { size, color }) => {
       marginLeft: pxToRem(0),
     },
     label: {
-      with: '100%', 
+      with: '100%',
     },
     tooltipBody: {
       display: 'flex',

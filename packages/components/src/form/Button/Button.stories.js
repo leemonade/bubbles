@@ -3,8 +3,7 @@ import { Link, MemoryRouter } from 'react-router-dom';
 import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { Group, Title, Text, Box } from '@mantine/core';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
-import mdx from './Button.mdx'; 
-
+import mdx from './Button.mdx';
 
 const sizes = BUTTON_SIZES.map((size) => (
   <Button key={size} size={size}>
@@ -32,38 +31,36 @@ const getLinkSizes = ({ ...props }) =>
     </Button>
   ));
 
-  const variations = BUTTON_VARIANTS.map((variant) => (
-    <Button key={variant} variant={variant} >
+const variations = BUTTON_VARIANTS.map((variant) => (
+  <Button key={variant} variant={variant}>
+    Button {variant}
+  </Button>
+));
+
+const getVariations = ({ ...props }) =>
+  BUTTON_VARIANTS.map((variant) => (
+    <Button key={variant} variant={variant} {...props}>
       Button {variant}
     </Button>
   ));
+getVariations.parameters = {
+  docs: {
+    // a ver si se ve esto o no
+  },
+};
 
- const getVariations = ({ ...props }) =>
-    BUTTON_VARIANTS.map((variant) => (
-      <Button key={variant} variant={variant} {...props}>
-        Button {variant}
-      </Button>
-    ));
-  getVariations.parameters ={
-    docs: {
-      // a ver si se ve esto o no
-    }
-  }
-    
-  const colors = BUTTON_COLORS.map((color) => (
-    <Button key={color} color={color}>
+const colors = BUTTON_COLORS.map((color) => (
+  <Button key={color} color={color}>
+    Button {color}
+  </Button>
+));
+
+const getColors = ({ ...props }) =>
+  BUTTON_COLORS.map((color) => (
+    <Button key={color} color={color} variant="outline">
       Button {color}
     </Button>
   ));
-
-  const getColors = ({ ...props }) =>
-    BUTTON_COLORS.map((color) => (
-      <Button key={color} color={color} variant='outline'>
-        Button {color}
-      </Button>
-    ));
-
-
 
 export default {
   title: 'Form/Button',
@@ -74,8 +71,7 @@ export default {
     },
     design: {
       type: 'figma',
-      url:
-        'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
   argTypes: {
@@ -87,14 +83,14 @@ export default {
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
- 
+
 const Template = (props) => {
   return <Button {...props}>Button Label</Button>;
 };
 
-export const DefaultButton = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultButton.args = {
+Playground.args = {
   size: 'sm',
   color: 'primary',
   variant: 'default',
@@ -105,10 +101,8 @@ DefaultButton.args = {
   leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
 };
 
-
-
 /*
- 
+
 
 export const Disabled = () => (
   <>

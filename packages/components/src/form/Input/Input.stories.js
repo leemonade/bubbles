@@ -1,11 +1,8 @@
 import React from 'react';
-import { XCircleIcon} from '@heroicons/react/solid';
+import { XCircleIcon } from '@heroicons/react/solid';
 import { Group, Container, Divider, Box } from '@mantine/core';
 import { Input, INPUT_SIZES } from './Input';
 import mdx from './Input.mdx';
-
-
-
 
 export default {
   title: 'Form/Input',
@@ -18,11 +15,10 @@ export default {
   argTypes: {
     size: { options: INPUT_SIZES, control: { type: 'select' } },
     invalid: { control: { type: 'boolean' } },
-
   },
 };
 
-const Template = (props) => { 
+const Template = (props) => {
   return (
     <Container size="xl" padding="xs">
       <Group grow withGutter>
@@ -30,11 +26,7 @@ const Template = (props) => {
           <Input
             {...props}
             placeholder="Placeholder"
-            rightSection={
-              <XCircleIcon
-                style={{ height: '1.2rem' }}
-              />
-            }
+            rightSection={<XCircleIcon style={{ height: '1.2rem' }} />}
           />
         </Box>
         {/* <Divider orientation="vertical" mx="sm" /> */}

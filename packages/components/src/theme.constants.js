@@ -52,7 +52,7 @@ export const PALETTE = {
 
 export const SPACING = [0, 4, 8, 12, 16, 24, 28, 32, 40, 44, 48, 54, 60, 80];
 
-export const FONT_SIZES = [13, 14, 16, 18, 20, 23, 26, 29];
+export const FONT_SIZES = [0, 13, 14, 16, 18, 20, 23, 26, 29];
 
 export const GLOBAL_IMPORTS = [
   "url('https://fonts.googleapis.com/css?family=Lexend:200,400,600|Inter:200,400,600')",

@@ -1,8 +1,6 @@
 import React, { forwardRef } from 'react';
-import {Input as MantineInput } from '@mantine/core';
-import { InputStyles } from './Inputn.styles'; 
-
-
+import { Input as MantineInput } from '@mantine/core';
+import { InputStyles } from './Input.styles';
 
 export const INPUT_SIZES = ['xs', 'sm'];
 export const Input = forwardRef(
@@ -10,7 +8,7 @@ export const Input = forwardRef(
     {
       radius,
       variant,
-      icon, 
+      icon,
       showRightSection = false,
       rightSection,
       size: sizeProp = 'sm',
@@ -35,5 +33,3 @@ export const Input = forwardRef(
     );
   }
 );
-
-

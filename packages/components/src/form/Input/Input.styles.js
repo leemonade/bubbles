@@ -1,9 +1,6 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
-import {
-  getInputStyle,
-  getRightSection,
-} from '../mixins/fieldStyles.mixins';
+import { getInputStyle, getRightSection } from '../mixins/fieldStyles.mixins';
 
 const getSizes = (size, spacing) => {
   return {

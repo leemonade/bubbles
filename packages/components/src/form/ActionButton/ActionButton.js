@@ -12,10 +12,10 @@ export const ActionButton = forwardRef(
       as,
       color: colorProp = 'positive',
       size: sizeProp = 'sm',
-      rounded = false, 
+      rounded = false,
       variant,
       leftIcon,
-      rightIcon, 
+      rightIcon,
       showLeftIcon = true,
       showRightIcon = false,
       children,
@@ -23,60 +23,59 @@ export const ActionButton = forwardRef(
       styles,
       className,
       classNames,
+      description,
       ...props
     },
     ref
   ) => {
-     
     const color = ACTBUTTON_COLORS.includes(colorProp) ? colorProp : 'positive';
     const size = ACTBUTTON_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
     const buttonRightIcon = showRightIcon ? rightIcon : undefined;
-    const { classes, cx } = ActionButtonStyles({ size, color });
+    const { classes, cx } = ActionButtonStyles({
+      size,
+      color,
+      iconOnly: !children && (!showLeftIcon || !showRightIcon),
+    });
 
-    return (
-      <>
-      {children ?
-          <MantineButton
-            {...props}
-            component={as}
-            variant="default"
-            leftIcon={buttonLeftIcon}
-            rightIcon={buttonRightIcon}
-            size={size}
-            color={color}
-            classNames={classes}
-            aria-label={props.description}
-            title={props.description}
-            ref={ref}
-          >
-            {children}
-          </MantineButton>
-        
-        :       
-        <Tooltip  position='bottom' label={props.description} classNames={{ body: classes.tooltipBody }}> 
-            <MantineButton
-                {...props}
-                component={as}
-                variant="default"
-                leftIcon={buttonLeftIcon}
-                rightIcon={buttonRightIcon}
-                size={size}
-                color={color}
-                classNames={classes}
-                aria-label={props.description}
-                title={props.description}
-                ref={ref}
-            >
-            </MantineButton>
-        </Tooltip>}
-      </>
+    return children ? (
+      <MantineButton
+        {...props}
+        component={as}
+        variant="default"
+        leftIcon={buttonLeftIcon}
+        rightIcon={buttonRightIcon}
+        size={size}
+        color={color}
+        classNames={classes}
+        aria-label={description}
+        title={description}
+        ref={ref}
+      >
+        {children}
+      </MantineButton>
+    ) : (
+      <Tooltip position="bottom" label={description} classNames={{ body: classes.tooltipBody }}>
+        <MantineButton
+          {...props}
+          component={as}
+          variant="default"
+          leftIcon={buttonLeftIcon}
+          rightIcon={buttonRightIcon}
+          size={size}
+          color={color}
+          classNames={classes}
+          aria-label={description}
+          title={description}
+          ref={ref}
+        ></MantineButton>
+      </Tooltip>
     );
   }
 );
 
-ActionButton.propTypes ={
-    size: PropTypes.oneOf(ACTBUTTON_SIZES),
-    color: PropTypes.oneOf(ACTBUTTON_COLORS),
-    //iconOnly: PropTypes.bool,
-}
+ActionButton.propTypes = {
+  size: PropTypes.oneOf(ACTBUTTON_SIZES),
+  color: PropTypes.oneOf(ACTBUTTON_COLORS),
+  //iconOnly: PropTypes.bool,
+};

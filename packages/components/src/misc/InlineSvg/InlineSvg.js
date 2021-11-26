@@ -53,6 +53,7 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
         { [classes.errored]: isErrored },
         className
       )}
+      style={style}
       dangerouslySetInnerHTML={{ __html: goodSvg }}
     />
   );
