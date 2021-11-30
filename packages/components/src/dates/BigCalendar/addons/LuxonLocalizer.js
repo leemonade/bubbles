@@ -1,14 +1,17 @@
 import { DateLocalizer } from 'react-big-calendar/lib/localizer';
+import { capitalize } from 'lodash';
 
 function pluralizeUnit(unit) {
   return /s$/.test(unit) ? unit : unit + 's';
 }
 
-const weekRangeFormat = ({ start, end }, culture, local) =>
-  local.format(start, 'MMMM dd', culture) +
-  ' – ' +
-  // updated to use this localizer 'eq()' method
-  local.format(end, local.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
+const weekRangeFormat = ({ start, end }, culture, local) => {
+  const sameMonth = local.eq(start, end, 'month');
+  const monthFormat = sameMonth ? 'MMMM' : 'MMM';
+  return `${capitalize(local.format(start, `${monthFormat} dd`, culture))} - ${capitalize(
+    local.format(end, sameMonth ? 'dd' : `${monthFormat} dd`, culture)
+  )}`;
+};
 
 const dateRangeFormat = ({ start, end }, culture, local) =>
   local.format(start, 'D', culture) + ' – ' + local.format(end, 'D', culture);
@@ -25,6 +28,7 @@ export const formats = {
   dateFormat: 'dd',
   dayFormat: 'dd EEE',
   weekdayFormat: 'EEE',
+  weekdayFullFormat: 'EEEE',
 
   selectRangeFormat: timeRangeFormat,
   eventTimeRangeFormat: timeRangeFormat,
@@ -34,7 +38,8 @@ export const formats = {
   timeGutterFormat: 't',
 
   monthHeaderFormat: 'MMMM yyyy',
-  dayHeaderFormat: 'EEEE MMM dd',
+  // dayHeaderFormat: 'EEEE MMM dd',
+  dayHeaderFormat: 'MMMM dd',
   dayRangeHeaderFormat: weekRangeFormat,
   agendaHeaderFormat: dateRangeFormat,
 

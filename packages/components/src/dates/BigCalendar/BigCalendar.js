@@ -5,16 +5,21 @@ import { Box } from '@mantine/core';
 import { Calendar, Views } from 'react-big-calendar';
 import { DateTime, Settings, Interval } from 'luxon';
 import { RRule } from 'rrule';
-import luxonLocalizer from './addons/LuxonLocalizer';
-import { ToolBar } from './Toolbar/Toolbar';
-import { BigCalendarStyles } from './BigCalendar.styles';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { MonthView } from './views/Month';
+
+import luxonLocalizer from './addons/LuxonLocalizer';
+import { ToolBar } from './components/Toolbar/Toolbar';
+import { BigCalendarStyles } from './BigCalendar.styles';
+import { MonthView } from './components/MonthView/MonthView';
+import { WeekView } from './components/WeekView/WeekView';
+import { DayView } from './components/DayView/DayView';
+import { MonthRangeView } from './components/MonthRangeView/MonthRangeView';
 
 const TIMEZONE = DateTime.local().zoneName;
 const TODAY = DateTime.local().toJSDate();
+const MONTH_RANGE = 'monthRange';
 
-export const BIGCALENDAR_VIEWS = [Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA];
+export const BIGCALENDAR_VIEWS = [Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA, MONTH_RANGE];
 
 export const BigCalendar = forwardRef(
   (
@@ -28,6 +33,7 @@ export const BigCalendar = forwardRef(
       className,
       validRange,
       messages,
+      monthRange,
       hooks,
       showWeekends: showWeekendsProp,
       dateClick = () => {},
@@ -36,6 +42,7 @@ export const BigCalendar = forwardRef(
       onSelectEvent = () => {},
       eventClick = () => {},
       backgroundEventClick = () => {},
+      addEventClick = () => {},
       ...props
     },
     ref
@@ -46,6 +53,17 @@ export const BigCalendar = forwardRef(
     const [hooksCreated, setHooksCreated] = useState(false);
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
+
+    const { availableViews, showToolbar } = useMemo(() => {
+      let views = { month: MonthView, week: WeekView, day: DayView, agenda: true };
+      let showToolbar = true;
+
+      if (currentView === MONTH_RANGE) {
+        views = { monthRange: MonthRangeView };
+        showToolbar = false;
+      }
+      return { availableViews: views, showToolbar };
+    }, [currentView]);
 
     // ·················································
     // TIMEZONE CONFIG
@@ -192,12 +210,20 @@ export const BigCalendar = forwardRef(
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar
           components={{
-            toolbar: (props) => (
-              <ToolBar {...props} showWeekends={showWeekends} setShowWeekends={setShowWeekends} />
-            ),
+            toolbar: showToolbar
+              ? (props) => (
+                  <ToolBar
+                    {...props}
+                    addEventClick={addEventClick}
+                    showWeekends={showWeekends}
+                    setShowWeekends={setShowWeekends}
+                  />
+                )
+              : false,
             cx,
             showWeekends,
           }}
+          toolbar={showToolbar}
           events={events}
           messages={messages}
           defaultView={currentView}
@@ -211,7 +237,8 @@ export const BigCalendar = forwardRef(
           onSelectEvent={handleSelectEvent}
           onRangeChange={handleRangeChange}
           validRange={validRange}
-          views={{ month: MonthView, week: true, day: true, agenda: true }}
+          dateMonthRange={monthRange}
+          views={availableViews}
         />
       </Box>
     );
@@ -252,4 +279,17 @@ BigCalendar.propTypes = {
     next: PropTypes.string,
     showWeekends: PropTypes.string,
   }),
+  validRange: PropTypes.shape({
+    start: PropTypes.instanceOf(Date),
+    end: PropTypes.instanceOf(Date),
+  }),
+  hooks: PropTypes.func,
+  showWeekends: PropTypes.bool,
+  dateClick: PropTypes.func,
+  onSelectDay: PropTypes.func,
+  onRangeChange: PropTypes.func,
+  onSelectEvent: PropTypes.func,
+  eventClick: PropTypes.func,
+  backgroundEventClick: PropTypes.func,
+  addEventClick: PropTypes.func,
 };

@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive } from './../../../theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive } from './../../../../theme.mixins';
 
 export const ToolbarStyles = createStyles((theme, {}) => {
   return {

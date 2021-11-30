@@ -7,9 +7,10 @@ import { findDOMNode } from 'react-dom';
 import NoopWrapper from 'react-big-calendar/lib/NoopWrapper';
 import ScrollableWeekWrapper from 'react-big-calendar/lib/ScrollableWeekWrapper';
 import * as DateSlotMetrics from 'react-big-calendar/lib/utils/DateSlotMetrics';
+
 import BackgroundCells from './BackgroundCells';
-import EventEndingRow from './EventEndingRow';
-import EventRow from './EventRow';
+import EventEndingRow from '../Event/EventEndingRow';
+import EventRow from '../Event/EventRow';
 
 class DateContentRow extends React.Component {
   constructor(...args) {
@@ -64,7 +65,7 @@ class DateContentRow extends React.Component {
     return renderHeader({
       date,
       key: `header_${index}`,
-      className: cx('rbc-date-cell', { ['rbc-now']: localizer.isSameDate(date, getNow()) }),
+      className: cx('rbc-date-cell', { 'rbc-now': localizer.isSameDate(date, getNow()) }),
     });
   };
 
@@ -73,7 +74,7 @@ class DateContentRow extends React.Component {
     const { cx } = this.props.components;
     return (
       <Box className={className}>
-        <Box className={cx('rbc-row-content', { ['rbc-row-content-scrollable']: showAllEvents })}>
+        <Box className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}>
           {renderHeader && (
             <Box className="rbc-row" ref={this.createHeadingRef}>
               {range.map(this.renderHeadingCell)}
@@ -123,6 +124,12 @@ class DateContentRow extends React.Component {
       hideBgTitles,
     } = this.props;
 
+    const { showWeekends, cx } = components;
+    if (!showWeekends && isAllDay && range.length > 5) {
+      range.pop();
+      range.shift();
+    }
+
     if (renderForMeasure) return this.renderDummy();
 
     const normalEvents = [];
@@ -140,7 +147,6 @@ class DateContentRow extends React.Component {
 
     let ScrollableWeekComponent = showAllEvents ? ScrollableWeekWrapper : NoopWrapper;
     let WeekWrapper = components.weekWrapper;
-    const { cx } = components;
 
     const eventRowProps = {
       selected,
@@ -158,6 +164,7 @@ class DateContentRow extends React.Component {
 
     return (
       <Box className={className} role="rowgroup">
+        {/* BACKGROUND ················································· */}
         <BackgroundCells
           localizer={localizer}
           date={date}
@@ -178,16 +185,22 @@ class DateContentRow extends React.Component {
           hideBgTitles={hideBgTitles}
         />
 
+        {/* ROW CONTENT ················································· */}
         <Box
-          className={cx('rbc-row-content', { ['rbc-row-content-scrollable']: showAllEvents })}
+          className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}
           style={{ pointerEvents: 'none' }}
           role="row"
         >
-          {renderHeader && (
+          {/* DATE NUMBER ······ */}
+          {renderHeader ? (
             <Box className="rbc-row" style={{ pointerEvents: 'none' }} ref={this.createHeadingRef}>
               {range.map(this.renderHeadingCell)}
             </Box>
+          ) : (
+            <div>No renderHeader to show</div>
           )}
+
+          {/* EVENTS ··········· */}
           <ScrollableWeekComponent>
             <WeekWrapper isAllDay={isAllDay} {...eventRowProps}>
               {levels.map((segs, idx) => (

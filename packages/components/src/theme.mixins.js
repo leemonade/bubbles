@@ -22,10 +22,6 @@ export function getPaddings(vertical, horizontal, rounded = false) {
   };
 }
 
-export function getGlobals(GLOBAL_IMPORTS) {
-  return { '@import': GLOBAL_IMPORTS };
-}
-
 export function getSpacing(spaces) {
   let spacing = {};
 

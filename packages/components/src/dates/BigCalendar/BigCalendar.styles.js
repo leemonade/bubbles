@@ -93,8 +93,16 @@ const getTimeColumnStyles = (theme) => ({
     borderColor: theme.colors.ui04,
   },
   '.rbc-day-slot': {
+    '.rbc-events-container': {
+      marginRight: 0,
+    },
     '.rbc-event': {
-      borderColor: theme.colors.interactive01h,
+      border: 'none',
+      backgroundColor: 'white',
+      color: theme.colors.text01,
+      '.rbc-event-label': {
+        color: theme.colors.text04,
+      },
     },
     '.rbc-background-event': {
       borderColor: theme.colors.interactive01h,
@@ -112,23 +120,80 @@ const getTimeColumnStyles = (theme) => ({
     ...getFontProductive(12),
     color: theme.colors.text04,
   },
+  '.rbc-time-gutter.rbc-time-column': {
+    '.rbc-timeslot-group': {
+      border: 'none',
+    },
+    '.rbc-label': {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      padding: '0 4px',
+    },
+  },
 });
 
 const getTimeGridStyles = (theme) => ({
   '.rbc-time-view': {
-    borderColor: theme.colors.ui04,
+    border: 'none',
+    marginTop: 10,
+
+    '.rbc-header': {
+      border: 'none',
+      paddingTop: 0,
+      paddingBottom: pxToRem(12),
+    },
+
+    '.rbc-allday-cell': {
+      border: `1px solid ${theme.colors.ui04}`,
+    },
 
     '.rbc-allday-cell + .rbc-allday-cell': {
       borderColor: theme.colors.ui04,
     },
+
+    '&.hide-weekends': {
+      '.rbc-time-content': {
+        '.rbc-time-column:nth-of-type(2)': {
+          display: 'none',
+        },
+        '.rbc-day-slot:last-of-type': {
+          display: 'none',
+        },
+      },
+      '.rbc-time-header': {
+        '.rbc-header:first-of-type': {
+          display: 'none',
+        },
+        '.rbc-header:last-of-type': {
+          display: 'none',
+        },
+        /*
+        '.rbc-day-bg:first-of-type': {
+          display: 'none',
+        },
+        '.rbc-day-bg:last-of-type': {
+          display: 'none',
+        },
+
+        '.rbc-date-cell:first-of-type': {
+          display: 'none',
+        },
+        '.rbc-date-cell:last-of-type': {
+          display: 'none',
+        },
+        */
+      },
+    },
+
+    '.rbc-day-slot': {
+      backgroundColor: theme.colors.ui03,
+    },
   },
   '.rbc-time-header': {
     '&.rbc-overflowing': {
-      borderColor: theme.colors.ui04,
+      border: 'none',
     },
-    '.rbc-rtl &.rbc-overflowing': {
-      borderColor: theme.colors.ui04,
-    },
+
     '> .rbc-row:first-of-type': {
       borderColor: theme.colors.ui04,
     },
@@ -137,17 +202,23 @@ const getTimeGridStyles = (theme) => ({
     },
   },
   '.rbc-time-header-content': {
-    borderColor: theme.colors.ui04,
+    border: 'none',
+    marginRight: 2,
 
     '>.rbc-row.rbc-row-resource': {
       borderColor: theme.colors.ui04,
+    },
+
+    '.rbc-time-header-cell-single-day': {
+      display: 'block',
     },
   },
   '.rbc-rtl .rbc-time-header-content': {
     borderColor: theme.colors.ui04,
   },
   '.rbc-time-content': {
-    borderColor: theme.colors.ui04,
+    border: 'none',
+    borderRight: `1px solid ${theme.colors.ui04}`,
 
     '> * + * > *': {
       borderColor: theme.colors.ui04,
@@ -194,6 +265,9 @@ export const BigCalendarStyles = createStyles((theme, {}) => {
       },
       '.rbc-off-range-bg': {
         background: theme.colors.ui03,
+      },
+      '.rbc-today': {
+        background: 'transparent',
       },
       // ·················································
       // HEADER

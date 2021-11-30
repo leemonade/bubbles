@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
+
 import EventRowMixin from './EventRowMixin';
 
 class EventRow extends React.Component {

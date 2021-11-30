@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Button as MantineButton, Tooltip } from '@mantine/core';
 import { ActionButtonStyles } from './ActionButton.styles';
 
-export const ACTBUTTON_SIZES = ['xs', 'sm'];
-export const ACTBUTTON_COLORS = ['positive', 'negative'];
+export const ACTION_BUTTON_SIZES = ['xs', 'sm'];
+export const ACTION_BUTTON_COLORS = ['positive', 'negative'];
 
 export const ActionButton = forwardRef(
   (
@@ -28,8 +28,8 @@ export const ActionButton = forwardRef(
     },
     ref
   ) => {
-    const color = ACTBUTTON_COLORS.includes(colorProp) ? colorProp : 'positive';
-    const size = ACTBUTTON_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+    const color = ACTION_BUTTON_COLORS.includes(colorProp) ? colorProp : 'positive';
+    const size = ACTION_BUTTON_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
     const buttonRightIcon = showRightIcon ? rightIcon : undefined;
     const { classes, cx } = ActionButtonStyles({
@@ -75,7 +75,7 @@ export const ActionButton = forwardRef(
 );
 
 ActionButton.propTypes = {
-  size: PropTypes.oneOf(ACTBUTTON_SIZES),
-  color: PropTypes.oneOf(ACTBUTTON_COLORS),
+  size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
+  color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
   //iconOnly: PropTypes.bool,
 };

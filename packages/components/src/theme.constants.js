@@ -54,12 +54,8 @@ export const SPACING = [0, 4, 8, 12, 16, 24, 28, 32, 40, 44, 48, 54, 60, 80];
 
 export const FONT_SIZES = [0, 13, 14, 16, 18, 20, 23, 26, 29];
 
-export const GLOBAL_IMPORTS = [
-  "url('https://fonts.googleapis.com/css?family=Lexend:200,400,600|Inter:200,400,600')",
-];
-
 export const EFFECTS = {
-  drowpSahdow01: 'drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.12))',
+  dropShadow01: 'drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.12))',
   boxShadow01: '0px 15px 20px rgba(0, 0, 0, 0.1)',
   boxShadow02: '0px 8px 16px rgba(0, 0, 0, 0.1)',
   boxShadow03: '0px 4px 9px rgba(0, 0, 0, 0.12)',

@@ -12,7 +12,8 @@ import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
 import { Popper } from '@mantine/core';
-import DateContentRow from '../common/DateContentRow';
+
+import DateContentRow from '../Date/DateContentRow';
 
 let eventsForWeek = (evts, start, end, accessors, localizer) =>
   evts.filter((e) => inRange(e, start, end, accessors, localizer));
@@ -173,7 +174,7 @@ class MonthView extends React.Component {
     return (
       <Box
         {...props}
-        className={cx(className, { ['rbc-off-range']: isOffRange, ['rbc-current']: isCurrent })}
+        className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
         role="cell"
         style={{ pointerEvents: 'all' }}
       >

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
 import { Box } from '@mantine/core';
+
 import EventCell from './EventCell';
 
 /* eslint-disable react/prop-types */

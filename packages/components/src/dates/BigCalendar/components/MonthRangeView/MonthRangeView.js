@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { inRange } from 'react-big-calendar/lib/utils/eventLevels';
-import { MonthView } from './Month';
+
+import { MonthView } from '../MonthView/MonthView';
 
 const eventsForWeek = (evts, start, end, accessors, localizer) =>
   evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
-class DateMonthRangeView extends React.Component {
+class MonthRangeView extends React.Component {
   constructor(...args) {
     super(...args);
   }
@@ -67,16 +68,16 @@ class DateMonthRangeView extends React.Component {
   }
 }
 
-DateMonthRangeView.range = (date, { localizer, ...rest }) => {
+MonthRangeView.range = (date, { localizer, ...rest }) => {
   const start = localizer.firstVisibleDay(date, localizer);
   const end = localizer.lastVisibleDay(date, localizer);
   return { start, end };
 };
 
-DateMonthRangeView.navigate = (date) => {
+MonthRangeView.navigate = (date) => {
   return date;
 };
 
-DateMonthRangeView.title = (date, { localizer }) => localizer.format(date, 'monthHeaderFormat');
+MonthRangeView.title = (date, { localizer }) => localizer.format(date, 'monthHeaderFormat');
 
-export { DateMonthRangeView };
+export { MonthRangeView };

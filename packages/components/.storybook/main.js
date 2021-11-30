@@ -8,10 +8,10 @@ module.exports = {
   ],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-docs',
     '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
-    'storybook-addon-designs',
+    // '@storybook/addon-a11y',
+    //'storybook-addon-designs',
+    // '@storybook/addon-docs',
     // '@storybook/addon-react-native-web',
   ],
 };

@@ -22,6 +22,12 @@ export default {
   argTypes: {
     currentView: { options: BIGCALENDAR_VIEWS, control: { type: 'select' } },
     language: { options: ['es-ES', 'en-GB'], control: { type: 'select' } },
+    eventClick: { action: 'Event pressed' },
+    dateClick: { action: 'Date clicked' },
+    onSelectDay: { action: 'Day selected' },
+    onRangeChange: { action: 'Range changed' },
+    onSelectEvent: { action: 'Event selected' },
+    addEventClick: { action: 'Add Event clicked' },
   },
 };
 
@@ -46,7 +52,26 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   events: EVENTS,
-  currentView: BIGCALENDAR_VIEWS[0],
+  currentView: BIGCALENDAR_VIEWS[1],
   language: 'es-ES',
   defaultDate: EVENTS[1].start,
+};
+
+const MonthRangeTemplate = (props) => {
+  return <BigCalendar {...props} style={{ height: 'calc(100vh - 40px)' }} />;
+};
+
+export const MonthRangeView = MonthRangeTemplate.bind({});
+
+MonthRangeView.args = {
+  events: EVENTS,
+  currentView: BIGCALENDAR_VIEWS[4],
+  language: 'es-ES',
+  defaultDate: EVENTS[1].start,
+  monthRange: {
+    startYear: 2020,
+    startMonth: 9,
+    endYear: 2021,
+    endMonth: 7,
+  },
 };

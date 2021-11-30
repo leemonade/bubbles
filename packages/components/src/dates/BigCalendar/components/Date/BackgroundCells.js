@@ -104,9 +104,9 @@ class BackgroundCells extends React.Component {
               <Box
                 style={style}
                 className={cx('rbc-day-bg', className, {
-                  ['rbc-selected-cell']: selected,
-                  ['rbc-today']: localizer.isSameDate(date, current),
-                  ['rbc-off-range-bg']: currentDate && localizer.neq(currentDate, date, 'month'),
+                  'rbc-selected-cell': selected,
+                  'rbc-today': localizer.isSameDate(date, current),
+                  'rbc-off-range-bg': currentDate && localizer.neq(currentDate, date, 'month'),
                 })}
                 onClick={() => this.onClickDate(date)}
               >

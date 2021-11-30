@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { range } from 'lodash';
 import { eventLevels } from 'react-big-calendar/lib/utils/eventLevels';
 import { Box, Anchor } from '@mantine/core';
+
 import EventRowMixin from './EventRowMixin';
 
 let isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot;

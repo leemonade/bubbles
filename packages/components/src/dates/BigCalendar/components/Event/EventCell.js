@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Box } from '@mantine/core';
-import { ImageLoader } from '../../../misc';
+import { ImageLoader } from '../../../../misc';
 
 class EventCell extends React.Component {
   render() {
@@ -76,10 +76,10 @@ class EventCell extends React.Component {
           tabIndex={0}
           style={{ ...userProps.style, ...style }}
           className={cx('rbc-event', className, userProps.className, {
-            ['rbc-selected']: selected,
-            ['rbc-event-allday']: showAsAllDay,
-            ['rbc-event-continues-prior']: continuesPrior,
-            ['rbc-event-continues-after']: continuesAfter,
+            'rbc-selected': selected,
+            'rbc-event-allday': showAsAllDay,
+            'rbc-event-continues-prior': continuesPrior,
+            'rbc-event-continues-after': continuesAfter,
           })}
           onClick={(e) => onSelect && onSelect(event, e)}
           onDoubleClick={(e) => onDoubleClick && onDoubleClick(event, e)}
