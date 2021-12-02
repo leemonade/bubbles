@@ -1,10 +1,11 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
 import { EditPanel, ACTIONBUTTONS } from './EditPanel';
-import { Button, Group, Box, Divider, } from '@mantine/core';
-import mdx from './EditPanel.mdx'; 
-import { InputWrapper } from '../../form/InputWrapper/InputWrapper'; 
-import Translator from './../../leemons/Translator/Translator'
+import { Group, Box, Divider } from '@mantine/core';
 
+import { Button } from '../../form';
+import mdx from './EditPanel.mdx';
+import { InputWrapper } from '../../form/InputWrapper/InputWrapper';
+import Translator from './../../leemons/Translator/Translator';
 
 export default {
   title: 'Overlay/Panels/Edit',
@@ -25,8 +26,7 @@ export default {
 };
 
 const Template = (props) => {
-const [opened, setOpened] = useState(false);
-
+  const [opened, setOpened] = useState(false);
 
   return (
     <>
@@ -54,9 +54,9 @@ const [opened, setOpened] = useState(false);
   );
 };
 
-export const DefaultEditPanel = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultEditPanel.args = {
+Playground.args = {
   layoutButtonsRight: false,
   title: 'Edit Panel',
   ActionBack: true,

@@ -1,24 +1,18 @@
-import React, { forwardRef, useState } from "react";
-import { Box, Title, Button, Group, Drawer as MantineDrawer, CloseIcon} from "@mantine/core";
-import { DotsHorizontalIcon, PencilIcon, ChevronLeftIcon, ArrowsExpandIcon, TrashIcon, XIcon  } from "@heroicons/react/outline";
-import { ActionButton } from "../../form/ActionButton/ActionButton";
-import { EditPanelStyles } from "./EditPanel.styles";
- 
+import React, { forwardRef, useState } from 'react';
+import { Box, Title, Group, Drawer as MantineDrawer, CloseIcon } from '@mantine/core';
+import {
+  DotsHorizontalIcon,
+  PencilIcon,
+  ChevronLeftIcon,
+  ArrowsExpandIcon,
+  TrashIcon,
+  XIcon,
+} from '@heroicons/react/outline';
+import { ActionButton, Button } from '../../form';
+import { EditPanelStyles } from './EditPanel.styles';
 
- 
 export const EditPanel = forwardRef(
-  (
-    {
-      position,
-      size,
-      title,
-      shadow,
-      onClose, 
-      transitionDuration,
-      ...props
-    },
-    ref
-  ) => {
+  ({ position, size, title, shadow, onClose, transitionDuration, ...props }, ref) => {
     const { classes, cx } = EditPanelStyles({});
 
     return (
@@ -28,9 +22,10 @@ export const EditPanel = forwardRef(
         padding="md"
         size="760px"
         hideCloseButton
-        onClose={() => setOpened(false)}
         transitionDuration={400}
         noOverlay
+        noFocusTrap
+        onClose={() => setOpened(false)}
         aria-labelledby="drawer-title"
         aria-describedby="drawer-body"
         closeButtonLabel="Close drawer"

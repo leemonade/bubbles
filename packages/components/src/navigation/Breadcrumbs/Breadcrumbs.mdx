@@ -1,38 +1,39 @@
-import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Breadcrumbs.stories.js';
-import { Breadcrumbs} from './Breadcrumbs.js'
+import { Breadcrumbs } from './Breadcrumbs.js';
 import { Group, Box, Anchor, Text } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
-import {Button} from './../../form/Button/Button.js'
+import { Button } from './../../form/Button/Button.js';
 
 # ActionButton
 
 [Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/Navigation/Breadcrumbs/Breadcrumbs)
 
-
 ## Variants
+
 We have two variants:
- Back link and normal Breadcrumbs
- 
+Back link and normal Breadcrumbs
 
 <ThemeProvider>
-    <Group style={{ gap: 32 }} mt="24px" mb="0" mx="2px">  
-            <Breadcrumbs separator="">
-                <Anchor href="#"> <Text component='span'>←</Text> Back </Anchor>
-                <Anchor > Last </Anchor>
-            </Breadcrumbs>  
-    </Group>
+  <Group style={{ gap: 32 }} mt="24px" mb="0" mx="2px">
+    <Breadcrumbs separator="">
+      <Anchor href="#">
+        {' '}
+        <Text component="span">←</Text> Back{' '}
+      </Anchor>
+      <Anchor> Last </Anchor>
+    </Breadcrumbs>
+  </Group>
 </ThemeProvider>
-<ThemeProvider>  
-    <Group style={{ gap: 32 }} mt="16px" mb="40px" mx="2px"> 
-        <Breadcrumbs separator="›">
-            <Anchor href="#">Primay Level</Anchor>
-            <Anchor href="#">Secondary Level</Anchor>
-            <Anchor > Last </Anchor>
-        </Breadcrumbs>  
-    </Group>    
-</ThemeProvider>  
-
+<ThemeProvider>
+  <Group style={{ gap: 32 }} mt="16px" mb="40px" mx="2px">
+    <Breadcrumbs separator="›">
+      <Anchor href="#">Primay Level</Anchor>
+      <Anchor href="#">Secondary Level</Anchor>
+      <Anchor> Last </Anchor>
+    </Breadcrumbs>
+  </Group>
+</ThemeProvider>{' '}
 
 ## Component API
 

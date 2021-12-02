@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Group } from '@mantine/core';
+
+import { Button } from '../../form';
 import { DeleteConfirmation } from './DeleteConfirmation';
-import { Button, Group } from '@mantine/core';
 
 export default {
   title: 'Overlay/Modals/DeleteConfirmation',
@@ -16,20 +18,17 @@ const Template = (props) => {
       <Group position="center">
         <Button onClick={() => setOpened(true)}> Delete </Button>
       </Group>
-      <DeleteConfirmation
-        {...props}
-        opened={opened}
-        onClose={() => setOpened(false)}
-      />
+      <DeleteConfirmation {...props} opened={opened} onClose={() => setOpened(false)} />
     </>
   );
 };
 
-export const DefaultDeleteConfirmation = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultDeleteConfirmation.args = {
+Playground.args = {
   modaltitle: 'Eliminar evento',
-  description:'Deseas eliminar permanentemente el evento “Work group call for Biology class lorem ipsum”. Esta acción no puede deshacerse',
+  description:
+    'Deseas eliminar permanentemente el evento “Work group call for Biology class lorem ipsum”. Esta acción no puede deshacerse',
   labelCancel: 'Cancelar',
-  labelDelete:'Eliminar'
+  labelDelete: 'Eliminar',
 };

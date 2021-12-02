@@ -1,10 +1,11 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
 import { DetailPanel } from './DetailPanel';
-import { Button, Group, Box, Divider, } from '@mantine/core';
-import mdx from './DetailPanel.mdx';  
+import { Group, Box, Divider } from '@mantine/core';
+
+import { Button } from '../../form';
+import mdx from './DetailPanel.mdx';
 import { Tabs } from '../../navigation/Tabs/Tabs';
 import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
-
 
 export default {
   title: 'Overlay/Panels/Details',
@@ -17,13 +18,12 @@ export default {
   argTypes: {
     layoutButtonsRight: { control: { type: 'boolean' } },
     ActionBack: { control: { type: 'boolean' } },
-    ActionExpand: { control: { type: 'boolean' } }, 
+    ActionExpand: { control: { type: 'boolean' } },
   },
 };
 
 const Template = (props) => {
-const [opened, setOpened] = useState(false);
-
+  const [opened, setOpened] = useState(false);
 
   return (
     <>
@@ -37,29 +37,21 @@ const [opened, setOpened] = useState(false);
         DetailPanelTitle={props.title}
       >
         <Tabs>
-          <Tab
-            key="1"
-            label="Family"
-          >
-            <Box>
-              
-            </Box>
+          <Tab key="1" label="Family">
+            <Box></Box>
           </Tab>
           <Tab key="2" label="Notes">
-            <Box>
-               
-            </Box>
+            <Box></Box>
           </Tab>
- 
         </Tabs>
       </DetailPanel>
     </>
   );
 };
 
-export const DefaultDetailPanel = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultDetailPanel.args = {
+Playground.args = {
   layoutButtonsRight: false,
   title: '',
   ActionBack: true,

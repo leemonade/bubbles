@@ -1,16 +1,13 @@
-import { Story, Props, Source, Preview } from '@storybook/addon-docs/blocks';
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './ActionButton.stories.js';
 import { ActionButton } from './ActionButton.js';
-import { Group, Box, Tooltip} from '@mantine/core';
+import { Group, Box, Tooltip } from '@mantine/core';
 import { DotsHorizontalIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { ThemeProvider } from './../../ThemeProvider';
-
 
 # ActionButton
 
 [Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/ActionButton/ActionButton)
-
-
 
 ## Table of Contents
 
@@ -19,68 +16,88 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Options](#options)
-- [Variations](#variations)  
-
+- [Variations](#variations)
 
 ## Overview
- 
-We use these buttons for similar task-based actions within a workflow built into the interface so as not to attract too much attention. 
 
+We use these buttons for similar task-based actions within a workflow built into the interface so as not to attract too much attention.
 
 ## Options
-ActionButtons can have only the icon or also include a label with descriptive text to accompany it, through the ```label``` property. **When we only want the icon, we must also indicate a descriptive text** through the ```description``` property that will be displayed in a tooltip when hovering over the button:
- 
+
+ActionButtons can have only the icon or also include a label with descriptive text to accompany it, through the `label` property. **When we only want the icon, we must also indicate a descriptive text** through the `description` property that will be displayed in a tooltip when hovering over the button:
+
 <ThemeProvider>
   <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
-   <Tooltip position='bottom' label="Expand"> 
-    <ActionButton size='sm' aria-label="Expand" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-        </ActionButton>
-    </Tooltip>    
-   <ActionButton size='sm' title="Expand" leftIcon={<DotsHorizontalIcon />}>
+    <Tooltip position="bottom" label="Expand">
+      <ActionButton
+        size="sm"
+        aria-label="Expand"
+        title="Expand"
+        leftIcon={<DotsHorizontalIcon />}
+      ></ActionButton>
+    </Tooltip>
+    <ActionButton size="sm" title="Expand" leftIcon={<DotsHorizontalIcon />}>
       Expand
     </ActionButton>
   </Group>
 </ThemeProvider>
 
 ## Variations
-We have two sizes xs and sm, by default we will use the size sm. There are apositive and negative version of color depending on the theme and the background in which they are placed 
+
+We have two sizes xs and sm, by default we will use the size sm. There are apositive and negative version of color depending on the theme and the background in which they are placed
+
 <ThemeProvider>
-  <Group style={{ gap: 32 }} mt="24px"  mx="2px">
-   <Tooltip position='bottom' label="Expand"> 
-    <ActionButton size='sm' aria-label="Expand" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-        </ActionButton>
-    </Tooltip>    
-   <ActionButton size='sm' title="Expand" leftIcon={<DotsHorizontalIcon />}>
+  <Group style={{ gap: 32 }} mt="24px" mx="2px">
+    <Tooltip position="bottom" label="Expand">
+      <ActionButton
+        size="sm"
+        aria-label="Expand"
+        title="Expand"
+        leftIcon={<DotsHorizontalIcon />}
+      ></ActionButton>
+    </Tooltip>
+    <ActionButton size="sm" title="Expand" leftIcon={<DotsHorizontalIcon />}>
       Expand
     </ActionButton>
-    <Tooltip position='bottom' label="Expand"> 
-    <ActionButton size='xs' aria-label="Expand" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-        </ActionButton>
-    </Tooltip>    
-   <ActionButton size='xs' title="Expand" leftIcon={<DotsHorizontalIcon />}>
+    <Tooltip position="bottom" label="Expand">
+      <ActionButton
+        size="xs"
+        aria-label="Expand"
+        title="Expand"
+        leftIcon={<DotsHorizontalIcon />}
+      ></ActionButton>
+    </Tooltip>
+    <ActionButton size="xs" title="Expand" leftIcon={<DotsHorizontalIcon />}>
       Expand
     </ActionButton>
   </Group>
-   <Group style={{ gap: 32 }} mb="44px" mx="2px">
-   <Tooltip position='bottom' label="Expand"> 
-    <ActionButton size='sm' color="negative" aria-label="Expand" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-        </ActionButton>
-    </Tooltip>    
-   <ActionButton size='sm' color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
+  <Group style={{ gap: 32 }} mb="44px" mx="2px">
+    <Tooltip position="bottom" label="Expand">
+      <ActionButton
+        size="sm"
+        color="negative"
+        aria-label="Expand"
+        title="Expand"
+        leftIcon={<DotsHorizontalIcon />}
+      ></ActionButton>
+    </Tooltip>
+    <ActionButton size="sm" color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
       Expand
     </ActionButton>
-    <Tooltip position='bottom' label="Expand"> 
-    <ActionButton size='xs' color="negative" aria-label="Expand" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-        </ActionButton>
-    </Tooltip>    
-   <ActionButton size='xs' color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
+    <Tooltip position="bottom" label="Expand">
+      <ActionButton
+        size="xs"
+        color="negative"
+        aria-label="Expand"
+        title="Expand"
+        leftIcon={<DotsHorizontalIcon />}
+      ></ActionButton>
+    </Tooltip>
+    <ActionButton size="xs" color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
       Expand
     </ActionButton>
   </Group>
 </ThemeProvider>
-
-
-
 
 ## Component API
 
