@@ -12,6 +12,27 @@ export const parameters = {
   },
 };
 
-addDecorator((story, i) => {
-  return <Container id={`container-${story().type?.displayName}`} story={story} />;
+export const globalTypes = {
+  leemonsAuth: {
+    name: 'Leemons authenticated',
+    // Text that will be shown on icon hover
+    description: 'Go to Leemons -> Login to authenticate',
+    defaultValue: 'on',
+    toolbar: {
+      /**
+       * You can check all available icons by this link:
+       * https://storybook.js.org/docs/riot/workflows/faq#what-icons-are-available-for-my-toolbar-or-my-addon
+       */
+      icon: 'circlehollow',
+      items: [],
+      // Should "Container size" be shown, or just the "circlehollow" icon
+      showName: false,
+    },
+  },
+};
+
+addDecorator((story, context) => {
+  return (
+    <Container id={`container-${story().type?.displayName}`} story={story} context={context} />
+  );
 });
