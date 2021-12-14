@@ -1,0 +1,20 @@
+import * as React from "react";
+
+function ControlsForwardIcon(props) {
+  return /*#__PURE__*/React.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 16 16",
+    fill: "currentColor",
+    "aria-hidden": "true"
+  }, props), /*#__PURE__*/React.createElement("g", {
+    clipPath: "url(#a)"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "m15.667 7.243-7-6.32A1 1 0 0 0 7 1.68v3.684a.167.167 0 0 1-.279.124L1.667.923A1 1 0 0 0 0 1.68V14.32a1 1 0 0 0 1.667.758l5.055-4.565a.167.167 0 0 1 .279.124v3.683a1 1 0 0 0 1.666.758l7-6.32a1.026 1.026 0 0 0 0-1.514Z"
+  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
+    id: "a"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M0 0h16v16H0z"
+  }))));
+}
+
+export default ControlsForwardIcon;

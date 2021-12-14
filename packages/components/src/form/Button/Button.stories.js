@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@bubbles/icons/outline';
 import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
 import mdx from './Button.mdx';
 
