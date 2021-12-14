@@ -8,7 +8,7 @@ import mdx from './BigCalendar.mdx';
 import EVENTS from './mocks/events';
 
 export default {
-  title: 'Dates/BigCalendar',
+  title: 'Organisms/Dates/BigCalendar',
   parameters: {
     component: BigCalendar,
     docs: {

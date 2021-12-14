@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Avatar, AVATAR_SIZES, AVATAR_STATE } from './Avatar';
 import { StarIcon } from '@heroicons/react/outline';
-import mdx from './Avatar.mdx'
-
+import mdx from './Avatar.mdx';
 
 export default {
-  title: 'Informative/Users/Avatar',
+  title: 'Atoms/Informative/Avatar',
   parameters: {
     component: Avatar,
     docs: {
@@ -21,12 +20,12 @@ export default {
 };
 
 const Template = (props) => {
-    return <Avatar {...props}></Avatar>;
+  return <Avatar {...props}></Avatar>;
 };
 
-export const DefatultAvatar = Template.bind({});
+export const Playground = Template.bind({});
 
-DefatultAvatar.args = {
+Playground.args = {
   size: 'sm',
   state: 'normal',
   AvatarImage: true,

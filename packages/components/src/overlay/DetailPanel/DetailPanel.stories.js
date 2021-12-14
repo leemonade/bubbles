@@ -8,7 +8,7 @@ import { Tabs } from '../../navigation/Tabs/Tabs';
 import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
 
 export default {
-  title: 'Overlay/Panels/Details',
+  title: 'Organisms/Overlay/Panels/Details',
   parameters: {
     component: DetailPanel,
     docs: {
