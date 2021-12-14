@@ -5,7 +5,7 @@ import { Input, INPUT_SIZES } from './Input';
 import mdx from './Input.mdx';
 
 export default {
-  title: 'Form/Input',
+  title: 'Atoms/Form/Input',
   parameters: {
     component: Input,
     docs: {
@@ -14,29 +14,21 @@ export default {
   },
   argTypes: {
     size: { options: INPUT_SIZES, control: { type: 'select' } },
-    invalid: { control: { type: 'boolean' } },
   },
 };
 
 const Template = (props) => {
   return (
-    <Container size="xl" padding="xs">
-      <Group grow withGutter>
-        <Box style={{ width: '80%' }}>
-          <Input
-            {...props}
-            placeholder="Placeholder"
-            rightSection={<XCircleIcon style={{ height: '1.2rem' }} />}
-          />
-        </Box>
-        {/* <Divider orientation="vertical" mx="sm" /> */}
-      </Group>
-    </Container>
+    <Input
+      {...props}
+      placeholder="Placeholder"
+      rightSection={<XCircleIcon style={{ height: '1.2rem' }} />}
+    />
   );
 };
-export const DefaultInput = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultInput.args = {
+Playground.args = {
   size: 'sm',
   invalid: false,
   disabled: false,

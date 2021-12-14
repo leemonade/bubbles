@@ -4,7 +4,7 @@ import { Switch, SWITCH_SIZES } from './Switch';
 import mdx from './Switch.mdx';
 
 export default {
-  title: 'Form/Switch',
+  title: 'Molecules/Form/Switch',
   parameters: {
     component: Switch,
     docs: {
@@ -17,7 +17,6 @@ export default {
   },
   argTypes: {
     size: { options: SWITCH_SIZES, control: { type: 'select' } },
-    // myBooleanProp: { control: { type: 'boolean' } },
   },
 };
 
@@ -30,5 +29,4 @@ export const Playground = Template.bind({});
 Playground.args = {
   size: 'md',
   label: 'Hello world',
-  // myBooleanProp: false,
 };

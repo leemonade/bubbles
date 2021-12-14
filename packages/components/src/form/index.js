@@ -4,18 +4,7 @@ import { IconButton } from './IconButton/IconButton';
 import { Input } from './Input/Input';
 import { InputWrapper } from './InputWrapper/InputWrapper';
 import { PasswordInput } from './PasswordInput/PasswordInput';
-import { Textarea } from './Textarea/Textarea';
 import { TextInput } from './TextInput/TextInput';
 import { Switch } from './Switch';
 
-export {
-  ActionButton,
-  Button,
-  IconButton,
-  Input,
-  InputWrapper,
-  PasswordInput,
-  Textarea,
-  TextInput,
-  Switch,
-};
+export { ActionButton, Button, IconButton, Input, InputWrapper, PasswordInput, TextInput, Switch };

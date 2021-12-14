@@ -9,7 +9,7 @@ import {
 import mdx from './IconButton.mdx';
 
 export default {
-  title: 'Form/IconButton',
+  title: 'Atoms/Form/IconButton',
   docs: {
     page: mdx,
   },

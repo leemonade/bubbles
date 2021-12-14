@@ -4,7 +4,7 @@ import { ActionButton, ACTION_BUTTON_SIZES, ACTION_BUTTON_COLORS } from './Actio
 import mdx from './ActionButton.mdx';
 
 export default {
-  title: 'Form/ActionButton',
+  title: 'Atoms/Form/ActionButton',
   parameters: {
     component: ActionButton,
     docs: {
@@ -12,7 +12,7 @@ export default {
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=3124%3A35264',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB?embed_host=share&kind=&node-id=3637%3A27254&viewer=1',
     },
   },
   argTypes: {
@@ -31,9 +31,9 @@ const Template = (props) => {
   );
 };
 
-export const DefaultActionButton = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultActionButton.args = {
+Playground.args = {
   size: 'sm',
   color: 'positive',
   showLeftIcon: true,
