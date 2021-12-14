@@ -2,15 +2,16 @@ import * as React from "react";
 
 function PluginGamerOrLearnerIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 25 24",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "m13.397 2.024 1.41 3.106h2.743a.674.674 0 0 1 .474 1.176L15.65 8.6l1.32 3.037a.72.72 0 0 1-1.025.9l-3.195-1.801-3.19 1.8a.72.72 0 0 1-1.024-.9L9.856 8.6 7.473 6.306A.673.673 0 0 1 7.95 5.13h2.741l1.413-3.106a.727.727 0 0 1 1.293 0Z"

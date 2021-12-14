@@ -4,10 +4,16 @@ const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
 const svgr = require('@svgr/core').default;
 const babel = require('@babel/core');
+const replace = require('replace-in-file');
+
+const replaceOptions = {
+  from: /stroke-width=\"1.5\"/g,
+  to: 'stroke-width="2"',
+};
 
 let transform = {
   react: async (svg, componentName, format) => {
-    let component = await svgr(svg, {}, { componentName });
+    let component = await svgr(svg, { icon: true }, { componentName });
     let { code } = await babel.transformAsync(component, {
       plugins: [[require('@babel/plugin-transform-react-jsx'), { useBuiltIns: true }]],
     });
@@ -23,6 +29,9 @@ let transform = {
 };
 
 async function getIcons(style) {
+  // First, replace some SVG attrs
+  await replace({ ...replaceOptions, files: `./optimized/${style}/*.svg` });
+
   let files = await fs.readdir(`./optimized/${style}`);
   return Promise.all(
     files.map(async (file) => ({

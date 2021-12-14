@@ -21,15 +21,7 @@ export const Input = forwardRef(
     const buttonRightSection = showRightSection ? rightSection : undefined;
 
     return (
-      <MantineInput
-        {...props}
-        size={size}
-        rightSection={buttonRightSection}
-        classNames={{
-          input: classes.input,
-          rightSection: classes.rightSection,
-        }}
-      />
+      <MantineInput {...props} size={size} rightSection={buttonRightSection} classNames={classes} />
     );
   }
 );

@@ -2,17 +2,18 @@ import * as React from "react";
 
 function PluginTranslatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 24 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M4.5 8.75v-3a1.5 1.5 0 0 1 3 0v3M4.5 7.25h3"
   }), /*#__PURE__*/React.createElement("path", {
     fillRule: "evenodd",
@@ -22,7 +23,7 @@ function PluginTranslatorIcon(props) {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "m6.75 13.25-3 3v-4.5h-1.5a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5h10.5a1.5 1.5 0 0 1 1.5 1.5v3"
   })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
     id: "a"

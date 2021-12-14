@@ -2,10 +2,11 @@ import * as React from "react";
 
 function MicrophoneOffIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 16 16",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("path", {
     d: "M8 13.333a5.005 5.005 0 0 1-5-5V6.667a.667.667 0 0 0-1.333 0v1.666a6.343 6.343 0 0 0 5.521 6.282.166.166 0 0 1 .145.165v.553a.667.667 0 1 0 1.334 0v-.553a.166.166 0 0 1 .145-.165 6.289 6.289 0 0 0 2.573-.934.165.165 0 0 0 .076-.122.166.166 0 0 0-.048-.136l-.727-.728a.167.167 0 0 0-.2-.026A4.966 4.966 0 0 1 8 13.333Z"
   }), /*#__PURE__*/React.createElement("path", {

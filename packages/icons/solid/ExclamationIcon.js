@@ -2,10 +2,11 @@ const React = require("react");
 
 function ExclamationIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 16 15",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("circle", {
     cx: 8,
     cy: 11.5,

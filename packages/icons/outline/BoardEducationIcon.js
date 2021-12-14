@@ -2,15 +2,16 @@ const React = require("react");
 
 function BoardEducationIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M9.5.516v3m-5 13h-3a1 1 0 0 1-1-1v-10a1 1 0 0 1 1-1H7l-.061.293M12 4.516h5.5a1 1 0 0 1 1 1v7.468M5.714 17.516l-1.714 6"

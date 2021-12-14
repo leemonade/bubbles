@@ -2,17 +2,18 @@ import * as React from "react";
 
 function PluginContentCreatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 25 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M5.5 1.5v2M3.5 5.5h-2M3.5 19.5h-2M19.5 1.5v2M5.5 21.5v2M19.5 21.5v2M23.5 5.5h-2M23.5 19.5h-2M5.5 5.5h14v14h-14v-14Z"
   }), /*#__PURE__*/React.createElement("path", {
     fillRule: "evenodd",

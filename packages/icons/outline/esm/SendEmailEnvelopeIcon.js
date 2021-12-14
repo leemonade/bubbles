@@ -2,15 +2,16 @@ import * as React from "react";
 
 function SendEmailEnvelopeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M21.4 17.2a1 1 0 0 1-.979.8H5.96a1 1 0 0 1-.979-1.2l2.083-10a1 1 0 0 1 .979-.8H22.5a1 1 0 0 1 .979 1.2l-2.079 10Z"

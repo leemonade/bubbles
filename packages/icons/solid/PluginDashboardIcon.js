@@ -2,15 +2,16 @@ const React = require("react");
 
 function PluginDashboardIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 24 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M10.5 13.026a.978.978 0 0 1-.975.98h-7.8a.978.978 0 0 1-.975-.98V2.236a.978.978 0 0 1 .976-.98l7.8.013a.978.978 0 0 1 .974.98v10.777Z"

@@ -2,15 +2,16 @@ const React = require("react");
 
 function FilterIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M.5 4.534h23M2.95 9.786h18.1M8.647 20.291h6.706M5.399 15.038h13.202"

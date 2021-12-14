@@ -2,15 +2,16 @@ const React = require("react");
 
 function FormPictureFemaleAttachIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M8.24 18.5H3.506a3 3 0 0 1-3-3v-12a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5.75M13.968 19.477l3.822-3.822a1.422 1.422 0 0 1 2.01 2.012l-4.44 4.439a2.845 2.845 0 0 1-4.023-4.023l4.871-4.87a4.267 4.267 0 0 1 6.034 6.034L17.991 23.5"

@@ -14,6 +14,10 @@ export default {
     docs: {
       page: mdx,
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3639%3A28645',
+    },
   },
   argTypes: {
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },

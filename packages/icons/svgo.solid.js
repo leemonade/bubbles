@@ -3,6 +3,7 @@ module.exports = {
     {
       name: 'preset-default',
     },
+    'removeXMLNS',
     'removeDimensions',
     'sortAttrs',
     {

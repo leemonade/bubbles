@@ -2,10 +2,11 @@ const React = require("react");
 
 function ComputerKeyboardNextIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 17 16",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     stroke: "#212B3D",
     strokeLinecap: "round",

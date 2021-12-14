@@ -12,7 +12,7 @@ export default {
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3637%3A27251',
     },
   },
   argTypes: {
@@ -25,19 +25,20 @@ export default {
   },
 };
 
-const Template = (props) => {
-  return <Button {...props}>Button Label</Button>;
+const Template = ({ label, ...props }) => {
+  return <Button {...props}>{label}</Button>;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  label: 'Button',
   size: 'sm',
   color: 'primary',
   variant: 'default',
   rounded: false,
   showLeftIcon: false,
   showRightIcon: false,
-  rightIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
-  leftIcon: <ChevronRightIcon style={{ height: '1.2rem' }} />,
+  rightIcon: <ChevronRightIcon />,
+  leftIcon: <ChevronRightIcon />,
 };

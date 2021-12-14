@@ -2,15 +2,16 @@ import * as React from "react";
 
 function PluginKanbanIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 25 25",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M14.129 23.75H2.75a1.5 1.5 0 0 1-1.5-1.5V2.75a1.5 1.5 0 0 1 1.5-1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v11.379a1.5 1.5 0 0 1-.439 1.06l-8.122 8.122a1.5 1.5 0 0 1-1.06.439v0Z"

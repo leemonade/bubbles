@@ -2,15 +2,16 @@ const React = require("react");
 
 function PluginRedactorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 25 25",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "m18.784 8.584 3.713-3.713a1.5 1.5 0 0 0 0-2.12l-1.061-1.062a1.5 1.5 0 0 0-2.121 0L15.602 5.4m-6.364 6.366 6.364-6.364 3.182 3.182-6.364 6.364-3.182-3.182Zm13.259-6.895 1.06 1.061a1.5 1.5 0 0 1 0 2.121l-4.773 4.773 3.713-7.955Z"

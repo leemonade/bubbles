@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@bubbles/icons/outline';
 import {
   IconButton,
   ICON_BUTTON_SIZES,

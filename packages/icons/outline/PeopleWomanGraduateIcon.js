@@ -2,15 +2,16 @@ const React = require("react");
 
 function PeopleWomanGraduateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 24 24",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "m16.043 19.1-3.715 4a.5.5 0 0 1-.732 0L7.9 19.12M12.171 4.463l9.913-1.724a.25.25 0 0 0 0-.493L12.171.522a1.033 1.033 0 0 0-.342 0L1.916 2.246a.25.25 0 0 0 0 .493l9.913 1.724c.113.02.229.02.342 0ZM2 8.492a10.95 10.95 0 0 0-1.481 4.481.5.5 0 0 0 .5.52H2.98a.501.501 0 0 0 .5-.52A10.951 10.951 0 0 0 2 8.493v0ZM2 2.753v5.739M6 10.492V3.449M18 3.449v7.043M6 7.492a18.963 18.963 0 0 0 12 0M10.5 14.992a2.174 2.174 0 0 0 3 0M11 10.992a1.089 1.089 0 0 0-1-.5 1.089 1.089 0 0 0-1 .5M15 10.992a1.089 1.089 0 0 0-1-.5 1.089 1.089 0 0 0-1 .5"

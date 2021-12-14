@@ -2,23 +2,24 @@ import * as React from "react";
 
 function PluginTransactionalIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 24 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M20.25 1.246H.75v19.5h19.5v-19.5Z"
   }), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M3.75 23.746h18a1.5 1.5 0 0 0 1.5-1.5v-18"
   }), /*#__PURE__*/React.createElement("path", {
     fillRule: "evenodd",

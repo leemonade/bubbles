@@ -1,5 +1,5 @@
 import React from 'react';
-import { DotsHorizontalIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles/icons/outline';
 import { ActionButton, ACTION_BUTTON_SIZES, ACTION_BUTTON_COLORS } from './ActionButton';
 import mdx from './ActionButton.mdx';
 
@@ -25,7 +25,7 @@ export default {
 
 const Template = (props) => {
   return (
-    <ActionButton {...props} rightIcon={<ChevronRightIcon />} leftIcon={<DotsHorizontalIcon />}>
+    <ActionButton {...props} rightIcon={<ChevronRightIcon />} leftIcon={<ExpandDiagonalIcon />}>
       {props.label}
     </ActionButton>
   );

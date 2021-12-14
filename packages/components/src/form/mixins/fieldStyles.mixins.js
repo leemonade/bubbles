@@ -1,12 +1,11 @@
-import { getPaddings } from '../../theme.mixins';
+import { getPaddings, getFontProductive } from '../../theme.mixins';
 
 export function getInputStyle(theme) {
   return {
+    ...getFontProductive(null, 400),
     color: theme.colors.text02,
     marginBottom: theme.spacing['1'],
     background: theme.colors.uiBackground04,
-    fontFamily: "'Inter', sans-serif",
-    fontWeight: 400,
     gridArea: 'input',
     '&:disabled': {
       cursor: 'not-allowed',
@@ -21,34 +20,34 @@ export function getInputStyle(theme) {
       opacity: 1,
       color: theme.colors.text05,
     },
+    '&[aria-invalid=true]': {
+      borderColor: theme.colors.fatic01,
+    },
   };
 }
 
 export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
-    fontSize: '0.79rem', 
+    ...getFontProductive(theme.fontSizes['1']),
     gridArea: 'error',
-    marginTop: theme.spacing[2],
   };
 }
 
 export function getDescriptionStyle(theme) {
   return {
     color: theme.colors.text04,
+    ...getFontProductive(),
     marginBottom: theme.spacing['2'],
     gridArea: 'description',
-    //ui02m
-    fontSize: '0.79rem',
   };
 }
 
 export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
-    fontWeight: 600,
-    fontFamily: "'Inter', sans-serif",
-    marginBottom: theme.spacing['1'],
+    ...getFontProductive(null, 500),
+    marginBottom: theme.spacing['2'],
     gridArea: 'label',
   };
 }
@@ -56,17 +55,15 @@ export function getLabelStyle(theme) {
 export function getRequiredStyle(theme) {
   return {
     color: theme.colors.text04,
-    fontFamily: "'Inter', sans-serif",
+    ...getFontProductive(),
   };
 }
 
-
-export function getRightSection(theme){
+export function getRightSection(theme) {
   return {
     color: theme.colors.text05,
   };
 }
-
 
 export const getSizes = (size, spacing) => {
   return {
@@ -82,14 +79,13 @@ export const getSizes = (size, spacing) => {
   }[size];
 };
 
-
 export const getOrientation = (orientation, spacing) => {
   const layout = {
     vertical: {},
     horizontal: {
       display: 'grid',
       gridTemplateColumns: `calc(${spacing['2']}px * 23) auto`,
-      gridTemplateRows: `${spacing['5']}px ${spacing['5']}px auto  auto`,
+      gridTemplateRows: `${spacing['5']}px ${spacing['4']}px auto  auto`,
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
       gap: `0 ${spacing['5']}px`,
     },

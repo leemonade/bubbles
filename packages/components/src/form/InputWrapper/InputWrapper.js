@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
+import { isString } from 'lodash';
 import { useId } from '@mantine/hooks';
-import { ExclamationIcon } from '@heroicons/react/solid';
+import { AlertWarningTriangleIcon } from '@bubbles/icons/solid';
 import { InputWrapper as MantineInputWrapper, Group } from '@mantine/core';
 import { Text } from '../../typography';
 import { Input } from '../Input';
@@ -14,11 +15,11 @@ const InputDescription = ({ className, message }) => {
   return <Text className={className}>{message}</Text>;
 };
 
-const InputError = ({ className, message }) => {
+const InputError = ({ classNames, message }) => {
   return (
-    <Group>
-      <ExclamationIcon style={{ height: '0.85rem', paddingTop: '2px', margin: '0 0 0 8px' }} />
-      <Text component="span" className={className}>
+    <Group spacing="xs">
+      <AlertWarningTriangleIcon className={classNames.errorIcon} />
+      <Text as="span" className={classNames.error}>
         {message}
       </Text>
     </Group>
@@ -47,9 +48,7 @@ export const InputWrapper = forwardRef(
     const component = INPUT_WRAPPER_AS.includes(as) ? as : 'input';
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
-    const customError = error ? (
-      <InputError className={classes.error} message={error} />
-    ) : undefined;
+    const customError = error ? <InputError classNames={classes} message={error} /> : undefined;
 
     return (
       <MantineInputWrapper
@@ -60,7 +59,14 @@ export const InputWrapper = forwardRef(
         id={uuid}
         classNames={classes}
       >
-        <Input id={uuid} ref={ref} component={component} size={size} placeholder={placeholder} />
+        <Input
+          id={uuid}
+          ref={ref}
+          component={component}
+          size={size}
+          placeholder={placeholder}
+          invalid={isString(error) && error !== ''}
+        />
       </MantineInputWrapper>
     );
   }

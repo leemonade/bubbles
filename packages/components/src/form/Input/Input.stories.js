@@ -1,6 +1,5 @@
 import React from 'react';
-import { XCircleIcon } from '@heroicons/react/solid';
-import { Group, Container, Divider, Box } from '@mantine/core';
+import { DoneCircleIcon } from '@bubbles/icons/outline';
 import { Input, INPUT_SIZES } from './Input';
 import mdx from './Input.mdx';
 
@@ -18,13 +17,7 @@ export default {
 };
 
 const Template = (props) => {
-  return (
-    <Input
-      {...props}
-      placeholder="Placeholder"
-      rightSection={<XCircleIcon style={{ height: '1.2rem' }} />}
-    />
-  );
+  return <Input {...props} placeholder="Placeholder" rightSection={<DoneCircleIcon />} />;
 };
 export const Playground = Template.bind({});
 

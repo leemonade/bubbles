@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { getFocusStyles } from '../../theme.mixins';
 import {
   getInputStyle,
   getErrorStyle,
@@ -16,17 +15,14 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     root: {
       ...getOrientation(orientation || 'vertical', theme.spacing),
     },
-    input: {
-      ...getFocusStyles(theme),
-      ...getSizes(size || 'md', theme.spacing),
-      ...getInputStyle(theme),
-    },
     inputRoot: {
       display: 'contents',
     },
     error: {
       ...getErrorStyle(theme),
-       
+    },
+    errorIcon: {
+      color: theme.colors.fatic01,
     },
     description: {
       ...getDescriptionStyle(theme),
@@ -40,4 +36,3 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     },
   };
 });
-

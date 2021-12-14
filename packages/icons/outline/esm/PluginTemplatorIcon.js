@@ -2,15 +2,16 @@ import * as React from "react";
 
 function PluginTemplatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
     viewBox: "0 0 25 25",
     stroke: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
     d: "M4.538 5.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0ZM4.538 11.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0v0ZM4.538 17.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0v0Z"

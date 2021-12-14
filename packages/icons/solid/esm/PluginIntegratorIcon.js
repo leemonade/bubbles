@@ -2,10 +2,11 @@ import * as React from "react";
 
 function PluginIntegratorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 24 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("path", {
     fillRule: "evenodd",
     d: "M9.03 2.224c.1.071.175.171.215.287l4.165 7.172a6.923 6.923 0 0 0-4.006 6.278H1.439c-.614 0-.865-.433-.558-.961l7.25-12.49a.59.59 0 0 1 .899-.286Zm.374 13.737a6.923 6.923 0 1 0 4.006-6.278L16.497 15c.307.528.056.96-.558.96H9.404Z",

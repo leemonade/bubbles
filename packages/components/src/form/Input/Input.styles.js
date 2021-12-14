@@ -6,12 +6,12 @@ const getSizes = (size, spacing) => {
   return {
     xs: {
       height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
       height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
+      ...getPaddings(spacing['3'], spacing['3']),
     },
   }[size];
 };

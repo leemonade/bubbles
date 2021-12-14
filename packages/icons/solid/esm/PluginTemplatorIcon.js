@@ -2,10 +2,11 @@ import * as React from "react";
 
 function PluginTemplatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 25 25",
     fill: "currentColor",
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    width: "1em",
+    height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
     clipPath: "url(#a)"
   }, /*#__PURE__*/React.createElement("path", {
@@ -16,19 +17,19 @@ function PluginTemplatorIcon(props) {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M9.95 19.837a3.913 3.913 0 1 1-7.826 0V3.207A1.957 1.957 0 0 1 4.081 1.25h3.913A1.957 1.957 0 0 1 9.95 3.207v16.63Z"
   }), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "M9.393 21.852 17.742 7.39a1.957 1.957 0 0 0-.716-2.673l-3.389-1.956A1.95 1.95 0 0 0 12.62 2.5"
   }), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 1.5,
+    strokeWidth: 2,
     d: "m8.043 23.2 14.354-8.29a1.957 1.957 0 0 0 .716-2.672L21.156 8.85a1.943 1.943 0 0 0-.5-.57"
   })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
     id: "a"
