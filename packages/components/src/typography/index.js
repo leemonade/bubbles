@@ -1,4 +1,5 @@
 import { Paragraph } from './Paragraph';
 import { Text } from './Text';
+import { Title } from './Title';
 
-export { Paragraph, Text };
+export { Paragraph, Text, Title };

@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
-import { isString } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { AlertWarningTriangleIcon } from '@bubbles/icons/solid';
 import { InputWrapper as MantineInputWrapper, Group } from '@mantine/core';
+import { isNil } from 'lodash';
 import { Text } from '../../typography';
-import { Input } from '../Input';
+import { Input, InputError } from '../Input';
 import { InputWrapperStyles } from './InputWrapper.styles';
 
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
@@ -13,17 +13,6 @@ export const INPUT_WRAPPER_AS = ['input', 'select', 'textarea'];
 
 const InputDescription = ({ className, message }) => {
   return <Text className={className}>{message}</Text>;
-};
-
-const InputError = ({ classNames, message }) => {
-  return (
-    <Group spacing="xs">
-      <AlertWarningTriangleIcon className={classNames.errorIcon} />
-      <Text as="span" className={classNames.error}>
-        {message}
-      </Text>
-    </Group>
-  );
 };
 
 export const InputWrapper = forwardRef(
@@ -48,7 +37,7 @@ export const InputWrapper = forwardRef(
     const component = INPUT_WRAPPER_AS.includes(as) ? as : 'input';
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
-    const customError = error ? <InputError classNames={classes} message={error} /> : undefined;
+    const customError = error ? <InputError classNames={classes} error={error} /> : undefined;
 
     return (
       <MantineInputWrapper
@@ -65,7 +54,7 @@ export const InputWrapper = forwardRef(
           component={component}
           size={size}
           placeholder={placeholder}
-          invalid={isString(error) && error !== ''}
+          invalid={!isNil(error) && error != ''}
         />
       </MantineInputWrapper>
     );

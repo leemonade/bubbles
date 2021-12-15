@@ -54,6 +54,7 @@
     "react-dnd-html5-backend": "^14.0.2",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.22.1",
     "react-router-dom": "^5.3.0",
     "rrule": "^2.6.8",
     "simplebar-react": "^2.3.6"

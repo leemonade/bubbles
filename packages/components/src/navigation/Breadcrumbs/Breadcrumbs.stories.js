@@ -32,16 +32,11 @@ const Template = (props) => {
     { title: 'Mantine hooks', href: 'https://mantine.dev/hooks/getting-started' },
     { title: 'use-id', href: 'https://mantine.dev/hooks/use-id' },
     { title: 'use-id' },
-  ].map(
-    (item, index) => (
-      console.log(item.href),
-      (
-        <Anchor href={item.href} key={index}>
-          <Text component="span"></Text> {item.title}{' '}
-        </Anchor>
-      )
-    )
-  );
+  ].map((item, index) => (
+    <Anchor href={item.href} key={index}>
+      <Text component="span"></Text> {item.title}{' '}
+    </Anchor>
+  ));
   return <Breadcrumbs separator="›">{items}</Breadcrumbs>;
 };
 export const DefaultBreadcrumbs = Template.bind({});

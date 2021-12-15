@@ -1,7 +1,14 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
-import { getInputStyle, getErrorStyle, getDescriptionStyle, getLabelStyle, getRequiredStyle, getRightSection } from '../mixins/fieldStyles.mixins'
- 
+import {
+  getInputStyle,
+  getErrorStyle,
+  getDescriptionStyle,
+  getLabelStyle,
+  getRequiredStyle,
+  getRightSection,
+} from '../mixins/fieldStyles.mixins';
+
 const getSizes = (size, spacing) => {
   return {
     xs: {
@@ -16,7 +23,7 @@ const getSizes = (size, spacing) => {
   }[size];
 };
 
-export const PasswordInputStyles = createStyles((theme, {size}) => {
+export const PasswordInputStyles = createStyles((theme, { size }) => {
   return {
     root: {},
     input: {
@@ -27,6 +34,9 @@ export const PasswordInputStyles = createStyles((theme, {size}) => {
 
     error: {
       ...getErrorStyle(theme),
+    },
+    errorIcon: {
+      color: theme.colors.fatic01,
     },
     description: {
       ...getDescriptionStyle(theme),

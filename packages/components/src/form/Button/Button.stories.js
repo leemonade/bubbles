@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronRightIcon } from '@bubbles/icons/outline';
-import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from './Button';
+import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS, BUTTON_POSITIONS } from './Button';
 import mdx from './Button.mdx';
 
 export default {
@@ -22,11 +22,19 @@ export default {
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
+    position: { options: BUTTON_POSITIONS, control: { type: 'select' } },
   },
 };
 
-const Template = ({ label, ...props }) => {
-  return <Button {...props}>{label}</Button>;
+const Template = ({ label, rightIcon, leftIcon, showLeftIcon, showRightIcon, ...props }) => {
+  const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
+  const buttonRightIcon = showRightIcon ? rightIcon : undefined;
+
+  return (
+    <Button {...props} rightIcon={buttonRightIcon} leftIcon={buttonLeftIcon}>
+      {label}
+    </Button>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -36,7 +44,10 @@ Playground.args = {
   size: 'sm',
   color: 'primary',
   variant: 'default',
+  position: 'center',
   rounded: false,
+  loading: false,
+  fullWidth: false,
   showLeftIcon: false,
   showRightIcon: false,
   rightIcon: <ChevronRightIcon />,

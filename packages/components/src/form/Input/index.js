@@ -1,3 +1,4 @@
 import { Input, INPUT_SIZES } from './Input';
+import { InputError } from './InputError';
 
-export { Input, INPUT_SIZES };
+export { Input, InputError, INPUT_SIZES };
