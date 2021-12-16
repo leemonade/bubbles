@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { Alert, ALERT_COLORS, ALERT_ICONS } from './Alert';
+import { Alert, ALERT_COLORS, ALERT_VARIANTS } from './Alert';
 import mdx from './Alert.mdx';
+import { CheckIcon } from '@heroicons/react/outline';
+import { InformationCircleIcon, ExclamationIcon, XIcon } from '@heroicons/react/solid';
+
+const ALERT_ICONS = { InformationCircleIcon, CheckIcon, ExclamationIcon, XIcon };
 
 export default {
   title: 'Misc/Alert',
@@ -12,36 +15,31 @@ export default {
     },
     design: {
       type: 'figma',
-      url:
-        'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB?embed_host=share&kind=&node-id=3640%3A34476&viewer=1',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB?embed_host=share&kind=&node-id=3640%3A34476&viewer=1',
     },
   },
   argTypes: {
     color: { options: ALERT_COLORS, control: { type: 'select' } },
-    icon: { options: ALERT_ICONS, control: { type: 'select' } },
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    iconName: { control: { type: 'select', options: Object.keys(ALERT_ICONS) } },
+    variant: { control: { type: 'select', options: ALERT_VARIANTS } },
+    onAction: { action: 'clicked' },
+    onClose: { action: 'closed' },
   },
 };
 
-const Template = ({ children, title, color, closeButtonLabel, ...props }) => {
-  return (
-    <Alert title={title} color={color} closeButtonLabel="Close alert" {...props}>
-      {console.log(ALERT_ICONS)}
-      {console.log(ALERT_ICONS[0])}
-      {console.log(ALERT_ICONS[1])}
-      {console.log(ALERT_ICONS[2])}
-      {children}
-    </Alert>
-  );
+const Template = ({ iconName, ...props }) => {
+  const icon = ALERT_ICONS[iconName]();
+  return <Alert icon={icon} {...props}></Alert>;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  title: 'Default',
-  children: 'Default text',
-  color: '',
-  icon: ALERT_ICONS[0],
+  title: 'Info',
+  children: 'Brochure is missing',
+  color: ALERT_COLORS[0],
+  iconName: 'InformationCircleIcon',
+  variant: ALERT_VARIANTS[0],
   withCloseButton: true,
+  action: 'Do something',
 };
