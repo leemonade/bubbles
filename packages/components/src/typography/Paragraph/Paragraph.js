@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text } from '@mantine/core';
 import { ParagraphStyles } from './Paragraph.styles';
+import { Text } from '../Text';
 
 export const PARAGRAPH_ALIGNS = ['right', 'left', 'center'];
 export const PARAGRAPH_TRANSFORMS = ['capitalize', 'uppercase', 'lowercase'];
 
-export const Paragraph = ({ children, size = 'sm', style, className, classNames, ...props }) => {
+const Paragraph = ({ children, style, align, className, classNames, ...props }) => {
+  const { classes } = ParagraphStyles({ align });
+
   return (
-    <Text component="p" size={size} sx={(theme) => ParagraphStyles(theme)} {...props}>
+    <Text {...props} as={'p'} role={'productive'} className={classes.root}>
       {children}
     </Text>
   );
@@ -19,3 +21,5 @@ Paragraph.propTypes = {
   align: PropTypes.oneOf(PARAGRAPH_ALIGNS),
   transform: PropTypes.oneOf(PARAGRAPH_TRANSFORMS),
 };
+
+export { Paragraph };
