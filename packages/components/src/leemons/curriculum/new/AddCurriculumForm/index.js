@@ -1,3 +1,1 @@
-import { AddCurriculumForm } from './AddCurriculumForm';
-
-export { AddCurriculumForm };
+export * from './AddCurriculumForm';

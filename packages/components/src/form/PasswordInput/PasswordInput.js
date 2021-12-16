@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
-import { PasswordInput as MantinePasswordInput, Group, Text } from '@mantine/core';
-import { InputError, INPUT_SIZES } from '../Input';
+import { PasswordInput as MantinePasswordInput, Text } from '@mantine/core';
+import { INPUT_SIZES } from '../Input';
 import { PasswordInputStyles } from './PasswordInput.styles';
+import { InputError } from '../InputError';
 
 export const PASSWORD_INPUT_SIZES = INPUT_SIZES;
 
@@ -15,7 +16,7 @@ export const PasswordInput = forwardRef(
 
     const { classes, cx } = PasswordInputStyles({ size });
 
-    const customError = error ? <InputError classNames={classes} error={error} /> : undefined;
+    const customError = error ? <InputError error={error} /> : undefined;
 
     if (props.hasOwnProperty('value')) {
       props.value = props.value || '';

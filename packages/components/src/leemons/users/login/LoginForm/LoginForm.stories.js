@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { LoginForm, LOGIN_FORM_ERROR_MESSAGES, LOGIN_FORM_MESSAGES } from './LoginForm';
+import { LOGIN_FORM_ERROR_MESSAGES, LOGIN_FORM_MESSAGES, LoginForm } from './LoginForm';
 import mdx from './LoginForm.mdx';
 
 export default {
-  title: 'Leemons/LoginForm',
+  title: 'Leemons/Users/Login/LoginForm',
   parameters: {
     component: LoginForm,
     docs: {

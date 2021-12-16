@@ -1,9 +1,13 @@
 import React from 'react';
-import { AddCurriculumForm, LOGIN_FORM_ERROR_MESSAGES, LOGIN_FORM_MESSAGES } from './AddCurriculumForm';
+import {
+  ADD_CURRICULUM_FORM_ERROR_MESSAGES,
+  ADD_CURRICULUM_FORM_MESSAGES,
+  AddCurriculumForm,
+} from './AddCurriculumForm';
 import mdx from './AddCurriculumForm.mdx';
 
 export default {
-  title: 'Leemons/AddCurriculumForm',
+  title: 'Leemons/Curriculum/New/AddCurriculumForm',
   parameters: {
     component: AddCurriculumForm,
     docs: {
@@ -27,6 +31,6 @@ Playground.args = {
   recoverUrl: '#',
   isLoading: false,
   formError: '',
-  messages: LOGIN_FORM_MESSAGES,
-  errorMessages: LOGIN_FORM_ERROR_MESSAGES,
+  messages: ADD_CURRICULUM_FORM_MESSAGES,
+  errorMessages: ADD_CURRICULUM_FORM_ERROR_MESSAGES,
 };

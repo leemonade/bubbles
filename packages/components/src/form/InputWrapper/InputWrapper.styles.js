@@ -1,13 +1,10 @@
 import { createStyles } from '@mantine/styles';
 import {
-  getInputStyle,
-  getErrorStyle,
   getDescriptionStyle,
   getLabelStyle,
+  getOrientation,
   getRequiredStyle,
   getRightSection,
-  getOrientation,
-  getSizes,
 } from '../mixins/fieldStyles.mixins';
 
 export const InputWrapperStyles = createStyles((theme, { size, orientation }) => {
@@ -17,12 +14,6 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     },
     inputRoot: {
       display: 'contents',
-    },
-    error: {
-      ...getErrorStyle(theme),
-    },
-    errorIcon: {
-      color: theme.colors.fatic01,
     },
     description: {
       ...getDescriptionStyle(theme),

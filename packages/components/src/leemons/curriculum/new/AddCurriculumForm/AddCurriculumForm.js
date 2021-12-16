@@ -1,49 +1,93 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Group, Select } from '@mantine/core';
 import { AddCurriculumFormStyles } from './AddCurriculumForm.styles';
+import { InputError, TextInput } from '../../../../form';
+import { Controller, useForm } from 'react-hook-form';
 
-export const LOGIN_FORM_MESSAGES = {
-  title: 'Login to your account',
-  usernameLabel: 'Email',
-  usernamePlaceholder: 'Your email',
-  passwordLabel: 'Password',
-  passwordPlaceholder: 'Your password',
-  rememberButtonLabel: "I can't remember my password",
-  loginButtonLabel: 'Log in',
-  signupButtonLabel: 'I am not registered',
+export const ADD_CURRICULUM_FORM_MESSAGES = {
+  nameLabel: 'Name',
+  namePlaceholder: 'Enter name...',
+  countryLabel: 'Country',
+  countryPlaceholder: 'Select...',
+  languageLabel: 'Language',
+  centerLabel: 'Center',
+  programLabel: 'Program',
+  tagsLabel: 'Tags',
+  tagsDescription: 'Enter tags separated by commas',
+  descriptionLabel: 'Description',
+  continueButtonLabel: 'Continue to setup',
 };
 
-export const LOGIN_FORM_ERROR_MESSAGES = {
-  usernameRequired: 'Field required',
-  usernameInvalidFormat: 'Invalid format',
-  passwordRequired: 'Field required',
+export const ADD_CURRICULUM_FORM_ERROR_MESSAGES = {
+  nameRequired: 'Field required',
+  countryRequired: 'Field required',
 };
 
-const EMAIL_REGEX =
-  /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-
-const AddCurriculumForm = ({
-  messages,
-  errorMessages,
-  formError,
-  onSubmit,
-  onValidationError,
-  isLoading,
-  recoverUrl,
-  ...props
-}) => {
+const AddCurriculumForm = ({ messages, errorMessages, onSubmit }) => {
   const { classes, cx } = AddCurriculumFormStyles({});
 
-  return <Box></Box>;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Group>
+        <Controller
+          name="name"
+          control={control}
+          rules={{
+            required: errorMessages.nameRequired,
+          }}
+          render={({ field }) => (
+            <TextInput
+              label={messages.nameLabel}
+              placeholder={messages.namePlaceholder}
+              error={errors.name}
+              required
+              {...field}
+            />
+          )}
+        />
+
+        <Controller
+          name="country"
+          control={control}
+          rules={{
+            required: errorMessages.countryRequired,
+          }}
+          render={({ field }) => (
+            <Select
+              label={messages.countryLabel}
+              placeholder={messages.countryPlaceholder}
+              required
+              error={<InputError error={'WOWOWOWOWO'} />}
+              data={[
+                { value: 'react', label: 'React' },
+                { value: 'ng', label: 'Angular' },
+                { value: 'svelte', label: 'Svelte' },
+                { value: 'vue', label: 'Vue' },
+              ]}
+              {...field}
+            />
+          )}
+        />
+      </Group>
+    </form>
+  );
 };
 
 AddCurriculumForm.defaultProps = {
-  messages: LOGIN_FORM_MESSAGES,
+  messages: ADD_CURRICULUM_FORM_MESSAGES,
+  errorMessages: ADD_CURRICULUM_FORM_ERROR_MESSAGES,
 };
 
 AddCurriculumForm.propTypes = {
   messages: PropTypes.any,
+  errorMessages: PropTypes.any,
 };
 
 export { AddCurriculumForm };
