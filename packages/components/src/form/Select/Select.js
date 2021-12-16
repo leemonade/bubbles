@@ -2,15 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Select as MantineSelect } from '@mantine/core';
 import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
+import { InputError } from '../InputError';
+import { InputDescription } from '../InputDescription';
 import { SelectStyles } from './Select.styles';
 
 export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
 export const SELECT_ORIENTATION = INPUT_WRAPPER_ORIENTATION;
 
-const Select = ({ ...props }) => {
+const Select = ({ description, size: sizeProp, orientation: orientationProp, error, ...props }) => {
+  const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+  const orientation = INPUT_WRAPPER_ORIENTATION.includes(orientationProp)
+    ? orientationProp
+    : 'vertical';
+  const customError = error ? <InputError message={error} /> : undefined;
+
   const { classes, cx } = SelectStyles({});
 
-  return <MantineSelect {...props} className={classes.root} />;
+  return (
+    <MantineSelect
+      {...props}
+      error={customError}
+      description={<InputDescription message={description} />}
+      className={classes.root}
+    />
+  );
+};
+
+Select.defaultProps = {
+  size: 'sm',
+  orientation: 'vertical',
 };
 
 Select.propTypes = {

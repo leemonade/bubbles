@@ -1,5 +1,6 @@
 export * from './ActionButton/ActionButton';
 export * from './IconButton/IconButton';
+export * from './InputDescription';
 export * from './PasswordInput';
 export * from './Button/Button';
 export * from './InputWrapper';

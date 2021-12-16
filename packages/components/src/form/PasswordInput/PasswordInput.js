@@ -3,12 +3,9 @@ import { PasswordInput as MantinePasswordInput, Text } from '@mantine/core';
 import { INPUT_SIZES } from '../Input';
 import { PasswordInputStyles } from './PasswordInput.styles';
 import { InputError } from '../InputError';
+import { InputDescription } from '../InputDescription';
 
 export const PASSWORD_INPUT_SIZES = INPUT_SIZES;
-
-const InputDescription = ({ className, message }) => {
-  return <Text className={className}>{message}</Text>;
-};
 
 export const PasswordInput = forwardRef(
   ({ radius, label, description, error, size: sizeProp = 'sm', ...props }, ref) => {
@@ -16,7 +13,7 @@ export const PasswordInput = forwardRef(
 
     const { classes, cx } = PasswordInputStyles({ size });
 
-    const customError = error ? <InputError error={error} /> : undefined;
+    const customError = error ? <InputError message={error} /> : undefined;
 
     if (props.hasOwnProperty('value')) {
       props.value = props.value || '';
@@ -26,7 +23,7 @@ export const PasswordInput = forwardRef(
       <MantinePasswordInput
         {...props}
         ref={ref}
-        description={<InputDescription className={classes.description} message={description} />}
+        description={<InputDescription message={description} />}
         error={customError}
         label={label}
         classNames={classes}

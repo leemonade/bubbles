@@ -1,3 +1,1 @@
-import { __name__ } from './__name__';
-
-export { __name__ };
+export * from './__name__';

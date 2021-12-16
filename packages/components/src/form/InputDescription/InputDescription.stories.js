@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { InputError } from './InputError';
-import mdx from './InputError.mdx';
+import { InputDescription } from './InputDescription';
+import mdx from './InputDescription.mdx';
 
 export default {
-  title: 'Atoms/Form/InputError',
+  title: 'Atoms/Form/InputDescription',
   parameters: {
-    component: InputError,
+    component: InputDescription,
     docs: {
       page: mdx,
     },
@@ -21,12 +21,12 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <InputError {...props} />;
+const Template = ({ ...props }) => {
+  return <InputDescription {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  message: 'Some errors',
+  message: 'Description',
 };

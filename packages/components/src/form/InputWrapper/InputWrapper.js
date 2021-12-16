@@ -1,21 +1,18 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import { InputWrapper as MantineInputWrapper } from '@mantine/core';
 import { isNil } from 'lodash';
-import { Text } from '../../typography';
 import { Input } from '../Input';
-import { InputWrapperStyles } from './InputWrapper.styles';
 import { InputError } from '../InputError';
+import { InputDescription } from '../InputDescription';
+import { InputWrapperStyles } from './InputWrapper.styles';
 
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
 export const INPUT_WRAPPER_ORIENTATION = ['horizontal', 'vertical'];
 export const INPUT_WRAPPER_AS = ['input', 'select', 'textarea'];
 
-const InputDescription = ({ className, message }) => {
-  return <Text className={className}>{message}</Text>;
-};
-
-export const InputWrapper = forwardRef(
+const InputWrapper = forwardRef(
   (
     {
       radius,
@@ -38,13 +35,12 @@ export const InputWrapper = forwardRef(
     const component = INPUT_WRAPPER_AS.includes(as) ? as : 'input';
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
-    const customError = error ? <InputError error={error} /> : undefined;
-
+    console.log('error:', error);
     return (
       <MantineInputWrapper
         {...props}
-        description={<InputDescription className={classes.description} message={description} />}
-        error={customError}
+        description={!isNil(description) ? <InputDescription message={description} /> : null}
+        error={!isNil(error) ? <InputError message={error} /> : null}
         label={label}
         id={uuid}
         classNames={classes}
@@ -62,3 +58,14 @@ export const InputWrapper = forwardRef(
     );
   }
 );
+
+InputWrapper.propTypes = {
+  label: PropTypes.string,
+  description: PropTypes.string,
+  placeholder: PropTypes.string,
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
+  error: PropTypes.string,
+};
+
+export { InputWrapper };

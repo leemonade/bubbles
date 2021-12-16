@@ -37,7 +37,7 @@ export function getErrorStyle(theme) {
 export function getDescriptionStyle(theme) {
   return {
     color: theme.colors.text04,
-    ...getFontProductive(),
+    ...getFontProductive(theme.fontSizes['2']),
     marginBottom: theme.spacing['2'],
     gridArea: 'description',
   };

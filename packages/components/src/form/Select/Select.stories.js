@@ -4,7 +4,7 @@ import { Select } from './Select';
 import mdx from './Select.mdx';
 
 export default {
-  title: 'Form/Select',
+  title: 'Molecules/Form/Select',
   parameters: {
     component: Select,
     docs: {
@@ -37,4 +37,5 @@ Playground.args = {
     { value: 'svelte', label: 'Svelte' },
     { value: 'vue', label: 'Vue' },
   ],
+  error: 'Descriptive text for error ',
 };

@@ -4,7 +4,7 @@ import { Anchor } from './Anchor';
 import mdx from './Anchor.mdx';
 
 export default {
-  title: 'Navigation/Anchor',
+  title: 'Atoms/Navigation/Anchor',
   parameters: {
     component: Anchor,
     docs: {

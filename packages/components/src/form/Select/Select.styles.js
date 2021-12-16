@@ -1,15 +1,6 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
-import {
-  getInputStyle,
-  getErrorStyle,
-  getDescriptionStyle,
-  getLabelStyle,
-  getRequiredStyle,
-  getRightSection,
-  getOrientation,
-  getSizes,
-} from '../mixins/fieldStyles.mixins';
+import { pxToRem, getPaddings, getFontExpressive } from '../../theme.mixins';
+import { getLabelStyle, getRequiredStyle } from '../mixins/fieldStyles.mixins';
 
 export const SelectStyles = createStyles((theme, {}) => {
   return {
