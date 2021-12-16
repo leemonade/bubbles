@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 import { InputWrapper as MantineInputWrapper, Group } from '@mantine/core';
@@ -40,7 +41,6 @@ export const InputWrapper = forwardRef(
     const { classes, cx } = InputWrapperStyles({ size, orientation });
     const customError = error ? <InputError classNames={classes} error={error} /> : undefined;
 
-
     return (
       <MantineInputWrapper
         {...props}
@@ -63,3 +63,13 @@ export const InputWrapper = forwardRef(
     );
   }
 );
+
+InputWrapper.propTypes = {
+  label: PropTypes.string,
+  description: PropTypes.string,
+  as: PropTypes.oneOf(INPUT_WRAPPER_AS),
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
+  error: PropTypes.string,
+  placeholder: PropTypes.string,
+};
