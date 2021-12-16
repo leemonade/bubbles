@@ -1,5 +1,5 @@
 import React from 'react';
-import { DoneCircleIcon } from '@bubbles/icons/outline';
+import { DoneCircleIcon } from '@bubbles-ui/icons/outline';
 import { Input, INPUT_SIZES } from './Input';
 import mdx from './Input.mdx';
 

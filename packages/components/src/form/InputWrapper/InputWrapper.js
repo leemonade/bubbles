@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { useId } from '@mantine/hooks';
-import { AlertWarningTriangleIcon } from '@bubbles/icons/solid';
+import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 import { InputWrapper as MantineInputWrapper, Group } from '@mantine/core';
 import { isNil } from 'lodash';
 import { Text } from '../../typography';

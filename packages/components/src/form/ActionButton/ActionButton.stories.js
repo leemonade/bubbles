@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles/icons/outline';
+import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { ActionButton, ACTION_BUTTON_SIZES, ACTION_BUTTON_COLORS } from './ActionButton';
 import mdx from './ActionButton.mdx';
 

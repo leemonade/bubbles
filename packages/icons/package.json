@@ -1,5 +1,5 @@
 {
-  "name": "@bubbles/icons",
+  "name": "@bubbles-ui/icons",
   "version": "1.0.0",
   "description": "The Bubbles Design System icons library.",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "components"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "prepublishOnly": "npm run build",

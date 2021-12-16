@@ -1,6 +1,6 @@
 import React from 'react';
 import { Group } from '@mantine/core';
-import { AlertWarningTriangleIcon } from '@bubbles/icons/solid';
+import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 import { isNil } from 'lodash';
 import { Text } from '../../typography';
 

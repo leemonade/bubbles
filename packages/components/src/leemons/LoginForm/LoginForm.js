@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { ChevronRightIcon } from '@bubbles/icons/outline';
+import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput, PasswordInput, Button } from '../../form';
 import { Anchor } from '../../navigation';

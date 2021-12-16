@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRightIcon } from '@bubbles/icons/outline';
+import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import {
   IconButton,
   ICON_BUTTON_SIZES,
