@@ -1,31 +1,75 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Select as MantineSelect } from '@mantine/core';
+import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import { Select as MantineSelect } from '@mantine/core';
+import { isNil, isString, isFunction } from 'lodash';
 import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
+import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 
 export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const SELECT_ORIENTATION = INPUT_WRAPPER_ORIENTATION;
+export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
 const Select = forwardRef(
-  ({ description, size: sizeProp, orientation: orientationProp, error, ...props }, ref) => {
-    const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const orientation = INPUT_WRAPPER_ORIENTATION.includes(orientationProp)
+  (
+    {
+      description,
+      size: sizeProp,
+      orientation: orientationProp,
+      dropdownPosition,
+      error,
+      clearable,
+      onChange,
+      ...props
+    },
+    ref
+  ) => {
+    const size = SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+    const orientation = SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
-    const customError = error ? <InputError message={error} /> : undefined;
+    const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
 
-    const { classes, cx } = SelectStyles({});
+    // ······················································
+    // HANDLERS
+
+    const [showClear, setShowClear] = useState(false);
+
+    const handleChange = (ev) => {
+      setShowClear(!isNil(ev));
+
+      if (isFunction(onChange)) {
+        onChange(ev);
+      }
+    };
+
+    const handleClear = () => {
+      handleChange(null);
+    };
+
+    // ······················································
+    // STYLES
+
+    const { classes, cx } = SelectStyles({ size, orientation });
 
     return (
       <MantineSelect
         {...props}
         ref={ref}
-        error={customError}
-        description={<InputDescription message={description} />}
-        className={classes.root}
+        size={size}
+        onChange={handleChange}
+        rightSection={
+          isClearable && showClear ? (
+            <ActionButton leftIcon={<RemoveIcon />} description={clearable} onClick={handleClear} />
+          ) : (
+            <ChevDownIcon />
+          )
+        }
+        error={!isNil(error) && error !== '' ? <InputError message={error} /> : null}
+        description={!isNil(description) ? <InputDescription message={description} /> : null}
+        classNames={classes}
       />
     );
   }
@@ -41,9 +85,12 @@ Select.propTypes = {
   description: PropTypes.string,
   placeholder: PropTypes.string,
   data: PropTypes.any,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
+  required: PropTypes.bool,
+  size: PropTypes.oneOf(SELECT_SIZES),
+  orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
   error: PropTypes.string,
+  searchable: PropTypes.bool,
+  clearable: PropTypes.string,
 };
 
 export { Select };

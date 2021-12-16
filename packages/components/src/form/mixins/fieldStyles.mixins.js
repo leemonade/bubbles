@@ -64,17 +64,16 @@ export function getRightSection(theme) {
     color: theme.colors.text05,
   };
 }
-
-export const getSizes = (size, spacing) => {
+export const getInputSizes = (size, spacing) => {
   return {
     xs: {
       height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
       height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
+      ...getPaddings(spacing['3'], spacing['3']),
     },
   }[size];
 };

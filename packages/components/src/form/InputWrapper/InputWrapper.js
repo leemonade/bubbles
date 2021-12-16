@@ -35,12 +35,12 @@ const InputWrapper = forwardRef(
     const component = INPUT_WRAPPER_AS.includes(as) ? as : 'input';
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
-    console.log('error:', error);
+
     return (
       <MantineInputWrapper
         {...props}
         description={!isNil(description) ? <InputDescription message={description} /> : null}
-        error={!isNil(error) ? <InputError message={error} /> : null}
+        error={!isNil(error) && error !== '' ? <InputError message={error} /> : null}
         label={label}
         id={uuid}
         classNames={classes}

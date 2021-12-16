@@ -18,7 +18,7 @@ export const ActionButton = forwardRef(
       rightIcon,
       showLeftIcon = true,
       showRightIcon = false,
-      children,
+      label,
       sx,
       styles,
       className,
@@ -35,10 +35,10 @@ export const ActionButton = forwardRef(
     const { classes, cx } = ActionButtonStyles({
       size,
       color,
-      iconOnly: !children && (!showLeftIcon || !showRightIcon),
+      iconOnly: !label && (!showLeftIcon || !showRightIcon),
     });
 
-    return children ? (
+    return label ? (
       <MantineButton
         {...props}
         component={as}
@@ -52,7 +52,7 @@ export const ActionButton = forwardRef(
         title={description}
         ref={ref}
       >
-        {children}
+        {label}
       </MantineButton>
     ) : (
       <Tooltip position="bottom" label={description} classNames={{ body: classes.tooltipBody }}>
