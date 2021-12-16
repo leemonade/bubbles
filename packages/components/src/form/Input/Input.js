@@ -9,19 +9,17 @@ export const Input = forwardRef(
       radius,
       variant,
       icon,
-      showRightSection = false,
-      rightSection,
+      rightSection = null,
       size: sizeProp = 'sm',
       ...props
     },
     ref
   ) => {
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes, cx } = InputStyles({ size });
-    const buttonRightSection = showRightSection ? rightSection : undefined;
+    const { classes } = InputStyles({ size });
 
     return (
-      <MantineInput {...props} size={size} rightSection={buttonRightSection} classNames={classes} />
+      <MantineInput {...props} ref={ref} size={size} rightSection={rightSection} classNames={classes} />
     );
   }
 );

@@ -26,6 +26,7 @@ export const InputWrapper = forwardRef(
       description,
       error,
       placeholder,
+      rightSection,
       ...props
     },
     ref
@@ -38,6 +39,7 @@ export const InputWrapper = forwardRef(
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
     const customError = error ? <InputError classNames={classes} error={error} /> : undefined;
+
 
     return (
       <MantineInputWrapper
@@ -54,6 +56,7 @@ export const InputWrapper = forwardRef(
           component={component}
           size={size}
           placeholder={placeholder}
+          rightSection={rightSection}
           invalid={!isNil(error) && error != ''}
         />
       </MantineInputWrapper>

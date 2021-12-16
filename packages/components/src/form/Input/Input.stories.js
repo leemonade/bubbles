@@ -16,8 +16,8 @@ export default {
   },
 };
 
-const Template = (props) => {
-  return <Input {...props} placeholder="Placeholder" rightSection={<DoneCircleIcon />} />;
+const Template = ({test_showRightSection, ...props}) => {
+  return <Input {...props} placeholder="Placeholder" rightSection={test_showRightSection ? <DoneCircleIcon /> : null} />;
 };
 export const Playground = Template.bind({});
 
@@ -25,5 +25,5 @@ Playground.args = {
   size: 'sm',
   invalid: false,
   disabled: false,
-  showRightSection: false,
+  test_showRightSection: false
 };

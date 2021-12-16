@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import { useForm, Controller } from 'react-hook-form';
-import { TextInput, PasswordInput, Button } from '../../form';
-import { Anchor } from '../../navigation';
-import { Text, Title } from '../../typography';
+
+import { TextInput, PasswordInput, Button } from '../../../../form';
 import { LoginFormStyles } from './LoginForm.styles';
+import { Text, Title } from '../../../../typography';
+import { Anchor } from '../../../../navigation';
+
+
 
 export const LOGIN_FORM_MESSAGES = {
   title: 'Login to your account',
