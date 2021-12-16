@@ -1,9 +1,8 @@
 import { createStyles } from '@mantine/styles';
-import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
+import { getFocusStyles, getPaddings } from '../../theme.mixins';
 import {
-  getInputStyle,
-  getErrorStyle,
   getDescriptionStyle,
+  getInputStyle,
   getLabelStyle,
   getRequiredStyle,
   getRightSection,
@@ -30,13 +29,6 @@ export const PasswordInputStyles = createStyles((theme, { size }) => {
       ...getFocusStyles(theme),
       ...getSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
-    },
-
-    error: {
-      ...getErrorStyle(theme),
-    },
-    errorIcon: {
-      color: theme.colors.fatic01,
     },
     description: {
       ...getDescriptionStyle(theme),

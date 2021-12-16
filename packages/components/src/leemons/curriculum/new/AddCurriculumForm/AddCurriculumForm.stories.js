@@ -1,17 +1,17 @@
 import React from 'react';
-import { LOGIN_FORM_ERROR_MESSAGES, LOGIN_FORM_MESSAGES, LoginForm } from './LoginForm';
-import mdx from './LoginForm.mdx';
+import {
+  ADD_CURRICULUM_FORM_ERROR_MESSAGES,
+  ADD_CURRICULUM_FORM_MESSAGES,
+  AddCurriculumForm,
+} from './AddCurriculumForm';
+import mdx from './AddCurriculumForm.mdx';
 
 export default {
-  title: 'Leemons/Users/Login/LoginForm',
+  title: 'Leemons/Curriculum/New/AddCurriculumForm',
   parameters: {
-    component: LoginForm,
+    component: AddCurriculumForm,
     docs: {
       page: mdx,
-    },
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/Mt7Ne7X1aHI7pqhXbaF85w/App-Opensource-Backup?node-id=550%3A34163',
     },
   },
   argTypes: {
@@ -22,7 +22,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <LoginForm {...props}>{children}</LoginForm>;
+  return <AddCurriculumForm {...props}>{children}</AddCurriculumForm>;
 };
 
 export const Playground = Template.bind({});
@@ -31,6 +31,6 @@ Playground.args = {
   recoverUrl: '#',
   isLoading: false,
   formError: '',
-  messages: LOGIN_FORM_MESSAGES,
-  errorMessages: LOGIN_FORM_ERROR_MESSAGES,
+  messages: ADD_CURRICULUM_FORM_MESSAGES,
+  errorMessages: ADD_CURRICULUM_FORM_ERROR_MESSAGES,
 };

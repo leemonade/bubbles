@@ -1,12 +1,11 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
-import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
-import { InputWrapper as MantineInputWrapper, Group } from '@mantine/core';
+import { InputWrapper as MantineInputWrapper } from '@mantine/core';
 import { isNil } from 'lodash';
 import { Text } from '../../typography';
-import { Input, InputError } from '../Input';
+import { Input } from '../Input';
 import { InputWrapperStyles } from './InputWrapper.styles';
+import { InputError } from '../InputError';
 
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
 export const INPUT_WRAPPER_ORIENTATION = ['horizontal', 'vertical'];
@@ -39,7 +38,7 @@ export const InputWrapper = forwardRef(
     const component = INPUT_WRAPPER_AS.includes(as) ? as : 'input';
     const uuid = useId();
     const { classes, cx } = InputWrapperStyles({ size, orientation });
-    const customError = error ? <InputError classNames={classes} error={error} /> : undefined;
+    const customError = error ? <InputError error={error} /> : undefined;
 
     return (
       <MantineInputWrapper
@@ -63,13 +62,3 @@ export const InputWrapper = forwardRef(
     );
   }
 );
-
-InputWrapper.propTypes = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  as: PropTypes.oneOf(INPUT_WRAPPER_AS),
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
-  error: PropTypes.string,
-  placeholder: PropTypes.string,
-};
