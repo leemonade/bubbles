@@ -62,9 +62,14 @@ const Select = forwardRef(
         onChange={handleChange}
         rightSection={
           isClearable && showClear ? (
-            <ActionButton leftIcon={<RemoveIcon />} description={clearable} onClick={handleClear} />
+            <ActionButton
+              leftIcon={<RemoveIcon />}
+              description={clearable}
+              size={size}
+              onClick={handleClear}
+            />
           ) : (
-            <ChevDownIcon />
+            <ChevDownIcon className={classes.rightSection} />
           )
         }
         error={!isNil(error) && error !== '' ? <InputError message={error} /> : null}

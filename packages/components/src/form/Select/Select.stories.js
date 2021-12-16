@@ -18,7 +18,6 @@ export default {
   argTypes: {
     size: { options: SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: SELECT_ORIENTATIONS, control: { type: 'select' } },
-    onClear: { action: 'Value cleared' },
   },
 };
 
@@ -31,14 +30,15 @@ export const Playground = Template.bind({});
 Playground.args = {
   size: 'sm',
   orientation: 'vertical',
-  label: 'Your favorite framework/library',
-  description: 'Hola Mundo',
-  placeholder: 'Pick one',
+  label: 'Label for select',
+  placeholder: 'Select one',
+  description: 'Optional descriptive text for this select field ',
+  disabled: false,
   required: true,
-  searchable: true,
+  searchable: false,
   creatable: false,
   clearable: 'Clear select field',
-  error: 'Descriptive text for error',
+  error: 'Descriptive text for error ',
   data: [
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',

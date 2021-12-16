@@ -5,13 +5,22 @@ import {
   getInputStyle,
   getInputSizes,
   getRequiredStyle,
+  getOrientation,
 } from '../mixins/fieldStyles.mixins';
 
-export const SelectStyles = createStyles((theme, { size }) => {
+export const SelectStyles = createStyles((theme, { size, orientation }) => {
   return {
-    root: {},
+    root: {
+      ...getOrientation(orientation || 'vertical', theme.spacing),
+    },
     label: {
       ...getLabelStyle(theme),
+    },
+    description: {
+      gridArea: 'description',
+    },
+    error: {
+      gridArea: 'error',
     },
     required: {
       ...getRequiredStyle(theme),
@@ -20,6 +29,9 @@ export const SelectStyles = createStyles((theme, { size }) => {
       ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
+    },
+    rightSection: {
+      color: theme.colors.text02,
     },
   };
 });

@@ -33,9 +33,9 @@ Playground.args = {
   orientation: 'vertical',
   placeholder: 'Placeholder',
   disabled: false,
+  required: true,
   label: 'Label for text field',
   description: 'Optional descriptive text for this text field ',
-  required: true,
   error: 'Descriptive text for error ',
   test_showRightSection: false,
 };

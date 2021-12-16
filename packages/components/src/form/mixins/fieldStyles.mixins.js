@@ -30,7 +30,6 @@ export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
     ...getFontProductive(theme.fontSizes['1']),
-    gridArea: 'error',
   };
 }
 
@@ -39,14 +38,13 @@ export function getDescriptionStyle(theme) {
     color: theme.colors.text04,
     ...getFontProductive(theme.fontSizes['2']),
     marginBottom: theme.spacing['2'],
-    gridArea: 'description',
   };
 }
 
 export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
-    ...getFontProductive(null, 500),
+    ...getFontProductive(theme.fontSizes['2'], 500),
     marginBottom: theme.spacing['2'],
     gridArea: 'label',
   };
@@ -87,6 +85,10 @@ export const getOrientation = (orientation, spacing) => {
       gridTemplateRows: `${spacing['5']}px ${spacing['4']}px auto  auto`,
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
       gap: `0 ${spacing['5']}px`,
+
+      '& .mantine-Select-root': {
+        display: 'revert',
+      },
     },
   };
   return layout[orientation];
