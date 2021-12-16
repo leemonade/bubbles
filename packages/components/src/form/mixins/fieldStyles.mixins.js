@@ -89,6 +89,9 @@ export const getOrientation = (orientation, spacing) => {
       '& .mantine-Select-root': {
         display: 'revert',
       },
+      '& .mantine-PasswordInput-root': {
+        display: 'revert',
+      },
     },
   };
   return layout[orientation];

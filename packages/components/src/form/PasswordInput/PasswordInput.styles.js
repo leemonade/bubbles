@@ -7,18 +7,24 @@ import {
   getRequiredStyle,
   getRightSection,
   getInputSizes,
+  getOrientation,
 } from '../mixins/fieldStyles.mixins';
 
-export const PasswordInputStyles = createStyles((theme, { size }) => {
+export const PasswordInputStyles = createStyles((theme, { size, orientation }) => {
   return {
-    root: {},
+    root: {
+      ...getOrientation(orientation || 'vertical', theme.spacing),
+    },
     input: {
       ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
     },
     description: {
-      ...getDescriptionStyle(theme),
+      gridArea: 'description',
+    },
+    error: {
+      gridArea: 'error',
     },
     rightSection: { ...getRightSection(theme) },
     label: {
