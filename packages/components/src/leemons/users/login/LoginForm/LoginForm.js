@@ -102,6 +102,32 @@ const LoginForm = ({
           </Box>
         </Box>
 
+        {/*
+        <Box>
+          <Controller
+            name="center"
+            control={control}
+            rules={{
+              required: errorMessages.passwordRequired,
+            }}
+            render={({ field }) => (
+              <Select
+                label="Select your center"
+                placeholder="Pick one"
+                clearable="Reset"
+                data={[
+                  { label: 'Centro 1', value: 1 },
+                  { label: 'Centro 2', value: 2 },
+                ]}
+                error={errors.center}
+                required
+                {...field}
+              />
+            )}
+          />
+        </Box>
+        */}
+
         <Button
           rounded
           size="xs"

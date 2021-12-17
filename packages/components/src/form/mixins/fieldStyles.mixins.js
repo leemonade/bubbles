@@ -50,6 +50,13 @@ export function getLabelStyle(theme) {
   };
 }
 
+export function getHelpStyle(theme) {
+  return {
+    ...getFontProductive(theme.fontSizes['1'], 400),
+    color: theme.colors.text04,
+  };
+}
+
 export function getRequiredStyle(theme) {
   return {
     color: theme.colors.text04,
@@ -62,15 +69,15 @@ export function getRightSection(theme) {
     color: theme.colors.text05,
   };
 }
-export const getInputSizes = (size, spacing) => {
+export const getInputSizes = (size, spacing, includeHeight = true) => {
   return {
     xs: {
-      height: spacing['7'],
+      height: includeHeight ? spacing['7'] : 'auto',
       ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
-      height: spacing['8'],
+      height: includeHeight ? spacing['8'] : 'auto',
       ...getPaddings(spacing['3'], spacing['3']),
     },
   }[size];
@@ -86,10 +93,13 @@ export const getOrientation = (orientation, spacing) => {
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
       gap: `0 ${spacing['5']}px`,
 
-      '& .mantine-Select-root': {
+      '& .mantine-Select-root .mantine-Select-root': {
         display: 'revert',
       },
       '& .mantine-PasswordInput-root': {
+        display: 'revert',
+      },
+      '& .mantine-Textarea-root': {
         display: 'revert',
       },
     },
