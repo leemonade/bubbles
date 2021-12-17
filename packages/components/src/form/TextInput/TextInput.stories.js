@@ -17,8 +17,13 @@ export default {
   },
 };
 
-const Template = ({test_showRightSection, ...props}) => {
-  return <TextInput {...props} rightSection={test_showRightSection ? <XCircleIcon style={{ height: '1.2rem' }} /> : null} />;
+const Template = ({ test_showRightSection, ...props }) => {
+  return (
+    <TextInput
+      {...props}
+      rightSection={test_showRightSection ? <XCircleIcon style={{ height: '1.2rem' }} /> : null}
+    />
+  );
 };
 
 export const Playground = Template.bind({});
@@ -28,9 +33,9 @@ Playground.args = {
   orientation: 'vertical',
   placeholder: 'Placeholder',
   disabled: false,
+  required: true,
   label: 'Label for text field',
   description: 'Optional descriptive text for this text field ',
-  required: true,
   error: 'Descriptive text for error ',
-  test_showRightSection: false
+  test_showRightSection: false,
 };

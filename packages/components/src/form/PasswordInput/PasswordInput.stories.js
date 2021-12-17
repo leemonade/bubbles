@@ -1,5 +1,5 @@
 import React from 'react';
-import { PasswordInput, PASSWORD_INPUT_SIZES } from './PasswordInput';
+import { PasswordInput, PASSWORD_INPUT_SIZES, PASSWORD_INPUT_ORIENTATIONS } from './PasswordInput';
 import mdx from './PasswordInput.mdx';
 
 export default {
@@ -12,6 +12,7 @@ export default {
   },
   argTypes: {
     size: { options: PASSWORD_INPUT_SIZES, control: { type: 'select' } },
+    orientation: { options: PASSWORD_INPUT_ORIENTATIONS, control: { type: 'select' } },
   },
 };
 
@@ -23,6 +24,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   size: 'sm',
+  orientation: 'vertical',
   placeholder: 'Password',
   label: 'Password',
   description: 'Password must include at least one letter, number and special character',

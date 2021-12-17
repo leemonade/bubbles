@@ -30,7 +30,6 @@ export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
     ...getFontProductive(theme.fontSizes['1']),
-    gridArea: 'error',
   };
 }
 
@@ -39,14 +38,13 @@ export function getDescriptionStyle(theme) {
     color: theme.colors.text04,
     ...getFontProductive(theme.fontSizes['2']),
     marginBottom: theme.spacing['2'],
-    gridArea: 'description',
   };
 }
 
 export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
-    ...getFontProductive(null, 500),
+    ...getFontProductive(theme.fontSizes['2'], 500),
     marginBottom: theme.spacing['2'],
     gridArea: 'label',
   };
@@ -64,17 +62,16 @@ export function getRightSection(theme) {
     color: theme.colors.text05,
   };
 }
-
-export const getSizes = (size, spacing) => {
+export const getInputSizes = (size, spacing) => {
   return {
     xs: {
       height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
       height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
+      ...getPaddings(spacing['3'], spacing['3']),
     },
   }[size];
 };
@@ -88,6 +85,13 @@ export const getOrientation = (orientation, spacing) => {
       gridTemplateRows: `${spacing['5']}px ${spacing['4']}px auto  auto`,
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
       gap: `0 ${spacing['5']}px`,
+
+      '& .mantine-Select-root': {
+        display: 'revert',
+      },
+      '& .mantine-PasswordInput-root': {
+        display: 'revert',
+      },
     },
   };
   return layout[orientation];
