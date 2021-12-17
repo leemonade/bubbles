@@ -26,8 +26,6 @@ const MultiSelect = forwardRef(
     },
     ref
   ) => {
-    console.log(props);
-
     const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp

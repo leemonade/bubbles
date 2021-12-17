@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Group } from '@mantine/core';
 import { AddCurriculumFormStyles } from './AddCurriculumForm.styles';
-import { Select, TextInput } from '../../../../form';
+import { Button, Select, TextInput } from '../../../../form';
 import { Controller, useForm } from 'react-hook-form';
+import { MultiSelect } from '../../../../form/MultiSelect';
+import { isArray } from 'lodash';
 
 export const ADD_CURRICULUM_FORM_MESSAGES = {
   nameLabel: 'Name',
@@ -21,7 +23,10 @@ export const ADD_CURRICULUM_FORM_MESSAGES = {
   programPlaceholder: 'Select...',
   programNothingFound: 'No data',
   tagsLabel: 'Tags',
+  tagsPlaceholder: 'Add tags',
   tagsDescription: 'Enter tags separated by commas',
+  tagsNothingFound: 'No data',
+  tagsCreateLabel: '+ Create {{label}}',
   descriptionLabel: 'Description',
   continueButtonLabel: 'Continue to setup',
 };
@@ -34,14 +39,29 @@ export const ADD_CURRICULUM_FORM_ERROR_MESSAGES = {
   programRequired: 'Field required',
 };
 
-const AddCurriculumForm = ({ messages, errorMessages, selectData = {}, onSubmit }) => {
+const AddCurriculumForm = ({
+  messages,
+  errorMessages,
+  selectData = {},
+  isLoading,
+  onSubmit,
+  onFormChange = () => {},
+}) => {
   const { classes, cx } = AddCurriculumFormStyles({});
 
+  const [tags, setTags] = useState([]);
+
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => onFormChange({ value, name, type }));
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -144,6 +164,7 @@ const AddCurriculumForm = ({ messages, errorMessages, selectData = {}, onSubmit 
                 required
                 error={errors.program}
                 data={selectData.program || []}
+                disabled={!isArray(selectData.program) || selectData.program.length === 0}
                 nothingFound={messages.programNothingFound}
                 searchable
                 {...field}
@@ -153,6 +174,33 @@ const AddCurriculumForm = ({ messages, errorMessages, selectData = {}, onSubmit 
         </Box>
         <Box></Box>
       </Group>
+      <Box>
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <MultiSelect
+              label={messages.tagsLabel}
+              placeholder={messages.tagsPlaceholder}
+              error={errors.tags}
+              data={selectData.tags ? [...selectData.tags, ...tags] : [...tags]}
+              nothingFound={messages.tagsNothingFound}
+              searchable
+              creatable
+              getCreateLabel={(query) => messages.tagsCreateLabel.replace('{{label}}', query)}
+              onCreate={(q) => setTags([...tags, q])}
+              {...field}
+            />
+          )}
+        />
+      </Box>
+      <Box>{/* TODO: Add textarea here */}</Box>
+
+      <Box mt={16}>
+        <Button rounded size="xs" loading={isLoading} loaderPosition="right" type="submit">
+          {messages.continueButtonLabel}
+        </Button>
+      </Box>
     </form>
   );
 };
@@ -163,6 +211,7 @@ AddCurriculumForm.defaultProps = {
 };
 
 AddCurriculumForm.propTypes = {
+  isLoading: PropTypes.bool,
   messages: PropTypes.any,
   errorMessages: PropTypes.any,
   selectData: PropTypes.shape({
@@ -185,6 +234,12 @@ AddCurriculumForm.propTypes = {
       })
     ),
     program: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string,
+      })
+    ),
+    tags: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string,
