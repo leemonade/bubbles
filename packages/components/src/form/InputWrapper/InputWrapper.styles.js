@@ -28,5 +28,8 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     required: {
       ...getRequiredStyle(theme),
     },
+    help: {
+      gridArea: 'error',
+    },
   };
 });

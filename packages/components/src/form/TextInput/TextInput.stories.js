@@ -1,5 +1,5 @@
 import React from 'react';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { TextInput, TEXT_INPUT_SIZES, TEXT_INPUT_ORIENTATION } from './TextInput';
 import mdx from './TextInput.mdx';
 
@@ -18,12 +18,7 @@ export default {
 };
 
 const Template = ({ test_showRightSection, ...props }) => {
-  return (
-    <TextInput
-      {...props}
-      rightSection={test_showRightSection ? <XCircleIcon style={{ height: '1.2rem' }} /> : null}
-    />
-  );
+  return <TextInput {...props} rightSection={test_showRightSection ? <RemoveIcon /> : null} />;
 };
 
 export const Playground = Template.bind({});
@@ -36,6 +31,7 @@ Playground.args = {
   required: true,
   label: 'Label for text field',
   description: 'Optional descriptive text for this text field ',
+  help: 'Help text for text field',
   error: 'Descriptive text for error ',
   test_showRightSection: false,
 };

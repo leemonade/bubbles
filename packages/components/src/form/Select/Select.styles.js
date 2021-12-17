@@ -10,21 +10,6 @@ import {
 
 export const SelectStyles = createStyles((theme, { size, orientation }) => {
   return {
-    root: {
-      ...getOrientation(orientation || 'vertical', theme.spacing),
-    },
-    label: {
-      ...getLabelStyle(theme),
-    },
-    description: {
-      gridArea: 'description',
-    },
-    error: {
-      gridArea: 'error',
-    },
-    required: {
-      ...getRequiredStyle(theme),
-    },
     input: {
       ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing),

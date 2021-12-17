@@ -1,11 +1,10 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { Select as MantineSelect } from '@mantine/core';
+import { Box, Select as MantineSelect } from '@mantine/core';
 import { isNil, isString, isFunction } from 'lodash';
-import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
-import { InputError } from '../InputError';
-import { InputDescription } from '../InputDescription';
+import { useId } from '@mantine/hooks';
+import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 
@@ -15,21 +14,21 @@ export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 const Select = forwardRef(
   (
     {
-      description,
-      size: sizeProp,
-      orientation: orientationProp,
+      radius, // Just to pick it up to not pass to props
       dropdownPosition,
       error,
+      size,
       clearable,
       onChange,
+      onBlur,
+      value,
+      name,
+      data,
       ...props
     },
     ref
   ) => {
-    const size = SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const orientation = SELECT_ORIENTATIONS.includes(orientationProp)
-      ? orientationProp
-      : 'vertical';
+    const uuid = useId();
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
 
     // ······················································
@@ -38,6 +37,7 @@ const Select = forwardRef(
     const [showClear, setShowClear] = useState(false);
 
     const handleChange = (ev) => {
+      console.log(ev);
       setShowClear(!isNil(ev));
 
       if (isFunction(onChange)) {
@@ -52,30 +52,35 @@ const Select = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = SelectStyles({ size, orientation });
+    const { classes, cx } = SelectStyles({ size });
 
     return (
-      <MantineSelect
-        {...props}
-        ref={ref}
-        size={size}
-        onChange={handleChange}
-        rightSection={
-          isClearable && showClear ? (
-            <ActionButton
-              leftIcon={<RemoveIcon />}
-              description={clearable}
-              size={size}
-              onClick={handleClear}
-            />
-          ) : (
-            <ChevDownIcon className={classes.rightSection} />
-          )
-        }
-        error={!isNil(error) && error !== '' ? <InputError message={error} /> : null}
-        description={!isNil(description) ? <InputDescription message={description} /> : null}
-        classNames={classes}
-      />
+      <InputWrapper {...props} uuid={uuid} size={size} error={error}>
+        <MantineSelect
+          ref={ref}
+          id={uuid}
+          size={size}
+          data={data}
+          onChange={handleChange}
+          onBlur={onBlur}
+          value={value}
+          name={name}
+          rightSection={
+            isClearable && showClear ? (
+              <ActionButton
+                leftIcon={<RemoveIcon />}
+                description={clearable}
+                size={size}
+                onClick={handleClear}
+              />
+            ) : (
+              <ChevDownIcon className={classes.rightSection} />
+            )
+          }
+          classNames={classes}
+          error={!isNil(error) && error != ''}
+        />
+      </InputWrapper>
     );
   }
 );

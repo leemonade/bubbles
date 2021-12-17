@@ -1,1 +1,1 @@
-export * from 'BigCalendar';
+export * from './BigCalendar';

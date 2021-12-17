@@ -33,6 +33,7 @@ Playground.args = {
   label: 'Label for select',
   placeholder: 'Select one',
   description: 'Optional descriptive text for this select field ',
+  help: 'Help text for textarea',
   disabled: false,
   required: true,
   searchable: false,

@@ -12,26 +12,11 @@ import {
 
 export const PasswordInputStyles = createStyles((theme, { size, orientation }) => {
   return {
-    root: {
-      ...getOrientation(orientation || 'vertical', theme.spacing),
-    },
     input: {
       ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
     },
-    description: {
-      gridArea: 'description',
-    },
-    error: {
-      gridArea: 'error',
-    },
     rightSection: { ...getRightSection(theme) },
-    label: {
-      ...getLabelStyle(theme),
-    },
-    required: {
-      ...getRequiredStyle(theme),
-    },
   };
 });
