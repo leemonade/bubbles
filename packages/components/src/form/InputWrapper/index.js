@@ -1,8 +1,1 @@
-import {
-  InputWrapper,
-  INPUT_WRAPPER_AS,
-  INPUT_WRAPPER_ORIENTATION,
-  INPUT_WRAPPER_SIZES,
-} from './InputWrapper';
-
-export { InputWrapper, INPUT_WRAPPER_AS, INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES };
+export * from './InputWrapper';

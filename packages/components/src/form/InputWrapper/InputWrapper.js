@@ -59,7 +59,7 @@ InputWrapper.propTypes = {
   placeholder: PropTypes.string,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   help: PropTypes.string,
 };
 
