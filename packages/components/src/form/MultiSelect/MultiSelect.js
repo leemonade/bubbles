@@ -93,7 +93,7 @@ MultiSelect.propTypes = {
   required: PropTypes.bool,
   size: PropTypes.oneOf(MULTI_SELECT_SIZES),
   orientation: PropTypes.oneOf(MULTI_SELECT_ORIENTATIONS),
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   creatable: PropTypes.bool,

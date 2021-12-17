@@ -20,7 +20,7 @@ const InputError = ({ message }) => {
 };
 
 InputError.propTypes = {
-  message: PropTypes.any,
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export { InputError };

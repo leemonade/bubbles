@@ -2,8 +2,8 @@ import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
-import { isNil, isString, isFunction } from 'lodash';
-import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
+import { isFunction, isNil, isString } from 'lodash';
+import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES } from '../InputWrapper';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
 import { ActionButton } from '../ActionButton';
@@ -93,7 +93,7 @@ Select.propTypes = {
   required: PropTypes.bool,
   size: PropTypes.oneOf(SELECT_SIZES),
   orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
 };
