@@ -7,7 +7,7 @@ import { InformationCircleIcon, ExclamationIcon, XIcon } from '@heroicons/react/
 const ALERT_ICONS = { InformationCircleIcon, CheckIcon, ExclamationIcon, XIcon };
 
 export default {
-  title: 'Atoms/Misc/Alert',
+  title: 'Atoms/Feedback/Alert',
   parameters: {
     component: Alert,
     docs: {
