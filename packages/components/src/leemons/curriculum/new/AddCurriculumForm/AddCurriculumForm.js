@@ -61,11 +61,11 @@ const AddCurriculumForm = ({
   useEffect(() => {
     const subscription = watch((value, { name, type }) => onFormChange({ value, name, type }));
     return () => subscription.unsubscribe();
-  }, [watch]);
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Group grow>
+      <Group align="start" grow>
         <Box>
           <Controller
             name="name"
@@ -128,7 +128,7 @@ const AddCurriculumForm = ({
         </Box>
       </Group>
 
-      <Group grow>
+      <Group align="start" grow>
         <Box>
           <Controller
             name="center"
@@ -214,6 +214,8 @@ AddCurriculumForm.propTypes = {
   isLoading: PropTypes.bool,
   messages: PropTypes.any,
   errorMessages: PropTypes.any,
+  onFormChange: PropTypes.func,
+  onSubmit: PropTypes.func,
   selectData: PropTypes.shape({
     country: PropTypes.arrayOf(
       PropTypes.shape({

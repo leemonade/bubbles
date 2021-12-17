@@ -4,7 +4,7 @@ import { MultiSelectStyles } from './MultiSelect.styles';
 import { isArray, isFunction, isNil, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
 import { ActionButton } from '../ActionButton';
-import { ChevDownIcon, RemoveIcon } from '../../../../icons/outline';
+import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
 import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES } from '../InputWrapper';
