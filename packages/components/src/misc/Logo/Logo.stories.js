@@ -3,7 +3,7 @@ import { Logo, LOGO_VARIANTS } from './Logo';
 import mdx from './Logo.mdx';
 
 export default {
-  title: 'Misc/Logo',
+  title: 'Atoms/Misc/Logo',
   parameters: {
     component: Logo,
     docs: {

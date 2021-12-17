@@ -1,11 +1,10 @@
 import React from 'react';
-import { XCircleIcon } from '@heroicons/react/solid';
-
-import { TextInput, TINPUT_SIZES, TINPUT_ORIENTATION } from './TextInput';
+import { RemoveIcon } from '@bubbles-ui/icons/outline';
+import { TextInput, TEXT_INPUT_SIZES, TEXT_INPUT_ORIENTATION } from './TextInput';
 import mdx from './TextInput.mdx';
 
 export default {
-  title: 'Form/Input/TextInput',
+  title: 'Molecules/Form/TextInput',
   parameters: {
     component: TextInput,
     docs: {
@@ -13,24 +12,26 @@ export default {
     },
   },
   argTypes: {
-    size: { options: TINPUT_SIZES, control: { type: 'select' } },
-    orientation: { options: TINPUT_ORIENTATION, control: { type: 'select' } },
+    size: { options: TEXT_INPUT_SIZES, control: { type: 'select' } },
+    orientation: { options: TEXT_INPUT_ORIENTATION, control: { type: 'select' } },
   },
 };
 
-const Template = (props) => {
-  return <TextInput {...props} rightSection={<XCircleIcon style={{ height: '1.2rem' }} />} />;
+const Template = ({ test_showRightSection, ...props }) => {
+  return <TextInput {...props} rightSection={test_showRightSection ? <RemoveIcon /> : null} />;
 };
 
-export const DefaultTextInput = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultTextInput.args = {
+Playground.args = {
   size: 'sm',
   orientation: 'vertical',
   placeholder: 'Placeholder',
   disabled: false,
-  label: 'Label for texfield',
-  description: 'Optional descriptive text for this text field ',
   required: true,
+  label: 'Label for text field',
+  description: 'Optional descriptive text for this text field ',
+  help: 'Help text for text field',
   error: 'Descriptive text for error ',
+  test_showRightSection: false,
 };

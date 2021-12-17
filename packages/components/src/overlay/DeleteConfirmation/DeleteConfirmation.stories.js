@@ -5,7 +5,7 @@ import { Button } from '../../form';
 import { DeleteConfirmation } from './DeleteConfirmation';
 
 export default {
-  title: 'Overlay/Modals/DeleteConfirmation',
+  title: 'Organisms/Overlay/Modals/DeleteConfirmation',
   parameters: {
     component: DeleteConfirmation,
   },

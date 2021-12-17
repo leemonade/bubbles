@@ -1,10 +1,23 @@
 import { createStyles } from '@mantine/styles';
-import { getFontExpressive } from '../../theme.mixins';
+import { getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const TextStyles = createStyles((theme, {}) => {
+export const TextStyles = createStyles((theme, { role, transform }) => {
+  let fontStyles = {};
+  switch (role) {
+    case 'productive':
+      fontStyles = getFontProductive();
+      break;
+    case 'expressive':
+      fontStyles = getFontExpressive();
+      break;
+    default:
+      break;
+  }
+
   return {
     root: {
-      ...getFontExpressive(),
+      ...fontStyles,
+      textTransform: transform,
     },
   };
 });

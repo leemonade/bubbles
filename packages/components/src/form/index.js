@@ -1,21 +1,12 @@
-import { ActionButton } from './ActionButton/ActionButton';
-import { Button } from './Button/Button';
-import { IconButton } from './IconButton/IconButton';
-import { Input } from './Input/Input';
-import { InputWrapper } from './InputWrapper/InputWrapper';
-import { PasswordInput } from './PasswordInput/PasswordInput';
-import { Textarea } from './Textarea/Textarea';
-import { TextInput } from './TextInput/TextInput';
-import { Switch } from './Switch';
-
-export {
-  ActionButton,
-  Button,
-  IconButton,
-  Input,
-  InputWrapper,
-  PasswordInput,
-  Textarea,
-  TextInput,
-  Switch,
-};
+export * from './InputDescription';
+export * from './PasswordInput';
+export * from './Button/Button';
+export * from './InputWrapper';
+export * from './ActionButton';
+export * from './IconButton';
+export * from './InputError';
+export * from './TextInput';
+export * from './Textarea';
+export * from './Select';
+export * from './Switch';
+export * from './Input';

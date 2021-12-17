@@ -1,14 +1,10 @@
 import { createStyles } from '@mantine/styles';
-import { getFocusStyles } from '../../theme.mixins';
 import {
-  getInputStyle,
-  getErrorStyle,
   getDescriptionStyle,
   getLabelStyle,
+  getOrientation,
   getRequiredStyle,
   getRightSection,
-  getOrientation,
-  getSizes,
 } from '../mixins/fieldStyles.mixins';
 
 export const InputWrapperStyles = createStyles((theme, { size, orientation }) => {
@@ -16,20 +12,14 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     root: {
       ...getOrientation(orientation || 'vertical', theme.spacing),
     },
-    input: {
-      ...getFocusStyles(theme),
-      ...getSizes(size || 'md', theme.spacing),
-      ...getInputStyle(theme),
-    },
     inputRoot: {
       display: 'contents',
     },
-    error: {
-      ...getErrorStyle(theme),
-       
-    },
     description: {
-      ...getDescriptionStyle(theme),
+      gridArea: 'description',
+    },
+    error: {
+      gridArea: 'error',
     },
     rightSection: { ...getRightSection(theme) },
     label: {
@@ -38,6 +28,8 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     required: {
       ...getRequiredStyle(theme),
     },
+    help: {
+      gridArea: 'error',
+    },
   };
 });
-

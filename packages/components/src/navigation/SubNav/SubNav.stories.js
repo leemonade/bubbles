@@ -3,7 +3,7 @@ import { SubNav } from './SubNav';
 import mdx from './SubNav.mdx';
 
 export default {
-  title: 'Navigation/SubNav',
+  title: 'Organisms/Navigation/SubNav',
   parameters: {
     component: SubNav,
     docs: {

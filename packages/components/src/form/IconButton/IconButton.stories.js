@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import {
   IconButton,
   ICON_BUTTON_SIZES,
@@ -9,7 +9,7 @@ import {
 import mdx from './IconButton.mdx';
 
 export default {
-  title: 'Form/IconButton',
+  title: 'Atoms/Form/IconButton',
   docs: {
     page: mdx,
   },

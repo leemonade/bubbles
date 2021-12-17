@@ -1,4 +1,3 @@
-import { Paragraph } from './Paragraph';
-import { Text } from './Text';
-
-export { Paragraph, Text };
+export * from './Paragraph';
+export * from './Title';
+export * from './Text';

@@ -7,7 +7,7 @@ import { TabPane as Tab } from './TabPanelList/TabPane';
 import mdx from './Tabs.mdx';
 
 export default {
-  title: 'Navigation/Tabs',
+  title: 'Organisms/Navigation/Tabs',
   parameters: {
     component: Tabs,
     docs: {

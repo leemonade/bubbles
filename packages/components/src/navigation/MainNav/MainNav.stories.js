@@ -6,7 +6,7 @@ import { MainNav } from './MainNav';
 import mdx from './MainNav.mdx';
 
 export default {
-  title: 'Navigation/MainNav',
+  title: 'Organisms/Navigation/MainNav',
   parameters: {
     component: MainNav,
     docs: {

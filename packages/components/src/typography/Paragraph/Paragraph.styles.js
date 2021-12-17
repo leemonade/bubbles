@@ -1,6 +1,11 @@
-export const ParagraphStyles = (theme) => {
+import { createStyles } from '@mantine/styles';
+
+export const ParagraphStyles = createStyles((theme, { align }) => {
   return {
-    fontFamily: "'Inter', sans-serif",
-    marginTop: 10,
+    root: {
+      textAlign: align,
+      marginTop: theme.spacing['2'],
+      color: theme.colors.text03,
+    },
   };
-};
+});

@@ -8,7 +8,7 @@ import { InputWrapper } from '../../form/InputWrapper/InputWrapper';
 import Translator from './../../leemons/Translator/Translator';
 
 export default {
-  title: 'Overlay/Panels/Edit',
+  title: 'Organisms/Overlay/Panels/Edit',
   parameters: {
     component: EditPanel,
     docs: {

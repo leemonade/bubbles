@@ -55,6 +55,7 @@ const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {
   const result = {
     fontFamily: type === FONT_TYPES.EXPRESSIVE ? "'Lexend', sans-serif" : "'Inter', sans-serif",
+    lineHeight: '1rem',
   };
 
   if (size) {

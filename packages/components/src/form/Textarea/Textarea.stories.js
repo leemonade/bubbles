@@ -1,32 +1,41 @@
 import React from 'react';
-import { Textarea, TAINPUT_ORIENTATION } from './Textarea';
+import { Textarea, TEXTAREA_ORIENTATIONS, TEXTAREA_SIZES } from './Textarea';
 import mdx from './Textarea.mdx';
 
 export default {
-  title: 'Form/Input/Textarea',
+  title: 'Molecules/Form/Textarea',
   parameters: {
     component: Textarea,
     docs: {
       page: mdx,
     },
+    design: {
+      type: 'figma',
+      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+    },
   },
   argTypes: {
-    orientation: { options: TAINPUT_ORIENTATION, control: { type: 'select' } },
+    size: { options: TEXTAREA_SIZES, control: { type: 'select' } },
+    orientation: { options: TEXTAREA_ORIENTATIONS, control: { type: 'select' } },
   },
 };
 
-const Template = (props) => {
+const Template = ({ ...props }) => {
   return <Textarea {...props} />;
 };
 
-export const DefaultTextarea = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultTextarea.args = {
-  placeholder: 'Escribe aquí tu comentario',
-  disabled: false,
+Playground.args = {
+  size: 'sm',
   orientation: 'vertical',
-  label: 'Label for texfield',
-  description: 'Optional descriptive text for this text field ',
+  placeholder: 'Placeholder',
+  disabled: false,
   required: true,
-  error: 'Descriptive text error ',
+  autosize: true,
+  minRows: 2,
+  label: 'Label for textarea',
+  help: 'Help text for textarea',
+  description: 'Optional descriptive text for this textarea ',
+  error: 'Descriptive text for error ',
 };

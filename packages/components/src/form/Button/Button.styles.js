@@ -162,15 +162,26 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = createStyles((theme, { size, color }) => {
+export const ButtonStyles = createStyles((theme, { size, color, position, variant }) => {
+  const currentVariant = getVariant(variant, theme, color);
+
   return {
     root: {
       ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing),
     },
+    inner: {
+      justifyContent: position === 'apart' ? 'space-between' : position,
+    },
+    loading: {
+      border: 'transparent',
+      svg: {
+        stroke: currentVariant.color,
+      },
+    },
     rightIcon: {
       marginLeft: pxToRem(8),
-      marginRight: pxToRem(-8), 
+      marginRight: pxToRem(-8),
     },
     leftIcon: {
       marginRight: pxToRem(8),
