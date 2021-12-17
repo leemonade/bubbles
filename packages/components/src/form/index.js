@@ -6,5 +6,6 @@ export * from './Button/Button';
 export * from './InputWrapper';
 export * from './InputError';
 export * from './TextInput';
+export * from './Select';
 export * from './Switch';
 export * from './Input';
