@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Group } from '@mantine/core';
+import { Box, Group } from '@mantine/core';
 import { Tooltip, TOOLTIP_COLORS, TOOLTIP_POSITION, TOOLTIP_PLACEMENT, TOOLTIP_SIZES } from './Tooltip';
 import mdx from './Tooltip.mdx';
+import { Button } from '../../form/Button';
 import { ChevronRightIcon } from '@heroicons/react/outline';
 
 export default {
-  title: 'Overlay/Tooltip',
+  title: 'Atoms/Tooltip',
   parameters: {
     component: Tooltip,
     docs: {
@@ -41,7 +42,7 @@ const Template = ({children, label, ...props }) => {
          display: 'flex',
          alignItems: 'center',
          justifyContent: 'center',
-         height: '130px'
+         height: '200px'
        }}>
         <Tooltip {...props} label={label} opened={opened} >
           <Button variant="outline" onClick={() => setOpened((o) => !o)}>

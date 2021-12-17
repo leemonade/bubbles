@@ -65,7 +65,7 @@ export const TooltipStyles = createStyles((theme, { color, size }) => {
       justifyContent: 'center',
       alignItems: 'center',
       'svg': {
-        marginLeft: '5px',
+        marginLeft: pxToRem(5),
       }
     },
   };

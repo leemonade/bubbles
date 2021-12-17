@@ -14,10 +14,10 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
-- [Component API](#component-api)
 - [Tooltip Color](#tooltip-color)
 - [Tooltip Size](#tooltip-size)
 - [Tooltip Position](#tooltip-position)
+- [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
@@ -28,12 +28,6 @@ Tooltip is ...
 <ThemeProvider>
   <Tooltip label={ 'Share' }>Tooltip</Tooltip>
 </ThemeProvider>
-
-## Component API
-
-<Preview>
-  <Story id="overlay-tooltip--playground" />
-</Preview>
 
 ## Tooltip Color
 <ThemeProvider>
@@ -86,7 +80,7 @@ Tooltip is ...
     </Tooltip>
      <Tooltip label={ 'Share' } style={{ padding: '10px' }} withArrow={false}>
       <Button variant="outline">
-        withArrow false
+        top false
       </Button>
     </Tooltip>
   </Group>
@@ -106,9 +100,9 @@ Tooltip is ...
         left End 
       </Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} withArrow={false}>
+     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="left"  withArrow={false}>
       <Button variant="outline">
-        withArrow false
+        left false
       </Button>
     </Tooltip>
   </Group>
@@ -128,9 +122,9 @@ Tooltip is ...
         right End 
       </Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} withArrow={false}>
+     <Tooltip label={ 'Share' } style={{ padding: '10px' }}position="right" withArrow={false}>
       <Button variant="outline">
-        withArrow false
+        right false
       </Button>
     </Tooltip>
   </Group>
@@ -150,13 +144,19 @@ Tooltip is ...
         bottom End 
       </Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} withArrow={false}>
+     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="bottom"  withArrow={false}>
       <Button variant="outline">
-        withArrow false
+        bottom false
       </Button>
     </Tooltip>
   </Group>
 </ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-tooltip--playground" />
+</Preview>
 
 <Props of={Tooltip}/>
 
