@@ -38,8 +38,8 @@ export const AlertStyles = createStyles((theme, { variant, color }) => {
       borderRadius: variant === 'block' ? pxToRem(2) : pxToRem(0),
       padding:
         variant === 'block'
-          ? `${pxToRem(16)} ${pxToRem(16)} ${pxToRem(20)} ${pxToRem(16)}`
-          : `${pxToRem(12)} ${pxToRem(24)} ${pxToRem(12)} ${pxToRem(24)}`,
+          ? `${pxToRem(14)} ${pxToRem(16)} ${pxToRem(20)} ${pxToRem(20)}`
+          : `${pxToRem(14)} ${pxToRem(16)} ${pxToRem(14)} ${pxToRem(24)}`,
     },
     message: {
       '> div': {
