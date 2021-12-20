@@ -3,8 +3,6 @@ import * as stories from './Alert.stories.js';
 import { Alert } from './Alert.js';
 import { Box, Group } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
-import { CheckIcon } from '@heroicons/react/outline';
-import { InformationCircleIcon, ExclamationIcon, XIcon } from '@heroicons/react/solid';
 
 # Alert
 
@@ -27,13 +25,7 @@ import { InformationCircleIcon, ExclamationIcon, XIcon } from '@heroicons/react/
 Alert is
 
 <ThemeProvider>
-  <Alert
-    title="Info"
-    color="info"
-    variant="inline"
-    action="Do something"
-    icon={InformationCircleIcon()}
-  >
+  <Alert title="Info" severity="info" variant="inline" action="Do something">
     Brochure is missing
   </Alert>
 </ThemeProvider>
@@ -45,21 +37,14 @@ We have two alert varians: **Inline (by default)**, and Block
 <ThemeProvider>
   <Alert
     title="Info"
-    color="info"
+    severity="info"
     variant="inline"
     action="Do something"
-    icon={InformationCircleIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Brochure is missing
   </Alert>
-  <Alert
-    title="Info"
-    color="info"
-    variant="block"
-    action="Do something"
-    icon={InformationCircleIcon()}
-  >
+  <Alert title="Info" severity="info" variant="block" action="Do something">
     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
     consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
   </Alert>
@@ -72,50 +57,45 @@ And we have four different colors: Success (green), Info (blue), Warning (yellow
 <ThemeProvider>
   <Alert
     title="Success"
-    color="success"
+    severity="success"
     variant="inline"
     action="Do something"
-    icon={CheckIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Brochure is missing
   </Alert>
   <Alert
     title="Info"
-    color="info"
+    severity="info"
     variant="inline"
     action="Do something"
-    icon={InformationCircleIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Brochure is missing
   </Alert>
   <Alert
     title="Warning"
-    color="warning"
+    severity="warning"
     variant="inline"
     action="Do something"
-    icon={ExclamationIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Brochure is missing
   </Alert>
   <Alert
     title="Error"
-    color="error"
+    severity="error"
     variant="inline"
     action="Do something"
-    icon={XIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Brochure is missing
   </Alert>
   <Alert
     title="Success"
-    color="success"
+    severity="success"
     variant="block"
     action="Do something"
-    icon={CheckIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
@@ -123,10 +103,9 @@ And we have four different colors: Success (green), Info (blue), Warning (yellow
   </Alert>
   <Alert
     title="Info"
-    color="info"
+    severity="info"
     variant="block"
     action="Do something"
-    icon={InformationCircleIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
@@ -134,10 +113,9 @@ And we have four different colors: Success (green), Info (blue), Warning (yellow
   </Alert>
   <Alert
     title="Warning"
-    color="warning"
+    severity="warning"
     variant="block"
     action="Do something"
-    icon={ExclamationIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
@@ -145,10 +123,9 @@ And we have four different colors: Success (green), Info (blue), Warning (yellow
   </Alert>
   <Alert
     title="Error"
-    color="error"
+    severity="error"
     variant="block"
     action="Do something"
-    icon={XIcon()}
     style={{ marginBottom: '1rem' }}
   >
     Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
@@ -159,7 +136,7 @@ And we have four different colors: Success (green), Info (blue), Warning (yellow
 ## Component API
 
 <Preview>
-  <Story id="misc-alert--playground" />
+  <Story id="atoms-feedback-alert--playground" />
 </Preview>
 
 <Props of={Alert} />

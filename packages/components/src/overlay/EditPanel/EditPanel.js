@@ -38,44 +38,38 @@ export const EditPanel = forwardRef(
               <Group className={classes.Actions}>
                 <Box m={0}>
                   {props.ActionBack && (
-                    <ActionButton leftIcon={<ChevronLeftIcon />}>
-                      {props.LabelActionBack}
-                    </ActionButton>
+                    <ActionButton icon={<ChevronLeftIcon />}>{props.LabelActionBack}</ActionButton>
                   )}
                 </Box>
                 <Group className={cx(classes.RRActions, classes.RRActionsRight)}>
                   <Box m={0}>
                     {props.ActionExpand && (
                       <ActionButton
-                        leftIcon={<ArrowsExpandIcon />}
-                        description="Open as page"
+                        icon={<ArrowsExpandIcon />}
+                        tooltip="Open as page"
                       ></ActionButton>
                     )}
                     {props.ActionEdit && (
                       <ActionButton
-                        leftIcon={<PencilIcon />}
-                        description={props.LabelActionEdit}
+                        icon={<PencilIcon />}
+                        tooltip={props.LabelActionEdit}
                       ></ActionButton>
                     )}
                     {props.ActionDelete && (
                       <ActionButton
-                        leftIcon={<TrashIcon />}
-                        description={props.LabelActionDelete}
+                        icon={<TrashIcon />}
+                        tooltip={props.LabelActionDelete}
                       ></ActionButton>
                     )}
                     {props.ActionMore && (
                       <ActionButton
-                        leftIcon={<DotsHorizontalIcon />}
-                        description={props.LabelActionMore}
+                        icon={<DotsHorizontalIcon />}
+                        tooltip={props.LabelActionMore}
                       ></ActionButton>
                     )}
                   </Box>
                   <Box m={0}>
-                    <ActionButton
-                      leftIcon={<XIcon />}
-                      description="Close"
-                      onClick={onClose}
-                    ></ActionButton>
+                    <ActionButton icon={<XIcon />} tooltip="Close" onClick={onClose}></ActionButton>
                   </Box>
                 </Group>
               </Group>
@@ -84,40 +78,33 @@ export const EditPanel = forwardRef(
                 <Group className={classes.RRActions}>
                   {props.ActionBack && (
                     <ActionButton
-                      leftIcon={<ChevronLeftIcon />}
-                      description={props.LabelActionBack}
+                      icon={<ChevronLeftIcon />}
+                      tooltip={props.LabelActionBack}
                     ></ActionButton>
                   )}
                   {props.ActionExpand && (
-                    <ActionButton
-                      leftIcon={<ArrowsExpandIcon />}
-                      description="Open as page"
-                    ></ActionButton>
+                    <ActionButton icon={<ArrowsExpandIcon />} tooltip="Open as page"></ActionButton>
                   )}
                   {props.ActionEdit && (
                     <ActionButton
-                      leftIcon={<PencilIcon />}
-                      description={props.LabelActionEdit}
+                      icon={<PencilIcon />}
+                      tooltip={props.LabelActionEdit}
                     ></ActionButton>
                   )}
                   {props.ActionDelete && (
                     <ActionButton
-                      leftIcon={<TrashIcon />}
-                      description={props.LabelActionDelete}
+                      icon={<TrashIcon />}
+                      tooltip={props.LabelActionDelete}
                     ></ActionButton>
                   )}
                   {props.ActionMore && (
                     <ActionButton
-                      leftIcon={<DotsHorizontalIcon />}
-                      description={props.LabelActionMore}
+                      icon={<DotsHorizontalIcon />}
+                      tooltip={props.LabelActionMore}
                     ></ActionButton>
                   )}
                 </Group>
-                <ActionButton
-                  leftIcon={<XIcon />}
-                  description="Close"
-                  onClick={onClose}
-                ></ActionButton>
+                <ActionButton icon={<XIcon />} tooltip="Close" onClick={onClose}></ActionButton>
               </Group>
             )}
 

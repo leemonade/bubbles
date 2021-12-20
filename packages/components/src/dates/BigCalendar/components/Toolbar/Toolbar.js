@@ -38,13 +38,13 @@ export const ToolBar = ({
           </Box>
           <ActionButton
             onClick={() => onNavigate(navigate.PREVIOUS)}
-            description={messages.previous}
-            leftIcon={<ChevronLeftIcon style={{ height: 20 }} />}
+            tooltip={messages.previous}
+            icon={<ChevronLeftIcon style={{ height: 20 }} />}
           />
           <ActionButton
             onClick={() => onNavigate(navigate.NEXT)}
-            description={messages.next}
-            leftIcon={<ChevronRightIcon style={{ height: 20 }} />}
+            tooltip={messages.next}
+            icon={<ChevronRightIcon style={{ height: 20 }} />}
           />
         </Group>
         <Box>

@@ -28,7 +28,7 @@ const Template = ({ test_showLeftIcon, test_showRightIcon, ...props }) => {
     <ActionButton
       {...props}
       rightIcon={test_showRightIcon ? <ChevronRightIcon /> : null}
-      leftIcon={test_showLeftIcon ? <ExpandDiagonalIcon /> : null}
+      icon={test_showLeftIcon ? <ExpandDiagonalIcon /> : null}
       {...props}
     />
   );
@@ -40,7 +40,8 @@ Playground.args = {
   size: 'sm',
   color: 'positive',
   label: '',
-  description: 'Expand',
+  tooltip: 'Expand',
+  rounded: false,
   test_showLeftIcon: true,
   test_showRightIcon: false,
 };
