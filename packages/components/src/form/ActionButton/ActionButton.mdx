@@ -1,9 +1,9 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
-import * as stories from './ActionButton.stories.js';
-import { ActionButton } from './ActionButton.js';
-import { Group, Box, Tooltip } from '@mantine/core';
+import { Group, Box } from '@mantine/core';
 import { DotsHorizontalIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { ThemeProvider } from './../../ThemeProvider';
+import * as stories from './ActionButton.stories.js';
+import { ActionButton } from './ActionButton.js';
 
 # ActionButton
 
@@ -28,17 +28,14 @@ ActionButtons can have only the icon or also include a label with descriptive te
 
 <ThemeProvider>
   <Group style={{ gap: 32 }} mt="24px" mb="44px" mx="2px">
-    <Tooltip position="bottom" label="Expand">
-      <ActionButton
-        size="sm"
-        aria-label="Expand"
-        title="Expand"
-        leftIcon={<DotsHorizontalIcon />}
-      ></ActionButton>
-    </Tooltip>
-    <ActionButton size="sm" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-      Expand
-    </ActionButton>
+    <Box>
+      <ActionButton size="sm" tooltip="Expand" icon={<DotsHorizontalIcon />} />
+    </Box>
+    <Box>
+      <ActionButton size="sm" title="Expand" icon={<DotsHorizontalIcon />}>
+        Expand
+      </ActionButton>
+    </Box>
   </Group>
 </ThemeProvider>
 
@@ -48,61 +45,48 @@ We have two sizes xs and sm, by default we will use the size sm. There are aposi
 
 <ThemeProvider>
   <Group style={{ gap: 32 }} mt="24px" mx="2px">
-    <Tooltip position="bottom" label="Expand">
-      <ActionButton
-        size="sm"
-        aria-label="Expand"
-        title="Expand"
-        leftIcon={<DotsHorizontalIcon />}
-      ></ActionButton>
-    </Tooltip>
-    <ActionButton size="sm" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-      Expand
-    </ActionButton>
-    <Tooltip position="bottom" label="Expand">
-      <ActionButton
-        size="xs"
-        aria-label="Expand"
-        title="Expand"
-        leftIcon={<DotsHorizontalIcon />}
-      ></ActionButton>
-    </Tooltip>
-    <ActionButton size="xs" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-      Expand
-    </ActionButton>
+    <Box>
+      <ActionButton size="sm" tooltip="Expand" icon={<DotsHorizontalIcon />} />
+    </Box>
+    <Box>
+      <ActionButton size="sm" title="Expand" icon={<DotsHorizontalIcon />}>
+        Expand
+      </ActionButton>
+    </Box>
+    <Box>
+      <ActionButton size="xs" tooltip="Expand" icon={<DotsHorizontalIcon />} />
+    </Box>
+    <Box>
+      <ActionButton size="xs" title="Expand" icon={<DotsHorizontalIcon />}>
+        Expand
+      </ActionButton>
+    </Box>
   </Group>
+
   <Group style={{ gap: 32 }} mb="44px" mx="2px">
-    <Tooltip position="bottom" label="Expand">
-      <ActionButton
-        size="sm"
-        color="negative"
-        aria-label="Expand"
-        title="Expand"
-        leftIcon={<DotsHorizontalIcon />}
-      ></ActionButton>
-    </Tooltip>
-    <ActionButton size="sm" color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-      Expand
-    </ActionButton>
-    <Tooltip position="bottom" label="Expand">
-      <ActionButton
-        size="xs"
-        color="negative"
-        aria-label="Expand"
-        title="Expand"
-        leftIcon={<DotsHorizontalIcon />}
-      ></ActionButton>
-    </Tooltip>
-    <ActionButton size="xs" color="negative" title="Expand" leftIcon={<DotsHorizontalIcon />}>
-      Expand
-    </ActionButton>
+    <Box>
+      <ActionButton size="sm" color="negative" tooltip="Expand" icon={<DotsHorizontalIcon />} />
+    </Box>
+    <Box>
+      <ActionButton size="sm" color="negative" title="Expand" icon={<DotsHorizontalIcon />}>
+        Expand
+      </ActionButton>
+    </Box>
+    <Box>
+      <ActionButton size="xs" color="negative" tooltip="Expand" icon={<DotsHorizontalIcon />} />
+    </Box>
+    <Box>
+      <ActionButton size="xs" color="negative" title="Expand" icon={<DotsHorizontalIcon />}>
+        Expand
+      </ActionButton>
+    </Box>
   </Group>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-actionbutton--playground" />
+  <Story id="atoms-form-actionbutton--playground" />
 </Preview>
 
 <Props />
