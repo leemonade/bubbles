@@ -6,6 +6,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
 const replace = require('@rollup/plugin-replace');
 const stripBanner = require('rollup-plugin-strip-banner');
 const { terser } = require('rollup-plugin-terser');
+const styles = require('rollup-plugin-styles');
 const packageJson = require('./package.json');
 
 const baseConfig = {
@@ -20,6 +21,7 @@ const baseConfig = {
     commonjs({
       include: /node_modules/,
     }),
+    styles(),
     babel({
       babelrc: false,
       exclude: ['node_modules/**'],

@@ -1,7 +1,6 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem,  getFontExpressive } from './../../../theme.mixins';
-import { avatarBadge, avatarBadgeNumber, avatarError } from '../../../commons.mixins';
-
+import { pxToRem, getFontExpressive } from '../../theme.mixins';
+import { avatarBadge, avatarBadgeNumber, avatarError } from '../../commons.mixins';
 
 const getSizes = (size, spacing) => {
   return {
@@ -33,7 +32,6 @@ const getSizes = (size, spacing) => {
   }[size];
 };
 
-
 export const AvatarStyles = createStyles((theme, { size, color }) => {
   return {
     root: {
@@ -43,7 +41,7 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       ...getSizes(size || 'md', theme.spacing),
     },
     avatarsolid: {
-        borderColor: `${color}`,
+      borderColor: `${color}`,
     },
     placeholder: {
       background: `${color}`,

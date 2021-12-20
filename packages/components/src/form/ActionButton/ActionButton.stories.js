@@ -23,11 +23,14 @@ export default {
   },
 };
 
-const Template = (props) => {
+const Template = ({ test_showLeftIcon, test_showRightIcon, ...props }) => {
   return (
-    <ActionButton {...props} rightIcon={<ChevronRightIcon />} leftIcon={<ExpandDiagonalIcon />}>
-      {props.label}
-    </ActionButton>
+    <ActionButton
+      {...props}
+      rightIcon={test_showRightIcon ? <ChevronRightIcon /> : null}
+      leftIcon={test_showLeftIcon ? <ExpandDiagonalIcon /> : null}
+      {...props}
+    />
   );
 };
 
@@ -36,8 +39,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   size: 'sm',
   color: 'positive',
-  showLeftIcon: true,
-  showRightIcon: false,
   label: '',
   description: 'Expand',
+  test_showLeftIcon: true,
+  test_showRightIcon: false,
 };

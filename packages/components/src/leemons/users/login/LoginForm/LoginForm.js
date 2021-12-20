@@ -4,12 +4,10 @@ import { Box } from '@mantine/core';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import { useForm, Controller } from 'react-hook-form';
 
-import { TextInput, PasswordInput, Button } from '../../../../form';
+import { TextInput, PasswordInput, Button, Select } from '../../../../form';
 import { LoginFormStyles } from './LoginForm.styles';
 import { Text, Title } from '../../../../typography';
 import { Anchor } from '../../../../navigation';
-
-
 
 export const LOGIN_FORM_MESSAGES = {
   title: 'Login to your account',
@@ -103,6 +101,32 @@ const LoginForm = ({
             </Anchor>
           </Box>
         </Box>
+
+        {/*
+        <Box>
+          <Controller
+            name="center"
+            control={control}
+            rules={{
+              required: errorMessages.passwordRequired,
+            }}
+            render={({ field }) => (
+              <Select
+                label="Select your center"
+                placeholder="Pick one"
+                clearable="Reset"
+                data={[
+                  { label: 'Centro 1', value: 1 },
+                  { label: 'Centro 2', value: 2 },
+                ]}
+                error={errors.center}
+                required
+                {...field}
+              />
+            )}
+          />
+        </Box>
+        */}
 
         <Button
           rounded

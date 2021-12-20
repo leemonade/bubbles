@@ -4,7 +4,7 @@ import { InputError } from './InputError';
 import mdx from './InputError.mdx';
 
 export default {
-  title: 'Form/InputError',
+  title: 'Atoms/Form/InputError',
   parameters: {
     component: InputError,
     docs: {
@@ -22,12 +22,11 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <InputError {...props}>{children}</InputError>;
+  return <InputError {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  message: 'Some errors',
 };

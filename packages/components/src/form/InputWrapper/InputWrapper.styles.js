@@ -16,7 +16,10 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
       display: 'contents',
     },
     description: {
-      ...getDescriptionStyle(theme),
+      gridArea: 'description',
+    },
+    error: {
+      gridArea: 'error',
     },
     rightSection: { ...getRightSection(theme) },
     label: {
@@ -24,6 +27,9 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     },
     required: {
       ...getRequiredStyle(theme),
+    },
+    help: {
+      gridArea: 'error',
     },
   };
 });

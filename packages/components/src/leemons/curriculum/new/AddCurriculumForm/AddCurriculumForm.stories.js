@@ -33,4 +33,26 @@ Playground.args = {
   formError: '',
   messages: ADD_CURRICULUM_FORM_MESSAGES,
   errorMessages: ADD_CURRICULUM_FORM_ERROR_MESSAGES,
+  selectData: {
+    country: [
+      { value: 1, label: 'España' },
+      { value: 2, label: 'Francia' },
+      { value: 3, label: 'Italia' },
+    ],
+    language: [
+      { value: 1, label: 'ES' },
+      { value: 2, label: 'EN' },
+      { value: 3, label: 'FR' },
+    ],
+    center: [
+      { value: 1, label: 'Centro 1' },
+      { value: 2, label: 'Centro 2' },
+      { value: 3, label: 'Centro 3' },
+    ],
+    program: [
+      { value: 1, label: 'Programa 1' },
+      { value: 2, label: 'Programa 2' },
+      { value: 3, label: 'Programa 3' },
+    ],
+  },
 };

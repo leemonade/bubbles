@@ -1,36 +1,41 @@
-import React, { forwardRef } from 'react';
-import { PasswordInput as MantinePasswordInput, Text } from '@mantine/core';
-import { INPUT_SIZES } from '../Input';
+import React, { forwardRef, useMemo } from 'react';
+import { PasswordInput as MantinePasswordInput } from '@mantine/core';
+import { isNil } from 'lodash';
+import { useId } from '@mantine/hooks';
+import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
 import { PasswordInputStyles } from './PasswordInput.styles';
-import { InputError } from '../InputError';
 
-export const PASSWORD_INPUT_SIZES = INPUT_SIZES;
+export const PASSWORD_INPUT_SIZES = INPUT_WRAPPER_SIZES;
+export const PASSWORD_INPUT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
-const InputDescription = ({ className, message }) => {
-  return <Text className={className}>{message}</Text>;
-};
-
-export const PasswordInput = forwardRef(
-  ({ radius, label, description, error, size: sizeProp = 'sm', ...props }, ref) => {
-    const size = PASSWORD_INPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+const PasswordInput = forwardRef(
+  (
+    {
+      radius, // Just to pick it up to not pass to props
+      error,
+      size,
+      placeholder,
+      ...props
+    },
+    ref
+  ) => {
+    const uuid = useId();
 
     const { classes, cx } = PasswordInputStyles({ size });
 
-    const customError = error ? <InputError error={error} /> : undefined;
-
-    if (props.hasOwnProperty('value')) {
-      props.value = props.value || '';
-    }
-
     return (
-      <MantinePasswordInput
-        {...props}
-        ref={ref}
-        description={<InputDescription className={classes.description} message={description} />}
-        error={customError}
-        label={label}
-        classNames={classes}
-      />
+      <InputWrapper {...props} size={size} uuid={uuid} error={error}>
+        <MantinePasswordInput
+          ref={ref}
+          id={uuid}
+          size={size}
+          placeholder={placeholder}
+          classNames={classes}
+          error={!isNil(error) && error != ''}
+        />
+      </InputWrapper>
     );
   }
 );
+
+export { PasswordInput };
