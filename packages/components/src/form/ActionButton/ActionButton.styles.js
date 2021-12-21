@@ -1,17 +1,19 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing) => {
+const getSizes = (size, spacing, iconOnly) => {
   return {
     xs: {
       height: spacing['5'],
-      ...getPaddings(spacing['1'], spacing['1']),
+      width: iconOnly ? spacing['5'] : 'auto',
+      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
       svg: { height: spacing['3'] },
     },
 
     sm: {
       height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['1']),
+      width: iconOnly ? spacing['7'] : 'auto',
+      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
       svg: { height: spacing['4'] },
     },
   }[size];
@@ -52,8 +54,8 @@ const getVariant = (variant, theme, color) => {
 export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }) => {
   return {
     root: {
-      ...getFontExpressive(13, 400),
-      ...getSizes(size || 'md', theme.spacing),
+      ...getFontExpressive(theme.fontSizes['1'], 400),
+      ...getSizes(size || 'md', theme.spacing, iconOnly),
     },
     default: {
       border: '2px solid transparent',
@@ -71,16 +73,6 @@ export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }
     },
     label: {
       with: '100%',
-    },
-    tooltipBody: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.uiBackground05,
-      borderRadius: '2px',
-      ...getFontExpressive(13, 400),
-      ...getPaddings(theme.spacing['1'], theme.spacing['2']),
-      boxShadow: theme.shadows.shadow04,
     },
   };
 });
