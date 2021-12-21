@@ -9,6 +9,10 @@ const Title = ({ order, ...props }) => {
   return <MantineTitle {...props} className={classes.root} />;
 };
 
+Title.defaultProps = {
+  order: 1,
+};
+
 Title.propTypes = {
   order: PropTypes.oneOf([1, 2, 3, 4, 6]),
 };

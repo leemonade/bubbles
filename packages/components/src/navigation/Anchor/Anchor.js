@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text } from '../../typography';
+import { Text, TEXT_ROLES } from '../../typography';
 import { AnchorStyles } from './Anchor.styles';
+
+export const ANCHOR_ROLES = TEXT_ROLES;
 
 const Anchor = ({ as, role, ...props }) => {
   const { classes, cx } = AnchorStyles({});
@@ -16,6 +18,7 @@ Anchor.defaultProps = {
 
 Anchor.propTypes = {
   as: PropTypes.any,
+  role: PropTypes.oneOf(ANCHOR_ROLES),
 };
 
 export { Anchor };

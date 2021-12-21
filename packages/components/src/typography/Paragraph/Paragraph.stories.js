@@ -29,6 +29,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   test_text: 'Test',
-  align: PARAGRAPH_ALIGNS[0],
+  align: 'left',
   transform: '',
 };
