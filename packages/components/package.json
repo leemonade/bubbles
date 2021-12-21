@@ -39,6 +39,7 @@
   "dependencies": {
     "@bubbles-ui/icons": "1.0.0",
     "@heroicons/react": "^1.0.5",
+    "@leemonade/react-dnd-treeview": "^1.5.44",
     "@mantine/core": "^3.1.0",
     "@mantine/dates": "^3.1.0",
     "@mantine/dropzone": "^3.1.0",
