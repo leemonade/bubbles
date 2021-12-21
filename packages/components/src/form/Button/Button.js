@@ -4,7 +4,7 @@ import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_SIZES = ['xs', 'sm'];
-export const BUTTON_VARIANTS = ['default', 'outline', 'link'];
+export const BUTTON_VARIANTS = ['default', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative', 'fatic'];
 export const BUTTON_POSITIONS = ['center', 'right', 'left', 'apart'];
 

@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TrashIcon, PencilIcon } from '@heroicons/react/solid';
-import { TreeStyles } from './Tree.styles';
+import { isNil } from 'lodash';
+import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { ActionButton } from '../../form';
+import { pxToRem } from '../../theme.mixins';
 
 const defaultActions = {
   edit: {
-    icon: PencilIcon,
+    icon: EditWriteIcon,
     tooltip: 'edit',
     handler: 'onEdit',
     showOnHover: true,
     render: null,
   },
   delete: {
-    icon: TrashIcon,
+    icon: DeleteBinIcon,
     handler: 'onDelete',
     tooltip: 'delete',
     showOnHover: true,
@@ -23,8 +24,6 @@ const defaultActions = {
 
 const NodeActions = ({ node, hover, ...props }) => {
   if (node.actions) {
-    const { classes, cx } = TreeStyles({});
-
     return node.actions.map((_action, i) => {
       if (typeof _action === 'string') {
         _action = {
@@ -43,13 +42,14 @@ const NodeActions = ({ node, hover, ...props }) => {
       const Icon = action.icon;
       return (
         <ActionButton
-          title={action.tooltip}
-          color="secondary"
-          circle
-          text
-          className={`${!action.showOnHover || hover ? 'opacity-100' : 'opacity-0'} btn-xs ml-${
-            i === 0 ? 4 : 1
-          }`}
+          tooltip={action.tooltip}
+          rounded
+          size="xs"
+          icon={!isNil(Icon) ? Icon() : null}
+          style={{
+            opacity: !action.showOnHover || hover ? 1 : 0,
+            marginLeft: pxToRem(i === 0 ? 16 : 4),
+          }}
           key={i}
           onClick={(e) => {
             e.stopPropagation();
@@ -63,9 +63,7 @@ const NodeActions = ({ node, hover, ...props }) => {
               }
             }
           }}
-        >
-          {Icon && <Icon className="w-4 h-4" />}
-        </ActionButton>
+        />
       );
     });
   }

@@ -1,4 +1,4 @@
-import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Story, Props, Source, Preview, ArgsTable } from '@storybook/addon-docs';
 import * as stories from './Tree.stories.js';
 import { Tree } from './Tree.js';
 import { Box } from '@mantine/core';
@@ -22,17 +22,15 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 Tree is ...
 
-<ThemeProvider>
-  <Tree>Tree</Tree>
-</ThemeProvider>
+<ThemeProvider></ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="navigation-tree--playground" />
+  <Story id="molecules-navigation-tree--playground" />
 </Preview>
 
-<Props />
+<ArgsTable of={Tree} />
 
 ## References
 

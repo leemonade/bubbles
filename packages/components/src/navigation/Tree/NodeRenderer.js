@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import cln from 'classnames';
-import { PlusCircleIcon } from '@heroicons/react/outline';
+import { isString } from 'lodash';
+import { Box } from '@mantine/core';
+import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { useDragOver } from '@leemonade/react-dnd-treeview';
-import Button from '../Button';
-import NodeActions from './NodeActions';
+import { Button } from '../../form';
+import { Text } from '../../typography';
+import { NodeActions } from './NodeActions';
+import { TreeStyles } from './Tree.styles';
 
-export default function NodeRenderer({
+const NodeRenderer = ({
   node,
   depth,
   isOpen,
@@ -21,8 +24,8 @@ export default function NodeRenderer({
   lowerSiblingsCount,
   hasOpenSiblings,
   siblingIndex,
-  ...otherProps
-}) {
+  ...props
+}) => {
   const [showButton, setShowButton] = useState(false);
   const [hover, setHover] = useState(false);
   const { type } = node;
@@ -61,19 +64,20 @@ export default function NodeRenderer({
       onAdd(node);
     }
   };
+
+  const { classes, cx } = TreeStyles({}, { name: 'Tree' });
   return (
-    <div
-      className={cln('tree-node relative flex items-center h-8 rounded group', {
-        'bg-whitecursor-pointer': hasChild && !isSelected,
-        'bg-gray-10': hover && !isButton,
-        'border border-transparent hover:border-secondary pl-2':
-          !hasChild && !isSelected && !isButton,
-        'bg-primary-100 border border-dashed border-primary pl-2': isSelected,
-        'transition-all ease-out transform': isButton,
-        'pr-2': !isButton,
-        hidden: isButton && hasOpenSiblings,
-        'opacity-0 -translate-x-2': isButton && !showButton,
-        'opacity-100': isButton && showButton,
+    <Box
+      className={cx(classes.treeNode, {
+        [classes.nodeDefault]: !isButton,
+        [classes.nodeDefaultHover]: hover && !isButton,
+        [classes.nodeWithChildren]: hasChild && !isSelected,
+        [classes.nodeNoChildren]: !hasChild && !isSelected && !isButton,
+        [classes.nodeSelected]: isSelected,
+        [classes.nodeButton]: isButton,
+        [classes.nodeHidden]: isButton && hasOpenSiblings,
+        [classes.nodeHiddenButton]: isButton && !showButton,
+        [classes.nodeShowButton]: isButton && showButton,
       })}
       style={{ marginLeft: indent }}
       onClick={handleSelect}
@@ -85,14 +89,15 @@ export default function NodeRenderer({
     >
       {/* TOGGLE ARROW */}
       {hasChild && !isSelected && (
-        <div
+        <Box
           onClick={handleToggle}
-          className={`flex items-center justify-center group cursor-pointer transition-transform transform ease-linear h-6 w-8 ${
-            isOpen ? 'rotate-0' : '-rotate-90'
-          }`}
+          className={cx(classes.toggle, {
+            [classes.toggleOpened]: isOpen,
+            [classes.toggleClosed]: !isOpen,
+          })}
         >
           <svg
-            className="text-gray-300 group-hover:text-secondary"
+            className={cx(classes.toggleIcon, { [classes.toggleIconHover]: hover })}
             width="10"
             height="6"
             viewBox="0 0 10 6"
@@ -104,67 +109,79 @@ export default function NodeRenderer({
               fill="currentColor"
             />
           </svg>
-        </div>
+        </Box>
       )}
 
       {/* NODE LINES */}
       {!hasChild && !isButton && !isSelected && (
-        <div
-          className={cln(
-            'tree-node_lines',
-            'absolute bottom-0 left-0 border-b border-l border-gray-30 w-3',
-            {
-              'h-4': siblingIndex === 0,
-              'h-8': siblingIndex > 0,
-              'rounded-bl': lowerSiblingsCount === 0,
-            }
-          )}
-          style={{ transform: 'translateX(-160%) translateY(-0.9rem)' }}
+        <Box
+          className={cx(classes.treeNodeLines, {
+            [classes.treeNodeLinesFirstItem]: siblingIndex === 0,
+            [classes.treeNodeLinesItems]: siblingIndex > 0,
+            [classes.treeNodeLinesAlone]: lowerSiblingsCount === 0,
+          })}
         />
       )}
 
-      {/* DRAG HANDLER */}
-      {!isButton &&
-        !isSelected &&
-        ((allowDragParents && !isOpen && !hasOpenSiblings) || !hasChild) && (
-          <div className="py-2 mr-2 group text-gray-30 group-hover:text-secondary-300 cursor-move">
-            <svg
-              width="14"
-              height="6"
-              viewBox="0 0 14 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M0.333332 4.33301H13.3333" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M0.333332 1.6665H13.3333" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-          </div>
-        )}
+      <Box className={classes.nodeContent}>
+        {/* DRAG HANDLER */}
+        {!isButton &&
+          !isSelected &&
+          ((allowDragParents && !isOpen && !hasOpenSiblings) || !hasChild) && (
+            <Box className={cx(classes.dragHandler, { [classes.dragHandlerHover]: hover })}>
+              <svg
+                width="14"
+                height="6"
+                viewBox="0 0 14 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M0.333332 4.33301H13.3333" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M0.333332 1.6665H13.3333" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </Box>
+          )}
 
-      {/* TITLE */}
-      {isButton ? (
-        <div className="flex-1 pr-1">
-          <Button color="primary" text className="btn-sm w-full mb-1" onClick={handleOnAdd}>
-            <PlusCircleIcon className="text-primary w-4 h-4 mr-2" />
-            <div className="flex-1 text-left">{`${node.text}`}</div>
-          </Button>
-        </div>
-      ) : (
-        <div
-          className={cln('flex-1 text-sm', {
-            'text-gray-300 group-hover:text-secondary': hasChild && !isSelected,
-            'text-primary': isSelected,
-          })}
-        >
-          <span>{`${node.text}`}</span>
-        </div>
-      )}
+        {/* TITLE */}
+        {isButton ? (
+          <Box className={classes.buttonWrapper}>
+            <Button
+              color="primary"
+              variant="light"
+              size="xs"
+              type="button"
+              leftIcon={<AddCircleIcon />}
+              onClick={handleOnAdd}
+            >
+              {node.text}
+            </Button>
+          </Box>
+        ) : (
+          <>
+            {isString(node.text) ? (
+              <Text
+                className={cx({
+                  [classes.nodeTextDefault]: !isSelected,
+                  [classes.nodeTextSelected]: isSelected,
+                  [classes.nodeTextDefaultHover]: hover && !isSelected,
+                })}
+              >
+                {node.text}
+              </Text>
+            ) : (
+              node.text
+            )}
+          </>
+        )}
+      </Box>
 
       {/* ACTION BUTTONS */}
-      <NodeActions node={node} {...otherProps} hover={hover} />
-    </div>
+      <Box className={classes.nodeActions}>
+        <NodeActions node={node} {...props} hover={hover} />
+      </Box>
+    </Box>
   );
-}
+};
 
 NodeRenderer.propTypes = {
   node: PropTypes.object,
@@ -182,3 +199,5 @@ NodeRenderer.propTypes = {
   onAdd: PropTypes.func,
   onSelect: PropTypes.func,
 };
+
+export { NodeRenderer };

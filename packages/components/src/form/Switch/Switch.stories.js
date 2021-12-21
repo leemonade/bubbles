@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Switch {...props}>{children}</Switch>;
+  return <Switch {...props} />;
 };
 
 export const Playground = Template.bind({});

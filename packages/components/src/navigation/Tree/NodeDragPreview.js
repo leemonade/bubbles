@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
-import { DragLayerMonitorProps } from '@leemonade/react-dnd-treeview';
+import { Box } from '@mantine/core';
+import { isString } from 'lodash';
+import { Text } from '../../typography';
+import { TreeStyles } from './Tree.styles';
 
-export const NodeDragPreview = ({ monitorProps, ...otherProps }) => {
-  const item = monitorProps.item;
+const NodeDragPreview = ({ monitorProps, ...props }) => {
+  const { item } = monitorProps;
+  const { classes, cx } = TreeStyles({}, { name: 'Tree' });
 
   return (
-    <div className="flex transform -translate-x-4 -translate-y-4">
-      <div className="flex items-center h-8 pl-2 pr-4 rounded border border-primary bg-white shadow-sm">
-        <div className="py-2 mr-2 text-primary">
+    <Box className={classes.nodeDragPreviewRoot}>
+      <Box className={classes.nodeDragPreview}>
+        <Box className={classes.nodeDragPreviewHandler}>
           <svg
             width="14"
             height="6"
@@ -18,11 +22,11 @@ export const NodeDragPreview = ({ monitorProps, ...otherProps }) => {
             <path d="M0.333332 4.33301H13.3333" stroke="currentColor" strokeWidth="1.5" />
             <path d="M0.333332 1.6665H13.3333" stroke="currentColor" strokeWidth="1.5" />
           </svg>
-        </div>
-        <div className="text-sm text-gray-300">
-          <span>{`${item.text}`}</span>
-        </div>
-      </div>
-    </div>
+        </Box>
+        {isString(item.text) ? <Text>{item.text}</Text> : item.text}
+      </Box>
+    </Box>
   );
 };
+
+export { NodeDragPreview };
