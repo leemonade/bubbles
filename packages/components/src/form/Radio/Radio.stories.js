@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box, Space } from '@mantine/core';
 import { Radio } from './Radio';
 import mdx from './Radio.mdx';
-import { HELP_TEXT_POSITIONS, RADIO_VARIANTS } from './Radio';
+import { RADIO_HELP_POSITIONS, RADIO_VARIANTS } from './Radio';
 import { AcademicCapIcon } from '@heroicons/react/outline';
 
 export default {
@@ -19,14 +19,27 @@ export default {
   },
   argTypes: {
     variant: { options: RADIO_VARIANTS, control: { type: 'select' } },
-    helpTextPosition: { options: HELP_TEXT_POSITIONS, control: { type: 'select' } },
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    helpPosition: { options: RADIO_HELP_POSITIONS, control: { type: 'select' } },
+    onChange: { action: 'Checked' },
   },
 };
 
 const Template = ({ children, ...props }) => {
-  return <Radio {...props}>{children}</Radio>;
+  return (
+    <>
+      <Radio {...props} name="test">
+        {children} {0}
+      </Radio>
+      <Space></Space>
+      <Radio {...props} name="test">
+        {children} {1}
+      </Radio>
+      <Space></Space>
+      <Radio {...props} name="test">
+        {children} {2}
+      </Radio>
+    </>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -34,8 +47,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   children: 'Radio button label',
   variant: 'default',
-  withHelpText: false,
-  helpText: 'Help text',
-  helpTextPosition: 'right',
+  disabled: false,
+  help: 'Help text',
+  helpPosition: 'right',
   icon: <AcademicCapIcon height={32} width={32} />,
 };
