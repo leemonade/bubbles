@@ -15,6 +15,7 @@ export default {
     },
   },
   argTypes: {
+    onChange: { action: 'Color Changed' },
   },
 };
 
@@ -27,5 +28,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   compact: false,
   useHsl: false,
-  spacing: 10
+  spacing: 5,
+  swatchesForGama: 8,
+  swatchesPerRow: 7,
+  fullWidth: false
 };

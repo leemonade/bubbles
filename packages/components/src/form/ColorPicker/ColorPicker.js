@@ -37,9 +37,10 @@ export const ColorPicker = forwardRef(
       withSwatches = true,
       swatches,
       compact,
+      fullWidth = false,
       swatchesForGama = 8,
       swatchesPerRow = 7,
-      spacing = 10,
+      spacing = 5,
       useHsl,
       ...props
     },
@@ -49,17 +50,19 @@ export const ColorPicker = forwardRef(
     swatches = swatches || COLOR_PICKER_SWATCHES;
 
     const oldFormat = useRef();
-    const { classes, cx } = ColorPickerStyles({ swatchesPerRow, spacing });
+    const { classes, cx } = ColorPickerStyles({
+      swatchesPerRow,
+      compact,
+      spacing,
+      fullWidth,
+      useHsl,
+    }, {name: 'ColorPicker'});
 
     const [value, setColor] = useState('#000');
     const [format, setFormat] = useState('hex');
     const [hue, setHue] = useState(30);
     const [lightness, setLightness] = useState(50);
 
-    const colorHandler = (color) => {
-      oldFormat.current = format;
-      setColor(color);
-    }
     useEffect(() => {
       setFormat('hsl');
       setColor(`hsl(${hue}, 100%, 50%)`);
@@ -71,18 +74,15 @@ export const ColorPicker = forwardRef(
     }, [lightness]);
 
     useEffect(() => {
-      console.log(oldFormat.current)
-      setTimeout(() => {
-        setFormat(oldFormat.current);
-      })
+      props.onChange && props.onChange(value);
     }, [value]);
 
     return (
       <Box className={classes.root}>
         {useHsl ? (
-          <Box>
-            <Box className={classes.swatches} style={{ margin: 0 }}>
-              {[...Array(4)].map((_, i) => {
+          <Box className={classes.hsl}>
+            <Box className={`${classes.swatches} lightness`} style={{ margin: 0 }}>
+              {[...Array(!compact ? 4 : 1)].map((_, i) => {
                 const lightness = 50 + 10 * i;
                 const color = `hsl(${hue}, 100%, ${lightness}%)`;
                 return (
@@ -90,25 +90,27 @@ export const ColorPicker = forwardRef(
                     className={`${classes.swatch} ${classes.lightness}`}
                     key={i}
                     color={color}
-                    onClick={() => setLightness(lightness)}
+                    onClick={() => !compact && setLightness(lightness)}
                   ></ColorSwatch>
                 );
               })}
             </Box>
-            <Box className={classes.swatches} style={{ margin: 0 }}>
-              {[...Array(4)].map((_, i) => {
-                const lightness = 40 - 10 * i;
-                const color = `hsl(${hue}, 100%, ${lightness}%)`;
-                return (
-                  <ColorSwatch
-                    className={`${classes.swatch} ${classes.lightness}`}
-                    key={i}
-                    color={color}
-                    onClick={() => setLightness(lightness)}
-                  ></ColorSwatch>
-                );
-              })}
-            </Box>
+            {!compact && (
+              <Box className={classes.swatches} style={{ margin: 0 }}>
+                {[...Array(4)].map((_, i) => {
+                  const lightness = 40 - 10 * i;
+                  const color = `hsl(${hue}, 100%, ${lightness}%)`;
+                  return (
+                    <ColorSwatch
+                      className={`${classes.swatch} ${classes.lightness}`}
+                      key={i}
+                      color={color}
+                      onClick={() => setLightness(lightness)}
+                    ></ColorSwatch>
+                  );
+                })}
+              </Box>
+            )}
             <Box className={classes.sliders}>
               <Box className={classes.swatches}>
                 {[...Array(swatchesForGama)].map((_, i) => {
@@ -128,7 +130,7 @@ export const ColorPicker = forwardRef(
               <Space h="md"></Space>
               <Box className={classes.hue}>
                 <HueSlider value={hue} onChange={setHue} size="sm"></HueSlider>
-                <NumberInput value={hue} onChange={setHue} />
+                <NumberInput value={hue} onChange={setHue} className={classes.hueInput} />
               </Box>
             </Box>
           </Box>
@@ -140,31 +142,18 @@ export const ColorPicker = forwardRef(
               classNames={classes}
               value={value}
               fullWidth="true"
-              onChange={(e) => colorHandler(e)}
+              swatches={!compact && swatches}
+              onChange={(e) => setColor(e)}
             />
-            {!compact ? (
-              <Box className={classes.swatches}>
-                {swatches.map((color, i) => {
-                  return (
-                    <ColorSwatch
-                      className={classes.swatch}
-                      key={i}
-                      color={color}
-                      onClick={() => {
-                        setColor(color);
-                      }}
-                      actived={color === value}
-                    ></ColorSwatch>
-                  );
-                })}
-              </Box>
-            ) : null}
-            <Space h="md"></Space>
-            <Box>
-              <Select data={COLOR_PICKER_FORMAT} value={format} onChange={setFormat} />
+            <Box className={classes.manual}>
+              <Select
+                data={COLOR_PICKER_FORMAT}
+                value={format}
+                onChange={setFormat}
+                className={classes.format}
+              />
               <TextInput value={value} onChange={(e) => setColor(e.target.value)} />
             </Box>
-            {value}
           </>
         )}
       </Box>
@@ -179,4 +168,5 @@ ColorPicker.propTypes = {
   swatchesForGama: PropTypes.number,
   swatchesPerRow: PropTypes.number,
   spacing: PropTypes.number,
+  fullWidth: PropTypes.bool,
 };
