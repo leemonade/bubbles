@@ -1,11 +1,11 @@
 import React from 'react';
-import { Table } from './Table';
-import mdx from './Table.mdx';
+import { Checkbox } from './Checkbox';
+import mdx from './Checkbox.mdx';
 
 export default {
-  title: 'Atoms/Informative/Table',
+  title: 'Molecules/Form/Checkbox',
   parameters: {
-    component: Table,
+    component: Checkbox,
     docs: {
       page: mdx,
     },
@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Table {...props}>{children}</Table>;
+  return <Checkbox {...props}>{children}</Checkbox>;
 };
 
 export const Playground = Template.bind({});

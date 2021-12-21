@@ -1,11 +1,11 @@
 import React from 'react';
-import { Table } from './Table';
-import mdx from './Table.mdx';
+import { NumberInput } from './NumberInput';
+import mdx from './NumberInput.mdx';
 
 export default {
-  title: 'Atoms/Informative/Table',
+  title: 'Molecules/Form/NumberInput',
   parameters: {
-    component: Table,
+    component: NumberInput,
     docs: {
       page: mdx,
     },
@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Table {...props}>{children}</Table>;
+  return <NumberInput {...props}>{children}</NumberInput>;
 };
 
 export const Playground = Template.bind({});

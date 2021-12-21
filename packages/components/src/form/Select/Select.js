@@ -24,6 +24,8 @@ const Select = forwardRef(
       value,
       name,
       data,
+      searchable,
+      nothingFound,
       ...props
     },
     ref
@@ -64,6 +66,8 @@ const Select = forwardRef(
           onBlur={onBlur}
           value={value}
           name={name}
+          searchable={searchable}
+          nothingFound={nothingFound}
           rightSection={
             isClearable && showClear ? (
               <ActionButton
@@ -100,6 +104,7 @@ Select.propTypes = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
+  nothingFound: PropTypes.any,
 };
 
 export { Select };
