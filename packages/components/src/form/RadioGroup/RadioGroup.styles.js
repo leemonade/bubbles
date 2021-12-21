@@ -16,7 +16,6 @@ export const RadioGroupStyles = createStyles(
         borderRadius: 0,
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: direction,
-        height: !isColumn && isIcon && pxToRem(150),
       },
       label: {
         padding: 0,

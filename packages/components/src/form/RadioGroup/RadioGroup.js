@@ -37,7 +37,7 @@ const RadioGroup = forwardRef(
       const observer = new ResizeObserver(() => {
         if (value) {
           const element = refs.current[value].closest('.mantine-SegmentedControl-label');
-          console.log(element, wrapperRef.current);
+          
           const rect = element.getBoundingClientRect();
           setActivePosition({
             height: Math.floor(rect.height),
