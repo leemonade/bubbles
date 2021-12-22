@@ -3,6 +3,7 @@ import * as stories from './Radio.stories.js';
 import { Radio } from './Radio.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { AcademicCapIcon } from '@heroicons/react/outline';
 
 # Radio
 
@@ -23,16 +24,60 @@ import { ThemeProvider } from './../../ThemeProvider';
 Radio is ...
 
 <ThemeProvider>
-  <Radio>Radio</Radio>
+  <Radio name="overview">Option 1</Radio>
+  <Radio name="overview">Option 2</Radio>
+</ThemeProvider>
+
+## Radio variants
+
+The radio input has three variants: default, boxed(adds paddings in all directions) and icon
+
+<ThemeProvider>
+  <Radio name="variant" variant="default">
+    Option 1
+  </Radio>
+  <Radio name="variant" variant="boxed">
+    Option 2
+  </Radio>
+  <Radio name="variant" variant="icon" icon={<AcademicCapIcon height={32} width={32} />}>
+    Option 3
+  </Radio>
+</ThemeProvider>
+
+The radio input can also be disabled
+
+<ThemeProvider>
+  <Radio name="disabled" disabled>
+    Disabled radio input
+  </Radio>
+</ThemeProvider>
+
+## Help position
+
+The default and boxed variants can have a help text that can be positioned to the right or bottom of the radio input.
+
+<ThemeProvider>
+  <Radio name="position" variant="default" help="Right help text" helpPosition="right">
+    Default Option 1
+  </Radio>
+  <Radio name="position" variant="default" help="Bottom help text" helpPosition="bottom">
+    Default Option 2
+  </Radio>
+  <Radio name="position" variant="boxed" help="Right help text" helpPosition="right">
+    Boxed Option 3
+  </Radio>
+  <Radio name="position" variant="boxed" help="Bottom help text" helpPosition="bottom">
+    Boxed Option 4
+  </Radio>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-radio--playground" />
+  <Story id="atoms-form-radio--playground" />
 </Preview>
 
-<Props />
+<Props of={Radio} />
 
 ## References
 

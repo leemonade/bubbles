@@ -49,11 +49,6 @@ Playground.args = {
       help: 'Help text for option 3',
       helpPosition: 'bottom',
     },
-    {
-      value: 'option4',
-      label: 'Label for option 4',
-      icon: <AcademicCapIcon height={32} width={32} />,
-    },
   ],
   variant: RADIO_VARIANTS[0],
   defaultValue: '',

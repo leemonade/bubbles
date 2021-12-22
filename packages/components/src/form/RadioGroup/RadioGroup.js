@@ -7,7 +7,7 @@ import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
 const RadioGroup = forwardRef(
-  ({ defaultValue, variant, fullWidth, data, direction, ...props }, ref) => {
+  ({ variant = 'default', data, defaultValue, direction, fullWidth, ...props }, ref) => {
     const [value, setValue] = useState(props.value);
     const [activePosition, setActivePosition] = useState({ height: 0, translate: 0 });
     const refs = useRef({});
@@ -37,7 +37,7 @@ const RadioGroup = forwardRef(
       const observer = new ResizeObserver(() => {
         if (value) {
           const element = refs.current[value].closest('.mantine-SegmentedControl-label');
-          
+
           const rect = element.getBoundingClientRect();
           setActivePosition({
             height: Math.floor(rect.height),
@@ -86,15 +86,13 @@ const RadioGroup = forwardRef(
 );
 
 RadioGroup.propTypes = {
-  data: PropTypes.arrayOf(Object),
-  onChange: PropTypes.func,
   variant: PropTypes.oneOf(RADIO_VARIANTS),
-  direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
+  data: PropTypes.arrayOf(Object),
   defaultValue: PropTypes.string,
+  direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
+  fullWidth: PropTypes.bool,
+  onChange: PropTypes.func,
   value: PropTypes.string,
-  fullWidth: PropTypes.bool,
-  name: PropTypes.bool,
-  fullWidth: PropTypes.bool,
 };
 
 export { RadioGroup };
