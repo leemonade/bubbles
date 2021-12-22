@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { SPACING as spacing } from '../../theme.constants';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const RadioStyles = createStyles((theme, { variant, help, helpPosition, checked }) => {
@@ -41,14 +40,12 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
       ...getFontProductive(theme.fontSizes[isBoxed ? '2' : '1'], isBoxed ? 500 : 400),
       lineHeight: isDefault ? pxToRem(16) : pxToRem(17),
       color: theme.colors.text02,
-      marginLeft: isRight ? pxToRem(spacing[4]) : null,
-      marginTop: isBottom ? pxToRem(spacing[1]) : null,
+      marginLeft: isRight ? pxToRem(theme.spacing[4]) : null,
+      marginTop: isBottom ? pxToRem(theme.spacing[1]) : null,
     },
     label: {
       alignItems: help !== '' && isBottom ? 'flex-start' : null,
-      padding: isBoxed
-        ? `${pxToRem(16)} ${pxToRem(20)} ${pxToRem(isRight ? 19 : 16)} ${pxToRem(theme.spacing[4])}`
-        : pxToRem(16),
+      padding: pxToRem(theme.spacing[4]),
       justifyContent: isIcon ? 'center' : null,
       userSelect: 'none',
     },
