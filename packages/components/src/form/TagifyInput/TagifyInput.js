@@ -1,19 +1,59 @@
 import React, { forwardRef } from 'react';
+import { useId } from '@mantine/hooks';
+import {
+  INPUT_WRAPPER_ORIENTATION,
+  INPUT_WRAPPER_SIZES,
+  PROP_TYPES as INPUT_WRAPPER_PROPTYPES,
+  InputWrapper,
+} from '../InputWrapper';
 import { TagifyInputStyles } from './TagifyInput.styles';
 import { MixedTags } from './tagify/react.tagify'; // React-wrapper file
-import style from './tagify/tagify.css'; // Tagify CSS
+import './tagify/tagify.css'; // Tagify CSS
 
-console.log(style);
+export const TAGIFY_SIZES = INPUT_WRAPPER_SIZES;
+export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
-const TagifyInput = forwardRef(({ mixed, ...props }, ref) => {
-  const { classes, cx } = TagifyInputStyles({});
-
-  if (mixed) return <MixedTags className={classes.root} tagifyRef={ref} {...props} />;
-  return <MixedTags className={classes.root} tagifyRef={ref} {...props} />;
-});
-
-TagifyInput.propTypes = {
-  //
+export const DEFAULT_PROPS = {
+  mixed: true,
+  size: 'sm',
+  orientation: 'vertical',
+  label: 'Tag input',
+  description: 'Write your tags',
+  required: true,
+  autoFocus: false,
+  readOnly: false,
+  error: '',
+  help: 'Some help',
+  settings: {},
 };
+
+const TagifyInput = forwardRef(
+  ({ mixed, error, size, value, onChange, settings, autoFocus, readOnly, ...props }, ref) => {
+    const uuid = useId();
+    const { classes, cx } = TagifyInputStyles({ size, error });
+
+    return (
+      <InputWrapper {...props} uuid={uuid} size={size} error={error}>
+        <MixedTags
+          id={uuid}
+          className={classes.root}
+          tagifyRef={ref}
+          settings={settings}
+          autoFocus={autoFocus}
+          readOnly={readOnly}
+          value={value}
+          onChange={onChange}
+        />
+      </InputWrapper>
+    );
+
+    if (mixed) return <MixedTags className={classes.root} tagifyRef={ref} {...props} />;
+    return <MixedTags className={classes.root} tagifyRef={ref} {...props} />;
+  }
+);
+
+TagifyInput.defaultProps = DEFAULT_PROPS;
+
+TagifyInput.propTypes = { ...INPUT_WRAPPER_PROPTYPES };
 
 export { TagifyInput };

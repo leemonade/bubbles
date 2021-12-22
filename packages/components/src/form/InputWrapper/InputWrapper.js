@@ -10,13 +10,28 @@ import { InputWrapperStyles } from './InputWrapper.styles';
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
 export const INPUT_WRAPPER_ORIENTATION = ['horizontal', 'vertical'];
 
+export const PROP_TYPES = {
+  label: PropTypes.string,
+  description: PropTypes.string,
+  placeholder: PropTypes.string,
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  help: PropTypes.string,
+};
+export const DEFAULT_PROPS = {
+  as: 'input',
+  orientation: 'vertical',
+  size: 'sm',
+};
+
 const InputWrapper = forwardRef(
   (
     {
       radius, // Just to pick it up to not pass to props
-      as = 'input',
-      orientation: orientationProp = 'vertical',
-      size: sizeProp = 'sm',
+      as,
+      orientation: orientationProp,
+      size: sizeProp,
       uuid,
       label,
       description,
@@ -53,14 +68,8 @@ const InputWrapper = forwardRef(
   }
 );
 
-InputWrapper.propTypes = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  help: PropTypes.string,
-};
+InputWrapper.defaultProps = DEFAULT_PROPS;
+
+InputWrapper.propTypes = PROP_TYPES;
 
 export { InputWrapper };
