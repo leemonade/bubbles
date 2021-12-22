@@ -3,7 +3,7 @@ import { ColorPicker, COLOR_PICKER_VARIANT } from './ColorPicker';
 import mdx from './ColorPicker.mdx';
 
 export default {
-  title: 'Atoms/Form/ColorPicker',
+  title: 'Molecules/Form/ColorPicker',
   parameters: {
     component: ColorPicker,
     docs: {
@@ -31,5 +31,5 @@ Playground.args = {
   spacing: 5,
   swatchesForGama: 8,
   swatchesPerRow: 7,
-  fullWidth: false
+  fullWidth: false,
 };

@@ -5,11 +5,11 @@ import {
   ColorPicker as MantineColorPicker,
   HueSlider,
   NumberInput,
-  TextInput,
-  Select,
   Box,
   Space,
 } from '@mantine/core';
+import { Select } from '../Select';
+import { TextInput } from '../TextInput';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
 
 export const COLOR_PICKER_FORMAT = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
@@ -46,17 +46,23 @@ export const ColorPicker = forwardRef(
     },
     ref
   ) => {
+    if (swatchesForGama > 14) {
+      swatchesForGama = 14;
+    }
     swatchesPerRow = useHsl ? swatchesForGama : swatchesPerRow;
     swatches = swatches || COLOR_PICKER_SWATCHES;
 
     const oldFormat = useRef();
-    const { classes, cx } = ColorPickerStyles({
-      swatchesPerRow,
-      compact,
-      spacing,
-      fullWidth,
-      useHsl,
-    }, {name: 'ColorPicker'});
+    const { classes, cx } = ColorPickerStyles(
+      {
+        swatchesPerRow,
+        compact,
+        spacing,
+        fullWidth,
+        useHsl,
+      },
+      { name: 'ColorPicker' }
+    );
 
     const [value, setColor] = useState('#000');
     const [format, setFormat] = useState('hex');
