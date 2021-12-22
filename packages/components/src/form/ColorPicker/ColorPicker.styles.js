@@ -54,7 +54,6 @@ export const ColorPickerStyles = createStyles(
           boxShadow: 'none',
         },
       },
-
       lightness: {
         width: `calc(${100 / 4}%)`,
         paddingBottom: `calc(${100 / 4}%)`,
@@ -97,7 +96,7 @@ export const ColorPickerStyles = createStyles(
         padding: `0 ${pxToRem(theme.spacing[4])} ${pxToRem(theme.spacing[4])}`,
       },
       format: {
-        flex: `1 1 ${pxToRem(90)}`,
+        flex: `1 1 ${pxToRem(110)}`,
         marginRight: pxToRem(theme.spacing[2]),
       },
       preview: {
