@@ -16,6 +16,11 @@ const Paragraph = ({ children, style, align, className, classNames, ...props }) 
   );
 };
 
+Paragraph.defaultProps = {
+  align: 'left',
+  size: 'sm',
+};
+
 Paragraph.propTypes = {
   size: PropTypes.string,
   align: PropTypes.oneOf(PARAGRAPH_ALIGNS),
