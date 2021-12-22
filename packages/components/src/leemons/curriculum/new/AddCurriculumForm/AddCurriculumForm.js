@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Group } from '@mantine/core';
 import { AddCurriculumFormStyles } from './AddCurriculumForm.styles';
-import { Button, Select, TextInput } from '../../../../form';
+import { Button, Select, Textarea, TextInput } from '../../../../form';
 import { Controller, useForm } from 'react-hook-form';
 import { MultiSelect } from '../../../../form/MultiSelect';
 import { isArray } from 'lodash';
@@ -28,6 +28,7 @@ export const ADD_CURRICULUM_FORM_MESSAGES = {
   tagsNothingFound: 'No data',
   tagsCreateLabel: '+ Create {{label}}',
   descriptionLabel: 'Description',
+  descriptionPlaceholder: 'Enter description',
   continueButtonLabel: 'Continue to setup',
 };
 
@@ -194,7 +195,20 @@ const AddCurriculumForm = ({
           )}
         />
       </Box>
-      <Box>{/* TODO: Add textarea here */}</Box>
+      <Box>
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <Textarea
+              label={messages.descriptionLabel}
+              placeholder={messages.descriptionPlaceholder}
+              error={errors.description}
+              {...field}
+            />
+          )}
+        />
+      </Box>
 
       <Box mt={16}>
         <Button rounded size="xs" loading={isLoading} loaderPosition="right" type="submit">

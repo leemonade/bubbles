@@ -1,10 +1,10 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { Box, Select as MantineSelect } from '@mantine/core';
-import { isNil, isString, isFunction } from 'lodash';
+import { Select as MantineSelect } from '@mantine/core';
+import { isFunction, isNil, isString } from 'lodash';
 import { useId } from '@mantine/hooks';
-import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
+import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 
@@ -24,6 +24,8 @@ const Select = forwardRef(
       value,
       name,
       data,
+      searchable,
+      nothingFound,
       ...props
     },
     ref
@@ -37,7 +39,6 @@ const Select = forwardRef(
     const [showClear, setShowClear] = useState(false);
 
     const handleChange = (ev) => {
-      console.log(ev);
       setShowClear(!isNil(ev));
 
       if (isFunction(onChange)) {
@@ -65,11 +66,13 @@ const Select = forwardRef(
           onBlur={onBlur}
           value={value}
           name={name}
+          searchable={searchable}
+          nothingFound={nothingFound}
           rightSection={
             isClearable && showClear ? (
               <ActionButton
-                leftIcon={<RemoveIcon />}
-                description={clearable}
+                icon={<RemoveIcon />}
+                tooltip={clearable}
                 size={size}
                 onClick={handleClear}
               />
@@ -101,6 +104,7 @@ Select.propTypes = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
+  nothingFound: PropTypes.any,
 };
 
 export { Select };

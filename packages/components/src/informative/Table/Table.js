@@ -1,18 +1,12 @@
 import React, { forwardRef } from 'react';
 import { Table as MantineTable } from '@mantine/core';
 
-export const Table = forwardRef(
-    (
-        {
-            ...props
-        },
-        ref
-    ) => {
+const Table = forwardRef(({ children, ...props }, ref) => {
+  return (
+    <MantineTable ref={ref} {...props}>
+      {children}
+    </MantineTable>
+  );
+});
 
-    return(
-        <Table></Table>
-
-    );
-  }
-);
-
+export { Table };

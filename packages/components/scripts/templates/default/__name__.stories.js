@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { __name__ } from './__name__';
+import { __name__, DEFAULT_PROPS } from './__name__';
 import mdx from './__name__.mdx';
 
 export default {
-  title: '__folder__(pascalCase)/__name__',
+  title: '__atomicity__(pascalCase)s/__folder__(pascalCase)/__name__',
   parameters: {
     component: __name__,
     docs: {
@@ -30,4 +30,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
+  ...DEFAULT_PROPS,
 };

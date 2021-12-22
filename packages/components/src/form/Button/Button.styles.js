@@ -158,6 +158,41 @@ const getVariant = (variant, theme, color) => {
         },
       },
     },
+    light: {
+      primary: {
+        color: theme.colors.interactive01,
+        '&:hover': {
+          color: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive01v1,
+        },
+      },
+      secondary: {
+        color: theme.colors.interactive02,
+        '&:hover': {
+          color: theme.colors.interactive02h,
+          backgroundColor: theme.colors.interactive03,
+        },
+      },
+      tertiary: {
+        color: theme.colors.text02,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03h,
+        },
+      },
+      negative: {
+        backgroundColor: 'transparent',
+        color: theme.colors.text07,
+        '&:hover': {
+          opacity: '0.8',
+        },
+      },
+      fatic: {
+        color: theme.colors.fatic01,
+        '&:hover': {
+          backgroundColor: theme.colors.fatic01v0,
+        },
+      },
+    },
   };
   return variants[variant][color];
 };
@@ -208,6 +243,11 @@ export const ButtonStyles = createStyles((theme, { size, color, position, varian
       '&:hover': {
         textDecoration: 'none',
       },
+    },
+    light: {
+      backgroundColor: 'transparent',
+      ...getSizes(size || 'md', theme.spacing),
+      ...getVariant('light', theme, color),
     },
   };
 });

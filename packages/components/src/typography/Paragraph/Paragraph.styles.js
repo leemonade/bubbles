@@ -5,7 +5,6 @@ export const ParagraphStyles = createStyles((theme, { align }) => {
     root: {
       textAlign: align,
       marginTop: theme.spacing['2'],
-      color: theme.colors.text03,
     },
   };
 });

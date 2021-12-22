@@ -31,26 +31,20 @@ export const DetailPanel = forwardRef(
               <Group className={classes.Actions}>
                 <Box m={0}>
                   {props.ActionBack && (
-                    <ActionButton leftIcon={<ChevronLeftIcon />}>
-                      {props.LabelActionBack}
-                    </ActionButton>
+                    <ActionButton icon={<ChevronLeftIcon />}>{props.LabelActionBack}</ActionButton>
                   )}
                 </Box>
                 <Group className={cx(classes.RRActions, classes.RRActionsRight)}>
                   <Box m={0}>
                     {props.ActionExpand && (
                       <ActionButton
-                        leftIcon={<ArrowsExpandIcon />}
-                        description="Open as page"
+                        icon={<ArrowsExpandIcon />}
+                        tooltip="Open as page"
                       ></ActionButton>
                     )}
                   </Box>
                   <Box m={0}>
-                    <ActionButton
-                      leftIcon={<XIcon />}
-                      description="Close"
-                      onClick={onClose}
-                    ></ActionButton>
+                    <ActionButton icon={<XIcon />} tooltip="Close" onClick={onClose}></ActionButton>
                   </Box>
                 </Group>
               </Group>
@@ -59,22 +53,15 @@ export const DetailPanel = forwardRef(
                 <Group className={classes.RRActions}>
                   {props.ActionBack && (
                     <ActionButton
-                      leftIcon={<ChevronLeftIcon />}
-                      description={props.LabelActionBack}
+                      icon={<ChevronLeftIcon />}
+                      tooltip={props.LabelActionBack}
                     ></ActionButton>
                   )}
                   {props.ActionExpand && (
-                    <ActionButton
-                      leftIcon={<ArrowsExpandIcon />}
-                      description="Open as page"
-                    ></ActionButton>
+                    <ActionButton icon={<ArrowsExpandIcon />} tooltip="Open as page"></ActionButton>
                   )}
                 </Group>
-                <ActionButton
-                  leftIcon={<XIcon />}
-                  description="Close"
-                  onClick={onClose}
-                ></ActionButton>
+                <ActionButton icon={<XIcon />} tooltip="Close" onClick={onClose}></ActionButton>
               </Group>
             )}
             <Title id="drawer-title" order={1} {...props} className={classes.title}>

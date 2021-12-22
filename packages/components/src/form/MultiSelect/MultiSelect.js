@@ -63,8 +63,8 @@ const MultiSelect = forwardRef(
         rightSection={
           isClearable && showClear ? (
             <ActionButton
-              leftIcon={<RemoveIcon />}
-              description={clearable}
+              icon={<RemoveIcon />}
+              tooltip={clearable}
               size={size}
               onClick={handleClear}
             />

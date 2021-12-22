@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-const getColor = (theme, color) => {
+const getColor = (theme, severity) => {
   return {
     success: {
       background: theme.colors.fatic02v0,
@@ -27,14 +27,14 @@ const getColor = (theme, color) => {
         color: theme.colors.fatic01,
       },
     },
-  }[color];
+  }[severity];
 };
 
-export const AlertStyles = createStyles((theme, { variant, color }) => {
+export const AlertStyles = createStyles((theme, { variant, severity }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
-      ...getColor(theme, color),
+      ...getColor(theme, severity),
       borderRadius: variant === 'block' ? pxToRem(2) : pxToRem(0),
       padding:
         variant === 'block'
@@ -49,7 +49,7 @@ export const AlertStyles = createStyles((theme, { variant, color }) => {
       },
     },
     variant: {
-      //alignItems: 'center',
+      alignItems: 'baseline',
       flex: '1 1 100%',
       display: 'flex',
       flexDirection: variant === 'block' ? 'column' : null,
@@ -58,14 +58,14 @@ export const AlertStyles = createStyles((theme, { variant, color }) => {
       ...getFontExpressive(theme.fontSizes['2'], 600),
       marginRight: pxToRem(20),
       lineHeight: pxToRem(24),
-      paddingTop: pxToRem(2),
+      // paddingTop: pxToRem(2),
     },
     content: {
       flex: '1 1 100%',
       marginRight: variant === 'block' ? pxToRem(24) : pxToRem(28),
       lineHeight: pxToRem(20),
-      //marginTop: pxToRem(4),
-      paddingTop: pxToRem(3.6),
+      // marginTop: pxToRem(4),
+      // paddingTop: pxToRem(3.6),
       ...getFontProductive(theme.fontSizes['2'], 400),
     },
     action: {
@@ -73,15 +73,15 @@ export const AlertStyles = createStyles((theme, { variant, color }) => {
       minWidth: 'fit-content',
       marginRight: pxToRem(30),
       marginTop: variant === 'block' ? pxToRem(11) : null,
-      paddingTop: variant === 'block' ? null : pxToRem(3),
+      // paddingTop: variant === 'block' ? null : pxToRem(3),
     },
     closeButton: {
       color: theme.colors.text05,
     },
     icon: {
       marginRight: pxToRem(18),
-      //marginTop: pxToRem(3),
-      paddingTop: pxToRem(3),
+      // marginTop: pxToRem(3),
+      paddingTop: pxToRem(2),
     },
   };
 });

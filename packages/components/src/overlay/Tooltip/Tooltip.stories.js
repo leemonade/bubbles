@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Group } from '@mantine/core';
-import { Tooltip, TOOLTIP_COLORS, TOOLTIP_POSITION, TOOLTIP_PLACEMENT, TOOLTIP_SIZES } from './Tooltip';
+import {
+  Tooltip,
+  TOOLTIP_COLORS,
+  TOOLTIP_POSITION,
+  TOOLTIP_PLACEMENT,
+  TOOLTIP_SIZES,
+} from './Tooltip';
 import mdx from './Tooltip.mdx';
 import { Button } from '../../form/Button';
 import { ChevronRightIcon } from '@heroicons/react/outline';
 
 export default {
-  title: 'Atoms/Tooltip',
+  title: 'Atoms/Overlay/Tooltip',
   parameters: {
     component: Tooltip,
     docs: {
@@ -25,31 +31,28 @@ export default {
   },
 };
 
-const Template = ({children, label, ...props }) => {
-  
-  const [opened, setOpened] = useState(true);
-  label = label || <> Share <ChevronRightIcon style={{ height: '1.2rem' }} /></>;
-
-  useEffect(() => {
-    return () => {
-      setOpened(false)
-    }
-  },[]);
+const Template = ({ children, label, ...props }) => {
+  label = label || (
+    <>
+      {' '}
+      Share <ChevronRightIcon style={{ height: '1.2rem' }} />
+    </>
+  );
 
   return (
     <>
-       <Group style={{
-         display: 'flex',
-         alignItems: 'center',
-         justifyContent: 'center',
-         height: '200px'
-       }}>
-        <Tooltip {...props} label={label} opened={opened} >
-          <Button variant="outline" onClick={() => setOpened((o) => !o)}>
-            {children}
-          </Button>
+      <Group
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '200px',
+        }}
+      >
+        <Tooltip {...props} label={label}>
+          <Button variant="outline">{children}</Button>
         </Tooltip>
-       </Group>
+      </Group>
     </>
   );
 };
