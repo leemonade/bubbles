@@ -19,12 +19,15 @@ const exec = (command, extraEnv) =>
 const ignoreGlobs = ['**/__tests__/*', '**/*-test.js', '**/*-story.js'].join(',');
 
 try {
-  exec(`${babelPath} src --quiet -d es --ignore "${ignoreGlobs}"`, {
+  exec(`${babelPath} src --quiet -d es --ignore "${ignoreGlobs}" --copy-files --no-copy-ignored`, {
     BABEL_ENV: 'es',
   });
-  exec(`${babelPath} src --quiet -d lib --ignore "${ignoreGlobs}"`, {
-    BABEL_ENV: 'cjs',
-  });
+  exec(
+    `${babelPath} src --quiet -d lib --ignore "${ignoreGlobs}" --copy-files --no-copy-ignored --plugins @babel/plugin-transform-modules-commonjs`,
+    {
+      BABEL_ENV: 'cjs',
+    }
+  );
 } catch (error) {
   console.error('One of the commands failed:', error.stack); // eslint-disable-line no-console
   process.exit(1);

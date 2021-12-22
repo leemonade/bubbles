@@ -28,8 +28,8 @@
     "access": "public"
   },
   "scripts": {
-    "build-publish": "yarn build && npm publish",
-    "build": "yarn clean && node scripts/build.js && rollup -c",
+    "build-publish": "yarn build && npm version patch && npm publish",
+    "build": "yarn clean && node scripts/build.js",
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
     "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9000",
