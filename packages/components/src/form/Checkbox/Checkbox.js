@@ -1,11 +1,60 @@
-import React, { forwardRef } from 'react';
-import { Checkbox as MantineCheckbox } from '@mantine/core';
+import React, { forwardRef, useState } from 'react';
+import { Checkbox as MantineCheckbox, Box, Group } from '@mantine/core';
 import { CheckboxStyles } from './Checkbox.styles';
 
-const Checkbox = forwardRef(({ ...props }, ref) => {
-  const { classes, cx } = CheckboxStyles({});
+export const HELP_POSITIONS = ['right', 'bottom'];
+export const CHECKBOX_VARIANTS = ['default', 'boxed'];
 
-  return <MantineCheckbox ref={ref} className={classes.root} {...props} />;
-});
+const Checkbox = forwardRef(
+  (
+    {
+      label,
+      help,
+      helpPosition = HELP_POSITIONS[0],
+      variant = CHECKBOX_VARIANTS[0],
+      disabled,
+      indeterminate = false,
+      onChange,
+      checked,
+      ...props
+    },
+    ref
+  ) => {
+    const [isChecked, setIsChecked] = useState(checked);
+
+    const { classes, cx } = CheckboxStyles(
+      { helpPosition, variant, isChecked },
+      { name: 'Checkbox' }
+    );
+
+    return (
+      <Group className={classes.mainContainer}>
+        <MantineCheckbox
+          indeterminate={indeterminate}
+          disabled={disabled}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          checked={isChecked}
+          {...props}
+          ref={ref}
+          classNames={classes}
+        ></MantineCheckbox>
+        <Box className={classes.container}>
+          <Box className={classes.label}>{label}</Box>
+          {help !== '' && <Box className={classes.help}>{help}</Box>}
+        </Box>
+      </Group>
+    );
+  }
+);
+
+Checkbox.propTypes = {
+  label: PropTypes.string,
+  help: PropTypes.string,
+  helpPosition: PropTypes.oneOf(HELP_POSITIONS),
+  variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
+  indeterminate: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+};
 
 export { Checkbox };
