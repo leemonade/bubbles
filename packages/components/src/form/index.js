@@ -3,6 +3,7 @@ export * from './PasswordInput';
 export * from './Button/Button';
 export * from './InputWrapper';
 export * from './ActionButton';
+export * from './TagifyInput';
 export * from './NumberInput';
 export * from './IconButton';
 export * from './InputError';

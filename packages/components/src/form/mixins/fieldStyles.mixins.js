@@ -73,12 +73,14 @@ export const getInputSizes = (size, spacing, includeHeight = true) => {
   return {
     xs: {
       height: includeHeight ? spacing['7'] : 'auto',
+      minHeight: !includeHeight ? spacing['7'] : 'auto',
       ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
-      height: includeHeight ? spacing['8'] : 'auto',
-      ...getPaddings(spacing['3'], spacing['3']),
+      height: includeHeight ? 38 : 'auto',
+      minHeight: !includeHeight ? 38 : 'auto',
+      ...getPaddings(spacing['2'], spacing['2']),
     },
   }[size];
 };

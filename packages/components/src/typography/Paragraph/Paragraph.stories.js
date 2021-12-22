@@ -1,5 +1,12 @@
 import React from 'react';
-import { Paragraph, PARAGRAPH_ALIGNS, PARAGRAPH_TRANSFORMS } from './Paragraph';
+import {
+  Paragraph,
+  PARAGRAPH_ALIGNS,
+  PARAGRAPH_COLORS,
+  PARAGRAPH_SIZES,
+  PARAGRAPH_TRANSFORMS,
+  DEFAULT_PROPS,
+} from './Paragraph';
 import mdx from './Paragraph.mdx';
 
 export default {
@@ -17,6 +24,8 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     align: { options: PARAGRAPH_ALIGNS, control: { type: 'select' } },
+    size: { options: PARAGRAPH_SIZES, control: { type: 'select' } },
+    color: { options: PARAGRAPH_COLORS, control: { type: 'select' } },
     transform: { options: PARAGRAPH_TRANSFORMS, control: { type: 'select' } },
   },
 };
@@ -29,6 +38,5 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   test_text: 'Test',
-  align: 'left',
-  transform: '',
+  ...DEFAULT_PROPS,
 };
