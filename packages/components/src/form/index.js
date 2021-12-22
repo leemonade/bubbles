@@ -13,3 +13,4 @@ export * from './Checkbox';
 export * from './Select';
 export * from './Switch';
 export * from './Input';
+export * from './ColorPicker';

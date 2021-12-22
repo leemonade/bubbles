@@ -1,0 +1,81 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './ColorPicker.stories.js';
+import { ColorPicker } from './ColorPicker.js';
+import { Group, Box, Space } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# ColorPicker
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/ColorPicker)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+ColorPicker is ...
+
+<ThemeProvider>
+  <ColorPicker />
+</ThemeProvider>
+
+## ColorPicker variants
+
+ColorPicker can be compact to hide the color swatches and make it smaller:
+
+<ThemeProvider>
+  <Group>
+    <ColorPicker />
+    <Space></Space>
+    <ColorPicker compact />
+  </Group>
+</ThemeProvider>
+
+It can also has a mode for only use the HSL model:
+
+<ThemeProvider>
+  <Group>
+    <ColorPicker useHsl />
+    <Space></Space>
+    <ColorPicker useHsl compact />
+  </Group>
+</ThemeProvider>
+
+And it can also be set to fullwidth:
+
+<ThemeProvider>
+  <Box style={{ width: '50%' }}>
+    <ColorPicker fullWidth />
+  </Box>
+  <Box style={{ width: '50%' }}>
+    <ColorPicker useHsl fullWidth />
+  </Box>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-form-colorpicker--playground" />
+</Preview>
+
+<Props of={ColorPicker} />
+
+## References
+
+[MDN: ARIA Color picker role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/color-picker_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA Color picker role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/color-picker/color-picker.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/ColorPicker.mdx)
