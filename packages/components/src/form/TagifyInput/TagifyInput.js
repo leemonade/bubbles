@@ -2,8 +2,8 @@ import React, { forwardRef } from 'react';
 import { useId } from '@mantine/hooks';
 import {
   INPUT_WRAPPER_ORIENTATION,
+  INPUT_WRAPPER_PROP_TYPES,
   INPUT_WRAPPER_SIZES,
-  PROP_TYPES as INPUT_WRAPPER_PROPTYPES,
   InputWrapper,
 } from '../InputWrapper';
 import { TagifyInputStyles } from './TagifyInput.styles';
@@ -13,7 +13,7 @@ import './tagify/tagify.css'; // Tagify CSS
 export const TAGIFY_SIZES = INPUT_WRAPPER_SIZES;
 export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
-export const DEFAULT_PROPS = {
+export const TAGIFY_DEFAULT_PROPS = {
   mixed: true,
   size: 'sm',
   orientation: 'vertical',
@@ -52,8 +52,8 @@ const TagifyInput = forwardRef(
   }
 );
 
-TagifyInput.defaultProps = DEFAULT_PROPS;
+TagifyInput.defaultProps = TAGIFY_DEFAULT_PROPS;
 
-TagifyInput.propTypes = { ...INPUT_WRAPPER_PROPTYPES };
+TagifyInput.propTypes = { ...INPUT_WRAPPER_PROP_TYPES };
 
 export { TagifyInput };

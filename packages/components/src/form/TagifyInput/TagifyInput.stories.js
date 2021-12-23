@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { TagifyInput, DEFAULT_PROPS, TAGIFY_SIZES } from './TagifyInput';
+import { TAGIFY_DEFAULT_PROPS, TAGIFY_SIZES, TagifyInput } from './TagifyInput';
 import mdx from './TagifyInput.mdx';
 
 export default {
@@ -30,7 +29,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
-  ...DEFAULT_PROPS,
+  ...TAGIFY_DEFAULT_PROPS,
   value: `This is a textarea which mixes text with [[{"value":"tags"}]].
 To add a [[{"value":"tag"}]], type <em>@</em> and a (Latin) character. Here's a [[{"value":"readonly", "readonly":true}]] tag.
 <br>

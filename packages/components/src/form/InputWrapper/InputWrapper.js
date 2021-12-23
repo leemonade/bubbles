@@ -10,7 +10,7 @@ import { InputWrapperStyles } from './InputWrapper.styles';
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
 export const INPUT_WRAPPER_ORIENTATION = ['horizontal', 'vertical'];
 
-export const PROP_TYPES = {
+export const INPUT_WRAPPER_PROP_TYPES = {
   label: PropTypes.string,
   description: PropTypes.string,
   placeholder: PropTypes.string,
@@ -19,7 +19,7 @@ export const PROP_TYPES = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   help: PropTypes.string,
 };
-export const DEFAULT_PROPS = {
+export const INPUT_WRAPPER_DEFAULT_PROPS = {
   as: 'input',
   orientation: 'vertical',
   size: 'sm',
@@ -68,8 +68,8 @@ const InputWrapper = forwardRef(
   }
 );
 
-InputWrapper.defaultProps = DEFAULT_PROPS;
+InputWrapper.defaultProps = INPUT_WRAPPER_DEFAULT_PROPS;
 
-InputWrapper.propTypes = PROP_TYPES;
+InputWrapper.propTypes = INPUT_WRAPPER_PROP_TYPES;
 
 export { InputWrapper };

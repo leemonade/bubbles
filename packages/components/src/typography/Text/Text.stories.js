@@ -1,6 +1,6 @@
 import React from 'react';
 import { TEXT_ROLES } from '.';
-import { Text, TEXT_COLORS, TEXT_SIZES, TEXT_TRANSFORMS, DEFAULT_PROPS } from './Text';
+import { Text, TEXT_COLORS, TEXT_DEFAULT_PROPS, TEXT_SIZES, TEXT_TRANSFORMS } from './Text';
 import mdx from './Text.mdx';
 
 export default {
@@ -32,5 +32,5 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   test_text: 'Test',
-  ...DEFAULT_PROPS,
+  ...TEXT_DEFAULT_PROPS,
 };
