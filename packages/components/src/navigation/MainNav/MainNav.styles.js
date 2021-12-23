@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../theme.mixins';
 
-export const MainNavStyles = createStyles((theme, { itemWidth = 52 }, getRef) => {
+export const MainNavStyles = createStyles((theme, { itemWidth }) => {
   return {
     root: {
       display: 'flex',
@@ -29,6 +29,11 @@ export const MainNavStyles = createStyles((theme, { itemWidth = 52 }, getRef) =>
     navItems: {
       flexGrow: 1,
       height: 1,
+    },
+    subNavHandler: {
+      position: 'absolute',
+      top: 24,
+      left: itemWidth,
     },
   };
 });

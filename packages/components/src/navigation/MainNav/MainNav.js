@@ -1,172 +1,115 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Avatar } from '@mantine/core';
+import { Box } from '@mantine/core';
+import { isArray, isFunction, forEach } from 'lodash';
 import SimpleBar from 'simplebar-react';
 import { Link, useHistory } from 'react-router-dom';
+import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
 import { MainNavStyles } from './MainNav.styles';
 import { MainNavItem } from './MainNavItem/MainNavItem';
+import { Avatar } from '../../informative';
 import { SubNav } from '../SubNav';
 import { Logo } from '../../misc';
+import { ActionButton } from '../../form';
+import { getActiveItem } from './helpers/getActiveItem';
 
-const MAINNAV_WIDTH = 52;
+export const MAIN_NAV_WIDTH = 52;
+export const MAIN_NAV_DEFAULT_PROPS = {};
+export const MAIN_NAV_PROP_TYPES = {};
 
-const MENU = [
-  {
-    id: '6c390737-0f7f-4ad1-b923-74762c5eeb35',
-    menuKey: 'plugins.menu-builder.main',
-    key: 'plugins.users.users',
-    parentKey: null,
-    pluginName: 'plugins.users',
-    order: null,
-    fixed: 0,
-    iconName: null,
-    activeIconName: null,
-    iconSvg: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/user_313388f6d8.svg',
-    activeIconSvg:
-      'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/user_Active_52e4e75973.svg',
-    iconAlt: null,
-    url: null,
-    window: 'SELF',
-    disabled: null,
-    created_at: '2021-11-08T09:48:02.000Z',
-    updated_at: '2021-11-08T09:48:02.000Z',
-    label: 'Usuarios',
-    childrens: [
-      {
-        id: 'a716ee71-a0bc-4742-8d9c-e9a457556095',
-        menuKey: 'plugins.menu-builder.main',
-        key: 'plugins.users.user-data',
-        parentKey: 'plugins.users.users',
-        pluginName: 'plugins.users',
-        order: null,
-        fixed: 0,
-        iconName: null,
-        activeIconName: null,
-        iconSvg: null,
-        activeIconSvg: null,
-        iconAlt: null,
-        url: '/private/users/user-data',
-        window: 'SELF',
-        disabled: null,
-        created_at: '2021-11-08T09:48:03.000Z',
-        updated_at: '2021-11-08T09:48:03.000Z',
-        label: 'Datos del usuario',
-        childrens: [],
-        customChildrens: [],
-      },
-      {
-        id: 'a752ae34-d64f-45b5-a637-f5ee338840e9',
-        menuKey: 'plugins.menu-builder.main',
-        key: 'plugins.users.welcome',
-        parentKey: 'plugins.users.users',
-        pluginName: 'plugins.users',
-        order: null,
-        fixed: 0,
-        iconName: null,
-        activeIconName: null,
-        iconSvg: null,
-        activeIconSvg: null,
-        iconAlt: null,
-        url: '/private/users/welcome',
-        window: 'SELF',
-        disabled: null,
-        created_at: '2021-11-08T09:48:03.000Z',
-        updated_at: '2021-11-08T09:48:03.000Z',
-        label: 'Bienvenida',
-        childrens: [],
-        customChildrens: [],
-      },
-      {
-        id: 'b9f00e57-4618-4863-946d-a52625c9bc9a',
-        menuKey: 'plugins.menu-builder.main',
-        key: 'plugins.users.profile-list',
-        parentKey: 'plugins.users.users',
-        pluginName: 'plugins.users',
-        order: null,
-        fixed: 0,
-        iconName: null,
-        activeIconName: null,
-        iconSvg: null,
-        activeIconSvg: null,
-        iconAlt: null,
-        url: '/private/users/profiles/list',
-        window: 'SELF',
-        disabled: null,
-        created_at: '2021-11-08T09:48:03.000Z',
-        updated_at: '2021-11-08T09:48:03.000Z',
-        label: 'Perfiles',
-        childrens: [],
-        customChildrens: [],
-      },
-    ],
-    customChildrens: [],
-  },
-];
+const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) => {
+  const [activeItem, setActiveItem] = useState(null);
+  const [activeSubItem, setActiveSubItem] = useState(null);
+  const [showSubNav, setShowSubNav] = useState(false);
+  const history = useHistory();
 
-export const MainNav = ({ children, onClose, onOpen, ...props }) => {
-  const [state, setState] = useState({
-    menuActive: { ...MENU[0].childrens[0], parent: MENU[0] },
-    menu: MENU,
-  });
-  const { classes, cx } = MainNavStyles({ itemWidth: MAINNAV_WIDTH });
+  // ······································································
+  // HANDLERS
 
-  const onNavItemClick = useCallback(
-    (parent) => {
-      setState({ ...state, menuActive: { ...state.menuActive, parent } });
+  const handleItemClick = useCallback((item) => {
+    setActiveItem(item);
+    const hasChildren = !item.children || (isArray(item.children) && item.children.length === 0);
 
-      let openSubMenu = true;
-      let closeSubMenu = false;
-      if (parent.url) {
-        openSubMenu = false;
-        closeSubMenu = true;
+    if (item.url && !hasChildren) {
+      closeSubNav(false);
+    }
+    if (item.children) {
+      openSubNav(true);
+    }
+  }, []);
+
+  const handleRouteChange = useCallback(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        handleRouteChange();
+      }, 100);
+    } else {
+      const items = getActiveItem(menuData);
+
+      if (items && activeItem && items.activeItem.id !== activeItem.id) {
+        handleItemClick(items.activeItem);
       }
-      if (parent.childrens) {
-        openSubMenu = true;
-        closeSubMenu = false;
-      }
-      if (closeSubMenu) {
-        closeMenu();
-      }
-      if (openSubMenu) {
-        openMenu();
-      }
-    },
-    [state]
-  );
 
-  const openMenu = useCallback(() => {
-    if (onOpen) onOpen();
-  }, [state]);
+      if (
+        items &&
+        activeSubItem &&
+        items.activeSubItem &&
+        items.activeSubItem.id !== activeSubItem.id
+      ) {
+        setActiveSubItem(items.activeSubItem);
+      }
+    }
+  }, [menuData]);
 
-  const closeMenu = useCallback(() => {
-    if (onClose) onClose();
-  }, [state]);
+  const openSubNav = useCallback(() => {
+    setShowSubNav(true);
+    if (isFunction(onOpen)) onOpen();
+  }, []);
 
-  const onCloseSubMenu = async () => {
-    setState({ ...state, menuActive: MENU[0].childrens[0] });
-    closeMenu();
-  };
+  const closeSubNav = useCallback(() => {
+    setShowSubNav(false);
+    if (isFunction(onClose)) onClose();
+  }, []);
+
+  // ······································································
+  // WATCHERS
+
+  useEffect(() => {
+    let callback;
+    if (history) {
+      callback = history.listen(() => handleRouteChange());
+    }
+    return () => callback && callback();
+  }, []);
+
+  // ······································································
+  // STYLES
+
+  const { classes, cx } = MainNavStyles({ itemWidth: MAIN_NAV_WIDTH });
+
+  // ······································································
+  // SUB-COMPONENTS
 
   const getItem = (item) => {
     if (item.url) {
       return (
         <Link key={item.id} to={item.url}>
           <MainNavItem
-            onClick={() => onNavItemClick(item)}
-            active={state.menuActive?.parent?.id === item.id}
             item={item}
-            itemWidth={MAINNAV_WIDTH}
+            itemWidth={MAIN_NAV_WIDTH}
+            active={activeItem?.id === item.id}
+            onClick={() => handleItemClick(item)}
           />
         </Link>
       );
     }
     return (
       <MainNavItem
-        onClick={() => onNavItemClick(item)}
         key={item.id}
-        active={state.menuActive?.parent?.id === item.id}
         item={item}
-        itemWidth={MAINNAV_WIDTH}
+        itemWidth={MAIN_NAV_WIDTH}
+        active={activeItem?.id === item.id}
+        onClick={() => handleItemClick(item)}
       />
     );
   };
@@ -179,7 +122,7 @@ export const MainNav = ({ children, onClose, onOpen, ...props }) => {
           <Logo isotype className={classes.logo} />
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
-            {state.menu && state.menuActive ? state.menu.map((item) => getItem(item)) : null}
+            {menuData && menuData.map((item) => getItem(item))}
           </SimpleBar>
           <Avatar mx="auto" mb={10} radius="xl">
             LE
@@ -188,17 +131,35 @@ export const MainNav = ({ children, onClose, onOpen, ...props }) => {
       </Box>
 
       {/* Sub Nav */}
-      {state.menuActive ? (
+      {showSubNav && activeItem && activeItem.children.length > 0 && (
         <SubNav
-          item={state.menuActive.parent}
-          activeItem={state.menuActive.child}
-          onClose={onCloseSubMenu}
-          state={state}
-          setState={setState}
+          item={activeItem}
+          subItems={activeItem.children}
+          customItems={activeItem.customChildren}
+          activeItem={activeSubItem}
+          onItemClick={(item) => setActiveSubItem(item)}
+          onClose={closeSubNav}
         />
-      ) : null}
+      )}
+
+      {/* Open Sub Nav handler */}
+      {!showSubNav && activeItem && activeItem.children.length > 0 && (
+        <Box className={classes.subNavHandler}>
+          <ActionButton
+            icon={<ComputerKeyboardNextIcon />}
+            tooltip="Open"
+            variant="solid"
+            color="negative"
+            style={{ borderRadius: '0 3px 3px 0' }}
+            onClick={openSubNav}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
 
-MainNav.propTypes = {};
+export { MainNav };
+
+MainNav.defaultProps = MAIN_NAV_DEFAULT_PROPS;
+MainNav.propTypes = MAIN_NAV_PROP_TYPES;
