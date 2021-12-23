@@ -12,7 +12,7 @@ const Checkbox = forwardRef(
       help,
       helpPosition = HELP_POSITIONS[0],
       variant = CHECKBOX_VARIANTS[0],
-      disabled,
+      disabled = false,
       indeterminate = false,
       onChange,
       checked,

@@ -15,7 +15,7 @@ export const CheckboxStyles = createStyles((theme, { helpPosition, variant, isCh
           ? theme.colors.interactive04
           : theme.colors.interactive03
         : null,
-      maxWidth: 'fit-content',
+      //maxWidth: 'fit-content',
       padding: isBoxed && `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`,
       margin: 0,
       boxShadow: isBoxed && isChecked && `inset 0 0 0 1px ${theme.colors.interactive01d}`,
