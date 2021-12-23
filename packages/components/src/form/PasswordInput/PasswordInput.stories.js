@@ -1,9 +1,9 @@
 import React from 'react';
-import { PasswordInput, PINPUT_SIZES } from './PasswordInput';
+import { PasswordInput, PASSWORD_INPUT_SIZES, PASSWORD_INPUT_ORIENTATIONS } from './PasswordInput';
 import mdx from './PasswordInput.mdx';
 
 export default {
-  title: 'Form/Input/PasswordInput',
+  title: 'Molecules/Form/PasswordInput',
   parameters: {
     component: PasswordInput,
     docs: {
@@ -11,21 +11,23 @@ export default {
     },
   },
   argTypes: {
-    size: { options: PINPUT_SIZES, control: { type: 'select' } },
+    size: { options: PASSWORD_INPUT_SIZES, control: { type: 'select' } },
+    orientation: { options: PASSWORD_INPUT_ORIENTATIONS, control: { type: 'select' } },
   },
 };
 
 const Template = (props) => {
-  return <PasswordInput {...props}/>;
+  return <PasswordInput {...props} />;
 };
 
-export const DefaultPasswordInput = Template.bind({});
+export const Playground = Template.bind({});
 
-DefaultPasswordInput.args = {
+Playground.args = {
   size: 'sm',
+  orientation: 'vertical',
   placeholder: 'Password',
   label: 'Password',
   description: 'Password must include at least one letter, number and special character',
-  required: true, 
+  required: true,
   error: 'Password must include at least one letter',
 };

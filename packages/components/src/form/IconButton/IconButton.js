@@ -1,11 +1,11 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Button as MantineButton } from '@mantine/core';
- import { IconButtonStyles } from './IconButton.styles';
+import { ActionIcon as MantineActionIcon } from '@mantine/core';
+import { IconButtonStyles } from './IconButton.styles';
 
-export const ICON_BUTTON_SIZES = ['xs', 'sm'];
+export const ICON_BUTTON_SIZES = ['xs', 'sm', 'md', 'lg'];
 export const ICON_BUTTON_VARIANTS = ['default'];
-export const ICON_BUTTON_COLORS = ['positive', 'negative'];
+export const ICON_BUTTON_COLORS = ['positive', 'negative', 'primary'];
 
 export const IconButton = forwardRef(
   (
@@ -14,12 +14,13 @@ export const IconButton = forwardRef(
       color: colorProp = 'positive',
       size = 'sm',
       variant: variantProp = 'default',
-      rounded = false, 
+      rounded = false,
       sx,
-      iconOnly = true,
+      icon,
       styles,
       className,
       classNames,
+      label,
       ...props
     },
     ref
@@ -27,16 +28,19 @@ export const IconButton = forwardRef(
     const radius = rounded ? 'xl' : 'xs';
     const color = ICON_BUTTON_COLORS.includes(colorProp) ? colorProp : 'positive';
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp) ? variantProp : 'default';
+    const { classes, cx } = IconButtonStyles({ color, size });
 
     return (
-      <MantineButton
+      <MantineActionIcon
         {...props}
+        title={label}
+        aria-label={label}
         component={as}
         variant={variant}
         radius={radius}
-        iconOnly={false}
-        size={size} 
-        styles={(theme) => IconButtonStyles(theme, { color, size })}
+        leftIcon={icon}
+        size={size}
+        classNames={classes}
         ref={ref}
       />
     );

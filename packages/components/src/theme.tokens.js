@@ -13,6 +13,7 @@ export const COLORS = {
   ui01: PALETTE.neutral30,
   ui02: PALETTE.neutral10,
   ui03: PALETTE.neutral5,
+  ui04: PALETTE.neutral20,
 
   text01: PALETTE.mainPrimary,
   text02: PALETTE.neutral70,
@@ -46,11 +47,8 @@ export const COLORS = {
 };
 
 export const SPACING = Object.assign({}, SPACES);
-
 export const FONT_SIZES = Object.assign({}, FS);
-
 export const SHADOWS = {
-  drop01: EFFECTS.drowpSahdow01,
-  shadow01: EFFECTS.boxShadow01,
+  drop01: EFFECTS.dropShadow01,
   shadow04: EFFECTS.boxShadow04,
 };

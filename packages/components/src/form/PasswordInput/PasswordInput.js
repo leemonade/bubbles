@@ -1,61 +1,41 @@
-import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-import { ExclamationIcon } from '@heroicons/react/solid';
-import { PasswordInput as MantinePasswordInput, Group, Text} from '@mantine/core';
+import React, { forwardRef, useMemo } from 'react';
+import { PasswordInput as MantinePasswordInput } from '@mantine/core';
+import { isNil } from 'lodash';
+import { useId } from '@mantine/hooks';
+import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
 import { PasswordInputStyles } from './PasswordInput.styles';
-export const PINPUT_SIZES = ['xs', 'sm'];
 
-const InputDescription = ({ className, message }) => {
-  return <Text className={className}>{message}</Text>;
-};
+export const PASSWORD_INPUT_SIZES = INPUT_WRAPPER_SIZES;
+export const PASSWORD_INPUT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
-const InputError = ({ className, message }) => {
-  return (
-    <Group>
-      <ExclamationIcon style={{ height: '0.85rem', paddingTop: '2px', margin:'0 0 0 8px' }} />
-      <Text component="span" className={className}>
-        {message}
-      </Text>
-    </Group>
-  );
-};
-
-export const PasswordInput = forwardRef(
+const PasswordInput = forwardRef(
   (
-    { 
-      radius, 
-      variant, 
-      icon, 
-      label, 
-      input, 
-      description, 
-      error, 
-      size: sizeProp = 'sm', 
-      ...props 
+    {
+      radius, // Just to pick it up to not pass to props
+      error,
+      size,
+      placeholder,
+      ...props
     },
     ref
   ) => {
-    const size = PINPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes, cx } = PasswordInputStyles({size});
-    const customError = error ? (
-      <InputError className={classes.error} message={error} />
-    ) : undefined;
-  
+    const uuid = useId();
+
+    const { classes, cx } = PasswordInputStyles({ size });
+
     return (
-      <MantinePasswordInput
-        {...props}
-        description={<InputDescription className={classes.description} message={description} />}
-        error={customError}
-        label={label}
-        classNames={{
-          input: classes.input,
-          label: classes.label,
-          required: classes.required,
-          rightSection: classes.rightSection,
-        }}
-        //styles={(theme) => PasswordInputStyles(theme, { size })}
-      />
+      <InputWrapper {...props} size={size} uuid={uuid} error={error}>
+        <MantinePasswordInput
+          ref={ref}
+          id={uuid}
+          size={size}
+          placeholder={placeholder}
+          classNames={classes}
+          error={!isNil(error) && error != ''}
+        />
+      </InputWrapper>
     );
   }
 );
 
+export { PasswordInput };

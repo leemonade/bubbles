@@ -1,0 +1,11 @@
+<svg fill="none" viewBox="0 0 25 25" stroke="currentColor" aria-hidden="true">
+  <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#a)">
+    <path d="M14.129 23.75H2.75a1.5 1.5 0 0 1-1.5-1.5V2.75a1.5 1.5 0 0 1 1.5-1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v11.379a1.5 1.5 0 0 1-.439 1.06l-8.122 8.122a1.5 1.5 0 0 1-1.06.439v0Z"/>
+    <path d="M14.75 23.615V16.25a1.5 1.5 0 0 1 1.5-1.5h7.365M15.5 5.75l-5.309 7.078a1.5 1.5 0 0 1-2.211.208L5.75 11"/>
+  </g>
+  <defs>
+    <clipPath id="a">
+      <path fill="#fff" d="M0 0h24v24H0z" transform="translate(.5 .5)"/>
+    </clipPath>
+  </defs>
+</svg>

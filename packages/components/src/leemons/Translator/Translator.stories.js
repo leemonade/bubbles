@@ -1,16 +1,30 @@
-import React from 'react';
-import Translator from './Translator';
+import React, { useState, useContext} from 'react'; 
+import Translator from './Translator';    
+
+
+const LANGUAGES = ['en', 'es', 'fr'];
 
 export default {
   component: Translator,
   title: 'Leemons/Translator',
+  argTypes: {
+    langError: { options: LANGUAGES, control: { type: 'multi-select' } },
+  },
 };
 
-const Template = (args) => <Translator {...args} />;
+
+
+const Template = ({langError, ...args}) => {  
+     
+  return (
+    <>
+      <Translator {...args} lang={langError} />
+    </>
+  );
+};
 
 export const Default = Template.bind({});
-Default.args = { 
-    title: 'Configuration & languages',
-    state: '', 
-};
+Default.args = {
+  moduleTitle: 'Configuration & languages',
 
+};

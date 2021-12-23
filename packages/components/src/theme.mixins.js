@@ -22,10 +22,6 @@ export function getPaddings(vertical, horizontal, rounded = false) {
   };
 }
 
-export function getGlobals(GLOBAL_IMPORTS) {
-  return { '@import': GLOBAL_IMPORTS };
-}
-
 export function getSpacing(spaces) {
   let spacing = {};
 
@@ -59,6 +55,7 @@ const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {
   const result = {
     fontFamily: type === FONT_TYPES.EXPRESSIVE ? "'Lexend', sans-serif" : "'Inter', sans-serif",
+    lineHeight: '1rem',
   };
 
   if (size) {

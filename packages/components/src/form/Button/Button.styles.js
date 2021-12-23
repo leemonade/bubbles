@@ -64,6 +64,19 @@ const getVariant = (variant, theme, color) => {
           borderColor: theme.colors.interactive01,
         },
       },
+      fatic: {
+        backgroundColor: theme.colors.fatic01v0,
+        color: theme.colors.fatic01,
+        '&:hover': {
+          color: theme.colors.text07,
+          backgroundColor: theme.colors.fatic01,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.fatic01v0,
+          borderColor: theme.colors.fatic01,
+          color: theme.colors.fatic01,
+        },
+      },
     },
     outline: {
       primary: {
@@ -102,27 +115,115 @@ const getVariant = (variant, theme, color) => {
           boxShadow: theme.shadows.drop01,
         },
       },
+      fatic: {
+        borderColor: theme.colors.fatic01,
+        color: theme.colors.fatic01,
+        '&:hover': {
+          opacity: '0.8',
+        },
+      },
+    },
+    link: {
+      primary: {
+        color: theme.colors.interactive01,
+        '&:hover': {
+          color: theme.colors.interactive01h,
+        },
+      },
+      secondary: {
+        color: theme.colors.interactive02,
+        '&:hover': {
+          color: theme.colors.interactive02h,
+        },
+      },
+      tertiary: {
+        color: theme.colors.text02,
+        '&:hover': {
+          color: theme.colors.text03,
+        },
+      },
+      negative: {
+        color: theme.colors.text07,
+        '&:hover': {
+          opacity: '0.8',
+        },
+        '&:active': {
+          color: theme.colors.text07,
+        },
+      },
+      fatic: {
+        color: theme.colors.fatic01,
+        '&:hover': {
+          opacity: '0.8',
+        },
+      },
+    },
+    light: {
+      primary: {
+        color: theme.colors.interactive01,
+        '&:hover': {
+          color: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive01v1,
+        },
+      },
+      secondary: {
+        color: theme.colors.interactive02,
+        '&:hover': {
+          color: theme.colors.interactive02h,
+          backgroundColor: theme.colors.interactive03,
+        },
+      },
+      tertiary: {
+        color: theme.colors.text02,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03h,
+        },
+      },
+      negative: {
+        backgroundColor: 'transparent',
+        color: theme.colors.text07,
+        '&:hover': {
+          opacity: '0.8',
+        },
+      },
+      fatic: {
+        color: theme.colors.fatic01,
+        '&:hover': {
+          backgroundColor: theme.colors.fatic01v0,
+        },
+      },
     },
   };
   return variants[variant][color];
 };
 
-export const ButtonStyles = createStyles((theme, { size, color }) => {
+export const ButtonStyles = createStyles((theme, { size, color, position, variant }) => {
+  const currentVariant = getVariant(variant, theme, color);
+
   return {
     root: {
       ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme.spacing),
-      '.mantine-Button-rightIcon': {
-        marginLeft: pxToRem(8),
-        marginRight: pxToRem(-8),
+    },
+    inner: {
+      justifyContent: position === 'apart' ? 'space-between' : position,
+    },
+    loading: {
+      border: 'transparent',
+      svg: {
+        stroke: currentVariant.color,
       },
-      '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(8),
-        marginLeft: pxToRem(-8),
-      },
-      '.mantine-Button-label': {
-        with: '100%',
-      },
+    },
+    rightIcon: {
+      marginLeft: pxToRem(8),
+      marginRight: pxToRem(-8),
+    },
+    leftIcon: {
+      marginRight: pxToRem(8),
+      marginLeft: pxToRem(-8),
+    },
+    label: {
+      with: '100%',
     },
     default: {
       border: '2px solid transparent',
@@ -135,13 +236,18 @@ export const ButtonStyles = createStyles((theme, { size, color }) => {
     link: {
       borderWidth: 5,
       ...getSizes(size || 'md', theme.spacing),
-      ...getVariant('outline', theme, color),
+      ...getVariant('link', theme, color),
       paddingLeft: 0,
       paddingRight: 0,
 
       '&:hover': {
         textDecoration: 'none',
       },
+    },
+    light: {
+      backgroundColor: 'transparent',
+      ...getSizes(size || 'md', theme.spacing),
+      ...getVariant('light', theme, color),
     },
   };
 });

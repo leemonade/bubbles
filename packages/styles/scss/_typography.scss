@@ -1,9 +1,0 @@
-@import './type/styles';
-
-/// Different type styles per token
-/// @param {String} $name - The name of the token to get the styles for
-/// @param {Bool} $fluid [false] - Specify whether to include fluid styles
-/// @example @include type-style('body-short-01');
-@mixin type-style($name, $fluid: false) {
-  @include bubbles--type-style($name, $fluid);
-}

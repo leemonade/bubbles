@@ -1,18 +1,32 @@
-import { initial } from 'lodash';
+import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing, iconOnly) => {
+const getSizes = (size, spacing) => {
   return {
     xs: {
       fontSize: pxToRem(14),
       width: spacing['7'],
       height: spacing['7'],
+      svg: { height: spacing['4'] },
     },
 
     sm: {
       fontSize: pxToRem(14),
       width: spacing['8'],
       height: spacing['8'],
+      svg: { height: spacing['5'] },
+    },
+    md: {
+      fontSize: pxToRem(14),
+      width: spacing['9'],
+      height: spacing['9'],
+      svg: { height: spacing['5'] },
+    },
+    lg: {
+      fontSize: pxToRem(14),
+      width: spacing['10'],
+      height: spacing['10'],
+      svg: { height: spacing['5'] },
     },
   }[size];
 };
@@ -30,18 +44,12 @@ const getVariant = (variant, theme, color) => {
         '&:active': {
           backgroundColor: theme.colors.interactive03,
           color: theme.colors.iinteractive01,
-          borderTopColor: theme.colors.interactive01,
-          borderRightColor: theme.colors.interactive01,
-          borderBottomColor: theme.colors.interactive01,
-          borderLeftColor: theme.colors.interactive01,
+          borderColor: theme.colors.interactive01,
         },
         '&:focus': {
           backgroundColor: theme.colors.interactive03,
           color: theme.colors.iinteractive01,
-          borderTopColor: theme.colors.interactive01,
-          borderRightColor: theme.colors.interactive01,
-          borderBottomColor: theme.colors.interactive01,
-          borderLeftColor: theme.colors.interactive01,
+          borderColor: theme.colors.interactive01,
         },
       },
       negative: {
@@ -55,18 +63,23 @@ const getVariant = (variant, theme, color) => {
         '&:active': {
           backgroundColor: theme.colors.uiBackground03,
           color: theme.colors.text08,
-          borderTopColor: theme.colors.interactive01,
-          borderRightColor: theme.colors.interactive01,
-          borderBottomColor: theme.colors.interactive01,
-          borderLeftColor: theme.colors.interactive01,
+          borderColor: theme.colors.interactive01,
         },
         '&:focus': {
           backgroundColor: theme.colors.uiBackground03,
           color: theme.colors.text08,
-          borderTopColor: theme.colors.interactive01,
-          borderRightColor: theme.colors.interactive01,
-          borderBottomColor: theme.colors.interactive01,
-          borderLeftColor: theme.colors.interactive01,
+          borderColor: theme.colors.interactive01,
+        },
+      },
+      primary: {
+        backgroundColor: theme.colors.interactive01,
+        color: theme.colors.text07,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive01h,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.interactive01,
+          borderColor: theme.colors.interactive01h,
         },
       },
     },
@@ -74,19 +87,16 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const IconButtonStyles = (theme, { size, color, iconOnly }) => {
+export const IconButtonStyles = createStyles((theme, { size, color }) => {
   return {
     root: {
-      ...getFontExpressive(null, 400),
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
-      '.mantine-Button-leftIcon': {
-        marginRight: pxToRem(0),
-        marginLeft: pxToRem(0),
-      },
+      ...getSizes(size || 'md', theme.spacing),
+      marginRight: pxToRem(0),
+      marginLeft: pxToRem(0),
     },
     default: {
       border: '2px solid transparent',
       ...getVariant('default', theme, color),
     },
   };
-};
+});

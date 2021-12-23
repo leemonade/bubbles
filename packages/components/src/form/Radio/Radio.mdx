@@ -1,0 +1,93 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Radio.stories.js';
+import { Radio } from './Radio.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+import { AcademicCapIcon } from '@heroicons/react/outline';
+
+# Radio
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/Radio)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Radio is ...
+
+<ThemeProvider>
+  <Radio name="overview">Option 1</Radio>
+  <Radio name="overview">Option 2</Radio>
+</ThemeProvider>
+
+## Radio variants
+
+The radio input has three variants: default, boxed(adds paddings in all directions) and icon
+
+<ThemeProvider>
+  <Radio name="variant" variant="default">
+    Option 1
+  </Radio>
+  <Radio name="variant" variant="boxed">
+    Option 2
+  </Radio>
+  <Radio name="variant" variant="icon" icon={<AcademicCapIcon height={32} width={32} />}>
+    Option 3
+  </Radio>
+</ThemeProvider>
+
+The radio input can also be disabled
+
+<ThemeProvider>
+  <Radio name="disabled" disabled>
+    Disabled radio input
+  </Radio>
+</ThemeProvider>
+
+## Help position
+
+The default and boxed variants can have a help text that can be positioned to the right or bottom of the radio input.
+
+<ThemeProvider>
+  <Radio name="position" variant="default" help="Right help text" helpPosition="right">
+    Default Option 1
+  </Radio>
+  <Radio name="position" variant="default" help="Bottom help text" helpPosition="bottom">
+    Default Option 2
+  </Radio>
+  <Radio name="position" variant="boxed" help="Right help text" helpPosition="right">
+    Boxed Option 3
+  </Radio>
+  <Radio name="position" variant="boxed" help="Bottom help text" helpPosition="bottom">
+    Boxed Option 4
+  </Radio>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-form-radio--playground" />
+</Preview>
+
+<Props of={Radio} />
+
+## References
+
+[MDN: ARIA Radio role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA Radio role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/radio/radio.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/Radio.mdx)

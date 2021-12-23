@@ -1,7 +1,16 @@
-import { F } from 'ramda';
-import { Button } from './Button/Button';
-import { IconButton } from './IconButton/IconButton'; 
-import {Input} from './Input/Input';
-import { PasswordInput } from './PasswordInput/PasswordInput';
-
-export { Button, IconButton, Input, PasswordInput };
+export * from './InputDescription';
+export * from './PasswordInput';
+export * from './Button/Button';
+export * from './InputWrapper';
+export * from './ActionButton';
+export * from './TagifyInput';
+export * from './NumberInput';
+export * from './IconButton';
+export * from './InputError';
+export * from './TextInput';
+export * from './Textarea';
+export * from './Checkbox';
+export * from './Select';
+export * from './Switch';
+export * from './Input';
+export * from './ColorPicker';

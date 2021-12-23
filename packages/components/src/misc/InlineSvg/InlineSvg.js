@@ -9,8 +9,6 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
   const [isLoaded, setIsLoaded] = useState(false);
   const [isErrored, setIsErrored] = useState(false);
 
-  console.log('strokeCurrent:', strokeCurrent);
-
   useEffect(() => {
     let mounted = true;
     if (src) {
@@ -32,12 +30,9 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
   }, [src]);
 
   useEffect(() => {
-    console.log('svg:', svg);
     if (svg) {
       const hasStroke = strokeCurrent || (className && className.indexOf('stroke-current') >= 0);
       const hasFill = fillCurrent || (className && className.indexOf('fill-current') >= 0);
-
-      console.log('hasStroke:', hasStroke);
 
       let str = svg;
       if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="currentColor"');
@@ -58,6 +53,7 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
         { [classes.errored]: isErrored },
         className
       )}
+      style={style}
       dangerouslySetInnerHTML={{ __html: goodSvg }}
     />
   );

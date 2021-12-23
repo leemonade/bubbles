@@ -1,0 +1,78 @@
+import { createStyles } from '@mantine/styles';
+import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
+
+const getSizes = (size, spacing, iconOnly) => {
+  return {
+    xs: {
+      height: spacing['5'],
+      width: iconOnly ? spacing['5'] : 'auto',
+      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
+      svg: { height: spacing['3'] },
+    },
+
+    sm: {
+      height: spacing['7'],
+      width: iconOnly ? spacing['7'] : 'auto',
+      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
+      svg: { height: spacing['4'] },
+    },
+  }[size];
+};
+
+const getVariant = (variant, theme, color) => {
+  const variants = {
+    default: {
+      positive: {
+        backgroundColor: theme.colors.interactive04,
+        color: theme.colors.text02,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive01v1,
+          color: theme.colors.interactive01,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.interactive01v1,
+          borderColor: theme.colors.interactive03h,
+        },
+      },
+      negative: {
+        backgroundColor: theme.colors.uiBackground05,
+        color: theme.colors.text06,
+        '&:hover': {
+          color: theme.colors.text07,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.interactive03,
+          borderColor: theme.colors.interactive01,
+        },
+      },
+    },
+    outline: {},
+  };
+  return variants[variant][color];
+};
+
+export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }) => {
+  return {
+    root: {
+      ...getFontExpressive(theme.fontSizes['1'], 400),
+      ...getSizes(size || 'md', theme.spacing, iconOnly),
+    },
+    default: {
+      border: '2px solid transparent',
+      ...getVariant('default', theme, color),
+    },
+    inner: { gap: iconOnly ? 0 : 4 },
+    rightIcon: {
+      marginLeft: pxToRem(0),
+      marginRight: pxToRem(0),
+      height: theme.spacing['2'],
+    },
+    leftIcon: {
+      marginRight: pxToRem(0),
+      marginLeft: pxToRem(0),
+    },
+    label: {
+      with: '100%',
+    },
+  };
+});

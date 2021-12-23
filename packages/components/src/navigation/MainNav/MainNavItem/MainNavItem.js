@@ -6,6 +6,7 @@ import { ImageLoader } from './../../../misc';
 
 export const MainNavItem = ({ item, itemWidth, active, onClick, ...props }) => {
   const { classes, cx } = MainNavItemStyles({ itemWidth, active });
+
   return (
     <Tooltip
       position="right"
@@ -13,12 +14,17 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, ...props }) => {
       withArrow
       classNames={{ body: classes.tooltipBody, arrow: classes.tooltipArrow }}
     >
-      <Button className={classes.root}>
+      <Button
+        className={classes.root}
+        onClick={(e) => (item.disabled ? e.preventDefault() : onClick(e))}
+        aria-label={item.label}
+      >
         <ImageLoader
           className={cx(classes.icon)}
           src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
           alt={item.iconAlt}
           strokeCurrent
+          fillCurrent={active}
         />
       </Button>
     </Tooltip>

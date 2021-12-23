@@ -1,0 +1,48 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Title.stories.js';
+import { Title } from './Title.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# Title
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/typography/Title)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Title is ...
+
+<ThemeProvider>
+  <Title>Title</Title>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-typography-title--playground" />
+</Preview>
+
+<Props of={Title} />
+
+## References
+
+[MDN: ARIA Title role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/title_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA Title role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/title/title.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/typography/Title.mdx)

@@ -1,12 +1,11 @@
-import { getPaddings } from '../../theme.mixins';
+import { getPaddings, getFontProductive } from '../../theme.mixins';
 
 export function getInputStyle(theme) {
   return {
+    ...getFontProductive(null, 400),
     color: theme.colors.text02,
     marginBottom: theme.spacing['1'],
     background: theme.colors.uiBackground04,
-    fontFamily: "'Inter', sans-serif",
-    fontWeight: 400,
     gridArea: 'input',
     '&:disabled': {
       cursor: 'not-allowed',
@@ -21,67 +20,70 @@ export function getInputStyle(theme) {
       opacity: 1,
       color: theme.colors.text05,
     },
+    '&[aria-invalid=true]': {
+      borderColor: theme.colors.fatic01,
+    },
   };
 }
 
 export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
-    fontSize: '0.79rem', 
-    gridArea: 'error',
-    marginTop: theme.spacing[2],
+    ...getFontProductive(theme.fontSizes['1']),
   };
 }
 
 export function getDescriptionStyle(theme) {
   return {
     color: theme.colors.text04,
+    ...getFontProductive(theme.fontSizes['2']),
     marginBottom: theme.spacing['2'],
-    gridArea: 'description',
-    //ui02m
-    fontSize: '0.79rem',
   };
 }
 
 export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
-    fontWeight: 600,
-    fontFamily: "'Inter', sans-serif",
-    marginBottom: theme.spacing['1'],
+    ...getFontProductive(theme.fontSizes['2'], 500),
+    marginBottom: theme.spacing['2'],
     gridArea: 'label',
+  };
+}
+
+export function getHelpStyle(theme) {
+  return {
+    ...getFontProductive(theme.fontSizes['1'], 400),
+    color: theme.colors.text04,
   };
 }
 
 export function getRequiredStyle(theme) {
   return {
     color: theme.colors.text04,
-    fontFamily: "'Inter', sans-serif",
+    ...getFontProductive(),
   };
 }
 
-
-export function getRightSection(theme){
+export function getRightSection(theme) {
   return {
     color: theme.colors.text05,
   };
 }
-
-
-export const getSizes = (size, spacing) => {
+export const getInputSizes = (size, spacing, includeHeight = true) => {
   return {
     xs: {
-      height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      height: includeHeight ? spacing['7'] : 'auto',
+      minHeight: !includeHeight ? spacing['7'] : 'auto',
+      ...getPaddings(spacing['1'], spacing['2']),
     },
 
     sm: {
-      height: spacing['8'],
-      ...getPaddings(spacing['3'], spacing['4']),
+      height: includeHeight ? 38 : 'auto',
+      minHeight: !includeHeight ? 38 : 'auto',
+      ...getPaddings(spacing['2'], spacing['2']),
     },
   }[size];
 };
-
 
 export const getOrientation = (orientation, spacing) => {
   const layout = {
@@ -89,9 +91,19 @@ export const getOrientation = (orientation, spacing) => {
     horizontal: {
       display: 'grid',
       gridTemplateColumns: `calc(${spacing['2']}px * 23) auto`,
-      gridTemplateRows: `${spacing['5']}px ${spacing['5']}px auto  auto`,
+      gridTemplateRows: `${spacing['5']}px ${spacing['4']}px auto  auto`,
       gridTemplateAreas: "'label input''description input' 'description error' 'description . ' ",
       gap: `0 ${spacing['5']}px`,
+
+      '& .mantine-Select-root .mantine-Select-root': {
+        display: 'revert',
+      },
+      '& .mantine-PasswordInput-root': {
+        display: 'revert',
+      },
+      '& .mantine-Textarea-root': {
+        display: 'revert',
+      },
     },
   };
   return layout[orientation];
