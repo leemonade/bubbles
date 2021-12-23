@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { StackStyles } from './Stack.styles';
 
 export const DEFAULT_PROPS = { direction: 'row', fullWidth: false };
 export const STACK_DIRECTIONS = ['column', 'row'];
 
-const Stack = ({ direction, fullWidth, children, ...props }) => {
+const Stack = ({ className, direction, fullWidth, children, ...props }) => {
   const { classes, cx } = StackStyles({ direction, fullWidth }, { name: 'Stack' });
 
   return (
-    <Box className={classes.root} {...props}>
+    <div className={cx(classes.root, className)} {...props}>
       {children}
-    </Box>
+    </div>
   );
 };
 

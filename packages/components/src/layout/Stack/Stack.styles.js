@@ -7,7 +7,6 @@ export const StackStyles = createStyles((theme, { direction, fullWidth }) => {
       ...getFontExpressive(theme.fontSizes['2']),
       display: 'flex',
       flexDirection: direction,
-      width: fullWidth ? '100%' : 'auto',
     },
   };
 });
