@@ -1,4 +1,4 @@
-export { Box, Group } from '@mantine/core';
+export { Box, Group, Transition, Paper } from '@mantine/core';
 export * from './ThemeProvider';
 export * from './informative';
 export * from './navigation';

@@ -37,6 +37,7 @@ To add a [[{"value":"tag"}]], type <em>@</em> and a (Latin) character. Here's a 
 <br>
 <small>(Open this demo in a full-window to be able to type new-line returns)</small>`,
   settings: {
+    mode: 'mix',
     pattern: /@/, // <- must define "patten" in mixed mode
     dropdown: {
       enabled: 1,
