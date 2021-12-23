@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/icons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Bubbles Design System icons library.",
   "license": "MIT",
   "repository": {
@@ -26,7 +26,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && npm version patch",
     "build": "npm run build-outline && npm run build-solid && npm run build-react",
     "build-react": "node ./scripts/build.js react",
     "build-outline": "rimraf ./optimized/outline && svgo --config=svgo.outline.js -f ./src/outline -o ./optimized/outline --pretty --indent=2",

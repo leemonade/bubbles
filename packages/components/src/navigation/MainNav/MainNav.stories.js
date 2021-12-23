@@ -1,9 +1,8 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
 import { MainNav } from './MainNav';
 import mdx from './MainNav.mdx';
+import { MENU_DATA } from './mocks/menu';
 
 export default {
   title: 'Organisms/Navigation/MainNav',
@@ -12,20 +11,24 @@ export default {
     docs: {
       page: mdx,
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3510%3A37946',
+    },
   },
   argTypes: {},
 };
 
 const Template = (props) => {
   return (
-    <DndProvider backend={HTML5Backend}>
-      <Box style={{ margin: '-15px', maxWidth: 250 }}>
-        <MainNav {...props} />
-      </Box>
-    </DndProvider>
+    <Box style={{ margin: '-15px', maxWidth: 250 }}>
+      <MainNav {...props} />
+    </Box>
   );
 };
 
 export const Playground = Template.bind({});
 
-Playground.args = {};
+Playground.args = {
+  menuData: MENU_DATA,
+};
