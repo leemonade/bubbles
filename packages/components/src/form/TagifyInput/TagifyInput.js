@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import {
   INPUT_WRAPPER_ORIENTATION,
@@ -9,7 +10,6 @@ import {
 import { TagifyInputStyles } from './TagifyInput.styles';
 import { MixedTags } from './tagify/react.tagify'; // React-wrapper file
 import './tagify/tagify.css';
-import { array, bool, func, object, oneOfType, string } from 'prop-types'; // Tagify CSS
 
 const noop = (_) => _;
 
@@ -20,11 +20,11 @@ export const TAGIFY_DEFAULT_PROPS = {
   mixed: true,
   size: 'sm',
   orientation: 'vertical',
-  label: '',
-  description: '',
   required: true,
   autoFocus: false,
   readOnly: false,
+  label: '',
+  description: '',
   error: '',
   help: '',
   settings: {},
@@ -80,6 +80,8 @@ const TagifyInput = forwardRef(
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
         <MixedTags
+          className={classes.root}
+          id={uuid}
           name={name}
           value={value}
           loading={loading}
@@ -109,7 +111,6 @@ const TagifyInput = forwardRef(
           settings={settings}
           InputMode={InputMode}
           autoFocus={autoFocus}
-          className={classes.root}
           whitelist={whitelist}
           tagifyRef={ref}
           placeholder={placeholder}
@@ -125,40 +126,40 @@ TagifyInput.defaultProps = TAGIFY_DEFAULT_PROPS;
 
 TagifyInput.propTypes = {
   ...INPUT_WRAPPER_PROP_TYPES,
-  name: string,
-  value: oneOfType([string, array]),
-  loading: bool,
-  children: oneOfType([string, array]),
-  onChange: func,
-  readOnly: bool,
-  settings: object,
-  InputMode: string,
-  autoFocus: bool,
-  className: string,
-  tagifyRef: object,
-  whitelist: array,
-  placeholder: string,
-  defaultValue: oneOfType([string, array]),
-  showDropdown: oneOfType([string, bool]),
-  onInput: func,
-  onAdd: func,
-  onRemove: func,
-  onEditInput: func,
-  onEditBeforeUpdate: func,
-  onEditUpdated: func,
-  onEditStart: func,
-  onEditKeydown: func,
-  onInvalid: func,
-  onClick: func,
-  onKeydown: func,
-  onFocus: func,
-  onBlur: func,
-  onDropdownShow: func,
-  onDropdownHide: func,
-  onDropdownSelect: func,
-  onDropdownScroll: func,
-  onDropdownNoMatch: func,
-  onDropdownUpdated: func,
+  name: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  loading: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  settings: PropTypes.object,
+  InputMode: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  className: PropTypes.string,
+  tagifyRef: PropTypes.object,
+  whitelist: PropTypes.array,
+  placeholder: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  showDropdown: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  onInput: PropTypes.func,
+  onAdd: PropTypes.func,
+  onRemove: PropTypes.func,
+  onEditInput: PropTypes.func,
+  onEditBeforeUpdate: PropTypes.func,
+  onEditUpdated: PropTypes.func,
+  onEditStart: PropTypes.func,
+  onEditKeydown: PropTypes.func,
+  onInvalid: PropTypes.func,
+  onClick: PropTypes.func,
+  onKeydown: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onDropdownShow: PropTypes.func,
+  onDropdownHide: PropTypes.func,
+  onDropdownSelect: PropTypes.func,
+  onDropdownScroll: PropTypes.func,
+  onDropdownNoMatch: PropTypes.func,
+  onDropdownUpdated: PropTypes.func,
 };
 
 export { TagifyInput };

@@ -16,6 +16,7 @@ export const TagifyInputStyles = createStyles((theme, { size }) => {
   };
   return {
     root: {
+      marginBottom: theme.spacing['1'],
       '&.tagify': {
         ...getFontProductive(null, 400),
         borderRadius: 4,
