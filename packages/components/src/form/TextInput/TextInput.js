@@ -19,7 +19,7 @@ export const TextInput = forwardRef(
           name={name}
           onBlur={onBlur}
           onChange={onChange}
-          value={value}
+          value={value || ''}
           placeholder={placeholder}
           rightSection={rightSection}
           invalid={!isNil(error) && error != ''}
