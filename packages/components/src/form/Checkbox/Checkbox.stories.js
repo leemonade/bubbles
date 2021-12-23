@@ -35,4 +35,9 @@ Playground.args = {
   variant: 'default',
   indeterminate: false,
   disabled: false,
+  childrenData: [
+    { label: 'Option 1' },
+    { label: 'Option 2', help: 'Help text', helpPosition: 'bottom' },
+    { label: 'Option 3', help: 'Help text', helpPosition: 'right' },
+  ],
 };

@@ -16,11 +16,16 @@ const Checkbox = forwardRef(
       indeterminate = false,
       onChange,
       checked,
+      childrenData,
       ...props
     },
     ref
   ) => {
     const [isChecked, setIsChecked] = useState(checked);
+
+    if (childrenData) {
+      variant = 'default';
+    }
 
     const { classes, cx } = CheckboxStyles(
       { helpPosition, variant, isChecked },
@@ -38,9 +43,18 @@ const Checkbox = forwardRef(
           ref={ref}
           classNames={classes}
         ></MantineCheckbox>
-        <Box className={classes.container}>
-          <Box className={classes.label}>{label}</Box>
-          {help !== '' && <Box className={classes.help}>{help}</Box>}
+        <Box>
+          <Box className={classes.container}>
+            <Box className={classes.label}>{label}</Box>
+            {help !== '' && <Box className={classes.help}>{help}</Box>}
+          </Box>
+          {childrenData && (
+            <Box className={classes.childrens}>
+              {childrenData.map((item, index) => (
+                <Checkbox key={index} variant={variant} {...item} />
+              ))}
+            </Box>
+          )}
         </Box>
       </Group>
     );
@@ -55,6 +69,13 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  childrenData: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      help: PropTypes.string,
+      helpPosition: PropTypes.string,
+    })
+  ),
 };
 
 export { Checkbox };
