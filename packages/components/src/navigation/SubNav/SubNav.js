@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import SimpleBar from 'simplebar-react';
+import { isNil } from 'lodash';
 import { Box, List } from '@mantine/core';
 import { ComputerKeyboardPreviousIcon } from '@bubbles-ui/icons/outline';
 import { SubNavStyles } from './SubNav.styles';
@@ -22,7 +23,7 @@ export const SubNav = ({
 }) => {
   const { classes, cx } = SubNavStyles({ itemWidth: MAIN_NAV_WIDTH });
 
-  return item ? (
+  return !isNil(item) ? (
     <Box className={classes.root}>
       {/* Header */}
       <Box className={classes.navHeader}>
@@ -44,9 +45,13 @@ export const SubNav = ({
       <SimpleBar className={classes.navBar}>
         <Box component="nav">
           <List classNames={{ root: classes.navList, item: classes.navListItem }}>
-            {subItems.map((item) => (
-              <List.Item key={item.id}>
-                <SubNavItem item={item} active={item.id === activeItem?.id} onClick={onItemClick} />
+            {subItems.map((subItem) => (
+              <List.Item key={subItem.id}>
+                <SubNavItem
+                  item={subItem}
+                  active={subItem.id === activeItem?.id}
+                  onClick={onItemClick}
+                />
               </List.Item>
             ))}
           </List>
