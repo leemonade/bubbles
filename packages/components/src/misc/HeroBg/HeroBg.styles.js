@@ -15,10 +15,19 @@ const getColors = (theme, color) => {
   }[color];
 };
 
+const getSize = (size) => {
+  const isVertical = size.indexOf('x') === 0 || size === 'lg';
+  return {
+    height: isVertical ? '100%' : 'auto',
+    width: isVertical ? 'auto' : '100%',
+  };
+};
+
 export const HeroBgStyles = createStyles((theme, { color, size }) => {
   return {
     root: {
       ...getColors(theme, color),
+      ...getSize(size),
     },
   };
 });
