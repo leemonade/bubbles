@@ -2,9 +2,9 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 import { SPACING as spacing } from '../../theme.constants';
 
-export const CheckboxStyles = createStyles((theme, { helpPosition, variant, isChecked }) => {
+export const CheckboxStyles = createStyles((theme, { help, helpPosition, variant, isChecked }) => {
   const isRight = helpPosition === 'right';
-  const isBottom = helpPosition === 'bottom';
+  const isBottom = !!help & (helpPosition === 'bottom');
   const isBoxed = variant === 'boxed';
 
   return {
@@ -28,6 +28,7 @@ export const CheckboxStyles = createStyles((theme, { helpPosition, variant, isCh
       color: theme.colors.text01,
       ...getFontProductive(theme.fontSizes['2'], 500),
       lineHeight: pxToRem(17),
+      marginTop: isBottom && pxToRem(1.5),
     },
     input: {
       '&:checked': {

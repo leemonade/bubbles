@@ -1,4 +1,5 @@
 import React, { forwardRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Checkbox as MantineCheckbox, Box, Group } from '@mantine/core';
 import { CheckboxStyles } from './Checkbox.styles';
 
@@ -15,46 +16,31 @@ const Checkbox = forwardRef(
       disabled = false,
       indeterminate = false,
       onChange,
-      checked,
-      childrenData,
+      checked = false,
       ...props
     },
     ref
   ) => {
     const [isChecked, setIsChecked] = useState(checked);
 
-    if (childrenData) {
-      variant = 'default';
-    }
-
     const { classes, cx } = CheckboxStyles(
-      { helpPosition, variant, isChecked },
+      { help, helpPosition, variant, isChecked },
       { name: 'Checkbox' }
     );
 
     return (
-      <Group className={classes.mainContainer}>
+      <Group className={classes.mainContainer} ref={ref}>
         <MantineCheckbox
           indeterminate={indeterminate}
           disabled={disabled}
           onChange={(e) => setIsChecked(e.target.checked)}
           checked={isChecked}
           {...props}
-          ref={ref}
           classNames={classes}
         ></MantineCheckbox>
-        <Box>
-          <Box className={classes.container}>
-            <Box className={classes.label}>{label}</Box>
-            {help !== '' && <Box className={classes.help}>{help}</Box>}
-          </Box>
-          {childrenData && (
-            <Box className={classes.childrens}>
-              {childrenData.map((item, index) => (
-                <Checkbox key={index} variant={variant} {...item} />
-              ))}
-            </Box>
-          )}
+        <Box className={classes.container}>
+          <Box className={classes.label}>{label}</Box>
+          {help !== '' && <Box className={classes.help}>{help}</Box>}
         </Box>
       </Group>
     );
@@ -69,13 +55,6 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  childrenData: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      help: PropTypes.string,
-      helpPosition: PropTypes.string,
-    })
-  ),
 };
 
 export { Checkbox };
