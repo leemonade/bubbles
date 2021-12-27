@@ -13,6 +13,7 @@ import './tagify/tagify.css';
 
 const noop = (_) => _;
 
+export const TAGIFY_TAG_REGEX = /(?:\[{2}\{).*?(?:\}\]{2})/g;
 export const TAGIFY_SIZES = INPUT_WRAPPER_SIZES;
 export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
 
