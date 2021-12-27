@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -37,7 +37,7 @@
     "generate": "node ./scripts/generate.js"
   },
   "dependencies": {
-    "@bubbles-ui/icons": "1.0.1",
+    "@bubbles-ui/icons": "^1.0.3",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",
     "@mantine/core": "^3.1.0",
