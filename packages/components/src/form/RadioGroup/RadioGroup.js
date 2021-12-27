@@ -29,8 +29,8 @@ const RadioGroup = forwardRef(
     }
 
     const onChange = (value) => {
-      setValue(value);
       props.onChange(value);
+      setValue(value);
     };
 
     useEffect(() => {
