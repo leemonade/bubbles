@@ -29,7 +29,7 @@ const Checkbox = forwardRef(
     );
 
     return (
-      <Group className={classes.mainContainer} ref={ref}>
+      <Group className={classes.mainContainer} ref={ref} onClick={() => setIsChecked(!isChecked)}>
         <MantineCheckbox
           indeterminate={indeterminate}
           disabled={disabled}
