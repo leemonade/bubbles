@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, CHECKBOX_VARIANTS } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
-import { CheckboxGroupStyles } from './CheckboxGroup.styles';
+import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
 
 export const DEFAULT_PROPS = { direction: 'column', variant: 'default' };
 
-const CheckboxGroup = ({ data, variant, direction, ...props }) => {
-  const { classes, cx } = CheckboxGroupStyles({ direction, variant }, { name: 'CheckboxGroup' });
+const CheckBoxGroup = ({ data, variant, direction, ...props }) => {
+  const { classes, cx } = CheckBoxGroupStyles({ direction, variant }, { name: 'CheckBoxGroup' });
 
   return (
     <Stack className={classes.container} direction={direction} {...props}>
@@ -18,9 +18,9 @@ const CheckboxGroup = ({ data, variant, direction, ...props }) => {
   );
 };
 
-CheckboxGroup.defaultProps = DEFAULT_PROPS;
+CheckBoxGroup.defaultProps = DEFAULT_PROPS;
 
-CheckboxGroup.propTypes = {
+CheckBoxGroup.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -35,4 +35,4 @@ CheckboxGroup.propTypes = {
   variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
 };
 
-export { CheckboxGroup };
+export { CheckBoxGroup };

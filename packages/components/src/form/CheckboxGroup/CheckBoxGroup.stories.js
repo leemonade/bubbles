@@ -1,11 +1,11 @@
 import React from 'react';
-import { CheckboxGroup, DEFAULT_PROPS } from './CheckboxGroup';
-import mdx from './CheckboxGroup.mdx';
+import { CheckBoxGroup, DEFAULT_PROPS } from './CheckBoxGroup';
+import mdx from './CheckBoxGroup.mdx';
 
 export default {
-  title: 'Molecules/Form/CheckboxGroup',
+  title: 'Molecules/Form/CheckBoxGroup',
   parameters: {
-    component: CheckboxGroup,
+    component: CheckBoxGroup,
     docs: {
       page: mdx,
     },
@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <CheckboxGroup {...props}>{children}</CheckboxGroup>;
+  return <CheckBoxGroup {...props}>{children}</CheckBoxGroup>;
 };
 
 export const Playground = Template.bind({});

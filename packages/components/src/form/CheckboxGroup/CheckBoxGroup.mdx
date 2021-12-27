@@ -1,12 +1,12 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './CheckBoxGroup.stories.js';
 import { CheckBoxGroup } from './CheckBoxGroup.js';
-import { Box } from '@mantine/core';
+import { Box, Space } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# **CheckBoxGroup**
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/CheckBoxGroup>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/CheckBoxGroup)
 
 ## Table of Contents
 
@@ -20,29 +20,89 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+**CheckBoxGroup** is ...
 
 <ThemeProvider>
-  <CheckBoxGroup>Check box group</CheckBoxGroup>
+  <CheckBoxGroup
+    data={[
+      { label: 'Option 1' },
+      { label: 'Option 2', help: 'Help text', helpPosition: 'bottom' },
+      { label: 'Option 3', help: 'Help text', helpPosition: 'right' },
+    ]}
+  />
+</ThemeProvider>
+
+## CheckBoxGroup variants
+
+CheckBoxGroup has the following variants: default and boxed.
+
+<ThemeProvider>
+  <CheckBoxGroup
+    data={[{ label: 'Option 1' }, { label: 'Option 2', help: 'Help text', helpPosition: 'right' }]}
+  />
+  <Space></Space>
+  <CheckBoxGroup
+    data={[{ label: 'Option 1' }, { label: 'Option 2', help: 'Help text', helpPosition: 'right' }]}
+    variant="boxed"
+  />
+</ThemeProvider>
+
+## Checkbox orientation
+
+And you can change the orientation of the CheckBoxGroup to column or row.
+
+<ThemeProvider>
+  <CheckBoxGroup
+    data={[
+      { label: 'Row Option 1' },
+      { label: 'Row Option 2', help: 'Help text', helpPosition: 'right' },
+    ]}
+    direction="column"
+  />
+  <Space></Space>
+  <CheckBoxGroup
+    data={[
+      { label: 'Column Option 1' },
+      { label: 'Column Option 2', help: 'Help text', helpPosition: 'right' },
+    ]}
+    direction="row"
+  />
+  <Space></Space>
+  <CheckBoxGroup
+    data={[
+      { label: 'Row Option 1' },
+      { label: 'Row Option 2', help: 'Help text', helpPosition: 'right' },
+    ]}
+    variant="boxed"
+  />
+  <Space></Space>
+  <CheckBoxGroup
+    data={[
+      { label: 'Column Option 1' },
+      { label: 'Column Option 2', help: 'Help text', helpPosition: 'right' },
+    ]}
+    variant="boxed"
+    direction="row"
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-check-box-group--playground" />
+  <Story id="molecules-form-checkboxgroup--playground" />
 </Preview>
 
 <Props of={CheckBoxGroup} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/check-box-group_role>)
+[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/check-box-group_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/check-box-group/check-box-group.html>)
+[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/check-box-group/check-box-group.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/CheckBoxGroup.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/CheckBoxGroup.mdx)

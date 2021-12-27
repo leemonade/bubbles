@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const CheckboxGroupStyles = createStyles((theme, { direction, variant }) => {
+export const CheckBoxGroupStyles = createStyles((theme, { direction, variant }) => {
   const isDefault = variant === 'default';
   const isRow = direction === 'row';
 
