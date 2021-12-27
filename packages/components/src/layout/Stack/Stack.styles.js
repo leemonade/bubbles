@@ -5,7 +5,7 @@ export const StackStyles = createStyles((theme, { direction, fullWidth }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
-      display: 'flex',
+      display: 'inline-flex',
       flexDirection: direction,
     },
   };
