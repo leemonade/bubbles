@@ -41,7 +41,7 @@ const Checkbox = forwardRef(
           classNames={classes}
           label={label}
         ></MantineCheckbox>
-        {help !== '' && (
+        {help && (
           <Box className={classes.help} onClick={() => setIsChecked(!isChecked)}>
             {help}
           </Box>
