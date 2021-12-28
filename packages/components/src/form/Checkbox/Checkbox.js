@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox as MantineCheckbox, Box, Group } from '@mantine/core';
+import { Checkbox as MantineCheckbox, Box } from '@mantine/core';
 import { CheckboxStyles } from './Checkbox.styles';
 
 export const HELP_POSITIONS = ['right', 'bottom'];
@@ -17,6 +17,7 @@ const Checkbox = forwardRef(
       indeterminate = false,
       onChange,
       checked = false,
+      value,
       ...props
     },
     ref
@@ -29,20 +30,23 @@ const Checkbox = forwardRef(
     );
 
     return (
-      <Group className={classes.mainContainer} ref={ref} onClick={() => setIsChecked(!isChecked)}>
+      <Box className={classes.container} ref={ref}>
         <MantineCheckbox
           indeterminate={indeterminate}
           disabled={disabled}
           onChange={(e) => setIsChecked(e.target.checked)}
           checked={isChecked}
+          value={value}
           {...props}
           classNames={classes}
+          label={label}
         ></MantineCheckbox>
-        <Box className={classes.container}>
-          <Box className={classes.label}>{label}</Box>
-          {help !== '' && <Box className={classes.help}>{help}</Box>}
-        </Box>
-      </Group>
+        {help !== '' && (
+          <Box className={classes.help} onClick={() => setIsChecked(!isChecked)}>
+            {help}
+          </Box>
+        )}
+      </Box>
     );
   }
 );
@@ -55,6 +59,7 @@ Checkbox.propTypes = {
   indeterminate: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export { Checkbox };
