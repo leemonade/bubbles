@@ -29,12 +29,19 @@ const Checkbox = forwardRef(
       { name: 'Checkbox' }
     );
 
+    console.log(onChange);
+
+    const onChangeHandler = () => {
+      setIsChecked(!isChecked);
+      onChange(!isChecked);
+    };
+
     return (
       <Box className={classes.container} ref={ref}>
         <MantineCheckbox
           indeterminate={indeterminate}
           disabled={disabled}
-          onChange={(e) => setIsChecked(e.target.checked)}
+          onChange={onChangeHandler}
           checked={isChecked}
           value={value}
           {...props}
