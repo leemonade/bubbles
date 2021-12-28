@@ -41,9 +41,9 @@ export const Playground = Template.bind({});
 Playground.args = {
   children: (
     <>
-      <div>Element 1</div>
-      <div>Element 2</div>
-      <div>Element 3</div>
+      <div style={{padding: 5, background:'red'}}>Element 1</div>
+      <div style={{padding: 5, background:'green'}}>Element 2</div>
+      <div style={{padding: 5, background:'yellow'}}>Element 3</div>
     </>
   ),
   ...DEFAULT_PROPS,

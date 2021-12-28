@@ -10,7 +10,7 @@ export const DEFAULT_PROPS = {
   alignItems: 'normal',
   fullWidth: false,
 };
-export const STACK_DIRECTIONS = ['column', 'row'];
+export const STACK_DIRECTIONS = ['column', 'row', 'row-reverse', 'column-reverse'];
 export const STACK_WRAP = ['nowrap', 'wrap', 'wrap-reverse'];
 export const STACK_ALIGN_CONTENT = [
   'normal',
