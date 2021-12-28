@@ -1,6 +1,12 @@
 import React from 'react';
 import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
-import { ActionButton, ACTION_BUTTON_SIZES, ACTION_BUTTON_COLORS } from './ActionButton';
+import {
+  ActionButton,
+  ACTION_BUTTON_SIZES,
+  ACTION_BUTTON_COLORS,
+  ACTION_BUTTON_DEFAULT_PROPS,
+  ACTION_BUTTON_VARIANTS,
+} from './ActionButton';
 import mdx from './ActionButton.mdx';
 
 export default {
@@ -16,10 +22,9 @@ export default {
     },
   },
   argTypes: {
-    showLeftIcon: { control: { type: 'boolean' } },
-    showRightIcon: { control: { type: 'boolean' } },
     size: { options: ACTION_BUTTON_SIZES, control: { type: 'select' } },
     color: { options: ACTION_BUTTON_COLORS, control: { type: 'select' } },
+    variant: { options: ACTION_BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
 
@@ -37,11 +42,8 @@ const Template = ({ test_showLeftIcon, test_showRightIcon, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  size: 'sm',
-  color: 'positive',
-  label: '',
+  ...ACTION_BUTTON_DEFAULT_PROPS,
   tooltip: 'Expand',
-  rounded: false,
   test_showLeftIcon: true,
   test_showRightIcon: false,
 };

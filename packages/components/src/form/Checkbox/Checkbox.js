@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox as MantineCheckbox, Box } from '@mantine/core';
@@ -66,5 +67,24 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
 };
+=======
+import React, { forwardRef } from 'react';
+import { isBoolean } from 'lodash';
+import { Checkbox as MantineCheckbox } from '@mantine/core';
+import { CheckboxStyles } from './Checkbox.styles';
+
+const Checkbox = forwardRef(({ checked, value, ...props }, ref) => {
+  const { classes, cx } = CheckboxStyles({});
+
+  return (
+    <MantineCheckbox
+      checked={isBoolean(checked) ? checked : value}
+      ref={ref}
+      className={classes.root}
+      {...props}
+    />
+  );
+});
+>>>>>>> 5108b358ca1c0e0571b1e9cc513d39e37dfa838d
 
 export { Checkbox };

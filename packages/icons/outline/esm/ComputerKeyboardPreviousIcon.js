@@ -2,13 +2,13 @@ import * as React from "react";
 
 function ComputerKeyboardPreviousIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
+    fill: "none",
     viewBox: "0 0 17 16",
-    fill: "currentColor",
+    stroke: "currentColor",
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
   }, props), /*#__PURE__*/React.createElement("g", {
-    stroke: "#212B3D",
     strokeLinecap: "round",
     strokeLinejoin: "round",
     strokeWidth: 1.6,
@@ -18,6 +18,7 @@ function ComputerKeyboardPreviousIcon(props) {
   })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
     id: "a"
   }, /*#__PURE__*/React.createElement("path", {
+    fill: "#fff",
     d: "M0 0h16.4v16H0z"
   }))));
 }

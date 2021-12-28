@@ -16,10 +16,10 @@ export const SubNavStyles = createStyles((theme, { itemWidth = 52 }, getRef) => 
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingTop: pxToRem(theme.spacing['3']),
+      paddingTop: pxToRem(theme.spacing['5']),
       paddingLeft: pxToRem(theme.spacing['5']),
       paddingRight: pxToRem(theme.spacing['3']),
-      marginBottom: pxToRem(theme.spacing['5']),
+      marginBottom: pxToRem(theme.spacing['4']),
     },
     navHeaderLabel: {
       ...getFontExpressive(pxToRem(13)),

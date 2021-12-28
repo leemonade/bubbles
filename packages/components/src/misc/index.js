@@ -1,5 +1,4 @@
-import { Logo } from './Logo';
-import { ImageLoader } from './ImageLoader';
-import { InlineSvg } from './InlineSvg';
-
-export { Logo, ImageLoader, InlineSvg };
+export * from './ImageLoader';
+export * from './InlineSvg';
+export * from './HeroBg';
+export * from './Logo';

@@ -8,6 +8,7 @@ const stripBanner = require('rollup-plugin-strip-banner');
 const { terser } = require('rollup-plugin-terser');
 const styles = require('rollup-plugin-styles');
 const packageJson = require('./package.json');
+import css from 'rollup-plugin-import-css';
 
 const baseConfig = {
   input: './src/index.js',
@@ -21,7 +22,6 @@ const baseConfig = {
     commonjs({
       include: /node_modules/,
     }),
-    styles(),
     babel({
       babelrc: false,
       exclude: ['node_modules/**'],
@@ -58,6 +58,10 @@ const baseConfig = {
       ],
       babelHelpers: 'bundled',
     }),
+    styles({
+      mode: 'extract',
+    }),
+    css(),
     stripBanner(),
   ],
 };
@@ -92,6 +96,7 @@ module.exports = [
     output: {
       ...umdBundleConfig.output,
       file: 'umd/bubbles-components.js',
+      assetFileNames: '[name]-[hash][extname]',
     },
   },
 

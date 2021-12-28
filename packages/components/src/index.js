@@ -1,4 +1,5 @@
-export { Box, Group } from '@mantine/core';
+export { Box, Group, Transition, Paper, createStyles } from '@mantine/core';
+export { getFontExpressive, getFontProductive } from './theme.mixins';
 export * from './ThemeProvider';
 export * from './informative';
 export * from './navigation';

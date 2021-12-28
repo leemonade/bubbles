@@ -35,23 +35,47 @@ const getVariant = (variant, theme, color) => {
         },
       },
       negative: {
+        backgroundColor: 'transparent',
+        color: theme.colors.text06,
+        '&:hover': {
+          color: theme.colors.text07,
+          backgroundColor: theme.colors.interactive02,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.interactive02h,
+        },
+      },
+    },
+    solid: {
+      positive: {
+        backgroundColor: theme.colors.interactive01v1,
+        color: theme.colors.text02,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive01v1,
+          color: theme.colors.interactive01,
+        },
+        '&:active': {
+          backgroundColor: theme.colors.interactive01v1,
+          borderColor: theme.colors.interactive03h,
+        },
+      },
+      negative: {
         backgroundColor: theme.colors.uiBackground05,
         color: theme.colors.text06,
         '&:hover': {
           color: theme.colors.text07,
+          backgroundColor: theme.colors.interactive02,
         },
         '&:active': {
-          backgroundColor: theme.colors.interactive03,
-          borderColor: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive02h,
         },
       },
     },
-    outline: {},
   };
   return variants[variant][color];
 };
 
-export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }) => {
+export const ActionButtonStyles = createStyles((theme, { size, color, variant, iconOnly }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['1'], 400),
@@ -59,7 +83,7 @@ export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly }
     },
     default: {
       border: '2px solid transparent',
-      ...getVariant('default', theme, color),
+      ...getVariant(variant, theme, color),
     },
     inner: { gap: iconOnly ? 0 : 4 },
     rightIcon: {
