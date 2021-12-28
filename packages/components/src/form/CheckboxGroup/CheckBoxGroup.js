@@ -10,7 +10,7 @@ const CheckBoxGroup = ({ data, variant, direction, ...props }) => {
   const { classes, cx } = CheckBoxGroupStyles({ direction, variant }, { name: 'CheckBoxGroup' });
 
   return (
-    <Stack className={classes.container} direction={direction} {...props}>
+    <Stack className={classes.group} direction={direction} {...props}>
       {data.map((item, index) => (
         <Checkbox key={index} variant={variant} {...item} />
       ))}

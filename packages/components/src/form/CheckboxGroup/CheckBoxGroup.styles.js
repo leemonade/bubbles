@@ -3,20 +3,25 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const CheckBoxGroupStyles = createStyles((theme, { direction, variant }) => {
   const isDefault = variant === 'default';
+  const isBoxed = variant === 'boxed';
   const isRow = direction === 'row';
 
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
     },
-    container: {
+    group: {
       alignItems: isRow && 'baseline',
-      gap: isDefault && isRow && pxToRem(theme.spacing[4]),
-      display: isRow ? 'inline-flex' : 'inline-block',
-      alignItems: isRow && 'stretch',
+      alignItems: isRow ? (isBoxed ? 'stretch' : 'baseline') : null,
+      '> div:not(:last-child)': {
+        marginBottom: isDefault && !isRow && pxToRem(11),
+        marginRight: isDefault && isRow && pxToRem(theme.spacing[4]),
+      },
       '> div': {
-        alignItems: isRow && 'flex-start',
-        marginBottom: isDefault && !isRow && pxToRem(theme.spacing[4]),
+        alignItems: isRow && isBoxed ? 'flex-start' : null,
+      },
+      '.mantine-Checkbox-help': {
+        marginTop: isRow ? (isBoxed ? pxToRem(1.5) : null) : null,
       },
     },
   };
