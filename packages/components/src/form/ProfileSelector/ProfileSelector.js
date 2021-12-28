@@ -59,7 +59,11 @@ const ProfileSelector = ({
 }) => {
   const { classes, cx } = ProfileSelectorStyles({}, { name: 'ProfileSelector' });
 
-  const { control, handleSubmit } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,6 +75,9 @@ const ProfileSelector = ({
         <Controller
           name="selectedProfile"
           control={control}
+          rules={{
+            required: 'Please select a profile',
+          }}
           render={({ field }) => (
             <RadioGroup
               className={classes.radioGroup}
@@ -78,6 +85,7 @@ const ProfileSelector = ({
               data={radioGroupData}
               fullWidth
               required
+              error={errors.selectedProfile}
               {...field}
             />
           )}
