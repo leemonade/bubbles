@@ -1,6 +1,14 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Stack, DEFAULT_PROPS, STACK_DIRECTIONS } from './Stack';
+import {
+  Stack,
+  DEFAULT_PROPS,
+  STACK_DIRECTIONS,
+  STACK_WRAP,
+  STACK_ALIGN_CONTENT,
+  STACK_JUSTIFY_CONTENT,
+  STACK_ALIGN_ITEMS,
+} from './Stack';
 import mdx from './Stack.mdx';
 
 export default {
@@ -15,7 +23,12 @@ export default {
     },
   },
   argTypes: {
-    direction: { control: { type: 'select', options: STACK_DIRECTIONS } },
+    direction: { control: { type: 'select' }, options: STACK_DIRECTIONS },
+    wrap: { control: { type: 'select' }, options: STACK_WRAP },
+    alignContent: { control: { type: 'select' }, options: STACK_ALIGN_CONTENT },
+    justifyContent: { control: { type: 'select' }, options: STACK_JUSTIFY_CONTENT },
+    alignItems: { control: { type: 'select' }, options: STACK_ALIGN_ITEMS },
+    fullWidth: { control: 'boolean' },
   },
 };
 
