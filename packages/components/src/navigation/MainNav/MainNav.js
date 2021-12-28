@@ -17,7 +17,7 @@ export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {};
 export const MAIN_NAV_PROP_TYPES = {};
 
-const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) => {
+const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [activeSubItem, setActiveSubItem] = useState(null);
   const [showSubNav, setShowSubNav] = useState(false);
@@ -79,6 +79,8 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
     if (history) {
       callback = history.listen(() => handleRouteChange());
     }
+    // TODO: Check this functionality
+    // handleRouteChange();
     return () => callback && callback();
   }, []);
 

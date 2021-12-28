@@ -1,4 +1,2 @@
-import { MainNav } from './MainNav';
-import { MainNavItem } from './MainNavItem/MainNavItem';
-
-export { MainNav, MainNavItem };
+export * from './MainNav';
+export * from './MainNavItem/MainNavItem';

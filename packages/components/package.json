@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -25,7 +25,8 @@
     "components"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "build-publish": "yarn build && npm version patch && npm publish",
