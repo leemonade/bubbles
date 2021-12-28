@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { __name__, DEFAULT_PROPS } from './__name__';
+import { __name__, __name__(constantCase)_DEFAULT_PROPS } from './__name__';
 import mdx from './__name__.mdx';
 
 export default {
@@ -30,5 +30,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
-  ...DEFAULT_PROPS,
+  ...__name__(constantCase)_DEFAULT_PROPS,
 };

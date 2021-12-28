@@ -3,9 +3,9 @@ import {
   Paragraph,
   PARAGRAPH_ALIGNS,
   PARAGRAPH_COLORS,
+  PARAGRAPH_DEFAULT_PROPS,
   PARAGRAPH_SIZES,
   PARAGRAPH_TRANSFORMS,
-  DEFAULT_PROPS,
 } from './Paragraph';
 import mdx from './Paragraph.mdx';
 
@@ -38,5 +38,5 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   test_text: 'Test',
-  ...DEFAULT_PROPS,
+  ...PARAGRAPH_DEFAULT_PROPS,
 };

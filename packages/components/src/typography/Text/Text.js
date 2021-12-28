@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Text as MantineText } from '@mantine/core';
 import { TextStyles } from './Text.styles';
 
-export const TEXT_SIZES = ['xs', 'sm', 'md'];
+export const TEXT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 export const TEXT_COLORS = ['interactive', 'primary', 'secondary', 'tertiary'];
 export const TEXT_TRANSFORMS = ['capitalize', 'uppercase', 'lowercase', 'none'];
 export const TEXT_ROLES = ['productive', 'expressive', 'inherit'];
-export const DEFAULT_PROPS = {
+export const TEXT_DEFAULT_PROPS = {
   size: 'sm',
   as: 'span',
   role: 'expressive',
@@ -29,10 +29,10 @@ export const Text = ({
 }) => {
   const transform = TEXT_TRANSFORMS.includes(transformProp)
     ? transformProp
-    : DEFAULT_PROPS.transform;
-  const size = TEXT_SIZES.includes(sizeProp) ? sizeProp : DEFAULT_PROPS.size;
-  const color = TEXT_COLORS.includes(colorProp) ? colorProp : DEFAULT_PROPS.color;
-  const { classes, cx } = TextStyles({ role, transform, color, strong });
+    : TEXT_DEFAULT_PROPS.transform;
+  const size = TEXT_SIZES.includes(sizeProp) ? sizeProp : TEXT_DEFAULT_PROPS.size;
+  const color = TEXT_COLORS.includes(colorProp) ? colorProp : TEXT_DEFAULT_PROPS.color;
+  const { classes, cx } = TextStyles({ role, transform, color, strong, size });
 
   return (
     <MantineText {...props} component={as} size={size} className={cx(classes.root, className)}>
@@ -41,7 +41,7 @@ export const Text = ({
   );
 };
 
-Text.defaultProps = DEFAULT_PROPS;
+Text.defaultProps = TEXT_DEFAULT_PROPS;
 
 Text.propTypes = {
   size: PropTypes.oneOf(TEXT_SIZES),

@@ -1,16 +1,16 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from '../../../theme.mixins';
 
-export const MainNavItemStyles = createStyles((theme, { itemWidth, active }, getRef) => {
+export const MainNavItemStyles = createStyles((theme, { itemWidth, active }) => {
   return {
     root: {
       borderRadius: 0,
       width: pxToRem(itemWidth),
       height: pxToRem(itemWidth),
       padding: 0,
-      backgroundColor: active ? theme.colors.interactive01 : 'transparent',
+      backgroundColor: active ? theme.colors.interactive02h : 'transparent',
       '&:hover': {
-        backgroundColor: active ? theme.colors.interactive01 : theme.colors.interactive02h,
+        backgroundColor: theme.colors.interactive01,
       },
     },
     icon: {
