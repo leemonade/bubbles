@@ -4,7 +4,7 @@ import { ProfileSelector, PROFILE_SELECTOR_DEFAULT_PROPS } from './ProfileSelect
 import mdx from './ProfileSelector.mdx';
 
 export default {
-  title: 'Organisms/Form/ProfileSelector',
+  title: 'Leemons/Users/Login/ProfileSelector',
   parameters: {
     component: ProfileSelector,
     docs: {
