@@ -6,7 +6,7 @@ import { CloudUploadIcon } from '@heroicons/react/outline';
 import { MIME_TYPES } from '@mantine/dropzone';
 
 export default {
-  title: 'Atoms/Form/FileUpload',
+  title: 'Molecules/Form/FileUpload',
   parameters: {
     component: FileUpload,
     docs: {
@@ -20,7 +20,6 @@ export default {
   argTypes: {
     onDrop: { action: 'File dropped' },
     accept: { options: MIME_TYPES, control: { type: 'multi-select' } },
-
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
   },

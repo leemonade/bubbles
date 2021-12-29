@@ -53,11 +53,22 @@ export const FileUploadStyles = createStyles((theme, {}) => {
       marginTop: pxToRem(9),
       color: theme.colors.text01,
     },
-
     subtitle: {
       ...getFontProductive(theme.fontSizes['2']),
       marginTop: pxToRem(8),
       color: theme.colors.text02,
+    },
+    droppedFile: {
+      padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
+      display: 'flex',
+      justifyContent: 'space-between',
+      button: {
+        color: theme.colors.text05,
+      },
+    },
+    fileList: {
+      marginTop: pxToRem(theme.spacing[4]),
+      border: `1px solid ${theme.colors.interactive01h}`,
     },
   };
 });
