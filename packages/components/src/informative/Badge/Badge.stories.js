@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Badge, BADGE_DEFAULT_PROPS, BADGE_SIZES } from './Badge';
+import { Badge, BADGE_DEFAULT_PROPS, BADGE_SIZES, BADGE_COLORS } from './Badge';
 import mdx from './Badge.mdx';
 
 export default {
@@ -12,13 +12,13 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/🍋💧-Bubbles-SD-v2?node-id=3629%3A23186',
     },
   },
   argTypes: {
     size: { control: { type: 'select' }, options: BADGE_SIZES },
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    color: { control: { type: 'select' }, options: BADGE_COLORS },
+    onClose: { action: 'closed' },
   },
 };
 
@@ -29,7 +29,5 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...BADGE_DEFAULT_PROPS,
 };

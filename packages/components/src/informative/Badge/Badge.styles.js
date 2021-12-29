@@ -1,12 +1,16 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-const getPadding = (size) => {
+const getPadding = (size, isMedium, image) => {
+  const isMediumImage = !!image && isMedium;
+
   switch (size) {
     case 'xs':
       return `${pxToRem(4)} ${pxToRem(12)} ${pxToRem(4)} ${pxToRem(12)}`;
     case 'md':
-      return `${pxToRem(8)} ${pxToRem(12)} ${pxToRem(8)} ${pxToRem(12)}`;
+      return `${pxToRem(isMediumImage ? 9 : 8)} ${pxToRem(12)} ${pxToRem(
+        isMediumImage ? 9 : 8
+      )} ${pxToRem(12)}`;
     case 'lg':
       return `${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)}`;
     default:
@@ -38,42 +42,68 @@ const getAvatarSize = (size) => {
   }
 };
 
-export const BadgeStyles = createStyles((theme, { size }) => {
+const getColor = (theme, color) => {
+  switch (color) {
+    case 'solid':
+      return {
+        backgroundColor: theme.colors.interactive03h,
+        borderColor: theme.colors.interactive03h,
+      };
+    case 'stroke':
+      return {
+        backgroundColor: theme.colors.mainWhite,
+        borderColor: theme.colors.ui01,
+        '&:hover': {
+          borderColor: theme.colors.text05,
+        },
+      };
+    default:
+      return {
+        backgroundColor: theme.colors.interactive03h,
+        borderColor: theme.colors.interactive03h,
+      };
+  }
+};
+
+export const BadgeStyles = createStyles((theme, { size, color, image }) => {
   const isLarge = size === 'lg';
+  const isSmall = size === 'xs';
+  const isMedium = size === 'md';
 
   return {
     root: {
       ...getTextSize(theme, size),
-      backgroundColor: theme.colors.interactive03h,
+      ...getColor(theme, color),
       color: theme.colors.text01,
       textTransform: 'none',
       borderRadius: pxToRem(100),
-      // padding: getPadding(size),
-      paddingLeft: 0,
+      padding: getPadding(size, isMedium, image),
+      paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
       height: 'auto',
     },
     inner: {
       overflow: 'unset',
-      // marginLeft: 30,
     },
     rightSection: {
       marginLeft: pxToRem(9),
       display: 'flex',
       color: theme.colors.text05,
     },
-    // container: {
-    //   display: 'flex',
-    //   '.mantine-Avatar-root': {
-    //     height: getAvatarSize(size),
-    //     width: getAvatarSize(size),
-    //   },
-    // },
-    leftSection: {
-      marginRight: pxToRem(theme.spacing[2]),
-      display: isLarge ? 'none' : 'flex',
+    container: {
+      display: 'inline-flex',
+      position: 'relative',
       '.mantine-Avatar-root': {
+        display: isLarge ? 'none' : 'flex',
         height: getAvatarSize(size),
         width: getAvatarSize(size),
+        position: 'absolute',
+        left: isSmall ? pxToRem(-3) : isMedium ? pxToRem(-3) : null,
+        top: isMedium && pxToRem(-1),
+      },
+    },
+    closeButton: {
+      '&:active': {
+        transform: `translateY(${isSmall ? '0.5px' : '1px'})`,
       },
     },
   };
