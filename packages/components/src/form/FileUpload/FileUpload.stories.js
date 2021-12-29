@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { UploadArchive } from './UploadArchive';
-import mdx from './UploadArchive.mdx';
+import { FileUpload } from './FileUpload';
+import mdx from './FileUpload.mdx';
 import { CloudUploadIcon } from '@heroicons/react/outline';
 import { MIME_TYPES } from '@mantine/dropzone';
 
 export default {
-  title: 'Atoms/Form/UploadArchive',
+  title: 'Atoms/Form/FileUpload',
   parameters: {
-    component: UploadArchive,
+    component: FileUpload,
     docs: {
       page: mdx,
     },
@@ -19,7 +19,7 @@ export default {
   },
   argTypes: {
     onDrop: { action: 'File dropped' },
-    accept: { options: MIME_TYPES, control: { type: 'select' } },
+    accept: { options: MIME_TYPES, control: { type: 'multi-select' } },
 
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
@@ -27,7 +27,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <UploadArchive {...props}>{children}</UploadArchive>;
+  return <FileUpload {...props}>{children}</FileUpload>;
 };
 
 export const Playground = Template.bind({});

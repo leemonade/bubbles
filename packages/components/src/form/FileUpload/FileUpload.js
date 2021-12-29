@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Group, Box, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import { UploadArchiveStyles } from './UploadArchive.styles';
+import { FileUploadStyles } from './FileUpload.styles';
 
-const UploadArchive = ({ icon, title, subtitle, disabled = false, ...props }) => {
-  const { classes, cx } = UploadArchiveStyles({}, { name: 'UploadArchive' });
+const FileUpload = ({ icon, title, subtitle, disabled = false, ...props }) => {
+  const { classes, cx } = FileUploadStyles({}, { name: 'FileUpload' });
 
   return (
     <MantineDropzone {...props} classNames={classes} className={disabled ? classes.disabled : null}>
@@ -22,10 +22,10 @@ const UploadArchive = ({ icon, title, subtitle, disabled = false, ...props }) =>
   );
 };
 
-UploadArchive.propTypes = {
+FileUpload.propTypes = {
   icon: PropTypes.node,
   title: PropTypes.string,
   subtitle: PropTypes.string,
 };
 
-export { UploadArchive };
+export { FileUpload };

@@ -5,15 +5,15 @@ const getActive = (theme) => ({
   padding: pxToRem(24),
   border: `${pxToRem(2)} solid ${theme.colors.interactive01}`,
   backgroundColor: theme.colors.interactive01v1,
-  '.mantine-UploadArchive-title': {
+  '.mantine-FileUpload-title': {
     color: theme.colors.interactive01,
   },
-  '.mantine-UploadArchive-icon': {
+  '.mantine-FileUpload-icon': {
     color: theme.colors.interactive01,
   },
 });
 
-export const UploadArchiveStyles = createStyles((theme, {}) => {
+export const FileUploadStyles = createStyles((theme, {}) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
