@@ -14,10 +14,20 @@ import { ActionButton } from '../../form';
 import { getActiveItem } from './helpers/getActiveItem';
 
 export const MAIN_NAV_WIDTH = 52;
-export const MAIN_NAV_DEFAULT_PROPS = {};
+export const MAIN_NAV_DEFAULT_PROPS = {
+  hideSubNavOnClose: true,
+};
 export const MAIN_NAV_PROP_TYPES = {};
 
-const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
+const MainNav = ({
+  onClose,
+  onOpen,
+  menuData,
+  isLoading,
+  subNavWidth,
+  hideSubNavOnClose,
+  ...props
+}) => {
   const [activeItem, setActiveItem] = useState(null);
   const [activeSubItem, setActiveSubItem] = useState(null);
   const [showSubNav, setShowSubNav] = useState(false);
@@ -62,7 +72,7 @@ const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
   };
 
   const closeSubNav = () => {
-    setShowSubNav(false);
+    if (hideSubNavOnClose) setShowSubNav(false);
     if (isFunction(onClose)) onClose();
   };
 
@@ -78,7 +88,7 @@ const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
   // ······································································
   // STYLES
 
-  const { classes, cx } = MainNavStyles({ itemWidth: MAIN_NAV_WIDTH });
+  const { classes, cx } = MainNavStyles({ itemWidth: MAIN_NAV_WIDTH, subNavWidth });
 
   // ······································································
   // SUB-COMPONENTS
@@ -132,6 +142,7 @@ const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
           activeItem={activeSubItem}
           onItemClick={(item) => setActiveSubItem(item)}
           onClose={closeSubNav}
+          className={classes.subNav}
         />
       )}
 

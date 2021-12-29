@@ -19,12 +19,13 @@ export const SubNav = ({
   customItems,
   onClose,
   onItemClick,
+  className,
   ...props
 }) => {
   const { classes, cx } = SubNavStyles({ itemWidth: MAIN_NAV_WIDTH });
 
   return !isNil(item) ? (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       {/* Header */}
       <Box className={classes.navHeader}>
         <Box className={classes.navHeaderLabel}>{item.label}</Box>
