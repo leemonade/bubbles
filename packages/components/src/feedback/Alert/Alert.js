@@ -43,15 +43,17 @@ const Alert = ({
       classNames={classes}
       closebuttonlabel={isCloseable && isString(closeable) ? closeable : 'Close'}
     >
-      <Box>
+      <Box className={classes.wrapper}>
         <Box className={classes.variant}>
-          <Box className={classes.title}>{title}</Box>
-          <Box className={classes.content}>{children}</Box>
-          <Box>
-            <Button variant="link" className={classes.action} onClick={onAction}>
-              {action}
-            </Button>
-          </Box>
+          {!isNil(title) && title !== '' && <Box className={classes.title}>{title}</Box>}
+          {!isNil(children) && children !== '' && <Box className={classes.content}>{children}</Box>}
+          {!isNil(action) && action !== '' && (
+            <Box>
+              <Button variant="link" className={classes.action} onClick={onAction}>
+                {action}
+              </Button>
+            </Box>
+          )}
         </Box>
         {isCloseable && (
           <CloseButton className={classes.closeButton} onClick={onClose} variant="transparent" />

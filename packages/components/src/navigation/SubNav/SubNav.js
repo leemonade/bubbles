@@ -9,7 +9,9 @@ import { SubNavItem } from './SubNavItem/SubNavItem';
 import { ActionButton } from './../../form';
 import { MAIN_NAV_WIDTH } from '../MainNav/MainNav';
 
-export const SUB_NAV_DEFAULT_PROPS = {};
+export const SUB_NAV_DEFAULT_PROPS = {
+  useRouter: false,
+};
 export const SUB_NAV_PROP_TYPES = {};
 
 export const SubNav = ({
@@ -20,9 +22,10 @@ export const SubNav = ({
   onClose,
   onItemClick,
   className,
+  useRouter,
   ...props
 }) => {
-  const { classes, cx } = SubNavStyles({ itemWidth: MAIN_NAV_WIDTH });
+  const { classes, cx } = SubNavStyles({ itemWidth: MAIN_NAV_WIDTH }, { name: 'SubNav' });
 
   return !isNil(item) ? (
     <Box className={cx(classes.root, className)}>
@@ -52,6 +55,7 @@ export const SubNav = ({
                   item={subItem}
                   active={subItem.id === activeItem?.id}
                   onClick={onItemClick}
+                  useRouter={useRouter}
                 />
               </List.Item>
             ))}

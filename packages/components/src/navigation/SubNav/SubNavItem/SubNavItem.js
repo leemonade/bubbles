@@ -12,8 +12,7 @@ export const SubNavItem = ({
   editMode,
   editItemMode,
   changeToEditItem,
-  updateItem,
-  remove,
+  useRouter,
   onClick,
   ...props
 }) => {
@@ -30,22 +29,44 @@ export const SubNavItem = ({
   });
 
   if (!isLayer && !editMode && !editItemMode && !isDragging) {
+    const className = cx(classes.root, {
+      [classes.active]: active,
+      [classes.editMode]: editMode,
+      [classes.dragging]: isDragging,
+      [classes.layer]: isLayer,
+      [classes.editItemMode]: editItemMode,
+    });
+
+    if (useRouter) {
+      return (
+        <Link to={item.url} className={className} onClick={handleClick}>
+          {item.label}
+        </Link>
+      );
+    }
     return (
-      <a
-        href={item.url}
-        className={cx(classes.root, {
-          [classes.active]: active,
-          [classes.editMode]: editMode,
-          [classes.dragging]: isDragging,
-          [classes.layer]: isLayer,
-          [classes.editItemMode]: editItemMode,
-        })}
-        onClick={handleClick}
-      >
+      <a href={item.url} className={className} onClick={handleClick}>
         {item.label}
       </a>
     );
   }
 };
 
-SubNavItem.propTypes = {};
+SubNavItem.defaultProps = {
+  useRouter: false,
+  active: false,
+  isDragging: false,
+  isLayer: false,
+  editMode: false,
+};
+
+SubNavItem.propTypes = {
+  item: PropTypes.any,
+  active: PropTypes.bool,
+  isDragging: PropTypes.bool,
+  isLayer: PropTypes.bool,
+  editMode: PropTypes.bool,
+  editItemMode: PropTypes.bool,
+  useRouter: PropTypes.bool,
+  onClick: PropTypes.func,
+};

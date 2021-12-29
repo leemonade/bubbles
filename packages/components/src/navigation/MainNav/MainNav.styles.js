@@ -45,6 +45,7 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) =>
       position: 'absolute',
       top: 24,
       left: itemWidth,
+      zIndex: 10,
     },
   };
 });
