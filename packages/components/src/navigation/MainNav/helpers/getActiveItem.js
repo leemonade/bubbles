@@ -1,8 +1,8 @@
 import { forEach } from 'lodash';
 
 export const getActiveItem = (menuData) => {
-  const activeItem = null;
-  const activeSubItem = null;
+  let activeItem = null;
+  let activeSubItem = null;
 
   if (window && window.location) {
     const url = window.location.pathname;

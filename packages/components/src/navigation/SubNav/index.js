@@ -1,4 +1,2 @@
-import { SubNav } from './SubNav';
-import { SubNavItem } from './SubNavItem/SubNavItem';
-
-export { SubNav, SubNavItem };
+export * from './SubNav';
+export * from './SubNavItem/SubNavItem';

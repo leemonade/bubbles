@@ -23,10 +23,16 @@ const Paragraph = ({
   ...props
 }) => {
   const color = PARAGRAPH_COLORS.includes(colorProp) ? colorProp : PARAGRAPH_DEFAULT_PROPS.color;
-  const { classes } = ParagraphStyles({ align });
+  const { classes, cx } = ParagraphStyles({ align });
 
   return (
-    <Text {...props} as={'p'} color={color} role={'productive'} className={classes.root}>
+    <Text
+      {...props}
+      as={'p'}
+      color={color}
+      role={'productive'}
+      className={cx(classes.root, className)}
+    >
       {children}
     </Text>
   );
