@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const CheckBoxGroupStyles = createStyles((theme, { direction, variant }) => {
+export const CheckBoxGroupStyles = createStyles((theme, { direction, variant, fullWidth }) => {
   const isDefault = variant === 'default';
   const isBoxed = variant === 'boxed';
   const isRow = direction === 'row';
@@ -19,6 +19,10 @@ export const CheckBoxGroupStyles = createStyles((theme, { direction, variant }) 
       },
       '> div': {
         alignItems: isRow && isBoxed ? 'flex-start' : null,
+        flex: fullWidth && 1,
+      },
+      '.mantine-Checkbox-root': {
+        flex: fullWidth && `none !important`,
       },
       '.mantine-Checkbox-help': {
         marginTop: isRow ? (isBoxed ? pxToRem(1.5) : null) : null,
