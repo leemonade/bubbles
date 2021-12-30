@@ -57,7 +57,7 @@ export const Tabs = forwardRef(
     ref
   ) => {
     const tabs = parseTabList(children);
-    console.log('tabs:', tabs);
+    // console.log('tabs:', tabs);
 
     const rtl = direction === 'rtl';
 
