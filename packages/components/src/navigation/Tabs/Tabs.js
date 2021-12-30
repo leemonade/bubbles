@@ -21,7 +21,7 @@ function parseTabList(children) {
   return React.Children.toArray(children)
     .map((node) => {
       if (React.isValidElement(node)) {
-        const key = node.key !== undefined ? String(node.key) : useId();
+        const key = node.key !== undefined ? String(node.key) : undefined;
         return {
           ...node.props,
           key,
@@ -46,6 +46,7 @@ export const Tabs = forwardRef(
       orientation = 'horizontal',
       destroyInactiveTabPane,
       animated = false,
+      fullHeight = false,
       className,
       classNames,
       onChange,
@@ -57,8 +58,6 @@ export const Tabs = forwardRef(
     ref
   ) => {
     const tabs = parseTabList(children);
-    // console.log('tabs:', tabs);
-
     const rtl = direction === 'rtl';
 
     const mergedAnimated = {
@@ -126,7 +125,10 @@ export const Tabs = forwardRef(
       panes: children,
     };
 
-    const { classes, cx } = TabsStyles({ direction, position, panelColor }, { name: 'Tabs' });
+    const { classes, cx } = TabsStyles(
+      { direction, position, panelColor, fullHeight },
+      { name: 'Tabs' }
+    );
 
     const Wrapper = usePageLayout ? PageContainer : Box;
 
@@ -137,7 +139,7 @@ export const Tabs = forwardRef(
             <TabNavList {...tabNavBarProps} />
           </Wrapper>
           <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
-            <TabPanelList destroyInactiveTabPane={destroyInactiveTabPane} {...sharedProps} />
+            <TabPanelList {...sharedProps} destroyInactiveTabPane={destroyInactiveTabPane} />
           </Wrapper>
         </Box>
       </TabContext.Provider>
@@ -160,4 +162,5 @@ Tabs.propTypes = {
   onChange: PropTypes.func,
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
+  fullHeight: PropTypes.bool,
 };

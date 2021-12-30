@@ -10,6 +10,7 @@ export const DEFAULT_PROPS = {
   justifyContent: 'normal',
   alignItems: 'normal',
   fullWidth: false,
+  fullHeight: false,
   spacing: 0,
 };
 export const STACK_DIRECTIONS = ['column', 'row', 'row-reverse', 'column-reverse'];
@@ -43,12 +44,13 @@ const Stack = ({
   justifyContent,
   alignItems,
   fullWidth,
+  fullHeight,
   children,
   spacing,
   ...props
 }) => {
   const { classes, cx } = StackStyles(
-    { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, spacing },
+    { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing },
     { name: 'Stack' }
   );
 
@@ -85,6 +87,7 @@ Stack.propTypes = {
   justifyContent: PropTypes.oneOf(STACK_JUSTIFY_CONTENT),
   alignItems: PropTypes.oneOf(STACK_ALIGN_ITEMS),
   fullWidth: PropTypes.bool,
+  fullHeight: PropTypes.bool,
   spacing: PropTypes.number,
 };
 

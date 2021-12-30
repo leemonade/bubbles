@@ -1,7 +1,10 @@
 import { createStyles } from '@mantine/styles';
 
 export const StackStyles = createStyles(
-  (theme, { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, spacing }) => {
+  (
+    theme,
+    { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing }
+  ) => {
     const flexProps = {
       display: 'inline-flex',
       flexDirection: direction,
@@ -11,9 +14,13 @@ export const StackStyles = createStyles(
       alignItems: alignItems,
     };
 
-    if (fullWidth) {
+    if (fullWidth || fullHeight) {
       flexProps.flex = 1;
       flexProps.display = 'flex';
+    }
+
+    if (fullHeight) {
+      flexProps.height = '100%';
     }
 
     if (spacing) {

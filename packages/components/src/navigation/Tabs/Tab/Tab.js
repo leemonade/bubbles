@@ -9,6 +9,10 @@ export const Tab = forwardRef(
   ({ id, active, tab, renderWrapper, onClick, onFocus, ...props }, ref) => {
     const { key, label, leftIcon, rightIcon, disabled, notification, hasError } = tab || {};
 
+    if (!key) {
+      return null;
+    }
+
     const { classes, cx } = TabStyles({ disabled, active }, { name: 'Tab' });
 
     function onInternalClick(e) {
