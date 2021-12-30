@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Box, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
@@ -7,17 +7,54 @@ import { Stack } from '../../layout/Stack';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { ActionButton } from '../../form/ActionButton';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+import { CloudUploadIcon, SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
+import { Alert } from '../../feedback/Alert';
+import { Button } from '../../form/Button';
 
-const FileUpload = ({ icon, title, subtitle, disabled = false, onDrop, ...props }) => {
+export const FILE_UPLOAD_DEFAULT_PROPS = {
+  icon: <CloudUploadIcon height={32} width={32} />,
+  title: 'Click to browse your file',
+  subtitle: 'or drop here a file from your computer',
+  disabled: false,
+  loading: false,
+  multiple: true,
+  errorMessage: { title: 'Error', message: 'File was rejected' },
+};
+export const FILE_UPLOAD_PROP_TYPES = {
+  icon: PropTypes.node,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  disabled: false,
+  loading: false,
+  multiple: true,
+  onDrop: PropTypes.func,
+  errorMessage: PropTypes.shape({
+    title: PropTypes.string,
+    message: PropTypes.string,
+  }),
+};
+
+const FileUpload = ({
+  icon,
+  title,
+  subtitle,
+  disabled = false,
+  onDrop,
+  errorMessage,
+  ...props
+}) => {
   const { classes, cx } = FileUploadStyles({}, { name: 'FileUpload' });
+  const openRef = useRef();
 
   const [files, setFiles] = React.useState([]);
+  const [error, setError] = React.useState(false);
 
   const onDropHandler = (acceptedFiles) => {
     if (onDrop) {
       onDrop(acceptedFiles);
     }
     setFiles([...files, ...acceptedFiles]);
+    setError(false);
   };
 
   const removeFile = (index) => {
@@ -31,22 +68,45 @@ const FileUpload = ({ icon, title, subtitle, disabled = false, onDrop, ...props 
         {...props}
         classNames={classes}
         className={disabled ? classes.disabled : null}
+        openRef={openRef}
       >
-        {(status) => (
-          <Group className={classes.groupContainer}>
-            <Box className={classes.container}>
-              <Box className={classes.icon}>{icon}</Box>
-              <Text className={classes.title}>{title}</Text>
-              <Text className={classes.subtitle}>{subtitle}</Text>
-            </Box>
-          </Group>
-        )}
+        {(status) => {
+          if (status.rejected) {
+            setError(true);
+          }
+          return (
+            <Group className={classes.groupContainer}>
+              <Box className={classes.container}>
+                <Box className={classes.icon}>{icon}</Box>
+                <Text className={classes.title}>{title}</Text>
+                <Text className={classes.subtitle}>{subtitle}</Text>
+              </Box>
+            </Group>
+          );
+        }}
       </MantineDropzone>
+      {error && (
+        <Alert
+          className={classes.errorAlert}
+          title={errorMessage.title}
+          variant={'block'}
+          severity={'error'}
+          onClose={() => setError(false)}
+          onAction={() => openRef.current()}
+          action={
+            <>
+              <SynchronizeArrowIcon /> <span style={{ marginLeft: 8 }}>Browse file again</span>
+            </>
+          }
+        >
+          {errorMessage.message}
+        </Alert>
+      )}
       {!!files.length && (
         <Stack className={classes.fileList} direction={'column'} fullWidth={true}>
           {files.map((file, index) => (
             <Box key={index} className={classes.droppedFile}>
-              <FileItemDisplay filename={file.name} />
+              <FileItemDisplay filename={file.name} metadata={file} />
               <Box onClick={() => removeFile(index)}>
                 <ActionButton icon={<DeleteBinIcon height={16} width={16} />} />
               </Box>
@@ -54,15 +114,13 @@ const FileUpload = ({ icon, title, subtitle, disabled = false, onDrop, ...props 
           ))}
         </Stack>
       )}
+      <Box className={classes.uploadButton}>
+        <Button onClick={() => openRef.current()}>Upload</Button>
+      </Box>
     </Box>
   );
 };
 
-FileUpload.propTypes = {
-  icon: PropTypes.node,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  onDrop: PropTypes.func,
-};
+FileUpload.propTypes = FILE_UPLOAD_PROP_TYPES;
 
 export { FileUpload };
