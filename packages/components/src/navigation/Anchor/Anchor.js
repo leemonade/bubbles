@@ -5,10 +5,10 @@ import { AnchorStyles } from './Anchor.styles';
 
 export const ANCHOR_ROLES = TEXT_ROLES;
 
-const Anchor = ({ as, role, ...props }) => {
+const Anchor = ({ as, role, className, ...props }) => {
   const { classes, cx } = AnchorStyles({});
 
-  return <Text {...props} as={as} role={role} className={classes.root} />;
+  return <Text {...props} as={as} role={role} className={cx(classes.root, className)} />;
 };
 
 Anchor.defaultProps = {

@@ -2,12 +2,16 @@
 import React, { useEffect, useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
+import { useId } from '@mantine/hooks';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
 import { TabPanelList } from './TabPanelList/TabPanelList';
 import { TabPane } from './TabPanelList/TabPane';
 import TabContext from './TabContext';
 import { TabsStyles } from './Tabs.styles';
+import { PageContainer } from '../../layout';
+
+export const TABS_PANEL_COLORS = ['default', 'solid'];
 
 // Used for accessibility
 let uuid = 0;
@@ -17,10 +21,10 @@ function parseTabList(children) {
   return React.Children.toArray(children)
     .map((node) => {
       if (React.isValidElement(node)) {
-        const key = node.key !== undefined ? String(node.key) : undefined;
+        const key = node.key !== undefined ? String(node.key) : useId();
         return {
-          key,
           ...node.props,
+          key,
           node,
         };
       }
@@ -42,13 +46,19 @@ export const Tabs = forwardRef(
       orientation = 'horizontal',
       destroyInactiveTabPane,
       animated = false,
+      className,
+      classNames,
       onChange,
       onTabClick,
       onTabScroll,
+      usePageLayout,
+      panelColor = 'default',
     },
     ref
   ) => {
     const tabs = parseTabList(children);
+    console.log('tabs:', tabs);
+
     const rtl = direction === 'rtl';
 
     const mergedAnimated = {
@@ -116,13 +126,19 @@ export const Tabs = forwardRef(
       panes: children,
     };
 
-    const { classes, cx } = TabsStyles({ direction, position }, { name: 'Tabs' });
+    const { classes, cx } = TabsStyles({ direction, position, panelColor }, { name: 'Tabs' });
+
+    const Wrapper = usePageLayout ? PageContainer : Box;
 
     return (
       <TabContext.Provider value={{ tabs }}>
-        <Box ref={ref} id={id} className={cx(classes.root)}>
-          <TabNavList {...tabNavBarProps} />
-          <TabPanelList destroyInactiveTabPane={destroyInactiveTabPane} {...sharedProps} />
+        <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
+          <Wrapper className={classNames?.navList}>
+            <TabNavList {...tabNavBarProps} />
+          </Wrapper>
+          <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
+            <TabPanelList destroyInactiveTabPane={destroyInactiveTabPane} {...sharedProps} />
+          </Wrapper>
         </Box>
       </TabContext.Provider>
     );
@@ -139,7 +155,8 @@ Tabs.propTypes = {
   position: PropTypes.oneOf(['left', 'right', 'center']),
   destroyInactiveTabPane: PropTypes.bool,
   animated: PropTypes.bool,
-
+  usePageLayout: PropTypes.bool,
+  panelColor: PropTypes.oneOf(TABS_PANEL_COLORS),
   onChange: PropTypes.func,
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,

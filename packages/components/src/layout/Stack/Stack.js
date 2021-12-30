@@ -21,16 +21,19 @@ export const STACK_ALIGN_CONTENT = [
   'flex-end',
   'space-between',
   'space-around',
+  'start',
+  'end',
 ];
-export const STACK_JUSTIFY_CONTENT = [
+export const STACK_JUSTIFY_CONTENT = STACK_ALIGN_CONTENT;
+export const STACK_ALIGN_ITEMS = [
   'normal',
   'center',
   'flex-start',
   'flex-end',
-  'space-between',
-  'space-around',
+  'stretch',
+  'start',
+  'end',
 ];
-export const STACK_ALIGN_ITEMS = ['normal', 'center', 'flex-start', 'flex-end', 'stretch'];
 
 const Stack = ({
   className,

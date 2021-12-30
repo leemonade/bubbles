@@ -11,6 +11,7 @@ export const TabPanelList = ({
   position,
   rtl,
   destroyInactiveTabPane,
+  className,
 }) => {
   const { tabs } = useContext(TabContext);
   const { classes, cx } = TabPanelListStyles({ position, animated }, { name: 'TabPanelList' });
@@ -18,7 +19,7 @@ export const TabPanelList = ({
   const activeIndex = tabs.findIndex((tab) => tab.key === activeKey);
 
   return (
-    <Box className={cx(classes.root)}>
+    <Box className={cx(classes.root, className)}>
       <Box
         className={cx(classes.content)}
         style={
