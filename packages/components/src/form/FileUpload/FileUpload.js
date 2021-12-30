@@ -14,6 +14,9 @@ const FileUpload = ({ icon, title, subtitle, disabled = false, onDrop, ...props 
   const [files, setFiles] = React.useState([]);
 
   const onDropHandler = (acceptedFiles) => {
+    if (onDrop) {
+      onDrop(acceptedFiles);
+    }
     setFiles([...files, ...acceptedFiles]);
   };
 

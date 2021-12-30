@@ -20,8 +20,6 @@ export default {
   argTypes: {
     onDrop: { action: 'File dropped' },
     accept: { options: MIME_TYPES, control: { type: 'multi-select' } },
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
   },
 };
 
