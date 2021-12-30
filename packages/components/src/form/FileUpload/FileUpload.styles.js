@@ -9,7 +9,7 @@ const getActive = (theme) => ({
     color: theme.colors.interactive01,
   },
   '.mantine-FileUpload-icon': {
-    color: theme.colors.interactive01,
+    color: theme.colors.interactive01d,
   },
 });
 

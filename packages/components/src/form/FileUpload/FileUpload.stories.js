@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import { FileUpload } from './FileUpload';
 import mdx from './FileUpload.mdx';
-import { CloudUploadIcon } from '@heroicons/react/outline';
+import { CloudUploadIcon } from '@bubbles-ui/icons/outline/';
 import { MIME_TYPES } from '@mantine/dropzone';
 
 export default {
@@ -32,7 +32,7 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  icon: <CloudUploadIcon height={32}></CloudUploadIcon>,
+  icon: <CloudUploadIcon height={32} width={32}></CloudUploadIcon>,
   title: 'Click to browse your file',
   subtitle: 'or drop here a file from your computer',
   disabled: false,
