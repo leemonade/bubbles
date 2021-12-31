@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Pagination as MantinePagination } from '@mantine/core';
 import { PagerStyles } from './Pager.styles';
 import { Stack } from '../../layout/Stack';
+import { useEffect } from 'react';
 // import { NumberInput } from '../../form/NumberInput';
 // import { NumberInput } from '@mantine/core';
 
@@ -52,6 +53,7 @@ const Pager = forwardRef(
 
     const inputMaxLenght = total.toString().length;
     const [goToPage, setGoToPage] = React.useState(1);
+    const [page, setPage] = React.useState(1);
 
     const handleGoToPage = (e) => {
       let value = parseInt(e.target.value);
@@ -69,10 +71,18 @@ const Pager = forwardRef(
 
     const onChangeHandler = (e) => {
       if (!disabled) {
+        setPage(e);
         setGoToPage(e);
         onChange(e);
       }
     };
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setPage(goToPage);
+      }, 500);
+      return () => clearTimeout(timer);
+    }, [goToPage]);
 
     return (
       <Stack direction={direction} alignItems={'center'}>
@@ -104,7 +114,7 @@ const Pager = forwardRef(
           direction={direction}
           withControls={withControls}
           withEdges={withEdges}
-          page={goToPage}
+          page={page}
           onChange={(e) => onChangeHandler(e)}
         />
       </Stack>

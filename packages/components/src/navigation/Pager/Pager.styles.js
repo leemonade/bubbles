@@ -7,12 +7,6 @@ export const PagerStyles = createStyles(
       root: {
         gap: 0,
         marginLeft: withGoTo && !withControls ? !withEdges && pxToRem(8) : null,
-        'button:hover': {
-          backgroundColor: disabled ? 'none' : theme.colors.ui03,
-        },
-        'button:active:not(:disabled):not(.mantine-ref_dots_1)': {
-          transform: disabled && 'none',
-        },
       },
       item: {
         ...getFontExpressive(theme.fontSizes['2'], 400),
@@ -25,6 +19,16 @@ export const PagerStyles = createStyles(
         maxWidth: pxToRem(48),
         padding: 0,
         lineHeight: pxToRem(24),
+        '&:hover': {
+          backgroundColor: disabled ? 'none' : theme.colors.ui03,
+        },
+        '&:active:not(:disabled):not(.mantine-ref_dots_1)': {
+          transform: disabled && 'none',
+        },
+        '&:first-of-type > svg, :last-of-type > svg': {
+          height: withControls && !withEdges && pxToRem(22),
+          width: withControls && !withEdges && pxToRem(22),
+        },
       },
       active: {
         fontWeight: !disabled && 700,
@@ -32,6 +36,9 @@ export const PagerStyles = createStyles(
         backgroundColor: theme.colors.mainWhite,
         border: disabled ? 'none' : `1px solid ${theme.colors.ui01}`,
         borderRadius: '50%',
+        '&:hover': {
+          backgroundColor: theme.colors.mainWhite,
+        },
       },
       dots: {
         color: theme.colors.text05,
