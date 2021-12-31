@@ -1,5 +1,9 @@
 import React from 'react';
-import { Table } from './Table';
+import { Box } from '@mantine/core';
+import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
+import { Stack } from '../../layout';
+import { ActionButton } from '../../form';
+import { Table, TABLE_DEFAULT_PROPS } from './Table';
 import mdx from './Table.mdx';
 
 export default {
@@ -20,13 +24,80 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Table {...props}>{children}</Table>;
+const Template = ({ ...props }) => {
+  return <Table {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  ...TABLE_DEFAULT_PROPS,
+  columns: [
+    {
+      Header: 'Name',
+      accessor: 'name',
+    },
+    {
+      Header: 'Description',
+      accessor: 'description',
+    },
+    {
+      Header: 'Actions',
+      accessor: 'actions',
+    },
+  ],
+  data: [
+    {
+      name: 'Admin',
+      description:
+        'General managers for the system, has a wide range of permissions except for installing and uninstalling leemons',
+      actions: (
+        <Stack justifyContent="end" fullWidth>
+          <ActionButton tooltip="Open" icon={<ExpandDiagonalIcon />} />
+        </Stack>
+      ),
+    },
+    {
+      name: 'Manager',
+      description:
+        'Manages platform users for administrative purposes (logins, deletions, edits and notifications)',
+      actions: (
+        <Stack justifyContent="end" fullWidth>
+          <ActionButton tooltip="Open" icon={<ExpandDiagonalIcon />} />
+        </Stack>
+      ),
+    },
+  ],
+};
+
+export const CheckboxCell = Template.bind({});
+
+CheckboxCell.args = {
+  ...TABLE_DEFAULT_PROPS,
+  columns: [
+    {
+      Header: 'Plugin',
+      accessor: 'plugin',
+    },
+    {
+      Header: 'View',
+      accessor: 'view',
+    },
+    {
+      Header: 'Admin',
+      accessor: 'admin',
+    },
+  ],
+  data: [
+    {
+      plugin: 'Classroom',
+      view: { checked: true, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Calendar',
+      view: { checked: true, type: 'checkbox' },
+      admin: { checked: true, type: 'checkbox' },
+    },
+  ],
 };
