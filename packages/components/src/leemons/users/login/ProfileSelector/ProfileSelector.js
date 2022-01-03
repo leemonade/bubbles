@@ -9,28 +9,8 @@ import { Checkbox } from '../../../../form/Checkbox';
 import { Button } from '../../../../form/Button';
 import { Stack } from '../../../../layout/Stack';
 import { useForm, Controller } from 'react-hook-form';
-import SchoolTeacherMaleIcon from '@bubbles-ui/icons/outline/SchoolTeacherMaleIcon';
 
-export const PROFILE_SELECTOR_DEFAULT_PROPS = {
-  name: 'John Doe',
-  description: 'You have two profiles on leemons, please select the one with you want to access',
-  radioGroupData: [
-    {
-      value: 'teacher',
-      label: 'Teacher',
-      icon: <SchoolTeacherMaleIcon height={32} width={32} />,
-    },
-    {
-      value: 'mother',
-      label: 'Mother',
-      icon: <SchoolTeacherMaleIcon height={32} width={32} />,
-    },
-  ],
-  checkBoxLabel: 'Always use this profile for quick access',
-  lowerHelp:
-    'You can easily change later your profile by clicking on your avatar in the sidebar of the application',
-  buttonLabel: 'Log in',
-};
+export const PROFILE_SELECTOR_DEFAULT_PROPS = {};
 export const PROFILE_SELECTOR_PROP_TYPES = {
   name: PropTypes.string,
   description: PropTypes.string,

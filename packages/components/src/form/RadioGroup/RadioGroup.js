@@ -58,7 +58,6 @@ const RadioGroup = forwardRef(
           classNames={classes}
           defaultValue={defaultValue ? defaultValue : ' '}
           value={value}
-          ref={ref}
           data={data.map(({ label, ...item }, index) => {
             return {
               value: item.value,
