@@ -12,14 +12,11 @@ import { Alert } from '../../feedback/Alert';
 import { Button } from '../../form/Button';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
-  icon: <CloudUploadIcon height={32} width={32} />,
-  title: 'Click to browse your file',
-  subtitle: 'or drop here a file from your computer',
   disabled: false,
   loading: false,
   multiple: true,
-  errorMessage: { title: 'Error', message: 'File was rejected' },
 };
+
 export const FILE_UPLOAD_PROP_TYPES = {
   icon: PropTypes.node,
   title: PropTypes.string,

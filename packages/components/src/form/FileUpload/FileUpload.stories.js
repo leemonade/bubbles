@@ -30,4 +30,8 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...FILE_UPLOAD_DEFAULT_PROPS,
+  icon: <CloudUploadIcon height={32} width={32} />,
+  title: 'Click to browse your file',
+  subtitle: 'or drop here a file from your computer',
+  errorMessage: { title: 'Error', message: 'File was rejected' },
 };
