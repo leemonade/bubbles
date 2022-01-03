@@ -15,6 +15,7 @@ export default {
     },
   },
   argTypes: {
+    onChange: { action: 'onChange' },
     direction: { options: ['column', 'row'], control: { type: 'select' } },
     variant: { options: ['default', 'boxed'], control: { type: 'select' } },
   },
@@ -28,9 +29,9 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   data: [
-    { label: 'Option 1' },
-    { label: 'Option 2', help: 'Help text', helpPosition: 'bottom' },
-    { label: 'Option 3', help: 'Help text', helpPosition: 'right' },
+    { label: 'Option 1', value: 'one'},
+    { label: 'Option 2', value: 'two', help: 'Help text', helpPosition: 'bottom' },
+    { label: 'Option 3', value: 'tree', help: 'Help text', helpPosition: 'right' },
   ],
   direction: 'column',
   variant: 'default',
