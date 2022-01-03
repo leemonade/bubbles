@@ -1,7 +1,9 @@
 import React, { useState, forwardRef } from 'react';
 import { InformationCircleIcon, StarIcon } from '@heroicons/react/solid';
 import { Box, Paper, Group, NumberInput } from '@mantine/core';
+import { createStyles } from '@mantine/core';
 import { Paragraph } from './../../typography';
+import { PageContainer } from './../../layout';
 import { Tabs } from './Tabs';
 import { TabPane as Tab } from './TabPanelList/TabPane';
 import mdx from './Tabs.mdx';
@@ -12,6 +14,10 @@ export default {
     component: Tabs,
     docs: {
       page: mdx,
+    },
+    design: {
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3629%3A23241',
+      type: 'figma',
     },
   },
   argTypes: {},
@@ -57,4 +63,27 @@ export const Playground = Template.bind({});
 Playground.args = {
   position: 'left',
   disabled: false,
+};
+
+const SimpleTemplate = ({ ...props }) => {
+  return (
+    <Tabs {...props}>
+      <Tab label="First">
+        <Box>
+          <Paragraph>Content of First tab</Paragraph>
+        </Box>
+      </Tab>
+      <Tab label="Second" disabled>
+        <Box>
+          <Paragraph>Content of Second tab</Paragraph>
+        </Box>
+      </Tab>
+    </Tabs>
+  );
+};
+
+export const SimpleTab = SimpleTemplate.bind({});
+SimpleTab.args = {
+  usePageLayout: true,
+  panelColor: 'solid',
 };

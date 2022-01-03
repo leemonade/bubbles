@@ -34,7 +34,7 @@ export const PALETTE = {
   neutral10: '#F1F5F9',
   neutral5: '#F7F8FA',
 
-  interactive100: '#3C72C2',
+  interactive100: '#3B76CC',
   interactive50: '#4F96FF',
   interactive40: '#82B4FF',
   interactive20: '#D8E8FF',

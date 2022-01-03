@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { MainNav } from './MainNav';
+import { MainNav, MAIN_NAV_DEFAULT_PROPS } from './MainNav';
 import mdx from './MainNav.mdx';
 import { MENU_DATA } from './mocks/menu';
 
@@ -19,10 +19,10 @@ export default {
   argTypes: {},
 };
 
-const Template = (props) => {
+const Template = ({ subNavWidth, ...props }) => {
   return (
-    <Box style={{ margin: '-15px', maxWidth: 250 }}>
-      <MainNav {...props} />
+    <Box style={{ margin: '-15px', maxWidth: subNavWidth }}>
+      <MainNav {...props} subNavWidth={subNavWidth} />
     </Box>
   );
 };
@@ -30,5 +30,7 @@ const Template = (props) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...MAIN_NAV_DEFAULT_PROPS,
   menuData: MENU_DATA,
+  subNavWidth: 250,
 };

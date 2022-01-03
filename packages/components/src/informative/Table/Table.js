@@ -1,12 +1,97 @@
-import React, { forwardRef } from 'react';
-import { Table as MantineTable } from '@mantine/core';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Box } from '@mantine/core';
+import { useTable } from 'react-table';
+import update from 'immutability-helper';
+import { Text } from '../../typography';
+import { TableCell } from './TableCell/TableCell';
+import { TableStyles } from './Table.styles';
 
-const Table = forwardRef(({ children, ...props }, ref) => {
+export const TABLE_DEFAULT_PROPS = {};
+export const TABLE_PROP_TYPES = {};
+
+const Table = ({ columns, data, setData, onChangeData }) => {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+    columns,
+    data,
+  });
+
+  const onChangeCell = (oldCell, newCell) => {
+    const newData = update(data, {
+      [oldCell.row.index]: { [oldCell.column.id]: { $merge: newCell.value } },
+    });
+
+    setData(newData);
+    onChangeData({
+      changedField: oldCell.column.id,
+      oldData: data,
+      newData,
+      oldItem: oldCell.value,
+      newItem: newCell.value,
+      itemIndex: oldCell.row.index,
+    });
+  };
+
+  const { classes, cx } = TableStyles({}, { name: 'Table' });
+
+  // Render the UI for your table
   return (
-    <MantineTable ref={ref} {...props}>
-      {children}
-    </MantineTable>
+    <table
+      {...getTableProps({
+        className: classes.root,
+      })}
+    >
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr
+            {...headerGroup.getHeaderGroupProps({
+              className: classes.tr,
+            })}
+          >
+            {headerGroup.headers.map((column) => (
+              <th
+                {...column.getHeaderProps({
+                  className: cx(classes.th, column.className),
+                  style: column.style,
+                })}
+              >
+                <Text size="xs" role="productive" color="primary" strong>
+                  {column.render('Header')}
+                </Text>
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr
+              {...row.getRowProps({
+                className: cx({ [classes.tr]: i < rows.length - 1 }),
+              })}
+            >
+              {row.cells.map((cell, index) => {
+                return (
+                  <td
+                    {...cell.getCellProps({
+                      className: classes.td,
+                    })}
+                  >
+                    <TableCell cell={cell} onChangeCell={onChangeCell} />
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
-});
+};
+
+Table.defaultProps = TABLE_DEFAULT_PROPS;
+Table.propTypes = TABLE_PROP_TYPES;
 
 export { Table };

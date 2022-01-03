@@ -24,8 +24,8 @@ export const COLORS = {
   text07: PALETTE.mainWhite,
   text08: PALETTE.neutral40,
 
-  interactive01: PALETTE.interactive50,
-  interactive01h: PALETTE.interactive100,
+  interactive01: PALETTE.interactive100,
+  interactive01h: PALETTE.interactive50,
   interactive01d: PALETTE.interactive40,
   interactive01v0: PALETTE.interactive20,
   interactive01v1: PALETTE.interactive10,

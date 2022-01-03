@@ -7,6 +7,7 @@ export const TitleStyles = createStyles((theme, { order }) => {
       color: theme.colors.text01,
       ...getFontExpressive(theme.fontSizes['2']),
       fontSize: theme.fontSizes[9 - order],
+      lineHeight: 1.1,
     },
   };
 });

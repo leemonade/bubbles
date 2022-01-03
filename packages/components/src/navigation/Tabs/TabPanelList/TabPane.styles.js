@@ -5,8 +5,7 @@ export const TabPaneStyles = createStyles((theme, { active }, getRef) => {
   return {
     root: {
       width: '100%',
-      flex: 'none', 
-      ...modulevspacing(theme),
+      flex: 'none',
     },
   };
 });

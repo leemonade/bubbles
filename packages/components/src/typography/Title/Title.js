@@ -6,7 +6,7 @@ import { TitleStyles } from './Title.styles';
 const Title = ({ order, ...props }) => {
   const { classes, cx } = TitleStyles({ order });
 
-  return <MantineTitle {...props} className={classes.root} />;
+  return <MantineTitle {...props} order={order} className={classes.root} />;
 };
 
 Title.defaultProps = {
