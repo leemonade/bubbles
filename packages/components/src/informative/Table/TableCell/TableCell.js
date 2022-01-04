@@ -1,17 +1,17 @@
 import React from 'react';
 import { isFunction, isObject, isString } from 'lodash';
-import { Box, Checkbox } from '@mantine/core';
+import { Box } from '@mantine/core';
 import { Stack } from '../../../layout';
-import { Text } from '../../../typography';
+import { Checkbox } from '../../../form';
 import { TableCellStyles } from './TableCell.styles';
 
 export const TableCell = ({ cell, onChangeCell }) => {
-  const onCheckedChange = (event) => {
-    onChangeCell(cell, { ...cell, value: { ...cell.value, checked: event.target.checked } });
+  const onCheckedChange = (val) => {
+    onChangeCell(cell, { ...cell, value: { ...cell.value, checked: val } });
   };
 
   const { classes, cx } = TableCellStyles(
-    { active: cell.value.checked || cell.value.active },
+    { active: cell.value?.checked || cell.value?.active },
     { name: 'TableCell' }
   );
 
@@ -24,7 +24,7 @@ export const TableCell = ({ cell, onChangeCell }) => {
     if (cell.value.type === 'checkbox') {
       return (
         <Stack className={classes.root} justifyContent="center" alignItems="center">
-          <Checkbox checked={cell.value.checked} onChange={onCheckedChange} />
+          <Checkbox checked={cell.value?.checked} onChange={onCheckedChange} />
         </Stack>
       );
     }

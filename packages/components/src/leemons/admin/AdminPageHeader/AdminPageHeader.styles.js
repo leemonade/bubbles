@@ -7,6 +7,7 @@ export const AdminPageHeaderStyles = createStyles((theme, { editMode }) => {
     section: {
       paddingTop: theme.spacing['5'],
       paddingBottom: theme.spacing['5'],
+      backgroundColor: theme.colors.mainWhite,
     },
     breadcrumbs: {
       marginBottom: theme.spacing['5'],
