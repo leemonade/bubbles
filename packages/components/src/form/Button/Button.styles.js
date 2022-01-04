@@ -1,25 +1,26 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing) => {
+const getSizes = (size, theme, paddingX, paddingY) => {
+  const { spacing, fontSizes } = theme;
   return {
     xs: {
-      fontSize: pxToRem(14),
-      height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[7],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[4]),
     },
 
     sm: {
-      fontSize: pxToRem(14),
-      height: spacing['9'],
-      ...getPaddings(spacing['2'], spacing['7']),
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[9],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[7]),
     },
   }[size];
 };
 
 const getVariant = (variant, theme, color) => {
   const variants = {
-    default: {
+    filled: {
       primary: {
         backgroundColor: theme.colors.interactive01,
         color: theme.colors.text07,
@@ -202,8 +203,9 @@ export const ButtonStyles = createStyles((theme, { size, color, position, varian
 
   return {
     root: {
+      padding: 0,
       ...getFontExpressive(null, 400),
-      ...getSizes(size || 'md', theme.spacing),
+      ...getSizes(size || 'md', theme, variant === 'link' ? 0.1 : null),
     },
     inner: {
       justifyContent: position === 'apart' ? 'space-between' : position,
@@ -225,29 +227,27 @@ export const ButtonStyles = createStyles((theme, { size, color, position, varian
     label: {
       with: '100%',
     },
-    default: {
+    filled: {
+      ...getVariant('filled', theme, color),
       border: '2px solid transparent',
-      ...getVariant('default', theme, color),
     },
     outline: {
-      borderWidth: 2,
       ...getVariant('outline', theme, color),
+      borderWidth: 2,
     },
-    link: {
-      borderWidth: 5,
-      ...getSizes(size || 'md', theme.spacing),
+    default: {
       ...getVariant('link', theme, color),
-      paddingLeft: 0,
-      paddingRight: 0,
+      border: 'none',
+      backgroundColor: 'transparent',
 
       '&:hover': {
         textDecoration: 'none',
+        backgroundColor: 'transparent',
       },
     },
     light: {
-      backgroundColor: 'transparent',
-      ...getSizes(size || 'md', theme.spacing),
       ...getVariant('light', theme, color),
+      backgroundColor: 'transparent',
     },
   };
 });

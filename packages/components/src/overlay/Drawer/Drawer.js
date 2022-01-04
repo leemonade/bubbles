@@ -6,16 +6,18 @@ import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { ActionButton } from '../../form';
 import { Stack } from '../../layout';
 
+export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
+
 export const DRAWER_DEFAULT_PROPS = {
   size: 'md',
   opened: false,
   position: 'right',
+  back: '',
   onClose: () => {},
   onBack: () => {},
   noCloseOnClickOutside: false,
   hideCloseButton: false,
   noCloseOnEscape: false,
-  showBackButton: false,
   noScrollLock: false,
   noFocusTrap: false,
   noOverlay: false,
@@ -29,7 +31,7 @@ export const DRAWER_PROP_TYPES = {
   onBack: PropTypes.func,
   overlayColor: PropTypes.string,
   overlayOpacity: PropTypes.number,
-  position: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
+  position: PropTypes.oneOf(DRAWER_POSITIONS),
   noCloseOnClickOutside: PropTypes.bool,
   hideCloseButton: PropTypes.bool,
   noCloseOnEscape: PropTypes.bool,
@@ -49,20 +51,20 @@ const Drawer = ({
   closeTooltipText,
   back,
   headerAbsolute,
+  shadow,
   ...props
 }) => {
   const { classes, cx } = DrawerStyles({ headerAbsolute });
 
-  const justifyContent = !back && !hideCloseButton ? 'right' : 'space-between';
+  const justifyContent = (!back || back === '') && !hideCloseButton ? 'flex-end' : 'space-between';
 
   return (
-    <MantineDrawer {...props} hideCloseButton>
+    <MantineDrawer {...props} shadow={false} hideCloseButton classNames={classes}>
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>
-          {back ? (
+          {back && back !== '' ? (
             <ActionButton
               icon={<ChevronLeftIcon />}
-              color="negative"
               label={back}
               onClick={onBack}
               tooltip={closeTooltipText}
@@ -70,22 +72,16 @@ const Drawer = ({
           ) : null}
 
           {!hideCloseButton ? (
-            <ActionButton
-              icon={<RemoveIcon />}
-              color="negative"
-              onClick={onClose}
-              tooltip={closeTooltipText}
-            />
+            <ActionButton icon={<RemoveIcon />} onClick={onClose} tooltip={closeTooltipText} />
           ) : null}
         </Stack>
       </Box>
-      {children}
+      <Box className={classes.content}>{children}</Box>
     </MantineDrawer>
   );
 };
 
 Drawer.defaultProps = DRAWER_DEFAULT_PROPS;
-
 Drawer.propTypes = DRAWER_PROP_TYPES;
 
 export { Drawer };
