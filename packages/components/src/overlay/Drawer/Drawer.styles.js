@@ -1,10 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const DrawerStyles = createStyles((theme, {}) => {
+export const DrawerStyles = createStyles((theme, { headerAbsolute }) => {
+  const header = {
+    padding: theme.spacing[4],
+  };
+  if (headerAbsolute) {
+    header.position = 'absolute';
+    header.right = 0;
+    header.top = 0;
+  }
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-    },
+    header,
   };
 });

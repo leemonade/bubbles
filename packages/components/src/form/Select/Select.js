@@ -26,6 +26,7 @@ const Select = forwardRef(
       data,
       searchable,
       nothingFound,
+      placeholder,
       ...props
     },
     ref
@@ -68,6 +69,7 @@ const Select = forwardRef(
           name={name}
           searchable={searchable}
           nothingFound={nothingFound}
+          placeholder={placeholder}
           rightSection={
             isClearable && showClear ? (
               <ActionButton

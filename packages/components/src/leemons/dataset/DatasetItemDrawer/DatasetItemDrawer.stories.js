@@ -29,7 +29,12 @@ const Template = ({ children, ...props }) => {
       <Button color="secondary" onClick={() => setOpened(true)}>
         OPEN
       </Button>
-      <DatasetItemDrawer {...props} opened={opened} onClose={() => setOpened(false)} />
+      <DatasetItemDrawer
+        {...props}
+        defaultValues={{ config: { centers: ['*'] } }}
+        opened={opened}
+        onClose={() => setOpened(false)}
+      />
     </>
   );
 };
