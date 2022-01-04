@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { isFunction } from 'lodash';
 import { useTable } from 'react-table';
 import update from 'immutability-helper';
 import { Text } from '../../typography';
@@ -22,14 +22,17 @@ const Table = ({ columns, data, setData, onChangeData }) => {
     });
 
     setData(newData);
-    onChangeData({
-      changedField: oldCell.column.id,
-      oldData: data,
-      newData,
-      oldItem: oldCell.value,
-      newItem: newCell.value,
-      itemIndex: oldCell.row.index,
-    });
+
+    if (isFunction(onChangeData)) {
+      onChangeData({
+        changedField: oldCell.column.id,
+        oldData: data,
+        newData,
+        oldItem: oldCell.value,
+        newItem: newCell.value,
+        itemIndex: oldCell.row.index,
+      });
+    }
   };
 
   const { classes, cx } = TableStyles({}, { name: 'Table' });
