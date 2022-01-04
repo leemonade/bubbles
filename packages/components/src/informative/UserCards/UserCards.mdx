@@ -1,0 +1,93 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './UserCards.stories.js';
+import { UserCards } from './UserCards.js';
+import { Box, Group } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# **UserCards**
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/informative/UserCards)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+**UserCards** is ...
+
+<ThemeProvider>
+
+</ThemeProvider>
+
+## User Cards variants
+
+The UserCards component has 4 variants: full, simple, large and contact
+
+And full and vertical have 2 different layouts: horizontal and vertical
+
+Full variant:
+
+<ThemeProvider>
+  <Group position={'apart'}>
+    <UserCards user={stories.defaultUser} />
+    <UserCards user={stories.defaultUser} layout={'vertical'} />
+  </Group>
+</ThemeProvider>
+
+Simple variant:
+
+<ThemeProvider>
+  <Group position={'apart'}>
+    <UserCards user={stories.defaultUser} variant={'simple'} />
+    <UserCards user={stories.defaultUser} variant={'simple'} layout={'vertical'} />
+  </Group>
+</ThemeProvider>
+
+Large variant and contact variant (with error):
+
+<ThemeProvider>
+  <Group position={'apart'}>
+    <UserCards user={stories.defaultUser} variant={'large'} />
+    <UserCards user={stories.defaultUser} variant={'contact'} error={'Contact already added'} />
+  </Group>
+</ThemeProvider>
+
+## User card states
+
+And full, simple and large variant has a selected state
+
+<ThemeProvider>
+  <Group>
+    <UserCards user={stories.defaultUser} variant={'large'} selected />
+    <UserCards user={stories.defaultUser} selected />
+    <UserCards user={stories.defaultUser} variant={'simple'} selected />
+  </Group>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="organisms-informative-usercards--playground" />
+</Preview>
+
+<Props of={UserCards} />
+
+## References
+
+[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-cards_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-cards/user-cards.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/informative/UserCards.mdx)
