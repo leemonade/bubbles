@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Box } from '@mantine/core';
 import DatasetItemDrawerContext from '../context/DatasetItemDrawerContext';
 import { Controller } from 'react-hook-form';
-import { Input } from '../../../../form';
+import { TextInput } from '../../../../form';
 
 const Name = () => {
   const {
@@ -22,7 +22,12 @@ const Name = () => {
           required: errorMessages.nameRequired,
         }}
         render={({ field }) => (
-          <Input placeholder={messages.namePlaceholder} error={errors.name} required {...field} />
+          <TextInput
+            placeholder={messages.namePlaceholder}
+            error={errors.name}
+            required
+            {...field}
+          />
         )}
       />
     </Box>

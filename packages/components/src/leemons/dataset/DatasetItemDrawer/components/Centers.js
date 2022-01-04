@@ -31,7 +31,7 @@ const Centers = () => {
     <Box>
       <Grid columns={100} align="center">
         <Col span={20}>
-          <Text strong color="primary">
+          <Text strong color="primary" role="productive">
             {messages.centerLabel}
           </Text>
         </Col>
