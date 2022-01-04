@@ -52,4 +52,5 @@ export const FONT_SIZES = Object.assign({}, FS);
 export const SHADOWS = {
   drop01: EFFECTS.dropShadow01,
   shadow04: EFFECTS.boxShadow04,
+  uiLevel100: EFFECTS.uiLevel100,
 };

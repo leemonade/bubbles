@@ -1,6 +1,13 @@
 import React from 'react';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
-import { Button, BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS, BUTTON_POSITIONS } from './Button';
+import {
+  Button,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+  BUTTON_COLORS,
+  BUTTON_POSITIONS,
+  BUTTON_DEFAULT_PROPS,
+} from './Button';
 import mdx from './Button.mdx';
 
 export default {
@@ -17,8 +24,6 @@ export default {
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
-    showLeftIcon: { control: { type: 'boolean' } },
-    showRightIcon: { control: { type: 'boolean' } },
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
@@ -26,9 +31,16 @@ export default {
   },
 };
 
-const Template = ({ label, rightIcon, leftIcon, showLeftIcon, showRightIcon, ...props }) => {
-  const buttonLeftIcon = showLeftIcon ? leftIcon : undefined;
-  const buttonRightIcon = showRightIcon ? rightIcon : undefined;
+const Template = ({
+  label,
+  rightIcon,
+  leftIcon,
+  test_showLeftIcon,
+  test_showRightIcon,
+  ...props
+}) => {
+  const buttonLeftIcon = test_showLeftIcon ? leftIcon : undefined;
+  const buttonRightIcon = test_showRightIcon ? rightIcon : undefined;
 
   return (
     <Button {...props} rightIcon={buttonRightIcon} leftIcon={buttonLeftIcon}>
@@ -41,15 +53,9 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   label: 'Button',
-  size: 'sm',
-  color: 'primary',
-  variant: 'default',
-  position: 'center',
-  rounded: false,
-  loading: false,
-  fullWidth: false,
-  showLeftIcon: false,
-  showRightIcon: false,
+  ...BUTTON_DEFAULT_PROPS,
   rightIcon: <ChevronRightIcon />,
   leftIcon: <ChevronRightIcon />,
+  test_showLeftIcon: false,
+  test_showRightIcon: false,
 };
