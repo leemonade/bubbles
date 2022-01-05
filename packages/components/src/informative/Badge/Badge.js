@@ -9,7 +9,6 @@ export const BADGE_SIZES = ['xs', 'md', 'lg'];
 export const BADGE_COLORS = ['solid', 'stroke'];
 
 export const BADGE_DEFAULT_PROPS = {
-  label: 'Badge',
   size: 'xs',
   color: 'solid',
 };

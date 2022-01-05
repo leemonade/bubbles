@@ -29,5 +29,6 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  label: 'Badge',
   ...BADGE_DEFAULT_PROPS,
 };
