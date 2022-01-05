@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isString, trim } from 'lodash';
 import { Box, Drawer as MantineDrawer } from '@mantine/core';
 import { DrawerStyles } from './Drawer.styles';
 import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
@@ -13,13 +14,11 @@ export const DRAWER_DEFAULT_PROPS = {
   opened: false,
   position: 'right',
   back: '',
-  onClose: () => {},
-  onBack: () => {},
+  close: true,
   noCloseOnClickOutside: false,
-  hideCloseButton: false,
   noCloseOnEscape: false,
   noScrollLock: false,
-  noFocusTrap: false,
+  noFocusTrap: true,
   noOverlay: false,
   overlayOpacity: 0.75,
   headerAbsolute: false,
@@ -33,46 +32,35 @@ export const DRAWER_PROP_TYPES = {
   overlayOpacity: PropTypes.number,
   position: PropTypes.oneOf(DRAWER_POSITIONS),
   noCloseOnClickOutside: PropTypes.bool,
-  hideCloseButton: PropTypes.bool,
   noCloseOnEscape: PropTypes.bool,
   noScrollLock: PropTypes.bool,
   noFocusTrap: PropTypes.bool,
   noOverlay: PropTypes.bool,
-  closeTooltipText: PropTypes.string,
   back: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   headerAbsolute: PropTypes.bool,
 };
 
-const Drawer = ({
-  hideCloseButton,
-  onClose,
-  onBack,
-  children,
-  closeTooltipText,
-  back,
-  headerAbsolute,
-  shadow,
-  ...props
-}) => {
+const Drawer = ({ close, onClose, onBack, children, back, headerAbsolute, shadow, ...props }) => {
   const { classes, cx } = DrawerStyles({ headerAbsolute });
 
-  const justifyContent = (!back || back === '') && !hideCloseButton ? 'flex-end' : 'space-between';
+  const justifyContent =
+    (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
 
   return (
     <MantineDrawer {...props} shadow={false} hideCloseButton classNames={classes}>
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>
           {back && back !== '' ? (
-            <ActionButton
-              icon={<ChevronLeftIcon />}
-              label={back}
-              onClick={onBack}
-              tooltip={closeTooltipText}
-            />
+            <ActionButton icon={<ChevronLeftIcon />} label={back} onClick={onBack} tooltip={back} />
           ) : null}
 
-          {!hideCloseButton ? (
-            <ActionButton icon={<RemoveIcon />} onClick={onClose} tooltip={closeTooltipText} />
+          {close ? (
+            <ActionButton
+              icon={<RemoveIcon />}
+              onClick={onClose}
+              tooltip={isString(close) && trim(close) !== '' ? close : null}
+            />
           ) : null}
         </Stack>
       </Box>
