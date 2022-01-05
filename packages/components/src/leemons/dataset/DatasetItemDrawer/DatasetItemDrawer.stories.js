@@ -31,7 +31,7 @@ const Template = ({ children, ...props }) => {
       </Button>
       <DatasetItemDrawer
         {...props}
-        defaultValues={{ config: { centers: ['*'] } }}
+        defaultValues={{ config: { type: 'user', centers: ['*'] } }}
         opened={opened}
         onClose={() => setOpened(false)}
       />
