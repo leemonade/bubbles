@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { Box } from '@mantine/core';
-import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
-import { ShowAs } from './ShowAs';
-import { MinMax } from '../common/MinMax';
-import { Divider } from '../../../../../../layout';
-import { Options } from '../common/Options';
+import DatasetItemDrawerContext from '../../context/DatasetItemDrawerContext';
+import { ShowAs } from './common/ShowAs';
+import { MinMax } from './common/MinMax';
+import { Divider } from '../../../../../layout';
+import { Options } from './common/Options';
 
 const MultioptionField = () => {
   const {
-    contextRef: { messages, classes },
+    contextRef: { messages, errorMessages, selectOptions, classes },
     form: { watch, unregister },
   } = useContext(DatasetItemDrawerContext);
 
@@ -26,7 +26,12 @@ const MultioptionField = () => {
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-      <ShowAs />
+      <ShowAs
+        label={messages.multioptionShowAsLabel}
+        required={errorMessages.multioptionShowAsRequired}
+        data={selectOptions.fieldMultioptionShowAs}
+        placeholder={messages.fieldMultioptionShowAsPlaceholder}
+      />
       {uiType && uiType !== 'radio' ? (
         <MinMax
           label={messages.fieldMultioptionLimitsLabel}
@@ -40,8 +45,11 @@ const MultioptionField = () => {
       <Box className={classes.divider}>
         <Divider />
       </Box>
-      <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-        <Options />
+      <Box sx={(theme) => ({ marginTop: theme.spacing[2] })}>
+        <Options
+          label={messages.fieldMultioptionOptionsLabel}
+          addOptionLabel={messages.fieldMultioptionAddOptionsLabel}
+        />
       </Box>
     </Box>
   );

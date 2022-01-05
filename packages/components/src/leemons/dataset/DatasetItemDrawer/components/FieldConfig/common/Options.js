@@ -1,45 +1,79 @@
 import React, { useContext } from 'react';
+import { get } from 'lodash';
 import { Box, Col, Grid } from '@mantine/core';
+import { Controller } from 'react-hook-form';
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
 import { Text } from '../../../../../../typography';
+import { SortableList } from '../../../../../../informative';
+import { Button, TextInput } from '../../../../../../form';
+import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 
-const Options = ({ label }) => {
+const OptionItem = ({ value, onChange, index }) => {
+  return (
+    <Box
+      sx={(theme) => ({
+        padding: theme.spacing[2],
+      })}
+    >
+      <TextInput
+        id={value.key}
+        value={value.value}
+        onChange={(e) => {
+          onChange({ ...value, value: e.target.value });
+        }}
+      />
+    </Box>
+  );
+};
+
+const Options = ({ label, addOptionLabel }) => {
   const {
-    contextRef: { messages },
+    contextRef: { colOptionsSpans, gridColumn },
     form: {
       control,
+      getValues,
+      setValue,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
 
+  function addNewOption() {
+    const values = getValues('config.checkboxValues') || [];
+    values.push({ key: new Date().getTime(), value: '' });
+    setValue('config.checkboxValues', values);
+  }
+
   return (
     <Box>
-      <Grid columns={100} align="center">
-        <Col span={20}>
+      <Grid columns={gridColumn}>
+        <Col span={colOptionsSpans[0]}>
           <Text strong color="primary" role="productive">
             {label}
           </Text>
         </Col>
 
-        <Col span={40}>
-          {/*
+        <Col span={colOptionsSpans[1]}>
           <Controller
-            name="config.uiType"
+            name="config.checkboxValues"
             control={control}
-            rules={{
-              required: errorMessages.multioptionShowAsRequired,
-            }}
             render={({ field }) => (
-              <Select
-                {...field}
-                required
-                errors={get(errors, 'config.type')}
-                data={selectOptions.fieldMultioptionShowAs}
-                placeholder={messages.fieldMultioptionShowAsPlaceholder}
-              />
+              <>
+                <SortableList
+                  {...field}
+                  removable
+                  sortable
+                  errors={get(errors, 'config.checkboxValues')}
+                  mapKey="key"
+                  render={OptionItem}
+                />
+                <Box sx={(theme) => ({ marginLeft: theme.spacing[8] })}>
+                  <Button variant="link" leftIcon={<AddCircleIcon />} onClick={addNewOption}>
+                    {addOptionLabel}
+                  </Button>
+                </Box>
+              </>
             )}
           />
-          */}
         </Col>
       </Grid>
     </Box>

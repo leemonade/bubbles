@@ -22,9 +22,15 @@ const fieldsByType = {
   email: ['config.required'],
   phone: ['config.required'],
   link: ['config.required'],
-  multioption: ['config.required', 'config.uiType', 'config.minItems', 'config.maxItems'],
-  boolean: ['config.required'],
-  select: ['config.required'],
+  multioption: [
+    'config.required',
+    'config.uiType',
+    'config.minItems',
+    'config.maxItems',
+    'config.checkboxValues',
+  ],
+  boolean: ['config.required', 'config.uiType', 'config.initialStatus'],
+  select: ['config.required', 'config.checkboxValues'],
   user: ['config.required'],
 };
 const configFieldTypes = {
@@ -44,7 +50,7 @@ const configFieldTypes = {
 
 const FieldType = () => {
   const {
-    contextRef: { messages, errorMessages, selectOptions },
+    contextRef: { messages, errorMessages, selectOptions, colSpans, gridColumn },
     form: {
       watch,
       control,
@@ -71,13 +77,13 @@ const FieldType = () => {
 
   return (
     <Box>
-      <Grid columns={100} align="center">
-        <Col span={20}>
+      <Grid columns={gridColumn} align="center">
+        <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
             {messages.fieldTypeLabel}
           </Text>
         </Col>
-        <Col span={40}>
+        <Col span={colSpans[1]}>
           <Controller
             name="config.type"
             control={control}
@@ -95,7 +101,7 @@ const FieldType = () => {
             )}
           />
         </Col>
-        <Col span={40}>
+        <Col span={colSpans[2]}>
           {configFieldTypes[fieldType] ? configFieldTypes[fieldType] : configFieldTypes.default}
         </Col>
       </Grid>

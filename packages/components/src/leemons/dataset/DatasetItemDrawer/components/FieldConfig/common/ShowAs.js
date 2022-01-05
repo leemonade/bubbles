@@ -6,9 +6,9 @@ import { Text } from '../../../../../../typography';
 import { Select } from '../../../../../../form';
 import { Controller } from 'react-hook-form';
 
-const ShowAs = () => {
+const ShowAs = ({ label, required, data, placeholder }) => {
   const {
-    contextRef: { messages, errorMessages, selectOptions },
+    contextRef: { colSpans, gridColumn },
     form: {
       control,
       formState: { errors },
@@ -16,27 +16,27 @@ const ShowAs = () => {
   } = useContext(DatasetItemDrawerContext);
 
   return (
-    <Grid columns={100} align="center">
-      <Col span={20}>
+    <Grid columns={gridColumn} align="center">
+      <Col span={colSpans[0]}>
         <Text strong color="primary" role="productive">
-          {messages.multioptionShowAsLabel}
+          {label}
         </Text>
       </Col>
 
-      <Col span={40}>
+      <Col span={colSpans[1]}>
         <Controller
           name="config.uiType"
           control={control}
           rules={{
-            required: errorMessages.multioptionShowAsRequired,
+            required: required,
           }}
           render={({ field }) => (
             <Select
               {...field}
               required
-              errors={get(errors, 'config.type')}
-              data={selectOptions.fieldMultioptionShowAs}
-              placeholder={messages.fieldMultioptionShowAsPlaceholder}
+              errors={get(errors, 'config.uiType')}
+              data={data}
+              placeholder={placeholder}
             />
           )}
         />

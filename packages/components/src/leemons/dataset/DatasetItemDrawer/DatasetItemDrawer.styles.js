@@ -11,8 +11,9 @@ export const DatasetItemDrawerStyles = createStyles((theme, {}) => {
     },
     rightColContainer: {
       height: '100vh',
-      marginTop: theme.spacing[13] - theme.spacing[7],
       padding: theme.spacing[7],
+      paddingTop: theme.spacing[13],
+      overflowY: 'auto',
     },
     divider: {
       marginTop: theme.spacing[5],

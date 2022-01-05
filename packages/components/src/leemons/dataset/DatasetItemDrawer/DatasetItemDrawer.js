@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Col, Grid } from '@mantine/core';
 import { DatasetItemDrawerStyles } from './DatasetItemDrawer.styles';
-import { Drawer } from '../../../overlay/Drawer';
+import { Drawer } from '../../../overlay';
 import { useForm } from 'react-hook-form';
 import DatasetItemDrawerContext from './context/DatasetItemDrawerContext';
 import { Name } from './components/Name';
@@ -31,13 +31,38 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     fieldMultioptionLimitsMinLabel: 'Min',
     fieldMultioptionLimitsMaxLabel: 'Max',
     fieldMultioptionShowAsPlaceholder: 'Select show as',
+    fieldMultioptionOptionsLabel: 'Create options',
+    fieldMultioptionAddOptionsLabel: 'Add option',
+    booleanShowAsLabel: 'Show as',
+    fieldBooleanShowAsPlaceholder: 'Select show as',
+    booleanInitialStateLabel: 'Initial state',
+    booleanInitialStateLabelPlaceholder: 'Select initial state',
+    fieldSelectOptionsLabel: 'Create options',
+    fieldSelectAddOptionsLabel: 'Add option',
+    userCentersLabel: 'Center/s',
   },
   errorMessages: {
     nameRequired: 'Field required',
     fieldTypeRequired: 'Field required',
     multioptionShowAsRequired: 'Field required',
+    booleanShowAsRequired: 'Field required',
+    booleanInitialStateRequired: 'Field required',
   },
   selectOptions: {
+    userCenters: [
+      {
+        label: 'All',
+        value: '*',
+      },
+      {
+        label: 'Center 1',
+        value: 1,
+      },
+      {
+        label: 'Center 2',
+        value: 2,
+      },
+    ],
     centers: [
       {
         label: 'All',
@@ -52,6 +77,20 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
         value: 2,
       },
     ],
+    fieldBooleanInitialState: [
+      {
+        label: 'Unselected',
+        value: '-',
+      },
+      {
+        label: 'Si',
+        value: 'si',
+      },
+      {
+        label: 'No',
+        value: 'no',
+      },
+    ],
     fieldMultioptionShowAs: [
       {
         label: 'Dropdown',
@@ -64,6 +103,20 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
       {
         label: 'Radio',
         value: 'radio',
+      },
+    ],
+    fieldBooleanShowAs: [
+      {
+        label: 'Checkbox',
+        value: 'checkbox',
+      },
+      {
+        label: 'Radio',
+        value: 'radio',
+      },
+      {
+        label: 'Switcher',
+        value: 'switcher',
       },
     ],
     fieldTypes: [
@@ -160,7 +213,12 @@ const DatasetItemDrawer = ({
 }) => {
   const { classes, cx } = DatasetItemDrawerStyles({});
   const form = useForm({ defaultValues });
-  const contextRef = useRef({ classes });
+  const contextRef = useRef({
+    classes,
+    gridColumn: 1000,
+    colSpans: [250, 375, 375],
+    colOptionsSpans: [250, 450],
+  });
   const [r, setR] = useState(0);
 
   function render() {
@@ -175,7 +233,7 @@ const DatasetItemDrawer = ({
   }, [messages, errorMessages, selectOptions]);
 
   return (
-    <Drawer position={position} opened={opened} size={size} onClose={onClose} headerAbsolute>
+    <Drawer position={position} opened={opened} size={size} onClose={onClose} empty>
       <Grid className={classes.grid} grow columns={100}>
         <Col span={35} className={classes.leftColContainer}>
           <Box>Left</Box>

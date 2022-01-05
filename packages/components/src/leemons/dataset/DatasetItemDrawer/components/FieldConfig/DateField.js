@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 
 const DateField = () => {
   const {
-    contextRef: { messages },
+    contextRef: { messages, colSpans, gridColumn },
     form: {
       control,
       formState: { errors },
@@ -15,14 +15,14 @@ const DateField = () => {
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-      <Grid columns={100} align="center">
-        <Col span={20}>
+      <Grid columns={gridColumn} align="center">
+        <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
             {messages.fieldDateLabel}
           </Text>
         </Col>
 
-        <Col span={40}>
+        <Col span={colSpans[1]}>
           <Grid columns={100} align="center">
             <Col span={50}>
               <Grid columns={100} align="center">

@@ -26,6 +26,7 @@ export const SORTABLE_LIST_PROP_TYPES = {
   sortable: PropTypes.bool,
   removable: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   render: PropTypes.node,
+  mapKey: PropTypes.string,
 };
 
 const ListItem = ({ children, sortable, index, reorder, classes, t }) => {
@@ -94,13 +95,20 @@ const ListItem = ({ children, sortable, index, reorder, classes, t }) => {
   );
 };
 
-const SortableList = ({ value, onChange, render: Render, sortable, removable: _removable }) => {
+const SortableList = ({
+  value,
+  onChange,
+  render: Render,
+  sortable,
+  removable: _removable,
+  mapKey,
+}) => {
   const { classes, cx } = SortableListStyles({});
 
   let Removable = () => null;
   if (_removable) {
     Removable = isBoolean(_removable)
-      ? (onClick) => {
+      ? ({ onClick }) => {
           return <ActionButton icon={<DeleteBinIcon />} onClick={onClick} tooltip={''} />;
         }
       : _removable;
@@ -136,14 +144,14 @@ const SortableList = ({ value, onChange, render: Render, sortable, removable: _r
       <DndProvider backend={HTML5Backend}>
         {value.map((val, i) => (
           <ListItem
-            key={val}
+            key={mapKey ? val[mapKey] : val}
             index={i}
             sortable={sortable}
             classes={classes}
             t={val}
             reorder={reorder}
           >
-            <Render value={val} onChange={(v) => renderChange(i, v)} />
+            <Render value={val} index={i} onChange={(v) => renderChange(i, v)} />
             <Removable onClick={() => removeItem(i)} />
           </ListItem>
         ))}

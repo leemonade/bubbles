@@ -22,7 +22,7 @@ export const DRAWER_DEFAULT_PROPS = {
   noFocusTrap: false,
   noOverlay: false,
   overlayOpacity: 0.75,
-  headerAbsolute: false,
+  empty: false,
 };
 export const DRAWER_PROP_TYPES = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -40,7 +40,7 @@ export const DRAWER_PROP_TYPES = {
   noOverlay: PropTypes.bool,
   closeTooltipText: PropTypes.string,
   back: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  headerAbsolute: PropTypes.bool,
+  empty: PropTypes.bool,
 };
 
 const Drawer = ({
@@ -50,11 +50,11 @@ const Drawer = ({
   children,
   closeTooltipText,
   back,
-  headerAbsolute,
+  empty,
   shadow,
   ...props
 }) => {
-  const { classes, cx } = DrawerStyles({ headerAbsolute });
+  const { classes, cx } = DrawerStyles({ empty });
 
   const justifyContent = (!back || back === '') && !hideCloseButton ? 'flex-end' : 'space-between';
 

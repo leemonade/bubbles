@@ -9,7 +9,7 @@ import { NumberInput } from '../../../../../../form';
 
 const MinMax = ({ label, minLabel, maxLabel, min, max, children }) => {
   const {
-    contextRef: { messages },
+    contextRef: { colSpans, gridColumn },
     form: {
       control,
       formState: { errors },
@@ -18,14 +18,14 @@ const MinMax = ({ label, minLabel, maxLabel, min, max, children }) => {
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-      <Grid columns={100} align="center">
-        <Col span={20}>
+      <Grid columns={gridColumn} align="center">
+        <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
             {label}
           </Text>
         </Col>
 
-        <Col span={40}>
+        <Col span={colSpans[1]}>
           <Grid columns={100} align="center">
             <Col span={50}>
               <Grid columns={100} align="center">
@@ -61,7 +61,7 @@ const MinMax = ({ label, minLabel, maxLabel, min, max, children }) => {
             </Col>
           </Grid>
         </Col>
-        <Col span={40}>{children}</Col>
+        <Col span={colSpans[2]}>{children}</Col>
       </Grid>
     </Box>
   );

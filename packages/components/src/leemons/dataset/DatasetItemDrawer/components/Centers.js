@@ -7,7 +7,7 @@ import { MultiSelect } from '../../../../form/MultiSelect';
 
 const Centers = () => {
   const {
-    contextRef: { messages, errorMessages, selectOptions },
+    contextRef: { messages, errorMessages, selectOptions, colSpans, gridColumn },
     form: {
       setValue,
       control,
@@ -29,13 +29,13 @@ const Centers = () => {
 
   return (
     <Box>
-      <Grid columns={100} align="center">
-        <Col span={20}>
+      <Grid columns={gridColumn} align="center">
+        <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
             {messages.centerLabel}
           </Text>
         </Col>
-        <Col span={40}>
+        <Col span={colSpans[1]}>
           <Controller
             name="config.centers"
             control={control}
