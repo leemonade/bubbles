@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isNil, isString, findIndex, isFunction } from 'lodash';
+import { isArray, isNil, isString, findIndex, isFunction, forEach } from 'lodash';
 import { StarIcon } from '@heroicons/react/solid';
 import { Tabs, Tab } from '../../../navigation';
 
@@ -26,6 +26,23 @@ export const TRANSLATOR_TABS_PROP_TYPES = {
 
 const TranslatorTabs = ({ children, locales, errors, warnings, defaultLocale, onLocaleChange }) => {
   const [langs, setLangs] = useState([]);
+  const [configs, setConfigs] = useState({});
+
+  const getConfig = (_locales, i) => ({
+    currentLocaleIndex: i,
+    currentLocale: _locales[i],
+    currentLocaleIsDefaultLocale: _locales[i].code === defaultLocale,
+    defaultLocale,
+    locales: _locales,
+  });
+
+  const getAllConfigs = (_locales) => {
+    const result = {};
+    forEach(_locales, (locale, i) => {
+      result[locale.code] = getConfig(_locales, i);
+    });
+    return result;
+  };
 
   useEffect(() => {
     if (isArray(locales) && isString(defaultLocale)) {
@@ -34,13 +51,14 @@ const TranslatorTabs = ({ children, locales, errors, warnings, defaultLocale, on
       if (langIndex > -1) {
         data.unshift(...data.splice(langIndex, 1));
         setLangs(data);
+        setConfigs(getAllConfigs(data));
       }
     }
   }, [locales, defaultLocale]);
 
   const handleLocaleChange = (code) => {
     code = code.replace('.$', '');
-    if (isFunction(onLocaleChange)) onLocaleChange(code);
+    if (isFunction(onLocaleChange)) onLocaleChange(configs[code]);
   };
 
   return isArray(langs) && langs.length > 0 ? (
@@ -58,7 +76,7 @@ const TranslatorTabs = ({ children, locales, errors, warnings, defaultLocale, on
           }
         >
           {!isNil(children) && React.isValidElement(children)
-            ? React.cloneElement(children, { localeConfig: locale.config })
+            ? React.cloneElement(children, { localeConfig: configs[locale.code] })
             : null}
         </Tab>
       ))}

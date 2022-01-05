@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStyles } from '@mantine/core';
 import { ExclamationCircleIcon, CheckCircleIcon } from '@heroicons/react/solid';
 
@@ -10,10 +11,10 @@ const useStyles = createStyles((theme) => {
       transform: `translateY(-${theme.spacing['1']}px)`,
     },
     sucessIcon: {
-        width: 10,
-        color: theme.colors.fatic02,
-        marginLeft: theme.spacing['1'],
-        transform: `translateY(-${theme.spacing['1']}px)`,
+      width: 10,
+      color: theme.colors.fatic02,
+      marginLeft: theme.spacing['1'],
+      transform: `translateY(-${theme.spacing['1']}px)`,
     },
   };
 });
@@ -21,10 +22,8 @@ const useStyles = createStyles((theme) => {
 export const IconError = () => {
   const { classes } = useStyles();
 
-  return (
-    <ExclamationCircleIcon className={classes.errorIcon} />
-  );
-}
+  return <ExclamationCircleIcon className={classes.errorIcon} />;
+};
 
 export const IconSuccess = () => {
   const { classes } = useStyles();
