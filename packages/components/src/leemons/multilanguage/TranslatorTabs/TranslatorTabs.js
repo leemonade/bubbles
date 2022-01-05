@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isNil, isString, findIndex, isFunction, forEach } from 'lodash';
+import { findIndex, forEach, isArray, isFunction, isNil, isString } from 'lodash';
 import { StarIcon } from '@heroicons/react/solid';
-import { Tabs, Tab } from '../../../navigation';
+import { Tab, Tabs } from '../../../navigation';
 
 export const TRANSLATOR_TABS_DEFAULT_PROPS = {
   locales: [],
@@ -62,7 +62,7 @@ const TranslatorTabs = ({ children, locales, errors, warnings, defaultLocale, on
   };
 
   return isArray(langs) && langs.length > 0 ? (
-    <Tabs onTabClick={handleLocaleChange}>
+    <Tabs forceRender onTabClick={handleLocaleChange}>
       {langs.map((locale, i) => (
         <Tab
           key={locale.code}

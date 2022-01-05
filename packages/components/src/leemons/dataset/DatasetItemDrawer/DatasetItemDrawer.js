@@ -43,6 +43,8 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     userCentersLabel: 'Center/s',
     userProfileLabel: 'Profile/s',
     fieldConfigLocaleTitle: 'Configuration & languages',
+    localeLabelLabel: 'Label',
+    localeDescriptionLabel: 'Description',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -50,6 +52,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     multioptionShowAsRequired: 'Field required',
     booleanShowAsRequired: 'Field required',
     booleanInitialStateRequired: 'Field required',
+    localeLabelRequired: 'Field required',
   },
   locales: [],
   selectOptions: {

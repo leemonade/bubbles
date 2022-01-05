@@ -3,6 +3,10 @@ import { Box } from '@mantine/core';
 import DatasetItemDrawerContext from '../../context/DatasetItemDrawerContext';
 import { Title } from '../../../../../typography';
 import { TranslatorTabs } from '../../../../multilanguage';
+import FieldConfigLocaleContext from './context/FieldConfigLocale';
+import { Label } from './common/Label';
+import { Description } from './common/Description';
+import { Help } from './common/Help';
 
 const configFieldTypes = {
   text_field: null,
@@ -19,9 +23,15 @@ const configFieldTypes = {
   default: null,
 };
 
-const FieldConfigLocaleItem = (props) => {
-  console.log(props);
-  return <Box>Hola</Box>;
+const FieldConfigLocaleItem = ({ localeConfig }) => {
+  console.log(localeConfig);
+  return (
+    <FieldConfigLocaleContext.Provider value={localeConfig}>
+      <Label />
+      <Description />
+      <Help />
+    </FieldConfigLocaleContext.Provider>
+  );
 };
 
 const FieldConfigLocale = () => {
