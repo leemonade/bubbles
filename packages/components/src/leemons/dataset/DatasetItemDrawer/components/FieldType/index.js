@@ -31,7 +31,7 @@ const fieldsByType = {
   ],
   boolean: ['config.required', 'config.uiType', 'config.initialStatus'],
   select: ['config.required', 'config.checkboxValues'],
-  user: ['config.required'],
+  user: ['config.required', 'config.center'],
 };
 const configFieldTypes = {
   text_field: <TextField />,

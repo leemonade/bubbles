@@ -48,6 +48,30 @@ const UserField = () => {
           />
         </Col>
       </Grid>
+
+      <Grid columns={gridColumn} align="center">
+        <Col span={colSpans[0]}>
+          <Text strong color="primary" role="productive">
+            {messages.userProfileLabel}
+          </Text>
+        </Col>
+
+        <Col span={colSpans[1]}>
+          <Controller
+            name="config.profile"
+            control={control}
+            render={({ field: { value, ...field } }) => (
+              <MultiSelect
+                {...field}
+                value={!value || value.length === 0 ? ['*'] : value}
+                required
+                data={selectOptions.userProfiles}
+                onChange={(e) => onChange(e, field.onChange)}
+              />
+            )}
+          />
+        </Col>
+      </Grid>
     </Box>
   );
 };

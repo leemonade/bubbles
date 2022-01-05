@@ -40,6 +40,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     fieldSelectOptionsLabel: 'Create options',
     fieldSelectAddOptionsLabel: 'Add option',
     userCentersLabel: 'Center/s',
+    userProfileLabel: 'Profile/s',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -49,6 +50,20 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     booleanInitialStateRequired: 'Field required',
   },
   selectOptions: {
+    userProfiles: [
+      {
+        label: 'All',
+        value: '*',
+      },
+      {
+        label: 'Profile 1',
+        value: 1,
+      },
+      {
+        label: 'Profile 2',
+        value: 2,
+      },
+    ],
     userCenters: [
       {
         label: 'All',
