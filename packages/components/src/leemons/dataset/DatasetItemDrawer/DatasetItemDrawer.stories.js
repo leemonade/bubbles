@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DATASET_ITEM_DRAWER_DEFAULT_PROPS, DatasetItemDrawer } from './DatasetItemDrawer';
 import mdx from './DatasetItemDrawer.mdx';
 import { Button } from '../../../form';
+import { TRANSLATOR_TABS_DATA } from '../../multilanguage/TranslatorTabs/mocks/data';
 
 export default {
   title: 'Leemons/Dataset/DatasetItemDrawer',
@@ -24,6 +25,39 @@ export default {
 const Template = ({ children, ...props }) => {
   const [opened, setOpened] = useState(true);
 
+  const selectOptions = DATASET_ITEM_DRAWER_DEFAULT_PROPS.selectOptions;
+  selectOptions.userProfiles = [
+    {
+      label: 'All',
+      value: '*',
+    },
+    {
+      label: 'Profile 1',
+      value: 1,
+    },
+    {
+      label: 'Profile 2',
+      value: 2,
+    },
+  ];
+
+  selectOptions.userCenters = [
+    {
+      label: 'All',
+      value: '*',
+    },
+    {
+      label: 'Center 1',
+      value: 1,
+    },
+    {
+      label: 'Center 2',
+      value: 2,
+    },
+  ];
+
+  selectOptions.centers = selectOptions.userCenters;
+
   return (
     <>
       <Button color="secondary" onClick={() => setOpened(true)}>
@@ -31,8 +65,11 @@ const Template = ({ children, ...props }) => {
       </Button>
       <DatasetItemDrawer
         {...props}
+        selectOptions={selectOptions}
         defaultValues={{ config: { type: 'user', centers: ['*'] } }}
         opened={opened}
+        locales={TRANSLATOR_TABS_DATA.locales}
+        defaultLocale={TRANSLATOR_TABS_DATA.defaultLocale}
         onClose={() => setOpened(false)}
       />
     </>

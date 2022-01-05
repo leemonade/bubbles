@@ -10,6 +10,7 @@ import { Centers } from './components/Centers';
 import { Divider } from '../../../layout';
 import { FieldType } from './components/FieldType';
 import { FieldConfig } from './components/FieldConfig';
+import { FieldConfigLocale } from './components/FieldConfigLocale';
 
 export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
   messages: {
@@ -41,6 +42,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     fieldSelectAddOptionsLabel: 'Add option',
     userCentersLabel: 'Center/s',
     userProfileLabel: 'Profile/s',
+    fieldConfigLocaleTitle: 'Configuration & languages',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -49,49 +51,11 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     booleanShowAsRequired: 'Field required',
     booleanInitialStateRequired: 'Field required',
   },
+  locales: [],
   selectOptions: {
-    userProfiles: [
-      {
-        label: 'All',
-        value: '*',
-      },
-      {
-        label: 'Profile 1',
-        value: 1,
-      },
-      {
-        label: 'Profile 2',
-        value: 2,
-      },
-    ],
-    userCenters: [
-      {
-        label: 'All',
-        value: '*',
-      },
-      {
-        label: 'Center 1',
-        value: 1,
-      },
-      {
-        label: 'Center 2',
-        value: 2,
-      },
-    ],
-    centers: [
-      {
-        label: 'All',
-        value: '*',
-      },
-      {
-        label: 'Center 1',
-        value: 1,
-      },
-      {
-        label: 'Center 2',
-        value: 2,
-      },
-    ],
+    userProfiles: [],
+    userCenters: [],
+    centers: [],
     fieldBooleanInitialState: [
       {
         label: 'Unselected',
@@ -189,6 +153,11 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
 export const DATASET_ITEM_DRAWER_PROP_TYPES = {
   messages: PropTypes.object,
   errorMessages: PropTypes.object,
+  locales: PropTypes.shape({
+    label: PropTypes.string,
+    code: PropTypes.string,
+  }),
+  defaultLocale: PropTypes.string,
   selectOptions: PropTypes.shape({
     centers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -203,6 +172,30 @@ export const DATASET_ITEM_DRAWER_PROP_TYPES = {
       })
     ),
     fieldMultioptionShowAs: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.any,
+      })
+    ),
+    fieldBooleanShowAs: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.any,
+      })
+    ),
+    fieldBooleanInitialState: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.any,
+      })
+    ),
+    userCenters: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.any,
+      })
+    ),
+    userProfiles: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.any,
@@ -225,6 +218,8 @@ const DatasetItemDrawer = ({
   messages,
   errorMessages,
   selectOptions,
+  locales,
+  defaultLocale,
 }) => {
   const { classes, cx } = DatasetItemDrawerStyles({});
   const form = useForm({ defaultValues });
@@ -244,8 +239,10 @@ const DatasetItemDrawer = ({
     contextRef.current.messages = messages;
     contextRef.current.errorMessages = errorMessages;
     contextRef.current.selectOptions = selectOptions;
+    contextRef.current.locales = locales;
+    contextRef.current.defaultLocale = defaultLocale;
     render();
-  }, [messages, errorMessages, selectOptions]);
+  }, [messages, errorMessages, selectOptions, locales, defaultLocale]);
 
   return (
     <Drawer position={position} opened={opened} size={size} onClose={onClose} empty>
@@ -271,6 +268,7 @@ const DatasetItemDrawer = ({
               {/* Field type/config */}
               <FieldType />
               <FieldConfig />
+              <FieldConfigLocale />
             </Box>
           </DatasetItemDrawerContext.Provider>
         </Col>
