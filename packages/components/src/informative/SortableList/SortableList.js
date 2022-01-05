@@ -111,6 +111,11 @@ const SortableList = ({ value, onChange, render: Render, sortable, removable: _r
     onChange([...value]);
   }
 
+  function renderChange(i, val) {
+    value[i] = val;
+    onChange([...value]);
+  }
+
   const reorder = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = value[dragIndex];
@@ -138,7 +143,7 @@ const SortableList = ({ value, onChange, render: Render, sortable, removable: _r
             t={val}
             reorder={reorder}
           >
-            <Render value={val} />
+            <Render value={val} onChange={(v) => renderChange(i, v)} />
             <Removable onClick={() => removeItem(i)} />
           </ListItem>
         ))}
