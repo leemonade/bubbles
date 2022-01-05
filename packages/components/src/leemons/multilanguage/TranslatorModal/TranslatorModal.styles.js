@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import { buttonsGroup01 } from '../../commons.mixins';
+import { buttonsGroup01 } from '../../../commons.mixins';
 
-export const TranslatorStyles = createStyles((theme) => {
+export const TranslatorModalStyles = createStyles((theme, {}) => {
   return {
     root: {},
     errorIcon: {},

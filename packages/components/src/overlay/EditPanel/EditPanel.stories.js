@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { EditPanel, ACTIONBUTTONS } from './EditPanel';
 import { Group, Box, Divider } from '@mantine/core';
-
-import { Button } from '../../form';
+import { Button, InputWrapper } from '../../form';
+import { Translator } from './../../leemons';
+import { EditPanel } from './EditPanel';
 import mdx from './EditPanel.mdx';
-import { InputWrapper } from '../../form/InputWrapper/InputWrapper';
-import Translator from './../../leemons/Translator/Translator';
 
 export default {
   title: 'Organisms/Overlay/Panels/Edit',
