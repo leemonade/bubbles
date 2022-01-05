@@ -54,5 +54,4 @@ export const SHADOWS = {
   shadow02: EFFECTS.boxShadow02,
   shadow03: EFFECTS.boxShadow03,
   shadow04: EFFECTS.boxShadow04,
-  shadow100: EFFECTS.boxShadow100,
 };
