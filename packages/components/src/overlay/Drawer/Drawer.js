@@ -21,7 +21,7 @@ export const DRAWER_DEFAULT_PROPS = {
   noFocusTrap: true,
   noOverlay: false,
   overlayOpacity: 0.75,
-  headerAbsolute: false,
+  empty: false,
 };
 export const DRAWER_PROP_TYPES = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -38,11 +38,11 @@ export const DRAWER_PROP_TYPES = {
   noOverlay: PropTypes.bool,
   back: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  headerAbsolute: PropTypes.bool,
+  empty: PropTypes.bool,
 };
 
-const Drawer = ({ close, onClose, onBack, children, back, headerAbsolute, shadow, ...props }) => {
-  const { classes, cx } = DrawerStyles({ headerAbsolute });
+const Drawer = ({ close, onClose, onBack, children, back, empty, shadow, ...props }) => {
+  const { classes, cx } = DrawerStyles({ empty });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
