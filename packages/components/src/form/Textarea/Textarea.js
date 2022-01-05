@@ -23,6 +23,7 @@ const Textarea = forwardRef(
       onChange,
       value,
       defaultValue,
+      disabled,
       ...props
     },
     ref
@@ -40,6 +41,7 @@ const Textarea = forwardRef(
           autosize={autosize}
           placeholder={placeholder}
           name={name}
+          disabled={disabled}
           onBlur={onBlur}
           onChange={onChange}
           value={value}

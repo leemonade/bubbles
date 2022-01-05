@@ -24,6 +24,7 @@ const Select = forwardRef(
       value,
       name,
       data,
+      disabled,
       searchable,
       nothingFound,
       placeholder,
@@ -67,6 +68,7 @@ const Select = forwardRef(
           onBlur={onBlur}
           value={value}
           name={name}
+          disabled={disabled}
           searchable={searchable}
           nothingFound={nothingFound}
           placeholder={placeholder}
@@ -107,6 +109,7 @@ Select.propTypes = {
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,
+  disabled: PropTypes.bool,
 };
 
 export { Select };
