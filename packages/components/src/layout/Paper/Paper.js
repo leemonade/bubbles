@@ -5,6 +5,7 @@ import { PaperStyles } from './Paper.styles';
 
 export const PAPER_RADIUS = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
 export const PAPER_PADDING = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
+export const PAPER_SHADOWS = ['none', 'level100', 'level01', 'level02', 'level03'];
 export const PAPER_DEFAULT_PROPS = {
   radius: 'md',
   padding: 'md',
@@ -25,7 +26,6 @@ const Paper = forwardRef(
         component={component}
         padding={padding}
         radius={radius}
-        shadow={shadow}
         {...props}
         ref={ref}
         classNames={cx(classes, className)}

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Paper, PAPER_DEFAULT_PROPS, PAPER_RADIUS, PAPER_PADDING } from './Paper';
+import { Paper, PAPER_DEFAULT_PROPS, PAPER_RADIUS, PAPER_PADDING, PAPER_SHADOWS } from './Paper';
 import mdx from './Paper.mdx';
-import { UserCards } from '../../informative/UserCards/UserCards';
-import { defaultUser } from '../../informative/UserCards/UserCards.stories';
+import { Text } from '../../typography/Text';
 
 export default {
   title: 'Atoms/Layout/Paper',
@@ -20,7 +19,7 @@ export default {
   argTypes: {
     radius: { control: { type: 'select' }, options: PAPER_RADIUS },
     padding: { control: { type: 'select' }, options: PAPER_PADDING },
-    shadow: { control: { type: 'select' }, options: ['none', 'xs', 'sm', 'md', 'lg', 'xl'] },
+    shadow: { control: { type: 'select' }, options: PAPER_SHADOWS },
   },
 };
 
@@ -31,6 +30,6 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  children: <UserCards user={defaultUser} />,
+  children: <Text color={'primary'}>Hello World</Text>,
   ...PAPER_DEFAULT_PROPS,
 };
