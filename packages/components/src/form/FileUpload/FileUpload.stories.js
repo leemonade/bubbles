@@ -3,6 +3,7 @@ import { Box } from '@mantine/core';
 import { FileUpload, FILE_UPLOAD_DEFAULT_PROPS } from './FileUpload';
 import mdx from './FileUpload.mdx';
 import { MIME_TYPES } from '@mantine/dropzone';
+import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 
 export default {
   title: 'Molecules/Form/FileUpload',

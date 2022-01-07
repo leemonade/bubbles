@@ -7,7 +7,7 @@ import { Stack } from '../../layout/Stack';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { ActionButton } from '../../form/ActionButton';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
-import { CloudUploadIcon, SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
+import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
 import { Alert } from '../../feedback/Alert';
 import { Button } from '../../form/Button';
 
