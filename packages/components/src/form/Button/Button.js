@@ -16,6 +16,7 @@ export const BUTTON_DEFAULT_PROPS = {
   rounded: false,
   iconOnly: false,
   loading: false,
+  compact: false,
   fullWidth: false,
 };
 
@@ -35,6 +36,7 @@ export const Button = forwardRef(
       styles,
       className,
       classNames,
+      compact,
       ...props
     },
     ref
@@ -49,7 +51,7 @@ export const Button = forwardRef(
       ? positionProp
       : BUTTON_DEFAULT_PROPS.position;
 
-    const { classes, cx } = ButtonStyles({ size, color, iconOnly, position, variant });
+    const { classes, cx } = ButtonStyles({ size, color, iconOnly, position, variant, compact });
     const mantineVariant = useMemo(() => (variant === 'link' ? 'default' : variant), [variant]);
 
     return (
@@ -96,4 +98,5 @@ Button.propTypes = {
   /** Sets button width to 100% of parent element */
   fullWidth: PropTypes.bool,
   position: PropTypes.oneOf(BUTTON_POSITIONS),
+  compact: PropTypes.bool,
 };

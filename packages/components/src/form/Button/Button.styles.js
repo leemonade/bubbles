@@ -198,14 +198,27 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = createStyles((theme, { size, color, position, variant }) => {
+export const ButtonStyles = createStyles((theme, { size, color, position, variant, compact }) => {
   const currentVariant = getVariant(variant, theme, color);
+
+  let compactOverrides = {};
+
+  if (compact) {
+    compactOverrides = {
+      paddingTop: theme.spacing[2],
+      paddingBottom: theme.spacing[2],
+      paddingLeft: variant === 'link' ? 0 : theme.spacing[2],
+      paddingRight: variant === 'link' ? 0 : theme.spacing[2],
+      height: 'auto',
+    };
+  }
 
   return {
     root: {
       padding: 0,
       ...getFontExpressive(null, 400),
       ...getSizes(size || 'md', theme, variant === 'link' ? 0.1 : null),
+      ...compactOverrides,
     },
     inner: {
       justifyContent: position === 'apart' ? 'space-between' : position,
@@ -230,15 +243,18 @@ export const ButtonStyles = createStyles((theme, { size, color, position, varian
     filled: {
       ...getVariant('filled', theme, color),
       border: '2px solid transparent',
+      ...compactOverrides,
     },
     outline: {
       ...getVariant('outline', theme, color),
       borderWidth: 2,
+      ...compactOverrides,
     },
     default: {
       ...getVariant('link', theme, color),
       border: 'none',
       backgroundColor: 'transparent',
+      ...compactOverrides,
 
       '&:hover': {
         textDecoration: 'none',
@@ -248,6 +264,7 @@ export const ButtonStyles = createStyles((theme, { size, color, position, varian
     light: {
       ...getVariant('light', theme, color),
       backgroundColor: 'transparent',
+      paddingOverrides: compactOverrides,
     },
   };
 });

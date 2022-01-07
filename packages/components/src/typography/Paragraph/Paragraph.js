@@ -11,6 +11,7 @@ export const PARAGRAPH_DEFAULT_PROPS = {
   align: 'left',
   size: 'sm',
   color: 'tertiary',
+  clean: false,
 };
 
 const Paragraph = ({
@@ -20,10 +21,11 @@ const Paragraph = ({
   className,
   classNames,
   color: colorProp,
+  clean,
   ...props
 }) => {
   const color = PARAGRAPH_COLORS.includes(colorProp) ? colorProp : PARAGRAPH_DEFAULT_PROPS.color;
-  const { classes, cx } = ParagraphStyles({ align });
+  const { classes, cx } = ParagraphStyles({ align, clean });
 
   return (
     <Text
@@ -45,6 +47,7 @@ Paragraph.propTypes = {
   align: PropTypes.oneOf(PARAGRAPH_ALIGNS),
   transform: PropTypes.oneOf(PARAGRAPH_TRANSFORMS),
   color: PropTypes.oneOf(PARAGRAPH_COLORS),
+  clean: PropTypes.bool,
 };
 
 export { Paragraph };
