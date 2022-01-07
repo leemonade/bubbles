@@ -64,6 +64,9 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     localeBooleanYesLabel: '"Yes" Label',
     localeBooleanNoLabel: '"No" Label',
     fieldPermissionsTitle: 'Profiles permissions',
+    permissionsProfileLabel: 'Profile',
+    permissionsViewLabel: 'View',
+    permissionsEditLabel: 'Edit',
   },
   errorMessages: {
     nameRequired: 'Field required',
