@@ -46,8 +46,11 @@ const getColor = (theme, color) => {
   switch (color) {
     case 'solid':
       return {
-        backgroundColor: theme.colors.interactive03h,
-        borderColor: theme.colors.interactive03h,
+        backgroundColor: theme.colors.interactive03,
+        borderColor: theme.colors.interactive03,
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03h,
+        },
       };
     case 'stroke':
       return {
@@ -65,10 +68,11 @@ const getColor = (theme, color) => {
   }
 };
 
-export const BadgeStyles = createStyles((theme, { size, color, image }) => {
+export const BadgeStyles = createStyles((theme, { size, color, image, radius }) => {
   const isLarge = size === 'lg';
   const isSmall = size === 'xs';
   const isMedium = size === 'md';
+  const isRounded = radius === 'rounded';
 
   return {
     root: {
@@ -76,7 +80,7 @@ export const BadgeStyles = createStyles((theme, { size, color, image }) => {
       ...getColor(theme, color),
       color: theme.colors.text01,
       textTransform: 'none',
-      borderRadius: pxToRem(100),
+      borderRadius: isRounded ? pxToRem(100) : pxToRem(4),
       padding: getPadding(size, isMedium, image),
       paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
       height: 'auto',
@@ -102,6 +106,7 @@ export const BadgeStyles = createStyles((theme, { size, color, image }) => {
       },
     },
     closeButton: {
+      cursor: 'pointer',
       '&:active': {
         transform: `translateY(${isSmall ? '0.5px' : '1px'})`,
       },
