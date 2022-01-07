@@ -58,7 +58,8 @@ const HeroBg = ({
 
   const doAnimation = (firstTime) => {
     const sizeNodeFunc = SIZES[size];
-    const nodes = getSVGNodes(currentType || sizeNodeFunc(cx(classes.root, className), style));
+    const nodeElement = sizeNodeFunc(cx(classes.root, className), style);
+    const nodes = getSVGNodes(currentType || nodeElement);
     let yValues = [];
     nodes.forEach(
       (node) =>
@@ -66,14 +67,9 @@ const HeroBg = ({
         yValues.push(node.props.y || '0')
     );
     yValues = [...new Set(yValues)];
-    // console.log(yValues);
 
     const yCount = yValues.length;
     const xCount = Math.floor(nodes.length / yCount);
-
-    // console.log('yCount:', yCount);
-    // console.log('xCount:', xCount);
-    // console.log('nodes:', nodes.length);
 
     const animStyles = [];
 
@@ -117,11 +113,7 @@ const HeroBg = ({
     }
 
     if (firstTime || (!firstTime && animationRef.current > 0)) {
-      setCurrentType(
-        React.cloneElement(sizeNodeFunc(cx(classes.root, className), style), {
-          children: currentNodes,
-        })
-      );
+      setCurrentType(React.cloneElement(nodeElement, { children: currentNodes }));
     }
   };
 

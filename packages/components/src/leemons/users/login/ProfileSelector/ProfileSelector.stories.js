@@ -2,9 +2,10 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import { ProfileSelector, PROFILE_SELECTOR_DEFAULT_PROPS } from './ProfileSelector';
 import mdx from './ProfileSelector.mdx';
+import SchoolTeacherMaleIcon from '@bubbles-ui/icons/outline/SchoolTeacherMaleIcon';
 
 export default {
-  title: 'Organisms/Form/ProfileSelector',
+  title: 'Leemons/Users/Login/ProfileSelector',
   parameters: {
     component: ProfileSelector,
     docs: {
@@ -29,5 +30,23 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  name: 'John Doe',
+  description: 'You have two profiles on leemons, please select the one with you want to access',
+  radioGroupData: [
+    {
+      value: 'teacher',
+      label: 'Teacher',
+      icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+    },
+    {
+      value: 'mother',
+      label: 'Mother',
+      icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+    },
+  ],
+  checkBoxLabel: 'Always use this profile for quick access',
+  lowerHelp:
+    'You can easily change later your profile by clicking on your avatar in the sidebar of the application',
+  buttonLabel: 'Log in',
   ...PROFILE_SELECTOR_DEFAULT_PROPS,
 };

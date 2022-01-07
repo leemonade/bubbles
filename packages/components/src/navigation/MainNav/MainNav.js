@@ -17,7 +17,7 @@ export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {};
 export const MAIN_NAV_PROP_TYPES = {};
 
-const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) => {
+const MainNav = ({ onClose, onOpen, menuData, isLoading, ...props }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [activeSubItem, setActiveSubItem] = useState(null);
   const [showSubNav, setShowSubNav] = useState(false);
@@ -26,7 +26,7 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
   // ······································································
   // HANDLERS
 
-  const handleItemClick = useCallback((item) => {
+  const handleItemClick = (item) => {
     setActiveItem(item);
     const hasChildren = !item.children || (isArray(item.children) && item.children.length === 0);
 
@@ -36,51 +36,44 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
     if (item.children) {
       openSubNav(true);
     }
-  }, []);
+  };
 
-  const handleRouteChange = useCallback(() => {
-    if (isLoading) {
-      setTimeout(() => {
-        handleRouteChange();
-      }, 100);
-    } else {
-      const items = getActiveItem(menuData);
+  const handleRouteChange = () => {
+    const items = getActiveItem(menuData);
 
-      if (items && activeItem && items.activeItem.id !== activeItem.id) {
-        handleItemClick(items.activeItem);
-      }
-
-      if (
-        items &&
-        activeSubItem &&
-        items.activeSubItem &&
-        items.activeSubItem.id !== activeSubItem.id
-      ) {
-        setActiveSubItem(items.activeSubItem);
-      }
+    if (
+      (items && items.activeItem && !activeItem) ||
+      (items && activeItem && items.activeItem.id !== activeItem.id)
+    ) {
+      handleItemClick(items.activeItem);
     }
-  }, [menuData]);
 
-  const openSubNav = useCallback(() => {
+    if (
+      (items && items.activeSubItem && !activeSubItem) ||
+      (items && activeSubItem && items.activeSubItem && items.activeSubItem.id !== activeSubItem.id)
+    ) {
+      setActiveSubItem(items.activeSubItem);
+    }
+  };
+
+  const openSubNav = () => {
     setShowSubNav(true);
     if (isFunction(onOpen)) onOpen();
-  }, []);
+  };
 
-  const closeSubNav = useCallback(() => {
+  const closeSubNav = () => {
     setShowSubNav(false);
     if (isFunction(onClose)) onClose();
-  }, []);
+  };
 
   // ······································································
   // WATCHERS
 
   useEffect(() => {
-    let callback;
-    if (history) {
-      callback = history.listen(() => handleRouteChange());
+    if (isLoading || !menuData || (isArray(menuData) && !menuData.length)) {
+      handleRouteChange();
     }
-    return () => callback && callback();
-  }, []);
+  }, [menuData, isLoading]);
 
   // ······································································
   // STYLES
@@ -122,7 +115,7 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
           <Logo isotype className={classes.logo} />
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
-            {menuData && menuData.map((item) => getItem(item))}
+            {isArray(menuData) && menuData.map((item) => getItem(item))}
           </SimpleBar>
           <Avatar mx="auto" mb={10} radius="xl">
             LE

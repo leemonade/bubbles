@@ -28,7 +28,7 @@ export default {
     alignContent: { control: { type: 'select' }, options: STACK_ALIGN_CONTENT },
     justifyContent: { control: { type: 'select' }, options: STACK_JUSTIFY_CONTENT },
     alignItems: { control: { type: 'select' }, options: STACK_ALIGN_ITEMS },
-    fullWidth: { control: 'boolean' },
+    expand: { control: 'boolean' },
   },
 };
 
@@ -39,12 +39,10 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  children: (
-    <>
-      <div style={{padding: 5, background:'red'}}>Element 1</div>
-      <div style={{padding: 5, background:'green'}}>Element 2</div>
-      <div style={{padding: 5, background:'yellow'}}>Element 3</div>
-    </>
-  ),
   ...DEFAULT_PROPS,
+  children: [
+    <Box style={{ padding: 5, background: 'red' }}>Element 1</Box>,
+    <Box style={{ padding: 5, background: 'green' }}>Element 2</Box>,
+    <Box style={{ padding: 5, background: 'yellow' }}>Element 3</Box>,
+  ],
 };
