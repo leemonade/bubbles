@@ -11,6 +11,7 @@ import { Divider } from '../../../layout';
 import { FieldType } from './components/FieldType';
 import { FieldConfig } from './components/FieldConfig';
 import { FieldConfigLocale } from './components/FieldConfigLocale';
+import { Permissions } from './components/Permissions';
 
 export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
   messages: {
@@ -62,6 +63,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     localeBooleanOptionDescription: 'Text nex to the checkbox',
     localeBooleanYesLabel: '"Yes" Label',
     localeBooleanNoLabel: '"No" Label',
+    fieldPermissionsTitle: 'Profiles permissions',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -289,6 +291,8 @@ const DatasetItemDrawer = ({
               <FieldType />
               <FieldConfig />
               <FieldConfigLocale />
+              {/* Permissions */}
+              <Permissions />
             </Box>
           </DatasetItemDrawerContext.Provider>
         </Col>
