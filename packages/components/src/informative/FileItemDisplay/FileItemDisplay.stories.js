@@ -12,13 +12,10 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/🍋💧-Bubbles-SD-v2?node-id=3639%3A28963',
     },
   },
-  argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
-  },
+  argTypes: {},
 };
 
 const Template = ({ children, ...props }) => {
@@ -28,11 +25,8 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  filename: 'filename',
+  filename: 'filename.pdf',
   description: '',
   metadata: {},
-  filetype: '.pdf',
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...FILE_ITEM_DISPLAY_DEFAULT_PROPS,
 };

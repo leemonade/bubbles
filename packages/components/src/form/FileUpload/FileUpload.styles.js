@@ -69,6 +69,7 @@ export const FileUploadStyles = createStyles((theme, {}) => {
     fileList: {
       marginTop: pxToRem(theme.spacing[4]),
       border: `1px solid ${theme.colors.interactive01h}`,
+      borderRadius: pxToRem(2),
     },
     errorAlert: {
       marginTop: pxToRem(theme.spacing[4]),

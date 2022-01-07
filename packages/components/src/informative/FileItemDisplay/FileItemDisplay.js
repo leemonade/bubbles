@@ -9,13 +9,20 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   filename: PropTypes.string,
   description: PropTypes.string,
   metadata: PropTypes.object,
-  filetype: PropTypes.string,
 };
 
 const FileItemDisplay = ({ filename, description, metadata, ...props }) => {
   const { classes, cx } = FileItemDisplayStyles({});
 
-  const fileExtension = filename.split('.').pop();
+  let fileExtension = '';
+
+  const hasExtension = filename.split('.').length > 1 && filename.split('.').pop() !== '';
+
+  if (hasExtension) {
+    fileExtension = filename.split('.').pop();
+  } else {
+    fileExtension = 'file';
+  }
 
   return (
     <Box className={classes.root} {...props}>

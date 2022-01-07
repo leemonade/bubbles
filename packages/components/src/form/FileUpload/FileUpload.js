@@ -15,16 +15,18 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
   loading: false,
   multiple: true,
+  showError: false,
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
   icon: PropTypes.node,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  disabled: false,
-  loading: false,
-  multiple: true,
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  multiple: PropTypes.bool,
   onDrop: PropTypes.func,
+  showError: PropTypes.bool,
   errorMessage: PropTypes.shape({
     title: PropTypes.string,
     message: PropTypes.string,
@@ -37,6 +39,7 @@ const FileUpload = ({
   subtitle,
   disabled = false,
   onDrop,
+  showError,
   errorMessage,
   ...props
 }) => {
@@ -82,7 +85,7 @@ const FileUpload = ({
           );
         }}
       </MantineDropzone>
-      {error && (
+      {showError && error && (
         <Alert
           className={classes.errorAlert}
           title={errorMessage.title}

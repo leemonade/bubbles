@@ -7,7 +7,7 @@ export const FileItemDisplayStyles = createStyles((theme, {}) => {
       ...getFontProductive(theme.fontSizes['2']),
       display: 'inline-flex',
       alignItems: 'center',
-      color: theme.colors.text03,
+      color: theme.colors.text02,
       position: 'relative',
     },
     filename: {
