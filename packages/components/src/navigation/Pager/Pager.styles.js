@@ -19,6 +19,10 @@ export const PagerStyles = createStyles(
         maxWidth: pxToRem(48),
         padding: 0,
         lineHeight: pxToRem(24),
+        cursor: disabled && 'default',
+        '&:first-child': {
+          cursor: disabled && 'default',
+        },
         '&:hover': {
           backgroundColor: disabled ? 'none' : theme.colors.ui03,
         },
