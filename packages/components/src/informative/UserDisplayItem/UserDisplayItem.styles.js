@@ -34,10 +34,13 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout }) =
       fontSize: pxToRem(13),
       lineHeight: pxToRem(15.7),
       marginRight: isRight && pxToRem(4),
+      textDecoration: 'none',
+      color: theme.colors.interactive01,
     },
     emailIcon: {
       color: theme.colors.interactive01,
       marginRight: !isRight && pxToRem(4),
+      cursor: 'pointer',
     },
     userInfo: {
       display: 'flex',
