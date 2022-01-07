@@ -13,9 +13,14 @@ export const CheckBoxGroupStyles = createStyles((theme, { direction, variant, fu
     group: {
       alignItems: isRow && 'baseline',
       alignItems: isRow ? (isBoxed ? 'stretch' : 'baseline') : null,
-      '> div:not(:last-child)': {
+      position: 'relative',
+      '> div:not(:last-of-type)': {
         marginBottom: isDefault && !isRow && pxToRem(11),
         marginRight: isDefault && isRow && pxToRem(theme.spacing[4]),
+      },
+      '> div:not(:first-of-type)': {
+        marginLeft: isBoxed && isRow && '-1px',
+        marginTop: isBoxed && !isRow && '-1px',
       },
       '> div': {
         alignItems: isRow && isBoxed ? 'flex-start' : null,
@@ -23,6 +28,7 @@ export const CheckBoxGroupStyles = createStyles((theme, { direction, variant, fu
       },
       '.mantine-Checkbox-root': {
         flex: fullWidth && `none !important`,
+        position: 'relative',
       },
       '.mantine-Checkbox-help': {
         marginTop: isRow ? (isBoxed ? pxToRem(1.5) : null) : null,
