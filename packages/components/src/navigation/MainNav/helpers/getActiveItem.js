@@ -21,6 +21,31 @@ export const getActiveItem = (menuData) => {
         return false;
       }
     });
+
+    // Check if parent root is found in their children
+    if (!activeItem) {
+      forEach(menuData, (item) => {
+        if (item.url) {
+          const itemUrl = item.url.replace(/([\/][^\/]+$)/g, '');
+          const match = url.indexOf(itemUrl);
+          if (match > -1 && match < 4) {
+            activeItem = item;
+            return false;
+          }
+        }
+
+        forEach(item.children, (subItem) => {
+          if (subItem.url) {
+            const subItemUrl = subItem.url.replace(/([\/][^\/]+$)/g, '');
+            const matchUrl = url.indexOf(subItemUrl);
+            if (matchUrl > -1 && matchUrl < 4) {
+              activeItem = item;
+              return false;
+            }
+          }
+        });
+      });
+    }
   }
 
   return { activeItem, activeSubItem };

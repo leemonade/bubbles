@@ -8,7 +8,7 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
   return {
     root: {
       ...getFocusStyles(theme),
-      ...getPaddings(theme.spacing['4'], theme.spacing['3']),
+      ...getPaddings(theme.spacing['4'], theme.spacing['4']),
       ...getFontExpressive(),
       WebkitTapHighlightColor: 'transparent',
       boxSizing: 'border-box',
@@ -31,9 +31,11 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
       '&:hover': {
         '&:not(:disabled)': {
           [`&:not(.${tabActive.ref})`]: {
-            color: theme.colors.text02,
-            [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors
-              .text02,
+            span: {
+              color: theme.colors.text01,
+            },
+            [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']:
+              theme.colors.text02,
           },
         },
       },
@@ -42,15 +44,15 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
         [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors.ui01,
         '&:not(:disabled)': {
           color: theme.colors.text01,
-          [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors
-            .interactive01,
+          [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']:
+            theme.colors.interactive01,
         },
       },
     },
     tabActive,
     tabLabel: {
       ...getFontExpressive(theme.fontSizes['2']),
-      color: active && !disabled ? theme.colors.text01 : theme.colors.text04,
+      color: active && !disabled ? theme.colors.text01 : theme.colors.text05,
       lineHeight: 1,
     },
     tabInner: {

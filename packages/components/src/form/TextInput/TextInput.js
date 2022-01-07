@@ -7,8 +7,27 @@ import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES, InputWrapper } from '..
 export const TEXT_INPUT_SIZES = INPUT_WRAPPER_SIZES;
 export const TEXT_INPUT_ORIENTATION = INPUT_WRAPPER_ORIENTATION;
 
+export const TEXT_INPUT_DEFAULT_PROPS = {
+  onChange: () => {},
+};
+
 export const TextInput = forwardRef(
-  ({ error, size, placeholder, rightSection, name, value, onBlur, onChange, ...props }, ref) => {
+  (
+    {
+      error,
+      size,
+      placeholder,
+      rightSection,
+      name,
+      value,
+      onBlur,
+      onChange,
+      defaultValue,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
     const uuid = useId();
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
@@ -17,9 +36,11 @@ export const TextInput = forwardRef(
           ref={ref}
           size={size}
           name={name}
+          disabled={disabled}
           onBlur={onBlur}
           onChange={onChange}
-          value={value || ''}
+          defaultValue={defaultValue || ''}
+          value={value}
           placeholder={placeholder}
           rightSection={rightSection}
           invalid={!isNil(error) && error != ''}
@@ -28,3 +49,5 @@ export const TextInput = forwardRef(
     );
   }
 );
+
+TextInput.defaultProps = TEXT_INPUT_DEFAULT_PROPS;

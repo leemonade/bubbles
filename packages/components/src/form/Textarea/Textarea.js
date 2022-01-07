@@ -18,6 +18,12 @@ const Textarea = forwardRef(
       size,
       autosize,
       minRows,
+      name,
+      onBlur,
+      onChange,
+      value,
+      defaultValue,
+      disabled,
       ...props
     },
     ref
@@ -33,6 +39,13 @@ const Textarea = forwardRef(
           ref={ref}
           size={size}
           autosize={autosize}
+          placeholder={placeholder}
+          name={name}
+          disabled={disabled}
+          onBlur={onBlur}
+          onChange={onChange}
+          value={value}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           classNames={classes}
           error={!isNil(error) && error != ''}

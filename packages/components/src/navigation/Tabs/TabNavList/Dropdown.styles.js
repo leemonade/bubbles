@@ -6,7 +6,7 @@ export const DropdownStyles = createStyles((theme, {}, getRef) => {
       paddingLeft: theme.spacing['3'],
       display: 'flex',
       alignItems: 'center',
-      paddingBottom: theme.spacing['2'],
+      // paddingBottom: theme.spacing['2'],
     },
   };
 });

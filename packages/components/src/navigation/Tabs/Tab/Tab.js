@@ -1,23 +1,17 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { Text, Box } from '@mantine/core';
 import { IconError } from './../../../assets/FaticIcons.js';
-import { Group, Text, Box } from '@mantine/core';
-import { ExclamationCircleIcon } from '@heroicons/react/solid';
 import { TabStyles } from './Tab.styles';
 
 export const Tab = forwardRef(
-  (
-    {
-      id,
-      active,
-      tab: { key, label, leftIcon, rightIcon, disabled, notification, hasError },
-      renderWrapper,
-      onClick,
-      onFocus,
-      ...props
-    },
-    ref
-  ) => {
+  ({ id, active, tab, renderWrapper, onClick, onFocus, ...props }, ref) => {
+    const { key, label, leftIcon, rightIcon, disabled, notification, hasError } = tab || {};
+
+    if (!key) {
+      return null;
+    }
+
     const { classes, cx } = TabStyles({ disabled, active }, { name: 'Tab' });
 
     function onInternalClick(e) {
