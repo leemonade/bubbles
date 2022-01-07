@@ -29,8 +29,8 @@ const RadioGroup = forwardRef(
     }
 
     const onChange = (value) => {
-      setValue(value);
       props.onChange(value);
+      setValue(value);
     };
 
     useEffect(() => {
@@ -58,7 +58,6 @@ const RadioGroup = forwardRef(
           classNames={classes}
           defaultValue={defaultValue ? defaultValue : ' '}
           value={value}
-          ref={ref}
           data={data.map(({ label, ...item }, index) => {
             return {
               value: item.value,
