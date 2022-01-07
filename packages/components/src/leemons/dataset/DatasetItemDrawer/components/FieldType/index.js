@@ -9,29 +9,30 @@ import { TextField } from './TextField';
 import { CommonRequiredField } from './CommonRequiredField';
 
 const fieldsByType = {
-  text_field: [
-    'config.required',
-    'config.masked',
-    'config.maxLength',
-    'config.minLength',
-    'config.onlyNumbers',
-  ],
-  rich_text: ['config.required', 'config.maxLength', 'config.minLength'],
-  number: ['config.required'],
-  date: ['config.required', 'config.minDate', 'config.maxDate'],
-  email: ['config.required'],
-  phone: ['config.required'],
-  link: ['config.required'],
+  text_field: ['config.masked', 'config.maxLength', 'config.minLength', 'config.onlyNumbers'],
+  rich_text: ['config.maxLength', 'config.minLength'],
+  number: [],
+  date: ['config.minDate', 'config.maxDate'],
+  email: [],
+  phone: [],
+  link: [],
   multioption: [
-    'config.required',
     'config.uiType',
     'config.minItems',
     'config.maxItems',
     'config.checkboxValues',
+    `locales.{code}.schema.selectPlaceholder`,
+    `locales.{code}.schema.frontConfig.checkboxLabels`,
   ],
-  boolean: ['config.required', 'config.uiType', 'config.initialStatus'],
-  select: ['config.required', 'config.checkboxValues'],
-  user: ['config.required', 'config.center'],
+  boolean: [
+    'config.uiType',
+    'config.initialStatus',
+    `locales.{code}.schema.optionLabel`,
+    `locales.{code}.schema.yesOptionLabel`,
+    `locales.{code}.schema.noOptionLabel`,
+  ],
+  select: ['config.checkboxValues'],
+  user: ['config.center', 'config.profile'],
 };
 const configFieldTypes = {
   text_field: <TextField />,
@@ -50,7 +51,7 @@ const configFieldTypes = {
 
 const FieldType = () => {
   const {
-    contextRef: { messages, errorMessages, selectOptions, colSpans, gridColumn },
+    contextRef: { messages, errorMessages, locales, selectOptions, colSpans, gridColumn },
     form: {
       watch,
       control,
@@ -68,7 +69,13 @@ const FieldType = () => {
         const newFields = fieldsByType[type] || [];
         const fieldsToRemove = difference(oldFields, newFields);
         forEach(fieldsToRemove, (field) => {
-          unregister(field);
+          if (field.indexOf('{code}')) {
+            forEach(locales, ({ code }) => {
+              unregister(field.replace('{code}', code));
+            });
+          } else {
+            unregister(field);
+          }
         });
       }
     });

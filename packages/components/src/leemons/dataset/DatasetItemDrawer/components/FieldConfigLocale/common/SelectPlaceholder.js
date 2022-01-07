@@ -7,9 +7,9 @@ import { Controller } from 'react-hook-form';
 import { TextInput } from '../../../../../../form';
 import { get } from 'lodash';
 
-const Help = () => {
+const SelectPlaceholder = ({ label }) => {
   const {
-    contextRef: { messages, gridColumn, colSpans },
+    contextRef: { gridColumn, colSpans },
     form: {
       control,
       formState: { errors },
@@ -25,20 +25,18 @@ const Help = () => {
       <Grid columns={gridColumn} align="center">
         <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
-            {messages.localeHelpLabel}
+            {label}
           </Text>
-          <br />
-          <Text role="productive">{messages.localeHelpDescription}</Text>
         </Col>
 
         <Col span={colSpans[1] + colSpans[2]}>
           <Controller
-            name={`locales.${code}.ui.ui:help`}
+            name={`locales.${code}.schema.selectPlaceholder`}
             control={control}
             render={({ field }) => (
               <TextInput
                 required={currentLocaleIsDefaultLocale}
-                error={get(errors, `locales.${code}.ui.ui:help`)}
+                error={get(errors, `locales.${code}.schema.selectPlaceholder`)}
                 {...field}
               />
             )}
@@ -49,4 +47,4 @@ const Help = () => {
   );
 };
 
-export { Help };
+export { SelectPlaceholder };

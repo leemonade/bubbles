@@ -30,6 +30,8 @@ const UserField = () => {
           <Text strong color="primary" role="productive">
             {messages.userCentersLabel}
           </Text>
+          <br />
+          <Text role="productive">{messages.userCentersDescription}</Text>
         </Col>
 
         <Col span={colSpans[1]}>
@@ -54,6 +56,8 @@ const UserField = () => {
           <Text strong color="primary" role="productive">
             {messages.userProfileLabel}
           </Text>
+          <br />
+          <Text role="productive">{messages.userProfileDescription}</Text>
         </Col>
 
         <Col span={colSpans[1]}>
