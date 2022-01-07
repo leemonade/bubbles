@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
+import { Text } from '../../../typography';
 import { TranslatorModal, TRANSLATOR_MODAL_DEFAULT_PROPS } from './TranslatorModal';
 import { TranslatorTabs } from '../TranslatorTabs';
 import { TRANSLATOR_TABS_DATA } from '../TranslatorTabs/mocks/data';
@@ -28,7 +29,9 @@ const Template = ({ test_translatorModalData, ...props }) => {
   return (
     <TranslatorModal {...props}>
       <TranslatorTabs {...test_translatorModalData}>
-        <Box>I'm locale</Box>
+        <Box style={{ padding: 20 }}>
+          <Text>I'm locale</Text>
+        </Box>
       </TranslatorTabs>
     </TranslatorModal>
   );
