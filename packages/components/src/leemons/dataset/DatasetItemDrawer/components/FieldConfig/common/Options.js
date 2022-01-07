@@ -62,7 +62,7 @@ const Options = ({ label, addOptionLabel }) => {
                   {...field}
                   removable
                   sortable
-                  errors={get(errors, 'config.checkboxValues')}
+                  error={get(errors, 'config.checkboxValues')}
                   mapKey="key"
                   render={OptionItem}
                 />

@@ -101,7 +101,7 @@ const FieldType = () => {
               <Select
                 {...field}
                 required
-                errors={get(errors, 'config.type')}
+                error={get(errors, 'config.type')}
                 data={selectOptions.fieldTypes}
                 placeholder={messages.fieldTypePlaceholder}
               />

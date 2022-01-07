@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { get } from 'lodash';
 import { Box, Col, Grid } from '@mantine/core';
 import DatasetItemDrawerContext from '../context/DatasetItemDrawerContext';
 import { Text } from '../../../../typography';
@@ -46,7 +47,7 @@ const Centers = () => {
               <MultiSelect
                 {...field}
                 required
-                errors={errors.centers}
+                error={get(errors, 'config.centers')}
                 data={selectOptions.centers}
                 onChange={onChange}
               />

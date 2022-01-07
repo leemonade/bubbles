@@ -34,7 +34,7 @@ const ShowAs = ({ label, required, data, placeholder }) => {
             <Select
               {...field}
               required
-              errors={get(errors, 'config.uiType')}
+              error={get(errors, 'config.uiType')}
               data={data}
               placeholder={placeholder}
             />

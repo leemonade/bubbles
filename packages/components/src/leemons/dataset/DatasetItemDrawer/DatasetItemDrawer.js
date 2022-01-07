@@ -12,9 +12,11 @@ import { FieldType } from './components/FieldType';
 import { FieldConfig } from './components/FieldConfig';
 import { FieldConfigLocale } from './components/FieldConfigLocale';
 import { Permissions } from './components/Permissions';
+import { Button } from '../../../form';
 
 export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
   messages: {
+    saveButtonLabel: 'Save',
     namePlaceholder: 'New field',
     centerLabel: 'Center',
     fieldTypeLabel: 'Field Type',
@@ -260,6 +262,12 @@ const DatasetItemDrawer = ({
     setR(new Date().getTime());
   }
 
+  function save() {
+    form.handleSubmit((data) => {
+      console.log(data);
+    })();
+  }
+
   useEffect(() => {
     contextRef.current.messages = messages;
     contextRef.current.errorMessages = errorMessages;
@@ -280,7 +288,7 @@ const DatasetItemDrawer = ({
           <DatasetItemDrawerContext.Provider
             value={{ contextRef: contextRef.current, form, render }}
           >
-            <Box>
+            <Box className={classes.rightColContent}>
               {/* Name */}
               <Name />
               {/* Centers */}
@@ -296,6 +304,9 @@ const DatasetItemDrawer = ({
               <FieldConfigLocale />
               {/* Permissions */}
               <Permissions />
+            </Box>
+            <Box className={classes.saveSection}>
+              <Button onClick={save}>{messages.saveButtonLabel}</Button>
             </Box>
           </DatasetItemDrawerContext.Provider>
         </Col>
