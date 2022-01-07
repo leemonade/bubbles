@@ -21,13 +21,13 @@ const getSizes = (size, spacing) => {
       fontSize: pxToRem(28),
       height: `calc(${spacing['1']}px * 14)`,
       width: `calc(${spacing['1']}px * 14)`,
-      borderWidth: '2px',
+      borderWidth: '1px',
     },
     lg: {
       fontSize: pxToRem(60),
       height: `calc(${spacing['1']}px * 30)`,
       width: `calc(${spacing['1']}px * 30)`,
-      borderWidth: '2px',
+      borderWidth: '1px',
     },
   }[size];
 };
