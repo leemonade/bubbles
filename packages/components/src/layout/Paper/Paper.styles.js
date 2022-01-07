@@ -5,7 +5,7 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
   const getShadows = (shadow) => {
     switch (shadow) {
       case 'level100':
-        return theme.shadows.uiLevel100;
+        return theme.shadows.shadow100;
       case 'level01':
         return theme.shadows.shadow01;
       case 'level02':
@@ -15,7 +15,7 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
       case 'none':
         return null;
       default:
-        return theme.shadows.uiLevel100;
+        return theme.shadows.shadow100;
     }
   };
 
