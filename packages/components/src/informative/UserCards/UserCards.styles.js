@@ -9,12 +9,17 @@ export const UserCardsStyles = createStyles(
     return {
       root: {
         ...getFontExpressive(theme.fontSizes['2']),
-        backgroundColor:
-          isContact && error
-            ? theme.colors.fatic01v0
-            : selected
-            ? theme.colors.interactive01v1
-            : null,
+        backgroundColor: isContact
+          ? error && theme.colors.fatic01v0
+          : selected && theme.colors.interactive01v1,
+        border: '1px solid transparent',
+        // borderColor: !isContact
+        //   ? selected && theme.colors.interactive01h
+        //   : error && theme.colors.fatic01,
+        // borderColor: !isContact && selected ? theme.colors.interactive01h : theme.colors.fatic01,
+        borderColor: isContact
+          ? selected && error && theme.colors.fatic01
+          : selected && theme.colors.interactive01h,
       },
       container: {
         padding: pxToRem(16),
@@ -24,9 +29,10 @@ export const UserCardsStyles = createStyles(
         gap: pxToRem(16),
       },
       userInfo: {
-        display: 'flex',
+        display: 'inline-flex',
         flexDirection: 'column',
         alignItems: isVertical && (isFull || isSimple) ? 'center' : null,
+        overflow: 'hidden',
       },
       rol: {
         ...getFontProductive(theme.fontSizes['1']),
@@ -48,15 +54,16 @@ export const UserCardsStyles = createStyles(
       email: {
         ...getFontProductive(theme.fontSizes['1']),
         marginTop: pxToRem(8),
-        color: isContact && theme.colors.text04,
+        color: isContact ? theme.colors.text04 : theme.colors.interactive01,
+        textDecoration: 'none',
         svg: {
           color: theme.colors.interactive01,
           marginRight: pxToRem(4),
         },
-        // display: 'inline-block',
-        // overflow: 'hidden',
-        // whiteSpace: 'nowrap',
-        // textOverflow: 'ellipsis',
+        display: 'inline-block',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
       },
       birthdayContainer: {
         marginTop: pxToRem(28),
@@ -89,36 +96,11 @@ export const UserCardsStyles = createStyles(
         color: theme.colors.interactive01,
         minHeight: pxToRem(20),
         minWidth: pxToRem(20),
+        cursor: 'pointer',
+        '&:active': {
+          transform: `translateY(1px)`,
+        },
       },
-      // header: {
-      //   display: 'flex',
-      //   alignItems: 'center',
-      // },
-      // avatar: {
-      //   marginLeft: pxToRem(16),
-      // },
-      // name: {
-      //   ...getFontExpressive(theme.fontSizes['3']),
-      //   lineHeight: pxToRem(20),
-      //   marginLeft: pxToRem(16),
-      //   marginRight: pxToRem(26),
-      // },
-      // column: {
-      //   display: 'flex',
-      //   flexDirection: 'column',
-      //   // textAlign: 'center',
-      // },
-      // email: {
-      //   marginTop: pxToRem(8),
-      //   marginLeft: pxToRem(68),
-      //   ...getFontProductive(theme.fontSizes['1']),
-      // },
-
-      // birthdayContainer: {
-      //   marginTop: pxToRem(28),
-      //   display: 'flex',
-      //   flexDirection: 'column',
-      // },
     };
   }
 );

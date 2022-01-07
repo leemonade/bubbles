@@ -36,8 +36,8 @@ Full variant:
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.defaultUser} />
-    <UserCards user={stories.defaultUser} layout={'vertical'} />
+    <UserCards user={stories.user} />
+    <UserCards user={stories.user} layout={'vertical'} />
   </Group>
 </ThemeProvider>
 
@@ -45,8 +45,8 @@ Simple variant:
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.defaultUser} variant={'simple'} />
-    <UserCards user={stories.defaultUser} variant={'simple'} layout={'vertical'} />
+    <UserCards user={stories.user} variant={'simple'} />
+    <UserCards user={stories.user} variant={'simple'} layout={'vertical'} />
   </Group>
 </ThemeProvider>
 
@@ -54,8 +54,8 @@ Large variant and contact variant (with error):
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.defaultUser} variant={'large'} />
-    <UserCards user={stories.defaultUser} variant={'contact'} error={'Contact already added'} />
+    <UserCards user={stories.user} variant={'large'} />
+    <UserCards user={stories.user} variant={'contact'} error={'Contact already added'} />
   </Group>
 </ThemeProvider>
 
@@ -65,9 +65,9 @@ And full, simple and large variant has a selected state
 
 <ThemeProvider>
   <Group>
-    <UserCards user={stories.defaultUser} variant={'large'} selected />
-    <UserCards user={stories.defaultUser} selected />
-    <UserCards user={stories.defaultUser} variant={'simple'} selected />
+    <UserCards user={stories.user} variant={'large'} selected />
+    <UserCards user={stories.user} selected />
+    <UserCards user={stories.user} variant={'simple'} selected />
   </Group>
 </ThemeProvider>
 

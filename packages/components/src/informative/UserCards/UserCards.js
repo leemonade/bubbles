@@ -31,9 +31,10 @@ export const USER_CARDS_PROP_TYPES = {
   layout: PropTypes.oneOf(USER_CARD_LAYOUT),
   error: PropTypes.string,
   selected: PropTypes.bool,
+  onChat: PropTypes.func,
 };
 
-const UserCards = ({ user, variant, layout, error, selected, ...props }) => {
+const UserCards = ({ user, variant, layout, error, selected, onChat, ...props }) => {
   const variantStates = {
     isFull: variant === 'full',
     isSimple: variant === 'simple',
@@ -77,10 +78,10 @@ const UserCards = ({ user, variant, layout, error, selected, ...props }) => {
             {name} {surname}
           </Text>
           {(isFull & isVertical || isContact) && <Text className={classes.number}>{number}</Text>}
-          <Text color={'interactive'} className={classes.email}>
+          <a color={'interactive'} className={classes.email} href={`mailto:${email}`}>
             {isVertical && (isFull || isSimple) && <PluginComunicaIcon />}
             {email}
-          </Text>
+          </a>
           {!(isSimple & isHorizontal || isContact) && (
             <Box className={classes.birthdayContainer}>
               <Text className={classes.birthday}>Cumpleaños</Text>
@@ -100,25 +101,9 @@ const UserCards = ({ user, variant, layout, error, selected, ...props }) => {
           )}
         </Box>
         {isFull && isHorizontal && (
-          <PluginComunicaIcon height={20} width={20} className={classes.icon} />
+          <PluginComunicaIcon height={20} width={20} className={classes.icon} onClick={onChat} />
         )}
       </Box>
-      {/* {isFull && (
-        <>
-            <Avatar image={avatar} className={classes.avatar} />
-              <Text color={'primary'} className={classes.name}>
-                {user.name} {user.surname}
-              </Text>
-            <PluginComunicaIcon height={20} width={20} className={classes.icon} />
-          <Text color={'interactive'} className={classes.email}>
-            {email}
-          </Text>
-          <Box className={classes.birthdayContainer}>
-            <Text>Cumpleaños</Text>
-            <Text>{birthdayLocale}</Text>
-          </Box>
-        </>
-      )} */}
     </Box>
   );
 };
