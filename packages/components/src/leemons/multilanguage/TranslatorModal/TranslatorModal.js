@@ -15,6 +15,7 @@ export const TRANSLATOR_MODAL_DEFAULT_PROPS = {
   error: false,
   warning: false,
   alert: null,
+  editMode: true,
 };
 
 export const TRANSLATOR_MODAL_PROP_TYPES = {
@@ -29,6 +30,7 @@ export const TRANSLATOR_MODAL_PROP_TYPES = {
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   closeOnSave: PropTypes.bool,
+  editMode: PropTypes.bool,
   alert: PropTypes.element,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,
@@ -42,6 +44,7 @@ const TranslatorModal = ({
   error,
   warning,
   alert,
+  editMode,
   onSave,
   onBeforeSave,
   onClose,
@@ -104,17 +107,19 @@ const TranslatorModal = ({
       <Drawer opened={opened} onClose={handleClose} size={715} close={labels.close} noOverlay>
         <ContextContainer title={labels.title} description={labels.description}>
           {children}
-          <Divider />
+          {editMode && <Divider />}
         </ContextContainer>
         {/* ACTION BUTTONS */}
-        <Group className={classes.buttonsGroup01} position="apart">
-          <Button variant="light" onClick={handleOnCancel}>
-            {labels.cancel}
-          </Button>
-          <Button onClick={handleOnSave} loading={loading}>
-            {labels.save}
-          </Button>
-        </Group>
+        {editMode && (
+          <Group className={classes.buttonsGroup01} position="apart">
+            <Button variant="light" onClick={handleOnCancel}>
+              {labels.cancel}
+            </Button>
+            <Button onClick={handleOnSave} loading={loading}>
+              {labels.save}
+            </Button>
+          </Group>
+        )}
       </Drawer>
     </Box>
   );

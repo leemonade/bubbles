@@ -6,6 +6,7 @@ import { isNil } from 'lodash';
 import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
 import { TextareaStyles } from './Textarea.styles';
 import { TEXT_INPUT_PROP_TYPES, TEXT_INPUT_DEFAULT_PROPS } from '../TextInput';
+import { Paragraph } from '../../typography';
 
 export const TEXTAREA_SIZES = INPUT_WRAPPER_SIZES;
 export const TEXTAREA_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;

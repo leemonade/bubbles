@@ -4,25 +4,25 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 const getColor = (theme, severity) => {
   return {
     success: {
-      background: theme.colors.fatic02v0,
+      background: `${theme.colors.fatic02v0} !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: theme.colors.fatic02,
       },
     },
     warning: {
-      background: theme.colors.fatic03v0,
+      background: `${theme.colors.fatic03v0} !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: theme.colors.fatic03,
       },
     },
     info: {
-      background: theme.colors.interactive01v0,
+      background: `${theme.colors.interactive01v0} !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: theme.colors.fatic04,
       },
     },
     error: {
-      background: theme.colors.fatic01v0,
+      background: `${theme.colors.fatic01v0} !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: theme.colors.fatic01,
       },
