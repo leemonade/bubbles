@@ -20,7 +20,7 @@ export const PagerStyles = createStyles(
         padding: 0,
         lineHeight: pxToRem(24),
         cursor: disabled && 'default',
-        '&:first-child': {
+        '&:first-of-type': {
           cursor: disabled && 'default',
         },
         '&:hover': {

@@ -95,7 +95,7 @@ const Pager = forwardRef(
               max={total}
               maxLength={inputMaxLenght}
               className={classes.input}
-              value={goToPage}
+              value={goToPage.toString()}
               onChange={(e) => handleGoToPage(e)}
               disabled={disabled}
             />
