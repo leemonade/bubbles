@@ -1,0 +1,153 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './UserDisplayItem.stories.js';
+import { UserDisplayItem } from './UserDisplayItem.js';
+import { Box, Space, Group } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# **UserDisplayItem**
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/informative/UserDisplayItem)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+**UserDisplayItem** is ...
+
+<ThemeProvider>
+  <UserDisplayItem
+    name={'Ana Maria'}
+    surname={'Lopez Vilchez'}
+    rol={'Tutor'}
+    email={'bill.sanders@example.com'}
+    avatar={
+      'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+    }
+  >
+    User display item
+  </UserDisplayItem>
+</ThemeProvider>
+
+## UserDisplayItem Variants
+
+There are four different variants of this component: **inline**(default), **block**, **rol**, **email**.
+
+You can also set the layout to the left or to the right.
+
+<ThemeProvider>
+  <Group position={'apart'}>
+    <Group direction={'column'}>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        surname={'Lopez Vilchez'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'block'}
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        surname={'Lopez Vilchez'}
+        rol={'Tutor'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'rol'}
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        email={'bill.sanders@example.com'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'email'}
+      >
+        User display item
+      </UserDisplayItem>
+    </Group>
+    <Group direction={'column'} position={'right'}>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        layout={'right'}
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        surname={'Lopez Vilchez'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'block'}
+        layout={'right'}
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        name={'Ana Maria'}
+        surname={'Lopez Vilchez'}
+        rol={'Tutor'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'rol'}
+        layout={'right'}
+      >
+        User display item
+      </UserDisplayItem>
+      <UserDisplayItem
+        email={'bill.sanders@example.com'}
+        avatar={
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+        }
+        variant={'email'}
+        layout={'right'}
+      >
+        User display item
+      </UserDisplayItem>
+    </Group>
+  </Group>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-informative-userdisplayitem--playground" />
+</Preview>
+
+<Props of={UserDisplayItem} />
+
+## References
+
+[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-display-item_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-display-item/user-display-item.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/informative/UserDisplayItem.mdx)
