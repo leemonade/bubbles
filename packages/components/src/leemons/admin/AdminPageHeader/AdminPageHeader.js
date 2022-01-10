@@ -163,12 +163,11 @@ const AdminPageHeader = ({
         <Box
           ref={childRef}
           style={{
-            position: 'fixed',
             width: containerRect.width,
             top: containerRect.top,
-            zIndex: 9,
             // left: containerRect.left,
           }}
+          className={classes.headerContainer}
         >
           <PageContainer className={classes.section}>
             {/* Breadcrumbs */}
@@ -268,6 +267,7 @@ const AdminPageHeader = ({
             </PageContainer>
           )}
         </Box>
+
         <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
           {/* Description */}
           {!editMode && values && values.description && (
