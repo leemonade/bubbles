@@ -1,13 +1,13 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
-import * as stories from './UploadArchive.stories.js';
-import { UploadArchive } from './UploadArchive.js';
+import * as stories from './FileUpload.stories.js';
+import { FileUpload } from './FileUpload.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 import { CloudUploadIcon } from '@heroicons/react/outline';
 
-# UploadArchive
+# **FileUpload**
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/UploadArchive)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/FileUpload)
 
 ## Table of Contents
 
@@ -21,23 +21,28 @@ import { CloudUploadIcon } from '@heroicons/react/outline';
 
 ## Overview
 
-UploadArchive is ...
+**FileUpload** is ...
+
+Drop files here to view how they are displayed in a list. You can remove them by clicking the trash bin icon. You can also
+click on the button to open the file browser.
+
+If a file is rejected, an error message will be displayed. You can close the error or click on button to open a file browser.
 
 <ThemeProvider>
-  <UploadArchive
+  <FileUpload
     icon=<CloudUploadIcon height={32}></CloudUploadIcon>
     title="Click to browse your file"
     subtitle="or drop here a file from your computer"
-  ></UploadArchive>
+  ></FileUpload>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-upload-archive--playground" />
+  <Story id="molecules-form-fileupload--playground" />
 </Preview>
 
-<Props of={UploadArchive} />
+<Props of={FileUpload} />
 
 ## References
 
@@ -50,4 +55,4 @@ UploadArchive is ...
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/UploadArchive.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/FileUpload.mdx)
