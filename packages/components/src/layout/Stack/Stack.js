@@ -33,6 +33,7 @@ export const STACK_ALIGN_ITEMS = [
   'stretch',
   'start',
   'end',
+  'baseline',
 ];
 
 const Stack = ({

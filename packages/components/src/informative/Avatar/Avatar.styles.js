@@ -5,29 +5,29 @@ import { avatarBadge, avatarBadgeNumber, avatarError } from '../../commons.mixin
 const getSizes = (size, spacing) => {
   return {
     xs: {
-      height: `calc(${spacing['1']}px * 5)`,
-      width: `calc(${spacing['1']}px * 5)`,
+      height: `calc(${spacing['1']}px * 6)`,
+      width: `calc(${spacing['1']}px * 6)`,
       fontSize: pxToRem(12),
       borderWidth: '1px',
     },
 
     sm: {
       fontSize: pxToRem(14),
-      height: `calc(${spacing['1']}px * 8)`,
-      width: `calc(${spacing['1']}px * 8)`,
+      height: `calc(${spacing['1']}px * 9)`,
+      width: `calc(${spacing['1']}px * 9)`,
       borderWidth: '1px',
     },
     md: {
       fontSize: pxToRem(28),
-      height: `calc(${spacing['1']}px * 15)`,
-      width: `calc(${spacing['1']}px * 15)`,
-      borderWidth: '2px',
+      height: `calc(${spacing['1']}px * 14)`,
+      width: `calc(${spacing['1']}px * 14)`,
+      borderWidth: '1px',
     },
     lg: {
       fontSize: pxToRem(60),
       height: `calc(${spacing['1']}px * 30)`,
       width: `calc(${spacing['1']}px * 30)`,
-      borderWidth: '2px',
+      borderWidth: '1px',
     },
   }[size];
 };
@@ -38,6 +38,7 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       borderRadius: '100%',
       borderStyle: 'solid',
       borderColor: theme.colors.ui01,
+      boxSizing: 'content-box',
       ...getSizes(size || 'md', theme.spacing),
     },
     avatarsolid: {

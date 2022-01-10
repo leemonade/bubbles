@@ -1,8 +1,7 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { useId } from '@mantine/hooks';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
 import { TabPanelList } from './TabPanelList/TabPanelList';
@@ -54,6 +53,7 @@ export const Tabs = forwardRef(
       onTabScroll,
       usePageLayout,
       panelColor = 'default',
+      forceRender,
     },
     ref
   ) => {
@@ -139,7 +139,11 @@ export const Tabs = forwardRef(
             <TabNavList {...tabNavBarProps} />
           </Wrapper>
           <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
-            <TabPanelList {...sharedProps} destroyInactiveTabPane={destroyInactiveTabPane} />
+            <TabPanelList
+              {...sharedProps}
+              forceRender={forceRender}
+              destroyInactiveTabPane={destroyInactiveTabPane}
+            />
           </Wrapper>
         </Box>
       </TabContext.Provider>
@@ -163,4 +167,5 @@ Tabs.propTypes = {
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
   fullHeight: PropTypes.bool,
+  forceRender: PropTypes.bool,
 };

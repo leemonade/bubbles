@@ -1,42 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import { useForm, Controller } from 'react-hook-form';
-
-import { TextInput, PasswordInput, Button, Select } from '../../../../form';
+import { TextInput, PasswordInput, Button } from '../../../../form';
+import { ContextContainer } from '../../../../layout';
+import { Text } from '../../../../typography';
+import { Alert } from '../../../../feedback';
 import { LoginFormStyles } from './LoginForm.styles';
-import { Text, Title } from '../../../../typography';
-import { Anchor } from '../../../../navigation';
 
-export const LOGIN_FORM_MESSAGES = {
-  title: 'Login to your account',
-  usernameLabel: 'Email',
-  usernamePlaceholder: 'Your email',
-  passwordLabel: 'Password',
-  passwordPlaceholder: 'Your password',
-  rememberButtonLabel: "I can't remember my password",
-  loginButtonLabel: 'Log in',
-  signupButtonLabel: 'I am not registered',
-};
-
-export const LOGIN_FORM_ERROR_MESSAGES = {
-  usernameRequired: 'Field required',
-  usernameInvalidFormat: 'Invalid format',
-  passwordRequired: 'Field required',
+export const LOGIN_FORM_DEFAULT_PROPS = {
+  labels: {
+    title: '',
+    username: '',
+    password: '',
+    remember: '',
+    login: '',
+    signup: '',
+  },
+  placeholders: {
+    username: '',
+    password: '',
+  },
+  recoverUrl: '#',
+  loading: false,
+  formError: '',
 };
 
 const EMAIL_REGEX =
   /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 const LoginForm = ({
-  messages,
+  labels,
+  placeholders,
   errorMessages,
   formError,
   onSubmit,
   onValidationError,
-  isLoading,
+  loading,
   recoverUrl,
+  useRouter,
   ...props
 }) => {
   const { classes, cx } = LoginFormStyles({});
@@ -47,29 +51,34 @@ const LoginForm = ({
     formState: { errors },
   } = useForm();
 
+  const recoveryProps = {};
+  if (useRouter) {
+    recoveryProps.as = Link;
+    recoveryProps.to = recoverUrl;
+  } else {
+    recoveryProps.as = 'a';
+    recoveryProps.href = recoverUrl;
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box className={classes.root}>
-        <Box mb={20}>
-          <Title order={3}>{messages.title}</Title>
-        </Box>
-
-        {formError && <Text>{formError}</Text>}
+      <ContextContainer title={labels.title}>
+        {formError && <Alert severity="error">{formError}</Alert>}
 
         <Controller
           name="email"
           control={control}
           rules={{
-            required: errorMessages.usernameRequired,
+            required: errorMessages.username?.required,
             pattern: {
               value: EMAIL_REGEX,
-              message: errorMessages.usernameInvalidFormat,
+              message: errorMessages.username?.invalidFormat,
             },
           }}
           render={({ field }) => (
             <TextInput
-              label={messages.usernameLabel}
-              placeholder={messages.usernamePlaceholder}
+              label={labels.username}
+              placeholder={placeholders.username}
               error={errors.email}
               required
               {...field}
@@ -82,12 +91,12 @@ const LoginForm = ({
             name="password"
             control={control}
             rules={{
-              required: errorMessages.passwordRequired,
+              required: errorMessages.password?.required,
             }}
             render={({ field }) => (
               <PasswordInput
-                label={messages.passwordLabel}
-                placeholder={messages.passwordPlaceholder}
+                label={labels.password}
+                placeholder={placeholders.password}
                 error={errors.password}
                 required
                 {...field}
@@ -95,10 +104,10 @@ const LoginForm = ({
             )}
           />
 
-          <Box mt={10}>
-            <Anchor href={recoverUrl} color="secondary">
-              {messages.rememberButtonLabel}
-            </Anchor>
+          <Box>
+            <Button variant="link" {...recoveryProps}>
+              {labels.remember}
+            </Button>
           </Box>
         </Box>
 
@@ -128,37 +137,43 @@ const LoginForm = ({
         </Box>
         */}
 
-        <Button
-          rounded
-          size="xs"
-          rightIcon={<ChevronRightIcon />}
-          position="apart"
-          loading={isLoading}
-          loaderPosition="right"
-          type="submit"
-        >
-          {messages.loginButtonLabel}
-        </Button>
+        <Box>
+          <Button loading={loading} loaderPosition="right" type="submit" fullWidth>
+            {labels.login}
+          </Button>
+        </Box>
 
-        <Button rounded variant="link" rightIcon={<ChevronRightIcon />} type="button">
-          {messages.signupButtonLabel}
-        </Button>
-      </Box>
+        <Box>
+          <Button variant="light" rightIcon={<ChevronRightIcon />} type="button" fullWidth>
+            {labels.signup}
+          </Button>
+        </Box>
+      </ContextContainer>
     </form>
   );
 };
 
-LoginForm.defaultProps = {
-  messages: LOGIN_FORM_MESSAGES,
-  errorMessages: LOGIN_FORM_ERROR_MESSAGES,
-  recoverUrl: '#',
-};
+LoginForm.defaultProps = LOGIN_FORM_DEFAULT_PROPS;
 
 LoginForm.propTypes = {
-  messages: PropTypes.any,
-  errorMessages: PropTypes.any,
+  labels: PropTypes.shape({
+    title: PropTypes.string,
+    username: PropTypes.string,
+    password: PropTypes.string,
+    remember: PropTypes.string,
+    login: PropTypes.string,
+    signup: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    username: PropTypes.string,
+    password: PropTypes.string,
+  }),
+  errorMessages: PropTypes.shape({
+    username: PropTypes.any,
+    password: PropTypes.any,
+  }),
   formError: PropTypes.string,
-  isLoading: PropTypes.bool,
+  loading: PropTypes.bool,
   onSubmit: PropTypes.func,
   recoverUrl: PropTypes.string,
 };

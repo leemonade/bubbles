@@ -36,7 +36,8 @@ const Template = ({ position, disabled, ...props }) => {
               disabled={disabled}
               label={`Tab ${i}`}
               notification={i === 5 ? i : undefined}
-              hasError={i === 2}
+              error={i === 2}
+              warning={i === 3}
               leftIcon={<InformationCircleIcon style={{ width: 14, color: '#B9BEC4' }} />}
               rightIcon={i === 3 ? <StarIcon style={{ width: 14, color: '#B9BEC4' }} /> : undefined}
             >

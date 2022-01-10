@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isString, trim, isFunction, flatMap, isObject, capitalize } from 'lodash';
+import { isArray, isString, trim, isFunction, flatMap, isObject, capitalize, keysIn } from 'lodash';
 import { Box } from '@mantine/core';
+import { useResizeObserver } from '@mantine/hooks';
 import { useForm, Controller } from 'react-hook-form';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { Stack, Divider, PageContainer, ContentLegible } from '../../../layout';
@@ -9,7 +10,6 @@ import { Breadcrumbs } from '../../../navigation';
 import { Button, TextInput, Textarea } from '../../../form';
 import { Title, Paragraph } from '../../../typography';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
-import { getErrorStyle } from '../../../form/mixins/fieldStyles.mixins';
 
 const BUTTONS = {
   NEW: 'new',
@@ -30,7 +30,8 @@ export const ADMIN_PAGE_HEADER_DEFAULT_PROPS = {
   placeholders: { title: '', description: '' },
   values: { title: '', description: '' },
   buttons: { new: '', edit: '', cancel: '', duplicate: '' },
-  isLoading: '',
+  loading: '',
+  required: { title: true, description: false },
 };
 export const ADMIN_PAGE_HEADER_PROP_TYPES = {
   className: PropTypes.string,
@@ -50,7 +51,8 @@ export const ADMIN_PAGE_HEADER_PROP_TYPES = {
     cancel: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     duplicate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   }),
-  isLoading: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  required: PropTypes.shape({ title: PropTypes.bool, description: PropTypes.bool }),
+  loading: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   onNew: PropTypes.func,
   onEdit: PropTypes.func,
   onSave: PropTypes.func,
@@ -67,7 +69,7 @@ const AdminPageHeader = ({
   errors: errorLabels,
   values,
   buttons,
-  isLoading,
+  loading,
   editMode,
   onNew,
   onEdit,
@@ -77,9 +79,11 @@ const AdminPageHeader = ({
   onDuplicate,
   separator,
   useRouter,
+  required,
 }) => {
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -112,8 +116,8 @@ const AdminPageHeader = ({
   };
 
   const checkLoading = (buttonName) => {
-    if (!isLoading) return false;
-    return isLoading === buttonName;
+    if (!loading) return false;
+    return loading === buttonName;
   };
 
   const getErrorLabel = (field, rule, defaultLabel) => {
@@ -138,114 +142,133 @@ const AdminPageHeader = ({
   };
 
   // ····································································
+  // UPDATES
+
+  useEffect(() => {
+    setValue('title', values?.title || '');
+    setValue('description', values?.description || '');
+  }, [values]);
+
+  // ····································································
   // STYLES
+
+  const [containerRef, containerRect] = useResizeObserver();
+  const [childRef, childRect] = useResizeObserver();
 
   const { classes, cx } = AdminPageHeaderStyles({ editMode }, { name: 'AdminPageHeader' });
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
-      <Box className={cx(classes.root, className)}>
-        <PageContainer className={classes.section}>
-          {/* Breadcrumbs */}
-          {isArray(breadcrumbs) && (
-            <Box className={classes.breadcrumbs}>
-              <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
-            </Box>
-          )}
-
-          {/* Header & Buttons */}
-          <Stack spacing={4} alignItems={editMode ? 'end' : 'center'} className={classes.header}>
-            {/* Header */}
-            {!editMode && values && values.title && (
-              <ContentLegible>
-                <Title order={2}>{values.title}</Title>
-              </ContentLegible>
+      <Box ref={containerRef} className={cx(classes.root, className)}>
+        <Box
+          ref={childRef}
+          style={{
+            position: 'fixed',
+            width: containerRect.width,
+            top: containerRect.top,
+            zIndex: 9,
+            // left: containerRect.left,
+          }}
+        >
+          <PageContainer className={classes.section}>
+            {/* Breadcrumbs */}
+            {isArray(breadcrumbs) && (
+              <Box className={classes.breadcrumbs}>
+                <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
+              </Box>
             )}
-            {editMode && (
-              <ContentLegible>
-                <Controller
-                  name="title"
-                  control={control}
-                  rules={{
-                    required: getErrorLabel('title', 'required', 'Required field'),
-                  }}
-                  render={({ field }) => (
-                    <TextInput
-                      label={getInputLabel('title')}
-                      placeholder={getInputPlaceholder('title')}
-                      error={errors?.title?.message}
-                      required
-                      {...field}
-                    />
+
+            {/* Header & Buttons */}
+            <Stack spacing={4} alignItems={editMode ? 'end' : 'center'} className={classes.header}>
+              {/* Header */}
+              {!editMode && values && values.title && (
+                <ContentLegible>
+                  <Title order={2}>{values.title}</Title>
+                </ContentLegible>
+              )}
+              {editMode && (
+                <ContentLegible>
+                  <Controller
+                    name="title"
+                    control={control}
+                    defaultValue={values?.title || ''}
+                    rules={{
+                      required: required.title
+                        ? getErrorLabel('title', 'required', 'Required field')
+                        : false,
+                    }}
+                    render={({ field }) => (
+                      <TextInput
+                        label={getInputLabel('title')}
+                        placeholder={getInputPlaceholder('title')}
+                        error={errors?.title?.message}
+                        required={required.title}
+                        {...field}
+                      />
+                    )}
+                  />
+                </ContentLegible>
+              )}
+              {/* Buttons */}
+              {buttons && (
+                <Stack spacing={2} justifyContent="end" className={classes.actions}>
+                  {isNotEmpty(BUTTONS.CANCEL) && (
+                    <Button
+                      variant="light"
+                      type="button"
+                      loading={checkLoading(BUTTONS.CANCEL)}
+                      onClick={(e) => onPressButton(onCancel, e)}
+                    >
+                      {buttonLabel(BUTTONS.CANCEL)}
+                    </Button>
                   )}
-                />
-              </ContentLegible>
-            )}
-            {/* Buttons */}
-            {buttons && (
-              <Stack spacing={2} justifyContent="end" className={classes.actions}>
-                {isNotEmpty(BUTTONS.CANCEL) && (
-                  <Button
-                    variant="light"
-                    type="button"
-                    loading={checkLoading(BUTTONS.CANCEL)}
-                    onClick={(e) => onPressButton(onCancel, e)}
-                  >
-                    {buttonLabel(BUTTONS.CANCEL)}
-                  </Button>
-                )}
-                {isNotEmpty(BUTTONS.DUPLICATE) && (
-                  <Button
-                    variant="outline"
-                    type="button"
-                    loading={checkLoading(BUTTONS.DUPLICATE)}
-                    onClick={(e) => onPressButton(onDuplicate, e)}
-                  >
-                    {buttonLabel(BUTTONS.DUPLICATE)}
-                  </Button>
-                )}
-                {isNotEmpty(BUTTONS.EDIT) && (
-                  <Button
-                    type="button"
-                    loading={checkLoading(BUTTONS.EDIT)}
-                    onClick={(e) => onPressButton(onEdit, e)}
-                  >
-                    {buttonLabel(BUTTONS.EDIT)}
-                  </Button>
-                )}
-                {isNotEmpty(BUTTONS.SAVE) && (
-                  <Button
-                    type="submit"
-                    loading={checkLoading(BUTTONS.SAVE)}
-                    onClick={(e) => onPressButton(onSave, e)}
-                  >
-                    {buttonLabel(BUTTONS.SAVE)}
-                  </Button>
-                )}
+                  {isNotEmpty(BUTTONS.DUPLICATE) && (
+                    <Button
+                      variant="outline"
+                      type="button"
+                      loading={checkLoading(BUTTONS.DUPLICATE)}
+                      onClick={(e) => onPressButton(onDuplicate, e)}
+                    >
+                      {buttonLabel(BUTTONS.DUPLICATE)}
+                    </Button>
+                  )}
+                  {isNotEmpty(BUTTONS.EDIT) && (
+                    <Button
+                      type="button"
+                      loading={checkLoading(BUTTONS.EDIT)}
+                      onClick={(e) => onPressButton(onEdit, e)}
+                    >
+                      {buttonLabel(BUTTONS.EDIT)}
+                    </Button>
+                  )}
+                  {isNotEmpty(BUTTONS.SAVE) && (
+                    <Button type="submit" loading={checkLoading(BUTTONS.SAVE)}>
+                      {buttonLabel(BUTTONS.SAVE)}
+                    </Button>
+                  )}
 
-                {isNotEmpty(BUTTONS.NEW) && (
-                  <Button
-                    color="secondary"
-                    type="button"
-                    loading={checkLoading(BUTTONS.NEW)}
-                    onClick={(e) => onPressButton(onNew, e)}
-                    leftIcon={<AddIcon />}
-                  >
-                    {buttonLabel(BUTTONS.NEW)}
-                  </Button>
-                )}
-              </Stack>
-            )}
-          </Stack>
-        </PageContainer>
-
-        {separator && (
-          <PageContainer>
-            <Divider />
+                  {isNotEmpty(BUTTONS.NEW) && (
+                    <Button
+                      color="secondary"
+                      type="button"
+                      loading={checkLoading(BUTTONS.NEW)}
+                      onClick={(e) => onPressButton(onNew, e)}
+                      leftIcon={<AddIcon />}
+                    >
+                      {buttonLabel(BUTTONS.NEW)}
+                    </Button>
+                  )}
+                </Stack>
+              )}
+            </Stack>
           </PageContainer>
-        )}
-
-        <PageContainer className={classes.section}>
+          {separator && (
+            <PageContainer>
+              <Divider />
+            </PageContainer>
+          )}
+        </Box>
+        <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
           {/* Description */}
           {!editMode && values && values.description && (
             <ContentLegible>
@@ -257,15 +280,18 @@ const AdminPageHeader = ({
               <Controller
                 name="description"
                 control={control}
+                defaultValue={values?.description || ''}
                 rules={{
-                  required: getErrorLabel('description', 'required', 'Required field'),
+                  required: required.description
+                    ? getErrorLabel('description', 'required', 'Required field')
+                    : false,
                 }}
                 render={({ field }) => (
                   <Textarea
                     label={getInputLabel('description')}
                     placeholder={getInputPlaceholder('description')}
                     error={errors?.description?.message}
-                    required
+                    required={required.description}
                     {...field}
                   />
                 )}

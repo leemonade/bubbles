@@ -9,7 +9,11 @@ export const PAGE_CONTAINER_PROP_TYPES = {};
 const PageContainer = ({ children, className, ...props }) => {
   const { classes, cx } = PageContainerStyles({});
 
-  return <Box className={cx(classes.root, className)}>{children}</Box>;
+  return (
+    <Box {...props} className={cx(classes.root, className)}>
+      {children}
+    </Box>
+  );
 };
 
 PageContainer.defaultProps = PAGE_CONTAINER_DEFAULT_PROPS;

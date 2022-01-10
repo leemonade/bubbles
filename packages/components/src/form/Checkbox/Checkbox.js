@@ -1,10 +1,21 @@
 import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox as MantineCheckbox, Box } from '@mantine/core';
+import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { AddIcon } from '@bubbles-ui/icons/outline';
 import { CheckboxStyles } from './Checkbox.styles';
 
 export const HELP_POSITIONS = ['right', 'bottom'];
 export const CHECKBOX_VARIANTS = ['default', 'boxed'];
+
+const CheckboxIcon = ({ indeterminate, className }) =>
+  indeterminate ? (
+    <svg width="9" height="4" viewBox="0 0 9 4" fill="none" className={className}>
+      <rect y="0.5" width="9" height="3" rx="1" fill="currentColor" />
+    </svg>
+  ) : (
+    <CheckIcon className={className} />
+  );
 
 const Checkbox = forwardRef(
   (
@@ -25,7 +36,7 @@ const Checkbox = forwardRef(
     const [isChecked, setIsChecked] = useState(checked);
 
     const { classes, cx } = CheckboxStyles(
-      { help, helpPosition, variant, isChecked },
+      { help, helpPosition, variant, isChecked, disabled },
       { name: 'Checkbox' }
     );
 
@@ -35,17 +46,19 @@ const Checkbox = forwardRef(
     };
 
     return (
-      <Box className={classes.container} ref={ref}>
+      <Box className={classes.container}>
         <MantineCheckbox
+          {...props}
+          ref={ref}
           indeterminate={indeterminate}
           disabled={disabled}
           onChange={onChangeHandler}
           checked={isChecked}
           value={value}
-          {...props}
           classNames={classes}
           label={label}
-        ></MantineCheckbox>
+          icon={CheckboxIcon}
+        />
         {help && (
           <Box className={classes.help} onClick={() => setIsChecked(!isChecked)}>
             {help}
