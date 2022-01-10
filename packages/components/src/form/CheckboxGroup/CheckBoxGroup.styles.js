@@ -28,6 +28,8 @@ export const CheckBoxGroupStyles = createStyles((theme, { direction, variant, fu
       },
       '.mantine-Checkbox-root': {
         flex: fullWidth && `none !important`,
+      },
+      '.mantine-Checkbox-container': {
         position: 'relative',
       },
       '.mantine-Checkbox-help': {
