@@ -41,8 +41,10 @@ export const CheckboxStyles = createStyles(
             ? theme.colors.interactive04
             : theme.colors.interactive03
           : null,
-        boxShadow: isBoxed && isChecked && `inset 0 0 0 1px ${theme.colors.interactive01d}`,
+        border: '1px solid transparent',
+        borderColor: isBoxed && isChecked && theme.colors.interactive01d,
         padding: isBoxed && `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`,
+        zIndex: isChecked && 1,
       },
     };
   }
