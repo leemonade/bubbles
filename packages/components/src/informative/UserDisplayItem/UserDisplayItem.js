@@ -21,9 +21,20 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   email: PropTypes.string,
   variant: PropTypes.oneOf(USER_DISPLAY_ITEM_VARIANTS),
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
+  onChat: PropTypes.func,
 };
 
-const UserDisplayItem = ({ name, surname, avatar, rol, email, variant, layout, ...props }) => {
+const UserDisplayItem = ({
+  name,
+  surname,
+  avatar,
+  rol,
+  email,
+  variant,
+  layout,
+  onChat,
+  ...props
+}) => {
   const { classes, cx } = UserDisplayItemStyles({ variant, layout }, { name: 'UserDisplayItem' });
 
   const avatarSize = variant === 'email' ? 'xs' : 'sm';
@@ -35,10 +46,15 @@ const UserDisplayItem = ({ name, surname, avatar, rol, email, variant, layout, .
       <Box className={classes.userInfo}>
         {variant === 'email' ? (
           <>
-            <PluginComunicaIcon height={12} width={12} className={classes.emailIcon} />
-            <Text color={'interactive'} className={classes.email}>
+            <PluginComunicaIcon
+              height={12}
+              width={12}
+              className={classes.emailIcon}
+              onClick={onChat}
+            />
+            <a className={classes.email} href={`mailto:${email}`}>
               {email}
-            </Text>
+            </a>
           </>
         ) : (
           <>

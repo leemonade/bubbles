@@ -23,6 +23,7 @@ export default {
   argTypes: {
     variant: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_VARIANTS },
     layout: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_LAYOUT },
+    onChat: { action: 'onChat' },
   },
 };
 
