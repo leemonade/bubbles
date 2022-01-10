@@ -21,16 +21,30 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <LoginForm {...props}>{children}</LoginForm>;
+const Template = ({ ...props }) => {
+  return <LoginForm {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   recoverUrl: '#',
-  isLoading: false,
+  loading: false,
   formError: '',
-  messages: LOGIN_FORM_MESSAGES,
-  errorMessages: LOGIN_FORM_ERROR_MESSAGES,
+  labels: {
+    title: 'Login to your account',
+    username: 'Email',
+    password: 'Password',
+    remember: "I can't remember my password",
+    login: 'Log in',
+    signup: 'I am not registered',
+  },
+  placeholders: {
+    username: 'Your email',
+    password: 'Your password',
+  },
+  errorMessages: {
+    username: { required: 'Field required', invalidFormat: 'Invalid format' },
+    password: { required: 'Field required' },
+  },
 };

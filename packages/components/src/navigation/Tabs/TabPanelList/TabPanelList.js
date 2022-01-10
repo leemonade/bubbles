@@ -13,6 +13,7 @@ export const TabPanelList = ({
   rtl,
   destroyInactiveTabPane,
   className,
+  forceRender,
 }) => {
   const { tabs } = useContext(TabContext);
 
@@ -38,6 +39,7 @@ export const TabPanelList = ({
             animated={animated}
             active={tab.key === activeKey}
             destroyInactiveTabPane={destroyInactiveTabPane}
+            forceRender={forceRender}
           >
             {tab.node.props.children}
           </TabPane>
@@ -54,4 +56,5 @@ TabPanelList.propTypes = {
   animated: PropTypes.bool,
   position: PropTypes.string,
   destroyInactiveTabPane: PropTypes.bool,
+  forceRender: PropTypes.bool,
 };

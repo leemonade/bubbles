@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { IconError } from './../../../assets/FaticIcons.js';
-import { Group, Text, Box } from '@mantine/core';
-import { ExclamationCircleIcon } from '@heroicons/react/solid';
+import { Text, Box } from '@mantine/core';
+import { IconError, IconWarning } from './../../../assets/FaticIcons.js';
 import { TabStyles } from './Tab.styles';
 
 export const Tab = forwardRef(
   ({ id, active, tab, renderWrapper, onClick, onFocus, ...props }, ref) => {
-    const { key, label, leftIcon, rightIcon, disabled, notification, hasError } = tab || {};
+    const { key, label, leftIcon, rightIcon, disabled, notification, hasError, error, warning } =
+      tab || {};
 
     if (!key) {
       return null;
@@ -49,9 +49,9 @@ export const Tab = forwardRef(
             </Text>
           )}
           {notification && <Box className={classes.tabBadge}>{notification}</Box>}
-          {hasError && (
+          {(hasError || error || warning) && (
             <Box className={classes.tabError}>
-              <IconError />
+              {hasError || error ? <IconError /> : <IconWarning />}
             </Box>
           )}
           {rightIcon && (

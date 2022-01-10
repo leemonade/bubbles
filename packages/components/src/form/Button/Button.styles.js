@@ -1,25 +1,26 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing) => {
+const getSizes = (size, theme, paddingX, paddingY) => {
+  const { spacing, fontSizes } = theme;
   return {
     xs: {
-      fontSize: pxToRem(14),
-      height: spacing['7'],
-      ...getPaddings(spacing['1'], spacing['4']),
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[7],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[4]),
     },
 
     sm: {
-      fontSize: pxToRem(14),
-      height: spacing['9'],
-      ...getPaddings(spacing['2'], spacing['7']),
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[9],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[7]),
     },
   }[size];
 };
 
 const getVariant = (variant, theme, color) => {
   const variants = {
-    default: {
+    filled: {
       primary: {
         backgroundColor: theme.colors.interactive01,
         color: theme.colors.text07,
@@ -197,57 +198,76 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ButtonStyles = createStyles((theme, { size, color, position, variant }) => {
-  const currentVariant = getVariant(variant, theme, color);
+export const ButtonStyles = createStyles(
+  (theme, { size, color, position, variant, compact, fullWidth }) => {
+    const currentVariant = getVariant(variant, theme, color);
 
-  return {
-    root: {
-      ...getFontExpressive(null, 400),
-      ...getSizes(size || 'md', theme.spacing),
-    },
-    inner: {
-      justifyContent: position === 'apart' ? 'space-between' : position,
-    },
-    loading: {
-      border: 'transparent',
-      svg: {
-        stroke: currentVariant.color,
-      },
-    },
-    rightIcon: {
-      marginLeft: pxToRem(8),
-      marginRight: pxToRem(-8),
-    },
-    leftIcon: {
-      marginRight: pxToRem(8),
-      marginLeft: pxToRem(-8),
-    },
-    label: {
-      with: '100%',
-    },
-    default: {
-      border: '2px solid transparent',
-      ...getVariant('default', theme, color),
-    },
-    outline: {
-      borderWidth: 2,
-      ...getVariant('outline', theme, color),
-    },
-    link: {
-      borderWidth: 5,
-      ...getSizes(size || 'md', theme.spacing),
-      ...getVariant('link', theme, color),
-      paddingLeft: 0,
-      paddingRight: 0,
+    let compactOverrides = {};
 
-      '&:hover': {
-        textDecoration: 'none',
+    if (compact) {
+      compactOverrides = {
+        paddingTop: theme.spacing[2],
+        paddingBottom: theme.spacing[2],
+        paddingLeft: variant === 'link' ? 0 : theme.spacing[2],
+        paddingRight: variant === 'link' ? 0 : theme.spacing[2],
+        height: 'auto',
+      };
+    }
+
+    return {
+      root: {
+        padding: 0,
+        ...getFontExpressive(null, 400),
+        ...getSizes(size || 'md', theme, variant === 'link' ? 0.1 : null),
+        ...compactOverrides,
+        width: fullWidth ? '100%' : 'auto',
       },
-    },
-    light: {
-      backgroundColor: 'transparent',
-      ...getSizes(size || 'md', theme.spacing),
-      ...getVariant('light', theme, color),
-    },
-  };
-});
+      inner: {
+        justifyContent: position === 'apart' ? 'space-between' : position,
+      },
+      loading: {
+        border: 'transparent',
+        svg: {
+          stroke: currentVariant.color,
+        },
+      },
+      rightIcon: {
+        marginLeft: pxToRem(8),
+        marginRight: pxToRem(-8),
+      },
+      leftIcon: {
+        marginRight: pxToRem(8),
+        marginLeft: pxToRem(-8),
+      },
+      label: {
+        with: '100%',
+      },
+      filled: {
+        ...getVariant('filled', theme, color),
+        border: '2px solid transparent',
+        ...compactOverrides,
+      },
+      outline: {
+        ...getVariant('outline', theme, color),
+        borderWidth: 2,
+        ...compactOverrides,
+      },
+      default: {
+        ...getVariant('link', theme, color),
+        border: 'none',
+        backgroundColor: 'transparent',
+        ...compactOverrides,
+
+        '&:hover': {
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+      light: {
+        ...getVariant('light', theme, color),
+        backgroundColor: 'transparent',
+        paddingOverrides: compactOverrides,
+      },
+    };
+  }
+);
