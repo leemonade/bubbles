@@ -37,6 +37,7 @@ export const Button = forwardRef(
       className,
       classNames,
       compact,
+      fullWidth,
       ...props
     },
     ref
@@ -51,7 +52,15 @@ export const Button = forwardRef(
       ? positionProp
       : BUTTON_DEFAULT_PROPS.position;
 
-    const { classes, cx } = ButtonStyles({ size, color, iconOnly, position, variant, compact });
+    const { classes, cx } = ButtonStyles({
+      size,
+      color,
+      iconOnly,
+      position,
+      variant,
+      compact,
+      fullWidth,
+    });
     const mantineVariant = useMemo(() => (variant === 'link' ? 'default' : variant), [variant]);
 
     return (

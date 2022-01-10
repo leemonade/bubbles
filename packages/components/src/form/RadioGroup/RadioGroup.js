@@ -1,19 +1,41 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { useMemo, forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Center, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
+import { isNil } from 'lodash';
+import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
 import { RadioGroupStyles } from './RadioGroup.styles';
 import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
+import { InputError } from '../../form';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
+export const RADIOGROUP_DEFAULT_PROPS = {
+  variant: RADIO_VARIANTS[0],
+  defaultValue: '',
+  value: '',
+  fullWidth: false,
+  error: '',
+};
+export const RADIOGROUP_PROP_TYPES = {
+  variant: PropTypes.oneOf(RADIO_VARIANTS),
+  data: PropTypes.arrayOf(Object),
+  defaultValue: PropTypes.string,
+  direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
+  fullWidth: PropTypes.bool,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+};
+
 const RadioGroup = forwardRef(
-  ({ variant = 'default', data, defaultValue, direction, fullWidth, ...props }, ref) => {
+  ({ variant, data, defaultValue, direction, fullWidth, error, ...props }, ref) => {
     const [value, setValue] = useState(props.value);
     const [activePosition, setActivePosition] = useState({ height: 0, translate: 0 });
     const refs = useRef({});
     const wrapperRef = useRef();
+    const hasError = useMemo(() => !isNil(error) && error !== '', [error]);
+
     const { classes, cx } = RadioGroupStyles(
-      { variant, value, direction, fullWidth, activePosition },
+      { variant, value, direction, fullWidth, activePosition, hasError },
       { name: 'RadioGroup' }
     );
 
@@ -51,9 +73,10 @@ const RadioGroup = forwardRef(
     }, [value]);
 
     return (
-      <div ref={wrapperRef}>
+      <Box ref={wrapperRef}>
         <MantineSegmentedControl
           {...props}
+          ref={ref}
           onChange={onChange}
           classNames={classes}
           defaultValue={defaultValue ? defaultValue : ' '}
@@ -78,8 +101,13 @@ const RadioGroup = forwardRef(
               ),
             };
           })}
-        ></MantineSegmentedControl>
-      </div>
+        />
+        {hasError && (
+          <Box mt={10}>
+            <InputError message={error} />
+          </Box>
+        )}
+      </Box>
     );
   }
 );
@@ -92,6 +120,7 @@ RadioGroup.propTypes = {
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 export { RadioGroup };

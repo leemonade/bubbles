@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { RadioGroup, RADIOGROUP_DIRECTIONS } from './RadioGroup';
+import { RadioGroup, RADIOGROUP_DIRECTIONS, RADIOGROUP_DEFAULT_PROPS } from './RadioGroup';
 import mdx from './RadioGroup.mdx';
 import { RADIO_VARIANTS } from '../Radio/Radio';
 import { AcademicCapIcon } from '@heroicons/react/outline';
@@ -24,13 +24,14 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <RadioGroup {...props}>{children}</RadioGroup>;
+const Template = ({ ...props }) => {
+  return <RadioGroup {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...RADIOGROUP_DEFAULT_PROPS,
   data: [
     {
       value: 'option1',
@@ -50,8 +51,4 @@ Playground.args = {
       helpPosition: 'bottom',
     },
   ],
-  variant: RADIO_VARIANTS[0],
-  defaultValue: '',
-  value: '',
-  fullWidth: false,
 };
