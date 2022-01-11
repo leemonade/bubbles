@@ -9,6 +9,7 @@ export const PAPER_SHADOWS = ['none', 'level100', 'level01', 'level02', 'level03
 export const PAPER_DEFAULT_PROPS = {
   radius: 'md',
   padding: 'md',
+  shadow: 'level03',
 };
 export const PAPER_PROP_TYPES = {
   radius: PropTypes.oneOf(PAPER_RADIUS),

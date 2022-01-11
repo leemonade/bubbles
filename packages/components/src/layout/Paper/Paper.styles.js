@@ -23,7 +23,6 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
       display: 'inline-flex',
-      backgroundColor: '#eee',
       boxShadow: getShadows(shadow),
     },
   };
