@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { isEmpty, isNil } from 'lodash';
 import { Text } from '../../typography';
+import { Stack } from '../../layout';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
 import { InputHelp } from '../InputHelp';
@@ -68,7 +69,12 @@ const InputWrapper = forwardRef(
     return (
       <Box className={classes.root}>
         {/* Label & Description */}
-        <Box className={cx(classes.header, headerClassname)} style={headerStyle}>
+        <Stack
+          direction="column"
+          spacing={1}
+          className={cx(classes.header, headerClassname)}
+          style={headerStyle}
+        >
           {!isEmpty(label) && (
             <Text as="label" color="primary" role="productive" strong {...labelProps}>
               {label}
@@ -76,7 +82,7 @@ const InputWrapper = forwardRef(
             </Text>
           )}
           {!isEmpty(description) && <InputDescription message={description} />}
-        </Box>
+        </Stack>
 
         {/* Input, Error & help */}
         <Box className={cx(classes.content, contentClassname)} style={contentStyle}>

@@ -16,6 +16,11 @@ export function getInputStyle(theme) {
       borderColor: theme.colors.ui01,
       boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
     },
+    '&:focus-within': {
+      borderColor: theme.colors.ui01,
+      boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
+    },
+
     '&::placeholder': {
       opacity: 1,
       color: theme.colors.text05,
@@ -37,7 +42,6 @@ export function getDescriptionStyle(theme) {
   return {
     color: theme.colors.text04,
     ...getFontProductive(theme.fontSizes['2']),
-    marginBottom: theme.spacing['2'],
   };
 }
 
@@ -45,7 +49,6 @@ export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
     ...getFontProductive(theme.fontSizes['2'], 500),
-    marginBottom: theme.spacing['2'],
     gridArea: 'label',
   };
 }
