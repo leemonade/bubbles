@@ -1,8 +1,4 @@
 import React from 'react';
-import { Link, MemoryRouter } from 'react-router-dom';
-import { CalendarIcon, ExternalLinkIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { Group, Title, Text, Box } from '@mantine/core';
-import { DateTime } from 'luxon';
 import { BigCalendar, BIGCALENDAR_VIEWS } from './BigCalendar';
 import mdx from './BigCalendar.mdx';
 import EVENTS from './mocks/events';

@@ -9,17 +9,20 @@ import { InputHelp } from '../InputHelp';
 import { InputWrapperStyles } from './InputWrapper.styles';
 
 export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
-export const INPUT_WRAPPER_ORIENTATION = ['horizontal', 'vertical'];
+export const INPUT_WRAPPER_ORIENTATIONS = ['horizontal', 'vertical'];
 
-export const INPUT_WRAPPER_PROP_TYPES = {
+export const INPUT_WRAPPER_SHARED_PROPS = {
   label: PropTypes.string,
   description: PropTypes.string,
-  placeholder: PropTypes.string,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   help: PropTypes.string,
   required: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+};
+
+export const INPUT_WRAPPER_PROP_TYPES = {
+  ...INPUT_WRAPPER_SHARED_PROPS,
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   headerClassname: PropTypes.string,
   contentClassname: PropTypes.string,
   headerStyle: PropTypes.any,
@@ -35,8 +38,6 @@ export const INPUT_WRAPPER_DEFAULT_PROPS = {
 const InputWrapper = forwardRef(
   (
     {
-      radius, // Just to pick it up to not pass to props
-      as,
       orientation: orientationProp,
       size: sizeProp,
       uuid,
@@ -55,7 +56,7 @@ const InputWrapper = forwardRef(
     ref
   ) => {
     const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const orientation = INPUT_WRAPPER_ORIENTATION.includes(orientationProp)
+    const orientation = INPUT_WRAPPER_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
     const hasError = useMemo(() => !isNil(error) && error !== '', [error]);

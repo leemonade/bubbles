@@ -27,7 +27,7 @@ export const BigCalendar = forwardRef(
       timezone,
       defaultDate: defaultDateProp,
       currentView,
-      language,
+      locale,
       events: eventsProp,
       style,
       className,
@@ -92,8 +92,9 @@ export const BigCalendar = forwardRef(
       if (dateRange) {
         forEach(eventsProp, (ev) => {
           if (ev.rrule) {
-            const diff = DateTime.fromJSDate(ev.end).diff(DateTime.fromJSDate(ev.start))
-              .milliseconds;
+            const diff = DateTime.fromJSDate(ev.end).diff(
+              DateTime.fromJSDate(ev.start)
+            ).milliseconds;
 
             const rule = new RRule({
               ...ev.rrule,
@@ -231,7 +232,7 @@ export const BigCalendar = forwardRef(
           scrollToTime={scrollToTime}
           localizer={localizer}
           getNow={getNow}
-          culture={language}
+          culture={locale}
           endAccessor="end"
           startAccessor="start"
           onSelectEvent={handleSelectEvent}
@@ -250,7 +251,7 @@ BigCalendar.defaultProps = {
   defaultDate: TODAY,
   currentView: Views.MONTH,
   showWeekends: true,
-  language: 'en-EN',
+  locale: 'en-EN',
   messages: {
     month: 'Monthly',
     week: 'Weekly',
@@ -267,7 +268,7 @@ BigCalendar.propTypes = {
   timezone: PropTypes.string,
   currentView: PropTypes.oneOf(BIGCALENDAR_VIEWS),
   defaultDate: PropTypes.instanceOf(Date),
-  language: PropTypes.string,
+  locale: PropTypes.string,
   events: PropTypes.array,
   messages: PropTypes.shape({
     month: PropTypes.string,

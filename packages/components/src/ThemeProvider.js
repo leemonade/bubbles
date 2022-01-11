@@ -34,6 +34,7 @@ export const ThemeProvider = ({ children, theme }) => {
           headings: {
             fontFamily: "'Lexend', sans-serif",
           },
+          primaryColor: 'bubbles',
         }}
       >
         {children}
