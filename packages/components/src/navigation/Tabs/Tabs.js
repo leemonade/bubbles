@@ -130,7 +130,15 @@ export const Tabs = forwardRef(
       { name: 'Tabs' }
     );
 
-    const Wrapper = usePageLayout ? PageContainer : Box;
+    const Wrapper = ({ className, children }) => {
+      return usePageLayout ? (
+        <Box className={className}>
+          <PageContainer>{children}</PageContainer>
+        </Box>
+      ) : (
+        <Box className={className}>{children}</Box>
+      );
+    };
 
     return (
       <TabContext.Provider value={{ tabs }}>

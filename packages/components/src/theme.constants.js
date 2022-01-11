@@ -61,5 +61,9 @@ export const EFFECTS = {
   boxShadow03: '0px 4px 9px rgba(0, 0, 0, 0.12)',
   boxShadow04: '0px 10px 36px rgba(35, 43, 60, 0.17) ',
   boxShadow100: '0px 48px 56px rgba(0, 0, 0, 0.24)',
+  uiLevel01: '...',
+  uiLevel02: '...',
+  uiLevel03: '0px 10px 36px rgba(35, 43, 60, 0.05), 0px 2px 0px rgba(51, 63, 86, 0.05)',
+  uiLevel04: '...',
   uiLevel100: '0px 10px 36px rgba(35, 43, 60, 0.17), 0px 2px 0px rgba(51, 63, 86, 0.05)',
 };

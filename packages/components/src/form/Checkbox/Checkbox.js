@@ -42,7 +42,7 @@ const Checkbox = forwardRef(
 
     const onChangeHandler = () => {
       setIsChecked(!isChecked);
-      onChange(!isChecked);
+      onChange && onChange(!isChecked);
     };
 
     return (

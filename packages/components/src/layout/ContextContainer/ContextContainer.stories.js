@@ -1,7 +1,11 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { TextInput, RadioGroup } from '../../form';
-import { ContextContainer, FORM_CONTAINER_DEFAULT_PROPS } from './ContextContainer';
+import {
+  ContextContainer,
+  CONTEXT_CONTAINER_DEFAULT_PROPS,
+  CONTEXT_CONTAINER_PADDED_TYPES,
+} from './ContextContainer';
 import mdx from './ContextContainer.mdx';
 
 export default {
@@ -19,6 +23,7 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    padded: { options: CONTEXT_CONTAINER_PADDED_TYPES, control: { type: 'select' } },
   },
 };
 
@@ -53,5 +58,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
-  ...FORM_CONTAINER_DEFAULT_PROPS,
+  ...CONTEXT_CONTAINER_DEFAULT_PROPS,
 };

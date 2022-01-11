@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Group } from '@mantine/core';
 import { isString, isFunction } from 'lodash';
-import { IconError, IconSuccess } from '../../../assets/FaticIcons';
+import { IconError, IconSuccess, IconWarning } from '../../../assets/FaticIcons';
 import { Stack, ContextContainer, Divider } from '../../../layout';
 import { Button } from '../../../form';
 import { Text, Title } from '../../../typography';
 import { Drawer } from '../../../overlay';
+import { Alert } from '../../../feedback';
 import { TranslatorModalStyles } from './TranslatorModal.styles';
 
 export const TRANSLATOR_MODAL_DEFAULT_PROPS = {
   labels: { title: '', trigger: '', help: '', close: '', save: '', cancel: '' },
+  error: false,
+  warning: false,
+  alert: null,
+  editMode: true,
 };
 
 export const TRANSLATOR_MODAL_PROP_TYPES = {
@@ -22,18 +27,24 @@ export const TRANSLATOR_MODAL_PROP_TYPES = {
     save: PropTypes.string,
     cancel: PropTypes.string,
   }),
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  closeOnSave: PropTypes.bool,
+  editMode: PropTypes.bool,
+  alert: PropTypes.element,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,
   onClose: PropTypes.func,
   onBeforeSave: PropTypes.func,
-  closeOnSave: PropTypes.bool,
 };
 
 const TranslatorModal = ({
   children,
   labels,
-  hasError,
+  error,
+  warning,
+  alert,
+  editMode,
   onSave,
   onBeforeSave,
   onClose,
@@ -76,12 +87,12 @@ const TranslatorModal = ({
     <Box>
       <Stack alignItems="baseline" spacing={4}>
         {isString(labels.trigger) && labels.trigger !== '' && (
-          <Stack>
+          <Stack alignItems="center">
             <Button variant="link" onClick={() => setOpened(true)}>
               {labels.trigger}
             </Button>
 
-            {hasError ? <IconError /> : <IconSuccess />}
+            {error ? <IconError /> : warning ? <IconWarning /> : <IconSuccess />}
           </Stack>
         )}
         {isString(labels.help) && labels.help !== '' && (
@@ -91,20 +102,24 @@ const TranslatorModal = ({
         )}
       </Stack>
 
+      {alert}
+
       <Drawer opened={opened} onClose={handleClose} size={715} close={labels.close} noOverlay>
         <ContextContainer title={labels.title} description={labels.description}>
           {children}
-          <Divider />
+          {editMode && <Divider />}
         </ContextContainer>
         {/* ACTION BUTTONS */}
-        <Group className={classes.buttonsGroup01} position="apart">
-          <Button variant="light" onClick={handleOnCancel}>
-            {labels.cancel}
-          </Button>
-          <Button onClick={handleOnSave} loading={loading}>
-            {labels.save}
-          </Button>
-        </Group>
+        {editMode && (
+          <Group className={classes.buttonsGroup01} position="apart">
+            <Button variant="light" onClick={handleOnCancel}>
+              {labels.cancel}
+            </Button>
+            <Button onClick={handleOnSave} loading={loading}>
+              {labels.save}
+            </Button>
+          </Group>
+        )}
       </Drawer>
     </Box>
   );

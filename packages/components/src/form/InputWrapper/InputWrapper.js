@@ -1,7 +1,8 @@
 import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { InputWrapper as MantineInputWrapper } from '@mantine/core';
-import { isNil, isString } from 'lodash';
+import { Box } from '@mantine/core';
+import { isEmpty, isNil } from 'lodash';
+import { Text } from '../../typography';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
 import { InputHelp } from '../InputHelp';
@@ -18,11 +19,17 @@ export const INPUT_WRAPPER_PROP_TYPES = {
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATION),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   help: PropTypes.string,
+  required: PropTypes.bool,
+  headerClassname: PropTypes.string,
+  contentClassname: PropTypes.string,
+  headerStyle: PropTypes.any,
+  contentStyle: PropTypes.any,
 };
 export const INPUT_WRAPPER_DEFAULT_PROPS = {
   as: 'input',
   orientation: 'vertical',
   size: 'sm',
+  required: false,
 };
 
 const InputWrapper = forwardRef(
@@ -36,10 +43,13 @@ const InputWrapper = forwardRef(
       label,
       description,
       error,
-      placeholder,
-      rightSection,
       help,
       children,
+      required,
+      headerClassname,
+      contentClassname,
+      headerStyle,
+      contentStyle,
       ...props
     },
     ref
@@ -52,24 +62,33 @@ const InputWrapper = forwardRef(
 
     const { classes, cx } = InputWrapperStyles({ size, orientation });
 
+    const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
+
     return (
-      <MantineInputWrapper
-        {...props}
-        description={!isNil(description) ? <InputDescription message={description} /> : null}
-        error={hasError ? <InputError message={error} /> : null}
-        label={label}
-        id={uuid}
-        classNames={classes}
-      >
-        {children}
-        {isString(help) && help !== '' && !hasError && <InputHelp message={help} />}
-      </MantineInputWrapper>
+      <Box className={classes.root}>
+        {/* Label & Description */}
+        <Box className={cx(classes.header, headerClassname)} style={headerStyle}>
+          {!isEmpty(label) && (
+            <Text as="label" color="primary" role="productive" strong {...labelProps}>
+              {label}
+              {required && <span className={classes.required}> *</span>}
+            </Text>
+          )}
+          {!isEmpty(description) && <InputDescription message={description} />}
+        </Box>
+
+        {/* Input, Error & help */}
+        <Box className={cx(classes.content, contentClassname)} style={contentStyle}>
+          {children}
+          {hasError && <InputError message={error} />}
+          {!isEmpty(help) && !hasError && <InputHelp message={help} />}
+        </Box>
+      </Box>
     );
   }
 );
 
 InputWrapper.defaultProps = INPUT_WRAPPER_DEFAULT_PROPS;
-
 InputWrapper.propTypes = INPUT_WRAPPER_PROP_TYPES;
 
 export { InputWrapper };

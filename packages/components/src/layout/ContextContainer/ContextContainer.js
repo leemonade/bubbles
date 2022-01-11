@@ -7,18 +7,18 @@ import { Divider } from '../Divider';
 import { Title, Paragraph } from '../../typography';
 import { ContextContainerStyles } from './ContextContainer.styles';
 
-export const FORM_CONTAINER_PADDED_TYPES = ['vertical', 'horizontal'];
+export const CONTEXT_CONTAINER_PADDED_TYPES = [true, false, 'vertical', 'horizontal'];
 
-export const FORM_CONTAINER_DEFAULT_PROPS = {
+export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   title: '',
   description: '',
   padded: false,
   divided: false,
 };
-export const FORM_CONTAINER_PROP_TYPES = {
+export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
   description: PropTypes.string,
-  padded: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(FORM_CONTAINER_PADDED_TYPES)]),
+  padded: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES)]),
   divided: PropTypes.bool,
 };
 
@@ -77,7 +77,7 @@ const ContextContainer = ({
   );
 };
 
-ContextContainer.defaultProps = FORM_CONTAINER_DEFAULT_PROPS;
-ContextContainer.propTypes = FORM_CONTAINER_PROP_TYPES;
+ContextContainer.defaultProps = CONTEXT_CONTAINER_DEFAULT_PROPS;
+ContextContainer.propTypes = CONTEXT_CONTAINER_PROP_TYPES;
 
 export { ContextContainer };

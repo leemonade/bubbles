@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const RadioGroupStyles = createStyles(
-  (theme, { variant, value, direction, fullWidth, activePosition }) => {
+  (theme, { variant, value, direction, fullWidth, activePosition, hasError }) => {
     const isColumn = direction === 'column';
     const isDefault = variant == 'default';
     const isIcon = variant == 'icon';
@@ -16,6 +16,7 @@ export const RadioGroupStyles = createStyles(
         borderRadius: 0,
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: direction,
+        border: hasError ? `1px solid ${theme.colors.fatic01}` : 'none',
       },
       label: {
         padding: 0,
