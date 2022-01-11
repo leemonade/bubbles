@@ -66,7 +66,9 @@
     "react-router-dom": "^5.3.0",
     "react-table": "^7.7.0",
     "rrule": "^2.6.8",
-    "simplebar-react": "^2.3.6"
+    "simplebar-react": "^2.3.6",
+    "slate": "^0.72.3",
+    "slate-react": "^0.72.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
