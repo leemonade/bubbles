@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { isNil } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { Input } from '../Input';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
@@ -67,10 +67,10 @@ const TextInput = forwardRef(
             onBlur={onBlur}
             onChange={onChange}
             defaultValue={defaultValue}
-            value={value}
+            value={value || ''}
             placeholder={placeholder}
             rightSection={rightSection}
-            invalid={!isNil(error) && error != ''}
+            invalid={!isEmpty(error)}
           />
         )}
       </InputWrapper>

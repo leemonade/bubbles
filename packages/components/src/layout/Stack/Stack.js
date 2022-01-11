@@ -60,11 +60,6 @@ const Stack = ({
       React.Children.map(children, (child) => {
         // Checking isValidElement is the safe way and avoids a typescript
         // error too.
-        console.log('isValid:', React.isValidElement(child));
-        console.log('fullWidth:', fullWidth);
-        console.log('justifyContent:', justifyContent);
-        console.log('alignContent:', alignContent);
-        console.log('alignItems:', alignItems);
         if (
           React.isValidElement(child) &&
           fullWidth &&
@@ -73,7 +68,6 @@ const Stack = ({
           alignItems === 'normal'
         ) {
           const style = { ...child.props.style, flex: 1 };
-          console.log('Pues por aquí voy:', style);
           return React.cloneElement(child, { style });
         }
         return child;
