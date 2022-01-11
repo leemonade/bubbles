@@ -23,7 +23,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
         color: theme.colors.text05,
         lineHeight: pxToRem(16),
       },
-      height: pxToRem(41),
+      minheight: pxToRem(41),
     },
     searchInput: {
       ...getFontProductive(theme.fontSizes['2'], 400),
@@ -39,7 +39,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
     values: {
       padding: 0,
       margin: 0,
-      height: pxToRem(40),
+      minheight: pxToRem(40),
     },
     dropdown: {
       borderColor: theme.colors.ui02,
