@@ -7,6 +7,7 @@ export * from './ColorPicker';
 export * from './NumberInput';
 export * from './IconButton';
 export * from './RadioGroup';
+export * from './DatePicker';
 export * from './InputError';
 export * from './TextInput';
 export * from './Textarea';
