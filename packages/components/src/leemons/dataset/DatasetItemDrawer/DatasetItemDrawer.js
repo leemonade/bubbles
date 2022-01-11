@@ -110,6 +110,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     permissionsProfileLabel: 'Profile',
     permissionsViewLabel: 'View',
     permissionsEditLabel: 'Edit',
+    translateOptionsContinueButtonLabel: 'Continue',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -118,6 +119,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     booleanShowAsRequired: 'Field required',
     booleanInitialStateRequired: 'Field required',
     localeLabelRequired: 'Field required',
+    optionFieldRequired: 'Field required',
   },
   locales: [],
   selectOptions: {
@@ -305,6 +307,7 @@ const DatasetItemDrawer = ({
     gridColumn: 1000,
     colSpans: [250, 375, 375],
     colOptionsSpans: [250, 450],
+    translateOptionsModalOpened: {},
   });
   const [r, setR] = useState(0);
 

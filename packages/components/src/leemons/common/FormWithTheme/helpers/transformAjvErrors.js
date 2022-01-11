@@ -1,5 +1,4 @@
 export function transformAjvErrors(errors) {
-  console.log(errors);
   if (errors === null) {
     return [];
   }

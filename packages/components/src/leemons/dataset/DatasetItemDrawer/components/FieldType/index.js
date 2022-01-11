@@ -56,6 +56,7 @@ const FieldType = () => {
       watch,
       control,
       unregister,
+      getValues,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);

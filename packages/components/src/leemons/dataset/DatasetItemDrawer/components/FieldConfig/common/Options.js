@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { get } from 'lodash';
+import { forEach, get } from 'lodash';
 import { Box, Col, Grid } from '@mantine/core';
 import { Controller } from 'react-hook-form';
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
@@ -28,19 +28,32 @@ const OptionItem = ({ value, onChange, index }) => {
 
 const Options = ({ label, addOptionLabel }) => {
   const {
-    contextRef: { colOptionsSpans, gridColumn },
+    contextRef: { errorMessages, colOptionsSpans, gridColumn, locales, defaultLocale },
     form: {
       control,
       getValues,
       setValue,
+      register,
+      unregister,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
 
   function addNewOption() {
     const values = getValues('config.checkboxValues') || [];
-    values.push({ key: new Date().getTime(), value: '' });
+    const key = new Date().getTime();
+    values.push({ key, value: '' });
     setValue('config.checkboxValues', values);
+    forEach(locales, ({ code }) => {
+      const config = defaultLocale === code ? { required: errorMessages.optionFieldRequired } : {};
+      register(`locales.${code}.schema.frontConfig.checkboxLabels.${key}.label`, config);
+    });
+  }
+
+  function onRemove({ key }) {
+    forEach(locales, ({ code }) => {
+      unregister(`locales.${code}.schema.frontConfig.checkboxLabels.${key}.label`);
+    });
   }
 
   return (
@@ -65,6 +78,7 @@ const Options = ({ label, addOptionLabel }) => {
                   error={get(errors, 'config.checkboxValues')}
                   mapKey="key"
                   render={OptionItem}
+                  onRemove={onRemove}
                 />
                 <Box sx={(theme) => ({ marginLeft: theme.spacing[8] })}>
                   <Button variant="link" leftIcon={<AddCircleIcon />} onClick={addNewOption}>

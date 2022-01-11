@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { findIndex, forEach, isArray, isEqual } from 'lodash';
+import React, { useContext, useEffect } from 'react';
+import { forEach, get, isArray, isEqual } from 'lodash';
 import { Box, Col, Grid } from '@mantine/core';
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
 import FieldConfigLocaleContext from '../context/FieldConfigLocale';
@@ -7,65 +7,74 @@ import { Text, Title } from '../../../../../../typography';
 import { Button, TextInput } from '../../../../../../form';
 import { Stack } from '../../../../../../layout';
 import { Drawer } from '../../../../../../overlay';
+import { IconError, IconSuccess, IconWarning } from '../../../../../../assets/FaticIcons';
+import { Controller } from 'react-hook-form';
 
 const TranslateOptions = () => {
-  const [opened, setOpened] = useState(false);
   const {
-    contextRef: { messages, errorMessages, selectOptions, gridColumn, colSpans },
+    contextRef,
+    render,
     form: {
       watch,
       setValue,
       getValues,
+      control,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
+
   const {
     currentLocale: { code, label },
+    currentLocaleIsDefaultLocale,
   } = useContext(FieldConfigLocaleContext);
 
+  const { messages, errorMessages, translateOptionsModalOpened } = contextRef;
+
+  const labelsKey = `locales.${code}.schema.frontConfig.checkboxLabels`;
+
+  const hasErrors = !!get(errors, labelsKey);
+  const hasWarnings = currentLocaleIsDefaultLocale;
+
   const checkboxValues = watch('config.checkboxValues');
-  const checkboxLabels = watch(`locales.${code}.schema.frontConfig.checkboxLabels`);
 
-  function getLabelIndexByKey(key) {
-    return findIndex(checkboxLabels, ({ key: _key }) => key === _key);
-  }
+  const opened = translateOptionsModalOpened[code];
 
-  function inputCheckboxChange(event, index) {
-    const value = getValues(`locales.${code}.schema.frontConfig.checkboxLabels`);
-    value[index].label = event.target.value;
-    setValue(`locales.${code}.schema.frontConfig.checkboxLabels`, value);
+  function setOpened(val) {
+    contextRef.translateOptionsModalOpened[code] = val;
+    render();
   }
 
   useEffect(() => {
     if (isArray(checkboxValues)) {
-      const checkLabels = [];
+      const checkboxLabels = getValues(labelsKey);
+      const checkLabels = {};
       forEach(checkboxValues, ({ key }) => {
-        const index = getLabelIndexByKey(key);
-        if (index < 0) {
-          checkLabels.push({ key, label: '' });
+        if (!checkboxLabels || !checkboxLabels[key]) {
+          checkLabels[key] = { key, label: '' };
         } else {
-          checkLabels.push(checkboxLabels[index]);
+          checkLabels[key] = checkboxLabels[key];
         }
       });
       if (!isEqual(checkLabels, checkboxLabels)) {
         setValue(`locales.${code}.schema.frontConfig.checkboxLabels`, checkLabels);
       }
     }
-  }, [checkboxValues]);
+  }, [JSON.stringify(checkboxValues)]);
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
       <Stack direction="row" alignItems="baseline" spacing={4}>
-        <Box>
+        <Stack alignItems="center">
           <Button variant="link" onClick={() => setOpened(true)}>
             {messages.translateOptionsButtonLabel}
           </Button>
-        </Box>
+          {hasErrors ? <IconError /> : hasWarnings ? <IconWarning /> : <IconSuccess />}
+        </Stack>
         <Text role="productive" size="xs">
           {messages.translateOptionsHelpLabel}
         </Text>
       </Stack>
-      <Drawer opened={opened} onClose={() => setOpened(false)} size={715} close noOverlay>
+      <Drawer opened={opened} onClose={() => setOpened(false)} size={715} close>
         <Title order={4}>{messages.translateOptionsModalTitle}</Title>
         <Box sx={(theme) => ({ marginTop: theme.spacing[4], marginBottom: theme.spacing[4] })}>
           <Text>{messages.translateOptionsModalDescription}</Text>
@@ -84,26 +93,43 @@ const TranslateOptions = () => {
         </Box>
         {checkboxValues
           ? checkboxValues.map(({ key, value }) => {
-              const index = getLabelIndexByKey(key);
-
-              if (index < 0) return null;
-
-              const labelValue = getValues(
-                `locales.${code}.schema.frontConfig.checkboxLabels[${index}].label`
-              );
-
               return (
                 <Grid columns={100} align="center">
                   <Col span={35}>
                     <Text>{value}</Text>
                   </Col>
                   <Col span={65}>
-                    <TextInput value={labelValue} onChange={(e) => inputCheckboxChange(e, index)} />
+                    <Controller
+                      name={`locales.${code}.schema.frontConfig.checkboxLabels.${key}.label`}
+                      control={control}
+                      rules={
+                        currentLocaleIsDefaultLocale
+                          ? {
+                              required: errorMessages.localeLabelRequired,
+                            }
+                          : {}
+                      }
+                      render={({ field }) => (
+                        <TextInput
+                          required={currentLocaleIsDefaultLocale}
+                          error={get(
+                            errors,
+                            `locales.${code}.schema.frontConfig.checkboxLabels.${key}.label`
+                          )}
+                          {...field}
+                        />
+                      )}
+                    />
                   </Col>
                 </Grid>
               );
             })
           : null}
+        <Box sx={(theme) => ({ marginTop: theme.spacing[4], alignItems: 'end' })}>
+          <Button onClick={() => setOpened(false)}>
+            {messages.translateOptionsContinueButtonLabel}
+          </Button>
+        </Box>
       </Drawer>
     </Box>
   );
