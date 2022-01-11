@@ -5,7 +5,7 @@ const getFontStyle = (role, strong) => {
   let fontStyles = {};
   switch (role) {
     case 'productive':
-      fontStyles = getFontProductive(null, strong && 600);
+      fontStyles = getFontProductive(null, strong && 500);
       break;
     case 'expressive':
       fontStyles = getFontExpressive(null, strong && 600);

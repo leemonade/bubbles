@@ -23,7 +23,7 @@ const getVariant = (variant, theme, color) => {
   const variants = {
     default: {
       positive: {
-        backgroundColor: theme.colors.interactive04,
+        backgroundColor: 'transparent',
         color: theme.colors.text02,
         '&:hover': {
           backgroundColor: theme.colors.interactive01v1,

@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box, Group } from '@mantine/core';
 import { isString, isFunction } from 'lodash';
-import { IconError, IconSuccess } from '../../../assets/FaticIcons';
-import { Stack } from '../../../layout';
+import { IconError, IconSuccess, IconWarning } from '../../../assets/FaticIcons';
+import { Stack, ContextContainer, Divider } from '../../../layout';
 import { Button } from '../../../form';
-import { Text } from '../../../typography';
+import { Text, Title } from '../../../typography';
 import { Drawer } from '../../../overlay';
-import { TranslatorModule } from './TranslatorModule';
+import { Alert } from '../../../feedback';
 import { TranslatorModalStyles } from './TranslatorModal.styles';
 
 export const TRANSLATOR_MODAL_DEFAULT_PROPS = {
   labels: { title: '', trigger: '', help: '', close: '', save: '', cancel: '' },
+  error: false,
+  warning: false,
+  alert: null,
+  editMode: true,
 };
 
 export const TRANSLATOR_MODAL_PROP_TYPES = {
@@ -23,15 +27,33 @@ export const TRANSLATOR_MODAL_PROP_TYPES = {
     save: PropTypes.string,
     cancel: PropTypes.string,
   }),
-  hasError: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  warning: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  closeOnSave: PropTypes.bool,
+  editMode: PropTypes.bool,
+  alert: PropTypes.element,
   onSave: PropTypes.func,
   onCancel: PropTypes.func,
   onClose: PropTypes.func,
+  onBeforeSave: PropTypes.func,
 };
 
-const TranslatorModal = ({ children, labels, hasError, onSave, onClose, onCancel }) => {
+const TranslatorModal = ({
+  children,
+  labels,
+  error,
+  warning,
+  alert,
+  editMode,
+  onSave,
+  onBeforeSave,
+  onClose,
+  onCancel,
+  closeOnSave,
+}) => {
   const { classes, cx } = TranslatorModalStyles({});
   const [opened, setOpened] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // ···········································································
   // HANDLERS
@@ -41,26 +63,37 @@ const TranslatorModal = ({ children, labels, hasError, onSave, onClose, onCancel
     if (isFunction(onClose)) onClose();
   };
 
-  const handleCancel = () => {
+  const handleOnCancel = () => {
     setOpened(false);
     if (isFunction(onCancel)) onCancel();
   };
 
-  const handleSave = () => {
-    if (isFunction(onSave)) onSave();
+  const handleOnSave = async () => {
+    if (isFunction(onBeforeSave)) {
+      setLoading(true);
+      const result = await onBeforeSave();
+      setLoading(false);
+      if (result && isFunction(onSave)) {
+        onSave();
+        if (closeOnSave) setOpened(false);
+      }
+    } else if (isFunction(onSave)) {
+      onSave();
+      if (closeOnSave) setOpened(false);
+    }
   };
 
   return (
     <Box>
-      <Stack direction="row" alignItems="baseline" spacing={4}>
+      <Stack alignItems="baseline" spacing={4}>
         {isString(labels.trigger) && labels.trigger !== '' && (
-          <Box>
+          <Stack alignItems="center">
             <Button variant="link" onClick={() => setOpened(true)}>
               {labels.trigger}
             </Button>
 
-            {hasError ? <IconError /> : <IconSuccess />}
-          </Box>
+            {error ? <IconError /> : warning ? <IconWarning /> : <IconSuccess />}
+          </Stack>
         )}
         {isString(labels.help) && labels.help !== '' && (
           <Text role="productive" size="xs">
@@ -69,10 +102,24 @@ const TranslatorModal = ({ children, labels, hasError, onSave, onClose, onCancel
         )}
       </Stack>
 
+      {alert}
+
       <Drawer opened={opened} onClose={handleClose} size={715} close={labels.close} noOverlay>
-        <TranslatorModule onCancel={handleCancel} onSave={handleSave} labels={labels}>
+        <ContextContainer title={labels.title} description={labels.description}>
           {children}
-        </TranslatorModule>
+          {editMode && <Divider />}
+        </ContextContainer>
+        {/* ACTION BUTTONS */}
+        {editMode && (
+          <Group className={classes.buttonsGroup01} position="apart">
+            <Button variant="light" onClick={handleOnCancel}>
+              {labels.cancel}
+            </Button>
+            <Button onClick={handleOnSave} loading={loading}>
+              {labels.save}
+            </Button>
+          </Group>
+        )}
       </Drawer>
     </Box>
   );

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Box } from '@mantine/core';
+import { Text } from '../../../typography';
 import { TranslatorModal, TRANSLATOR_MODAL_DEFAULT_PROPS } from './TranslatorModal';
 import { TranslatorTabs } from '../TranslatorTabs';
 import { TRANSLATOR_TABS_DATA } from '../TranslatorTabs/mocks/data';
 import mdx from './TranslatorModal.mdx';
+import { Alert } from '../../../feedback';
 
 export default {
   title: 'Leemons/Multilanguage/TranslatorModal',
@@ -24,11 +26,22 @@ export default {
   },
 };
 
-const Template = ({ test_translatorModalData, ...props }) => {
+const Template = ({ test_translatorModalData, test_showAlert, ...props }) => {
   return (
-    <TranslatorModal {...props}>
+    <TranslatorModal
+      {...props}
+      alert={
+        test_showAlert ? (
+          <Alert severity="warning" closeable={false}>
+            Must save profile to save translations
+          </Alert>
+        ) : null
+      }
+    >
       <TranslatorTabs {...test_translatorModalData}>
-        <Box>I'm locale</Box>
+        <Box style={{ padding: 20 }}>
+          <Text>I'm locale</Text>
+        </Box>
       </TranslatorTabs>
     </TranslatorModal>
   );
@@ -47,4 +60,5 @@ Playground.args = {
     close: 'Close',
   },
   test_translatorModalData: { ...TRANSLATOR_TABS_DATA },
+  test_showAlert: false,
 };

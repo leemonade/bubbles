@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { StackStyles } from './Stack.styles';
 
 export const DEFAULT_PROPS = {
@@ -46,8 +45,8 @@ const Stack = ({
   alignItems,
   fullWidth,
   fullHeight,
-  children,
   spacing,
+  children,
   ...props
 }) => {
   const { classes, cx } = StackStyles(
@@ -55,26 +54,10 @@ const Stack = ({
     { name: 'Stack' }
   );
 
-  const childrenWithProps = React.Children.map(children, (child) => {
-    // Checking isValidElement is the safe way and avoids a typescript
-    // error too.
-    if (
-      React.isValidElement(child) &&
-      fullWidth &&
-      justifyContent === 'normal' &&
-      alignContent === 'normal' &&
-      alignItems === 'normal'
-    ) {
-      const style = { ...child.props.style, flex: 1 };
-      return React.cloneElement(child, { style });
-    }
-    return child;
-  });
-
   return (
-    <Box className={cx(classes.root, className)} {...props}>
-      {childrenWithProps}
-    </Box>
+    <div className={cx(classes.root, className)} {...props}>
+      {children}
+    </div>
   );
 };
 

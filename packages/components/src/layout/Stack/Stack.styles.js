@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/styles';
+import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const StackStyles = createStyles(
   (
@@ -29,7 +30,14 @@ export const StackStyles = createStyles(
 
     return {
       root: {
-        ...flexProps,
+        ...getFontExpressive(theme.fontSizes['2']),
+        display: 'inline-flex',
+        flexDirection: direction,
+        flexWrap: wrap,
+        alignContent: alignContent,
+        justifyContent: justifyContent,
+        alignItems: alignItems,
+        width: fullWidth ? '100%' : 'auto',
       },
     };
   }

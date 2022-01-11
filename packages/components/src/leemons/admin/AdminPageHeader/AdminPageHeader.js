@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isString, trim, isFunction, flatMap, isObject, capitalize } from 'lodash';
+import { isArray, isString, trim, isFunction, flatMap, isObject, capitalize, keysIn } from 'lodash';
 import { Box } from '@mantine/core';
 import { useResizeObserver } from '@mantine/hooks';
 import { useForm, Controller } from 'react-hook-form';
@@ -83,6 +83,7 @@ const AdminPageHeader = ({
 }) => {
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -141,6 +142,14 @@ const AdminPageHeader = ({
   };
 
   // ····································································
+  // UPDATES
+
+  useEffect(() => {
+    setValue('title', values?.title || '');
+    setValue('description', values?.description || '');
+  }, [values]);
+
+  // ····································································
   // STYLES
 
   const [containerRef, containerRect] = useResizeObserver();
@@ -154,12 +163,11 @@ const AdminPageHeader = ({
         <Box
           ref={childRef}
           style={{
-            position: 'fixed',
             width: containerRect.width,
             top: containerRect.top,
-            zIndex: 9,
             // left: containerRect.left,
           }}
+          className={classes.headerContainer}
         >
           <PageContainer className={classes.section}>
             {/* Breadcrumbs */}
@@ -182,7 +190,7 @@ const AdminPageHeader = ({
                   <Controller
                     name="title"
                     control={control}
-                    defaultValue={values.title}
+                    defaultValue={values?.title || ''}
                     rules={{
                       required: required.title
                         ? getErrorLabel('title', 'required', 'Required field')
@@ -233,11 +241,7 @@ const AdminPageHeader = ({
                     </Button>
                   )}
                   {isNotEmpty(BUTTONS.SAVE) && (
-                    <Button
-                      type="submit"
-                      loading={checkLoading(BUTTONS.SAVE)}
-                      onClick={(e) => onPressButton(onSave, e)}
-                    >
+                    <Button type="submit" loading={checkLoading(BUTTONS.SAVE)}>
                       {buttonLabel(BUTTONS.SAVE)}
                     </Button>
                   )}
@@ -263,6 +267,7 @@ const AdminPageHeader = ({
             </PageContainer>
           )}
         </Box>
+
         <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
           {/* Description */}
           {!editMode && values && values.description && (
@@ -275,7 +280,7 @@ const AdminPageHeader = ({
               <Controller
                 name="description"
                 control={control}
-                defaultValue={values.description}
+                defaultValue={values?.description || ''}
                 rules={{
                   required: required.description
                     ? getErrorLabel('description', 'required', 'Required field')

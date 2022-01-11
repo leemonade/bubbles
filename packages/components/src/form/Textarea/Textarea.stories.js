@@ -1,5 +1,10 @@
 import React from 'react';
-import { Textarea, TEXTAREA_ORIENTATIONS, TEXTAREA_SIZES } from './Textarea';
+import {
+  Textarea,
+  TEXTAREA_ORIENTATIONS,
+  TEXTAREA_SIZES,
+  TEXTAREA_DEFAULT_PROPS,
+} from './Textarea';
 import mdx from './Textarea.mdx';
 
 export default {
@@ -11,7 +16,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3639%3A28645',
     },
   },
   argTypes: {
@@ -27,13 +32,8 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  size: 'sm',
-  orientation: 'vertical',
+  ...TEXTAREA_DEFAULT_PROPS,
   placeholder: 'Placeholder',
-  disabled: false,
-  required: true,
-  autosize: true,
-  minRows: 2,
   label: 'Label for textarea',
   help: 'Help text for textarea',
   description: 'Optional descriptive text for this textarea ',
