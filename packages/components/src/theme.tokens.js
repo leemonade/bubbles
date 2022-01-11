@@ -44,6 +44,23 @@ export const COLORS = {
   fatic03v0: PALETTE.faticWarningLight,
   fatic04: PALETTE.faticInfo,
   fatic04v0: PALETTE.faticInfoLight,
+
+  bubbles: [
+    '#f1f7ff',
+    '#c5d5ed',
+    '#9eb9e1',
+    '#779cd4',
+    '#5987cb',
+    '#3c72c2',
+    '#366abc',
+    '#2e5fb4',
+    '#2755ac',
+    '#1a429f',
+    '#d5e1ff',
+    '#a2bbff',
+    '#6f96ff',
+    '#5684ff',
+  ],
 };
 
 export const SPACING = Object.assign({}, SPACES);
@@ -59,5 +76,5 @@ export const SHADOWS = {
   shadow02: EFFECTS.uiLevel02,
   shadow03: EFFECTS.uiLevel03,
   shadow04: EFFECTS.uiLevel04,
-  shadow100: EFFECTS.uiLevel100
+  shadow100: EFFECTS.uiLevel100,
 };
