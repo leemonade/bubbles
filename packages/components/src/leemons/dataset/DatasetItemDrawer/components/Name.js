@@ -14,8 +14,6 @@ const Name = () => {
     },
   } = useContext(DatasetItemDrawerContext);
 
-  console.log(errors);
-
   return (
     <Box>
       <Controller

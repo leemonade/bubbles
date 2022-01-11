@@ -10,13 +10,8 @@ const Permissions = () => {
   const [data, setData] = useState([]);
 
   const {
-    contextRef: { messages, errorMessages, profiles, selectOptions, colSpans, gridColumn },
-    form: {
-      setValue,
-      getValues,
-      control,
-      formState: { errors },
-    },
+    contextRef: { messages, profiles },
+    form: { setValue, getValues, watch },
   } = useContext(DatasetItemDrawerContext);
 
   const tableHeaders = [
@@ -28,10 +23,12 @@ const Permissions = () => {
     {
       Header: messages.permissionsViewLabel,
       accessor: 'view',
+      className: 'text-center',
     },
     {
       Header: messages.permissionsEditLabel,
       accessor: 'edit',
+      className: 'text-center',
     },
   ];
 
@@ -52,25 +49,27 @@ const Permissions = () => {
     if (event.changedField === 'view') {
       if (event.newData[event.itemIndex].edit.checked) {
         setTimeout(() => {
-          setData({
-            profiles: update(event.newData, {
+          setData(
+            update(event.newData, {
               [event.itemIndex]: {
                 view: { checked: { $set: true } },
               },
-            }),
-          });
+            })
+          );
         }, 10);
       }
     }
     if (event.changedField === 'edit') {
       if (event.newItem.checked) {
-        setData({
-          profiles: update(event.newData, {
-            [event.itemIndex]: {
-              view: { checked: { $set: true } },
-            },
-          }),
-        });
+        setTimeout(() => {
+          setData(
+            update(event.newData, {
+              [event.itemIndex]: {
+                view: { checked: { $set: true } },
+              },
+            })
+          );
+        }, 10);
       }
     }
   }
@@ -78,20 +77,21 @@ const Permissions = () => {
   useEffect(() => {
     let itemProfilesById = keyBy(getValues('config.permissions'), 'id');
     // ES: Seteamos los perfiles con las opciones que hubiera guardadas si no habia dejamos a false
-    setData(
-      map(profiles, (profile) => ({
-        ...profile,
-        view: {
-          type: 'checkbox',
-          checked: itemProfilesById[profile.id]?.view || false,
-        },
-        edit: {
-          type: 'checkbox',
-          checked: itemProfilesById[profile.id]?.edit || false,
-        },
-      }))
-    );
-  }, [profiles]);
+    const newData = map(profiles, (profile) => ({
+      ...profile,
+      view: {
+        type: 'checkbox',
+        checked: itemProfilesById[profile.id]?.view || false,
+      },
+      edit: {
+        type: 'checkbox',
+        checked: itemProfilesById[profile.id]?.edit || false,
+      },
+    }));
+    if (JSON.stringify(data) !== JSON.stringify(newData)) {
+      setData(newData);
+    }
+  }, [profiles, JSON.stringify(watch('config.permissions'))]);
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[5] })}>

@@ -14,6 +14,47 @@ import { FieldConfigLocale } from './components/FieldConfigLocale';
 import { Permissions } from './components/Permissions';
 import { Button } from '../../../form';
 
+export const DATASET_DATA_TYPES = {
+  textField: {
+    type: 'text_field',
+  },
+  richText: {
+    type: 'rich_text',
+  },
+  number: {
+    type: 'number',
+  },
+  date: {
+    type: 'date',
+  },
+  email: {
+    type: 'email',
+  },
+  phone: {
+    type: 'phone',
+  },
+  link: {
+    type: 'link',
+  },
+  /*
+  archive: {
+    type: 'archive',
+  },
+   */
+  multioption: {
+    type: 'multioption',
+  },
+  boolean: {
+    type: 'boolean',
+  },
+  select: {
+    type: 'select',
+  },
+  user: {
+    type: 'user',
+  },
+};
+
 export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
   messages: {
     saveButtonLabel: 'Save',
@@ -128,47 +169,47 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     fieldTypes: [
       {
         label: 'Field',
-        value: 'text_field',
+        value: DATASET_DATA_TYPES.textField.type,
       },
       {
         label: 'Textarea',
-        value: 'rich_text',
+        value: DATASET_DATA_TYPES.richText.type,
       },
       {
         label: 'Number',
-        value: 'number',
+        value: DATASET_DATA_TYPES.number.type,
       },
       {
         label: 'Date',
-        value: 'date',
+        value: DATASET_DATA_TYPES.date.type,
       },
       {
         label: 'Email',
-        value: 'email',
+        value: DATASET_DATA_TYPES.email.type,
       },
       {
         label: 'Phone',
-        value: 'phone',
+        value: DATASET_DATA_TYPES.phone.type,
       },
       {
         label: 'Link',
-        value: 'link',
+        value: DATASET_DATA_TYPES.link.type,
       },
       {
         label: 'Multioption',
-        value: 'multioption',
+        value: DATASET_DATA_TYPES.multioption.type,
       },
       {
         label: 'Boolean',
-        value: 'boolean',
+        value: DATASET_DATA_TYPES.boolean.type,
       },
       {
         label: 'Select',
-        value: 'select',
+        value: DATASET_DATA_TYPES.select.type,
       },
       {
         label: 'User',
-        value: 'user',
+        value: DATASET_DATA_TYPES.user.type,
       },
     ],
   },
@@ -180,10 +221,12 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
 export const DATASET_ITEM_DRAWER_PROP_TYPES = {
   messages: PropTypes.object,
   errorMessages: PropTypes.object,
-  locales: PropTypes.shape({
-    label: PropTypes.string,
-    code: PropTypes.string,
-  }),
+  locales: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
   defaultLocale: PropTypes.string,
   selectOptions: PropTypes.shape({
     centers: PropTypes.arrayOf(
@@ -233,13 +276,18 @@ export const DATASET_ITEM_DRAWER_PROP_TYPES = {
   position: PropTypes.oneOf(['left', 'right']),
   size: PropTypes.number,
   onClose: PropTypes.func,
+  onSave: PropTypes.func,
   defaultValues: PropTypes.object,
+  isSaving: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 const DatasetItemDrawer = ({
+  loading,
   position,
   opened,
   onClose,
+  onSave,
   size,
   defaultValues,
   messages,
@@ -247,6 +295,8 @@ const DatasetItemDrawer = ({
   selectOptions,
   locales,
   defaultLocale,
+  profiles,
+  isSaving,
 }) => {
   const { classes, cx } = DatasetItemDrawerStyles({});
   const form = useForm({ defaultValues });
@@ -264,9 +314,13 @@ const DatasetItemDrawer = ({
 
   function save() {
     form.handleSubmit((data) => {
-      console.log(data);
+      onSave(data);
     })();
   }
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues]);
 
   useEffect(() => {
     contextRef.current.messages = messages;
@@ -274,43 +328,50 @@ const DatasetItemDrawer = ({
     contextRef.current.selectOptions = selectOptions;
     contextRef.current.locales = locales;
     contextRef.current.defaultLocale = defaultLocale;
+    contextRef.current.profiles = profiles;
     render();
-  }, [messages, errorMessages, selectOptions, locales, defaultLocale]);
+  }, [messages, errorMessages, selectOptions, locales, defaultLocale, profiles]);
 
   return (
     <Drawer position={position} opened={opened} size={size} onClose={onClose} empty>
-      <Grid className={classes.grid} grow columns={100}>
-        <Col span={35} className={classes.leftColContainer}>
-          <Box>Left</Box>
-        </Col>
+      {loading ? (
+        'Loading'
+      ) : (
+        <Grid className={classes.grid} grow columns={100}>
+          <Col span={35} className={classes.leftColContainer}>
+            <Box>Left</Box>
+          </Col>
 
-        <Col span={65} className={classes.rightColContainer}>
-          <DatasetItemDrawerContext.Provider
-            value={{ contextRef: contextRef.current, form, render }}
-          >
-            <Box className={classes.rightColContent}>
-              {/* Name */}
-              <Name />
-              {/* Centers */}
-              <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-                <Centers />
+          <Col span={65} className={classes.rightColContainer}>
+            <DatasetItemDrawerContext.Provider
+              value={{ contextRef: contextRef.current, form, render }}
+            >
+              <Box className={classes.rightColContent}>
+                {/* Name */}
+                <Name />
+                {/* Centers */}
+                <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
+                  <Centers />
+                </Box>
+                <Box className={classes.divider}>
+                  <Divider />
+                </Box>
+                {/* Field type/config */}
+                <FieldType />
+                <FieldConfig />
+                <FieldConfigLocale />
+                {/* Permissions */}
+                <Permissions />
               </Box>
-              <Box className={classes.divider}>
-                <Divider />
+              <Box className={classes.saveSection}>
+                <Button loading={isSaving} onClick={save}>
+                  {messages.saveButtonLabel}
+                </Button>
               </Box>
-              {/* Field type/config */}
-              <FieldType />
-              <FieldConfig />
-              <FieldConfigLocale />
-              {/* Permissions */}
-              <Permissions />
-            </Box>
-            <Box className={classes.saveSection}>
-              <Button onClick={save}>{messages.saveButtonLabel}</Button>
-            </Box>
-          </DatasetItemDrawerContext.Provider>
-        </Col>
-      </Grid>
+            </DatasetItemDrawerContext.Provider>
+          </Col>
+        </Grid>
+      )}
     </Drawer>
   );
 };
