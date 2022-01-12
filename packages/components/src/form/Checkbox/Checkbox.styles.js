@@ -1,6 +1,5 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
-import { SPACING as spacing } from '../../theme.constants';
 
 export const CheckboxStyles = createStyles(
   (theme, { help, helpPosition, variant, isChecked, disabled }) => {
@@ -23,14 +22,14 @@ export const CheckboxStyles = createStyles(
         color: theme.colors.text01,
         ...getFontProductive(theme.fontSizes['2'], 500),
         lineHeight: pxToRem(17),
-        paddingLeft: pxToRem(spacing[2]),
+        paddingLeft: theme.spacing[2],
       },
       help: {
-        ...getFontProductive(theme.fontSizes[isBoxed ? '2' : '1'], isBoxed ? 500 : 400),
+        ...getFontProductive(theme.fontSizes[1], 400),
         color: theme.colors.text02,
-        lineHeight: isBoxed ? pxToRem(17) : pxToRem(16),
-        marginLeft: isRight ? pxToRem(spacing[4]) : pxToRem(spacing[6]),
-        marginTop: isBottom && pxToRem(spacing[1]),
+        lineHeight: pxToRem(16),
+        marginLeft: isRight ? theme.spacing[4] : theme.spacing[6],
+        marginTop: isBottom && theme.spacing[1],
       },
       container: {
         display: 'inline-flex',
@@ -43,7 +42,9 @@ export const CheckboxStyles = createStyles(
           : null,
         border: '1px solid transparent',
         borderColor: isBoxed && isChecked && theme.colors.interactive01d,
-        padding: isBoxed && `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`,
+        padding: isBoxed
+          ? `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`
+          : `${pxToRem(6)} ${pxToRem(10)} ${pxToRem(6)} ${pxToRem(8)}`,
         zIndex: isChecked && 1,
       },
     };

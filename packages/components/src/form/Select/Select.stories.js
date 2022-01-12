@@ -18,6 +18,7 @@ export default {
   argTypes: {
     size: { options: SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: SELECT_ORIENTATIONS, control: { type: 'select' } },
+    onChange: { action: 'Value changed' },
   },
 };
 

@@ -1,15 +1,72 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
+import { useUuid } from '@mantine/hooks';
 import { Checkbox, CHECKBOX_VARIANTS } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
 import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
-import { useState } from 'react';
+import {
+  InputWrapper,
+  INPUT_WRAPPER_SHARED_PROPS,
+  INPUT_WRAPPER_SIZES,
+  INPUT_WRAPPER_ORIENTATIONS,
+} from '../InputWrapper';
 
-export const DEFAULT_PROPS = { direction: 'column', variant: 'default', fullWidth: false };
+export const CHECKBOX_GROUP_DEFAULT_PROPS = {
+  label: '',
+  description: '',
+  help: '',
+  required: false,
+  error: '',
+  orientation: 'vertical',
+  direction: 'row',
+  size: 'sm',
+  variant: 'default',
+  fullWidth: false,
+};
 
-const CheckBoxGroup = ({ data, variant, direction, fullWidth, onChange, ...props }) => {
+export const CHECKBOX_GROUP_PROP_TYPES = {
+  ...INPUT_WRAPPER_SHARED_PROPS,
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string.isRequired,
+      help: PropTypes.string,
+      helpPosition: PropTypes.string,
+      disabled: PropTypes.bool,
+      indeterminate: PropTypes.bool,
+      checked: PropTypes.bool,
+    })
+  ),
+  direction: PropTypes.oneOf(STACK_DIRECTIONS),
+  variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
+  fullWidth: PropTypes.bool,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+};
+
+const CheckBoxGroup = ({
+  label,
+  description,
+  help,
+  required,
+  error,
+  size,
+  orientation,
+  data,
+  variant,
+  direction,
+  fullWidth,
+  onChange,
+  ...props
+}) => {
+  const uuid = useUuid();
+  const hasError = useMemo(() => !isEmpty(error), [error]);
+
   const { classes, cx } = CheckBoxGroupStyles(
-    { direction, variant, fullWidth },
+    { direction, variant, fullWidth, hasError },
     { name: 'CheckBoxGroup' }
   );
 
@@ -26,37 +83,37 @@ const CheckBoxGroup = ({ data, variant, direction, fullWidth, onChange, ...props
   };
 
   return (
-    <Stack className={classes.group} direction={direction} fullWidth={fullWidth} {...props}>
-      {data.map((item, index) => (
-        <Checkbox
-          key={index}
-          variant={variant}
-          {...item}
-          onChange={() => onChangeHandler(item.value)}
-        />
-      ))}
-    </Stack>
+    <InputWrapper
+      uuid={uuid}
+      orientation={orientation}
+      label={label}
+      size={size}
+      description={description}
+      help={help}
+      error={error}
+      required={required}
+    >
+      <Stack
+        {...props}
+        id={uuid}
+        className={classes.group}
+        direction={direction}
+        fullWidth={fullWidth}
+      >
+        {data.map((item, index) => (
+          <Checkbox
+            {...item}
+            key={index}
+            variant={variant}
+            onChange={() => onChangeHandler(item.value)}
+          />
+        ))}
+      </Stack>
+    </InputWrapper>
   );
 };
 
-CheckBoxGroup.defaultProps = DEFAULT_PROPS;
-
-CheckBoxGroup.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string.isRequired,
-      help: PropTypes.string,
-      helpPosition: PropTypes.string,
-      disabled: PropTypes.bool,
-      indeterminate: PropTypes.bool,
-      checked: PropTypes.bool,
-    })
-  ),
-  onChange: PropTypes.func,
-  direction: PropTypes.oneOf(STACK_DIRECTIONS),
-  variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
-  fullWidth: PropTypes.bool,
-};
+CheckBoxGroup.defaultProps = CHECKBOX_GROUP_DEFAULT_PROPS;
+CheckBoxGroup.propTypes = CHECKBOX_GROUP_PROP_TYPES;
 
 export { CheckBoxGroup };
