@@ -14,6 +14,8 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
     input: {
       border: `1px solid ${theme.colors.ui01}`,
       padding: multiple ? pxToRem(0) : `${pxToRem(12)} ${pxToRem(8)}`,
+      display: 'flex',
+      lineHeight: pxToRem(16),
       '&:focus-within': {
         boxShadow: '0px 0px 0px 3px #E8EDF4',
         borderColor: theme.colors.ui01,
@@ -23,12 +25,12 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
         color: theme.colors.text05,
         lineHeight: pxToRem(16),
       },
-      minheight: pxToRem(41),
+      minHeight: pxToRem(40),
     },
     searchInput: {
       ...getFontProductive(theme.fontSizes['2'], 400),
       color: theme.colors.text03,
-      padding: `${pxToRem(12)} ${pxToRem(8)}`,
+      padding: 0,
       margin: 0,
       '::placeholder': {
         ...getFontProductive(theme.fontSizes['2']),
@@ -37,9 +39,14 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       },
     },
     values: {
-      padding: 0,
+      padding: `${pxToRem(12)} ${pxToRem(8)}`,
       margin: 0,
       minheight: pxToRem(40),
+      display: 'flex',
+      gap: pxToRem(8),
+    },
+    value: {
+      margin: 0,
     },
     dropdown: {
       borderColor: theme.colors.ui02,
@@ -68,6 +75,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
     },
     deleteIcon: {
       color: theme.colors.text06,
+      cursor: 'pointer',
       '&:hover': {
         transform: 'scale(1.2)',
       },

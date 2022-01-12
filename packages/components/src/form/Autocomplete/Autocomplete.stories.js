@@ -35,6 +35,7 @@ Playground.args = {
     { value: 'Ana Alonso', label: 'Ana Alonso', children: 'Ana Alonso' },
     { value: 'Antonia Hidalgo', label: 'Antonia Hidalgo', children: 'Antonia Hidalgo' },
     { value: 'Maria Merino', label: 'Maria Merino', children: 'Maria Merino' },
+    { value: 'Juan Carlos', label: 'Juan Carlos', children: 'Juan Carlos' },
   ],
   nothingFoundLabel: 'No maches found',
 };
