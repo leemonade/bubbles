@@ -63,16 +63,13 @@ function Label(props) {
   if (!label) {
     return null;
   }
-  return null;
-  /*
+
   return (
     <label className="control-label" htmlFor={id}>
       {label}
       {required && <span className="required">{REQUIRED_FIELD_SYMBOL}</span>}
     </label>
   );
-
-   */
 }
 
 function LabelInput(props) {
@@ -113,9 +110,6 @@ function ErrorList(props) {
     return null;
   }
 
-  return null;
-
-  /*
   return (
     <div>
       <ul className="error-detail bs-callout bs-callout-info">
@@ -131,8 +125,6 @@ function ErrorList(props) {
       </ul>
     </div>
   );
-
-   */
 }
 
 function DefaultTemplate(props) {
@@ -143,11 +135,11 @@ function DefaultTemplate(props) {
 
   return (
     <WrapIfAdditional {...props}>
-      {displayLabel && <Label label={label} required={required} id={id} />}
-      {displayLabel && description ? description : null}
+      {/*displayLabel && <Label label={label} required={required} id={id} />*/}
+      {/*displayLabel && description ? description : null*/}
       {children}
-      {errors}
-      {help}
+      {/*errors*/}
+      {/*help*/}
     </WrapIfAdditional>
   );
 }

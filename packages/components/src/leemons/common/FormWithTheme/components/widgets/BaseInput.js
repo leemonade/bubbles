@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NumberInput, TextInput } from '../../../../../form';
+import { NumberInput, PasswordInput, TextInput } from '../../../../../form';
 
 function BaseInput(props) {
   // Note: since React 15.2.0 we can't forward unknown element attributes, so we
@@ -24,6 +24,9 @@ function BaseInput(props) {
     rawErrors,
     ...inputProps
   } = props;
+
+  const help = options.help;
+  const description = schema.description;
 
   // If options.inputType is set use that as the input type
   if (options.inputType) {
@@ -64,28 +67,44 @@ function BaseInput(props) {
   }
 
   const _onChange = (event) => {
-    const value = inputProps.type === 'number' ? event : event.target.value;
+    const newVal = inputProps.type === 'number' ? event : event.target.value;
     return props.onChange({
-      ...inputProps.value,
-      value: value === '' ? options.emptyValue : value,
+      ...value,
+      value: newVal === '' ? options.emptyValue : newVal,
     });
   };
 
-  const Input = inputProps.type === 'number' ? NumberInput : TextInput;
+  let Input = null;
+
+  switch (inputProps.type) {
+    case 'number':
+      Input = NumberInput;
+      break;
+    case 'password':
+      Input = PasswordInput;
+      delete inputProps.type;
+      break;
+    default:
+      Input = TextInput;
+  }
 
   return [
     <Input
+      {...inputProps}
       key={inputProps.id}
       readOnly={readonly}
       disabled={disabled}
       autoFocus={autofocus}
+      help={help}
+      description={description}
       value={!value || value.value == null ? '' : value.value}
       error={rawErrors ? rawErrors[0] : null}
-      {...inputProps}
       list={schema.examples ? `examples_${inputProps.id}` : null}
       onChange={_onChange}
-      onBlur={onBlur && ((event) => onBlur(inputProps.id, event.target.value))}
-      onFocus={onFocus && ((event) => onFocus(inputProps.id, event.target.value))}
+      onBlur={onBlur && ((event) => onBlur(inputProps.id, { ...value, value: event.target.value }))}
+      onFocus={
+        onFocus && ((event) => onFocus(inputProps.id, { ...value, value: event.target.value }))
+      }
     />,
     schema.examples ? (
       <datalist key={`datalist_${inputProps.id}`} id={`examples_${inputProps.id}`}>

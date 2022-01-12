@@ -44,7 +44,5 @@ export function getValidateSchema(jsonSchema) {
     }
   });
 
-  console.log(schema);
-
   return schema;
 }

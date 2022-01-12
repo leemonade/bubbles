@@ -8,6 +8,9 @@ import SchemaField from './components/fields/SchemaField';
 import TextareaWidget from './components/widgets/TextareaWidget';
 import { getValidateSchema } from './helpers/getValidateSchema';
 import { transformAjvErrors } from './helpers/transformAjvErrors';
+import ToggleWidget from './components/widgets/ToggleWidget';
+import SelectWidget from './components/widgets/SelectWidget';
+import CheckboxesWidget from './components/widgets/CheckboxesWidget';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
@@ -28,7 +31,10 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
     },
     widgets: {
       BaseInput,
+      SelectWidget,
       TextareaWidget,
+      CheckboxesWidget,
+      toggle: ToggleWidget,
     },
     validateSchema: getValidateSchema(schema),
     transformAjvErrors,
