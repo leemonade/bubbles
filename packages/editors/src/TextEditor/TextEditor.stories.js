@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '@bubbles-ui/components';
 import { TextEditor, TEXT_EDITOR_DEFAULT_PROPS } from './TextEditor';
 import mdx from './TextEditor.mdx';
 
@@ -23,7 +23,11 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TextEditor {...props} />;
+  return (
+    <Box style={{ margin: -15 }}>
+      <TextEditor {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
