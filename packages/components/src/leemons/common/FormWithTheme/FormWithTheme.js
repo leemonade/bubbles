@@ -11,6 +11,8 @@ import { transformAjvErrors } from './helpers/transformAjvErrors';
 import ToggleWidget from './components/widgets/ToggleWidget';
 import SelectWidget from './components/widgets/SelectWidget';
 import CheckboxesWidget from './components/widgets/CheckboxesWidget';
+import RadioWidget from './components/widgets/RadioWidget';
+import CheckboxWidget from './components/widgets/CheckboxWidget';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
@@ -31,7 +33,9 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
     },
     widgets: {
       BaseInput,
+      RadioWidget,
       SelectWidget,
+      CheckboxWidget,
       TextareaWidget,
       CheckboxesWidget,
       toggle: ToggleWidget,

@@ -4,10 +4,22 @@ import { map } from 'lodash';
 import { CheckBoxGroup } from '../../../../../form/CheckboxGroup';
 
 function CheckboxesWidget(props) {
-  console.log('CheckboxesWidget', props);
-  const { id, disabled, options, value, readonly, onChange, rawErrors, label, placeholder } = props;
+  const {
+    schema,
+    id,
+    disabled,
+    options,
+    value,
+    readonly,
+    onChange,
+    rawErrors,
+    label,
+    placeholder,
+  } = props;
   const { enumOptions, enumDisabled, inline } = options;
 
+  const help = options.help;
+  const description = schema.description;
   const values = map(value, 'value');
 
   const data = map(enumOptions, (option) => {
@@ -24,6 +36,8 @@ function CheckboxesWidget(props) {
       label={label}
       error={rawErrors ? rawErrors[0] : null}
       placeholder={placeholder}
+      help={help}
+      description={description}
       onChange={(event) => {
         onChange(map(event, (d) => ({ value: d })));
       }}

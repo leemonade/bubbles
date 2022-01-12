@@ -1,6 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { schemaRequiresTrueValue } from "../../utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { schemaRequiresTrueValue } from '../../utils';
+import { Checkbox } from '../../../../../form';
 
 function CheckboxWidget(props) {
   const {
@@ -11,10 +12,11 @@ function CheckboxWidget(props) {
     readonly,
     label,
     autofocus,
+    rawErrors,
+    options,
     onBlur,
     onFocus,
     onChange,
-    DescriptionField,
   } = props;
 
   // Because an unchecked checkbox will cause html5 validation to fail, only add
@@ -22,26 +24,27 @@ function CheckboxWidget(props) {
   // "const" or "enum" keywords
   const required = schemaRequiresTrueValue(schema);
 
+  const help = options.help;
+  const description = schema.description;
+
   return (
-    <div className={`checkbox ${disabled || readonly ? "disabled" : ""}`}>
-      {schema.description && (
-        <DescriptionField description={schema.description} />
-      )}
-      <label>
-        <input
-          type="checkbox"
-          id={id}
-          checked={typeof value === "undefined" ? false : value}
-          required={required}
-          disabled={disabled || readonly}
-          autoFocus={autofocus}
-          onChange={event => onChange(event.target.checked)}
-          onBlur={onBlur && (event => onBlur(id, event.target.checked))}
-          onFocus={onFocus && (event => onFocus(id, event.target.checked))}
-        />
-        <span>{label}</span>
-      </label>
-    </div>
+    <Checkbox
+      type="checkbox"
+      id={id}
+      checked={typeof value === 'undefined' ? false : value?.value}
+      required={required}
+      disabled={disabled || readonly}
+      autoFocus={autofocus}
+      label={label}
+      help={help}
+      description={description}
+      error={rawErrors ? rawErrors[0] : null}
+      onChange={(event) => {
+        onChange({ ...value, value: event });
+      }}
+      onBlur={onBlur && ((event) => onBlur(id, { ...value, value: event.target.checked }))}
+      onFocus={onFocus && ((event) => onFocus(id, { ...value, value: event.target.checked }))}
+    />
   );
 }
 
@@ -49,7 +52,7 @@ CheckboxWidget.defaultProps = {
   autofocus: false,
 };
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   CheckboxWidget.propTypes = {
     schema: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
