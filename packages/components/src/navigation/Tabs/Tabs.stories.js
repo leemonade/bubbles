@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { InformationCircleIcon, StarIcon } from '@heroicons/react/solid';
 import { Box, Group, NumberInput, Paper } from '@mantine/core';
-import { Paragraph } from '../../typography';
+import { Paragraph } from './../../typography';
 import { Tabs } from './Tabs';
 
 import mdx from './Tabs.mdx';
-import { Tab } from './Tab/Tab';
 import { TabPane } from './TabPanelList/TabPane';
 
 export default {
@@ -64,19 +63,19 @@ Playground.args = {
   disabled: false,
 };
 
-const SimpleTemplate = ({ ...props }) => {
+const SimpleTemplate = ({ position, disabled, ...props }) => {
   return (
-    <Tabs {...props}>
-      <Tab label="First">
+    <Tabs {...props} forceRender>
+      <TabPane label="First">
         <Box>
           <Paragraph>Content of First tab</Paragraph>
         </Box>
-      </Tab>
-      <Tab label="Second" disabled>
+      </TabPane>
+      <TabPane label="Second" disabled>
         <Box>
           <Paragraph>Content of Second tab</Paragraph>
         </Box>
-      </Tab>
+      </TabPane>
     </Tabs>
   );
 };

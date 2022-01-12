@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect, forwardRef, useContext } from 'react';
+import React, { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useResizeObserver } from '@mantine/hooks';
 import { Box, Group } from '@mantine/core';
 import { Tab } from '../Tab/Tab';
 import {
   useOffsets,
-  useVisibleRange,
   useRaf,
   useRafState,
-  useSyncState,
   useRefs,
+  useSyncState,
   useTouchMove,
+  useVisibleRange,
 } from '../hooks';
 import { Dropdown } from './Dropdown';
 import TabContext from '../TabContext';
@@ -352,32 +352,34 @@ export const TabNavList = forwardRef(
                 transition: lockAnimation ? 'none' : undefined,
               }}
             >
-              {tabs.map((tab) => (
-                <Tab
-                  id={id}
-                  key={tab.key}
-                  tab={tab}
-                  active={tab.key === activeKey}
-                  renderWrapper={children}
-                  onKeyDown={handleKeyDown}
-                  ref={getBtnRef(tab.key)}
-                  onClick={(e) => {
-                    onTabClick(tab.key, e);
-                  }}
-                  onFocus={() => {
-                    scrollToTab(tab.key);
-                    doLockAnimation();
-                    if (!tabsWrapperRef.current) {
-                      return;
-                    }
-                    // Focus element will make scrollLeft change which we should reset back
-                    if (!rtl) {
-                      tabsWrapperRef.current.scrollLeft = 0;
-                    }
-                    tabsWrapperRef.current.scrollTop = 0;
-                  }}
-                />
-              ))}
+              {tabs.map((tab) => {
+                return (
+                  <Tab
+                    id={id}
+                    key={tab.key}
+                    tab={tab}
+                    active={tab.key === activeKey}
+                    renderWrapper={children}
+                    onKeyDown={handleKeyDown}
+                    ref={getBtnRef(tab.key)}
+                    onClick={(e) => {
+                      onTabClick(tab.key, e);
+                    }}
+                    onFocus={() => {
+                      scrollToTab(tab.key);
+                      doLockAnimation();
+                      if (!tabsWrapperRef.current) {
+                        return;
+                      }
+                      // Focus element will make scrollLeft change which we should reset back
+                      if (!rtl) {
+                        tabsWrapperRef.current.scrollLeft = 0;
+                      }
+                      tabsWrapperRef.current.scrollTop = 0;
+                    }}
+                  />
+                );
+              })}
             </Group>
           </Box>
         </Box>

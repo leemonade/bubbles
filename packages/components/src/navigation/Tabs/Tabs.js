@@ -1,6 +1,7 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { isNil } from 'lodash';
 import { Box } from '@mantine/core';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
@@ -17,8 +18,8 @@ let uuid = 0;
 
 function parseTabList(children) {
   // Tab[]
-  return React.Children.map(children, (child) => {
-    const key = child.key !== undefined ? child.key : undefined;
+  return React.Children.map(children, (child, index) => {
+    const key = !isNil(child.key) ? child.key : index.toString();
     return {
       ...child.props,
       key,
