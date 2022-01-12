@@ -6,14 +6,14 @@ const getSizes = (size, spacing, iconOnly) => {
     xs: {
       height: spacing['5'],
       width: iconOnly ? spacing['5'] : 'auto',
-      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
+      padding: iconOnly ? 0 : `${spacing['1']}px ${spacing['1']}px`,
       svg: { height: spacing['3'] },
     },
 
     sm: {
       height: spacing['7'],
       width: iconOnly ? spacing['7'] : 'auto',
-      padding: iconOnly ? 0 : `${spacing['1']} ${spacing['1']}`,
+      padding: iconOnly ? 0 : `${spacing['2']}px ${spacing['2']}px`,
       svg: { height: spacing['4'] },
     },
   }[size];
@@ -23,7 +23,7 @@ const getVariant = (variant, theme, color) => {
   const variants = {
     default: {
       positive: {
-        backgroundColor: theme.colors.interactive04,
+        backgroundColor: 'transparent',
         color: theme.colors.text02,
         '&:hover': {
           backgroundColor: theme.colors.interactive01v1,
@@ -85,7 +85,7 @@ export const ActionButtonStyles = createStyles((theme, { size, color, variant, i
       border: '2px solid transparent',
       ...getVariant(variant, theme, color),
     },
-    inner: { gap: iconOnly ? 0 : 4 },
+    inner: { gap: iconOnly ? 0 : theme.spacing[2] },
     rightIcon: {
       marginLeft: pxToRem(0),
       marginRight: pxToRem(0),

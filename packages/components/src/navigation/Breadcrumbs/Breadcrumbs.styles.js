@@ -1,27 +1,36 @@
 import { createStyles } from '@mantine/styles';
 
-import { getFontExpressive } from '../../theme.mixins';
-
 export const BreadcrumbsStyles = createStyles((theme) => {
   return {
     root: {
-      alignItems: 'baseline',
-
+      alignItems: 'center',
     },
-
-    listBreadcrumbs: {
-      padding: '0',
-    },
+    listBreadcrumbs: {},
     breadcrumb: {
       color: theme.colors.text04,
-      ...getFontExpressive('0.79rem'),
+      textDecoration: 'none',
       '&:hover': {
-        textDecoration: 'none',
-        color: theme.colors.text01,
+        textDecoration: 'underline',
+        // color: theme.colors.text01,
       },
 
-      '&:last-child': { color: theme.colors.text01 },
+      '&:last-child': {
+        color: theme.colors.text01,
+        '&:hover': {
+          textDecoration: 'none',
+        },
+      },
     },
-    back: {marginRight: '8px'}
+    backLabel: {
+      color: theme.colors.text04,
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+    backIcon: {
+      height: 12,
+      color: theme.colors.text04,
+    },
   };
 });

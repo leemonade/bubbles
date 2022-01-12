@@ -9,7 +9,7 @@ generateTemplateFiles([
     },
     stringReplacers: [
       { question: 'Insert folder name (inside ./src)', slot: '__folder__' },
-      { question: 'Insert your component name', slot: '__name__' },
+      { question: 'Insert your component name', slot: '__name' },
       { question: 'Atomic design level (atom | molecule | organism)', slot: '__atomicity__' },
     ],
     output: {

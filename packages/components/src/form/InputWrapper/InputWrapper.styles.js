@@ -1,35 +1,21 @@
 import { createStyles } from '@mantine/styles';
-import {
-  getDescriptionStyle,
-  getLabelStyle,
-  getOrientation,
-  getRequiredStyle,
-  getRightSection,
-} from '../mixins/fieldStyles.mixins';
+import { getRequiredStyle } from '../mixins/fieldStyles.mixins';
 
 export const InputWrapperStyles = createStyles((theme, { size, orientation }) => {
   return {
     root: {
-      ...getOrientation(orientation || 'vertical', theme.spacing),
+      display: 'flex',
+      flexDirection: orientation === 'vertical' ? 'column' : 'row',
+      gap: theme.spacing[2],
     },
-    inputRoot: {
-      display: 'contents',
+    header: {
+      width: orientation === 'vertical' ? 'auto' : '35%',
     },
-    description: {
-      gridArea: 'description',
-    },
-    error: {
-      gridArea: 'error',
-    },
-    rightSection: { ...getRightSection(theme) },
-    label: {
-      ...getLabelStyle(theme),
+    content: {
+      flex: 1,
     },
     required: {
       ...getRequiredStyle(theme),
-    },
-    help: {
-      gridArea: 'error',
     },
   };
 });

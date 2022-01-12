@@ -7,10 +7,10 @@ import { ActionButton } from '../ActionButton';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
-import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES } from '../InputWrapper';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../InputWrapper';
 
 export const MULTI_SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const MULTI_SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
+export const MULTI_SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 const MultiSelect = forwardRef(
   (

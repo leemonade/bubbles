@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Title as MantineTitle } from '@mantine/core';
 import { TitleStyles } from './Title.styles';
 
-const Title = ({ order, ...props }) => {
+const Title = ({ className, order, ...props }) => {
   const { classes, cx } = TitleStyles({ order });
 
-  return <MantineTitle {...props} className={classes.root} />;
+  return <MantineTitle {...props} order={order} className={cx(classes.root, className)} />;
 };
 
 Title.defaultProps = {

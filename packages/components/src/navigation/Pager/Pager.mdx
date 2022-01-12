@@ -1,0 +1,96 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Pager.stories.js';
+import { Pager } from './Pager.js';
+import { Box, Space } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# **Pager**
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/Pager)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+**Pager** is ...
+
+<ThemeProvider>
+  <Pager>Pager</Pager>
+</ThemeProvider>
+
+## Control the pager
+
+You can control the pager by passing in the following props:
+
+- **total**: The total number of pages.
+- **boundaries**: Amount of elements visible on left/right edges.
+- **siblings**: Amount of elements visible to the left/right of the selected page.
+
+In this case we have 20 total pages, 2 elements on the edges and the current page has 3 siblings.
+
+<ThemeProvider>
+  <Pager
+    total={20}
+    boundaries={2}
+    siblings={3}
+    onChange={() => console.log()}
+    withControls={false}
+  />
+</ThemeProvider>
+
+You can also hide/show the controls to move the page and to go directly to the first or last page.
+
+<ThemeProvider>
+  <Pager total={10} onChange={() => console.log()} withEdges />
+</ThemeProvider>
+
+You can also show a Go To input to write manually the page you want to go.
+
+<ThemeProvider>
+  <Pager total={10} withGoTo onChange={() => console.log()} />
+</ThemeProvider>
+
+## Pager direction
+
+You can orientate the pager in a horizontal or vertical direction with **direction**
+
+<ThemeProvider>
+  <Pager total={3} direction={'column'} withControls={false} onChange={() => void 0} />
+</ThemeProvider>
+
+## Disabled state
+
+You can also disable the pager
+
+<ThemeProvider>
+  <Pager disabled={true} onChange={() => void 0} />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-navigation-pager--playground" />
+</Preview>
+
+<Props of={Pager} />
+
+## References
+
+[MDN: ARIA **Pager**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/pager_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA **Pager**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/pager/pager.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/Pager.mdx)

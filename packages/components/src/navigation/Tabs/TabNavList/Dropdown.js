@@ -1,8 +1,8 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Box } from '@mantine/core';
-import { ChevronDownIcon } from '@heroicons/react/outline';
-import { Button } from './../../../form';
+import { ChevronDownIcon } from '@bubbles-ui/icons/outline';
+import { IconButton } from './../../../form';
 import { DropdownStyles } from './Dropdown.styles';
 
 export const Dropdown = forwardRef(({ tabs, rtl, onTabClick }, ref) => {
@@ -38,11 +38,7 @@ export const Dropdown = forwardRef(({ tabs, rtl, onTabClick }, ref) => {
   return (
     <Box className={cx(classes.root)} ref={ref}>
       <Menu
-        control={
-          <Button color="ghost" iconOnly onClick={() => setOpen(true)}>
-            <ChevronDownIcon style={{ width: 16 }} />
-          </Button>
-        }
+        control={<IconButton onClick={() => setOpen(true)} icon={<ChevronDownIcon />} />}
         withArrow
         closeOnScroll={false}
         position="bottom"

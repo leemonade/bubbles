@@ -1,5 +1,5 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
-import React, { useEffect, useState, forwardRef } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { useMergedState } from './hooks';
@@ -8,6 +8,9 @@ import { TabPanelList } from './TabPanelList/TabPanelList';
 import { TabPane } from './TabPanelList/TabPane';
 import TabContext from './TabContext';
 import { TabsStyles } from './Tabs.styles';
+import { PageContainer } from '../../layout';
+
+export const TABS_PANEL_COLORS = ['default', 'solid'];
 
 // Used for accessibility
 let uuid = 0;
@@ -19,8 +22,8 @@ function parseTabList(children) {
       if (React.isValidElement(node)) {
         const key = node.key !== undefined ? String(node.key) : undefined;
         return {
-          key,
           ...node.props,
+          key,
           node,
         };
       }
@@ -42,9 +45,15 @@ export const Tabs = forwardRef(
       orientation = 'horizontal',
       destroyInactiveTabPane,
       animated = false,
+      fullHeight = false,
+      className,
+      classNames,
       onChange,
       onTabClick,
       onTabScroll,
+      usePageLayout,
+      panelColor = 'default',
+      forceRender,
     },
     ref
   ) => {
@@ -116,13 +125,34 @@ export const Tabs = forwardRef(
       panes: children,
     };
 
-    const { classes, cx } = TabsStyles({ direction, position }, { name: 'Tabs' });
+    const { classes, cx } = TabsStyles(
+      { direction, position, panelColor, fullHeight },
+      { name: 'Tabs' }
+    );
+
+    const Wrapper = ({ className, children }) => {
+      return usePageLayout ? (
+        <Box className={className}>
+          <PageContainer>{children}</PageContainer>
+        </Box>
+      ) : (
+        <Box className={className}>{children}</Box>
+      );
+    };
 
     return (
       <TabContext.Provider value={{ tabs }}>
-        <Box ref={ref} id={id} className={cx(classes.root)}>
-          <TabNavList {...tabNavBarProps} />
-          <TabPanelList destroyInactiveTabPane={destroyInactiveTabPane} {...sharedProps} />
+        <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
+          <Wrapper className={classNames?.navList}>
+            <TabNavList {...tabNavBarProps} />
+          </Wrapper>
+          <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
+            <TabPanelList
+              {...sharedProps}
+              forceRender={forceRender}
+              destroyInactiveTabPane={destroyInactiveTabPane}
+            />
+          </Wrapper>
         </Box>
       </TabContext.Provider>
     );
@@ -139,8 +169,11 @@ Tabs.propTypes = {
   position: PropTypes.oneOf(['left', 'right', 'center']),
   destroyInactiveTabPane: PropTypes.bool,
   animated: PropTypes.bool,
-
+  usePageLayout: PropTypes.bool,
+  panelColor: PropTypes.oneOf(TABS_PANEL_COLORS),
   onChange: PropTypes.func,
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
+  fullHeight: PropTypes.bool,
+  forceRender: PropTypes.bool,
 };

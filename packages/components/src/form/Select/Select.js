@@ -4,12 +4,12 @@ import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
 import { isFunction, isNil, isString } from 'lodash';
 import { useId } from '@mantine/hooks';
-import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 
 export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
+export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 const Select = forwardRef(
   (
@@ -24,8 +24,10 @@ const Select = forwardRef(
       value,
       name,
       data,
+      disabled,
       searchable,
       nothingFound,
+      placeholder,
       ...props
     },
     ref
@@ -66,8 +68,10 @@ const Select = forwardRef(
           onBlur={onBlur}
           value={value}
           name={name}
+          disabled={disabled}
           searchable={searchable}
           nothingFound={nothingFound}
+          placeholder={placeholder}
           rightSection={
             isClearable && showClear ? (
               <ActionButton
@@ -105,6 +109,7 @@ Select.propTypes = {
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,
+  disabled: PropTypes.bool,
 };
 
 export { Select };

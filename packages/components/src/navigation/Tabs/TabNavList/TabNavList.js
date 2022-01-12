@@ -48,6 +48,7 @@ export const TabNavList = forwardRef(
       children,
       onTabClick,
       onTabScroll,
+      className,
       ...props
     },
     ref
@@ -333,7 +334,7 @@ export const TabNavList = forwardRef(
       <Box
         ref={ref}
         role="tablist"
-        className={cx(classes.root)}
+        className={cx(classes.root, className)}
         onKeyDown={() => {
           // No need animation when use keyboard
           doLockAnimation();

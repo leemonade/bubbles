@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { isArray, isFunction, forEach } from 'lodash';
 import SimpleBar from 'simplebar-react';
-import { Link, useHistory } from 'react-router-dom';
 import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
 import { MainNavStyles } from './MainNav.styles';
 import { MainNavItem } from './MainNavItem/MainNavItem';
@@ -14,19 +13,31 @@ import { ActionButton } from '../../form';
 import { getActiveItem } from './helpers/getActiveItem';
 
 export const MAIN_NAV_WIDTH = 52;
-export const MAIN_NAV_DEFAULT_PROPS = {};
+export const MAIN_NAV_DEFAULT_PROPS = {
+  hideSubNavOnClose: true,
+  useRouter: false,
+};
 export const MAIN_NAV_PROP_TYPES = {};
 
-const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) => {
+const MainNav = ({
+  onClose,
+  onOpen,
+  menuData,
+  isLoading,
+  subNavWidth,
+  hideSubNavOnClose,
+  useRouter,
+  ...props
+}) => {
   const [activeItem, setActiveItem] = useState(null);
   const [activeSubItem, setActiveSubItem] = useState(null);
   const [showSubNav, setShowSubNav] = useState(false);
-  const history = useHistory();
+  const [showSubNavToggle, setShowSubNavToggle] = useState(false);
 
   // ······································································
   // HANDLERS
 
-  const handleItemClick = useCallback((item) => {
+  const handleItemClick = (item) => {
     setActiveItem(item);
     const hasChildren = !item.children || (isArray(item.children) && item.children.length === 0);
 
@@ -36,83 +47,54 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
     if (item.children) {
       openSubNav(true);
     }
-  }, []);
+  };
 
-  const handleRouteChange = useCallback(() => {
-    if (isLoading) {
-      setTimeout(() => {
-        handleRouteChange();
-      }, 100);
-    } else {
-      const items = getActiveItem(menuData);
+  const handleRouteChange = () => {
+    const items = getActiveItem(menuData);
 
-      if (items && activeItem && items.activeItem.id !== activeItem.id) {
-        handleItemClick(items.activeItem);
-      }
-
-      if (
-        items &&
-        activeSubItem &&
-        items.activeSubItem &&
-        items.activeSubItem.id !== activeSubItem.id
-      ) {
-        setActiveSubItem(items.activeSubItem);
-      }
+    if (
+      (items && items.activeItem && !activeItem) ||
+      (items && items.activeItem && activeItem && items.activeItem.id !== activeItem.id)
+    ) {
+      handleItemClick(items.activeItem);
     }
-  }, [menuData]);
 
-  const openSubNav = useCallback(() => {
+    if (
+      (items && items.activeSubItem && !activeSubItem) ||
+      (items && items.activeSubItem && activeSubItem && items.activeSubItem.id !== activeSubItem.id)
+    ) {
+      setActiveSubItem(items.activeSubItem);
+    }
+  };
+
+  const openSubNav = () => {
     setShowSubNav(true);
+    setShowSubNavToggle(false);
     if (isFunction(onOpen)) onOpen();
-  }, []);
+  };
 
-  const closeSubNav = useCallback(() => {
-    setShowSubNav(false);
+  const closeSubNav = () => {
+    if (hideSubNavOnClose) setShowSubNav(false);
+    setShowSubNavToggle(true);
     if (isFunction(onClose)) onClose();
-  }, []);
+  };
 
   // ······································································
   // WATCHERS
 
   useEffect(() => {
-    let callback;
-    if (history) {
-      callback = history.listen(() => handleRouteChange());
+    if (isLoading || !menuData || (isArray(menuData) && !menuData.length)) {
+      handleRouteChange();
     }
-    return () => callback && callback();
-  }, []);
+  }, [menuData, isLoading]);
 
   // ······································································
   // STYLES
 
-  const { classes, cx } = MainNavStyles({ itemWidth: MAIN_NAV_WIDTH });
-
-  // ······································································
-  // SUB-COMPONENTS
-
-  const getItem = (item) => {
-    if (item.url) {
-      return (
-        <Link key={item.id} to={item.url}>
-          <MainNavItem
-            item={item}
-            itemWidth={MAIN_NAV_WIDTH}
-            active={activeItem?.id === item.id}
-            onClick={() => handleItemClick(item)}
-          />
-        </Link>
-      );
-    }
-    return (
-      <MainNavItem
-        key={item.id}
-        item={item}
-        itemWidth={MAIN_NAV_WIDTH}
-        active={activeItem?.id === item.id}
-        onClick={() => handleItemClick(item)}
-      />
-    );
-  };
+  const { classes, cx } = MainNavStyles(
+    { itemWidth: MAIN_NAV_WIDTH, subNavWidth },
+    { name: 'MainNav' }
+  );
 
   return (
     <Box className={classes.root}>
@@ -122,7 +104,17 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
           <Logo isotype className={classes.logo} />
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
-            {menuData && menuData.map((item) => getItem(item))}
+            {isArray(menuData) &&
+              menuData.map((item) => (
+                <MainNavItem
+                  key={item.id}
+                  item={item}
+                  itemWidth={MAIN_NAV_WIDTH}
+                  active={activeItem?.id === item.id}
+                  onClick={() => handleItemClick(item)}
+                  useRouter={useRouter}
+                />
+              ))}
           </SimpleBar>
           <Avatar mx="auto" mb={10} radius="xl">
             LE
@@ -139,11 +131,13 @@ const MainNav = ({ children, onClose, onOpen, menuData, isLoading, ...props }) =
           activeItem={activeSubItem}
           onItemClick={(item) => setActiveSubItem(item)}
           onClose={closeSubNav}
+          className={classes.subNav}
+          useRouter={useRouter}
         />
       )}
 
       {/* Open Sub Nav handler */}
-      {!showSubNav && activeItem && activeItem.children.length > 0 && (
+      {showSubNavToggle && activeItem && activeItem.children.length > 0 && (
         <Box className={classes.subNavHandler}>
           <ActionButton
             icon={<ComputerKeyboardNextIcon />}

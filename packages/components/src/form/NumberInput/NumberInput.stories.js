@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberInput } from './NumberInput';
+import { NumberInput, NUMBER_INPUT_DEFAULT_PROPS } from './NumberInput';
 import mdx from './NumberInput.mdx';
 
 export default {
@@ -20,13 +20,17 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <NumberInput {...props}>{children}</NumberInput>;
+const Template = ({ ...props }) => {
+  return <NumberInput {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  ...NUMBER_INPUT_DEFAULT_PROPS,
+  label: 'Label for Number input',
+  description: 'Optional descriptive text for this number input',
+  placeholder: 'Set a number',
+  help: 'Help text for number input',
+  error: 'Descriptive text for error ',
 };

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const lg = (className, style) => (
   <svg
     style={style}

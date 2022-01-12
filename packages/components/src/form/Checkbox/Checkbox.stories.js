@@ -1,9 +1,10 @@
 import React from 'react';
 import { Checkbox } from './Checkbox';
 import mdx from './Checkbox.mdx';
+import { HELP_POSITIONS, CHECKBOX_VARIANTS } from './Checkbox';
 
 export default {
-  title: 'Molecules/Form/Checkbox',
+  title: 'Atoms/Form/Checkbox',
   parameters: {
     component: Checkbox,
     docs: {
@@ -11,12 +12,13 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3642%3A26594',
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    onChange: { action: 'onChange' },
+    variant: { options: CHECKBOX_VARIANTS, control: { type: 'select' } },
+    helpPosition: { options: HELP_POSITIONS, control: { type: 'select' } },
   },
 };
 
@@ -27,6 +29,10 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  label: 'Checkbox label',
+  help: '',
+  helpPosition: 'right',
+  variant: 'default',
+  indeterminate: false,
+  disabled: false,
 };

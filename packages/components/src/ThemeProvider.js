@@ -1,7 +1,7 @@
 import React from 'react';
 import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
-import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
+import { COLORS, FONT_SIZES, SPACING, SHADOWS, LAYOUT } from './theme.tokens';
 
 export const ThemeProvider = ({ children, theme }) => {
   return (
@@ -34,6 +34,7 @@ export const ThemeProvider = ({ children, theme }) => {
           headings: {
             fontFamily: "'Lexend', sans-serif",
           },
+          primaryColor: 'bubbles',
         }}
       >
         {children}
