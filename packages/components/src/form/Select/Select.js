@@ -2,7 +2,7 @@ import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
-import { isFunction, isNil, isString } from 'lodash';
+import { isFunction, isNil, isString, isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
@@ -85,7 +85,7 @@ const Select = forwardRef(
             )
           }
           classNames={classes}
-          error={!isNil(error) && error != ''}
+          error={!isEmpty(error)}
         />
       </InputWrapper>
     );

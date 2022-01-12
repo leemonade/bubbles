@@ -85,11 +85,17 @@ const InputWrapper = forwardRef(
         </Stack>
 
         {/* Input, Error & help */}
-        <Box className={cx(classes.content, contentClassname)} style={contentStyle}>
+        <Stack
+          direction="column"
+          spacing={1}
+          className={cx(classes.content, contentClassname)}
+          style={contentStyle}
+        >
           {children}
+
           {hasError && <InputError message={error} />}
           {!isEmpty(help) && !hasError && <InputHelp message={help} />}
-        </Box>
+        </Stack>
       </Box>
     );
   }
