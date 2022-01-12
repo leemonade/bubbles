@@ -31,12 +31,13 @@ export const TabPanelList = ({
             : null
         }
       >
-        {React.Children.map(children, (child) => {
-          return React.cloneElement(child, {
-            tabKey: child.key,
+        {tabs.map(({ node, key }) => {
+          return React.cloneElement(node, {
+            key,
+            tabKey: key,
             id,
             animated: animated,
-            active: child.key === activeKey,
+            active: key === activeKey,
             destroyInactiveTabPane: destroyInactiveTabPane,
             forceRender: forceRender,
           });
