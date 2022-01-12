@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { get } from 'lodash';
 import { Box } from '@mantine/core';
 import DatasetItemDrawerContext from '../context/DatasetItemDrawerContext';
 import { Controller } from 'react-hook-form';
@@ -24,7 +25,7 @@ const Name = () => {
         render={({ field }) => (
           <TextInput
             placeholder={messages.namePlaceholder}
-            error={errors.name}
+            error={get(errors, 'config.name')}
             required
             {...field}
           />

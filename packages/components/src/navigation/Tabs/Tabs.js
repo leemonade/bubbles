@@ -17,21 +17,25 @@ let uuid = 0;
 
 function parseTabList(children) {
   // Tab[]
-  return React.Children.toArray(children)
-    .map((node) => {
-      if (React.isValidElement(node)) {
-        const key = node.key !== undefined ? String(node.key) : undefined;
-        return {
-          ...node.props,
-          key,
-          node,
-        };
-      }
-
-      return null;
-    })
-    .filter((tab) => tab);
+  return React.Children.map(children, (child) => {
+    const key = child.key !== undefined ? child.key : undefined;
+    return {
+      ...child.props,
+      key,
+      node: child,
+    };
+  });
 }
+
+const Wrapper = ({ usePageLayout, className, children }) => {
+  return usePageLayout ? (
+    <Box className={className}>
+      <PageContainer>{children}</PageContainer>
+    </Box>
+  ) : (
+    <Box className={className}>{children}</Box>
+  );
+};
 
 export const Tabs = forwardRef(
   (
@@ -58,6 +62,7 @@ export const Tabs = forwardRef(
     ref
   ) => {
     const tabs = parseTabList(children);
+
     const rtl = direction === 'rtl';
 
     const mergedAnimated = {
@@ -130,27 +135,21 @@ export const Tabs = forwardRef(
       { name: 'Tabs' }
     );
 
-    const Wrapper = ({ className, children }) => {
-      return usePageLayout ? (
-        <Box className={className}>
-          <PageContainer>{children}</PageContainer>
-        </Box>
-      ) : (
-        <Box className={className}>{children}</Box>
-      );
-    };
-
     return (
       <TabContext.Provider value={{ tabs }}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
-          <Wrapper className={classNames?.navList}>
+          <Wrapper usePageLayout={usePageLayout} className={classNames?.navList}>
             <TabNavList {...tabNavBarProps} />
           </Wrapper>
-          <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
+          <Wrapper
+            usePageLayout={usePageLayout}
+            className={cx(classes.panelList, classNames?.panelList)}
+          >
             <TabPanelList
               {...sharedProps}
               forceRender={forceRender}
               destroyInactiveTabPane={destroyInactiveTabPane}
+              children={children}
             />
           </Wrapper>
         </Box>

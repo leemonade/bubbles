@@ -9,10 +9,9 @@ import { get } from 'lodash';
 
 const Help = () => {
   const {
-    contextRef: { messages, errorMessages, selectOptions, gridColumn, colSpans },
+    contextRef: { messages, gridColumn, colSpans },
     form: {
       control,
-      watch,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
@@ -26,8 +25,10 @@ const Help = () => {
       <Grid columns={gridColumn} align="center">
         <Col span={colSpans[0]}>
           <Text strong color="primary" role="productive">
-            {messages.localeDescriptionLabel}
+            {messages.localeHelpLabel}
           </Text>
+          <br />
+          <Text role="productive">{messages.localeHelpDescription}</Text>
         </Col>
 
         <Col span={colSpans[1] + colSpans[2]}>

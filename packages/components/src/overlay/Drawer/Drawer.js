@@ -48,7 +48,7 @@ const Drawer = ({ close, onClose, onBack, children, back, empty, shadow, ...prop
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
 
   return (
-    <MantineDrawer {...props} shadow={false} hideCloseButton classNames={classes}>
+    <MantineDrawer {...props} onClose={onClose} shadow={false} hideCloseButton classNames={classes}>
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>
           {back && back !== '' ? (

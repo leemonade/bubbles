@@ -9,10 +9,9 @@ import { get } from 'lodash';
 
 const Description = () => {
   const {
-    contextRef: { messages, errorMessages, selectOptions, gridColumn, colSpans },
+    contextRef: { messages, gridColumn, colSpans },
     form: {
       control,
-      watch,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
@@ -28,6 +27,8 @@ const Description = () => {
           <Text strong color="primary" role="productive">
             {messages.localeDescriptionLabel}
           </Text>
+          <br />
+          <Text role="productive">{messages.localeDescriptionDescription}</Text>
         </Col>
 
         <Col span={colSpans[1] + colSpans[2]}>

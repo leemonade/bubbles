@@ -98,6 +98,7 @@ const ListItem = ({ children, sortable, index, reorder, classes, t }) => {
 const SortableList = ({
   value,
   onChange,
+  onRemove,
   render: Render,
   sortable,
   removable: _removable,
@@ -115,6 +116,7 @@ const SortableList = ({
   }
 
   function removeItem(i) {
+    onRemove(value[i]);
     value.splice(i, 1);
     onChange([...value]);
   }

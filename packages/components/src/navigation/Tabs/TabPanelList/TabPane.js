@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { TabPaneStyles } from './TabPane.styles';
@@ -47,7 +47,7 @@ export const TabPane = ({
       style={{ ...mergedStyle, ...style }}
       className={cx(classes.root, className)}
     >
-      {(active || visited || forceRender) && children}
+      {active || visited || forceRender ? children : null}
     </Box>
   );
 };
