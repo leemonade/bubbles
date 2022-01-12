@@ -32,8 +32,8 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Stack {...props}>{children}</Stack>;
+const Template = ({ ...props }) => {
+  return <Stack {...props} />;
 };
 
 export const Playground = Template.bind({});
@@ -41,8 +41,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...STACK_DEFAULT_PROPS,
   children: [
-    <div style={{ padding: 5, background: 'red' }}>Element 1</div>,
-    <div style={{ padding: 5, background: 'green' }}>Element 2</div>,
-    <div style={{ padding: 5, background: 'yellow' }}>Element 3</div>,
+    <Box style={{ padding: 5, background: 'red' }}>Element 1</Box>,
+    <Box style={{ padding: 5, background: 'green' }}>Element 2</Box>,
+    <Box style={{ padding: 5, background: 'yellow' }}>Element 3</Box>,
   ],
 };

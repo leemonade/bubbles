@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { TabPaneStyles } from './TabPane.styles';
+import { TabPanelStyles } from './TabPanel.styles';
 
-export const TabPane = ({
+export const TabPanel = ({
   forceRender,
   className,
   style,
   id,
   active,
   animated,
-  destroyInactiveTabPane,
+  destroyInactiveTabPanel,
   tabKey,
   children,
 }) => {
@@ -19,10 +19,10 @@ export const TabPane = ({
   useEffect(() => {
     if (active) {
       setVisited(true);
-    } else if (destroyInactiveTabPane) {
+    } else if (destroyInactiveTabPanel) {
       setVisited(false);
     }
-  }, [active, destroyInactiveTabPane]);
+  }, [active, destroyInactiveTabPanel]);
 
   const mergedStyle = {};
   if (!active) {
@@ -35,7 +35,7 @@ export const TabPane = ({
     }
   }
 
-  const { classes, cx } = TabPaneStyles({ active }, { name: 'TabPane' });
+  const { classes, cx } = TabPanelStyles({ active }, { name: 'TabPane' });
 
   return (
     <Box
@@ -52,7 +52,7 @@ export const TabPane = ({
   );
 };
 
-TabPane.propTypes = {
+TabPanel.propTypes = {
   tab: PropTypes.node,
   disabled: PropTypes.bool,
   forceRender: PropTypes.bool,
@@ -64,5 +64,5 @@ TabPane.propTypes = {
   id: PropTypes.string,
   animated: PropTypes.bool,
   active: PropTypes.bool,
-  destroyInactiveTabPane: PropTypes.bool,
+  destroyInactiveTabPanel: PropTypes.bool,
 };
