@@ -32,6 +32,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       color: theme.colors.text03,
       padding: 0,
       margin: 0,
+      height: pxToRem(14),
       '::placeholder': {
         ...getFontProductive(theme.fontSizes['2']),
         color: theme.colors.text05,
@@ -55,7 +56,6 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       display: 'flex',
       padding: 0,
       flexDirection: 'column',
-      gap: pxToRem(8),
       '> div': {
         cursor: 'pointer',
         '&:hover': {

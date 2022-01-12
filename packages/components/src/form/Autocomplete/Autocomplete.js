@@ -27,10 +27,12 @@ export const AUTOCOMPLETE_DEFAULT_PROPS = {
 export const AUTOCOMPLETE_PROP_TYPES = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  // data: PropTypes.oneOf([
-  //   PropTypes.arrayOf(PropTypes.string),
-  //   PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
-  // ]),
+  data: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(
+      PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
+    ),
+  ]).isRequired,
   itemComponent: PropTypes.elementType,
   valueComponent: PropTypes.elementType,
   nothingFoundLabel: PropTypes.string,

@@ -3,10 +3,13 @@ import * as stories from './Autocomplete.stories.js';
 import { Autocomplete } from './Autocomplete.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { Badge } from '../../informative/Badge';
+import { UserDisplayItem } from '../../informative/UserDisplayItem';
+import { forwardRef } from 'react';
 
-# **name**
+# **Autocomplete**
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/Autocomplete>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/Autocomplete)
 
 ## Table of Contents
 
@@ -20,10 +23,79 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+**Autocomplete** is ...
+
+You must pass a data array to the component, with simple strings or an array of objects with a required **value** property
+and **label** property if you are using the multiple Autocomplete.
 
 <ThemeProvider>
-  <Autocomplete>Autocomplete</Autocomplete>
+  <Autocomplete
+    label={'Students'}
+    placeholder={'Search for a student'}
+    data={[
+      { value: 'Ana Alonso', label: 'Ana Alonso', children: 'Ana Alonso' },
+      { value: 'Antonia Hidalgo', label: 'Antonia Hidalgo', children: 'Antonia Hidalgo' },
+      { value: 'Maria Merino', label: 'Maria Merino', children: 'Maria Merino' },
+      { value: 'Juan Carlos', label: 'Juan Carlos', children: 'Juan Carlos' },
+    ]}
+    nothingFoundLabel={'No maches found'}
+  />
+</ThemeProvider>
+
+## Custom item and value components
+
+You can display your own custom components in the item list and value.
+
+In this case we will **UserDisplayItem** for the item component and **Badge** for the value component.
+
+<ThemeProvider>
+  <Autocomplete
+    {...props}
+    multiple={true}
+    label={'Student'}
+    placeholder={'Search for a student'}
+    data={[
+      {
+        value: 'Ana Alonso',
+        name: 'Ana Alonso',
+        label: 'Ana Alonso',
+        children: 'Ana Alonso',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        value: 'Antonia Hidalgo',
+        name: 'Antonia Hidalgo',
+        label: 'Antonia Hidalgo',
+        children: 'Antonia Hidalgo',
+        avatar:
+          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        value: 'Maria Merino',
+        name: 'Maria Merino',
+        label: 'Maria Merino',
+        children: 'Maria Merino',
+        avatar:
+          'https://images.unsplash.com/photo-1641324379143-81128cbb7ee7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0MTgxMDY1Ng&ixlib=rb-1.2.1&q=80&w=1080',
+      },
+      {
+        value: 'Miles Morales',
+        name: 'Miles Morales',
+        label: 'Miles Morales',
+        children: 'Miles Morales',
+        avatar:
+          'https://images.unsplash.com/photo-1641664434328-6fe8a810e882?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0MTg5MjUyMw&ixlib=rb-1.2.1&q=80&w=1080',
+      },
+    ]}
+    nothingFoundLabel={'No maches found'}
+    itemComponent={forwardRef(({ ...others }, ref) => (
+      <UserDisplayItem {...others} style={{ padding: 4 }} />
+    ))}
+    valueComponent={forwardRef(({ avatar, onRemove, ...others }, ref) => (
+      <Badge {...others} radius={'rounded'} size={'xs'} image={avatar} onClose={onRemove} />
+    ))}
+  />
 </ThemeProvider>
 
 ## Component API
@@ -36,13 +108,13 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/autocomplete_role>)
+[MDN: ARIA **Autocomplete** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/autocomplete_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/autocomplete/autocomplete.html>)
+[W3: ARIA **Autocomplete** role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/autocomplete/autocomplete.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/Autocomplete.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/Autocomplete.mdx)
