@@ -2,22 +2,25 @@ import React, { useRef } from 'react';
 import { withTheme } from '@leemonade/rjsf-core';
 import { FormWithThemeStyles } from './FormWithTheme.styles';
 import { transformErrors } from './helpers/transformErrors';
-import StringField from './components/fields/StringField';
-import BaseInput from './components/widgets/BaseInput';
-import SchemaField from './components/fields/SchemaField';
-import TextareaWidget from './components/widgets/TextareaWidget';
+import ArrayField from './components/fields/ArrayField';
+
 import { getValidateSchema } from './helpers/getValidateSchema';
 import { transformAjvErrors } from './helpers/transformAjvErrors';
-import ToggleWidget from './components/widgets/ToggleWidget';
-import SelectWidget from './components/widgets/SelectWidget';
-import CheckboxesWidget from './components/widgets/CheckboxesWidget';
+import BaseInput from './components/widgets/BaseInput';
 import RadioWidget from './components/widgets/RadioWidget';
+import SelectWidget from './components/widgets/SelectWidget';
+import TextareaWidget from './components/widgets/TextareaWidget';
+import CheckboxesWidget from './components/widgets/CheckboxesWidget';
+import ToggleWidget from './components/widgets/ToggleWidget';
 import CheckboxWidget from './components/widgets/CheckboxWidget';
+import StringField from './components/fields/StringField';
+import ObjectField from './components/fields/ObjectField';
+import SchemaField from './components/fields/SchemaField';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
 
-const FORM_WITH_THEME_REGEX = {
+export const FORM_WITH_THEME_REGEX = {
   numbers: /^\d+$/,
   phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
@@ -28,7 +31,9 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
 
   const ThemeForm = withTheme({
     fields: {
+      ArrayField,
       StringField,
+      ObjectField,
       SchemaField,
     },
     widgets: {
@@ -45,7 +50,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
   });
 
   return [
-    <ThemeForm
+    schema || ui ? <ThemeForm
       {...props}
       ref={(e) => {
         ref.current = e;
@@ -59,7 +64,9 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
         numbers: FORM_WITH_THEME_REGEX.numbers,
         phone: FORM_WITH_THEME_REGEX.phone,
       }}
-    ></ThemeForm>,
+    >
+      <></>
+    </ThemeForm> : null,
     {
       isLoaded: () => !!ref.current,
       submit: () => {

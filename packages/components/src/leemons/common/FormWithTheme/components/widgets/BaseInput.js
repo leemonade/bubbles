@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatePicker, NumberInput, PasswordInput, TextInput } from '../../../../../form';
+import { clone, isDate } from 'lodash';
 
 function BaseInput(props) {
   // Note: since React 15.2.0 we can't forward unknown element attributes, so we
@@ -9,6 +10,7 @@ function BaseInput(props) {
     console.log('No id for', props);
     throw new Error(`no id for props ${JSON.stringify(props)}`);
   }
+
   const {
     value,
     readonly,
@@ -66,10 +68,11 @@ function BaseInput(props) {
     inputProps.max = schema.maximum;
   }
 
+  const finalType = clone(inputProps.type);
+
   const _onChange = (event) => {
-    const onlyValueTypes = ['number', 'date'];
-    let newVal = options.emptyValue;
-    switch (inputProps.type) {
+    let newVal;
+    switch (finalType) {
       case 'number':
         newVal = event;
         break;
@@ -96,6 +99,20 @@ function BaseInput(props) {
       Input = DatePicker;
       finalValue = finalValue ? new Date(finalValue) : undefined;
       delete inputProps.type;
+      if (schema.minDate || schema.maxDate) {
+        try {
+          inputProps.minDate = new Date(schema.minDate);
+          if (!isDate(inputProps.minDate)) {
+            delete inputProps.minDate;
+          }
+        } catch (e) {}
+        try {
+          inputProps.maxDate = new Date(schema.maxDate);
+          if (!isDate(inputProps.maxDate)) {
+            delete inputProps.maxDate;
+          }
+        } catch (e) {}
+      }
       break;
     case 'password':
       Input = PasswordInput;

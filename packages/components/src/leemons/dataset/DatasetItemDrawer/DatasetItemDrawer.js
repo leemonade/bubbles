@@ -13,6 +13,7 @@ import { FieldConfig } from './components/FieldConfig';
 import { FieldConfigLocale } from './components/FieldConfigLocale';
 import { Permissions } from './components/Permissions';
 import { Button } from '../../../form';
+import { Preview } from './components/Preview';
 
 export const DATASET_DATA_TYPES = {
   textField: {
@@ -54,6 +55,7 @@ export const DATASET_DATA_TYPES = {
     type: 'user',
   },
 };
+
 
 export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
   messages: {
@@ -111,6 +113,7 @@ export const DATASET_ITEM_DRAWER_DEFAULT_PROPS = {
     permissionsViewLabel: 'View',
     permissionsEditLabel: 'Edit',
     translateOptionsContinueButtonLabel: 'Continue',
+    previewLabel: 'Preview',
   },
   errorMessages: {
     nameRequired: 'Field required',
@@ -230,6 +233,7 @@ export const DATASET_ITEM_DRAWER_PROP_TYPES = {
     })
   ),
   defaultLocale: PropTypes.string,
+  formWithTheme: PropTypes.func,
   selectOptions: PropTypes.shape({
     centers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -299,6 +303,7 @@ const DatasetItemDrawer = ({
   defaultLocale,
   profiles,
   isSaving,
+  formWithTheme,
 }) => {
   const { classes, cx } = DatasetItemDrawerStyles({});
   const form = useForm({ defaultValues });
@@ -332,23 +337,27 @@ const DatasetItemDrawer = ({
     contextRef.current.locales = locales;
     contextRef.current.defaultLocale = defaultLocale;
     contextRef.current.profiles = profiles;
+    contextRef.current.formWithTheme = formWithTheme;
+    if (!contextRef.current.selectedLocale) {
+      contextRef.current.selectedLocale = defaultLocale;
+    }
     render();
-  }, [messages, errorMessages, selectOptions, locales, defaultLocale, profiles]);
+  }, [messages, errorMessages, selectOptions, locales, defaultLocale, profiles, formWithTheme]);
 
   return (
     <Drawer position={position} opened={opened} size={size} onClose={onClose} empty>
       {loading ? (
         'Loading'
       ) : (
-        <Grid className={classes.grid} grow columns={100}>
-          <Col span={35} className={classes.leftColContainer}>
-            <Box>Left</Box>
-          </Col>
+        <DatasetItemDrawerContext.Provider
+          value={{ contextRef: contextRef.current, classes, form, render }}
+        >
+          <Grid className={classes.grid} grow columns={100}>
+            <Col span={35} className={classes.leftColContainer}>
+              <Preview />
+            </Col>
 
-          <Col span={65} className={classes.rightColContainer}>
-            <DatasetItemDrawerContext.Provider
-              value={{ contextRef: contextRef.current, form, render }}
-            >
+            <Col span={65} className={classes.rightColContainer}>
               <Box className={classes.rightColContent}>
                 {/* Name */}
                 <Name />
@@ -371,9 +380,9 @@ const DatasetItemDrawer = ({
                   {messages.saveButtonLabel}
                 </Button>
               </Box>
-            </DatasetItemDrawerContext.Provider>
-          </Col>
-        </Grid>
+            </Col>
+          </Grid>
+        </DatasetItemDrawerContext.Provider>
       )}
     </Drawer>
   );

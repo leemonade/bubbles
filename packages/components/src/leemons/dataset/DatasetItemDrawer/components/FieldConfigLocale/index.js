@@ -44,14 +44,23 @@ const FieldConfigLocaleItem = ({ localeConfig }) => {
 };
 
 const FieldConfigLocale = () => {
-  const {
-    contextRef: { messages, locales, defaultLocale },
-  } = useContext(DatasetItemDrawerContext);
+  const { contextRef, render } = useContext(DatasetItemDrawerContext);
+
+  const { messages, locales, defaultLocale } = contextRef;
+
+  function onLocaleChange({ currentLocale: { code } }) {
+    contextRef.selectedLocale = code;
+    render();
+  }
 
   return (
     <Box sx={(theme) => ({ marginTop: theme.spacing[5] })}>
       <Title order={4}>{messages.fieldConfigLocaleTitle}</Title>
-      <TranslatorTabs locales={locales} defaultLocale={defaultLocale}>
+      <TranslatorTabs
+        locales={locales}
+        defaultLocale={defaultLocale}
+        onLocaleChange={onLocaleChange}
+      >
         <FieldConfigLocaleItem />
       </TranslatorTabs>
     </Box>

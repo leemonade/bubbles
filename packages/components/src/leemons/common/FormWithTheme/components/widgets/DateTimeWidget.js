@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { utcToLocal, localToUTC } from "../../utils";
+
 
 function DateTimeWidget(props) {
   const {
@@ -27,3 +27,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default DateTimeWidget;
+import { utcToLocal, localToUTC } from "../../utils";

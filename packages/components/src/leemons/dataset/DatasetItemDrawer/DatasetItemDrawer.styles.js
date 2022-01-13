@@ -2,6 +2,14 @@ import { createStyles } from '@mantine/styles';
 
 export const DatasetItemDrawerStyles = createStyles((theme, {}) => {
   return {
+    preview: {
+      backgroundColor: theme.colors.uiBackground01,
+      display: 'block',
+    },
+    previewTitle: {
+      color: theme.colors.text04,
+      textTransform: 'uppercase',
+    },
     grid: {
       margin: 0,
     },

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { rangeSpec } from "../../utils";
+
 
 function RangeWidget(props) {
   const {
@@ -26,3 +26,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default RangeWidget;
+import { rangeSpec } from "../../utils";

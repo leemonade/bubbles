@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { rangeSpec } from "../../utils";
+
 
 function UpDownWidget(props) {
   const {
@@ -19,3 +19,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default UpDownWidget;
+import { rangeSpec } from "../../utils";
