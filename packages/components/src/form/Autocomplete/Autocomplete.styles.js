@@ -40,7 +40,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       },
     },
     values: {
-      padding: `${pxToRem(12)} ${pxToRem(8)}`,
+      padding: `${pxToRem(8)}`,
       margin: 0,
       minheight: pxToRem(40),
       display: 'flex',
