@@ -67,7 +67,7 @@ const Stack = ({
           alignContent === 'normal' &&
           alignItems === 'normal'
         ) {
-          const style = { ...child.props.style, flex: 1 };
+          const style = { ...child.props.style, flex: child.props.noFlex ? 0 : 1 };
           return React.cloneElement(child, { style });
         }
         return child;

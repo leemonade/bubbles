@@ -6,10 +6,9 @@ import { Box } from '@mantine/core';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
 import { TabPanelList } from './TabPanelList/TabPanelList';
-import { TabPane } from './TabPanelList/TabPane';
-import TabContext from './TabContext';
 import { TabsStyles } from './Tabs.styles';
 import { PageContainer } from '../../layout';
+import TabContext from './TabContext';
 
 export const TABS_PANEL_COLORS = ['default', 'solid'];
 
@@ -48,7 +47,7 @@ export const Tabs = forwardRef(
       defaultActiveKey,
       position = 'left',
       orientation = 'horizontal',
-      destroyInactiveTabPane,
+      destroyInactiveTabPanel,
       animated = false,
       fullHeight = false,
       className,
@@ -149,7 +148,7 @@ export const Tabs = forwardRef(
             <TabPanelList
               {...sharedProps}
               forceRender={forceRender}
-              destroyInactiveTabPane={destroyInactiveTabPane}
+              destroyInactiveTabPanel={destroyInactiveTabPanel}
               children={children}
             />
           </Wrapper>
@@ -159,15 +158,13 @@ export const Tabs = forwardRef(
   }
 );
 
-Tabs.TabPane = TabPane;
-
 Tabs.propTypes = {
   id: PropTypes.string,
   activeKey: PropTypes.string,
   defaultActiveKey: PropTypes.string,
   direction: PropTypes.oneOf(['ltr', 'rtl']),
   position: PropTypes.oneOf(['left', 'right', 'center']),
-  destroyInactiveTabPane: PropTypes.bool,
+  destroyInactiveTabPanel: PropTypes.bool,
   animated: PropTypes.bool,
   usePageLayout: PropTypes.bool,
   panelColor: PropTypes.oneOf(TABS_PANEL_COLORS),

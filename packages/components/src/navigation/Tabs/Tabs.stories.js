@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { InformationCircleIcon, StarIcon } from '@heroicons/react/solid';
 import { Box, Group, NumberInput, Paper } from '@mantine/core';
 import { Paragraph } from './../../typography';
+import { TabPanel } from './TabPanelList/TabPanel';
 import { Tabs } from './Tabs';
-
 import mdx from './Tabs.mdx';
-import { TabPane } from './TabPanelList/TabPane';
 
 export default {
   title: 'Organisms/Navigation/Tabs',
@@ -29,7 +28,7 @@ const Template = ({ position, disabled, ...props }) => {
       <Box style={{ width: '80%' }}>
         <Tabs position={position} forceRender>
           {[...Array(numberOfTabs).keys()].map((i) => (
-            <TabPane
+            <TabPanel
               {...props}
               key={i}
               disabled={disabled}
@@ -41,7 +40,7 @@ const Template = ({ position, disabled, ...props }) => {
               rightIcon={i === 3 ? <StarIcon style={{ width: 14, color: '#B9BEC4' }} /> : undefined}
             >
               <Paragraph>Content of {i}</Paragraph>
-            </TabPane>
+            </TabPanel>
           ))}
         </Tabs>
       </Box>
@@ -66,16 +65,16 @@ Playground.args = {
 const SimpleTemplate = ({ position, disabled, ...props }) => {
   return (
     <Tabs {...props} forceRender>
-      <TabPane label="First">
+      <TabPanel label="First">
         <Box>
           <Paragraph>Content of First tab</Paragraph>
         </Box>
-      </TabPane>
-      <TabPane label="Second" disabled>
+      </TabPanel>
+      <TabPanel label="Second" disabled>
         <Box>
           <Paragraph>Content of Second tab</Paragraph>
         </Box>
-      </TabPane>
+      </TabPanel>
     </Tabs>
   );
 };

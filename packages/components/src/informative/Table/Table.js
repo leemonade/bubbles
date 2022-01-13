@@ -10,7 +10,7 @@ import { TableStyles } from './Table.styles';
 export const TABLE_DEFAULT_PROPS = {};
 export const TABLE_PROP_TYPES = {};
 
-const Table = ({ columns, data, setData, onChangeData }) => {
+const Table = ({ columns, data, onChangeData }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -20,8 +20,6 @@ const Table = ({ columns, data, setData, onChangeData }) => {
     const newData = update(data, {
       [oldCell.row.index]: { [oldCell.column.id]: { $merge: newCell.value } },
     });
-
-    setData(newData);
 
     if (isFunction(onChangeData)) {
       onChangeData({

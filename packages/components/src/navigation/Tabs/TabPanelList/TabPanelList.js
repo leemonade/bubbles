@@ -10,7 +10,7 @@ export const TabPanelList = ({
   animated,
   position,
   rtl,
-  destroyInactiveTabPane,
+  destroyInactiveTabPanel,
   className,
   forceRender,
   children,
@@ -38,7 +38,7 @@ export const TabPanelList = ({
             id,
             animated: animated,
             active: key === activeKey,
-            destroyInactiveTabPane: destroyInactiveTabPane,
+            destroyInactiveTabPanel: destroyInactiveTabPanel,
             forceRender: forceRender,
           });
         })}
@@ -53,6 +53,6 @@ TabPanelList.propTypes = {
   rtl: PropTypes.bool,
   animated: PropTypes.bool,
   position: PropTypes.string,
-  destroyInactiveTabPane: PropTypes.bool,
+  destroyInactiveTabPanel: PropTypes.bool,
   forceRender: PropTypes.bool,
 };
