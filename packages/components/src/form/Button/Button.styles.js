@@ -9,8 +9,12 @@ const getSizes = (size, theme, paddingX, paddingY) => {
       height: spacing[7],
       ...getPaddings(paddingY || spacing[1], paddingX || spacing[4]),
     },
-
     sm: {
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[8],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[5]),
+    },
+    md: {
       fontSize: pxToRem(fontSizes[2]),
       height: spacing[9],
       ...getPaddings(paddingY || spacing[1], paddingX || spacing[7]),
@@ -211,6 +215,7 @@ export const ButtonStyles = createStyles(
         paddingLeft: variant === 'link' ? 0 : theme.spacing[2],
         paddingRight: variant === 'link' ? 0 : theme.spacing[2],
         height: 'auto',
+        minHeight: 38,
       };
     }
 

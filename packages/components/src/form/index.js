@@ -9,6 +9,7 @@ export * from './IconButton';
 export * from './RadioGroup';
 export * from './DatePicker';
 export * from './InputError';
+export * from './TableInput';
 export * from './TextInput';
 export * from './Textarea';
 export * from './Checkbox';

@@ -49,7 +49,7 @@ const Alert = ({
           {!isNil(children) && children !== '' && <Box className={classes.content}>{children}</Box>}
           {!isNil(action) && action !== '' && (
             <Box className={classes.action}>
-              <Button variant="link" compact onClick={onAction}>
+              <Button variant="link" size="xs" onClick={onAction}>
                 {action}
               </Button>
             </Box>
