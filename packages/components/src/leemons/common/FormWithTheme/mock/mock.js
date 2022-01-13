@@ -476,8 +476,61 @@ export const mock = {
         permissions: {},
         id: 'rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8',
       },
+      rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: {
+        frontConfig: {
+          centers: ['*'],
+          name: 'Fecha',
+          type: 'date',
+          permissions: [
+            {
+              id: '1f6413ea-3e5a-475e-836f-0d7666cd42ff',
+              roles: [
+                { id: 'e7624f56-ca96-48ec-9336-c6268c9f2eb7' },
+                { id: '4a010b63-6206-463d-a18c-8b290a49336f' },
+              ],
+              view: false,
+              edit: false,
+            },
+            {
+              id: 'f8c50a5c-6b2b-4895-8112-9daa64dd03c0',
+              roles: [
+                { id: 'f9aff5da-bcfb-4671-bdc2-db5a7573b4b3' },
+                { id: 'cdeeafb7-2c38-4f78-abed-0baa07ea805b' },
+              ],
+              view: false,
+              edit: false,
+            },
+          ],
+          required: true,
+          minDate: '2022-01-02T23:00:00.000Z',
+          maxDate: '2022-01-30T23:00:00.000Z',
+          checkboxLabels: {},
+        },
+        type: 'string',
+        format: 'date',
+        minDate: '2022-01-02T23:00:00.000Z',
+        maxDate: '2022-01-30T23:00:00.000Z',
+        title:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.title')/}}",
+        description:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.description')/}}",
+        selectPlaceholder:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.selectPlaceholder')/}}",
+        optionLabel:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.optionLabel')/}}",
+        yesOptionLabel:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.yesOptionLabel')/}}",
+        noOptionLabel:
+          "{{@printWithOutErrors(it, 'properties.rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.noOptionLabel')/}}",
+        permissionsType: 'role',
+        permissions: {},
+        id: 'rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f',
+      },
     },
-    required: ['rseb9d6f531e9e6a9ece77f26a08ad30fcd0450fbbfa2ae0cc05a6c35f83f0'],
+    required: [
+      'rseb9d6f531e9e6a9ece77f26a08ad30fcd0450fbbfa2ae0cc05a6c35f83f0',
+      'rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f',
+    ],
   },
   jsonUI: {
     rsd632905709b10e3bbd359433820b78a8eb624af9ddc8766b0f44bcd4c5de: {
@@ -521,10 +574,14 @@ export const mock = {
       'ui:help':
         "{{@printWithOutErrors(it, 'rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8.ui_help')/}}",
     },
+    rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: {
+      'ui:help':
+        "{{@printWithOutErrors(it, 'rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f.ui_help')/}}",
+    },
   },
   deleted: 0,
   created_at: '2022-01-11T16:30:20.000Z',
-  updated_at: '2022-01-12T11:51:01.000Z',
+  updated_at: '2022-01-12T16:38:46.000Z',
   deleted_at: null,
   schemaData: {
     properties: {
@@ -642,6 +699,14 @@ export const mock = {
       rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8: {
         title: 'Usuario',
         description: 'wefwefwef',
+        selectPlaceholder: '',
+        optionLabel: '',
+        yesOptionLabel: '',
+        noOptionLabel: '',
+      },
+      rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: {
+        title: 'Fecha',
+        description: 'ewfwfwef',
       },
     },
   },
@@ -657,6 +722,7 @@ export const mock = {
     rscd59845a72d86cbd04a9ad0d6601cd6bc04018c57d82007373729b026f63: { ui_help: 'wefwefwef' },
     rs49a793f536685071e239b06cdc63084ab17714f304994d3ba99597d757ca: { ui_help: 'wefwefwef' },
     rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8: { ui_help: 'wefwefwef' },
+    rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: { ui_help: 'wefwefwefwef' },
   },
   compileJsonSchema: {
     type: 'object',
@@ -1081,8 +1147,55 @@ export const mock = {
         permissions: {},
         id: 'rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8',
       },
+      rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: {
+        frontConfig: {
+          centers: ['*'],
+          name: 'Fecha',
+          type: 'date',
+          permissions: [
+            {
+              id: '1f6413ea-3e5a-475e-836f-0d7666cd42ff',
+              roles: [
+                { id: 'e7624f56-ca96-48ec-9336-c6268c9f2eb7' },
+                { id: '4a010b63-6206-463d-a18c-8b290a49336f' },
+              ],
+              view: false,
+              edit: false,
+            },
+            {
+              id: 'f8c50a5c-6b2b-4895-8112-9daa64dd03c0',
+              roles: [
+                { id: 'f9aff5da-bcfb-4671-bdc2-db5a7573b4b3' },
+                { id: 'cdeeafb7-2c38-4f78-abed-0baa07ea805b' },
+              ],
+              view: false,
+              edit: false,
+            },
+          ],
+          required: true,
+          minDate: '2022-01-02T23:00:00.000Z',
+          maxDate: '2022-01-30T23:00:00.000Z',
+          checkboxLabels: {},
+        },
+        type: 'string',
+        format: 'date',
+        minDate: '2022-01-02T23:00:00.000Z',
+        maxDate: '2022-01-30T23:00:00.000Z',
+        title: 'Fecha',
+        description: 'ewfwfwef',
+        selectPlaceholder: '',
+        optionLabel: '',
+        yesOptionLabel: '',
+        noOptionLabel: '',
+        permissionsType: 'role',
+        permissions: {},
+        id: 'rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f',
+      },
     },
-    required: ['rseb9d6f531e9e6a9ece77f26a08ad30fcd0450fbbfa2ae0cc05a6c35f83f0'],
+    required: [
+      'rseb9d6f531e9e6a9ece77f26a08ad30fcd0450fbbfa2ae0cc05a6c35f83f0',
+      'rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f',
+    ],
   },
   compileJsonUI: {
     rsd632905709b10e3bbd359433820b78a8eb624af9ddc8766b0f44bcd4c5de: {
@@ -1109,5 +1222,6 @@ export const mock = {
     },
     rs49a793f536685071e239b06cdc63084ab17714f304994d3ba99597d757ca: { 'ui:help': 'wefwefwef' },
     rsc786f7cc80352e9506ceae23f63b69cd3af52a85eb7ff2d6e0bd2b10a1d8: { 'ui:help': 'wefwefwef' },
+    rsf94497cbf6d2e51b811cee62d58e1a9ada7b03a36e18e0ab4097123b328f: { 'ui:help': 'wefwefwefwef' },
   },
 };
