@@ -10,5 +10,12 @@ export const TableInputStyles = createStyles((theme, {}) => {
     actionCell: {
       textAlign: 'center',
     },
+    row: {
+      backgroundColor: theme.colors.uiBackground01,
+    },
+    sortIcon: {
+      color: theme.colors.text04,
+      cursor: 'move',
+    },
   };
 });

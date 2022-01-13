@@ -1,16 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import { useTable } from 'react-table';
 import { useForm, Controller } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Text } from '../../typography';
 import { TableStyles } from '../../informative/Table/Table.styles';
-import { TableCell } from '../../informative/Table/TableCell/TableCell';
 import { TABLE_INPUT_PROP_TYPES, TABLE_INPUT_DEFAULT_PROPS } from './TableInput';
-import { ActionButton, Button } from '../../form';
+import { Button } from '../../form';
 import { TableInputStyles } from './TableInput.styles';
+import { TableInputRow } from './TableInputRow';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
@@ -23,7 +24,7 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   onRemove: PropTypes.func,
 };
 
-const TableInputDisplay = ({ labels, columns, data, onAdd, onRemove }) => {
+const TableInputDisplay = ({ labels, columns, data, onAdd, onRemove, onSort, sortable }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -64,80 +65,71 @@ const TableInputDisplay = ({ labels, columns, data, onAdd, onRemove }) => {
     [columns]
   );
 
-  const getColumCellValue = (cell, row, index) => {
-    return <TableCell cell={cell} />;
-  };
-
   return (
-    <form onSubmit={handleSubmit(onAdd)}>
-      <table
-        {...getTableProps({
-          className: tableClasses.root,
-        })}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps({})}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps({
-                    className: cx(tableClasses.th, column.className),
-                    style: column.style,
-                  })}
-                >
-                  <Text size="xs" role="productive" color="primary" strong>
-                    {column.render('Header')}
-                  </Text>
-                </th>
-              ))}
-              <th></th>
-            </tr>
-          ))}
-
-          <tr className={tableClasses.tr}>
-            {columns.map((column, i) => (
-              <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
-                {getColumnInput(column.accessor)}
-              </th>
-            ))}
-            <th className={cx(tableClasses.td, classes.inputCell)}>
-              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} type="submit">
-                {labels.add}
-              </Button>
-            </th>
-          </tr>
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps({
-                  className: cx({ [tableClasses.tr]: i < rows.length - 1 }),
-                })}
-              >
-                {row.cells.map((cell, index) => (
-                  <td
-                    {...cell.getCellProps({
-                      className: tableClasses.td,
+    <DndProvider backend={HTML5Backend}>
+      <form onSubmit={handleSubmit(onAdd)}>
+        <table
+          {...getTableProps({
+            className: tableClasses.root,
+          })}
+        >
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps({})}>
+                {sortable && <th style={{ width: 20 }}></th>}
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps({
+                      className: cx(tableClasses.th, column.className),
+                      style: column.style,
                     })}
                   >
-                    {getColumCellValue(cell)}
-                  </td>
+                    <Text size="xs" role="productive" color="primary" strong>
+                      {column.render('Header')}
+                    </Text>
+                  </th>
                 ))}
-                <td className={cx(tableClasses.td, classes.actionCell)}>
-                  <ActionButton
-                    icon={<DeleteBinIcon />}
-                    tooltip={labels.remove}
-                    onClick={() => onRemove(i)}
-                  />
-                </td>
+                <th></th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </form>
+            ))}
+
+            <tr className={tableClasses.tr}>
+              {sortable && <th></th>}
+              {columns.map((column, i) => (
+                <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
+                  {getColumnInput(column.accessor)}
+                </th>
+              ))}
+              <th className={cx(tableClasses.td, classes.inputCell)}>
+                <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} type="submit">
+                  {labels.add}
+                </Button>
+              </th>
+            </tr>
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map(
+              (row, i) =>
+                prepareRow(row) || (
+                  <TableInputRow
+                    {...row.getRowProps()}
+                    index={i}
+                    row={row}
+                    moveRow={onSort}
+                    labels={labels}
+                    onRemove={onRemove}
+                    classes={classes}
+                    tableClasses={tableClasses}
+                    cx={cx}
+                    totalRows={rows.length}
+                    sortable={sortable}
+                  />
+                )
+            )}
+          </tbody>
+        </table>
+      </form>
+    </DndProvider>
   );
 };
 
