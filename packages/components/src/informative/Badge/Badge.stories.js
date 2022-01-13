@@ -24,7 +24,11 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Badge {...props}>{children}</Badge>;
+  return (
+    <Box style={{ marginLeft: 20, marginTop: 20 }}>
+      <Badge {...props}>{children}</Badge>
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
