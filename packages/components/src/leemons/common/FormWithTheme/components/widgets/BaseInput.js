@@ -94,7 +94,8 @@ function BaseInput(props) {
       break;
     case 'date':
       Input = DatePicker;
-      finalValue = finalValue ? new Date(finalValue) : new Date();
+      finalValue = finalValue ? new Date(finalValue) : undefined;
+      delete inputProps.type;
       break;
     case 'password':
       Input = PasswordInput;

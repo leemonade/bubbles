@@ -58,8 +58,6 @@ const DatePicker = forwardRef(
       };
     }, [locale]);
 
-    console.log(props);
-
     return (
       <InputWrapper
         uuid={uuid}
