@@ -28,7 +28,24 @@ export const NUMBER_INPUT_DEFAULT_PROPS = {
 };
 
 const NumberInput = forwardRef(
-  ({ error, size, label, orientation, description, help, readOnly, required, ...props }, ref) => {
+  (
+    {
+      error,
+      size,
+      label,
+      orientation,
+      description,
+      help,
+      readOnly,
+      required,
+      headerStyle,
+      contentStyle,
+      headerClassName,
+      contentClassName,
+      ...props
+    },
+    ref
+  ) => {
     const uuid = useId();
     const { classes, cx } = NumberInputStyles({ size });
 
@@ -42,6 +59,10 @@ const NumberInput = forwardRef(
         orientation={orientation}
         required={required}
         help={help}
+        headerStyle={headerStyle}
+        contentStyle={contentStyle}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
       >
         {readOnly ? (
           <Paragraph clean>{value || defaultValue || ''}</Paragraph>
