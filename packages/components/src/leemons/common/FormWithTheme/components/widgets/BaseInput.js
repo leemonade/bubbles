@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NumberInput, PasswordInput, TextInput } from '../../../../../form';
+import { DatePicker, NumberInput, PasswordInput, TextInput } from '../../../../../form';
 
 function BaseInput(props) {
   // Note: since React 15.2.0 we can't forward unknown element attributes, so we
@@ -67,7 +67,18 @@ function BaseInput(props) {
   }
 
   const _onChange = (event) => {
-    const newVal = inputProps.type === 'number' ? event : event.target.value;
+    const onlyValueTypes = ['number', 'date'];
+    let newVal = options.emptyValue;
+    switch (inputProps.type) {
+      case 'number':
+        newVal = event;
+        break;
+      case 'date':
+        newVal = event.toString();
+        break;
+      default:
+        newVal = event.target.value;
+    }
     return props.onChange({
       ...value,
       value: newVal === '' ? options.emptyValue : newVal,
@@ -75,10 +86,16 @@ function BaseInput(props) {
   };
 
   let Input = null;
+  let finalValue = !value || value.value == null ? '' : value.value;
 
   switch (inputProps.type) {
     case 'number':
       Input = NumberInput;
+      break;
+    case 'date':
+      Input = DatePicker;
+      finalValue = finalValue ? new Date(finalValue) : undefined;
+      delete inputProps.type;
       break;
     case 'password':
       Input = PasswordInput;
@@ -97,7 +114,7 @@ function BaseInput(props) {
       autoFocus={autofocus}
       help={help}
       description={description}
-      value={!value || value.value == null ? '' : value.value}
+      value={finalValue}
       error={rawErrors ? rawErrors[0] : null}
       list={schema.examples ? `examples_${inputProps.id}` : null}
       onChange={_onChange}

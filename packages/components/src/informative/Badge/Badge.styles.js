@@ -31,17 +31,6 @@ const getTextSize = (theme, size) => {
   }
 };
 
-const getAvatarSize = (size) => {
-  switch (size) {
-    case 'xs':
-      return 26;
-    case 'md':
-      return 38;
-    default:
-      return 26;
-  }
-};
-
 const getColor = (theme, color) => {
   switch (color) {
     case 'solid':
@@ -76,6 +65,16 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius }) 
 
   return {
     root: {
+      // ...getTextSize(theme, size),
+      // ...getColor(theme, color),
+      // color: theme.colors.text01,
+      // textTransform: 'none',
+      // borderRadius: isRounded ? pxToRem(100) : pxToRem(4),
+      // padding: getPadding(size, isMedium, image),
+      // paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
+      // height: 'auto',
+    },
+    badgeRoot: {
       ...getTextSize(theme, size),
       ...getColor(theme, color),
       color: theme.colors.text01,
@@ -98,11 +97,9 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius }) 
       position: 'relative',
       '.mantine-Avatar-root': {
         display: isLarge ? 'none' : 'flex',
-        height: getAvatarSize(size),
-        width: getAvatarSize(size),
         position: 'absolute',
-        left: isSmall ? pxToRem(-3) : isMedium ? pxToRem(-3) : null,
-        top: isMedium && pxToRem(-1),
+        left: pxToRem(-3),
+        top: isMedium ? pxToRem(-0.7) : pxToRem(-0.15),
       },
     },
     closeButton: {

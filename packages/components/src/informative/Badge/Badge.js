@@ -28,11 +28,11 @@ const Badge = forwardRef(({ label, size, radius, image, color, onClose, ...props
     image = null;
   }
 
-  const { classes, cx } = BadgeStyles({ size, color, image, radius });
+  const { classes, cx } = BadgeStyles({ size, color, image, radius }, { name: 'Badge' });
 
   return (
     <Box className={classes.container}>
-      {image && <Avatar image={image} />}
+      {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} />}
       <MantineBadge
         rightSection={
           <XIcon className={classes.closeButton} height={15} width={15} onClick={onClose} />
@@ -40,6 +40,7 @@ const Badge = forwardRef(({ label, size, radius, image, color, onClose, ...props
         {...props}
         ref={ref}
         classNames={classes}
+        className={classes.badgeRoot}
       >
         {label}
       </MantineBadge>
