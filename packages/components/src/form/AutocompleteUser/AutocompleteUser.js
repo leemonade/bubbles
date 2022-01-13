@@ -44,7 +44,7 @@ const AutocompleteUser = ({ onItemSubmit, ...props }) => {
     />
   ) : (
     <Stack>
-      <Paper>
+      <Paper padding={'none'} radius={'xs'}>
         <UserCards user={selectedValue} variant={'contact'} />
       </Paper>
       <Button
