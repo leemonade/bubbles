@@ -56,7 +56,6 @@ Playground.args = {
   },
   errorMessages: {
     programAbbrev: 'Program abbreviation is required',
-    totalCredits: 'Total credits is required',
     programName: 'Program name is required',
   },
 };

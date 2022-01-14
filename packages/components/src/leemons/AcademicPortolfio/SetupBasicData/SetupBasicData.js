@@ -27,9 +27,11 @@ export const SETUP_BASIC_DATA_PROP_TYPES = {
   helps: PropTypes.shape({
     programAbbrev: PropTypes.string,
   }),
-  errorMessages: {
-    programName: PropTypes.string,
-  },
+  errorMessages: PropTypes.shape({
+    programName: PropTypes.any,
+    programAbbrev: PropTypes.any,
+  }),
+  onNext: PropTypes.func,
 };
 
 const SetupBasicData = ({
@@ -87,6 +89,7 @@ const SetupBasicData = ({
               placeholder={placeholders.programAbbrev}
               help={helps.programAbbrev}
               error={errors.programAbbrev}
+              maxLength={8}
               required
               {...field}
             />
