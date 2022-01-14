@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckBoxGroup, CHECKBOX_GROUP_DEFAULT_PROPS } from './CheckBoxGroup';
-import { CHECKBOX_VARIANTS } from '../../form';
+import { BOOLEAN_INPUT_VARIANTS } from '../../form';
 import { STACK_DIRECTIONS } from '../../layout';
 import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATIONS } from '../InputWrapper';
 import mdx from './CheckBoxGroup.mdx';
@@ -19,7 +19,7 @@ export default {
   },
   argTypes: {
     onChange: { action: 'onChange' },
-    variant: { options: CHECKBOX_VARIANTS, control: { type: 'select' } },
+    variant: { options: BOOLEAN_INPUT_VARIANTS, control: { type: 'select' } },
     direction: { options: STACK_DIRECTIONS, control: { type: 'select' } },
     orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },

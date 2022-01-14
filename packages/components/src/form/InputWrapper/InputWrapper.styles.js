@@ -13,6 +13,7 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     },
     content: {
       flex: 1,
+      width: '100%',
     },
     required: {
       ...getRequiredStyle(theme),

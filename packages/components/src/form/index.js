@@ -2,6 +2,7 @@ export * from './InputDescription';
 export * from './PasswordInput';
 export * from './InputWrapper';
 export * from './ActionButton';
+export * from './BooleanInput';
 export * from './TagifyInput';
 export * from './ColorPicker';
 export * from './NumberInput';

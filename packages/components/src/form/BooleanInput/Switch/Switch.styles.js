@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getFontProductive } from '../../../theme.mixins';
 
 const getSizes = (size, theme) => {
   return {
@@ -8,6 +8,7 @@ const getSizes = (size, theme) => {
       width: 32,
       minWidth: 32,
       '&:before': {
+        border: 'none',
         width: 14,
         height: 14,
       },
@@ -17,6 +18,7 @@ const getSizes = (size, theme) => {
       width: 36,
       minWidth: 36,
       '&:before': {
+        border: 'none',
         width: 16,
         height: 16,
       },
@@ -24,7 +26,7 @@ const getSizes = (size, theme) => {
   }[size];
 };
 
-export const SwitchStyles = createStyles((theme, { size, labelPosition }) => {
+export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
   return {
     root: {
       flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
@@ -35,7 +37,7 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition }) => {
       ...getFontProductive(theme.fontSizes[size === 'sm' ? '1' : '2'], 500),
       paddingLeft: 0,
       '&:hover': {
-        cursor: 'pointer',
+        cursor: disabled ? 'forbidden' : 'pointer',
       },
     },
     input: {
@@ -44,16 +46,13 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition }) => {
       backgroundColor: theme.colors.ui01,
       '&:checked': {
         border: 'none',
-        backgroundColor: theme.colors.interactive01,
+        backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
         '&::before': {
           transform: `translateX(${size === 'sm' ? 16 : 18}px)`,
         },
       },
-      '&:before': {
-        border: 'none',
-      },
       '&:hover': {
-        cursor: 'pointer',
+        cursor: disabled ? 'forbidden' : 'pointer',
       },
     },
   };

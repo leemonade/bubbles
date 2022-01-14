@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import { isEmpty, isFunction } from 'lodash';
 import { useUuid } from '@mantine/hooks';
 import { Checkbox, CHECKBOX_VARIANTS } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
@@ -74,12 +74,12 @@ const CheckBoxGroup = ({
     data.filter(({ checked }) => checked).map(({ value }) => value)
   );
 
-  const onChangeHandler = (value) => {
+  const handleOnChange = (value) => {
     const newSelectedValues = selectedValues.includes(value)
       ? selectedValues.filter((v) => v !== value)
       : [...selectedValues, value];
     setSelectedValues(newSelectedValues);
-    onChange && onChange(newSelectedValues);
+    if (isFunction(onChange)) onChange(newSelectedValues);
   };
 
   return (
@@ -105,7 +105,7 @@ const CheckBoxGroup = ({
             {...item}
             key={index}
             variant={variant}
-            onChange={() => onChangeHandler(item.value)}
+            onChange={() => handleOnChange(item.value)}
           />
         ))}
       </Stack>
