@@ -23,11 +23,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return (
-    <Box style={{ margin: -15 }}>
-      <TextEditor {...props} />
-    </Box>
-  );
+  return <TextEditor {...props} />;
 };
 
 export const Playground = Template.bind({});

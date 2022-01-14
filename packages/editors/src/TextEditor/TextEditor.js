@@ -9,9 +9,7 @@ import {
   createItalicPlugin,
   createUnderlinePlugin,
   createStrikethroughPlugin,
-  usePlateEditorRef,
-  BlockToolbarButton,
-  getPluginType,
+  createAlignPlugin,
   HeadingToolbar,
   ELEMENT_H1,
   ELEMENT_H2,
@@ -19,49 +17,27 @@ import {
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6,
+  ELEMENT_PARAGRAPH,
   ELEMENT_BLOCKQUOTE,
   createPlateUI,
   createPlugins,
 } from '@udecode/plate';
 import { isFunction } from 'lodash';
-import { LayoutHeadlineIcon } from '@bubbles-ui/icons/solid';
-import { HeadingIcon, QuoteIcon } from '@radix-ui/react-icons';
+import { Box, Stack } from '@bubbles-ui/components';
 import { TextEditorStyles } from './TextEditor.styles';
+import { HeadingButtons } from './toolbar/HeadingButtons';
+import { AlignButtons } from './toolbar/AlignButtons';
 
 export const TEXT_EDITOR_DEFAULT_PROPS = {
   initialValue: [
     {
-      children: [
-        {
-          text: 'This is editable plain text with react and history plugins, just like a <textarea>!',
-        },
-      ],
+      type: ELEMENT_PARAGRAPH,
+      children: [{ text: '' }],
     },
   ],
-  placeholder: '',
+  placeholder: 'Type ...',
 };
 export const TEXT_EDITOR_PROP_TYPES = {};
-
-const BasicElementToolbarButtons = () => {
-  const { classes } = TextEditorStyles({});
-  const editor = usePlateEditorRef();
-
-  return (
-    <>
-      <BlockToolbarButton
-        classNames={{ root: classes.toolbarButton }}
-        type={getPluginType(editor, ELEMENT_H1)}
-        icon={<LayoutHeadlineIcon />}
-      />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H2)} icon={<HeadingIcon />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H3)} icon={<HeadingIcon />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H4)} icon={<HeadingIcon />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H5)} icon={<HeadingIcon />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_H6)} icon={<HeadingIcon />} />
-      <BlockToolbarButton type={getPluginType(editor, ELEMENT_BLOCKQUOTE)} icon={<QuoteIcon />} />
-    </>
-  );
-};
 
 const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) => {
   const [currentValue, setCurrentValue] = useState(value || initialValue);
@@ -69,7 +45,7 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
 
   const editableProps = {
     placeholder,
-    className: classes.root,
+    className: classes.editor,
   };
 
   const plugins = createPlugins(
@@ -84,6 +60,23 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
       createItalicPlugin(), // italic mark
       createUnderlinePlugin(), // underline mark
       createStrikethroughPlugin(), // strikethrough mark
+
+      // modifiers
+      createAlignPlugin({
+        inject: {
+          props: {
+            validTypes: [
+              ELEMENT_PARAGRAPH,
+              ELEMENT_H1,
+              ELEMENT_H2,
+              ELEMENT_H3,
+              ELEMENT_H4,
+              ELEMENT_H5,
+              ELEMENT_H6,
+            ],
+          },
+        },
+      }),
     ],
     {
       components: createPlateUI(),
@@ -96,9 +89,10 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
   };
 
   return (
-    <>
-      <HeadingToolbar>
-        <BasicElementToolbarButtons />
+    <Box className={classes.root}>
+      <HeadingToolbar className={classes.headingToolbar}>
+        <HeadingButtons classes={classes} />
+        <AlignButtons classes={classes} />
       </HeadingToolbar>
       <Plate
         editableProps={editableProps}
@@ -106,7 +100,7 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
         onChange={handleOnChange}
         plugins={plugins}
       />
-    </>
+    </Box>
   );
 };
 

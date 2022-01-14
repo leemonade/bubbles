@@ -103,6 +103,7 @@ module.exports = ({ alias, filesToCopy, useLegacy = false }) => ({
       react: path.resolve(require.resolve('react'), '..'),
       'react-dom': path.resolve(require.resolve('react-dom'), '..'),
       'react-router-dom': path.resolve(require.resolve('react-router-dom'), '..'),
+      'styled-components': path.resolve(require.resolve('styled-components'), '..'),
     },
   },
   module: {
