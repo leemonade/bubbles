@@ -16,8 +16,6 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     onChange: { action: 'Content changed' },
   },
 };
@@ -29,7 +27,6 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...TEXT_EDITOR_DEFAULT_PROPS,
+  placeholder: 'Type here ...',
 };

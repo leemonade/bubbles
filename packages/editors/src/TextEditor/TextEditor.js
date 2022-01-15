@@ -5,43 +5,46 @@ import {
   createParagraphPlugin,
   createBlockquotePlugin,
   createHeadingPlugin,
-  createBoldPlugin,
-  createItalicPlugin,
-  createUnderlinePlugin,
-  createStrikethroughPlugin,
+  createBasicMarksPlugin,
   createAlignPlugin,
+  createIndentPlugin,
+  createIndentListPlugin,
+  createResetNodePlugin,
+  createSoftBreakPlugin,
+  createExitBreakPlugin,
+  createListPlugin,
   HeadingToolbar,
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6,
   ELEMENT_PARAGRAPH,
-  ELEMENT_BLOCKQUOTE,
+  ELEMENT_DEFAULT,
   createPlateUI,
   createPlugins,
 } from '@udecode/plate';
 import { isFunction } from 'lodash';
 import { Box, Stack } from '@bubbles-ui/components';
+import { CONFIG } from './config';
 import { TextEditorStyles } from './TextEditor.styles';
 import { HeadingButtons } from './toolbar/HeadingButtons';
 import { AlignButtons } from './toolbar/AlignButtons';
+import { IndentButtons } from './toolbar/IndentButtons';
+import { MarkButtons } from './toolbar/MarkButtons';
 
 export const TEXT_EDITOR_DEFAULT_PROPS = {
   initialValue: [
     {
-      type: ELEMENT_PARAGRAPH,
+      type: ELEMENT_DEFAULT,
       children: [{ text: '' }],
     },
   ],
-  placeholder: 'Type ...',
+  placeholder: '',
 };
 export const TEXT_EDITOR_PROP_TYPES = {};
 
 const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) => {
   const [currentValue, setCurrentValue] = useState(value || initialValue);
-  const { classes } = TextEditorStyles({});
+  const { classes } = TextEditorStyles({}, { name: 'TextEditor' });
 
   const editableProps = {
     placeholder,
@@ -56,24 +59,26 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
       createHeadingPlugin(), // heading elements
 
       // marks
-      createBoldPlugin(), // bold mark
-      createItalicPlugin(), // italic mark
-      createUnderlinePlugin(), // underline mark
-      createStrikethroughPlugin(), // strikethrough mark
+      createBasicMarksPlugin(),
 
       // modifiers
+      createResetNodePlugin(CONFIG.resetBlockType),
+      createSoftBreakPlugin(CONFIG.softBreak),
+      createExitBreakPlugin(CONFIG.exitBreak),
+
       createAlignPlugin({
         inject: {
           props: {
-            validTypes: [
-              ELEMENT_PARAGRAPH,
-              ELEMENT_H1,
-              ELEMENT_H2,
-              ELEMENT_H3,
-              ELEMENT_H4,
-              ELEMENT_H5,
-              ELEMENT_H6,
-            ],
+            validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1, ELEMENT_H2, ELEMENT_H3],
+          },
+        },
+      }),
+      createListPlugin(),
+      createIndentListPlugin(),
+      createIndentPlugin({
+        inject: {
+          props: {
+            validTypes: [ELEMENT_PARAGRAPH, ELEMENT_H1],
           },
         },
       }),
@@ -91,14 +96,17 @@ const TextEditor = ({ value, initialValue, onChange, placeholder, ...props }) =>
   return (
     <Box className={classes.root}>
       <HeadingToolbar className={classes.headingToolbar}>
+        <MarkButtons classes={classes} />
         <HeadingButtons classes={classes} />
         <AlignButtons classes={classes} />
+        <IndentButtons classes={classes} />
       </HeadingToolbar>
       <Plate
         editableProps={editableProps}
         initialValue={currentValue}
         onChange={handleOnChange}
         plugins={plugins}
+        normalizeInitialValue
       />
     </Box>
   );

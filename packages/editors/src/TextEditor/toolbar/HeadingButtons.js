@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   usePlateEditorRef,
   BlockToolbarButton,
@@ -7,13 +6,10 @@ import {
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6,
   ELEMENT_BLOCKQUOTE,
 } from '@udecode/plate';
 import { Stack } from '@bubbles-ui/components';
-import { HeadingIcon, QuoteIcon } from '@radix-ui/react-icons';
+import { H1, H2, H3, DoubleQuotesR } from '@styled-icons/remix-editor';
 
 const HeadingButtons = ({ classes }) => {
   const editor = usePlateEditorRef();
@@ -24,22 +20,22 @@ const HeadingButtons = ({ classes }) => {
     <Stack className={classes.buttonGroup}>
       <BlockToolbarButton
         type={getPluginType(editor, ELEMENT_H1)}
-        icon={<HeadingIcon />}
+        icon={<H1 />}
         classNames={buttonClassname}
       />
       <BlockToolbarButton
         type={getPluginType(editor, ELEMENT_H2)}
-        icon={<HeadingIcon />}
+        icon={<H2 />}
         classNames={buttonClassname}
       />
       <BlockToolbarButton
         type={getPluginType(editor, ELEMENT_H3)}
-        icon={<HeadingIcon />}
+        icon={<H3 />}
         classNames={buttonClassname}
       />
       <BlockToolbarButton
         type={getPluginType(editor, ELEMENT_BLOCKQUOTE)}
-        icon={<QuoteIcon />}
+        icon={<DoubleQuotesR />}
         classNames={buttonClassname}
       />
     </Stack>
