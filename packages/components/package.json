@@ -59,6 +59,7 @@
     "memoize-one": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
+    "react-beautiful-dnd": "^13.1.0",
     "react-big-calendar": "^0.38.1",
     "react-dnd": "^14.0.5",
     "react-dnd-html5-backend": "^14.1.0",
@@ -70,7 +71,8 @@
     "react-table": "^7.7.0",
     "rjsf-conditionals": "^1.1.4",
     "rrule": "^2.6.8",
-    "simplebar-react": "^2.3.6"
+    "simplebar-react": "^2.3.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",

@@ -129,7 +129,7 @@ export const TreeStyles = createStyles((theme, {}) => {
       borderRadius: pxToRem(4),
       border: `1px solid ${theme.colors.interactive01}`,
       background: theme.colors.mainWhite,
-      boxShadow: theme.shadows.shadow04,
+      boxShadow: theme.shadows.shadow03,
     },
     nodeDragPreviewHandler: {
       paddingBottom: pxToRem(4),
@@ -185,7 +185,7 @@ export const TreeStyles = createStyles((theme, {}) => {
       paddingBottom: pxToRem(4),
       marginRight: pxToRem(8),
       color: theme.colors.ui01,
-      cursor: 'move',
+      cursor: 'drag',
     },
     dragHandlerHover: {
       color: theme.colors.text05,

@@ -85,5 +85,8 @@ Playground.args = {
   labels: {
     add: 'Add',
     remove: 'Remove',
+    edit: 'Edit',
+    accept: 'Accept',
+    cancel: 'Cancel',
   },
 };

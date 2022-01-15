@@ -1,11 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
+import { find, isFunction } from 'lodash';
 import { useTable } from 'react-table';
 import { useForm, Controller } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_PROP_TYPES, TABLE_INPUT_DEFAULT_PROPS } from './TableInput';
@@ -24,7 +23,18 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   onRemove: PropTypes.func,
 };
 
-const TableInputDisplay = ({ labels, columns, data, onAdd, onRemove, onSort, sortable }) => {
+const TableInputDisplay = ({
+  labels,
+  columns,
+  data,
+  onAdd,
+  onRemove,
+  onSort,
+  onEdit,
+  sortable,
+  editable,
+}) => {
+  const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -65,71 +75,85 @@ const TableInputDisplay = ({ labels, columns, data, onAdd, onRemove, onSort, sor
     [columns]
   );
 
-  return (
-    <DndProvider backend={HTML5Backend}>
-      <form onSubmit={handleSubmit(onAdd)}>
-        <table
-          {...getTableProps({
-            className: tableClasses.root,
-          })}
-        >
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps({})}>
-                {sortable && <th style={{ width: 20 }}></th>}
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps({
-                      className: cx(tableClasses.th, column.className),
-                      style: column.style,
-                    })}
-                  >
-                    <Text size="xs" role="productive" color="primary" strong>
-                      {column.render('Header')}
-                    </Text>
-                  </th>
-                ))}
-                <th></th>
-              </tr>
-            ))}
+  const handleDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (isFunction(onSort)) onSort(source.index, destination.index);
+  };
 
-            <tr className={tableClasses.tr}>
-              {sortable && <th></th>}
-              {columns.map((column, i) => (
-                <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
-                  {getColumnInput(column.accessor)}
+  return (
+    <form onSubmit={handleSubmit(onAdd)}>
+      <table
+        {...getTableProps({
+          className: tableClasses.root,
+        })}
+      >
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps({})}>
+              {sortable && <th style={{ width: 20 }}></th>}
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps({
+                    className: cx(tableClasses.th, column.className),
+                    style: column.style,
+                  })}
+                >
+                  <Text size="xs" role="productive" color="primary" strong>
+                    {column.render('Header')}
+                  </Text>
                 </th>
               ))}
-              <th className={cx(tableClasses.td, classes.inputCell)}>
-                <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} type="submit">
-                  {labels.add}
-                </Button>
-              </th>
+              <th></th>
             </tr>
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map(
-              (row, i) =>
-                prepareRow(row) || (
-                  <TableInputRow
-                    {...row.getRowProps()}
-                    index={i}
-                    row={row}
-                    moveRow={onSort}
-                    labels={labels}
-                    onRemove={onRemove}
-                    classes={classes}
-                    tableClasses={tableClasses}
-                    cx={cx}
-                    totalRows={rows.length}
-                    sortable={sortable}
-                  />
-                )
+          ))}
+
+          <tr className={tableClasses.tr}>
+            {sortable && <th></th>}
+            {columns.map((column, i) => (
+              <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
+                {getColumnInput(column.accessor)}
+              </th>
+            ))}
+            <th className={cx(tableClasses.td, classes.inputCell)}>
+              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} type="submit">
+                {labels.add}
+              </Button>
+            </th>
+          </tr>
+        </thead>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="table-body">
+            {(provided, snapshot) => (
+              <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <TableInputRow
+                      {...row.getRowProps()}
+                      index={i}
+                      row={row}
+                      labels={labels}
+                      onRemove={onRemove}
+                      classes={classes}
+                      tableClasses={tableClasses}
+                      cx={cx}
+                      totalRows={rows.length}
+                      sortable={sortable}
+                      editable={editable}
+                      editing={editing}
+                      onEditing={setEditing}
+                      onEdit={onEdit}
+                    />
+                  );
+                })}
+                {provided.placeholder}
+              </tbody>
             )}
-          </tbody>
-        </table>
-      </form>
-    </DndProvider>
+          </Droppable>
+        </DragDropContext>
+      </table>
+    </form>
   );
 };
 
