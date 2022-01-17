@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/styles';
+import { pxToRem } from '../../theme.mixins';
 
 export const TableInputStyles = createStyles((theme, {}) => {
   return {
@@ -13,9 +14,14 @@ export const TableInputStyles = createStyles((theme, {}) => {
     row: {
       backgroundColor: theme.colors.uiBackground01,
     },
+    rowDragging: {
+      display: 'table',
+      boxShadow: theme.shadows.shadow03,
+      paddingLeft: 10,
+    },
     sortIcon: {
-      color: theme.colors.text04,
-      cursor: 'move',
+      color: theme.colors.ui01,
+      cursor: 'drag',
     },
   };
 });

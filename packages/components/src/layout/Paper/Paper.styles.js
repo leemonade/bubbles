@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => {
+export const PaperStyles = createStyles((theme, { padding, radius, shadow, color }) => {
   const getShadows = (shadow) => {
     switch (shadow) {
       case 'level100':
@@ -21,7 +21,8 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
   return {
     root: {
       display: 'inline-flex',
-      backgroundColor: theme.colors.uiBackground01,
+      backgroundColor:
+        color === 'solid' ? theme.colors.uiBackground02 : theme.colors.uiBackground01,
       boxShadow: getShadows(shadow),
     },
   };

@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import { isFunction } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 import { TABLE_PROP_TYPES, TABLE_DEFAULT_PROPS } from '../../informative/Table';
 import { TableInputDisplay } from './TableInputDisplay';
 
 export const TABLE_INPUT_DEFAULT_PROPS = {
   ...TABLE_DEFAULT_PROPS,
   sortable: true,
+  editable: false,
 };
 export const TABLE_INPUT_PROP_TYPES = {
   ...TABLE_PROP_TYPES,
@@ -26,21 +28,60 @@ export const TABLE_INPUT_PROP_TYPES = {
     remove: PropTypes.string,
   }),
   sortable: PropTypes.bool,
+  editable: PropTypes.bool,
 };
 
+// ----------------------------------------------------------------
+// HELP FUNCTIONS
+
+function serializeItem(value) {
+  return { tableInputRowId: uuidv4(), ...value };
+}
+
+function serializeData(data) {
+  return data.map((value) => serializeItem(value));
+}
+function deserializeData(data) {
+  return data.map((item) => {
+    const { tableInputRowId, ...value } = item;
+    return value;
+  });
+}
+
+// ----------------------------------------------------------------
+// COMPONENT
+
 const TableInput = ({ data, onChangeData, ...props }) => {
-  const [tableData, setTableData] = useState(data);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    const newData = serializeData(data);
+    setTableData(newData);
+  }, [data]);
+
+  // ··················
+  // HANDLERS
+
+  const handleOnChange = (newData) => {
+    setTableData(newData);
+    if (isFunction(onChangeData)) onChangeData(deserializeData(newData));
+  };
 
   const handleOnAdd = (item) => {
-    const newData = update(tableData, { $push: [item] });
-    setTableData(newData);
-    if (isFunction(onChangeData)) onChangeData(newData);
+    const newData = update(tableData, { $push: [serializeItem(item)] });
+    handleOnChange(newData);
+  };
+
+  const handleOnEdit = (item, index) => {
+    const newData = [...tableData];
+    const prevItem = newData[index];
+    newData[index] = { ...prevItem, ...item };
+    handleOnChange(newData);
   };
 
   const handleOnRemove = (index) => {
-    const newData = update(tableData, { $splice: [[index, 1]] });
-    setTableData(newData);
-    if (isFunction(onChangeData)) onChangeData(newData);
+    const newData = update(tableData, { $splice: [[serializeItem(index), 1]] });
+    handleOnChange(newData);
   };
 
   const handleOnSort = (from, to) => {
@@ -51,8 +92,7 @@ const TableInput = ({ data, onChangeData, ...props }) => {
         [to, 0, record],
       ],
     });
-    setTableData(newData);
-    if (isFunction(onChangeData)) onChangeData(newData);
+    handleOnChange(newData);
   };
 
   return (
@@ -61,6 +101,7 @@ const TableInput = ({ data, onChangeData, ...props }) => {
       data={tableData}
       onAdd={handleOnAdd}
       onRemove={handleOnRemove}
+      onEdit={handleOnEdit}
       onSort={handleOnSort}
     />
   );

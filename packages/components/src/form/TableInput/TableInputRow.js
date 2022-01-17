@@ -1,123 +1,167 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mantine/core';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { isFunction } from 'lodash';
+import { DeleteBinIcon, EditWriteIcon, CheckIcon, DeleteIcon } from '@bubbles-ui/icons/solid';
+import { useForm, Controller } from 'react-hook-form';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
-import { useDrag, useDrop } from 'react-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
-import { ActionButton } from '../../form';
-
-const DND_ITEM_TYPE = 'bubbles-table-input-row';
+import { ActionButton, TextInput } from '../../form';
 
 const TableInputRow = ({
   labels,
   row,
   index,
-  moveRow,
   onRemove,
   classes,
   tableClasses,
   cx,
   totalRows,
   sortable,
+  editable,
+  editing: _editing,
+  onEditing,
+  onEdit,
 }) => {
-  const dropRef = useRef(null);
-  const dragRef = useRef(null);
+  const [editing, setEditing] = useState(false);
 
-  const [, drop] = useDrop({
-    accept: DND_ITEM_TYPE,
-    hover(item, monitor) {
-      if (!dropRef.current) {
-        return;
+  const {
+    control,
+    handleSubmit,
+    trigger,
+    formState: { errors },
+  } = useForm();
+
+  const getColumCellValue = (cell) => {
+    if (editing) {
+      const { column, row } = cell;
+      const fieldName = `${row.original.tableInputRowId}.${column.id}`;
+      let { node, rules, ...inputProps } = column.input;
+
+      if (!column.input) {
+        node = <TextInput />;
+        rules = [];
+        inputProps = {};
       }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      // Determine rectangle on screen
-      const hoverBoundingRect = dropRef.current.getBoundingClientRect();
-      // Get vertical middle
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      // Time to actually perform the action
-      moveRow(dragIndex, hoverIndex);
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex;
-    },
-  });
 
-  const [{ isDragging }, drag, preview] = useDrag({
-    type: DND_ITEM_TYPE,
-    item: () => {
-      return { index };
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const opacity = isDragging ? 0 : 1;
-
-  preview(drop(dropRef));
-
-  useEffect(() => {
-    drag(dragRef);
-  }, [sortable]);
-
-  const getColumCellValue = useCallback((cell) => {
+      return (
+        <Box className={classes.inputCell} style={{ paddingTop: 4 }}>
+          <Controller
+            name={fieldName}
+            control={control}
+            rules={rules}
+            defaultValue={cell.value}
+            render={({ field }) =>
+              React.cloneElement(node, {
+                placeholder: column.Header,
+                ...field,
+                ...inputProps,
+                error: errors[fieldName],
+              })
+            }
+          />
+        </Box>
+      );
+    }
     return <TableCell cell={cell} />;
-  }, []);
+  };
+
+  const handleOnEdit = async () => {
+    const result = await trigger();
+    if (result) {
+      handleSubmit((data) => {
+        cancelEditing();
+        const itemId = row.original.tableInputRowId;
+        const item = data[itemId];
+        if (isFunction(onEdit)) onEdit(item, index);
+      })();
+    }
+  };
+
+  const initEditing = () => {
+    setEditing(true);
+    if (isFunction(onEditing)) onEditing(true);
+  };
+
+  const cancelEditing = () => {
+    setEditing(false);
+    if (isFunction(onEditing)) onEditing(false);
+  };
 
   return (
-    <tr
-      {...row.getRowProps({
-        className: cx(classes.row, { [tableClasses.tr]: index < totalRows - 1 }),
-      })}
-      ref={dropRef}
-      style={{ opacity }}
+    <Draggable
+      draggableId={row.original.tableInputRowId}
+      key={row.original.tableInputRowId}
+      index={row.index}
+      isDragDisabled={!sortable || _editing}
     >
-      {sortable && (
-        <td ref={dragRef}>
-          <Box className={classes.sortIcon}>
-            <SortDragIcon />
-          </Box>
-        </td>
-      )}
-      {row.cells.map((cell) => (
-        <td
-          {...cell.getCellProps({
-            className: tableClasses.td,
-          })}
-        >
-          {getColumCellValue(cell)}
-        </td>
-      ))}
-      <td className={cx(tableClasses.td, classes.actionCell)}>
-        <ActionButton
-          icon={<DeleteBinIcon />}
-          tooltip={labels.remove}
-          onClick={() => onRemove(index)}
-        />
-      </td>
-    </tr>
+      {(provided, snapshot) => {
+        return (
+          <tr
+            {...row.getRowProps({
+              className: cx(classes.row, {
+                [tableClasses.tr]: index < totalRows - 1,
+                [classes.rowDragging]: snapshot.isDragging,
+              }),
+            })}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            {sortable && (
+              <td>
+                <Box
+                  className={classes.sortIcon}
+                  style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
+                >
+                  <SortDragIcon />
+                </Box>
+              </td>
+            )}
+            {row.cells.map((cell) => (
+              <td
+                {...cell.getCellProps({
+                  className: tableClasses.td,
+                })}
+              >
+                {getColumCellValue(cell)}
+              </td>
+            ))}
+            <td className={cx(tableClasses.td, classes.actionCell)}>
+              {editing ? (
+                <>
+                  <ActionButton
+                    icon={<CheckIcon />}
+                    tooltip={labels.accept || 'Accept'}
+                    onClick={handleOnEdit}
+                  />
+                  <ActionButton
+                    icon={<DeleteIcon />}
+                    tooltip={labels.cancel || 'Cancel'}
+                    onClick={cancelEditing}
+                  />
+                </>
+              ) : (
+                <>
+                  {editable && (
+                    <ActionButton
+                      icon={<EditWriteIcon />}
+                      tooltip={labels.edit || 'Edit'}
+                      onClick={initEditing}
+                    />
+                  )}
+                  <ActionButton
+                    icon={<DeleteBinIcon />}
+                    tooltip={labels.remove || 'Remove'}
+                    onClick={() => onRemove(index)}
+                  />
+                </>
+              )}
+            </td>
+          </tr>
+        );
+      }}
+    </Draggable>
   );
 };
 

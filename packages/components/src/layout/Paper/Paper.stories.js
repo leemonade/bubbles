@@ -1,6 +1,13 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Paper, PAPER_DEFAULT_PROPS, PAPER_RADIUS, PAPER_PADDING, PAPER_SHADOWS } from './Paper';
+import {
+  Paper,
+  PAPER_DEFAULT_PROPS,
+  PAPER_RADIUS,
+  PAPER_PADDING,
+  PAPER_SHADOWS,
+  PAPER_COLORS,
+} from './Paper';
 import mdx from './Paper.mdx';
 import { Text } from '../../typography/Text';
 
@@ -20,6 +27,7 @@ export default {
     radius: { control: { type: 'select' }, options: PAPER_RADIUS },
     padding: { control: { type: 'select' }, options: PAPER_PADDING },
     shadow: { control: { type: 'select' }, options: PAPER_SHADOWS },
+    color: { control: { type: 'select' }, options: PAPER_COLORS },
   },
 };
 
