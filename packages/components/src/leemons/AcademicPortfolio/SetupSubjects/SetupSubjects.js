@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm, Controller } from 'react-hook-form';
 import { ContextContainer } from '../../../layout';
-import { TextInput, Checkbox, NumberInput, Button, CheckBoxGroup, Select } from '../../../form/';
+import { TextInput, Checkbox, NumberInput, Button, Select, TableInput } from '../../../form/';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../../typography';
 import { Box } from '@mantine/core';
 import { SetupSubjectsStyles } from './SetupSubjects.styles';
-import { first } from 'lodash';
 
 export const SETUP_SUBJECTS_DEFAULT_PROPS = {};
 export const SETUP_SUBJECTS_PROP_TYPES = {
@@ -35,6 +34,16 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
 };
 
 const FIRST_DIGIT_OPTIONS = ['Course Nº', 'None'];
+
+const FREQUENCY_OPTIONS = [
+  { label: 'Anual', value: 'Anual' },
+  { label: 'Half-yearly(Semester)', value: 'Half-yearly' },
+  { label: 'Quarterly(Trimester/Quarter', value: 'Quarterly' },
+  { label: 'Four-month period', value: 'Four-month' },
+  { label: 'Monthly', value: 'Monthly' },
+  { label: 'Weekly', value: 'Weekly' },
+  { label: 'Daily', value: 'Daily' },
+];
 
 const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...props }) => {
   const { classes, cx } = SetupSubjectsStyles({});
@@ -82,37 +91,41 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
           )}
         />
         {!allSubjectsSameDuration && (
-          <Box className={classes.inputRow}>
-            <Controller
-              name="numberOfSemesters"
-              control={control}
-              render={({ field: { onChange, value, ...field } }) => (
-                <TextInput
-                  headerStyle={{ width: 'auto' }}
-                  label={labels.numberOfSemesters}
-                  orientation="horizontal"
-                  onChange={onChange}
-                  value={value}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="periodName"
-              control={control}
-              orientation="horizontal"
-              render={({ field: { onChange, value, ...field } }) => (
-                <TextInput
-                  headerStyle={{ width: 'auto' }}
-                  orientation="horizontal"
-                  label={labels.periodName}
-                  onChange={onChange}
-                  value={value}
-                  {...field}
-                />
-              )}
-            />
-          </Box>
+          <TableInput
+            columns={[
+              {
+                Header: 'Period name',
+                accessor: 'name',
+                input: {
+                  node: <TextInput />,
+                  rules: { required: 'Required field' },
+                },
+              },
+              {
+                Header: 'Number of periods',
+                accessor: 'amount',
+                input: {
+                  node: <NumberInput />,
+                  rules: { required: 'Required field' },
+                },
+              },
+              {
+                Header: 'Period type',
+                accessor: 'type',
+                input: {
+                  node: <Select />,
+                  rules: { required: 'Required field' },
+                  data: FREQUENCY_OPTIONS,
+                },
+                valueRender: (value) => find(FREQUENCY_OPTIONS, { value })['label'],
+              },
+            ]}
+            data={[]}
+            labels={{
+              add: 'Add',
+              remove: 'Remove',
+            }}
+          />
         )}
         <Text size={'md'}>{labels.knowledgeAreas}</Text>
         <Controller
