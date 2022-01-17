@@ -43,6 +43,7 @@ const TableInputDisplay = ({
   const {
     control,
     handleSubmit,
+    trigger,
     formState: { errors },
   } = useForm();
 
@@ -81,79 +82,84 @@ const TableInputDisplay = ({
     if (isFunction(onSort)) onSort(source.index, destination.index);
   };
 
-  return (
-    <form onSubmit={handleSubmit(onAdd)}>
-      <table
-        {...getTableProps({
-          className: tableClasses.root,
-        })}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps({})}>
-              {sortable && <th style={{ width: 20 }}></th>}
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps({
-                    className: cx(tableClasses.th, column.className),
-                    style: column.style,
-                  })}
-                >
-                  <Text size="xs" role="productive" color="primary" strong>
-                    {column.render('Header')}
-                  </Text>
-                </th>
-              ))}
-              <th></th>
-            </tr>
-          ))}
+  const handleOnAdd = async () => {
+    const result = await trigger();
+    if (result) {
+      handleSubmit(onAdd)();
+    }
+  };
 
-          <tr className={tableClasses.tr}>
-            {sortable && <th></th>}
-            {columns.map((column, i) => (
-              <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
-                {getColumnInput(column.accessor)}
+  return (
+    <table
+      {...getTableProps({
+        className: tableClasses.root,
+      })}
+    >
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps({})}>
+            {sortable && <th style={{ width: 20 }}></th>}
+            {headerGroup.headers.map((column) => (
+              <th
+                {...column.getHeaderProps({
+                  className: cx(tableClasses.th, column.className),
+                  style: column.style,
+                })}
+              >
+                <Text size="xs" role="productive" color="primary" strong>
+                  {column.render('Header')}
+                </Text>
               </th>
             ))}
-            <th className={cx(tableClasses.td, classes.inputCell)}>
-              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} type="submit">
-                {labels.add}
-              </Button>
-            </th>
+            <th></th>
           </tr>
-        </thead>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="table-body">
-            {(provided, snapshot) => (
-              <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                  prepareRow(row);
-                  return (
-                    <TableInputRow
-                      {...row.getRowProps()}
-                      index={i}
-                      row={row}
-                      labels={labels}
-                      onRemove={onRemove}
-                      classes={classes}
-                      tableClasses={tableClasses}
-                      cx={cx}
-                      totalRows={rows.length}
-                      sortable={sortable}
-                      editable={editable}
-                      editing={editing}
-                      onEditing={setEditing}
-                      onEdit={onEdit}
-                    />
-                  );
-                })}
-                {provided.placeholder}
-              </tbody>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </table>
-    </form>
+        ))}
+
+        <tr className={tableClasses.tr}>
+          {sortable && <th></th>}
+          {columns.map((column, i) => (
+            <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
+              {getColumnInput(column.accessor)}
+            </th>
+          ))}
+          <th className={cx(tableClasses.td, classes.inputCell)}>
+            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={handleOnAdd}>
+              {labels.add}
+            </Button>
+          </th>
+        </tr>
+      </thead>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="table-body">
+          {(provided, snapshot) => (
+            <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <TableInputRow
+                    {...row.getRowProps()}
+                    index={i}
+                    row={row}
+                    labels={labels}
+                    onRemove={onRemove}
+                    classes={classes}
+                    tableClasses={tableClasses}
+                    cx={cx}
+                    totalRows={rows.length}
+                    sortable={sortable}
+                    editable={editable}
+                    editing={editing}
+                    onEditing={setEditing}
+                    onEdit={onEdit}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </tbody>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </table>
   );
 };
 
