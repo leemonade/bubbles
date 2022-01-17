@@ -45,5 +45,8 @@ export const TextEditorStyles = createStyles((theme, {}) => {
       backgroundColor: theme.colors.interactive01v1,
       color: theme.colors.interactive01,
     },
+    title: {
+      ...getFontExpressive(),
+    },
   };
 });

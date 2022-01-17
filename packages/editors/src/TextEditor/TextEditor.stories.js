@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box } from '@bubbles-ui/components';
-import { TextEditor, TEXT_EDITOR_DEFAULT_PROPS } from './TextEditor';
+import React, { useState } from 'react';
+import { TextEditor, TEXT_EDITOR_DEFAULT_PROPS, TEXT_EDITOR_FORMATS } from './TextEditor';
 import mdx from './TextEditor.mdx';
 
 export default {
@@ -17,11 +16,14 @@ export default {
   },
   argTypes: {
     onChange: { action: 'Content changed' },
+    input: { options: TEXT_EDITOR_FORMATS, control: { type: 'select' } },
+    output: { options: TEXT_EDITOR_FORMATS, control: { type: 'select' } },
   },
 };
 
-const Template = ({ ...props }) => {
-  return <TextEditor {...props} />;
+const Template = ({ value, ...props }) => {
+  const [data, setData] = useState(value);
+  return <TextEditor value={data} onChange={setData} output="html" input="html" {...props} />;
 };
 
 export const Playground = Template.bind({});
@@ -29,4 +31,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...TEXT_EDITOR_DEFAULT_PROPS,
   placeholder: 'Type here ...',
+  value: '<h3>Hello World</h3><p>This is a test</p>',
 };
