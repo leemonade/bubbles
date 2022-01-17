@@ -21,6 +21,7 @@ export const TEXT_INPUT_PROP_TYPES = {
   disabled: PropTypes.bool,
   required: PropTypes.bool,
   readOnly: PropTypes.bool,
+  maxLength: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
 };
@@ -48,6 +49,7 @@ const TextInput = forwardRef(
       defaultValue,
       disabled,
       readOnly,
+      maxLength,
       ...props
     },
     ref
@@ -71,6 +73,7 @@ const TextInput = forwardRef(
             placeholder={placeholder}
             rightSection={rightSection}
             invalid={!isEmpty(error)}
+            maxLength={maxLength}
           />
         )}
       </InputWrapper>
