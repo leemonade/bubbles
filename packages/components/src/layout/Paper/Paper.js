@@ -6,20 +6,23 @@ import { PaperStyles } from './Paper.styles';
 export const PAPER_RADIUS = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
 export const PAPER_PADDING = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
 export const PAPER_SHADOWS = ['none', 'level100', 'level01', 'level02', 'level03'];
+export const PAPER_COLORS = ['default', 'solid'];
 export const PAPER_DEFAULT_PROPS = {
   radius: 'md',
   padding: 'md',
+  color: PAPER_COLORS[0],
 };
 export const PAPER_PROP_TYPES = {
   radius: PropTypes.oneOf(PAPER_RADIUS),
   padding: PropTypes.oneOf(PAPER_PADDING),
   children: PropTypes.node,
   className: PropTypes.string,
+  padding: PropTypes.oneOf(PAPER_COLORS),
 };
 
 const Paper = forwardRef(
-  ({ padding, radius, shadow, component, children, className, ...props }, ref) => {
-    const { classes, cx } = PaperStyles({ padding, radius, shadow }, { name: 'Paper' });
+  ({ padding, radius, shadow, component, children, className, color, ...props }, ref) => {
+    const { classes, cx } = PaperStyles({ padding, radius, shadow, color }, { name: 'Paper' });
 
     return (
       <MantinePaper
