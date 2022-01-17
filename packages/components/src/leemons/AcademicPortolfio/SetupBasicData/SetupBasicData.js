@@ -112,19 +112,20 @@ const SetupBasicData = ({
               />
             )}
           />
-          <Controller
-            name="totalCredits"
-            control={control}
-            render={({ field }) => (
-              <NumberInput
-                headerStyle={headerInputStyle}
-                orientation="horizontal"
-                label={labels.totalCredits}
-                {...field}
-                disabled={creditSystem}
-              />
-            )}
-          />
+          {!creditSystem && (
+            <Controller
+              name="totalCredits"
+              control={control}
+              render={({ field }) => (
+                <NumberInput
+                  headerStyle={headerInputStyle}
+                  orientation="horizontal"
+                  label={labels.totalCredits}
+                  {...field}
+                />
+              )}
+            />
+          )}
         </ContextContainer>
         <ContextContainer title={labels.groupsIDAbbrev} spacing={4}>
           <Controller
@@ -143,39 +144,42 @@ const SetupBasicData = ({
               />
             )}
           />
-          <Text>{descriptions.groupsIDAbbrev}</Text>
-          <Controller
-            name="maxAbbrevGroups"
-            control={control}
-            render={({ field }) => (
-              <Box>
-                <NumberInput
-                  headerStyle={headerInputStyle}
-                  orientation="horizontal"
-                  label={labels.maxAbbrevGroups}
-                  description={descriptions.maxAbbrevGroups}
-                  help={helps.maxAbbrevGroups}
-                  {...field}
-                  disabled={oneStudentGroup}
-                />
-                <Controller
-                  name="onlyNumbers"
-                  control={control}
-                  render={({ field: { onChange, value, ...field } }) => (
-                    <Box style={{ textAlign: 'right' }}>
-                      <Checkbox
-                        label={labels.onlyNumbers}
-                        {...field}
-                        onChange={onChange}
-                        checked={value}
-                        disabled={oneStudentGroup}
-                      />
-                    </Box>
-                  )}
-                />
-              </Box>
-            )}
-          />
+          {!oneStudentGroup && (
+            <>
+              <Text>{descriptions.groupsIDAbbrev}</Text>
+              <Controller
+                name="maxAbbrevGroups"
+                control={control}
+                render={({ field }) => (
+                  <Box>
+                    <NumberInput
+                      headerStyle={headerInputStyle}
+                      orientation="horizontal"
+                      label={labels.maxAbbrevGroups}
+                      description={descriptions.maxAbbrevGroups}
+                      help={helps.maxAbbrevGroups}
+                      {...field}
+                    />
+                    <Controller
+                      name="onlyNumbers"
+                      control={control}
+                      render={({ field: { onChange, value, ...field } }) => (
+                        <Box style={{ textAlign: 'right' }}>
+                          <Checkbox
+                            label={labels.onlyNumbers}
+                            {...field}
+                            onChange={onChange}
+                            checked={value}
+                            disabled={oneStudentGroup}
+                          />
+                        </Box>
+                      )}
+                    />
+                  </Box>
+                )}
+              />
+            </>
+          )}
         </ContextContainer>
         <Box>
           <Box style={{ textAlign: 'right' }}>
