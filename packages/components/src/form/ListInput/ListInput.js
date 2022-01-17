@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import { findIndex, map } from 'lodash';
 import { Box } from '@mantine/core';
@@ -40,8 +40,10 @@ const ListInput = ({
 }) => {
   const { classes, cx } = ListInputStyles({});
 
+  const listRefs = useRef([]);
   const [editingKey, setEditingKey] = useState(null);
   const [activeItem, setActiveItem] = useState({ [valueKey]: '' });
+  const [elementDraggingHeight, setElementDraggingHeight] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [value, _setValue] = useState(
     originalValue
@@ -75,6 +77,11 @@ const ListInput = ({
     setEditingKey(item.__key);
   }
 
+  function onBeforeDragStart(event) {
+    setElementDraggingHeight(listRefs.current[event.source.index].getBoundingClientRect().height);
+    setDragging(true);
+  }
+
   useEffect(() => {
     setValue(
       map(originalValue, (item) => ({
@@ -95,12 +102,13 @@ const ListInput = ({
       error={error}
       required={required}
     >
-      <Box sx={(theme) => ({ marginBottom: dragging ? theme.spacing[7] : null })}>
+      <Box sx={(theme) => ({ marginBottom: dragging ? `${elementDraggingHeight}px` : null })}>
         <SortableList
           value={value}
           onChange={setValue}
           dragDisabled={!!editingKey}
-          onBeforeDragStart={() => setDragging(true)}
+          useRefs={(e) => (listRefs.current = e)}
+          onBeforeDragStart={onBeforeDragStart}
           onDragEnd={() => setDragging(false)}
           itemRender={(props) => {
             return (
@@ -115,6 +123,7 @@ const ListInput = ({
                   const index = findIndex(value, { __key: props.item.__key });
                   value[index][valueKey] = event;
                   setValue([...value]);
+                  setEditingKey(null);
                 }}
               />
             );

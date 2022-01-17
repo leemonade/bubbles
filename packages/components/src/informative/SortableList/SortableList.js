@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SortableListStyles } from './SortableList.styles';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -16,6 +16,7 @@ export const SORTABLE_LIST_DEFAULT_PROPS = {
   itemRender: DraggableDefault,
   onRemove: () => {},
   dragDisabled: false,
+  useRefs: () => {},
 };
 export const SORTABLE_LIST_PROP_TYPES = {
   value: PropTypes.arrayOf(PropTypes.any),
@@ -27,6 +28,7 @@ export const SORTABLE_LIST_PROP_TYPES = {
   onDragEnd: PropTypes.func,
   onBeforeDragStart: PropTypes.func,
   dragDisabled: PropTypes.bool,
+  useRefs: PropTypes.func,
 };
 
 const SortableList = ({
@@ -39,10 +41,18 @@ const SortableList = ({
   dragDisabled,
   containerRender: Container,
   itemRender: Item,
+  useRefs,
 }) => {
   const { classes, cx } = SortableListStyles({});
+  const refs = useRef([]);
 
   const uuid = useId();
+
+  function onRefChange(e, index) {
+    refs.current[index] = e;
+    refs.current = refs.current.splice(0, value.length);
+    useRefs(refs.current);
+  }
 
   function removeItem(index) {
     const [removed] = value.splice(index, 1);
@@ -54,6 +64,7 @@ const SortableList = ({
   }
 
   function _onDragEnd(result) {
+    onDragEnd(result);
     const { source, destination } = result;
     if (!destination) return;
 
@@ -61,7 +72,6 @@ const SortableList = ({
     const [removed] = newData.splice(source.index, 1);
     newData.splice(destination.index, 0, removed);
     onChange(newData);
-    onDragEnd(result);
   }
 
   return (
@@ -85,6 +95,7 @@ const SortableList = ({
                     {(provided, snapshot) => {
                       return (
                         <Item
+                          useRef={(r) => onRefChange(r, index)}
                           provided={provided}
                           snapshot={snapshot}
                           item={item}

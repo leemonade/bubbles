@@ -150,8 +150,6 @@ function DefaultNormalArrayFieldTemplate(props) {
 
   const help = options?.help;
 
-  console.log('formData', formData);
-
   const config = {
     inputRender: ({ value, onChange }) => {
       return <TextInput value={value} onChange={onChange} />;
