@@ -1,6 +1,6 @@
 {
-  "name": "@bubbles-ui/components",
-  "version": "1.0.16",
+  "name": "@bubbles-ui/editors",
+  "version": "1.0.1",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/leemonade/bubbles.git",
-    "directory": "packages/components"
+    "directory": "packages/editors"
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
@@ -19,10 +19,10 @@
   "keywords": [
     "react",
     "bubbles",
-    "bubbles-components",
+    "bubbles-editors",
     "leemons",
     "bubbles-design-system",
-    "components"
+    "editors"
   ],
   "publishConfig": {
     "access": "public",
@@ -33,48 +33,25 @@
     "build": "yarn clean && node scripts/build.js",
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9000",
-    "clean": "rimraf es lib umd storybook-static build",
-    "generate": "node ./scripts/generate.js"
+    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9001",
+    "clean": "rimraf es lib umd storybook-static build"
   },
   "dependencies": {
-    "@bubbles-ui/editors": "^1.0.1",
+    "@bubbles-ui/components": "^1.0.15",
     "@bubbles-ui/icons": "^1.0.3",
-    "@heroicons/react": "^1.0.5",
-    "@leemonade/react-dnd-treeview": "^1.5.44",
-    "@leemonade/rjsf-core": "^3.0.0",
-    "@mantine/core": "^3.4.3",
-    "@mantine/dates": "^3.4.3",
-    "@mantine/dropzone": "^3.4.3",
-    "@mantine/hooks": "^3.4.3",
-    "@rjsf/core": "^3.2.1",
-    "@yaireo/tagify": "^4.9.4",
-    "dayjs": "^1.10.7",
-    "dom-helpers": "^5.2.1",
-    "draft-js": "^0.11.7",
-    "draftjs-to-html": "^0.9.1",
-    "immer": "^9.0.12",
-    "immutability-helper": "^3.1.1",
-    "json-rules-engine-simplified": "^0.1.17",
+    "@udecode/plate": "^9.2.0",
     "lodash": "^4.17.21",
-    "luxon": "^2.1.1",
-    "memoize-one": "^6.0.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-beautiful-dnd": "^13.1.0",
-    "react-big-calendar": "^0.38.1",
-    "react-dnd": "^14.0.5",
-    "react-dnd-html5-backend": "^14.1.0",
-    "react-dom": "^17.0.1",
-    "react-draft-wysiwyg": "^1.14.7",
-    "react-helmet": "^6.1.0",
-    "react-hook-form": "^7.22.1",
-    "react-router-dom": "^5.3.0",
-    "react-table": "^7.7.0",
-    "rjsf-conditionals": "^1.1.4",
-    "rrule": "^2.6.8",
-    "simplebar-react": "^2.3.6",
-    "uuid": "^8.3.2"
+    "slate": "^0.72.3",
+    "slate-history": "^0.66.0",
+    "slate-hyperscript": "^0.67.0",
+    "slate-react": "^0.72.1",
+    "styled-components": "^5.3.3",
+    "styled-icons": "^10.45.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -96,7 +73,6 @@
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-transform-import-styles": "^0.0.11",
     "cross-env": "^7.0.3",
-    "generate-template-files": "^3.2.0",
     "in-publish": "^2.0.1",
     "load-styles": "^2.0.0",
     "npm-which": "^3.0.1",
