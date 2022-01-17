@@ -41,6 +41,7 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
 
   const [firstDigit, setFirstDigit] = useState(FIRST_DIGIT_OPTIONS[0]);
   const [digits, setDigits] = useState(0);
+  const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(false);
 
   const generateSubjectsID = (firstDigit, digits) => {
     if (!digits) return '';
@@ -71,41 +72,48 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
             <Checkbox
               label={labels.allSubjectsSameDuration}
               help={helps.allSubjectsSameDuration}
-              onChange={onChange}
+              onChange={(e) => {
+                setAllSubjectsSameDuration(!allSubjectsSameDuration);
+                onChange(e);
+              }}
               checked={value}
               {...field}
             />
           )}
         />
-        <Box className={classes.inputRow}>
-          <Controller
-            name="numberOfSemesters"
-            control={control}
-            render={({ field: { onChange, value, ...field } }) => (
-              <TextInput
-                label={labels.numberOfSemesters}
-                orientation="horizontal"
-                onChange={onChange}
-                value={value}
-                {...field}
-              />
-            )}
-          />
-          <Controller
-            name="periodName"
-            control={control}
-            orientation="horizontal"
-            render={({ field: { onChange, value, ...field } }) => (
-              <TextInput
-                orientation="horizontal"
-                label={labels.periodName}
-                onChange={onChange}
-                value={value}
-                {...field}
-              />
-            )}
-          />
-        </Box>
+        {!allSubjectsSameDuration && (
+          <Box className={classes.inputRow}>
+            <Controller
+              name="numberOfSemesters"
+              control={control}
+              render={({ field: { onChange, value, ...field } }) => (
+                <TextInput
+                  headerStyle={{ width: 'auto' }}
+                  label={labels.numberOfSemesters}
+                  orientation="horizontal"
+                  onChange={onChange}
+                  value={value}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="periodName"
+              control={control}
+              orientation="horizontal"
+              render={({ field: { onChange, value, ...field } }) => (
+                <TextInput
+                  headerStyle={{ width: 'auto' }}
+                  orientation="horizontal"
+                  label={labels.periodName}
+                  onChange={onChange}
+                  value={value}
+                  {...field}
+                />
+              )}
+            />
+          </Box>
+        )}
         <Text size={'md'}>{labels.knowledgeAreas}</Text>
         <Controller
           name="maxAbbrevLength"

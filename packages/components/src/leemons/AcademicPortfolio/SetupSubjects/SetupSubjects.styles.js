@@ -10,7 +10,7 @@ export const SetupSubjectsStyles = createStyles((theme, {}) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
-    inputRow: {},
+    inputRow: { display: 'flex', justifyContent: 'space-between' },
     subjectsIDConfig: {
       display: 'flex',
       alignItems: 'center',

@@ -34,7 +34,7 @@ Playground.args = {
   labels: {
     title: 'Subjects',
     standardDuration: 'Standard duration of the subjects',
-    allSubjectsSameDuration: 'All subjects have the same duraction as the evalutaion substage',
+    allSubjectsSameDuration: 'All subjects have the same duraction as the evaluation substage',
     numberOfSemesters: 'Number of semesters',
     periodName: 'Period name',
     knowledgeAreas: 'Knowledge areas abbreviation',
