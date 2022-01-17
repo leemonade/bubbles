@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import { findIndex, map } from 'lodash';
 import { Box } from '@mantine/core';
@@ -11,13 +11,14 @@ import { SortableList } from '../../informative';
 import { ListItem } from './components/ListItem';
 
 export const LIST_INPUT_DEFAULT_PROPS = {
-  inputRender: ({ value, onChange }) => {
-    return <TextInput value={value} onChange={onChange} />;
+  inputRender: (props) => {
+    return <TextInput {...props} />;
   },
   listRender: ListItem,
   onChange: () => {},
   valueKey: 'value',
   addButtonLabel: 'Add',
+  errorRequiredMessage: 'Required',
 };
 export const LIST_INPUT_PROP_TYPES = {};
 
@@ -25,6 +26,7 @@ const ListInput = ({
   label,
   description,
   addButtonLabel,
+  errorRequiredMessage,
   help,
   error,
   size,
@@ -40,11 +42,9 @@ const ListInput = ({
 }) => {
   const { classes, cx } = ListInputStyles({});
 
-  const listRefs = useRef([]);
+  const [hasError, setHasError] = useState(false);
   const [editingKey, setEditingKey] = useState(null);
   const [activeItem, setActiveItem] = useState({ [valueKey]: '' });
-  const [elementDraggingHeight, setElementDraggingHeight] = useState(0);
-  const [dragging, setDragging] = useState(false);
   const [value, _setValue] = useState(
     originalValue
       ? map(originalValue, (item) => ({
@@ -62,24 +62,24 @@ const ListInput = ({
   }
 
   function addItem() {
-    const __key = uuidv4();
-    setValue([
-      ...value,
-      {
-        ...activeItem,
-        __key,
-      },
-    ]);
-    setActiveItem({ [valueKey]: '' });
+    if (activeItem[valueKey]) {
+      const __key = uuidv4();
+      setValue([
+        ...value,
+        {
+          ...activeItem,
+          __key,
+        },
+      ]);
+      setActiveItem({ [valueKey]: '' });
+      setHasError(false);
+    } else {
+      setHasError(true);
+    }
   }
 
   function editItem(item) {
     setEditingKey(item.__key);
-  }
-
-  function onBeforeDragStart(event) {
-    setElementDraggingHeight(listRefs.current[event.source.index].getBoundingClientRect().height);
-    setDragging(true);
   }
 
   useEffect(() => {
@@ -102,14 +102,11 @@ const ListInput = ({
       error={error}
       required={required}
     >
-      <Box sx={(theme) => ({ marginBottom: dragging ? `${elementDraggingHeight}px` : null })}>
+      <Box>
         <SortableList
           value={value}
           onChange={setValue}
           dragDisabled={!!editingKey}
-          useRefs={(e) => (listRefs.current = e)}
-          onBeforeDragStart={onBeforeDragStart}
-          onDragEnd={() => setDragging(false)}
           itemRender={(props) => {
             return (
               <ListRender
@@ -117,6 +114,7 @@ const ListInput = ({
                 inputRender={InputRender}
                 editingKey={editingKey}
                 valueKey={valueKey}
+                errorRequiredMessage={errorRequiredMessage}
                 editItem={() => editItem(props.item)}
                 stopEdit={() => setEditingKey(null)}
                 onChange={(event) => {
@@ -136,7 +134,10 @@ const ListInput = ({
             value={valueKey ? activeItem[valueKey] : activeItem}
             onChange={(event) => {
               setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
+              if (event) setHasError(false);
             }}
+            required={true}
+            error={hasError ? errorRequiredMessage : null}
           />
           <Button size="xs" onClick={addItem}>
             {addButtonLabel}

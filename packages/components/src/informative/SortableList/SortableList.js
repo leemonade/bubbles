@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { SortableListStyles } from './SortableList.styles';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -44,15 +44,8 @@ const SortableList = ({
   useRefs,
 }) => {
   const { classes, cx } = SortableListStyles({});
-  const refs = useRef([]);
 
   const uuid = useId();
-
-  function onRefChange(e, index) {
-    refs.current[index] = e;
-    refs.current = refs.current.splice(0, value.length);
-    useRefs(refs.current);
-  }
 
   function removeItem(index) {
     const [removed] = value.splice(index, 1);
@@ -95,7 +88,6 @@ const SortableList = ({
                     {(provided, snapshot) => {
                       return (
                         <Item
-                          useRef={(r) => onRefChange(r, index)}
                           provided={provided}
                           snapshot={snapshot}
                           item={item}
@@ -107,6 +99,7 @@ const SortableList = ({
                   </Draggable>
                 );
               })}
+              {provided.placeholder}
             </Container>
           );
         }}

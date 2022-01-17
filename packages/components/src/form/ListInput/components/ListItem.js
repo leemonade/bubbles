@@ -17,11 +17,21 @@ const ListItem = forwardRef(
       stopEdit,
       classes,
       onChange,
-      useRef,
+      errorRequiredMessage,
     },
     ref
   ) => {
     const [value, setValue] = useState(item[valueKey]);
+    const [hasError, setHasError] = useState(false);
+
+    function update() {
+      if (value) {
+        onChange(value);
+        if (hasError) setHasError(false);
+      } else {
+        setHasError(true);
+      }
+    }
 
     useEffect(() => {
       setValue(item[valueKey]);
@@ -44,9 +54,17 @@ const ListItem = forwardRef(
             <SortDragIcon className={classes.sortableIcon} />
           </Box>
           <Box sx={(theme) => ({ width: '100%', marginRight: theme.spacing[4] })}>
-            <InputRender value={value} onChange={setValue} />
+            <InputRender
+              value={value}
+              onChange={(event) => {
+                setValue(event);
+                if (event) setHasError(false);
+              }}
+              required={true}
+              error={hasError ? errorRequiredMessage : null}
+            />
           </Box>
-          <ActionButton icon={<CheckIcon />} onClick={() => onChange(value)} />
+          <ActionButton icon={<CheckIcon />} onClick={update} />
           <ActionButton
             icon={<RemoveIcon />}
             onClick={() => {
@@ -63,7 +81,6 @@ const ListItem = forwardRef(
         ref={(e) => {
           provided.innerRef(e);
           if (ref) ref(e);
-          if (useRef) useRef(e);
         }}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
