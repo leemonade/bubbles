@@ -30,6 +30,13 @@ export const SETUP_COURSES_PROP_TYPES = {
   placeholders: PropTypes.shape({
     frequency: PropTypes.string,
   }),
+  errorMessages: PropTypes.shape({
+    numberOfCourses: PropTypes.any,
+    creditsperCourse: PropTypes.any,
+    frequency: PropTypes.any,
+    numberOfSubstages: PropTypes.any,
+    maxAbbrevLength: PropTypes.any,
+  }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
 };
@@ -43,7 +50,7 @@ const FREQUENCY_OPTIONS = [
   { label: 'Daily', value: 'Daily' },
 ];
 
-const SetupCourses = ({ labels, placeholders, onPrevious, onNext, ...props }) => {
+const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext, ...props }) => {
   const { classes, cx } = SetupCoursesStyles({});
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
@@ -80,27 +87,35 @@ const SetupCourses = ({ labels, placeholders, onPrevious, onNext, ...props }) =>
             />
           )}
         />
-        <Box className={classes.inputRow}>
-          <Controller
-            name="numberOfCourses"
-            control={control}
-            render={({ field }) => (
-              <NumberInput
-                label={labels.numberOfCourses}
-                orientation={'horizontal'}
-                disabled={onlyOneCourse}
-                {...field}
-              />
-            )}
-          />
-          <Controller
-            name="creditsperCourse"
-            control={control}
-            render={({ field }) => (
-              <NumberInput label={labels.creditsperCourse} orientation={'horizontal'} {...field} />
-            )}
-          />
-        </Box>
+        {!onlyOneCourse && (
+          <Box className={classes.inputRow}>
+            <Controller
+              name="numberOfCourses"
+              control={control}
+              rules={{ required: errorMessages.numberOfCourses?.required }}
+              render={({ field }) => (
+                <NumberInput
+                  label={labels.numberOfCourses}
+                  orientation={'horizontal'}
+                  disabled={onlyOneCourse}
+                  error={errors.numberOfCourses}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="creditsperCourse"
+              control={control}
+              render={({ field }) => (
+                <NumberInput
+                  label={labels.creditsperCourse}
+                  orientation={'horizontal'}
+                  {...field}
+                />
+              )}
+            />
+          </Box>
+        )}
         <Text size={'md'}>{labels.courseSubstage}</Text>
         <Controller
           name="noSubstage"
@@ -117,77 +132,79 @@ const SetupCourses = ({ labels, placeholders, onPrevious, onNext, ...props }) =>
             />
           )}
         />
-        <Box className={classes.inputRow}>
-          <Controller
-            name="frequency"
-            control={control}
-            render={({ field }) => (
-              <Select
-                placeholder={placeholders.frequency}
-                data={FREQUENCY_OPTIONS}
-                disabled={noSubstages}
-                {...field}
-              />
-            )}
-          />
-          <Controller
-            name="numberOfSubstages"
-            control={control}
-            render={({ field }) => (
-              <NumberInput
-                label={labels.numberOfSubstages}
-                orientation={'horizontal'}
-                disabled={noSubstages}
-                {...field}
-              />
-            )}
-          />
-        </Box>
-        <Text size={'md'}>{labels.subtagesNames}</Text>
-        <Controller
-          name="nameAndAbbrev"
-          control={control}
-          render={({ field: { onChange, value, ...field } }) => (
-            <Checkbox
-              label={labels.nameAndAbbrev}
-              {...field}
-              onChange={(e) => {
-                onChange(e);
-                setUseDefaultNameAndAbbrev(!useDefaultNameAndAbbrev);
-              }}
-              checked={value}
-            />
-          )}
-        />
-        <Controller
-          name="maxAbbrevLength"
-          control={control}
-          render={({ field }) => (
-            <Box>
-              <NumberInput
-                orientation="horizontal"
-                label={labels.maxAbbrevLength}
-                {...field}
-                disabled={useDefaultNameAndAbbrev}
+        {!noSubstages && (
+          <>
+            <Box className={classes.inputRow}>
+              <Controller
+                name="frequency"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    placeholder={placeholders.frequency}
+                    data={FREQUENCY_OPTIONS}
+                    {...field}
+                  />
+                )}
               />
               <Controller
-                name="onlyNumbers"
+                name="numberOfSubstages"
                 control={control}
-                render={({ field: { onChange, value, ...field } }) => (
-                  <Box style={{ textAlign: 'right' }}>
-                    <Checkbox
-                      label={labels.onlyNumbers}
+                render={({ field }) => (
+                  <NumberInput
+                    label={labels.numberOfSubstages}
+                    orientation={'horizontal'}
+                    {...field}
+                  />
+                )}
+              />
+            </Box>
+            <Text size={'md'}>{labels.subtagesNames}</Text>
+            <Controller
+              name="nameAndAbbrev"
+              control={control}
+              render={({ field: { onChange, value, ...field } }) => (
+                <Checkbox
+                  label={labels.nameAndAbbrev}
+                  {...field}
+                  onChange={(e) => {
+                    onChange(e);
+                    setUseDefaultNameAndAbbrev(!useDefaultNameAndAbbrev);
+                  }}
+                  checked={value}
+                />
+              )}
+            />
+            {!useDefaultNameAndAbbrev && (
+              <Controller
+                name="maxAbbrevLength"
+                control={control}
+                render={({ field }) => (
+                  <Box>
+                    <NumberInput
+                      orientation="horizontal"
+                      label={labels.maxAbbrevLength}
                       {...field}
-                      onChange={onChange}
-                      checked={value}
-                      disabled={useDefaultNameAndAbbrev}
+                    />
+                    <Controller
+                      name="onlyNumbers"
+                      control={control}
+                      render={({ field: { onChange, value, ...field } }) => (
+                        <Box style={{ textAlign: 'right' }}>
+                          <Checkbox
+                            label={labels.onlyNumbers}
+                            {...field}
+                            onChange={onChange}
+                            checked={value}
+                          />
+                        </Box>
+                      )}
                     />
                   </Box>
                 )}
               />
-            </Box>
-          )}
-        />
+            )}
+          </>
+        )}
         <Box className={classes.buttonRow}>
           <Box>
             <Button variant={'outline'} leftIcon={<ChevLeftIcon height={20} width={20} />}>

@@ -49,4 +49,11 @@ Playground.args = {
   placeholders: {
     frequency: 'Select frequency...',
   },
+  errorMessages: {
+    numberOfCourses: 'Field required',
+    creditsperCourse: 'Field required',
+    frequency: 'Field required',
+    numberOfSubstages: 'Field required',
+    maxAbbrevLength: 'Field required',
+  },
 };
