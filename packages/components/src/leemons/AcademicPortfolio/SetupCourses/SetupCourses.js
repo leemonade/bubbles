@@ -5,7 +5,7 @@ import { Box } from '@mantine/core';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 import { ContextContainer } from '../../../layout';
 import { TextInput, Checkbox, NumberInput, Button, CheckBoxGroup, Select } from '../../../form/';
-import { Text, Title } from '../../../typography';
+import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
@@ -42,8 +42,8 @@ export const SETUP_COURSES_PROP_TYPES = {
 };
 const FREQUENCY_OPTIONS = [
   { label: 'Anual', value: 'Anual' },
-  { label: 'Half-yearly(Semester)', value: 'Half-yearly' },
-  { label: 'Quarterly(Trimester/Quarter', value: 'Quarterly' },
+  { label: 'Half-yearly(Semester)', value: 'Semester' },
+  { label: 'Quarterly(Trimester/Quarter', value: 'Trimester' },
   { label: 'Four-month period', value: 'Four-month' },
   { label: 'Monthly', value: 'Monthly' },
   { label: 'Weekly', value: 'Weekly' },
@@ -56,12 +56,66 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
   const [noSubstages, setNoSubstages] = useState(false);
   const [useDefaultNameAndAbbrev, setUseDefaultNameAndAbbrev] = useState(false);
+  const [maxAbbrevLength, setMaxAbbrevLength] = useState(0);
+  const [onlyNumbers, setOnlyNumbers] = useState(false);
+
+  const [frequency, setFrequency] = useState(null);
+  const [numberOfSubstages, setNumberOfSubstages] = useState(0);
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, ...formState },
   } = useForm();
+
+  const getSubstageAbbr = (currentSubstage) => {
+    let substageAbbr = `${currentSubstage}`;
+    substageAbbr = substageAbbr.padStart(onlyNumbers ? maxAbbrevLength : maxAbbrevLength - 1, '0');
+    substageAbbr = (onlyNumbers ? '' : frequency.charAt(0).toUpperCase()) + substageAbbr;
+
+    return substageAbbr;
+  };
+
+  const getSubstages = () => {
+    const substages = [];
+    for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
+      let defaultValue = !formState.isDirty ? getSubstageAbbr(currentSubstage + 1) : null;
+      const substageName = `${frequency} ${currentSubstage + 1}:`;
+      substages.push(
+        <Box key={currentSubstage} className={classes.substageRow}>
+          <Controller
+            name={substageName}
+            control={control}
+            render={(field) => (
+              <TextInput
+                label={substageName}
+                orientation="horizontal"
+                name={`subtagesNames${currentSubstage}`}
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            name={substageName + 'Abbrev'}
+            control={control}
+            render={({ field: { onChange, value, ...field } }) => (
+              <TextInput
+                label={'Abbr.'}
+                headerStyle={{ marginLeft: '1rem' }}
+                orientation="horizontal"
+                name={`maxAbbrevLength${currentSubstage}`}
+                value={value || defaultValue}
+                onChange={onChange}
+                maxLength={maxAbbrevLength}
+                {...field}
+              />
+            )}
+          />
+        </Box>
+      );
+    }
+    return substages;
+  };
 
   return (
     <form onSubmit={handleSubmit(onNext)}>
@@ -96,6 +150,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               render={({ field }) => (
                 <NumberInput
                   label={labels.numberOfCourses}
+                  defaultValue={0}
                   orientation={'horizontal'}
                   disabled={onlyOneCourse}
                   error={errors.numberOfCourses}
@@ -109,6 +164,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               render={({ field }) => (
                 <NumberInput
                   label={labels.creditsperCourse}
+                  defaultValue={0}
                   orientation={'horizontal'}
                   {...field}
                 />
@@ -138,10 +194,15 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               <Controller
                 name="frequency"
                 control={control}
-                render={({ field }) => (
+                render={({ field: { onChange, value, ...field } }) => (
                   <Select
                     placeholder={placeholders.frequency}
                     data={FREQUENCY_OPTIONS}
+                    onChange={(e) => {
+                      onChange(e);
+                      setFrequency(e);
+                    }}
+                    value={value}
                     {...field}
                   />
                 )}
@@ -149,10 +210,16 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               <Controller
                 name="numberOfSubstages"
                 control={control}
-                render={({ field }) => (
+                render={({ field: { onChange, value, ...field } }) => (
                   <NumberInput
                     label={labels.numberOfSubstages}
                     orientation={'horizontal'}
+                    defaultValue={0}
+                    onChange={(e) => {
+                      onChange(e);
+                      setNumberOfSubstages(e);
+                    }}
+                    value={value}
                     {...field}
                   />
                 )}
@@ -175,39 +242,55 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               )}
             />
             {!useDefaultNameAndAbbrev && (
-              <Controller
-                name="maxAbbrevLength"
-                control={control}
-                render={({ field }) => (
-                  <Box>
-                    <NumberInput
-                      orientation="horizontal"
-                      label={labels.maxAbbrevLength}
-                      {...field}
-                    />
-                    <Controller
-                      name="onlyNumbers"
-                      control={control}
-                      render={({ field: { onChange, value, ...field } }) => (
-                        <Box style={{ textAlign: 'right' }}>
-                          <Checkbox
-                            label={labels.onlyNumbers}
-                            {...field}
-                            onChange={onChange}
-                            checked={value}
-                          />
-                        </Box>
-                      )}
-                    />
-                  </Box>
-                )}
-              />
+              <>
+                <Controller
+                  name="maxAbbrevLength"
+                  control={control}
+                  render={({ field: { onChange, value, ...field } }) => (
+                    <Box>
+                      <NumberInput
+                        orientation="horizontal"
+                        defaultValue={0}
+                        label={labels.maxAbbrevLength}
+                        onChange={(e) => {
+                          onChange(e);
+                          setMaxAbbrevLength(e);
+                        }}
+                        value={value}
+                        {...field}
+                      />
+                      <Controller
+                        name="onlyNumbers"
+                        control={control}
+                        render={({ field: { onChange, value, ...field } }) => (
+                          <Box style={{ textAlign: 'right' }}>
+                            <Checkbox
+                              label={labels.onlyNumbers}
+                              {...field}
+                              onChange={(e) => {
+                                onChange(e);
+                                setOnlyNumbers(!onlyNumbers);
+                              }}
+                              checked={value}
+                            />
+                          </Box>
+                        )}
+                      />
+                    </Box>
+                  )}
+                />
+                {frequency && getSubstages()}
+              </>
             )}
           </>
         )}
         <Box className={classes.buttonRow}>
           <Box>
-            <Button variant={'outline'} leftIcon={<ChevLeftIcon height={20} width={20} />}>
+            <Button
+              variant={'outline'}
+              leftIcon={<ChevLeftIcon height={20} width={20} />}
+              onClick={onPrevious}
+            >
               {labels.buttonPrev}
             </Button>
           </Box>

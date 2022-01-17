@@ -14,5 +14,8 @@ export const SetupCoursesStyles = createStyles((theme, {}) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
+    substageRow: {
+      display: 'flex',
+    },
   };
 });
