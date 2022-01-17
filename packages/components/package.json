@@ -38,6 +38,7 @@
     "generate": "node ./scripts/generate.js"
   },
   "dependencies": {
+    "@bubbles-ui/editors": "^1.0.1",
     "@bubbles-ui/icons": "^1.0.3",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",
