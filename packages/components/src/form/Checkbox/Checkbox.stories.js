@@ -1,7 +1,12 @@
 import React from 'react';
-import { Checkbox } from './Checkbox';
+import { Checkbox, CHECKBOX_DEFAULT_PROPS } from './Checkbox';
 import mdx from './Checkbox.mdx';
-import { HELP_POSITIONS, CHECKBOX_VARIANTS } from './Checkbox';
+import {
+  BOOLEAN_INPUT_HELP_POSITIONS,
+  BOOLEAN_INPUT_VARIANTS,
+  BOOLEAN_INPUT_LABEL_POSITIONS,
+  BOOLEAN_INPUT_SIZES,
+} from '../BooleanInput';
 
 export default {
   title: 'Atoms/Form/Checkbox',
@@ -16,23 +21,22 @@ export default {
     },
   },
   argTypes: {
-    onChange: { action: 'onChange' },
-    variant: { options: CHECKBOX_VARIANTS, control: { type: 'select' } },
-    helpPosition: { options: HELP_POSITIONS, control: { type: 'select' } },
+    onChange: { action: 'Value changed' },
+    helpPosition: { options: BOOLEAN_INPUT_HELP_POSITIONS, control: { type: 'select' } },
+    variant: { options: BOOLEAN_INPUT_VARIANTS, control: { type: 'select' } },
+    labelPosition: { options: BOOLEAN_INPUT_LABEL_POSITIONS, control: { type: 'select' } },
+    size: { options: BOOLEAN_INPUT_SIZES, control: { type: 'select' } },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Checkbox {...props}>{children}</Checkbox>;
+const Template = ({ ...props }) => {
+  return <Checkbox {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...CHECKBOX_DEFAULT_PROPS,
   label: 'Checkbox label',
-  help: '',
-  helpPosition: 'right',
-  variant: 'default',
-  indeterminate: false,
-  disabled: false,
+  help: 'Some help',
 };

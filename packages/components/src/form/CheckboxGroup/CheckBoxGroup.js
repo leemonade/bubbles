@@ -1,47 +1,33 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty, isFunction } from 'lodash';
+import { useUuid } from '@mantine/hooks';
 import { Checkbox, CHECKBOX_VARIANTS } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
 import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
-import { useState } from 'react';
+import {
+  InputWrapper,
+  INPUT_WRAPPER_SHARED_PROPS,
+  INPUT_WRAPPER_SIZES,
+  INPUT_WRAPPER_ORIENTATIONS,
+} from '../InputWrapper';
 
-export const DEFAULT_PROPS = { direction: 'column', variant: 'default', fullWidth: false };
-
-const CheckBoxGroup = ({ data, variant, direction, fullWidth, onChange, ...props }) => {
-  const { classes, cx } = CheckBoxGroupStyles(
-    { direction, variant, fullWidth },
-    { name: 'CheckBoxGroup' }
-  );
-
-  const [selectedValues, setSelectedValues] = useState(
-    data.filter(({ checked }) => checked).map(({ value }) => value)
-  );
-
-  const onChangeHandler = (value) => {
-    const newSelectedValues = selectedValues.includes(value)
-      ? selectedValues.filter((v) => v !== value)
-      : [...selectedValues, value];
-    setSelectedValues(newSelectedValues);
-    onChange && onChange(newSelectedValues);
-  };
-
-  return (
-    <Stack className={classes.group} direction={direction} fullWidth={fullWidth} {...props}>
-      {data.map((item, index) => (
-        <Checkbox
-          key={index}
-          variant={variant}
-          {...item}
-          onChange={() => onChangeHandler(item.value)}
-        />
-      ))}
-    </Stack>
-  );
+export const CHECKBOX_GROUP_DEFAULT_PROPS = {
+  label: '',
+  description: '',
+  help: '',
+  required: false,
+  error: '',
+  orientation: 'vertical',
+  direction: 'row',
+  size: 'sm',
+  variant: 'default',
+  fullWidth: false,
 };
 
-CheckBoxGroup.defaultProps = DEFAULT_PROPS;
-
-CheckBoxGroup.propTypes = {
+export const CHECKBOX_GROUP_PROP_TYPES = {
+  ...INPUT_WRAPPER_SHARED_PROPS,
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   data: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,
@@ -53,10 +39,81 @@ CheckBoxGroup.propTypes = {
       checked: PropTypes.bool,
     })
   ),
-  onChange: PropTypes.func,
   direction: PropTypes.oneOf(STACK_DIRECTIONS),
   variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };
+
+const CheckBoxGroup = ({
+  label,
+  description,
+  help,
+  required,
+  error,
+  size,
+  orientation,
+  data,
+  variant,
+  direction,
+  fullWidth,
+  onChange,
+  ...props
+}) => {
+  const uuid = useUuid();
+  const hasError = useMemo(() => !isEmpty(error), [error]);
+
+  const { classes, cx } = CheckBoxGroupStyles(
+    { direction, variant, fullWidth, hasError },
+    { name: 'CheckBoxGroup' }
+  );
+
+  const [selectedValues, setSelectedValues] = useState(
+    data.filter(({ checked }) => checked).map(({ value }) => value)
+  );
+
+  const handleOnChange = (value) => {
+    const newSelectedValues = selectedValues.includes(value)
+      ? selectedValues.filter((v) => v !== value)
+      : [...selectedValues, value];
+    setSelectedValues(newSelectedValues);
+    if (isFunction(onChange)) onChange(newSelectedValues);
+  };
+
+  return (
+    <InputWrapper
+      uuid={uuid}
+      orientation={orientation}
+      label={label}
+      size={size}
+      description={description}
+      help={help}
+      error={error}
+      required={required}
+    >
+      <Stack
+        {...props}
+        id={uuid}
+        className={classes.group}
+        direction={direction}
+        fullWidth={fullWidth}
+      >
+        {data.map((item, index) => (
+          <Checkbox
+            {...item}
+            key={index}
+            variant={variant}
+            onChange={() => handleOnChange(item.value)}
+          />
+        ))}
+      </Stack>
+    </InputWrapper>
+  );
+};
+
+CheckBoxGroup.defaultProps = CHECKBOX_GROUP_DEFAULT_PROPS;
+CheckBoxGroup.propTypes = CHECKBOX_GROUP_PROP_TYPES;
 
 export { CheckBoxGroup };

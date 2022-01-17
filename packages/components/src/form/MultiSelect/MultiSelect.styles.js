@@ -12,9 +12,7 @@ export const MultiSelectStyles = createStyles((theme, { size, orientation }) => 
     },
   }[size];
   return {
-    root: {
-      ...getOrientation(orientation || 'vertical', theme.spacing),
-    },
+    root: {},
     description: {
       gridArea: 'description',
     },

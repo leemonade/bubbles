@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { TextInput, RadioGroup } from '../../form';
+import { TextInput, NumberInput, RadioGroup, Checkbox } from '../../form';
 import {
   ContextContainer,
   CONTEXT_CONTAINER_DEFAULT_PROPS,
   CONTEXT_CONTAINER_PADDED_TYPES,
 } from './ContextContainer';
+import { Stack } from '../Stack';
 import mdx from './ContextContainer.mdx';
 
 export default {
@@ -27,7 +28,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ divided, ...props }) => {
   const RADIO_DATA = [
     {
       value: 'option1',
@@ -42,13 +43,29 @@ const Template = ({ ...props }) => {
       label: 'Label for option 3',
     },
   ];
+
+  const headerInputStyle = { width: 300 };
+
   return (
     <ContextContainer {...props}>
+      <Box>
+        <NumberInput
+          headerStyle={headerInputStyle}
+          orientation="horizontal"
+          label="Knowledge areas abbreviation"
+          description="Max abbreviation length for areas"
+          help="(i.e: MKTG, MATH, HIST…)"
+        />
+        <Box style={{ textAlign: 'right' }}>
+          <Checkbox label="Only Numbers" />
+        </Box>
+      </Box>
       <TextInput
-        label="Label for text field"
-        description="Optional descriptive text for this text field "
+        headerStyle={headerInputStyle}
+        orientation="horizontal"
+        label="Label for text field 2"
+        description="Optional descriptive text for this text field 2"
       />
-      <RadioGroup data={RADIO_DATA} />
     </ContextContainer>
   );
 };
@@ -59,4 +76,5 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...CONTEXT_CONTAINER_DEFAULT_PROPS,
+  title: 'Subjects',
 };

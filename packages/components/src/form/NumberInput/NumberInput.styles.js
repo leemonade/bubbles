@@ -1,10 +1,14 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
+import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const NumberInputStyles = createStyles((theme, {}) => {
+export const NumberInputStyles = createStyles((theme, { size }) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+    root: {},
+    input: {
+      ...getFocusStyles(theme),
+      ...getInputSizes(size || 'md', theme.spacing),
+      ...getInputStyle(theme),
     },
   };
 });

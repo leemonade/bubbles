@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
 
-export const BUTTON_SIZES = ['xs', 'sm'];
+export const BUTTON_SIZES = ['xs', 'sm', 'md'];
 export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative', 'fatic'];
 export const BUTTON_POSITIONS = ['center', 'right', 'left', 'apart'];
 
 export const BUTTON_DEFAULT_PROPS = {
   color: 'primary',
-  size: 'sm',
+  size: 'md',
   variant: 'filled',
   position: 'center',
   rounded: false,

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import { Textarea as MantineTextarea } from '@mantine/core';
 import { isNil } from 'lodash';
-import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATION } from '../InputWrapper';
+import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATIONS } from '../InputWrapper';
 import { TextareaStyles } from './Textarea.styles';
 import { TEXT_INPUT_PROP_TYPES, TEXT_INPUT_DEFAULT_PROPS } from '../TextInput';
 import { Paragraph } from '../../typography';
 
 export const TEXTAREA_SIZES = INPUT_WRAPPER_SIZES;
-export const TEXTAREA_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
+export const TEXTAREA_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TEXTAREA_DEFAULT_PROPS = {
   ...TEXT_INPUT_DEFAULT_PROPS,

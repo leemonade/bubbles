@@ -2,9 +2,9 @@ import { createStyles } from '@mantine/styles';
 
 export const SortableListStyles = createStyles((theme, {}) => {
   return {
-    item: {
-      display: 'flex',
-      alignItems: 'center',
+    sortableIcon: {
+      height: theme.spacing[3],
+      color: theme.colors.text02,
     },
   };
 });

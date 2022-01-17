@@ -1,14 +1,14 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { isNil } from 'lodash';
 import { Box } from '@mantine/core';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
 import { TabPanelList } from './TabPanelList/TabPanelList';
-import { TabPane } from './TabPanelList/TabPane';
-import TabContext from './TabContext';
 import { TabsStyles } from './Tabs.styles';
 import { PageContainer } from '../../layout';
+import TabContext from './TabContext';
 
 export const TABS_PANEL_COLORS = ['default', 'solid'];
 
@@ -17,21 +17,25 @@ let uuid = 0;
 
 function parseTabList(children) {
   // Tab[]
-  return React.Children.toArray(children)
-    .map((node) => {
-      if (React.isValidElement(node)) {
-        const key = node.key !== undefined ? String(node.key) : undefined;
-        return {
-          ...node.props,
-          key,
-          node,
-        };
-      }
-
-      return null;
-    })
-    .filter((tab) => tab);
+  return React.Children.map(children, (child, index) => {
+    const key = !isNil(child.key) ? child.key : index.toString();
+    return {
+      ...child.props,
+      key,
+      node: child,
+    };
+  });
 }
+
+const Wrapper = ({ usePageLayout, className, children }) => {
+  return usePageLayout ? (
+    <Box className={className}>
+      <PageContainer>{children}</PageContainer>
+    </Box>
+  ) : (
+    <Box className={className}>{children}</Box>
+  );
+};
 
 export const Tabs = forwardRef(
   (
@@ -43,7 +47,7 @@ export const Tabs = forwardRef(
       defaultActiveKey,
       position = 'left',
       orientation = 'horizontal',
-      destroyInactiveTabPane,
+      destroyInactiveTabPanel,
       animated = false,
       fullHeight = false,
       className,
@@ -58,6 +62,7 @@ export const Tabs = forwardRef(
     ref
   ) => {
     const tabs = parseTabList(children);
+
     const rtl = direction === 'rtl';
 
     const mergedAnimated = {
@@ -130,27 +135,21 @@ export const Tabs = forwardRef(
       { name: 'Tabs' }
     );
 
-    const Wrapper = ({ className, children }) => {
-      return usePageLayout ? (
-        <Box className={className}>
-          <PageContainer>{children}</PageContainer>
-        </Box>
-      ) : (
-        <Box className={className}>{children}</Box>
-      );
-    };
-
     return (
       <TabContext.Provider value={{ tabs }}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
-          <Wrapper className={classNames?.navList}>
+          <Wrapper usePageLayout={usePageLayout} className={classNames?.navList}>
             <TabNavList {...tabNavBarProps} />
           </Wrapper>
-          <Wrapper className={cx(classes.panelList, classNames?.panelList)}>
+          <Wrapper
+            usePageLayout={usePageLayout}
+            className={cx(classes.panelList, classNames?.panelList)}
+          >
             <TabPanelList
               {...sharedProps}
               forceRender={forceRender}
-              destroyInactiveTabPane={destroyInactiveTabPane}
+              destroyInactiveTabPanel={destroyInactiveTabPanel}
+              children={children}
             />
           </Wrapper>
         </Box>
@@ -159,15 +158,13 @@ export const Tabs = forwardRef(
   }
 );
 
-Tabs.TabPane = TabPane;
-
 Tabs.propTypes = {
   id: PropTypes.string,
   activeKey: PropTypes.string,
   defaultActiveKey: PropTypes.string,
   direction: PropTypes.oneOf(['ltr', 'rtl']),
   position: PropTypes.oneOf(['left', 'right', 'center']),
-  destroyInactiveTabPane: PropTypes.bool,
+  destroyInactiveTabPanel: PropTypes.bool,
   animated: PropTypes.bool,
   usePageLayout: PropTypes.bool,
   panelColor: PropTypes.oneOf(TABS_PANEL_COLORS),

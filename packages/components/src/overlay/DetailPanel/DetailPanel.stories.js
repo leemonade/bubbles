@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { DetailPanel } from './DetailPanel';
 import { Group, Box, Divider } from '@mantine/core';
-
+import { TabPanel, Tabs } from '../../navigation';
 import { Button } from '../../form';
 import mdx from './DetailPanel.mdx';
-import { Tabs } from '../../navigation/Tabs/Tabs';
-import { TabPane as Tab } from '../../navigation/Tabs/TabPanelList/TabPane';
 
 export default {
   title: 'Organisms/Overlay/Panels/Details',
@@ -37,12 +35,12 @@ const Template = (props) => {
         DetailPanelTitle={props.title}
       >
         <Tabs>
-          <Tab key="1" label="Family">
+          <TabPanel key="1" label="Family">
             <Box></Box>
-          </Tab>
-          <Tab key="2" label="Notes">
+          </TabPanel>
+          <TabPanel key="2" label="Notes">
             <Box></Box>
-          </Tab>
+          </TabPanel>
         </Tabs>
       </DetailPanel>
     </>

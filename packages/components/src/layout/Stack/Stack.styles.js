@@ -25,18 +25,13 @@ export const StackStyles = createStyles(
     }
 
     if (spacing) {
-      flexProps.gap = theme.spacing[String(spacing)];
+      flexProps.gap = theme.spacing[spacing];
     }
 
     return {
       root: {
-        ...getFontExpressive(theme.fontSizes['2']),
-        display: 'inline-flex',
-        flexDirection: direction,
-        flexWrap: wrap,
-        alignContent: alignContent,
-        justifyContent: justifyContent,
-        alignItems: alignItems,
+        ...getFontProductive(theme.fontSizes['2']),
+        ...flexProps,
         width: fullWidth ? '100%' : 'auto',
       },
     };

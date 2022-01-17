@@ -6,13 +6,14 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     root: {
       display: 'flex',
       flexDirection: orientation === 'vertical' ? 'column' : 'row',
-      gap: orientation === 'vertical' ? 0 : theme.spacing[2],
+      gap: theme.spacing[2],
     },
     header: {
       width: orientation === 'vertical' ? 'auto' : '35%',
     },
     content: {
       flex: 1,
+      width: '100%',
     },
     required: {
       ...getRequiredStyle(theme),

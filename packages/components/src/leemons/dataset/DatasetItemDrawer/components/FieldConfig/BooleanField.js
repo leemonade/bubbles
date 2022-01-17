@@ -59,7 +59,7 @@ const BooleanField = () => {
               <Select
                 {...field}
                 required
-                errors={get(errors, 'config.initialStatus')}
+                error={get(errors, 'config.initialStatus')}
                 data={initialStateData}
                 placeholder={messages.booleanInitialStateLabelPlaceholder}
               />

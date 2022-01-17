@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mantine/core';
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { Stack } from '../../layout';
@@ -21,11 +21,13 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    onChangeData: { action: 'Data changed' },
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Table {...props} />;
+const Template = ({ data, ...props }) => {
+  const [tableData, setTableData] = useState(data);
+  return <Table {...props} data={tableData} onChangeData={(val) => setTableData(val.newData)} />;
 };
 
 export const Playground = Template.bind({});

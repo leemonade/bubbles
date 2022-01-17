@@ -13,7 +13,6 @@ const __name__ = forwardRef(({ ...props }, ref) => {
 });
 
 __name__.defaultProps = __name__(constantCase)_DEFAULT_PROPS;
-
 __name__.propTypes = __name__(constantCase)_PROP_TYPES;
 
 export { __name__ };

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import {
   Stack,
-  DEFAULT_PROPS,
+  STACK_DEFAULT_PROPS,
   STACK_DIRECTIONS,
   STACK_WRAP,
   STACK_ALIGN_CONTENT,
@@ -32,19 +32,17 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Stack {...props}>{children}</Stack>;
+const Template = ({ ...props }) => {
+  return <Stack {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  children: (
-    <>
-      <div style={{padding: 5, background:'red'}}>Element 1</div>
-      <div style={{padding: 5, background:'green'}}>Element 2</div>
-      <div style={{padding: 5, background:'yellow'}}>Element 3</div>
-    </>
-  ),
-  ...DEFAULT_PROPS,
+  ...STACK_DEFAULT_PROPS,
+  children: [
+    <Box style={{ padding: 5, background: 'red' }}>Element 1</Box>,
+    <Box style={{ padding: 5, background: 'green' }}>Element 2</Box>,
+    <Box style={{ padding: 5, background: 'yellow' }}>Element 3</Box>,
+  ],
 };

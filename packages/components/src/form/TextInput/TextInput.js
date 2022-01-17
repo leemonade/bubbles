@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { isNil } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { Input } from '../Input';
-import { INPUT_WRAPPER_ORIENTATION, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { Paragraph } from '../../typography';
 
 export const TEXT_INPUT_SIZES = INPUT_WRAPPER_SIZES;
-export const TEXT_INPUT_ORIENTATION = INPUT_WRAPPER_ORIENTATION;
+export const TEXT_INPUT_ORIENTATION = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TEXT_INPUT_PROP_TYPES = {
   name: PropTypes.string,
@@ -65,12 +65,12 @@ const TextInput = forwardRef(
             name={name}
             disabled={disabled}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={(e) => onChange(e.target.value)}
             defaultValue={defaultValue}
-            value={value}
+            value={value || ''}
             placeholder={placeholder}
             rightSection={rightSection}
-            invalid={!isNil(error) && error != ''}
+            invalid={!isEmpty(error)}
           />
         )}
       </InputWrapper>

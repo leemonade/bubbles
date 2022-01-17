@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { Box } from '@mantine/core';
 import { StackStyles } from './Stack.styles';
 
-export const DEFAULT_PROPS = {
+export const STACK_DEFAULT_PROPS = {
   direction: 'row',
   wrap: 'nowrap',
   alignContent: 'normal',
@@ -54,14 +55,34 @@ const Stack = ({
     { name: 'Stack' }
   );
 
+  const childrenWithProps = useMemo(
+    () =>
+      React.Children.map(children, (child) => {
+        // Checking isValidElement is the safe way and avoids a typescript
+        // error too.
+        if (
+          React.isValidElement(child) &&
+          fullWidth &&
+          justifyContent === 'normal' &&
+          alignContent === 'normal' &&
+          alignItems === 'normal'
+        ) {
+          const style = { ...child.props.style, flex: child.props.noFlex ? 0 : 1 };
+          return React.cloneElement(child, { style });
+        }
+        return child;
+      }),
+    [children]
+  );
+
   return (
-    <div className={cx(classes.root, className)} {...props}>
-      {children}
-    </div>
+    <Box {...props} className={cx(classes.root, className)}>
+      {childrenWithProps}
+    </Box>
   );
 };
 
-Stack.defaultProps = DEFAULT_PROPS;
+Stack.defaultProps = STACK_DEFAULT_PROPS;
 
 Stack.propTypes = {
   children: PropTypes.node,

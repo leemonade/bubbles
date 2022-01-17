@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { RadioGroup, RADIOGROUP_DIRECTIONS, RADIOGROUP_DEFAULT_PROPS } from './RadioGroup';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../../form';
 import mdx from './RadioGroup.mdx';
 import { RADIO_VARIANTS } from '../Radio/Radio';
 import { AcademicCapIcon } from '@heroicons/react/outline';
@@ -20,6 +21,8 @@ export default {
   argTypes: {
     variant: { options: RADIO_VARIANTS, control: { type: 'select' } },
     direction: { options: RADIOGROUP_DIRECTIONS, control: { type: 'select' } },
+    orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
+    size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
     onChange: { action: 'Changed' },
   },
 };
@@ -32,6 +35,10 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...RADIOGROUP_DEFAULT_PROPS,
+  label: 'Label for radio group',
+  description: 'Optional descriptive text for this radio group',
+  help: 'Help text for radio group',
+  error: 'Descriptive text for error',
   data: [
     {
       value: 'option1',

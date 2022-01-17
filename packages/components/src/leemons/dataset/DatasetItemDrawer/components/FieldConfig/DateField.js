@@ -3,12 +3,14 @@ import { Box, Col, Grid } from '@mantine/core';
 import DatasetItemDrawerContext from '../../context/DatasetItemDrawerContext';
 import { Text } from '../../../../../typography';
 import { Controller } from 'react-hook-form';
+import { DatePicker } from '../../../../../form';
 
 const DateField = () => {
   const {
     contextRef: { messages, colSpans, gridColumn },
     form: {
       control,
+      watch,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);
@@ -22,36 +24,36 @@ const DateField = () => {
           </Text>
         </Col>
 
-        <Col span={colSpans[1]}>
+        <Col span={colSpans[1] + colSpans[2]}>
           <Grid columns={100} align="center">
             <Col span={50}>
               <Grid columns={100} align="center">
-                <Col span={30}>
+                <Col span={20}>
                   <Text color="primary" role="productive">
                     {messages.fieldDateMinLabel}
                   </Text>
                 </Col>
-                <Col span={70}>
+                <Col span={80}>
                   <Controller
                     name="config.minDate"
                     control={control}
-                    render={({ field }) => <>Min date here</>}
+                    render={({ field }) => <DatePicker {...field} />}
                   />
                 </Col>
               </Grid>
             </Col>
             <Col span={50}>
               <Grid columns={100} align="center">
-                <Col span={30}>
+                <Col span={20}>
                   <Text color="primary" role="productive">
                     {messages.fieldDateMaxLabel}
                   </Text>
                 </Col>
-                <Col span={70}>
+                <Col span={80}>
                   <Controller
                     name="config.maxDate"
                     control={control}
-                    render={({ field }) => <>Max date here</>}
+                    render={({ field }) => <DatePicker {...field} />}
                   />
                 </Col>
               </Grid>

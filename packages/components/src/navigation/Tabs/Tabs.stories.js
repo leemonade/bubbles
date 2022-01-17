@@ -1,11 +1,9 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
 import { InformationCircleIcon, StarIcon } from '@heroicons/react/solid';
-import { Box, Paper, Group, NumberInput } from '@mantine/core';
-import { createStyles } from '@mantine/core';
+import { Box, Group, NumberInput, Paper } from '@mantine/core';
 import { Paragraph } from './../../typography';
-import { PageContainer } from './../../layout';
+import { TabPanel } from './TabPanelList/TabPanel';
 import { Tabs } from './Tabs';
-import { TabPane as Tab } from './TabPanelList/TabPane';
 import mdx from './Tabs.mdx';
 
 export default {
@@ -24,15 +22,15 @@ export default {
 };
 
 const Template = ({ position, disabled, ...props }) => {
-  const [numberOfTabs, setNumberOfTabs] = useState(10);
+  const [numberOfTabs, setNumberOfTabs] = useState(3);
   return (
     <Group noWrap>
       <Box style={{ width: '80%' }}>
-        <Tabs position={position}>
+        <Tabs position={position} forceRender>
           {[...Array(numberOfTabs).keys()].map((i) => (
-            <Tab
-              key={i}
+            <TabPanel
               {...props}
+              key={i}
               disabled={disabled}
               label={`Tab ${i}`}
               notification={i === 5 ? i : undefined}
@@ -41,10 +39,8 @@ const Template = ({ position, disabled, ...props }) => {
               leftIcon={<InformationCircleIcon style={{ width: 14, color: '#B9BEC4' }} />}
               rightIcon={i === 3 ? <StarIcon style={{ width: 14, color: '#B9BEC4' }} /> : undefined}
             >
-              <Box>
-                <Paragraph>Content of {i}</Paragraph>
-              </Box>
-            </Tab>
+              <Paragraph>Content of {i}</Paragraph>
+            </TabPanel>
           ))}
         </Tabs>
       </Box>
@@ -66,19 +62,19 @@ Playground.args = {
   disabled: false,
 };
 
-const SimpleTemplate = ({ ...props }) => {
+const SimpleTemplate = ({ position, disabled, ...props }) => {
   return (
-    <Tabs {...props}>
-      <Tab label="First">
+    <Tabs {...props} forceRender>
+      <TabPanel label="First">
         <Box>
           <Paragraph>Content of First tab</Paragraph>
         </Box>
-      </Tab>
-      <Tab label="Second" disabled>
+      </TabPanel>
+      <TabPanel label="Second" disabled>
         <Box>
           <Paragraph>Content of Second tab</Paragraph>
         </Box>
-      </Tab>
+      </TabPanel>
     </Tabs>
   );
 };

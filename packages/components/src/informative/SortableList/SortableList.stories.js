@@ -23,7 +23,7 @@ export default {
 const Template = ({ children, ...props }) => {
   const [state, setState] = useState(['Gatitos', 'Perritos', 'Hamsters']);
   return (
-    <SortableList {...props} onChange={setState} sortable={true} removable={true} value={state}>
+    <SortableList {...props} onChange={setState} value={state}>
       {children}
     </SortableList>
   );

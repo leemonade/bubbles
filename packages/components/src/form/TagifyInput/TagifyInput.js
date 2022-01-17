@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import {
-  INPUT_WRAPPER_ORIENTATION,
+  INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_PROP_TYPES,
   INPUT_WRAPPER_SIZES,
   InputWrapper,
@@ -15,7 +15,7 @@ const noop = (_) => _;
 
 export const TAGIFY_TAG_REGEX = /(?:\[{2}\{).*?(?:\}\]{2})/g;
 export const TAGIFY_SIZES = INPUT_WRAPPER_SIZES;
-export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATION;
+export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TAGIFY_DEFAULT_PROPS = {
   mixed: true,
