@@ -7,6 +7,7 @@ import { ContextContainer } from '../../../layout';
 import { TextInput, Checkbox, NumberInput, Button } from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 
 export const SETUP_BASIC_DATA_DEFAULT_PROPS = {};
 export const SETUP_BASIC_DATA_PROP_TYPES = {
@@ -32,6 +33,8 @@ export const SETUP_BASIC_DATA_PROP_TYPES = {
     programAbbrev: PropTypes.any,
   }),
   onNext: PropTypes.func,
+  sharedData: PropTypes.any,
+  setSharedData: PropTypes.func,
 };
 
 const SetupBasicData = ({
@@ -42,6 +45,9 @@ const SetupBasicData = ({
   helps,
   errorMessages,
   onNext,
+  onPrevious,
+  sharedData,
+  setSharedData,
   ...props
 }) => {
   const { classes, cx } = SetupBasicDataStyles({});
@@ -57,8 +63,13 @@ const SetupBasicData = ({
 
   const headerInputStyle = { width: '30%' };
 
+  const handleOnNext = (e) => {
+    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(onNext) && onNext(e);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)}>
       <ContextContainer {...props}>
         <Controller
           control={control}

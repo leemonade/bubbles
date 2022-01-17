@@ -7,6 +7,7 @@ import { ContextContainer } from '../../../layout';
 import { TextInput, Checkbox, NumberInput, Button, CheckBoxGroup, Select } from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
 export const SETUP_COURSES_PROP_TYPES = {
@@ -39,6 +40,8 @@ export const SETUP_COURSES_PROP_TYPES = {
   }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
+  sharedData: PropTypes.any,
+  setSharedData: PropTypes.func,
 };
 const FREQUENCY_OPTIONS = [
   { label: 'Anual', value: 'Anual' },
@@ -50,7 +53,16 @@ const FREQUENCY_OPTIONS = [
   { label: 'Daily', value: 'Daily' },
 ];
 
-const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext, ...props }) => {
+const SetupCourses = ({
+  labels,
+  placeholders,
+  errorMessages,
+  onPrevious,
+  onNext,
+  sharedData,
+  setSharedData,
+  ...props
+}) => {
   const { classes, cx } = SetupCoursesStyles({});
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
@@ -117,8 +129,13 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
     return substages;
   };
 
+  const handleOnNext = (e) => {
+    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(onNext) && onNext(e);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)}>
       <ContextContainer title={labels.title} {...props}>
         <Controller
           name="courseOptions"

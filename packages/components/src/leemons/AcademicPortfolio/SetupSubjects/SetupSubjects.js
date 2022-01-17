@@ -6,6 +6,7 @@ import { TextInput, Checkbox, NumberInput, Button, Select, TableInput } from '..
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../../typography';
 import { Box } from '@mantine/core';
+import { isFunction } from 'lodash';
 import { SetupSubjectsStyles } from './SetupSubjects.styles';
 
 export const SETUP_SUBJECTS_DEFAULT_PROPS = {};
@@ -28,9 +29,10 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
   helps: PropTypes.shape({
     maxAbbrevLength: PropTypes.string,
   }),
-  numberOfCourses: PropTypes.number,
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
+  sharedData: PropTypes.any,
+  setSharedData: PropTypes.func,
 };
 
 const FIRST_DIGIT_OPTIONS = ['Course Nº', 'None'];
@@ -45,15 +47,24 @@ const FREQUENCY_OPTIONS = [
   { label: 'Daily', value: 'Daily' },
 ];
 
-const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...props }) => {
+const SetupSubjects = ({
+  labels,
+  helps,
+  onNext,
+  onPrevious,
+  sharedData,
+  setSharedData,
+  ...props
+}) => {
   const { classes, cx } = SetupSubjectsStyles({});
 
   const [firstDigit, setFirstDigit] = useState(FIRST_DIGIT_OPTIONS[0]);
   const [digits, setDigits] = useState(0);
   const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(false);
+  const numberOfCourses = sharedData?.numberOfCourses;
 
   const generateSubjectsID = (firstDigit, digits) => {
-    if (!digits) return '';
+    if (!digits || !numberOfCourses) return '';
     let subjectsID = '';
     for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
       let firstNumber = firstDigit === FIRST_DIGIT_OPTIONS[0] ? currentNumber : '';
@@ -70,8 +81,13 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
     formState: { errors },
   } = useForm();
 
+  const handleOnNext = (e) => {
+    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(onNext) && onNext(e);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)}>
       <ContextContainer title={labels.title} {...props}>
         <Text size={'md'}>{labels.standardDuration}</Text>
         <Controller

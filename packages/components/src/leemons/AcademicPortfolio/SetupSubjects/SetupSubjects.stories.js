@@ -49,5 +49,4 @@ Playground.args = {
   helps: {
     maxAbbrevLength: '(i.e: MKTG, MATH, HIST…)',
   },
-  numberOfCourses: 4,
 };
