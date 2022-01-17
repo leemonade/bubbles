@@ -4,9 +4,16 @@ import mergeAllOf from "json-schema-merge-allof";
 import fill from "core-js-pure/features/array/fill";
 import union from "lodash/union";
 import jsonpointer from "jsonpointer";
-import fields from "./components/fields";
-import widgets from "./components/widgets";
 import validateFormData, { isValid } from "./validate";
+
+let fields = {};
+let widgets = {};
+import("./components/fields").then((res) => {
+  fields = res.default;
+});
+import("./components/widgets").then((res) => {
+  widgets = res.default;
+});
 
 export const ADDITIONAL_PROPERTY_FLAG = "__additional_property";
 
@@ -77,6 +84,8 @@ export function canExpand(schema, uiSchema, formData) {
   }
   return true;
 }
+
+
 
 export function getDefaultRegistry() {
   return {

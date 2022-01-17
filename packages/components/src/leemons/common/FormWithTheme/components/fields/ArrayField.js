@@ -1,23 +1,12 @@
-import AddButton from "../AddButton";
-import IconButton from "../IconButton";
-import React, { Component } from "react";
-import includes from "core-js-pure/es/array/includes";
-import * as types from "../../types";
+import AddButton from '../AddButton';
+import { Box } from '@mantine/core';
+import IconButton from '../IconButton';
+import React, { Component } from 'react';
+import includes from 'core-js-pure/es/array/includes';
+import * as types from '../../types';
+import { nanoid } from 'nanoid';
 
-import {
-  getWidget,
-  getDefaultFormState,
-  getUiOptions,
-  isMultiSelect,
-  isFilesArray,
-  isFixedItems,
-  allowAdditionalItems,
-  optionsList,
-  retrieveSchema,
-  toIdSchema,
-  getDefaultRegistry,
-} from "../../utils";
-import { nanoid } from "nanoid";
+
 
 function ArrayFieldTitle({ TitleField, idSchema, title, required }) {
   if (!title) {
@@ -41,28 +30,27 @@ function DefaultArrayItem(props) {
     flex: 1,
     paddingLeft: 6,
     paddingRight: 6,
-    fontWeight: "bold",
+    fontWeight: 'bold'
   };
   return (
     <div key={props.key} className={props.className}>
-      <div className={props.hasToolbar ? "col-xs-9" : "col-xs-12"}>
-        {props.children}
-      </div>
+      <div className={props.hasToolbar ? 'col-xs-9' : 'col-xs-12'}>{props.children}</div>
 
       {props.hasToolbar && (
-        <div className="col-xs-3 array-item-toolbox">
+        <div className='col-xs-3 array-item-toolbox'>
           <div
-            className="btn-group"
+            className='btn-group'
             style={{
-              display: "flex",
-              justifyContent: "space-around",
-            }}>
+              display: 'flex',
+              justifyContent: 'space-around'
+            }}
+          >
             {(props.hasMoveUp || props.hasMoveDown) && (
               <IconButton
-                icon="arrow-up"
-                aria-label="Move up"
-                className="array-item-move-up"
-                tabIndex="-1"
+                icon='arrow-up'
+                aria-label='Move up'
+                className='array-item-move-up'
+                tabIndex='-1'
                 style={btnStyle}
                 disabled={props.disabled || props.readonly || !props.hasMoveUp}
                 onClick={props.onReorderClick(props.index, props.index - 1)}
@@ -71,25 +59,23 @@ function DefaultArrayItem(props) {
 
             {(props.hasMoveUp || props.hasMoveDown) && (
               <IconButton
-                icon="arrow-down"
-                className="array-item-move-down"
-                aria-label="Move down"
-                tabIndex="-1"
+                icon='arrow-down'
+                className='array-item-move-down'
+                aria-label='Move down'
+                tabIndex='-1'
                 style={btnStyle}
-                disabled={
-                  props.disabled || props.readonly || !props.hasMoveDown
-                }
+                disabled={props.disabled || props.readonly || !props.hasMoveDown}
                 onClick={props.onReorderClick(props.index, props.index + 1)}
               />
             )}
 
             {props.hasRemove && (
               <IconButton
-                type="danger"
-                icon="remove"
-                aria-label="Remove"
-                className="array-item-remove"
-                tabIndex="-1"
+                type='danger'
+                icon='remove'
+                aria-label='Remove'
+                className='array-item-remove'
+                tabIndex='-1'
                 style={btnStyle}
                 disabled={props.disabled || props.readonly}
                 onClick={props.onDropIndexClick(props.index)}
@@ -104,76 +90,68 @@ function DefaultArrayItem(props) {
 
 function DefaultFixedArrayFieldTemplate(props) {
   return (
-    <fieldset className={props.className} id={props.idSchema.$id}>
+    <Box className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
         key={`array-field-title-${props.idSchema.$id}`}
         TitleField={props.TitleField}
         idSchema={props.idSchema}
-        title={props.uiSchema["ui:title"] || props.title}
+        title={props.uiSchema['ui:title'] || props.title}
         required={props.required}
       />
 
-      {(props.uiSchema["ui:description"] || props.schema.description) && (
-        <div
-          className="field-description"
-          key={`field-description-${props.idSchema.$id}`}>
-          {props.uiSchema["ui:description"] || props.schema.description}
+      {(props.uiSchema['ui:description'] || props.schema.description) && (
+        <div className='field-description' key={`field-description-${props.idSchema.$id}`}>
+          {props.uiSchema['ui:description'] || props.schema.description}
         </div>
       )}
 
-      <div
-        className="row array-item-list"
-        key={`array-item-list-${props.idSchema.$id}`}>
+      <div className='row array-item-list' key={`array-item-list-${props.idSchema.$id}`}>
         {props.items && props.items.map(DefaultArrayItem)}
       </div>
 
       {props.canAdd && (
         <AddButton
-          className="array-item-add"
+          className='array-item-add'
           onClick={props.onAddClick}
           disabled={props.disabled || props.readonly}
         />
       )}
-    </fieldset>
+    </Box>
   );
 }
 
 function DefaultNormalArrayFieldTemplate(props) {
   return (
-    <fieldset className={props.className} id={props.idSchema.$id}>
+    <Box className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
         key={`array-field-title-${props.idSchema.$id}`}
         TitleField={props.TitleField}
         idSchema={props.idSchema}
-        title={props.uiSchema["ui:title"] || props.title}
+        title={props.uiSchema['ui:title'] || props.title}
         required={props.required}
       />
 
-      {(props.uiSchema["ui:description"] || props.schema.description) && (
+      {(props.uiSchema['ui:description'] || props.schema.description) && (
         <ArrayFieldDescription
           key={`array-field-description-${props.idSchema.$id}`}
           DescriptionField={props.DescriptionField}
           idSchema={props.idSchema}
-          description={
-            props.uiSchema["ui:description"] || props.schema.description
-          }
+          description={props.uiSchema['ui:description'] || props.schema.description}
         />
       )}
 
-      <div
-        className="row array-item-list"
-        key={`array-item-list-${props.idSchema.$id}`}>
-        {props.items && props.items.map(p => DefaultArrayItem(p))}
+      <div className='row array-item-list' key={`array-item-list-${props.idSchema.$id}`}>
+        {props.items && props.items.map((p) => DefaultArrayItem(p))}
       </div>
 
       {props.canAdd && (
         <AddButton
-          className="array-item-add"
+          className='array-item-add'
           onClick={props.onAddClick}
           disabled={props.disabled || props.readonly}
         />
       )}
-    </fieldset>
+    </Box>
   );
 }
 
@@ -184,16 +162,16 @@ function generateRowId() {
 function generateKeyedFormData(formData) {
   return !Array.isArray(formData)
     ? []
-    : formData.map(item => {
-        return {
-          key: generateRowId(),
-          item,
-        };
-      });
+    : formData.map((item) => {
+      return {
+        key: generateRowId(),
+        item
+      };
+    });
 }
 
 function keyedToPlainFormData(keyedFormData) {
-  return keyedFormData.map(keyedItem => keyedItem.item);
+  return keyedFormData.map((keyedItem) => keyedItem.item);
 }
 
 class ArrayField extends Component {
@@ -204,7 +182,7 @@ class ArrayField extends Component {
     required: false,
     disabled: false,
     readonly: false,
-    autofocus: false,
+    autofocus: false
   };
 
   constructor(props) {
@@ -213,7 +191,7 @@ class ArrayField extends Component {
     const keyedFormData = generateKeyedFormData(formData);
     this.state = {
       keyedFormData,
-      updatedKeyedFormData: false,
+      updatedKeyedFormData: false
     };
   }
 
@@ -221,7 +199,7 @@ class ArrayField extends Component {
     // Don't call getDerivedStateFromProps if keyed formdata was just updated.
     if (prevState.updatedKeyedFormData) {
       return {
-        updatedKeyedFormData: false,
+        updatedKeyedFormData: false
       };
     }
     const nextFormData = nextProps.formData || [];
@@ -229,30 +207,30 @@ class ArrayField extends Component {
     const newKeyedFormData =
       nextFormData.length === previousKeyedFormData.length
         ? previousKeyedFormData.map((previousKeyedFormDatum, index) => {
-            return {
-              key: previousKeyedFormDatum.key,
-              item: nextFormData[index],
-            };
-          })
+          return {
+            key: previousKeyedFormDatum.key,
+            item: nextFormData[index]
+          };
+        })
         : generateKeyedFormData(nextFormData);
     return {
-      keyedFormData: newKeyedFormData,
+      keyedFormData: newKeyedFormData
     };
   }
 
   get itemTitle() {
     const { schema } = this.props;
-    return schema.items.title || schema.items.description || "Item";
+    return schema.items.title || schema.items.description || 'Item';
   }
 
   isItemRequired(itemSchema) {
     if (Array.isArray(itemSchema.type)) {
       // While we don't yet support composite/nullable jsonschema types, it's
       // future-proof to check for requirement against these.
-      return !includes(itemSchema.type, "null");
+      return !includes(itemSchema.type, 'null');
     }
     // All non-null array item types are inherently required by design
-    return itemSchema.type !== "null";
+    return itemSchema.type !== 'null';
   }
 
   canAddItem(formItems) {
@@ -280,7 +258,7 @@ class ArrayField extends Component {
     return getDefaultFormState(itemSchema, undefined, rootSchema);
   };
 
-  onAddClick = event => {
+  onAddClick = (event) => {
     if (event) {
       event.preventDefault();
     }
@@ -288,27 +266,27 @@ class ArrayField extends Component {
     const { onChange } = this.props;
     const newKeyedFormDataRow = {
       key: generateRowId(),
-      item: this._getNewFormDataRow(),
+      item: this._getNewFormDataRow()
     };
     const newKeyedFormData = [...this.state.keyedFormData, newKeyedFormDataRow];
     this.setState(
       {
         keyedFormData: newKeyedFormData,
-        updatedKeyedFormData: true,
+        updatedKeyedFormData: true
       },
       () => onChange(keyedToPlainFormData(newKeyedFormData))
     );
   };
 
-  onAddIndexClick = index => {
-    return event => {
+  onAddIndexClick = (index) => {
+    return (event) => {
       if (event) {
         event.preventDefault();
       }
       const { onChange } = this.props;
       const newKeyedFormDataRow = {
         key: generateRowId(),
-        item: this._getNewFormDataRow(),
+        item: this._getNewFormDataRow()
       };
       let newKeyedFormData = [...this.state.keyedFormData];
       newKeyedFormData.splice(index, 0, newKeyedFormDataRow);
@@ -316,15 +294,15 @@ class ArrayField extends Component {
       this.setState(
         {
           keyedFormData: newKeyedFormData,
-          updatedKeyedFormData: true,
+          updatedKeyedFormData: true
         },
         () => onChange(keyedToPlainFormData(newKeyedFormData))
       );
     };
   };
 
-  onDropIndexClick = index => {
-    return event => {
+  onDropIndexClick = (index) => {
+    return (event) => {
       if (event) {
         event.preventDefault();
       }
@@ -348,7 +326,7 @@ class ArrayField extends Component {
       this.setState(
         {
           keyedFormData: newKeyedFormData,
-          updatedKeyedFormData: true,
+          updatedKeyedFormData: true
         },
         () => onChange(keyedToPlainFormData(newKeyedFormData), newErrorSchema)
       );
@@ -356,7 +334,7 @@ class ArrayField extends Component {
   };
 
   onReorderClick = (index, newIndex) => {
-    return event => {
+    return (event) => {
       if (event) {
         event.preventDefault();
         event.target.blur();
@@ -378,6 +356,7 @@ class ArrayField extends Component {
       }
 
       const { keyedFormData } = this.state;
+
       function reOrderArray() {
         // Copy item
         let _newKeyedFormData = keyedFormData.slice();
@@ -388,58 +367,50 @@ class ArrayField extends Component {
 
         return _newKeyedFormData;
       }
+
       const newKeyedFormData = reOrderArray();
       this.setState(
         {
-          keyedFormData: newKeyedFormData,
+          keyedFormData: newKeyedFormData
         },
         () => onChange(keyedToPlainFormData(newKeyedFormData), newErrorSchema)
       );
     };
   };
 
-  onChangeForIndex = index => {
+  onChangeForIndex = (index) => {
     return (value, errorSchema) => {
       const { formData, onChange } = this.props;
       const newFormData = formData.map((item, i) => {
         // We need to treat undefined items as nulls to have validation.
         // See https://github.com/tdegrunt/jsonschema/issues/206
-        const jsonValue = typeof value === "undefined" ? null : value;
+        const jsonValue = typeof value === 'undefined' ? null : value;
         return index === i ? jsonValue : item;
       });
       onChange(
         newFormData,
         errorSchema &&
-          this.props.errorSchema && {
-            ...this.props.errorSchema,
-            [index]: errorSchema,
-          }
+        this.props.errorSchema && {
+          ...this.props.errorSchema,
+          [index]: errorSchema
+        }
       );
     };
   };
 
-  onSelectChange = value => {
+  onSelectChange = (value) => {
     this.props.onChange(value);
   };
 
   render() {
-    const {
-      schema,
-      uiSchema,
-      idSchema,
-      registry = getDefaultRegistry(),
-    } = this.props;
+    const { schema, uiSchema, idSchema, registry = getDefaultRegistry() } = this.props;
     const { rootSchema } = registry;
-    if (!schema.hasOwnProperty("items")) {
+    if (!schema.hasOwnProperty('items')) {
       const { fields } = registry;
       const { UnsupportedField } = fields;
 
       return (
-        <UnsupportedField
-          schema={schema}
-          idSchema={idSchema}
-          reason="Missing items definition"
-        />
+        <UnsupportedField schema={schema} idSchema={idSchema} reason='Missing items definition' />
       );
     }
     if (isFixedItems(schema)) {
@@ -469,7 +440,7 @@ class ArrayField extends Component {
       onBlur,
       onFocus,
       idPrefix,
-      rawErrors,
+      rawErrors
     } = this.props;
     const title = schema.title === undefined ? name : schema.title;
     const { ArrayFieldTemplate, rootSchema, fields, formContext } = registry;
@@ -482,14 +453,8 @@ class ArrayField extends Component {
         const { key, item } = keyedItem;
         const itemSchema = retrieveSchema(schema.items, rootSchema, item);
         const itemErrorSchema = errorSchema ? errorSchema[index] : undefined;
-        const itemIdPrefix = idSchema.$id + "_" + index;
-        const itemIdSchema = toIdSchema(
-          itemSchema,
-          itemIdPrefix,
-          rootSchema,
-          item,
-          idPrefix
-        );
+        const itemIdPrefix = idSchema.$id + '_' + index;
+        const itemIdSchema = toIdSchema(itemSchema, itemIdPrefix, rootSchema, item, idPrefix);
         return this.renderArrayFieldItem({
           key,
           index,
@@ -502,7 +467,7 @@ class ArrayField extends Component {
           itemUiSchema: uiSchema.items,
           autofocus: autofocus && index === 0,
           onBlur,
-          onFocus,
+          onFocus
         });
       }),
       className: `field field-array field-array-of-${itemsSchema.type}`,
@@ -519,14 +484,12 @@ class ArrayField extends Component {
       formContext,
       formData,
       rawErrors,
-      registry,
+      registry
     };
 
     // Check if a custom render function was passed in
     const Component =
-      uiSchema["ui:ArrayFieldTemplate"] ||
-      ArrayFieldTemplate ||
-      DefaultNormalArrayFieldTemplate;
+      uiSchema['ui:ArrayFieldTemplate'] || ArrayFieldTemplate || DefaultNormalArrayFieldTemplate;
     return <Component {...arrayProps} />;
   }
 
@@ -545,16 +508,16 @@ class ArrayField extends Component {
       onFocus,
       registry = getDefaultRegistry(),
       rawErrors,
-      name,
+      name
     } = this.props;
     const items = this.props.formData;
     const { widgets, rootSchema, formContext } = registry;
     const itemsSchema = retrieveSchema(schema.items, rootSchema, formData);
     const title = schema.title || name;
     const enumOptions = optionsList(itemsSchema);
-    const { widget = "select", ...options } = {
+    const { widget = 'select', ...options } = {
       ...getUiOptions(uiSchema),
-      enumOptions,
+      enumOptions
     };
     const Widget = getWidget(schema, widget, widgets);
     return (
@@ -592,12 +555,12 @@ class ArrayField extends Component {
       onBlur,
       onFocus,
       registry = getDefaultRegistry(),
-      rawErrors,
+      rawErrors
     } = this.props;
     const title = schema.title || name;
     const items = this.props.formData;
     const { widgets, formContext } = registry;
-    const { widget = "files", ...options } = getUiOptions(uiSchema);
+    const { widget = 'files', ...options } = getUiOptions(uiSchema);
     const Widget = getWidget(schema, widget, widgets);
     return (
       <Widget
@@ -635,7 +598,7 @@ class ArrayField extends Component {
       registry = getDefaultRegistry(),
       onBlur,
       onFocus,
-      rawErrors,
+      rawErrors
     } = this.props;
     const title = schema.title || name;
     let items = this.props.formData;
@@ -657,7 +620,7 @@ class ArrayField extends Component {
     // These are the props passed into the render function
     const arrayProps = {
       canAdd: this.canAddItem(items) && additionalSchema,
-      className: "field field-array field-array-fixed-items",
+      className: 'field field-array field-array-fixed-items',
       disabled,
       idSchema,
       formData,
@@ -667,19 +630,13 @@ class ArrayField extends Component {
         const itemSchema = additional
           ? retrieveSchema(schema.additionalItems, rootSchema, item)
           : itemSchemas[index];
-        const itemIdPrefix = idSchema.$id + "_" + index;
-        const itemIdSchema = toIdSchema(
-          itemSchema,
-          itemIdPrefix,
-          rootSchema,
-          item,
-          idPrefix
-        );
+        const itemIdPrefix = idSchema.$id + '_' + index;
+        const itemIdSchema = toIdSchema(itemSchema, itemIdPrefix, rootSchema, item, idPrefix);
         const itemUiSchema = additional
           ? uiSchema.additionalItems || {}
           : Array.isArray(uiSchema.items)
-          ? uiSchema.items[index]
-          : uiSchema.items || {};
+            ? uiSchema.items[index]
+            : uiSchema.items || {};
         const itemErrorSchema = errorSchema ? errorSchema[index] : undefined;
 
         return this.renderArrayFieldItem({
@@ -695,7 +652,7 @@ class ArrayField extends Component {
           itemErrorSchema,
           autofocus: autofocus && index === 0,
           onBlur,
-          onFocus,
+          onFocus
         });
       }),
       onAddClick: this.onAddClick,
@@ -706,14 +663,12 @@ class ArrayField extends Component {
       title,
       TitleField,
       formContext,
-      rawErrors,
+      rawErrors
     };
 
     // Check if a custom template template was passed in
     const Template =
-      uiSchema["ui:ArrayFieldTemplate"] ||
-      ArrayFieldTemplate ||
-      DefaultFixedArrayFieldTemplate;
+      uiSchema['ui:ArrayFieldTemplate'] || ArrayFieldTemplate || DefaultFixedArrayFieldTemplate;
     return <Template {...arrayProps} />;
   }
 
@@ -732,28 +687,23 @@ class ArrayField extends Component {
       autofocus,
       onBlur,
       onFocus,
-      rawErrors,
+      rawErrors
     } = props;
+    const { disabled, readonly, uiSchema, registry = getDefaultRegistry() } = this.props;
     const {
-      disabled,
-      readonly,
-      uiSchema,
-      registry = getDefaultRegistry(),
-    } = this.props;
-    const {
-      fields: { SchemaField },
+      fields: { SchemaField }
     } = registry;
     const { orderable, removable } = {
       orderable: true,
       removable: true,
-      ...uiSchema["ui:options"],
+      ...uiSchema['ui:options']
     };
     const has = {
       moveUp: orderable && canMoveUp,
       moveDown: orderable && canMoveDown,
-      remove: removable && canRemove,
+      remove: removable && canRemove
     };
-    has.toolbar = Object.keys(has).some(key => has[key]);
+    has.toolbar = Object.keys(has).some((key) => has[key]);
 
     return {
       children: (
@@ -775,7 +725,7 @@ class ArrayField extends Component {
           rawErrors={rawErrors}
         />
       ),
-      className: "array-item",
+      className: 'array-item',
       disabled,
       hasToolbar: has.toolbar,
       hasMoveUp: has.moveUp,
@@ -786,13 +736,27 @@ class ArrayField extends Component {
       onAddIndexClick: this.onAddIndexClick,
       onDropIndexClick: this.onDropIndexClick,
       onReorderClick: this.onReorderClick,
-      readonly,
+      readonly
     };
   }
 }
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== 'production') {
   ArrayField.propTypes = types.fieldProps;
 }
 
 export default ArrayField;
+
+import {
+  allowAdditionalItems,
+  getDefaultFormState,
+  getDefaultRegistry,
+  getUiOptions,
+  getWidget,
+  isFilesArray,
+  isFixedItems,
+  isMultiSelect,
+  optionsList,
+  retrieveSchema,
+  toIdSchema
+} from '../../utils';

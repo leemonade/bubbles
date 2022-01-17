@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as types from "../../types";
-import {
-  getUiOptions,
-  getWidget,
-  guessType,
-  retrieveSchema,
-  getDefaultFormState,
-  getMatchingOption,
-  deepEquals,
-} from "../../utils";
+
 
 class AnyOfField extends Component {
   constructor(props) {
@@ -193,3 +185,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default AnyOfField;
+
+import {
+  getUiOptions,
+  getWidget,
+  guessType,
+  retrieveSchema,
+  getDefaultFormState,
+  getMatchingOption,
+  deepEquals,
+} from "../../utils";

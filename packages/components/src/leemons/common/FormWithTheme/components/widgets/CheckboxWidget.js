@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { schemaRequiresTrueValue } from '../../utils';
+
 import { Checkbox } from '../../../../../form';
 
 function CheckboxWidget(props) {
@@ -66,3 +66,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default CheckboxWidget;
+import { schemaRequiresTrueValue } from '../../utils';

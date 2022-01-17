@@ -23,13 +23,12 @@ const Paper = forwardRef(
 
     return (
       <MantinePaper
+        {...props}
         component={component}
         padding={padding}
         radius={radius}
-        {...props}
         ref={ref}
-        classNames={cx(classes, className)}
-        className={classes.root}
+        className={cx(classes.root, className)}
       >
         {children}
       </MantinePaper>

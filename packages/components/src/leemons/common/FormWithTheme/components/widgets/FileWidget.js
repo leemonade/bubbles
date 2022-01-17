@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import { dataURItoBlob, shouldRender } from "../../utils";
+
 
 function addNameToDataURL(dataURL, name) {
   return dataURL.replace(";base64", `;name=${encodeURIComponent(name)};base64`);
@@ -129,3 +129,4 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default FileWidget;
+import { dataURItoBlob, shouldRender } from "../../utils";

@@ -1,12 +1,7 @@
 import React from "react";
 import * as types from "../../types";
 
-import {
-  getWidget,
-  getUiOptions,
-  optionsList,
-  getDefaultRegistry,
-} from "../../utils";
+
 
 function BooleanField(props) {
   const {
@@ -85,3 +80,10 @@ BooleanField.defaultProps = {
 };
 
 export default BooleanField;
+
+import {
+  getWidget,
+  getUiOptions,
+  optionsList,
+  getDefaultRegistry,
+} from "../../utils";

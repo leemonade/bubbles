@@ -1,14 +1,7 @@
 import React from 'react';
 import * as types from '../../types';
 
-import {
-  getDefaultRegistry,
-  getUiOptions,
-  getWidget,
-  hasWidget,
-  isSelect,
-  optionsList,
-} from '../../utils';
+
 
 function StringField(props) {
   const {
@@ -71,3 +64,11 @@ StringField.defaultProps = {
 };
 
 export default StringField;
+import {
+  getDefaultRegistry,
+  getUiOptions,
+  getWidget,
+  hasWidget,
+  isSelect,
+  optionsList,
+} from '../../utils';

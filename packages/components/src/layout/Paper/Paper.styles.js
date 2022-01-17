@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => {
   const getShadows = (shadow) => {
@@ -21,9 +20,8 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
 
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
       display: 'inline-flex',
-      backgroundColor: '#eee',
+      backgroundColor: theme.colors.uiBackground01,
       boxShadow: getShadows(shadow),
     },
   };

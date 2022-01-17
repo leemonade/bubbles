@@ -3,17 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as types from '../../types';
 
-import {
-  ADDITIONAL_PROPERTY_FLAG,
-  deepEquals,
-  getDefaultRegistry,
-  getDisplayLabel,
-  getSchemaType,
-  isSelect,
-  mergeObjects,
-  retrieveSchema,
-  toIdSchema,
-} from '../../utils';
 
 const REQUIRED_FIELD_SYMBOL = '*';
 const COMPONENT_TYPES = {
@@ -407,3 +396,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default SchemaField;
+
+import {
+  ADDITIONAL_PROPERTY_FLAG,
+  deepEquals,
+  getDefaultRegistry,
+  getDisplayLabel,
+  getSchemaType,
+  isSelect,
+  mergeObjects,
+  retrieveSchema,
+  toIdSchema,
+} from '../../utils';
