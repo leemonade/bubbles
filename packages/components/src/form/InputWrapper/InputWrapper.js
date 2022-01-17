@@ -61,28 +61,30 @@ const InputWrapper = forwardRef(
       ? orientationProp
       : 'vertical';
     const hasError = useMemo(() => !isNil(error) && error !== '', [error]);
-
-    const { classes, cx } = InputWrapperStyles({ size, orientation });
+    const hasHeader = useMemo(() => !isEmpty(label) || !isEmpty(description), [label, description]);
+    const { classes, cx } = InputWrapperStyles({ size, orientation }, { name: 'InputWrapper' });
 
     const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
 
     return (
       <Box className={classes.root}>
         {/* Label & Description */}
-        <Stack
-          direction="column"
-          spacing={1}
-          className={cx(classes.header, headerClassname)}
-          style={headerStyle}
-        >
-          {!isEmpty(label) && (
-            <Text as="label" color="primary" role="productive" strong {...labelProps}>
-              {label}
-              {required && <span className={classes.required}> *</span>}
-            </Text>
-          )}
-          {!isEmpty(description) && <InputDescription message={description} />}
-        </Stack>
+        {hasHeader && (
+          <Stack
+            direction="column"
+            spacing={1}
+            className={cx(classes.header, headerClassname)}
+            style={headerStyle}
+          >
+            {!isEmpty(label) && (
+              <Text as="label" color="primary" role="productive" strong {...labelProps}>
+                {label}
+                {required && <span className={classes.required}> *</span>}
+              </Text>
+            )}
+            {!isEmpty(description) && <InputDescription message={description} />}
+          </Stack>
+        )}
 
         {/* Input, Error & help */}
         <Stack
