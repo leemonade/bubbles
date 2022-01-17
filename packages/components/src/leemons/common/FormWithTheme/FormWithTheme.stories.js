@@ -23,7 +23,10 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  const [form, actions] = FormWithTheme(mock.compileJsonSchema, mock.compileJsonUI);
+  const [form, actions] = FormWithTheme(
+    mock.compileJsonSchema || mock.jsonSchema,
+    mock.compileJsonUI || mock.jsonUI
+  );
   return (
     <>
       {form}

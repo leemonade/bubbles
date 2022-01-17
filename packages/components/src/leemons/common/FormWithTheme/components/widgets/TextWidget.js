@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 function TextWidget(props) {
   const { BaseInput } = props.registry.widgets;
-  console.log('TextWidget', props);
   return <BaseInput {...props} />;
 }
 

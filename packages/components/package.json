@@ -52,6 +52,7 @@
     "dom-helpers": "^5.2.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "immer": "^9.0.12",
     "immutability-helper": "^3.1.1",
     "json-rules-engine-simplified": "^0.1.17",
     "lodash": "^4.17.21",
@@ -71,7 +72,8 @@
     "react-table": "^7.7.0",
     "rjsf-conditionals": "^1.1.4",
     "rrule": "^2.6.8",
-    "simplebar-react": "^2.3.6"
+    "simplebar-react": "^2.3.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",

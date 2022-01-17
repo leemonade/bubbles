@@ -9,9 +9,13 @@ import { DraggableDefault } from './components/DraggableDefault';
 export const SORTABLE_LIST_DEFAULT_PROPS = {
   value: [],
   onChange: () => {},
-  container: DroppableDefault,
-  item: DraggableDefault,
+  onDragStart: () => {},
+  onDragEnd: () => {},
+  onBeforeDragStart: () => {},
+  containerRender: DroppableDefault,
+  itemRender: DraggableDefault,
   onRemove: () => {},
+  dragDisabled: false,
 };
 export const SORTABLE_LIST_PROP_TYPES = {
   value: PropTypes.arrayOf(PropTypes.any),
@@ -19,9 +23,23 @@ export const SORTABLE_LIST_PROP_TYPES = {
   onRemove: PropTypes.func,
   container: PropTypes.node,
   item: PropTypes.node,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
+  onBeforeDragStart: PropTypes.func,
+  dragDisabled: PropTypes.bool,
 };
 
-const SortableList = ({ value, onChange, onRemove, container: Container, item: Item }) => {
+const SortableList = ({
+  value,
+  onChange,
+  onRemove,
+  onDragStart,
+  onDragEnd,
+  onBeforeDragStart,
+  dragDisabled,
+  containerRender: Container,
+  itemRender: Item,
+}) => {
   const { classes, cx } = SortableListStyles({});
 
   const uuid = useId();
@@ -35,7 +53,7 @@ const SortableList = ({ value, onChange, onRemove, container: Container, item: I
     });
   }
 
-  function onDragEnd(result) {
+  function _onDragEnd(result) {
     const { source, destination } = result;
     if (!destination) return;
 
@@ -43,17 +61,27 @@ const SortableList = ({ value, onChange, onRemove, container: Container, item: I
     const [removed] = newData.splice(source.index, 1);
     newData.splice(destination.index, 0, removed);
     onChange(newData);
+    onDragEnd(result);
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext
+      onBeforeDragStart={onBeforeDragStart}
+      onDragStart={onDragStart}
+      onDragEnd={_onDragEnd}
+    >
       <Droppable droppableId={uuid}>
         {(provided, snapshot) => {
           return (
             <Container provided={provided} snapshot={snapshot}>
               {value.map((item, index) => {
                 return (
-                  <Draggable key={index} draggableId={index.toString()} index={index}>
+                  <Draggable
+                    isDragDisabled={dragDisabled}
+                    key={index}
+                    draggableId={index.toString()}
+                    index={index}
+                  >
                     {(provided, snapshot) => {
                       return (
                         <Item
@@ -61,6 +89,7 @@ const SortableList = ({ value, onChange, onRemove, container: Container, item: I
                           snapshot={snapshot}
                           item={item}
                           removeItem={() => removeItem(index)}
+                          classes={classes}
                         />
                       );
                     }}

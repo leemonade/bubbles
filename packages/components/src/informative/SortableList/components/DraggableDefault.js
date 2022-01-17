@@ -4,7 +4,7 @@ import { ActionButton } from '../../../form';
 import { DeleteBinIcon } from '../../../../../icons/solid';
 import { SortDragIcon } from '../../../../../icons/outline';
 
-const DraggableDefault = ({ provided, snapshot, item, removeItem }) => {
+const DraggableDefault = ({ provided, snapshot, item, removeItem, classes }) => {
   return (
     <Box
       ref={provided.innerRef}
@@ -13,7 +13,7 @@ const DraggableDefault = ({ provided, snapshot, item, removeItem }) => {
       sx={() => ({ display: 'flex', alignItems: 'center' })}
     >
       <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
-        <ActionButton icon={<SortDragIcon />} onClick={removeItem} />
+        <SortDragIcon className={classes.sortableIcon} />
       </Box>
       <Box sx={() => ({ width: '100%' })}>{item}</Box>
       <ActionButton icon={<DeleteBinIcon />} onClick={removeItem} />

@@ -80,7 +80,7 @@ function BaseInput(props) {
         newVal = event.toString();
         break;
       default:
-        newVal = event.target.value;
+        newVal = event;
     }
     return props.onChange({
       ...value,

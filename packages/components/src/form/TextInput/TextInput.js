@@ -65,7 +65,7 @@ const TextInput = forwardRef(
             name={name}
             disabled={disabled}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={(e) => onChange(e.target.value)}
             defaultValue={defaultValue}
             value={value || ''}
             placeholder={placeholder}

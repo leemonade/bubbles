@@ -18,6 +18,8 @@ import {
   retrieveSchema,
   toIdSchema,
 } from '../../utils';
+import { ListInput } from '../../../../../form/ListInput';
+import { Textarea, TextInput } from '../../../../../form';
 
 function ArrayFieldTitle({ TitleField, idSchema, title, required }) {
   if (!title) {
@@ -132,7 +134,56 @@ function DefaultFixedArrayFieldTemplate(props) {
 }
 
 function DefaultNormalArrayFieldTemplate(props) {
-  console.log(props);
+  const {
+    options,
+    uiSchema,
+    schema,
+    readonly,
+    canAdd,
+    formData,
+    disabled,
+    rawErrors,
+    required,
+    title,
+    onChange,
+  } = props;
+
+  const help = options?.help;
+
+  console.log('formData', formData);
+
+  const config = {
+    inputRender: ({ value, onChange }) => {
+      return <TextInput value={value} onChange={onChange} />;
+    },
+  };
+
+  if (schema.frontConfig.blockData.listType === 'textarea') {
+    config.inputRender = ({ value, onChange }) => {
+      return <Textarea value={value} onChange={onChange} />;
+    };
+  }
+
+  return (
+    <>
+      <ListInput
+        label={uiSchema['ui:title'] || title}
+        help={help}
+        description={uiSchema['ui:description'] || schema.description}
+        required={required}
+        readonly={readonly}
+        disabled={disabled}
+        canAdd={canAdd}
+        value={formData}
+        error={rawErrors ? rawErrors[0] : null}
+        onChange={onChange}
+        valueKey="value"
+        {...config}
+      />
+    </>
+  );
+
+  /*
   return (
     <Box className={props.className} id={props.idSchema.$id}>
       <ArrayFieldTitle
@@ -165,6 +216,8 @@ function DefaultNormalArrayFieldTemplate(props) {
       )}
     </Box>
   );
+
+   */
 }
 
 function generateRowId() {
@@ -286,7 +339,10 @@ class ArrayField extends Component {
         keyedFormData: newKeyedFormData,
         updatedKeyedFormData: true,
       },
-      () => onChange(keyedToPlainFormData(newKeyedFormData))
+      () => {
+        console.log(keyedToPlainFormData(newKeyedFormData));
+        onChange(keyedToPlainFormData(newKeyedFormData));
+      }
     );
   };
 
@@ -425,6 +481,7 @@ class ArrayField extends Component {
         <UnsupportedField schema={schema} idSchema={idSchema} reason="Missing items definition" />
       );
     }
+
     if (isFixedItems(schema)) {
       return this.renderFixedArray();
     }
@@ -488,6 +545,7 @@ class ArrayField extends Component {
       idSchema,
       uiSchema,
       onAddClick: this.onAddClick,
+      onChange: this.props.onChange,
       readonly,
       required,
       schema,
@@ -668,6 +726,7 @@ class ArrayField extends Component {
         });
       }),
       onAddClick: this.onAddClick,
+      onChange: this.props.onChange,
       readonly,
       required,
       schema,

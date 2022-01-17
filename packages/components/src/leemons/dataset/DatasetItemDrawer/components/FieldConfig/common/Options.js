@@ -19,7 +19,7 @@ const OptionItem = ({ value, onChange, index }) => {
         id={value.key}
         value={value.value}
         onChange={(e) => {
-          onChange({ ...value, value: e.target.value });
+          onChange({ ...value, value: e });
         }}
       />
     </Box>

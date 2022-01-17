@@ -1,11 +1,11 @@
-import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ColorPickerStyles } from './ColorPicker.styles';
 import {
+  Box,
   ColorPicker as MantineColorPicker,
   HueSlider,
   NumberInput,
-  Box,
   Space,
 } from '@mantine/core';
 import { Select } from '../Select';
@@ -158,7 +158,7 @@ export const ColorPicker = forwardRef(
                 onChange={setFormat}
                 className={classes.format}
               />
-              <TextInput value={value} onChange={(e) => setColor(e.target.value)} />
+              <TextInput value={value} onChange={setColor} />
             </Box>
           </>
         )}
