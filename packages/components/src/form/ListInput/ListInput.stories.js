@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { SORTABLE_LIST_DEFAULT_PROPS, SortableList } from './SortableList';
-import mdx from './SortableList.mdx';
+import React from 'react';
+import { Box } from '@mantine/core';
+import { ListInput, LIST_INPUT_DEFAULT_PROPS } from './ListInput';
+import mdx from './ListInput.mdx';
 
 export default {
-  title: 'Molecules/Informative/SortableList',
+  title: 'Molecules/Form/ListInput',
   parameters: {
-    component: SortableList,
+    component: ListInput,
     docs: {
       page: mdx,
     },
@@ -21,12 +22,7 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  const [state, setState] = useState(['Gatitos', 'Perritos', 'Hamsters']);
-  return (
-    <SortableList {...props} onChange={setState} value={state}>
-      {children}
-    </SortableList>
-  );
+  return <ListInput {...props}>{children}</ListInput>;
 };
 
 export const Playground = Template.bind({});
@@ -34,5 +30,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
-  ...SORTABLE_LIST_DEFAULT_PROPS,
+  ...LIST_INPUT_DEFAULT_PROPS,
 };
