@@ -2,9 +2,7 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import { Stepper, STEPPER_DEFAULT_PROPS } from './Stepper';
 import mdx from './Stepper.mdx';
-import { SetupBasicData } from '../../leemons/AcademicPortolfio/SetupBasicData';
-import { SetupSubjects } from '../../leemons/AcademicPortfolio/SetupSubjects';
-import { SetupCourses } from '../../leemons/AcademicPortfolio/SetupCourses';
+import { SetupBasicData, SetupSubjects, SetupCourses } from '../../leemons/AcademicPortfolio/';
 
 export default {
   title: 'Organisms/Navigation/Stepper',
@@ -18,7 +16,11 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onNext: { action: 'next' },
+    onPrev: { action: 'previous' },
+    onSave: { action: 'save' },
+  },
 };
 
 const Template = ({ children, ...props }) => {

@@ -15,6 +15,7 @@ import {
 } from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
 export const SETUP_COURSES_PROP_TYPES = {
