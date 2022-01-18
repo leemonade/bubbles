@@ -1,35 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import update from 'immutability-helper';
 import { isFunction } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { TABLE_PROP_TYPES, TABLE_DEFAULT_PROPS } from '../../informative/Table';
 import { TableInputDisplay } from './TableInputDisplay';
-
-export const TABLE_INPUT_DEFAULT_PROPS = {
-  ...TABLE_DEFAULT_PROPS,
-  sortable: true,
-  editable: false,
-};
-export const TABLE_INPUT_PROP_TYPES = {
-  ...TABLE_PROP_TYPES,
-  columns: PropTypes.arrayOf(
-    PropTypes.shape({
-      Header: PropTypes.string,
-      accessor: PropTypes.string,
-      input: PropTypes.shape({
-        node: PropTypes.element,
-        rules: PropTypes.object,
-      }),
-    })
-  ),
-  labels: PropTypes.shape({
-    add: PropTypes.string,
-    remove: PropTypes.string,
-  }),
-  sortable: PropTypes.bool,
-  editable: PropTypes.bool,
-};
+import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.const';
 
 // ----------------------------------------------------------------
 // HELP FUNCTIONS
@@ -41,6 +15,7 @@ function serializeItem(value) {
 function serializeData(data) {
   return data.map((value) => serializeItem(value));
 }
+
 function deserializeData(data) {
   return data.map((item) => {
     const { tableInputRowId, ...value } = item;

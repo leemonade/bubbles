@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { find } from 'lodash';
-import { TableInput, TABLE_INPUT_DEFAULT_PROPS } from './TableInput';
-import { TextInput, NumberInput, Select } from '../../form';
+import { TableInput } from './TableInput';
+import { NumberInput, Select, TextInput } from '../../form';
 import { ContextContainer } from '../../layout';
 import mdx from './TableInput.mdx';
+import { TABLE_INPUT_DEFAULT_PROPS } from './TableInput.const';
 
 export default {
   title: 'Organisms/Form/TableInput',
