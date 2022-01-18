@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextEditor, TEXT_EDITOR_DEFAULT_PROPS, TEXT_EDITOR_FORMATS } from './TextEditor';
+import React, { useEffect, useState } from 'react';
+import { TEXT_EDITOR_DEFAULT_PROPS, TEXT_EDITOR_FORMATS, TextEditor } from './TextEditor';
 import mdx from './TextEditor.mdx';
 
 export default {
@@ -23,6 +23,9 @@ export default {
 
 const Template = ({ value, ...props }) => {
   const [data, setData] = useState(value);
+  useEffect(() => {
+    setData(value);
+  }, [value]);
   return <TextEditor value={data} onChange={setData} output="html" input="html" {...props} />;
 };
 
