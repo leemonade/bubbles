@@ -93,7 +93,7 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
                 setAllSubjectsSameDuration(!allSubjectsSameDuration);
                 onChange(e);
               }}
-              checked={value}
+              checked={value || false}
               {...field}
             />
           )}
