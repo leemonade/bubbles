@@ -48,5 +48,8 @@ export const TextEditorStyles = createStyles((theme, {}) => {
     title: {
       ...getFontExpressive(),
     },
+    toolbarDropdown: {
+      boxShadow: theme.shadows.shadow03,
+    },
   };
 });

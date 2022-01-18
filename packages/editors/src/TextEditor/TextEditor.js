@@ -33,6 +33,8 @@ import { isFunction, isEmpty, isString } from 'lodash';
 import { Box } from '@bubbles-ui/components';
 import { CONFIG } from './config';
 import { TextEditorStyles } from './TextEditor.styles';
+import { createFontColorPlugin } from './plugins/font';
+import { FontButtons } from './toolbar/FontButtons';
 import { HeadingButtons } from './toolbar/HeadingButtons';
 import { AlignButtons } from './toolbar/AlignButtons';
 import { IndentButtons } from './toolbar/IndentButtons';
@@ -69,6 +71,7 @@ const PLUGINS = [
 
   // marks
   createBasicMarksPlugin(),
+  createFontColorPlugin(),
 
   // modifiers
   createNodeIdPlugin(),
@@ -165,6 +168,7 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
         <>
           <HeadingToolbar className={classes.headingToolbar}>
             <MarkButtons classes={classes} />
+            <FontButtons classes={classes} />
             <HeadingButtons classes={classes} />
             <AlignButtons classes={classes} />
             <IndentButtons classes={classes} />

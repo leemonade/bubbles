@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   getMark,
@@ -11,45 +11,39 @@ import {
   withEditor,
 } from '@udecode/plate-core';
 import { ToolbarButton, ToolbarButtonProps, ToolbarDropdown } from '@udecode/plate-ui-toolbar';
+import { ColorPicker, Popover, Box } from '@bubbles-ui/components';
 import { Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
+import { MARK_COLOR } from './createFontColorPlugin';
 
-/*
-type ColorPickerToolbarDropdownProps = {
-  pluginKey: string;
-  icon: ReactNode;
-  selectedIcon: ReactNode;
-  colors?: ColorType[];
-  customColors?: ColorType[];
-  closeOnSelect?: boolean;
-};
-
-export const ColorPickerToolbarDropdown = withEditor(
+const ColorPickerToolbarDropdown = withEditor(
   ({
     pluginKey,
     icon,
     selectedIcon,
-    colors = DEFAULT_COLORS,
-    customColors = DEFAULT_CUSTOM_COLORS,
-    closeOnSelect = true,
-    ...rest
-  }: ColorPickerToolbarDropdownProps & ToolbarButtonProps) => {
+    colors,
+    customColors,
+    closeOnSelect,
+    classNames,
+    buttonClassnames,
+    ...props
+  }) => {
     const [open, setOpen] = useState(false);
-    const editor = usePlateEditorState()!;
-    const editorRef = usePlateEditorRef()!;
+    const editor = usePlateEditorState();
+    const editorRef = usePlateEditorRef();
 
     const type = getPluginType(editorRef, pluginKey);
 
     const color = editorRef && getMark(editorRef, type);
 
-    const [selectedColor, setSelectedColor] = useState<string>();
+    const [selectedColor, setSelectedColor] = useState();
 
     const onToggle = useCallback(() => {
       setOpen(!open);
     }, [open, setOpen]);
 
     const updateColor = useCallback(
-      (value: string) => {
+      (value) => {
         if (editorRef && editor && editor.selection) {
           setSelectedColor(value);
 
@@ -63,7 +57,7 @@ export const ColorPickerToolbarDropdown = withEditor(
     );
 
     const updateColorAndClose = useCallback(
-      (value: string) => {
+      (value) => {
         updateColor(value);
         closeOnSelect && onToggle();
       },
@@ -90,18 +84,35 @@ export const ColorPickerToolbarDropdown = withEditor(
     }, [color, editor?.selection]);
 
     return (
-      <ToolbarDropdown
-        control={
-          <ToolbarButton
-            active={!!editor?.selection && isMarkActive(editor, type)}
-            icon={icon}
-            {...rest}
-          />
+      <Popover
+        // control
+        target={
+          <Box onClick={onToggle}>
+            <ToolbarButton
+              active={!!editor?.selection && isMarkActive(editor, type)}
+              icon={icon}
+              classNames={buttonClassnames}
+              {...props}
+            />
+          </Box>
         }
-        open={open}
-        onOpen={onToggle}
+        opened={open}
+        // open={open}
+        // onOpen={onToggle}
         onClose={onToggle}
+        // className={classNames.root}
+        width={260}
+        position="bottom-start"
       >
+        <Box style={{ display: 'flex' }}>
+          <ColorPicker
+            color={selectedColor || color}
+            compact
+            onChange={setSelectedColor}
+            {...props}
+          />
+        </Box>
+        {/*
         <ColorPicker
           color={selectedColor || color}
           colors={colors}
@@ -110,10 +121,23 @@ export const ColorPickerToolbarDropdown = withEditor(
           updateColor={updateColorAndClose}
           updateCustomColor={updateColor}
           clearColor={clearColor}
-          open={open}
         />
-      </ToolbarDropdown>
+        */}
+      </Popover>
     );
   }
 );
-*/
+
+ColorPickerToolbarDropdown.defaultProps = {
+  pluginKey: MARK_COLOR,
+  closeOnSelect: false,
+};
+
+ColorPickerToolbarDropdown.propTypes = {
+  pluginKey: PropTypes.string,
+  icon: PropTypes.element,
+  customColors: PropTypes.array,
+  closeOnSelect: PropTypes.bool,
+};
+
+export { ColorPickerToolbarDropdown };

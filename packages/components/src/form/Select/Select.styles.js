@@ -17,6 +17,7 @@ export const SelectStyles = createStyles((theme, { size, orientation }) => {
     },
     rightSection: {
       color: theme.colors.text02,
+      pointerEvents: 'none',
     },
   };
 });
