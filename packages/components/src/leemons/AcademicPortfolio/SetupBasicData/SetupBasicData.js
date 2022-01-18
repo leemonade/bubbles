@@ -4,7 +4,7 @@ import { Box } from '@mantine/core';
 import { useForm, Controller } from 'react-hook-form';
 import { SetupBasicDataStyles } from './SetupBasicData.styles';
 import { ContextContainer } from '../../../layout';
-import { TextInput, Checkbox, NumberInput, Button } from '../../../form/';
+import { TextInput, Checkbox, NumberInput, Button, Switch } from '../../../form';
 import { Text } from '../../../typography';
 import { ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
@@ -111,8 +111,7 @@ const SetupBasicData = ({
             name="creditSystem"
             control={control}
             render={({ field: { onChange, value, ...field } }) => (
-              <Checkbox
-                className={classes.checkBox}
+              <Switch
                 label={labels.creditSystem}
                 onChange={(e) => {
                   onChange(e);
@@ -131,6 +130,8 @@ const SetupBasicData = ({
                 <NumberInput
                   headerStyle={headerInputStyle}
                   orientation="horizontal"
+                  defaultValue={0}
+                  min={0}
                   label={labels.totalCredits}
                   {...field}
                 />
@@ -143,8 +144,7 @@ const SetupBasicData = ({
             name="onlyOneGroup"
             control={control}
             render={({ field: { onChange, value, ...field } }) => (
-              <Checkbox
-                className={classes.checkBox}
+              <Switch
                 label={labels.onlyOneGroup}
                 onChange={(e) => {
                   onChange(e);
@@ -166,6 +166,8 @@ const SetupBasicData = ({
                     <NumberInput
                       headerStyle={headerInputStyle}
                       orientation="horizontal"
+                      defaultValue={0}
+                      min={0}
                       label={labels.maxAbbrevGroups}
                       description={descriptions.maxAbbrevGroups}
                       help={helps.maxAbbrevGroups}
