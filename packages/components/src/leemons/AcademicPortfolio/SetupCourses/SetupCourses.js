@@ -91,14 +91,14 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
           <Controller
             name={substageName}
             control={control}
-            render={(field) => (
+            render={({ field }) => {
               <TextInput
                 label={substageName}
                 orientation="horizontal"
                 name={`subtagesNames${currentSubstage}`}
                 {...field}
-              />
-            )}
+              />;
+            }}
           />
           <Controller
             name={substageName + 'Abbrev'}
