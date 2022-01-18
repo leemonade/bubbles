@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import { useUuid } from '@mantine/hooks';
-import { Checkbox, CHECKBOX_VARIANTS } from '../Checkbox/Checkbox';
+import { BOOLEAN_INPUT_VARIANTS } from '../BooleanInput';
+import { Checkbox } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
 import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
 import {
@@ -40,7 +41,7 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
     })
   ),
   direction: PropTypes.oneOf(STACK_DIRECTIONS),
-  variant: PropTypes.oneOf(CHECKBOX_VARIANTS),
+  variant: PropTypes.oneOf(BOOLEAN_INPUT_VARIANTS),
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
