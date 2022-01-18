@@ -135,7 +135,7 @@ const SetupCourses = ({
   };
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, courses: e });
     isFunction(onNext) && onNext(e);
   };
 

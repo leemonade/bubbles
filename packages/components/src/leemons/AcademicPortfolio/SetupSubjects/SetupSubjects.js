@@ -90,7 +90,7 @@ const SetupSubjects = ({
   } = useForm();
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, subjects: e });
     isFunction(onNext) && onNext(e);
   };
 

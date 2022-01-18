@@ -64,7 +64,7 @@ const SetupBasicData = ({
   const headerInputStyle = { width: '30%' };
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ sharedData, ...e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, basicData: e });
     isFunction(onNext) && onNext(e);
   };
 
