@@ -173,9 +173,11 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
     }
   }, [input, value]);
 
+  /*
   useEffect(() => {
     resetNodes(editor, { nodes: currentValue });
   }, [currentValue]);
+  */
 
   const handleOnChange = (nodes) => {
     if (isFunction(onChange)) {
@@ -201,7 +203,6 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
           </HeadingToolbar>
           <Plate
             id={uuid}
-            editor={editor}
             editableProps={editableProps}
             value={currentValue}
             onChange={handleOnChange}

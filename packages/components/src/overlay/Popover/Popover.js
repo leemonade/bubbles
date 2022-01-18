@@ -10,7 +10,7 @@ export const POPOVER_PROP_TYPES = {
   padded: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
-const Popover = forwardRef(({ ...props }, ref) => {
+const Popover = forwardRef(({ padded, ...props }, ref) => {
   const { classes, cx } = PopoverStyles({ padded });
 
   return <MantinePopover {...props} ref={ref} classNames={classes} />;
