@@ -183,7 +183,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
         <Controller
           name="noSubstage"
           control={control}
-          render={({ field: { onChange, value, ...field } }) => (
+          render={({ field: { onChange, value, ref, ...field } }) => (
             <Switch
               {...field}
               label={labels.noSubstage}
@@ -191,7 +191,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                 onChange(e);
                 setNoSubstages(!noSubstages);
               }}
-              checked={value}
+              checked={value || false}
             />
           )}
         />
@@ -237,7 +237,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
             <Controller
               name="nameAndAbbrev"
               control={control}
-              render={({ field: { onChange, value, ...field } }) => (
+              render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
                   label={labels.nameAndAbbrev}
                   {...field}
@@ -245,7 +245,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                     onChange(e);
                     setUseDefaultNameAndAbbrev(!useDefaultNameAndAbbrev);
                   }}
-                  checked={value}
+                  checked={value || false}
                 />
               )}
             />
