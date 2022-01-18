@@ -10,6 +10,7 @@ export const PAPER_COLORS = ['default', 'solid'];
 export const PAPER_DEFAULT_PROPS = {
   radius: 'md',
   padding: 'md',
+  shadow: 'level03',
   color: PAPER_COLORS[0],
 };
 export const PAPER_PROP_TYPES = {
