@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Box } from '@mantine/core';
 import { ActionButton } from '../../../form';
 import { DeleteBinIcon } from '../../../../../icons/solid';
 import { SortDragIcon } from '../../../../../icons/outline';
 
-const DraggableDefault = ({ provided, snapshot, item, removeItem, classes }) => {
+const DraggableDefault = forwardRef(({ provided, snapshot, item, removeItem, classes }, ref) => {
   return (
     <Box
-      ref={provided.innerRef}
+      ref={(e) => {
+        provided.innerRef(e);
+        if (ref) ref(e);
+      }}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
       sx={() => ({ display: 'flex', alignItems: 'center' })}
@@ -19,6 +22,6 @@ const DraggableDefault = ({ provided, snapshot, item, removeItem, classes }) => 
       <ActionButton icon={<DeleteBinIcon />} onClick={removeItem} />
     </Box>
   );
-};
+});
 
 export { DraggableDefault };

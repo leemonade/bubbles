@@ -1,9 +1,9 @@
-import AddButton from '../AddButton';
+import AddButton from '../../AddButton';
 import { Box } from '@mantine/core';
-import IconButton from '../IconButton';
+import IconButton from '../../IconButton';
 import React, { Component } from 'react';
 import includes from 'core-js-pure/es/array/includes';
-import * as types from '../../types';
+import * as types from '../../../types';
 import { nanoid } from 'nanoid';
 import {
   allowAdditionalItems,
@@ -17,9 +17,9 @@ import {
   optionsList,
   retrieveSchema,
   toIdSchema,
-} from '../../utils';
-import { ListInput } from '../../../../../form/ListInput';
-import { Textarea, TextInput } from '../../../../../form';
+} from '../../../utils';
+import { ListField } from './ListField';
+import { GroupField } from './GroupField';
 
 function ArrayFieldTitle({ TitleField, idSchema, title, required }) {
   if (!title) {
@@ -134,54 +134,21 @@ function DefaultFixedArrayFieldTemplate(props) {
 }
 
 function DefaultNormalArrayFieldTemplate(props) {
-  const {
-    options,
-    uiSchema,
-    schema,
-    readonly,
-    canAdd,
-    formData,
-    disabled,
-    rawErrors,
-    required,
-    title,
-    onChange,
-  } = props;
+  let Element = () => null;
 
-  const help = options?.help;
-
-  console.log('formData', formData);
-
-  const config = {
-    inputRender: ({ value, onChange }) => {
-      return <TextInput value={value} onChange={onChange} />;
-    },
-  };
-
-  if (schema.frontConfig.blockData.listType === 'textarea') {
-    config.inputRender = ({ value, onChange }) => {
-      return <Textarea value={value} onChange={onChange} />;
-    };
+  switch (props.schema.frontConfig.blockData.type) {
+    case 'list':
+      Element = ListField;
+      break;
+    case 'group':
+      Element = GroupField;
+      break;
+    default:
+      Element = () => null;
+      break;
   }
 
-  return (
-    <>
-      <ListInput
-        label={uiSchema['ui:title'] || title}
-        help={help}
-        description={uiSchema['ui:description'] || schema.description}
-        required={required}
-        readonly={readonly}
-        disabled={disabled}
-        canAdd={canAdd}
-        value={formData}
-        error={rawErrors ? rawErrors[0] : null}
-        onChange={onChange}
-        valueKey="value"
-        {...config}
-      />
-    </>
-  );
+  return <Element {...props} />;
 
   /*
   return (

@@ -16,6 +16,7 @@ export const SORTABLE_LIST_DEFAULT_PROPS = {
   itemRender: DraggableDefault,
   onRemove: () => {},
   dragDisabled: false,
+  useRefs: () => {},
 };
 export const SORTABLE_LIST_PROP_TYPES = {
   value: PropTypes.arrayOf(PropTypes.any),
@@ -27,6 +28,7 @@ export const SORTABLE_LIST_PROP_TYPES = {
   onDragEnd: PropTypes.func,
   onBeforeDragStart: PropTypes.func,
   dragDisabled: PropTypes.bool,
+  useRefs: PropTypes.func,
 };
 
 const SortableList = ({
@@ -39,6 +41,7 @@ const SortableList = ({
   dragDisabled,
   containerRender: Container,
   itemRender: Item,
+  useRefs,
 }) => {
   const { classes, cx } = SortableListStyles({});
 
@@ -54,6 +57,7 @@ const SortableList = ({
   }
 
   function _onDragEnd(result) {
+    onDragEnd(result);
     const { source, destination } = result;
     if (!destination) return;
 
@@ -61,7 +65,6 @@ const SortableList = ({
     const [removed] = newData.splice(source.index, 1);
     newData.splice(destination.index, 0, removed);
     onChange(newData);
-    onDragEnd(result);
   }
 
   return (
@@ -96,6 +99,7 @@ const SortableList = ({
                   </Draggable>
                 );
               })}
+              {provided.placeholder}
             </Container>
           );
         }}

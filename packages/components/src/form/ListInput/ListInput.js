@@ -11,13 +11,14 @@ import { SortableList } from '../../informative';
 import { ListItem } from './components/ListItem';
 
 export const LIST_INPUT_DEFAULT_PROPS = {
-  inputRender: ({ value, onChange }) => {
-    return <TextInput value={value} onChange={onChange} />;
+  inputRender: (props) => {
+    return <TextInput {...props} />;
   },
   listRender: ListItem,
   onChange: () => {},
   valueKey: 'value',
   addButtonLabel: 'Add',
+  errorRequiredMessage: 'Required',
 };
 export const LIST_INPUT_PROP_TYPES = {};
 
@@ -25,6 +26,7 @@ const ListInput = ({
   label,
   description,
   addButtonLabel,
+  errorRequiredMessage,
   help,
   error,
   size,
@@ -40,9 +42,9 @@ const ListInput = ({
 }) => {
   const { classes, cx } = ListInputStyles({});
 
+  const [hasError, setHasError] = useState(false);
   const [editingKey, setEditingKey] = useState(null);
   const [activeItem, setActiveItem] = useState({ [valueKey]: '' });
-  const [dragging, setDragging] = useState(false);
   const [value, _setValue] = useState(
     originalValue
       ? map(originalValue, (item) => ({
@@ -60,15 +62,20 @@ const ListInput = ({
   }
 
   function addItem() {
-    const __key = uuidv4();
-    setValue([
-      ...value,
-      {
-        ...activeItem,
-        __key,
-      },
-    ]);
-    setActiveItem({ [valueKey]: '' });
+    if (activeItem[valueKey]) {
+      const __key = uuidv4();
+      setValue([
+        ...value,
+        {
+          ...activeItem,
+          __key,
+        },
+      ]);
+      setActiveItem({ [valueKey]: '' });
+      setHasError(false);
+    } else {
+      setHasError(true);
+    }
   }
 
   function editItem(item) {
@@ -95,13 +102,11 @@ const ListInput = ({
       error={error}
       required={required}
     >
-      <Box sx={(theme) => ({ marginBottom: dragging ? theme.spacing[7] : null })}>
+      <Box>
         <SortableList
           value={value}
           onChange={setValue}
           dragDisabled={!!editingKey}
-          onBeforeDragStart={() => setDragging(true)}
-          onDragEnd={() => setDragging(false)}
           itemRender={(props) => {
             return (
               <ListRender
@@ -109,12 +114,14 @@ const ListInput = ({
                 inputRender={InputRender}
                 editingKey={editingKey}
                 valueKey={valueKey}
+                errorRequiredMessage={errorRequiredMessage}
                 editItem={() => editItem(props.item)}
                 stopEdit={() => setEditingKey(null)}
                 onChange={(event) => {
                   const index = findIndex(value, { __key: props.item.__key });
                   value[index][valueKey] = event;
                   setValue([...value]);
+                  setEditingKey(null);
                 }}
               />
             );
@@ -127,7 +134,10 @@ const ListInput = ({
             value={valueKey ? activeItem[valueKey] : activeItem}
             onChange={(event) => {
               setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
+              if (event) setHasError(false);
             }}
+            required={true}
+            error={hasError ? errorRequiredMessage : null}
           />
           <Button size="xs" onClick={addItem}>
             {addButtonLabel}

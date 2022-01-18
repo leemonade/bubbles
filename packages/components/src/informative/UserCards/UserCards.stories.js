@@ -8,7 +8,7 @@ import {
 } from './UserCards';
 import mdx from './UserCards.mdx';
 
-const user = {
+export const user = {
   name: 'Marcelina',
   surname: 'Cartes Ramirez',
   avatar:
