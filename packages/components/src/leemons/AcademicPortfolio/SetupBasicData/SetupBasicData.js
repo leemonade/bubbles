@@ -99,14 +99,14 @@ const SetupBasicData = ({
           <Controller
             name="creditSystem"
             control={control}
-            render={({ field: { onChange, value, ...field } }) => (
+            render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
                 label={labels.creditSystem}
                 onChange={(e) => {
                   onChange(e);
                   setCreditSystem(!creditSystem);
                 }}
-                checked={value}
+                checked={value || false}
                 {...field}
               />
             )}
@@ -132,14 +132,14 @@ const SetupBasicData = ({
           <Controller
             name="onlyOneGroup"
             control={control}
-            render={({ field: { onChange, value, ...field } }) => (
+            render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
                 label={labels.onlyOneGroup}
                 onChange={(e) => {
                   onChange(e);
                   setOneStudentGroup(!oneStudentGroup);
                 }}
-                checked={value}
+                checked={value || false}
                 {...field}
               />
             )}
