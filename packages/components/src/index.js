@@ -7,6 +7,7 @@ export {
   Paper,
   useMantineTheme as useTheme,
 } from '@mantine/core';
+export { useId } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export { getFontExpressive, getFontProductive } from './theme.mixins';
 export * from './ThemeProvider';

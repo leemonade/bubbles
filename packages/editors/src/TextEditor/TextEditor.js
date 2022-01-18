@@ -1,36 +1,36 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Plate,
-  createParagraphPlugin,
-  createBlockquotePlugin,
-  createHeadingPlugin,
-  createBasicMarksPlugin,
   createAlignPlugin,
-  createIndentPlugin,
+  createBasicMarksPlugin,
+  createBlockquotePlugin,
+  createDeserializeAstPlugin,
+  createDeserializeHtmlPlugin,
+  createExitBreakPlugin,
+  createHeadingPlugin,
   createIndentListPlugin,
+  createIndentPlugin,
+  createListPlugin,
+  createNodeIdPlugin,
+  createParagraphPlugin,
+  createPlateEditor,
+  createPlateUI,
+  createPlugins,
   createResetNodePlugin,
   createSoftBreakPlugin,
-  createExitBreakPlugin,
-  createListPlugin,
-  HeadingToolbar,
+  deserializeHtml,
+  ELEMENT_DEFAULT,
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_PARAGRAPH,
-  ELEMENT_DEFAULT,
-  createPlateUI,
-  createPlugins,
-  deserializeHtml,
+  HeadingToolbar,
+  Plate,
   serializeHtml,
-  createDeserializeHtmlPlugin,
-  createDeserializeAstPlugin,
-  createNodeIdPlugin,
   withProps,
-  createPlateEditor,
 } from '@udecode/plate';
-import { isFunction, isEmpty, isString } from 'lodash';
-import { Box } from '@bubbles-ui/components';
+import { isArray, isEmpty, isFunction, isString } from 'lodash';
+import { Box, useId } from '@bubbles-ui/components';
 import { CONFIG } from './config';
 import { TextEditorStyles } from './TextEditor.styles';
 import { createFontColorPlugin } from './plugins/font';
@@ -100,6 +100,7 @@ const PLUGINS = [
 const BASIC_COMPONENTS = createPlateUI();
 
 const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) => {
+  const uuid = useId();
   const [currentValue, setCurrentValue] = useState();
   const { classes } = TextEditorStyles({}, { name: 'TextEditor' });
 
@@ -133,6 +134,27 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
     }
   );
 
+  function resetNodes(editor, options) {
+    const children = [...editor.children];
+    for (let i = 0; i < children.length; i++) {
+      const node = children[i];
+      editor.apply({ type: 'remove_node', path: [0], node });
+    }
+
+    if (options.nodes) {
+      const nodes = !isArray(options.nodes) ? [options.nodes] : options.nodes;
+      for (let i = 0; i < nodes.length; i++) {
+        editor.apply({ type: 'insert_node', path: [i], node: nodes[i] });
+      }
+    }
+
+    /*
+    const point = options.at && Point.isPoint(options.at) ? options.at : Editor.end(editor, []);
+    if (point) Transforms.select(editor, point);
+    *
+     */
+  }
+
   const editor = createPlateEditor({ plugins, components });
 
   useEffect(() => {
@@ -150,6 +172,10 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
       setCurrentValue(value);
     }
   }, [input, value]);
+
+  useEffect(() => {
+    resetNodes(editor, { nodes: currentValue });
+  }, [currentValue]);
 
   const handleOnChange = (nodes) => {
     if (isFunction(onChange)) {
@@ -174,8 +200,10 @@ const TextEditor = ({ value, onChange, placeholder, output, input, ...props }) =
             <IndentButtons classes={classes} />
           </HeadingToolbar>
           <Plate
+            id={uuid}
+            editor={editor}
             editableProps={editableProps}
-            initialValue={currentValue}
+            value={currentValue}
             onChange={handleOnChange}
             plugins={plugins}
           />
