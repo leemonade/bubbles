@@ -1,7 +1,7 @@
 import { TextInput } from '../../../../../../form';
 import { ListInput } from '../../../../../../form/ListInput';
 import React from 'react';
-import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
+import { TextEditor } from '@bubbles-ui/editors';
 
 const ListField = (props) => {
   const {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
+import { TextEditor } from '@bubbles-ui/editors';
 
 function TextareaWidget(props) {
   const {

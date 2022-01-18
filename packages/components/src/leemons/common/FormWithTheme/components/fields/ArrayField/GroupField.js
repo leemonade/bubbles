@@ -3,7 +3,7 @@ import { clone, cloneDeep, findIndex, isArray, keyBy } from 'lodash';
 import { InputWrapper, TextInput } from '../../../../../../form';
 import { Box } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
+import { TextEditor } from '@bubbles-ui/editors';
 
 const GroupField = (props) => {
   const {
