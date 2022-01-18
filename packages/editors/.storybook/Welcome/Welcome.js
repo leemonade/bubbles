@@ -1,6 +1,6 @@
 import React from 'react';
 import PackageInfo from './../../package.json';
-import { Title } from '@mantine/core';
+import { Title } from '@bubbles-ui/components';
 
 export const Welcome = () => {
   return (
