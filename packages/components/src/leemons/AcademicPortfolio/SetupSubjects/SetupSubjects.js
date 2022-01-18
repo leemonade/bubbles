@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm, Controller } from 'react-hook-form';
 import { ContextContainer } from '../../../layout';
-import { TextInput, Checkbox, NumberInput, Button, Select, TableInput } from '../../../form/';
+import {
+  TextInput,
+  Checkbox,
+  NumberInput,
+  Button,
+  Select,
+  TableInput,
+  Switch,
+} from '../../../form/';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../../typography';
 import { Box } from '@mantine/core';
@@ -77,8 +85,8 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
         <Controller
           name="allSubjectsSameDuration"
           control={control}
-          render={({ field: { onChange, value, ...field } }) => (
-            <Checkbox
+          render={({ field: { onChange, value, ref, ...field } }) => (
+            <Switch
               label={labels.allSubjectsSameDuration}
               help={helps.allSubjectsSameDuration}
               onChange={(e) => {
@@ -137,6 +145,8 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
                 orientation="horizontal"
                 label={labels.maxAbbrevLength}
                 help={helps.maxAbbrevLength}
+                defaultValue={0}
+                min={0}
                 {...field}
               />
               <Controller
@@ -185,6 +195,7 @@ const SetupSubjects = ({ labels, helps, numberOfCourses, onNext, onPrevious, ...
               <NumberInput
                 label={labels.digits}
                 defaultValue={0}
+                min={0}
                 onChange={(e) => {
                   onChange(e);
                   setDigits(e);
