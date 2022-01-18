@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box, Popper } from '@mantine/core';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -11,7 +11,6 @@ import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
-import { Popper } from '@mantine/core';
 
 import DateContentRow from '../Date/DateContentRow';
 
@@ -203,13 +202,13 @@ class MonthView extends React.Component {
     const last = weekRow[weekRow.length - 1];
 
     return localizer.range(first, last, 'day').map((day, idx) => (
-      <div key={'header_' + idx} className="rbc-header">
+      <Box key={'header_' + idx} className="rbc-header">
         <HeaderComponent
           date={day}
           localizer={localizer}
           label={localizer.format(day, 'weekdayFormat')}
         />
-      </div>
+      </Box>
     ));
   }
 

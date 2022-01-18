@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { findIndex, map } from 'lodash';
 import { Box } from '@mantine/core';
 import { ListInputStyles } from './ListInput.styles';

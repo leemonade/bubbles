@@ -17,7 +17,7 @@ export default {
   },
   argTypes: {
     currentView: { options: BIGCALENDAR_VIEWS, control: { type: 'select' } },
-    language: { options: ['es-ES', 'en-GB'], control: { type: 'select' } },
+    locale: { options: ['es-ES', 'en-GB'], control: { type: 'select' } },
     eventClick: { action: 'Event pressed' },
     dateClick: { action: 'Date clicked' },
     onSelectDay: { action: 'Day selected' },
@@ -29,7 +29,7 @@ export default {
 
 const Template = (props) => {
   let messages = undefined;
-  if (props.language === 'es-ES') {
+  if (props.locale === 'es-ES') {
     messages = {
       month: 'Mensual',
       week: 'Semanal',
@@ -49,7 +49,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   events: EVENTS,
   currentView: BIGCALENDAR_VIEWS[1],
-  language: 'es-ES',
+  locale: 'es-ES',
   defaultDate: EVENTS[1].start,
 };
 
@@ -62,7 +62,7 @@ export const MonthRangeView = MonthRangeTemplate.bind({});
 MonthRangeView.args = {
   events: EVENTS,
   currentView: BIGCALENDAR_VIEWS[4],
-  language: 'es-ES',
+  locale: 'es-ES',
   defaultDate: EVENTS[1].start,
   monthRange: {
     startYear: 2020,

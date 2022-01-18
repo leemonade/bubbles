@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import {
-  BooleanInput,
   BOOLEAN_INPUT_DEFAULT_PROPS,
   BOOLEAN_INPUT_PROP_TYPES,
+  BooleanInput,
 } from '../BooleanInput';
 
 export const CHECKBOX_PROP_TYPES = BOOLEAN_INPUT_PROP_TYPES;

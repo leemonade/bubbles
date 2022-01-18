@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Group } from '@mantine/core';
-import { views as RCBViews, navigate } from 'react-big-calendar/lib/utils/constants';
+import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
 import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/outline';
 import { capitalize } from 'lodash';
 
 import { Text } from '../../../../typography';
-import { IconButton, Button, ActionButton, Switch } from '../../../../form';
+import { ActionButton, Button, IconButton, Switch } from '../../../../form';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
 
@@ -59,9 +59,7 @@ export const ToolBar = ({
             labelPosition="start"
             checked={showWeekends}
             onChange={(event) =>
-              typeof setShowWeekends === 'function'
-                ? setShowWeekends(event.currentTarget.checked)
-                : null
+              typeof setShowWeekends === 'function' ? setShowWeekends(event) : null
             }
           />
         )}
