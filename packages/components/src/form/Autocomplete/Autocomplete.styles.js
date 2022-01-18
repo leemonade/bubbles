@@ -1,6 +1,28 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
+const getHoverStyle = (multiple, theme) => {
+  if (multiple) {
+    return {
+      '> div > div > div > div': {
+        cursor: 'pointer',
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03,
+        },
+      },
+    };
+  } else {
+    return {
+      '> div > div': {
+        cursor: 'pointer',
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03,
+        },
+      },
+    };
+  }
+};
+
 export const AutocompleteStyles = createStyles((theme, { multiple }) => {
   return {
     root: {
@@ -56,12 +78,7 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       display: 'flex',
       padding: 0,
       flexDirection: 'column',
-      '> div': {
-        cursor: 'pointer',
-        '&:hover': {
-          backgroundColor: theme.colors.interactive03,
-        },
-      },
+      ...getHoverStyle(multiple, theme),
     },
     item: {
       ...getFontProductive(theme.fontSizes['2'], 400),
