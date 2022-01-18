@@ -120,6 +120,7 @@ const SetupBasicData = ({
                   headerStyle={headerInputStyle}
                   orientation="horizontal"
                   defaultValue={0}
+                  min={0}
                   label={labels.totalCredits}
                   {...field}
                 />
@@ -155,6 +156,7 @@ const SetupBasicData = ({
                       headerStyle={headerInputStyle}
                       orientation="horizontal"
                       defaultValue={0}
+                      min={0}
                       label={labels.maxAbbrevGroups}
                       description={descriptions.maxAbbrevGroups}
                       help={helps.maxAbbrevGroups}
