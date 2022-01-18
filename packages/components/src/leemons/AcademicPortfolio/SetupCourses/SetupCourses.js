@@ -4,10 +4,17 @@ import { useForm, Controller } from 'react-hook-form';
 import { Box } from '@mantine/core';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 import { ContextContainer } from '../../../layout';
-import { TextInput, Checkbox, NumberInput, Button, CheckBoxGroup, Select } from '../../../form/';
+import {
+  TextInput,
+  Checkbox,
+  NumberInput,
+  Button,
+  CheckBoxGroup,
+  Select,
+  Switch,
+} from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
-import { isFunction } from 'lodash';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
 export const SETUP_COURSES_PROP_TYPES = {
@@ -74,11 +81,7 @@ const SetupCourses = ({
   const [frequency, setFrequency] = useState(null);
   const [numberOfSubstages, setNumberOfSubstages] = useState(0);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, ...formState },
-  } = useForm();
+  const { control, handleSubmit, formState } = useForm();
 
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
@@ -91,8 +94,9 @@ const SetupCourses = ({
   const getSubstages = () => {
     const substages = [];
     for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
-      let defaultValue = !formState.isDirty ? getSubstageAbbr(currentSubstage + 1) : null;
+      const defaultValue = getSubstageAbbr(currentSubstage + 1);
       const substageName = `${frequency} ${currentSubstage + 1}:`;
+
       substages.push(
         <Box key={currentSubstage} className={classes.substageRow}>
           <Controller
@@ -116,7 +120,7 @@ const SetupCourses = ({
                 headerStyle={{ marginLeft: '1rem' }}
                 orientation="horizontal"
                 name={`maxAbbrevLength${currentSubstage}`}
-                value={value || defaultValue}
+                value={formState.dirtyFields[substageName + 'Abbrev'] ? value : defaultValue}
                 onChange={onChange}
                 maxLength={maxAbbrevLength}
                 {...field}
@@ -168,9 +172,10 @@ const SetupCourses = ({
                 <NumberInput
                   label={labels.numberOfCourses}
                   defaultValue={0}
+                  min={0}
                   orientation={'horizontal'}
                   disabled={onlyOneCourse}
-                  error={errors.numberOfCourses}
+                  error={formState.errors.numberOfCourses}
                   {...field}
                 />
               )}
@@ -182,6 +187,7 @@ const SetupCourses = ({
                 <NumberInput
                   label={labels.creditsperCourse}
                   defaultValue={0}
+                  min={0}
                   orientation={'horizontal'}
                   {...field}
                 />
@@ -194,7 +200,7 @@ const SetupCourses = ({
           name="noSubstage"
           control={control}
           render={({ field: { onChange, value, ...field } }) => (
-            <Checkbox
+            <Switch
               {...field}
               label={labels.noSubstage}
               onChange={(e) => {
@@ -232,6 +238,7 @@ const SetupCourses = ({
                     label={labels.numberOfSubstages}
                     orientation={'horizontal'}
                     defaultValue={0}
+                    min={0}
                     onChange={(e) => {
                       onChange(e);
                       setNumberOfSubstages(e);
@@ -247,7 +254,7 @@ const SetupCourses = ({
               name="nameAndAbbrev"
               control={control}
               render={({ field: { onChange, value, ...field } }) => (
-                <Checkbox
+                <Switch
                   label={labels.nameAndAbbrev}
                   {...field}
                   onChange={(e) => {
@@ -268,6 +275,7 @@ const SetupCourses = ({
                       <NumberInput
                         orientation="horizontal"
                         defaultValue={0}
+                        min={0}
                         label={labels.maxAbbrevLength}
                         onChange={(e) => {
                           onChange(e);
