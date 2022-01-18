@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TEXT_EDITOR_DEFAULT_PROPS, TEXT_EDITOR_FORMATS, TextEditor } from './TextEditor';
+import { TEXT_EDITOR_DEFAULT_PROPS, TextEditor } from './TextEditor';
 import mdx from './TextEditor.mdx';
 
 export default {
@@ -16,8 +16,6 @@ export default {
   },
   argTypes: {
     onChange: { action: 'Content changed' },
-    input: { options: TEXT_EDITOR_FORMATS, control: { type: 'select' } },
-    output: { options: TEXT_EDITOR_FORMATS, control: { type: 'select' } },
   },
 };
 
