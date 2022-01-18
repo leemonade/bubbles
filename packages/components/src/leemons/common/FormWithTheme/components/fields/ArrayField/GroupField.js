@@ -1,8 +1,9 @@
 import React from 'react';
 import { clone, cloneDeep, findIndex, isArray, keyBy } from 'lodash';
-import { InputWrapper, Textarea, TextInput } from '../../../../../../form';
+import { InputWrapper, TextInput } from '../../../../../../form';
 import { Box } from '@mantine/core';
 import { useId } from '@mantine/hooks';
+import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
 
 const GroupField = (props) => {
   const {
@@ -53,7 +54,7 @@ const GroupField = (props) => {
           if (fieldType === 'field') {
             Element = TextInput;
           } else if (fieldType === 'textarea') {
-            Element = Textarea;
+            Element = TextEditor;
           }
 
           return (

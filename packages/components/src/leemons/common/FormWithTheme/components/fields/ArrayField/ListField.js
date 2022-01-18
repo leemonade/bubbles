@@ -1,6 +1,7 @@
-import { Textarea, TextInput } from '../../../../../../form';
+import { TextInput } from '../../../../../../form';
 import { ListInput } from '../../../../../../form/ListInput';
 import React from 'react';
+import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
 
 const ListField = (props) => {
   const {
@@ -27,7 +28,7 @@ const ListField = (props) => {
 
   if (schema.frontConfig.blockData.listType === 'textarea') {
     config.inputRender = (props) => {
-      return <Textarea {...props} />;
+      return <TextEditor {...props} />;
     };
   }
 

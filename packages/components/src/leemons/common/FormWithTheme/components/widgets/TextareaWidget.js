@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Textarea } from '../../../../../form';
+import { TextEditor } from '@bubbles-ui/editors/src/TextEditor';
 
 function TextareaWidget(props) {
   const {
@@ -18,12 +18,12 @@ function TextareaWidget(props) {
     label,
     rawErrors,
   } = props;
-  const _onChange = ({ target: { value } }) => {
+  const _onChange = (value) => {
     return onChange({ ...props.value, value: value === '' ? options.emptyValue : value });
   };
 
   return (
-    <Textarea
+    <TextEditor
       id={id}
       label={label}
       value={value?.value ? value.value : ''}

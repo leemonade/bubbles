@@ -42,7 +42,7 @@ const ListItem = forwardRef(
         <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
           <SortDragIcon className={classes.sortableIcon} />
         </Box>
-        <Box sx={() => ({ width: '100%' })}>{item[valueKey]}</Box>
+        <Box sx={() => ({ width: '100%' })} dangerouslySetInnerHTML={{ __html: item[valueKey] }} />
         <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
         <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
       </>
