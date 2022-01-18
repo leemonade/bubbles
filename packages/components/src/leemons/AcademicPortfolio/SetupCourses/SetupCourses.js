@@ -156,6 +156,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                 <NumberInput
                   label={labels.numberOfCourses}
                   defaultValue={0}
+                  min={0}
                   orientation={'horizontal'}
                   disabled={onlyOneCourse}
                   error={formState.errors.numberOfCourses}
@@ -170,6 +171,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                 <NumberInput
                   label={labels.creditsperCourse}
                   defaultValue={0}
+                  min={0}
                   orientation={'horizontal'}
                   {...field}
                 />
@@ -220,6 +222,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                     label={labels.numberOfSubstages}
                     orientation={'horizontal'}
                     defaultValue={0}
+                    min={0}
                     onChange={(e) => {
                       onChange(e);
                       setNumberOfSubstages(e);
@@ -256,6 +259,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                       <NumberInput
                         orientation="horizontal"
                         defaultValue={0}
+                        min={0}
                         label={labels.maxAbbrevLength}
                         onChange={(e) => {
                           onChange(e);
