@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getFontExpressive, getFontProductive, pxToRem } from '../../theme.mixins';
 
 export const FileItemDisplayStyles = createStyles((theme, {}) => {
   return {
@@ -18,7 +18,7 @@ export const FileItemDisplayStyles = createStyles((theme, {}) => {
       textTransform: 'lowercase',
     },
     iconFiletype: {
-      fontFamily: "'Lexend', sans-serif",
+      ...getFontExpressive(),
       textTransform: 'uppercase',
       backgroundColor: theme.colors.mainWhite,
       fontSize: pxToRem(7),

@@ -10,10 +10,14 @@ import { MAIN_NAV_WIDTH } from '../MainNav/MainNav';
 
 export const SUB_NAV_DEFAULT_PROPS = {
   useRouter: false,
+  messages: {
+    closeTooltip: 'Close',
+  },
 };
 export const SUB_NAV_PROP_TYPES = {};
 
 export const SubNav = ({
+  messages,
   item,
   subItems,
   activeItem,
@@ -40,7 +44,7 @@ export const SubNav = ({
             rounded
             color="negative"
             onClick={onClose}
-            tooltip="Close"
+            tooltip={messages.closeTooltip}
           />
         </Box>
       </Box>

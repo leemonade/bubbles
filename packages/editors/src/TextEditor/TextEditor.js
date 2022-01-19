@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isEmpty, isFunction, isString } from 'lodash';
-import { Box, useId, InputWrapper } from '@bubbles-ui/components';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { isEmpty, isFunction, isString } from 'lodash';
+import { Box, InputWrapper, useId } from '@bubbles-ui/components';
+import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -64,20 +64,22 @@ const TextEditor = ({
   });
 
   useEffect(() => {
-    if (isString(value) && editor && value !== setCurrentValue) {
+    if (isString(value) && editor && value !== currentValue) {
       setCurrentValue(value);
       editor.commands.setContent(value);
     }
   }, [value, editor]);
 
   const onUpdate = () => {
-    if (isFunction(onChange)) onChange(editor.getHTML());
+    const html = editor.getHTML();
+    setCurrentValue(html);
+    if (isFunction(onChange)) onChange(html);
   };
 
   useEffect(() => {
     if (editor) {
-      editor.on('update', onUpdate);
-      return () => editor.off('update', onUpdate);
+      editor.on('blur', onUpdate);
+      return () => editor.off('blur', onUpdate);
     }
   }, [editor]);
 

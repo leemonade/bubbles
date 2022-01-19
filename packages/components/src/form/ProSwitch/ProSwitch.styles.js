@@ -1,10 +1,10 @@
 import { createStyles } from '@mantine/styles';
+import { getFontExpressive } from '../../theme.mixins';
 
 export const ProSwitchStyles = createStyles((theme, { color }) => {
   return {
     label: {
-      fontFamily: "'Lexend', sans-serif",
-      fontSize: theme.fontSizes[1],
+      ...getFontExpressive(theme.fontSizes[1]),
     },
     container: {
       position: 'relative',

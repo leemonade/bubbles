@@ -27,7 +27,16 @@ export default {
 const Template = ({ children, ...props }) => {
   const [state, setState] = React.useState(mock);
   return (
-    <CalendarSubNavFilters value={state} onChange={setState} {...props}>
+    <CalendarSubNavFilters
+      {...props}
+      value={state}
+      onChange={setState}
+      centers={[
+        { label: 'Center 1', value: '1' },
+        { label: 'Center 2', value: '2' },
+      ]}
+      centerValue={1}
+    >
       {children}
     </CalendarSubNavFilters>
   );
