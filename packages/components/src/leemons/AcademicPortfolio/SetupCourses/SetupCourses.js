@@ -15,67 +15,89 @@ import {
 } from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { capitalize } from 'lodash';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
 export const SETUP_COURSES_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,
     oneCourseOnly: PropTypes.string,
-    hiddenCourse: PropTypes.string,
+    hideCoursesInTree: PropTypes.string,
     moreThanOneAcademicYear: PropTypes.string,
-    numberOfCourses: PropTypes.string,
-    creditsperCourse: PropTypes.string,
+    maxNumberOfCourses: PropTypes.string,
+    courseCredits: PropTypes.string,
     courseSubstage: PropTypes.string,
-    noSubstage: PropTypes.string,
+    haveSubstagesPerCourse: PropTypes.string,
     numberOfSubstages: PropTypes.string,
+    subtagesNames: PropTypes.string,
+    useDefaultSubstagesName: PropTypes.string,
+    maxSubstageAbbreviation: PropTypes.string,
+    maxSubstageAbbreviationIsOnlyNumbers: PropTypes.string,
     buttonNext: PropTypes.string,
     buttonPrev: PropTypes.string,
-    subtagesNames: PropTypes.string,
-    nameAndAbbrev: PropTypes.string,
-    maxAbbrevLength: PropTypes.string,
-    onlyNumbers: PropTypes.string,
   }),
   placeholders: PropTypes.shape({
-    frequency: PropTypes.string,
+    substagesFrequency: PropTypes.string,
   }),
   errorMessages: PropTypes.shape({
-    numberOfCourses: PropTypes.any,
-    creditsperCourse: PropTypes.any,
-    frequency: PropTypes.any,
+    maxNumberOfCourses: PropTypes.any,
+    courseCredits: PropTypes.any,
+    substagesFrequency: PropTypes.any,
     numberOfSubstages: PropTypes.any,
-    maxAbbrevLength: PropTypes.any,
+    maxSubstageAbbreviation: PropTypes.any,
   }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
 };
+
 const FREQUENCY_OPTIONS = [
-  { label: 'Anual', value: 'Anual' },
-  { label: 'Half-yearly(Semester)', value: 'Semester' },
-  { label: 'Quarterly(Trimester/Quarter', value: 'Trimester' },
-  { label: 'Four-month period', value: 'Four-month' },
-  { label: 'Monthly', value: 'Monthly' },
-  { label: 'Weekly', value: 'Weekly' },
-  { label: 'Daily', value: 'Daily' },
+  { label: 'Anual', value: 'year' },
+  { label: 'Half-yearly(Semester)', value: 'semester' },
+  { label: 'Trimester', value: 'trimester' },
+  { label: 'Four-month period', value: 'quarter' },
+  { label: 'Monthly', value: 'month' },
+  { label: 'Weekly', value: 'week' },
+  { label: 'Daily', value: 'day' },
 ];
 
 const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext, ...props }) => {
   const { classes, cx } = SetupCoursesStyles({});
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
-  const [noSubstages, setNoSubstages] = useState(false);
-  const [useDefaultNameAndAbbrev, setUseDefaultNameAndAbbrev] = useState(false);
-  const [maxAbbrevLength, setMaxAbbrevLength] = useState(0);
-  const [onlyNumbers, setOnlyNumbers] = useState(false);
-
-  const [frequency, setFrequency] = useState(null);
+  const [haveSubstagesPerCourse, setHaveSubstagesPerCourse] = useState(false);
+  const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(false);
+  const [maxSubstageAbbreviation, setMaxSubstageAbbreviation] = useState(0);
+  const [maxSubstageAbbreviationIsOnlyNumbers, setMaxSubstageAbbreviationIsOnlyNumbers] =
+    useState(false);
+  const [substagesFrequency, setsubstagesFrequency] = useState(null);
   const [numberOfSubstages, setNumberOfSubstages] = useState(0);
 
-  const { control, handleSubmit, formState } = useForm();
+  const defaultValues = {
+    maxNumberOfCourses: 0,
+    courseCredits: 0,
+    haveSubstagesPerCourse: false,
+    substagesFrequency: FREQUENCY_OPTIONS[0].value,
+    numberOfSubstages: 0,
+    useDefaultSubstagesName: false,
+    maxSubstageAbbreviation: 0,
+    maxSubstageAbbreviationIsOnlyNumbers: false,
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ defaultValues });
 
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
-    substageAbbr = substageAbbr.padStart(onlyNumbers ? maxAbbrevLength : maxAbbrevLength - 1, '0');
-    substageAbbr = (onlyNumbers ? '' : frequency.charAt(0).toUpperCase()) + substageAbbr;
+    substageAbbr = substageAbbr.padStart(
+      maxSubstageAbbreviationIsOnlyNumbers ? maxSubstageAbbreviation : maxSubstageAbbreviation - 1,
+      '0'
+    );
+    substageAbbr =
+      (maxSubstageAbbreviationIsOnlyNumbers ? '' : substagesFrequency.charAt(0).toUpperCase()) +
+      substageAbbr;
 
     return substageAbbr;
   };
@@ -84,34 +106,29 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
     const substages = [];
     for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
       const defaultValue = getSubstageAbbr(currentSubstage + 1);
-      const substageName = `${frequency} ${currentSubstage + 1}:`;
+      const substageName = `${capitalize(substagesFrequency)} ${currentSubstage + 1}`;
 
       substages.push(
         <Box key={currentSubstage} className={classes.substageRow}>
           <Controller
             name={substageName}
             control={control}
-            render={({ field }) => {
-              <TextInput
-                label={substageName}
-                orientation="horizontal"
-                name={`subtagesNames${currentSubstage}`}
-                {...field}
-              />;
-            }}
+            render={({ field }) => (
+              <TextInput label={substageName + ':'} orientation="horizontal" required {...field} />
+            )}
           />
           <Controller
-            name={substageName + 'Abbrev'}
+            name={substageName + ' Abbrev'}
             control={control}
-            render={({ field: { onChange, value, ...field } }) => (
+            rules={{ maxLength: maxSubstageAbbreviation }}
+            render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
-                label={'Abbr.'}
+                label={'Abbreviation:'}
                 headerStyle={{ marginLeft: '1rem' }}
                 orientation="horizontal"
-                name={`maxAbbrevLength${currentSubstage}`}
-                value={formState.dirtyFields[substageName + 'Abbrev'] ? value : defaultValue}
+                value={fieldState.isDirty ? value : defaultValue}
                 onChange={onChange}
-                maxLength={maxAbbrevLength}
+                required
                 {...field}
               />
             )}
@@ -136,7 +153,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                   value: 'oneCourseOnly',
                   onChange: () => setOnlyOneCourse(!onlyOneCourse),
                 },
-                { label: labels.hiddenCourse, value: 'hiddenCourse' },
+                { label: labels.hideCoursesInTree, value: 'hideCoursesInTree' },
                 { label: labels.moreThanOneAcademicYear, value: 'moreThanOneAcademicYear' },
               ]}
               direction={'column'}
@@ -149,27 +166,27 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
         {!onlyOneCourse && (
           <Box className={classes.inputRow}>
             <Controller
-              name="numberOfCourses"
+              name="maxNumberOfCourses"
               control={control}
-              rules={{ required: errorMessages.numberOfCourses?.required }}
+              rules={{ required: errorMessages.maxNumberOfCourses?.required }}
               render={({ field }) => (
                 <NumberInput
-                  label={labels.numberOfCourses}
+                  label={labels.maxNumberOfCourses}
                   defaultValue={0}
                   min={0}
                   orientation={'horizontal'}
                   disabled={onlyOneCourse}
-                  error={formState.errors.numberOfCourses}
+                  error={errors.maxNumberOfCourses}
                   {...field}
                 />
               )}
             />
             <Controller
-              name="creditsperCourse"
+              name="courseCredits"
               control={control}
               render={({ field }) => (
                 <NumberInput
-                  label={labels.creditsperCourse}
+                  label={labels.courseCredits}
                   defaultValue={0}
                   min={0}
                   orientation={'horizontal'}
@@ -181,34 +198,36 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
         )}
         <Text size={'md'}>{labels.courseSubstage}</Text>
         <Controller
-          name="noSubstage"
+          name="haveSubstagesPerCourse"
           control={control}
           render={({ field: { onChange, value, ref, ...field } }) => (
             <Switch
               {...field}
-              label={labels.noSubstage}
+              label={labels.haveSubstagesPerCourse}
               onChange={(e) => {
                 onChange(e);
-                setNoSubstages(!noSubstages);
+                sethaveSubstagesPerCourse(!haveSubstagesPerCourse);
               }}
               checked={value || false}
             />
           )}
         />
-        {!noSubstages && (
+        {!haveSubstagesPerCourse && (
           <>
             <Box className={classes.inputRow}>
               <Controller
-                name="frequency"
+                name="substagesFrequency"
                 control={control}
+                rules={{ required: errorMessages.substagesFrequency?.required }}
                 render={({ field: { onChange, value, ...field } }) => (
                   <Select
-                    placeholder={placeholders.frequency}
+                    placeholder={placeholders.substagesFrequency}
                     data={FREQUENCY_OPTIONS}
                     onChange={(e) => {
                       onChange(e);
-                      setFrequency(e);
+                      setsubstagesFrequency(e);
                     }}
+                    required
                     value={value}
                     {...field}
                   />
@@ -217,6 +236,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               <Controller
                 name="numberOfSubstages"
                 control={control}
+                rules={{ required: errorMessages.numberOfSubstages?.required }}
                 render={({ field: { onChange, value, ...field } }) => (
                   <NumberInput
                     label={labels.numberOfSubstages}
@@ -227,6 +247,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                       onChange(e);
                       setNumberOfSubstages(e);
                     }}
+                    required
                     value={value}
                     {...field}
                   />
@@ -235,24 +256,24 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
             </Box>
             <Text size={'md'}>{labels.subtagesNames}</Text>
             <Controller
-              name="nameAndAbbrev"
+              name="useDefaultSubstagesName"
               control={control}
               render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
-                  label={labels.nameAndAbbrev}
+                  label={labels.useDefaultSubstagesName}
                   {...field}
                   onChange={(e) => {
                     onChange(e);
-                    setUseDefaultNameAndAbbrev(!useDefaultNameAndAbbrev);
+                    setUseDefaultSubstagesName(!useDefaultSubstagesName);
                   }}
                   checked={value || false}
                 />
               )}
             />
-            {!useDefaultNameAndAbbrev && (
+            {!useDefaultSubstagesName && (
               <>
                 <Controller
-                  name="maxAbbrevLength"
+                  name="maxSubstageAbbreviation"
                   control={control}
                   render={({ field: { onChange, value, ...field } }) => (
                     <Box>
@@ -260,25 +281,27 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                         orientation="horizontal"
                         defaultValue={0}
                         min={0}
-                        label={labels.maxAbbrevLength}
+                        label={labels.maxSubstageAbbreviation}
                         onChange={(e) => {
                           onChange(e);
-                          setMaxAbbrevLength(e);
+                          setMaxSubstageAbbreviation(e);
                         }}
                         value={value}
                         {...field}
                       />
                       <Controller
-                        name="onlyNumbers"
+                        name="maxSubstageAbbreviationIsOnlyNumbers"
                         control={control}
                         render={({ field: { onChange, value, ...field } }) => (
                           <Box style={{ textAlign: 'right' }}>
                             <Checkbox
-                              label={labels.onlyNumbers}
+                              label={labels.maxSubstageAbbreviationIsOnlyNumbers}
                               {...field}
                               onChange={(e) => {
                                 onChange(e);
-                                setOnlyNumbers(!onlyNumbers);
+                                setMaxSubstageAbbreviationIsOnlyNumbers(
+                                  !maxSubstageAbbreviationIsOnlyNumbers
+                                );
                               }}
                               checked={value}
                             />
@@ -288,7 +311,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                     </Box>
                   )}
                 />
-                {frequency && getSubstages()}
+                {substagesFrequency && getSubstages()}
               </>
             )}
           </>
