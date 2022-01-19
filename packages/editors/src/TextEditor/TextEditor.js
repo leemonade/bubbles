@@ -37,20 +37,9 @@ const TextEditor = ({ value, onChange, placeholder, toolbars, ...props }) => {
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
-      Placeholder.configure({
-        // Use a placeholder:
-        placeholder,
-        // Use different placeholders depending on the node type:
-        // placeholder: ({ node }) => {
-        //   if (node.type.name === 'heading') {
-        //     return 'What’s the title?'
-        //   }
-
-        //   return 'Can you add some further context?'
-        // },
-      }),
+      Placeholder.configure({ placeholder }),
     ],
-    content: '<p></p>',
+    content: '',
   });
 
   useEffect(() => {

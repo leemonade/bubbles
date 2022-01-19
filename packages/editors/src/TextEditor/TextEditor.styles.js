@@ -13,6 +13,15 @@ export const TextEditorStyles = createStyles((theme, {}) => {
       '.ProseMirror:focus-visible': {
         outline: 'none',
       },
+
+      '.ProseMirror p.is-editor-empty:first-of-type::before': {
+        ...getFontProductive(theme.fontSizes[2]),
+        color: theme.colors.text06,
+        content: 'attr(data-placeholder)',
+        float: 'left',
+        height: 0,
+        pointerEvents: 'none',
+      },
     },
   };
 });
