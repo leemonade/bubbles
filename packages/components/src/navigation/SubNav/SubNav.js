@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import SimpleBar from 'simplebar-react';
 import { isNil } from 'lodash';
 import { Box, List } from '@mantine/core';
@@ -23,6 +22,7 @@ export const SubNav = ({
   onItemClick,
   className,
   useRouter,
+  children,
   ...props
 }) => {
   const { classes, cx } = SubNavStyles({ itemWidth: MAIN_NAV_WIDTH }, { name: 'SubNav' });
@@ -60,6 +60,7 @@ export const SubNav = ({
               </List.Item>
             ))}
           </List>
+          {children ? children : null}
         </Box>
       </SimpleBar>
     </Box>
