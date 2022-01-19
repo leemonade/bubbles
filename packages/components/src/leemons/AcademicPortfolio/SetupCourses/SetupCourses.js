@@ -206,7 +206,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               label={labels.haveSubstagesPerCourse}
               onChange={(e) => {
                 onChange(e);
-                sethaveSubstagesPerCourse(!haveSubstagesPerCourse);
+                setHaveSubstagesPerCourse(!haveSubstagesPerCourse);
               }}
               checked={value || false}
             />
