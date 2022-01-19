@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const SetupCoursesStyles = createStyles((theme, {}) => {
+export const SetupCoursesStyles = createStyles((theme, { onlyOneCourse }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -14,8 +14,16 @@ export const SetupCoursesStyles = createStyles((theme, {}) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
+    onlyOneCourse: {
+      visibility: onlyOneCourse && 'hidden',
+      position: onlyOneCourse && 'absolute',
+    },
     substageRow: {
       display: 'flex',
+    },
+    checkboxGroup: {
+      display: 'flex',
+      flexDirection: 'column',
     },
   };
 });

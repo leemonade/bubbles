@@ -4,15 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { Box } from '@mantine/core';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 import { ContextContainer } from '../../../layout';
-import {
-  TextInput,
-  Checkbox,
-  NumberInput,
-  Button,
-  CheckBoxGroup,
-  Select,
-  Switch,
-} from '../../../form/';
+import { TextInput, Checkbox, NumberInput, Button, Select, Switch } from '../../../form/';
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { capitalize } from 'lodash';
@@ -61,8 +53,6 @@ const FREQUENCY_OPTIONS = [
 ];
 
 const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext, ...props }) => {
-  const { classes, cx } = SetupCoursesStyles({});
-
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
   const [haveSubstagesPerCourse, setHaveSubstagesPerCourse] = useState(false);
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(false);
@@ -71,6 +61,8 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
     useState(false);
   const [substagesFrequency, setsubstagesFrequency] = useState(null);
   const [numberOfSubstages, setNumberOfSubstages] = useState(0);
+
+  const { classes, cx } = SetupCoursesStyles({ onlyOneCourse }, { name: 'SetupCourses' });
 
   const defaultValues = {
     maxNumberOfCourses: 0,
@@ -81,12 +73,15 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
     useDefaultSubstagesName: false,
     maxSubstageAbbreviation: 0,
     maxSubstageAbbreviationIsOnlyNumbers: false,
+    hideCoursesInTree: false,
+    moreThanOneAcademicYear: false,
   };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({ defaultValues });
 
   const getSubstageAbbr = (currentSubstage) => {
@@ -142,28 +137,32 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
   return (
     <form onSubmit={handleSubmit(onNext)}>
       <ContextContainer title={labels.title} {...props}>
-        <Controller
-          name="courseOptions"
-          control={control}
-          render={({ field: { onChange, value, ref, ...field } }) => (
-            <CheckBoxGroup
-              data={[
-                {
-                  label: labels.oneCourseOnly,
-                  value: 'oneCourseOnly',
-                  onChange: () => setOnlyOneCourse(!onlyOneCourse),
-                },
-                { label: labels.hideCoursesInTree, value: 'hideCoursesInTree' },
-                { label: labels.moreThanOneAcademicYear, value: 'moreThanOneAcademicYear' },
-              ]}
-              direction={'column'}
-              onChange={onChange}
-              value={value}
-              {...field}
-            />
-          )}
-        />
-        {!onlyOneCourse && (
+        <Box className={classes.checkboxGroup}>
+          <Checkbox
+            label={labels.oneCourseOnly}
+            onChange={(e) => {
+              setOnlyOneCourse(e);
+              setValue('maxNumberOfCourses', e ? 1 : 0);
+              setValue('courseCredits', 0);
+            }}
+          />
+          <Controller
+            name="hideCoursesInTree"
+            control={control}
+            render={({ field: { value, ...field } }) => (
+              <Checkbox label={labels.hideCoursesInTree} checked={value} {...field} />
+            )}
+          />
+          <Controller
+            name="moreThanOneAcademicYear"
+            control={control}
+            render={({ field: { value, ...field } }) => (
+              <Checkbox label={labels.moreThanOneAcademicYear} checked={value} {...field} />
+            )}
+          />
+        </Box>
+
+        <Box className={classes.onlyOneCourse}>
           <Box className={classes.inputRow}>
             <Controller
               name="maxNumberOfCourses"
@@ -175,7 +174,6 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
                   defaultValue={0}
                   min={0}
                   orientation={'horizontal'}
-                  disabled={onlyOneCourse}
                   error={errors.maxNumberOfCourses}
                   {...field}
                 />
@@ -195,7 +193,8 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
               )}
             />
           </Box>
-        )}
+        </Box>
+
         <Text size={'md'}>{labels.courseSubstage}</Text>
         <Controller
           name="haveSubstagesPerCourse"
