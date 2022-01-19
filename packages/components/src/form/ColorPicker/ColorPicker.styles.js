@@ -29,7 +29,7 @@ export const ColorPickerStyles = createStyles(
         ...getFontExpressive(theme.fontSizes['2']),
         width: !fullWidth && (useHsl && compact ? pxToRem(354) : pxToRem(264)),
         '.mantine-ColorPicker-sliderOverlay, .mantine-ColorSlider-sliderOverlay': {
-          boxShadow: 'none !important'
+          boxShadow: 'none !important',
         },
       },
       swatches: {
@@ -67,11 +67,8 @@ export const ColorPickerStyles = createStyles(
         marginBottom: !compact && pxToRem(-5),
       },
       hue: {
-        display: 'flex',
-        alignItems: 'center',
-        '.mantine-ColorSlider-slider': {
-          flex: '1 1 100%',
-        },
+        flex: 1,
+        width: '100%',
       },
       hueInput: {
         flex: `1 1 ${pxToRem(120)}`,

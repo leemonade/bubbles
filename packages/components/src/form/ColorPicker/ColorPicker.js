@@ -1,18 +1,14 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ColorPickerStyles } from './ColorPicker.styles';
-import {
-  Box,
-  ColorPicker as MantineColorPicker,
-  HueSlider,
-  NumberInput,
-  Space,
-} from '@mantine/core';
+import { Box, ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
+import { NumberInput } from '../NumberInput';
+import { Stack } from '../../layout';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
 
-export const COLOR_PICKER_FORMAT = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
+export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
 export const COLOR_PICKER_SWATCHES = [
   '#DB6B6B',
   '#D9A2C0',
@@ -30,17 +26,30 @@ export const COLOR_PICKER_SWATCHES = [
   '#84CC16',
 ];
 
+export const COLOR_PICKER_DEFAULT_PROPS = {
+  color: '#000',
+  withSwatches: true,
+  fullWidth: false,
+  compact: false,
+  useHsl: false,
+  swatchesForGama: 8,
+  swatchesPerRow: 7,
+  spacing: 5,
+  format: COLOR_PICKER_FORMATS[0],
+};
+
 export const ColorPicker = forwardRef(
   (
     {
-      color = '#000',
-      withSwatches = true,
+      color: colorProp,
+      format: formatProp,
+      withSwatches,
       swatches,
       compact,
-      fullWidth = false,
-      swatchesForGama = 8,
-      swatchesPerRow = 7,
-      spacing = 5,
+      fullWidth,
+      swatchesForGama,
+      swatchesPerRow,
+      spacing,
       useHsl,
       ...props
     },
@@ -52,7 +61,6 @@ export const ColorPicker = forwardRef(
     swatchesPerRow = useHsl ? swatchesForGama : swatchesPerRow;
     swatches = swatches || COLOR_PICKER_SWATCHES;
 
-    const oldFormat = useRef();
     const { classes, cx } = ColorPickerStyles(
       {
         swatchesPerRow,
@@ -64,20 +72,43 @@ export const ColorPicker = forwardRef(
       { name: 'ColorPicker' }
     );
 
-    const [value, setColor] = useState('#000');
-    const [format, setFormat] = useState('hex');
-    const [hue, setHue] = useState(30);
-    const [lightness, setLightness] = useState(50);
+    const [value, setColor] = useState(colorProp);
+    const [format, setFormat] = useState(formatProp);
+    const [hue, setHue] = useState(null);
+    const [lightness, setLightness] = useState(null);
 
     useEffect(() => {
-      setFormat('hsl');
-      setColor(`hsl(${hue}, 100%, 50%)`);
+      if (colorProp !== value) {
+        setColor(colorProp);
+      }
+    }, [colorProp]);
+
+    useEffect(() => {
+      if (formatProp !== format) {
+        setFormat(formatProp);
+      }
+    }, [formatProp]);
+
+    useEffect(() => {
+      if (hue > 0) {
+        setFormat('hsl');
+        setColor(`hsl(${hue}, 100%, 50%)`);
+      }
     }, [hue]);
 
     useEffect(() => {
-      setFormat('hsl');
-      setColor(`hsl(${hue}, 100%, ${lightness}%)`);
-    }, [lightness]);
+      if (hue > 0 && lightness > -1) {
+        setFormat('hsl');
+        setColor(`hsl(${hue}, 100%, ${lightness}%)`);
+      }
+    }, [lightness, hue]);
+
+    useEffect(() => {
+      if (useHsl && !hue) {
+        setHue(30);
+        setLightness(50);
+      }
+    }, [useHsl]);
 
     useEffect(() => {
       props.onChange && props.onChange(value);
@@ -97,7 +128,7 @@ export const ColorPicker = forwardRef(
                     key={i}
                     color={color}
                     onClick={() => !compact && setLightness(lightness)}
-                  ></ColorSwatch>
+                  />
                 );
               })}
             </Box>
@@ -112,7 +143,7 @@ export const ColorPicker = forwardRef(
                       key={i}
                       color={color}
                       onClick={() => setLightness(lightness)}
-                    ></ColorSwatch>
+                    />
                   );
                 })}
               </Box>
@@ -129,15 +160,19 @@ export const ColorPicker = forwardRef(
                       color={color}
                       onClick={() => setHue(h)}
                       actived={hue === h}
-                    ></ColorSwatch>
+                    />
                   );
                 })}
               </Box>
-              <Space h="md"></Space>
-              <Box className={classes.hue}>
-                <HueSlider value={hue} onChange={setHue} size="sm"></HueSlider>
-                <NumberInput value={hue} onChange={setHue} className={classes.hueInput} />
-              </Box>
+              <Space h="sm"></Space>
+              <Stack className={classes.hue} spacing={3} alignItems="center">
+                <Box style={{ flex: 1 }}>
+                  <HueSlider value={hue} onChange={setHue} size="sm" />
+                </Box>
+                <Box style={{ width: 75 }}>
+                  <NumberInput value={hue} onChange={setHue} size="xs" />
+                </Box>
+              </Stack>
             </Box>
           </Box>
         ) : (
@@ -148,17 +183,23 @@ export const ColorPicker = forwardRef(
               classNames={classes}
               value={value}
               fullWidth="true"
-              swatches={!compact && swatches}
+              swatches={withSwatches && swatches}
               onChange={(e) => setColor(e)}
             />
             <Box className={classes.manual}>
-              <Select
-                data={COLOR_PICKER_FORMAT}
-                value={format}
-                onChange={setFormat}
-                className={classes.format}
-              />
-              <TextInput value={value} onChange={setColor} />
+              <Stack spacing={2}>
+                <Box style={{ width: 100, flex: 'auto' }}>
+                  <Select
+                    data={COLOR_PICKER_FORMATS}
+                    value={format}
+                    onChange={setFormat}
+                    className={classes.format}
+                  />
+                </Box>
+                <Box>
+                  <TextInput value={value} onChange={setColor} />
+                </Box>
+              </Stack>
             </Box>
           </>
         )}
@@ -166,6 +207,8 @@ export const ColorPicker = forwardRef(
     );
   }
 );
+
+ColorPicker.defaultProps = COLOR_PICKER_DEFAULT_PROPS;
 
 ColorPicker.propTypes = {
   useHsl: PropTypes.bool,
@@ -175,4 +218,5 @@ ColorPicker.propTypes = {
   swatchesPerRow: PropTypes.number,
   spacing: PropTypes.number,
   fullWidth: PropTypes.bool,
+  format: PropTypes.oneOf(COLOR_PICKER_FORMATS),
 };

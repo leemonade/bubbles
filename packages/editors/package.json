@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/editors",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -39,13 +39,13 @@
   "dependencies": {
     "@bubbles-ui/components": "^1.0.15",
     "@bubbles-ui/icons": "^1.0.3",
-    "@udecode/plate": "^9.2.0",
+    "@tiptap/extension-placeholder": "^2.0.0-beta.46",
+    "@tiptap/extension-text-align": "^2.0.0-beta.29",
+    "@tiptap/extension-underline": "^2.0.0-beta.22",
+    "@tiptap/react": "^2.0.0-beta.105",
+    "@tiptap/starter-kit": "^2.0.0-beta.171",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
-    "slate": "^0.72.3",
-    "slate-history": "^0.66.0",
-    "slate-hyperscript": "^0.67.0",
-    "slate-react": "^0.72.1",
     "styled-components": "^5.3.3",
     "styled-icons": "^10.45.0"
   },
