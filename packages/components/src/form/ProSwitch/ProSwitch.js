@@ -7,8 +7,14 @@ export const PRO_SWITCH_DEFAULT_PROPS = {
 };
 export const PRO_SWITCH_PROP_TYPES = {};
 
-const ProSwitch = ({ color, icon, checked, onChange, ...props }) => {
+const ProSwitch = ({ color, icon, checked, onChange, classNames, ...props }) => {
   const { classes, cx } = ProSwitchStyles({ color });
+
+  if (classNames) {
+    if (classNames.root) classes.root += ` ${classNames.root}`;
+    if (classNames.input) classes.input += ` ${classNames.input}`;
+    if (classNames.label) classes.label += ` ${classNames.label}`;
+  }
 
   const [state, setState] = React.useState(checked);
 

@@ -4,7 +4,7 @@ export const mock = [
       {
         id: 'aef88a83-887c-4497-8354-f196f3fa17f3',
         key: 'plugins.users.calendar.agent.b53927cf-de5f-4c9e-8a53-beff671b87c7',
-        name: 'b53927cf-de5f-4c9e-8a53-beff671b87c7',
+        name: 'Jane Dow (Me)',
         icon: null,
         bgColor: '#4F96FF',
         borderColor: '#4F96FF',
@@ -16,7 +16,7 @@ export const mock = [
         showEvents: true,
       },
     ],
-    sectionName: 'plugins.users.calendar.user_section',
+    sectionName: 'My calendars',
   },
   {
     calendars: [
@@ -49,6 +49,6 @@ export const mock = [
         showEvents: true,
       },
     ],
-    sectionName: 'plugins.mvp-template.Testing',
+    sectionName: 'Subject tasks',
   },
 ];

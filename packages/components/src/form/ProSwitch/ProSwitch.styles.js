@@ -2,6 +2,10 @@ import { createStyles } from '@mantine/styles';
 
 export const ProSwitchStyles = createStyles((theme, { color }) => {
   return {
+    label: {
+      fontFamily: "'Lexend', sans-serif",
+      fontSize: theme.fontSizes[1],
+    },
     container: {
       position: 'relative',
     },
