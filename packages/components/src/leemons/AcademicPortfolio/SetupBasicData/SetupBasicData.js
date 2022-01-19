@@ -11,31 +11,35 @@ import { ChevRightIcon } from '@bubbles-ui/icons/outline';
 export const SETUP_BASIC_DATA_DEFAULT_PROPS = {};
 export const SETUP_BASIC_DATA_PROP_TYPES = {
   labels: PropTypes.shape({
+    abbreviation: PropTypes.string,
     creditSystem: PropTypes.string,
+    credits: PropTypes.string,
     oneStudentGroup: PropTypes.string,
-    totalCredits: PropTypes.string,
     groupsIDAbbrev: PropTypes.string,
-    programAbbrev: PropTypes.string,
+    maxGroupAbbreviation: PropTypes.string,
+    maxGroupAbbreviationIsOnlyNumbers: PropTypes.string,
     buttonNext: PropTypes.string,
-    buttonPrev: PropTypes.string,
   }),
-  descriptions: PropTypes.shape({}),
+  descriptions: PropTypes.shape({
+    maxGroupAbbreviation: PropTypes.string,
+  }),
   placeholders: PropTypes.shape({
-    programName: PropTypes.string,
-    programAbbrev: PropTypes.string,
+    name: PropTypes.string,
+    abbreviation: PropTypes.string,
   }),
   helps: PropTypes.shape({
-    programAbbrev: PropTypes.string,
+    abbreviation: PropTypes.string,
+    maxGroupAbbreviation: PropTypes.string,
   }),
   errorMessages: PropTypes.shape({
-    programName: PropTypes.any,
-    programAbbrev: PropTypes.any,
+    name: PropTypes.any,
+    abbreviation: PropTypes.any,
+    maxGroupAbbreviation: PropTypes.any,
   }),
   onNext: PropTypes.func,
 };
 
 const SetupBasicData = ({
-  titles,
   labels,
   descriptions,
   placeholders,
@@ -49,53 +53,51 @@ const SetupBasicData = ({
   const [creditSystem, setCreditSystem] = useState(false);
   const [oneStudentGroup, setOneStudentGroup] = useState(false);
 
+  const defaultValues = {
+    name: '',
+    abbreviation: '',
+    credits: 0,
+    maxGroupAbbreviation: 0,
+    maxGroupAbbreviationIsOnlyNumbers: false,
+    creditSystem: false,
+    oneStudentGroup: false,
+  };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const headerInputStyle = { width: '30%' };
+  } = useForm({ defaultValues });
 
   return (
     <form onSubmit={handleSubmit(onNext)}>
       <ContextContainer {...props}>
         <Controller
           control={control}
-          name="programName"
-          rules={{
-            required: errorMessages.programName?.required,
-          }}
+          name="name"
+          rules={{ required: errorMessages.name?.required }}
           render={({ field }) => (
-            <TextInput
-              placeholder={placeholders.programName}
-              error={errors.programName}
-              required
-              {...field}
-            />
+            <TextInput placeholder={placeholders.name} error={errors.name} required {...field} />
           )}
         />
         <Controller
           control={control}
-          name="programAbbrev"
-          rules={{
-            required: errorMessages.programAbbrev?.required,
-          }}
+          name="abbreviation"
+          rules={{ required: errorMessages.abbreviation?.required, maxLength: 8, minLength: 1 }}
           render={({ field }) => (
             <TextInput
-              headerStyle={headerInputStyle}
               orientation="horizontal"
-              label={labels.programAbbrev}
-              placeholder={placeholders.programAbbrev}
-              help={helps.programAbbrev}
-              error={errors.programAbbrev}
+              label={labels.abbreviation}
+              placeholder={placeholders.abbreviation}
+              help={helps.abbreviation}
+              error={errors.abbreviation}
               maxLength={8}
               required
               {...field}
             />
           )}
         />
-        <ContextContainer title={labels.totalCredits}>
+        <ContextContainer title={labels.credits}>
           <Controller
             name="creditSystem"
             control={control}
@@ -113,15 +115,14 @@ const SetupBasicData = ({
           />
           {!creditSystem && (
             <Controller
-              name="totalCredits"
+              name="credits"
               control={control}
               render={({ field }) => (
                 <NumberInput
-                  headerStyle={headerInputStyle}
                   orientation="horizontal"
                   defaultValue={0}
                   min={0}
-                  label={labels.totalCredits}
+                  label={labels.credits}
                   {...field}
                 />
               )}
@@ -130,11 +131,11 @@ const SetupBasicData = ({
         </ContextContainer>
         <ContextContainer title={labels.groupsIDAbbrev} spacing={4}>
           <Controller
-            name="onlyOneGroup"
+            name="oneStudentGroup"
             control={control}
             render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
-                label={labels.onlyOneGroup}
+                label={labels.oneStudentGroup}
                 onChange={(e) => {
                   onChange(e);
                   setOneStudentGroup(!oneStudentGroup);
@@ -146,33 +147,32 @@ const SetupBasicData = ({
           />
           {!oneStudentGroup && (
             <>
-              <Text>{descriptions.groupsIDAbbrev}</Text>
+              <Text>{descriptions.maxGroupAbbreviation}</Text>
               <Controller
-                name="maxAbbrevGroups"
+                name="maxGroupAbbreviation"
                 control={control}
+                rules={{ required: errorMessages.maxGroupAbbreviation?.required, min: 0 }}
                 render={({ field }) => (
                   <Box>
                     <NumberInput
-                      headerStyle={headerInputStyle}
                       orientation="horizontal"
                       defaultValue={0}
                       min={0}
-                      label={labels.maxAbbrevGroups}
-                      description={descriptions.maxAbbrevGroups}
-                      help={helps.maxAbbrevGroups}
+                      label={labels.maxGroupAbbreviation}
+                      help={helps.maxGroupAbbreviation}
+                      required
                       {...field}
                     />
                     <Controller
-                      name="onlyNumbers"
+                      name="maxGroupAbbreviationIsOnlyNumbers"
                       control={control}
                       render={({ field: { onChange, value, ...field } }) => (
                         <Box style={{ textAlign: 'right' }}>
                           <Checkbox
-                            label={labels.onlyNumbers}
-                            {...field}
+                            label={labels.maxGroupAbbreviationIsOnlyNumbers}
                             onChange={onChange}
                             checked={value}
-                            disabled={oneStudentGroup}
+                            {...field}
                           />
                         </Box>
                       )}
