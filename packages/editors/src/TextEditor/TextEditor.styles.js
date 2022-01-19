@@ -1,9 +1,9 @@
 import { createStyles, getFontExpressive, getFontProductive } from '@bubbles-ui/components';
 
-export const TextEditorStyles = createStyles((theme, {}) => {
+export const TextEditorStyles = createStyles((theme, { hasError }) => {
   return {
     root: {
-      border: `1px solid ${theme.colors.ui01}`,
+      border: `1px solid ${hasError ? theme.colors.fatic01 : theme.colors.ui01}`,
       borderRadius: 4,
     },
     editor: {

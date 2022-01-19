@@ -39,4 +39,8 @@ Playground.args = {
   ...TEXT_EDITOR_DEFAULT_PROPS,
   placeholder: 'Type here ...',
   value: '<h3>Hello World</h3><p>This is a test</p>',
+  label: 'Label for text editor',
+  description: 'Optional descriptive text for this text editor ',
+  help: 'Help text for text editor',
+  error: 'Descriptive text for error ',
 };
