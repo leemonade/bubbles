@@ -99,7 +99,7 @@ const SetupBasicData = ({
         />
         <ContextContainer title={labels.credits}>
           <Controller
-            name="creditSystem"
+            name="useCreditSystem"
             control={control}
             render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
@@ -131,7 +131,7 @@ const SetupBasicData = ({
         </ContextContainer>
         <ContextContainer title={labels.groupsIDAbbrev} spacing={4}>
           <Controller
-            name="oneStudentGroup"
+            name="useOneStudentGroup"
             control={control}
             render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
