@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isArray, isEmpty, isFunction, isString } from 'lodash';
-import { Box, useId } from '@bubbles-ui/components';
+import { Box, useId, InputWrapper } from '@bubbles-ui/components';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
@@ -13,9 +13,19 @@ import { Toolbar } from './Toolbar/Toolbar';
 export const TEXT_EDITOR_DEFAULT_PROPS = {
   placeholder: '',
   toolbars: { style: true, align: true, list: true, history: true, heading: true },
+  label: '',
+  description: '',
+  help: '',
+  required: false,
+  error: '',
 };
 export const TEXT_EDITOR_PROP_TYPES = {
   placeholder: PropTypes.string,
+  label: PropTypes.string,
+  description: PropTypes.string,
+  help: PropTypes.string,
+  required: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   toolbars: PropTypes.shape({
     style: PropTypes.bool,
     color: PropTypes.bool,
@@ -27,7 +37,18 @@ export const TEXT_EDITOR_PROP_TYPES = {
   onChange: PropTypes.func,
 };
 
-const TextEditor = ({ value, onChange, placeholder, toolbars, ...props }) => {
+const TextEditor = ({
+  label,
+  description,
+  help,
+  error,
+  required,
+  value,
+  onChange,
+  placeholder,
+  toolbars,
+  ...props
+}) => {
   const uuid = useId();
   const [currentValue, setCurrentValue] = useState();
   const editor = useEditor({
@@ -62,16 +83,24 @@ const TextEditor = ({ value, onChange, placeholder, toolbars, ...props }) => {
 
   // ··································································
   // STYLES
-
-  const { classes } = TextEditorStyles({}, { name: 'TextEditor' });
+  const hasError = useMemo(() => !isEmpty(error), [error]);
+  const { classes } = TextEditorStyles({ hasError }, { name: 'TextEditor' });
 
   return (
-    <Box className={classes.root}>
-      <Toolbar editor={editor} blocks={toolbars} />
-      <Box className={classes.editor}>
-        <EditorContent editor={editor} />
+    <InputWrapper
+      label={label}
+      description={description}
+      error={error}
+      help={help}
+      required={required}
+    >
+      <Box className={classes.root}>
+        <Toolbar editor={editor} blocks={toolbars} />
+        <Box className={classes.editor}>
+          <EditorContent editor={editor} />
+        </Box>
       </Box>
-    </Box>
+    </InputWrapper>
   );
 };
 
