@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import { TimeInput, TIME_INPUT_DEFAULT_PROPS } from './TimeInput';
 import mdx from './TimeInput.mdx';
+import { INPUT_WRAPPER_SIZES } from '../InputWrapper';
 
 export default {
   title: 'Molecules/Form/TimeInput',
@@ -18,11 +19,12 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <TimeInput {...props}>{children}</TimeInput>;
+const Template = ({ ...props }) => {
+  return <TimeInput {...props} />;
 };
 
 export const Playground = Template.bind({});

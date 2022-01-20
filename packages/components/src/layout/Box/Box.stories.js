@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { Box, BOX_DEFAULT_PROPS } from './Box';
 import mdx from './Box.mdx';
 
