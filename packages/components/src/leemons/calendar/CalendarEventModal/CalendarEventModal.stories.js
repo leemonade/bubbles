@@ -31,7 +31,7 @@ const Template = ({ children, ...props }) => {
         {...props}
         onClose={() => setOpened(false)}
         opened={opened}
-        eventTypes={eventTypeMock}
+        selectData={{ ...CALENDAR_EVENT_MODAL_DEFAULT_PROPS.selectData, eventTypes: eventTypeMock }}
       >
         {children}
       </CalendarEventModal>

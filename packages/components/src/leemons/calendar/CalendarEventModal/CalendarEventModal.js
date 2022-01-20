@@ -2,11 +2,12 @@ import React from 'react';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
 import { Drawer } from '../../../overlay';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, RadioGroup, TextInput } from '../../../form';
+import { Button, RadioGroup, Select, TextInput } from '../../../form';
 
 import { get, isArray, isFunction, map } from 'lodash';
 import { Dates } from './components/Dates';
-import { Box } from '../../../layout';
+import { Box, Divider, Stack } from '../../../layout';
+import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
@@ -19,6 +20,8 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
       { label: 'Every month', value: 'every_month' },
       { label: 'Every year', value: 'every_year' },
     ],
+    calendars: [],
+    eventTypes: [],
   },
   messages: {
     fromLabel: 'From',
@@ -26,6 +29,9 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     repeatLabel: 'Repeat',
     allDayLabel: 'All day',
     titlePlaceholder: 'Event title',
+    cancelButtonLabel: 'Cancel',
+    saveButtonLabel: 'Save',
+    updateButtonLabel: 'Update',
   },
   errorMessages: {
     titleRequired: 'Field is required',
@@ -40,7 +46,17 @@ export const CALENDAR_EVENT_MODAL_PROP_TYPES = {};
 const CalendarEventModal = (props) => {
   const { classes, cx } = CalendarEventModalStyles({});
 
-  const { opened, onClose, eventTypes, forceType, messages, errorMessages, components } = props;
+  const {
+    opened,
+    onClose,
+    selectData,
+    forceType,
+    messages,
+    errorMessages,
+    components,
+    isNew,
+    isOwner,
+  } = props;
 
   const form = useForm();
   const {
@@ -55,21 +71,27 @@ const CalendarEventModal = (props) => {
     formState: { errors, isSubmitted },
   } = form;
 
-  console.log(control);
-
   const type = watch('type');
 
   let Component = () => null;
+  let hasComponent = false;
 
   if (type && components && components[type]) {
     Component = components[type];
+    hasComponent = true;
   }
 
   function onSubmit() {}
 
   return (
     <Drawer size={360} empty className={classes.root} onClose={onClose} opened={opened}>
-      <Box sx={(theme) => ({ padding: theme.spacing[4], paddingTop: theme.spacing[12] })}>
+      <Box
+        sx={(theme) => ({
+          padding: theme.spacing[4],
+          paddingTop: theme.spacing[12],
+          paddingBottom: '76px',
+        })}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="title"
@@ -96,9 +118,9 @@ const CalendarEventModal = (props) => {
                   <RadioGroup
                     {...field}
                     variant="boxed"
-                    direction={eventTypes.length < 3 ? 'row' : 'column'}
+                    direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
                     fullWidth
-                    data={eventTypes}
+                    data={selectData.eventTypes}
                   />
                 )}
               />
@@ -106,6 +128,12 @@ const CalendarEventModal = (props) => {
           ) : null}
 
           <Dates {...props} form={form} classes={classes} />
+
+          {hasComponent ? (
+            <Box className={classes.divider}>
+              <Divider />
+            </Box>
+          ) : null}
 
           <Component
             isEditing={true}
@@ -150,9 +178,29 @@ const CalendarEventModal = (props) => {
             }}
           />
 
+          <Box className={classes.divider}>
+            <Divider />
+          </Box>
+
+          <Stack>
+            <Box className={classes.icon}>
+              <PluginCalendarIcon />
+            </Box>
+            <Box>
+              <Controller
+                name="calendar"
+                control={control}
+                render={({ field }) => <Select {...field} data={selectData.calendars} />}
+              />
+            </Box>
+          </Stack>
+
           <Box className={classes.actionButtonsContainer}>
-            <Button>Cancel</Button>
-            <Button>Save</Button>
+            <Button type="button" variant="link" onClick={onClose}>
+              {messages.cancelButtonLabel}
+            </Button>
+            {isNew ? <Button type="submit">{messages.saveButtonLabel}</Button> : null}
+            {!isNew && isOwner ? <Button type="submit">{messages.updateButtonLabel}</Button> : null}
           </Box>
 
           {/*
@@ -171,16 +219,7 @@ const CalendarEventModal = (props) => {
               ))}
             </Select>
           ) : null}
-          {isNew ? (
-            <Button color="primary" className="mt-4">
-              {t('save')}
-            </Button>
-          ) : null}
-          {!isNew && isOwner ? (
-            <Button color="primary" className="mt-4">
-              {t('update')}
-            </Button>
-          ) : null}
+
           {!isNew ? (
             <Button type="button" color="error" className="mt-4" onClick={removeEvent}>
               Borrar T
