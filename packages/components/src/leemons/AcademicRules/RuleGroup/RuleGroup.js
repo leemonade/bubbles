@@ -4,6 +4,11 @@ import { Box } from '@mantine/core';
 import { PROPTYPES_SHAPE } from '../ProgramRules';
 import { RuleGroupStyles } from './RuleGroup.styles';
 
+export const LOGIC_OPERATORS = [
+  { label: 'AND', value: 'and' },
+  { label: 'OR', value: 'or' },
+];
+
 export const RULE_GROUP_DEFAULT_PROPS = {};
 export const RULE_GROUP_PROP_TYPES = {
   program: PROPTYPES_SHAPE,
@@ -31,7 +36,7 @@ const RuleGroup = ({
 }) => {
   const { classes, cx } = RuleGroupStyles({});
 
-  const [logicOperator, setLogicOperator] = useState('and');
+  const [logicOperator, setLogicOperator] = useState(LOGIC_OPERATORS[0].label);
 
   return <Box className={classes.root}>Rule group</Box>;
 };

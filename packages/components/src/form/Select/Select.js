@@ -28,6 +28,7 @@ const Select = forwardRef(
       searchable,
       nothingFound,
       placeholder,
+      className,
       ...props
     },
     ref
@@ -84,6 +85,7 @@ const Select = forwardRef(
               <ChevDownIcon className={classes.rightSection} />
             )
           }
+          className={className}
           classNames={classes}
           error={!isEmpty(error)}
         />
