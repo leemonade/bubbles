@@ -12,9 +12,9 @@ import { DeleteIcon } from '@bubbles-ui/icons/solid/';
 
 export const AUTOCOMPLETE_DEFAULT_PROPS = {
   itemComponent: forwardRef(({ children, ...others }, ref) => (
-    <Text ref={ref} {...others}>
-      {children}
-    </Text>
+    <div ref={ref} {...others}>
+      <Text>{children}</Text>
+    </div>
   )),
   valueComponent: forwardRef(({ children, onRemove, classNames, ...others }, ref) => (
     <Text ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
