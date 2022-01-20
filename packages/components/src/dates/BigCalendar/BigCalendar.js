@@ -1,9 +1,9 @@
-import React, { useState, forwardRef, useMemo, useEffect } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isNil, isArray, forEach } from 'lodash';
+import { forEach, isArray, isNil } from 'lodash';
 import { Box } from '@mantine/core';
 import { Calendar, Views } from 'react-big-calendar';
-import { DateTime, Settings, Interval } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import { RRule } from 'rrule';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -84,7 +84,7 @@ export const BigCalendar = forwardRef(
         Settings.defaultZone = timezone; // reset to browser TZ on unmount
       };
     }, []);
-    */
+     */
 
     // ·················································
     // INTERACTION HANDLE

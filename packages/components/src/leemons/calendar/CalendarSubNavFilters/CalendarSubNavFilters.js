@@ -5,6 +5,7 @@ import { SubNav } from '../../../navigation';
 import { ProSwitch } from '../../../form/ProSwitch';
 import { Text } from '../../../typography';
 import { ImageLoader } from '../../../misc';
+import { Select } from '../../../form';
 
 export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   messages: {
@@ -44,7 +45,13 @@ const CalendarSubNavFilters = ({
   }
 
   return (
-    <SubNav item={{ label: messages.title }} subItems={[]} messages={messages} onClose={onClose}>
+    <SubNav
+      item={{ label: messages.title }}
+      className={classes.subNav}
+      subItems={[]}
+      messages={messages}
+      onClose={onClose}
+    >
       <Box
         sx={(theme) => ({
           margin: theme.spacing[5],
@@ -63,33 +70,24 @@ const CalendarSubNavFilters = ({
           }}
         />
 
-        <Box
-          sx={(theme) => ({
-            marginTop: theme.spacing[6],
-          })}
-        >
-          <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
-            {messages.centers}
-          </Text>
+        {centers && centers.length > 1 ? (
           <Box
             sx={(theme) => ({
-              marginTop: theme.spacing[5],
+              marginTop: theme.spacing[6],
             })}
           >
-            <SegmentedControl
-              data={centers}
-              value={centerValue}
-              onChange={centerOnChange}
-              classNames={{
-                root: classes.segmentRoot,
-                label: classes.segmentLabel,
-                active: classes.segmentActive,
-                labelActive: classes.segmentLabelActive,
-                control: classes.segmentControl,
-              }}
-            />
+            <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+              {messages.centers}
+            </Text>
+            <Box
+              sx={(theme) => ({
+                marginTop: theme.spacing[5],
+              })}
+            >
+              <Select data={centers} value={centerValue} onChange={centerOnChange} />
+            </Box>
           </Box>
-        </Box>
+        ) : null}
 
         {value.map(({ calendars, sectionName }, sectionIndex) => (
           <Box
@@ -120,7 +118,7 @@ const CalendarSubNavFilters = ({
                     label={calendar.name}
                     color={calendar.bgColor}
                     checked={calendar.showEvents}
-                    icon={calendar.icon ? <ImageLoader src={calendar.icon} /> : null}
+                    icon={calendar.icon ? <ImageLoader strokeCurrent src={calendar.icon} /> : null}
                     onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
                   />
                 </Box>

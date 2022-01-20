@@ -23,7 +23,6 @@ export const MultiSelectStyles = createStyles((theme, { size, orientation }) => 
       ...getRequiredStyle(theme),
     },
     input: {
-      ...getFocusStyles(theme),
       ...getInputStyle(theme),
       ...inputSizes,
     },

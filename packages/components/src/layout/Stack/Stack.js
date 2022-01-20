@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { StackStyles } from './Stack.styles';
+import { Box } from '../Box';
 
 export const STACK_DEFAULT_PROPS = {
   direction: 'row',

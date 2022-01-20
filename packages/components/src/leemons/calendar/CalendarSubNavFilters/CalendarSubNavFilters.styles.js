@@ -3,6 +3,9 @@ import { getFontExpressive } from '../../../theme.mixins';
 
 export const CalendarSubNavFiltersStyles = createStyles((theme, {}) => {
   return {
+    subNav: {
+      height: '100%',
+    },
     switchLabel: {
       color: theme.colors.text07,
     },

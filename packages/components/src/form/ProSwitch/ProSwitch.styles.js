@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getFontExpressive } from '../../theme.mixins';
 
-export const ProSwitchStyles = createStyles((theme, { color }) => {
+export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
   return {
     label: {
       ...getFontExpressive(theme.fontSizes[1]),
@@ -48,6 +48,7 @@ export const ProSwitchStyles = createStyles((theme, { color }) => {
         border: 'none',
         transform: 'translateX(5.5px)',
         backgroundColor: color,
+        display: hasIcon ? 'none' : 'block',
       },
       '&:checked::before': {
         transform: 'translateX(17.5px)',

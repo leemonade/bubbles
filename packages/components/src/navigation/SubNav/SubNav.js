@@ -44,7 +44,7 @@ export const SubNav = ({
             rounded
             color="negative"
             onClick={onClose}
-            tooltip={messages.closeTooltip}
+            tooltip={messages?.closeTooltip || null}
           />
         </Box>
       </Box>

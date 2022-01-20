@@ -20,7 +20,6 @@ import {
 export const TextareaStyles = createStyles((theme, { size }) => {
   return {
     input: {
-      ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing, false),
       ...getInputStyle(theme),
     },
