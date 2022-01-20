@@ -69,7 +69,7 @@ export const BigCalendar = forwardRef(
     // TIMEZONE CONFIG
 
     const { localizer, defaultDate, scrollToTime, getNow } = useMemo(() => {
-      Settings.defaultZone = timezone;
+      // Settings.defaultZone = timezone;
       return {
         localizer: luxonLocalizer(DateTime),
         defaultDate: defaultDateProp,
@@ -78,11 +78,13 @@ export const BigCalendar = forwardRef(
       };
     }, [timezone]);
 
+    /*
     useEffect(() => {
       return () => {
         Settings.defaultZone = timezone; // reset to browser TZ on unmount
       };
     }, []);
+    */
 
     // ·················································
     // INTERACTION HANDLE

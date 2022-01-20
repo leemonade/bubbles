@@ -1,5 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { ColorPickerStyles } from './ColorPicker.styles';
 import { Box, ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
 import { Select } from '../Select';
@@ -111,7 +112,9 @@ export const ColorPicker = forwardRef(
     }, [useHsl]);
 
     useEffect(() => {
-      props.onChange && props.onChange(value);
+      if (value !== colorProp && isFunction(props.onChange)) {
+        props.onChange(value);
+      }
     }, [value]);
 
     return (
