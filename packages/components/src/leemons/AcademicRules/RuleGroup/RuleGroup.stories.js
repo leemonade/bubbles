@@ -1,11 +1,11 @@
 import React from 'react';
-import { ProgramRules, PROGRAM_RULES_DEFAULT_PROPS } from './ProgramRules';
-import mdx from './ProgramRules.mdx';
+import { RuleGroup, RULE_GROUP_DEFAULT_PROPS } from './RuleGroup';
+import mdx from './RuleGroup.mdx';
 
 export default {
-  title: 'leemons/AcademicRules/ProgramRules',
+  title: 'leemons/AcademicRules/RuleGroup',
   parameters: {
-    component: ProgramRules,
+    component: RuleGroup,
     docs: {
       page: mdx,
     },
@@ -18,11 +18,11 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <ProgramRules {...props}>{children}</ProgramRules>;
+  return <RuleGroup {...props}>{children}</RuleGroup>;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...PROGRAM_RULES_DEFAULT_PROPS,
+  ...RULE_GROUP_DEFAULT_PROPS,
 };

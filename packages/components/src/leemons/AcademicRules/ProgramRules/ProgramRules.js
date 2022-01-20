@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { ProgramRulesStyles } from './ProgramRules.styles';
 
-const PROPTYPES_SHAPE = PropTypes.shape({
+export const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
   value: PropTypes.string,
 });
