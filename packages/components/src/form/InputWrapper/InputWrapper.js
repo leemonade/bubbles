@@ -30,7 +30,10 @@ export const INPUT_WRAPPER_PROP_TYPES = {
   contentStyle: PropTypes.any,
 };
 export const INPUT_WRAPPER_DEFAULT_PROPS = {
-  as: 'input',
+  label: '',
+  description: '',
+  error: '',
+  help: '',
   orientation: 'vertical',
   size: 'sm',
   required: false,

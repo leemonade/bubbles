@@ -1,10 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const TimeInputStyles = createStyles((theme, {}) => {
+export const TimeInputStyles = createStyles((theme, { size }) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+    root: {},
+    input: {
+      ...getInputSizes(size || 'md', theme.spacing),
+      ...getInputStyle(theme),
+    },
+    controls: {
+      height: '100%',
     },
   };
 });
