@@ -18,6 +18,6 @@ export * from './feedback';
 export * from './overlay';
 export * from './leemons';
 export * from './layout';
-// export * from './dates';
+export * from './dates';
 export * from './form';
 export * from './misc';
