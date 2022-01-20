@@ -1,12 +1,12 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { ColorPickerStyles } from './ColorPicker.styles';
-import { Box, ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
+import { ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
 import { NumberInput } from '../NumberInput';
-import { Stack } from '../../layout';
+import { Box, Stack } from '../../layout';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
 
 export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
