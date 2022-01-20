@@ -2,46 +2,68 @@ import React from 'react';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
 import { Drawer } from '../../../overlay';
 import { Controller, useForm } from 'react-hook-form';
-import { RadioGroup, TextInput } from '../../../form';
-import { Box } from '@mantine/core';
-import { get } from 'lodash';
-import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
-import { Stack } from '../../../layout';
+import { Button, RadioGroup, TextInput } from '../../../form';
+
+import { get, isArray, isFunction, map } from 'lodash';
+import { Dates } from './components/Dates';
+import { Box } from '../../../layout';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
   onClose: () => {},
+  selectData: {
+    repeat: [
+      { label: "Don't repeat", value: 'dont_repeat' },
+      { label: 'Every day', value: 'every_day' },
+      { label: 'Every week', value: 'every_week' },
+      { label: 'Every month', value: 'every_month' },
+      { label: 'Every year', value: 'every_year' },
+    ],
+  },
   messages: {
+    fromLabel: 'From',
+    toLabel: 'To',
+    repeatLabel: 'Repeat',
+    allDayLabel: 'All day',
     titlePlaceholder: 'Event title',
   },
   errorMessages: {
     titleRequired: 'Field is required',
+    startDateRequired: 'Field is required',
+    startTimeRequired: 'Field is required',
+    endDateRequired: 'Field is required',
+    endTimeRequired: 'Field is required',
   },
 };
 export const CALENDAR_EVENT_MODAL_PROP_TYPES = {};
 
-const CalendarEventModal = ({
-  opened,
-  onClose,
-  eventTypes,
-  forceType,
-  messages,
-  errorMessages,
-  ...props
-}) => {
+const CalendarEventModal = (props) => {
   const { classes, cx } = CalendarEventModalStyles({});
 
+  const { opened, onClose, eventTypes, forceType, messages, errorMessages, components } = props;
+
+  const form = useForm();
   const {
+    watch,
     control,
+    trigger,
     register,
-    handleSubmit,
     setValue,
     getValues,
-    watch,
     unregister,
-    trigger,
+    handleSubmit,
     formState: { errors, isSubmitted },
-  } = useForm();
+  } = form;
+
+  console.log(control);
+
+  const type = watch('type');
+
+  let Component = () => null;
+
+  if (type && components && components[type]) {
+    Component = components[type];
+  }
 
   function onSubmit() {}
 
@@ -72,11 +94,10 @@ const CalendarEventModal = ({
                 control={control}
                 render={({ field }) => (
                   <RadioGroup
+                    {...field}
                     variant="boxed"
                     direction={eventTypes.length < 3 ? 'row' : 'column'}
-                    {...field}
                     fullWidth
-                    onChange={(e) => console.log(e)}
                     data={eventTypes}
                   />
                 )}
@@ -84,116 +105,58 @@ const CalendarEventModal = ({
             </Box>
           ) : null}
 
-          <Box sx={(theme) => ({ paddingTop: theme.spacing[5] })}>
-            <Stack>
-              <Box className={classes.icon}>
-                <TimeClockCircleIcon />
-              </Box>
-              <Box>Miau</Box>
-            </Stack>
-          </Box>
-          {/*
-          <FormControl className="w-full" formError={_.get(errors, `startDate`)}>
-            <Input
-              type="date"
-              className="w-full"
-              outlined={true}
-              {...register(`startDate`, {
-                required: tCommon('required'),
-              })}
-            />
-          </FormControl>
-          {!isAllDay ? (
-            <FormControl className="w-full" formError={_.get(errors, `startTime`)}>
-              <Input
-                type="time"
-                className="w-full"
-                outlined={true}
-                {...register(`startTime`, {
-                  required: tCommon('required'),
-                })}
-              />
-            </FormControl>
-          ) : null}
-          <FormControl className="w-full" formError={_.get(errors, `endDate`)}>
-            <Input
-              type="date"
-              className="w-full"
-              outlined={true}
-              {...register(`endDate`, {
-                required: tCommon('required'),
-              })}
-            />
-          </FormControl>
-          {!isAllDay ? (
-            <FormControl className="w-full" formError={_.get(errors, `endTime`)}>
-              <Input
-                type="time"
-                className="w-full"
-                outlined={true}
-                {...register(`endTime`, {
-                  required: tCommon('required'),
-                })}
-              />
-            </FormControl>
-          ) : null}
-          <FormControl labelPosition="right" label={t('all_day')}>
-            <Checkbox
-              color="secondary"
-              checked={watch('isAllDay')}
-              onChange={(e) => setValue('isAllDay', e.target.checked)}
-            />
-          </FormControl>
-          <Select
-            outlined
-            {...register(`repeat`, {
-              required: tCommon('required'),
-            })}
-          >
-            <option value="dont_repeat">{t('repeat.dont_repeat')}</option>
-            <option value="every_day">{t('repeat.every_day')}</option>
-            <option value="every_week">{t('repeat.every_week')}</option>
-            <option value="every_month">{t('repeat.every_month')}</option>
-            <option value="every_year">{t('repeat.every_year')}</option>
-          </Select>
-          {eventTypeComponent.current && eventTypeComponent.current.Component ? (
-            <eventTypeComponent.current.Component
-              event={event}
-              isEditing={true}
-              allFormData={watch()}
-              data={watch('data')}
-              tCommon={tCommon}
-              form={{
-                register: (ref, options) => register(`data.${ref}`, options),
-                setValue: (ref, value, options) => setValue(`data.${ref}`, value, options),
-                getValues: (refs) => {
-                  if (_.isArray(refs)) return getValues(_.map(refs, (ref) => `data.${ref}`));
-                  return getValues(`data.${refs}`);
-                },
-                watch: (refs, options) => {
-                  if (_.isFunction(refs)) {
-                    return watch(refs, options);
-                  }
-                  if (_.isArray(refs)) {
-                    return watch(
-                      _.map(refs, (ref) => `data.${ref}`),
-                      options
-                    );
-                  }
-                  return watch(`data.${refs}`, options);
-                },
+          <Dates {...props} form={form} classes={classes} />
+
+          <Component
+            isEditing={true}
+            allFormData={watch()}
+            data={watch('data')}
+            form={{
+              control: {
+                ...control,
+                register: (ref, options) => control.register(`data.${ref}`, options),
                 unregister: (refs) => {
-                  if (_.isArray(refs)) return unregister(_.map(refs, (ref) => `data.${ref}`));
-                  return unregister(`data.${refs}`);
+                  if (isArray(refs)) return control.unregister(map(refs, (ref) => `data.${ref}`));
+                  return control.unregister(`data.${refs}`);
                 },
-                trigger: (refs) => {
-                  if (_.isArray(refs)) return trigger(_.map(refs, (ref) => `data.${ref}`));
-                  return trigger(`data.${refs}`);
-                },
-                formState: { errors: errors ? errors.data : {}, isSubmitted },
-              }}
-            />
-          ) : null}
+              },
+              register: (ref, options) => register(`data.${ref}`, options),
+              setValue: (ref, value, options) => setValue(`data.${ref}`, value, options),
+              getValues: (refs) => {
+                if (isArray(refs)) return getValues(map(refs, (ref) => `data.${ref}`));
+                return getValues(`data.${refs}`);
+              },
+              watch: (refs, options) => {
+                if (isFunction(refs)) {
+                  return watch(refs, options);
+                }
+                if (isArray(refs)) {
+                  return watch(
+                    map(refs, (ref) => `data.${ref}`),
+                    options
+                  );
+                }
+                return watch(`data.${refs}`, options);
+              },
+              unregister: (refs) => {
+                if (isArray(refs)) return unregister(map(refs, (ref) => `data.${ref}`));
+                return unregister(`data.${refs}`);
+              },
+              trigger: (refs) => {
+                if (isArray(refs)) return trigger(map(refs, (ref) => `data.${ref}`));
+                return trigger(`data.${refs}`);
+              },
+              formState: { errors: errors ? errors.data : {}, isSubmitted },
+            }}
+          />
+
+          <Box className={classes.actionButtonsContainer}>
+            <Button>Cancel</Button>
+            <Button>Save</Button>
+          </Box>
+
+          {/*
+
           {calendarData && calendarData.ownerCalendars ? (
             <Select
               outlined
