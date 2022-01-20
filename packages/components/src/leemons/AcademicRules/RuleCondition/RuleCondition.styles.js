@@ -7,9 +7,11 @@ export const RuleConditionStyles = createStyles((theme, {}) => {
       ...getFontExpressive(theme.fontSizes['2']),
       display: 'flex',
       alignItems: 'center',
+      padding: pxToRem(8),
     },
     logicOperator: {
       marginRight: pxToRem(8),
+      width: pxToRem(100),
     },
     input: {
       marginBottom: pxToRem(-4),

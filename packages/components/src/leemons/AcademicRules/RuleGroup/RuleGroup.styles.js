@@ -5,6 +5,7 @@ export const RuleGroupStyles = createStyles((theme, {}) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
+      padding: pxToRem(8),
     },
   };
 });

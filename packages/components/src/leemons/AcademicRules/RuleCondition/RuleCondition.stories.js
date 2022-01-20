@@ -2,6 +2,7 @@ import React from 'react';
 import { RuleCondition, RULE_CONDITION_DEFAULT_PROPS } from './RuleCondition';
 import mdx from './RuleCondition.mdx';
 import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 export default {
   title: 'leemons/AcademicRules/RuleCondition',
@@ -19,7 +20,21 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <RuleCondition {...props}>{children}</RuleCondition>;
+  const uuid = uuidv4();
+
+  return (
+    <DragDropContext>
+      <Droppable droppableId={uuid}>
+        {(provided, snapshot) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            <RuleCondition provided={provided} {...props}>
+              {children}
+            </RuleCondition>
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
 };
 
 export const Playground = Template.bind({});

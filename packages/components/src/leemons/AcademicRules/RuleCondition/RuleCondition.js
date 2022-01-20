@@ -6,7 +6,8 @@ import { PROPTYPES_SHAPE } from '../ProgramRules';
 import { LOGIC_OPERATORS } from '../RuleGroup';
 import { RuleConditionStyles } from './RuleCondition.styles';
 import { Text } from '../../../typography';
-import { NumberInput, Select } from '../../../form';
+import { NumberInput, Select, MultiSelect } from '../../../form';
+import { v4 as uuidv4 } from 'uuid';
 
 export const RULE_CONDITION_DEFAULT_PROPS = {};
 export const RULE_CONDITION_PROP_TYPES = {
@@ -19,7 +20,7 @@ export const RULE_CONDITION_PROP_TYPES = {
   subjectGroups: PropTypes.arrayOf(PROPTYPES_SHAPE),
   dataTypes: PropTypes.arrayOf(PROPTYPES_SHAPE),
   operators: PropTypes.arrayOf(PROPTYPES_SHAPE),
-  logicOperator: PropTypes.shape(LOGIC_OPERATORS),
+  // logicOperator: PropTypes.shape(),
   setLogicOperator: PropTypes.func,
 };
 
@@ -35,7 +36,6 @@ const RuleCondition = ({
   operators,
   logicOperator,
   setLogicOperator,
-  uuid,
   index,
   provided,
   ...props
@@ -72,14 +72,24 @@ const RuleCondition = ({
       return <Text>Where</Text>;
     }
     if (index === 1) {
-      return <Select className={classes.input} data={LOGIC_OPERATORS} />;
+      return (
+        <Select
+          className={classes.input}
+          data={LOGIC_OPERATORS}
+          defaultValue={logicOperator}
+          value={logicOperator}
+          onChange={(e) => {
+            setLogicOperator({ label: e.toUpperCase(), value: e });
+          }}
+        />
+      );
     } else {
-      return <Text>{logicOperator.toUpperCase()}</Text>;
+      return <Text>{logicOperator.label}</Text>;
     }
   };
 
   return (
-    <Draggable key={uuid} draggableId={uuid} index={index}>
+    <Draggable key={index} draggableId={`${index}`} index={index}>
       {(provided, snapshot) => (
         <Box
           className={classes.root}
