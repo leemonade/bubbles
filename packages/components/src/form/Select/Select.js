@@ -22,6 +22,7 @@ const Select = forwardRef(
       onChange,
       onBlur,
       value,
+      defaultValue,
       name,
       data,
       disabled,
@@ -67,6 +68,7 @@ const Select = forwardRef(
           onChange={handleChange}
           onBlur={onBlur}
           value={value}
+          defaultValue={defaultValue}
           name={name}
           disabled={disabled}
           searchable={searchable}

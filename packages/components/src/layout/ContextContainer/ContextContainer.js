@@ -14,12 +14,14 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   description: '',
   padded: false,
   divided: false,
+  spacing: 5,
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES)]),
   divided: PropTypes.bool,
+  spacing: PropTypes.number,
 };
 
 const ContextContainer = ({
@@ -29,6 +31,7 @@ const ContextContainer = ({
   description,
   padded,
   divided,
+  spacing,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -54,7 +57,7 @@ const ContextContainer = ({
     <Stack
       className={cx(classes.root, className)}
       direction="column"
-      spacing={5}
+      spacing={spacing}
       fullWidth
       {...props}
     >

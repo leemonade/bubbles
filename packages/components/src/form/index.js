@@ -14,6 +14,7 @@ export * from './TableInput';
 export * from './TextInput';
 export * from './Textarea';
 export * from './Checkbox';
+export * from './CheckboxGroup';
 export * from './Button';
 export * from './Select';
 export * from './Switch';
