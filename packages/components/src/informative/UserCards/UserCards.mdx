@@ -36,8 +36,31 @@ Full variant:
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.user} />
-    <UserCards user={stories.user} layout={'vertical'} />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+    />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      layout={'vertical'}
+    />
   </Group>
 </ThemeProvider>
 
@@ -45,8 +68,33 @@ Simple variant:
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.user} variant={'simple'} />
-    <UserCards user={stories.user} variant={'simple'} layout={'vertical'} />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'simple'}
+    />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'simple'}
+      layout={'vertical'}
+    />
   </Group>
 </ThemeProvider>
 
@@ -54,8 +102,33 @@ Large variant and contact variant (with error):
 
 <ThemeProvider>
   <Group position={'apart'}>
-    <UserCards user={stories.user} variant={'large'} />
-    <UserCards user={stories.user} variant={'contact'} error={'Contact already added'} />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'large'}
+    />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'contact'}
+      error={'Contact already added'}
+    />
   </Group>
 </ThemeProvider>
 
@@ -65,9 +138,47 @@ And full, simple and large variant has a selected state
 
 <ThemeProvider>
   <Group>
-    <UserCards user={stories.user} variant={'large'} selected />
-    <UserCards user={stories.user} selected />
-    <UserCards user={stories.user} variant={'simple'} selected />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'large'}
+      selected
+    />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      selected
+    />
+    <UserCards
+      user={{
+        name: 'Marcelina',
+        surname: 'Cartes Ramirez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+        rol: 'Tutor',
+        email: 'bill.sanders@example.com',
+        number: '+31 56 764 893',
+        birthday: new Date(),
+      }}
+      variant={'simple'}
+      selected
+    />
   </Group>
 </ThemeProvider>
 
@@ -81,11 +192,11 @@ And full, simple and large variant has a selected state
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-cards_role)
+[MDN: ARIA **UserCards** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-cards_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-cards/user-cards.html)
+[W3: ARIA **UserCards** role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-cards/user-cards.html)
 
 ## Feedback
 

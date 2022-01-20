@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Bold,
@@ -15,15 +15,25 @@ import {
   DoubleQuotesR,
   ListOrdered,
   ListUnordered,
+  FontColor,
 } from '@styled-icons/remix-editor';
 import { Undo, Redo } from '@styled-icons/boxicons-regular';
 import { Box, Stack, ActionButton } from '@bubbles-ui/components';
 import { ToolbarStyles } from './Toolbar.styles';
+import { ColorPickerDropdown } from './components/ColorPickerDropdown';
 
 const Toolbar = ({ editor, blocks }) => {
   if (!editor) {
     return null;
   }
+
+  const [showColorPicker, setShowColorPicker] = useState(false);
+
+  const handleOnColor = (val) => {
+    console.log(val);
+    setShowColorPicker(false);
+    editor.chain().focus().setColor(val).run();
+  };
 
   // ··································································
   // STYLES
@@ -74,7 +84,22 @@ const Toolbar = ({ editor, blocks }) => {
           />
         </Stack>
       )}
-      {blocks.color && <Stack className={classes.buttonGroup}></Stack>}
+      {blocks.color && (
+        <Stack className={classes.buttonGroup}>
+          <ColorPickerDropdown
+            open={showColorPicker}
+            onClose={() => setShowColorPicker(false)}
+            onChange={(val) => editor.chain().focus().setColor(val).run()}
+            target={
+              <ActionButton
+                onClick={() => setShowColorPicker(!showColorPicker)}
+                icon={<FontColor />}
+                tooltip="Font Color"
+              />
+            }
+          />
+        </Stack>
+      )}
       {blocks.heading && (
         <Stack className={classes.buttonGroup}>
           <ActionButton
