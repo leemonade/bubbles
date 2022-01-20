@@ -2,16 +2,20 @@ import React from 'react';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
 import { Drawer } from '../../../overlay';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, RadioGroup, Select, TextInput } from '../../../form';
+import { ActionButton, Button, RadioGroup, Select, TextInput } from '../../../form';
 
 import { get, isArray, isFunction, map } from 'lodash';
 import { Dates } from './components/Dates';
-import { Box, Divider, Stack } from '../../../layout';
+import { Box, Divider } from '../../../layout';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { Col, Grid } from '@mantine/core';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
   onClose: () => {},
+  onRemove: () => {},
+  onSubmit: () => {},
   selectData: {
     repeat: [
       { label: "Don't repeat", value: 'dont_repeat' },
@@ -32,6 +36,7 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     cancelButtonLabel: 'Cancel',
     saveButtonLabel: 'Save',
     updateButtonLabel: 'Update',
+    calendarPlaceholder: 'Select calendar',
   },
   errorMessages: {
     titleRequired: 'Field is required',
@@ -39,6 +44,8 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     startTimeRequired: 'Field is required',
     endDateRequired: 'Field is required',
     endTimeRequired: 'Field is required',
+    calendarRequired: 'Field is required',
+    typeRequired: 'Field is required',
   },
 };
 export const CALENDAR_EVENT_MODAL_PROP_TYPES = {};
@@ -49,6 +56,7 @@ const CalendarEventModal = (props) => {
   const {
     opened,
     onClose,
+    onRemove,
     selectData,
     forceType,
     messages,
@@ -56,9 +64,11 @@ const CalendarEventModal = (props) => {
     components,
     isNew,
     isOwner,
+    onSubmit,
+    defaultValues,
   } = props;
 
-  const form = useForm();
+  const form = useForm({ defaultValues });
   const {
     watch,
     control,
@@ -81,10 +91,15 @@ const CalendarEventModal = (props) => {
     hasComponent = true;
   }
 
-  function onSubmit() {}
-
   return (
-    <Drawer size={360} empty className={classes.root} onClose={onClose} opened={opened}>
+    <Drawer
+      size={360}
+      empty
+      className={classes.root}
+      onClose={onClose}
+      opened={opened}
+      header={!isNew ? <ActionButton icon={<DeleteBinIcon />} onClick={onRemove} /> : null}
+    >
       <Box
         sx={(theme) => ({
           padding: theme.spacing[4],
@@ -114,12 +129,16 @@ const CalendarEventModal = (props) => {
               <Controller
                 name="type"
                 control={control}
+                rules={{
+                  required: errorMessages.typeRequired,
+                }}
                 render={({ field }) => (
                   <RadioGroup
                     {...field}
                     variant="boxed"
                     direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
                     fullWidth
+                    error={get(errors, 'type')}
                     data={selectData.eventTypes}
                   />
                 )}
@@ -182,18 +201,32 @@ const CalendarEventModal = (props) => {
             <Divider />
           </Box>
 
-          <Stack>
-            <Box className={classes.icon}>
-              <PluginCalendarIcon />
-            </Box>
-            <Box>
-              <Controller
-                name="calendar"
-                control={control}
-                render={({ field }) => <Select {...field} data={selectData.calendars} />}
-              />
-            </Box>
-          </Stack>
+          <Box>
+            <Grid columns={100} gutter={0}>
+              <Col span={10} className={classes.icon}>
+                <PluginCalendarIcon />
+              </Col>
+              <Col span={90}>
+                <Controller
+                  name="calendar"
+                  control={control}
+                  rules={{
+                    required: errorMessages.calendarRequired,
+                  }}
+                  render={({ field }) => (
+                    <Select
+                      size="xs"
+                      placeholder={messages.calendarPlaceholder}
+                      {...field}
+                      required
+                      error={get(errors, 'calendar')}
+                      data={selectData.calendars}
+                    />
+                  )}
+                />
+              </Col>
+            </Grid>
+          </Box>
 
           <Box className={classes.actionButtonsContainer}>
             <Button type="button" variant="link" onClick={onClose}>
@@ -202,30 +235,6 @@ const CalendarEventModal = (props) => {
             {isNew ? <Button type="submit">{messages.saveButtonLabel}</Button> : null}
             {!isNew && isOwner ? <Button type="submit">{messages.updateButtonLabel}</Button> : null}
           </Box>
-
-          {/*
-
-          {calendarData && calendarData.ownerCalendars ? (
-            <Select
-              outlined
-              {...register(`calendar`, {
-                required: tCommon('required'),
-              })}
-            >
-              {calendarData.ownerCalendars.map((calendar) => (
-                <option key={calendar.id} value={calendar.key}>
-                  {getCalendarNameWithConfigAndSession(calendar, calendarData, session)}
-                </option>
-              ))}
-            </Select>
-          ) : null}
-
-          {!isNew ? (
-            <Button type="button" color="error" className="mt-4" onClick={removeEvent}>
-              Borrar T
-            </Button>
-          ) : null}
-          */}
         </form>
       </Box>
     </Drawer>

@@ -11,6 +11,9 @@ export const CalendarEventModalStyles = createStyles((theme, {}) => {
       color: theme.colors.text05,
       fontSize: theme.fontSizes[3],
     },
+    inputsDatesContainer: {
+      alignItems: 'end',
+    },
     actionButtonsContainer: {
       position: 'absolute',
       width: '100%',
