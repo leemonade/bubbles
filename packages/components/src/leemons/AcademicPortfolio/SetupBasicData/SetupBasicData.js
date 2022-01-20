@@ -67,6 +67,8 @@ const SetupBasicData = ({
     maxGroupAbbreviationIsOnlyNumbers: false,
     creditSystem: false,
     oneStudentGroup: false,
+    useCreditSystem: false,
+    useOneStudentGroup: false,
   };
 
   const {
@@ -76,7 +78,7 @@ const SetupBasicData = ({
   } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, basicData: e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
     isFunction(onNext) && onNext(e);
   };
 

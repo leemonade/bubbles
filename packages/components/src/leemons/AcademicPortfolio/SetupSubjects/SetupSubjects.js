@@ -83,14 +83,22 @@ const SetupSubjects = ({
     return subjectsID;
   };
 
+  const defaultValues = {
+    allSubjectsSameDuration: false,
+    maxKnowledgeAbbreviation: 0,
+    maxKnowledgeAbbreviationIsOnlyNumbers: false,
+    subjectsFirstDigit: FIRST_DIGIT_OPTIONS[0],
+    subjectsDigits: 0,
+  };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, subjects: e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
     isFunction(onNext) && onNext(e);
   };
 

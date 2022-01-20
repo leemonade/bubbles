@@ -8,6 +8,7 @@ import { TextInput, Checkbox, NumberInput, Button, Select, Switch } from '../../
 import { Text } from '../../../typography';
 import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { capitalize } from 'lodash';
+import { isFunction } from 'lodash';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {};
 export const SETUP_COURSES_PROP_TYPES = {
@@ -40,6 +41,8 @@ export const SETUP_COURSES_PROP_TYPES = {
   }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
+  sharedData: PropTypes.any,
+  setSharedData: PropTypes.func,
 };
 
 const FREQUENCY_OPTIONS = [
@@ -52,7 +55,16 @@ const FREQUENCY_OPTIONS = [
   { label: 'Daily', value: 'day' },
 ];
 
-const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext, ...props }) => {
+const SetupCourses = ({
+  labels,
+  placeholders,
+  errorMessages,
+  onPrevious,
+  onNext,
+  sharedData,
+  setSharedData,
+  ...props
+}) => {
   const [onlyOneCourse, setOnlyOneCourse] = useState(false);
   const [haveSubstagesPerCourse, setHaveSubstagesPerCourse] = useState(false);
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(false);
@@ -135,7 +147,7 @@ const SetupCourses = ({ labels, placeholders, errorMessages, onPrevious, onNext,
   };
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, courses: e });
+    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
     isFunction(onNext) && onNext(e);
   };
 

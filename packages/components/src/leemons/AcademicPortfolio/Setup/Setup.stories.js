@@ -1,12 +1,13 @@
 import React from 'react';
-import { Stepper, STEPPER_DEFAULT_PROPS } from './Stepper';
-import mdx from './Stepper.mdx';
-import { SetupBasicData, SetupSubjects, SetupCourses } from '../../leemons/AcademicPortfolio/';
+import { Box } from '@mantine/core';
+import { Setup, SETUP_DEFAULT_PROPS } from './Setup';
+import mdx from './Setup.mdx';
+import { SetupBasicData, SetupSubjects, SetupCourses } from '../';
 
 export default {
-  title: 'Organisms/Navigation/Stepper',
+  title: 'leemons/AcademicPortfolio',
   parameters: {
-    component: Stepper,
+    component: Setup,
     docs: {
       page: mdx,
     },
@@ -17,17 +18,20 @@ export default {
   argTypes: {
     onNext: { action: 'next' },
     onPrev: { action: 'previous' },
+    onSave: { action: 'save' },
   },
 };
 
 const Template = ({ children, ...props }) => {
-  return <Stepper {...props}>{children}</Stepper>;
+  return <Setup {...props}>{children}</Setup>;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...STEPPER_DEFAULT_PROPS,
+  ...SETUP_DEFAULT_PROPS,
+  title: 'Setup',
+  buttonLabel: 'Save changes',
   data: [
     {
       label: 'Basic data',

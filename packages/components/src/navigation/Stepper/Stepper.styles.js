@@ -6,10 +6,5 @@ export const StepperStyles = createStyles((theme, {}) => {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
     },
-    header: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginBottom: pxToRem(16),
-    },
   };
 });
