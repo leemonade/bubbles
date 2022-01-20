@@ -26,16 +26,16 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
     numberOfSemesters: PropTypes.string,
     periodName: PropTypes.string,
     knowledgeAreas: PropTypes.string,
-    maxAbbrevLength: PropTypes.string,
-    onlyNumbers: PropTypes.string,
+    maxKnowledgeAbbreviation: PropTypes.string,
+    maxKnowledgeAbbreviationIsOnlyNumbers: PropTypes.string,
     subjectsIDConfig: PropTypes.string,
-    firstDigit: PropTypes.string,
-    digits: PropTypes.string,
+    subjectsFirstDigit: PropTypes.string,
+    subjectsDigits: PropTypes.string,
     buttonNext: PropTypes.string,
     buttonPrev: PropTypes.string,
   }),
   helps: PropTypes.shape({
-    maxAbbrevLength: PropTypes.string,
+    maxKnowledgeAbbreviation: PropTypes.string,
   }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
@@ -66,18 +66,18 @@ const SetupSubjects = ({
 }) => {
   const { classes, cx } = SetupSubjectsStyles({});
 
-  const [firstDigit, setFirstDigit] = useState(FIRST_DIGIT_OPTIONS[0]);
-  const [digits, setDigits] = useState(0);
+  const [subjectsFirstDigit, setsubjectsFirstDigit] = useState(FIRST_DIGIT_OPTIONS[0]);
+  const [subjectsDigits, setsubjectsDigits] = useState(0);
   const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(false);
   const numberOfCourses = sharedData?.numberOfCourses;
 
-  const generateSubjectsID = (firstDigit, digits) => {
-    if (!digits || !numberOfCourses) return '';
+  const generateSubjectsID = (subjectsFirstDigit, subjectsDigits) => {
+    if (!subjectsDigits) return '';
     let subjectsID = '';
     for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
-      let firstNumber = firstDigit === FIRST_DIGIT_OPTIONS[0] ? currentNumber : '';
-      subjectsID += `${firstNumber}${'0'.repeat(digits - 1)}1-${firstNumber}${'9'.repeat(
-        digits
+      let firstNumber = subjectsFirstDigit === FIRST_DIGIT_OPTIONS[0] ? currentNumber : '';
+      subjectsID += `${firstNumber}${'0'.repeat(subjectsDigits - 1)}1-${firstNumber}${'9'.repeat(
+        subjectsDigits
       )} | `;
     }
     return subjectsID;
@@ -109,7 +109,7 @@ const SetupSubjects = ({
                 setAllSubjectsSameDuration(!allSubjectsSameDuration);
                 onChange(e);
               }}
-              checked={value}
+              checked={value || false}
               {...field}
             />
           )}
@@ -153,25 +153,25 @@ const SetupSubjects = ({
         )}
         <Text size={'md'}>{labels.knowledgeAreas}</Text>
         <Controller
-          name="maxAbbrevLength"
+          name="maxKnowledgeAbbreviation"
           control={control}
           render={({ field }) => (
             <Box>
               <NumberInput
                 orientation="horizontal"
-                label={labels.maxAbbrevLength}
-                help={helps.maxAbbrevLength}
+                label={labels.maxKnowledgeAbbreviation}
+                help={helps.maxKnowledgeAbbreviation}
                 defaultValue={0}
                 min={0}
                 {...field}
               />
               <Controller
-                name="onlyNumbers"
+                name="maxKnowledgeAbbreviationIsOnlyNumbers"
                 control={control}
                 render={({ field: { onChange, value, ...field } }) => (
                   <Box style={{ textAlign: 'right' }}>
                     <Checkbox
-                      label={labels.onlyNumbers}
+                      label={labels.maxKnowledgeAbbreviationIsOnlyNumbers}
                       {...field}
                       onChange={onChange}
                       checked={value}
@@ -185,17 +185,17 @@ const SetupSubjects = ({
         <Text size={'md'}>{labels.subjectsIDConfig}</Text>
         <Box className={classes.subjectsIDConfig}>
           <Controller
-            name="firstDigit"
+            name="subjectsFirstDigit"
             control={control}
             render={({ field: { onChange, value, ...field } }) => (
               <Select
                 data={FIRST_DIGIT_OPTIONS}
                 defaultValue={FIRST_DIGIT_OPTIONS[0]}
                 value={value}
-                label={labels.firstDigit}
+                label={labels.subjectsFirstDigit}
                 onChange={(e) => {
                   onChange(e);
-                  setFirstDigit(e);
+                  setsubjectsFirstDigit(e);
                 }}
                 {...field}
               />
@@ -205,16 +205,16 @@ const SetupSubjects = ({
             +
           </Text>
           <Controller
-            name="digits"
+            name="subjectsDigits"
             control={control}
             render={({ field: { onChange, value, ...field } }) => (
               <NumberInput
-                label={labels.digits}
+                label={labels.subjectsDigits}
                 defaultValue={0}
                 min={0}
                 onChange={(e) => {
                   onChange(e);
-                  setDigits(e);
+                  setsubjectsDigits(e);
                 }}
                 value={value}
                 {...field}
@@ -224,7 +224,7 @@ const SetupSubjects = ({
           <Text color={'primary'} size={'xl'}>
             =
           </Text>
-          <Text size={'xl'}>{generateSubjectsID(firstDigit, digits)}</Text>
+          <Text size={'xl'}>{generateSubjectsID(subjectsFirstDigit, subjectsDigits)}</Text>
         </Box>
         <Box className={classes.buttonRow}>
           <Box>
