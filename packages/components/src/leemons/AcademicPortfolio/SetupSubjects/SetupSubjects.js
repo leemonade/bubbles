@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction, find } from 'lodash';
 import { useForm, Controller } from 'react-hook-form';
-import { ContextContainer } from '../../../layout';
+import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { Box, Stack, ContextContainer, Divider } from '../../../layout';
 import {
   TextInput,
   Checkbox,
@@ -11,13 +13,15 @@ import {
   TableInput,
   Switch,
 } from '../../../form/';
-import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../../typography';
-import { Box } from '@mantine/core';
-import { isFunction } from 'lodash';
 import { SetupSubjectsStyles } from './SetupSubjects.styles';
 
-export const SETUP_SUBJECTS_DEFAULT_PROPS = {};
+export const SETUP_SUBJECTS_DEFAULT_PROPS = {
+  sharedData: {},
+  errorMessages: {},
+  firstDigitOptions: [],
+  frequencyOptions: [],
+};
 export const SETUP_SUBJECTS_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,
@@ -37,59 +41,68 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
   helps: PropTypes.shape({
     maxKnowledgeAbbreviation: PropTypes.string,
   }),
+  errorMessages: PropTypes.shape({
+    periodName: PropTypes.any,
+    numOfPeriods: PropTypes.any,
+    substagesFrequency: PropTypes.any,
+  }),
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
+  firstDigitOptions: PropTypes.array,
+  frequencyOptions: PropTypes.array,
 };
-
-const FIRST_DIGIT_OPTIONS = ['Course Nº', 'None'];
-
-const FREQUENCY_OPTIONS = [
-  { label: 'Anual', value: 'Anual' },
-  { label: 'Half-yearly(Semester)', value: 'Half-yearly' },
-  { label: 'Quarterly(Trimester/Quarter', value: 'Quarterly' },
-  { label: 'Four-month period', value: 'Four-month' },
-  { label: 'Monthly', value: 'Monthly' },
-  { label: 'Weekly', value: 'Weekly' },
-  { label: 'Daily', value: 'Daily' },
-];
 
 const SetupSubjects = ({
   labels,
   helps,
+  errorMessages,
   onNext,
   onPrevious,
   sharedData,
   setSharedData,
+  firstDigitOptions,
+  frequencyOptions,
   ...props
 }) => {
-  const { classes, cx } = SetupSubjectsStyles({});
-
-  const [subjectsFirstDigit, setsubjectsFirstDigit] = useState(FIRST_DIGIT_OPTIONS[0]);
-  const [subjectsDigits, setsubjectsDigits] = useState(0);
-  const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(false);
-  const numberOfCourses = sharedData?.numberOfCourses;
-
-  const generateSubjectsID = (subjectsFirstDigit, subjectsDigits) => {
-    if (!subjectsDigits) return '';
-    let subjectsID = '';
-    for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
-      let firstNumber = subjectsFirstDigit === FIRST_DIGIT_OPTIONS[0] ? currentNumber : '';
-      subjectsID += `${firstNumber}${'0'.repeat(subjectsDigits - 1)}1-${firstNumber}${'9'.repeat(
-        subjectsDigits
-      )} | `;
-    }
-    return subjectsID;
-  };
-
   const defaultValues = {
     allSubjectsSameDuration: false,
     maxKnowledgeAbbreviation: 0,
     maxKnowledgeAbbreviationIsOnlyNumbers: false,
-    subjectsFirstDigit: FIRST_DIGIT_OPTIONS[0],
+    subjectsFirstDigit: firstDigitOptions[0],
     subjectsDigits: 0,
+    ...sharedData,
   };
+
+  const [subjectsFirstDigit, setSubjectsFirstDigit] = useState(defaultValues.subjectsFirstDigit);
+  const [subjectsDigits, setSubjectsDigits] = useState(defaultValues.subjectsDigits);
+  const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(
+    defaultValues.allSubjectsSameDuration
+  );
+
+  const { classes, cx } = SetupSubjectsStyles({});
+
+  const generateSubjectsID = useCallback(() => {
+    if (!subjectsDigits) return '';
+    const subjectsID = [];
+    const numberOfCourses = sharedData?.maxNumberOfCourses;
+
+    for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
+      const firstNumber = subjectsFirstDigit === firstDigitOptions[0] ? currentNumber : '';
+      subjectsID.push(
+        <Box key={`k-${currentNumber}`} className={classes.subjectID}>
+          <Text size="md">{`${firstNumber}${'0'.repeat(
+            subjectsDigits - 1
+          )}1-${firstNumber}${'9'.repeat(subjectsDigits)}`}</Text>
+        </Box>
+      );
+      if (currentNumber < numberOfCourses) {
+        subjectsID.push(<Divider key={`d-${currentNumber}`} orientation="vertical" />);
+      }
+    }
+    return subjectsID;
+  }, [subjectsFirstDigit, subjectsDigits, sharedData, firstDigitOptions]);
 
   const {
     control,
@@ -104,156 +117,150 @@ const SetupSubjects = ({
 
   return (
     <form onSubmit={handleSubmit(handleOnNext)}>
-      <ContextContainer title={labels.title} {...props}>
-        <Text size={'md'}>{labels.standardDuration}</Text>
-        <Controller
-          name="allSubjectsSameDuration"
-          control={control}
-          render={({ field: { onChange, value, ref, ...field } }) => (
-            <Switch
-              label={labels.allSubjectsSameDuration}
-              help={helps.allSubjectsSameDuration}
-              onChange={(e) => {
-                setAllSubjectsSameDuration(!allSubjectsSameDuration);
-                onChange(e);
+      <ContextContainer {...props} divided>
+        <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
+          <Controller
+            name="allSubjectsSameDuration"
+            control={control}
+            render={({ field: { onChange, value, ref, ...field } }) => (
+              <Switch
+                label={labels.allSubjectsSameDuration}
+                help={helps.allSubjectsSameDuration}
+                onChange={(e) => {
+                  setAllSubjectsSameDuration(!allSubjectsSameDuration);
+                  onChange(e);
+                }}
+                checked={value || false}
+                {...field}
+              />
+            )}
+          />
+          {!allSubjectsSameDuration && (
+            <TableInput
+              sortable={false}
+              columns={[
+                {
+                  Header: labels.periodName,
+                  accessor: 'name',
+                  input: {
+                    node: <TextInput />,
+                    rules: { required: errorMessages?.periodName?.required || 'Required field' },
+                  },
+                },
+                {
+                  Header: labels.numOfPeriods,
+                  accessor: 'amount',
+                  input: {
+                    node: <NumberInput />,
+                    rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' },
+                  },
+                },
+                {
+                  Header: labels.substagesFrequency,
+                  accessor: 'frequency',
+                  input: {
+                    node: <Select />,
+                    rules: {
+                      required: errorMessages?.substagesFrequency?.required || 'Required field',
+                    },
+                    data: frequencyOptions,
+                  },
+                  valueRender: (value) => find(frequencyOptions, { value })['label'],
+                },
+              ]}
+              data={[]}
+              labels={{
+                add: labels.buttonAdd,
+                remove: labels.buttonRemove,
               }}
-              checked={value || false}
-              {...field}
             />
           )}
-        />
-        {!allSubjectsSameDuration && (
-          <TableInput
-            columns={[
-              {
-                Header: 'Period name',
-                accessor: 'name',
-                input: {
-                  node: <TextInput />,
-                  rules: { required: 'Required field' },
-                },
-              },
-              {
-                Header: 'Number of periods',
-                accessor: 'amount',
-                input: {
-                  node: <NumberInput />,
-                  rules: { required: 'Required field' },
-                },
-              },
-              {
-                Header: 'Period type',
-                accessor: 'type',
-                input: {
-                  node: <Select />,
-                  rules: { required: 'Required field' },
-                  data: FREQUENCY_OPTIONS,
-                },
-                valueRender: (value) => find(FREQUENCY_OPTIONS, { value })['label'],
-              },
-            ]}
-            data={[]}
-            labels={{
-              add: 'Add',
-              remove: 'Remove',
-            }}
-          />
-        )}
-        <Text size={'md'}>{labels.knowledgeAreas}</Text>
-        <Controller
-          name="maxKnowledgeAbbreviation"
-          control={control}
-          render={({ field }) => (
-            <Box>
-              <NumberInput
-                orientation="horizontal"
-                label={labels.maxKnowledgeAbbreviation}
-                help={helps.maxKnowledgeAbbreviation}
-                defaultValue={0}
-                min={0}
-                {...field}
-              />
-              <Controller
-                name="maxKnowledgeAbbreviationIsOnlyNumbers"
-                control={control}
-                render={({ field: { onChange, value, ...field } }) => (
-                  <Box style={{ textAlign: 'right' }}>
+        </ContextContainer>
+        <ContextContainer title={labels.knowledgeAreas}>
+          <Controller
+            name="maxKnowledgeAbbreviation"
+            control={control}
+            render={({ field }) => (
+              <ContextContainer direction="row" alignItems="center">
+                <NumberInput
+                  label={labels.maxKnowledgeAbbreviation}
+                  help={helps.maxKnowledgeAbbreviation}
+                  min={0}
+                  {...field}
+                />
+                <Controller
+                  name="maxKnowledgeAbbreviationIsOnlyNumbers"
+                  control={control}
+                  render={({ field: { onChange, value, ...field } }) => (
                     <Checkbox
                       label={labels.maxKnowledgeAbbreviationIsOnlyNumbers}
-                      {...field}
                       onChange={onChange}
                       checked={value}
+                      {...field}
                     />
-                  </Box>
-                )}
-              />
+                  )}
+                />
+              </ContextContainer>
+            )}
+          />
+        </ContextContainer>
+        <ContextContainer title={labels.subjectsIDConfig}>
+          <ContextContainer direction="row" alignItems="center">
+            <Controller
+              name="subjectsFirstDigit"
+              control={control}
+              render={({ field: { onChange, ...field } }) => (
+                <Select
+                  data={firstDigitOptions}
+                  label={labels.subjectsFirstDigit}
+                  onChange={(e) => {
+                    onChange(e);
+                    setSubjectsFirstDigit(e);
+                  }}
+                  {...field}
+                />
+              )}
+            />
+            <Box className={classes.mathSymbol}>
+              <Text color={'primary'} size={'xl'}>
+                +
+              </Text>
             </Box>
-          )}
-        />
-        <Text size={'md'}>{labels.subjectsIDConfig}</Text>
-        <Box className={classes.subjectsIDConfig}>
-          <Controller
-            name="subjectsFirstDigit"
-            control={control}
-            render={({ field: { onChange, value, ...field } }) => (
-              <Select
-                data={FIRST_DIGIT_OPTIONS}
-                defaultValue={FIRST_DIGIT_OPTIONS[0]}
-                value={value}
-                label={labels.subjectsFirstDigit}
-                onChange={(e) => {
-                  onChange(e);
-                  setsubjectsFirstDigit(e);
-                }}
-                {...field}
-              />
-            )}
-          />
-          <Text color={'primary'} size={'xl'}>
-            +
-          </Text>
-          <Controller
-            name="subjectsDigits"
-            control={control}
-            render={({ field: { onChange, value, ...field } }) => (
-              <NumberInput
-                label={labels.subjectsDigits}
-                defaultValue={0}
-                min={0}
-                onChange={(e) => {
-                  onChange(e);
-                  setsubjectsDigits(e);
-                }}
-                value={value}
-                {...field}
-              />
-            )}
-          />
-          <Text color={'primary'} size={'xl'}>
-            =
-          </Text>
-          <Text size={'xl'}>{generateSubjectsID(subjectsFirstDigit, subjectsDigits)}</Text>
-        </Box>
-        <Box className={classes.buttonRow}>
-          <Box>
-            <Button
-              variant={'outline'}
-              leftIcon={<ChevLeftIcon height={20} width={20} />}
-              onClick={onPrevious}
-            >
-              {labels.buttonPrev}
-            </Button>
-          </Box>
-          <Box>
-            <Button
-              variant={'outline'}
-              type="submit"
-              rightIcon={<ChevRightIcon height={20} width={20} />}
-            >
-              {labels.buttonNext}
-            </Button>
-          </Box>
-        </Box>
+            <Controller
+              name="subjectsDigits"
+              control={control}
+              render={({ field: { onChange, ...field } }) => (
+                <NumberInput
+                  label={labels.subjectsDigits}
+                  min={0}
+                  onChange={(e) => {
+                    onChange(e);
+                    setSubjectsDigits(e);
+                  }}
+                  {...field}
+                />
+              )}
+            />
+            <Box className={classes.mathSymbol}>
+              <Text color={'primary'} size={'xl'}>
+                =
+              </Text>
+            </Box>
+            <Box className={classes.subjectsID}>{generateSubjectsID()}</Box>
+          </ContextContainer>
+        </ContextContainer>
+        <Stack justifyContent="space-between" fullWidth>
+          <Button
+            compact
+            variant="light"
+            leftIcon={<ChevLeftIcon height={20} width={20} />}
+            onClick={onPrevious}
+          >
+            {labels.buttonPrev}
+          </Button>
+
+          <Button type="submit">{labels.buttonNext}</Button>
+        </Stack>
       </ContextContainer>
     </form>
   );

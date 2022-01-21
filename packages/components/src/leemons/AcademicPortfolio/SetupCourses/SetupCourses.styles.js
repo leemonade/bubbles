@@ -3,27 +3,13 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const SetupCoursesStyles = createStyles((theme, { onlyOneCourse }) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-    },
-    buttonRow: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    inputRow: {
-      display: 'flex',
-      justifyContent: 'space-between',
+    root: {},
+    numInputHeader: {
+      width: '60%',
     },
     onlyOneCourse: {
       visibility: onlyOneCourse && 'hidden',
       position: onlyOneCourse && 'absolute',
-    },
-    substageRow: {
-      display: 'flex',
-    },
-    checkboxGroup: {
-      display: 'flex',
-      flexDirection: 'column',
     },
   };
 });

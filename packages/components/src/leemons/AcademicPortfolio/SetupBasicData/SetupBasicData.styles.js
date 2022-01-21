@@ -3,8 +3,9 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const SetupBasicDataStyles = createStyles((theme, {}) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+    root: {},
+    inputHeader: {
+      width: '40%',
     },
   };
 });

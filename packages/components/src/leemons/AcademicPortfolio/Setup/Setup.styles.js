@@ -3,13 +3,7 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const SetupStyles = createStyles((theme, {}) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-    },
-    header: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginBottom: pxToRem(16),
-    },
+    root: {},
+    header: {},
   };
 });

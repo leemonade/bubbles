@@ -210,12 +210,12 @@ export const ButtonStyles = createStyles(
 
     if (compact) {
       compactOverrides = {
-        paddingTop: theme.spacing[2],
-        paddingBottom: theme.spacing[2],
-        paddingLeft: variant === 'link' ? 0 : theme.spacing[2],
-        paddingRight: variant === 'link' ? 0 : theme.spacing[2],
-        height: 'auto',
-        minHeight: 38,
+        // paddingTop: theme.spacing[2],
+        // paddingBottom: theme.spacing[2],
+        paddingLeft: variant === 'link' ? 0 : theme.spacing[4],
+        paddingRight: variant === 'link' ? 0 : theme.spacing[4],
+        // height: 'auto',
+        // minHeight: 38,
       };
     }
 

@@ -11,7 +11,7 @@ export const TEXT_INPUT_ORIENTATION = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TEXT_INPUT_PROP_TYPES = {
   name: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   size: PropTypes.oneOf(TEXT_INPUT_SIZES),
   orientation: PropTypes.oneOf(TEXT_INPUT_ORIENTATION),
   placeholder: PropTypes.string,

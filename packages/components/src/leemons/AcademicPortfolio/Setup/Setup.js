@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
-import { SetupStyles } from './Setup.styles';
+import { isFunction } from 'lodash';
+import { useScrollIntoView } from '@mantine/hooks';
+import { Box, Stack } from '../../../layout';
 import { Stepper } from '../../../navigation/';
 import { Title } from '../../../typography';
 import { Button } from '../../../form';
+import { SetupStyles } from './Setup.styles';
 
 export const SETUP_DEFAULT_PROPS = {};
 export const SETUP_PROP_TYPES = {
-  title: PropTypes.string,
-  buttonLabel: PropTypes.string,
+  labels: PropTypes.shape({ title: PropTypes.string, buttonSave: PropTypes.string }),
   data: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
@@ -22,31 +23,52 @@ export const SETUP_PROP_TYPES = {
   onSave: PropTypes.func,
 };
 
-const Setup = ({ title, buttonLabel, data, onNext, onPrev, onSave, ...props }) => {
-  const { classes, cx } = SetupStyles({});
-
+const Setup = ({ labels, data, onNext, onPrev, onSave, ...props }) => {
   const [sharedData, setSharedData] = useState(null);
+  const [active, setActive] = useState(0);
+
+  const { scrollIntoView, targetRef } = useScrollIntoView({ duration: 0 });
+
+  const { classes, cx } = SetupStyles({}, { name: 'APSetup' });
 
   const handleSave = () => {
     isFunction(onSave) && onSave(sharedData);
   };
 
+  const handleOnNext = () => {
+    if (active < data.length - 1) {
+      setActive(active + 1);
+      scrollIntoView({ alignment: 'top' });
+      isFunction(onNext) && onNext(sharedData);
+    } else {
+      handleSave();
+    }
+  };
+
+  const handleOnPrev = () => {
+    if (active > 0) {
+      setActive(active - 1);
+      scrollIntoView({ alignment: 'top' });
+      isFunction(onPrev) && onPrev(sharedData);
+    }
+  };
+
   return (
-    <Box className={classes.root}>
-      <Box className={classes.header}>
-        <Title>{title}</Title>
-        <Button onClick={handleSave}>{buttonLabel}</Button>
-      </Box>
+    <Stack ref={targetRef} className={classes.root} direction="column" spacing={7} fullWidth>
+      <Stack justifyContent="space-between" fullWidth>
+        <Title>{labels.title}</Title>
+      </Stack>
       <Stepper
+        {...props}
+        active={active}
         data={data}
-        onNext={onNext}
-        onPrev={onPrev}
+        onNext={handleOnNext}
+        onPrev={handleOnPrev}
         sharedData={sharedData}
         setSharedData={setSharedData}
-        {...props}
         classNames={classes}
       />
-    </Box>
+    </Stack>
   );
 };
 

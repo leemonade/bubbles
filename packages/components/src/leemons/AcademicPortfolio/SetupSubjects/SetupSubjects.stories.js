@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { SetupSubjects, SETUP_SUBJECTS_DEFAULT_PROPS } from './SetupSubjects';
 import mdx from './SetupSubjects.mdx';
+import { SUBJECTS_DATA } from '../mocks/data';
 
 export default {
   title: 'leemons/AcademicPortfolio/Setup/Subjects',
@@ -23,30 +23,13 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <SetupSubjects {...props}>{children}</SetupSubjects>;
+const Template = ({ ...props }) => {
+  return <SetupSubjects {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...SETUP_SUBJECTS_DEFAULT_PROPS,
-  labels: {
-    title: 'Subjects',
-    standardDuration: 'Standard duration of the subjects',
-    allSubjectsSameDuration: 'All subjects have the same duraction as the evaluation substage',
-    numberOfSemesters: 'Number of semesters',
-    periodName: 'Period name',
-    knowledgeAreas: 'Knowledge areas abbreviation',
-    maxKnowledgeAbbreviation: 'Max abbreviation length for areas:',
-    maxKnowledgeAbbreviationIsOnlyNumbers: 'Only numbers',
-    subjectsIDConfig: 'Subjects ID configuration',
-    subjectsFirstDigit: 'First digit',
-    subjectsDigits: 'Digits',
-    buttonNext: 'Next',
-    buttonPrev: 'Previous',
-  },
-  helps: {
-    maxKnowledgeAbbreviation: '(i.e: MKTG, MATH, HIST…)',
-  },
+  ...SUBJECTS_DATA,
 };

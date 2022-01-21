@@ -14,7 +14,7 @@ Title.defaultProps = {
 };
 
 Title.propTypes = {
-  order: PropTypes.oneOf([1, 2, 3, 4, 6]),
+  order: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
 };
 
 export { Title };

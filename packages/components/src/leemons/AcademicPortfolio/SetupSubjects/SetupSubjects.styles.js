@@ -3,22 +3,18 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const SetupSubjectsStyles = createStyles((theme, {}) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+    root: {},
+    mathSymbol: {
+      paddingTop: theme.spacing[3],
     },
-    buttonRow: {
-      display: 'flex',
-      justifyContent: 'space-between',
+    subjectID: {
+      whiteSpace: 'nowrap',
     },
-    inputRow: { display: 'flex', justifyContent: 'space-between' },
-    subjectsIDConfig: {
+    subjectsID: {
       display: 'flex',
-      alignItems: 'center',
-      span: {
-        marginLeft: pxToRem(10),
-        marginRight: pxToRem(10),
-        marginTop: pxToRem(15),
-      },
+      flexWrap: 'wrap',
+      gap: theme.spacing[2],
+      paddingTop: theme.spacing[4],
     },
   };
 });
