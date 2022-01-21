@@ -30,6 +30,7 @@ const Template = ({ children, ...props }) => {
             <RuleCondition provided={provided} {...props}>
               {children}
             </RuleCondition>
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

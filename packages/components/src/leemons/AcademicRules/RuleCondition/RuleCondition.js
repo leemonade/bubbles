@@ -7,11 +7,11 @@ import { LOGIC_OPERATORS } from '../RuleGroup';
 import { RuleConditionStyles } from './RuleCondition.styles';
 import { Text } from '../../../typography';
 import { NumberInput, Select, MultiSelect } from '../../../form';
-import { v4 as uuidv4 } from 'uuid';
 
 export const RULE_CONDITION_DEFAULT_PROPS = {};
 export const RULE_CONDITION_PROP_TYPES = {
   program: PROPTYPES_SHAPE,
+  grades: PropTypes.arrayOf(PROPTYPES_SHAPE),
   sources: PropTypes.arrayOf(PROPTYPES_SHAPE),
   courses: PropTypes.arrayOf(PROPTYPES_SHAPE),
   knowledges: PropTypes.arrayOf(PROPTYPES_SHAPE),
@@ -20,12 +20,13 @@ export const RULE_CONDITION_PROP_TYPES = {
   subjectGroups: PropTypes.arrayOf(PROPTYPES_SHAPE),
   dataTypes: PropTypes.arrayOf(PROPTYPES_SHAPE),
   operators: PropTypes.arrayOf(PROPTYPES_SHAPE),
-  // logicOperator: PropTypes.shape(),
+  // logicOperator: PropTypes.shape(PROPTYPES_SHAPE),
   setLogicOperator: PropTypes.func,
 };
 
 const RuleCondition = ({
   program,
+  grades,
   sources,
   courses,
   knowledges,
@@ -37,31 +38,71 @@ const RuleCondition = ({
   logicOperator,
   setLogicOperator,
   index,
-  provided,
+  draggableId,
+  conditions,
+  setConditions,
+  condition,
   ...props
 }) => {
   const { classes, cx } = RuleConditionStyles({});
 
-  // const [course, setCourse] = useState(null);
-  // const [knowledge, setKnowledge] = useState(null);
-  // const [subject, setSubject] = useState(null);
-  // const [subjectType, setSubjectType] = useState(null);
-  // const [subjectGroup, setSubjectGroup] = useState(null);
-
   const [sourceValue, setSourceValue] = useState(null);
+  const [dataType, setDataType] = useState(null);
+
+  const setNewConditions = (e, field) => {
+    const newConditions = [...conditions];
+    field === 'source'
+      ? newConditions.splice(index, 1, {
+          ...condition,
+          [field]: e,
+          sourceIds: e === 'program' ? [program().value] : [],
+        })
+      : newConditions.splice(index, 1, { ...condition, [field]: e });
+    setConditions(newConditions);
+  };
 
   const getSourceSelect = (value) => {
     switch (value) {
       case 'course':
-        return <Select data={courses} placeholder={'Select course...'} />;
+        return (
+          <MultiSelect
+            data={courses}
+            placeholder={'Select course...'}
+            onChange={(e) => setNewConditions(e, 'sourceIds')}
+          />
+        );
       case 'knowledge':
-        return <Select data={knowledges} placeholder={'Select knowledge...'} />;
+        return (
+          <MultiSelect
+            data={knowledges}
+            placeholder={'Select knowledge...'}
+            onChange={(e) => setNewConditions(e, 'sourceIds')}
+          />
+        );
       case 'subject':
-        return <Select data={subjects} placeholder={'Select subject...'} />;
+        return (
+          <MultiSelect
+            data={subjects}
+            placeholder={'Select subject...'}
+            onChange={(e) => setNewConditions(e, 'sourceIds')}
+          />
+        );
       case 'subjectType':
-        return <Select data={subjectTypes} placeholder={'Select subject type...'} />;
+        return (
+          <MultiSelect
+            data={subjectTypes}
+            placeholder={'Select subject type...'}
+            onChange={(e) => setNewConditions(e, 'sourceIds')}
+          />
+        );
       case 'subjectGroup':
-        return <Select data={subjectGroups} placeholder={'Select subject group...'} />;
+        return (
+          <MultiSelect
+            data={subjectGroups}
+            placeholder={'Select subject group...'}
+            onChange={(e) => setNewConditions(e, 'sourceIds')}
+          />
+        );
       default:
         return null;
     }
@@ -76,7 +117,7 @@ const RuleCondition = ({
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={logicOperator}
+          defaultValue={logicOperator.value}
           value={logicOperator}
           onChange={(e) => {
             setLogicOperator({ label: e.toUpperCase(), value: e });
@@ -89,7 +130,7 @@ const RuleCondition = ({
   };
 
   return (
-    <Draggable key={index} draggableId={`${index}`} index={index}>
+    <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (
         <Box
           className={classes.root}
@@ -99,12 +140,45 @@ const RuleCondition = ({
         >
           <Box className={classes.logicOperator}>{getLogicOperator()}</Box>
           <Box className={classes.sourceSelects}>
-            <Select data={sources} placeholder={'Select item...'} onChange={setSourceValue} />
+            <Select
+              data={sources}
+              placeholder={'Select item...'}
+              onChange={(e) => {
+                setSourceValue(e);
+                setNewConditions(e, 'source');
+              }}
+            />
             {sourceValue && getSourceSelect(sourceValue)}
           </Box>
-          <Select className={classes.input} data={dataTypes} placeholder={'Select data...'} />
-          <Select className={classes.input} data={operators} placeholder={'Select operator...'} />
-          <NumberInput className={classes.input} placeholder={'Enter value...'} />
+          <Select
+            className={classes.input}
+            data={dataTypes}
+            placeholder={'Select data...'}
+            onChange={(e) => {
+              setDataType(e);
+              setNewConditions(e, 'data');
+            }}
+          />
+          <Select
+            className={classes.input}
+            data={operators}
+            placeholder={'Select operator...'}
+            onChange={(e) => setNewConditions(e, 'operator')}
+          />
+          {dataType === 'gpa' || dataType === 'grade' ? (
+            <Select
+              className={classes.input}
+              data={grades}
+              placeholder={'Select grade...'}
+              onChange={(e) => setNewConditions(e, 'target')}
+            />
+          ) : (
+            <NumberInput
+              className={classes.input}
+              placeholder={'Enter value...'}
+              onChange={(e) => setNewConditions(e, 'target')}
+            />
+          )}
         </Box>
       )}
     </Draggable>

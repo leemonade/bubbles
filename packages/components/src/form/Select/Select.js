@@ -29,6 +29,7 @@ const Select = forwardRef(
       nothingFound,
       placeholder,
       className,
+      defaultValue,
       ...props
     },
     ref
@@ -68,6 +69,7 @@ const Select = forwardRef(
           onChange={handleChange}
           onBlur={onBlur}
           value={value}
+          defaultValue={defaultValue}
           name={name}
           disabled={disabled}
           searchable={searchable}

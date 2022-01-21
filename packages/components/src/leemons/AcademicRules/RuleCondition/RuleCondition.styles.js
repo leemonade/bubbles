@@ -11,7 +11,7 @@ export const RuleConditionStyles = createStyles((theme, {}) => {
     },
     logicOperator: {
       marginRight: pxToRem(8),
-      width: pxToRem(100),
+      width: pxToRem(120),
     },
     input: {
       marginBottom: pxToRem(-4),
