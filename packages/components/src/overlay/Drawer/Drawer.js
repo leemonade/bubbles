@@ -41,7 +41,7 @@ export const DRAWER_PROP_TYPES = {
   empty: PropTypes.bool,
 };
 
-const Drawer = ({ close, onClose, onBack, children, back, empty, shadow, ...props }) => {
+const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow, ...props }) => {
   const { classes, cx } = DrawerStyles({ empty });
 
   const justifyContent =
@@ -54,6 +54,8 @@ const Drawer = ({ close, onClose, onBack, children, back, empty, shadow, ...prop
           {back && back !== '' ? (
             <ActionButton icon={<ChevronLeftIcon />} label={back} onClick={onBack} tooltip={back} />
           ) : null}
+
+          {header ? header : null}
 
           {close ? (
             <ActionButton

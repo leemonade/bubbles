@@ -11,6 +11,9 @@ export const CalendarEventModalStyles = createStyles((theme, {}) => {
       color: theme.colors.text05,
       fontSize: theme.fontSizes[3],
     },
+    inputsDatesContainer: {
+      alignItems: 'end',
+    },
     actionButtonsContainer: {
       position: 'absolute',
       width: '100%',
@@ -19,6 +22,11 @@ export const CalendarEventModalStyles = createStyles((theme, {}) => {
       display: 'flex',
       justifyContent: 'space-between',
       padding: theme.spacing[4],
+      backgroundColor: theme.colors.uiBackground04,
+    },
+    divider: {
+      marginTop: theme.spacing[6],
+      marginBottom: theme.spacing[6],
     },
   };
 });
