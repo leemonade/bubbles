@@ -3,8 +3,6 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 export const StepperStyles = createStyles((theme, {}) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-    },
+    root: {},
   };
 });

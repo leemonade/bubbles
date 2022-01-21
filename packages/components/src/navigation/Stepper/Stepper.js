@@ -1,8 +1,9 @@
 import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Stepper as MantineStepper } from '@mantine/core';
-import { StepperStyles } from './Stepper.styles';
 import { isFunction } from 'lodash';
+import { Stepper as MantineStepper } from '@mantine/core';
+import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { StepperStyles } from './Stepper.styles';
 
 export const STEPPER_DEFAULT_PROPS = {};
 export const STEPPER_PROP_TYPES = {
@@ -21,7 +22,7 @@ const Stepper = forwardRef(
   ({ title, buttonLabel, data, onNext, onPrev, sharedData, setSharedData, ...props }, ref) => {
     const { classes, cx } = StepperStyles({}, { name: 'Stepper' });
 
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(props.active || 0);
 
     const handleNextStep = (page) => {
       setActive(page);
@@ -35,7 +36,12 @@ const Stepper = forwardRef(
     return (
       <MantineStepper active={active} {...props} ref={ref} classNames={classes}>
         {data.map((item, index) => (
-          <MantineStepper.Step key={index} label={item.label} description={item.description}>
+          <MantineStepper.Step
+            key={index}
+            label={item.label}
+            description={item.description}
+            completedIcon={<CheckIcon />}
+          >
             {React.cloneElement(item.content, {
               ...item.content.props,
               onNext: () => handleNextStep(index + 1),

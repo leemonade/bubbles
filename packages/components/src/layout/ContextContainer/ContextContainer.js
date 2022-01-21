@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { isString } from 'lodash';
+import { isString, isEmpty } from 'lodash';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
 import { Title, Paragraph } from '../../typography';
@@ -28,6 +28,7 @@ const ContextContainer = ({
   children,
   className,
   title,
+  subtitle,
   description,
   padded,
   divided,
@@ -35,8 +36,9 @@ const ContextContainer = ({
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
-  const hasTitle = useMemo(() => isString(title) && title !== '', [title]);
-  const hasDescription = useMemo(() => isString(description) && description !== '', [description]);
+  const hasTitle = useMemo(() => !isEmpty(title), [title]);
+  const hasSubtitle = useMemo(() => !isEmpty(subtitle), [subtitle]);
+  const hasDescription = useMemo(() => !isEmpty(description), [description]);
 
   const childrenNodes = useMemo(() => {
     if (divided) {
@@ -45,7 +47,7 @@ const ContextContainer = ({
       nodes.forEach((node, i) => {
         result.push(node);
         if (i < nodes.length - 1) {
-          result.push(<Divider />);
+          result.push(<Divider key={`d-${i}`} />);
         }
       });
       return result;
@@ -61,11 +63,16 @@ const ContextContainer = ({
       fullWidth
       {...props}
     >
-      {(hasTitle || hasDescription) && (
+      {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={5} fullWidth>
           {hasTitle && (
             <Box>
               <Title order={3}>{title}</Title>
+            </Box>
+          )}
+          {hasSubtitle && (
+            <Box>
+              <Title order={5}>{subtitle}</Title>
             </Box>
           )}
           {hasDescription && (
