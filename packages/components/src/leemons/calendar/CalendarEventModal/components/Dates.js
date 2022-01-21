@@ -4,10 +4,10 @@ import { DatePicker, Select, Switch } from '../../../../form';
 import { Controller } from 'react-hook-form';
 import { TimeInput } from '../../../../form/TimeInput';
 import { Col, Grid } from '@mantine/core';
-import { Box } from '../../../../layout';
+import { Box, ContextContainer } from '../../../../layout';
 import { get } from 'lodash';
 
-const Dates = ({ form, classes, messages, errorMessages, selectData }) => {
+const Dates = ({ form, classes, messages, errorMessages, selectData, disabled }) => {
   const {
     control,
     watch,
@@ -23,110 +23,128 @@ const Dates = ({ form, classes, messages, errorMessages, selectData }) => {
           <TimeClockCircleIcon />
         </Col>
         <Col span={90}>
-          {/* FROM */}
-          <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-            <Col span={isAllDay ? 100 : 70}>
-              <Controller
-                name="startDate"
-                control={control}
-                rules={{
-                  required: errorMessages.startDateRequired,
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    size="xs"
-                    error={get(errors, 'startDate')}
-                    label={messages.fromLabel}
-                    required
-                    {...field}
-                  />
-                )}
-              />
-            </Col>
-            {!isAllDay ? (
-              <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+          <ContextContainer>
+            {/* FROM */}
+            <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
+              <Col span={isAllDay ? 100 : 70}>
                 <Controller
-                  name="startTime"
+                  name="startDate"
                   control={control}
                   rules={{
-                    required: errorMessages.startTimeRequired,
+                    required: errorMessages.startDateRequired,
                   }}
                   render={({ field }) => (
-                    <TimeInput error={get(errors, 'startTime')} size="xs" required {...field} />
+                    <DatePicker
+                      size="xs"
+                      disabled={disabled}
+                      error={get(errors, 'startDate')}
+                      label={messages.fromLabel}
+                      required
+                      {...field}
+                    />
                   )}
                 />
               </Col>
-            ) : null}
-          </Grid>
-
-          {/* TO */}
-          <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-            <Col span={isAllDay ? 100 : 70}>
-              <Controller
-                name="endDate"
-                control={control}
-                rules={{
-                  required: errorMessages.endDateRequired,
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    error={get(errors, 'endDate')}
-                    size="xs"
-                    label={messages.toLabel}
-                    required
-                    {...field}
+              {!isAllDay ? (
+                <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                  <Controller
+                    name="startTime"
+                    control={control}
+                    rules={{
+                      required: errorMessages.startTimeRequired,
+                    }}
+                    render={({ field }) => (
+                      <TimeInput
+                        disabled={disabled}
+                        error={get(errors, 'startTime')}
+                        size="xs"
+                        required
+                        {...field}
+                      />
+                    )}
                   />
-                )}
-              />
-            </Col>
-            {!isAllDay ? (
-              <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                </Col>
+              ) : null}
+            </Grid>
+
+            {/* TO */}
+            <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
+              <Col span={isAllDay ? 100 : 70}>
                 <Controller
-                  name="endTime"
+                  name="endDate"
                   control={control}
                   rules={{
-                    required: errorMessages.endTimeRequired,
+                    required: errorMessages.endDateRequired,
                   }}
                   render={({ field }) => (
-                    <TimeInput error={get(errors, 'endTime')} size="xs" required {...field} />
+                    <DatePicker
+                      error={get(errors, 'endDate')}
+                      size="xs"
+                      disabled={disabled}
+                      label={messages.toLabel}
+                      required
+                      {...field}
+                    />
                   )}
                 />
               </Col>
-            ) : null}
-          </Grid>
+              {!isAllDay ? (
+                <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                  <Controller
+                    name="endTime"
+                    control={control}
+                    rules={{
+                      required: errorMessages.endTimeRequired,
+                    }}
+                    render={({ field }) => (
+                      <TimeInput
+                        disabled={disabled}
+                        error={get(errors, 'endTime')}
+                        size="xs"
+                        required
+                        {...field}
+                      />
+                    )}
+                  />
+                </Col>
+              ) : null}
+            </Grid>
 
-          {/* REPEAT */}
-          <Controller
-            name="repeat"
-            control={control}
-            rules={{
-              required: errorMessages.endTimeRequired,
-            }}
-            render={({ field }) => (
-              <Select
-                error={get(errors, 'repeat')}
-                size="xs"
-                label={messages.repeatLabel}
-                {...field}
-                data={selectData.repeat}
-              />
-            )}
-          />
+            {/* REPEAT */}
+            <Controller
+              name="repeat"
+              control={control}
+              rules={{
+                required: errorMessages.endTimeRequired,
+              }}
+              render={({ field }) => (
+                <Select
+                  error={get(errors, 'repeat')}
+                  size="xs"
+                  disabled={disabled}
+                  label={messages.repeatLabel}
+                  {...field}
+                  data={selectData.repeat}
+                />
+              )}
+            />
 
-          {/* ALL DAY */}
-          <Controller
-            name="isAllDay"
-            control={control}
-            render={({ field }) => (
-              <Switch
-                {...field}
-                error={get(errors, 'isAllDay')}
-                label={messages.allDayLabel}
-                labelPosition="start"
-                checked={field.value}
-              />
-            )}
-          />
+            {/* ALL DAY */}
+            <Controller
+              name="isAllDay"
+              control={control}
+              render={({ field }) => (
+                <Switch
+                  {...field}
+                  disabled={disabled}
+                  error={get(errors, 'isAllDay')}
+                  label={messages.allDayLabel}
+                  labelPosition="start"
+                  checked={field.value}
+                />
+              )}
+            />
+          </ContextContainer>
         </Col>
       </Grid>
     </Box>

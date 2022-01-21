@@ -50,6 +50,10 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
 };
 export const CALENDAR_EVENT_MODAL_PROP_TYPES = {};
 
+function MyController(props) {
+  return <Controller {...props} name={`data.${props.name}`} />;
+}
+
 const CalendarEventModal = (props) => {
   const { classes, cx } = CalendarEventModalStyles({});
 
@@ -64,6 +68,7 @@ const CalendarEventModal = (props) => {
     components,
     isNew,
     isOwner,
+    fromCalendar,
     onSubmit,
     defaultValues,
   } = props;
@@ -91,6 +96,8 @@ const CalendarEventModal = (props) => {
     hasComponent = true;
   }
 
+  const disabled = !isNew && !isOwner;
+
   return (
     <Drawer
       size={360}
@@ -98,7 +105,11 @@ const CalendarEventModal = (props) => {
       className={classes.root}
       onClose={onClose}
       opened={opened}
-      header={!isNew ? <ActionButton icon={<DeleteBinIcon />} onClick={onRemove} /> : null}
+      header={
+        !isNew && (!fromCalendar || isOwner) ? (
+          <ActionButton icon={<DeleteBinIcon />} onClick={onRemove} />
+        ) : null
+      }
     >
       <Box
         sx={(theme) => ({
@@ -116,6 +127,7 @@ const CalendarEventModal = (props) => {
             }}
             render={({ field }) => (
               <TextInput
+                disabled={disabled}
                 placeholder={messages.titlePlaceholder}
                 error={get(errors, 'title')}
                 required
@@ -135,6 +147,7 @@ const CalendarEventModal = (props) => {
                 render={({ field }) => (
                   <RadioGroup
                     {...field}
+                    disabled={disabled}
                     variant="boxed"
                     direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
                     fullWidth
@@ -146,7 +159,7 @@ const CalendarEventModal = (props) => {
             </Box>
           ) : null}
 
-          <Dates {...props} form={form} classes={classes} />
+          <Dates {...props} form={form} classes={classes} disabled={disabled} />
 
           {hasComponent ? (
             <Box className={classes.divider}>
@@ -158,15 +171,11 @@ const CalendarEventModal = (props) => {
             isEditing={true}
             allFormData={watch()}
             data={watch('data')}
+            classes={classes}
+            disabled={disabled}
             form={{
-              control: {
-                ...control,
-                register: (ref, options) => control.register(`data.${ref}`, options),
-                unregister: (refs) => {
-                  if (isArray(refs)) return control.unregister(map(refs, (ref) => `data.${ref}`));
-                  return control.unregister(`data.${refs}`);
-                },
-              },
+              Controller: MyController,
+              control,
               register: (ref, options) => register(`data.${ref}`, options),
               setValue: (ref, value, options) => setValue(`data.${ref}`, value, options),
               getValues: (refs) => {
@@ -197,36 +206,41 @@ const CalendarEventModal = (props) => {
             }}
           />
 
-          <Box className={classes.divider}>
-            <Divider />
-          </Box>
+          {isNew || (!isNew && isOwner) ? (
+            <>
+              <Box className={classes.divider}>
+                <Divider />
+              </Box>
 
-          <Box>
-            <Grid columns={100} gutter={0}>
-              <Col span={10} className={classes.icon}>
-                <PluginCalendarIcon />
-              </Col>
-              <Col span={90}>
-                <Controller
-                  name="calendar"
-                  control={control}
-                  rules={{
-                    required: errorMessages.calendarRequired,
-                  }}
-                  render={({ field }) => (
-                    <Select
-                      size="xs"
-                      placeholder={messages.calendarPlaceholder}
-                      {...field}
-                      required
-                      error={get(errors, 'calendar')}
-                      data={selectData.calendars}
+              <Box>
+                <Grid columns={100} gutter={0}>
+                  <Col span={10} className={classes.icon}>
+                    <PluginCalendarIcon />
+                  </Col>
+                  <Col span={90}>
+                    <Controller
+                      name="calendar"
+                      control={control}
+                      rules={{
+                        required: errorMessages.calendarRequired,
+                      }}
+                      render={({ field }) => (
+                        <Select
+                          size="xs"
+                          disabled={disabled}
+                          placeholder={messages.calendarPlaceholder}
+                          {...field}
+                          required
+                          error={get(errors, 'calendar')}
+                          data={selectData.calendars}
+                        />
+                      )}
                     />
-                  )}
-                />
-              </Col>
-            </Grid>
-          </Box>
+                  </Col>
+                </Grid>
+              </Box>
+            </>
+          ) : null}
 
           <Box className={classes.actionButtonsContainer}>
             <Button type="button" variant="link" onClick={onClose}>
