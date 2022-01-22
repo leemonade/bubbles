@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isString, trim } from 'lodash';
-import { Box, Drawer as MantineDrawer } from '@mantine/core';
-import { DrawerStyles } from './Drawer.styles';
+import { Drawer as MantineDrawer } from '@mantine/core';
 import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { ActionButton } from '../../form';
-import { Stack } from '../../layout';
+import { Box, Stack } from '../../layout';
+import { DrawerStyles } from './Drawer.styles';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
 

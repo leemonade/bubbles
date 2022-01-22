@@ -94,6 +94,7 @@ export { default as PluginTransactionalIcon } from './PluginTransactionalIcon.js
 export { default as PluginTranslatorIcon } from './PluginTranslatorIcon.js'
 export { default as PluginUsersIcon } from './PluginUsersIcon.js'
 export { default as PluginVirtualBlackboadIcon } from './PluginVirtualBlackboadIcon.js'
+export { default as RatingStarIcon } from './RatingStarIcon.js'
 export { default as RemoveBoldIcon } from './RemoveBoldIcon.js'
 export { default as ReorderDownIcon } from './ReorderDownIcon.js'
 export { default as SettingMenuHorizontalIcon } from './SettingMenuHorizontalIcon.js'

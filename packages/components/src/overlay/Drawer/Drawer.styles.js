@@ -15,9 +15,9 @@ export const DrawerStyles = createStyles((theme, { empty }) => {
     drawer: {
       display: 'flex',
       flexDirection: 'column',
-      boxShadow: theme.shadows.uiLevel100,
+      boxShadow: theme.shadows.shadow100,
       '&:focus:not(:focus-visible)': {
-        boxShadow: theme.shadows.uiLevel100,
+        boxShadow: theme.shadows.shadow100,
       },
     },
     content: {
