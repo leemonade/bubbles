@@ -37,8 +37,8 @@
     "clean": "rimraf es lib umd storybook-static build"
   },
   "dependencies": {
-    "@bubbles-ui/components": "^1.0.17",
-    "@bubbles-ui/icons": "^1.0.7",
+    "@bubbles-ui/components": "^1.0.18",
+    "@bubbles-ui/icons": "^1.0.8",
     "@bubbles-ui/editors": "^1.0.3",
     "@bubbles-ui/calendars": "^1.0.0",
     "@leemonade/rjsf-core": "^3.0.0",
