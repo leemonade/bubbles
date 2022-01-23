@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/calendars",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
