@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
-import { Box } from '@mantine/core';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { SortDragIcon } from '@bubbles-ui/icons/outline';
+import { Box } from '../../../layout';
 import { ActionButton } from '../../../form';
-import { DeleteBinIcon } from '../../../../../icons/solid';
-import { SortDragIcon } from '../../../../../icons/outline';
 
 const DraggableDefault = forwardRef(({ provided, snapshot, item, removeItem, classes }, ref) => {
   return (

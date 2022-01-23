@@ -30,6 +30,10 @@
   "scripts": {
     "generate": "node ./scripts/generate.js"
   },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
   "devDependencies": {
     "generate-template-files": "^3.2.0"
   },

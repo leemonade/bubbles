@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/calendars",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -37,8 +37,6 @@
     "clean": "rimraf es lib umd storybook-static build"
   },
   "dependencies": {
-    "@bubbles-ui/components": "^1.0.17",
-    "@bubbles-ui/icons": "^1.0.7",
     "dom-helpers": "^5.2.1",
     "lodash": "^4.17.21",
     "luxon": "^2.1.1",
@@ -47,6 +45,8 @@
     "react-big-calendar": "^0.38.1"
   },
   "peerDependencies": {
+    "@bubbles-ui/components": "^1.0.21",
+    "@bubbles-ui/icons": "^1.0.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

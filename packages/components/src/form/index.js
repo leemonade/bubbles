@@ -9,6 +9,7 @@ export * from './ColorPicker';
 export * from './NumberInput';
 export * from './MultiSelect';
 export * from './IconButton';
+export * from './FileUpload';
 export * from './RadioGroup';
 export * from './DatePicker';
 export * from './InputError';

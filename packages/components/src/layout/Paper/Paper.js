@@ -22,16 +22,22 @@ export const PAPER_PROP_TYPES = {
 };
 
 const Paper = forwardRef(
-  ({ padding, radius, shadow, component, children, className, color, ...props }, ref) => {
-    const { classes, cx } = PaperStyles({ padding, radius, shadow, color }, { name: 'Paper' });
+  (
+    { padding, radius, shadow, component, children, className, color, fullWidth, ...props },
+    ref
+  ) => {
+    const { classes, cx } = PaperStyles(
+      { padding, radius, shadow, color, fullWidth },
+      { name: 'Paper' }
+    );
 
     return (
       <MantinePaper
         {...props}
+        ref={ref}
         component={component}
         padding={padding}
         radius={radius}
-        ref={ref}
         className={cx(classes.root, className)}
       >
         {children}
