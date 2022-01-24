@@ -54,6 +54,7 @@ const RuleCondition = ({
   const [sourceValue, setSourceValue] = useState(null);
   const [dataType, setDataType] = useState(null);
   const [operatorValue, setOperatorValue] = useState(null);
+  const [targetValue, setTargetValue] = useState('');
 
   const setNewData = (e, field) => {
     if (field === 'source') {
@@ -193,12 +194,18 @@ const RuleCondition = ({
             <TextInput
               className={classes.input}
               placeholder={'Enter value...'}
+              value={targetValue}
+              onChange={(e) => {
+                setTargetValue(e);
+                setNewData(e, 'target');
+              }}
               disabled={!operatorValue}
             />
           ) : (
             <NumberInput
               className={classes.input}
               placeholder={'Enter value...'}
+              value={condition.target}
               onChange={(e) => setNewData(e, 'target')}
               disabled={!operatorValue}
             />
