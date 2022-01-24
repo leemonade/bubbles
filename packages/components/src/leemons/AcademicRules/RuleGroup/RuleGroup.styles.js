@@ -20,7 +20,7 @@ export const RuleGroupStyles = createStyles((theme, {}) => {
       marginBottom: pxToRem(-4),
       marginRight: pxToRem(8),
     },
-    pepito: {
+    ruleGroup: {
       display: 'flex',
       padding: pxToRem(8),
     },

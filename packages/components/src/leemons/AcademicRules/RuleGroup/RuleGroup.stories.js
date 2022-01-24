@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RuleGroup, RULE_GROUP_DEFAULT_PROPS } from './RuleGroup';
+import { ProgramRules, LOGIC_OPERATORS } from '../ProgramRules';
 import mdx from './RuleGroup.mdx';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   title: 'leemons/AcademicRules/RuleGroup',
@@ -18,21 +20,35 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <RuleGroup {...props}>{children}</RuleGroup>;
+  const [data, setData] = useState({
+    name: '',
+    program: '',
+    grade: '',
+    group: {
+      operator: LOGIC_OPERATORS[0].value,
+      conditions: [{ id: uuidv4(), source: '', sourceIds: [], data: '', operator: '', target: 0 }],
+    },
+  });
+  const [logicOperator, setLogicOperator] = useState(LOGIC_OPERATORS[0]);
+  return (
+    <RuleGroup
+      data={data}
+      setData={setData}
+      group={data.group}
+      externalOperator={logicOperator}
+      setExternalOperator={setLogicOperator}
+      {...props}
+    >
+      {children}
+    </RuleGroup>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...RULE_GROUP_DEFAULT_PROPS,
-  program: () => {
-    const programs = [
-      { label: 'Primary', value: 'primary' },
-      { label: 'High School', value: 'highSchool' },
-      { label: 'Bachelor', value: 'bachelor' },
-    ];
-    return programs[Math.floor(Math.random() * programs.length)];
-  },
+  program: { label: 'High School', value: 'highSchool' },
   grades: [
     {
       label: 'A (4.0)',

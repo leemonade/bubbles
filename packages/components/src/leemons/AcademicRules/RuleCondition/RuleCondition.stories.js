@@ -27,9 +27,7 @@ const Template = ({ children, ...props }) => {
       <Droppable droppableId={uuid}>
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            <RuleCondition provided={provided} {...props}>
-              {children}
-            </RuleCondition>
+            <RuleCondition {...props}>{children}</RuleCondition>
             {provided.placeholder}
           </div>
         )}
@@ -42,6 +40,8 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...RULE_CONDITION_DEFAULT_PROPS,
+  program: { label: 'High School', value: 'highSchool' },
+  draggableId: '1',
   sources: [
     {
       label: 'Program',

@@ -6,5 +6,8 @@ export const ProgramRulesStyles = createStyles((theme, {}) => {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
     },
+    gradeSelect: {
+      marginLeft: pxToRem(10),
+    },
   };
 });
