@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RuleGroup, RULE_GROUP_DEFAULT_PROPS } from './RuleGroup';
-import { ProgramRules, LOGIC_OPERATORS } from '../ProgramRules';
+import { LOGIC_OPERATORS } from '../ProgramRules';
 import mdx from './RuleGroup.mdx';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -29,11 +29,17 @@ const Template = ({ children, ...props }) => {
       conditions: [{ id: uuidv4(), source: '', sourceIds: [], data: '', operator: '', target: 0 }],
     },
   });
+  const [edited, setEdited] = useState([]);
+  const [error, setError] = useState(false);
   const [logicOperator, setLogicOperator] = useState(LOGIC_OPERATORS[0]);
   return (
     <RuleGroup
       data={data}
       setData={setData}
+      edited={edited}
+      setEdited={setEdited}
+      error={error}
+      setError={setError}
       group={data.group}
       externalOperator={logicOperator}
       setExternalOperator={setLogicOperator}

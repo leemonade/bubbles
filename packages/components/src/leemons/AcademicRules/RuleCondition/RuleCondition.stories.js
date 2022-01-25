@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RuleCondition, RULE_CONDITION_DEFAULT_PROPS } from './RuleCondition';
+import { LOGIC_OPERATORS } from '../ProgramRules';
 import mdx from './RuleCondition.mdx';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -21,13 +22,35 @@ export default {
 
 const Template = ({ children, ...props }) => {
   const uuid = uuidv4();
+  const [data, setData] = useState({
+    name: '',
+    program: '',
+    grade: '',
+    group: {
+      operator: LOGIC_OPERATORS[0].value,
+      conditions: [{ id: uuidv4(), source: '', sourceIds: [], data: '', operator: '', target: 0 }],
+    },
+  });
+  const [edited, setEdited] = useState([]);
+  const [error, setError] = useState(false);
 
   return (
     <DragDropContext>
       <Droppable droppableId={uuid}>
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            <RuleCondition {...props}>{children}</RuleCondition>
+            <RuleCondition
+              data={data}
+              setData={setData}
+              edited={edited}
+              setEdited={setEdited}
+              error={error}
+              setError={setError}
+              condition={data.group.conditions[0]}
+              {...props}
+            >
+              {children}
+            </RuleCondition>
             {provided.placeholder}
           </div>
         )}

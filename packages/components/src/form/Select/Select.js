@@ -30,7 +30,6 @@ const Select = forwardRef(
       nothingFound,
       placeholder,
       className,
-      defaultValue,
       ...props
     },
     ref
