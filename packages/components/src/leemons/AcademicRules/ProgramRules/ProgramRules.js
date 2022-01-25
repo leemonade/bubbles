@@ -47,6 +47,7 @@ const ProgramRules = ({
   dataTypes,
   operators,
   onChange,
+  errorMessage,
   ...props
 }) => {
   const { classes, cx } = ProgramRulesStyles({});
@@ -63,8 +64,15 @@ const ProgramRules = ({
   const [logicOperator, setLogicOperator] = useState(LOGIC_OPERATORS[0]);
   const [nameValue, setNameValue] = useState('');
   const [program, setProgram] = useState(null);
+  const [edited, setEdited] = useState([]);
+  const [error, setError] = useState(false);
 
   const handleOnChange = (data) => {
+    if (edited.filter((item) => item.value === false).length !== 0) {
+      setError(true);
+      return;
+    }
+    setError(false);
     isFunction(onChange) && onChange(data);
   };
 
@@ -116,6 +124,11 @@ const ProgramRules = ({
         group={data.group}
         data={data}
         setData={setData}
+        edited={edited}
+        setEdited={setEdited}
+        error={error}
+        setError={setError}
+        errorMessage={errorMessage}
       />
     </Box>
   );

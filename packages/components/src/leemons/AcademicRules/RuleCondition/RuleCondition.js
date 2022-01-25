@@ -6,6 +6,7 @@ import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleConditionStyles } from './RuleCondition.styles';
 import { Text } from '../../../typography';
 import { NumberInput, Select, MultiSelect, TextInput } from '../../../form';
+import { useEffect } from 'react';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -26,6 +27,15 @@ export const RULE_CONDITION_PROP_TYPES = {
   operators: PropTypes.arrayOf(PROPTYPES_SHAPE),
   logicOperator: PROPTYPES_SHAPE,
   setLogicOperator: PropTypes.func,
+  index: PropTypes.number,
+  draggableId: PropTypes.string,
+  data: PropTypes.object,
+  setData: PropTypes.func,
+  condition: PropTypes.object,
+  group: PropTypes.object,
+  edited: PropTypes.array,
+  setEdited: PropTypes.func,
+  error: PropTypes.bool,
 };
 
 const RuleCondition = ({
@@ -47,6 +57,11 @@ const RuleCondition = ({
   setData,
   condition,
   group,
+  edited,
+  setEdited,
+  error,
+  setError,
+  errorMessage,
   ...props
 }) => {
   const { classes, cx } = RuleConditionStyles({});
@@ -140,6 +155,36 @@ const RuleCondition = ({
     }
   };
 
+  useEffect(() => {
+    setEdited(
+      edited.map((item) => {
+        if (item.id === draggableId) {
+          if (targetValue === '' || !targetValue || targetValue === 0) {
+            return {
+              ...item,
+              value: false,
+            };
+          }
+          return {
+            ...item,
+            value: true,
+          };
+        }
+        return item;
+      })
+    );
+  }, [targetValue]);
+
+  useEffect(() => {
+    if (edited.filter((item) => item.value === false).length === 0) {
+      setError(false);
+    }
+  }, [edited]);
+
+  useEffect(() => {
+    setEdited([...edited, { id: draggableId, value: false }]);
+  }, []);
+
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (
@@ -187,8 +232,13 @@ const RuleCondition = ({
               className={classes.input}
               data={grades}
               placeholder={'Select grade...'}
-              onChange={(e) => setNewData(e, 'target')}
+              onChange={(e) => {
+                setTargetValue(e);
+                setNewData(e, 'target');
+              }}
               disabled={!operatorValue}
+              error={error ? errorMessage || 'Please select a grade' : null}
+              required
             />
           ) : operatorValue === 'contains' ? (
             <TextInput
@@ -200,14 +250,21 @@ const RuleCondition = ({
                 setNewData(e, 'target');
               }}
               disabled={!operatorValue}
+              error={error ? errorMessage || 'Please select a grade' : null}
+              required
             />
           ) : (
             <NumberInput
               className={classes.input}
               placeholder={'Enter value...'}
               value={condition.target}
-              onChange={(e) => setNewData(e, 'target')}
+              onChange={(e) => {
+                setTargetValue(e);
+                setNewData(e, 'target');
+              }}
               disabled={!operatorValue}
+              error={error ? errorMessage || 'Please select a grade' : null}
+              required
             />
           )}
         </Box>

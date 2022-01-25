@@ -27,6 +27,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...PROGRAM_RULES_DEFAULT_PROPS,
+  errorMessage: 'Error message',
   programs: [
     {
       label: 'Primary',

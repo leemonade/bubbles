@@ -37,6 +37,9 @@ export const RULE_GROUP_PROP_TYPES = {
   group: PropTypes.object,
   data: PropTypes.object,
   setData: PropTypes.func,
+  edited: PropTypes.array,
+  setEdited: PropTypes.func,
+  error: PropTypes.bool,
 };
 
 const RuleGroup = ({
@@ -59,6 +62,11 @@ const RuleGroup = ({
   group,
   data,
   setData,
+  edited,
+  setEdited,
+  error,
+  setError,
+  errorMessage,
   ...props
 }) => {
   const { classes, cx } = RuleGroupStyles({}, { name: 'RuleGroup' });
@@ -163,6 +171,11 @@ const RuleGroup = ({
                     group={condition.group}
                     data={data}
                     setData={setData}
+                    edited={edited}
+                    setEdited={setEdited}
+                    error={error}
+                    setError={setError}
+                    errorMessage={errorMessage}
                   />
                 ) : (
                   <RuleCondition
@@ -185,6 +198,11 @@ const RuleGroup = ({
                     setData={setData}
                     group={group}
                     condition={condition}
+                    edited={edited}
+                    setEdited={setEdited}
+                    error={error}
+                    setError={setError}
+                    errorMessage={errorMessage}
                   />
                 )
               )}
