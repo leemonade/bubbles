@@ -1,4 +1,5 @@
 export * from './academic-portfolio';
+export * from './academic-rules';
 export * from './multilanguage';
 export * from './curriculum';
 export * from './calendar';
