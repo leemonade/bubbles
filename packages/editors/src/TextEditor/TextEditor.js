@@ -7,12 +7,14 @@ import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
+import TextStyle from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
 import { TextEditorStyles } from './TextEditor.styles';
 import { Toolbar } from './Toolbar/Toolbar';
 
 export const TEXT_EDITOR_DEFAULT_PROPS = {
   placeholder: '',
-  toolbars: { style: true, align: true, list: true, history: true, heading: true },
+  toolbars: { style: true, align: true, list: true, history: true, heading: true, color: true },
   label: '',
   description: '',
   help: '',
@@ -59,6 +61,8 @@ const TextEditor = ({
         types: ['heading', 'paragraph'],
       }),
       Placeholder.configure({ placeholder }),
+      TextStyle,
+      Color,
     ],
     content: '',
   });

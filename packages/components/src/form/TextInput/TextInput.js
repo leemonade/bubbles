@@ -11,7 +11,7 @@ export const TEXT_INPUT_ORIENTATION = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TEXT_INPUT_PROP_TYPES = {
   name: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   size: PropTypes.oneOf(TEXT_INPUT_SIZES),
   orientation: PropTypes.oneOf(TEXT_INPUT_ORIENTATION),
   placeholder: PropTypes.string,
@@ -21,6 +21,7 @@ export const TEXT_INPUT_PROP_TYPES = {
   disabled: PropTypes.bool,
   required: PropTypes.bool,
   readOnly: PropTypes.bool,
+  maxLength: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
 };
@@ -49,6 +50,7 @@ const TextInput = forwardRef(
       disabled,
       readOnly,
       className,
+      maxLength,
       ...props
     },
     ref
@@ -73,6 +75,7 @@ const TextInput = forwardRef(
             rightSection={rightSection}
             invalid={!isEmpty(error)}
             className={className}
+            maxLength={maxLength}
           />
         )}
       </InputWrapper>

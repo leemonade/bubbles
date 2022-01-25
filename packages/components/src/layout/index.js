@@ -3,3 +3,5 @@ export * from './ContentLegible';
 export * from './PageContainer';
 export * from './Divider';
 export * from './Stack';
+export * from './Paper';
+export * from './Box';

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { isString } from 'lodash';
+import { isString, isEmpty } from 'lodash';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
 import { Title, Paragraph } from '../../typography';
@@ -14,26 +14,31 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   description: '',
   padded: false,
   divided: false,
+  spacing: 5,
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES)]),
   divided: PropTypes.bool,
+  spacing: PropTypes.number,
 };
 
 const ContextContainer = ({
   children,
   className,
   title,
+  subtitle,
   description,
   padded,
   divided,
+  spacing,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
-  const hasTitle = useMemo(() => isString(title) && title !== '', [title]);
-  const hasDescription = useMemo(() => isString(description) && description !== '', [description]);
+  const hasTitle = useMemo(() => !isEmpty(title), [title]);
+  const hasSubtitle = useMemo(() => !isEmpty(subtitle), [subtitle]);
+  const hasDescription = useMemo(() => !isEmpty(description), [description]);
 
   const childrenNodes = useMemo(() => {
     if (divided) {
@@ -42,7 +47,7 @@ const ContextContainer = ({
       nodes.forEach((node, i) => {
         result.push(node);
         if (i < nodes.length - 1) {
-          result.push(<Divider />);
+          result.push(<Divider key={`d-${i}`} />);
         }
       });
       return result;
@@ -54,15 +59,20 @@ const ContextContainer = ({
     <Stack
       className={cx(classes.root, className)}
       direction="column"
-      spacing={5}
+      spacing={spacing}
       fullWidth
       {...props}
     >
-      {(hasTitle || hasDescription) && (
+      {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={5} fullWidth>
           {hasTitle && (
             <Box>
               <Title order={3}>{title}</Title>
+            </Box>
+          )}
+          {hasSubtitle && (
+            <Box>
+              <Title order={5}>{subtitle}</Title>
             </Box>
           )}
           {hasDescription && (

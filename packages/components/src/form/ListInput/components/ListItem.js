@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import { Box } from '@mantine/core';
+import { RemoveIcon, SortDragIcon } from '@bubbles-ui/icons/outline';
+import { CheckIcon, DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
+import { Box } from '../../../layout';
 import { ActionButton } from '../../ActionButton';
-import { RemoveIcon, SortDragIcon } from '../../../../../icons/outline';
-import { CheckIcon, DeleteBinIcon, EditWriteIcon } from '../../../../../icons/solid';
 
 const ListItem = forwardRef(
   (

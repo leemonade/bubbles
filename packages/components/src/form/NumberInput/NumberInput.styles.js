@@ -6,7 +6,6 @@ export const NumberInputStyles = createStyles((theme, { size }) => {
   return {
     root: {},
     input: {
-      ...getFocusStyles(theme),
       ...getInputSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
     },

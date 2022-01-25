@@ -45,7 +45,6 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.string,
 };
 
 const CheckBoxGroup = ({
@@ -106,7 +105,10 @@ const CheckBoxGroup = ({
             {...item}
             key={index}
             variant={variant}
-            onChange={() => handleOnChange(item.value)}
+            onChange={() => {
+              item.onChange && item.onChange(item.value);
+              handleOnChange(item.value);
+            }}
           />
         ))}
       </Stack>

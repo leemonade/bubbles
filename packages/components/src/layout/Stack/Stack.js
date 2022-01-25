@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { StackStyles } from './Stack.styles';
+import { Box } from '../Box';
 
 export const STACK_DEFAULT_PROPS = {
   direction: 'row',
@@ -37,50 +37,55 @@ export const STACK_ALIGN_ITEMS = [
   'baseline',
 ];
 
-const Stack = ({
-  className,
-  direction,
-  wrap,
-  alignContent,
-  justifyContent,
-  alignItems,
-  fullWidth,
-  fullHeight,
-  spacing,
-  children,
-  ...props
-}) => {
-  const { classes, cx } = StackStyles(
-    { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing },
-    { name: 'Stack' }
-  );
+const Stack = forwardRef(
+  (
+    {
+      className,
+      direction,
+      wrap,
+      alignContent,
+      justifyContent,
+      alignItems,
+      fullWidth,
+      fullHeight,
+      spacing,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const { classes, cx } = StackStyles(
+      { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing },
+      { name: 'Stack' }
+    );
 
-  const childrenWithProps = useMemo(
-    () =>
-      React.Children.map(children, (child) => {
-        // Checking isValidElement is the safe way and avoids a typescript
-        // error too.
-        if (
-          React.isValidElement(child) &&
-          fullWidth &&
-          justifyContent === 'normal' &&
-          alignContent === 'normal' &&
-          alignItems === 'normal'
-        ) {
-          const style = { ...child.props.style, flex: child.props.noFlex ? 0 : 1 };
-          return React.cloneElement(child, { style });
-        }
-        return child;
-      }),
-    [children]
-  );
+    const childrenWithProps = useMemo(
+      () =>
+        React.Children.map(children, (child) => {
+          // Checking isValidElement is the safe way and avoids a typescript
+          // error too.
+          if (
+            React.isValidElement(child) &&
+            fullWidth &&
+            justifyContent === 'normal' &&
+            alignContent === 'normal' &&
+            alignItems === 'normal'
+          ) {
+            const style = { ...child.props.style, flex: child.props.noFlex ? 0 : 1 };
+            return React.cloneElement(child, { style });
+          }
+          return child;
+        }),
+      [children]
+    );
 
-  return (
-    <Box {...props} className={cx(classes.root, className)}>
-      {childrenWithProps}
-    </Box>
-  );
-};
+    return (
+      <Box {...props} ref={ref} className={cx(classes.root, className)}>
+        {childrenWithProps}
+      </Box>
+    );
+  }
+);
 
 Stack.defaultProps = STACK_DEFAULT_PROPS;
 

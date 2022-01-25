@@ -22,6 +22,7 @@ const Select = forwardRef(
       onChange,
       onBlur,
       value,
+      defaultValue,
       name,
       data,
       disabled,

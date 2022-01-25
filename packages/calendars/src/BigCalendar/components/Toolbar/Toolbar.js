@@ -1,0 +1,80 @@
+import React from 'react';
+import { capitalize } from 'lodash';
+import { Box, Group, Text, ActionButton, Button, IconButton, Switch } from '@bubbles-ui/components';
+import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
+import {
+  ChevLeftIcon as ChevronLeftIcon,
+  ChevRightIcon as ChevronRightIcon,
+  AddIcon as PlusIcon,
+} from '@bubbles-ui/icons/outline';
+import { ToolbarStyles } from './Toolbar.styles';
+import { ViewNamesGroup } from './ViewNamesGroup';
+
+export const ToolBar = ({
+  localizer: { messages },
+  label,
+  view,
+  views,
+  onNavigate,
+  onView,
+  showWeekends,
+  setShowWeekends,
+  addEventClick,
+  ...props
+}) => {
+  const { classes, cx } = ToolbarStyles({});
+  return (
+    <Group position="apart" mb={10}>
+      <Group>
+        <Group spacing={0}>
+          <Box mr={10}>
+            <Button
+              size="xs"
+              variant="outline"
+              color="tertiary"
+              onClick={() => onNavigate(navigate.TODAY)}
+            >
+              {messages.today}
+            </Button>
+          </Box>
+          <ActionButton
+            onClick={() => onNavigate(navigate.PREVIOUS)}
+            tooltip={messages.previous}
+            icon={<ChevronLeftIcon className={classes.navIcon} />}
+          />
+          <ActionButton
+            onClick={() => onNavigate(navigate.NEXT)}
+            tooltip={messages.next}
+            icon={<ChevronRightIcon className={classes.navIcon} />}
+          />
+        </Group>
+        <Box>
+          <Text size="xl">{capitalize(label)}</Text>
+        </Box>
+      </Group>
+
+      <Group style={{ gap: 12 }}>
+        {view !== RCBViews.DAY && (
+          <Switch
+            label={messages.showWeekends}
+            labelPosition="start"
+            checked={showWeekends}
+            onChange={(event) =>
+              typeof setShowWeekends === 'function' ? setShowWeekends(event) : null
+            }
+          />
+        )}
+        <ViewNamesGroup
+          views={views}
+          messages={messages}
+          current={view}
+          classes={classes}
+          onChange={(val) => onView(val)}
+        />
+        <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+          <PlusIcon />
+        </IconButton>
+      </Group>
+    </Group>
+  );
+};
