@@ -2,18 +2,18 @@ import React from 'react';
 import { get } from 'lodash';
 import { Controller } from 'react-hook-form';
 import {
+  Box,
   Col,
-  Grid,
+  ContextContainer,
   DatePicker,
+  Grid,
   Select,
   Switch,
   TimeInput,
-  Box,
-  ContextContainer,
 } from '@bubbles-ui/components';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 
-const Dates = ({ form, classes, messages, errorMessages, selectData, disabled }) => {
+const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, onlyOneDate }) => {
   const {
     control,
     watch,
@@ -75,48 +75,50 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled })
             </Grid>
 
             {/* TO */}
-            <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-              <Col span={isAllDay ? 100 : 70}>
-                <Controller
-                  name="endDate"
-                  control={control}
-                  rules={{
-                    required: errorMessages.endDateRequired,
-                  }}
-                  render={({ field }) => (
-                    <DatePicker
-                      error={get(errors, 'endDate')}
-                      size="xs"
-                      disabled={disabled}
-                      label={messages.toLabel}
-                      required
-                      {...field}
-                    />
-                  )}
-                />
-              </Col>
-              {!isAllDay ? (
-                <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+            {!onlyOneDate ? (
+              <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
+                <Col span={isAllDay ? 100 : 70}>
                   <Controller
-                    name="endTime"
+                    name="endDate"
                     control={control}
                     rules={{
-                      required: errorMessages.endTimeRequired,
+                      required: errorMessages.endDateRequired,
                     }}
                     render={({ field }) => (
-                      <TimeInput
-                        disabled={disabled}
-                        error={get(errors, 'endTime')}
+                      <DatePicker
+                        error={get(errors, 'endDate')}
                         size="xs"
+                        disabled={disabled}
+                        label={messages.toLabel}
                         required
                         {...field}
-                        value={field.value || new Date()}
                       />
                     )}
                   />
                 </Col>
-              ) : null}
-            </Grid>
+                {!isAllDay ? (
+                  <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                    <Controller
+                      name="endTime"
+                      control={control}
+                      rules={{
+                        required: errorMessages.endTimeRequired,
+                      }}
+                      render={({ field }) => (
+                        <TimeInput
+                          disabled={disabled}
+                          error={get(errors, 'endTime')}
+                          size="xs"
+                          required
+                          {...field}
+                          value={field.value || new Date()}
+                        />
+                      )}
+                    />
+                  </Col>
+                ) : null}
+              </Grid>
+            ) : null}
 
             {/* REPEAT */}
             <Controller

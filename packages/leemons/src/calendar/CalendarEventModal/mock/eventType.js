@@ -18,6 +18,7 @@ export const eventTypeMock = [
     label: 'Event',
     value: 'plugins.calendar.event',
     pluginName: 'calendar',
+    onlyOneDate: 1,
     deleted: 0,
     created_at: '2022-01-18T13:13:28.000Z',
     updated_at: '2022-01-18T13:13:28.000Z',

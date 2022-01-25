@@ -1,17 +1,17 @@
 import React from 'react';
-import { get, isArray, isFunction, map } from 'lodash';
+import { get, isArray, isFunction, keyBy, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  Col,
-  Grid,
-  Drawer,
   ActionButton,
+  Box,
   Button,
+  Col,
+  Divider,
+  Drawer,
+  Grid,
   RadioGroup,
   Select,
   TextInput,
-  Box,
-  Divider,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
@@ -94,6 +94,22 @@ const CalendarEventModal = (props) => {
   } = form;
 
   const type = watch('type');
+  const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
+  const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
+
+  React.useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (onlyOneDate) {
+        if (name === 'startDate') {
+          setValue('endDate', value.startDate);
+        }
+        if (name === 'startTime') {
+          setValue('endTime', value.startTime);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  });
 
   let Component = () => null;
   let hasComponent = false;
@@ -166,7 +182,13 @@ const CalendarEventModal = (props) => {
             </Box>
           ) : null}
 
-          <Dates {...props} form={form} classes={classes} disabled={disabled} />
+          <Dates
+            {...props}
+            form={form}
+            classes={classes}
+            disabled={disabled}
+            onlyOneDate={onlyOneDate}
+          />
 
           {hasComponent ? (
             <Box className={classes.divider}>
