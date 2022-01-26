@@ -19,7 +19,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
   description: PropTypes.string,
-  padded: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES)]),
+  padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
 };

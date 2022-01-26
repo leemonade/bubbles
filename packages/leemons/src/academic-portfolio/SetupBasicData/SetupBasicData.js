@@ -20,32 +20,11 @@ export const SETUP_BASIC_DATA_DEFAULT_PROPS = {
   sharedData: {},
 };
 export const SETUP_BASIC_DATA_PROP_TYPES = {
-  labels: PropTypes.shape({
-    abbreviation: PropTypes.string,
-    creditSystem: PropTypes.string,
-    credits: PropTypes.string,
-    oneStudentGroup: PropTypes.string,
-    groupsIDAbbrev: PropTypes.string,
-    maxGroupAbbreviation: PropTypes.string,
-    maxGroupAbbreviationIsOnlyNumbers: PropTypes.string,
-    buttonNext: PropTypes.string,
-  }),
-  descriptions: PropTypes.shape({
-    maxGroupAbbreviation: PropTypes.string,
-  }),
-  placeholders: PropTypes.shape({
-    name: PropTypes.string,
-    abbreviation: PropTypes.string,
-  }),
-  helps: PropTypes.shape({
-    abbreviation: PropTypes.string,
-    maxGroupAbbreviation: PropTypes.string,
-  }),
-  errorMessages: PropTypes.shape({
-    name: PropTypes.any,
-    abbreviation: PropTypes.any,
-    maxGroupAbbreviation: PropTypes.any,
-  }),
+  labels: PropTypes.object,
+  descriptions: PropTypes.object,
+  placeholders: PropTypes.object,
+  helps: PropTypes.object,
+  errorMessages: PropTypes.object,
   onNext: PropTypes.func,
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
