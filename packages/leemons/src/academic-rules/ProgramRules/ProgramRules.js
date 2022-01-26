@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
 import { ProgramRulesStyles } from './ProgramRules.styles';
 import { RuleGroup } from '../RuleGroup';
 import { v4 as uuidv4 } from 'uuid';
-// import { Stack } from '../../../layout';
-// import { Button, Select, TextInput } from '../../../form';
 import { Box, Stack, Button, Select, TextInput } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 
@@ -74,6 +71,7 @@ const ProgramRules = ({
       return;
     }
     setError(false);
+
     isFunction(onChange) && onChange(data);
   };
 

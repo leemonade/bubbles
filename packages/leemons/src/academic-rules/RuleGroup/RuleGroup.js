@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleGroupStyles } from './RuleGroup.styles';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-// import { Text } from '../../../typography';
+import { Menu } from '@bubbles-ui/components/src/navigation';
 import { RuleCondition } from '../RuleCondition/';
-// import { Button } from '../../../form';
-// import { Stack } from '../../../layout';
-// import { Select } from '../../../form';
-
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { Box, Text, Button, Stack, Select } from '@bubbles-ui/components';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
@@ -130,8 +126,7 @@ const RuleGroup = ({
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={parentOperator.value}
-          value={parentOperator}
+          value={parentOperator.value}
           onChange={(e) => {
             setParentOperator({ label: e.toUpperCase(), value: e });
             setGroupOperator(e);
@@ -141,6 +136,28 @@ const RuleGroup = ({
     } else {
       return <Text>{parentOperator.label}</Text>;
     }
+  };
+
+  const removeGroup = () => {
+    parentGroup.conditions.splice(index, 1);
+    setData({ ...data });
+  };
+
+  const duplicateGroup = () => {
+    parentGroup.conditions.push({
+      id: uuidv4(),
+      group: {
+        operator: group.operator,
+        conditions: group.conditions.map((condition) => ({ ...condition, id: uuidv4() })),
+      },
+    });
+    setData({ ...data });
+  };
+
+  const turnToCondition = () => {
+    parentGroup.conditions.splice(index, 1);
+    parentGroup.conditions.push(...group.conditions);
+    setData({ ...data });
   };
 
   const uuid = uuidv4();
@@ -230,6 +247,17 @@ const RuleGroup = ({
           <Box className={classes.ruleGroup}>
             {<Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>}
             <Box className={className}>{ruleGroup}</Box>
+            <Menu
+              items={[
+                { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeGroup },
+                { children: 'Duplicate', icon: <DeleteBinIcon />, onClick: duplicateGroup },
+                {
+                  children: 'Turn into condition/s',
+                  icon: <DeleteBinIcon />,
+                  onClick: turnToCondition,
+                },
+              ]}
+            />
           </Box>
         </Box>
       )}

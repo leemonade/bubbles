@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleConditionStyles } from './RuleCondition.styles';
-// import { Text } from '../../../typography';
-// import { NumberInput, Select, MultiSelect, TextInput } from '../../../form';
-import { Box, Text, NumberInput, Select, MultiSelect, TextInput } from '@bubbles-ui/components';
+import { Box, Text, NumberInput, Select, TextInput } from '@bubbles-ui/components';
+import { MultiSelect } from '@bubbles-ui/components/src/form/';
+import { Menu } from '@bubbles-ui/components/src/navigation';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { v4 as uuidv4 } from 'uuid';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -66,17 +67,23 @@ const RuleCondition = ({
 }) => {
   const { classes, cx } = RuleConditionStyles({});
 
-  const [sourceValue, setSourceValue] = useState(null);
-  const [dataType, setDataType] = useState(null);
-  const [operatorValue, setOperatorValue] = useState(null);
-  const [targetValue, setTargetValue] = useState('');
+  const [sourceValue, setSourceValue] = useState(condition.source || '');
+  const [sourceIdsValue, setSourceIdsValue] = useState(condition.sourceIds || []);
+  const [dataType, setDataType] = useState(condition.data || '');
+  const [operatorValue, setOperatorValue] = useState(condition.operator || '');
+  const [targetValue, setTargetValue] = useState(condition.target || '');
 
   const setNewData = (e, field) => {
     if (field === 'source') {
       condition[field] = e;
       condition.sourceIds = [];
-      if (e === 'program') condition.sourceIds = [program.value];
+      setSourceIdsValue([]);
+      if (e === 'program') {
+        condition.sourceIds = [program.value];
+        setSourceIdsValue([program.value]);
+      }
     }
+    if (field === 'sourceIds') setSourceIdsValue(e);
     condition[field] = e;
     setData({ ...data });
   };
@@ -88,6 +95,7 @@ const RuleCondition = ({
           <MultiSelect
             data={courses}
             placeholder={'Select course...'}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -96,6 +104,7 @@ const RuleCondition = ({
           <MultiSelect
             data={knowledges}
             placeholder={'Select knowledge...'}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -104,6 +113,7 @@ const RuleCondition = ({
           <MultiSelect
             data={subjects}
             placeholder={'Select subject...'}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -112,6 +122,7 @@ const RuleCondition = ({
           <MultiSelect
             data={subjectTypes}
             placeholder={'Select subject type...'}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -120,6 +131,7 @@ const RuleCondition = ({
           <MultiSelect
             data={subjectGroups}
             placeholder={'Select subject group...'}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -142,8 +154,7 @@ const RuleCondition = ({
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={logicOperator.value}
-          value={logicOperator}
+          value={logicOperator.value}
           onChange={(e) => {
             setLogicOperator({ label: e.toUpperCase(), value: e });
             setGroupOperator(e);
@@ -153,6 +164,24 @@ const RuleCondition = ({
     } else {
       return <Text>{logicOperator.label}</Text>;
     }
+  };
+
+  const removeCondition = () => {
+    group.conditions.splice(index, 1);
+    setData({ ...data });
+  };
+
+  const duplicateCondition = () => {
+    group.conditions.push({ ...condition, id: uuidv4() });
+    setData({ ...data });
+  };
+
+  const turnToGroup = () => {
+    group.conditions.splice(index, 1, {
+      id: uuidv4(),
+      group: { operator: 'and', conditions: [condition] },
+    });
+    setData({ ...data });
   };
 
   useEffect(() => {
@@ -197,8 +226,10 @@ const RuleCondition = ({
           <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
           <Box className={classes.sourceSelects}>
             <Select
+              className={classes.input}
               data={sources}
               placeholder={'Select item...'}
+              value={sourceValue}
               onChange={(e) => {
                 setSourceValue(e);
                 setNewData(e, 'source');
@@ -208,9 +239,9 @@ const RuleCondition = ({
             {sourceValue && getSourceSelect(sourceValue)}
           </Box>
           <Select
-            className={classes.input}
             data={dataTypes}
             placeholder={'Select data...'}
+            value={dataType}
             onChange={(e) => {
               setDataType(e);
               setNewData(e, 'data');
@@ -218,9 +249,9 @@ const RuleCondition = ({
             disabled={!sourceValue}
           />
           <Select
-            className={classes.input}
             data={operators}
             placeholder={'Select operator...'}
+            value={operatorValue}
             onChange={(e) => {
               setOperatorValue(e);
               setNewData(e, 'operator');
@@ -229,20 +260,19 @@ const RuleCondition = ({
           />
           {dataType === 'gpa' || dataType === 'grade' ? (
             <Select
-              className={classes.input}
               data={grades}
               placeholder={'Select grade...'}
+              value={targetValue}
               onChange={(e) => {
                 setTargetValue(e);
                 setNewData(e, 'target');
               }}
               disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
+              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
               required
             />
           ) : operatorValue === 'contains' ? (
             <TextInput
-              className={classes.input}
               placeholder={'Enter value...'}
               value={targetValue}
               onChange={(e) => {
@@ -250,23 +280,30 @@ const RuleCondition = ({
                 setNewData(e, 'target');
               }}
               disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
+              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
               required
             />
           ) : (
             <NumberInput
-              className={classes.input}
               placeholder={'Enter value...'}
-              value={condition.target}
+              defaultValue={0}
+              value={targetValue}
               onChange={(e) => {
                 setTargetValue(e);
                 setNewData(e, 'target');
               }}
               disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
+              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
               required
             />
           )}
+          <Menu
+            items={[
+              { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeCondition },
+              { children: 'Duplicate', icon: <DeleteBinIcon />, onClick: duplicateCondition },
+              { children: 'Turn into group', icon: <DeleteBinIcon />, onClick: turnToGroup },
+            ]}
+          />
         </Box>
       )}
     </Draggable>

@@ -19,10 +19,6 @@ export const RuleConditionStyles = createStyles((theme, {}) => {
       marginRight: pxToRem(8),
       width: pxToRem(120),
     },
-    input: {
-      marginBottom: pxToRem(-4),
-      marginRight: pxToRem(8),
-    },
     sourceSelects: {
       marginBottom: pxToRem(-4),
       marginRight: pxToRem(8),
