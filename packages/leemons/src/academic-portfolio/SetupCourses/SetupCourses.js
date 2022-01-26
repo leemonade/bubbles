@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, capitalize } from 'lodash';
-import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { isArray, isFunction, capitalize } from 'lodash';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Box,
   Stack,
@@ -81,6 +81,8 @@ const SetupCourses = ({
     setValue,
   } = useForm({ defaultValues });
 
+  useEffect(() => console.log(errors), [errors]);
+
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
     substageAbbr = substageAbbr.padStart(
@@ -111,13 +113,20 @@ const SetupCourses = ({
             rules={{
               required: errorMessages.useDefaultSubstagesName?.required || 'Required Field',
             }}
-            render={({ field }) => <TextInput label={substageName} required {...field} />}
+            render={({ field }) => (
+              <TextInput
+                label={`${capitalize(substagesFrequency)}`}
+                error={isArray(errors.substages) ? errors.substages[currentSubstage].name : null}
+                required
+                {...field}
+              />
+            )}
           />
           <Controller
             name={substageAbbrev}
             control={control}
             rules={{
-              required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
+              // required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
               maxLength: maxSubstageAbbreviation,
             }}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
@@ -125,6 +134,9 @@ const SetupCourses = ({
                 label={labels.abbreviation}
                 value={fieldState.isDirty ? value : defaultValue}
                 onChange={onChange}
+                error={
+                  isArray(errors.substages) ? errors.substages[currentSubstage].abbreviation : null
+                }
                 required
                 {...field}
               />
