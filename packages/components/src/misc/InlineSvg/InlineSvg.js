@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { InlineSvgStyles } from './InlineSvg.styles';
 
-export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style }) => {
+export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, ignoreFill, style }) => {
   const [svg, setSvg] = useState(null);
   const [goodSvg, setGoodSvg] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,15 +32,17 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
   useEffect(() => {
     if (svg) {
       const hasStroke = strokeCurrent || (className && className.indexOf('stroke-current') >= 0);
-      const hasFill = fillCurrent || (className && className.indexOf('fill-current') >= 0);
+      const hasFill =
+        !ignoreFill && (fillCurrent || (className && className.indexOf('fill-current') >= 0));
 
       let str = svg;
       if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="currentColor"');
       if (hasFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="currentColor"');
+      if (ignoreFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="none"');
 
       setGoodSvg(str);
     }
-  }, [svg, className, strokeCurrent, fillCurrent]);
+  }, [svg, className, strokeCurrent, fillCurrent, ignoreFill]);
 
   const { classes, cx } = InlineSvgStyles({});
 
@@ -58,6 +60,8 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, style })
     />
   );
 };
+
+InlineSvg.defaultProps = { ignoreFill: false };
 
 InlineSvg.propTypes = {
   src: PropTypes.string.isRequired,

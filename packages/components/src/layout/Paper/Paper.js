@@ -19,6 +19,7 @@ export const PAPER_PROP_TYPES = {
   children: PropTypes.node,
   className: PropTypes.string,
   padding: PropTypes.oneOf(PAPER_COLORS),
+  shadow: PropTypes.oneOf(PAPER_SHADOWS),
 };
 
 const Paper = forwardRef(

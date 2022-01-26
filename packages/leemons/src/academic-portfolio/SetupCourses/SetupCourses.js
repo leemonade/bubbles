@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, capitalize } from 'lodash';
+import { isArray, isFunction, capitalize } from 'lodash';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Box,
@@ -21,33 +21,9 @@ export const SETUP_COURSES_DEFAULT_PROPS = {
   frequencyOptions: [],
 };
 export const SETUP_COURSES_PROP_TYPES = {
-  labels: PropTypes.shape({
-    title: PropTypes.string,
-    oneCourseOnly: PropTypes.string,
-    hideCoursesInTree: PropTypes.string,
-    moreThanOneAcademicYear: PropTypes.string,
-    maxNumberOfCourses: PropTypes.string,
-    courseCredits: PropTypes.string,
-    courseSubstage: PropTypes.string,
-    haveSubstagesPerCourse: PropTypes.string,
-    numberOfSubstages: PropTypes.string,
-    subtagesNames: PropTypes.string,
-    useDefaultSubstagesName: PropTypes.string,
-    maxSubstageAbbreviation: PropTypes.string,
-    maxSubstageAbbreviationIsOnlyNumbers: PropTypes.string,
-    buttonNext: PropTypes.string,
-    buttonPrev: PropTypes.string,
-  }),
-  placeholders: PropTypes.shape({
-    substagesFrequency: PropTypes.string,
-  }),
-  errorMessages: PropTypes.shape({
-    maxNumberOfCourses: PropTypes.any,
-    courseCredits: PropTypes.any,
-    substagesFrequency: PropTypes.any,
-    numberOfSubstages: PropTypes.any,
-    maxSubstageAbbreviation: PropTypes.any,
-  }),
+  labels: PropTypes.object,
+  placeholders: PropTypes.object,
+  errorMessages: PropTypes.object,
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
   sharedData: PropTypes.any,
@@ -105,6 +81,8 @@ const SetupCourses = ({
     setValue,
   } = useForm({ defaultValues });
 
+  useEffect(() => console.log(errors), [errors]);
+
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
     substageAbbr = substageAbbr.padStart(
@@ -122,28 +100,43 @@ const SetupCourses = ({
     const substages = [];
     for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
       const defaultValue = getSubstageAbbr(currentSubstage + 1);
-      const substageName = `${capitalize(substagesFrequency)} ${currentSubstage + 1}`;
+      // const substageName = `${capitalize(substagesFrequency)} ${currentSubstage + 1}`;
+      const substageKey = `substages.${currentSubstage}`;
+      const substageName = `substages.${currentSubstage}.name`;
+      const substageAbbrev = `substages.${currentSubstage}.abbreviation`;
 
       substages.push(
-        <ContextContainer key={currentSubstage} direction="row">
+        <ContextContainer key={substageKey} direction="row">
           <Controller
             name={substageName}
             control={control}
-            rules={{ required: errorMessages.substageName?.required || 'Required Field' }}
-            render={({ field }) => <TextInput label={substageName + ':'} required {...field} />}
+            rules={{
+              required: errorMessages.useDefaultSubstagesName?.required || 'Required Field',
+            }}
+            render={({ field }) => (
+              <TextInput
+                label={`${capitalize(substagesFrequency)}`}
+                error={isArray(errors.substages) ? errors.substages[currentSubstage].name : null}
+                required
+                {...field}
+              />
+            )}
           />
           <Controller
-            name={substageName + ' Abbrev'}
+            name={substageAbbrev}
             control={control}
             rules={{
-              required: errorMessages.substageAbbreviation?.required || 'Required Field',
+              // required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
               maxLength: maxSubstageAbbreviation,
             }}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
-                label={'Abbreviation:'}
+                label={labels.abbreviation}
                 value={fieldState.isDirty ? value : defaultValue}
                 onChange={onChange}
+                error={
+                  isArray(errors.substages) ? errors.substages[currentSubstage].abbreviation : null
+                }
                 required
                 {...field}
               />

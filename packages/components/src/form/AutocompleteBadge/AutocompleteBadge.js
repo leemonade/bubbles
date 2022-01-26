@@ -17,21 +17,30 @@ export const AUTOCOMPLETEBADGE_PROP_TYPES = {
       PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
     ),
   ]).isRequired,
+  itemPadding: PropTypes.number,
   nothingFoundLabel: PropTypes.string,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onItemSubmit: PropTypes.func,
 };
 
-const itemComponent = forwardRef(({ ...others }, ref) => (
-  <UserDisplayItem {...others} style={{ padding: 4 }} />
-));
-const valueComponent = forwardRef(({ avatar, onRemove, ...others }, ref) => (
-  <Badge {...others} radius={'rounded'} size={'xs'} image={avatar} onClose={onRemove} />
-));
-
-const AutocompleteBadge = ({ ...props }) => {
+const AutocompleteBadge = ({ itemPadding, ...props }) => {
   const { classes, cx } = AutocompleteBadgeStyles({});
+
+  const itemComponent = forwardRef(({ avatar, children, label, name, value, ...others }, ref) => (
+    <div ref={ref} {...others} style={{ padding: itemPadding }}>
+      <UserDisplayItem
+        avatar={avatar}
+        children={children}
+        label={label}
+        name={name}
+        value={value}
+      />
+    </div>
+  ));
+  const valueComponent = forwardRef(({ avatar, onRemove, ...others }, ref) => (
+    <Badge {...others} radius={'rounded'} size={'xs'} image={avatar} onClose={onRemove} />
+  ));
 
   return (
     <Autocomplete

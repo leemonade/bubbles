@@ -26,29 +26,9 @@ export const SETUP_SUBJECTS_DEFAULT_PROPS = {
   frequencyOptions: [],
 };
 export const SETUP_SUBJECTS_PROP_TYPES = {
-  labels: PropTypes.shape({
-    title: PropTypes.string,
-    standardDuration: PropTypes.string,
-    allSubjectsSameDuration: PropTypes.string,
-    numberOfSemesters: PropTypes.string,
-    periodName: PropTypes.string,
-    knowledgeAreas: PropTypes.string,
-    maxKnowledgeAbbreviation: PropTypes.string,
-    maxKnowledgeAbbreviationIsOnlyNumbers: PropTypes.string,
-    subjectsIDConfig: PropTypes.string,
-    subjectsFirstDigit: PropTypes.string,
-    subjectsDigits: PropTypes.string,
-    buttonNext: PropTypes.string,
-    buttonPrev: PropTypes.string,
-  }),
-  helps: PropTypes.shape({
-    maxKnowledgeAbbreviation: PropTypes.string,
-  }),
-  errorMessages: PropTypes.shape({
-    periodName: PropTypes.any,
-    numOfPeriods: PropTypes.any,
-    substagesFrequency: PropTypes.any,
-  }),
+  labels: PropTypes.object,
+  helps: PropTypes.object,
+  errorMessages: PropTypes.object,
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
   sharedData: PropTypes.any,

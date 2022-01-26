@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { isArray, isFunction, forEach } from 'lodash';
+import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
 import { MainNavStyles } from './MainNav.styles';
@@ -44,8 +45,11 @@ const MainNav = ({
     if (item.url && !hasChildren) {
       closeSubNav(false);
     }
-    if (item.children) {
+
+    if (isArray(item.children) && item.children.length) {
       openSubNav(true);
+    } else {
+      closeSubNav(true);
     }
   };
 
@@ -81,12 +85,19 @@ const MainNav = ({
 
   // ······································································
   // WATCHERS
+  const location = useLocation();
 
   useEffect(() => {
     if (isLoading || !menuData || (isArray(menuData) && !menuData.length)) {
       handleRouteChange();
     }
   }, [menuData, isLoading]);
+
+  useEffect(() => {
+    if (!isLoading && isArray(menuData) && menuData.length) {
+      handleRouteChange();
+    }
+  }, [location]);
 
   // ······································································
   // STYLES

@@ -56,12 +56,6 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       display: 'flex',
       padding: 0,
       flexDirection: 'column',
-      '> div': {
-        cursor: 'pointer',
-        '&:hover': {
-          backgroundColor: theme.colors.interactive03,
-        },
-      },
     },
     item: {
       ...getFontProductive(theme.fontSizes['2'], 400),
