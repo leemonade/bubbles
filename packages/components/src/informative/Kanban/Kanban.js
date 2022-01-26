@@ -33,7 +33,7 @@ const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => 
     // reordering column
     if (result.type === 'COLUMN') {
       value.columns = reorder(value.columns, source.index, destination.index);
-      onChange(value);
+      onChange(value, result);
 
       return;
     }
@@ -44,7 +44,7 @@ const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => 
       destination,
     });
 
-    onChange(cloneDeep(value));
+    onChange(cloneDeep(value), result);
   };
 
   if (!value) return null;

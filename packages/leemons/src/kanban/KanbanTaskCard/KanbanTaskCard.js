@@ -1,11 +1,8 @@
 import React, { useMemo } from 'react';
 import { KanbanTaskCardStyles } from './KanbanTaskCard.styles';
-import { Paragraph, Text } from '../../typography';
-import { Box, Paper } from '../../layout';
+import { Avatar, Box, ImageLoader, Paper, Paragraph, Text } from '@bubbles-ui/components';
 import { filter, find } from 'lodash';
 import dayjs from 'dayjs';
-import { Avatar } from '../../informative';
-import { ImageLoader } from '../../../es';
 
 export const KANBAN_TASK_CARD_DEFAULT_PROPS = {};
 export const KANBAN_TASK_CARD_PROP_TYPES = {};
@@ -69,7 +66,7 @@ const KanbanTaskCard = ({ value, config, ...props }) => {
         ) : null}
         <Box className={classes.avatar}>
           <Avatar mx="auto" size="xs" {...avatar} />
-          <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2] })}>
+          <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
             {calendar.name}
           </Paragraph>
         </Box>
