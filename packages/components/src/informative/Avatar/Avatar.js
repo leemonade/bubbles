@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Avatar as MantineAvatar } from '@mantine/core';
+import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { AvatarStyles } from './Avatar.styles';
 

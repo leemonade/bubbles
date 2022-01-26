@@ -64,12 +64,12 @@ class BackgroundCells extends React.Component {
     let current = getNow();
 
     const getDaysBetweenDates = function (startDate, endDate) {
-      const now = DateTime.fromJSDate(startDate);
+      let now = DateTime.fromJSDate(startDate);
       const dates = [];
 
       while (now <= DateTime.fromJSDate(endDate)) {
         dates.push(now.toFormat('YYYY/MM/DD'));
-        now.plus({ days: 1 });
+        now = now.plus({ days: 1 });
       }
       return dates;
     };

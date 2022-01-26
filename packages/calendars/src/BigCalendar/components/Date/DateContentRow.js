@@ -134,6 +134,7 @@ class DateContentRow extends React.Component {
 
     const normalEvents = [];
     const backgroundEvents = [];
+
     events.forEach((event) => {
       if (event.display === 'background') {
         backgroundEvents.push(event);

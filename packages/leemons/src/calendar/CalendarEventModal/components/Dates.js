@@ -66,6 +66,7 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled })
                         size="xs"
                         required
                         {...field}
+                        value={field.value || new Date()}
                       />
                     )}
                   />
@@ -109,6 +110,7 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled })
                         size="xs"
                         required
                         {...field}
+                        value={field.value || new Date()}
                       />
                     )}
                   />
