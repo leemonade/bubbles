@@ -1,4 +1,7 @@
-export const FIRST_DIGIT_OPTIONS = ['Course Nº', 'None'];
+export const FIRST_DIGIT_OPTIONS = [
+  { label: 'Course Nº', value: 'course' },
+  { label: 'None', value: 'none' },
+];
 
 export const FREQUENCY_OPTIONS = [
   { label: 'Anual', value: 'Anual' },
@@ -106,4 +109,40 @@ export const SUBJECTS_DATA = {
   },
   firstDigitOptions: FIRST_DIGIT_OPTIONS,
   frequencyOptions: FREQUENCY_OPTIONS,
+};
+
+export const INIT_VALUES = {
+  name: 'My Cool Program',
+  abbreviation: 'MCP001',
+  courseCredits: 100,
+  creditSystem: false,
+  credits: 200,
+  haveSubstagesPerCourse: false,
+  hideCoursesInTree: true,
+  maxGroupAbbreviation: 3,
+  maxGroupAbbreviationIsOnlyNumbers: true,
+  maxNumberOfCourses: 2,
+  maxSubstageAbbreviation: 3,
+  maxSubstageAbbreviationIsOnlyNumbers: false,
+  moreThanOneAcademicYear: false,
+  numberOfSubstages: 2,
+  oneStudentGroup: false,
+  substages: [
+    { name: 'Sem 1', abbreviation: 'S01' },
+    { name: 'Sem 2', abbreviation: 'S02' },
+  ],
+  substagesFrequency: 'Half-yearly',
+  useCreditSystem: false,
+  useDefaultSubstagesName: false,
+  useOneStudentGroup: false,
+
+  allSubjectsSameDuration: false,
+  customSubstages: [
+    { name: 'Quarter 1', amount: 1, frequency: 'Quarterly' },
+    { name: 'Quarter 2', amount: 1, frequency: 'Quarterly' },
+  ],
+  maxKnowledgeAbbreviation: 4,
+  maxKnowledgeAbbreviationIsOnlyNumbers: false,
+  subjectsFirstDigit: 'course',
+  subjectsDigits: 1,
 };

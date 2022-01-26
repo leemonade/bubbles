@@ -85,7 +85,6 @@ const MainNav = ({
 
   // ······································································
   // WATCHERS
-  const location = useLocation();
 
   useEffect(() => {
     if (isLoading || !menuData || (isArray(menuData) && !menuData.length)) {
@@ -93,11 +92,17 @@ const MainNav = ({
     }
   }, [menuData, isLoading]);
 
-  useEffect(() => {
-    if (!isLoading && isArray(menuData) && menuData.length) {
-      handleRouteChange();
-    }
-  }, [location]);
+  try {
+    const location = useLocation();
+
+    useEffect(() => {
+      if (!isLoading && isArray(menuData) && menuData.length) {
+        handleRouteChange();
+      }
+    }, [location]);
+  } catch (e) {
+    console.info('No react-router-dom found');
+  }
 
   // ······································································
   // STYLES

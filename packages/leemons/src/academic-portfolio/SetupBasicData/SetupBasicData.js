@@ -67,8 +67,9 @@ const SetupBasicData = ({
   } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (

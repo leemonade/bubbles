@@ -19,7 +19,7 @@ export const SubNavItem = ({
   const key = `label-${item.id}`;
 
   const handleClick = (ev) => {
-    if (isFunction(onClick)) onClick(item);
+    if (!item.disabled && isFunction(onClick)) onClick(item);
     if (item.disabled) ev.preventDefault();
   };
 

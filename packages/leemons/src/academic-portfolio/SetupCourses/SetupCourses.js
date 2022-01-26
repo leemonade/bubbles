@@ -81,7 +81,7 @@ const SetupCourses = ({
     setValue,
   } = useForm({ defaultValues });
 
-  useEffect(() => console.log(errors), [errors]);
+  // useEffect(() => console.log(errors), [errors]);
 
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
@@ -116,7 +116,7 @@ const SetupCourses = ({
             render={({ field }) => (
               <TextInput
                 label={`${capitalize(substagesFrequency)}`}
-                error={isArray(errors.substages) ? errors.substages[currentSubstage].name : null}
+                error={isArray(errors.substages) ? errors.substages[currentSubstage]?.name : null}
                 required
                 {...field}
               />
@@ -135,7 +135,7 @@ const SetupCourses = ({
                 value={fieldState.isDirty ? value : defaultValue}
                 onChange={onChange}
                 error={
-                  isArray(errors.substages) ? errors.substages[currentSubstage].abbreviation : null
+                  isArray(errors.substages) ? errors.substages[currentSubstage]?.abbreviation : null
                 }
                 required
                 {...field}
@@ -149,8 +149,9 @@ const SetupCourses = ({
   };
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (

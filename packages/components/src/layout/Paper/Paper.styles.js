@@ -25,6 +25,7 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow, color
       backgroundColor:
         color === 'solid' ? theme.colors.uiBackground02 : theme.colors.uiBackground01,
       boxShadow: getShadows(shadow),
+      padding: theme.spacing[padding],
     },
   };
 });
