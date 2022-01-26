@@ -56,6 +56,7 @@ export const COURSES_DATA = {
     numberOfSubstages: 'Number of substages',
     subtagesNames: 'Name the substages',
     useDefaultSubstagesName: 'Use the default name and abbreviation',
+    abbreviation: 'Abbreviation',
     maxSubstageAbbreviation: 'Max abbrevation length',
     maxSubstageAbbreviationIsOnlyNumbers: 'Only numbers',
     buttonNext: 'Next',
@@ -65,6 +66,7 @@ export const COURSES_DATA = {
     substagesFrequency: 'Select frequency...',
   },
   errorMessages: {
+    useDefaultSubstagesName: { required: 'Required field' },
     maxNumberOfCourses: { required: 'Required field' },
     courseCredits: { required: 'Required field' },
     substagesFrequency: { required: 'Required field' },

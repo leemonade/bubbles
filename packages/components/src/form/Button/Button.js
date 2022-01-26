@@ -18,6 +18,7 @@ export const BUTTON_DEFAULT_PROPS = {
   loading: false,
   compact: false,
   fullWidth: false,
+  disabled: false,
 };
 
 export const Button = forwardRef(
@@ -38,6 +39,7 @@ export const Button = forwardRef(
       classNames,
       compact,
       fullWidth,
+      disabled,
       ...props
     },
     ref
@@ -52,20 +54,25 @@ export const Button = forwardRef(
       ? positionProp
       : BUTTON_DEFAULT_PROPS.position;
 
-    const { classes, cx } = ButtonStyles({
-      size,
-      color,
-      iconOnly,
-      position,
-      variant,
-      compact,
-      fullWidth,
-    });
+    const { classes, cx } = ButtonStyles(
+      {
+        size,
+        color,
+        iconOnly,
+        position,
+        variant,
+        compact,
+        fullWidth,
+        disabled,
+      },
+      { name: 'Button' }
+    );
     const mantineVariant = useMemo(() => (variant === 'link' ? 'default' : variant), [variant]);
 
     return (
       <MantineButton
         {...props}
+        ref={ref}
         component={as}
         variant={mantineVariant}
         radius={radius}
@@ -73,7 +80,7 @@ export const Button = forwardRef(
         rightIcon={rightIcon}
         size={size}
         classNames={classes}
-        ref={ref}
+        disabled={disabled}
       />
     );
   }
@@ -108,4 +115,5 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   position: PropTypes.oneOf(BUTTON_POSITIONS),
   compact: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
