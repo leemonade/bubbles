@@ -81,7 +81,15 @@ withAvatar.args = {
     },
   ],
   nothingFoundLabel: 'No maches found',
-  itemComponent: forwardRef(({ ...props }, ref) => (
-    <UserDisplayItem {...props} style={{ padding: 4 }} />
+  itemComponent: forwardRef(({ avatar, children, label, name, value, ...props }, ref) => (
+    <div ref={ref} {...props} style={{ padding: 4 }}>
+      <UserDisplayItem
+        avatar={avatar}
+        children={children}
+        label={label}
+        name={name}
+        value={value}
+      />
+    </div>
   )),
 };

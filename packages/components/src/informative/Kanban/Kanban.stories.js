@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Kanban, KANBAN_DEFAULT_PROPS } from './Kanban';
 import mdx from './Kanban.mdx';
 import { mock } from './mock/mock';
-import { mock as mockCard } from '../../leemons/KanbanTaskCard/mock/mock';
-import { KanbanTaskCard } from '../../leemons/KanbanTaskCard';
+import { KanbanTaskCard } from '@bubbles-ui/leemons';
+import { mockCard } from './mock/mockCard';
 
 export default {
   title: 'Organisms/Informative/Kanban',

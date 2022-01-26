@@ -22,16 +22,25 @@ export const AUTOCOMPLETEUSER_PROP_TYPES = {
       PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
     ),
   ]).isRequired,
+  itemPadding: PropTypes.number,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
-const itemComponent = forwardRef(({ ...others }, ref) => (
-  <UserDisplayItem {...others} style={{ padding: 4 }} />
-));
-
-const AutocompleteUser = ({ onItemSubmit, ...props }) => {
+const AutocompleteUser = ({ onItemSubmit, itemPadding, ...props }) => {
   const { classes, cx } = AutocompleteUserStyles({});
+
+  const itemComponent = forwardRef(({ avatar, children, label, name, value, ...others }, ref) => (
+    <div ref={ref} {...others} style={{ padding: itemPadding }}>
+      <UserDisplayItem
+        avatar={avatar}
+        children={children}
+        label={label}
+        name={name}
+        value={value}
+      />
+    </div>
+  ));
 
   const [selectedValue, setSelectedValue] = useState(null);
 

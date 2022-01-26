@@ -1,5 +1,4 @@
-import { createStyles } from '@mantine/styles';
-import { getFontProductive } from '../../theme.mixins';
+import { createStyles, getFontProductive } from '@bubbles-ui/components';
 import { colord } from 'colord';
 
 export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) => {
