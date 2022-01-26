@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { isFunction } from 'lodash';
@@ -63,6 +63,8 @@ const BooleanInput = forwardRef(
     ref
   ) => {
     const [isChecked, setIsChecked] = useState(checked);
+
+    useEffect(() => setIsChecked(checked), [checked]);
 
     const handleOnChange = () => {
       setIsChecked(!isChecked);

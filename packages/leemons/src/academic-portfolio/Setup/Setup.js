@@ -6,7 +6,7 @@ import { SetupStyles } from './Setup.styles';
 
 export const SETUP_DEFAULT_PROPS = {};
 export const SETUP_PROP_TYPES = {
-  labels: PropTypes.shape({ title: PropTypes.string, buttonSave: PropTypes.string }),
+  labels: PropTypes.object,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
@@ -28,6 +28,8 @@ const Setup = ({ labels, data, onNext, onPrev, onSave, ...props }) => {
   const { classes, cx } = SetupStyles({}, { name: 'APSetup' });
 
   const handleSave = () => {
+    console.log(JSON.stringify(sharedData));
+    console.log(sharedData);
     isFunction(onSave) && onSave(sharedData);
   };
 

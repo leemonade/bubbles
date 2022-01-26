@@ -9,11 +9,12 @@ export const SubNavItemStyles = createStyles((theme, { active, disabled, hasErro
       display: 'block',
       textDecoration: 'none',
       lineHeight: pxToRem(18),
-      color: theme.colors.text07,
+      color: disabled ? theme.colors.text05 : theme.colors.text07,
       paddingLeft: pxToRem(theme.spacing['5']),
       paddingRight: pxToRem(theme.spacing['5']),
       paddingTop: pxToRem(theme.spacing['3']),
       paddingBottom: pxToRem(theme.spacing['3']),
+      cursor: disabled ? 'not-allowed' : 'pointer',
       '&:hover': {
         backgroundColor: !disabled && theme.colors.interactive01,
       },
