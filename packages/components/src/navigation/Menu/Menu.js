@@ -1,6 +1,9 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import { Menu as MantineMenu, MenuItem } from '@mantine/core';
+import { ActionButton } from '../../form';
+import { SettingMenuHorizontalIcon } from '@bubbles-ui/icons/solid';
 import { MenuStyles } from './Menu.styles';
 
 export const MENU_POSITIONS = ['bottom', 'top', 'left', 'right'];
@@ -28,13 +31,20 @@ export const MENU_PROP_TYPES = {
   placement: PropTypes.oneOf(MENU_PLACEMENT),
   gutter: PropTypes.number,
   withArrow: PropTypes.bool,
+  control: PropTypes.node,
 };
 
-const Menu = forwardRef(({ items, shadow, ...props }, ref) => {
+const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref) => {
   const { classes, cx } = MenuStyles({});
+  const control = useMemo(() => {
+    if (isEmpty(controlProp)) {
+      return <ActionButton icon={<SettingMenuHorizontalIcon />} />;
+    }
+    return controlProp;
+  }, [controlProp]);
 
   return (
-    <MantineMenu {...props} ref={ref} classNames={classes}>
+    <MantineMenu {...props} ref={ref} control={control} classNames={classes}>
       {items.map((item, index) => (
         <MenuItem {...item} key={index} />
       ))}

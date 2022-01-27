@@ -10,19 +10,19 @@ import {
 export const RuleConditionStyles = createStyles((theme, {}) => {
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
       display: 'flex',
-      alignItems: 'center',
-      padding: pxToRem(8),
+      alignItems: 'baseline',
+      // padding: pxToRem(8),
+      gap: theme.spacing[1],
+      marginBottom: theme.spacing[1],
     },
     logicOperator: {
-      marginRight: pxToRem(8),
-      width: pxToRem(120),
+      // marginRight: pxToRem(8),
+      width: pxToRem(80),
     },
     sourceSelects: {
-      marginBottom: pxToRem(-4),
-      marginRight: pxToRem(8),
       display: 'flex',
+      gap: theme.spacing[1],
     },
   };
 });

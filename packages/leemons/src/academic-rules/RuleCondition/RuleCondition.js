@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleConditionStyles } from './RuleCondition.styles';
-import { Box, Text, NumberInput, Select, TextInput } from '@bubbles-ui/components';
+import { Paper, Box, Stack, Text, NumberInput, Select, TextInput } from '@bubbles-ui/components';
 import { MultiSelect } from '@bubbles-ui/components/src/form/';
 import { Menu } from '@bubbles-ui/components/src/navigation';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { v4 as uuidv4 } from 'uuid';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
@@ -65,7 +66,7 @@ const RuleCondition = ({
   errorMessage,
   ...props
 }) => {
-  const { classes, cx } = RuleConditionStyles({});
+  const { classes, cx } = RuleConditionStyles({}, { name: 'RuleCondition' });
 
   const [sourceValue, setSourceValue] = useState(condition.source || '');
   const [sourceIdsValue, setSourceIdsValue] = useState(condition.sourceIds || []);
@@ -147,7 +148,7 @@ const RuleCondition = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text>Where</Text>;
+      return <Text role="productive">Where</Text>;
     }
     if (index === 1) {
       return (
@@ -162,7 +163,11 @@ const RuleCondition = ({
         />
       );
     } else {
-      return <Text>{logicOperator.label}</Text>;
+      return (
+        <Box m={10}>
+          <Text role="productive">{logicOperator.label}</Text>
+        </Box>
+      );
     }
   };
 
@@ -217,94 +222,105 @@ const RuleCondition = ({
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (
-        <Box
-          className={classes.root}
+        <Paper
+          fullWidth
+          padding="none"
+          shadow="none"
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
         >
-          <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
-          <Box className={classes.sourceSelects}>
-            <Select
-              className={classes.input}
-              data={sources}
-              placeholder={'Select item...'}
-              value={sourceValue}
-              onChange={(e) => {
-                setSourceValue(e);
-                setNewData(e, 'source');
-              }}
-              disabled={!program}
+          <Box className={classes.root}>
+            <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
+            <Stack fullWidth spacing={1}>
+              <Box className={classes.sourceSelects} skipFlex>
+                <Select
+                  className={classes.input}
+                  data={sources}
+                  placeholder={'Select item...'}
+                  value={sourceValue}
+                  onChange={(e) => {
+                    setSourceValue(e);
+                    setNewData(e, 'source');
+                  }}
+                  disabled={!program}
+                />
+
+                {sourceValue && getSourceSelect(sourceValue)}
+              </Box>
+              <Select
+                data={dataTypes}
+                placeholder={'Select data...'}
+                value={dataType}
+                onChange={(e) => {
+                  setDataType(e);
+                  setNewData(e, 'data');
+                }}
+                disabled={!sourceValue}
+              />
+              <Select
+                data={operators}
+                placeholder={'Select operator...'}
+                value={operatorValue}
+                onChange={(e) => {
+                  setOperatorValue(e);
+                  setNewData(e, 'operator');
+                }}
+                disabled={!dataType}
+              />
+              {dataType === 'gpa' || dataType === 'grade' ? (
+                <Select
+                  data={grades}
+                  placeholder={'Select grade...'}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              ) : operatorValue === 'contains' ? (
+                <TextInput
+                  placeholder={'Enter value...'}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              ) : (
+                <NumberInput
+                  placeholder={'Enter value...'}
+                  defaultValue={0}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              )}
+            </Stack>
+            <Menu
+              items={[
+                { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeCondition },
+                { children: 'Duplicate', icon: <DuplicateIcon />, onClick: duplicateCondition },
+                {
+                  children: 'Turn into group',
+                  icon: <SwitchHorizontalIcon />,
+                  onClick: turnToGroup,
+                },
+              ]}
             />
-            {sourceValue && getSourceSelect(sourceValue)}
           </Box>
-          <Select
-            data={dataTypes}
-            placeholder={'Select data...'}
-            value={dataType}
-            onChange={(e) => {
-              setDataType(e);
-              setNewData(e, 'data');
-            }}
-            disabled={!sourceValue}
-          />
-          <Select
-            data={operators}
-            placeholder={'Select operator...'}
-            value={operatorValue}
-            onChange={(e) => {
-              setOperatorValue(e);
-              setNewData(e, 'operator');
-            }}
-            disabled={!dataType}
-          />
-          {dataType === 'gpa' || dataType === 'grade' ? (
-            <Select
-              data={grades}
-              placeholder={'Select grade...'}
-              value={targetValue}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          ) : operatorValue === 'contains' ? (
-            <TextInput
-              placeholder={'Enter value...'}
-              value={targetValue}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          ) : (
-            <NumberInput
-              placeholder={'Enter value...'}
-              defaultValue={0}
-              value={targetValue}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          )}
-          <Menu
-            items={[
-              { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeCondition },
-              { children: 'Duplicate', icon: <DeleteBinIcon />, onClick: duplicateCondition },
-              { children: 'Turn into group', icon: <DeleteBinIcon />, onClick: turnToGroup },
-            ]}
-          />
-        </Box>
+        </Paper>
       )}
     </Draggable>
   );

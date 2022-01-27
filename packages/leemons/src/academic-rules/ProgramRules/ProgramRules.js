@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ProgramRulesStyles } from './ProgramRules.styles';
 import { RuleGroup } from '../RuleGroup';
 import { v4 as uuidv4 } from 'uuid';
-import { Box, Stack, Button, Select, TextInput } from '@bubbles-ui/components';
+import { Paper, Box, Stack, Button, Select, TextInput } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
@@ -107,28 +107,30 @@ const ProgramRules = ({
           }}
         />
       </Stack>
-      <RuleGroup
-        program={program}
-        grades={grades}
-        sources={sources}
-        courses={courses}
-        knowledges={knowledges}
-        subjects={subjects}
-        subjectTypes={subjectTypes}
-        subjectGroups={subjectGroups}
-        dataTypes={dataTypes}
-        operators={operators}
-        externalOperator={logicOperator}
-        setExternalOperator={setLogicOperator}
-        group={data.group}
-        data={data}
-        setData={setData}
-        edited={edited}
-        setEdited={setEdited}
-        error={error}
-        setError={setError}
-        errorMessage={errorMessage}
-      />
+      <Paper fullWidth padding={3}>
+        <RuleGroup
+          program={program}
+          grades={grades}
+          sources={sources}
+          courses={courses}
+          knowledges={knowledges}
+          subjects={subjects}
+          subjectTypes={subjectTypes}
+          subjectGroups={subjectGroups}
+          dataTypes={dataTypes}
+          operators={operators}
+          externalOperator={logicOperator}
+          setExternalOperator={setLogicOperator}
+          group={data.group}
+          data={data}
+          setData={setData}
+          edited={edited}
+          setEdited={setEdited}
+          error={error}
+          setError={setError}
+          errorMessage={errorMessage}
+        />
+      </Paper>
     </Box>
   );
 };
