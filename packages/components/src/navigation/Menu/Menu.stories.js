@@ -26,7 +26,7 @@ export default {
 
 const Template = ({ children, ...props }) => {
   return (
-    <Stack fullWidth style={{ height: '100vh' }} alignItems={'center'} justifyContent={'center'}>
+    <Stack fullWidth style={{ height: '300px', marginLeft: '200px' }} alignItems={'center'}>
       <Menu {...props}>{children}</Menu>
     </Stack>
   );

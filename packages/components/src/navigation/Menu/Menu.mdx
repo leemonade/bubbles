@@ -1,7 +1,7 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Menu.stories.js';
 import { Menu } from './Menu.js';
-import { Box } from '@mantine/core';
+import { Box, Group } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # Menu
@@ -23,7 +23,181 @@ import { ThemeProvider } from './../../ThemeProvider';
 Menu is ...
 
 <ThemeProvider>
-  <Menu>Menu</Menu>
+  <Menu
+    items={[
+      {
+        icon: <StarIcon />,
+        children: 'Item 1',
+        onClick: () => alert('Item 1 clicked'),
+      },
+      {
+        icon: <DeleteBinIcon />,
+        children: 'Item 2',
+        onClick: () => alert('Item 1 clicked'),
+      },
+      {
+        icon: <FlagIcon />,
+        children: 'Item 3',
+        onClick: () => alert('Item 3 clicked'),
+      },
+    ]}
+  />
+</ThemeProvider>
+
+## Menu positions
+
+You can change the position of the menu dropdown to bottom, top, left or right.
+
+<ThemeProvider>
+  <Group position="apart">
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+      position="top"
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+      position="left"
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+      position="right"
+    />
+  </Group>
+</ThemeProvider>
+
+## Menu placement
+
+You can also change the placement of the menu to start, center or end
+
+<ThemeProvider>
+  <Group position="apart">
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+      placement="start"
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <FlagIcon />,
+          children: 'Item 3',
+          onClick: () => alert('Item 3 clicked'),
+        },
+      ]}
+      placement="end"
+    />
+  </Group>
 </ThemeProvider>
 
 ## Component API
