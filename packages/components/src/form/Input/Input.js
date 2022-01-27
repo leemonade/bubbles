@@ -4,13 +4,18 @@ import { InputStyles } from './Input.styles';
 
 export const INPUT_SIZES = ['xs', 'sm'];
 export const Input = forwardRef(
-  ({ radius, variant, icon, rightSection = null, size: sizeProp = 'sm', ...props }, ref) => {
+  (
+    { radius, variant, icon, rightSection = null, size: sizeProp = 'sm', className, ...props },
+    ref
+  ) => {
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes } = InputStyles({ size });
+    const { classes, cx } = InputStyles({ size });
 
     return (
       <MantineInput
         {...props}
+        icon={icon}
+        variant={variant}
         ref={ref}
         size={size}
         rightSection={rightSection}
