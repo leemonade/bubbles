@@ -22,5 +22,6 @@ export * from './Textarea';
 export * from './Checkbox';
 export * from './Button';
 export * from './Select';
+export * from './MultiSelect';
 export * from './Switch';
 export * from './Input';

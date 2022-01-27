@@ -53,8 +53,9 @@ const SetupSubjects = ({
     allSubjectsSameDuration: false,
     maxKnowledgeAbbreviation: 0,
     maxKnowledgeAbbreviationIsOnlyNumbers: false,
-    subjectsFirstDigit: firstDigitOptions[0],
+    subjectsFirstDigit: firstDigitOptions[0]?.value,
     subjectsDigits: 0,
+    customSubstages: [],
     ...sharedData,
   };
 
@@ -63,6 +64,7 @@ const SetupSubjects = ({
   const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(
     defaultValues.allSubjectsSameDuration
   );
+  const [customSubstages, setCustomSubstages] = useState(defaultValues.customSubstages);
 
   const { classes, cx } = SetupSubjectsStyles({});
 
@@ -72,7 +74,7 @@ const SetupSubjects = ({
     const numberOfCourses = sharedData?.maxNumberOfCourses;
 
     for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
-      const firstNumber = subjectsFirstDigit === firstDigitOptions[0] ? currentNumber : '';
+      const firstNumber = subjectsFirstDigit === firstDigitOptions[0]?.value ? currentNumber : '';
       subjectsID.push(
         <Box key={`k-${currentNumber}`} className={classes.subjectID}>
           <Text size="md">{`${firstNumber}${'0'.repeat(
@@ -94,8 +96,9 @@ const SetupSubjects = ({
   } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e, customSubstages };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (
@@ -151,11 +154,12 @@ const SetupSubjects = ({
                   valueRender: (value) => find(frequencyOptions, { value })['label'],
                 },
               ]}
-              data={[]}
+              data={customSubstages}
               labels={{
                 add: labels.buttonAdd,
                 remove: labels.buttonRemove,
               }}
+              onChangeData={(val) => setCustomSubstages(val)}
             />
           )}
         </ContextContainer>

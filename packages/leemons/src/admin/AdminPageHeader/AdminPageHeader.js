@@ -190,7 +190,7 @@ const AdminPageHeader = ({
               {/* Header */}
               {!editMode && values && values.title && (
                 <ContentLegible>
-                  <Title order={2}>{values.title}</Title>
+                  <Title order={1}>{values.title}</Title>
                 </ContentLegible>
               )}
               {editMode && (

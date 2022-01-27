@@ -49,6 +49,7 @@ const TextInput = forwardRef(
       defaultValue,
       disabled,
       readOnly,
+      className,
       maxLength,
       ...props
     },
@@ -73,6 +74,7 @@ const TextInput = forwardRef(
             placeholder={placeholder}
             rightSection={rightSection}
             invalid={!isEmpty(error)}
+            className={className}
             maxLength={maxLength}
           />
         )}
