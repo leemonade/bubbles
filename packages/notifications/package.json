@@ -1,6 +1,6 @@
 {
-  "name": "@bubbles-ui/leemons",
-  "version": "1.0.2",
+  "name": "@bubbles-ui/notifications",
+  "version": "1.0.0",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/leemonade/bubbles.git",
-    "directory": "packages/leemons"
+    "directory": "packages/notifications"
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
@@ -19,10 +19,9 @@
   "keywords": [
     "react",
     "bubbles",
-    "bubbles-leemons",
-    "leemons",
+    "bubbles-notifications",
     "bubbles-design-system",
-    "leemons"
+    "notifications"
   ],
   "publishConfig": {
     "access": "public",
@@ -33,27 +32,20 @@
     "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9003",
+    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9004",
     "clean": "rimraf es lib umd storybook-static build"
   },
   "dependencies": {
-    "@leemonade/rjsf-core": "^3.0.0",
-    "@rjsf/core": "^3.2.1",
-    "immutability-helper": "^3.1.1",
-    "json-rules-engine-simplified": "^0.1.17",
+    "@mantine/notifications": "^3.4.3",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
-    "rjsf-conditionals": "^1.1.4",
-    "react-hook-form": "^7.22.1",
-    "react-router-dom": "^5.3.0",
-    "rrule": "^2.6.8",
-    "uuid": "^8.3.2"
+    "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
     "@bubbles-ui/components": "^1.0.21",
     "@bubbles-ui/icons": "^1.0.8",
-    "@bubbles-ui/editors": "^1.0.4",
-    "@bubbles-ui/calendars": "^1.0.2",
+    "@mantine/core": "^3.4.3",
+    "@mantine/hooks": "^3.4.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

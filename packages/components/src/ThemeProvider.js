@@ -1,9 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
-import { COLORS, FONT_SIZES, SPACING, SHADOWS, LAYOUT } from './theme.tokens';
+import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
 
-export const ThemeProvider = ({ children, theme }) => {
+const THEME_PROVIDER_PROP_TYPES = {
+  theme: PropTypes.object,
+};
+const THEME_PROVIDER_DEFAULT_PROPS = {
+  theme: {
+    colors: {
+      ...COLORS,
+    },
+    spacing: {
+      ...SPACING,
+    },
+    fontSizes: {
+      ...FONT_SIZES,
+    },
+    radius: {
+      xs: '3px',
+    },
+    breakpoints: {},
+    shadows: { ...SHADOWS },
+    // TODO HACER PROPIEDAD FILTERS
+    headings: {
+      fontFamily: "'Lexend', sans-serif",
+    },
+    primaryColor: 'bubbles',
+  },
+};
+
+const ThemeProvider = ({ children, theme }) => {
   return (
     <>
       <Helmet>
@@ -14,31 +42,12 @@ export const ThemeProvider = ({ children, theme }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <MantineProvider
-        theme={{
-          colors: {
-            ...COLORS,
-          },
-          spacing: {
-            ...SPACING,
-          },
-          fontSizes: {
-            ...FONT_SIZES,
-          },
-          radius: {
-            xs: '3px',
-          },
-          breakpoints: {},
-          shadows: { ...SHADOWS },
-          // TODO HACER PROPIEDAD FILTERS
-          headings: {
-            fontFamily: "'Lexend', sans-serif",
-          },
-          primaryColor: 'bubbles',
-        }}
-      >
-        {children}
-      </MantineProvider>
+      <MantineProvider theme={theme}>{children}</MantineProvider>
     </>
   );
 };
+
+ThemeProvider.propTypes = THEME_PROVIDER_PROP_TYPES;
+ThemeProvider.defaultProps = THEME_PROVIDER_DEFAULT_PROPS;
+
+export { ThemeProvider };
