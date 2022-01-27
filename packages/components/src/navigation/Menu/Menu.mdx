@@ -1,0 +1,48 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Menu.stories.js';
+import { Menu } from './Menu.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# Menu
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/Menu)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Menu is ...
+
+<ThemeProvider>
+  <Menu>Menu</Menu>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-navigation-menu--playground" />
+</Preview>
+
+<Props of={Menu} />
+
+## References
+
+[MDN: ARIA **Menu** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA **Menu** role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/menu/menu.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/Menu.mdx)

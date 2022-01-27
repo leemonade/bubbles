@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
-import { LOGIC_OPERATORS } from '../ProgramRules';
-import { RuleGroupStyles } from './RuleGroup.styles';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-// import { Text } from '../../../typography';
+import { Menu } from '@bubbles-ui/components/src/navigation';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { Paper, Box, Text, Button, Stack, Select } from '@bubbles-ui/components';
 import { RuleCondition } from '../RuleCondition/';
-// import { Button } from '../../../form';
-// import { Stack } from '../../../layout';
-// import { Select } from '../../../form';
-
-import { Box, Text, Button, Stack, Select } from '@bubbles-ui/components';
+import { LOGIC_OPERATORS } from '../ProgramRules';
+import { RuleGroupStyles } from './RuleGroup.styles';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -123,15 +120,14 @@ const RuleGroup = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text>Where</Text>;
+      return <Text role="productive">Where</Text>;
     }
     if (index === 1) {
       return (
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={parentOperator.value}
-          value={parentOperator}
+          value={parentOperator.value}
           onChange={(e) => {
             setParentOperator({ label: e.toUpperCase(), value: e });
             setGroupOperator(e);
@@ -139,8 +135,34 @@ const RuleGroup = ({
         />
       );
     } else {
-      return <Text>{parentOperator.label}</Text>;
+      return (
+        <Box m={10}>
+          <Text role="productive">{parentOperator.label}</Text>
+        </Box>
+      );
     }
+  };
+
+  const removeGroup = () => {
+    parentGroup.conditions.splice(index, 1);
+    setData({ ...data });
+  };
+
+  const duplicateGroup = () => {
+    parentGroup.conditions.push({
+      id: uuidv4(),
+      group: {
+        operator: group.operator,
+        conditions: group.conditions.map((condition) => ({ ...condition, id: uuidv4() })),
+      },
+    });
+    setData({ ...data });
+  };
+
+  const turnToCondition = () => {
+    parentGroup.conditions.splice(index, 1);
+    parentGroup.conditions.push(...group.conditions);
+    setData({ ...data });
   };
 
   const uuid = uuidv4();
@@ -214,11 +236,17 @@ const RuleGroup = ({
         </Droppable>
       </DragDropContext>
       <Stack direction={'column'} alignItems={'start'}>
-        <Button variant={'link'} onClick={addCondition}>
-          Add new rule
+        <Button
+          variant="light"
+          compact
+          size="xs"
+          leftIcon={<AddCircleIcon />}
+          onClick={addCondition}
+        >
+          New rule
         </Button>
-        <Button variant={'link'} onClick={addGroup}>
-          Add new rule group
+        <Button variant="light" compact size="xs" leftIcon={<AddCircleIcon />} onClick={addGroup}>
+          New rule group
         </Button>
       </Stack>
     </Box>
@@ -229,7 +257,20 @@ const RuleGroup = ({
         <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <Box className={classes.ruleGroup}>
             {<Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>}
-            <Box className={className}>{ruleGroup}</Box>
+            <Paper fullWidth className={className} padding={3}>
+              {ruleGroup}
+            </Paper>
+            <Menu
+              items={[
+                { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeGroup },
+                { children: 'Duplicate', icon: <DuplicateIcon />, onClick: duplicateGroup },
+                {
+                  children: 'Turn into condition/s',
+                  icon: <SwitchHorizontalIcon />,
+                  onClick: turnToCondition,
+                },
+              ]}
+            />
           </Box>
         </Box>
       )}

@@ -45,51 +45,51 @@ Playground.args = {
   grades: [
     {
       label: 'A (4.0)',
-      value: 4,
+      value: '4',
     },
     {
       label: 'A- (3.66)',
-      value: 3.6,
+      value: '3.6',
     },
     {
       label: 'B+ (3.33)',
-      value: 3.33,
+      value: '3.33',
     },
     {
       label: 'B (3.0)',
-      value: 3,
+      value: '3',
     },
     {
       label: 'B- (2.66)',
-      value: 2.66,
+      value: '2.66',
     },
     {
       label: 'C+ (2.33)',
-      value: 2.33,
+      value: '2.33',
     },
     {
       label: 'C (2.0)',
-      value: 2,
+      value: '2',
     },
     {
       label: 'C- (1.66)',
-      value: 1.66,
+      value: '1.66',
     },
     {
       label: 'D+ (1.33)',
-      value: 1.33,
+      value: '1.33',
     },
     {
       label: 'D (1.0)',
-      value: 1,
+      value: '1,',
     },
     {
       label: 'D- (0.66)',
-      value: 0.66,
+      value: '0.66',
     },
     {
       label: 'F (0.33)',
-      value: 0.33,
+      value: '0.33',
     },
   ],
   gradeSystems: [
