@@ -12,6 +12,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       borderColor: theme.colors.interactive03h,
       padding: 0,
       overflow: 'hidden',
+      whiteSpace: 'normal',
     },
     title: {
       ...getFontProductive(theme.fontSizes[2], 500),

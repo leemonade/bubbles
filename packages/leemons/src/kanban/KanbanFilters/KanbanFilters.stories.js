@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
-import { KanbanFilters, KANBAN_FILTERS_DEFAULT_PROPS } from './KanbanFilters';
+import { KANBAN_FILTERS_DEFAULT_PROPS, KanbanFilters } from './KanbanFilters';
 import mdx from './KanbanFilters.mdx';
 
 export default {
-  title: 'Organisms/Calendar/KanbanFilters',
+  title: 'Leemons/Kanban/KanbanFilters',
   parameters: {
     component: KanbanFilters,
     docs: {
@@ -22,7 +21,21 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <KanbanFilters {...props}>{children}</KanbanFilters>;
+  return (
+    <KanbanFilters
+      {...props}
+      data={{
+        calendars: [
+          {
+            value: 1,
+            label: 'Calendario 1',
+          },
+        ],
+      }}
+    >
+      {children}
+    </KanbanFilters>
+  );
 };
 
 export const Playground = Template.bind({});

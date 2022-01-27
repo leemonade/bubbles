@@ -2,12 +2,12 @@ import React from 'react';
 import { Box } from '@mantine/core';
 import {
   Stack,
+  STACK_ALIGN_CONTENT,
+  STACK_ALIGN_ITEMS,
   STACK_DEFAULT_PROPS,
   STACK_DIRECTIONS,
-  STACK_WRAP,
-  STACK_ALIGN_CONTENT,
   STACK_JUSTIFY_CONTENT,
-  STACK_ALIGN_ITEMS,
+  STACK_WRAP,
 } from './Stack';
 import mdx from './Stack.mdx';
 

@@ -5,8 +5,10 @@ export const KanbanStyles = createStyles((theme, {}) => {
   return {
     root: {
       backgroundColor: theme.colors.uiBackground02,
-      overflowX: 'auto',
+      overflow: 'auto',
       whiteSpace: 'nowrap',
+      height: '100%',
+      maxHeight: '100%',
     },
     column: {
       display: 'inline-flex',

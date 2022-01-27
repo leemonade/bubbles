@@ -4,7 +4,9 @@ import { Avatar, Box, ImageLoader, Paper, Paragraph, Text } from '@bubbles-ui/co
 import { filter, find } from 'lodash';
 import dayjs from 'dayjs';
 
-export const KANBAN_TASK_CARD_DEFAULT_PROPS = {};
+export const KANBAN_TASK_CARD_DEFAULT_PROPS = {
+  onClick: () => {},
+};
 export const KANBAN_TASK_CARD_PROP_TYPES = {};
 
 const ProgressBar = ({ value }) => {
@@ -19,7 +21,7 @@ const ProgressBar = ({ value }) => {
   );
 };
 
-const KanbanTaskCard = ({ value, config, ...props }) => {
+const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
   const calendar = find(config.calendars, { id: value.calendar });
   if (!calendar) return null;
 
@@ -31,7 +33,7 @@ const KanbanTaskCard = ({ value, config, ...props }) => {
       const completed = filter(value.data.subtask, { checked: true }).length;
       return (completed / total) * 100;
     }
-    return 33;
+    return null;
   }, [value]);
 
   const getInitials = () => {
@@ -51,13 +53,13 @@ const KanbanTaskCard = ({ value, config, ...props }) => {
   };
 
   return (
-    <Paper shadow="none" className={classes.root}>
+    <Paper shadow="none" className={classes.root} onClick={() => onClick(value)}>
       <Box className={classes.topSection}>
         <Box className={classes.title}>
           <Text>{value.title}</Text>
         </Box>
         <Box>
-          <Text size="xs">{dayjs(value.endAt).format('DD/MM/YYYY')}</Text>
+          <Text size="xs">{dayjs(value.startDate).format('DD/MM/YYYY')}</Text>
         </Box>
       </Box>
       <Box className={classes.bottomSection}>
