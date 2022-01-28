@@ -2,7 +2,7 @@ import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
-import { isFunction, isNil, isString, isEmpty } from 'lodash';
+import { isEmpty, isFunction, isNil, isString } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
@@ -25,6 +25,7 @@ const Select = forwardRef(
       defaultValue,
       name,
       data,
+      icon,
       disabled,
       searchable,
       nothingFound,
@@ -57,7 +58,7 @@ const Select = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = SelectStyles({ size });
+    const { classes, cx } = SelectStyles({ size }, { name: 'Select' });
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
@@ -89,6 +90,7 @@ const Select = forwardRef(
           }
           className={className}
           classNames={classes}
+          icon={icon}
           error={!isEmpty(error)}
         />
       </InputWrapper>

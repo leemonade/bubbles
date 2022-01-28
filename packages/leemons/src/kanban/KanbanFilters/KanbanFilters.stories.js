@@ -1,12 +1,11 @@
 import React from 'react';
-import { KANBAN_TASK_CARD_DEFAULT_PROPS, KanbanTaskCard } from './KanbanTaskCard';
-import mdx from './KanbanTaskCard.mdx';
-import { mock } from './mock/mock';
+import { KANBAN_FILTERS_DEFAULT_PROPS, KanbanFilters } from './KanbanFilters';
+import mdx from './KanbanFilters.mdx';
 
 export default {
-  title: 'Leemons/Kanban/KanbanTaskCard',
+  title: 'Leemons/Kanban/KanbanFilters',
   parameters: {
-    component: KanbanTaskCard,
+    component: KanbanFilters,
     docs: {
       page: mdx,
     },
@@ -23,9 +22,19 @@ export default {
 
 const Template = ({ children, ...props }) => {
   return (
-    <KanbanTaskCard {...props} config={mock}>
+    <KanbanFilters
+      {...props}
+      data={{
+        calendars: [
+          {
+            value: 1,
+            label: 'Calendario 1',
+          },
+        ],
+      }}
+    >
       {children}
-    </KanbanTaskCard>
+    </KanbanFilters>
   );
 };
 
@@ -34,5 +43,5 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
-  ...KANBAN_TASK_CARD_DEFAULT_PROPS,
+  ...KANBAN_FILTERS_DEFAULT_PROPS,
 };

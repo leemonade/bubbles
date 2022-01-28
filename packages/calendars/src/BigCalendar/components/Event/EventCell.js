@@ -39,8 +39,11 @@ class EventCell extends React.Component {
 
     const userProps = getters.eventProp(event, start, end, selected);
 
-    userProps.style = { ...userProps.style, backgroundColor: originalEvent.calendar.bgColor };
-    const eventIcon = originalEvent.calendar.icon;
+    userProps.style = {
+      ...userProps.style,
+      backgroundColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    };
+    const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
 
     const content = (
       <Box
