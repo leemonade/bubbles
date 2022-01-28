@@ -164,7 +164,7 @@ class DateContentRow extends React.Component {
     };
 
     return (
-      <Box className={className} role="rowgroup">
+      <Box className={className} style={{ background: '#F7F8FA' }} role="rowgroup">
         {/* BACKGROUND ················································· */}
         <BackgroundCells
           localizer={localizer}

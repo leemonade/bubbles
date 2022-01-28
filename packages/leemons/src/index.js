@@ -8,3 +8,4 @@ export * from './common';
 export * from './kanban';
 export * from './admin';
 export * from './users';
+export * from 'colord';

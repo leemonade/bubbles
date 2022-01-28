@@ -25,7 +25,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
   const calendar = find(config.calendars, { id: value.calendar });
   if (!calendar) return null;
 
-  const { classes, cx } = KanbanTaskCardStyles({ bgColor: calendar.bgColor });
+  const { classes, cx } = KanbanTaskCardStyles({ bgColor: value.bgColor || calendar.bgColor });
 
   const percentaje = useMemo(() => {
     if (value.data && value.data.subtask) {
