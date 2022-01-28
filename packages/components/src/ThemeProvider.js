@@ -20,6 +20,7 @@ const THEME_PROVIDER_DEFAULT_PROPS = {
     },
     radius: {
       xs: '3px',
+      sm: '4px',
     },
     breakpoints: {},
     shadows: { ...SHADOWS },

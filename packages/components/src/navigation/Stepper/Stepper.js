@@ -19,7 +19,10 @@ export const STEPPER_PROP_TYPES = {
 };
 
 const Stepper = forwardRef(
-  ({ title, buttonLabel, data, onNext, onPrev, sharedData, setSharedData, ...props }, ref) => {
+  (
+    { title, buttonLabel, data, editable, onNext, onPrev, sharedData, setSharedData, ...props },
+    ref
+  ) => {
     const { classes, cx } = StepperStyles({}, { name: 'Stepper' });
 
     const [active, setActive] = useState(props.active || 0);
@@ -34,7 +37,7 @@ const Stepper = forwardRef(
     };
 
     return (
-      <MantineStepper active={active} {...props} ref={ref} classNames={classes}>
+      <MantineStepper {...props} ref={ref} active={active} classNames={classes}>
         {data.map((item, index) => (
           <MantineStepper.Step
             key={index}
@@ -48,6 +51,7 @@ const Stepper = forwardRef(
               onPrevious: () => handlePrevStep(index - 1),
               setSharedData,
               sharedData,
+              editable,
             })}
           </MantineStepper.Step>
         ))}

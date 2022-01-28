@@ -19,6 +19,7 @@ const TableInputRow = ({
   totalRows,
   sortable,
   editable,
+  disabled,
   editing: _editing,
   onEditing,
   onEdit,
@@ -150,11 +151,13 @@ const TableInputRow = ({
                       onClick={initEditing}
                     />
                   )}
-                  <ActionButton
-                    icon={<DeleteBinIcon />}
-                    tooltip={labels.remove || 'Remove'}
-                    onClick={() => onRemove(index)}
-                  />
+                  {!disabled && (
+                    <ActionButton
+                      icon={<DeleteBinIcon />}
+                      tooltip={labels.remove || 'Remove'}
+                      onClick={() => onRemove(index)}
+                    />
+                  )}
                 </>
               )}
             </td>
