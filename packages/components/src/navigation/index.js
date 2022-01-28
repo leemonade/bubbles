@@ -5,3 +5,4 @@ export * from './Anchor';
 export * from './Tree';
 export * from './Tabs';
 export * from './Stepper';
+export * from './Menu';
