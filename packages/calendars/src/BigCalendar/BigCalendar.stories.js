@@ -48,7 +48,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   events: EVENTS,
-  currentView: BIGCALENDAR_VIEWS[1],
+  currentView: BIGCALENDAR_VIEWS[0],
   locale: 'es-ES',
   defaultDate: EVENTS[1].start,
 };

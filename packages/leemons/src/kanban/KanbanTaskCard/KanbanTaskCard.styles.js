@@ -25,7 +25,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
     bottomSection: {
       padding: theme.spacing[4],
       backgroundColor:
-        colord(bgColor).desaturate(0.3).alpha(0.7).toRgbString() || theme.colors.uiBackground04,
+        colord(bgColor).desaturate(0.2).alpha(0.7).toRgbString() || theme.colors.uiBackground04,
     },
     avatar: {
       display: 'flex',

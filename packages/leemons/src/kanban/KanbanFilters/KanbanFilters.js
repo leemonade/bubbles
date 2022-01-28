@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Select, Stack, Switch, Text, Title } from '@bubbles-ui/components';
+import { Box, IconButton, MultiSelect, Stack, Switch, Text, Title } from '@bubbles-ui/components';
 import { ExcludeIcon } from '@bubbles-ui/icons/solid';
 import { AddIcon as PlusIcon, PluginSubjectsIcon } from '@bubbles-ui/icons/outline';
 import { KanbanFiltersStyles } from './KanbanFilters.styles';
@@ -33,7 +33,7 @@ const KanbanFilters = ({ value, data, messages, onChange, addEventClick, ...prop
       </Stack>
       <Stack alignItems="center">
         <Text>{messages.filter}</Text>
-        <Select
+        <MultiSelect
           value={value.calendars}
           data={data.calendars}
           className={classes.select}
