@@ -16,6 +16,7 @@ export default {
     },
   },
   argTypes: {
+    onChange: { action: 'onChange' },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
     orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
@@ -32,6 +33,13 @@ Playground.args = {
   ...SCHEDULE_PICKER_DEFAULT_PROPS,
   labels: {
     inputWrapper: 'Class schedule',
+    checkboxLabel: 'Same time slot for each class',
+    groupLabel: 'Días de clase',
+    schedule: 'Horario',
+    divider: 'a',
+  },
+  errorMessages: {
+    invalidSchedule: 'La duracion de la clase tiene que ser mayor a 0',
   },
   helps: {
     inputWrapper: 'Select the class schedule',

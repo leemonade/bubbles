@@ -17,7 +17,21 @@ export const TIME_INPUT_PROP_TYPES = {
 };
 
 const TimeInput = forwardRef(
-  ({ size, error, label, description, orientation, required, help, ...props }, ref) => {
+  (
+    {
+      size,
+      error,
+      label,
+      description,
+      orientation,
+      required,
+      help,
+      headerStyle,
+      contentStyle,
+      ...props
+    },
+    ref
+  ) => {
     const { classes, cx } = TimeInputStyles({ size }, { name: 'TimeInput' });
 
     const uuid = useId();
@@ -32,6 +46,8 @@ const TimeInput = forwardRef(
         orientation={orientation}
         required={required}
         help={help}
+        headerStyle={headerStyle}
+        contentStyle={contentStyle}
       >
         <MantineTimeInput
           {...props}

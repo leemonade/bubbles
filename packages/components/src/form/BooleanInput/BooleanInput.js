@@ -22,7 +22,7 @@ export const BOOLEAN_INPUT_PROP_TYPES = {
   indeterminate: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.any,
   label: PropTypes.string,
   help: PropTypes.string,
   checked: PropTypes.bool,
