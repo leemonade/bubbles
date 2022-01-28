@@ -64,7 +64,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
       </Box>
       <Box className={classes.bottomSection}>
         {value.data && value.data.description ? (
-          <Box sx={(theme) => ({ marginBottom: theme.spacing[4] })}>{value.data.description}</Box>
+          <Box className={classes.description}>{value.data.description}</Box>
         ) : null}
         <Box className={classes.avatar}>
           <Avatar mx="auto" size="xs" {...avatar} />

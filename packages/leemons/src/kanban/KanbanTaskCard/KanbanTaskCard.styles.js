@@ -50,5 +50,12 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       height: '100%',
       backgroundColor: theme.colors.uiBackground03,
     },
+    description: {
+      display: '-webkit-box',
+      '-webkit-line-clamp': '4',
+      '-webkit-box-orient': 'vertical',
+      overflow: 'hidden',
+      marginBottom: theme.spacing[4],
+    },
   };
 });
