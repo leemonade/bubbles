@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ScheduleFormStyles } from './ScheduleForm.styles';
 import {
@@ -22,19 +22,22 @@ const ScheduleForm = ({
   localeWeekdays,
   setOpenForm,
   onChange,
+  savedSchedule,
+  oneScheduleOnly,
+  setOneScheduleOnly,
   ...props
 }) => {
   const { classes, cx } = ScheduleFormStyles({});
 
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-  const [selectedDays, setSelectedDays] = React.useState([]);
-  const [oneScheduleOnly, setOneScheduleOnly] = React.useState(true);
-  const [oneDayOnlyValue, setOneDayOnlyValue] = React.useState({
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
     start: new Date(),
     end: new Date(),
+    error: false,
   });
-  const [schedule, setSchedule] = React.useState([]);
+  const [schedule, setSchedule] = useState([]);
 
   const dateToHoursAndMinutes = (date) => {
     return date.toLocaleTimeString(navigator.language, {
@@ -61,10 +64,13 @@ const ScheduleForm = ({
     let isValid = true;
     const errorPositions = [];
     schedule.forEach((day, index) => {
-      if (day.duration < 0) {
+      if (day.duration <= 0) {
         isValid = false;
-        errorPositions.push(index);
-        return;
+        if (oneScheduleOnly) {
+          oneDayOnlyValue.error = true;
+        } else {
+          errorPositions.push(index);
+        }
       }
     });
     for (const position of errorPositions) {
@@ -89,8 +95,8 @@ const ScheduleForm = ({
     setSelectedDays(
       selectedDays.map((day) => ({
         ...day,
-        start: oneDayOnlyValue.start,
-        end: oneDayOnlyValue.end,
+        start: day.start || oneDayOnlyValue.start,
+        end: day.end || oneDayOnlyValue.end,
       }))
     );
   }, [oneScheduleOnly]);
@@ -99,7 +105,18 @@ const ScheduleForm = ({
     oneScheduleOnly
       ? setSchedule(selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue)))
       : setSchedule(selectedDays.map((day) => dayToSchedule(day, day)));
-  }, [selectedDays, oneScheduleOnly, oneDayOnlyValue]);
+  }, [selectedDays, oneDayOnlyValue]);
+
+  useEffect(() => {
+    setSelectedDays(
+      savedSchedule.map((day) => ({
+        start: new Date(`01/01/1970 ${day.start}`),
+        end: new Date(`01/01/1970 ${day.end}`),
+        error: false,
+        index: day.dayWeek,
+      }))
+    );
+  }, [savedSchedule]);
 
   return (
     <Box>
@@ -108,15 +125,23 @@ const ScheduleForm = ({
           label={labels.groupLabel}
           orientation={'horizontal'}
           variant={'boxed'}
-          data={localeWeekdays}
-          value={selectedDays}
+          data={localeWeekdays.map((day, index) => ({
+            ...day,
+            checked: savedSchedule.some((savedDay) => savedDay.dayWeek === index),
+          }))}
           onChange={(e) => {
-            const orderedDays = e.map((day) => ({
-              ...day,
-              start: oneDayOnlyValue.start,
-              end: oneDayOnlyValue.end,
-              error: false,
-            }));
+            const orderedDays = e.map((day) => {
+              return {
+                ...day,
+                start:
+                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.start ||
+                  oneDayOnlyValue.start,
+                end:
+                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.end ||
+                  oneDayOnlyValue.end,
+                error: false,
+              };
+            });
             orderedDays.sort(compareWeekdays);
             setSelectedDays([...orderedDays]);
           }}
@@ -155,6 +180,9 @@ const ScheduleForm = ({
                 })
               }
             />
+            <Text className={classes.error}>
+              {oneDayOnlyValue.error && errorMessages.invalidSchedule}
+            </Text>
           </Box>
         ) : (
           selectedDays.map((day, index) => (

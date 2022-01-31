@@ -53,6 +53,7 @@ const SchedulePicker = ({
   const [openForm, setOpenForm] = useState(false);
   const [localeWeekdays, setlocaleWeekdays] = useState([]);
   const [schedule, setSchedule] = useState([]);
+  const [oneScheduleOnly, setOneScheduleOnly] = useState(true);
   const inputRef = useRef(null);
   let orderedWeekdays = [];
 
@@ -65,7 +66,7 @@ const SchedulePicker = ({
         orderedWeekdays.map((day, index) => {
           let dayLabel = day.substring(0, 2);
           dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
-          return { label: dayLabel, value: { index, start: '', end: '' }, day: day };
+          return { label: dayLabel, value: { index }, day: day };
         })
       );
     });
@@ -145,6 +146,9 @@ const SchedulePicker = ({
           localeWeekdays={localeWeekdays}
           setOpenForm={setOpenForm}
           onChange={setSchedule}
+          savedSchedule={schedule}
+          oneScheduleOnly={oneScheduleOnly}
+          setOneScheduleOnly={setOneScheduleOnly}
         />
       </Popover>
     </InputWrapper>
