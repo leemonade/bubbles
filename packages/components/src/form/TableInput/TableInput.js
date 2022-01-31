@@ -26,7 +26,7 @@ function deserializeData(data) {
 // ----------------------------------------------------------------
 // COMPONENT
 
-const TableInput = ({ data, onChangeData, ...props }) => {
+const TableInput = ({ data, onChange, onChangeData, ...props }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const TableInput = ({ data, onChangeData, ...props }) => {
   const handleOnChange = (newData) => {
     setTableData(newData);
     if (isFunction(onChangeData)) onChangeData(deserializeData(newData));
+    if (isFunction(onChange)) onChange(deserializeData(newData));
   };
 
   const handleOnAdd = (item) => {
