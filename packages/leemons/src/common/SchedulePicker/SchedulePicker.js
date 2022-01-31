@@ -45,6 +45,7 @@ const SchedulePicker = ({
   helps,
   errorMessages,
   locale,
+  value,
   onChange,
   ...props
 }) => {
@@ -52,8 +53,13 @@ const SchedulePicker = ({
 
   const [openForm, setOpenForm] = useState(false);
   const [localeWeekdays, setlocaleWeekdays] = useState([]);
-  const [schedule, setSchedule] = useState([]);
+  const [schedule, setSchedule] = useState(value || { days: [] });
   const [oneScheduleOnly, setOneScheduleOnly] = useState(true);
+  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
+    start: new Date(),
+    end: new Date(),
+    error: false,
+  });
   const inputRef = useRef(null);
   let orderedWeekdays = [];
 
@@ -74,7 +80,7 @@ const SchedulePicker = ({
 
   const handleOnChange = useCallback(
     (schedule) => {
-      if (schedule.length === 0) return;
+      if (schedule.days.length === 0) return;
       isFunction(onChange) && onChange(schedule);
     },
     [onChange, schedule]
@@ -112,16 +118,17 @@ const SchedulePicker = ({
           >
             <Box className={classes.wrapper}>
               <Box className={classes.values}>
-                {schedule.map((day) => (
+                {schedule.days.map((day) => (
                   <Badge
                     key={day.dayWeek}
                     label={`${localeWeekdays[day.dayWeek].label} (${day.start} - ${day.end})`}
                     onClose={() => {
-                      setSchedule(
-                        schedule.filter((item) => {
+                      setSchedule({
+                        ...schedule,
+                        days: schedule.days.filter((item) => {
                           return item.dayWeek !== day.dayWeek;
-                        })
-                      );
+                        }),
+                      });
                     }}
                   />
                 ))}
@@ -129,7 +136,7 @@ const SchedulePicker = ({
               <input
                 ref={inputRef}
                 className={classes.input}
-                placeholder={schedule.length === 0 ? placeholders.input : undefined}
+                placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
               />
             </Box>
           </Input>
@@ -141,14 +148,26 @@ const SchedulePicker = ({
             checkboxLabel: labels.checkboxLabel,
             schedule: labels.schedule,
             divider: labels.divider,
+            useCustomDates: labels.useCustomDates,
+            startDate: labels.startDate,
+            endDate: labels.endDate,
           }}
-          errorMessages={{ invalidSchedule: errorMessages.invalidSchedule }}
+          placeholders={{
+            startDate: placeholders.startDate,
+            endDate: placeholders.endDate,
+          }}
+          errorMessages={{
+            invalidSchedule: errorMessages.invalidSchedule,
+            invalidDates: errorMessages.invalidDates,
+          }}
           localeWeekdays={localeWeekdays}
           setOpenForm={setOpenForm}
           onChange={setSchedule}
           savedSchedule={schedule}
           oneScheduleOnly={oneScheduleOnly}
           setOneScheduleOnly={setOneScheduleOnly}
+          oneDayOnlyValue={oneDayOnlyValue}
+          setOneDayOnlyValue={setOneDayOnlyValue}
         />
       </Popover>
     </InputWrapper>

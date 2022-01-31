@@ -37,14 +37,20 @@ Playground.args = {
     groupLabel: 'Días de clase',
     schedule: 'Horario',
     divider: 'a',
+    useCustomDates: 'Use custom dates',
+    startDate: 'Start date',
+    endDate: 'End date',
   },
   errorMessages: {
     invalidSchedule: 'La duracion de la clase tiene que ser mayor a 0',
+    invalidDates: 'La fecha de inicio debe ser menor a la fecha de fin',
   },
   helps: {
     inputWrapper: 'Select the class schedule',
   },
   placeholders: {
     input: 'Select a class schedule',
+    startDate: 'Please select a start date',
+    endDate: 'Please select an end date',
   },
 };

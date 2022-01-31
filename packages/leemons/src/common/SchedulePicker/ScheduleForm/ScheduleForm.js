@@ -9,6 +9,8 @@ import {
   Checkbox,
   Button,
   Text,
+  Switch,
+  DatePicker,
 } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 import { useEffect } from 'react';
@@ -18,6 +20,7 @@ export const SCHEDULE_FORM_PROP_TYPES = {};
 
 const ScheduleForm = ({
   labels,
+  placeholders,
   errorMessages,
   localeWeekdays,
   setOpenForm,
@@ -25,6 +28,8 @@ const ScheduleForm = ({
   savedSchedule,
   oneScheduleOnly,
   setOneScheduleOnly,
+  oneDayOnlyValue,
+  setOneDayOnlyValue,
   ...props
 }) => {
   const { classes, cx } = ScheduleFormStyles({});
@@ -32,12 +37,11 @@ const ScheduleForm = ({
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
   const [selectedDays, setSelectedDays] = useState([]);
-  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
-    start: new Date(),
-    end: new Date(),
-    error: false,
-  });
-  const [schedule, setSchedule] = useState([]);
+  const [useCustomDates, setUseCustomDates] = useState(savedSchedule.useCustomDates || false);
+  const [startDate, setStartDate] = useState(savedSchedule.startDate || null);
+  const [endDate, setEndDate] = useState(savedSchedule.endDate || null);
+  const [invalidDates, setInvalidDates] = useState(false);
+  const [schedule, setSchedule] = useState({ days: [] });
 
   const dateToHoursAndMinutes = (date) => {
     return date.toLocaleTimeString(navigator.language, {
@@ -63,7 +67,7 @@ const ScheduleForm = ({
   const validateSchedule = () => {
     let isValid = true;
     const errorPositions = [];
-    schedule.forEach((day, index) => {
+    schedule.days.forEach((day, index) => {
       if (day.duration <= 0) {
         isValid = false;
         if (oneScheduleOnly) {
@@ -76,13 +80,19 @@ const ScheduleForm = ({
     for (const position of errorPositions) {
       selectedDays[position].error = true;
     }
+    if (useCustomDates) {
+      if (startDate > endDate || startDate === endDate || !startDate || !endDate) {
+        isValid = false;
+        setInvalidDates(true);
+      }
+    }
     setSelectedDays([...selectedDays]);
     return isValid;
   };
 
   const handleOnChange = (sendEmpty) => {
     if (sendEmpty) {
-      isFunction(onChange) && onChange([]);
+      isFunction(onChange) && onChange({ days: [] });
       setOpenForm(false);
     } else {
       if (!validateSchedule()) return;
@@ -103,13 +113,23 @@ const ScheduleForm = ({
 
   useEffect(() => {
     oneScheduleOnly
-      ? setSchedule(selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue)))
-      : setSchedule(selectedDays.map((day) => dayToSchedule(day, day)));
-  }, [selectedDays, oneDayOnlyValue]);
+      ? setSchedule({
+          days: selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue)),
+          startDate,
+          endDate,
+          useCustomDates,
+        })
+      : setSchedule({
+          days: selectedDays.map((day) => dayToSchedule(day, day)),
+          startDate,
+          endDate,
+          useCustomDates,
+        });
+  }, [selectedDays, oneDayOnlyValue, startDate, endDate, useCustomDates]);
 
   useEffect(() => {
     setSelectedDays(
-      savedSchedule.map((day) => ({
+      savedSchedule.days.map((day) => ({
         start: new Date(`01/01/1970 ${day.start}`),
         end: new Date(`01/01/1970 ${day.end}`),
         error: false,
@@ -127,7 +147,7 @@ const ScheduleForm = ({
           variant={'boxed'}
           data={localeWeekdays.map((day, index) => ({
             ...day,
-            checked: savedSchedule.some((savedDay) => savedDay.dayWeek === index),
+            checked: savedSchedule.days.some((savedDay) => savedDay.dayWeek === index),
           }))}
           onChange={(e) => {
             const orderedDays = e.map((day) => {
@@ -211,6 +231,29 @@ const ScheduleForm = ({
               <Text className={classes.error}>{day.error && errorMessages.invalidSchedule}</Text>
             </Box>
           ))
+        )}
+        <Switch
+          label={labels.useCustomDates}
+          onChange={setUseCustomDates}
+          checked={useCustomDates}
+        />
+        {useCustomDates && (
+          <Box>
+            <DatePicker
+              label={labels.startDate}
+              placeholder={placeholders.startDate}
+              onChange={setStartDate}
+              error={invalidDates ? errorMessages.invalidDates : ''}
+              value={startDate}
+            />
+            <DatePicker
+              label={labels.endDate}
+              placeholder={placeholders.endDate}
+              onChange={setEndDate}
+              error={invalidDates ? errorMessages.invalidDates : ''}
+              value={endDate}
+            />
+          </Box>
         )}
       </Stack>
       <Stack justifyContent="space-between" fullWidth>
