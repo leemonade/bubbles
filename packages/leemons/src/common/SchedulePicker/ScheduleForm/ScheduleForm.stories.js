@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScheduleForm, SCHEDULE_FORM_DEFAULT_PROPS } from './ScheduleForm';
 import mdx from './ScheduleForm.mdx';
 
@@ -20,18 +20,53 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <ScheduleForm {...props}>{children}</ScheduleForm>;
+  const [openForm, setOpenForm] = useState(false);
+  const [oneScheduleOnly, setOneScheduleOnly] = useState(true);
+  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
+    start: new Date(),
+    end: new Date(),
+    error: false,
+  });
+  return (
+    <ScheduleForm
+      {...props}
+      setOpenForm={setOpenForm}
+      oneDayOnlyValue={oneDayOnlyValue}
+      setOneDayOnlyValue={setOneDayOnlyValue}
+      oneScheduleOnly={oneScheduleOnly}
+      setOneScheduleOnly={setOneScheduleOnly}
+    >
+      {children}
+    </ScheduleForm>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...SCHEDULE_FORM_DEFAULT_PROPS,
+  savedSchedule: {
+    useCustomDates: false,
+    startDate: null,
+    endDate: null,
+    days: [],
+  },
   labels: {
     checkboxLabel: 'Same time slot for each class',
     groupLabel: 'Días de clase',
     schedule: 'Horario',
     divider: 'a',
+    useCustomDates: 'Use custom dates',
+    startDate: 'Start date',
+    endDate: 'End date',
+  },
+  placeholders: {
+    startDate: 'Please select a start date',
+    endDate: 'Please select an end date',
+  },
+  errorMessages: {
+    invalidSchedule: 'La duracion de la clase tiene que ser mayor a 0',
+    invalidDates: 'La fecha de inicio debe ser menor a la fecha de fin',
   },
   localeWeekdays: [
     {
