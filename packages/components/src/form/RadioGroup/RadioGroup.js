@@ -1,15 +1,15 @@
-import React, { useMemo, forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isNil, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
 import { useUuid } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
 import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
 import {
-  InputWrapper,
+  INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
-  INPUT_WRAPPER_ORIENTATIONS,
+  InputWrapper,
 } from '../InputWrapper';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
@@ -84,8 +84,10 @@ const RadioGroup = forwardRef(
     }
 
     const onChange = (value) => {
-      props.onChange(value);
-      setValue(value);
+      if (!props.disabled) {
+        props.onChange(value);
+        setValue(value);
+      }
     };
 
     useEffect(() => {
@@ -132,6 +134,7 @@ const RadioGroup = forwardRef(
                 label: (
                   <Radio
                     {...item}
+                    disabled={props.disabled}
                     ref={(node) => {
                       refs.current[item.value] = node;
                     }}
