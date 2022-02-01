@@ -93,6 +93,11 @@ const ScheduleForm = ({
   const handleOnChange = (sendEmpty) => {
     if (sendEmpty) {
       isFunction(onChange) && onChange({ days: [] });
+      setOneDayOnlyValue({
+        start: new Date(),
+        end: new Date(),
+        error: false,
+      });
       setOpenForm(false);
     } else {
       if (!validateSchedule()) return;
