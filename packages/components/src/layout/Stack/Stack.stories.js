@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../Box';
 import {
   Stack,
   STACK_ALIGN_CONTENT,
@@ -41,7 +41,9 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...STACK_DEFAULT_PROPS,
   children: [
-    <Box style={{ padding: 5, background: 'red' }}>Element 1</Box>,
+    <Box style={{ padding: 5, background: 'red' }} noFlex>
+      Element 1
+    </Box>,
     <Box style={{ padding: 5, background: 'green' }}>Element 2</Box>,
     <Box style={{ padding: 5, background: 'yellow' }}>Element 3</Box>,
   ],
