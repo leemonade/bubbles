@@ -9,7 +9,6 @@ import {
 export const SchedulePickerStyles = createStyles((theme, {}) => {
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
       color: theme.colors.text02,
     },
     wrapper: {
@@ -19,10 +18,14 @@ export const SchedulePickerStyles = createStyles((theme, {}) => {
       display: 'flex',
       flexWrap: 'wrap',
       gap: pxToRem(8),
+      minWidth: 0,
     },
     input: {
+      ...getFontProductive(null, 400),
       color: theme.colors.text02,
       WebkitAppearance: 'none',
+      flex: 1,
+      minWidth: 0,
       border: 'none',
       '&:focus-visible': {
         outline: 'none',

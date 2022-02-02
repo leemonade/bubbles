@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { SchedulePickerStyles } from './SchedulePicker.styles';
+import { isFunction, isEmpty } from 'lodash';
 import {
   Input,
   InputWrapper,
@@ -13,8 +13,7 @@ import {
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { ScheduleForm } from './ScheduleForm/';
-import { isFunction } from 'lodash';
-import { useCallback } from 'react';
+import { SchedulePickerStyles } from './SchedulePicker.styles';
 
 export const SCHEDULE_PICKER_DEFAULT_PROPS = {
   locale: 'es',
@@ -25,7 +24,6 @@ export const SCHEDULE_PICKER_PROP_TYPES = {
   placeholders: PropTypes.object,
   helps: PropTypes.object,
   errorMessages: PropTypes.object,
-  locale: PropTypes.string,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   headerClassName: PropTypes.string,
@@ -34,6 +32,8 @@ export const SCHEDULE_PICKER_PROP_TYPES = {
   contentStyle: PropTypes.any,
   required: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  locale: PropTypes.string,
+  value: PropTypes.object,
 };
 
 const SchedulePicker = ({
@@ -52,18 +52,20 @@ const SchedulePicker = ({
   const { classes, cx } = SchedulePickerStyles({}, { name: 'SchedulePicker' });
 
   const [openForm, setOpenForm] = useState(false);
+  const [canOpen, setCanOpen] = useState(true);
   const [localeWeekdays, setlocaleWeekdays] = useState([]);
   const [schedule, setSchedule] = useState(value || { days: [] });
-  const [oneScheduleOnly, setOneScheduleOnly] = useState(true);
-  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
-    start: new Date(),
-    end: new Date(),
-    error: false,
-  });
   const inputRef = useRef(null);
-  let orderedWeekdays = [];
 
   useEffect(() => {
+    if (value && JSON.stringify(value) !== JSON.stringify(schedule)) {
+      setSchedule(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    let orderedWeekdays = [];
+
     import(`dayjs/locale/${locale}.js`).then((e) => {
       orderedWeekdays = [...e.weekdays];
       orderedWeekdays.push(orderedWeekdays.shift());
@@ -94,15 +96,17 @@ const SchedulePicker = ({
   return (
     <InputWrapper
       {...props}
-      label={labels.inputWrapper}
+      label={labels.input}
       description={description}
-      help={helps.inputWrapper}
+      help={helps.input}
       uuid={uuid}
       size={size}
       error={error}
     >
       <Popover
+        withArrow
         opened={openForm}
+        onClose={() => setOpenForm(false)}
         width={'auto'}
         position={'bottom'}
         placement={'start'}
@@ -110,37 +114,47 @@ const SchedulePicker = ({
           <Input
             size={size}
             icon={<PluginCalendarIcon />}
+            placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
             component={'div'}
-            onClick={() => {
-              inputRef.current.focus();
-              setOpenForm(!openForm);
-            }}
           >
             <Box className={classes.wrapper}>
               <Box className={classes.values}>
-                {schedule.days.map((day) => (
-                  <Badge
-                    key={day.dayWeek}
-                    label={`${localeWeekdays[day.dayWeek].label} (${day.start} - ${day.end})`}
-                    onClose={() => {
-                      setSchedule({
-                        ...schedule,
-                        days: schedule.days.filter((item) => {
-                          return item.dayWeek !== day.dayWeek;
-                        }),
-                      });
-                    }}
-                  />
-                ))}
+                {!isEmpty(localeWeekdays) &&
+                  schedule.days.map((day) => (
+                    <Badge
+                      key={day.dayWeek}
+                      label={`${localeWeekdays[day.dayWeek].label} - ${day.start} ${
+                        labels.divider
+                      } ${day.end}`}
+                      closable={false}
+                      onClose={() => {
+                        setSchedule({
+                          ...schedule,
+                          days: schedule.days.filter((item) => {
+                            return item.dayWeek !== day.dayWeek;
+                          }),
+                        });
+                      }}
+                    />
+                  ))}
               </Box>
               <input
                 ref={inputRef}
                 className={classes.input}
                 placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
+                onFocus={() => canOpen && setOpenForm(!openForm)}
               />
             </Box>
           </Input>
         }
+        onKeyDown={(e) => {
+          if (e.code === 'Escape') {
+            setOpenForm(false);
+            setCanOpen(false);
+            setTimeout(() => inputRef.current.blur(), 100);
+            setTimeout(() => setCanOpen(true), 500);
+          }
+        }}
       >
         <ScheduleForm
           labels={{
@@ -164,10 +178,6 @@ const SchedulePicker = ({
           setOpenForm={setOpenForm}
           onChange={setSchedule}
           savedSchedule={schedule}
-          oneScheduleOnly={oneScheduleOnly}
-          setOneScheduleOnly={setOneScheduleOnly}
-          oneDayOnlyValue={oneDayOnlyValue}
-          setOneDayOnlyValue={setOneDayOnlyValue}
         />
       </Popover>
     </InputWrapper>

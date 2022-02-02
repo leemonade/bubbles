@@ -108,6 +108,7 @@ const CheckBoxGroup = ({
           <Checkbox
             {...item}
             key={index}
+            size={size}
             variant={variant}
             onChange={() => {
               item.onChange && item.onChange(item.value);

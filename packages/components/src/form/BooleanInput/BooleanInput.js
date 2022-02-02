@@ -11,7 +11,7 @@ import { BooleanInputStyles } from './BooleanInput.styles';
 export const BOOLEAN_INPUT_HELP_POSITIONS = ['right', 'bottom'];
 export const BOOLEAN_INPUT_VARIANTS = ['default', 'boxed'];
 export const BOOLEAN_INPUT_DISPLAYS = ['checkbox', 'switch'];
-export const BOOLEAN_INPUT_SIZES = ['sm', 'md'];
+export const BOOLEAN_INPUT_SIZES = ['xs', 'sm', 'md'];
 export const BOOLEAN_INPUT_LABEL_POSITIONS = ['start', 'end'];
 
 export const BOOLEAN_INPUT_PROP_TYPES = {
@@ -26,6 +26,7 @@ export const BOOLEAN_INPUT_PROP_TYPES = {
   label: PropTypes.string,
   help: PropTypes.string,
   checked: PropTypes.bool,
+  size: PropTypes.oneOf(BOOLEAN_INPUT_SIZES),
 };
 
 export const BOOLEAN_INPUT_DEFAULT_PROPS = {
@@ -55,6 +56,7 @@ const BooleanInput = forwardRef(
       helpPosition,
       variant,
       display,
+      size,
       label,
       onChange,
       indeterminate,
@@ -79,12 +81,13 @@ const BooleanInput = forwardRef(
     );
 
     return (
-      <InputWrapper className={classes.wrapper} description={description} error={error}>
+      <InputWrapper className={classes.wrapper} description={description} error={error} size={size}>
         <Box className={classes.root}>
           {display === BOOLEAN_INPUT_DISPLAYS[0] ? (
             <Checkbox
               {...props}
               ref={ref}
+              size={size}
               label={required ? `${label} *` : label}
               checked={isChecked}
               onChange={handleOnChange}
@@ -94,6 +97,7 @@ const BooleanInput = forwardRef(
             <Switch
               {...props}
               ref={ref}
+              size={size}
               label={required ? `${label} *` : label}
               checked={isChecked}
               onChange={handleOnChange}

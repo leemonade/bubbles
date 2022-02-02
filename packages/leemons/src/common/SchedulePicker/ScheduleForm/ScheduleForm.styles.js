@@ -8,10 +8,7 @@ import {
 
 export const ScheduleFormStyles = createStyles((theme, {}) => {
   return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-      padding: pxToRem(16),
-    },
+    root: {},
     scheduleRow: {
       display: 'flex',
       alignItems: 'center',

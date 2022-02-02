@@ -32,7 +32,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...SCHEDULE_PICKER_DEFAULT_PROPS,
   labels: {
-    inputWrapper: 'Class schedule',
+    input: 'Class schedule',
     checkboxLabel: 'Same time slot for each class',
     groupLabel: 'Días de clase',
     schedule: 'Horario',
@@ -46,11 +46,39 @@ Playground.args = {
     invalidDates: 'La fecha de inicio debe ser menor a la fecha de fin',
   },
   helps: {
-    inputWrapper: 'Select the class schedule',
+    input: 'Select the class schedule',
   },
   placeholders: {
     input: 'Select a class schedule',
     startDate: 'Please select a start date',
     endDate: 'Please select an end date',
+  },
+  value: {
+    days: [
+      {
+        day: 'monday',
+        dayWeek: 0,
+        duration: 119,
+        end: '09:00',
+        start: '07:00',
+      },
+      {
+        day: 'wednesday',
+        dayWeek: 2,
+        duration: 60,
+        end: '12:00',
+        start: '11:00',
+      },
+      {
+        day: 'friday',
+        dayWeek: 4,
+        duration: 60,
+        end: '11:00',
+        start: '10:00',
+      },
+    ],
+    endDate: null,
+    startDate: null,
+    useCustomDates: false,
   },
 };

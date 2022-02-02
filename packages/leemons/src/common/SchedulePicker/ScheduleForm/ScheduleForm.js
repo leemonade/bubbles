@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ScheduleFormStyles } from './ScheduleForm.styles';
+import { isFunction, isArray } from 'lodash';
 import {
   Box,
   Stack,
@@ -11,12 +11,62 @@ import {
   Text,
   Switch,
   DatePicker,
+  ContextContainer,
+  InputError,
 } from '@bubbles-ui/components';
-import { isFunction } from 'lodash';
-import { useEffect } from 'react';
+import { ScheduleFormStyles } from './ScheduleForm.styles';
 
-export const SCHEDULE_FORM_DEFAULT_PROPS = {};
-export const SCHEDULE_FORM_PROP_TYPES = {};
+export const SCHEDULE_FORM_DEFAULT_PROPS = {
+  displayCustomDays: false,
+};
+export const SCHEDULE_FORM_PROP_TYPES = {
+  displayCustomDays: PropTypes.bool,
+};
+
+// ------------------------------------------------------------------------------------------
+// HELPERS
+
+const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const NOW = new Date();
+
+const dateToHoursAndMinutes = (date) => {
+  return date.toLocaleTimeString(navigator.language, {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
+const dayToSchedule = (mapDay, day) => ({
+  start: dateToHoursAndMinutes(day.start),
+  end: dateToHoursAndMinutes(day.end),
+  duration: Math.floor((day.end - day.start) / 60000),
+  day: DAYS[mapDay.index],
+  dayWeek: mapDay.index,
+});
+
+const compareWeekdays = (a, b) => {
+  if (a.index < b.index) return -1;
+  if (a.index > b.index) return 1;
+  return 0;
+};
+
+const hasMultipleSchedules = (days) => {
+  let multiple = false;
+  if (isArray(days) && days.length > 1) {
+    const { start, end } = days[0];
+    for (let i = 1, l = days.length; i < l; i++) {
+      const day = days[i];
+      if (start !== day.start || end !== day.end) {
+        multiple = true;
+        break;
+      }
+    }
+  }
+  return multiple;
+};
+
+// ------------------------------------------------------------------------------------------
+// COMPONENT
 
 const ScheduleForm = ({
   labels,
@@ -26,43 +76,25 @@ const ScheduleForm = ({
   setOpenForm,
   onChange,
   savedSchedule,
-  oneScheduleOnly,
-  setOneScheduleOnly,
-  oneDayOnlyValue,
-  setOneDayOnlyValue,
+  displayCustomDays,
   ...props
 }) => {
   const { classes, cx } = ScheduleFormStyles({});
-
-  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
   const [selectedDays, setSelectedDays] = useState([]);
   const [useCustomDates, setUseCustomDates] = useState(savedSchedule.useCustomDates || false);
   const [startDate, setStartDate] = useState(savedSchedule.startDate || null);
   const [endDate, setEndDate] = useState(savedSchedule.endDate || null);
   const [invalidDates, setInvalidDates] = useState(false);
-  const [schedule, setSchedule] = useState({ days: [] });
-
-  const dateToHoursAndMinutes = (date) => {
-    return date.toLocaleTimeString(navigator.language, {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
-  const dayToSchedule = (mapDay, day) => ({
-    start: dateToHoursAndMinutes(day.start),
-    end: dateToHoursAndMinutes(day.end),
-    duration: Math.floor((day.end - day.start) / 60000),
-    day: days[mapDay.index],
-    dayWeek: mapDay.index,
+  const [schedule, setSchedule] = useState(savedSchedule || { days: [] });
+  const [oneScheduleOnly, setOneScheduleOnly] = useState(
+    !hasMultipleSchedules(savedSchedule?.days)
+  );
+  const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
+    start: NOW,
+    end: new Date(new Date().setHours(NOW.getHours() + 1)),
+    error: false,
   });
-
-  const compareWeekdays = (a, b) => {
-    if (a.index < b.index) return -1;
-    if (a.index > b.index) return 1;
-    return 0;
-  };
 
   const validateSchedule = () => {
     let isValid = true;
@@ -144,11 +176,11 @@ const ScheduleForm = ({
   }, [savedSchedule]);
 
   return (
-    <Box>
-      <Stack direction={'column'} spacing={2} className={classes.root}>
+    <Box style={{ maxWidth: 622 }}>
+      <ContextContainer padded sx={(theme) => ({ paddingBottom: theme.spacing[3] })}>
         <CheckBoxGroup
+          size="xs"
           label={labels.groupLabel}
-          orientation={'horizontal'}
           variant={'boxed'}
           data={localeWeekdays.map((day, index) => ({
             ...day,
@@ -170,108 +202,119 @@ const ScheduleForm = ({
             orderedDays.sort(compareWeekdays);
             setSelectedDays([...orderedDays]);
           }}
-          headerStyle={{ minWidth: 120 }}
         />
-        <Checkbox
+        <Switch
+          size="sm"
           label={labels.checkboxLabel}
           checked={oneScheduleOnly}
           onChange={setOneScheduleOnly}
-          style={{ marginLeft: 120 }}
         />
-        {oneScheduleOnly ? (
-          <Box className={classes.scheduleRow}>
-            <TimeInput
-              label={labels.schedule}
-              orientation={'horizontal'}
-              headerStyle={{ width: 120 }}
-              contentStyle={{ width: 75, flex: 'none' }}
-              value={oneDayOnlyValue.start}
-              onChange={(e) => {
-                setOneDayOnlyValue({
-                  ...oneDayOnlyValue,
-                  start: e,
-                });
-              }}
-            />
-            <Text className={classes.divider}>{labels.divider}</Text>
-            <TimeInput
-              orientation={'horizontal'}
-              contentStyle={{ width: 75 }}
-              value={oneDayOnlyValue.end}
-              onChange={(e) =>
-                setOneDayOnlyValue({
-                  ...oneDayOnlyValue,
-                  end: e,
-                })
-              }
-            />
-            <Text className={classes.error}>
-              {oneDayOnlyValue.error && errorMessages.invalidSchedule}
-            </Text>
-          </Box>
-        ) : (
-          selectedDays.map((day, index) => (
-            <Box key={localeWeekdays[index].day} className={classes.scheduleRow}>
-              <TimeInput
-                label={`${labels.schedule} ${localeWeekdays[day.index].day}`}
-                orientation={'horizontal'}
-                headerStyle={{ width: 120 }}
-                contentStyle={{ width: 75, flex: 'none' }}
-                value={selectedDays[index].start}
-                onChange={(e) => {
-                  selectedDays[index].start = e;
-                  setSelectedDays([...selectedDays]);
-                }}
-              />
-              <Text className={classes.divider}>{labels.divider}</Text>
-              <TimeInput
-                orientation={'horizontal'}
-                contentStyle={{ width: 75 }}
-                value={selectedDays[index].end}
-                onChange={(e) => {
-                  selectedDays[index].end = e;
-                  setSelectedDays([...selectedDays]);
-                }}
-              />
-              <Text className={classes.error}>{day.error && errorMessages.invalidSchedule}</Text>
-            </Box>
-          ))
+        {selectedDays.length > 0 && (
+          <>
+            {oneScheduleOnly ? (
+              <Stack direction="column" spacing={2}>
+                <Text role="productive" color="primary" size="xs" strong>
+                  {labels.schedule}
+                </Text>
+                <Box className={classes.scheduleRow}>
+                  <TimeInput
+                    size="xs"
+                    contentStyle={{ width: 70 }}
+                    value={oneDayOnlyValue.start}
+                    onChange={(e) => {
+                      setOneDayOnlyValue({
+                        ...oneDayOnlyValue,
+                        start: e,
+                      });
+                    }}
+                  />
+                  <Text size="xs" role="productive" className={classes.divider}>
+                    {labels.divider}
+                  </Text>
+                  <TimeInput
+                    size="xs"
+                    contentStyle={{ width: 70 }}
+                    value={oneDayOnlyValue.end}
+                    onChange={(e) =>
+                      setOneDayOnlyValue({
+                        ...oneDayOnlyValue,
+                        end: e,
+                      })
+                    }
+                  />
+                </Box>
+                {oneDayOnlyValue.error && <InputError message={errorMessages.invalidSchedule} />}
+              </Stack>
+            ) : (
+              <ContextContainer direction="row" wrap="wrap" fullWidth={false}>
+                {selectedDays.map((day, index) => (
+                  <Stack direction="column" spacing={2} key={localeWeekdays[index].day}>
+                    <Text size="xs" role="productive" color="primary" strong>{`${labels.schedule} ${
+                      localeWeekdays[day.index].day
+                    }`}</Text>
+                    <Box className={classes.scheduleRow}>
+                      <TimeInput
+                        size="xs"
+                        contentStyle={{ width: 70 }}
+                        value={selectedDays[index].start}
+                        onChange={(e) => {
+                          selectedDays[index].start = e;
+                          setSelectedDays([...selectedDays]);
+                        }}
+                      />
+                      <Text size="xs" role="productive" className={classes.divider}>
+                        {labels.divider}
+                      </Text>
+                      <TimeInput
+                        size="xs"
+                        contentStyle={{ width: 70 }}
+                        value={selectedDays[index].end}
+                        onChange={(e) => {
+                          selectedDays[index].end = e;
+                          setSelectedDays([...selectedDays]);
+                        }}
+                      />
+                    </Box>
+                    {day.error && <InputError message={errorMessages.invalidSchedule} />}
+                  </Stack>
+                ))}
+              </ContextContainer>
+            )}
+          </>
         )}
-        <Switch
-          label={labels.useCustomDates}
-          onChange={setUseCustomDates}
-          checked={useCustomDates}
-        />
-        {useCustomDates && (
-          <Box>
-            <DatePicker
-              label={labels.startDate}
-              placeholder={placeholders.startDate}
-              onChange={setStartDate}
-              error={invalidDates ? errorMessages.invalidDates : ''}
-              value={startDate}
+        {(useCustomDates || displayCustomDays) && (
+          <>
+            <Switch
+              label={labels.useCustomDates}
+              onChange={setUseCustomDates}
+              checked={useCustomDates}
             />
-            <DatePicker
-              label={labels.endDate}
-              placeholder={placeholders.endDate}
-              onChange={setEndDate}
-              error={invalidDates ? errorMessages.invalidDates : ''}
-              value={endDate}
-            />
-          </Box>
+            {useCustomDates && (
+              <Box>
+                <DatePicker
+                  label={labels.startDate}
+                  placeholder={placeholders.startDate}
+                  onChange={setStartDate}
+                  error={invalidDates ? errorMessages.invalidDates : ''}
+                  value={startDate}
+                />
+                <DatePicker
+                  label={labels.endDate}
+                  placeholder={placeholders.endDate}
+                  onChange={setEndDate}
+                  error={invalidDates ? errorMessages.invalidDates : ''}
+                  value={endDate}
+                />
+              </Box>
+            )}
+          </>
         )}
-      </Stack>
-      <Stack justifyContent="space-between" fullWidth>
-        <Button
-          variant="light"
-          color="secondary"
-          size="xs"
-          compact
-          onClick={() => handleOnChange(true)}
-        >
+      </ContextContainer>
+      <Stack justifyContent="end" fullWidth>
+        <Button variant="light" color="secondary" size="sm" onClick={() => handleOnChange(true)}>
           Clear
         </Button>
-        <Button variant="light" size="xs" compact onClick={() => handleOnChange(false)}>
+        <Button variant="light" size="sm" onClick={() => handleOnChange(false)}>
           Apply
         </Button>
       </Stack>
