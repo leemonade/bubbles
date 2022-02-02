@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 import { FileIcon } from '@bubbles-ui/icons/outline';
+import { Text } from '../../typography';
+import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {};
 export const FILE_ITEM_DISPLAY_PROP_TYPES = {
@@ -26,9 +27,13 @@ const FileItemDisplay = ({ filename, description, metadata, ...props }) => {
 
   return (
     <Box className={classes.root} {...props}>
-      <span className={classes.iconFiletype}>{fileExtension}</span>
-      <FileIcon height={24} width={24} className={classes.icon} />
-      <span className={classes.filename}>{filename}</span>
+      <Box className={classes.iconWrapper}>
+        <Text strong className={classes.iconFiletype}>
+          {fileExtension}
+        </Text>
+        <FileIcon height={24} width={24} className={classes.icon} />
+      </Box>
+      <Text className={classes.filename}>{filename}</Text>
     </Box>
   );
 };
