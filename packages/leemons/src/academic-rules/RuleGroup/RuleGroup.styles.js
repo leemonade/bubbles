@@ -1,34 +1,31 @@
 import { createStyles } from '@mantine/styles';
 // import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
-import {
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components/src/theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '@bubbles-ui/components';
 
 export const RuleGroupStyles = createStyles((theme, {}) => {
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
       padding: pxToRem(8),
     },
     draggableGroup: {
-      backgroundColor: '#eee',
-      border: '2px dotted #ccc',
-      borderRadius: pxToRem(4),
+      // backgroundColor: '#eee',
+      border: `1px solid ${theme.colors.ui01}`,
+      // borderRadius: pxToRem(4),
+      flex: 1,
+      marginBottom: theme.spacing[2],
     },
     logicOperator: {
-      marginRight: pxToRem(8),
-      width: pxToRem(120),
+      // marginRight: pxToRem(8),
+      width: pxToRem(80),
     },
     input: {
-      marginBottom: pxToRem(-4),
-      marginRight: pxToRem(8),
+      // marginBottom: pxToRem(-4),
+      // marginRight: pxToRem(8),
     },
     ruleGroup: {
       display: 'flex',
-      padding: pxToRem(8),
+      gap: theme.spacing[1],
+      // padding: pxToRem(8),
     },
   };
 });

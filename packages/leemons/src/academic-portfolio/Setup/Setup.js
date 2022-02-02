@@ -4,7 +4,11 @@ import { isFunction } from 'lodash';
 import { Stack, Stepper, Title } from '@bubbles-ui/components';
 import { SetupStyles } from './Setup.styles';
 
-export const SETUP_DEFAULT_PROPS = {};
+export const SETUP_DEFAULT_PROPS = {
+  labels: {},
+  values: {},
+  editable: true,
+};
 export const SETUP_PROP_TYPES = {
   labels: PropTypes.object,
   data: PropTypes.arrayOf(
@@ -15,12 +19,13 @@ export const SETUP_PROP_TYPES = {
     })
   ),
   values: PropTypes.object,
+  editable: PropTypes.bool,
   onNext: PropTypes.func,
   onPrev: PropTypes.func,
   onSave: PropTypes.func,
 };
 
-const Setup = ({ labels, data, values, onNext, onPrev, onSave, ...props }) => {
+const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...props }) => {
   const [sharedData, setSharedData] = useState(values);
   const [active, setActive] = useState(0);
   const [callOnSave, setCallOnSave] = useState(false);
@@ -69,6 +74,7 @@ const Setup = ({ labels, data, values, onNext, onPrev, onSave, ...props }) => {
         onPrev={handleOnPrev}
         sharedData={sharedData}
         setSharedData={setSharedData}
+        editable={editable}
         classNames={classes}
       />
     </Stack>

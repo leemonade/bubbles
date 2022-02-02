@@ -1,33 +1,31 @@
 import { createStyles } from '@mantine/styles';
-import { getInputStyle, getOrientation, getRequiredStyle } from '../mixins/fieldStyles.mixins';
-import { getFocusStyles } from '../../theme.mixins';
+import { getInputStyle } from '../mixins/fieldStyles.mixins';
 
 export const MultiSelectStyles = createStyles((theme, { size, orientation }) => {
   const inputSizes = {
     xs: {
-      minHeight: theme.spacing['7'],
+      minHeight: theme.spacing[7],
     },
     sm: {
-      minHeight: theme.spacing['8'],
+      minHeight: 38,
     },
   }[size];
+
   return {
-    root: {},
-    description: {
-      gridArea: 'description',
-    },
-    error: {
-      gridArea: 'error',
-    },
-    required: {
-      ...getRequiredStyle(theme),
+    wrapper: {
+      padding: 3,
+      margin: -3,
     },
     input: {
       ...getInputStyle(theme),
       ...inputSizes,
+      paddingTop: 1,
     },
     rightSection: {
       color: theme.colors.text02,
+      pointerEvents: 'none',
+      bottom: 5,
+      right: 3,
     },
   };
 });

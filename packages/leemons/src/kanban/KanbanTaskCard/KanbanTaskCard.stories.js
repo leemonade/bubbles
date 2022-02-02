@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { KanbanTaskCard, KANBAN_TASK_CARD_DEFAULT_PROPS } from './KanbanTaskCard';
+import { KANBAN_TASK_CARD_DEFAULT_PROPS, KanbanTaskCard } from './KanbanTaskCard';
 import mdx from './KanbanTaskCard.mdx';
+import { mock } from './mock/mock';
 
 export default {
-  title: 'Organisms/Leemons/KanbanTaskCard',
+  title: 'Leemons/Kanban/KanbanTaskCard',
   parameters: {
     component: KanbanTaskCard,
     docs: {
@@ -22,7 +22,11 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <KanbanTaskCard {...props}>{children}</KanbanTaskCard>;
+  return (
+    <KanbanTaskCard {...props} config={mock}>
+      {children}
+    </KanbanTaskCard>
+  );
 };
 
 export const Playground = Template.bind({});

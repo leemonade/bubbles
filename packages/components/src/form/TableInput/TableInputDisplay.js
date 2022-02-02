@@ -33,6 +33,7 @@ const TableInputDisplay = ({
   onEdit,
   sortable,
   editable,
+  disabled,
 }) => {
   const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
@@ -52,6 +53,10 @@ const TableInputDisplay = ({
 
   const getColumnInput = useCallback(
     (accessor) => {
+      if (disabled) {
+        return null;
+      }
+
       const column = find(columns, { accessor });
       if (column && column.input) {
         const { node, rules, ...inputProps } = column.input;
@@ -71,9 +76,10 @@ const TableInputDisplay = ({
           />
         );
       }
+
       return null;
     },
-    [columns]
+    [columns, disabled, errors]
   );
 
   const handleDragEnd = (result) => {
@@ -98,7 +104,7 @@ const TableInputDisplay = ({
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps({})}>
-            {sortable && <th style={{ width: 20 }}></th>}
+            {sortable && !disabled && <th style={{ width: 20 }}></th>}
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps({
@@ -116,16 +122,18 @@ const TableInputDisplay = ({
         ))}
 
         <tr className={tableClasses.tr}>
-          {sortable && <th></th>}
+          {sortable && !disabled && <th></th>}
           {columns.map((column, i) => (
             <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
               {getColumnInput(column.accessor)}
             </th>
           ))}
           <th className={cx(tableClasses.td, classes.inputCell)}>
-            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={handleOnAdd}>
-              {labels.add}
-            </Button>
+            {!disabled && (
+              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={handleOnAdd}>
+                {labels.add}
+              </Button>
+            )}
           </th>
         </tr>
       </thead>
@@ -146,8 +154,9 @@ const TableInputDisplay = ({
                     tableClasses={tableClasses}
                     cx={cx}
                     totalRows={rows.length}
-                    sortable={sortable}
-                    editable={editable}
+                    sortable={sortable && !disabled}
+                    editable={editable && !disabled}
+                    disabled={disabled}
                     editing={editing}
                     onEditing={setEditing}
                     onEdit={onEdit}

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleConditionStyles } from './RuleCondition.styles';
-// import { Text } from '../../../typography';
-// import { NumberInput, Select, MultiSelect, TextInput } from '../../../form';
-import { Box, Text, NumberInput, Select, MultiSelect, TextInput } from '@bubbles-ui/components';
+import { Box, NumberInput, Paper, Select, Stack, Text, TextInput } from '@bubbles-ui/components';
+import { MultiSelect } from '@bubbles-ui/components/src/form/';
+import { Menu } from '@bubbles-ui/components/src/navigation';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
+import { v4 as uuidv4 } from 'uuid';
+import { filter } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -36,6 +39,26 @@ export const RULE_CONDITION_PROP_TYPES = {
   edited: PropTypes.array,
   setEdited: PropTypes.func,
   error: PropTypes.bool,
+  labels: PropTypes.shape({
+    menuLabels: PropTypes.shape({
+      remove: PropTypes.string,
+      duplicate: PropTypes.string,
+      turnIntoCondition: PropTypes.string,
+      turnIntoGroup: PropTypes.string,
+    }),
+    where: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    selectItem: PropTypes.string,
+    selectCourse: PropTypes.string,
+    selectKnowledge: PropTypes.string,
+    selectSubject: PropTypes.string,
+    selectSubjectType: PropTypes.string,
+    selectSubjectGroup: PropTypes.string,
+    selectDataType: PropTypes.string,
+    selectOperator: PropTypes.string,
+    selectTargetGrade: PropTypes.string,
+  }),
 };
 
 const RuleCondition = ({
@@ -62,21 +85,29 @@ const RuleCondition = ({
   error,
   setError,
   errorMessage,
+  labels,
+  placeholders,
   ...props
 }) => {
-  const { classes, cx } = RuleConditionStyles({});
+  const { classes, cx } = RuleConditionStyles({}, { name: 'RuleCondition' });
 
-  const [sourceValue, setSourceValue] = useState(null);
-  const [dataType, setDataType] = useState(null);
-  const [operatorValue, setOperatorValue] = useState(null);
-  const [targetValue, setTargetValue] = useState('');
+  const [sourceValue, setSourceValue] = useState(condition.source || '');
+  const [sourceIdsValue, setSourceIdsValue] = useState(condition.sourceIds || []);
+  const [dataType, setDataType] = useState(condition.data || '');
+  const [operatorValue, setOperatorValue] = useState(condition.operator || '');
+  const [targetValue, setTargetValue] = useState(condition.target || '');
 
   const setNewData = (e, field) => {
     if (field === 'source') {
       condition[field] = e;
       condition.sourceIds = [];
-      if (e === 'program') condition.sourceIds = [program.value];
+      setSourceIdsValue([]);
+      if (e === 'program') {
+        condition.sourceIds = [program.value];
+        setSourceIdsValue([program.value]);
+      }
     }
+    if (field === 'sourceIds') setSourceIdsValue(e);
     condition[field] = e;
     setData({ ...data });
   };
@@ -87,7 +118,8 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={courses}
-            placeholder={'Select course...'}
+            placeholder={placeholders.selectCourse}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -95,7 +127,8 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={knowledges}
-            placeholder={'Select knowledge...'}
+            placeholder={placeholders.selectKnowledge}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -103,23 +136,26 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={subjects}
-            placeholder={'Select subject...'}
+            placeholder={placeholders.selectSubject}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectType':
+      case 'subject-type':
         return (
           <MultiSelect
             data={subjectTypes}
-            placeholder={'Select subject type...'}
+            placeholder={placeholders.selectSubjectType}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectGroup':
+      case 'subject-group':
         return (
           <MultiSelect
             data={subjectGroups}
-            placeholder={'Select subject group...'}
+            placeholder={placeholders.selectSubjectGroup}
+            value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
@@ -135,15 +171,14 @@ const RuleCondition = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text>Where</Text>;
+      return <Text role="productive">{labels.where}</Text>;
     }
     if (index === 1) {
       return (
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={logicOperator.value}
-          value={logicOperator}
+          value={logicOperator.value}
           onChange={(e) => {
             setLogicOperator({ label: e.toUpperCase(), value: e });
             setGroupOperator(e);
@@ -151,9 +186,60 @@ const RuleCondition = ({
         />
       );
     } else {
-      return <Text>{logicOperator.label}</Text>;
+      return (
+        <Box m={10}>
+          <Text role="productive">{logicOperator.label}</Text>
+        </Box>
+      );
     }
   };
+
+  const removeCondition = () => {
+    group.conditions.splice(index, 1);
+    setData({ ...data });
+  };
+
+  const duplicateCondition = () => {
+    group.conditions.push({ ...condition, id: uuidv4() });
+    setData({ ...data });
+  };
+
+  const turnToGroup = () => {
+    group.conditions.splice(index, 1, {
+      id: uuidv4(),
+      group: { operator: 'and', conditions: [condition] },
+    });
+    setData({ ...data });
+  };
+
+  const filteredDataTypes = useMemo(() => {
+    let results = [];
+    if (sourceValue && dataTypes) {
+      let filters = [];
+      switch (sourceValue) {
+        case 'program':
+          filters = ['cpp', 'cpc', 'gpa'];
+          break;
+        case 'course':
+          filters = ['cpc', 'gpa'];
+          break;
+        case 'knowledge':
+        case 'subject-type':
+          filters = ['cpp', 'cpc', 'gpa', 'cbcg'];
+          break;
+        case 'subject':
+          filters = ['grade', 'enrolled'];
+          break;
+        case 'subject-group':
+          filters = ['gpa', 'credits'];
+          break;
+        default:
+          break;
+      }
+      return filter(dataTypes, (item) => filters.includes(item.value));
+    }
+    return results;
+  }, [sourceValue, dataTypes]);
 
   useEffect(() => {
     setEdited(
@@ -185,89 +271,130 @@ const RuleCondition = ({
     setEdited([...edited, { id: draggableId, value: false }]);
   }, []);
 
+  useEffect(() => {
+    if (sourceValue === 'program' && condition.sourceIds[0] !== program.value) {
+      condition.sourceIds = [program.value];
+      setSourceIdsValue([program.value]);
+      setData({ ...data });
+    }
+  }, [program, sourceValue]);
+
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (
-        <Box
-          className={classes.root}
+        <Paper
+          fullWidth
+          padding="none"
+          shadow="none"
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
         >
-          <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
-          <Box className={classes.sourceSelects}>
-            <Select
-              data={sources}
-              placeholder={'Select item...'}
-              onChange={(e) => {
-                setSourceValue(e);
-                setNewData(e, 'source');
-              }}
-              disabled={!program}
+          <Box className={classes.root}>
+            <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
+            <Stack fullWidth spacing={1}>
+              <Box className={classes.sourceSelects} skipFlex>
+                <Select
+                  className={classes.input}
+                  data={sources}
+                  placeholder={placeholders.selectItem}
+                  value={sourceValue}
+                  onChange={(e) => {
+                    setSourceValue(e);
+                    setNewData(e, 'source');
+                  }}
+                  disabled={!program}
+                />
+
+                {sourceValue && getSourceSelect(sourceValue)}
+              </Box>
+              <Select
+                data={filteredDataTypes}
+                placeholder={placeholders.selectDataType}
+                value={dataType}
+                onChange={(e) => {
+                  setDataType(e);
+                  setOperatorValue('');
+                  setTargetValue('');
+                  setNewData(e, 'data');
+                  setNewData('', 'operator');
+                  setNewData('', 'target');
+                }}
+                disabled={
+                  !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
+                }
+              />
+              <Select
+                data={operators}
+                placeholder={placeholders.selectOperator}
+                value={operatorValue}
+                onChange={(e) => {
+                  setOperatorValue(e);
+                  setNewData(e, 'operator');
+                }}
+                disabled={!dataType}
+              />
+              {dataType === 'gpa' || dataType === 'grade' ? (
+                <Select
+                  data={grades}
+                  placeholder={placeholders.selectTargetGrade}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              ) : operatorValue === 'contains' ? (
+                <TextInput
+                  placeholder={placeholders.enterTarget}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              ) : (
+                <NumberInput
+                  placeholder={placeholders.enterTarget}
+                  defaultValue={0}
+                  value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(e);
+                    setNewData(e, 'target');
+                  }}
+                  disabled={!operatorValue}
+                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  required
+                />
+              )}
+            </Stack>
+            <Menu
+              items={[
+                {
+                  children: labels.menuLabels.remove,
+                  icon: <DeleteBinIcon />,
+                  onClick: removeCondition,
+                },
+                {
+                  children: labels.menuLabels.duplicate,
+                  icon: <DuplicateIcon />,
+                  onClick: duplicateCondition,
+                },
+                {
+                  children: labels.menuLabels.turnIntoGroup,
+                  icon: <SwitchHorizontalIcon />,
+                  onClick: turnToGroup,
+                },
+              ]}
             />
-            {sourceValue && getSourceSelect(sourceValue)}
           </Box>
-          <Select
-            className={classes.input}
-            data={dataTypes}
-            placeholder={'Select data...'}
-            onChange={(e) => {
-              setDataType(e);
-              setNewData(e, 'data');
-            }}
-            disabled={!sourceValue}
-          />
-          <Select
-            className={classes.input}
-            data={operators}
-            placeholder={'Select operator...'}
-            onChange={(e) => {
-              setOperatorValue(e);
-              setNewData(e, 'operator');
-            }}
-            disabled={!dataType}
-          />
-          {dataType === 'gpa' || dataType === 'grade' ? (
-            <Select
-              className={classes.input}
-              data={grades}
-              placeholder={'Select grade...'}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          ) : operatorValue === 'contains' ? (
-            <TextInput
-              className={classes.input}
-              placeholder={'Enter value...'}
-              value={targetValue}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          ) : (
-            <NumberInput
-              className={classes.input}
-              placeholder={'Enter value...'}
-              value={condition.target}
-              onChange={(e) => {
-                setTargetValue(e);
-                setNewData(e, 'target');
-              }}
-              disabled={!operatorValue}
-              error={error ? errorMessage || 'Please select a grade' : null}
-              required
-            />
-          )}
-        </Box>
+        </Paper>
       )}
     </Draggable>
   );

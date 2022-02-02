@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
-import { LOGIC_OPERATORS } from '../ProgramRules';
-import { RuleGroupStyles } from './RuleGroup.styles';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-// import { Text } from '../../../typography';
+import { Menu } from '@bubbles-ui/components/src/navigation';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { Paper, Box, Text, Button, Stack, Select } from '@bubbles-ui/components';
 import { RuleCondition } from '../RuleCondition/';
-// import { Button } from '../../../form';
-// import { Stack } from '../../../layout';
-// import { Select } from '../../../form';
-
-import { Box, Text, Button, Stack, Select } from '@bubbles-ui/components';
+import { LOGIC_OPERATORS } from '../ProgramRules';
+import { RuleGroupStyles } from './RuleGroup.styles';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -42,6 +39,30 @@ export const RULE_GROUP_PROP_TYPES = {
   edited: PropTypes.array,
   setEdited: PropTypes.func,
   error: PropTypes.bool,
+  setError: PropTypes.func,
+  errorMessage: PropTypes.string,
+  labels: PropTypes.shape({
+    newRule: PropTypes.string,
+    newRuleGroup: PropTypes.string,
+    menuLabels: PropTypes.shape({
+      remove: PropTypes.string,
+      duplicate: PropTypes.string,
+      turnIntoCondition: PropTypes.string,
+      turnIntoGroup: PropTypes.string,
+    }),
+    where: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    selectItem: PropTypes.string,
+    selectCourse: PropTypes.string,
+    selectKnowledge: PropTypes.string,
+    selectSubject: PropTypes.string,
+    selectSubjectType: PropTypes.string,
+    selectSubjectGroup: PropTypes.string,
+    selectDataType: PropTypes.string,
+    selectOperator: PropTypes.string,
+    selectTargetGrade: PropTypes.string,
+  }),
 };
 
 const RuleGroup = ({
@@ -69,6 +90,8 @@ const RuleGroup = ({
   error,
   setError,
   errorMessage,
+  labels,
+  placeholders,
   ...props
 }) => {
   const { classes, cx } = RuleGroupStyles({}, { name: 'RuleGroup' });
@@ -123,15 +146,14 @@ const RuleGroup = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text>Where</Text>;
+      return <Text role="productive">{labels.where}</Text>;
     }
     if (index === 1) {
       return (
         <Select
           className={classes.input}
           data={LOGIC_OPERATORS}
-          defaultValue={parentOperator.value}
-          value={parentOperator}
+          value={parentOperator.value}
           onChange={(e) => {
             setParentOperator({ label: e.toUpperCase(), value: e });
             setGroupOperator(e);
@@ -139,8 +161,34 @@ const RuleGroup = ({
         />
       );
     } else {
-      return <Text>{parentOperator.label}</Text>;
+      return (
+        <Box m={10}>
+          <Text role="productive">{parentOperator.label}</Text>
+        </Box>
+      );
     }
+  };
+
+  const removeGroup = () => {
+    parentGroup.conditions.splice(index, 1);
+    setData({ ...data });
+  };
+
+  const duplicateGroup = () => {
+    parentGroup.conditions.push({
+      id: uuidv4(),
+      group: {
+        operator: group.operator,
+        conditions: group.conditions.map((condition) => ({ ...condition, id: uuidv4() })),
+      },
+    });
+    setData({ ...data });
+  };
+
+  const turnToCondition = () => {
+    parentGroup.conditions.splice(index, 1);
+    parentGroup.conditions.push(...group.conditions);
+    setData({ ...data });
   };
 
   const uuid = uuidv4();
@@ -178,6 +226,8 @@ const RuleGroup = ({
                     error={error}
                     setError={setError}
                     errorMessage={errorMessage}
+                    labels={labels}
+                    placeholders={placeholders}
                   />
                 ) : (
                   <RuleCondition
@@ -205,6 +255,11 @@ const RuleGroup = ({
                     error={error}
                     setError={setError}
                     errorMessage={errorMessage}
+                    labels={{
+                      menuLabels: labels.menuLabels,
+                      where: labels.where,
+                    }}
+                    placeholders={placeholders}
                   />
                 )
               )}
@@ -214,11 +269,17 @@ const RuleGroup = ({
         </Droppable>
       </DragDropContext>
       <Stack direction={'column'} alignItems={'start'}>
-        <Button variant={'link'} onClick={addCondition}>
-          Add new rule
+        <Button
+          variant="light"
+          compact
+          size="xs"
+          leftIcon={<AddCircleIcon />}
+          onClick={addCondition}
+        >
+          {labels.newRule}
         </Button>
-        <Button variant={'link'} onClick={addGroup}>
-          Add new rule group
+        <Button variant="light" compact size="xs" leftIcon={<AddCircleIcon />} onClick={addGroup}>
+          {labels.newRuleGroup}
         </Button>
       </Stack>
     </Box>
@@ -229,7 +290,28 @@ const RuleGroup = ({
         <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <Box className={classes.ruleGroup}>
             {<Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>}
-            <Box className={className}>{ruleGroup}</Box>
+            <Paper fullWidth className={className} padding={3}>
+              {ruleGroup}
+            </Paper>
+            <Menu
+              items={[
+                {
+                  children: labels.menuLabels.remove,
+                  icon: <DeleteBinIcon />,
+                  onClick: removeGroup,
+                },
+                {
+                  children: labels.menuLabels.duplicate,
+                  icon: <DuplicateIcon />,
+                  onClick: duplicateGroup,
+                },
+                {
+                  children: labels.menuLabels.turnIntoCondition,
+                  icon: <SwitchHorizontalIcon />,
+                  onClick: turnToCondition,
+                },
+              ]}
+            />
           </Box>
         </Box>
       )}

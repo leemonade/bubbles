@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Box } from '@mantine/core';
 import { ProgramRulesStyles } from './ProgramRules.styles';
 import { RuleGroup } from '../RuleGroup';
 import { v4 as uuidv4 } from 'uuid';
-// import { Stack } from '../../../layout';
-// import { Button, Select, TextInput } from '../../../form';
-import { Box, Stack, Button, Select, TextInput } from '@bubbles-ui/components';
+import { Box, Button, Paper, Select, Stack, TextInput } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
@@ -33,6 +30,35 @@ export const PROGRAM_RULES_PROP_TYPES = {
   dataTypes: PropTypes.arrayOf(PROPTYPES_SHAPE),
   operators: PropTypes.arrayOf(PROPTYPES_SHAPE),
   onChange: PropTypes.func,
+  errorMessage: PropTypes.string,
+  labels: PropTypes.shape({
+    saveButton: PropTypes.string,
+    newRule: PropTypes.string,
+    newRuleGroup: PropTypes.string,
+    menuLabels: PropTypes.shape({
+      remove: PropTypes.string,
+      duplicate: PropTypes.string,
+      turnIntoCondition: PropTypes.string,
+      turnIntoGroup: PropTypes.string,
+    }),
+    where: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    programName: PropTypes.string,
+    selectProgram: PropTypes.string,
+    selectGradeSystem: PropTypes.string,
+    conditionPlaceholders: PropTypes.shape({
+      selectItem: PropTypes.string,
+      selectCourse: PropTypes.string,
+      selectKnowledge: PropTypes.string,
+      selectSubject: PropTypes.string,
+      selectSubjectType: PropTypes.string,
+      selectSubjectGroup: PropTypes.string,
+      selectDataType: PropTypes.string,
+      selectOperator: PropTypes.string,
+      selectTargetGrade: PropTypes.string,
+    }),
+  }),
 };
 
 const ProgramRules = ({
@@ -49,6 +75,8 @@ const ProgramRules = ({
   operators,
   onChange,
   errorMessage,
+  labels,
+  placeholders,
   ...props
 }) => {
   const { classes, cx } = ProgramRulesStyles({});
@@ -62,7 +90,6 @@ const ProgramRules = ({
       conditions: [{ id: uuidv4(), source: '', sourceIds: [], data: '', operator: '', target: 0 }],
     },
   });
-  const [logicOperator, setLogicOperator] = useState(LOGIC_OPERATORS[0]);
   const [nameValue, setNameValue] = useState('');
   const [program, setProgram] = useState(null);
   const [edited, setEdited] = useState([]);
@@ -74,6 +101,7 @@ const ProgramRules = ({
       return;
     }
     setError(false);
+
     isFunction(onChange) && onChange(data);
   };
 
@@ -81,19 +109,19 @@ const ProgramRules = ({
     <Box className={classes.root}>
       <Stack justifyContent={'space-between'} fullWidth>
         <TextInput
-          placeholder={'Program name'}
+          placeholder={placeholders.programName}
           value={nameValue}
           onChange={(e) => {
             setNameValue(e);
             setData({ ...data, name: e });
           }}
         />
-        <Button onClick={() => handleOnChange(data)}>Save</Button>
+        <Button onClick={() => handleOnChange(data)}>{labels.saveButton}</Button>
       </Stack>
       <Stack fullWidth>
         <Select
           data={programs}
-          placeholder={'Select a program...'}
+          placeholder={placeholders.selectProgram}
           onChange={(e) => {
             setProgram(programs.find((obj) => obj.value === e));
             setData({ ...data, program: e });
@@ -101,36 +129,42 @@ const ProgramRules = ({
         />
         <Select
           data={gradeSystems}
-          placeholder={'Select a grade system...'}
+          placeholder={placeholders.selectGradeSystem}
           className={classes.gradeSelect}
           onChange={(e) => {
-            setProgram(gradeSystems.find((obj) => obj.value === e));
             setData({ ...data, grade: e });
           }}
         />
       </Stack>
-      <RuleGroup
-        program={program}
-        grades={grades}
-        sources={sources}
-        courses={courses}
-        knowledges={knowledges}
-        subjects={subjects}
-        subjectTypes={subjectTypes}
-        subjectGroups={subjectGroups}
-        dataTypes={dataTypes}
-        operators={operators}
-        externalOperator={logicOperator}
-        setExternalOperator={setLogicOperator}
-        group={data.group}
-        data={data}
-        setData={setData}
-        edited={edited}
-        setEdited={setEdited}
-        error={error}
-        setError={setError}
-        errorMessage={errorMessage}
-      />
+      <Paper fullWidth padding={3}>
+        <RuleGroup
+          program={program}
+          grades={grades}
+          sources={sources}
+          courses={courses}
+          knowledges={knowledges}
+          subjects={subjects}
+          subjectTypes={subjectTypes}
+          subjectGroups={subjectGroups}
+          dataTypes={dataTypes}
+          operators={operators}
+          group={data.group}
+          data={data}
+          setData={setData}
+          edited={edited}
+          setEdited={setEdited}
+          error={error}
+          setError={setError}
+          errorMessage={errorMessage}
+          labels={{
+            newRule: labels.newRule,
+            newRuleGroup: labels.newRuleGroup,
+            menuLabels: labels.menuLabels,
+            where: labels.where,
+          }}
+          placeholders={placeholders.conditionPlaceholders}
+        />
+      </Paper>
     </Box>
   );
 };

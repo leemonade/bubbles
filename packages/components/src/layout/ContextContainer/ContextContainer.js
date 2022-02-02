@@ -56,23 +56,17 @@ const ContextContainer = ({
   }, [children, divided]);
 
   return (
-    <Stack
-      className={cx(classes.root, className)}
-      direction="column"
-      spacing={spacing}
-      fullWidth
-      {...props}
-    >
+    <Stack direction="column" spacing={5} fullWidth>
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={5} fullWidth>
           {hasTitle && (
             <Box>
-              <Title order={3}>{title}</Title>
+              <Title order={4}>{title}</Title>
             </Box>
           )}
           {hasSubtitle && (
             <Box>
-              <Title order={5}>{subtitle}</Title>
+              <Title order={6}>{subtitle}</Title>
             </Box>
           )}
           {hasDescription && (
@@ -82,7 +76,15 @@ const ContextContainer = ({
           )}
         </Stack>
       )}
-      {childrenNodes}
+      <Stack
+        className={cx(classes.root, className)}
+        direction="column"
+        spacing={spacing}
+        fullWidth
+        {...props}
+      >
+        {childrenNodes}
+      </Stack>
     </Stack>
   );
 };

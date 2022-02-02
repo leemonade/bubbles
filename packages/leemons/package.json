@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/leemons",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/leemonade/bubbles.git",
-    "directory": "packages/editors"
+    "directory": "packages/leemons"
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
@@ -50,8 +50,8 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.0.21",
-    "@bubbles-ui/icons": "^1.0.8",
+    "@bubbles-ui/components": "^1.0.23",
+    "@bubbles-ui/icons": "^1.0.10",
     "@bubbles-ui/editors": "^1.0.4",
     "@bubbles-ui/calendars": "^1.0.2",
     "react": "^17.0.2",

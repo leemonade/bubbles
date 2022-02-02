@@ -6,6 +6,7 @@ export {
   useMantineTheme as useTheme,
   Popper,
   SegmentedControl,
+  UnstyledButton,
 } from '@mantine/core';
 export { useId, useScrollIntoView, useResizeObserver } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';

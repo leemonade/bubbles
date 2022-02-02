@@ -118,6 +118,7 @@ const MainNav = ({
       <Box className={classes.navWrapper}>
         <Box className={classes.navContainer}>
           <Logo isotype className={classes.logo} />
+
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
             {isArray(menuData) &&

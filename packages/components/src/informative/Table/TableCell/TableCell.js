@@ -1,7 +1,6 @@
 import React from 'react';
 import { isFunction, isObject, isString } from 'lodash';
-import { Box } from '@mantine/core';
-import { Stack } from '../../../layout';
+import { Stack, Box } from '../../../layout';
 import { Checkbox } from '../../../form';
 import { TableCellStyles } from './TableCell.styles';
 

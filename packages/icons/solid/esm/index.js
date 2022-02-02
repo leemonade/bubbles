@@ -34,6 +34,7 @@ export { default as DoneSquareAlternateIcon } from './DoneSquareAlternateIcon.js
 export { default as EditWriteIcon } from './EditWriteIcon.js'
 export { default as ElectionDebateIcon } from './ElectionDebateIcon.js'
 export { default as ExclamationIcon } from './ExclamationIcon.js'
+export { default as ExcludeIcon } from './ExcludeIcon.js'
 export { default as ExpandFullIcon } from './ExpandFullIcon.js'
 export { default as FacebookIcon } from './FacebookIcon.js'
 export { default as FavoriteHeartIcon } from './FavoriteHeartIcon.js'

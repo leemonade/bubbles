@@ -12,6 +12,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       borderColor: theme.colors.interactive03h,
       padding: 0,
       overflow: 'hidden',
+      whiteSpace: 'normal',
     },
     title: {
       ...getFontProductive(theme.fontSizes[2], 500),
@@ -24,7 +25,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
     bottomSection: {
       padding: theme.spacing[4],
       backgroundColor:
-        colord(bgColor).desaturate(0.3).alpha(0.7).toRgbString() || theme.colors.uiBackground04,
+        colord(bgColor).desaturate(0.2).alpha(0.7).toRgbString() || theme.colors.uiBackground04,
     },
     avatar: {
       display: 'flex',
@@ -48,6 +49,13 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       width: `${progress}%`,
       height: '100%',
       backgroundColor: theme.colors.uiBackground03,
+    },
+    description: {
+      display: '-webkit-box',
+      '-webkit-line-clamp': '4',
+      '-webkit-box-orient': 'vertical',
+      overflow: 'hidden',
+      marginBottom: theme.spacing[4],
     },
   };
 });

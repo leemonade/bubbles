@@ -22,13 +22,18 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     isLoading: { options: ADMIN_PAGE_HEADER_BUTTON_TYPES, control: { type: 'select' } },
+    onNew: { action: 'New clicked' },
+    onEdit: { action: 'Edit clicked' },
+    onSave: { action: 'Save clicked' },
+    onCancel: { action: 'Cancel clicked' },
+    onDuplicate: { action: 'Duplicate clicked' },
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ ...props }) => {
   return (
     <Box style={{ margin: '-15px' }}>
-      <AdminPageHeader {...props}>{children}</AdminPageHeader>
+      <AdminPageHeader {...props} />
     </Box>
   );
 };
@@ -40,25 +45,7 @@ Playground.args = {
   breadcrumbs: [{ label: 'Users', href: '#' }, { label: 'Profiles' }],
   values: {
     title: 'Profile list',
-    description: `Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).
-    Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).`,
+    description: `Use the user profiles to manage permissions for applications. Each time you install a new Leemon (plugin) we will ask you to define permissions for each existing profile. Start by manually creating a profile or install the default profiles suggested here and save a lot of time (seriously).`,
   },
   placeholders: {
     title: 'Profile name',

@@ -9,7 +9,7 @@ generateTemplateFiles([
     },
     stringReplacers: [
       {
-        question: 'Insert package name ( leemons | editors | calendars)',
+        question: 'Insert package name ( leemons | editors | calendars | notifications )',
         slot: '__package__',
       },
       { question: 'Insert folder name (inside ./src)', slot: '__folder__' },
@@ -17,7 +17,7 @@ generateTemplateFiles([
       { question: 'Atomic design level (atom | molecule | organism)', slot: '__atomicity__' },
     ],
     output: {
-      path: './src/packages/__package__(lowerCase)/__folder__(kebabCase)/__name__(pascalCase)',
+      path: './packages/__package__(lowerCase)/src/__folder__(kebabCase)/__name__(pascalCase)',
       pathAndFileNameDefaultCase: '(pascalCase)',
       overwrite: true,
     },

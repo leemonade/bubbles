@@ -5,7 +5,7 @@ import { BoxStyles } from './Box.styles';
 export const BOX_DEFAULT_PROPS = {};
 export const BOX_PROP_TYPES = {};
 
-const Box = forwardRef(({ className, ...props }, ref) => {
+const Box = forwardRef(({ className, noFlex, ...props }, ref) => {
   const { classes, cx } = BoxStyles({});
 
   return <MantineBox {...props} ref={ref} className={cx(classes.root, className)} />;

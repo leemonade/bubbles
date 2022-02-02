@@ -88,7 +88,7 @@ const MultiSelect = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = MultiSelectStyles({ size, orientation });
+    const { classes, cx } = MultiSelectStyles({ size, orientation }, { name: 'MultiSelect' });
 
     return (
       <InputWrapper
