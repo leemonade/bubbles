@@ -225,7 +225,7 @@ const RuleCondition = ({
           break;
         case 'knowledge':
         case 'subject-type':
-          filters = ['cpp', 'cpc', 'gpa', 'cbcg'];
+          filters = ['cpp', 'cpc', 'gpa', 'cpcg'];
           break;
         case 'subject':
           filters = ['grade', 'enrolled'];
@@ -236,8 +236,11 @@ const RuleCondition = ({
         default:
           break;
       }
-      return filter(dataTypes, (item) => filters.includes(item.value));
+      results = filter(dataTypes, (item) => filters.includes(item.value));
+      setDataType('');
+      setNewData('', 'data');
     }
+
     return results;
   }, [sourceValue, dataTypes]);
 
@@ -270,6 +273,13 @@ const RuleCondition = ({
   useEffect(() => {
     setEdited([...edited, { id: draggableId, value: false }]);
   }, []);
+
+  useEffect(() => {
+    setOperatorValue('');
+    setTargetValue(0);
+    setNewData('', 'operator');
+    setNewData(0, 'target');
+  }, [dataType]);
 
   useEffect(() => {
     if (sourceValue === 'program' && condition.sourceIds[0] !== program.value) {
@@ -314,11 +324,7 @@ const RuleCondition = ({
                 value={dataType}
                 onChange={(e) => {
                   setDataType(e);
-                  setOperatorValue('');
-                  setTargetValue('');
                   setNewData(e, 'data');
-                  setNewData('', 'operator');
-                  setNewData('', 'target');
                 }}
                 disabled={
                   !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
