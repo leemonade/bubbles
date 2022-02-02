@@ -39,6 +39,26 @@ export const RULE_CONDITION_PROP_TYPES = {
   edited: PropTypes.array,
   setEdited: PropTypes.func,
   error: PropTypes.bool,
+  labels: PropTypes.shape({
+    menuLabels: PropTypes.shape({
+      remove: PropTypes.string,
+      duplicate: PropTypes.string,
+      turnIntoCondition: PropTypes.string,
+      turnIntoGroup: PropTypes.string,
+    }),
+    where: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    selectItem: PropTypes.string,
+    selectCourse: PropTypes.string,
+    selectKnowledge: PropTypes.string,
+    selectSubject: PropTypes.string,
+    selectSubjectType: PropTypes.string,
+    selectSubjectGroup: PropTypes.string,
+    selectDataType: PropTypes.string,
+    selectOperator: PropTypes.string,
+    selectTargetGrade: PropTypes.string,
+  }),
 };
 
 const RuleCondition = ({
@@ -65,6 +85,8 @@ const RuleCondition = ({
   error,
   setError,
   errorMessage,
+  labels,
+  placeholders,
   ...props
 }) => {
   const { classes, cx } = RuleConditionStyles({}, { name: 'RuleCondition' });
@@ -96,7 +118,7 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={courses}
-            placeholder={'Select course...'}
+            placeholder={placeholders.selectCourse}
             value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
@@ -105,7 +127,7 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={knowledges}
-            placeholder={'Select knowledge...'}
+            placeholder={placeholders.selectKnowledge}
             value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
@@ -114,25 +136,25 @@ const RuleCondition = ({
         return (
           <MultiSelect
             data={subjects}
-            placeholder={'Select subject...'}
+            placeholder={placeholders.selectSubject}
             value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subject-type':
+      case 'subjectType':
         return (
           <MultiSelect
             data={subjectTypes}
-            placeholder={'Select subject type...'}
+            placeholder={placeholders.selectSubjectType}
             value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subject-group':
+      case 'subjectGroup':
         return (
           <MultiSelect
             data={subjectGroups}
-            placeholder={'Select subject group...'}
+            placeholder={placeholders.selectSubjectGroup}
             value={sourceIdsValue}
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
@@ -149,7 +171,7 @@ const RuleCondition = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text role="productive">Where</Text>;
+      return <Text role="productive">{labels.where}</Text>;
     }
     if (index === 1) {
       return (
@@ -267,7 +289,7 @@ const RuleCondition = ({
                 <Select
                   className={classes.input}
                   data={sources}
-                  placeholder={'Select item...'}
+                  placeholder={placeholders.selectItem}
                   value={sourceValue}
                   onChange={(e) => {
                     setSourceValue(e);
@@ -280,17 +302,23 @@ const RuleCondition = ({
               </Box>
               <Select
                 data={filteredDataTypes}
-                placeholder={'Select data...'}
+                placeholder={placeholders.selectDataType}
                 value={dataType}
                 onChange={(e) => {
                   setDataType(e);
+                  setOperatorValue('');
+                  setTargetValue('');
                   setNewData(e, 'data');
+                  setNewData('', 'operator');
+                  setNewData('', 'target');
                 }}
-                disabled={!sourceValue}
+                disabled={
+                  !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
+                }
               />
               <Select
                 data={operators}
-                placeholder={'Select operator...'}
+                placeholder={placeholders.selectOperator}
                 value={operatorValue}
                 onChange={(e) => {
                   setOperatorValue(e);
@@ -301,7 +329,7 @@ const RuleCondition = ({
               {dataType === 'gpa' || dataType === 'grade' ? (
                 <Select
                   data={grades}
-                  placeholder={'Select grade...'}
+                  placeholder={placeholders.selectTargetGrade}
                   value={targetValue}
                   onChange={(e) => {
                     setTargetValue(e);
@@ -313,7 +341,7 @@ const RuleCondition = ({
                 />
               ) : operatorValue === 'contains' ? (
                 <TextInput
-                  placeholder={'Enter value...'}
+                  placeholder={placeholders.enterTarget}
                   value={targetValue}
                   onChange={(e) => {
                     setTargetValue(e);
@@ -325,7 +353,7 @@ const RuleCondition = ({
                 />
               ) : (
                 <NumberInput
-                  placeholder={'Enter value...'}
+                  placeholder={placeholders.enterTarget}
                   defaultValue={0}
                   value={targetValue}
                   onChange={(e) => {
@@ -340,10 +368,18 @@ const RuleCondition = ({
             </Stack>
             <Menu
               items={[
-                { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeCondition },
-                { children: 'Duplicate', icon: <DuplicateIcon />, onClick: duplicateCondition },
                 {
-                  children: 'Turn into group',
+                  children: labels.menuLabels.remove,
+                  icon: <DeleteBinIcon />,
+                  onClick: removeCondition,
+                },
+                {
+                  children: labels.menuLabels.duplicate,
+                  icon: <DuplicateIcon />,
+                  onClick: duplicateCondition,
+                },
+                {
+                  children: labels.menuLabels.turnIntoGroup,
                   icon: <SwitchHorizontalIcon />,
                   onClick: turnToGroup,
                 },
