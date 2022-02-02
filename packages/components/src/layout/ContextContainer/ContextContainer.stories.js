@@ -28,7 +28,7 @@ export default {
   },
 };
 
-const Template = ({ divided, ...props }) => {
+const Template = ({ ...props }) => {
   const RADIO_DATA = [
     {
       value: 'option1',
@@ -47,25 +47,9 @@ const Template = ({ divided, ...props }) => {
   const headerInputStyle = { width: 300 };
 
   return (
-    <ContextContainer {...props}>
-      <Box>
-        <NumberInput
-          headerStyle={headerInputStyle}
-          orientation="horizontal"
-          label="Knowledge areas abbreviation"
-          description="Max abbreviation length for areas"
-          help="(i.e: MKTG, MATH, HIST…)"
-        />
-        <Box style={{ textAlign: 'right' }}>
-          <Checkbox label="Only Numbers" />
-        </Box>
-      </Box>
-      <TextInput
-        headerStyle={headerInputStyle}
-        orientation="horizontal"
-        label="Label for text field 2"
-        description="Optional descriptive text for this text field 2"
-      />
+    <ContextContainer {...props} direction="row">
+      <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
+      <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
     </ContextContainer>
   );
 };

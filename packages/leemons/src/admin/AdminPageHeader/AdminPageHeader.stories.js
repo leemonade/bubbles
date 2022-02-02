@@ -22,13 +22,18 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     isLoading: { options: ADMIN_PAGE_HEADER_BUTTON_TYPES, control: { type: 'select' } },
+    onNew: { action: 'New clicked' },
+    onEdit: { action: 'Edit clicked' },
+    onSave: { action: 'Save clicked' },
+    onCancel: { action: 'Cancel clicked' },
+    onDuplicate: { action: 'Duplicate clicked' },
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ ...props }) => {
   return (
     <Box style={{ margin: '-15px' }}>
-      <AdminPageHeader {...props}>{children}</AdminPageHeader>
+      <AdminPageHeader {...props} />
     </Box>
   );
 };
