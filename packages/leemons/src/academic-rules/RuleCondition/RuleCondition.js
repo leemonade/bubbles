@@ -141,7 +141,7 @@ const RuleCondition = ({
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectType':
+      case 'subject-type':
         return (
           <MultiSelect
             data={subjectTypes}
@@ -150,7 +150,7 @@ const RuleCondition = ({
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectGroup':
+      case 'subject-group':
         return (
           <MultiSelect
             data={subjectGroups}
