@@ -271,6 +271,14 @@ const RuleCondition = ({
     setEdited([...edited, { id: draggableId, value: false }]);
   }, []);
 
+  useEffect(() => {
+    if (sourceValue === 'program' && condition.sourceIds[0] !== program.value) {
+      condition.sourceIds = [program.value];
+      setSourceIdsValue([program.value]);
+      setData({ ...data });
+    }
+  }, [program, sourceValue]);
+
   return (
     <Draggable draggableId={draggableId} index={index}>
       {(provided, snapshot) => (
