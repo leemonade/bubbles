@@ -35,7 +35,7 @@ const Select = forwardRef(
     },
     ref
   ) => {
-    const data = map(_data, (d) => ({ ...d, value: d.value.toString() }));
+    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d.value.toString() }));
     const value = isNil(_value) ? _value : _value.toString();
     const uuid = useId();
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
