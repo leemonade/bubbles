@@ -39,6 +39,30 @@ export const RULE_GROUP_PROP_TYPES = {
   edited: PropTypes.array,
   setEdited: PropTypes.func,
   error: PropTypes.bool,
+  setError: PropTypes.func,
+  errorMessage: PropTypes.string,
+  labels: PropTypes.shape({
+    newRule: PropTypes.string,
+    newRuleGroup: PropTypes.string,
+    menuLabels: PropTypes.shape({
+      remove: PropTypes.string,
+      duplicate: PropTypes.string,
+      turnIntoCondition: PropTypes.string,
+      turnIntoGroup: PropTypes.string,
+    }),
+    where: PropTypes.string,
+  }),
+  placeholders: PropTypes.shape({
+    selectItem: PropTypes.string,
+    selectCourse: PropTypes.string,
+    selectKnowledge: PropTypes.string,
+    selectSubject: PropTypes.string,
+    selectSubjectType: PropTypes.string,
+    selectSubjectGroup: PropTypes.string,
+    selectDataType: PropTypes.string,
+    selectOperator: PropTypes.string,
+    selectTargetGrade: PropTypes.string,
+  }),
 };
 
 const RuleGroup = ({
@@ -66,6 +90,8 @@ const RuleGroup = ({
   error,
   setError,
   errorMessage,
+  labels,
+  placeholders,
   ...props
 }) => {
   const { classes, cx } = RuleGroupStyles({}, { name: 'RuleGroup' });
@@ -120,7 +146,7 @@ const RuleGroup = ({
 
   const getLogicOperatorSelect = () => {
     if (index === 0) {
-      return <Text role="productive">Where</Text>;
+      return <Text role="productive">{labels.where}</Text>;
     }
     if (index === 1) {
       return (
@@ -200,6 +226,8 @@ const RuleGroup = ({
                     error={error}
                     setError={setError}
                     errorMessage={errorMessage}
+                    labels={labels}
+                    placeholders={placeholders}
                   />
                 ) : (
                   <RuleCondition
@@ -227,6 +255,11 @@ const RuleGroup = ({
                     error={error}
                     setError={setError}
                     errorMessage={errorMessage}
+                    labels={{
+                      menuLabels: labels.menuLabels,
+                      where: labels.where,
+                    }}
+                    placeholders={placeholders}
                   />
                 )
               )}
@@ -243,10 +276,10 @@ const RuleGroup = ({
           leftIcon={<AddCircleIcon />}
           onClick={addCondition}
         >
-          New rule
+          {labels.newRule}
         </Button>
         <Button variant="light" compact size="xs" leftIcon={<AddCircleIcon />} onClick={addGroup}>
-          New rule group
+          {labels.newRuleGroup}
         </Button>
       </Stack>
     </Box>
@@ -262,10 +295,18 @@ const RuleGroup = ({
             </Paper>
             <Menu
               items={[
-                { children: 'Remove', icon: <DeleteBinIcon />, onClick: removeGroup },
-                { children: 'Duplicate', icon: <DuplicateIcon />, onClick: duplicateGroup },
                 {
-                  children: 'Turn into condition/s',
+                  children: labels.menuLabels.remove,
+                  icon: <DeleteBinIcon />,
+                  onClick: removeGroup,
+                },
+                {
+                  children: labels.menuLabels.duplicate,
+                  icon: <DuplicateIcon />,
+                  onClick: duplicateGroup,
+                },
+                {
+                  children: labels.menuLabels.turnIntoCondition,
                   icon: <SwitchHorizontalIcon />,
                   onClick: turnToCondition,
                 },

@@ -27,6 +27,35 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...PROGRAM_RULES_DEFAULT_PROPS,
+  labels: {
+    saveButton: 'Save',
+    newRule: 'New rule',
+    newRuleGroup: 'New rule Group',
+    menuLabels: {
+      remove: 'Remove',
+      duplicate: 'Duplicate',
+      turnIntoCondition: 'Turn into condition/s',
+      turnIntoGroup: 'Turn into group',
+    },
+    where: 'Where',
+  },
+  placeholders: {
+    programName: 'Program Name',
+    selectProgram: 'Select a program...',
+    selectGradeSystem: 'Select a grade system...',
+    conditionPlaceholders: {
+      selectItem: 'Select an item...',
+      selectCourse: 'Select course...',
+      selectKnowledge: 'Select knowledge...',
+      selectSubject: 'Select subject...',
+      selectSubjectType: 'Select subject type...',
+      selectSubjectGroup: 'Select subject group...',
+      selectDataType: 'Select data...',
+      selectOperator: 'Select operator...',
+      selectTargetGrade: 'Select grade...',
+      enterTarget: 'Enter value...',
+    },
+  },
   errorMessage: 'Error message',
   programs: [
     {
