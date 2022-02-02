@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleConditionStyles } from './RuleCondition.styles';
-import { Paper, Box, Stack, Text, NumberInput, Select, TextInput } from '@bubbles-ui/components';
+import { Box, NumberInput, Paper, Select, Stack, Text, TextInput } from '@bubbles-ui/components';
 import { MultiSelect } from '@bubbles-ui/components/src/form/';
 import { Menu } from '@bubbles-ui/components/src/navigation';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { v4 as uuidv4 } from 'uuid';
+import { filter } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -118,7 +119,7 @@ const RuleCondition = ({
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectType':
+      case 'subject-type':
         return (
           <MultiSelect
             data={subjectTypes}
@@ -127,7 +128,7 @@ const RuleCondition = ({
             onChange={(e) => setNewData(e, 'sourceIds')}
           />
         );
-      case 'subjectGroup':
+      case 'subject-group':
         return (
           <MultiSelect
             data={subjectGroups}
@@ -189,6 +190,35 @@ const RuleCondition = ({
     setData({ ...data });
   };
 
+  const filteredDataTypes = useMemo(() => {
+    let results = [];
+    if (sourceValue && dataTypes) {
+      let filters = [];
+      switch (sourceValue) {
+        case 'program':
+          filters = ['cpp', 'cpc', 'gpa'];
+          break;
+        case 'course':
+          filters = ['cpc', 'gpa'];
+          break;
+        case 'knowledge':
+        case 'subject-type':
+          filters = ['cpp', 'cpc', 'gpa', 'cbcg'];
+          break;
+        case 'subject':
+          filters = ['grade', 'enrolled'];
+          break;
+        case 'subject-group':
+          filters = ['gpa', 'credits'];
+          break;
+        default:
+          break;
+      }
+      return filter(dataTypes, (item) => filters.includes(item.value));
+    }
+    return results;
+  }, [sourceValue, dataTypes]);
+
   useEffect(() => {
     setEdited(
       edited.map((item) => {
@@ -249,7 +279,7 @@ const RuleCondition = ({
                 {sourceValue && getSourceSelect(sourceValue)}
               </Box>
               <Select
-                data={dataTypes}
+                data={filteredDataTypes}
                 placeholder={'Select data...'}
                 value={dataType}
                 onChange={(e) => {

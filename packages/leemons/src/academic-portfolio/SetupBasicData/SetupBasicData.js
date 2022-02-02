@@ -28,6 +28,7 @@ export const SETUP_BASIC_DATA_PROP_TYPES = {
   onNext: PropTypes.func,
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
+  editable: PropTypes.bool,
 };
 
 const SetupBasicData = ({
@@ -40,6 +41,7 @@ const SetupBasicData = ({
   onPrevious,
   sharedData,
   setSharedData,
+  editable,
   ...props
 }) => {
   const { classes, cx } = SetupBasicDataStyles({}, { name: 'APBasicData' });
@@ -67,8 +69,9 @@ const SetupBasicData = ({
   } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (
@@ -125,6 +128,7 @@ const SetupBasicData = ({
               render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
                   label={labels.creditSystem}
+                  disabled={!editable}
                   onChange={(e) => {
                     onChange(e);
                     setCreditSystem(!creditSystem);
@@ -154,6 +158,7 @@ const SetupBasicData = ({
               render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
                   label={labels.oneStudentGroup}
+                  disabled={!editable}
                   onChange={(e) => {
                     onChange(e);
                     setOneStudentGroup(!oneStudentGroup);
@@ -182,6 +187,7 @@ const SetupBasicData = ({
                         label={labels.maxGroupAbbreviation}
                         help={helps.maxGroupAbbreviation}
                         required
+                        disabled={!editable}
                         {...field}
                       />
                       <Controller
@@ -192,6 +198,7 @@ const SetupBasicData = ({
                             label={labels.maxGroupAbbreviationIsOnlyNumbers}
                             onChange={onChange}
                             checked={value}
+                            disabled={!editable}
                             {...field}
                           />
                         )}

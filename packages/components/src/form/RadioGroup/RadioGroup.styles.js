@@ -17,6 +17,7 @@ export const RadioGroupStyles = createStyles(
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: direction,
         border: hasError ? `1px solid ${theme.colors.fatic01}` : 'none',
+        paddingRight: isIcon && 1,
       },
       label: {
         padding: 0,
@@ -33,11 +34,12 @@ export const RadioGroupStyles = createStyles(
             ? `inset 0 0 0 1px ${isIcon ? theme.colors.interactive01d : theme.colors.ui01}`
             : null,
         borderRadius: '0px',
-        top: 0,
+        top: 4,
+        left: 4,
         bottom: 0,
         height: isColumn && activePosition.height,
-        transform: isColumn && `translateY(${activePosition.translate}px) !important`,
-        marginLeft: !isColumn && 4,
+        // transform: isColumn && `translateY(${activePosition.translate}px) !important`,
+        // marginLeft: !isColumn && 4,
         transitionTimingFunction: 'ease-out',
       },
       radio: {

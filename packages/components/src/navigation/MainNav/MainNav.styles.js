@@ -1,5 +1,6 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../theme.mixins';
+import 'simplebar/dist/simplebar.min.css';
 
 export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) => {
   return {
@@ -11,24 +12,26 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) =>
     navWrapper: {
       height: '100vh',
       width: pxToRem(itemWidth),
-      flex: 'none',
+      // flex: 'none',
       backgroundColor: theme.colors.uiBackground05,
       zIndex: 2,
+      overflow: 'hidden',
     },
     navContainer: {
       height: '100%',
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
+      gap: theme.spacing[3],
       justifyContent: 'space-between',
     },
     logo: {
       width: pxToRem(24),
-      marginBottom: pxToRem(36),
       marginLeft: 'auto',
       marginRight: 'auto',
     },
     navItems: {
+      // height: 300,
       flexGrow: 1,
       height: 1,
     },

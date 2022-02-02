@@ -26,7 +26,7 @@ function deserializeData(data) {
 // ----------------------------------------------------------------
 // COMPONENT
 
-const TableInput = ({ data, onChangeData, ...props }) => {
+const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd, ...props }) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -40,11 +40,19 @@ const TableInput = ({ data, onChangeData, ...props }) => {
   const handleOnChange = (newData) => {
     setTableData(newData);
     if (isFunction(onChangeData)) onChangeData(deserializeData(newData));
+    if (isFunction(onChange)) onChange(deserializeData(newData));
   };
 
-  const handleOnAdd = (item) => {
-    const newData = update(tableData, { $push: [serializeItem(item)] });
-    handleOnChange(newData);
+  const handleOnAdd = async (item) => {
+    let canAdd = true;
+    if (isFunction(onBeforeAdd)) {
+      const result = await onBeforeAdd(item);
+      canAdd = !(result === false);
+    }
+    if (canAdd) {
+      const newData = update(tableData, { $push: [serializeItem(item)] });
+      handleOnChange(newData);
+    }
   };
 
   const handleOnEdit = (item, index) => {
@@ -54,9 +62,16 @@ const TableInput = ({ data, onChangeData, ...props }) => {
     handleOnChange(newData);
   };
 
-  const handleOnRemove = (index) => {
-    const newData = update(tableData, { $splice: [[serializeItem(index), 1]] });
-    handleOnChange(newData);
+  const handleOnRemove = async (index) => {
+    let canRemove = true;
+    if (isFunction(onBeforeRemove)) {
+      const result = await onBeforeRemove(tableData[index]);
+      canRemove = !(result === false);
+    }
+    if (canRemove) {
+      tableData.splice(index, 1);
+      handleOnChange([...tableData]);
+    }
   };
 
   const handleOnSort = (from, to) => {

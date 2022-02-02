@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ProgramRulesStyles } from './ProgramRules.styles';
 import { RuleGroup } from '../RuleGroup';
 import { v4 as uuidv4 } from 'uuid';
-import { Paper, Box, Stack, Button, Select, TextInput } from '@bubbles-ui/components';
+import { Box, Button, Paper, Select, Stack, TextInput } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
@@ -119,8 +119,6 @@ const ProgramRules = ({
           subjectGroups={subjectGroups}
           dataTypes={dataTypes}
           operators={operators}
-          externalOperator={logicOperator}
-          setExternalOperator={setLogicOperator}
           group={data.group}
           data={data}
           setData={setData}

@@ -35,6 +35,7 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
   setSharedData: PropTypes.func,
   firstDigitOptions: PropTypes.array,
   frequencyOptions: PropTypes.array,
+  editable: PropTypes.bool,
 };
 
 const SetupSubjects = ({
@@ -47,14 +48,17 @@ const SetupSubjects = ({
   setSharedData,
   firstDigitOptions,
   frequencyOptions,
+  editable,
   ...props
 }) => {
   const defaultValues = {
     allSubjectsSameDuration: false,
+    haveKnowledge: false,
     maxKnowledgeAbbreviation: 0,
     maxKnowledgeAbbreviationIsOnlyNumbers: false,
-    subjectsFirstDigit: firstDigitOptions[0],
+    subjectsFirstDigit: firstDigitOptions[0]?.value,
     subjectsDigits: 0,
+    customSubstages: [],
     ...sharedData,
   };
 
@@ -63,6 +67,8 @@ const SetupSubjects = ({
   const [allSubjectsSameDuration, setAllSubjectsSameDuration] = useState(
     defaultValues.allSubjectsSameDuration
   );
+  const [haveKnowledge, setHaveKnowledge] = useState(defaultValues.haveKnowledge);
+  const [customSubstages, setCustomSubstages] = useState(defaultValues.customSubstages);
 
   const { classes, cx } = SetupSubjectsStyles({});
 
@@ -72,7 +78,7 @@ const SetupSubjects = ({
     const numberOfCourses = sharedData?.maxNumberOfCourses;
 
     for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
-      const firstNumber = subjectsFirstDigit === firstDigitOptions[0] ? currentNumber : '';
+      const firstNumber = subjectsFirstDigit === firstDigitOptions[0]?.value ? currentNumber : '';
       subjectsID.push(
         <Box key={`k-${currentNumber}`} className={classes.subjectID}>
           <Text size="md">{`${firstNumber}${'0'.repeat(
@@ -94,8 +100,9 @@ const SetupSubjects = ({
   } = useForm({ defaultValues });
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e, customSubstages };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (
@@ -114,6 +121,7 @@ const SetupSubjects = ({
                   onChange(e);
                 }}
                 checked={value || false}
+                disabled={!editable}
                 {...field}
               />
             )}
@@ -121,6 +129,7 @@ const SetupSubjects = ({
           {!allSubjectsSameDuration && (
             <TableInput
               sortable={false}
+              disabled={!editable}
               columns={[
                 {
                   Header: labels.periodName,
@@ -132,7 +141,7 @@ const SetupSubjects = ({
                 },
                 {
                   Header: labels.numOfPeriods,
-                  accessor: 'amount',
+                  accessor: 'number',
                   input: {
                     node: <NumberInput />,
                     rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' },
@@ -151,41 +160,63 @@ const SetupSubjects = ({
                   valueRender: (value) => find(frequencyOptions, { value })['label'],
                 },
               ]}
-              data={[]}
+              data={customSubstages}
               labels={{
                 add: labels.buttonAdd,
                 remove: labels.buttonRemove,
               }}
+              onChangeData={(val) => setCustomSubstages(val)}
             />
           )}
         </ContextContainer>
         <ContextContainer title={labels.knowledgeAreas}>
           <Controller
-            name="maxKnowledgeAbbreviation"
+            name="haveKnowledge"
             control={control}
-            render={({ field }) => (
-              <ContextContainer direction="row" alignItems="center">
-                <NumberInput
-                  label={labels.maxKnowledgeAbbreviation}
-                  help={helps.maxKnowledgeAbbreviation}
-                  min={0}
-                  {...field}
-                />
-                <Controller
-                  name="maxKnowledgeAbbreviationIsOnlyNumbers"
-                  control={control}
-                  render={({ field: { onChange, value, ...field } }) => (
-                    <Checkbox
-                      label={labels.maxKnowledgeAbbreviationIsOnlyNumbers}
-                      onChange={onChange}
-                      checked={value}
-                      {...field}
-                    />
-                  )}
-                />
-              </ContextContainer>
+            render={({ field: { onChange, value, ref, ...field } }) => (
+              <Switch
+                label={labels.haveKnowledge}
+                help={helps.haveKnowledge}
+                onChange={(e) => {
+                  setHaveKnowledge(!haveKnowledge);
+                  onChange(e);
+                }}
+                checked={value || false}
+                disabled={!editable}
+                {...field}
+              />
             )}
           />
+          {haveKnowledge && (
+            <Controller
+              name="maxKnowledgeAbbreviation"
+              control={control}
+              render={({ field }) => (
+                <ContextContainer direction="row" alignItems="center">
+                  <NumberInput
+                    label={labels.maxKnowledgeAbbreviation}
+                    help={helps.maxKnowledgeAbbreviation}
+                    min={0}
+                    disabled={!editable}
+                    {...field}
+                  />
+                  <Controller
+                    name="maxKnowledgeAbbreviationIsOnlyNumbers"
+                    control={control}
+                    render={({ field: { onChange, value, ...field } }) => (
+                      <Checkbox
+                        label={labels.maxKnowledgeAbbreviationIsOnlyNumbers}
+                        onChange={onChange}
+                        checked={value}
+                        disabled={!editable}
+                        {...field}
+                      />
+                    )}
+                  />
+                </ContextContainer>
+              )}
+            />
+          )}
         </ContextContainer>
         <ContextContainer title={labels.subjectsIDConfig}>
           <ContextContainer direction="row" alignItems="center">
@@ -200,6 +231,7 @@ const SetupSubjects = ({
                     onChange(e);
                     setSubjectsFirstDigit(e);
                   }}
+                  disabled={!editable}
                   {...field}
                 />
               )}
@@ -216,6 +248,7 @@ const SetupSubjects = ({
                 <NumberInput
                   label={labels.subjectsDigits}
                   min={0}
+                  disabled={!editable}
                   onChange={(e) => {
                     onChange(e);
                     setSubjectsDigits(e);

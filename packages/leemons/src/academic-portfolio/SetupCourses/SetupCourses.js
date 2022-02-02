@@ -29,6 +29,7 @@ export const SETUP_COURSES_PROP_TYPES = {
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
   frequencyOptions: PropTypes.array,
+  editable: PropTypes.bool,
 };
 
 const SetupCourses = ({
@@ -40,6 +41,7 @@ const SetupCourses = ({
   sharedData,
   setSharedData,
   frequencyOptions,
+  editable,
   ...props
 }) => {
   const defaultValues = {
@@ -47,6 +49,7 @@ const SetupCourses = ({
     courseCredits: 0,
     haveSubstagesPerCourse: false,
     substagesFrequency: frequencyOptions[0]?.value,
+    substages: [],
     numberOfSubstages: 0,
     useDefaultSubstagesName: false,
     maxSubstageAbbreviation: 0,
@@ -81,7 +84,7 @@ const SetupCourses = ({
     setValue,
   } = useForm({ defaultValues });
 
-  useEffect(() => console.log(errors), [errors]);
+  // useEffect(() => console.log(errors), [errors]);
 
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
@@ -116,8 +119,9 @@ const SetupCourses = ({
             render={({ field }) => (
               <TextInput
                 label={`${capitalize(substagesFrequency)}`}
-                error={isArray(errors.substages) ? errors.substages[currentSubstage].name : null}
+                error={isArray(errors.substages) ? errors.substages[currentSubstage]?.name : null}
                 required
+                disabled={!editable}
                 {...field}
               />
             )}
@@ -135,9 +139,10 @@ const SetupCourses = ({
                 value={fieldState.isDirty ? value : defaultValue}
                 onChange={onChange}
                 error={
-                  isArray(errors.substages) ? errors.substages[currentSubstage].abbreviation : null
+                  isArray(errors.substages) ? errors.substages[currentSubstage]?.abbreviation : null
                 }
                 required
+                disabled={!editable}
                 {...field}
               />
             )}
@@ -149,8 +154,9 @@ const SetupCourses = ({
   };
 
   const handleOnNext = (e) => {
-    isFunction(setSharedData) && setSharedData({ ...sharedData, ...e });
-    isFunction(onNext) && onNext(e);
+    const data = { ...sharedData, ...e };
+    isFunction(setSharedData) && setSharedData(data);
+    isFunction(onNext) && onNext(data);
   };
 
   return (
@@ -161,6 +167,7 @@ const SetupCourses = ({
             <Checkbox
               label={labels.oneCourseOnly}
               checked={onlyOneCourse}
+              disabled={!editable}
               onChange={(e) => {
                 setOnlyOneCourse(e);
                 setValue('maxNumberOfCourses', e ? 1 : 0);
@@ -171,14 +178,24 @@ const SetupCourses = ({
               name="hideCoursesInTree"
               control={control}
               render={({ field: { value, ...field } }) => (
-                <Checkbox label={labels.hideCoursesInTree} checked={value} {...field} />
+                <Checkbox
+                  label={labels.hideCoursesInTree}
+                  checked={value}
+                  disabled={!editable}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="moreThanOneAcademicYear"
               control={control}
               render={({ field: { value, ...field } }) => (
-                <Checkbox label={labels.moreThanOneAcademicYear} checked={value} {...field} />
+                <Checkbox
+                  label={labels.moreThanOneAcademicYear}
+                  checked={value}
+                  disabled={!editable}
+                  {...field}
+                />
               )}
             />
           </Stack>
@@ -194,6 +211,7 @@ const SetupCourses = ({
                     label={labels.maxNumberOfCourses}
                     // defaultValue={0}
                     min={0}
+                    disabled={!editable}
                     error={errors.maxNumberOfCourses}
                     {...field}
                   />
@@ -207,6 +225,7 @@ const SetupCourses = ({
                     label={labels.courseCredits}
                     // defaultValue={0}
                     min={0}
+                    disabled={!editable}
                     {...field}
                   />
                 )}
@@ -227,6 +246,7 @@ const SetupCourses = ({
                   setHaveSubstagesPerCourse(!haveSubstagesPerCourse);
                 }}
                 checked={value || false}
+                disabled={!editable}
               />
             )}
           />
@@ -248,6 +268,7 @@ const SetupCourses = ({
                       }}
                       required
                       value={value}
+                      disabled={!editable}
                       {...field}
                     />
                   )}
@@ -267,6 +288,7 @@ const SetupCourses = ({
                       }}
                       required
                       value={value}
+                      disabled={!editable}
                       {...field}
                     />
                   )}
@@ -285,6 +307,7 @@ const SetupCourses = ({
                         setUseDefaultSubstagesName(!useDefaultSubstagesName);
                       }}
                       checked={value || false}
+                      disabled={!editable}
                     />
                   )}
                 />
@@ -305,6 +328,7 @@ const SetupCourses = ({
                               setMaxSubstageAbbreviation(e);
                             }}
                             value={value}
+                            disabled={!editable}
                             {...field}
                           />
                           <Controller
@@ -321,6 +345,7 @@ const SetupCourses = ({
                                   );
                                 }}
                                 checked={value}
+                                disabled={!editable}
                               />
                             )}
                           />

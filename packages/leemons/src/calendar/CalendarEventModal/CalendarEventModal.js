@@ -202,6 +202,7 @@ const CalendarEventModal = (props) => {
             data={watch('data')}
             classes={classes}
             disabled={disabled}
+            allProps={props}
             form={{
               Controller: MyController,
               control,

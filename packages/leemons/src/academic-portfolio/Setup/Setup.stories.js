@@ -7,7 +7,7 @@ import {
   AcademicProgramSetupSubjects,
   AcademicProgramSetupCourses,
 } from '../';
-import { BASIC_DATA, COURSES_DATA, SUBJECTS_DATA } from '../mocks/data';
+import { BASIC_DATA, COURSES_DATA, SUBJECTS_DATA, INIT_VALUES } from '../mocks/data';
 
 export default {
   title: 'leemons/AcademicPortfolio',
@@ -54,4 +54,5 @@ Playground.args = {
       content: <AcademicProgramSetupSubjects {...SUBJECTS_DATA} />,
     },
   ],
+  values: INIT_VALUES,
 };

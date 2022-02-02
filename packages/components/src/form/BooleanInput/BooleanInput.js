@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import { isFunction } from 'lodash';
@@ -67,8 +67,10 @@ const BooleanInput = forwardRef(
     useEffect(() => setIsChecked(checked), [checked]);
 
     const handleOnChange = () => {
-      setIsChecked(!isChecked);
-      if (isFunction(onChange)) onChange(!isChecked);
+      if (!props.disabled) {
+        setIsChecked(!isChecked);
+        if (isFunction(onChange)) onChange(!isChecked);
+      }
     };
 
     const { classes, cx } = BooleanInputStyles(
