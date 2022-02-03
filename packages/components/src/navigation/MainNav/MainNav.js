@@ -1,7 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mantine/core';
-import { isArray, isFunction, forEach } from 'lodash';
+import { find, isArray, isFunction } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
@@ -89,6 +88,9 @@ const MainNav = ({
   useEffect(() => {
     if (isLoading || !menuData || (isArray(menuData) && !menuData.length)) {
       handleRouteChange();
+    }
+    if (menuData && activeItem) {
+      setActiveItem(find(menuData, { id: activeItem.id }));
     }
   }, [menuData, isLoading]);
 
