@@ -37,10 +37,10 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
   // ··················
   // HANDLERS
 
-  const handleOnChange = (newData) => {
+  const handleOnChange = (newData, event) => {
     setTableData(newData);
-    if (isFunction(onChangeData)) onChangeData(deserializeData(newData));
-    if (isFunction(onChange)) onChange(deserializeData(newData));
+    if (isFunction(onChangeData)) onChangeData(deserializeData(newData), event);
+    if (isFunction(onChange)) onChange(deserializeData(newData), event);
   };
 
   const handleOnAdd = async (item) => {
@@ -51,15 +51,15 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
     }
     if (canAdd) {
       const newData = update(tableData, { $push: [serializeItem(item)] });
-      handleOnChange(newData);
+      handleOnChange(newData, { type: 'add' });
     }
   };
 
-  const handleOnEdit = (item, index) => {
+  const handleOnEdit = (newItem, index) => {
     const newData = [...tableData];
-    const prevItem = newData[index];
-    newData[index] = { ...prevItem, ...item };
-    handleOnChange(newData);
+    const oldItem = newData[index];
+    newData[index] = { ...oldItem, ...newItem };
+    handleOnChange(newData, { type: 'edit', index, newItem, oldItem });
   };
 
   const handleOnRemove = async (index) => {
@@ -70,7 +70,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
     }
     if (canRemove) {
       tableData.splice(index, 1);
-      handleOnChange([...tableData]);
+      handleOnChange([...tableData], { type: 'remove' });
     }
   };
 
@@ -82,7 +82,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
         [to, 0, record],
       ],
     });
-    handleOnChange(newData);
+    handleOnChange(newData, { type: 'sort' });
   };
 
   return (
