@@ -53,6 +53,7 @@ const InputWrapper = ({
   contentClassName,
   headerStyle,
   contentStyle,
+  className,
   ...props
 }) => {
   const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
@@ -66,7 +67,7 @@ const InputWrapper = ({
   const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
 
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       {/* Label & Description */}
       {hasHeader && (
         <Stack
