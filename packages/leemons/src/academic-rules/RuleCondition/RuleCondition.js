@@ -354,56 +354,60 @@ const RuleCondition = ({
                   !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
                 }
               />
-              <Select
-                data={operators}
-                placeholder={placeholders.selectOperator}
-                value={operatorValue}
-                onChange={(e) => {
-                  setOperatorValue(e);
-                  setNewData(e, 'operator');
-                  setTargetValue(0);
-                  setNewData(0, 'target');
-                }}
-                disabled={!dataType}
-              />
-              {dataType === 'gpa' || dataType === 'grade' ? (
-                <Select
-                  data={grades}
-                  placeholder={placeholders.selectTargetGrade}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue || !gradeSystem}
-                  error={error ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
-              ) : operatorValue === 'contains' ? (
-                <TextInput
-                  placeholder={placeholders.enterTarget}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue || !gradeSystem}
-                  error={error ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
-              ) : (
-                <NumberInput
-                  placeholder={placeholders.enterTarget}
-                  defaultValue={0}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue || !gradeSystem}
-                  error={error ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
+              {dataType !== 'enrolled' && (
+                <>
+                  <Select
+                    data={operators}
+                    placeholder={placeholders.selectOperator}
+                    value={operatorValue}
+                    onChange={(e) => {
+                      setOperatorValue(e);
+                      setNewData(e, 'operator');
+                      setTargetValue(0);
+                      setNewData(0, 'target');
+                    }}
+                    disabled={!dataType}
+                  />
+                  {dataType === 'gpa' || dataType === 'grade' ? (
+                    <Select
+                      data={grades}
+                      placeholder={placeholders.selectTargetGrade}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  ) : operatorValue === 'contains' ? (
+                    <TextInput
+                      placeholder={placeholders.enterTarget}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  ) : (
+                    <NumberInput
+                      placeholder={placeholders.enterTarget}
+                      defaultValue={0}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  )}
+                </>
               )}
             </Stack>
             <Menu
