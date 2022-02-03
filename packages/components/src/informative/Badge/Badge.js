@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Badge as MantineBadge, Box } from '@mantine/core';
 import { BadgeStyles } from './Badge.styles';
 import { XIcon } from '@heroicons/react/solid';
+import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Avatar } from '../Avatar/Avatar';
 
 export const BADGE_SIZES = ['xs', 'md', 'lg'];
@@ -13,6 +14,7 @@ export const BADGE_DEFAULT_PROPS = {
   size: 'xs',
   color: 'solid',
   radius: 'rounded',
+  closable: true,
 };
 export const BADGE_PROP_TYPES = {
   label: PropTypes.node,
@@ -21,35 +23,37 @@ export const BADGE_PROP_TYPES = {
   color: PropTypes.oneOf(BADGE_COLORS),
   image: PropTypes.string,
   onClose: PropTypes.func,
+  closable: PropTypes.bool,
 };
 
-const Badge = forwardRef(({ label, size, radius, image, color, onClose, ...props }, ref) => {
-  if (radius === 'default') {
-    image = null;
+const Badge = forwardRef(
+  ({ label, size, radius, image, color, onClose, closable, ...props }, ref) => {
+    if (radius === 'default') {
+      image = null;
+    }
+
+    const { classes, cx } = BadgeStyles({ size, color, image, radius }, { name: 'Badge' });
+
+    return (
+      <Box className={classes.container}>
+        {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} />}
+        <MantineBadge
+          rightSection={
+            closable ? <RemoveIcon className={classes.closeButton} onClick={onClose} /> : null
+          }
+          {...props}
+          ref={ref}
+          classNames={classes}
+          className={classes.badgeRoot}
+        >
+          {label}
+        </MantineBadge>
+      </Box>
+    );
   }
-
-  const { classes, cx } = BadgeStyles({ size, color, image, radius }, { name: 'Badge' });
-
-  return (
-    <Box className={classes.container}>
-      {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} />}
-      <MantineBadge
-        rightSection={
-          <XIcon className={classes.closeButton} height={15} width={15} onClick={onClose} />
-        }
-        {...props}
-        ref={ref}
-        classNames={classes}
-        className={classes.badgeRoot}
-      >
-        {label}
-      </MantineBadge>
-    </Box>
-  );
-});
+);
 
 Badge.defaultProps = BADGE_DEFAULT_PROPS;
-
 Badge.propTypes = BADGE_PROP_TYPES;
 
 export { Badge };

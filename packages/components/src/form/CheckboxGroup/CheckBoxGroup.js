@@ -31,7 +31,7 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.any,
       label: PropTypes.string.isRequired,
       help: PropTypes.string,
       helpPosition: PropTypes.string,
@@ -60,6 +60,8 @@ const CheckBoxGroup = ({
   direction,
   fullWidth,
   onChange,
+  headerStyle,
+  contentStyle,
   ...props
 }) => {
   const uuid = useUuid();
@@ -92,6 +94,8 @@ const CheckBoxGroup = ({
       help={help}
       error={error}
       required={required}
+      headerStyle={headerStyle}
+      contentStyle={contentStyle}
     >
       <Stack
         {...props}
@@ -104,6 +108,7 @@ const CheckBoxGroup = ({
           <Checkbox
             {...item}
             key={index}
+            size={size}
             variant={variant}
             onChange={() => {
               item.onChange && item.onChange(item.value);

@@ -15,6 +15,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   padded: false,
   divided: false,
   spacing: 5,
+  direction: 'column',
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
@@ -33,6 +34,7 @@ const ContextContainer = ({
   padded,
   divided,
   spacing,
+  direction,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -47,7 +49,9 @@ const ContextContainer = ({
       nodes.forEach((node, i) => {
         result.push(node);
         if (i < nodes.length - 1) {
-          result.push(<Divider key={`d-${i}`} />);
+          result.push(
+            <Divider key={`d-${i}`} orientation={direction === 'row' ? 'vertical' : 'horizontal'} />
+          );
         }
       });
       return result;
@@ -56,7 +60,7 @@ const ContextContainer = ({
   }, [children, divided]);
 
   return (
-    <Stack direction="column" spacing={5} fullWidth>
+    <Stack direction="column" spacing={5} fullWidth className={cx(classes.root, className)}>
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={5} fullWidth>
           {hasTitle && (
@@ -76,13 +80,7 @@ const ContextContainer = ({
           )}
         </Stack>
       )}
-      <Stack
-        className={cx(classes.root, className)}
-        direction="column"
-        spacing={spacing}
-        fullWidth
-        {...props}
-      >
+      <Stack direction={direction} spacing={spacing} fullWidth {...props}>
         {childrenNodes}
       </Stack>
     </Stack>
