@@ -9,7 +9,7 @@ import { Menu } from '@bubbles-ui/components/src/navigation';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { v4 as uuidv4 } from 'uuid';
-import { filter, isNaN, isUndefined, isNull, isNumber } from 'lodash';
+import { filter } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -110,6 +110,11 @@ const RuleCondition = ({
       }
     }
     if (field === 'sourceIds') setSourceIdsValue(e);
+    if (field === 'data' && e === 'enrolled') {
+      delete condition.target;
+      delete condition.operator;
+    }
+    if ((field === 'operator' || field === 'target') && condition.data === 'enrolled') return;
     condition[field] = e;
     setData({ ...data });
   };
