@@ -5,8 +5,8 @@ export const FIRST_DIGIT_OPTIONS = [
 
 export const FREQUENCY_OPTIONS = [
   { label: 'Anual', value: 'Anual' },
-  { label: 'Half-yearly(Semester)', value: 'Half-yearly' },
-  { label: 'Quarterly(Trimester/Quarter', value: 'Quarterly' },
+  { label: 'Half-yearly (Semester)', value: 'Half-yearly' },
+  { label: 'Quarterly (Trimester/Quarter)', value: 'Quarterly' },
   { label: 'Four-month period', value: 'Four-month' },
   { label: 'Monthly', value: 'Monthly' },
   { label: 'Weekly', value: 'Weekly' },

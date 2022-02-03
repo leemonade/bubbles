@@ -6,6 +6,8 @@ export const SelectStyles = createStyles((theme, { size, orientation }) => {
     input: {
       ...getInputSizes(size || 'md', theme.spacing),
       ...getInputStyle(theme),
+      paddingRight: 30,
+      textOverflow: 'ellipsis',
     },
     rightSection: {
       color: theme.colors.text02,

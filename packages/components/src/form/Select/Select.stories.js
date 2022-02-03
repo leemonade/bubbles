@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout';
 import { Select, SELECT_SIZES, SELECT_ORIENTATIONS, SELECT_POSITIONS } from './Select';
 import mdx from './Select.mdx';
 
@@ -22,8 +22,12 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Select {...props} />;
+const Template = ({ ...props }) => {
+  return (
+    <Box>
+      <Select {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
