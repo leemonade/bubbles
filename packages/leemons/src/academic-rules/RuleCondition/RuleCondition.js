@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
@@ -9,7 +9,7 @@ import { Menu } from '@bubbles-ui/components/src/navigation';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { v4 as uuidv4 } from 'uuid';
-import { filter } from 'lodash';
+import { filter, isNaN, isUndefined, isNull, isNumber } from 'lodash';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
@@ -64,6 +64,7 @@ export const RULE_CONDITION_PROP_TYPES = {
 const RuleCondition = ({
   program,
   grades,
+  gradeSystem,
   sources,
   courses,
   knowledges,
@@ -96,6 +97,7 @@ const RuleCondition = ({
   const [dataType, setDataType] = useState(condition.data || '');
   const [operatorValue, setOperatorValue] = useState(condition.operator || '');
   const [targetValue, setTargetValue] = useState(condition.target || '');
+  const isFirstRenderRef = useRef(true);
 
   const setNewData = (e, field) => {
     if (field === 'source') {
@@ -194,6 +196,15 @@ const RuleCondition = ({
     }
   };
 
+  const isTargetValid = () => {
+    if (targetValue === '') return false;
+    if (targetValue === 0 || targetValue < 0) return false;
+    if (targetValue === undefined || targetValue === null) return false;
+    if (targetValue === '0') return false;
+
+    return true;
+  };
+
   const removeCondition = () => {
     group.conditions.splice(index, 1);
     setData({ ...data });
@@ -210,6 +221,17 @@ const RuleCondition = ({
       group: { operator: 'and', conditions: [condition] },
     });
     setData({ ...data });
+  };
+
+  const resetValues = (withDataType) => {
+    if (withDataType) {
+      setDataType('');
+      setNewData('', 'data');
+    }
+    setOperatorValue('');
+    setTargetValue(0);
+    setNewData('', 'operator');
+    setNewData(0, 'target');
   };
 
   const filteredDataTypes = useMemo(() => {
@@ -237,27 +259,29 @@ const RuleCondition = ({
           break;
       }
       results = filter(dataTypes, (item) => filters.includes(item.value));
-      setDataType('');
-      setNewData('', 'data');
     }
 
     return results;
   }, [sourceValue, dataTypes]);
 
   useEffect(() => {
+    if (isFirstRenderRef.current) return;
+    setTargetValue(0);
+    setNewData(0, 'target');
+  }, [gradeSystem]);
+
+  useEffect(() => {
+    if (!edited) return;
     setEdited(
       edited.map((item) => {
         if (item.id === draggableId) {
-          if (targetValue === '' || !targetValue || targetValue === 0) {
-            return {
-              ...item,
-              value: false,
-            };
+          if (isTargetValid()) {
+            item.value = true;
+            return item;
+          } else {
+            item.value = false;
+            return item;
           }
-          return {
-            ...item,
-            value: true,
-          };
         }
         return item;
       })
@@ -271,23 +295,21 @@ const RuleCondition = ({
   }, [edited]);
 
   useEffect(() => {
-    setEdited([...edited, { id: draggableId, value: false }]);
-  }, []);
-
-  useEffect(() => {
-    setOperatorValue('');
-    setTargetValue(0);
-    setNewData('', 'operator');
-    setNewData(0, 'target');
-  }, [dataType]);
-
-  useEffect(() => {
     if (sourceValue === 'program' && condition.sourceIds[0] !== program.value) {
       condition.sourceIds = [program.value];
       setSourceIdsValue([program.value]);
       setData({ ...data });
     }
   }, [program, sourceValue]);
+
+  useEffect(() => {
+    if (isTargetValid()) {
+      setEdited([...edited, { id: draggableId, value: true }]);
+    } else {
+      setEdited([...edited, { id: draggableId, value: false }]);
+    }
+    isFirstRenderRef.current = false;
+  }, []);
 
   return (
     <Draggable draggableId={draggableId} index={index}>
@@ -312,6 +334,7 @@ const RuleCondition = ({
                   onChange={(e) => {
                     setSourceValue(e);
                     setNewData(e, 'source');
+                    resetValues(true);
                   }}
                   disabled={!program}
                 />
@@ -325,6 +348,7 @@ const RuleCondition = ({
                 onChange={(e) => {
                   setDataType(e);
                   setNewData(e, 'data');
+                  resetValues();
                 }}
                 disabled={
                   !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
@@ -337,6 +361,8 @@ const RuleCondition = ({
                 onChange={(e) => {
                   setOperatorValue(e);
                   setNewData(e, 'operator');
+                  setTargetValue(0);
+                  setNewData(0, 'target');
                 }}
                 disabled={!dataType}
               />
@@ -349,8 +375,8 @@ const RuleCondition = ({
                     setTargetValue(e);
                     setNewData(e, 'target');
                   }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  disabled={!operatorValue || !gradeSystem}
+                  error={error ? errorMessage || 'Please select a grade' : null}
                   required
                 />
               ) : operatorValue === 'contains' ? (
@@ -361,8 +387,8 @@ const RuleCondition = ({
                     setTargetValue(e);
                     setNewData(e, 'target');
                   }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  disabled={!operatorValue || !gradeSystem}
+                  error={error ? errorMessage || 'Please select a grade' : null}
                   required
                 />
               ) : (
@@ -374,8 +400,8 @@ const RuleCondition = ({
                     setTargetValue(e);
                     setNewData(e, 'target');
                   }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
+                  disabled={!operatorValue || !gradeSystem}
+                  error={error ? errorMessage || 'Please select a grade' : null}
                   required
                 />
               )}

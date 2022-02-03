@@ -92,6 +92,7 @@ const ProgramRules = ({
   });
   const [nameValue, setNameValue] = useState('');
   const [program, setProgram] = useState(null);
+  const [gradeSystem, setGradeSystem] = useState('');
   const [edited, setEdited] = useState([]);
   const [error, setError] = useState(false);
 
@@ -133,6 +134,7 @@ const ProgramRules = ({
           className={classes.gradeSelect}
           onChange={(e) => {
             setData({ ...data, grade: e });
+            setGradeSystem(e);
           }}
         />
       </Stack>
@@ -140,6 +142,7 @@ const ProgramRules = ({
         <RuleGroup
           program={program}
           grades={grades}
+          gradeSystem={gradeSystem}
           sources={sources}
           courses={courses}
           knowledges={knowledges}
