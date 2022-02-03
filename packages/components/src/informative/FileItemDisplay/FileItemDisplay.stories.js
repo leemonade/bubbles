@@ -25,8 +25,8 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...FILE_ITEM_DISPLAY_DEFAULT_PROPS,
   filename: 'filename.pdf',
   description: '',
   metadata: {},
-  ...FILE_ITEM_DISPLAY_DEFAULT_PROPS,
 };
