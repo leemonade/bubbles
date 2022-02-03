@@ -17,10 +17,16 @@ import { SchedulePickerStyles } from './SchedulePicker.styles';
 
 export const SCHEDULE_PICKER_DEFAULT_PROPS = {
   locale: 'es',
+  labels: {},
+  placeholders: {},
+  helps: {},
+  descriptions: {},
+  errorMessages: {},
+  required: false,
 };
 export const SCHEDULE_PICKER_PROP_TYPES = {
   labels: PropTypes.object,
-  description: PropTypes.string,
+  descriptions: PropTypes.object,
   placeholders: PropTypes.object,
   helps: PropTypes.object,
   errorMessages: PropTypes.object,
@@ -40,7 +46,7 @@ const SchedulePicker = ({
   error,
   size,
   labels,
-  description,
+  descriptions,
   placeholders,
   helps,
   errorMessages,
@@ -49,8 +55,6 @@ const SchedulePicker = ({
   onChange,
   ...props
 }) => {
-  const { classes, cx } = SchedulePickerStyles({}, { name: 'SchedulePicker' });
-
   const [openForm, setOpenForm] = useState(false);
   const [canOpen, setCanOpen] = useState(true);
   const [localeWeekdays, setlocaleWeekdays] = useState([]);
@@ -93,15 +97,18 @@ const SchedulePicker = ({
   }, [handleOnChange, schedule]);
 
   const uuid = useId();
+  const { classes, cx } = SchedulePickerStyles({}, { name: 'SchedulePicker' });
+
   return (
     <InputWrapper
       {...props}
       label={labels.input}
-      description={description}
+      description={descriptions.input}
       help={helps.input}
       uuid={uuid}
       size={size}
       error={error}
+      className={classes.inputWrapper}
     >
       <Popover
         withArrow
@@ -127,6 +134,7 @@ const SchedulePicker = ({
                         labels.divider
                       } ${day.end}`}
                       closable={false}
+                      onClick={() => setOpenForm(true)}
                       onClose={() => {
                         setSchedule({
                           ...schedule,

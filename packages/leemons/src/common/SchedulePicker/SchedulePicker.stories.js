@@ -1,6 +1,10 @@
 import React from 'react';
 import { SchedulePicker, SCHEDULE_PICKER_DEFAULT_PROPS } from './SchedulePicker';
-import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATIONS } from '@bubbles-ui/components';
+import {
+  ContextContainer,
+  INPUT_WRAPPER_SIZES,
+  INPUT_WRAPPER_ORIENTATIONS,
+} from '@bubbles-ui/components';
 import mdx from './SchedulePicker.mdx';
 
 export default {
@@ -23,8 +27,12 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <SchedulePicker {...props}>{children}</SchedulePicker>;
+const Template = ({ ...props }) => {
+  return (
+    <ContextContainer direction="row">
+      <SchedulePicker {...props} />
+    </ContextContainer>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -42,8 +50,8 @@ Playground.args = {
     endDate: 'End date',
   },
   errorMessages: {
-    invalidSchedule: 'La duracion de la clase tiene que ser mayor a 0',
-    invalidDates: 'La fecha de inicio debe ser menor a la fecha de fin',
+    invalidSchedule: 'The class must have a duration',
+    invalidDates: 'The finish time must be later than the start time',
   },
   helps: {
     input: 'Select the class schedule',
