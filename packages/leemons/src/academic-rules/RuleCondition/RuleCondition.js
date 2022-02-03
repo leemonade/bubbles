@@ -197,6 +197,7 @@ const RuleCondition = ({
   };
 
   const isTargetValid = () => {
+    if (dataType === 'enrolled') return true;
     if (targetValue === '') return false;
     if (targetValue === 0 || targetValue < 0) return false;
     if (targetValue === undefined || targetValue === null) return false;
@@ -286,7 +287,7 @@ const RuleCondition = ({
         return item;
       })
     );
-  }, [targetValue]);
+  }, [targetValue, dataType]);
 
   useEffect(() => {
     if (edited.filter((item) => item.value === false).length === 0) {
