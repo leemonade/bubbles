@@ -68,6 +68,7 @@ export const RULE_GROUP_PROP_TYPES = {
 const RuleGroup = ({
   program,
   grades,
+  gradeSystem,
   sources,
   courses,
   knowledges,
@@ -203,6 +204,7 @@ const RuleGroup = ({
                   <RuleGroup
                     program={program}
                     grades={grades}
+                    gradeSystem={gradeSystem}
                     sources={sources}
                     courses={courses}
                     knowledges={knowledges}
@@ -233,6 +235,7 @@ const RuleGroup = ({
                   <RuleCondition
                     program={program}
                     grades={grades}
+                    gradeSystem={gradeSystem}
                     sources={sources}
                     courses={courses}
                     knowledges={knowledges}
