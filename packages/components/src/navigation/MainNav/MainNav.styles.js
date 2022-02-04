@@ -14,7 +14,7 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) =>
       width: pxToRem(itemWidth),
       // flex: 'none',
       backgroundColor: theme.colors.uiBackground05,
-      zIndex: 2,
+      zIndex: 30,
       overflow: 'hidden',
     },
     navContainer: {
@@ -29,6 +29,7 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) =>
       width: pxToRem(24),
       marginLeft: 'auto',
       marginRight: 'auto',
+      paddingBottom: 10,
     },
     navItems: {
       // height: 300,
@@ -42,13 +43,13 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth }) =>
       height: '100%',
       width: subNavWidth - itemWidth,
       marginLeft: itemWidth,
-      zIndex: 1,
+      zIndex: 20,
     },
     subNavHandler: {
       position: 'absolute',
       top: 24,
       left: itemWidth,
-      zIndex: 10,
+      zIndex: 40,
     },
   };
 });

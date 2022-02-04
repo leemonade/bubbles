@@ -26,8 +26,8 @@ const getVariant = (variant, theme, color, active) => {
         backgroundColor: 'transparent',
         color: active ? theme.colors.interactive01 : theme.colors.text02,
         '&:hover': {
-          backgroundColor: theme.colors.interactive01v1,
           color: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive01v1,
         },
         '&:active': {
           backgroundColor: theme.colors.interactive01v1,
@@ -36,7 +36,9 @@ const getVariant = (variant, theme, color, active) => {
       },
       negative: {
         backgroundColor: 'transparent',
-        color: active ? theme.colors.interactive02 : theme.colors.text06,
+        color: active ? theme.colors.text07 : theme.colors.text06,
+        backgroundColor: active ? theme.colors.interactive02d : 'transparent',
+
         '&:hover': {
           color: theme.colors.text07,
           backgroundColor: theme.colors.interactive02,
