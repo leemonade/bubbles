@@ -39,7 +39,7 @@ const LibraryCardContent = ({ description, tags, metadata, ...props }) => {
       <Box className={classes.tagsContainer}>
         {tags.map((tag) => (
           <Box>
-            <Badge label={tag} closable={false} />
+            <Badge label={tag} closable={false} radius={'default'} />
           </Box>
         ))}
       </Box>
