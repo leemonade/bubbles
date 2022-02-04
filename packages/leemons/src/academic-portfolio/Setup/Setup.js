@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { Stack, Stepper, Title } from '@bubbles-ui/components';
@@ -45,10 +45,10 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
     }
   }, [values]);
 
-  const handleOnNext = () => {
+  const handleOnNext = (formData) => {
     if (active < data.length - 1) {
       setActive(active + 1);
-      isFunction(onNext) && onNext(sharedData);
+      isFunction(onNext) && onNext(formData);
     } else {
       setCallOnSave(true);
     }

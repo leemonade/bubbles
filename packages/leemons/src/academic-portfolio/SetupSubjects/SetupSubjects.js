@@ -1,22 +1,22 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, find } from 'lodash';
-import { useForm, Controller } from 'react-hook-form';
+import { find, isFunction } from 'lodash';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
-  Stack,
+  Button,
+  Checkbox,
   ContextContainer,
   Divider,
-  TextInput,
-  Checkbox,
   NumberInput,
-  Button,
   Select,
-  TableInput,
+  Stack,
   Switch,
+  TableInput,
   Text,
+  TextInput,
 } from '@bubbles-ui/components';
-import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { SetupSubjectsStyles } from './SetupSubjects.styles';
 
 export const SETUP_SUBJECTS_DEFAULT_PROPS = {
@@ -94,10 +94,13 @@ const SetupSubjects = ({
   }, [subjectsFirstDigit, subjectsDigits, sharedData, firstDigitOptions]);
 
   const {
+    watch,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
+
+  const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e, customSubstages };
@@ -126,7 +129,7 @@ const SetupSubjects = ({
               />
             )}
           />
-          {!allSubjectsSameDuration && (
+          {!allSubjectsSameDuration && haveSubstagesPerCourse && (
             <TableInput
               sortable={false}
               disabled={!editable}

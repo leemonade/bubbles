@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isArray, isFunction, capitalize } from 'lodash';
-import { useForm, Controller } from 'react-hook-form';
+import { capitalize, forEach, isArray, isFunction } from 'lodash';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
-  Stack,
-  ContextContainer,
-  TextInput,
-  Checkbox,
-  NumberInput,
   Button,
+  Checkbox,
+  ContextContainer,
+  NumberInput,
   Select,
+  Stack,
   Switch,
+  TextInput,
 } from '@bubbles-ui/components';
-import { ChevRightIcon, ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {
@@ -32,6 +32,23 @@ export const SETUP_COURSES_PROP_TYPES = {
   editable: PropTypes.bool,
 };
 
+const resets = {
+  haveSubstagesPerCourse: [
+    'substagesFrequency',
+    'numberOfSubstages',
+    'useDefaultSubstagesName',
+    'maxSubstageAbbreviation',
+    'maxSubstageAbbreviationIsOnlyNumbers',
+    'customSubstages',
+    'substages',
+  ],
+  useDefaultSubstagesName: [
+    'maxSubstageAbbreviation',
+    'maxSubstageAbbreviationIsOnlyNumbers',
+    'substages',
+  ],
+};
+
 const SetupCourses = ({
   labels,
   placeholders,
@@ -47,7 +64,7 @@ const SetupCourses = ({
   const defaultValues = {
     maxNumberOfCourses: 0,
     courseCredits: 0,
-    haveSubstagesPerCourse: false,
+    haveSubstagesPerCourse: true,
     substagesFrequency: frequencyOptions[0]?.value,
     substages: [],
     numberOfSubstages: 0,
@@ -60,9 +77,7 @@ const SetupCourses = ({
   };
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 1);
-  const [haveSubstagesPerCourse, setHaveSubstagesPerCourse] = useState(
-    defaultValues.haveSubstagesPerCourse
-  );
+
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(
     defaultValues.useDefaultSubstagesName
   );
@@ -78,11 +93,32 @@ const SetupCourses = ({
   const { classes, cx } = SetupCoursesStyles({ onlyOneCourse }, { name: 'SetupCourses' });
 
   const {
+    watch,
     control,
+    register,
+    unregister,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm({ defaultValues });
+
+  const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
+
+  useEffect(() => {
+    const subscription = watch((formData, event) => {
+      if (event.name === 'haveSubstagesPerCourse' && !formData.haveSubstagesPerCourse) {
+        forEach(resets.haveSubstagesPerCourse, (reset) => {
+          unregister(reset);
+        });
+      }
+      if (event.name === 'useDefaultSubstagesName' && formData.useDefaultSubstagesName) {
+        forEach(resets.useDefaultSubstagesName, (reset) => {
+          unregister(reset);
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   // useEffect(() => console.log(errors), [errors]);
 
@@ -155,6 +191,17 @@ const SetupCourses = ({
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e };
+    if (!data.haveSubstagesPerCourse) {
+      forEach(resets.haveSubstagesPerCourse, (reset) => {
+        delete data[reset];
+      });
+    }
+    if (data.useDefaultSubstagesName) {
+      forEach(resets.useDefaultSubstagesName, (reset) => {
+        delete data[reset];
+      });
+    }
+
     isFunction(setSharedData) && setSharedData(data);
     isFunction(onNext) && onNext(data);
   };
@@ -237,20 +284,19 @@ const SetupCourses = ({
           <Controller
             name="haveSubstagesPerCourse"
             control={control}
-            render={({ field: { onChange, value, ref, ...field } }) => (
+            render={({ field }) => (
               <Switch
                 {...field}
-                label={labels.haveSubstagesPerCourse}
-                onChange={(e) => {
-                  onChange(e);
-                  setHaveSubstagesPerCourse(!haveSubstagesPerCourse);
+                onChange={() => {
+                  field.onChange(!field.value);
                 }}
-                checked={value || false}
+                label={labels.haveSubstagesPerCourse}
+                checked={!field.value || false}
                 disabled={!editable}
               />
             )}
           />
-          {!haveSubstagesPerCourse && (
+          {haveSubstagesPerCourse && (
             <ContextContainer>
               <ContextContainer direction="row">
                 <Controller
@@ -331,6 +377,7 @@ const SetupCourses = ({
                             disabled={!editable}
                             {...field}
                           />
+
                           <Controller
                             name="maxSubstageAbbreviationIsOnlyNumbers"
                             control={control}

@@ -118,7 +118,7 @@ export const INIT_VALUES = {
   courseCredits: 100,
   creditSystem: false,
   credits: 200,
-  haveSubstagesPerCourse: false,
+  haveSubstagesPerCourse: true,
   hideCoursesInTree: true,
   maxGroupAbbreviation: 3,
   maxGroupAbbreviationIsOnlyNumbers: true,
