@@ -154,11 +154,11 @@ Playground.args = {
     },
     {
       label: 'Subject-type',
-      value: 'subjectType',
+      value: 'subject-type',
     },
     {
       label: 'Subject-group',
-      value: 'subjectGroup',
+      value: 'subject-group',
     },
   ],
   dataTypes: [

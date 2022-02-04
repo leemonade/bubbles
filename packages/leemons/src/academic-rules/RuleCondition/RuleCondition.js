@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { LOGIC_OPERATORS } from '../ProgramRules';
@@ -64,6 +64,7 @@ export const RULE_CONDITION_PROP_TYPES = {
 const RuleCondition = ({
   program,
   grades,
+  gradeSystem,
   sources,
   courses,
   knowledges,
@@ -96,6 +97,7 @@ const RuleCondition = ({
   const [dataType, setDataType] = useState(condition.data || '');
   const [operatorValue, setOperatorValue] = useState(condition.operator || '');
   const [targetValue, setTargetValue] = useState(condition.target || '');
+  const isFirstRenderRef = useRef(true);
 
   const setNewData = (e, field) => {
     if (field === 'source') {
@@ -108,6 +110,11 @@ const RuleCondition = ({
       }
     }
     if (field === 'sourceIds') setSourceIdsValue(e);
+    if (field === 'data' && e === 'enrolled') {
+      delete condition.target;
+      delete condition.operator;
+    }
+    if ((field === 'operator' || field === 'target') && condition.data === 'enrolled') return;
     condition[field] = e;
     setData({ ...data });
   };
@@ -194,6 +201,16 @@ const RuleCondition = ({
     }
   };
 
+  const isTargetValid = () => {
+    if (dataType === 'enrolled') return true;
+    if (targetValue === '') return false;
+    if (targetValue === 0 || targetValue < 0) return false;
+    if (targetValue === undefined || targetValue === null) return false;
+    if (targetValue === '0') return false;
+
+    return true;
+  };
+
   const removeCondition = () => {
     group.conditions.splice(index, 1);
     setData({ ...data });
@@ -212,6 +229,17 @@ const RuleCondition = ({
     setData({ ...data });
   };
 
+  const resetValues = (withDataType) => {
+    if (withDataType) {
+      setDataType('');
+      setNewData('', 'data');
+    }
+    setOperatorValue('');
+    setTargetValue(0);
+    setNewData('', 'operator');
+    setNewData(0, 'target');
+  };
+
   const filteredDataTypes = useMemo(() => {
     let results = [];
     if (sourceValue && dataTypes) {
@@ -225,7 +253,7 @@ const RuleCondition = ({
           break;
         case 'knowledge':
         case 'subject-type':
-          filters = ['cpp', 'cpc', 'gpa', 'cbcg'];
+          filters = ['cpp', 'cpc', 'gpa', 'cpcg'];
           break;
         case 'subject':
           filters = ['grade', 'enrolled'];
@@ -236,30 +264,35 @@ const RuleCondition = ({
         default:
           break;
       }
-      return filter(dataTypes, (item) => filters.includes(item.value));
+      results = filter(dataTypes, (item) => filters.includes(item.value));
     }
+
     return results;
   }, [sourceValue, dataTypes]);
 
   useEffect(() => {
+    if (isFirstRenderRef.current) return;
+    setTargetValue(0);
+    setNewData(0, 'target');
+  }, [gradeSystem]);
+
+  useEffect(() => {
+    if (!edited) return;
     setEdited(
       edited.map((item) => {
         if (item.id === draggableId) {
-          if (targetValue === '' || !targetValue || targetValue === 0) {
-            return {
-              ...item,
-              value: false,
-            };
+          if (isTargetValid()) {
+            item.value = true;
+            return item;
+          } else {
+            item.value = false;
+            return item;
           }
-          return {
-            ...item,
-            value: true,
-          };
         }
         return item;
       })
     );
-  }, [targetValue]);
+  }, [targetValue, dataType]);
 
   useEffect(() => {
     if (edited.filter((item) => item.value === false).length === 0) {
@@ -268,16 +301,21 @@ const RuleCondition = ({
   }, [edited]);
 
   useEffect(() => {
-    setEdited([...edited, { id: draggableId, value: false }]);
-  }, []);
-
-  useEffect(() => {
     if (sourceValue === 'program' && condition.sourceIds[0] !== program.value) {
       condition.sourceIds = [program.value];
       setSourceIdsValue([program.value]);
       setData({ ...data });
     }
   }, [program, sourceValue]);
+
+  useEffect(() => {
+    if (isTargetValid()) {
+      setEdited([...edited, { id: draggableId, value: true }]);
+    } else {
+      setEdited([...edited, { id: draggableId, value: false }]);
+    }
+    isFirstRenderRef.current = false;
+  }, []);
 
   return (
     <Draggable draggableId={draggableId} index={index}>
@@ -302,6 +340,7 @@ const RuleCondition = ({
                   onChange={(e) => {
                     setSourceValue(e);
                     setNewData(e, 'source');
+                    resetValues(true);
                   }}
                   disabled={!program}
                 />
@@ -314,64 +353,67 @@ const RuleCondition = ({
                 value={dataType}
                 onChange={(e) => {
                   setDataType(e);
-                  setOperatorValue('');
-                  setTargetValue('');
                   setNewData(e, 'data');
-                  setNewData('', 'operator');
-                  setNewData('', 'target');
+                  resetValues();
                 }}
                 disabled={
                   !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
                 }
               />
-              <Select
-                data={operators}
-                placeholder={placeholders.selectOperator}
-                value={operatorValue}
-                onChange={(e) => {
-                  setOperatorValue(e);
-                  setNewData(e, 'operator');
-                }}
-                disabled={!dataType}
-              />
-              {dataType === 'gpa' || dataType === 'grade' ? (
-                <Select
-                  data={grades}
-                  placeholder={placeholders.selectTargetGrade}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
-              ) : operatorValue === 'contains' ? (
-                <TextInput
-                  placeholder={placeholders.enterTarget}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
-              ) : (
-                <NumberInput
-                  placeholder={placeholders.enterTarget}
-                  defaultValue={0}
-                  value={targetValue}
-                  onChange={(e) => {
-                    setTargetValue(e);
-                    setNewData(e, 'target');
-                  }}
-                  disabled={!operatorValue}
-                  error={error && !targetValue ? errorMessage || 'Please select a grade' : null}
-                  required
-                />
+              {dataType !== 'enrolled' && (
+                <>
+                  <Select
+                    data={operators}
+                    placeholder={placeholders.selectOperator}
+                    value={operatorValue}
+                    onChange={(e) => {
+                      setOperatorValue(e);
+                      setNewData(e, 'operator');
+                      setTargetValue(0);
+                      setNewData(0, 'target');
+                    }}
+                    disabled={!dataType}
+                  />
+                  {dataType === 'gpa' || dataType === 'grade' ? (
+                    <Select
+                      data={grades}
+                      placeholder={placeholders.selectTargetGrade}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  ) : operatorValue === 'contains' ? (
+                    <TextInput
+                      placeholder={placeholders.enterTarget}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  ) : (
+                    <NumberInput
+                      placeholder={placeholders.enterTarget}
+                      defaultValue={0}
+                      value={targetValue}
+                      onChange={(e) => {
+                        setTargetValue(e);
+                        setNewData(e, 'target');
+                      }}
+                      disabled={!operatorValue || !gradeSystem}
+                      error={error ? errorMessage || 'Please select a grade' : null}
+                      required
+                    />
+                  )}
+                </>
               )}
             </Stack>
             <Menu

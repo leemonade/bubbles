@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
-  Stack,
-  ContextContainer,
-  TextInput,
-  Checkbox,
-  NumberInput,
   Button,
-  Switch,
+  Checkbox,
+  ContextContainer,
+  NumberInput,
   Paragraph,
+  Stack,
+  Switch,
+  TextInput,
 } from '@bubbles-ui/components';
 import { ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { SetupBasicDataStyles } from './SetupBasicData.styles';
