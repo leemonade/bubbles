@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import { LibraryCardCover } from '../';
+import { LibraryCardCover, LibraryCardContent } from '../';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
@@ -39,6 +39,11 @@ const LibraryCard = ({ asset, variant, ...props }) => {
         color={asset.color}
         cover={asset.cover}
         fileIcon={<FileIcon size={64} fileType={asset.fileType} color={'#B9BEC4'} />}
+      />
+      <LibraryCardContent
+        description={asset.description}
+        metadata={asset.metadata}
+        tags={asset.tags}
       />
     </Box>
   );

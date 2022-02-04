@@ -23,12 +23,25 @@ export default {
 
 const Template = ({ children, asset, showImage, ...props }) => {
   const assetWithoutCover = { ...asset, cover: undefined };
+  const assetWithoutDescription = { ...asset, description: undefined };
 
   return (
-    <Box style={{ width: 287, display: 'inline-block' }}>
-      <LibraryCard {...props} asset={showImage ? asset : assetWithoutCover}>
-        {children}
-      </LibraryCard>
+    <Box style={{ display: 'flex' }}>
+      <Box style={{ width: 287 }}>
+        <LibraryCard {...props} asset={showImage ? asset : assetWithoutCover}>
+          {children}
+        </LibraryCard>
+      </Box>
+      <Box style={{ width: 287, marginLeft: 24 }}>
+        <LibraryCard
+          {...props}
+          asset={
+            showImage ? assetWithoutDescription : { ...assetWithoutCover, description: undefined }
+          }
+        >
+          {children}
+        </LibraryCard>
+      </Box>
     </Box>
   );
 };
@@ -41,6 +54,15 @@ Playground.args = {
     color: '#DC5571',
     name: 'El ritmo de la guerra',
     fileType: 'audio',
+    description:
+      'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
+    metadata: [
+      { label: 'Quality', value: '128kb' },
+      { label: 'Format', value: 'mp3' },
+      { label: 'Duration', value: '10 min' },
+      { label: 'Transcript', value: 'Not available' },
+    ],
+    tags: ['Fantasy', 'Adventure', 'Fiction'],
     cover:
       'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
   },
