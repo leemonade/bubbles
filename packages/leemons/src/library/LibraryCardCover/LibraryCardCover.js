@@ -6,7 +6,15 @@ import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
   height: 190,
 };
-export const LIBRARY_CARD_COVER_PROP_TYPES = {};
+export const LIBRARY_CARD_COVER_PROP_TYPES = {
+  name: PropTypes.string,
+  height: PropTypes.number,
+  cover: PropTypes.string,
+  color: PropTypes.string,
+  variant: PropTypes.oneOf(['media', 'task']),
+  fileIcon: PropTypes.element,
+  hovered: PropTypes.bool,
+};
 
 const LibraryCardCover = ({ name, height, cover, color, variant, fileIcon, hovered, ...props }) => {
   const { classes, cx } = LibraryCardCoverStyles(

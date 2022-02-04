@@ -16,13 +16,17 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    showImage: { control: 'boolean' },
+  },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ children, showImage, cover, ...props }) => {
   return (
     <Box style={{ width: 287, display: 'inline-block' }}>
-      <LibraryCardCover {...props}>{children}</LibraryCardCover>
+      <LibraryCardCover {...props} cover={showImage ? cover : ''}>
+        {children}
+      </LibraryCardCover>
     </Box>
   );
 };
@@ -35,6 +39,7 @@ Playground.args = {
   fileIcon: <FileIcon fileType={'audio'} size={64} color={colors.text06} />,
   color: '#DC5571',
   name: 'El ritmo de la guerra',
+  showImage: true,
   cover:
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
 };
