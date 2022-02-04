@@ -8,11 +8,8 @@ export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
 };
 export const LIBRARY_CARD_COVER_PROP_TYPES = {};
 
-const LibraryCardCover = ({ name, height, cover, color, variant, fileIcon, hovered, ...props }) => {
-  const { classes, cx } = LibraryCardCoverStyles(
-    { color, hovered, height },
-    { name: 'LibraryCardCover' }
-  );
+const LibraryCardCover = ({ name, height, cover, color, variant, fileIcon, ...props }) => {
+  const { classes, cx } = LibraryCardCoverStyles({ color, height }, { name: 'LibraryCardCover' });
   return (
     <Box className={classes.root}>
       <Box className={classes.blurryBox}>

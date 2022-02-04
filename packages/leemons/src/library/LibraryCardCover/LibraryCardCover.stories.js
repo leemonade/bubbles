@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, FileIcon } from '@bubbles-ui/components';
 import { COLORS as colors } from '@bubbles-ui/components/src/theme.tokens';
 import { LibraryCardCover, LIBRARY_CARD_COVER_DEFAULT_PROPS } from './LibraryCardCover';
@@ -13,7 +13,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/🍋💧-Bubbles-SD-v2',
     },
   },
   argTypes: {},
@@ -31,7 +31,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_CARD_COVER_DEFAULT_PROPS,
-  hovered: false,
   fileIcon: <FileIcon fileType={'audio'} size={64} color={colors.text06} />,
   color: '#DC5571',
   name: 'El ritmo de la guerra',

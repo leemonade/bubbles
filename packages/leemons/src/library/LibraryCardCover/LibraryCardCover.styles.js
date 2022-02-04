@@ -6,13 +6,14 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const LibraryCardCoverStyles = createStyles((theme, { color, hovered, height }) => {
+export const LibraryCardCoverStyles = createStyles((theme, { color, height }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
       position: 'relative',
       height: height,
       width: '100%',
+      borderRadius: '4px 2px 0 0',
     },
     title: {
       fontWeight: 600,
@@ -29,12 +30,14 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, hovered, hei
       background: 'rgba(246, 245, 247, 0.75)',
       backdropFilter: 'blur(2px)',
       justifyContent: 'space-between',
+      borderRadius: '4px 0 0 0',
     },
     color: {
       width: '100%',
-      height: hovered ? pxToRem(8) : pxToRem(2),
+      height: pxToRem(8),
       backgroundColor: color,
-      transition: 'height 0.2s ease-in-out',
+      transition: 'all 0.2s ease-out',
+      borderRadius: '2px 0 0 0',
     },
     fileIcon: {
       height: '100%',
@@ -44,6 +47,7 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, hovered, hei
       alignItems: 'flex-end',
       backgroundColor: theme.colors.interactive03h,
       padding: pxToRem(16),
+      borderRadius: '4px 2px 0 0',
     },
   };
 });
