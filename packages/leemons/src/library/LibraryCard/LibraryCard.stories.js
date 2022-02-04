@@ -54,6 +54,7 @@ Playground.args = {
     color: '#DC5571',
     name: 'El ritmo de la guerra',
     fileType: 'audio',
+    created: '2022-02-04T16:26:31.485Z',
     description:
       'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
     metadata: [
