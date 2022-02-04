@@ -12,7 +12,7 @@ export const ImageLoader = ({
   ...props
 }) => {
   const isSvg = !forceImage && src.toLowerCase().endsWith('.svg');
-  const height = !src && !isSvg && withPlaceholder ? heightProp || 50 : undefined;
+  const height = !src || !isSvg || withPlaceholder ? heightProp || 50 : undefined;
 
   return isSvg ? (
     <InlineSvg src={src} {...props} />

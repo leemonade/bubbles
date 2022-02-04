@@ -9,6 +9,7 @@ export * from './kanban';
 export * from './admin';
 export * from './users';
 export * from 'colord';
+export * from './library';
 import { v4 as uuidv4 } from 'uuid';
 
 export { uuidv4 };

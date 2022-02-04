@@ -36,7 +36,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color }) => {
       {fileIcon ? (
         <>
           {fileIcon.value}
-          <Text className={classes.label}>{label}</Text>
+          {label && <Text className={classes.label}>{label}</Text>}
         </>
       ) : (
         <FileItemDisplay
