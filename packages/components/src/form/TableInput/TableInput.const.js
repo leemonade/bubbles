@@ -6,6 +6,7 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   ...TABLE_DEFAULT_PROPS,
   sortable: true,
   editable: false,
+  removable: true,
   disabled: false,
 };
 
