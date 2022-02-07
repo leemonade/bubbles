@@ -26,7 +26,18 @@ function deserializeData(data) {
 // ----------------------------------------------------------------
 // COMPONENT
 
-const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd, ...props }) => {
+const TableInput = ({
+  data,
+  onChange,
+  onChangeData,
+  onBeforeRemove,
+  onAdd,
+  onUpdate,
+  onRemove,
+  onSort,
+  onBeforeAdd,
+  ...props
+}) => {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -51,6 +62,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
     }
     if (canAdd) {
       const newData = update(tableData, { $push: [serializeItem(item)] });
+      onAdd(serializeItem(item));
       handleOnChange(newData, { type: 'add' });
     }
   };
@@ -59,6 +71,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
     const newData = [...tableData];
     const oldItem = newData[index];
     newData[index] = { ...oldItem, ...newItem };
+    onUpdate({ ...oldItem, ...newItem, index });
     handleOnChange(newData, { type: 'edit', index, newItem, oldItem });
   };
 
@@ -70,6 +83,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
     }
     if (canRemove) {
       tableData.splice(index, 1);
+      onRemove(index);
       handleOnChange([...tableData], { type: 'remove' });
     }
   };
@@ -82,6 +96,7 @@ const TableInput = ({ data, onChange, onChangeData, onBeforeRemove, onBeforeAdd,
         [to, 0, record],
       ],
     });
+    onSort({ from, to });
     handleOnChange(newData, { type: 'sort' });
   };
 
