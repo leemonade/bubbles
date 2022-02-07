@@ -18,13 +18,15 @@ export default {
   },
   argTypes: {
     onOpen: { action: 'OpenSubNav' },
+    onClose: { action: 'CloseSubNav' },
+    onPin: { action: 'PinSubNav' },
   },
 };
 
-const Template = ({ subNavWidth, ...props }) => {
+const Template = ({ ...props }) => {
   return (
-    <Box style={{ margin: '-15px', maxWidth: subNavWidth }}>
-      <MainNav {...props} subNavWidth={subNavWidth} />
+    <Box style={{ margin: '-15px', width: 52 }}>
+      <MainNav {...props} />
     </Box>
   );
 };
