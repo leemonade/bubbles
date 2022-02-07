@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const LibraryCardCoverStyles = createStyles((theme, { color, height }) => {
+export const LibraryCardCoverStyles = createStyles((theme, { color, height, blur }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -28,7 +28,7 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, height }) =>
       position: 'absolute',
       zIndex: 1,
       background: 'rgba(246, 245, 247, 0.75)',
-      backdropFilter: 'blur(2px)',
+      backdropFilter: `blur(${blur}px)`,
       justifyContent: 'space-between',
       borderRadius: '4px 0 0 0',
     },
