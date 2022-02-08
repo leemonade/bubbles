@@ -84,17 +84,11 @@ const SchedulePicker = ({
     });
   }, [locale]);
 
-  const handleOnChange = useCallback(
-    (schedule) => {
-      if (schedule.days.length === 0) return;
-      isFunction(onChange) && onChange(schedule);
-    },
-    [onChange, schedule]
-  );
-
-  useEffect(() => {
-    handleOnChange(schedule);
-  }, [handleOnChange, schedule]);
+  const handleOnChange = (e) => {
+    // if (e.days.length === 0) return;
+    setSchedule(e);
+    isFunction(onChange) && onChange(e);
+  };
 
   const uuid = useId();
   const { classes, cx } = SchedulePickerStyles({}, { name: 'SchedulePicker' });
@@ -165,26 +159,12 @@ const SchedulePicker = ({
         }}
       >
         <ScheduleForm
-          labels={{
-            groupLabel: labels.groupLabel,
-            checkboxLabel: labels.checkboxLabel,
-            schedule: labels.schedule,
-            divider: labels.divider,
-            useCustomDates: labels.useCustomDates,
-            startDate: labels.startDate,
-            endDate: labels.endDate,
-          }}
-          placeholders={{
-            startDate: placeholders.startDate,
-            endDate: placeholders.endDate,
-          }}
-          errorMessages={{
-            invalidSchedule: errorMessages.invalidSchedule,
-            invalidDates: errorMessages.invalidDates,
-          }}
+          labels={labels}
+          placeholders={placeholders}
+          errorMessages={errorMessages}
           localeWeekdays={localeWeekdays}
           setOpenForm={setOpenForm}
-          onChange={setSchedule}
+          onChange={handleOnChange}
           savedSchedule={schedule}
         />
       </Popover>

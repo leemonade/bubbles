@@ -37,6 +37,7 @@ const dateToHoursAndMinutes = (date) => {
 };
 
 const dayToSchedule = (mapDay, day) => ({
+  id: mapDay.id || day.id,
   start: dateToHoursAndMinutes(day.start),
   end: dateToHoursAndMinutes(day.end),
   duration: Math.floor((day.end - day.start) / 60000),
@@ -167,6 +168,7 @@ const ScheduleForm = ({
   useEffect(() => {
     setSelectedDays(
       savedSchedule.days.map((day) => ({
+        id: day.id,
         start: new Date(`01/01/1970 ${day.start}`),
         end: new Date(`01/01/1970 ${day.end}`),
         error: false,
@@ -190,6 +192,9 @@ const ScheduleForm = ({
             const orderedDays = e.map((day) => {
               return {
                 ...day,
+                id:
+                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.id ||
+                  undefined,
                 start:
                   selectedDays.find((selectedDay) => selectedDay.index === day.index)?.start ||
                   oneDayOnlyValue.start,
@@ -312,10 +317,10 @@ const ScheduleForm = ({
       </ContextContainer>
       <Stack justifyContent="end" fullWidth>
         <Button variant="light" color="secondary" size="sm" onClick={() => handleOnChange(true)}>
-          Clear
+          {labels.clear}
         </Button>
         <Button variant="light" size="sm" onClick={() => handleOnChange(false)}>
-          Apply
+          {labels.apply}
         </Button>
       </Stack>
     </Box>

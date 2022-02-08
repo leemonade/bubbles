@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SchedulePicker, SCHEDULE_PICKER_DEFAULT_PROPS } from './SchedulePicker';
 import {
   ContextContainer,
@@ -27,10 +27,18 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ test_value, onChange, ...props }) => {
+  const [value, setValue] = useState(test_value);
   return (
     <ContextContainer direction="row">
-      <SchedulePicker {...props} />
+      <SchedulePicker
+        {...props}
+        value={value}
+        onChange={(val) => {
+          setValue(val);
+          console.log('onChange:', val);
+        }}
+      />
     </ContextContainer>
   );
 };
@@ -48,6 +56,8 @@ Playground.args = {
     useCustomDates: 'Use custom dates',
     startDate: 'Start date',
     endDate: 'End date',
+    apply: 'Apply',
+    clear: 'Clear',
   },
   errorMessages: {
     invalidSchedule: 'The class must have a duration',
@@ -61,9 +71,10 @@ Playground.args = {
     startDate: 'Please select a start date',
     endDate: 'Please select an end date',
   },
-  value: {
+  test_value: {
     days: [
       {
+        id: '28bfe616-6bd4-4b07-b2ca-edc3303b9cb7',
         day: 'monday',
         dayWeek: 0,
         duration: 119,
@@ -71,6 +82,7 @@ Playground.args = {
         start: '07:00',
       },
       {
+        id: '8bfe6162-bd46-b074-2cab-dc3303b9cb7e',
         day: 'wednesday',
         dayWeek: 2,
         duration: 60,
@@ -78,6 +90,7 @@ Playground.args = {
         start: '11:00',
       },
       {
+        id: 'bfe61628-d46b-074b-cab2-c3303b9cb7ed',
         day: 'friday',
         dayWeek: 4,
         duration: 60,
