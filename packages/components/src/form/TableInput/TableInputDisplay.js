@@ -33,6 +33,7 @@ const TableInputDisplay = ({
   onEdit,
   sortable,
   editable,
+  removable,
   disabled,
 }) => {
   const [editing, setEditing] = useState(false);
@@ -156,6 +157,7 @@ const TableInputDisplay = ({
                     totalRows={rows.length}
                     sortable={sortable && !disabled}
                     editable={editable && !disabled}
+                    removable={removable && !disabled}
                     disabled={disabled}
                     editing={editing}
                     onEditing={setEditing}

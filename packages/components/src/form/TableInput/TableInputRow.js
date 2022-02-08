@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mantine/core';
 import { isFunction } from 'lodash';
-import { DeleteBinIcon, EditWriteIcon, CheckIcon, DeleteIcon } from '@bubbles-ui/icons/solid';
-import { useForm, Controller } from 'react-hook-form';
+import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
+import { Controller, useForm } from 'react-hook-form';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Draggable } from 'react-beautiful-dnd';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
@@ -19,6 +19,7 @@ const TableInputRow = ({
   totalRows,
   sortable,
   editable,
+  removable,
   disabled,
   editing: _editing,
   onEditing,
@@ -151,7 +152,7 @@ const TableInputRow = ({
                       onClick={initEditing}
                     />
                   )}
-                  {!disabled && (
+                  {removable && (
                     <ActionButton
                       icon={<DeleteBinIcon />}
                       tooltip={labels.remove || 'Remove'}

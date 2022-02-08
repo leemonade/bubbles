@@ -8,6 +8,7 @@ export * from './TagifyInput';
 export * from './ColorPicker';
 export * from './NumberInput';
 export * from './MultiSelect';
+export * from './ColorInput';
 export * from './IconButton';
 export * from './FileUpload';
 export * from './RadioGroup';

@@ -6,7 +6,12 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   ...TABLE_DEFAULT_PROPS,
   sortable: true,
   editable: false,
+  removable: true,
   disabled: false,
+  onAdd: () => {},
+  onUpdate: () => {},
+  onRemove: () => {},
+  onSort: () => {},
 };
 
 export const TABLE_INPUT_PROP_TYPES = {
