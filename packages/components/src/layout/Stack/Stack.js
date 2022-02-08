@@ -83,8 +83,11 @@ const Stack = forwardRef(
             }
 
             const newStyle = { ...style, ...flexProps };
-
-            return <child.type {...rest} key={child.key} ref={child.ref} style={newStyle} />;
+            if (child.type === React.Fragment) {
+              return <child.type {...rest} key={child.key} ref={child.ref} />;
+            } else {
+              return <child.type {...rest} key={child.key} ref={child.ref} style={newStyle} />;
+            }
 
             // return React.cloneElement(child, { style, noFlex: undefined, skipFlex: undefined });
           }
