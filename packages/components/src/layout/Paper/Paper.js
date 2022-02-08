@@ -17,7 +17,6 @@ export const PAPER_PROP_TYPES = {
   padding: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.string,
-  padding: PropTypes.oneOf(PAPER_COLORS),
   shadow: PropTypes.oneOf(PAPER_SHADOWS),
 };
 

@@ -86,6 +86,10 @@ CheckboxCell.args = {
       accessor: 'view',
     },
     {
+      Header: 'Edit',
+      accessor: 'edit',
+    },
+    {
       Header: 'Admin',
       accessor: 'admin',
     },
@@ -94,12 +98,62 @@ CheckboxCell.args = {
     {
       plugin: 'Classroom',
       view: { checked: true, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
       admin: { checked: false, type: 'checkbox' },
     },
     {
       plugin: 'Calendar',
-      view: { checked: true, type: 'checkbox' },
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
       admin: { checked: true, type: 'checkbox' },
+    },
+    {
+      plugin: 'Calendar - Kanban',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Academic Portfolio',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: true, type: 'checkbox' },
+    },
+    {
+      plugin: 'Academic Portfolio - Programs',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Academic Portfolio - Subjects',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Academic Portfolio - Tree',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Centers',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Users',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
+    },
+    {
+      plugin: 'Users - Profiles',
+      view: { checked: false, type: 'checkbox' },
+      edit: { checked: false, type: 'checkbox' },
+      admin: { checked: false, type: 'checkbox' },
     },
   ],
 };

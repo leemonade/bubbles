@@ -72,15 +72,21 @@ const Stack = forwardRef(
             alignItems === 'normal'
           ) {
             const flexProps = {};
-            if (child.props.noFlex) {
+            const { noFlex, skipFlex, style, ...rest } = child.props;
+
+            if (noFlex) {
               flexProps.flex = 0;
-            } else if (child.props.skipFlex) {
+            } else if (skipFlex) {
               // do nothing
             } else {
               flexProps.flex = 1;
             }
-            const style = { ...child.props.style, ...flexProps };
-            return React.cloneElement(child, { style });
+
+            const newStyle = { ...style, ...flexProps };
+
+            return <child.type {...rest} key={child.key} ref={child.ref} style={newStyle} />;
+
+            // return React.cloneElement(child, { style, noFlex: undefined, skipFlex: undefined });
           }
           return child;
         }),

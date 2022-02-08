@@ -67,8 +67,11 @@ const MainNav = ({
       (items && items.activeItem && !activeItem) ||
       (items && items.activeItem && activeItem && items.activeItem.id !== activeItem.id)
     ) {
-      // handleItemClick(items.activeItem);
-      setActiveItem(items.activeItem);
+      if (subNavPinned) {
+        handleItemClick(items.activeItem);
+      } else {
+        setActiveItem(items.activeItem);
+      }
     }
 
     if (
@@ -98,6 +101,13 @@ const MainNav = ({
   const handleOnPin = () => {
     setSubNavPinned(!subNavPinned);
     if (isFunction(onPin)) onPin(!subNavPinned);
+  };
+
+  const handleOnItemClick = (item) => {
+    setActiveSubItem(item);
+    if (!subNavPinned) {
+      closeSubNav();
+    }
   };
 
   // ······································································
@@ -173,7 +183,7 @@ const MainNav = ({
           subItems={activeItem.children}
           customItems={activeItem.customChildren}
           activeItem={activeSubItem}
-          onItemClick={(item) => setActiveSubItem(item)}
+          onItemClick={handleOnItemClick}
           onClose={closeSubNav}
           onPin={handleOnPin}
           className={classes.subNav}

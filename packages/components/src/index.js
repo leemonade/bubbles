@@ -8,7 +8,7 @@ export {
   SegmentedControl,
   UnstyledButton,
 } from '@mantine/core';
-export { useId, useScrollIntoView, useResizeObserver } from '@mantine/hooks';
+export { useId, useScrollIntoView, useResizeObserver, useDebouncedValue } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export { getFontExpressive, getFontProductive, pxToRem, getPaddings } from './theme.mixins';
 export * from './ThemeProvider';
