@@ -1,10 +1,3 @@
 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-  <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#a)">
-    <path d="M.5 4.534h23M2.95 9.786h18.1M8.647 20.291h6.706M5.399 15.038h13.202"/>
-  </g>
-  <defs>
-    <clipPath id="a">
-      <path fill="#fff" d="M0 0h24v24H0z"/>
-    </clipPath>
-  </defs>
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M.5 4.534h23M2.95 9.786h18.1M8.647 20.291h6.706M5.399 15.038h13.202"/>
 </svg>

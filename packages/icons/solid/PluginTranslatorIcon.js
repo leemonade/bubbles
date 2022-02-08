@@ -7,9 +7,7 @@ function PluginTranslatorIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -25,12 +23,7 @@ function PluginTranslatorIcon(props) {
     strokeLinejoin: "round",
     strokeWidth: 2,
     d: "m6.75 13.25-3 3v-4.5h-1.5a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5h10.5a1.5 1.5 0 0 1 1.5 1.5v3"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    transform: "translate(0 .5)"
-  }))));
+  }));
 }
 
 module.exports = PluginTranslatorIcon;

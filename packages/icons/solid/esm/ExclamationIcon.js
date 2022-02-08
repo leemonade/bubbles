@@ -11,12 +11,6 @@ function ExclamationIcon(props) {
     cx: 8,
     cy: 11.5,
     r: 1.5
-  }), /*#__PURE__*/React.createElement("rect", {
-    width: 2,
-    height: 7,
-    x: 7,
-    y: 2,
-    rx: 1
   }));
 }
 
