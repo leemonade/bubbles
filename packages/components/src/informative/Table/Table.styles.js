@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getPaddings } from '../../theme.mixins';
 
 export const TableStyles = createStyles((theme, {}) => {
   const reset = {
@@ -26,6 +26,7 @@ export const TableStyles = createStyles((theme, {}) => {
     },
     td: {
       ...reset,
+      verticalAlign: 'middle',
       // display: 'inline-flex',
     },
   };
