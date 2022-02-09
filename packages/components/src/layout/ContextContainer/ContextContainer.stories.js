@@ -47,7 +47,7 @@ const Template = ({ ...props }) => {
   const headerInputStyle = { width: 300 };
 
   return (
-    <ContextContainer {...props} direction="row">
+    <ContextContainer {...props}>
       <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
       <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
     </ContextContainer>
@@ -61,4 +61,5 @@ Playground.args = {
   // mySelectProp: 'Hello'
   ...CONTEXT_CONTAINER_DEFAULT_PROPS,
   title: 'Subjects',
+  subtitle: '',
 };

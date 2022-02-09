@@ -23,6 +23,8 @@ export const SCHEDULE_PICKER_DEFAULT_PROPS = {
   descriptions: {},
   errorMessages: {},
   required: false,
+  readOnly: false,
+  disabled: false,
 };
 export const SCHEDULE_PICKER_PROP_TYPES = {
   labels: PropTypes.object,
@@ -40,6 +42,8 @@ export const SCHEDULE_PICKER_PROP_TYPES = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   locale: PropTypes.string,
   value: PropTypes.object,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 const SchedulePicker = ({
@@ -53,10 +57,12 @@ const SchedulePicker = ({
   locale,
   value,
   onChange,
+  readOnly,
+  disabled,
   ...props
 }) => {
   const [openForm, setOpenForm] = useState(false);
-  const [canOpen, setCanOpen] = useState(true);
+  const [canOpen, setCanOpen] = useState(!disabled);
   const [localeWeekdays, setlocaleWeekdays] = useState([]);
   const [schedule, setSchedule] = useState(value || { days: [] });
   const inputRef = useRef(null);
@@ -104,70 +110,95 @@ const SchedulePicker = ({
       error={error}
       className={classes.inputWrapper}
     >
-      <Popover
-        withArrow
-        opened={openForm}
-        onClose={() => setOpenForm(false)}
-        width={'auto'}
-        position={'bottom'}
-        placement={'start'}
-        target={
-          <Input
-            size={size}
-            icon={<PluginCalendarIcon />}
-            placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
-            component={'div'}
-          >
-            <Box className={classes.wrapper}>
-              <Box className={classes.values}>
-                {!isEmpty(localeWeekdays) &&
-                  schedule.days.map((day) => (
-                    <Badge
-                      key={day.dayWeek}
-                      label={`${localeWeekdays[day.dayWeek].label} - ${day.start} ${
-                        labels.divider
-                      } ${day.end}`}
-                      closable={false}
-                      onClick={() => setOpenForm(true)}
-                      onClose={() => {
-                        setSchedule({
-                          ...schedule,
-                          days: schedule.days.filter((item) => {
-                            return item.dayWeek !== day.dayWeek;
-                          }),
-                        });
-                      }}
-                    />
-                  ))}
-              </Box>
-              <input
-                ref={inputRef}
-                className={classes.input}
-                placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
-                onFocus={() => canOpen && setOpenForm(!openForm)}
+      {readOnly ? (
+        <Box className={classes.values}>
+          {!isEmpty(localeWeekdays) &&
+            schedule.days.map((day) => (
+              <Badge
+                key={day.dayWeek}
+                label={`${localeWeekdays[day.dayWeek].label} - ${day.start} ${labels.divider} ${
+                  day.end
+                }`}
+                closable={false}
+                onClick={() => setOpenForm(true)}
+                onClose={() => {
+                  setSchedule({
+                    ...schedule,
+                    days: schedule.days.filter((item) => {
+                      return item.dayWeek !== day.dayWeek;
+                    }),
+                  });
+                }}
               />
-            </Box>
-          </Input>
-        }
-        onKeyDown={(e) => {
-          if (e.code === 'Escape') {
-            setOpenForm(false);
-            setCanOpen(false);
-            setTimeout(() => inputRef.current.blur(), 100);
-            setTimeout(() => setCanOpen(true), 500);
+            ))}
+        </Box>
+      ) : (
+        <Popover
+          withArrow
+          opened={openForm}
+          onClose={() => setOpenForm(false)}
+          width={'auto'}
+          position={'bottom'}
+          placement={'start'}
+          target={
+            <Input
+              size={size}
+              icon={<PluginCalendarIcon />}
+              placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
+              component={'div'}
+            >
+              <Box className={classes.wrapper}>
+                <Box className={classes.values}>
+                  {!isEmpty(localeWeekdays) &&
+                    schedule.days.map((day) => (
+                      <Badge
+                        key={day.dayWeek}
+                        label={`${localeWeekdays[day.dayWeek].label} - ${day.start} ${
+                          labels.divider
+                        } ${day.end}`}
+                        closable={false}
+                        onClick={() => setOpenForm(true)}
+                        onClose={() => {
+                          setSchedule({
+                            ...schedule,
+                            days: schedule.days.filter((item) => {
+                              return item.dayWeek !== day.dayWeek;
+                            }),
+                          });
+                        }}
+                      />
+                    ))}
+                </Box>
+                <input
+                  ref={inputRef}
+                  className={classes.input}
+                  placeholder={schedule.days.length === 0 ? placeholders.input : undefined}
+                  onFocus={() => canOpen && setOpenForm(!openForm)}
+                  disabled={disabled}
+                />
+              </Box>
+            </Input>
           }
-        }}
-      >
-        <ScheduleForm
-          labels={labels}
-          placeholders={placeholders}
-          errorMessages={errorMessages}
-          localeWeekdays={localeWeekdays}
-          setOpenForm={setOpenForm}
-          onChange={handleOnChange}
-          savedSchedule={schedule}
-        />
-      </Popover>
+          onKeyDown={(e) => {
+            if (canOpen && e.code === 'Escape') {
+              setOpenForm(false);
+              setCanOpen(false);
+              setTimeout(() => inputRef.current.blur(), 100);
+              setTimeout(() => setCanOpen(true), 500);
+            }
+          }}
+        >
+          <ScheduleForm
+            labels={labels}
+            placeholders={placeholders}
+            errorMessages={errorMessages}
+            localeWeekdays={localeWeekdays}
+            setOpenForm={setOpenForm}
+            onChange={handleOnChange}
+            savedSchedule={schedule}
+          />
+        </Popover>
+      )}
     </InputWrapper>
   );
 };

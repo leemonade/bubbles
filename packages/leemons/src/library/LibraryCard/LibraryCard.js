@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import {
-  LibraryCardCover,
-  LibraryCardContent,
-  LibraryCardFooter,
-  LibraryCardDeadline,
-  LIBRARY_CARD_DEADLINE_PROP_TYPES,
-} from '../';
+import { LibraryCardCover } from '../LibraryCardCover';
+import { LibraryCardContent } from '../LibraryCardContent';
+import { LibraryCardFooter } from '../LibraryCardFooter';
+import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];

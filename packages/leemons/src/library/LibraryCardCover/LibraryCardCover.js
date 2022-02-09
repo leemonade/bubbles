@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, ImageLoader, Title } from '@bubbles-ui/components';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
-import { LIBRARYCARD_VARIANTS, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../';
+import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
