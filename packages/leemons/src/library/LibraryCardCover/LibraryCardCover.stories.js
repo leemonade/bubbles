@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, FileIcon } from '@bubbles-ui/components';
+import { Box, FileIcon, COLORS } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid';
-import { COLORS as colors } from '@bubbles-ui/components/src/theme.tokens';
 import { LibraryCardCover, LIBRARY_CARD_COVER_DEFAULT_PROPS } from './LibraryCardCover';
 import { LIBRARYCARD_VARIANTS } from '../';
 import mdx from './LibraryCardCover.mdx';
@@ -35,7 +34,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_CARD_COVER_DEFAULT_PROPS,
-  fileIcon: <FileIcon fileType={'audio'} size={64} color={colors.text06} />,
+  fileIcon: <FileIcon fileType={'audio'} size={64} color={COLORS.text06} />,
   color: '#DC5571',
   name: 'El ritmo de la guerra',
   cover:
