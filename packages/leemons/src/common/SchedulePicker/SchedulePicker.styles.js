@@ -1,10 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import {
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components/src/theme.mixins';
+import { pxToRem, getFontProductive } from '@bubbles-ui/components';
 
 export const SchedulePickerStyles = createStyles((theme, {}) => {
   return {

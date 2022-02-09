@@ -1,15 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import { LOGIC_OPERATORS } from '../ProgramRules';
-import { RuleConditionStyles } from './RuleCondition.styles';
-import { Box, NumberInput, Paper, Select, Stack, Text, TextInput } from '@bubbles-ui/components';
-import { MultiSelect } from '@bubbles-ui/components/src/form/';
-import { Menu } from '@bubbles-ui/components/src/navigation';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
-import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { v4 as uuidv4 } from 'uuid';
 import { filter } from 'lodash';
+import {
+  Box,
+  NumberInput,
+  Paper,
+  Select,
+  Stack,
+  Text,
+  TextInput,
+  MultiSelect,
+  Menu,
+} from '@bubbles-ui/components';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
+import { LOGIC_OPERATORS } from '../ProgramRules';
+import { RuleConditionStyles } from './RuleCondition.styles';
 
 const PROPTYPES_SHAPE = PropTypes.shape({
   label: PropTypes.string,
