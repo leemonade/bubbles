@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
+import { ArchiveIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard, LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard';
 import mdx from './LibraryCard.mdx';
 
@@ -18,19 +19,22 @@ export default {
   argTypes: {
     showImage: { control: 'boolean' },
     variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
+    onAction: { action: 'onAction' },
   },
 };
 
-const Template = ({ children, asset, showImage, ...props }) => {
+const Template = ({ children, asset, showImage, action, deadlineProps, ...props }) => {
   const assetWithoutCover = { ...asset, cover: undefined };
   const assetWithoutDescription = { ...asset, description: undefined };
 
   return (
     <Box style={{ display: 'flex' }}>
       <Box style={{ width: 287 }}>
-        <LibraryCard {...props} asset={showImage ? asset : assetWithoutCover}>
-          {children}
-        </LibraryCard>
+        <LibraryCard
+          {...props}
+          asset={showImage ? asset : assetWithoutCover}
+          deadlineProps={deadlineProps}
+        />
       </Box>
       <Box style={{ width: 287, marginLeft: 24 }}>
         <LibraryCard
@@ -38,9 +42,8 @@ const Template = ({ children, asset, showImage, ...props }) => {
           asset={
             showImage ? assetWithoutDescription : { ...assetWithoutCover, description: undefined }
           }
-        >
-          {children}
-        </LibraryCard>
+          action={action}
+        />
       </Box>
     </Box>
   );
@@ -69,4 +72,11 @@ Playground.args = {
   },
   variant: 'media',
   showImage: true,
+  deadlineProps: {
+    icon: <ArchiveIcon width={16} height={16} />,
+    deadline: new Date('2022-02-20'),
+    locale: 'es',
+    isNew: false,
+  },
+  action: 'View feedback',
 };

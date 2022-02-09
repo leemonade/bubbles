@@ -12,6 +12,7 @@ export const LibraryCardDeadlineStyles = createStyles((theme, { isNew, hovered }
       ...getFontProductive(theme.fontSizes['2'], 400),
       display: 'flex',
       padding: pxToRem(8),
+      backgroundColor: 'white',
     },
     icon: {
       marginRight: pxToRem(8),
@@ -30,7 +31,7 @@ export const LibraryCardDeadlineStyles = createStyles((theme, { isNew, hovered }
       lineHeight: pxToRem(14),
       overflow: 'hidden',
       height: hovered ? 14 : 0,
-      transition: 'height 0.2s ease-in-out',
+      transition: 'height 0.2s ease-out',
     },
   };
 });

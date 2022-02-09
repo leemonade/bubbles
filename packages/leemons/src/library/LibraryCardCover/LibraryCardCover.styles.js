@@ -32,6 +32,13 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, height, blur
       justifyContent: 'space-between',
       borderRadius: '4px 0 0 0',
     },
+    deadline: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      zIndex: 2,
+      width: '50%',
+    },
     color: {
       width: '100%',
       height: pxToRem(8),

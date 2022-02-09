@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import { LibraryCardCover, LibraryCardContent, LibraryCardFooter } from '../';
+import {
+  LibraryCardCover,
+  LibraryCardContent,
+  LibraryCardFooter,
+  LibraryCardDeadline,
+  LIBRARY_CARD_DEADLINE_PROP_TYPES,
+} from '../';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
@@ -28,9 +34,12 @@ export const LIBRARY_CARD_PROP_TYPES = {
     role: PropTypes.oneOf(LIBRARYCARD_ROLES),
   }),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
+  deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
+  action: PropTypes.string,
+  onAction: PropTypes.func,
 };
 
-const LibraryCard = ({ asset, variant, ...props }) => {
+const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, ...props }) => {
   const { classes, cx } = LibraryCardStyles({});
   return (
     <Box className={classes.root}>
@@ -39,13 +48,19 @@ const LibraryCard = ({ asset, variant, ...props }) => {
         color={asset.color}
         cover={asset.cover}
         fileIcon={<FileIcon size={64} fileType={asset.fileType} color={'#B9BEC4'} />}
+        deadlineProps={deadlineProps}
       />
       <LibraryCardContent
         description={asset.description}
         metadata={asset.metadata}
         tags={asset.tags}
       />
-      <LibraryCardFooter fileType={asset.fileType} created={asset.created} />
+      <LibraryCardFooter
+        fileType={asset.fileType}
+        created={asset.created}
+        action={action}
+        onAction={onAction}
+      />
     </Box>
   );
 };

@@ -12,6 +12,7 @@ export const LIBRARY_CARD_DEADLINE_DEFAULT_PROPS = {
     deadline: '',
   },
   locale: 'en',
+  isNew: false,
 };
 export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   labels: PropTypes.shape({

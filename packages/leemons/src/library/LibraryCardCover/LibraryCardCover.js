@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, ImageLoader, Title } from '@bubbles-ui/components';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
-import { LIBRARYCARD_VARIANTS } from '../';
+import { LIBRARYCARD_VARIANTS, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../';
+import { LibraryCardDeadline } from '../LibraryCardDeadline';
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
   blur: 20,
@@ -14,11 +15,22 @@ export const LIBRARY_CARD_COVER_PROP_TYPES = {
   cover: PropTypes.string,
   color: PropTypes.string,
   blur: PropTypes.number,
-  variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
+  variant: PropTypes.oneOf(['media', 'task']),
   fileIcon: PropTypes.node,
+  deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
 };
 
-const LibraryCardCover = ({ name, height, cover, color, blur, variant, fileIcon, ...props }) => {
+const LibraryCardCover = ({
+  name,
+  height,
+  cover,
+  color,
+  blur,
+  variant,
+  fileIcon,
+  deadlineProps,
+  ...props
+}) => {
   const { classes, cx } = LibraryCardCoverStyles(
     { color, height, blur },
     { name: 'LibraryCardCover' }
@@ -31,6 +43,11 @@ const LibraryCardCover = ({ name, height, cover, color, blur, variant, fileIcon,
           {name}
         </Title>
       </Box>
+      {deadlineProps && (
+        <Box className={classes.deadline}>
+          <LibraryCardDeadline {...deadlineProps} />
+        </Box>
+      )}
       {cover ? (
         <ImageLoader src={cover} height={height} forceImage />
       ) : (
