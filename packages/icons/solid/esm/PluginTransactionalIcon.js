@@ -7,9 +7,7 @@ function PluginTransactionalIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -25,12 +23,7 @@ function PluginTransactionalIcon(props) {
     fillRule: "evenodd",
     d: "M1.125 1.5H20.25v19.246H1.125V1.5ZM16.5 8.746v6a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-6a2.25 2.25 0 0 1 2.25-2.25h7.5a2.25 2.25 0 0 1 2.25 2.25ZM6 10.096v4.65a.75.75 0 0 0 .75.75h7.5a.75.75 0 0 0 .75-.75v-4.65l-3.307 2.059h-.001a2.25 2.25 0 0 1-2.384 0L6 10.096Zm8.78-1.88a.75.75 0 0 0-.53-.22h-7.5a.75.75 0 0 0-.658.39l4.01 2.496v.001a.75.75 0 0 0 .796 0l4.01-2.496a.746.746 0 0 0-.128-.171Z",
     clipRule: "evenodd"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    transform: "translate(0 .5)"
-  }))));
+  }));
 }
 
 export default PluginTransactionalIcon;

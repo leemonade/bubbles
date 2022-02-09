@@ -7,9 +7,7 @@ function PluginAssignmentsIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -25,12 +23,7 @@ function PluginAssignmentsIcon(props) {
     fillRule: "evenodd",
     d: "M17.772 15.5V5.011a.75.75 0 0 0-.75-.75h-4.5a3 3 0 1 0-6 0h-4.5a.75.75 0 0 0-.75.75V15.5h4.5v-1.49a1.5 1.5 0 0 1 3 0v1.49h9ZM9.5 3.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z",
     clipRule: "evenodd"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    transform: "translate(.5 .5)"
-  }))));
+  }));
 }
 
 export default PluginAssignmentsIcon;

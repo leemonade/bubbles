@@ -7,9 +7,7 @@ function PluginPlannerIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -19,12 +17,7 @@ function PluginPlannerIcon(props) {
     fillRule: "evenodd",
     d: "M2 8.438h7v13.28H2V8.439ZM3.5 11.5a.75.75 0 0 1 .75-.75h2a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1-.75-.75Zm.75 6.25a.75.75 0 0 0 0 1.5h2a.75.75 0 0 0 0-1.5h-2Z",
     clipRule: "evenodd"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24.5v24.5H0z",
-    transform: "translate(.5 .5)"
-  }))));
+  }));
 }
 
 module.exports = PluginPlannerIcon;

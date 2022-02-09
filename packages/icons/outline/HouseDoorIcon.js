@@ -8,19 +8,12 @@ function HouseDoorIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     strokeWidth: 2,
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
     d: "M3.753 13.944v8.25h6v-6a1.5 1.5 0 0 1 1.5-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v6h6v-8.25M.753 12.444l10.19-10.189a1.5 1.5 0 0 1 2.121 0l10.19 10.19"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    fill: "#fff",
-    d: "M0 0h24v24H0z"
-  }))));
+  }));
 }
 
 module.exports = HouseDoorIcon;

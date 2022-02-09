@@ -7,15 +7,9 @@ function ControlsForwardIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     d: "m15.667 7.243-7-6.32A1 1 0 0 0 7 1.68v3.684a.167.167 0 0 1-.279.124L1.667.923A1 1 0 0 0 0 1.68V14.32a1 1 0 0 0 1.667.758l5.055-4.565a.167.167 0 0 1 .279.124v3.683a1 1 0 0 0 1.666.758l7-6.32a1.026 1.026 0 0 0 0-1.514Z"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h16v16H0z"
-  }))));
+  }));
 }
 
 module.exports = ControlsForwardIcon;
