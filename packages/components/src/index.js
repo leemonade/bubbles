@@ -11,6 +11,7 @@ export {
 export { useId, useScrollIntoView, useResizeObserver } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export { getFontExpressive, getFontProductive, pxToRem, getPaddings } from './theme.mixins';
+export { COLORS } from './theme.tokens';
 export * from './ThemeProvider';
 export * from './informative';
 export * from './navigation';
