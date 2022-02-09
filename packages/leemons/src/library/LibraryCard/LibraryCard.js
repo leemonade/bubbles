@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import {
-  LibraryCardCover,
-  LibraryCardContent,
-  LibraryCardFooter,
-  LibraryCardDeadline,
-  LIBRARY_CARD_DEADLINE_PROP_TYPES,
-} from '../';
+import { LibraryCardCover, LibraryCardContent, LibraryCardFooter, validateURL } from '../';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
@@ -34,12 +28,24 @@ export const LIBRARY_CARD_PROP_TYPES = {
     role: PropTypes.oneOf(LIBRARYCARD_ROLES),
   }),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
-  deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
+  deadlineProps: PropTypes.shape({
+    labels: PropTypes.shape({
+      title: PropTypes.string,
+      new: PropTypes.string,
+      deadline: PropTypes.string,
+    }),
+    icon: PropTypes.oneOfType([
+      PropTypes.element,
+      (props, propName, componentName) => validateURL(props, propName, componentName),
+    ]),
+    deadline: PropTypes.instanceOf(Date),
+  }),
   action: PropTypes.string,
   onAction: PropTypes.func,
+  locale: PropTypes.string,
 };
 
-const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, ...props }) => {
+const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, locale, ...props }) => {
   const { classes, cx } = LibraryCardStyles({});
   return (
     <Box className={classes.root}>
@@ -48,18 +54,20 @@ const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, ...props
         color={asset.color}
         cover={asset.cover}
         fileIcon={<FileIcon size={64} fileType={asset.fileType} color={'#B9BEC4'} />}
-        deadlineProps={deadlineProps}
+        deadlineProps={{ ...deadlineProps, locale }}
       />
       <LibraryCardContent
         description={asset.description}
         metadata={asset.metadata}
         tags={asset.tags}
+        locale={locale}
       />
       <LibraryCardFooter
         fileType={asset.fileType}
         created={asset.created}
         action={action}
         onAction={onAction}
+        locale={locale}
       />
     </Box>
   );

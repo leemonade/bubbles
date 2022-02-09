@@ -13,26 +13,27 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
     PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
   ),
   tags: PropTypes.arrayOf(PropTypes.string),
+  locale: PropTypes.string,
 };
 
-const LibraryCardContent = ({ description, tags, metadata, ...props }) => {
+const LibraryCardContent = ({ description, tags, metadata, locale, ...props }) => {
   const { classes, cx } = LibraryCardContentStyles({});
 
   return (
     <Box className={classes.root}>
       <Box className={classes.descriptionContainer}>
         {description ? (
-          <Text size={'xs'} role="production" className={classes.description}>
+          <Text size={'xs'} role="productive" className={classes.description}>
             {description}
           </Text>
         ) : (
           <Stack direction="column" spacing={1} fullWidth>
             {metadata.map(({ label, value }, index) => (
               <Stack fullWidth key={`${label} ${value} ${index}`}>
-                <Text size={'xs'} role="production" className={classes.label}>
+                <Text size={'xs'} role="productive" className={classes.label}>
                   {label}
                 </Text>
-                <Text size={'xs'} role="production" className={classes.value}>
+                <Text size={'xs'} role="productive" className={classes.value}>
                   {value}
                 </Text>
               </Stack>

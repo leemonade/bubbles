@@ -28,7 +28,7 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   deadline: PropTypes.instanceOf(Date),
 };
 
-const validateURL = (props, propName, componentName) => {
+export const validateURL = (props, propName, componentName) => {
   let url;
   const errorString = `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`;
   try {
@@ -43,7 +43,6 @@ const TODAY = new Date().getDate();
 
 const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }) => {
   const [title, setTitle] = useState(labels.title);
-  const [hovered, setHovered] = useState(false);
 
   const formattedDate = `${labels.deadline + ' '}${deadline.toLocaleDateString(
     locale
@@ -72,13 +71,9 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }
     setTitle(capitalize(result));
   }, [deadline, locale]);
 
-  const { classes, cx } = LibraryCardDeadlineStyles({ isNew, hovered });
+  const { classes, cx } = LibraryCardDeadlineStyles({ isNew });
   return (
-    <Box
-      className={classes.root}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <Box className={classes.root}>
       {icon && (
         <Box className={classes.icon}>
           {typeof icon === 'string' ? <ImageLoader src={icon} height={16} width={16} /> : icon}
@@ -86,7 +81,7 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }
       )}
       <Box>
         <Box className={classes.title}>{isNew ? labels.new : title}</Box>
-        <Box className={classes.deadline}>{deadline && formattedDate}</Box>
+        {deadline && <Box className={classes.deadline}>{formattedDate}</Box>}
       </Box>
     </Box>
   );
