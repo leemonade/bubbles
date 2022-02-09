@@ -77,6 +77,7 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius }) 
     badgeRoot: {
       ...getTextSize(theme, size),
       ...getColor(theme, color),
+      letterSpacing: 0,
       color: theme.colors.text01,
       textTransform: 'none',
       borderRadius: isRounded ? pxToRem(100) : pxToRem(4),
