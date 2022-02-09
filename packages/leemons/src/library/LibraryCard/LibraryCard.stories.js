@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
+import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard, LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard';
 import mdx from './LibraryCard.mdx';
@@ -28,7 +28,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, ...props 
   const assetWithoutDescription = { ...asset, description: undefined };
 
   return (
-    <Box style={{ display: 'flex' }}>
+    <Stack spacing={5}>
       <Box style={{ width: 287 }}>
         <LibraryCard
           {...props}
@@ -36,7 +36,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, ...props 
           deadlineProps={deadlineProps}
         />
       </Box>
-      <Box style={{ width: 287, marginLeft: 24 }}>
+      <Box style={{ width: 287 }}>
         <LibraryCard
           {...props}
           asset={
@@ -45,7 +45,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, ...props 
           action={action}
         />
       </Box>
-    </Box>
+    </Stack>
   );
 };
 

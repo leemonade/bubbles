@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { capitalize, isFunction } from 'lodash';
-import { Box, FileIcon, Text, Button, Stack } from '@bubbles-ui/components';
+import { Box, FileIcon, Text, Button } from '@bubbles-ui/components';
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 
 export const LIBRARY_CARD_FOOTER_DEFAULT_PROPS = {};
 export const LIBRARY_CARD_FOOTER_PROP_TYPES = {
   fileType: PropTypes.string,
+  fileExtension: PropTypes.string,
   created: PropTypes.string,
   action: PropTypes.string,
   onAction: PropTypes.func,
+  locale: PropTypes.string,
 };
 
-const LibraryCardFooter = ({ fileType, created, action, onAction, ...props }) => {
+const LibraryCardFooter = ({
+  fileType,
+  fileExtension,
+  created,
+  action,
+  onAction,
+  locale,
+  ...props
+}) => {
   const { classes, cx } = LibraryCardFooterStyles({ action });
 
   const formatDate = () => {
@@ -35,7 +45,14 @@ const LibraryCardFooter = ({ fileType, created, action, onAction, ...props }) =>
         </Button>
       ) : (
         <>
-          <FileIcon size={12} fileType={fileType} color={'#636D7D'} label={capitalize(fileType)} />
+          <FileIcon
+            size={12}
+            fileType={fileType}
+            fileExtension={fileExtension}
+            color={'#636D7D'}
+            label={capitalize(fileType)}
+            hideExtension
+          />
           <Text role="productive" className={classes.date}>
             {formatDate()}
           </Text>
