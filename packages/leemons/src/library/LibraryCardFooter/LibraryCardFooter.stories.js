@@ -15,7 +15,9 @@ export default {
       url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/🍋💧-Bubbles-SD-v2',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onAction: { action: 'onAction' },
+  },
 };
 
 const Template = ({ children, ...props }) => {
@@ -28,4 +30,5 @@ Playground.args = {
   ...LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
   fileType: 'audio',
   created: '2022-02-04T16:26:31.485Z',
+  action: 'View feedback',
 };

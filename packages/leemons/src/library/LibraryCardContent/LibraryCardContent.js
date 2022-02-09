@@ -27,8 +27,8 @@ const LibraryCardContent = ({ description, tags, metadata, ...props }) => {
           </Text>
         ) : (
           <Box>
-            {metadata.map(({ label, value }) => (
-              <Box>
+            {metadata.map(({ label, value }, index) => (
+              <Box key={`${label} ${value} ${index}`}>
                 <Text className={classes.label}>{label}</Text>
                 <Text className={classes.value}>{value}</Text>
               </Box>
@@ -37,8 +37,8 @@ const LibraryCardContent = ({ description, tags, metadata, ...props }) => {
         )}
       </Box>
       <Box className={classes.tagsContainer}>
-        {tags.map((tag) => (
-          <Box>
+        {tags.map((tag, index) => (
+          <Box key={`${tag} ${index}`}>
             <Badge label={tag} closable={false} radius={'default'} />
           </Box>
         ))}

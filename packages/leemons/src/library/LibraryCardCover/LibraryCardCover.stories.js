@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, FileIcon } from '@bubbles-ui/components';
+import { ArchiveIcon } from '@bubbles-ui/icons/solid';
 import { COLORS as colors } from '@bubbles-ui/components/src/theme.tokens';
 import { LibraryCardCover, LIBRARY_CARD_COVER_DEFAULT_PROPS } from './LibraryCardCover';
 import { LIBRARYCARD_VARIANTS } from '../';
@@ -41,4 +42,10 @@ Playground.args = {
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
   blur: 20,
   variant: 'media',
+  deadlineProps: {
+    icon: <ArchiveIcon width={16} height={16} />,
+    deadline: new Date('2022-02-20'),
+    locale: 'es',
+    isNew: false,
+  },
 };
