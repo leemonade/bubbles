@@ -160,7 +160,10 @@ const SetupSubjects = ({
                     },
                     data: frequencyOptions,
                   },
-                  valueRender: (value) => find(frequencyOptions, { value })['label'],
+                  valueRender: (value) => {
+                    const item = find(frequencyOptions, { value });
+                    return item ? item.label : value;
+                  },
                 },
               ]}
               data={customSubstages}

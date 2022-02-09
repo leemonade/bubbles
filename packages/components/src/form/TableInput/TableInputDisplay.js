@@ -26,6 +26,7 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
 const TableInputDisplay = ({
   labels,
   columns,
+  form,
   data,
   onAdd,
   onRemove,
@@ -35,6 +36,7 @@ const TableInputDisplay = ({
   editable,
   removable,
   disabled,
+  onChangeRow = () => {},
 }) => {
   const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
@@ -42,12 +44,20 @@ const TableInputDisplay = ({
     data,
   });
 
+  let _form = form;
+
+  if (!_form) {
+    _form = useForm();
+  }
   const {
     control,
     handleSubmit,
     trigger,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = _form;
+
+  const formValues = watch();
 
   const { classes, cx } = TableInputStyles({ name: 'TableInput' });
   const { classes: tableClasses } = TableStyles({}, { name: 'Table' });
@@ -71,6 +81,7 @@ const TableInputDisplay = ({
                 placeholder: column.Header,
                 ...field,
                 ...inputProps,
+                formValues,
                 error: errors[accessor],
               })
             }
@@ -80,7 +91,7 @@ const TableInputDisplay = ({
 
       return null;
     },
-    [columns, disabled, errors]
+    [columns, disabled, errors, formValues]
   );
 
   const handleDragEnd = (result) => {
@@ -162,6 +173,7 @@ const TableInputDisplay = ({
                     editing={editing}
                     onEditing={setEditing}
                     onEdit={onEdit}
+                    onChangeRow={onChangeRow}
                   />
                 );
               })}

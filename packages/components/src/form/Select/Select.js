@@ -28,6 +28,9 @@ const Select = forwardRef(
       icon,
       disabled,
       searchable,
+      getCreateLabel,
+      creatable,
+      onCreate,
       nothingFound,
       placeholder,
       className,
@@ -72,10 +75,13 @@ const Select = forwardRef(
           onChange={handleChange}
           onBlur={onBlur}
           value={value}
+          creatable={creatable}
+          onCreate={onCreate}
           defaultValue={defaultValue}
           name={name}
           disabled={disabled}
           searchable={searchable}
+          getCreateLabel={getCreateLabel}
           nothingFound={nothingFound}
           placeholder={placeholder}
           rightSection={

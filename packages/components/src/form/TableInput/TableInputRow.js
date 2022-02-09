@@ -24,15 +24,24 @@ const TableInputRow = ({
   editing: _editing,
   onEditing,
   onEdit,
+  onChangeRow = () => {},
 }) => {
   const [editing, setEditing] = useState(false);
 
+  const form = useForm();
   const {
     control,
     handleSubmit,
     trigger,
     formState: { errors },
-  } = useForm();
+  } = form;
+
+  React.useEffect(() => {
+    const subscription = form.watch((value, ev) => {
+      onChangeRow(value, ev, form);
+    });
+    return () => subscription.unsubscribe();
+  });
 
   const getColumCellValue = (cell) => {
     if (editing) {

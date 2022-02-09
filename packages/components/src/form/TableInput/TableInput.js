@@ -36,6 +36,7 @@ const TableInput = ({
   onRemove,
   onSort,
   onBeforeAdd,
+  form,
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
@@ -71,7 +72,7 @@ const TableInput = ({
     const newData = [...tableData];
     const oldItem = newData[index];
     newData[index] = { ...oldItem, ...newItem };
-    onUpdate({ ...oldItem, ...newItem, index });
+    onUpdate({ oldItem, newItem, index });
     handleOnChange(newData, { type: 'edit', index, newItem, oldItem });
   };
 
@@ -103,6 +104,7 @@ const TableInput = ({
   return (
     <TableInputDisplay
       {...props}
+      form={form}
       data={tableData}
       onAdd={handleOnAdd}
       onRemove={handleOnRemove}
