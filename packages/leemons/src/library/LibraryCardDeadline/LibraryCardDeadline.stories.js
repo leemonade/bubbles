@@ -17,25 +17,33 @@ export default {
     },
   },
   argTypes: {
-    icon: {
-      options: [
-        'https://image.flaticon.com/icons/png/512/16/16363.png',
-        <ArchiveIcon width={16} height={16} />,
-      ],
+    locale: {
+      options: ['en', 'fr', 'de', 'es', 'it', 'ja', 'ko', 'pt', 'ru', 'zh'],
       control: { type: 'select' },
+      withImage: { type: 'boolean' },
     },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <LibraryCardDeadline {...props}>{children}</LibraryCardDeadline>;
+const Template = ({ children, withImage, ...props }) => {
+  const image =
+    'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80';
+  const icon = props.icon;
+
+  return (
+    <LibraryCardDeadline {...props} icon={withImage ? image : icon}>
+      {children}
+    </LibraryCardDeadline>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
-  icon: 'https://image.flaticon.com/icons/png/512/16/16363.png',
-  deadline: new Date('2022-02-10'),
+  withImage: false,
+  icon: <ArchiveIcon width={16} height={16} />,
+  deadline: new Date('2022-02-20'),
   locale: 'es',
+  isNew: false,
 };
