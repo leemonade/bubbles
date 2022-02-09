@@ -6,7 +6,7 @@ import { LIBRARYCARD_VARIANTS, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
-  blur: 20,
+  blur: 10,
   height: 190,
 };
 export const LIBRARY_CARD_COVER_PROP_TYPES = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Badge } from '@bubbles-ui/components';
+import { Box, Text, Badge, Stack } from '@bubbles-ui/components';
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 
 export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
@@ -22,24 +22,28 @@ const LibraryCardContent = ({ description, tags, metadata, ...props }) => {
     <Box className={classes.root}>
       <Box className={classes.descriptionContainer}>
         {description ? (
-          <Text size={'xs'} className={classes.description}>
+          <Text size={'xs'} role="production" className={classes.description}>
             {description}
           </Text>
         ) : (
-          <Box>
+          <Stack direction="column" spacing={1} fullWidth>
             {metadata.map(({ label, value }, index) => (
-              <Box key={`${label} ${value} ${index}`}>
-                <Text className={classes.label}>{label}</Text>
-                <Text className={classes.value}>{value}</Text>
-              </Box>
+              <Stack fullWidth key={`${label} ${value} ${index}`}>
+                <Text size={'xs'} role="production" className={classes.label}>
+                  {label}
+                </Text>
+                <Text size={'xs'} role="production" className={classes.value}>
+                  {value}
+                </Text>
+              </Stack>
             ))}
-          </Box>
+          </Stack>
         )}
       </Box>
       <Box className={classes.tagsContainer}>
         {tags.map((tag, index) => (
           <Box key={`${tag} ${index}`}>
-            <Badge label={tag} closable={false} radius={'default'} />
+            <Badge label={tag} size="xs" closable={false} radius={'default'} />
           </Box>
         ))}
       </Box>
