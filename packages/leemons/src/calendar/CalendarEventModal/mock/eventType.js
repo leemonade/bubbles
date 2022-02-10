@@ -1,0 +1,27 @@
+export const eventTypeMock = [
+  {
+    id: '059d639e-b5bb-4d3d-b400-fcca77086924',
+    key: 'plugins.calendar.task',
+    url: 'task',
+    label: 'Task',
+    value: 'plugins.calendar.task',
+    pluginName: 'calendar',
+    deleted: 0,
+    created_at: '2022-01-18T13:13:28.000Z',
+    updated_at: '2022-01-18T13:13:28.000Z',
+    deleted_at: null,
+  },
+  {
+    id: '8ef84027-2976-44ba-b0a8-d5d3858d23bf',
+    key: 'plugins.calendar.event',
+    url: 'event',
+    label: 'Event',
+    value: 'plugins.calendar.event',
+    pluginName: 'calendar',
+    onlyOneDate: 1,
+    deleted: 0,
+    created_at: '2022-01-18T13:13:28.000Z',
+    updated_at: '2022-01-18T13:13:28.000Z',
+    deleted_at: null,
+  },
+];

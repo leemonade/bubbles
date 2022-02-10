@@ -37,6 +37,7 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...pr
         <Button
           className={classes.root}
           onClick={(e) => (item.disabled ? e.preventDefault() : onClick(e))}
+          disabled={item.disabled}
           aria-label={item.label}
         >
           <ImageLoader
@@ -44,7 +45,7 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...pr
             src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
             alt={item.iconAlt}
             strokeCurrent
-            fillCurrent={active}
+            ignoreFill={!active}
           />
         </Button>
       </Wrapper>

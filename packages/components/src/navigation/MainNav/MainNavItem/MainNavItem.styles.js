@@ -27,7 +27,7 @@ export const MainNavItemStyles = createStyles((theme, { itemWidth, active }) => 
       borderRadius: '2px',
       ...getFontExpressive(),
       ...getPaddings(0, theme.spacing['4']),
-      boxShadow: theme.shadows.shadow04,
+      boxShadow: theme.shadows.shadow03,
     },
     tooltipArrow: {
       backgroundColor: theme.colors.interactive01,

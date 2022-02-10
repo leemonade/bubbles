@@ -6,7 +6,7 @@ const getPadding = (size, isMedium, image) => {
 
   switch (size) {
     case 'xs':
-      return `${pxToRem(4)} ${pxToRem(12)} ${pxToRem(4)} ${pxToRem(12)}`;
+      return `${pxToRem(4)} ${pxToRem(9)} ${pxToRem(4)} ${pxToRem(12)}`;
     case 'md':
       return `${pxToRem(isMediumImage ? 9 : 8)} ${pxToRem(12)} ${pxToRem(
         isMediumImage ? 9 : 8
@@ -14,18 +14,18 @@ const getPadding = (size, isMedium, image) => {
     case 'lg':
       return `${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)}`;
     default:
-      return `${pxToRem(4)} ${pxToRem(12)} ${pxToRem(4)} ${pxToRem(12)}`;
+      return `${pxToRem(4)} ${pxToRem(9)} ${pxToRem(4)} ${pxToRem(12)}`;
   }
 };
 
 const getTextSize = (theme, size) => {
   switch (size) {
     case 'xs':
-      return getFontExpressive(theme.fontSizes[1], 400);
+      return getFontProductive(theme.fontSizes[1], 400);
     case 'md':
-      return getFontExpressive(theme.fontSizes[2], 400);
+      return getFontProductive(theme.fontSizes[2], 400);
     case 'lg':
-      return getFontExpressive(theme.fontSizes[3], 400);
+      return getFontProductive(theme.fontSizes[3], 400);
     default:
       return getFontProductive(theme.fontSizes[1], 400);
   }
@@ -77,6 +77,7 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius }) 
     badgeRoot: {
       ...getTextSize(theme, size),
       ...getColor(theme, color),
+      letterSpacing: 0,
       color: theme.colors.text01,
       textTransform: 'none',
       borderRadius: isRounded ? pxToRem(100) : pxToRem(4),

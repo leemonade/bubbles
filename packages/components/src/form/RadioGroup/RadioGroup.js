@@ -1,38 +1,71 @@
-import React, { useMemo, forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isNil } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
+import { useUuid } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
 import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
-import { InputError } from '../../form';
+import {
+  INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SHARED_PROPS,
+  INPUT_WRAPPER_SIZES,
+  InputWrapper,
+} from '../InputWrapper';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
 export const RADIOGROUP_DEFAULT_PROPS = {
+  label: '',
+  description: '',
+  help: '',
+  required: false,
+  error: '',
+  orientation: 'vertical',
+  direction: 'row',
+  size: 'sm',
   variant: RADIO_VARIANTS[0],
   defaultValue: '',
   value: '',
   fullWidth: false,
-  error: '',
 };
 export const RADIOGROUP_PROP_TYPES = {
+  ...INPUT_WRAPPER_SHARED_PROPS,
   variant: PropTypes.oneOf(RADIO_VARIANTS),
+  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   data: PropTypes.arrayOf(Object),
   defaultValue: PropTypes.string,
   direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
+  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 
 const RadioGroup = forwardRef(
-  ({ variant, data, defaultValue, direction, fullWidth, error, ...props }, ref) => {
+  (
+    {
+      label,
+      description,
+      help,
+      required,
+      error,
+      size,
+      orientation,
+      variant,
+      data,
+      defaultValue,
+      direction,
+      fullWidth,
+      ...props
+    },
+    ref
+  ) => {
     const [value, setValue] = useState(props.value);
     const [activePosition, setActivePosition] = useState({ height: 0, translate: 0 });
     const refs = useRef({});
     const wrapperRef = useRef();
-    const hasError = useMemo(() => !isNil(error) && error !== '', [error]);
+    const hasError = useMemo(() => !isEmpty(error), [error]);
+    const uuid = useUuid();
 
     const { classes, cx } = RadioGroupStyles(
       { variant, value, direction, fullWidth, activePosition, hasError },
@@ -51,8 +84,10 @@ const RadioGroup = forwardRef(
     }
 
     const onChange = (value) => {
-      props.onChange(value);
-      setValue(value);
+      if (!props.disabled) {
+        props.onChange(value);
+        setValue(value);
+      }
     };
 
     useEffect(() => {
@@ -73,54 +108,56 @@ const RadioGroup = forwardRef(
     }, [value]);
 
     return (
-      <Box ref={wrapperRef}>
-        <MantineSegmentedControl
-          {...props}
-          ref={ref}
-          onChange={onChange}
-          classNames={classes}
-          defaultValue={defaultValue ? defaultValue : ' '}
-          value={value}
-          data={data.map(({ label, ...item }, index) => {
-            return {
-              value: item.value,
-              label: (
-                <Radio
-                  ref={(node) => {
-                    refs.current[item.value] = node;
-                  }}
-                  key={index}
-                  className={classes.radio}
-                  variant={variant}
-                  {...item}
-                  checked={value === item.value}
-                  onChange={() => {}}
-                >
-                  {label}
-                </Radio>
-              ),
-            };
-          })}
-        />
-        {hasError && (
-          <Box mt={10}>
-            <InputError message={error} />
-          </Box>
-        )}
-      </Box>
+      <InputWrapper
+        uuid={uuid}
+        orientation={orientation}
+        label={label}
+        size={size}
+        description={description}
+        help={help}
+        error={error}
+        required={required}
+      >
+        <Box ref={wrapperRef}>
+          <MantineSegmentedControl
+            {...props}
+            ref={ref}
+            id={uuid}
+            size={size}
+            onChange={onChange}
+            classNames={classes}
+            defaultValue={defaultValue ? defaultValue : ' '}
+            value={value}
+            data={data.map(({ label, ...item }, index) => {
+              return {
+                value: item.value,
+                label: (
+                  <Radio
+                    {...item}
+                    disabled={props.disabled}
+                    ref={(node) => {
+                      refs.current[item.value] = node;
+                    }}
+                    size={size}
+                    key={index}
+                    className={classes.radio}
+                    variant={variant}
+                    checked={value === item.value}
+                    onChange={() => {}}
+                  >
+                    {label}
+                  </Radio>
+                ),
+              };
+            })}
+          />
+        </Box>
+      </InputWrapper>
     );
   }
 );
 
-RadioGroup.propTypes = {
-  variant: PropTypes.oneOf(RADIO_VARIANTS),
-  data: PropTypes.arrayOf(Object),
-  defaultValue: PropTypes.string,
-  direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
-  fullWidth: PropTypes.bool,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-};
+RadioGroup.propTypes = RADIOGROUP_PROP_TYPES;
+RadioGroup.defaultProps = RADIOGROUP_DEFAULT_PROPS;
 
 export { RadioGroup };

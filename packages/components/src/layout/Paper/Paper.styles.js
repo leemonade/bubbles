@@ -1,7 +1,6 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => {
+export const PaperStyles = createStyles((theme, { padding, radius, shadow, color, fullWidth }) => {
   const getShadows = (shadow) => {
     switch (shadow) {
       case 'level100':
@@ -21,10 +20,12 @@ export const PaperStyles = createStyles((theme, { padding, radius, shadow }) => 
 
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-      display: 'inline-flex',
-      backgroundColor: '#eee',
+      display: fullWidth ? 'flex' : 'inline-flex',
+      flexDirection: 'column',
+      backgroundColor:
+        color === 'solid' ? theme.colors.uiBackground02 : theme.colors.uiBackground01,
       boxShadow: getShadows(shadow),
+      padding: theme.spacing[padding],
     },
   };
 });

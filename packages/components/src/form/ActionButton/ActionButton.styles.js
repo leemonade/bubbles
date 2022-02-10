@@ -19,15 +19,15 @@ const getSizes = (size, spacing, iconOnly) => {
   }[size];
 };
 
-const getVariant = (variant, theme, color) => {
+const getVariant = (variant, theme, color, active) => {
   const variants = {
     default: {
       positive: {
         backgroundColor: 'transparent',
-        color: theme.colors.text02,
+        color: active ? theme.colors.interactive01 : theme.colors.text02,
         '&:hover': {
-          backgroundColor: theme.colors.interactive01v1,
           color: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive01v1,
         },
         '&:active': {
           backgroundColor: theme.colors.interactive01v1,
@@ -36,7 +36,9 @@ const getVariant = (variant, theme, color) => {
       },
       negative: {
         backgroundColor: 'transparent',
-        color: theme.colors.text06,
+        color: active ? theme.colors.text07 : theme.colors.text06,
+        backgroundColor: active ? theme.colors.interactive02d : 'transparent',
+
         '&:hover': {
           color: theme.colors.text07,
           backgroundColor: theme.colors.interactive02,
@@ -49,7 +51,7 @@ const getVariant = (variant, theme, color) => {
     solid: {
       positive: {
         backgroundColor: theme.colors.interactive01v1,
-        color: theme.colors.text02,
+        color: active ? theme.colors.interactive01 : theme.colors.text02,
         '&:hover': {
           backgroundColor: theme.colors.interactive01v1,
           color: theme.colors.interactive01,
@@ -75,28 +77,30 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const ActionButtonStyles = createStyles((theme, { size, color, variant, iconOnly }) => {
-  return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['1'], 400),
-      ...getSizes(size || 'md', theme.spacing, iconOnly),
-    },
-    default: {
-      border: '2px solid transparent',
-      ...getVariant(variant, theme, color),
-    },
-    inner: { gap: iconOnly ? 0 : theme.spacing[2] },
-    rightIcon: {
-      marginLeft: pxToRem(0),
-      marginRight: pxToRem(0),
-      height: theme.spacing['2'],
-    },
-    leftIcon: {
-      marginRight: pxToRem(0),
-      marginLeft: pxToRem(0),
-    },
-    label: {
-      with: '100%',
-    },
-  };
-});
+export const ActionButtonStyles = createStyles(
+  (theme, { size, color, variant, iconOnly, active }) => {
+    return {
+      root: {
+        ...getFontExpressive(theme.fontSizes['1'], 400),
+        ...getSizes(size || 'md', theme.spacing, iconOnly),
+      },
+      default: {
+        border: '2px solid transparent',
+        ...getVariant(variant, theme, color, active),
+      },
+      inner: { gap: iconOnly ? 0 : theme.spacing[2] },
+      rightIcon: {
+        marginLeft: pxToRem(0),
+        marginRight: pxToRem(0),
+        height: theme.spacing['2'],
+      },
+      leftIcon: {
+        marginRight: pxToRem(0),
+        marginLeft: pxToRem(0),
+      },
+      label: {
+        with: '100%',
+      },
+    };
+  }
+);

@@ -15,12 +15,14 @@ export const ACTION_BUTTON_DEFAULT_PROPS = {
   variant: ACTION_BUTTON_VARIANTS[0],
   label: '',
   rounded: false,
+  active: false,
 };
 export const ACTION_BUTTON_PROP_TYPES = {
   size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
   color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
   variant: PropTypes.oneOf(ACTION_BUTTON_VARIANTS),
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  active: PropTypes.bool,
 };
 
 const TooltipComponent = ({ children, tooltip }) => {
@@ -51,6 +53,7 @@ export const ActionButton = forwardRef(
       style,
       className,
       classNames,
+      active,
       ...props
     },
     ref
@@ -62,12 +65,16 @@ export const ActionButton = forwardRef(
       ? sizeProp
       : ACTION_BUTTON_DEFAULT_PROPS.size;
     const radius = rounded ? 'xl' : 'xs';
-    const { classes, cx } = ActionButtonStyles({
-      size,
-      color,
-      variant,
-      iconOnly: isNil(label) || (isString(label) && label === ''),
-    });
+    const { classes, cx } = ActionButtonStyles(
+      {
+        size,
+        color,
+        variant,
+        iconOnly: isNil(label) || (isString(label) && label === ''),
+        active,
+      },
+      { name: 'ActionButton' }
+    );
 
     return (
       <TooltipComponent tooltip={tooltip}>

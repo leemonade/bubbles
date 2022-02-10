@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { TextInput, RadioGroup } from '../../form';
+import { TextInput, NumberInput, RadioGroup, Checkbox } from '../../form';
 import {
   ContextContainer,
   CONTEXT_CONTAINER_DEFAULT_PROPS,
   CONTEXT_CONTAINER_PADDED_TYPES,
 } from './ContextContainer';
+import { Stack } from '../Stack';
 import mdx from './ContextContainer.mdx';
 
 export default {
@@ -42,13 +43,13 @@ const Template = ({ ...props }) => {
       label: 'Label for option 3',
     },
   ];
+
+  const headerInputStyle = { width: 300 };
+
   return (
     <ContextContainer {...props}>
-      <TextInput
-        label="Label for text field"
-        description="Optional descriptive text for this text field "
-      />
-      <RadioGroup data={RADIO_DATA} />
+      <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
+      <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
     </ContextContainer>
   );
 };
@@ -59,4 +60,6 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...CONTEXT_CONTAINER_DEFAULT_PROPS,
+  title: 'Subjects',
+  subtitle: '',
 };

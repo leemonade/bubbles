@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
 import TabContext from '../TabContext';
-import { TabPane } from './TabPane';
 import { TabPanelListStyles } from './TabPanelList.styles';
 
 export const TabPanelList = ({
@@ -11,9 +10,10 @@ export const TabPanelList = ({
   animated,
   position,
   rtl,
-  destroyInactiveTabPane,
+  destroyInactiveTabPanel,
   className,
   forceRender,
+  children,
 }) => {
   const { tabs } = useContext(TabContext);
 
@@ -31,19 +31,17 @@ export const TabPanelList = ({
             : null
         }
       >
-        {tabs.map((tab) => (
-          <TabPane
-            key={tab.key}
-            tabKey={tab.key}
-            id={id}
-            animated={animated}
-            active={tab.key === activeKey}
-            destroyInactiveTabPane={destroyInactiveTabPane}
-            forceRender={forceRender}
-          >
-            {tab.node.props.children}
-          </TabPane>
-        ))}
+        {tabs.map(({ node, key }) => {
+          return React.cloneElement(node, {
+            key,
+            tabKey: key,
+            id,
+            animated: animated,
+            active: key === activeKey,
+            destroyInactiveTabPanel: destroyInactiveTabPanel,
+            forceRender: forceRender,
+          });
+        })}
       </Box>
     </Box>
   );
@@ -55,6 +53,6 @@ TabPanelList.propTypes = {
   rtl: PropTypes.bool,
   animated: PropTypes.bool,
   position: PropTypes.string,
-  destroyInactiveTabPane: PropTypes.bool,
+  destroyInactiveTabPanel: PropTypes.bool,
   forceRender: PropTypes.bool,
 };

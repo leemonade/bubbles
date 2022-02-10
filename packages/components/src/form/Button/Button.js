@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
 
-export const BUTTON_SIZES = ['xs', 'sm'];
+export const BUTTON_SIZES = ['xs', 'sm', 'md'];
 export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative', 'fatic'];
 export const BUTTON_POSITIONS = ['center', 'right', 'left', 'apart'];
 
 export const BUTTON_DEFAULT_PROPS = {
   color: 'primary',
-  size: 'sm',
+  size: 'md',
   variant: 'filled',
   position: 'center',
   rounded: false,
@@ -18,6 +18,7 @@ export const BUTTON_DEFAULT_PROPS = {
   loading: false,
   compact: false,
   fullWidth: false,
+  disabled: false,
 };
 
 export const Button = forwardRef(
@@ -38,6 +39,7 @@ export const Button = forwardRef(
       classNames,
       compact,
       fullWidth,
+      disabled,
       ...props
     },
     ref
@@ -52,20 +54,25 @@ export const Button = forwardRef(
       ? positionProp
       : BUTTON_DEFAULT_PROPS.position;
 
-    const { classes, cx } = ButtonStyles({
-      size,
-      color,
-      iconOnly,
-      position,
-      variant,
-      compact,
-      fullWidth,
-    });
+    const { classes, cx } = ButtonStyles(
+      {
+        size,
+        color,
+        iconOnly,
+        position,
+        variant,
+        compact,
+        fullWidth,
+        disabled,
+      },
+      { name: 'Button' }
+    );
     const mantineVariant = useMemo(() => (variant === 'link' ? 'default' : variant), [variant]);
 
     return (
       <MantineButton
         {...props}
+        ref={ref}
         component={as}
         variant={mantineVariant}
         radius={radius}
@@ -73,7 +80,7 @@ export const Button = forwardRef(
         rightIcon={rightIcon}
         size={size}
         classNames={classes}
-        ref={ref}
+        disabled={disabled}
       />
     );
   }
@@ -108,4 +115,5 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   position: PropTypes.oneOf(BUTTON_POSITIONS),
   compact: PropTypes.bool,
+  disabled: PropTypes.bool,
 };

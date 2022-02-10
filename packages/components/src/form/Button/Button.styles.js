@@ -9,8 +9,12 @@ const getSizes = (size, theme, paddingX, paddingY) => {
       height: spacing[7],
       ...getPaddings(paddingY || spacing[1], paddingX || spacing[4]),
     },
-
     sm: {
+      fontSize: pxToRem(fontSizes[2]),
+      height: spacing[8],
+      ...getPaddings(paddingY || spacing[1], paddingX || spacing[5]),
+    },
+    md: {
       fontSize: pxToRem(fontSizes[2]),
       height: spacing[9],
       ...getPaddings(paddingY || spacing[1], paddingX || spacing[7]),
@@ -18,18 +22,18 @@ const getSizes = (size, theme, paddingX, paddingY) => {
   }[size];
 };
 
-const getVariant = (variant, theme, color) => {
+const getVariant = (variant, theme, color, disabled) => {
   const variants = {
     filled: {
       primary: {
-        backgroundColor: theme.colors.interactive01,
+        backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
         color: theme.colors.text07,
         '&:hover': {
-          backgroundColor: theme.colors.interactive01h,
+          backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01h,
         },
         '&:active': {
-          backgroundColor: theme.colors.interactive01,
-          borderColor: theme.colors.interactive01h,
+          backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
+          borderColor: disabled ? theme.colors.ui01 : theme.colors.interactive01h,
         },
       },
       secondary: {
@@ -199,18 +203,19 @@ const getVariant = (variant, theme, color) => {
 };
 
 export const ButtonStyles = createStyles(
-  (theme, { size, color, position, variant, compact, fullWidth }) => {
+  (theme, { size, color, position, variant, compact, fullWidth, disabled }) => {
     const currentVariant = getVariant(variant, theme, color);
 
     let compactOverrides = {};
 
     if (compact) {
       compactOverrides = {
-        paddingTop: theme.spacing[2],
-        paddingBottom: theme.spacing[2],
-        paddingLeft: variant === 'link' ? 0 : theme.spacing[2],
-        paddingRight: variant === 'link' ? 0 : theme.spacing[2],
-        height: 'auto',
+        // paddingTop: theme.spacing[2],
+        // paddingBottom: theme.spacing[2],
+        paddingLeft: variant === 'link' ? 0 : theme.spacing[4],
+        paddingRight: variant === 'link' ? 0 : theme.spacing[4],
+        // height: 'auto',
+        // minHeight: 38,
       };
     }
 
@@ -221,6 +226,7 @@ export const ButtonStyles = createStyles(
         ...getSizes(size || 'md', theme, variant === 'link' ? 0.1 : null),
         ...compactOverrides,
         width: fullWidth ? '100%' : 'auto',
+        cursor: disabled ? 'not-allowed' : 'pointer',
       },
       inner: {
         justifyContent: position === 'apart' ? 'space-between' : position,
@@ -243,17 +249,17 @@ export const ButtonStyles = createStyles(
         with: '100%',
       },
       filled: {
-        ...getVariant('filled', theme, color),
+        ...getVariant('filled', theme, color, disabled),
         border: '2px solid transparent',
         ...compactOverrides,
       },
       outline: {
-        ...getVariant('outline', theme, color),
+        ...getVariant('outline', theme, color, disabled),
         borderWidth: 2,
         ...compactOverrides,
       },
       default: {
-        ...getVariant('link', theme, color),
+        ...getVariant('link', theme, color, disabled),
         border: 'none',
         backgroundColor: 'transparent',
         ...compactOverrides,
@@ -264,7 +270,7 @@ export const ButtonStyles = createStyles(
         },
       },
       light: {
-        ...getVariant('light', theme, color),
+        ...getVariant('light', theme, color, disabled),
         backgroundColor: 'transparent',
         paddingOverrides: compactOverrides,
       },

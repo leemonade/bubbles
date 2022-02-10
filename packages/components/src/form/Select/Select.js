@@ -2,7 +2,7 @@ import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
-import { isFunction, isNil, isString } from 'lodash';
+import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
 import { useId } from '@mantine/hooks';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
@@ -21,17 +21,25 @@ const Select = forwardRef(
       clearable,
       onChange,
       onBlur,
-      value,
+      value: _value,
+      defaultValue,
       name,
-      data,
+      data: _data,
+      icon,
       disabled,
       searchable,
+      getCreateLabel,
+      creatable,
+      onCreate,
       nothingFound,
       placeholder,
+      className,
       ...props
     },
     ref
   ) => {
+    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d.value.toString() }));
+    const value = isNil(_value) ? _value : _value.toString();
     const uuid = useId();
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
 
@@ -55,7 +63,7 @@ const Select = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = SelectStyles({ size });
+    const { classes, cx } = SelectStyles({ size }, { name: 'Select' });
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
@@ -67,9 +75,13 @@ const Select = forwardRef(
           onChange={handleChange}
           onBlur={onBlur}
           value={value}
+          creatable={creatable}
+          onCreate={onCreate}
+          defaultValue={defaultValue}
           name={name}
           disabled={disabled}
           searchable={searchable}
+          getCreateLabel={getCreateLabel}
           nothingFound={nothingFound}
           placeholder={placeholder}
           rightSection={
@@ -84,8 +96,10 @@ const Select = forwardRef(
               <ChevDownIcon className={classes.rightSection} />
             )
           }
+          className={className}
           classNames={classes}
-          error={!isNil(error) && error != ''}
+          icon={icon}
+          error={!isEmpty(error)}
         />
       </InputWrapper>
     );

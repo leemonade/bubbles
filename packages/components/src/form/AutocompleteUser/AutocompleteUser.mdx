@@ -1,0 +1,104 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './AutocompleteUser.stories.js';
+import { AutocompleteUser } from './AutocompleteUser.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# **AutocompleteUser**
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/AutocompleteUser)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+**AutocompleteUser** is prefabricated component that is used to select and display an user from a list of users.
+
+This component uses **UserDisplayItem** for the item Component and when an user is selected it transforms into an **UserCard** with the values of the user.
+
+<ThemeProvider>
+  <AutocompleteUser
+    label={'Student'}
+    placeholder={'Search for a student'}
+    data={[
+      {
+        value: 'Ana Alonso',
+        name: 'Ana Alonso',
+        label: 'Ana Alonso',
+        surname: 'Garcia',
+        rol: 'Student',
+        email: 'ana@ana.com',
+        number: '+34 123 345 678',
+        birthday: new Date(),
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        value: 'Antonia Hidalgo',
+        name: 'Antonia Hidalgo',
+        label: 'Antonia Hidalgo',
+        surname: 'Garcia',
+        rol: 'Student',
+        email: 'antonia@antonia.com',
+        number: '+34 123 345 678',
+        birthday: new Date(),
+        avatar:
+          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        value: 'Maria Merino',
+        name: 'Maria Merino',
+        label: 'Maria Merino',
+        surname: 'Garcia',
+        rol: 'Student',
+        email: 'maria@maria.com',
+        number: '+34 123 345 678',
+        birthday: new Date(),
+        avatar:
+          'https://images.unsplash.com/photo-1641324379143-81128cbb7ee7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0MTgxMDY1Ng&ixlib=rb-1.2.1&q=80&w=1080',
+      },
+      {
+        value: 'Miles Morales',
+        name: 'Miles Morales',
+        label: 'Miles Morales',
+        surname: 'Garcia',
+        rol: 'Student',
+        email: 'maria@maria.com',
+        number: '+34 123 345 678',
+        birthday: new Date(),
+        avatar:
+          'https://images.unsplash.com/photo-1641664434328-6fe8a810e882?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0MTg5MjUyMw&ixlib=rb-1.2.1&q=80&w=1080',
+      },
+    ]}
+    nothingFoundLabel={'No maches found'}
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="organisms-form-autocompleteuser--playground" />
+</Preview>
+
+<Props of={AutocompleteUser} />
+
+## References
+
+[MDN: ARIA **AutocompleteUser** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/AutocompleteUser_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA **AutocompleteUser**role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/AutocompleteUser/AutocompleteUser.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/AutocompleteUser.mdx)

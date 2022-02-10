@@ -7,9 +7,7 @@ function PluginNewsIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     stroke: "#fff",
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -19,12 +17,7 @@ function PluginNewsIcon(props) {
     fillRule: "evenodd",
     d: "M19.5 2.5h-18v20h18v-20ZM5 14.75a.75.75 0 0 0 0 1.5h10.5a.75.75 0 0 0 0-1.5H5Zm-.75 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75ZM5 5a.75.75 0 0 0-.75.75v6c0 .414.336.75.75.75h10.5a.75.75 0 0 0 .75-.75v-6A.75.75 0 0 0 15.5 5H5Zm.75 6V6.5h9V11h-9Z",
     clipRule: "evenodd"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    transform: "translate(.5 .5)"
-  }))));
+  }));
 }
 
 export default PluginNewsIcon;

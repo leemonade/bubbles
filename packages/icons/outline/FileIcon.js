@@ -18,8 +18,6 @@ function FileIcon(props) {
     strokeLinejoin: "round",
     strokeWidth: 2,
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6"
-  }), /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0V0Z"
   }));
 }
 

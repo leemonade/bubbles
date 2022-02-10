@@ -16,13 +16,17 @@ export default {
       url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3510%3A37946',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onOpen: { action: 'OpenSubNav' },
+    onClose: { action: 'CloseSubNav' },
+    onPin: { action: 'PinSubNav' },
+  },
 };
 
-const Template = ({ subNavWidth, ...props }) => {
+const Template = ({ ...props }) => {
   return (
-    <Box style={{ margin: '-15px', maxWidth: subNavWidth }}>
-      <MainNav {...props} subNavWidth={subNavWidth} />
+    <Box style={{ margin: '-15px', width: 52 }}>
+      <MainNav {...props} />
     </Box>
   );
 };

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { MULTI_SELECT_ORIENTATIONS, MULTI_SELECT_SIZES, MultiSelect } from './MultiSelect';
+import {
+  MultiSelect,
+  MULTI_SELECT_ORIENTATIONS,
+  MULTI_SELECT_SIZES,
+  MULTI_SELECT_DEFAULT_PROPS,
+} from './MultiSelect';
 import mdx from './MultiSelect.mdx';
 
 export default {
@@ -17,6 +22,7 @@ export default {
   argTypes: {
     size: { options: MULTI_SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: MULTI_SELECT_ORIENTATIONS, control: { type: 'select' } },
+    onChange: { action: 'Value changed' },
   },
 };
 
@@ -37,15 +43,11 @@ const Template = ({ children, data, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  size: 'sm',
-  orientation: 'vertical',
+  ...MULTI_SELECT_DEFAULT_PROPS,
   label: 'Label for select',
   placeholder: 'Select one',
   description: 'Optional descriptive text for this select field ',
-  disabled: false,
   required: true,
-  searchable: false,
-  creatable: false,
   clearable: 'Clear select field',
   error: 'Descriptive text for error ',
   data: [

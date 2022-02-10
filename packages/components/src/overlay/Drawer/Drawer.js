@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isString, trim } from 'lodash';
-import { Box, Drawer as MantineDrawer } from '@mantine/core';
-import { DrawerStyles } from './Drawer.styles';
+import { Drawer as MantineDrawer } from '@mantine/core';
 import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { ActionButton } from '../../form';
-import { Stack } from '../../layout';
+import { Box, Stack } from '../../layout';
+import { DrawerStyles } from './Drawer.styles';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
 
@@ -41,19 +41,21 @@ export const DRAWER_PROP_TYPES = {
   empty: PropTypes.bool,
 };
 
-const Drawer = ({ close, onClose, onBack, children, back, empty, shadow, ...props }) => {
+const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow, ...props }) => {
   const { classes, cx } = DrawerStyles({ empty });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
 
   return (
-    <MantineDrawer {...props} shadow={false} hideCloseButton classNames={classes}>
+    <MantineDrawer {...props} onClose={onClose} shadow={false} hideCloseButton classNames={classes}>
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>
           {back && back !== '' ? (
             <ActionButton icon={<ChevronLeftIcon />} label={back} onClick={onBack} tooltip={back} />
           ) : null}
+
+          {header ? header : null}
 
           {close ? (
             <ActionButton

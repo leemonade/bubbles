@@ -27,9 +27,20 @@
       "url": "https://www.leemons.io"
     }
   ],
+  "scripts": {
+    "generate": "node ./scripts/generate.js",
+    "build": "node ./scripts/build.js",
+    "linkAll": "node ./scripts/link.js"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "generate-template-files": "^3.2.0"
+  },
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.10.0"
-  },
-  "scripts": {}
+  }
 }

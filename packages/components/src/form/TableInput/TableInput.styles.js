@@ -1,0 +1,27 @@
+import { createStyles } from '@mantine/styles';
+import { pxToRem } from '../../theme.mixins';
+
+export const TableInputStyles = createStyles((theme, {}) => {
+  return {
+    root: {},
+    inputCell: {
+      paddingLeft: theme.spacing[2],
+      paddingRight: theme.spacing[2],
+    },
+    actionCell: {
+      textAlign: 'center',
+    },
+    row: {
+      backgroundColor: theme.colors.uiBackground01,
+    },
+    rowDragging: {
+      display: 'table',
+      boxShadow: theme.shadows.shadow03,
+      paddingLeft: 10,
+    },
+    sortIcon: {
+      color: theme.colors.ui01,
+      cursor: 'drag',
+    },
+  };
+});

@@ -1,14 +1,14 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, toLower, trim } from 'lodash';
+import { isEmpty } from 'lodash';
 import { DatePicker as MantineDatePicker, DateRangePicker } from '@mantine/dates';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { useId } from '@mantine/hooks';
 import {
-  InputWrapper,
-  INPUT_WRAPPER_SIZES,
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
+  INPUT_WRAPPER_SIZES,
+  InputWrapper,
 } from '../InputWrapper';
 import { DatePickerStyles } from './DatePicker.styles';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';

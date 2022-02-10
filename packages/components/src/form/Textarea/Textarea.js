@@ -1,11 +1,11 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import { Textarea as MantineTextarea } from '@mantine/core';
 import { isNil } from 'lodash';
-import { InputWrapper, INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATIONS } from '../InputWrapper';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { TextareaStyles } from './Textarea.styles';
-import { TEXT_INPUT_PROP_TYPES, TEXT_INPUT_DEFAULT_PROPS } from '../TextInput';
+import { TEXT_INPUT_DEFAULT_PROPS, TEXT_INPUT_PROP_TYPES } from '../TextInput';
 import { Paragraph } from '../../typography';
 
 export const TEXTAREA_SIZES = INPUT_WRAPPER_SIZES;
@@ -61,10 +61,9 @@ const Textarea = forwardRef(
             name={name}
             disabled={disabled}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={(e) => onChange(e.target.value)}
             value={value}
             defaultValue={defaultValue}
-            placeholder={placeholder}
             classNames={classes}
             error={!isNil(error) && error != ''}
           />

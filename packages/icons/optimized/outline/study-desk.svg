@@ -1,12 +1,5 @@
 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-  <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" clip-path="url(#a)">
-    <path d="M22.614 15.16a.5.5 0 0 1-.474.341H1.86a.5.5 0 0 1-.474-.341l-.667-2a.5.5 0 0 1 .475-.659h21.612a.5.5 0 0 1 .475.659l-.667 2ZM3 15.501l-1.5 8M21 15.501l1.5 8M10.879 1.38a3 3 0 0 1 4.242 4.243L10.879 1.38Z"/>
-    <path d="M15.236 1.5A2.764 2.764 0 0 1 18 4.265V10.5M9.5 9.5h-5a1.5 1.5 0 0 0 0 3h5v-3ZM10.5 6.501h-1M10.5 9.501h-1M9.5 6.5h-5a1.5 1.5 0 0 0 0 3h5v-3Z"/>
-    <path d="M20 12.5h-4a2 2 0 0 1 4 0Z"/>
-  </g>
-  <defs>
-    <clipPath id="a">
-      <path fill="#fff" d="M0 0h24v24H0z"/>
-    </clipPath>
-  </defs>
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22.614 15.16a.5.5 0 0 1-.474.341H1.86a.5.5 0 0 1-.474-.341l-.667-2a.5.5 0 0 1 .475-.659h21.612a.5.5 0 0 1 .475.659l-.667 2ZM3 15.501l-1.5 8M21 15.501l1.5 8M10.879 1.38a3 3 0 0 1 4.242 4.243L10.879 1.38Z"/>
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.236 1.5A2.764 2.764 0 0 1 18 4.265V10.5M9.5 9.5h-5a1.5 1.5 0 0 0 0 3h5v-3ZM10.5 6.501h-1M10.5 9.501h-1M9.5 6.5h-5a1.5 1.5 0 0 0 0 3h5v-3Z"/>
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12.5h-4a2 2 0 0 1 4 0Z"/>
 </svg>

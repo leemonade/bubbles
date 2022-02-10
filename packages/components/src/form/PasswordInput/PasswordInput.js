@@ -36,6 +36,7 @@ const PasswordInput = forwardRef(
       help,
       description,
       placeholder,
+      required,
       ...props
     },
     ref
@@ -52,6 +53,7 @@ const PasswordInput = forwardRef(
         description={description}
         help={help}
         error={error}
+        required={required}
       >
         <MantinePasswordInput
           {...props}

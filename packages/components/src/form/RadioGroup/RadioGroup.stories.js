@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { RadioGroup, RADIOGROUP_DIRECTIONS, RADIOGROUP_DEFAULT_PROPS } from './RadioGroup';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../../form';
 import mdx from './RadioGroup.mdx';
 import { RADIO_VARIANTS } from '../Radio/Radio';
 import { AcademicCapIcon } from '@heroicons/react/outline';
@@ -14,12 +15,14 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3642%3A26575',
     },
   },
   argTypes: {
     variant: { options: RADIO_VARIANTS, control: { type: 'select' } },
     direction: { options: RADIOGROUP_DIRECTIONS, control: { type: 'select' } },
+    orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
+    size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
     onChange: { action: 'Changed' },
   },
 };
@@ -32,6 +35,10 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...RADIOGROUP_DEFAULT_PROPS,
+  label: 'Label for radio group',
+  description: 'Optional descriptive text for this radio group',
+  help: 'Help text for radio group',
+  error: 'Descriptive text for error',
   data: [
     {
       value: 'option1',

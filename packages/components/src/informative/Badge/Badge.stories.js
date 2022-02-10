@@ -23,10 +23,10 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ ...props }) => {
   return (
     <Box style={{ marginLeft: 20, marginTop: 20 }}>
-      <Badge {...props}>{children}</Badge>
+      <Badge {...props} />
     </Box>
   );
 };
@@ -34,8 +34,8 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...BADGE_DEFAULT_PROPS,
   label: 'Badge',
   image:
     'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
-  ...BADGE_DEFAULT_PROPS,
 };

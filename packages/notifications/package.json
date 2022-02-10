@@ -1,0 +1,83 @@
+{
+  "name": "@bubbles-ui/notifications",
+  "version": "1.0.0",
+  "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leemonade/bubbles.git",
+    "directory": "packages/notifications"
+  },
+  "bugs": "https://github.com/leemonade/bubbles/issues",
+  "files": [
+    "lib/**/*",
+    "es/**/*",
+    "umd/**/*"
+  ],
+  "keywords": [
+    "react",
+    "bubbles",
+    "bubbles-notifications",
+    "bubbles-design-system",
+    "notifications"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build-publish": "yarn build && npm version patch && npm publish",
+    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "start": "yarn storybook",
+    "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
+    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9004",
+    "clean": "rimraf es lib umd storybook-static build"
+  },
+  "dependencies": {
+    "@mantine/notifications": "^3.4.3",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.7.2",
+    "react-transition-group": "^4.4.2"
+  },
+  "peerDependencies": {
+    "@bubbles-ui/components": "^1.0.23",
+    "@bubbles-ui/icons": "^1.0.10",
+    "@mantine/core": "^3.4.3",
+    "@mantine/hooks": "^3.4.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@storybook/addon-a11y": "^6.4.9",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-docs": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addons": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "babel-plugin-dev-expression": "^0.2.3",
+    "babel-plugin-transform-import-styles": "^0.0.11",
+    "cross-env": "^7.0.3",
+    "in-publish": "^2.0.1",
+    "load-styles": "^2.0.0",
+    "npm-which": "^3.0.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.58.0",
+    "rollup-plugin-import-css": "^3.0.2",
+    "rollup-plugin-strip-banner": "^2.0.0",
+    "rollup-plugin-styles": "^3.14.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "storybook-addon-designs": "^6.2.0"
+  }
+}

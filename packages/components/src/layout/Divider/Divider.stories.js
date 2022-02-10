@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { Divider, DIVIDER_DEFAULT_PROPS } from './Divider';
+import { Box } from '../Box';
+import { Stack } from '../Stack';
+import { Text } from '../../typography';
+import { Divider, DIVIDER_DEFAULT_PROPS, DIVIDER_ORIENTATIONS } from './Divider';
 import mdx from './Divider.mdx';
 
 export default {
@@ -16,19 +18,26 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    orientation: { options: DIVIDER_ORIENTATIONS, control: { type: 'select' } },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Divider {...props}>{children}</Divider>;
+const Template = ({ ...props }) => {
+  return (
+    <Stack spacing={5} fullWidth>
+      <Box>
+        <Text>Hola</Text>
+      </Box>
+      <Divider {...props} />
+      <Box>
+        <Text>Mundo</Text>
+      </Box>
+    </Stack>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...DIVIDER_DEFAULT_PROPS,
 };

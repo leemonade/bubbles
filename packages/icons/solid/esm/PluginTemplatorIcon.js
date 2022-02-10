@@ -7,9 +7,7 @@ function PluginTemplatorIcon(props) {
     "aria-hidden": "true",
     width: "1em",
     height: "1em"
-  }, props), /*#__PURE__*/React.createElement("g", {
-    clipPath: "url(#a)"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, props), /*#__PURE__*/React.createElement("path", {
     fillRule: "evenodd",
     d: "M8.804 22.604a3.913 3.913 0 0 0 1.146-2.767V3.207A1.957 1.957 0 0 0 7.994 1.25H4.081a1.957 1.957 0 0 0-1.957 1.957v16.63a3.913 3.913 0 0 0 6.68 2.767ZM4.652 6.324a1.5 1.5 0 1 1 2.772-1.148 1.5 1.5 0 0 1-2.772 1.148Zm-.114 5.426a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Zm.114 6.574a1.5 1.5 0 1 1 2.771-1.148 1.5 1.5 0 0 1-2.77 1.148Z",
     clipRule: "evenodd"
@@ -31,12 +29,7 @@ function PluginTemplatorIcon(props) {
     strokeLinejoin: "round",
     strokeWidth: 2,
     d: "m8.043 23.2 14.354-8.29a1.957 1.957 0 0 0 .716-2.672L21.156 8.85a1.943 1.943 0 0 0-.5-.57"
-  })), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("clipPath", {
-    id: "a"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    transform: "translate(.75 .5)"
-  }))));
+  }));
 }
 
 export default PluginTemplatorIcon;
