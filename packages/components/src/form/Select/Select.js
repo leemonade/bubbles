@@ -20,6 +20,7 @@ const Select = forwardRef(
       size,
       clearable,
       onChange,
+      itemComponent,
       onBlur,
       value: _value,
       defaultValue,
@@ -29,6 +30,7 @@ const Select = forwardRef(
       disabled,
       searchable,
       getCreateLabel,
+      onSearchChange,
       creatable,
       onCreate,
       nothingFound,
@@ -75,12 +77,14 @@ const Select = forwardRef(
           onChange={handleChange}
           onBlur={onBlur}
           value={value}
+          itemComponent={itemComponent}
           creatable={creatable}
           onCreate={onCreate}
           defaultValue={defaultValue}
           name={name}
           disabled={disabled}
           searchable={searchable}
+          onSearchChange={onSearchChange}
           getCreateLabel={getCreateLabel}
           nothingFound={nothingFound}
           placeholder={placeholder}

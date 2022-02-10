@@ -68,6 +68,7 @@ const TableInputRow = ({
                 ...field,
                 ...inputProps,
                 error: errors[fieldName],
+                form,
               })
             }
           />

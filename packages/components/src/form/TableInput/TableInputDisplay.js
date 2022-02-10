@@ -83,6 +83,7 @@ const TableInputDisplay = ({
                 ...inputProps,
                 formValues,
                 error: errors[accessor],
+                form,
               })
             }
           />
