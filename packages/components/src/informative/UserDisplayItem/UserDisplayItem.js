@@ -9,6 +9,7 @@ import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
+export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm'];
 
 export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   variant: 'inline',
@@ -23,6 +24,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   email: PropTypes.string,
   variant: PropTypes.oneOf(USER_DISPLAY_ITEM_VARIANTS),
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
+  size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
   onChat: PropTypes.func,
 };
 
@@ -36,11 +38,19 @@ const UserDisplayItem = ({
   variant,
   layout,
   onChat,
+  size,
   ...props
 }) => {
-  const { classes, cx } = UserDisplayItemStyles({ variant, layout }, { name: 'UserDisplayItem' });
+  const { classes, cx } = UserDisplayItemStyles(
+    {
+      variant,
+      layout,
+      size,
+    },
+    { name: 'UserDisplayItem' }
+  );
 
-  const avatarSize = variant === 'email' ? 'xs' : 'sm';
+  const avatarSize = !size ? (variant === 'email' ? 'xs' : 'sm') : size;
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);

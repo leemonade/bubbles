@@ -1,11 +1,37 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getFontExpressive, pxToRem } from '../../theme.mixins';
 
-export const UserDisplayItemStyles = createStyles((theme, { variant, layout }) => {
+function infoFromSize(size) {
+  switch (size) {
+    case 'xs':
+      return {
+        root: {},
+        name: {
+          lineHeight: pxToRem(12),
+          fontSize: pxToRem(14),
+        },
+        rol: {
+          fontSize: pxToRem(11),
+          lineHeight: pxToRem(12),
+        },
+      };
+      break;
+    default:
+      return {
+        root: {},
+        name: {},
+        rol: {},
+      };
+      break;
+  }
+}
+
+export const UserDisplayItemStyles = createStyles((theme, { variant, layout, size }) => {
   const isBlock = variant === 'block';
   const isRol = variant === 'rol';
   const isEmail = variant === 'email';
   const isRight = layout === 'right';
+  const inf = infoFromSize(size);
 
   return {
     root: {
@@ -14,10 +40,12 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout }) =
       alignItems: 'center',
       flexDirection: isRight && 'row-reverse',
       gap: pxToRem(8),
+      ...inf.root,
     },
     name: {
       lineHeight: isBlock ? pxToRem(17.5) : isRol ? pxToRem(20) : pxToRem(24),
       fontWeight: isBlock && 600,
+      ...inf.name,
     },
     surname: {
       display: !isBlock && 'none',
@@ -29,6 +57,7 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout }) =
       display: !isRol && 'none',
       fontSize: pxToRem(12),
       lineHeight: pxToRem(15),
+      ...inf.rol,
     },
     email: {
       fontSize: pxToRem(13),
