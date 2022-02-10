@@ -1,12 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontProductive } from '../../theme.mixins';
 
-const getPadding = (size, isMedium, image) => {
+const getPadding = (size, isMedium, image, severity) => {
   const isMediumImage = !!image && isMedium;
+  const isDefault = severity === 'default';
 
   switch (size) {
     case 'xs':
-      return `${pxToRem(4)} ${pxToRem(9)} ${pxToRem(4)} ${pxToRem(9)}`;
+      return `${pxToRem(isDefault ? 4 : 1)} ${pxToRem(9)} ${pxToRem(isDefault ? 4 : 1)} ${pxToRem(
+        9
+      )}`;
     case 'md':
       return `${pxToRem(isMediumImage ? 9 : 8)} ${pxToRem(12)} ${pxToRem(
         isMediumImage ? 9 : 8
@@ -116,7 +119,7 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius, se
       color: theme.colors.text01,
       textTransform: 'none',
       borderRadius: isRounded ? pxToRem(100) : pxToRem(4),
-      padding: getPadding(size, isMedium, image),
+      padding: getPadding(size, isMedium, image, severity),
       paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
       height: 'auto',
       ...getSeverity(),

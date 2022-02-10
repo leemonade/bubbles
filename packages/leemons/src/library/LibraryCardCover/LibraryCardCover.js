@@ -2,12 +2,16 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { Box, ImageLoader, Title, COLORS } from '@bubbles-ui/components';
+import { LIBRARYCARD_VARIANTS } from '../LibraryCard';
 import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
+
+export const LIBRARYCARD_COVER_DIRECTIONS = ['vertical', 'horizontal'];
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
   blur: 10,
   height: 190,
+  direction: 'horizontal',
 };
 export const LIBRARY_CARD_COVER_PROP_TYPES = {
   name: PropTypes.string,
@@ -15,7 +19,7 @@ export const LIBRARY_CARD_COVER_PROP_TYPES = {
   cover: PropTypes.string,
   color: PropTypes.string,
   blur: PropTypes.number,
-  variant: PropTypes.oneOf(['media', 'task']),
+  direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
   fileIcon: PropTypes.node,
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
 };
@@ -26,13 +30,13 @@ const LibraryCardCover = ({
   cover,
   color,
   blur,
-  variant,
+  direction,
   fileIcon,
   deadlineProps,
   ...props
 }) => {
   const { classes, cx } = LibraryCardCoverStyles(
-    { color, height, blur },
+    { color, height, blur, direction },
     { name: 'LibraryCardCover' }
   );
 
@@ -54,7 +58,7 @@ const LibraryCardCover = ({
       </Box>
       {deadlineProps && (
         <Box className={classes.deadline}>
-          <LibraryCardDeadline {...deadlineProps} />
+          <LibraryCardDeadline {...deadlineProps} direction={direction} />
         </Box>
       )}
       {cover ? (
