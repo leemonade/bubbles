@@ -14,6 +14,7 @@ export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm'];
 export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   variant: 'inline',
   layout: 'left',
+  noBreak: false,
 };
 export const USER_DISPLAY_ITEM_PROP_TYPES = {
   name: PropTypes.string,
@@ -26,6 +27,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
   size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
   onChat: PropTypes.func,
+  noBreak: PropTypes.bool,
 };
 
 const UserDisplayItem = ({
@@ -39,6 +41,7 @@ const UserDisplayItem = ({
   layout,
   onChat,
   size,
+  noBreak,
   ...props
 }) => {
   const { classes, cx } = UserDisplayItemStyles(
@@ -46,6 +49,7 @@ const UserDisplayItem = ({
       variant,
       layout,
       size,
+      noBreak,
     },
     { name: 'UserDisplayItem' }
   );
@@ -54,11 +58,18 @@ const UserDisplayItem = ({
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
+  const fullName = useMemo(
+    () => (['rol'].includes(variant) ? `${name} ${surname}` : name),
+    [name, surname, variant]
+  );
 
   return (
     <Box {...props} className={classes.root}>
       <Avatar image={avatar} size={avatarSize} />
-      <Box className={classes.userInfo}>
+      <Box
+        className={classes.userInfo}
+        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 26 : 32}px)` }}
+      >
         {variant === 'email' ? (
           <>
             <PluginComunicaIcon
@@ -75,7 +86,7 @@ const UserDisplayItem = ({
           <>
             <Text className={classes.rol}>{role}</Text>
             <Text color={textColor} className={classes.name}>
-              {name}
+              {fullName}
             </Text>
             <Text color={textColor} className={classes.surname}>
               {surname}

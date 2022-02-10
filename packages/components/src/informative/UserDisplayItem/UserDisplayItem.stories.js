@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '../../layout';
 import {
   USER_DISPLAY_ITEM_DEFAULT_PROPS,
   USER_DISPLAY_ITEM_LAYOUT,
@@ -28,8 +29,12 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <UserDisplayItem {...props}>{children}</UserDisplayItem>;
+const Template = ({ ...props }) => {
+  return (
+    <Box style={{ width: 100 }}>
+      <UserDisplayItem {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});

@@ -1,41 +1,51 @@
 import { createStyles } from '@mantine/styles';
-import { getFontExpressive, pxToRem } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
-function infoFromSize(size) {
+function infoFromSize(size, theme) {
+  let result = {
+    root: {},
+    name: {},
+    rol: {},
+  };
+
   switch (size) {
     case 'xs':
-      return {
+      result = {
         root: {},
-        name: {
-          lineHeight: pxToRem(12),
-          fontSize: pxToRem(14),
-        },
         rol: {
           fontSize: pxToRem(11),
-          lineHeight: pxToRem(12),
+          lineHeight: 1,
+        },
+        name: {
+          fontSize: theme.fontSizes[1],
+          lineHeight: 1,
+          marginTop: 2,
         },
       };
       break;
     default:
-      return {
-        root: {},
-        name: {},
-        rol: {},
-      };
       break;
   }
+
+  return result;
 }
 
-export const UserDisplayItemStyles = createStyles((theme, { variant, layout, size }) => {
+export const UserDisplayItemStyles = createStyles((theme, { variant, layout, size, noBreak }) => {
   const isBlock = variant === 'block';
   const isRol = variant === 'rol';
   const isEmail = variant === 'email';
   const isRight = layout === 'right';
-  const inf = infoFromSize(size);
+  const inf = infoFromSize(size, theme);
+  const breakProps = noBreak
+    ? {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+      }
+    : {};
 
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
       display: 'flex',
       alignItems: 'center',
       flexDirection: isRight && 'row-reverse',
@@ -46,11 +56,13 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout, siz
       lineHeight: isBlock ? pxToRem(17.5) : isRol ? pxToRem(20) : pxToRem(24),
       fontWeight: isBlock && 600,
       ...inf.name,
+      ...breakProps,
     },
     surname: {
       display: !isBlock && 'none',
       lineHeight: pxToRem(16.25),
       fontSize: pxToRem(13),
+      ...breakProps,
     },
     rol: {
       color: theme.colors.text04,
@@ -58,6 +70,7 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout, siz
       fontSize: pxToRem(12),
       lineHeight: pxToRem(15),
       ...inf.rol,
+      ...breakProps,
     },
     email: {
       fontSize: pxToRem(13),
