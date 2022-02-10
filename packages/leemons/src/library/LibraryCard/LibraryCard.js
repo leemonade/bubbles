@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
 import { LibraryCardCover } from '../LibraryCardCover';
 import { LibraryCardContent } from '../LibraryCardContent';
@@ -34,9 +35,10 @@ export const LIBRARY_CARD_PROP_TYPES = {
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
   action: PropTypes.string,
   onAction: PropTypes.func,
+  locale: PropTypes.string,
 };
 
-const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, ...props }) => {
+const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, locale, ...props }) => {
   const { classes, cx } = LibraryCardStyles({});
   return (
     <Box className={classes.root}>
@@ -44,19 +46,30 @@ const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, ...props
         name={asset.name}
         color={asset.color}
         cover={asset.cover}
-        fileIcon={<FileIcon size={64} fileType={asset.fileType} color={'#B9BEC4'} />}
-        deadlineProps={deadlineProps}
+        fileIcon={
+          <FileIcon
+            size={64}
+            fileExtension={asset.fileExtension}
+            fileType={asset.fileType}
+            color={'#B9BEC4'}
+            hideExtension
+          />
+        }
+        deadlineProps={!isNil(deadlineProps) && { ...deadlineProps, locale }}
       />
       <LibraryCardContent
         description={asset.description}
         metadata={asset.metadata}
         tags={asset.tags}
+        locale={locale}
       />
       <LibraryCardFooter
         fileType={asset.fileType}
+        fileExtension={asset.fileExtension}
         created={asset.created}
         action={action}
         onAction={onAction}
+        locale={locale}
       />
     </Box>
   );

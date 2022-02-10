@@ -1,12 +1,6 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, pxToRem, getFontProductive } from '@bubbles-ui/components';
 
-export const LibraryCardDeadlineStyles = createStyles((theme, { isNew, hovered }) => {
+export const LibraryCardDeadlineStyles = createStyles((theme, { isNew }) => {
   return {
     root: {
       ...getFontProductive(theme.fontSizes['2'], 400),
@@ -29,9 +23,8 @@ export const LibraryCardDeadlineStyles = createStyles((theme, { isNew, hovered }
       color: theme.colors.text02,
       fontSize: pxToRem(12),
       lineHeight: pxToRem(14),
+      height: 14,
       overflow: 'hidden',
-      height: hovered ? 14 : 0,
-      transition: 'height 0.2s ease-out',
     },
   };
 });

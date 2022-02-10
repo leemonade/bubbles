@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box, ImageLoader, Title } from '@bubbles-ui/components';
+import { isNil } from 'lodash';
+import { Box, ImageLoader, Title, COLORS } from '@bubbles-ui/components';
+import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
-import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
-import { LibraryCardDeadline } from '../LibraryCardDeadline';
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
   blur: 10,
@@ -35,6 +35,15 @@ const LibraryCardCover = ({
     { color, height, blur },
     { name: 'LibraryCardCover' }
   );
+
+  const icon = useMemo(
+    () =>
+      !isNil(fileIcon)
+        ? React.cloneElement(fileIcon, { iconStyle: { backgroundColor: COLORS.interactive03h } })
+        : null,
+    [fileIcon]
+  );
+
   return (
     <Box className={classes.root}>
       <Box className={classes.blurryBox}>
@@ -51,7 +60,7 @@ const LibraryCardCover = ({
       {cover ? (
         <ImageLoader src={cover} height={height} forceImage />
       ) : (
-        <Box className={classes.fileIcon}>{fileIcon}</Box>
+        <Box className={classes.fileIcon}>{icon}</Box>
       )}
     </Box>
   );

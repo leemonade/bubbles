@@ -34,11 +34,12 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...USER_DISPLAY_ITEM_DEFAULT_PROPS,
   name: 'Ana Maria',
   surname: 'Lopez Vilchez',
   avatar:
     'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
-  rol: 'Tutor',
+  rol: 'Profesor',
+  center: '',
   email: 'bill.sanders@example.com',
-  ...USER_DISPLAY_ITEM_DEFAULT_PROPS,
 };

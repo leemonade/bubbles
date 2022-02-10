@@ -20,7 +20,7 @@ export const FILE_ICON_PROP_TYPES = {
   color: PropTypes.string,
 };
 
-const FileIcon = ({ fileType, fileExtension, label, size, color }) => {
+const FileIcon = ({ fileType, fileExtension, label, size, color, ...props }) => {
   const { classes, cx } = FileIconStyles({ size, color });
 
   const FileTypeIcon = [
@@ -40,6 +40,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color }) => {
         </>
       ) : (
         <FileItemDisplay
+          {...props}
           filename={`${label ? label : ''}${fileExtension ? '.' + fileExtension : ''}`}
           size={size}
           showFileName={label ? true : false}
