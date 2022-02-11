@@ -40,6 +40,8 @@ const LibraryCardCover = ({
     { name: 'LibraryCardCover' }
   );
 
+  const isVertical = direction === 'vertical';
+
   const icon = useMemo(
     () =>
       !isNil(fileIcon)
@@ -48,19 +50,25 @@ const LibraryCardCover = ({
     [fileIcon]
   );
 
+  const renderDeadline = () => {
+    if (!deadlineProps) return;
+    return (
+      <Box className={classes.deadline}>
+        <LibraryCardDeadline {...deadlineProps} direction={direction} />
+      </Box>
+    );
+  };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.blurryBox}>
+        {isVertical && renderDeadline()}
         <Box className={classes.color}></Box>
         <Title order={5} className={classes.title}>
           {name}
         </Title>
       </Box>
-      {deadlineProps && (
-        <Box className={classes.deadline}>
-          <LibraryCardDeadline {...deadlineProps} direction={direction} />
-        </Box>
-      )}
+      {!isVertical && renderDeadline()}
       {cover ? (
         <ImageLoader src={cover} height={height} forceImage />
       ) : (

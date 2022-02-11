@@ -3,6 +3,23 @@ import { createStyles, pxToRem, getFontExpressive } from '@bubbles-ui/components
 export const LibraryCardCoverStyles = createStyles((theme, { color, height, blur, direction }) => {
   const isVertical = direction === 'vertical';
 
+  const getDeadlineStyles = () => {
+    if (!isVertical) {
+      return {
+        position: 'absolute',
+        bottom: 0,
+        left: '50%',
+        right: 0,
+        zIndex: 2,
+      };
+    }
+
+    return {
+      marginBottom: pxToRem(4),
+      marginInline: pxToRem(6),
+    };
+  };
+
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -31,12 +48,7 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, height, blur
       borderRadius: '4px 0 0 0',
     },
     deadline: {
-      position: 'absolute',
-      bottom: isVertical ? '56px' : 0,
-      right: !isVertical ? 0 : '6px',
-      left: isVertical && '6px',
-      zIndex: 2,
-      width: !isVertical && '50%',
+      ...getDeadlineStyles(),
     },
     color: {
       width: '100%',
