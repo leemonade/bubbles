@@ -30,7 +30,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, variant, 
   return (
     <Stack spacing={5}>
       {variant === 'unit' ? (
-        <Box style={{ width: 287 }}>
+        <Box style={{ width: 322 }}>
           <LibraryCard
             {...props}
             asset={showImage ? asset : assetWithoutCover}
@@ -40,7 +40,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, variant, 
         </Box>
       ) : (
         <>
-          <Box style={{ width: 287 }}>
+          <Box style={{ width: 322 }}>
             <LibraryCard
               {...props}
               asset={showImage ? asset : assetWithoutCover}
@@ -48,7 +48,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, variant, 
               variant={variant}
             />
           </Box>
-          <Box style={{ width: 287 }}>
+          <Box style={{ width: 322 }}>
             <LibraryCard
               {...props}
               asset={
