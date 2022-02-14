@@ -76,7 +76,7 @@ const SetupCourses = ({
     ...sharedData,
   };
 
-  const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 1);
+  const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 0);
 
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(
     defaultValues.useDefaultSubstagesName
@@ -217,7 +217,7 @@ const SetupCourses = ({
               disabled={!editable}
               onChange={(e) => {
                 setOnlyOneCourse(e);
-                setValue('maxNumberOfCourses', e ? 1 : 0);
+                setValue('maxNumberOfCourses', e ? 0 : 0);
                 setValue('courseCredits', 0);
               }}
             />
