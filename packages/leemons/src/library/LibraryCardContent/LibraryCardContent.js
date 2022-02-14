@@ -8,6 +8,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   metadata: [],
   tags: [],
   variant: 'media',
+  badgeColor: 'solid',
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   description: PropTypes.string,
@@ -21,7 +22,7 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
 };
 
 const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit, ...props }) => {
-  const { classes, cx } = LibraryCardContentStyles({});
+  const { classes, cx } = LibraryCardContentStyles({}, { name: 'LibraryCardContent' });
 
   const getAverageTime = (seconds) => {
     if (seconds <= 59) {
@@ -130,13 +131,15 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
                 </Stack>
               )}
             </Box>
-            <Box className={classes.tagsContainer}>
-              {tags.map((tag, index) => (
-                <Box key={`${tag} ${index}`}>
-                  <Badge label={tag} size="xs" closable={false} radius={'default'} />
-                </Box>
-              ))}
-            </Box>
+            {tags.length > 0 && (
+              <Box className={classes.tagsContainer}>
+                {tags.map((tag, index) => (
+                  <Box key={`${tag} ${index}`}>
+                    <Badge label={tag} size="xs" closable={false} radius={'default'} />
+                  </Box>
+                ))}
+              </Box>
+            )}
           </>
         );
     }

@@ -53,9 +53,11 @@ const LibraryCardFooter = ({
             label={capitalize(fileType)}
             hideExtension
           />
-          <Text role="productive" className={classes.date}>
-            {formatDate()}
-          </Text>
+          {created && (
+            <Text role="productive" className={classes.date}>
+              {formatDate()}
+            </Text>
+          )}
         </>
       )}
     </Box>

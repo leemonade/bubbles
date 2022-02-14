@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { Box, ImageLoader, Title, COLORS } from '@bubbles-ui/components';
-import { LIBRARYCARD_VARIANTS } from '../LibraryCard';
 import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 
