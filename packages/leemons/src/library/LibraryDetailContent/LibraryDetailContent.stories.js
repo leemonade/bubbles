@@ -28,7 +28,7 @@ Playground.args = {
   ...LIBRARY_DETAIL_CONTENT_DEFAULT_PROPS,
   fileType: 'video',
   description:
-    'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes…',
+    'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes we do. But what is the role of the neurons in the brain?',
   metadata: [
     { label: 'Quality', value: '128kb' },
     { label: 'Format', value: 'mp3' },

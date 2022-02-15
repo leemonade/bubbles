@@ -1,10 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, ImageLoader, COLORS, Title, IconButton, Text } from '@bubbles-ui/components';
+import {
+  Box,
+  ImageLoader,
+  COLORS,
+  Title,
+  IconButton,
+  Text,
+  FileIcon,
+} from '@bubbles-ui/components';
 import { LIBRARY_DETAIL_VARIANTS } from '..';
 import { LibraryDetailPlayerStyles } from './LibraryDetailPlayer.styles';
 import { isNil } from 'lodash';
-import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline/';
 import { ControlsPlayIcon, ControlsPauseIcon } from '@bubbles-ui/icons/solid';
 import ReactPlayer from 'react-player/lazy';
 
@@ -19,6 +26,7 @@ export const LIBRARY_DETAIL_PLAYER_PROP_TYPES = {
   color: PropTypes.string,
   variant: PropTypes.oneOf(LIBRARY_DETAIL_VARIANTS),
   fileIcon: PropTypes.element,
+  fileType: PropTypes.string,
 };
 
 const format = (seconds) => {
@@ -36,17 +44,27 @@ const pad = (string) => {
   return ('0' + string).slice(-2);
 };
 
-const LibraryDetailPlayer = ({ name, height, cover, url, color, variant, fileIcon, ...props }) => {
+const LibraryDetailPlayer = ({
+  name,
+  height,
+  cover,
+  url,
+  color,
+  variant,
+  fileIcon,
+  fileType,
+  ...props
+}) => {
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [played, setPlayed] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
+  const playedPercentage = useMemo(() => played * 100, [played]);
+
   const getDuration = () => {
     return <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
   };
-
-  const playedPercentage = useMemo(() => played * 100, [played]);
 
   const handleOnProgress = (played, playedSeconds) => {
     const elapsedSeconds = Math.floor(playedSeconds);
@@ -65,14 +83,14 @@ const LibraryDetailPlayer = ({ name, height, cover, url, color, variant, fileIco
   );
 
   const { classes, cx } = LibraryDetailPlayerStyles(
-    { height, color, seconds },
+    { height, color, seconds, fileType },
     { name: 'LibraryDetailPlayer' }
   );
   return (
     <Box className={classes.root}>
-      <Box className={classes.cover}>
-        {showPlayer ? (
-          <>
+      <Box className={classes.coverWrapper}>
+        {showPlayer && (
+          <Box className={classes.reactPlayerWrapper}>
             <ReactPlayer
               url={url}
               width="100%"
@@ -81,7 +99,13 @@ const LibraryDetailPlayer = ({ name, height, cover, url, color, variant, fileIco
               onProgress={({ played, playedSeconds }) => handleOnProgress(played, playedSeconds)}
               onSeek={(seconds) => console.log('seek', seconds)}
               progressInterval={100}
+              className={classes.reactPlayer}
             />
+            {fileType === 'audio' && (
+              <Box className={classes.audioIcon}>
+                <FileIcon fileType={fileType} size={64} color={'#FFF'} />
+              </Box>
+            )}
             <Box className={classes.progressBarWrapper}>
               <Box className={classes.progressBar}>
                 <Box
@@ -99,9 +123,12 @@ const LibraryDetailPlayer = ({ name, height, cover, url, color, variant, fileIco
                 {getDuration()}
               </Text>
             </Box>
-          </>
-        ) : cover ? (
-          <ImageLoader src={cover} height={height} forceImage />
+          </Box>
+        )}
+        {cover ? (
+          <Box className={classes.imageWrapper}>
+            <ImageLoader src={cover} height={height} forceImage />
+          </Box>
         ) : (
           <Box className={classes.fileIcon}>{icon}</Box>
         )}

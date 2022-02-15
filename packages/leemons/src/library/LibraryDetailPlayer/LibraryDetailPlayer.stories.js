@@ -38,4 +38,5 @@ Playground.args = {
   color: '#DC5571',
   url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   name: 'The Roman Empire',
+  fileType: 'audio',
 };

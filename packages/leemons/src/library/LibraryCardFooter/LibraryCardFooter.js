@@ -21,9 +21,11 @@ const LibraryCardFooter = ({
   action,
   onAction,
   locale,
+  className,
+  style,
   ...props
 }) => {
-  const { classes, cx } = LibraryCardFooterStyles({ action });
+  const { classes, cx } = LibraryCardFooterStyles({ action }, { name: 'LibraryCardFooter' });
 
   const formatDate = () => {
     try {
@@ -38,7 +40,7 @@ const LibraryCardFooter = ({
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)} style={style}>
       {action ? (
         <Button variant={'link'} onClick={handleOnAction} size={'xs'}>
           {action}

@@ -12,8 +12,8 @@ export const LibraryCardFooterStyles = createStyles((theme, { action }) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      height: 38,
-      padding: action ? `${pxToRem(3)} ${pxToRem(16)}` : `${pxToRem(12)} ${pxToRem(16)}`,
+      minHeight: 38,
+      padding: action ? `${pxToRem(3)} ${pxToRem(16)}` : `${pxToRem(13)} ${pxToRem(16)}`,
     },
     date: {
       color: theme.colors.text04,

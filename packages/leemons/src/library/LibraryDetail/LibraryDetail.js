@@ -57,6 +57,7 @@ const LibraryDetail = ({ asset, variant, toolbarEvents, onEdit, ...props }) => {
         url={url}
         variant={variant}
         name={name}
+        fileType={fileType}
       />
       <LibraryDetailContent
         description={description}
