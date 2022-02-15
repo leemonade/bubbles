@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
-  MultiSelect,
+  MULTI_SELECT_DEFAULT_PROPS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_SIZES,
-  MULTI_SELECT_DEFAULT_PROPS,
+  MultiSelect,
 } from './MultiSelect';
 import mdx from './MultiSelect.mdx';
 
@@ -31,6 +31,7 @@ const Template = ({ children, data, ...props }) => {
   return (
     <MultiSelect
       {...props}
+      value={['Bender Bending Rodríguez']}
       data={[...data, ...state]}
       getCreateLabel={(query) => `+ Create ${query}`}
       onCreate={(q) => setState([...state, q])}

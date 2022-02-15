@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
@@ -46,6 +46,11 @@ const SetupBasicData = ({
 }) => {
   const { classes, cx } = SetupBasicDataStyles({}, { name: 'APBasicData' });
 
+  const options = {};
+  if (sharedData && !sharedData.credits) {
+    options.useCreditSystem = true;
+  }
+
   const defaultValues = {
     name: '',
     abbreviation: '',
@@ -57,16 +62,23 @@ const SetupBasicData = ({
     useCreditSystem: false,
     useOneStudentGroup: false,
     ...sharedData,
+    ...options,
   };
 
   const [creditSystem, setCreditSystem] = useState(defaultValues.useCreditSystem);
   const [oneStudentGroup, setOneStudentGroup] = useState(defaultValues.useOneStudentGroup);
 
   const {
+    reset,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
+
+  useEffect(() => {
+    reset(defaultValues);
+    setCreditSystem(defaultValues.useCreditSystem);
+  }, [JSON.stringify(sharedData)]);
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e };

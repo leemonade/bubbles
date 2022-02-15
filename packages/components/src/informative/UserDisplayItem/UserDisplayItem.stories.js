@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout';
 import {
-  UserDisplayItem,
   USER_DISPLAY_ITEM_DEFAULT_PROPS,
-  USER_DISPLAY_ITEM_VARIANTS,
   USER_DISPLAY_ITEM_LAYOUT,
+  USER_DISPLAY_ITEM_SIZES,
+  USER_DISPLAY_ITEM_VARIANTS,
+  UserDisplayItem,
 } from './UserDisplayItem';
 import mdx from './UserDisplayItem.mdx';
 
@@ -23,22 +24,28 @@ export default {
   argTypes: {
     variant: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_VARIANTS },
     layout: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_LAYOUT },
+    size: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SIZES },
     onChat: { action: 'onChat' },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <UserDisplayItem {...props}>{children}</UserDisplayItem>;
+const Template = ({ ...props }) => {
+  return (
+    <Box style={{ width: 100 }}>
+      <UserDisplayItem {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...USER_DISPLAY_ITEM_DEFAULT_PROPS,
   name: 'Ana Maria',
   surname: 'Lopez Vilchez',
   avatar:
     'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
-  rol: 'Tutor',
+  rol: 'Profesor',
+  center: '',
   email: 'bill.sanders@example.com',
-  ...USER_DISPLAY_ITEM_DEFAULT_PROPS,
 };
