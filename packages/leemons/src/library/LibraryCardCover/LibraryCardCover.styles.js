@@ -28,11 +28,13 @@ export const LibraryCardCoverStyles = createStyles((theme, { color, height, blur
       width: '100%',
       borderRadius: '4px 2px 0 0',
     },
+    titleWrapper: {
+      padding: pxToRem(12),
+      backgroundColor: isVertical && 'white',
+    },
     title: {
       fontWeight: 600,
       lineHeight: pxToRem(20),
-      padding: pxToRem(12),
-      backgroundColor: isVertical && 'white',
     },
     blurryBox: {
       display: 'flex',

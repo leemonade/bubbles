@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
-import { Box, ImageLoader, Title, COLORS } from '@bubbles-ui/components';
+import { Box, ImageLoader, Title, COLORS, TextClamp } from '@bubbles-ui/components';
 import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 
@@ -63,9 +63,13 @@ const LibraryCardCover = ({
       <Box className={classes.blurryBox}>
         {isVertical && renderDeadline()}
         <Box className={classes.color}></Box>
-        <Title order={5} className={classes.title}>
-          {name}
-        </Title>
+        {/* <TextClamp lines={2}> */}
+        <Box className={classes.titleWrapper}>
+          <Title order={5} className={classes.title}>
+            {name}
+          </Title>
+        </Box>
+        {/* </TextClamp> */}
       </Box>
       {!isVertical && renderDeadline()}
       {cover ? (

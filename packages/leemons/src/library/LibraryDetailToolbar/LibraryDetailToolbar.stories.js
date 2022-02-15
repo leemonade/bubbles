@@ -26,4 +26,25 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS,
+  id: '620bbb607129df59430f3329',
+  toolbarEvents: {
+    onEdit: (id) => {
+      alert('onEdit: ' + id);
+    },
+    onDuplicate: (id) => {
+      alert('onDuplicate: ' + id);
+    },
+    onDownload: (id) => {
+      alert('onDownload: ' + id);
+    },
+    onDelete: (id) => {
+      alert('onDelete: ' + id);
+    },
+    onShare: (id) => {
+      alert('onShare: ' + id);
+    },
+    onAssign: (id) => {
+      alert('onAssign: ' + id);
+    },
+  },
 };

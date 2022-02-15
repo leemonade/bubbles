@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Badge, Stack } from '@bubbles-ui/components';
+import { Box, Text, Badge, Stack, TextClamp } from '@bubbles-ui/components';
 import { LIBRARYCARD_VARIANTS, LIBRARYCARD_UNIT } from '../LibraryCard';
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 
@@ -113,9 +113,11 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
           <>
             <Box className={classes.mainContainer}>
               {description ? (
-                <Text size={'xs'} role="productive" className={classes.description}>
-                  {description}
-                </Text>
+                <TextClamp lines={3}>
+                  <Text size={'xs'} role="productive" className={classes.description}>
+                    {description}
+                  </Text>
+                </TextClamp>
               ) : (
                 <Stack direction="column" spacing={1} fullWidth>
                   {metadata.map(({ label, value }, index) => (
