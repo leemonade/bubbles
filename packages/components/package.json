@@ -2,9 +2,10 @@
   "name": "@bubbles-ui/components",
   "version": "1.0.23",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
   "license": "MIT",
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/leemonade/bubbles.git",
@@ -12,9 +13,8 @@
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
-    "lib/**/*",
-    "es/**/*",
-    "umd/**/*"
+    "cjs/**/*",
+    "esm/**/*"
   ],
   "keywords": [
     "react",
@@ -34,7 +34,7 @@
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
     "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9000",
-    "clean": "rimraf es lib umd storybook-static build",
+    "clean": "rimraf es esm cjs lib umd storybook-static build",
     "generate": "node ./scripts/generate.js"
   },
   "dependencies": {
@@ -46,7 +46,6 @@
     "@mantine/dropzone": "^3.4.3",
     "@mantine/hooks": "^3.4.3",
     "@yaireo/tagify": "^4.9.4",
-    "colord": "^2.9.2",
     "dayjs": "^1.10.7",
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",

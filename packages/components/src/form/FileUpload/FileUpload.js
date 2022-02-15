@@ -2,14 +2,14 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Box, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import { FileUploadStyles } from './FileUpload.styles';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
 import { Stack } from '../../layout/Stack';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { ActionButton } from '../../form/ActionButton';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
-import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
 import { Alert } from '../../feedback/Alert';
 import { Button } from '../../form/Button';
+import { FileUploadStyles } from './FileUpload.styles';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,

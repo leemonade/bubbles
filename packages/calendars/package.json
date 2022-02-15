@@ -2,8 +2,8 @@
   "name": "@bubbles-ui/calendars",
   "version": "1.0.3",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,9 +12,8 @@
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
-    "lib/**/*",
-    "es/**/*",
-    "umd/**/*"
+    "cjs/**/*",
+    "esm/**/*"
   ],
   "keywords": [
     "react",
@@ -37,12 +36,14 @@
     "clean": "rimraf es lib umd storybook-static build"
   },
   "dependencies": {
+    "colord": "^2.9.2",
     "dom-helpers": "^5.2.1",
     "lodash": "^4.17.21",
     "luxon": "^2.1.1",
     "memoize-one": "^6.0.0",
     "prop-types": "^15.7.2",
-    "react-big-calendar": "^0.38.1"
+    "react-big-calendar": "^0.38.1",
+    "rrule": "^2.6.8"
   },
   "peerDependencies": {
     "@bubbles-ui/components": "^1.0.23",

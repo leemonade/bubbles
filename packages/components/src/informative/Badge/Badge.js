@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Badge as MantineBadge, Box } from '@mantine/core';
-import { BadgeStyles } from './Badge.styles';
-import { XIcon } from '@heroicons/react/solid';
+import { Badge as MantineBadge } from '@mantine/core';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
+import { Box } from '../../layout';
+import { BadgeStyles } from './Badge.styles';
 import { Avatar } from '../Avatar/Avatar';
 
 export const BADGE_SIZES = ['xs', 'md', 'lg'];

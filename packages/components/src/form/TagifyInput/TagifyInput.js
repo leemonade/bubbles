@@ -9,7 +9,6 @@ import {
 } from '../InputWrapper';
 import { TagifyInputStyles } from './TagifyInput.styles';
 import { MixedTags } from './tagify/react.tagify'; // React-wrapper file
-import './tagify/tagify.css';
 
 const noop = (_) => _;
 

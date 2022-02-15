@@ -5,6 +5,8 @@
 /umd
 /lib
 /es
+/cjs
+/esm
 
 # Storybook
 # storybook-static

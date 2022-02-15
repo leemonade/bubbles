@@ -1,7 +1,7 @@
 import React from 'react';
-import { isFunction, isObject, isString } from 'lodash';
+import { isFunction, isObject } from 'lodash';
 import { Stack, Box } from '../../../layout';
-import { Checkbox } from '../../../form';
+import { Checkbox } from '../../../form/Checkbox';
 import { TableCellStyles } from './TableCell.styles';
 
 export const TableCell = ({ cell, onChangeCell }) => {

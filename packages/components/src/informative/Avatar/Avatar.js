@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
+import { Avatar as MantineAvatar, Text } from '@mantine/core';
 import { ExclamationIcon } from '@heroicons/react/solid';
+import { Box } from '../../layout';
 import { AvatarStyles } from './Avatar.styles';
 
 export const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];

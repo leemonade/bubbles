@@ -6,9 +6,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography';
-import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.const';
-import { Button } from '../../form';
+import { Button } from '../../form/Button';
+import { TableStyles } from '../../informative/Table/Table.styles';
 import { TableInputStyles } from './TableInput.styles';
 import { TableInputRow } from './TableInputRow';
 

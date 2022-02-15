@@ -5,7 +5,6 @@ import { List } from '@mantine/core';
 import { ComputerKeyboardPreviousIcon, PluginKimIcon } from '@bubbles-ui/icons/outline';
 import { Box, Stack } from '../../layout';
 import { ActionButton } from './../../form';
-import { MAIN_NAV_WIDTH } from '../MainNav/MainNav';
 import { SubNavItem } from './SubNavItem/SubNavItem';
 import { SubNavStyles } from './SubNav.styles';
 
@@ -40,10 +39,7 @@ export const SubNav = forwardRef(
     },
     ref
   ) => {
-    const { classes, cx } = SubNavStyles(
-      { itemWidth: MAIN_NAV_WIDTH, width, pinned },
-      { name: 'SubNav' }
-    );
+    const { classes, cx } = SubNavStyles({ width, pinned }, { name: 'SubNav' });
 
     return !isNil(item) ? (
       <Box ref={ref} className={cx(classes.root, className, { [classes.open]: open })}>

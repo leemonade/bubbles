@@ -6,7 +6,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Draggable } from 'react-beautiful-dnd';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
-import { ActionButton, TextInput } from '../../form';
+import { ActionButton } from '../../form/ActionButton';
+import { TextInput } from '../../form/TextInput';
 
 const TableInputRow = ({
   labels,

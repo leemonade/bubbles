@@ -2,8 +2,8 @@
   "name": "@bubbles-ui/editors",
   "version": "1.0.5",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,9 +12,8 @@
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
-    "lib/**/*",
-    "es/**/*",
-    "umd/**/*"
+    "cjs/**/*",
+    "esm/**/*"
   ],
   "keywords": [
     "react",

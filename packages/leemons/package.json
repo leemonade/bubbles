@@ -2,8 +2,8 @@
   "name": "@bubbles-ui/leemons",
   "version": "1.0.4",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,9 +12,8 @@
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
-    "lib/**/*",
-    "es/**/*",
-    "umd/**/*"
+    "cjs/**/*",
+    "esm/**/*"
   ],
   "keywords": [
     "react",
@@ -39,6 +38,7 @@
   "dependencies": {
     "@leemonade/rjsf-core": "^3.0.0",
     "@rjsf/core": "^3.2.1",
+    "colord": "^2.9.2",
     "immutability-helper": "^3.1.1",
     "json-rules-engine-simplified": "^0.1.17",
     "lodash": "^4.17.21",
@@ -46,7 +46,6 @@
     "rjsf-conditionals": "^1.1.4",
     "react-hook-form": "^7.22.1",
     "react-router-dom": "^5.3.0",
-    "rrule": "^2.6.8",
     "uuid": "^8.3.2"
   },
   "peerDependencies": {

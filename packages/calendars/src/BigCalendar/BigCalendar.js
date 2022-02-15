@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { forEach, isArray, isNil } from 'lodash';
-import { Box } from '@mantine/core';
+import { Box } from '@bubbles-ui/components';
 import { Calendar, Views } from 'react-big-calendar';
 import { DateTime, Interval } from 'luxon';
 import { RRule } from 'rrule';

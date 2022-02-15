@@ -10,7 +10,8 @@ import {
 } from '@bubbles-ui/icons/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { AlertStyles } from './Alert.styles';
-import { Button, ActionButton } from '../../form';
+import { Button } from '../../form/Button';
+import { ActionButton } from '../../form/ActionButton';
 
 export const ALERT_SEVERITIES = ['info', 'success', 'warning', 'error'];
 export const ALERT_VARIANTS = ['inline', 'block'];

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isNil, isString } from 'lodash';
 import { Button as MantineButton } from '@mantine/core';
 import { ActionButtonStyles } from './ActionButton.styles';
-import { Tooltip } from '../../overlay';
+import { Tooltip } from '../../overlay/Tooltip';
 
 export const ACTION_BUTTON_SIZES = ['xs', 'sm'];
 export const ACTION_BUTTON_COLORS = ['positive', 'negative'];

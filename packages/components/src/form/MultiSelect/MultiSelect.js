@@ -1,18 +1,18 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
-import { ActionButton } from '../ActionButton';
+import { useUuid } from '@mantine/hooks';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import { ActionButton } from '../ActionButton';
 import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
   InputWrapper,
 } from '../InputWrapper';
-import { useUuid } from '@mantine/hooks';
-import { Badge } from '../../informative';
+import { Badge } from '../../informative/Badge';
+import { MultiSelectStyles } from './MultiSelect.styles';
 
 export const MULTI_SELECT_SIZES = INPUT_WRAPPER_SIZES;
 export const MULTI_SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;

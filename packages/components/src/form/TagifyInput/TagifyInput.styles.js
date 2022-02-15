@@ -1,12 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import {
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-  getFocusStyles,
-} from '../../theme.mixins';
-import { getInputSizes, getInputStyle } from '../mixins/fieldStyles.mixins';
+import './tagify/tagify.css';
+import { getFontProductive } from '../../theme.mixins';
+import { getInputSizes } from '../mixins/fieldStyles.mixins';
 
 export const TagifyInputStyles = createStyles((theme, { size }) => {
   const fontSizes = {
