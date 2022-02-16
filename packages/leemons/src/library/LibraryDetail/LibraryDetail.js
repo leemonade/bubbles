@@ -36,10 +36,9 @@ export const LIBRARY_DETAIL_PROP_TYPES = {
     onShare: PropTypes.func,
     onAssign: PropTypes.func,
   }),
-  onEdit: PropTypes.func,
 };
 
-const LibraryDetail = ({ asset, variant, toolbarEvents, onEdit, ...props }) => {
+const LibraryDetail = ({ asset, variant, toolbarEvents, ...props }) => {
   const { classes, cx } = LibraryDetailStyles({});
 
   const { id, name, fileType, fileExtension, cover, color, url, description, metadata, tags } =
@@ -47,7 +46,7 @@ const LibraryDetail = ({ asset, variant, toolbarEvents, onEdit, ...props }) => {
 
   return (
     <Box className={classes.root}>
-      <LibraryDetailToolbar id={id} toolbarEvents={toolbarEvents} onEdit={onEdit} />
+      <LibraryDetailToolbar id={id} toolbarEvents={toolbarEvents} />
       <LibraryDetailPlayer
         fileIcon={
           <FileIcon fileType={fileType} fileExtension={fileExtension} size={64} color={'#B9BEC4'} />
