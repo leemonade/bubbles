@@ -1,16 +1,14 @@
 import { createStyles, pxToRem, getFontExpressive } from '@bubbles-ui/components';
 
 export const LibraryDetailPlayerStyles = createStyles(
-  (theme, { height, color, seconds, fileType }) => {
-    const isAudio = fileType === 'audio';
-
+  (theme, { height, color, seconds, showPlayer }) => {
     return {
       root: {
         ...getFontExpressive(theme.fontSizes['2']),
-        minHeight: height,
       },
       coverWrapper: {
         position: 'relative',
+        height: pxToRem(height),
       },
       color: {
         backgroundColor: color,
@@ -22,21 +20,24 @@ export const LibraryDetailPlayerStyles = createStyles(
         right: 0,
       },
       reactPlayerWrapper: {
-        position: isAudio && 'absolute',
-        top: isAudio && 0,
-        left: isAudio && 0,
-        right: isAudio && 0,
-        bottom: isAudio && 0,
-        backgroundColor: 'black',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: showPlayer ? 3 : -3,
       },
       reactPlayer: {
-        opacity: isAudio ? 0 : 1,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
       },
       audioIcon: {
         position: 'absolute',
         bottom: 30,
         left: 10,
-        zIndex: 3,
       },
       progressBarWrapper: {
         position: 'absolute',
@@ -44,7 +45,6 @@ export const LibraryDetailPlayerStyles = createStyles(
         display: 'flex',
         alignItems: 'center',
         gap: 10,
-        zIndex: 2,
         left: 8,
         right: 8,
       },
@@ -76,7 +76,7 @@ export const LibraryDetailPlayerStyles = createStyles(
         flex: 1,
       },
       fileIcon: {
-        height: height,
+        height: '100%',
         width: '100%',
         display: 'flex',
         justifyContent: 'flex-end',

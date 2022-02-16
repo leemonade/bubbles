@@ -83,48 +83,46 @@ const LibraryDetailPlayer = ({
   );
 
   const { classes, cx } = LibraryDetailPlayerStyles(
-    { height, color, seconds, fileType },
+    { height, color, seconds, showPlayer },
     { name: 'LibraryDetailPlayer' }
   );
   return (
     <Box className={classes.root}>
       <Box className={classes.coverWrapper}>
-        {showPlayer && (
-          <Box className={classes.reactPlayerWrapper}>
-            <ReactPlayer
-              url={url}
-              width="100%"
-              height={height}
-              playing={isPlaying}
-              onProgress={({ played, playedSeconds }) => handleOnProgress(played, playedSeconds)}
-              onSeek={(seconds) => console.log('seek', seconds)}
-              progressInterval={100}
-              className={classes.reactPlayer}
-            />
-            {fileType === 'audio' && (
-              <Box className={classes.audioIcon}>
-                <FileIcon fileType={fileType} size={64} color={'#FFF'} />
-              </Box>
-            )}
-            <Box className={classes.progressBarWrapper}>
-              <Box className={classes.progressBar}>
-                <Box
-                  className={classes.progressBarValue}
-                  style={{
-                    width: playedPercentage + '%',
-                    borderRadius: `0px ${
-                      playedPercentage <= 1 ? 10 * playedPercentage + 'px' : '12px'
-                    } ${playedPercentage <= 1 ? 10 * playedPercentage + 'px' : '12px'} 0px`,
-                  }}
-                />
-                {/* <input type={'range'} min={0} max={0.99} /> */}
-              </Box>
-              <Text size={'xs'} role={'productive'} className={classes.duration}>
-                {getDuration()}
-              </Text>
+        <Box className={classes.reactPlayerWrapper}>
+          <ReactPlayer
+            url={url}
+            width="100%"
+            height="100%"
+            playing={isPlaying}
+            onProgress={({ played, playedSeconds }) => handleOnProgress(played, playedSeconds)}
+            onSeek={(seconds) => console.log('seek', seconds)}
+            progressInterval={100}
+            className={classes.reactPlayer}
+          />
+          {fileType === 'audio' && (
+            <Box className={classes.audioIcon}>
+              <FileIcon fileType={fileType} size={64} color={'#FFF'} />
             </Box>
+          )}
+          <Box className={classes.progressBarWrapper}>
+            <Box className={classes.progressBar}>
+              <Box
+                className={classes.progressBarValue}
+                style={{
+                  width: playedPercentage + '%',
+                  borderRadius: `0px ${
+                    playedPercentage <= 1 ? 10 * playedPercentage + 'px' : '12px'
+                  } ${playedPercentage <= 1 ? 10 * playedPercentage + 'px' : '12px'} 0px`,
+                }}
+              />
+              {/* <input type={'range'} min={0} max={0.99} /> */}
+            </Box>
+            <Text size={'xs'} role={'productive'} className={classes.duration}>
+              {getDuration()}
+            </Text>
           </Box>
-        )}
+        </Box>
         {cover ? (
           <Box className={classes.imageWrapper}>
             <ImageLoader src={cover} height={height} forceImage />

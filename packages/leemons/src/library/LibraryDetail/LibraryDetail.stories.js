@@ -27,10 +27,25 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ children, asset, ...props }) => {
+  const audioAsset = {
+    ...asset,
+    fileType: 'audio',
+    url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
+  };
+
   return (
-    <Box style={{ width: 360 }}>
-      <LibraryDetail {...props}>{children}</LibraryDetail>
+    <Box style={{ display: 'flex', gap: 30 }}>
+      <Box style={{ width: 360 }}>
+        <LibraryDetail {...props} asset={asset}>
+          {children}
+        </LibraryDetail>
+      </Box>
+      <Box style={{ width: 360 }}>
+        <LibraryDetail {...props} asset={audioAsset}>
+          {children}
+        </LibraryDetail>
+      </Box>
     </Box>
   );
 };
