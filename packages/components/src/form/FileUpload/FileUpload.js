@@ -16,6 +16,8 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   loading: false,
   multiple: true,
   showError: false,
+  hideUploadButton: false,
+  single: false,
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -24,13 +26,15 @@ export const FILE_UPLOAD_PROP_TYPES = {
   subtitle: PropTypes.string,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
-  multiple: PropTypes.bool,
+  multipleUpload: PropTypes.bool,
   onDrop: PropTypes.func,
   showError: PropTypes.bool,
   errorMessage: PropTypes.shape({
     title: PropTypes.string,
     message: PropTypes.string,
   }),
+  hideUploadButton: PropTypes.bool,
+  single: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -38,14 +42,16 @@ const FileUpload = ({
   title,
   subtitle,
   disabled = false,
+  loading,
+  multipleUpload,
   onDrop,
   showError,
   errorMessage,
+  hideUploadButton,
+  single,
   ...props
 }) => {
-  const { classes, cx } = FileUploadStyles({}, { name: 'FileUpload' });
   const openRef = useRef();
-
   const [files, setFiles] = React.useState([]);
   const [error, setError] = React.useState(false);
 
@@ -61,13 +67,15 @@ const FileUpload = ({
     setFiles(files.filter((file, fileIndex) => fileIndex !== index));
   };
 
+  const { classes, cx } = FileUploadStyles({ disabled, single, files }, { name: 'FileUpload' });
   return (
     <Box className={classes.wrapper}>
       <MantineDropzone
-        onDrop={onDropHandler}
         {...props}
+        loading={loading}
+        multiple={multipleUpload}
+        onDrop={onDropHandler}
         classNames={classes}
-        className={disabled ? classes.disabled : null}
         openRef={openRef}
       >
         {(status) => {
@@ -114,9 +122,11 @@ const FileUpload = ({
           ))}
         </Stack>
       )}
-      <Box className={classes.uploadButton}>
-        <Button onClick={() => openRef.current()}>Upload</Button>
-      </Box>
+      {!hideUploadButton && (
+        <Box className={classes.uploadButton}>
+          <Button onClick={() => openRef.current()}>Upload</Button>
+        </Box>
+      )}
     </Box>
   );
 };
