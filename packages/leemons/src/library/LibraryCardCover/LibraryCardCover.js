@@ -63,13 +63,13 @@ const LibraryCardCover = ({
       <Box className={classes.blurryBox}>
         {isVertical && renderDeadline()}
         <Box className={classes.color}></Box>
-        {/* <TextClamp lines={2}> */}
         <Box className={classes.titleWrapper}>
-          <Title order={5} className={classes.title}>
-            {name}
-          </Title>
+          <TextClamp lines={2}>
+            <Title order={5} className={classes.title}>
+              {name}
+            </Title>
+          </TextClamp>
         </Box>
-        {/* </TextClamp> */}
       </Box>
       {!isVertical && renderDeadline()}
       {cover ? (
