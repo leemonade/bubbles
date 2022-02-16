@@ -3025,6 +3025,14 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-bullet-list/-/extension-bullet-list-2.0.0-beta.26.tgz#b42126d2d984c04041b14037e8d3ec1bcf16e7ec"
   integrity sha512-1n5HV8gY1tLjPk4x48nva6SZlFHoPlRfF6pqSu9JcJxPO7FUSPxUokuz4swYNe0LRrtykfyNz44dUcxKVhoFow==
 
+"@tiptap/extension-character-count@^2.0.0-beta.25":
+  version "2.0.0-beta.25"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-character-count/-/extension-character-count-2.0.0-beta.25.tgz#6da586e3820b91dcd6173098d81d8261fd5b9fe2"
+  integrity sha512-TvTC5Mqq0HK5wts49Eb0YXN+1Q49Vyv9Awr3b63GP/6r4VKd8+wC96xGOnWtjzDclSiYKQz1Gsv8yeOWhMRqpA==
+  dependencies:
+    prosemirror-model "^1.16.1"
+    prosemirror-state "^1.3.4"
+
 "@tiptap/extension-code-block@^2.0.0-beta.37":
   version "2.0.0-beta.37"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code-block/-/extension-code-block-2.0.0-beta.37.tgz#c07c007248a21d9e0434458fd05c363b7078227f"
@@ -3096,6 +3104,11 @@
   integrity sha512-MNc4retfjRgkv3qxqGya0+/BEd1Kmn+oMsCRvE+8x3sXyKIse+vdqMuG5qUcA6np0ZD/9hh1riiQ1GQdgc23Ng==
   dependencies:
     prosemirror-state "^1.3.4"
+
+"@tiptap/extension-image@^2.0.0-beta.27":
+  version "2.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-image/-/extension-image-2.0.0-beta.27.tgz#62152240cfa7ead03080c38485c1ebda4a603d18"
+  integrity sha512-kdJ7V39yNdVWUco/RBe7WgvFevd81l+pU6+Je9HpelqBBP953wDttzLMuAWQB4AeLv9WhKSlORHiFv2SKsV5NA==
 
 "@tiptap/extension-italic@^2.0.0-beta.25":
   version "2.0.0-beta.25"
