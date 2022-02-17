@@ -72,6 +72,7 @@ const Select = forwardRef(
         <MantineSelect
           ref={ref}
           id={uuid}
+          autoComplete="off"
           size={size}
           data={data}
           onChange={handleChange}
