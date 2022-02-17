@@ -71,6 +71,7 @@ const Select = forwardRef(
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
         <MantineSelect
           ref={ref}
+          autoComplete="off"
           id={uuid}
           size={size}
           data={data}

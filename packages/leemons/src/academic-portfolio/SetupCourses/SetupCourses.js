@@ -217,11 +217,13 @@ const SetupCourses = ({
               disabled={!editable}
               onChange={(e) => {
                 setOnlyOneCourse(e);
-                setValue('maxNumberOfCourses', e ? 0 : 0);
+                setValue('maxNumberOfCourses', e ? 1 : 0);
                 setValue('courseCredits', 0);
+                setValue('moreThanOneAcademicYear', false);
               }}
             />
-            <Controller
+            {/*
+           <Controller
               name="hideCoursesInTree"
               control={control}
               render={({ field: { value, ...field } }) => (
@@ -233,18 +235,21 @@ const SetupCourses = ({
                 />
               )}
             />
-            <Controller
-              name="moreThanOneAcademicYear"
-              control={control}
-              render={({ field: { value, ...field } }) => (
-                <Checkbox
-                  label={labels.moreThanOneAcademicYear}
-                  checked={value}
-                  disabled={!editable}
-                  {...field}
-                />
-              )}
-            />
+            */}
+            {!onlyOneCourse ? (
+              <Controller
+                name="moreThanOneAcademicYear"
+                control={control}
+                render={({ field: { value, ...field } }) => (
+                  <Checkbox
+                    label={labels.moreThanOneAcademicYear}
+                    checked={value}
+                    disabled={!editable}
+                    {...field}
+                  />
+                )}
+              />
+            ) : null}
           </Stack>
 
           {!onlyOneCourse && (
