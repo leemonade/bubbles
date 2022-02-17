@@ -4,6 +4,7 @@
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "sideEffects": false,
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,10 +35,12 @@
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
     "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9001",
-    "clean": "rimraf es lib umd storybook-static build"
+    "clean": "rimraf es lib umd esm cjs storybook-static build"
   },
   "dependencies": {
+    "@tiptap/extension-character-count": "^2.0.0-beta.25",
     "@tiptap/extension-color": "^2.0.0-beta.9",
+    "@tiptap/extension-image": "^2.0.0-beta.27",
     "@tiptap/extension-placeholder": "^2.0.0-beta.46",
     "@tiptap/extension-text-align": "^2.0.0-beta.29",
     "@tiptap/extension-text-style": "^2.0.0-beta.23",

@@ -26,20 +26,34 @@ const getSizes = (theme, size) => {
   }[size];
 };
 
-export const TextStyles = createStyles((theme, { role, transform, color, strong, size }) => {
-  const COLORS = {
-    primary: theme.colors.text01,
-    secondary: theme.colors.text02,
-    tertiary: theme.colors.text03,
-    interactive: theme.colors.interactive01,
-  };
+export const TextStyles = createStyles(
+  (theme, { role, transform, color, strong, size, truncated }) => {
+    const COLORS = {
+      primary: theme.colors.text01,
+      secondary: theme.colors.text02,
+      tertiary: theme.colors.text03,
+      interactive: theme.colors.interactive01,
+    };
 
-  return {
-    root: {
-      ...getFontStyle(role, strong),
-      ...getSizes(theme, size),
-      textTransform: transform,
-      color: COLORS[color] || theme.colors.text02,
-    },
-  };
-});
+    let truncateProps = {};
+    if (truncated) {
+      truncateProps = {
+        display: 'inline-block',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        width: '100%',
+      };
+    }
+
+    return {
+      root: {
+        ...getFontStyle(role, strong),
+        ...getSizes(theme, size),
+        textTransform: transform,
+        color: COLORS[color] || theme.colors.text02,
+        ...truncateProps,
+      },
+    };
+  }
+);
