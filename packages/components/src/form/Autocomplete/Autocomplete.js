@@ -9,19 +9,22 @@ import { AutocompleteStyles } from './Autocomplete.styles';
 import { useId } from '@mantine/hooks';
 import { Text } from '../../typography/Text';
 import { DeleteIcon } from '@bubbles-ui/icons/solid/';
+import { isFunction } from 'lodash';
+import { useImperativeHandle } from 'react';
 
 export const AUTOCOMPLETE_DEFAULT_PROPS = {
-  itemComponent: forwardRef(({ children, ...others }, ref) => (
+  itemComponent: forwardRef(({ value, ...others }, ref) => (
     <div ref={ref} {...others}>
-      <Text>{children}</Text>
+      <Text>{value}</Text>
     </div>
   )),
-  valueComponent: forwardRef(({ children, onRemove, classNames, ...others }, ref) => (
-    <Text ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
-      {children}
-    </Text>
+  valueComponent: forwardRef(({ value, onRemove, classNames, ...others }, ref) => (
+    <div ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
+      <Text>{value}</Text>
+    </div>
   )),
   multiple: false,
+  value: [],
 };
 
 export const AUTOCOMPLETE_PROP_TYPES = {
@@ -33,6 +36,12 @@ export const AUTOCOMPLETE_PROP_TYPES = {
       PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
     ),
   ]).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(
+      PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
+    ),
+  ]),
   itemComponent: PropTypes.elementType,
   valueComponent: PropTypes.elementType,
   nothingFoundLabel: PropTypes.string,
@@ -48,6 +57,7 @@ const Autocomplete = forwardRef(
       label,
       placeholder,
       data,
+      value,
       itemComponent,
       valueComponent,
       nothingFoundLabel,
@@ -55,24 +65,34 @@ const Autocomplete = forwardRef(
       size,
       error,
       onItemSubmit,
+      onChange,
       ...props
     },
     ref
   ) => {
     const { classes, cx } = AutocompleteStyles({ multiple });
 
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [selectedValue, setSelectedValue] = useState(value.length > 1 ? value : null);
     const [inputValue, setInputValue] = useState('');
 
     const onItemSubmitHandler = (e) => {
-      onItemSubmit && onItemSubmit(e);
+      isFunction(onItemSubmit) && onItemSubmit(e);
       setSelectedValue(e);
+    };
+
+    const onChangeHandler = (e) => {
+      isFunction(onChange) && onChange(e);
+      setInputValue(e);
     };
 
     const deleteValues = () => {
       setSelectedValue(null);
       setInputValue('');
     };
+
+    useImperativeHandle(ref, () => ({
+      deleteValues: () => deleteValues(),
+    }));
 
     const uuid = useId();
     return (
@@ -95,7 +115,7 @@ const Autocomplete = forwardRef(
                 />
               )
             }
-            onChange={(e) => setInputValue(e)}
+            onChange={onChangeHandler}
             data={data}
             {...props}
             ref={ref}
@@ -110,11 +130,16 @@ const Autocomplete = forwardRef(
             placeholder={placeholder}
             data={data}
             searchable={true}
+            value={selectedValue}
             itemComponent={itemComponent}
             valueComponent={valueComponent}
             nothingFound={nothingFoundLabel}
             rightSection={<></>}
             rightSectionWidth={0}
+            onChange={(e) => {
+              onItemSubmitHandler(e);
+              setInputValue(e);
+            }}
           />
         )}
       </InputWrapper>
