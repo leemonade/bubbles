@@ -5,9 +5,9 @@ import { ColorInput as MantineColorInput } from '@mantine/core';
 import { useId } from '@mantine/hooks';
 import {
   INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
   InputWrapper,
-  INPUT_WRAPPER_SHARED_PROPS,
 } from '../InputWrapper';
 import { ColorInputStyles } from './ColorInput.styles';
 
@@ -68,6 +68,7 @@ const ColorInput = forwardRef(
           ref={ref}
           size={size}
           classNames={classes}
+          autocomplete="nope"
           error={!isEmpty(error)}
         />
       </InputWrapper>

@@ -1391,38 +1391,38 @@
     prop-types "^15.7.2"
     react-is "^16.9.0"
 
-"@mantine/core@^3.4.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-3.6.3.tgz#62dae62c5def9979b2a3449fafce07d7f582e0fb"
-  integrity sha512-puyoIZ6qIIMjaeGHrDgt0rZXpKOpRYdemzVUS9Ss8G+/Ok/Y2CoNwGgbuvOvYFxCHIltQy0+EX0Hs5pNULLKnQ==
+"@mantine/core@^3.6.8":
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-3.6.8.tgz#970b9ed447c715d6cd7f6dc90b26982f54029f92"
+  integrity sha512-prvJgaS3HJjq5n70KHxnWbQ1aLZwrFfAq3crCfqo2OkRuvncOpW1Ek8z8xgSYxYM+K8q1c0/MuOetcayhF02bA==
   dependencies:
-    "@mantine/styles" "3.6.3"
+    "@mantine/styles" "3.6.8"
     "@popperjs/core" "^2.9.3"
     "@radix-ui/react-scroll-area" "^0.1.1"
     clsx "^1.1.1"
     react-popper "^2.2.5"
     react-textarea-autosize "^8.3.2"
 
-"@mantine/dates@^3.4.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-3.6.3.tgz#b1ae66157ad3ea67fd2353402188c13bc78b82a8"
-  integrity sha512-ec5pW0ZX1AI5K9bIGnc1/Xp8Hb0k8c/lR5/QjQE1Da7gllrMcssq53HysJImeSacuQjQd3XSniUyRqitzBBXbQ==
+"@mantine/dates@^3.6.8":
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-3.6.8.tgz#7e2dfce1acd23dde4dcd8f357b5526b0bf244b5e"
+  integrity sha512-Lk5WKXV2whT0dmRHc2UWCEESjSnne409J0zij29ObeaB00wYj1r2JVNw/+4lWYc/i9QLurry1tU4vRkk3Qqomg==
   dependencies:
     "@popperjs/core" "^2.9.3"
     clsx "^1.1.1"
     react-popper "^2.2.5"
 
-"@mantine/dropzone@^3.4.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-3.6.3.tgz#6adf69b8617b0c0d54a93ec6fa60af86a1cc4e18"
-  integrity sha512-JbjCCjuTmIV7VTz7xBPO5q/6RWqOb9Dnq6HIiPHRWABgFhps56xFgxZbcE/Rj2iEezdIo0IuHFs3p/93iX6Mdg==
+"@mantine/dropzone@^3.6.8":
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-3.6.8.tgz#24c8ded5dd5082899e9a820556b7ef8e5e80bb98"
+  integrity sha512-NOxMPbn+DyfIpVwerEon65GrmG7wV3LmmC3mK+wX997mQtWaXilFjLS/QXXXURLZRVmmBONsbVbLEWdskE9eVA==
   dependencies:
     react-dropzone "^11.4.2"
 
-"@mantine/hooks@^3.4.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.3.tgz#096a6ebb23d8d6f7774cdc939466162d24bb426a"
-  integrity sha512-gxHXPEVUh/gD6VPDnmXnW14IisCk6pe7S2SzksB/3NdlJBCDvBY3j9ORT8hlZPxr+ylAltH6w8EI2SaUdh3T0w==
+"@mantine/hooks@^3.6.8":
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-3.6.8.tgz#354d87801cb3c68f929e5f81919a2e18baa999e4"
+  integrity sha512-wuvlZepiQi51ZteEKKD812xEO+u/uQcJZlUpdfIShR0IjIcJUrnzD8sAN1+fzRh8CxXWO2oRQyy/ysONh4Qb4w==
 
 "@mantine/notifications@^3.4.3":
   version "3.6.3"
@@ -1432,10 +1432,10 @@
     clsx "^1.1.1"
     react-transition-group "^4.4.2"
 
-"@mantine/styles@3.6.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-3.6.3.tgz#33b622135d66552cf761b66c915dbf7831df0df8"
-  integrity sha512-UvYhBNVy+XdqW8WpjueBEdO7DwY42Ilhl4Hnc0uxeluekqnhy8s+vYXa/7oFGkt2liAeK7tFiVaIX4HS4rYvCQ==
+"@mantine/styles@3.6.8":
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-3.6.8.tgz#6717f85fc1cb90cea1caaf89d572c83959cf65d5"
+  integrity sha512-XeQgLoWt2IvQLJbPHqYDVMnKroxthsrI2yQ1f7LmMTI9RxDMoCZsMr96avFzzP73G/2CiylX61WtA5NDg3rIwQ==
   dependencies:
     "@emotion/cache" "^11.7.1"
     "@emotion/react" "^11.7.1"
@@ -3025,6 +3025,14 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-bullet-list/-/extension-bullet-list-2.0.0-beta.26.tgz#b42126d2d984c04041b14037e8d3ec1bcf16e7ec"
   integrity sha512-1n5HV8gY1tLjPk4x48nva6SZlFHoPlRfF6pqSu9JcJxPO7FUSPxUokuz4swYNe0LRrtykfyNz44dUcxKVhoFow==
 
+"@tiptap/extension-character-count@^2.0.0-beta.25":
+  version "2.0.0-beta.25"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-character-count/-/extension-character-count-2.0.0-beta.25.tgz#6da586e3820b91dcd6173098d81d8261fd5b9fe2"
+  integrity sha512-TvTC5Mqq0HK5wts49Eb0YXN+1Q49Vyv9Awr3b63GP/6r4VKd8+wC96xGOnWtjzDclSiYKQz1Gsv8yeOWhMRqpA==
+  dependencies:
+    prosemirror-model "^1.16.1"
+    prosemirror-state "^1.3.4"
+
 "@tiptap/extension-code-block@^2.0.0-beta.37":
   version "2.0.0-beta.37"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code-block/-/extension-code-block-2.0.0-beta.37.tgz#c07c007248a21d9e0434458fd05c363b7078227f"
@@ -3096,6 +3104,11 @@
   integrity sha512-MNc4retfjRgkv3qxqGya0+/BEd1Kmn+oMsCRvE+8x3sXyKIse+vdqMuG5qUcA6np0ZD/9hh1riiQ1GQdgc23Ng==
   dependencies:
     prosemirror-state "^1.3.4"
+
+"@tiptap/extension-image@^2.0.0-beta.27":
+  version "2.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-image/-/extension-image-2.0.0-beta.27.tgz#62152240cfa7ead03080c38485c1ebda4a603d18"
+  integrity sha512-kdJ7V39yNdVWUco/RBe7WgvFevd81l+pU6+Je9HpelqBBP953wDttzLMuAWQB4AeLv9WhKSlORHiFv2SKsV5NA==
 
 "@tiptap/extension-italic@^2.0.0-beta.25":
   version "2.0.0-beta.25"

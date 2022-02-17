@@ -23,7 +23,6 @@ export const MultiSelectStyles = createStyles((theme, { size, orientation }) => 
     },
     rightSection: {
       color: theme.colors.text02,
-      pointerEvents: 'none',
       bottom: 5,
       right: 3,
     },
