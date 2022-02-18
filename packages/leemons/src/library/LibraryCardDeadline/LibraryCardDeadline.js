@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, ImageLoader } from '@bubbles-ui/components';
 import { LibraryCardDeadlineStyles } from './LibraryCardDeadline.styles';
-import { useEffect } from 'react';
 import { capitalize } from 'lodash';
+import { LIBRARYCARD_COVER_DIRECTIONS } from '../LibraryCardCover';
 
 export const LIBRARY_CARD_DEADLINE_DEFAULT_PROPS = {
   labels: {
@@ -26,6 +26,7 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   ]),
   locale: PropTypes.string,
   deadline: PropTypes.instanceOf(Date),
+  direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
 };
 
 export const validateURL = (props, propName, componentName) => {
@@ -41,7 +42,7 @@ export const validateURL = (props, propName, componentName) => {
 
 const TODAY = new Date().getDate();
 
-const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }) => {
+const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, direction, ...props }) => {
   const [title, setTitle] = useState(labels.title);
 
   const formattedDate = `${labels.deadline + ' '}${deadline.toLocaleDateString(
@@ -50,10 +51,8 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }
 
   useEffect(() => {
     if (!deadline) return;
-
     const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     let deltaDays = (deadline.getTime() - Date.now()) / (1000 * 3600 * 24);
-
     if (deltaDays < 1) {
       if (deadline.getDate() === TODAY) {
         deltaDays = 0;
@@ -63,15 +62,15 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }
         deltaDays = 1;
       }
     }
-
     deltaDays = Math.ceil(deltaDays);
-
     const result = formatter.format(deltaDays, 'day');
-
     setTitle(capitalize(result));
   }, [deadline, locale]);
 
-  const { classes, cx } = LibraryCardDeadlineStyles({ isNew });
+  const { classes, cx } = LibraryCardDeadlineStyles(
+    { isNew, direction },
+    { name: 'LibraryCardDeadline' }
+  );
   return (
     <Box className={classes.root}>
       {icon && (
@@ -79,7 +78,7 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, ...props }
           {typeof icon === 'string' ? <ImageLoader src={icon} height={16} width={16} /> : icon}
         </Box>
       )}
-      <Box>
+      <Box className={classes.info}>
         <Box className={classes.title}>{isNew ? labels.new : title}</Box>
         {deadline && <Box className={classes.deadline}>{formattedDate}</Box>}
       </Box>

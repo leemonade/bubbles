@@ -1,6 +1,13 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Badge, BADGE_DEFAULT_PROPS, BADGE_SIZES, BADGE_COLORS, BADGE_RADIUS } from './Badge';
+import {
+  Badge,
+  BADGE_DEFAULT_PROPS,
+  BADGE_SIZES,
+  BADGE_COLORS,
+  BADGE_RADIUS,
+  BADGE_SEVERITIES,
+} from './Badge';
 import mdx from './Badge.mdx';
 
 export default {
@@ -19,6 +26,7 @@ export default {
     size: { control: { type: 'select' }, options: BADGE_SIZES },
     radius: { control: { type: 'select' }, options: BADGE_RADIUS },
     color: { control: { type: 'select' }, options: BADGE_COLORS },
+    severity: { control: { type: 'select' }, options: BADGE_SEVERITIES },
     onClose: { action: 'closed' },
   },
 };
