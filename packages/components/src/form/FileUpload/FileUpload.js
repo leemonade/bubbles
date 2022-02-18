@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Group, Box, Text } from '@mantine/core';
+import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
 import { FileUploadStyles } from './FileUpload.styles';
-import { Stack } from '../../layout/Stack';
+import { Stack, Box } from '../../layout/';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
-import { ActionButton } from '../../form/ActionButton';
+import { Alert } from '../../feedback/Alert';
+import { InputWrapper, INPUT_WRAPPER_PROP_TYPES, ActionButton, Button } from '../../form';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
-import { Alert } from '../../feedback/Alert';
-import { Button } from '../../form/Button';
+import { isEmpty, isFunction } from 'lodash';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
@@ -18,6 +18,8 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   showError: false,
   hideUploadButton: false,
   single: false,
+  initialFiles: [],
+  inputWrapperProps: {},
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -27,7 +29,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   multipleUpload: PropTypes.bool,
-  onDrop: PropTypes.func,
+  onChange: PropTypes.func,
   showError: PropTypes.bool,
   errorMessage: PropTypes.shape({
     title: PropTypes.string,
@@ -35,6 +37,8 @@ export const FILE_UPLOAD_PROP_TYPES = {
   }),
   hideUploadButton: PropTypes.bool,
   single: PropTypes.bool,
+  inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
+  initialFiles: PropTypes.arrayOf(PropTypes.object),
 };
 
 const FileUpload = ({
@@ -44,55 +48,64 @@ const FileUpload = ({
   disabled = false,
   loading,
   multipleUpload,
-  onDrop,
+  onChange,
   showError,
   errorMessage,
   hideUploadButton,
   single,
+  inputWrapperProps,
+  initialFiles,
   ...props
 }) => {
   const openRef = useRef();
-  const [files, setFiles] = React.useState([]);
+  const [files, setFiles] = React.useState(initialFiles || []);
   const [error, setError] = React.useState(false);
+  const hasError = useMemo(() => !isEmpty(inputWrapperProps.error), [inputWrapperProps.error]);
 
   const onDropHandler = (acceptedFiles) => {
-    if (onDrop) {
-      onDrop(acceptedFiles);
-    }
-    setFiles([...files, ...acceptedFiles]);
+    const newFiles = [...files, ...acceptedFiles];
+    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    setFiles(newFiles);
     setError(false);
   };
 
   const removeFile = (index) => {
-    setFiles(files.filter((file, fileIndex) => fileIndex !== index));
+    const newFiles = files.filter((file, fileIndex) => fileIndex !== index);
+    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    setFiles(newFiles);
   };
 
-  const { classes, cx } = FileUploadStyles({ disabled, single, files }, { name: 'FileUpload' });
+  const { classes, cx } = FileUploadStyles(
+    { disabled, single, files, hasError },
+    { name: 'FileUpload' }
+  );
   return (
     <Box className={classes.wrapper}>
-      <MantineDropzone
-        {...props}
-        loading={loading}
-        multiple={multipleUpload}
-        onDrop={onDropHandler}
-        classNames={classes}
-        openRef={openRef}
-      >
-        {(status) => {
-          if (status.rejected) {
-            setError(true);
-          }
-          return (
-            <Group className={classes.groupContainer}>
-              <Box className={classes.container}>
-                <Box className={classes.icon}>{icon}</Box>
-                <Text className={classes.title}>{title}</Text>
-                <Text className={classes.subtitle}>{subtitle}</Text>
-              </Box>
-            </Group>
-          );
-        }}
-      </MantineDropzone>
+      <InputWrapper {...inputWrapperProps}>
+        <MantineDropzone
+          {...props}
+          loading={loading}
+          multiple={multipleUpload}
+          onDrop={onDropHandler}
+          classNames={classes}
+          openRef={openRef}
+        >
+          {(status) => {
+            if (status.rejected) {
+              setError(true);
+            }
+            return (
+              <Group className={classes.groupContainer}>
+                <Box className={classes.container}>
+                  <Box className={classes.icon}>{icon}</Box>
+                  <Text className={classes.title}>{title}</Text>
+                  <Text className={classes.subtitle}>{subtitle}</Text>
+                </Box>
+              </Group>
+            );
+          }}
+        </MantineDropzone>
+      </InputWrapper>
       {showError && error && (
         <Alert
           className={classes.errorAlert}

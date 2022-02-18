@@ -20,7 +20,7 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
     changeImage: PropTypes.string,
   }),
   value: PropTypes.instanceOf(File),
-  previewURL: PropTypes.string,
+  previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(File)]),
   previewStyle: PropTypes.object,
   control: PropTypes.element,
   onChange: PropTypes.func,
@@ -66,6 +66,12 @@ const ImagePreviewInput = ({
 
     return React.cloneElement(control, { onClick: openFileBrowser });
   };
+
+  useEffect(() => {
+    if (imageValue) {
+      setImagePreview(URL.createObjectURL(imageValue));
+    }
+  }, [imageValue]);
 
   const { classes, cx } = ImagePreviewInputStyles({});
   return (

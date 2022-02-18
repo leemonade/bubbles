@@ -4,7 +4,7 @@ import { LibraryForm, LIBRARY_FORM_DEFAULT_PROPS } from './LibraryForm';
 import mdx from './LibraryForm.mdx';
 
 export default {
-  title: 'Organisms/Library/LibraryForm',
+  title: 'leemons/Library/LibraryForm',
   parameters: {
     component: LibraryForm,
     docs: {
@@ -16,8 +16,7 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    onSubmit: { action: 'onSubmit' },
   },
 };
 
@@ -28,7 +27,37 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...LIBRARY_FORM_DEFAULT_PROPS,
+  labels: {
+    title: 'Upload file',
+    featuredImage: 'Featured image',
+    tags: 'Tags',
+    addBadge: 'Add tag',
+    changeImage: 'Change image',
+    uploadButton: 'Upload image',
+    submitForm: 'Add to library',
+    name: 'Name',
+    description: 'Description',
+  },
+  placeholders: {
+    tagsInput: 'Name of tag',
+    name: 'Name of the resource',
+    description: 'Description of the resource',
+    color: 'Select a color',
+  },
+  errorMessages: {
+    name: 'Name is required',
+    file: 'File is required',
+    tags: 'Write a tag to add it',
+  },
+  // asset: {
+  //   id: '5e9f8f9b8f9d8b1c8c8b4567',
+  //   file: new File([], 'pepe.png'),
+  //   name: 'Pepe',
+  //   description: 'Pepe is a cat',
+  //   color: '#ff0000',
+  //   cover:
+  //     'https://static5.depositphotos.com/1000270/486/i/600/depositphotos_4869272-stock-photo-cute-bengal-kitten-looks-pensively.jpg',
+  //   tags: ['Cat', 'Cute'],
+  // },
 };

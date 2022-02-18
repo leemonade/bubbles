@@ -26,7 +26,7 @@ const getDisabledStyles = (disabled, theme) => {
   };
 };
 
-export const FileUploadStyles = createStyles((theme, { disabled, single, files }) => {
+export const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError }) => {
   const hideDropzone = single && files.length > 0;
 
   return {
@@ -35,7 +35,9 @@ export const FileUploadStyles = createStyles((theme, { disabled, single, files }
       display: hideDropzone ? 'none' : 'flex',
       justifyContent: 'center',
       padding: pxToRem(25),
-      border: `${pxToRem(1)} solid ${theme.colors.interactive01d}`,
+      border: hasError
+        ? `1px solid ${theme.colors.fatic01}`
+        : `${pxToRem(1)} solid ${theme.colors.interactive01d}`,
       borderRadius: pxToRem(2),
       '&:hover': { ...getActive(theme) },
       ...getDisabledStyles(disabled, theme),
