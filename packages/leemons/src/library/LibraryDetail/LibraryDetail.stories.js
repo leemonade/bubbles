@@ -20,10 +20,13 @@ export default {
     },
   },
   argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: LIBRARY_DETAIL_VARIANTS,
-    },
+    variant: { options: LIBRARY_DETAIL_VARIANTS, control: { type: 'select' } },
+    onEdit: { action: 'onEdit' },
+    onDuplicate: { action: 'onDuplicate' },
+    onDownload: { action: 'onDownload' },
+    onDelete: { action: 'onDelete' },
+    onShare: { action: 'onShare' },
+    onAssign: { action: 'onAssign' },
   },
 };
 
@@ -71,25 +74,5 @@ Playground.args = {
     url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     color: '#DC5571',
     name: 'The Roman Empire',
-  },
-  toolbarEvents: {
-    onEdit: (id) => {
-      alert('onEdit: ' + id);
-    },
-    onDuplicate: (id) => {
-      alert('onDuplicate: ' + id);
-    },
-    onDownload: (id) => {
-      alert('onDownload: ' + id);
-    },
-    onDelete: (id) => {
-      alert('onDelete: ' + id);
-    },
-    onShare: (id) => {
-      alert('onShare: ' + id);
-    },
-    onAssign: (id) => {
-      alert('onAssign: ' + id);
-    },
   },
 };

@@ -28,17 +28,15 @@ export const LIBRARY_DETAIL_PROP_TYPES = {
     role: PropTypes.oneOf(LIBRARY_DETAIL_ROLES),
   }),
   variant: PropTypes.oneOf(LIBRARY_DETAIL_VARIANTS),
-  toolbarEvents: PropTypes.shape({
-    onEdit: PropTypes.func,
-    onDuplicate: PropTypes.func,
-    onDownload: PropTypes.func,
-    onDelete: PropTypes.func,
-    onShare: PropTypes.func,
-    onAssign: PropTypes.func,
-  }),
+  onEdit: PropTypes.func,
+  onDuplicate: PropTypes.func,
+  onDownload: PropTypes.func,
+  onDelete: PropTypes.func,
+  onShare: PropTypes.func,
+  onAssign: PropTypes.func,
 };
 
-const LibraryDetail = ({ asset, variant, toolbarEvents, ...props }) => {
+const LibraryDetail = ({ asset, variant, ...events }) => {
   const { classes, cx } = LibraryDetailStyles({});
 
   const { id, name, fileType, fileExtension, cover, color, url, description, metadata, tags } =
@@ -46,7 +44,7 @@ const LibraryDetail = ({ asset, variant, toolbarEvents, ...props }) => {
 
   return (
     <Box className={classes.root}>
-      <LibraryDetailToolbar id={id} toolbarEvents={toolbarEvents} />
+      <LibraryDetailToolbar id={id} {...events} />
       <LibraryDetailPlayer
         fileIcon={
           <FileIcon fileType={fileType} fileExtension={fileExtension} size={64} color={'#B9BEC4'} />

@@ -14,20 +14,25 @@ import { isFunction } from 'lodash';
 export const LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS = {};
 export const LIBRARY_DETAIL_TOOLBAR_PROP_TYPES = {
   id: PropTypes.string,
-  toolbarEvents: PropTypes.shape({
-    onEdit: PropTypes.func,
-    onDuplicate: PropTypes.func,
-    onDownload: PropTypes.func,
-    onDelete: PropTypes.func,
-    onShare: PropTypes.func,
-    onAssign: PropTypes.func,
-  }),
+  onEdit: PropTypes.func,
+  onDuplicate: PropTypes.func,
+  onDownload: PropTypes.func,
+  onDelete: PropTypes.func,
+  onShare: PropTypes.func,
+  onAssign: PropTypes.func,
 };
 
-const LibraryDetailToolbar = ({ id, toolbarEvents, ...props }) => {
+const LibraryDetailToolbar = ({
+  id,
+  onEdit,
+  onDuplicate,
+  onDownload,
+  onDelete,
+  onShare,
+  onAssign,
+  ...props
+}) => {
   const { classes, cx } = LibraryDetailToolbarStyles({}, { name: 'LibraryDetailToolbar' });
-
-  const { onEdit, onDuplicate, onDownload, onDelete, onShare, onAssign } = toolbarEvents;
 
   const handleEdit = () => {
     isFunction(onEdit) && onEdit(id);
