@@ -9,13 +9,13 @@ export const Input = forwardRef(
     ref
   ) => {
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
-    const { classes, cx } = InputStyles({ size });
+    const { classes, cx } = InputStyles({ size, variant });
 
     return (
       <MantineInput
         {...props}
         icon={icon}
-        variant={variant}
+        // variant={variant}
         ref={ref}
         size={size}
         rightSection={rightSection}
