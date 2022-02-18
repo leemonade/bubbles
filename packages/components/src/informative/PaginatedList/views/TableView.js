@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { Text } from '../../../typography';
 import { TableStyles } from '../../Table';
 import { TableItemRender } from './TableItemRender';
@@ -18,7 +19,20 @@ const TableView = ({
   rows,
   prepareRow,
   itemRender,
+  onSelect,
+  selectable,
 }) => {
+  const [currentItem, setCurrentItem] = useState(null);
+
+  const handleOnSelect = (item) => {
+    if (selectable) {
+      setCurrentItem(item);
+      if (isFunction(onSelect)) {
+        onSelect(item);
+      }
+    }
+  };
+
   const { classes: tableClasses, cx: tableCx } = TableStyles({}, { name: 'TableView' });
   return (
     <table
@@ -51,14 +65,20 @@ const TableView = ({
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
+          const selected = row.original.id === currentItem?.id;
           return (
-            <tr
-              {...row.getRowProps({
-                className: tableCx({ [tableClasses.tr]: i < rows.length - 1 }),
-              })}
-            >
-              {itemRender && itemRender({ item: row, className: tableClasses.td })}
-            </tr>
+            itemRender &&
+            itemRender({
+              key: `k-${i}`,
+              item: row,
+              className: tableCx({
+                [tableClasses.tr]: i < rows.length - 1,
+                [tableClasses.trSelectable]: selectable,
+                [tableClasses.trActive]: selected,
+              }),
+              selected,
+              onClick: () => handleOnSelect(row.original),
+            })
           );
         })}
       </tbody>

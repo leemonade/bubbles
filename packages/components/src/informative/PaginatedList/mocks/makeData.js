@@ -1,4 +1,5 @@
 import namor from 'namor';
+import { v4 as uuidv4 } from 'uuid';
 
 const range = (len) => {
   const arr = [];
@@ -26,7 +27,7 @@ export function makeData(...lens) {
     return range(len).map((d) => {
       return {
         ...newPerson(),
-        subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
+        id: uuidv4(),
       };
     });
   };

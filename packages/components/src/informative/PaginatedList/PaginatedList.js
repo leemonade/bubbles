@@ -17,6 +17,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   currentPage: 0,
   size: 10,
   paperProps: { padding: 2, fullWidth: true },
+  selectable: false,
 };
 export const PAGINATED_LIST_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -24,6 +25,8 @@ export const PAGINATED_LIST_PROP_TYPES = {
   currentPage: PropTypes.number,
   size: PropTypes.number,
   paperProps: PropTypes.any,
+  selectable: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 const PaginatedList = ({
@@ -34,6 +37,8 @@ const PaginatedList = ({
   currentPage,
   size,
   paperProps,
+  selectable,
+  onSelect,
   ...props
 }) => {
   const [data, setData] = useState([]);
@@ -46,15 +51,15 @@ const PaginatedList = ({
     headerGroups,
     prepareRow,
     rows,
+    pageCount,
+    gotoPage,
+    setPageSize,
     page,
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageCount,
-    gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
     // Get the state from the instance
     state: { pageIndex, pageSize },
   } = useTable(
@@ -104,10 +109,18 @@ const PaginatedList = ({
           {layout === PAGINATED_LIST_LAYOUTS[0] ? (
             <TableView
               {...props}
-              {...{ getTableProps, getTableBodyProps, headerGroups, prepareRow, rows }}
+              {...{
+                getTableProps,
+                getTableBodyProps,
+                headerGroups,
+                prepareRow,
+                rows,
+                selectable,
+                onSelect,
+              }}
             />
           ) : (
-            <GridView {...props} {...{ headerGroups, prepareRow, rows }} />
+            <GridView {...props} {...{ headerGroups, prepareRow, rows, selectable, onSelect }} />
           )}
         </Paper>
 

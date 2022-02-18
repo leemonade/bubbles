@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   PaginatedList,
   PAGINATED_LIST_DEFAULT_PROPS,
   PAGINATED_LIST_LAYOUTS,
 } from './PaginatedList';
+import { createStyles } from '@mantine/core';
 import { Paper, Box, Stack } from '../../layout';
 import { Text } from '../../typography';
 import { makeData } from './mocks/makeData';
@@ -25,33 +26,59 @@ export default {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     layout: { options: PAGINATED_LIST_LAYOUTS, control: { type: 'select' } },
+    onSelect: { action: 'Selected item' },
   },
 };
 
+const columns = [
+  {
+    Header: 'First Name',
+    accessor: 'firstName',
+  },
+  {
+    Header: 'Last Name',
+    accessor: 'lastName',
+  },
+  {
+    Header: 'Age',
+    accessor: 'age',
+  },
+  {
+    Header: 'Visits',
+    accessor: 'visits',
+  },
+  {
+    Header: 'Status',
+    accessor: 'status',
+  },
+  {
+    Header: 'Profile Progress',
+    accessor: 'progress',
+  },
+];
+
+// Let's simulate a large dataset on the server (outside of our component)
+const totalCount = 10000;
+const serverData = makeData(totalCount);
+
+function getData({ pageIndex, pageSize }) {
+  const startRow = pageSize * pageIndex;
+  const endRow = startRow + pageSize;
+
+  // Should comes from Server
+  const items = serverData.slice(startRow, endRow);
+
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve({
+        items,
+        totalPages: Math.ceil(totalCount / pageSize),
+      });
+    }, 1000)
+  );
+}
+
 const Template = ({ layout, ...props }) => {
-  // Let's simulate a large dataset on the server (outside of our component)
-  const totalCount = 10000;
-  const serverData = makeData(totalCount);
-
-  function getData({ pageIndex, pageSize }) {
-    const page = pageIndex;
-    const size = pageSize;
-    const startRow = pageSize * pageIndex;
-    const endRow = startRow + pageSize;
-
-    // Should comes from Server
-    const items = serverData.slice(startRow, endRow);
-
-    return new Promise((resolve) =>
-      setTimeout(() => {
-        resolve({
-          items,
-          totalPages: Math.ceil(totalCount / size),
-        });
-      }, 1000)
-    );
-  }
-
   const customProps = {};
 
   if (layout === 'grid') {
@@ -93,33 +120,6 @@ const Template = ({ layout, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...PAGINATED_LIST_DEFAULT_PROPS,
-  columns: [
-    {
-      Header: 'First Name',
-      accessor: 'firstName',
-    },
-    {
-      Header: 'Last Name',
-      accessor: 'lastName',
-    },
-    {
-      Header: 'Age',
-      accessor: 'age',
-    },
-    {
-      Header: 'Visits',
-      accessor: 'visits',
-    },
-    {
-      Header: 'Status',
-      accessor: 'status',
-    },
-    {
-      Header: 'Profile Progress',
-      accessor: 'progress',
-    },
-  ],
+  columns,
 };
