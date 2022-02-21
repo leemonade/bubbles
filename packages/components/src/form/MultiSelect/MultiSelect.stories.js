@@ -28,13 +28,16 @@ export default {
 
 const Template = ({ children, data, ...props }) => {
   const [state, setState] = useState([]);
+  const [value, setValue] = useState(['Bender Bending Rodríguez']);
   return (
     <MultiSelect
       {...props}
-      value={['Bender Bending Rodríguez']}
+      value={value}
+      onChange={setValue}
       data={[...data, ...state]}
       getCreateLabel={(query) => `+ Create ${query}`}
       onCreate={(q) => setState([...state, q])}
+      maxSelectedValues={1}
     >
       {children}
     </MultiSelect>

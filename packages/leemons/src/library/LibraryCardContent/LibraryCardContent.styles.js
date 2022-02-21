@@ -9,7 +9,7 @@ import {
 export const LibraryCardContentStyles = createStyles((theme, {}) => {
   return {
     root: {},
-    descriptionContainer: {
+    mainContainer: {
       minHeight: 86,
       padding: `${pxToRem(14)} ${pxToRem(16)}`,
     },

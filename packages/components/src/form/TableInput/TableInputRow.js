@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mantine/core';
-import { isFunction } from 'lodash';
+import { get, isFunction } from 'lodash';
 import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Controller, useForm } from 'react-hook-form';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
@@ -67,7 +67,7 @@ const TableInputRow = ({
                 placeholder: column.Header,
                 ...field,
                 ...inputProps,
-                error: errors[fieldName],
+                error: get(errors, fieldName),
                 form,
               })
             }

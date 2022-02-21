@@ -12,12 +12,40 @@ export const TableStyles = createStyles((theme, {}) => {
     root: {
       ...reset,
       width: '100%',
-      borderCollapse: 'collapse',
+      borderCollapse: 'separate',
+      borderSpacing: 0,
     },
     tr: {
       ...reset,
-      border: `0px solid ${theme.colors.ui02}`,
-      borderBottomWidth: 1,
+      '& td, & th': {
+        borderBottom: `1px solid ${theme.colors.ui02}`,
+      },
+    },
+    trSelectable: {
+      '& td, & th': {
+        borderTop: '1px solid transparent',
+      },
+      cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: theme.colors.ui03,
+      },
+    },
+    trActive: {
+      '& td': {
+        borderColor: theme.colors.interactive01d,
+        backgroundColor: theme.colors.interactive01v1,
+        borderBottom: `1px solid ${theme.colors.interactive01d}`,
+      },
+      '& td:first-of-type': {
+        borderLeft: `1px solid ${theme.colors.interactive01d}`,
+        borderTopLeftRadius: 3,
+        borderBottomLeftRadius: 3,
+      },
+      '& td:last-child': {
+        borderRight: `1px solid ${theme.colors.interactive01d}`,
+        borderTopRightRadius: 3,
+        borderBottomRightRadius: 3,
+      },
     },
     th: {
       ...reset,

@@ -9,7 +9,17 @@ import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task'];
+export const LIBRARYCARD_VARIANTS = ['media', 'task', 'unit'];
+export const LIBRARYCARD_UNIT = {
+  completed: PropTypes.number,
+  subsmission: PropTypes.number,
+  total: PropTypes.number,
+  subject: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  avgTime: PropTypes.number,
+  avgAttempts: PropTypes.number,
+};
 
 export const LIBRARY_CARD_DEFAULT_PROPS = {};
 export const LIBRARY_CARD_PROP_TYPES = {
@@ -31,6 +41,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
     category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
     role: PropTypes.oneOf(LIBRARYCARD_ROLES),
   }),
+  unit: PropTypes.shape(LIBRARYCARD_UNIT),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
   action: PropTypes.string,
@@ -38,7 +49,16 @@ export const LIBRARY_CARD_PROP_TYPES = {
   locale: PropTypes.string,
 };
 
-const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, locale, ...props }) => {
+const LibraryCard = ({
+  asset,
+  unit,
+  variant,
+  deadlineProps,
+  action,
+  onAction,
+  locale,
+  ...props
+}) => {
   const { classes, cx } = LibraryCardStyles({});
   return (
     <Box className={classes.root}>
@@ -55,13 +75,16 @@ const LibraryCard = ({ asset, variant, deadlineProps, action, onAction, locale, 
             hideExtension
           />
         }
-        deadlineProps={!isNil(deadlineProps) && { ...deadlineProps, locale }}
+        deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
+        direction={variant === 'unit' ? 'vertical' : null}
       />
       <LibraryCardContent
         description={asset.description}
         metadata={asset.metadata}
         tags={asset.tags}
         locale={locale}
+        variant={variant}
+        unit={unit}
       />
       <LibraryCardFooter
         fileType={asset.fileType}
