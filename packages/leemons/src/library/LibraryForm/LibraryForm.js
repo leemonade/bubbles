@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -16,7 +16,6 @@ import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 import { LibraryFormStyles } from './LibraryForm.styles';
 import { isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 
 export const LIBRARY_FORM_DEFAULT_PROPS = {
   asset: {},
