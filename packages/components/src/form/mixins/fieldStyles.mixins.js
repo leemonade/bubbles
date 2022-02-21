@@ -5,8 +5,8 @@ export function getInputStyle(theme, variant) {
     ...getFontProductive(null, 400),
     color: theme.colors.text02,
     marginBottom: theme.spacing['1'],
-    background: variant === 'default' ? theme.colors.uiBackground04 : theme.colors.ui03,
-    borderColor: variant === 'default' ? theme.colors.ui01 : theme.colors.ui03,
+    background: variant === 'filled' ? theme.colors.ui03 : theme.colors.uiBackground04,
+    borderColor: variant === 'filled' ? theme.colors.ui03 : theme.colors.ui01,
 
     '&:disabled': {
       cursor: 'not-allowed',
