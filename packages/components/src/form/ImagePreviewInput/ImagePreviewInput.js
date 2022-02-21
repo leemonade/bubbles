@@ -49,9 +49,10 @@ const ImagePreviewInput = ({
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (e) => {
-      setImageValue(e.target.files[0]);
-      setImagePreview(URL.createObjectURL(e.target.files[0]));
-      isFunction(onChange) && onChange(e.target.files[0]);
+      const file = e.target.files[0];
+      file.path = file.name;
+      setImageValue(file);
+      isFunction(onChange) && onChange(file);
     };
     input.click();
   };
@@ -79,7 +80,7 @@ const ImagePreviewInput = ({
       {!imagePreview ? (
         getControl()
       ) : (
-        <Stack fullWidth>
+        <Stack spacing={2} fullWidth>
           <ImageLoader
             src={imagePreview}
             height={132}
@@ -89,7 +90,7 @@ const ImagePreviewInput = ({
             style={{ ...previewStyle }}
           />
           <Box skipFlex>
-            <Button variant="light" leftIcon={<UndoIcon />} onClick={resetImage}>
+            <Button variant="light" size="sm" compact leftIcon={<UndoIcon />} onClick={resetImage}>
               {labels.changeImage}
             </Button>
           </Box>

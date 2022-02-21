@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction, trim, uniq } from 'lodash';
+import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
 import { Box, Stack } from '../../layout/';
 import { INPUT_WRAPPER_PROP_TYPES, InputError, Autocomplete, Button } from '../';
 import { Badge } from '../../informative';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
 import { TagsInputStyles } from './TagsInput.styles';
-import { isFunction } from 'lodash';
 
 export const TAGS_INPUT_DEFAULT_PROPS = {
   value: [],
@@ -53,8 +53,12 @@ const TagsInput = ({
       return;
     }
     setError(false);
-    isFunction(onChange) && onChange([...tags, inputValue]);
-    setTags([...tags, inputValue]);
+    const newTag = trim(inputValue);
+    if (!tags.includes(newTag)) {
+      const newTags = [...tags, newTag];
+      isFunction(onChange) && onChange(newTags);
+      setTags(newTags);
+    }
     setInputValue('');
     autoCompleteRef.current.deleteValues();
   };
@@ -66,24 +70,31 @@ const TagsInput = ({
     isFunction(onChange) && onChange(newTags);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      addTag();
+    }
+  };
+
   const { classes, cx } = TagsInputStyles({}, { name: 'TagsInput' });
   return (
     <Box className={classes.root}>
-      <Stack className={classes.autocompleteWrapper} wrap={'wrap'} fullWidth>
+      <Stack className={classes.autocompleteWrapper} wrap={'wrap'} fullWidth spacing={2}>
         <Box>
           <Autocomplete
             {...props}
             label={labels.autocomplete}
             placeholder={placeholder}
             value={tags}
-            data={suggestions.filter((s) => !tags.includes(s))}
+            data={uniq([...suggestions, ...tags])}
             onChange={setInputValue}
             onItemSubmit={handleItemSubmit}
             ref={autoCompleteRef}
+            onKeyDown={handleKeyDown}
           />
         </Box>
         <Box skipFlex>
-          <Button variant="light" leftIcon={<AddCircleIcon />} onClick={addTag}>
+          <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addTag}>
             {labels.addBadge}
           </Button>
         </Box>

@@ -68,7 +68,7 @@ const ColorInput = forwardRef(
           ref={ref}
           size={size}
           classNames={classes}
-          autocomplete="nope"
+          autoComplete="off"
           error={!isEmpty(error)}
         />
       </InputWrapper>
