@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const InlineSvgStyles = createStyles((theme, {}, getRef) => {
+export const InlineSvgStyles = createStyles((theme, { style }, getRef) => {
   return {
     root: {
       display: 'flex',
@@ -11,6 +11,7 @@ export const InlineSvgStyles = createStyles((theme, {}, getRef) => {
       boxSizing: 'border-box',
       justifyContent: 'center',
       alignItems: 'center',
+      ...style,
     },
     loading: {},
     loaded: {},

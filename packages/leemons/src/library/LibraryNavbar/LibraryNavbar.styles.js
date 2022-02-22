@@ -11,6 +11,11 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
       height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'start',
+      position: 'relative',
+      backgroundColor: theme.colors.ui03,
     },
     header: {
       color: theme.colors.text01,
@@ -22,13 +27,44 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       color: 'inherit',
     },
     uploadButton: {
-      padding: 24,
-      opacity: isExpanded ? 0 : 1,
-      transition: 'opacity 0.2s ease-in-out',
+      display: isExpanded && 'none',
+      padding: `${pxToRem(24)} ${pxToRem(14)} ${pxToRem(0)} ${pxToRem(14)}`,
+      // width: 'calc(100% - 16px)',
     },
     navbarTop: {
-      height: isExpanded ? 700 : 240,
-      transition: 'all 0.3s ease-in-out',
+      width: 'calc(100% - 20px)',
+      maxHeight: isExpanded ? 700 : 92,
+      marginInline: 10,
+      backgroundColor: isExpanded ? theme.colors.mainWhite : 'inherit',
+      transition:
+        'max-height 0.6s ease-out, box-shadow 1s ease-out, border 0.2s ease-out, background-color 0.6s ease-out',
+      overflow: 'hidden',
+      border: isExpanded ? `1px solid ${theme.colors.ui04}` : `1px solid transparent`,
+      position: 'relative',
+      zIndex: 2,
+    },
+    navbarTopSubWrapper: {
+      opacity: isExpanded ? 1 : 0,
+      transition: 'opacity 0.6s ease-out',
+    },
+    fileUpload: {
+      width: '100%',
+    },
+    fileUploadWrapper: {
+      padding: `${pxToRem(24)} ${pxToRem(16)}`,
+      backgroundColor: theme.colors.mainWhite,
+    },
+    navbarTopList: {
+      backgroundColor: theme.colors.ui03,
+      '& > span': {
+        padding: 16,
+      },
+    },
+    navbarBody: {
+      position: 'absolute',
+      top: 180,
+      right: 0,
+      left: 0,
     },
   };
 });

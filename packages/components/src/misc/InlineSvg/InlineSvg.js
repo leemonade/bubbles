@@ -44,7 +44,7 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, ignoreFi
     }
   }, [svg, className, strokeCurrent, fillCurrent, ignoreFill]);
 
-  const { classes, cx } = InlineSvgStyles({});
+  const { classes, cx } = InlineSvgStyles({ style });
 
   return (
     <Box
@@ -61,7 +61,7 @@ export const InlineSvg = ({ src, className, strokeCurrent, fillCurrent, ignoreFi
   );
 };
 
-InlineSvg.defaultProps = { ignoreFill: false };
+InlineSvg.defaultProps = { ignoreFill: false, style: {} };
 
 InlineSvg.propTypes = {
   src: PropTypes.string.isRequired,

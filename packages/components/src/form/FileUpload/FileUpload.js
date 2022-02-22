@@ -53,7 +53,7 @@ const FileUpload = ({
   errorMessage,
   hideUploadButton,
   single,
-  inputWrapperProps,
+  inputWrapperProps = {},
   initialFiles,
   ...props
 }) => {
