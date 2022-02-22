@@ -1,17 +1,25 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import { DatePicker as MantineDatePicker, DateRangePicker } from '@mantine/dates';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
-import { useId } from '@mantine/hooks';
 import {
+  DatePicker as MantineDatePicker,
+  DateRangePicker,
+  TimeInput as MantineTimeInput,
+  TIME_INPUT_PROP_TYPES,
+} from '@mantine/dates';
+import { useId } from '@mantine/hooks';
+import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
+import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
+import { Stack } from '../../layout';
+import {
+  InputWrapper,
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
-  InputWrapper,
 } from '../InputWrapper';
+import { TimeInputStyles } from '../TimeInput/TimeInput.styles';
 import { DatePickerStyles } from './DatePicker.styles';
-import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
+import { updateDate, updateTime } from './helpers';
 
 export const DATE_PICKER_SIZES = INPUT_WRAPPER_SIZES;
 export const DATE_PICKER_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
@@ -25,6 +33,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   required: false,
   range: false,
   locale: 'en',
+  withTime: false,
 };
 export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -33,18 +42,50 @@ export const DATE_PICKER_PROP_TYPES = {
   range: PropTypes.bool,
   /** Locale used for labels formatting, defaults to theme.datesLocale */
   locale: PropTypes.string,
+  withTime: PropTypes.bool,
+  value: PropTypes.instanceOf(Date),
 };
+
+function TimeInput({ onChange, size, ...props }) {
+  const { classes } = TimeInputStyles({ size }, { name: 'TimeInput' });
+
+  return <MantineTimeInput onChange={onChange} classNames={classes} size={size} {...props} />;
+}
 
 const DatePicker = forwardRef(
   (
-    { label, description, orientation, size, error, required, help, range, locale, ...props },
+    {
+      label,
+      description,
+      orientation,
+      size,
+      error,
+      required,
+      help,
+      range,
+      locale,
+      withTime,
+      value: userValue,
+      onChange,
+      ...props
+    },
     ref
   ) => {
     const uuid = useId();
     const [currentLocale, setCurrentLocale] = useState(locale);
-    const { classes, cx } = DatePickerStyles({ size });
+    const { classes } = DatePickerStyles({ size });
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
+
+    const [date, setDate] = useState(userValue);
+
+    // EN: Notify the parent component when the date changes
+    // ES: Notificar al componente padre cuando cambia la fecha
+    useEffect(() => {
+      if (typeof onChange === 'function') {
+        onChange(date);
+      }
+    }, [date, onChange]);
 
     useEffect(() => {
       let mounted = true;
@@ -69,16 +110,28 @@ const DatePicker = forwardRef(
         required={required}
         help={help}
       >
-        <Comp
-          {...props}
-          locale={currentLocale}
-          uuid={uuid}
-          ref={ref}
-          size={size}
-          classNames={{ ...classes, ...calendarClasses }}
-          error={!isEmpty(error)}
-          icon={<PluginCalendarIcon />}
-        />
+        <Stack spacing={1}>
+          <Comp
+            {...props}
+            locale={currentLocale}
+            uuid={uuid}
+            ref={ref}
+            size={size}
+            value={userValue || range ? undefined : date}
+            classNames={{ ...classes, ...calendarClasses }}
+            error={!isEmpty(error)}
+            onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
+            icon={<PluginCalendarIcon />}
+          />
+          {withTime && !range && (
+            <TimeInput
+              onChange={(v) => updateTime(v, date, setDate)}
+              value={userValue || date}
+              size={size}
+              error={!isEmpty(error)}
+            />
+          )}
+        </Stack>
       </InputWrapper>
     );
   }
