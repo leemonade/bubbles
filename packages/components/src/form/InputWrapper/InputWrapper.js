@@ -60,7 +60,7 @@ const InputWrapper = ({
   const orientation = INPUT_WRAPPER_ORIENTATIONS.includes(orientationProp)
     ? orientationProp
     : 'vertical';
-  const hasError = useMemo(() => !isNil(error) && error !== '', [error]);
+  const hasError = useMemo(() => !isEmpty(error), [error]);
   const hasHeader = useMemo(() => !isEmpty(label) || !isEmpty(description), [label, description]);
   const { classes, cx } = InputWrapperStyles({ size, orientation }, { name: 'InputWrapper' });
 

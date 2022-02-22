@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Autocomplete, AUTOCOMPLETE_DEFAULT_PROPS } from './Autocomplete';
+import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../InputWrapper';
 import mdx from './Autocomplete.mdx';
 import { UserDisplayItem } from '../../informative/UserDisplayItem';
-import { forwardRef } from 'react';
 
 export default {
   title: 'Molecules/Form/Autocomplete',
@@ -17,6 +17,8 @@ export default {
     },
   },
   argTypes: {
+    size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
+    orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
     onItemSubmit: { action: 'onItemSubmit' },
   },
 };
