@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   PaginatedList,
   PAGINATED_LIST_DEFAULT_PROPS,
   PAGINATED_LIST_LAYOUTS,
+  PAGINATED_LIST_PAGER_PLACES,
+  PAGINATED_LIST_VARIANTS,
 } from './PaginatedList';
-import { createStyles } from '@mantine/core';
-import { Paper, Box, Stack } from '../../layout';
+import { Paper, Stack } from '../../layout';
 import { Text } from '../../typography';
 import { makeData } from './mocks/makeData';
 import mdx from './PaginatedList.mdx';
@@ -26,6 +27,8 @@ export default {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     layout: { options: PAGINATED_LIST_LAYOUTS, control: { type: 'select' } },
+    pagerPlace: { options: PAGINATED_LIST_PAGER_PLACES, control: { type: 'select' } },
+    variant: { options: PAGINATED_LIST_VARIANTS, control: { type: 'select' } },
     onSelect: { action: 'Selected item' },
   },
 };
