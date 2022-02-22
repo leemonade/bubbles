@@ -1,12 +1,13 @@
 import { getPaddings, getFontProductive } from '../../theme.mixins';
 
-export function getInputStyle(theme) {
+export function getInputStyle(theme, variant) {
   return {
     ...getFontProductive(null, 400),
     color: theme.colors.text02,
     marginBottom: theme.spacing['1'],
-    background: theme.colors.uiBackground04,
-    gridArea: 'input',
+    background: variant === 'filled' ? theme.colors.ui03 : theme.colors.uiBackground04,
+    borderColor: variant === 'filled' ? theme.colors.ui03 : theme.colors.ui01,
+
     '&:disabled': {
       cursor: 'not-allowed',
       color: theme.colors.text06,
@@ -15,6 +16,7 @@ export function getInputStyle(theme) {
     '&:focus': {
       borderColor: theme.colors.ui01,
       boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
+      background: theme.colors.uiBackground04,
     },
     '&:focus-within': {
       borderColor: theme.colors.ui01,

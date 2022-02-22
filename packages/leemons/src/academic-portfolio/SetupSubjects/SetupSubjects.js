@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, isFunction } from 'lodash';
+import { cloneDeep, find, findIndex, isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
@@ -46,11 +46,22 @@ const SetupSubjects = ({
   onPrevious,
   sharedData,
   setSharedData,
-  firstDigitOptions,
+  firstDigitOptions: _firstDigitOptions,
   frequencyOptions,
   editable,
   ...props
 }) => {
+  let firstDigitOptions = cloneDeep(_firstDigitOptions);
+
+  if (sharedData.moreThanOneAcademicYear || sharedData.maxNumberOfCourses) {
+    const index = findIndex(firstDigitOptions, { value: 'course' });
+    if (index >= 0) {
+      firstDigitOptions.splice(index, 1);
+    }
+  }
+
+  console.log(firstDigitOptions);
+
   const defaultValues = {
     allSubjectsSameDuration: false,
     haveKnowledge: false,

@@ -131,6 +131,7 @@ export const ColorPicker = forwardRef(
                     key={i}
                     color={color}
                     onClick={() => !compact && setLightness(lightness)}
+                    autocomplete="nope"
                   />
                 );
               })}
@@ -146,6 +147,7 @@ export const ColorPicker = forwardRef(
                       key={i}
                       color={color}
                       onClick={() => setLightness(lightness)}
+                      autocomplete="nope"
                     />
                   );
                 })}
@@ -163,6 +165,7 @@ export const ColorPicker = forwardRef(
                       color={color}
                       onClick={() => setHue(h)}
                       actived={hue === h}
+                      autocomplete="nope"
                     />
                   );
                 })}
@@ -170,10 +173,10 @@ export const ColorPicker = forwardRef(
               <Space h="sm"></Space>
               <Stack className={classes.hue} spacing={3} alignItems="center">
                 <Box style={{ flex: 1 }}>
-                  <HueSlider value={hue} onChange={setHue} size="sm" />
+                  <HueSlider autocomplete="nope" value={hue} onChange={setHue} size="sm" />
                 </Box>
                 <Box style={{ width: 75 }}>
-                  <NumberInput value={hue} onChange={setHue} size="xs" />
+                  <NumberInput autocomplete="nope" value={hue} onChange={setHue} size="xs" />
                 </Box>
               </Stack>
             </Box>
@@ -188,6 +191,7 @@ export const ColorPicker = forwardRef(
               fullWidth="true"
               swatches={withSwatches && swatches}
               onChange={(e) => setColor(e)}
+              autocomplete="nope"
             />
             <Box className={classes.manual}>
               <Stack spacing={2}>
@@ -197,10 +201,11 @@ export const ColorPicker = forwardRef(
                     value={format}
                     onChange={setFormat}
                     className={classes.format}
+                    autocomplete="nope"
                   />
                 </Box>
                 <Box>
-                  <TextInput value={value} onChange={setColor} />
+                  <TextInput autocomplete="nope" value={value} onChange={setColor} />
                 </Box>
               </Stack>
             </Box>

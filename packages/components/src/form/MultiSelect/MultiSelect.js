@@ -126,6 +126,7 @@ const MultiSelect = forwardRef(
             {...props}
             ref={ref}
             size={size}
+            autoComplete="off"
             onChange={handleChange}
             rightSection={
               isClearable && showClear ? (

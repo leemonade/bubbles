@@ -1,9 +1,10 @@
 {
   "name": "@bubbles-ui/leemons",
-  "version": "1.0.4",
+  "version": "1.0.24",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "sideEffects": false,
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,29 +35,31 @@
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
     "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9003",
-    "clean": "rimraf es lib umd storybook-static build"
+    "clean": "rimraf es lib umd esm cjs storybook-static build"
   },
   "dependencies": {
     "@leemonade/rjsf-core": "^3.0.0",
     "@rjsf/core": "^3.2.1",
+    "colord": "^2.9.2",
     "immutability-helper": "^3.1.1",
     "json-rules-engine-simplified": "^0.1.17",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
-    "rjsf-conditionals": "^1.1.4",
     "react-hook-form": "^7.22.1",
+    "react-player": "^2.9.0",
     "react-router-dom": "^5.3.0",
+    "rjsf-conditionals": "^1.1.4",
     "rrule": "^2.6.8",
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.0.23",
-    "@bubbles-ui/icons": "^1.0.10",
-    "@bubbles-ui/editors": "^1.0.4",
     "@bubbles-ui/calendars": "^1.0.2",
+    "@bubbles-ui/components": "^1.0.23",
+    "@bubbles-ui/editors": "^1.0.4",
+    "@bubbles-ui/icons": "^1.0.10",
+    "dayjs": "^1.10.7",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "dayjs": "^1.10.7"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",

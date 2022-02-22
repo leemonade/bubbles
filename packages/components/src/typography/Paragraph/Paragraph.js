@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { ParagraphStyles } from './Paragraph.styles';
 import { Text, TEXT_SIZES, TEXT_TRANSFORMS } from '../Text';
@@ -14,31 +14,25 @@ export const PARAGRAPH_DEFAULT_PROPS = {
   clean: false,
 };
 
-const Paragraph = ({
-  children,
-  style,
-  align,
-  className,
-  classNames,
-  color: colorProp,
-  clean,
-  ...props
-}) => {
-  const color = PARAGRAPH_COLORS.includes(colorProp) ? colorProp : PARAGRAPH_DEFAULT_PROPS.color;
-  const { classes, cx } = ParagraphStyles({ align, clean });
+const Paragraph = forwardRef(
+  ({ children, style, align, className, classNames, color: colorProp, clean, ...props }, ref) => {
+    const color = PARAGRAPH_COLORS.includes(colorProp) ? colorProp : PARAGRAPH_DEFAULT_PROPS.color;
+    const { classes, cx } = ParagraphStyles({ align, clean });
 
-  return (
-    <Text
-      {...props}
-      as={'p'}
-      color={color}
-      role={'productive'}
-      className={cx(classes.root, className)}
-    >
-      {children}
-    </Text>
-  );
-};
+    return (
+      <Text
+        {...props}
+        ref={ref}
+        as={'p'}
+        color={color}
+        role={'productive'}
+        className={cx(classes.root, className)}
+      >
+        {children}
+      </Text>
+    );
+  }
+);
 
 Paragraph.defaultProps = PARAGRAPH_DEFAULT_PROPS;
 

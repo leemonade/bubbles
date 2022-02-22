@@ -34,7 +34,12 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
 
   useEffect(() => {
     if (callOnSave) {
-      isFunction(onSave) && onSave(sharedData);
+      const toSend = { ...sharedData };
+      if (toSend.useCreditSystem) {
+        toSend.credits = null;
+        delete toSend.useCreditSystem;
+      }
+      isFunction(onSave) && onSave(toSend);
       setCallOnSave(false);
     }
   }, [callOnSave]);

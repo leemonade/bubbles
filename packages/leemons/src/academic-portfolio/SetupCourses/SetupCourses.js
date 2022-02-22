@@ -76,7 +76,7 @@ const SetupCourses = ({
     ...sharedData,
   };
 
-  const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 1);
+  const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 0);
 
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(
     defaultValues.useDefaultSubstagesName
@@ -219,9 +219,11 @@ const SetupCourses = ({
                 setOnlyOneCourse(e);
                 setValue('maxNumberOfCourses', e ? 1 : 0);
                 setValue('courseCredits', 0);
+                setValue('moreThanOneAcademicYear', false);
               }}
             />
-            <Controller
+            {/*
+           <Controller
               name="hideCoursesInTree"
               control={control}
               render={({ field: { value, ...field } }) => (
@@ -233,18 +235,21 @@ const SetupCourses = ({
                 />
               )}
             />
-            <Controller
-              name="moreThanOneAcademicYear"
-              control={control}
-              render={({ field: { value, ...field } }) => (
-                <Checkbox
-                  label={labels.moreThanOneAcademicYear}
-                  checked={value}
-                  disabled={!editable}
-                  {...field}
-                />
-              )}
-            />
+            */}
+            {!onlyOneCourse ? (
+              <Controller
+                name="moreThanOneAcademicYear"
+                control={control}
+                render={({ field: { value, ...field } }) => (
+                  <Checkbox
+                    label={labels.moreThanOneAcademicYear}
+                    checked={value}
+                    disabled={!editable}
+                    {...field}
+                  />
+                )}
+              />
+            ) : null}
           </Stack>
 
           {!onlyOneCourse && (

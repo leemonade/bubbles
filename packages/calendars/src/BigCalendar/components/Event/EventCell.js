@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Box, createStyles, ImageLoader } from '@bubbles-ui/components';
-import { colord } from '@bubbles-ui/leemons';
+import { colord } from 'colord';
 
 const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
   return {
