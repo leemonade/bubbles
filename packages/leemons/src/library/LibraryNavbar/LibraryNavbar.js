@@ -129,7 +129,6 @@ const LibraryNavbar = ({
                 subtitle={labels.fileUploadSubtitle}
                 hideUploadButton
                 single
-                fullWidth
                 onChange={onFileHandler}
               />
             </Box>

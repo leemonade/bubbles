@@ -25,7 +25,7 @@ const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, ...props 
   const renderIcon = () => {
     if (!icon) return;
     if (typeof icon === 'string') {
-      return <ImageLoader src={icon} style={{ position: null }} />;
+      return <ImageLoader src={icon} forceImage height={16} width={16} />;
     }
     return icon;
   };

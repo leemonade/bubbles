@@ -45,7 +45,7 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
     },
     navbarTopSubWrapper: {
       opacity: isExpanded ? 1 : 0,
-      transition: 'opacity 0.6s ease-out',
+      transition: 'opacity 0.2s ease-out',
     },
     fileUpload: {
       width: '100%',
