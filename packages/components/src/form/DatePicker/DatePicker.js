@@ -1,3 +1,4 @@
+import React, { forwardRef, useEffect, useState } from 'react';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import {
   DatePicker as MantineDatePicker,
@@ -8,7 +9,6 @@ import {
 import { useId } from '@mantine/hooks';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import { forwardRef, useEffect, useState } from 'react';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
 import {
