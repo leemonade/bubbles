@@ -35,6 +35,7 @@ const ContextContainer = ({
   divided,
   spacing,
   direction,
+  fullHeight,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -60,7 +61,13 @@ const ContextContainer = ({
   }, [children, divided]);
 
   return (
-    <Stack direction="column" spacing={5} fullWidth className={cx(classes.root, className)}>
+    <Stack
+      direction="column"
+      spacing={5}
+      fullWidth
+      className={cx(classes.root, className)}
+      fullHeight={fullHeight}
+    >
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={5} fullWidth>
           {hasTitle && (
@@ -80,7 +87,7 @@ const ContextContainer = ({
           )}
         </Stack>
       )}
-      <Stack direction={direction} spacing={spacing} fullWidth {...props}>
+      <Stack {...props} direction={direction} spacing={spacing} fullWidth fullHeight={fullHeight}>
         {childrenNodes}
       </Stack>
     </Stack>
