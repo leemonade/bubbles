@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import update from 'immutability-helper';
-import { isFunction } from 'lodash';
+import { isFunction, isEmpty } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { Box } from '../../layout';
+import { InputError } from '../InputError';
 import { TableInputDisplay } from './TableInputDisplay';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.const';
+import { TableInputStyles } from './TableInput.styles';
 
 // ----------------------------------------------------------------
 // HELP FUNCTIONS
@@ -37,9 +40,11 @@ const TableInput = ({
   onSort,
   onBeforeAdd,
   form,
+  error,
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
+  const hasError = useMemo(() => !isEmpty(error), [error]);
 
   useEffect(() => {
     const newData = serializeData(data);
@@ -101,16 +106,24 @@ const TableInput = ({
     handleOnChange(newData, { type: 'sort' });
   };
 
+  const { classes, cx } = TableInputStyles({ hasError }, { name: 'TableInput' });
+
   return (
-    <TableInputDisplay
-      {...props}
-      form={form}
-      data={tableData}
-      onAdd={handleOnAdd}
-      onRemove={handleOnRemove}
-      onEdit={handleOnEdit}
-      onSort={handleOnSort}
-    />
+    <Box>
+      <Box className={classes.wrapper}>
+        <TableInputDisplay
+          {...props}
+          form={form}
+          data={tableData}
+          onAdd={handleOnAdd}
+          onRemove={handleOnRemove}
+          onEdit={handleOnEdit}
+          onSort={handleOnSort}
+          classes={classes}
+        />
+      </Box>
+      {hasError && <InputError message={error} />}
+    </Box>
   );
 };
 
