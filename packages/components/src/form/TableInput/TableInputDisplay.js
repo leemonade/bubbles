@@ -122,7 +122,7 @@ const TableInputDisplay = ({
               <th
                 {...column.getHeaderProps({
                   className: cx(tableClasses.th, column.className),
-                  style: column.style,
+                  style: { ...column.style, paddingLeft: 0 },
                 })}
               >
                 <Text size="xs" role="productive" color="primary" strong>
@@ -130,18 +130,25 @@ const TableInputDisplay = ({
                 </Text>
               </th>
             ))}
-            <th></th>
+            <th style={{ width: '1%' }}></th>
           </tr>
         ))}
 
-        <tr className={tableClasses.tr}>
+        <tr className={rows.length > 0 ? tableClasses.tr : ''}>
           {sortable && !disabled && <th></th>}
           {columns.map((column, i) => (
-            <th key={`in-${i}`} className={cx(tableClasses.td, classes.inputCell)}>
+            <th
+              key={`in-${i}`}
+              className={cx(tableClasses.td, classes.inputCell)}
+              style={{ paddingLeft: 0 }}
+            >
               {getColumnInput(column.accessor)}
             </th>
           ))}
-          <th className={cx(tableClasses.td, classes.inputCell)}>
+          <th
+            className={cx(tableClasses.td, classes.inputCell)}
+            style={{ paddingLeft: 0, paddingBottom: 4 }}
+          >
             {!disabled && (
               <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={handleOnAdd}>
                 {labels.add}

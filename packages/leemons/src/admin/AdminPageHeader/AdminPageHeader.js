@@ -276,37 +276,41 @@ const AdminPageHeader = ({
           )}
         </Box>
 
-        <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
-          {/* Description */}
-          {!editMode && values && values.description && (
-            <ContentLegible>
-              <Paragraph>{values.description}</Paragraph>
-            </ContentLegible>
-          )}
-          {editMode && (
-            <ContentLegible>
-              <Controller
-                name="description"
-                control={control}
-                defaultValue={values?.description || ''}
-                rules={{
-                  required: required.description
-                    ? getErrorLabel('description', 'required', 'Required field')
-                    : false,
-                }}
-                render={({ field }) => (
-                  <Textarea
-                    label={getInputLabel('description')}
-                    placeholder={getInputPlaceholder('description')}
-                    error={errors?.description?.message}
-                    required={required.description}
-                    {...field}
-                  />
-                )}
-              />
-            </ContentLegible>
-          )}
-        </PageContainer>
+        {values && values.description ? (
+          <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
+            {/* Description */}
+            {!editMode && (
+              <ContentLegible>
+                <Paragraph>{values.description}</Paragraph>
+              </ContentLegible>
+            )}
+            {editMode && (
+              <ContentLegible>
+                <Controller
+                  name="description"
+                  control={control}
+                  defaultValue={values?.description || ''}
+                  rules={{
+                    required: required.description
+                      ? getErrorLabel('description', 'required', 'Required field')
+                      : false,
+                  }}
+                  render={({ field }) => (
+                    <Textarea
+                      label={getInputLabel('description')}
+                      placeholder={getInputPlaceholder('description')}
+                      error={errors?.description?.message}
+                      required={required.description}
+                      {...field}
+                    />
+                  )}
+                />
+              </ContentLegible>
+            )}
+          </PageContainer>
+        ) : (
+          <PageContainer style={{ marginTop: childRect.height }} />
+        )}
       </Box>
     </form>
   );
