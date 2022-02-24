@@ -10,7 +10,7 @@ import { Box, Stack } from '../../layout';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
 import { colord } from 'colord';
 
-export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
+export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsla', 'hsl'];
 export const COLOR_PICKER_SWATCHES = [
   '#DB6B6B',
   '#D9A2C0',
@@ -79,6 +79,20 @@ export const ColorPicker = forwardRef(
     const [hue, setHue] = useState(null);
     const [lightness, setLightness] = useState(null);
 
+    const determineFormat = () => {
+      if (value[0] === '#') {
+        return 'hex';
+      }
+      for (let i = 1; i < COLOR_PICKER_FORMATS.length; i++) {
+        if (value.includes(COLOR_PICKER_FORMATS[i])) {
+          debugger;
+          const asd = value.includes(COLOR_PICKER_FORMATS[i]);
+          return COLOR_PICKER_FORMATS[i];
+        }
+      }
+      return 'hex';
+    };
+
     useEffect(() => {
       if (colorProp !== value) {
         setColor(colorProp);
@@ -116,6 +130,8 @@ export const ColorPicker = forwardRef(
       if (value !== colorProp && isFunction(props.onChange)) {
         props.onChange(value);
       }
+      const newFormat = determineFormat();
+      if (newFormat !== format) setFormat(newFormat);
     }, [value]);
 
     return (
@@ -132,7 +148,7 @@ export const ColorPicker = forwardRef(
                     key={i}
                     color={color}
                     onClick={() => !compact && setLightness(lightness)}
-                    autocomplete="nope"
+                    autoComplete="false"
                   />
                 );
               })}
@@ -148,7 +164,7 @@ export const ColorPicker = forwardRef(
                       key={i}
                       color={color}
                       onClick={() => setLightness(lightness)}
-                      autocomplete="nope"
+                      autoComplete="false"
                     />
                   );
                 })}
@@ -166,7 +182,7 @@ export const ColorPicker = forwardRef(
                       color={color}
                       onClick={() => setHue(h)}
                       actived={hue === h}
-                      autocomplete="nope"
+                      autoComplete="false"
                     />
                   );
                 })}
@@ -174,10 +190,10 @@ export const ColorPicker = forwardRef(
               <Space h="sm"></Space>
               <Stack className={classes.hue} spacing={3} alignItems="center">
                 <Box style={{ flex: 1 }}>
-                  <HueSlider autocomplete="nope" value={hue} onChange={setHue} size="sm" />
+                  <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
                 </Box>
                 <Box style={{ width: 75 }}>
-                  <NumberInput autocomplete="nope" value={hue} onChange={setHue} size="xs" />
+                  <NumberInput autoComplete="false" value={hue} onChange={setHue} size="xs" />
                 </Box>
               </Stack>
             </Box>
@@ -192,7 +208,7 @@ export const ColorPicker = forwardRef(
               fullWidth="true"
               swatches={withSwatches && swatches}
               onChange={(e) => setColor(e)}
-              autocomplete="nope"
+              autoComplete="false"
             />
             <Box className={classes.manual}>
               <Stack spacing={2}>
@@ -202,11 +218,11 @@ export const ColorPicker = forwardRef(
                     value={format}
                     onChange={setFormat}
                     className={classes.format}
-                    autocomplete="nope"
+                    autoComplete="false"
                   />
                 </Box>
                 <Box>
-                  <TextInput autocomplete="nope" value={value} onChange={setColor} />
+                  <TextInput autoComplete="false" value={value} onChange={setColor} />
                 </Box>
               </Stack>
             </Box>

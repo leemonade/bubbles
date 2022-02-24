@@ -93,7 +93,7 @@ export const ColorPickerStyles = createStyles(
         padding: `0 ${pxToRem(theme.spacing[4])} ${pxToRem(theme.spacing[4])}`,
       },
       format: {
-        flex: `1 1 ${pxToRem(110)}`,
+        flex: 1,
         marginRight: pxToRem(theme.spacing[2]),
       },
       preview: {
