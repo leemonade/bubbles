@@ -76,6 +76,7 @@ const DatePicker = forwardRef(
     const { classes } = DatePickerStyles({ size });
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
+    const compProps = range ? { amountOfMonths: 2 } : {};
 
     const [date, setDate] = useState(userValue);
 
@@ -110,9 +111,10 @@ const DatePicker = forwardRef(
         required={required}
         help={help}
       >
-        <Stack spacing={1}>
+        <Stack spacing={1} fullWidth>
           <Comp
             {...props}
+            {...compProps}
             locale={currentLocale}
             uuid={uuid}
             ref={ref}
@@ -129,6 +131,7 @@ const DatePicker = forwardRef(
               value={userValue || date}
               size={size}
               error={!isEmpty(error)}
+              skipFlex
             />
           )}
         </Stack>
