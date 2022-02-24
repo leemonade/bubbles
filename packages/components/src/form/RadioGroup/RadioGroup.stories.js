@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { RadioGroup, RADIOGROUP_DIRECTIONS, RADIOGROUP_DEFAULT_PROPS } from './RadioGroup';
+import { RadioGroup, RADIOGROUP_DEFAULT_PROPS, RADIOGROUP_DIRECTIONS } from './RadioGroup';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../../form';
 import mdx from './RadioGroup.mdx';
 import { RADIO_VARIANTS } from '../Radio/Radio';
@@ -44,6 +43,7 @@ Playground.args = {
       value: 'option1',
       label: 'Label for option 1',
       icon: <AcademicCapIcon height={32} width={32} />,
+      disabled: true,
     },
     {
       value: 'option2',

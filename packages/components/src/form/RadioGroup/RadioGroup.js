@@ -67,6 +67,10 @@ const RadioGroup = forwardRef(
     const hasError = useMemo(() => !isEmpty(error), [error]);
     const uuid = useUuid();
 
+    React.useEffect(() => {
+      setValue(props.value);
+    }, [props.value]);
+
     const { classes, cx } = RadioGroupStyles(
       { variant, value, direction, fullWidth, activePosition, hasError },
       { name: 'RadioGroup' }
@@ -84,7 +88,8 @@ const RadioGroup = forwardRef(
     }
 
     const onChange = (value) => {
-      if (!props.disabled) {
+      const item = data.find((item) => item.value === value);
+      if (!props.disabled && !item.disabled) {
         props.onChange(value);
         setValue(value);
       }
@@ -134,7 +139,7 @@ const RadioGroup = forwardRef(
                 label: (
                   <Radio
                     {...item}
-                    disabled={props.disabled}
+                    disabled={item.disabled || props.disabled}
                     ref={(node) => {
                       refs.current[item.value] = node;
                     }}
