@@ -88,9 +88,11 @@ const UserDisplayItem = ({
             <Text color={textColor} className={classes.name}>
               {fullName}
             </Text>
-            <Text color={textColor} className={classes.surname}>
-              {surname}
-            </Text>
+            {!isEmpty(surname) && (
+              <Text color={textColor} className={classes.surname}>
+                {surname}
+              </Text>
+            )}
           </>
         )}
       </Box>

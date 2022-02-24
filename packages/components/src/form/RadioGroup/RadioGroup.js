@@ -38,7 +38,7 @@ export const RADIOGROUP_PROP_TYPES = {
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.any,
 };
 
 const RadioGroup = forwardRef(

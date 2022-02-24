@@ -1,34 +1,41 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import {
   MultiSelect as MantineMultiSelect,
   Autocomplete as MantineAutocomplete,
 } from '@mantine/core';
-import { InputWrapper, INPUT_WRAPPER_SIZES } from '../InputWrapper';
-import { AutocompleteStyles } from './Autocomplete.styles';
-import { useId } from '@mantine/hooks';
-import { Text } from '../../typography/Text';
 import { DeleteIcon } from '@bubbles-ui/icons/solid/';
-import { isFunction } from 'lodash';
-import { useImperativeHandle } from 'react';
+import { isFunction, isEmpty } from 'lodash';
+import { useId } from '@mantine/hooks';
+import {
+  InputWrapper,
+  INPUT_WRAPPER_PROP_TYPES,
+  INPUT_WRAPPER_DEFAULT_PROPS,
+} from '../InputWrapper';
+import { Box } from '../../layout';
+import { AutocompleteStyles } from './Autocomplete.styles';
+import { Text } from '../../typography/Text';
 
 export const AUTOCOMPLETE_DEFAULT_PROPS = {
+  ...INPUT_WRAPPER_DEFAULT_PROPS,
   itemComponent: forwardRef(({ value, ...others }, ref) => (
-    <div ref={ref} {...others}>
+    <Box ref={ref} {...others}>
       <Text>{value}</Text>
-    </div>
+    </Box>
   )),
   valueComponent: forwardRef(({ value, onRemove, classNames, ...others }, ref) => (
-    <div ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
+    <Box ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
       <Text>{value}</Text>
-    </div>
+    </Box>
   )),
   multiple: false,
   value: [],
+  placeholder: '',
+  ignoreWrapper: false,
 };
 
 export const AUTOCOMPLETE_PROP_TYPES = {
-  label: PropTypes.string,
+  ...INPUT_WRAPPER_PROP_TYPES,
   placeholder: PropTypes.string,
   data: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
@@ -46,15 +53,21 @@ export const AUTOCOMPLETE_PROP_TYPES = {
   valueComponent: PropTypes.elementType,
   nothingFoundLabel: PropTypes.string,
   multiple: PropTypes.bool,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onItemSubmit: PropTypes.func,
+  id: PropTypes.string,
+  ignoreWrapper: PropTypes.bool,
 };
 
 const Autocomplete = forwardRef(
   (
     {
       label,
+      description,
+      help,
+      required,
+      orientation,
+      size,
+      error,
       placeholder,
       data,
       value,
@@ -62,18 +75,18 @@ const Autocomplete = forwardRef(
       valueComponent,
       nothingFoundLabel,
       multiple,
-      size,
-      error,
       onItemSubmit,
       onChange,
+      id,
+      ignoreWrapper,
       ...props
     },
     ref
   ) => {
-    const { classes, cx } = AutocompleteStyles({ multiple });
-
+    const { classes, cx } = AutocompleteStyles({ multiple }, { name: 'Autocomplete' });
     const [selectedValue, setSelectedValue] = useState(value.length > 1 ? value : null);
     const [inputValue, setInputValue] = useState('');
+    const uuid = useId();
 
     const onItemSubmitHandler = (e) => {
       isFunction(onItemSubmit) && onItemSubmit(e);
@@ -94,12 +107,17 @@ const Autocomplete = forwardRef(
       deleteValues: () => deleteValues(),
     }));
 
-    const uuid = useId();
+    const Wrapper = !ignoreWrapper ? InputWrapper : React.Fragment;
+    const wrapperProps = !ignoreWrapper
+      ? { uuid: id || uuid, size, error, label, description, help, required }
+      : {};
+
     return (
-      <InputWrapper uuid={uuid} size={size} error={error}>
+      <Wrapper {...wrapperProps}>
         {!multiple ? (
           <MantineAutocomplete
-            label={label}
+            {...props}
+            id={id || uuid}
             value={inputValue}
             placeholder={placeholder}
             itemComponent={itemComponent}
@@ -117,16 +135,16 @@ const Autocomplete = forwardRef(
             }
             onChange={onChangeHandler}
             data={data}
-            {...props}
             ref={ref}
             classNames={classes}
+            error={!isEmpty(error)}
           />
         ) : (
           <MantineMultiSelect
+            {...props}
+            id={id || uuid}
             ref={ref}
             classNames={classes}
-            {...props}
-            label={label}
             placeholder={placeholder}
             data={data}
             searchable={true}
@@ -140,15 +158,15 @@ const Autocomplete = forwardRef(
               onItemSubmitHandler(e);
               setInputValue(e);
             }}
+            error={!isEmpty(error)}
           />
         )}
-      </InputWrapper>
+      </Wrapper>
     );
   }
 );
 
 Autocomplete.defaultProps = AUTOCOMPLETE_DEFAULT_PROPS;
-
 Autocomplete.propTypes = AUTOCOMPLETE_PROP_TYPES;
 
 export { Autocomplete };

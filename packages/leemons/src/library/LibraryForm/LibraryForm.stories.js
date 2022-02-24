@@ -32,7 +32,7 @@ Playground.args = {
     title: 'Upload file',
     featuredImage: 'Featured image',
     tags: 'Tags',
-    addBadge: 'Add tag',
+    addTag: 'Add tag',
     changeImage: 'Change image',
     uploadButton: 'Upload image',
     submitForm: 'Add to library',

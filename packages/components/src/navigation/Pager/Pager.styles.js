@@ -1,8 +1,26 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const PagerStyles = createStyles(
-  (theme, { withGoTo, withControls, withEdges, disabled }) => {
+  (theme, { withGoTo, withControls, withEdges, disabled, hidePages }) => {
+    const controlProps = {};
+
+    if (hidePages) {
+      controlProps.display = 'none';
+    }
+
+    if ((withControls || withEdges) && hidePages) {
+      controlProps['&:first-of-type, &:last-of-type'] = {
+        display: 'flex',
+      };
+    }
+
+    if (withEdges && withControls && hidePages) {
+      controlProps['&:nth-of-type(2), &:nth-last-of-type(-n+2)'] = {
+        display: 'flex',
+      };
+    }
+
     return {
       root: {
         gap: 0,
@@ -20,20 +38,24 @@ export const PagerStyles = createStyles(
         padding: 0,
         lineHeight: pxToRem(24),
         cursor: disabled && 'default',
+        ...controlProps,
 
         '&:disabled': {
-          display: 'none',
+          display: !hidePages && 'none',
         },
 
         '&:first-of-type': {
           cursor: disabled && 'default',
         },
+
         '&:hover': {
           backgroundColor: disabled ? 'none' : 'rgba(0, 0, 0, 0.03)',
         },
+
         '&:active:not(:disabled):not(.mantine-ref_dots_1)': {
           transform: disabled && 'none',
         },
+
         '&:first-of-type > svg, :last-of-type > svg': {
           height: withControls && !withEdges && pxToRem(22),
           width: withControls && !withEdges && pxToRem(22),

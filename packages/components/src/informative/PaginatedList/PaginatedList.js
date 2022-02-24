@@ -2,26 +2,32 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { useTable, usePagination } from 'react-table';
-import { Box, Stack, Paper, Masonry } from '../../layout';
+import { Box, Stack, Paper } from '../../layout';
 import { LoadingOverlay } from '../../overlay';
-import { Pager } from '../../navigation';
+import { Pager, PAGER_VARIANTS } from '../../navigation/Pager';
 import { TableView } from './views/TableView';
 import { GridView } from './views/GridView';
 import { PaginatedListStyles } from './PaginatedList.styles';
 
 export const PAGINATED_LIST_LAYOUTS = ['table', 'grid'];
+export const PAGINATED_LIST_VARIANTS = PAGER_VARIANTS;
+export const PAGINATED_LIST_PAGER_PLACES = ['start', 'center', 'end'];
 
 export const PAGINATED_LIST_DEFAULT_PROPS = {
   columns: [],
   layout: PAGINATED_LIST_LAYOUTS[0],
+  variant: PAGINATED_LIST_VARIANTS[0],
   currentPage: 0,
   size: 10,
   paperProps: { padding: 2, fullWidth: true },
   selectable: false,
+  pagerPlace: PAGINATED_LIST_PAGER_PLACES[1],
 };
 export const PAGINATED_LIST_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
   layout: PropTypes.oneOf(PAGINATED_LIST_LAYOUTS),
+  variant: PropTypes.oneOf(PAGINATED_LIST_VARIANTS),
+  pagerPlace: PropTypes.oneOf(PAGINATED_LIST_PAGER_PLACES),
   currentPage: PropTypes.number,
   size: PropTypes.number,
   paperProps: PropTypes.any,
@@ -39,6 +45,8 @@ const PaginatedList = ({
   paperProps,
   selectable,
   onSelect,
+  variant,
+  pagerPlace,
   ...props
 }) => {
   const [data, setData] = useState([]);
@@ -124,13 +132,14 @@ const PaginatedList = ({
           )}
         </Paper>
 
-        <Stack fullWidth justifyContent="center">
+        <Stack fullWidth justifyContent={pagerPlace}>
           <Pager
             page={pageIndex}
             total={pageCount}
             withSize={true}
             onChange={(val) => gotoPage(val - 1)}
             onSizeChange={setPageSize}
+            variant={variant}
           />
         </Stack>
       </Stack>

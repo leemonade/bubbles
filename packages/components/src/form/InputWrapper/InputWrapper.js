@@ -54,20 +54,21 @@ const InputWrapper = ({
   headerStyle,
   contentStyle,
   className,
+  style,
   ...props
 }) => {
   const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
   const orientation = INPUT_WRAPPER_ORIENTATIONS.includes(orientationProp)
     ? orientationProp
     : 'vertical';
-  const hasError = useMemo(() => !isNil(error) && error !== '', [error]);
+  const hasError = useMemo(() => !isEmpty(error), [error]);
   const hasHeader = useMemo(() => !isEmpty(label) || !isEmpty(description), [label, description]);
   const { classes, cx } = InputWrapperStyles({ size, orientation }, { name: 'InputWrapper' });
 
   const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
 
   return (
-    <Box className={cx(classes.root, className)}>
+    <Box className={cx(classes.root, className)} style={style}>
       {/* Label & Description */}
       {hasHeader && (
         <Stack

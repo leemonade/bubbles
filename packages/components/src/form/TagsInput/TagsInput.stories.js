@@ -28,11 +28,11 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...TAGS_INPUT_DEFAULT_PROPS,
   labels: {
-    autocomplete: 'Tags',
-    addBadge: 'Add tag',
+    addButton: 'Add tag',
   },
+  label: 'Tags',
   placeholder: 'Name of tag',
   suggestions: ['Cat', 'Dog', 'Horse', 'Bird', 'Fish'],
   value: ['Fish', 'Dog'],
-  errorMessage: 'Please enter a tag',
+  error: 'Please enter a tag',
 };

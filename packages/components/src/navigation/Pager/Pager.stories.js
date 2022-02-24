@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Pager, PAGER_DEFAULT_PROPS, PAGER_DIRECTIONS } from './Pager';
+import { Pager, PAGER_DEFAULT_PROPS, PAGER_DIRECTIONS, PAGER_VARIANTS } from './Pager';
 import mdx from './Pager.mdx';
 
 export default {
@@ -16,10 +16,9 @@ export default {
     },
   },
   argTypes: {
-    direction: { control: { type: 'select' }, options: PAGER_DIRECTIONS },
+    direction: { options: PAGER_DIRECTIONS, control: { type: 'select' } },
+    variant: { options: PAGER_VARIANTS, control: { type: 'select' } },
     onChange: { action: 'onChange' },
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
   },
 };
 

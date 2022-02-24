@@ -16,7 +16,6 @@ import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 import { LibraryFormStyles } from './LibraryForm.styles';
 import { isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 
 export const LIBRARY_FORM_DEFAULT_PROPS = {
   asset: {},
@@ -24,7 +23,7 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     title: '',
     featuredImage: '',
     tags: '',
-    addBadge: '',
+    addTag: '',
     changeImage: '',
     uploadButton: '',
     submitForm: '',
@@ -48,7 +47,7 @@ export const LIBRARY_FORM_PROP_TYPES = {
     title: PropTypes.string,
     featuredImage: PropTypes.string,
     tags: PropTypes.string,
-    addBadge: PropTypes.string,
+    addTag: PropTypes.string,
     changeImage: PropTypes.string,
     uploadButton: PropTypes.string,
     submitForm: PropTypes.string,
@@ -195,7 +194,7 @@ const LibraryForm = ({
               name="tags"
               render={({ field: { ref, ...field } }) => (
                 <TagsInput
-                  labels={{ addBadge: labels.addBadge }}
+                  labels={{ addButton: labels.addTag }}
                   placeholder={placeholders.tagsInput}
                   suggestions={['Cat', 'Dog', 'Horse', 'Bird', 'Fish']}
                   errorMessage={errorMessages.tags}

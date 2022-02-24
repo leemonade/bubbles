@@ -6,6 +6,7 @@ import { Select } from '../../form';
 import { PagerStyles } from './Pager.styles';
 
 export const PAGER_DIRECTIONS = ['column', 'row'];
+export const PAGER_VARIANTS = ['paged', 'infinity'];
 export const PAGER_DEFAULT_PROPS = {
   total: 10,
   size: 10,
@@ -21,6 +22,7 @@ export const PAGER_DEFAULT_PROPS = {
     show: 'Show',
     goTo: 'Go to',
   },
+  variant: PAGER_VARIANTS[0],
 };
 export const PAGER_PROP_TYPES = {
   total: PropTypes.number,
@@ -30,6 +32,7 @@ export const PAGER_PROP_TYPES = {
   withGoTo: PropTypes.bool,
   withSize: PropTypes.bool,
   direction: PropTypes.oneOf(PAGER_DIRECTIONS),
+  variant: PropTypes.oneOf(PAGER_VARIANTS),
   withControls: PropTypes.bool,
   withEdges: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -52,12 +55,13 @@ const Pager = forwardRef(
       onChange,
       onSizeChange,
       labels,
+      variant,
       ...props
     },
     ref
   ) => {
     const { classes, cx } = PagerStyles(
-      { withGoTo, withControls, withEdges, disabled },
+      { withGoTo, withControls, withEdges, disabled, hidePages: variant === 'infinity' },
       { name: 'Pager' }
     );
 
@@ -124,11 +128,11 @@ const Pager = forwardRef(
           </Box>
         )}
         <MantinePagination
+          {...props}
+          ref={ref}
           total={total}
           boundaries={boundaries}
           siblings={siblings}
-          {...props}
-          ref={ref}
           classNames={classes}
           className={classes.root}
           direction={direction}
