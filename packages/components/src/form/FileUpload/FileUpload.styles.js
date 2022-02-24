@@ -76,7 +76,7 @@ export const FileUploadStyles = createStyles((theme, { disabled, single, files, 
       },
     },
     fileList: {
-      marginTop: pxToRem(theme.spacing[4]),
+      marginTop: !hideDropzone && pxToRem(theme.spacing[4]),
       border: `1px solid ${theme.colors.interactive01h}`,
       borderRadius: pxToRem(2),
     },

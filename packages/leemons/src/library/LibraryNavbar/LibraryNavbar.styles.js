@@ -9,8 +9,8 @@ import {
 export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-      height: '100vh',
+      height: '100%',
+      flex: 1,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'start',
@@ -36,8 +36,8 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       maxHeight: isExpanded ? 700 : 92,
       marginInline: 10,
       backgroundColor: isExpanded ? theme.colors.mainWhite : 'inherit',
-      transition:
-        'max-height 0.6s ease-out, box-shadow 1s ease-out, border 0.2s ease-out, background-color 0.6s ease-out',
+      // transition:
+      //  'max-height 0.2s ease-out, box-shadow 0.2s ease-out, border 0.2s ease-out, background-color 0.2s ease-out',
       overflow: 'hidden',
       border: isExpanded ? `1px solid ${theme.colors.ui04}` : `1px solid transparent`,
       position: 'relative',
@@ -51,7 +51,7 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       width: '100%',
     },
     fileUploadWrapper: {
-      padding: `${pxToRem(24)} ${pxToRem(16)}`,
+      padding: `${pxToRem(10)} ${pxToRem(16)} ${pxToRem(20)} ${pxToRem(16)}`,
       backgroundColor: theme.colors.mainWhite,
     },
     navbarTopList: {
@@ -65,6 +65,9 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       top: 180,
       right: 0,
       left: 0,
+    },
+    newTitle: {
+      color: theme.colors.text05,
     },
   };
 });

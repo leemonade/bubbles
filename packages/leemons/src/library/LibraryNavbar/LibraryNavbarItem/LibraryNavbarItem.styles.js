@@ -28,5 +28,19 @@ export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled
     label: {
       color: (selected || disabled) && 'inherit',
     },
+    iconWrapper: {
+      position: 'relative',
+      width: pxToRem(16),
+      height: pxToRem(16),
+      color: disabled
+        ? theme.colors.text06
+        : selected
+        ? theme.colors.interactive01
+        : theme.colors.text02,
+    },
+    icon: {
+      width: pxToRem(16),
+      margin: '0 auto',
+    },
   };
 });

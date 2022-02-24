@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@bubbles-ui/components';
 import { LibraryNavbar, LIBRARY_NAVBAR_DEFAULT_PROPS } from './LibraryNavbar';
 import { PluginKimIcon, PluginContentCreatorIcon, StarIcon } from '@bubbles-ui/icons/solid';
@@ -23,10 +23,18 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ onNav, ...props }) => {
+  const [category, setCategory] = useState(null);
   return (
-    <Box style={{ width: 240 }}>
-      <LibraryNavbar {...props}>{children}</LibraryNavbar>
+    <Box style={{ width: 240, height: '100vh', margin: -15 }}>
+      <LibraryNavbar
+        {...props}
+        selectedCategory={category}
+        onNav={(e) => {
+          onNav(e);
+          setCategory(e?.id);
+        }}
+      />
     </Box>
   );
 };
@@ -46,40 +54,45 @@ Playground.args = {
   categories: [
     {
       id: '1',
-      icon: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/User-rights_icon.svg',
+      icon: '/img/library/media-files.svg',
       name: 'Media files',
       slug: 'media-files',
     },
     {
       id: '2',
-      icon: <PluginContentCreatorIcon />,
+      icon: '/img/library/content-creator.svg',
       name: 'Content creator',
       slug: 'content-creator',
+      creatable: true,
     },
 
     {
       id: '3',
-      icon: <StarIcon />,
+      icon: '/img/library/paths.svg',
       name: 'Paths',
       slug: 'paths',
+      creatable: true,
     },
     {
       id: '4',
-      icon: <StarIcon />,
+      icon: '/img/library/tasks.svg',
       name: 'Tasks',
       slug: 'tasks',
+      creatable: true,
     },
     {
       id: '5',
-      icon: <StarIcon />,
+      icon: '/img/library/activities.svg',
       name: 'Activities',
       slug: 'activities',
+      creatable: true,
     },
     {
       id: '6',
-      icon: <StarIcon />,
+      icon: '/img/library/bookmarks.svg',
       name: 'Bookmarks',
       slug: 'bookmarks',
+      creatable: true,
     },
   ],
 };

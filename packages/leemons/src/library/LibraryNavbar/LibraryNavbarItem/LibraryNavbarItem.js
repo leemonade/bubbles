@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, ImageLoader } from '@bubbles-ui/components';
 import { LibraryNavbarItemStyles } from './LibraryNavbarItem.styles';
@@ -22,21 +22,22 @@ const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, ...props 
     isFunction(onClick) && onClick(e);
   };
 
-  const renderIcon = () => {
-    if (!icon) return;
-    if (typeof icon === 'string') {
-      return <ImageLoader src={icon} forceImage height={16} width={16} />;
-    }
-    return icon;
-  };
-
   const { classes, cx } = LibraryNavbarItemStyles(
     { selected, disabled },
     { name: 'LibraryNavbarItem' }
   );
+
+  const renderIcon = useCallback(() => {
+    if (!icon) return;
+    if (typeof icon === 'string') {
+      return <ImageLoader className={classes.icon} src={icon} fillCurrent />;
+    }
+    return icon;
+  }, [icon, classes]);
+
   return (
     <Box className={classes.root} onClick={onClickHandler}>
-      <Box>{renderIcon()}</Box>
+      <Box className={classes.iconWrapper}>{renderIcon()}</Box>
       <Text className={classes.label}>{label}</Text>
     </Box>
   );

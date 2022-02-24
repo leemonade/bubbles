@@ -1,17 +1,35 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const PagerStyles = createStyles(
-  (theme, { withGoTo, withControls, withEdges, disabled }) => {
+  (theme, { withGoTo, withControls, withEdges, disabled, hidePages }) => {
+    const controlProps = {};
+
+    if (hidePages) {
+      controlProps.display = 'none';
+    }
+
+    if ((withControls || withEdges) && hidePages) {
+      controlProps['&:first-of-type, &:last-of-type'] = {
+        display: 'flex',
+      };
+    }
+
+    if (withEdges && withControls && hidePages) {
+      controlProps['&:nth-of-type(2), &:nth-last-of-type(-n+2)'] = {
+        display: 'flex',
+      };
+    }
+
     return {
       root: {
         gap: 0,
         marginLeft: withGoTo && !withControls ? !withEdges && pxToRem(8) : null,
       },
       item: {
-        ...getFontExpressive(theme.fontSizes['2'], 400),
+        ...getFontExpressive(theme.fontSizes['2'], 300),
         color: disabled ? theme.colors.text05 : theme.colors.text01,
-        backgroundColor: theme.colors.mainWhite,
+        backgroundColor: 'transparent',
         border: 'none',
         borderRadius: '50%',
         height: pxToRem(48),
@@ -20,15 +38,24 @@ export const PagerStyles = createStyles(
         padding: 0,
         lineHeight: pxToRem(24),
         cursor: disabled && 'default',
+        ...controlProps,
+
+        '&:disabled': {
+          display: !hidePages && 'none',
+        },
+
         '&:first-of-type': {
           cursor: disabled && 'default',
         },
+
         '&:hover': {
-          backgroundColor: disabled ? 'none' : theme.colors.ui03,
+          backgroundColor: disabled ? 'none' : 'rgba(0, 0, 0, 0.03)',
         },
+
         '&:active:not(:disabled):not(.mantine-ref_dots_1)': {
           transform: disabled && 'none',
         },
+
         '&:first-of-type > svg, :last-of-type > svg': {
           height: withControls && !withEdges && pxToRem(22),
           width: withControls && !withEdges && pxToRem(22),
@@ -37,12 +64,10 @@ export const PagerStyles = createStyles(
       active: {
         fontWeight: !disabled && 700,
         color: disabled ? theme.colors.text05 : theme.colors.text01,
-        backgroundColor: theme.colors.mainWhite,
+        backgroundColor: 'transparent',
         border: disabled ? 'none' : `1px solid ${theme.colors.ui01}`,
         borderRadius: '50%',
-        '&:hover': {
-          backgroundColor: theme.colors.mainWhite,
-        },
+        pointerEvents: 'none',
       },
       dots: {
         color: theme.colors.text05,
@@ -77,6 +102,9 @@ export const PagerStyles = createStyles(
         display: 'flex',
         alignItems: 'center',
         gap: pxToRem(8),
+      },
+      size: {
+        width: 120,
       },
     };
   }

@@ -23,28 +23,45 @@ export default {
   },
 };
 
-const Template = ({ children, asset, showImage, action, deadlineProps, ...props }) => {
+const Template = ({ children, asset, showImage, action, deadlineProps, variant, ...props }) => {
   const assetWithoutCover = { ...asset, cover: undefined };
   const assetWithoutDescription = { ...asset, description: undefined };
 
   return (
     <Stack spacing={5}>
-      <Box style={{ width: 287 }}>
-        <LibraryCard
-          {...props}
-          asset={showImage ? asset : assetWithoutCover}
-          deadlineProps={deadlineProps}
-        />
-      </Box>
-      <Box style={{ width: 287 }}>
-        <LibraryCard
-          {...props}
-          asset={
-            showImage ? assetWithoutDescription : { ...assetWithoutCover, description: undefined }
-          }
-          action={action}
-        />
-      </Box>
+      {variant === 'unit' ? (
+        <Box style={{ width: 287 }}>
+          <LibraryCard
+            {...props}
+            asset={showImage ? asset : assetWithoutCover}
+            deadlineProps={deadlineProps}
+            variant={variant}
+          />
+        </Box>
+      ) : (
+        <>
+          <Box style={{ width: 287 }}>
+            <LibraryCard
+              {...props}
+              asset={showImage ? asset : assetWithoutCover}
+              deadlineProps={deadlineProps}
+              variant={variant}
+            />
+          </Box>
+          <Box style={{ width: 287 }}>
+            <LibraryCard
+              {...props}
+              asset={
+                showImage
+                  ? assetWithoutDescription
+                  : { ...assetWithoutCover, description: undefined }
+              }
+              action={action}
+              variant={variant}
+            />
+          </Box>
+        </>
+      )}
     </Stack>
   );
 };
@@ -69,6 +86,16 @@ Playground.args = {
     tags: ['Fantasy', 'Adventure', 'Fiction'],
     cover:
       'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
+  },
+  unit: {
+    completed: 0.3,
+    submission: 15,
+    total: 24,
+    subject: {
+      name: 'Maths - 1025 - GB',
+    },
+    avgTime: 933,
+    avgAttempts: 3,
   },
   variant: 'media',
   showImage: true,

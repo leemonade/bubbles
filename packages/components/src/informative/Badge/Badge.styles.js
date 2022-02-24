@@ -1,12 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontProductive } from '../../theme.mixins';
 
-const getPadding = (size, isMedium, image) => {
+const getPadding = (size, isMedium, image, severity) => {
   const isMediumImage = !!image && isMedium;
+  const isDefault = severity === 'default';
 
   switch (size) {
     case 'xs':
-      return `${pxToRem(4)} ${pxToRem(9)} ${pxToRem(4)} ${pxToRem(12)}`;
+      return `${pxToRem(isDefault ? 4 : 1)} ${pxToRem(9)} ${pxToRem(isDefault ? 4 : 1)} ${pxToRem(
+        9
+      )}`;
     case 'md':
       return `${pxToRem(isMediumImage ? 9 : 8)} ${pxToRem(12)} ${pxToRem(
         isMediumImage ? 9 : 8
@@ -57,11 +60,46 @@ const getColor = (theme, color) => {
   }
 };
 
-export const BadgeStyles = createStyles((theme, { size, color, image, radius }) => {
+export const BadgeStyles = createStyles((theme, { size, color, image, radius, severity }) => {
   const isLarge = size === 'lg';
   const isSmall = size === 'xs';
   const isMedium = size === 'md';
   const isRounded = radius === 'rounded';
+
+  const getSeverity = () => {
+    switch (severity) {
+      case 'success':
+        return {
+          color: theme.colors.fatic02,
+          backgroundColor: theme.colors.fatic02v0,
+          borderColor: theme.colors.fatic02,
+          fontWeight: 600,
+          '&:hover': {
+            backgroundColor: theme.colors.fatic02v0,
+          },
+        };
+      case 'warning':
+        return {
+          color: theme.colors.fatic03,
+          backgroundColor: theme.colors.fatic03v0,
+          borderColor: theme.colors.fatic03,
+          fontWeight: 600,
+          '&:hover': {
+            backgroundColor: theme.colors.fatic03v0,
+          },
+        };
+      case 'error':
+        return {
+          color: theme.colors.fatic01,
+          backgroundColor: theme.colors.fatic01v0,
+          borderColor: theme.colors.fatic01,
+          fontWeight: 600,
+          '&:hover': {
+            backgroundColor: theme.colors.fatic01v0,
+          },
+        };
+    }
+  };
 
   return {
     root: {
@@ -81,9 +119,10 @@ export const BadgeStyles = createStyles((theme, { size, color, image, radius }) 
       color: theme.colors.text01,
       textTransform: 'none',
       borderRadius: isRounded ? pxToRem(100) : pxToRem(4),
-      padding: getPadding(size, isMedium, image),
+      padding: getPadding(size, isMedium, image, severity),
       paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
       height: 'auto',
+      ...getSeverity(),
     },
     inner: {
       overflow: 'unset',

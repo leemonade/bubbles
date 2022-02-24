@@ -8,6 +8,7 @@ import { TextInput } from '../TextInput';
 import { NumberInput } from '../NumberInput';
 import { Box, Stack } from '../../layout';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
+import { colord } from 'colord';
 
 export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsl', 'hsla'];
 export const COLOR_PICKER_SWATCHES = [
@@ -106,7 +107,7 @@ export const ColorPicker = forwardRef(
 
     useEffect(() => {
       if (useHsl && !hue) {
-        setHue(30);
+        setHue(colord(value).toHsl().h);
         setLightness(50);
       }
     }, [useHsl]);

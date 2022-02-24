@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty, isFunction } from 'lodash';
 import {
   Box,
   Stack,
@@ -10,17 +11,10 @@ import {
   IconButton,
   Divider,
 } from '@bubbles-ui/components';
-import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
-import {
-  PluginLeebraryIcon,
-  PluginContentCreatorIcon,
-  PluginKanbanIcon,
-  StarIcon,
-  PluginKimIcon,
-} from '@bubbles-ui/icons/solid';
+import { PluginLeebraryIcon, PluginKimIcon } from '@bubbles-ui/icons/solid';
 import { CloudUploadIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
-import { isEmpty, isFunction } from 'lodash';
 
 export const LIBRARY_NAVBAR_DEFAULT_PROPS = {
   labels: {
@@ -31,7 +25,7 @@ export const LIBRARY_NAVBAR_DEFAULT_PROPS = {
     fileUploadSubtitle: '',
   },
   categories: [],
-  selectedCategory: {},
+  selectedCategory: null,
 };
 export const LIBRARY_NAVBAR_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -47,26 +41,17 @@ export const LIBRARY_NAVBAR_PROP_TYPES = {
       icon: PropTypes.node,
       name: PropTypes.string,
       slug: PropTypes.string,
+      creatable: PropTypes.bool,
+      createUrl: PropTypes.string,
     })
   ),
-  selectedCategory: PropTypes.shape({
-    id: PropTypes.string,
-    slug: PropTypes.string,
-  }),
+  selectedCategory: PropTypes.string,
   onNav: PropTypes.func,
   onFile: PropTypes.func,
   onNew: PropTypes.func,
 };
 
-const LibraryNavbar = ({
-  labels,
-  categories,
-  selectedCategory,
-  onNav,
-  onFile,
-  onNew,
-  ...props
-}) => {
+const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onFileHandler = (e) => {
@@ -81,19 +66,22 @@ const LibraryNavbar = ({
     isFunction(onNav) && onNav(category);
   };
 
-  const renderNavbarItems = () => {
-    return categories.map((category) => {
-      return (
-        <NavbarItem
-          key={category.id}
-          icon={category.icon}
-          label={category.name}
-          selected={category.id === selectedCategory.id || category.slug === selectedCategory.slug}
-          onClick={() => onNavHandler(category)}
-        />
-      );
-    });
-  };
+  const renderNavbarItems = useCallback(
+    (callback, onlyCreatable = false) => {
+      return categories
+        .filter((item) => (onlyCreatable ? item.creatable === true : true))
+        .map((category) => (
+          <NavbarItem
+            key={category.id}
+            icon={category.icon}
+            label={category.name}
+            selected={category.id === selectedCategory || category.slug === selectedCategory}
+            onClick={() => callback(category)}
+          />
+        ));
+    },
+    [categories, selectedCategory]
+  );
 
   const { classes, cx } = LibraryNavbarStyles({ isExpanded }, { name: 'LibraryNavbar' });
   return (
@@ -112,14 +100,18 @@ const LibraryNavbar = ({
           <Stack
             direction={'column'}
             alignItems={'center'}
-            spacing={5}
+            spacing={2}
             className={classes.fileUploadWrapper}
             skipFlex
           >
             {isExpanded && (
-              <Stack spacing={4} alignItems={'center'}>
-                <Text>{labels.uploadButton}</Text>
-                <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
+              <Stack spacing={1} alignItems={'center'} fullWidth>
+                <Box style={{ flex: 1, textAlign: 'center' }}>
+                  <Text>{labels.uploadButton}</Text>
+                </Box>
+                <Box>
+                  <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
+                </Box>
               </Stack>
             )}
             <Box className={classes.fileUpload}>
@@ -139,32 +131,10 @@ const LibraryNavbar = ({
             className={classes.navbarTopList}
             skipFlex
           >
-            <Text transform={'uppercase'}>{labels.createNewTitle}</Text>
-            <NavbarItem
-              icon={<PluginContentCreatorIcon height={16} width={16} />}
-              label={'Document'}
-              onClick={() => onNewHandler('document')}
-            />
-            <NavbarItem
-              icon={<StarIcon height={16} width={16} />}
-              label={'Bookmark'}
-              onClick={() => onNewHandler('bookmark')}
-            />
-            <NavbarItem
-              icon={<StarIcon height={16} width={16} />}
-              label={'Paths'}
-              onClick={() => onNewHandler('path')}
-            />
-            <NavbarItem
-              icon={<StarIcon height={16} width={16} />}
-              label={'Tasks'}
-              onClick={() => onNewHandler('task')}
-            />
-            <NavbarItem
-              icon={<StarIcon height={16} width={16} />}
-              label={'Activities'}
-              onClick={() => onNewHandler('activity')}
-            />
+            <Text size="xs" transform={'uppercase'} className={classes.newTitle}>
+              {labels.createNewTitle}
+            </Text>
+            {renderNavbarItems(onNewHandler, true)}
           </Stack>
         </Stack>
       </Paper>
@@ -176,7 +146,7 @@ const LibraryNavbar = ({
           selected={!selectedCategory || isEmpty(selectedCategory)}
         />
         <Divider style={{ marginBlock: 8, marginInline: 10 }} />
-        {renderNavbarItems()}
+        {renderNavbarItems(onNavHandler)}
       </Stack>
     </Box>
   );

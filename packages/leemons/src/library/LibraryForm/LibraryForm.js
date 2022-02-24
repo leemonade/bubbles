@@ -23,7 +23,7 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     title: '',
     featuredImage: '',
     tags: '',
-    addBadge: '',
+    addTag: '',
     changeImage: '',
     uploadButton: '',
     submitForm: '',
@@ -41,13 +41,14 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     file: '',
     tags: '',
   },
+  tagSuggestions: [],
 };
 export const LIBRARY_FORM_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,
     featuredImage: PropTypes.string,
     tags: PropTypes.string,
-    addBadge: PropTypes.string,
+    addTag: PropTypes.string,
     changeImage: PropTypes.string,
     uploadButton: PropTypes.string,
     submitForm: PropTypes.string,
@@ -78,6 +79,7 @@ export const LIBRARY_FORM_PROP_TYPES = {
     tags: PropTypes.arrayOf(PropTypes.string),
   }),
   onSubmit: PropTypes.func,
+  tagSuggestions: PropTypes.arrayOf(PropTypes.string),
 };
 
 const LibraryForm = ({
@@ -88,6 +90,7 @@ const LibraryForm = ({
   errorMessages,
   asset,
   onSubmit,
+  tagSuggestions,
   ...props
 }) => {
   const defaultValues = {
@@ -194,9 +197,9 @@ const LibraryForm = ({
               name="tags"
               render={({ field: { ref, ...field } }) => (
                 <TagsInput
-                  labels={{ addBadge: labels.addBadge }}
+                  labels={{ addButton: labels.addTag }}
                   placeholder={placeholders.tagsInput}
-                  suggestions={['Cat', 'Dog', 'Horse', 'Bird', 'Fish']}
+                  suggestions={tagSuggestions}
                   errorMessage={errorMessages.tags}
                   {...field}
                 />

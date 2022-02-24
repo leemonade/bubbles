@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
 import { LibraryCardContent, LIBRARY_CARD_CONTENT_DEFAULT_PROPS } from './LibraryCardContent';
+import { LIBRARYCARD_VARIANTS } from '../LibraryCard';
 import mdx from './LibraryCardContent.mdx';
 
 export default {
@@ -16,6 +17,7 @@ export default {
     },
   },
   argTypes: {
+    variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
     showDescription: { control: 'boolean' },
   },
 };
@@ -42,4 +44,14 @@ Playground.args = {
     { label: 'Transcript', value: 'Not available' },
   ],
   tags: ['Fantasy', 'Adventure', 'Fiction'],
+  unit: {
+    completed: 0.3,
+    submission: 15,
+    total: 24,
+    subject: {
+      name: 'Maths - 1025 - GB',
+    },
+    avgTime: 900,
+    avgAttempts: 3,
+  },
 };

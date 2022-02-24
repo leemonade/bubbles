@@ -20,8 +20,8 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <LibraryForm {...props}>{children}</LibraryForm>;
+const Template = ({ ...props }) => {
+  return <LibraryForm {...props} />;
 };
 
 export const Playground = Template.bind({});
@@ -32,7 +32,7 @@ Playground.args = {
     title: 'Upload file',
     featuredImage: 'Featured image',
     tags: 'Tags',
-    addBadge: 'Add tag',
+    addTag: 'Add tag',
     changeImage: 'Change image',
     uploadButton: 'Upload image',
     submitForm: 'Add to library',
@@ -50,6 +50,7 @@ Playground.args = {
     file: 'File is required',
     tags: 'Write a tag to add it',
   },
+  tagSuggestions: ['Cat', 'Dog', 'Horse', 'Bird', 'Fish'],
   // asset: {
   //   id: '5e9f8f9b8f9d8b1c8c8b4567',
   //   file: new File([], 'pepe.png'),

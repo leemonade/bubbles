@@ -1,113 +1,137 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Stack } from '../../layout/';
-import { INPUT_WRAPPER_PROP_TYPES, InputError, Autocomplete, Button } from '../';
-import { Badge } from '../../informative';
+import { isFunction, trim, uniq, isEmpty } from 'lodash';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
+import { useId, useMergedRef } from '@mantine/hooks';
+import { Box, Stack } from '../../layout';
+import { Badge } from '../../informative';
+import { Autocomplete, Button } from '../../form';
 import { TagsInputStyles } from './TagsInput.styles';
-import { isFunction } from 'lodash';
+import {
+  InputWrapper,
+  INPUT_WRAPPER_DEFAULT_PROPS,
+  INPUT_WRAPPER_PROP_TYPES,
+} from '../InputWrapper';
 
 export const TAGS_INPUT_DEFAULT_PROPS = {
+  ...INPUT_WRAPPER_DEFAULT_PROPS,
   value: [],
   suggestions: [],
   labels: {
-    autocomplete: '',
-    addBadge: '',
+    addButton: '',
   },
   placeholder: '',
 };
 export const TAGS_INPUT_PROP_TYPES = {
+  ...INPUT_WRAPPER_PROP_TYPES,
   labels: PropTypes.shape({
-    addBadge: PropTypes.string,
-    autocomplete: PropTypes.string,
+    addButton: PropTypes.string,
   }),
   placeholder: PropTypes.string,
-  errorMessage: PropTypes.string,
   value: PropTypes.arrayOf(PropTypes.string),
   suggestions: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
-  ...INPUT_WRAPPER_PROP_TYPES,
 };
 
-const TagsInput = ({
-  labels,
-  placeholder,
-  errorMessage,
-  value,
-  suggestions,
-  onChange,
-  ...props
-}) => {
-  const [tags, setTags] = useState(value);
-  const [inputValue, setInputValue] = useState('');
-  const autoCompleteRef = useRef(null);
-  const [error, setError] = useState(false);
+const TagsInput = forwardRef(
+  (
+    {
+      label,
+      error,
+      description,
+      help,
+      size,
+      orientation,
+      labels,
+      value,
+      required,
+      suggestions,
+      onChange,
+      ...props
+    },
+    ref
+  ) => {
+    const [tags, setTags] = useState(value);
+    const [inputValue, setInputValue] = useState('');
+    const autoCompleteRef = useRef(null);
+    const mergedRef = useMergedRef(ref, autoCompleteRef);
+    const uuid = useId();
 
-  const handleItemSubmit = (value) => {
-    setInputValue(value.value);
-  };
+    const handleItemSubmit = (value) => {
+      setInputValue(value.value);
+    };
 
-  const addTag = () => {
-    if (!inputValue) {
-      setError(true);
-      return;
-    }
-    setError(false);
-    isFunction(onChange) && onChange([...tags, inputValue]);
-    setTags([...tags, inputValue]);
-    setInputValue('');
-    autoCompleteRef.current.deleteValues();
-  };
+    const addTag = () => {
+      if (!inputValue) {
+        return;
+      }
+      const newTag = trim(inputValue);
+      if (!tags.includes(newTag)) {
+        const newTags = [...tags, newTag];
+        isFunction(onChange) && onChange(newTags);
+        setTags(newTags);
+      }
+      setInputValue('');
+      autoCompleteRef.current.deleteValues();
+    };
 
-  const removeTag = (tag) => {
-    const newTags = tags.filter((t) => t !== tag);
+    const removeTag = (tag) => {
+      const newTags = tags.filter((t) => t !== tag);
 
-    setTags(newTags);
-    isFunction(onChange) && onChange(newTags);
-  };
+      setTags(newTags);
+      isFunction(onChange) && onChange(newTags);
+    };
 
-  const { classes, cx } = TagsInputStyles({}, { name: 'TagsInput' });
-  return (
-    <Box className={classes.root}>
-      <Stack className={classes.autocompleteWrapper} wrap={'wrap'} fullWidth>
-        <Box>
-          <Autocomplete
-            {...props}
-            label={labels.autocomplete}
-            placeholder={placeholder}
-            value={tags}
-            data={suggestions.filter((s) => !tags.includes(s))}
-            onChange={setInputValue}
-            onItemSubmit={handleItemSubmit}
-            ref={autoCompleteRef}
-          />
-        </Box>
-        <Box skipFlex>
-          <Button variant="light" leftIcon={<AddCircleIcon />} onClick={addTag}>
-            {labels.addBadge}
-          </Button>
-        </Box>
-        {error && (
-          <Box className={classes.errorWrapper} skipFlex>
-            <InputError message={errorMessage} />
+    const handleKeyDown = (e) => {
+      if (e.keyCode === 13) {
+        e.stopPropagation();
+        addTag();
+      }
+    };
+
+    const { classes, cx } = TagsInputStyles({ name: 'TagsInput' });
+
+    return (
+      <InputWrapper {...{ uuid, size, error, label, description, help, orientation, required }}>
+        <Stack fullWidth spacing={2}>
+          <Box>
+            <Autocomplete
+              {...props}
+              ref={mergedRef}
+              id={uuid}
+              value={tags}
+              data={uniq([...suggestions, ...tags])}
+              onChange={setInputValue}
+              onItemSubmit={handleItemSubmit}
+              onKeyDown={handleKeyDown}
+              error={error}
+              ignoreWrapper
+            />
           </Box>
+          <Box skipFlex>
+            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addTag}>
+              {labels.addButton}
+            </Button>
+          </Box>
+        </Stack>
+        {!isEmpty(tags) && (
+          <Stack className={classes.tagsContainer} fullWidth spacing={2} wrap={'wrap'}>
+            {tags.map((tag, index) => (
+              <Badge
+                label={tag}
+                key={`${tag}${index}`}
+                color={'stroke'}
+                radius={'rounded'}
+                onClose={() => removeTag(tag)}
+                skipFlex
+              />
+            ))}
+          </Stack>
         )}
-      </Stack>
-      <Stack className={classes.tagsContainer} fullWidth spacing={2} wrap={'wrap'}>
-        {tags.map((tag, index) => (
-          <Badge
-            label={tag}
-            key={`${tag}${index}`}
-            color={'stroke'}
-            radius={'default'}
-            onClose={() => removeTag(tag)}
-            skipFlex
-          />
-        ))}
-      </Stack>
-    </Box>
-  );
-};
+      </InputWrapper>
+    );
+  }
+);
 
 TagsInput.defaultProps = TAGS_INPUT_DEFAULT_PROPS;
 TagsInput.propTypes = TAGS_INPUT_PROP_TYPES;

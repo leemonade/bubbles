@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Textarea,
   TEXTAREA_ORIENTATIONS,
   TEXTAREA_SIZES,
   TEXTAREA_DEFAULT_PROPS,
+  TEXTAREA_COUNTERS,
 } from './Textarea';
 import mdx from './Textarea.mdx';
 
@@ -22,11 +23,24 @@ export default {
   argTypes: {
     size: { options: TEXTAREA_SIZES, control: { type: 'select' } },
     orientation: { options: TEXTAREA_ORIENTATIONS, control: { type: 'select' } },
+    counter: { options: TEXTAREA_COUNTERS, control: { type: 'select' } },
+    maxLength: { control: { type: 'number' } },
+    onChange: { action: 'onChange' },
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Textarea {...props} />;
+const Template = ({ onChange, ...props }) => {
+  const [value, setValue] = useState('');
+  return (
+    <Textarea
+      {...props}
+      value={value}
+      onChange={(e) => {
+        setValue(e);
+        onChange(e);
+      }}
+    />
+  );
 };
 
 export const Playground = Template.bind({});
