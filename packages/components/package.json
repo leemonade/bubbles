@@ -79,13 +79,13 @@
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-replace": "^3.0.0",
-    "@storybook/addon-a11y": "^6.4.9",
-    "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-docs": "^6.4.9",
-    "@storybook/addon-essentials": "^6.4.9",
-    "@storybook/addon-links": "^6.4.9",
-    "@storybook/addons": "^6.4.9",
-    "@storybook/react": "^6.4.9",
+    "@storybook/addon-a11y": "^6.4.19",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-docs": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addons": "^6.4.19",
+    "@storybook/react": "^6.4.19",
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-transform-import-styles": "^0.0.11",
     "cross-env": "^7.0.3",
@@ -99,6 +99,6 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-styles": "^3.14.1",
     "rollup-plugin-terser": "^7.0.2",
-    "storybook-addon-designs": "^6.2.0"
+    "storybook-addon-designs": "^6.2.1"
   }
 }

@@ -3,6 +3,8 @@ export * from './LibraryCardCover';
 export * from './LibraryCardContent';
 export * from './LibraryCardFooter';
 export * from './LibraryCardDeadline';
+export * from './LibraryForm';
+export * from './LibraryNavbar';
 export * from './LibraryDetail';
 export * from './LibraryDetailPlayer';
 export * from './LibraryDetailContent';

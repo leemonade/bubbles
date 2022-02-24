@@ -84,6 +84,7 @@ const TagsInput = forwardRef(
 
     const handleKeyDown = (e) => {
       if (e.keyCode === 13) {
+        e.stopPropagation();
         addTag();
       }
     };

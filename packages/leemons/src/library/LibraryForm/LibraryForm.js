@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -41,6 +41,7 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     file: '',
     tags: '',
   },
+  tagSuggestions: [],
 };
 export const LIBRARY_FORM_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -78,6 +79,7 @@ export const LIBRARY_FORM_PROP_TYPES = {
     tags: PropTypes.arrayOf(PropTypes.string),
   }),
   onSubmit: PropTypes.func,
+  tagSuggestions: PropTypes.arrayOf(PropTypes.string),
 };
 
 const LibraryForm = ({
@@ -88,6 +90,7 @@ const LibraryForm = ({
   errorMessages,
   asset,
   onSubmit,
+  tagSuggestions,
   ...props
 }) => {
   const defaultValues = {
@@ -196,7 +199,7 @@ const LibraryForm = ({
                 <TagsInput
                   labels={{ addButton: labels.addTag }}
                   placeholder={placeholders.tagsInput}
-                  suggestions={['Cat', 'Dog', 'Horse', 'Bird', 'Fish']}
+                  suggestions={tagSuggestions}
                   errorMessage={errorMessages.tags}
                   {...field}
                 />
