@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Box, Switch } from '@mantine/core';
 import { ProSwitchStyles } from './ProSwitch.styles';
 
@@ -7,7 +7,7 @@ export const PRO_SWITCH_DEFAULT_PROPS = {
 };
 export const PRO_SWITCH_PROP_TYPES = {};
 
-const ProSwitch = ({ color, icon, checked, onChange, classNames, ...props }) => {
+const ProSwitch = forwardRef(({ color, icon, checked, onChange, classNames, ...props }, ref) => {
   const { classes, cx } = ProSwitchStyles({ color, hasIcon: !!icon });
 
   if (classNames) {
@@ -39,10 +39,10 @@ const ProSwitch = ({ color, icon, checked, onChange, classNames, ...props }) => 
           {icon}
         </Box>
       ) : null}
-      <Switch checked={state} onChange={stateChange} {...props} classNames={classes} />
+      <Switch ref={ref} checked={state} onChange={stateChange} {...props} classNames={classes} />
     </Box>
   );
-};
+});
 
 ProSwitch.defaultProps = PRO_SWITCH_DEFAULT_PROPS;
 ProSwitch.propTypes = PRO_SWITCH_PROP_TYPES;

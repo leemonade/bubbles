@@ -1,9 +1,15 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../theme.mixins';
 
-export const TableInputStyles = createStyles((theme, {}) => {
+export const TableInputStyles = createStyles((theme, { hasError }) => {
   return {
     root: {},
+    wrapper: {
+      border: hasError && `1px solid ${theme.colors.fatic01}`,
+      borderRadius: 3,
+      padding: hasError && theme.spacing[1],
+      marginBottom: hasError && theme.spacing[1],
+    },
     inputCell: {
       paddingLeft: theme.spacing[2],
       paddingRight: theme.spacing[2],

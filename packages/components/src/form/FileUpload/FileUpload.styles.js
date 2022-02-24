@@ -13,25 +13,34 @@ const getActive = (theme) => ({
   },
 });
 
-export const FileUploadStyles = createStyles((theme, {}) => {
+const getDisabledStyles = (disabled, theme) => {
+  if (!disabled) return;
+  return {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2],
+    cursor: 'not-allowed',
+
+    '& *': {
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[5],
+    },
+  };
+};
+
+export const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError }) => {
+  const hideDropzone = single && files.length > 0;
+
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
-      display: 'flex',
+      display: hideDropzone ? 'none' : 'flex',
       justifyContent: 'center',
       padding: pxToRem(25),
-      border: `${pxToRem(1)} solid ${theme.colors.interactive01d}`,
+      border: hasError
+        ? `1px solid ${theme.colors.fatic01}`
+        : `${pxToRem(1)} solid ${theme.colors.interactive01d}`,
       borderRadius: pxToRem(2),
       '&:hover': { ...getActive(theme) },
-    },
-    disabled: {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-      borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2],
-      cursor: 'not-allowed',
-
-      '& *': {
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[5],
-      },
+      ...getDisabledStyles(disabled, theme),
     },
     active: {
       ...getActive(theme),

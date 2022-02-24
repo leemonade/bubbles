@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, FileIcon, COLORS } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid';
-import { LibraryCardCover, LIBRARY_CARD_COVER_DEFAULT_PROPS } from './LibraryCardCover';
-import { LIBRARYCARD_VARIANTS } from '../';
+import {
+  LibraryCardCover,
+  LIBRARY_CARD_COVER_DEFAULT_PROPS,
+  LIBRARYCARD_COVER_DIRECTIONS,
+} from './LibraryCardCover';
 import mdx from './LibraryCardCover.mdx';
 
 export default {
@@ -18,7 +21,7 @@ export default {
     },
   },
   argTypes: {
-    variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
+    direction: { control: { type: 'select' }, options: LIBRARYCARD_COVER_DIRECTIONS },
   },
 };
 
@@ -39,8 +42,7 @@ Playground.args = {
   name: 'El ritmo de la guerra',
   cover:
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
-  blur: 20,
-  variant: 'media',
+  direction: 'horizontal',
   deadlineProps: {
     icon: <ArchiveIcon width={16} height={16} />,
     deadline: new Date('2022-02-20'),

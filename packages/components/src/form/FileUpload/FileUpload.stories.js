@@ -18,7 +18,7 @@ export default {
     },
   },
   argTypes: {
-    onDrop: { action: 'File dropped' },
+    onChange: { action: 'File dropped' },
     accept: { options: MIME_TYPES, control: { type: 'multi-select' } },
   },
 };
