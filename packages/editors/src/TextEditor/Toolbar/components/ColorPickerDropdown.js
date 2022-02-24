@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { isFunction } from 'lodash';
 import { Popover, ColorPicker, Box, Button, Stack } from '@bubbles-ui/components';
 
 const ColorPickerDropdown = ({ open, onClose, target, color, onChange, ...props }) => {
   const [value, setValue] = useState(color);
+
+  useEffect(() => {
+    console.log('color:', color);
+    setValue(color);
+  }, [color]);
 
   const handleOnChange = (val) => {
     if (isFunction(onChange)) onChange(val);
