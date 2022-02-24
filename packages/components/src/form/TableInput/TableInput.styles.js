@@ -6,7 +6,7 @@ export const TableInputStyles = createStyles((theme, { hasError }) => {
     root: {},
     wrapper: {
       border: hasError && `1px solid ${theme.colors.fatic01}`,
-      borderRadius: 3,
+      borderRadius: 4,
       padding: hasError && theme.spacing[1],
       marginBottom: hasError && theme.spacing[1],
     },

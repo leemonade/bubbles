@@ -88,6 +88,7 @@ const Toolbar = ({ editor, blocks }) => {
         <Stack className={classes.buttonGroup}>
           <ColorPickerDropdown
             open={showColorPicker}
+            color={editor.getAttributes('textStyle').color}
             onClose={() => setShowColorPicker(false)}
             onChange={(val) => editor.chain().focus().setColor(val).run()}
             target={
