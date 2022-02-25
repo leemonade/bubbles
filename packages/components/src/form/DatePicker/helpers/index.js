@@ -21,16 +21,17 @@ function getTime(date) {
   return `${hours}:${minutes}`;
 }
 
-export function updateDate(value, date, setDate) {
+export function updateDate(value, date) {
+  debugger;
   if (!value) {
-    return setDate(null);
+    return null;
   }
   const year = value.getFullYear();
   const month = value.getMonth() + 1;
   const day = value.getDate();
 
   const newDate = new Date(`${year}/${month}/${day} ${getTime(date)}`);
-  setDate(newDate);
+  return newDate;
 }
 
 export function updateTime(value, date, setDate) {

@@ -20,6 +20,7 @@ import {
 import { TimeInputStyles } from '../TimeInput/TimeInput.styles';
 import { DatePickerStyles } from './DatePicker.styles';
 import { updateDate, updateTime } from './helpers';
+import { isFunction } from 'lodash';
 
 export const DATE_PICKER_SIZES = INPUT_WRAPPER_SIZES;
 export const DATE_PICKER_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
@@ -31,7 +32,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   orientation: DATE_PICKER_ORIENTATIONS[1],
   error: '',
   required: false,
-  range: false,
+  useRange: false,
   locale: 'en',
   withTime: false,
 };
@@ -39,11 +40,14 @@ export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
   orientation: PropTypes.oneOf(DATE_PICKER_ORIENTATIONS),
   size: PropTypes.oneOf(DATE_PICKER_SIZES),
-  range: PropTypes.bool,
+  useRange: PropTypes.bool,
   /** Locale used for labels formatting, defaults to theme.datesLocale */
   locale: PropTypes.string,
   withTime: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType(
+    PropTypes.instanceOf(Date),
+    PropTypes.arrayOf(PropTypes.instanceOf(Date))
+  ),
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -62,7 +66,7 @@ const DatePicker = forwardRef(
       error,
       required,
       help,
-      range,
+      useRange,
       locale,
       withTime,
       value: userValue,
@@ -75,18 +79,31 @@ const DatePicker = forwardRef(
     const [currentLocale, setCurrentLocale] = useState(locale);
     const { classes } = DatePickerStyles({ size });
     const { classes: calendarClasses } = CalendarStyles({ size });
-    const Comp = range ? DateRangePicker : MantineDatePicker;
-    const compProps = range ? { amountOfMonths: 2 } : {};
+    const Comp = useRange ? DateRangePicker : MantineDatePicker;
+    const compProps = useRange ? { amountOfMonths: 2 } : {};
 
     const [date, setDate] = useState(userValue);
 
     // EN: Notify the parent component when the date changes
     // ES: Notificar al componente padre cuando cambia la fecha
+    // useEffect(() => {
+    //   console.log('DatePicker: useEffect');
+    //   if (typeof onChange === 'function') {
+    //     onChange(date);
+    //   }
+    // }, [date, onChange]);
+
+    // EN: Notify the parent component when the date changes
+    // ES: Notificar al componente padre cuando cambia la fecha
+    const onChangeHandler = (date) => {
+      setDate(date);
+      isFunction(onChange) && onChange(date);
+    };
+
     useEffect(() => {
-      if (typeof onChange === 'function') {
-        onChange(date);
-      }
-    }, [date, onChange]);
+      if (date === userValue) return;
+      onChangeHandler(userValue);
+    }, [userValue]);
 
     useEffect(() => {
       let mounted = true;
@@ -119,13 +136,16 @@ const DatePicker = forwardRef(
             uuid={uuid}
             ref={ref}
             size={size}
-            value={userValue || range ? undefined : date}
+            // value={userValue || useRange ? [] : date}
+            value={date}
             classNames={{ ...classes, ...calendarClasses }}
             error={!isEmpty(error)}
-            onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
+            onChange={(v) => {
+              useRange ? onChangeHandler(v) : onChangeHandler(updateDate(v, date));
+            }}
             icon={<PluginCalendarIcon />}
           />
-          {withTime && !range && (
+          {withTime && !useRange && (
             <TimeInput
               onChange={(v) => updateTime(v, date, setDate)}
               value={userValue || date}

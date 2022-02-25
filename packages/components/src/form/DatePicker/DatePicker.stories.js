@@ -16,10 +16,9 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     orientation: { options: DATE_PICKER_ORIENTATIONS, control: { type: 'select' } },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
+    onChange: { action: 'onChange' },
   },
 };
 
@@ -30,8 +29,6 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...DATE_PICKER_DEFAULT_PROPS,
   label: 'Label for date picker',
   description: 'Optional descriptive text for this date picker ',
