@@ -13,6 +13,8 @@ import {
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { EvaluationPeriodsFormStyles } from './EvaluationPeriodsForm.styles';
 import isFunction from 'lodash/isFunction';
+import { useEffect } from 'react';
+import { isEqual } from 'lodash';
 
 const EVALUATION_PERIODS_FORM_PERIOD = {
   name: PropTypes.string,
@@ -67,13 +69,6 @@ export const EVALUATION_PERIODS_FORM_PROP_TYPES = {
   onChange: PropTypes.func,
 };
 
-// const validateDates = (start, end) => {
-//   if (start && end) {
-//     return start <= end;
-//   }
-//   return false;
-// };
-
 const EvaluationPeriodsForm = ({
   labels,
   placeholders,
@@ -83,28 +78,27 @@ const EvaluationPeriodsForm = ({
   onChange,
   ...props
 }) => {
-  console.log('render');
   const [periods, setPeriods] = useState(value);
-  const [periodName, setPeriodName] = useState('');
-  const [periodRange, setPeriodRange] = useState([null, null]);
-  const [nameError, setNameError] = useState('');
-  const [rangeError, setRangeError] = useState('');
+  const [periodNameInput, setPeriodNameInput] = useState('');
+  const [periodRangeInput, setPeriodRangeInput] = useState([null, null]);
+  const [subPeriodNameInputs, setSubPeriodNameInputs] = useState([]);
+  const [subPeriodRangeInputs, setSubPeriodRangeInputs] = useState([[null, null]]);
+  const [nameError, setNameError] = useState({ index: 0, error: '' });
+  const [rangeError, setRangeError] = useState({ index: 0, error: '' });
 
-  const [nosequeu, setNosequeu] = useState('');
-
-  const validateInputs = (periodName, periodRange) => {
+  const validateInputs = (periodName, periodRange, index) => {
     let isValid = true;
     if (!periodName) {
-      setNameError(errorMessages.periodName);
+      setNameError({ index: index, error: errorMessages.periodName });
       isValid = false;
     } else {
-      setNameError('');
+      setNameError({ index: index, error: '' });
     }
     if (!periodRange[0] || !periodRange[1]) {
-      setRangeError(errorMessages.periodRange);
+      setRangeError({ index: index, error: errorMessages.periodRange });
       isValid = false;
     } else {
-      setRangeError('');
+      setRangeError({ index: index, error: '' });
     }
     return isValid;
   };
@@ -114,29 +108,18 @@ const EvaluationPeriodsForm = ({
   };
 
   const addPeriodHandler = () => {
-    if (!validateInputs(periodName, periodRange)) return;
-
+    if (!validateInputs(periodNameInput, periodRangeInput, -1)) return;
     const newPeriod = {
-      name: periodName,
-      start: periodRange[0],
-      end: periodRange[1],
+      name: periodNameInput,
+      start: periodRangeInput[0],
+      end: periodRangeInput[1],
       periods: [],
     };
-    setPeriodName('');
-    setPeriodRange([null, null]);
+    setPeriodNameInput('');
+    setPeriodRangeInput([null, null]);
     const newPeriods = [...periods, newPeriod];
     setPeriods(newPeriods);
     onChangeHandler(newPeriods);
-  };
-
-  const addSubPeriodHandler = () => {};
-
-  const onPeriodNameChangeHandler = (e) => {
-    setPeriodName(e);
-  };
-
-  const onPeriodRangeChangeHandler = (range) => {
-    setPeriodRange(range);
   };
 
   const onPeriodNameEditHandler = (value, index) => {
@@ -146,6 +129,66 @@ const EvaluationPeriodsForm = ({
     onChangeHandler(newPeriods);
   };
 
+  const onPeriodRangeEditHandler = (value, index) => {
+    const newPeriods = [...periods];
+    newPeriods[index].start = value[0];
+    newPeriods[index].end = value[1];
+    setPeriods(newPeriods);
+    onChangeHandler(newPeriods);
+  };
+
+  const addSubPeriodHandler = (periodName, periodRange, period, index) => {
+    if (!validateInputs(periodName, periodRange, index)) return;
+    const newPeriods = [...periods];
+    newPeriods[index].periods.push({
+      name: periodName,
+      start: periodRange[0],
+      end: periodRange[1],
+    });
+    const newSubPeriodNameInputs = [...subPeriodNameInputs];
+    const newSubPeriodRangeInputs = [...subPeriodRangeInputs];
+    newSubPeriodNameInputs[index] = '';
+    newSubPeriodRangeInputs[index] = [null, null];
+    setSubPeriodNameInputs(newSubPeriodNameInputs);
+    setSubPeriodRangeInputs(newSubPeriodRangeInputs);
+    setPeriods(newPeriods);
+    onChangeHandler(newPeriods);
+  };
+
+  const onSubPeriodNameEditHandler = (value, index, subIndex) => {
+    const newPeriods = [...periods];
+    newPeriods[index].periods[subIndex].name = value;
+    setPeriods(newPeriods);
+    onChangeHandler(newPeriods);
+  };
+
+  const onSubPeriodRangeEditHandler = (value, index, subIndex) => {
+    const newPeriods = [...periods];
+    newPeriods[index].periods[subIndex].start = value[0];
+    newPeriods[index].periods[subIndex].end = value[1];
+    setPeriods(newPeriods);
+    onChangeHandler(newPeriods);
+  };
+
+  useEffect(() => {
+    const newSubPeriodNameInputs = [];
+    const newSubPeriodRangeInputs = [];
+    periods.forEach((period, index) => {
+      subPeriodNameInputs[index] === undefined
+        ? newSubPeriodNameInputs.push('')
+        : newSubPeriodNameInputs.push(subPeriodNameInputs[index]);
+      subPeriodRangeInputs[index] === undefined
+        ? newSubPeriodRangeInputs.push([null, null])
+        : newSubPeriodRangeInputs.push(subPeriodRangeInputs[index]);
+    });
+    if (!isEqual(newSubPeriodNameInputs, subPeriodNameInputs)) {
+      setSubPeriodNameInputs(newSubPeriodNameInputs);
+    }
+    if (!isEqual(newSubPeriodRangeInputs, subPeriodRangeInputs)) {
+      setSubPeriodRangeInputs(newSubPeriodRangeInputs);
+    }
+  }, [periods]);
+
   const { classes, cx } = EvaluationPeriodsFormStyles({}, { name: 'EvaluationPeriodsForm' });
   return (
     <Box className={classes.root}>
@@ -154,9 +197,9 @@ const EvaluationPeriodsForm = ({
           <TextInput
             label={labels.periodName}
             placeholder={placeholders.periodName}
-            value={periodName}
-            onChange={onPeriodNameChangeHandler}
-            error={nameError}
+            value={periodNameInput}
+            onChange={setPeriodNameInput}
+            error={nameError.index === -1 ? nameError.error : ''}
             disabled={readOnly}
             required
           />
@@ -165,10 +208,10 @@ const EvaluationPeriodsForm = ({
           <DatePicker
             label={labels.periodRange}
             placeholder={labels.periodRange}
-            value={periodRange}
+            value={periodRangeInput}
             useRange={true}
-            onChange={onPeriodRangeChangeHandler}
-            error={rangeError}
+            onChange={setPeriodRangeInput}
+            error={rangeError.index === -1 ? rangeError.error : ''}
             disabled={readOnly}
             required
           />
@@ -187,7 +230,7 @@ const EvaluationPeriodsForm = ({
       {periods.length > 0 && (
         <Stack direction="column" spacing={3} fullWidth>
           {periods.map((period, index) => (
-            <Paper key={`${period.name} ${index}`} className={classes.periodWrapper} skipFlex>
+            <Paper key={`$period ${index}`} className={classes.periodWrapper} skipFlex>
               <Stack spacing={2} alignItems="start" fullWidth className={classes.inputRow}>
                 <Box className={classes.inputWrapper}>
                   <TextInput
@@ -203,9 +246,10 @@ const EvaluationPeriodsForm = ({
                     label={labels.periodRange}
                     placeholder={labels.periodRange}
                     value={[period.start, period.end]}
+                    onChange={(value) => {
+                      onPeriodRangeEditHandler(value, index);
+                    }}
                     useRange={true}
-                    minDate={period.start}
-                    maxDate={period.end}
                     disabled={readOnly}
                   />
                 </Box>
@@ -215,58 +259,78 @@ const EvaluationPeriodsForm = ({
               </Text>
               <Stack spacing={2} alignItems="start" fullWidth style={{ marginBottom: 16 }}>
                 <Box className={classes.inputWrapper}>
-                  <TextInput placeholder={placeholders.periodName} disabled={readOnly} />
+                  <TextInput
+                    placeholder={placeholders.periodName}
+                    disabled={readOnly}
+                    value={subPeriodNameInputs[index]}
+                    onChange={(value) => {
+                      const newSubPeriodNameInputs = [...subPeriodNameInputs];
+                      newSubPeriodNameInputs[index] = value;
+                      setSubPeriodNameInputs(newSubPeriodNameInputs);
+                    }}
+                    error={nameError.index === index ? nameError.error : ''}
+                  />
                 </Box>
                 <Box className={classes.inputWrapper}>
                   <DatePicker
                     placeholder={labels.periodRange}
                     useRange={true}
+                    disabled={readOnly}
+                    value={subPeriodRangeInputs[index]}
+                    onChange={(value) => {
+                      const newSubPeriodRangeInputs = [...subPeriodRangeInputs];
+                      newSubPeriodRangeInputs[index] = value;
+                      setSubPeriodRangeInputs(newSubPeriodRangeInputs);
+                    }}
                     minDate={period.start}
                     maxDate={period.end}
-                    disabled={readOnly}
+                    error={rangeError.index === index ? rangeError.error : ''}
                   />
                 </Box>
                 {!readOnly && (
                   <Button
                     variant="light"
                     leftIcon={<AddCircleIcon height={16} width={16} />}
-                    onClick={addSubPeriodHandler}
+                    onClick={() =>
+                      addSubPeriodHandler(
+                        subPeriodNameInputs[index],
+                        subPeriodRangeInputs[index],
+                        period,
+                        index
+                      )
+                    }
                   >
                     {labels.addSubPeriod}
                   </Button>
                 )}
               </Stack>
+              {period.periods.length > 0 && <Divider />}
               {period.periods.length > 0 && (
-                <>
-                  <Divider />
-                  <Stack spacing={2} direction="column" fullWidth style={{ marginTop: 20 }}>
-                    {period.periods.map((period, index) => (
-                      <Stack
-                        key={`${period.name} ${index}`}
-                        spacing={2}
-                        alignItems="start"
-                        fullWidth
-                      >
-                        <Box className={classes.inputWrapper}>
-                          <TextInput
-                            value={period.name}
-                            placeholder={placeholders.periodName}
-                            disabled={readOnly}
-                          />
-                        </Box>
-                        <Box className={classes.inputWrapper}>
-                          <DatePicker
-                            placeholder={labels.periodRange}
-                            useRange={true}
-                            minDate={period.start}
-                            maxDate={period.end}
-                            disabled={readOnly}
-                          />
-                        </Box>
-                      </Stack>
-                    ))}
-                  </Stack>
-                </>
+                <Stack spacing={2} direction="column" fullWidth style={{ marginTop: 20 }}>
+                  {period.periods.map((subPeriod, subIndex) => (
+                    <Stack key={`subperiod ${subIndex}`} spacing={2} alignItems="start" fullWidth>
+                      <Box className={classes.inputWrapper}>
+                        <TextInput
+                          placeholder={placeholders.periodName}
+                          value={subPeriod.name}
+                          onChange={(value) => onSubPeriodNameEditHandler(value, index, subIndex)}
+                          disabled={readOnly}
+                        />
+                      </Box>
+                      <Box className={classes.inputWrapper}>
+                        <DatePicker
+                          placeholder={labels.periodRange}
+                          useRange={true}
+                          value={[subPeriod.start, subPeriod.end]}
+                          onChange={(value) => onSubPeriodRangeEditHandler(value, index, subIndex)}
+                          disabled={readOnly}
+                          minDate={period.start}
+                          maxDate={period.end}
+                        />
+                      </Box>
+                    </Stack>
+                  ))}
+                </Stack>
               )}
             </Paper>
           ))}

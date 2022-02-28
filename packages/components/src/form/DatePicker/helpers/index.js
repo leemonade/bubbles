@@ -22,7 +22,6 @@ function getTime(date) {
 }
 
 export function updateDate(value, date) {
-  debugger;
   if (!value) {
     return null;
   }

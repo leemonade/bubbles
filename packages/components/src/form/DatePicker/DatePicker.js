@@ -7,7 +7,7 @@ import {
   TIME_INPUT_PROP_TYPES,
 } from '@mantine/dates';
 import { useId } from '@mantine/hooks';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
@@ -101,7 +101,7 @@ const DatePicker = forwardRef(
     };
 
     useEffect(() => {
-      if (date === userValue) return;
+      if (isEqual(date, userValue)) return;
       onChangeHandler(userValue);
     }, [userValue]);
 

@@ -18,7 +18,9 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onChange: { action: 'onChange' },
+  },
 };
 
 const Template = ({ children, ...props }) => {
@@ -49,26 +51,13 @@ Playground.args = {
       name: 'Primero de la ESO',
       start: new Date('2022-02-01'),
       end: new Date('2022-03-31'),
-      periods: [
-        {
-          name: 'Primera evaluación',
-          start: new Date('2022-02-01'),
-          end: new Date('2022-02-28'),
-          periods: [],
-        },
-        {
-          name: 'Segunda evaluación',
-          start: new Date('2022-03-01'),
-          end: new Date('2022-03-31'),
-          periods: [],
-        },
-      ],
+      periods: [],
     },
-    // {
-    //   name: 'Segundoo de la ESO',
-    //   start: new Date('2022-04-01'),
-    //   end: new Date('2022-05-31'),
-    //   periods: [],
-    // },
+    {
+      name: 'Segundo de la ESO',
+      start: new Date('2022-04-01'),
+      end: new Date('2022-05-31'),
+      periods: [],
+    },
   ],
 };
