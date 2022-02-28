@@ -14,6 +14,7 @@ export const EvaluationPeriodsFormStyles = createStyles((theme, {}) => {
     },
     periodWrapper: {
       width: '100%',
+      marginTop: 16,
     },
     inputWrapper: {
       flex: 1,

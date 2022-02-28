@@ -46,18 +46,19 @@ Playground.args = {
     periodName: 'Name is required',
     periodRange: 'Range is required',
   },
-  value: [
-    {
-      name: 'Primero de la ESO',
-      start: new Date('2022-02-01'),
-      end: new Date('2022-03-31'),
-      periods: [],
-    },
-    {
-      name: 'Segundo de la ESO',
-      start: new Date('2022-04-01'),
-      end: new Date('2022-05-31'),
-      periods: [],
-    },
-  ],
+  // value: [
+  //   {
+  //     name: 'Primero de la ESO',
+  //     start: new Date('2022-02-01'),
+  //     end: new Date('2022-03-31'),
+  //     periods: [
+  //       {
+  //         name: 'Primer trimestre',
+  //         start: new Date('2022-02-01'),
+  //         end: new Date('2022-02-28'),
+  //         periods: [],
+  //       },
+  //     ],
+  //   },
+  // ],
 };
