@@ -87,35 +87,37 @@ const EvaluationPeriodsForm = ({
     value: '',
     error: '',
   });
-  // const [errors, setErrors] = useState({ inputs: { name: '', range: '' } });
   const isMounted = useRef(false);
 
   const validateInputs = (name, range, periodInputs) => {
     let isValid = true;
-    if (!name.value || !name) {
-      setNameInput({
-        value: name.value,
-        error: errorMessages.periodName,
-      });
-      isValid = false;
-    }
-    if (periodInputs) {
-      if (!range[0] || !range[1]) {
-        setRangeInput({
-          value: range,
-          error: errorMessages.periodRange,
+    if (!periodInputs) {
+      if (!name.value) {
+        setNameInput({
+          value: name.value,
+          error: errorMessages.periodName,
         });
         isValid = false;
       }
-    } else {
-      if (!range.value[0] && !range.value[1]) {
+      if (!range.value[0] || !range.value[1]) {
         setRangeInput({
           value: range.value,
           error: errorMessages.periodRange,
         });
         isValid = false;
       }
+    } else {
+      if (!name) {
+        periodInputs.nameError = errorMessages.periodName;
+        isValid = false;
+      }
+      if (!range[0] || !range[1]) {
+        periodInputs.rangeError = errorMessages.periodRange;
+        isValid = false;
+      }
+      setPeriodsInputs([...periodsInputs]);
     }
+
     return isValid;
   };
 
@@ -127,8 +129,8 @@ const EvaluationPeriodsForm = ({
     if (!validateInputs(name, range, periodInputs)) return;
     const newPeriod = {
       name: period ? name : name.value,
-      start: period ? range : range.value[0],
-      end: range.value[1],
+      start: period ? range[0] : range.value[0],
+      end: period ? range[1] : range.value[1],
       periods: [],
     };
     setNameInput({ value: '', error: '' });
@@ -137,6 +139,9 @@ const EvaluationPeriodsForm = ({
       period.periods.push(newPeriod);
       periodInputs.name = '';
       periodInputs.range = [null, null];
+      periodInputs.nameError = '';
+      periodInputs.rangeError = '';
+      setPeriodsInputs([...periodsInputs]);
       setPeriods([...periods]);
     } else {
       setPeriods([...periods, newPeriod]);
@@ -162,7 +167,8 @@ const EvaluationPeriodsForm = ({
       newPeriodsInputs.push({
         name: '',
         range: [null, null],
-        error: '',
+        nameError: '',
+        rangeError: '',
         periodInputs: generateInputStates(period.periods),
       });
     });
@@ -215,9 +221,11 @@ const EvaluationPeriodsForm = ({
               placeholder={placeholders.periodName}
               disabled={readOnly}
               value={periodInputs?.name}
+              error={periodInputs?.nameError}
               onChange={(value) => {
                 const newPeriodInputs = periodInputs;
                 newPeriodInputs.name = value;
+                newPeriodInputs.nameError = '';
                 setPeriodsInputs([...periodsInputs]);
               }}
             />
@@ -228,9 +236,11 @@ const EvaluationPeriodsForm = ({
               useRange={true}
               disabled={readOnly}
               value={periodInputs?.range}
+              error={periodInputs?.rangeError}
               onChange={(value) => {
                 const newPeriodInputs = periodInputs;
                 newPeriodInputs.range = value;
+                newPeriodInputs.rangeError = '';
                 setPeriodsInputs([...periodsInputs]);
               }}
               minDate={period.start}
@@ -242,7 +252,7 @@ const EvaluationPeriodsForm = ({
               variant="light"
               leftIcon={<AddCircleIcon height={16} width={16} />}
               onClick={() => {
-                addPeriodHandler(periodInputs?.name, periodInputs?.range, period);
+                addPeriodHandler(periodInputs?.name, periodInputs?.range, period, periodInputs);
               }}
             >
               {labels.addSubPeriod}
