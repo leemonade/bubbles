@@ -100,6 +100,7 @@ const SetupCourses = ({
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm({ defaultValues });
 
   const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
@@ -144,6 +145,11 @@ const SetupCourses = ({
       const substageName = `substages.${currentSubstage}.name`;
       const substageAbbrev = `substages.${currentSubstage}.abbreviation`;
 
+      const val = getValues(substageAbbrev);
+      if (!val) {
+        setValue(substageAbbrev, defaultValue);
+      }
+
       substages.push(
         <ContextContainer key={substageKey} direction="row">
           <Controller
@@ -172,7 +178,7 @@ const SetupCourses = ({
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
                 label={labels.abbreviation}
-                value={fieldState.isDirty ? value : defaultValue}
+                value={value}
                 onChange={onChange}
                 error={
                   isArray(errors.substages) ? errors.substages[currentSubstage]?.abbreviation : null
