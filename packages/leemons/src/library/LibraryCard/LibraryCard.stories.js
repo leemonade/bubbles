@@ -29,7 +29,7 @@ const Template = ({ children, asset, showImage, action, deadlineProps, variant, 
 
   return (
     <Stack spacing={5}>
-      {variant === 'unit' ? (
+      {variant === 'assigment' ? (
         <Box style={{ width: 287 }}>
           <LibraryCard
             {...props}
@@ -77,6 +77,7 @@ Playground.args = {
     created: '2022-02-04T16:26:31.485Z',
     description:
       'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
+    subtitle: '',
     metadata: [
       { label: 'Quality', value: '128kb' },
       { label: 'Format', value: 'mp3' },
@@ -87,7 +88,7 @@ Playground.args = {
     cover:
       'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
   },
-  unit: {
+  assigment: {
     completed: 0.3,
     submission: 15,
     total: 24,
