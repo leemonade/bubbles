@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
@@ -9,8 +9,8 @@ import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardStyles } from './LibraryCard.styles';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task', 'unit'];
-export const LIBRARYCARD_UNIT = {
+export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment'];
+export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
   subsmission: PropTypes.number,
   total: PropTypes.number,
@@ -29,6 +29,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
     fileExtension: PropTypes.string,
     name: PropTypes.string,
     description: PropTypes.string,
+    subtitle: PropTypes.string,
     metadata: PropTypes.arrayOf(
       PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
     ),
@@ -41,7 +42,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
     category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
     role: PropTypes.oneOf(LIBRARYCARD_ROLES),
   }),
-  unit: PropTypes.shape(LIBRARYCARD_UNIT),
+  assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
   action: PropTypes.string,
@@ -51,7 +52,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
 
 const LibraryCard = ({
   asset,
-  unit,
+  assigment,
   variant,
   deadlineProps,
   action,
@@ -59,9 +60,15 @@ const LibraryCard = ({
   locale,
   ...props
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const { classes, cx } = LibraryCardStyles({});
   return (
-    <Box className={classes.root}>
+    <Box
+      className={classes.root}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <LibraryCardCover
         name={asset.name}
         color={asset.color}
@@ -76,15 +83,17 @@ const LibraryCard = ({
           />
         }
         deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
-        direction={variant === 'unit' ? 'vertical' : null}
+        direction={variant === 'assigment' ? 'vertical' : null}
+        parentHovered={isHovered}
       />
       <LibraryCardContent
+        subtitle={asset.subtitle}
         description={asset.description}
         metadata={asset.metadata}
         tags={asset.tags}
         locale={locale}
         variant={variant}
-        unit={unit}
+        assigment={assigment}
       />
       <LibraryCardFooter
         fileType={asset.fileType}

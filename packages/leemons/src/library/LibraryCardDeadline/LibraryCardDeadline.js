@@ -27,6 +27,7 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   locale: PropTypes.string,
   deadline: PropTypes.instanceOf(Date),
   direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
+  parentHovered: PropTypes.bool,
 };
 
 export const validateURL = (props, propName, componentName) => {
@@ -42,7 +43,16 @@ export const validateURL = (props, propName, componentName) => {
 
 const TODAY = new Date().getDate();
 
-const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, direction, ...props }) => {
+const LibraryCardDeadline = ({
+  labels,
+  icon,
+  isNew,
+  locale,
+  deadline,
+  direction,
+  parentHovered,
+  ...props
+}) => {
   const [title, setTitle] = useState(labels.title);
 
   const formattedDate = `${labels.deadline + ' '}${deadline.toLocaleDateString(
@@ -68,7 +78,7 @@ const LibraryCardDeadline = ({ labels, icon, isNew, locale, deadline, direction,
   }, [deadline, locale]);
 
   const { classes, cx } = LibraryCardDeadlineStyles(
-    { isNew, direction },
+    { isNew, direction, parentHovered },
     { name: 'LibraryCardDeadline' }
   );
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import { Box, Text, Badge, Stack, TextClamp } from '@bubbles-ui/components';
-import { LIBRARYCARD_VARIANTS, LIBRARYCARD_UNIT } from '../LibraryCard';
+import { LIBRARYCARD_VARIANTS, LIBRARYCARD_ASSIGMENT } from '../LibraryCard';
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 
 export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
@@ -11,6 +12,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   badgeColor: 'solid',
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
+  subtitle: PropTypes.string,
   description: PropTypes.string,
   metadata: PropTypes.arrayOf(
     PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
@@ -18,10 +20,19 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   tags: PropTypes.arrayOf(PropTypes.string),
   locale: PropTypes.string,
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
-  unit: PropTypes.shape(LIBRARYCARD_UNIT),
+  assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
 };
 
-const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit, ...props }) => {
+const LibraryCardContent = ({
+  subtitle,
+  description,
+  tags,
+  metadata,
+  locale,
+  variant,
+  assigment,
+  ...props
+}) => {
   const { classes, cx } = LibraryCardContentStyles({}, { name: 'LibraryCardContent' });
 
   const getAverageTime = (seconds) => {
@@ -35,28 +46,28 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
   };
 
   const getBadge = () => {
-    if (unit.completed <= 0.2)
+    if (assigment.completed <= 0.2)
       return (
         <Badge
-          label={`${unit.completed * 100}%`}
+          label={`${assigment.completed * 100}%`}
           severity={'error'}
           closable={false}
           radius={'default'}
         />
       );
-    if (unit.completed <= 0.5)
+    if (assigment.completed <= 0.5)
       return (
         <Badge
-          label={`${unit.completed * 100}%`}
+          label={`${assigment.completed * 100}%`}
           severity={'warning'}
           closable={false}
           radius={'default'}
         />
       );
-    if (unit.completed >= 0.6)
+    if (assigment.completed >= 0.6)
       return (
         <Badge
-          label={`${unit.completed * 100}%`}
+          label={`${assigment.completed * 100}%`}
           severity={'success'}
           closable={false}
           radius={'default'}
@@ -66,7 +77,7 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
 
   const getVariant = () => {
     switch (variant) {
-      case 'unit':
+      case 'assigment':
         return (
           <Box className={classes.mainContainer}>
             <Stack direction="column" spacing={1} fullWidth>
@@ -75,7 +86,7 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
                   Subject
                 </Text>
                 <Text size={'xs'} role="productive" weight={600}>
-                  {unit.subject.name}
+                  {assigment.subject.name}
                 </Text>
               </Stack>
               <Stack fullWidth>
@@ -85,7 +96,7 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
                 <Box>
                   {getBadge()}
                   <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
-                    {`(${unit.submission}/${unit.total})`}
+                    {`(${assigment.submission}/${assigment.total})`}
                   </Text>
                 </Box>
               </Stack>
@@ -94,7 +105,7 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
                   Average time
                 </Text>
                 <Text size={'xs'} role="productive">
-                  {getAverageTime(unit.avgTime)}
+                  {getAverageTime(assigment.avgTime)}
                 </Text>
               </Stack>
               <Stack fullWidth>
@@ -102,7 +113,7 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
                   Average attempts
                 </Text>
                 <Text size={'xs'} role="productive">
-                  {unit.avgAttempts}
+                  {assigment.avgAttempts}
                 </Text>
               </Stack>
             </Stack>
@@ -112,26 +123,35 @@ const LibraryCardContent = ({ description, tags, metadata, locale, variant, unit
         return (
           <>
             <Box className={classes.mainContainer}>
-              {description ? (
-                <TextClamp lines={3}>
-                  <Text size={'xs'} role="productive" className={classes.description}>
-                    {description}
-                  </Text>
-                </TextClamp>
-              ) : (
-                <Stack direction="column" spacing={1} fullWidth>
-                  {metadata.map(({ label, value }, index) => (
-                    <Stack fullWidth key={`${label} ${value} ${index}`}>
-                      <Text size={'xs'} role="productive" className={classes.label}>
-                        {label}
-                      </Text>
-                      <Text size={'xs'} role="productive" className={classes.value}>
-                        {value}
-                      </Text>
-                    </Stack>
-                  ))}
-                </Stack>
-              )}
+              <Stack direction="column" spacing={2} fullWidth>
+                {!isEmpty(subtitle) && (
+                  <TextClamp lines={2}>
+                    <Text role="productive" color="primary">
+                      {subtitle}
+                    </Text>
+                  </TextClamp>
+                )}
+                {!isEmpty(description) ? (
+                  <TextClamp lines={3}>
+                    <Text size={'xs'} role="productive" className={classes.description}>
+                      {description}
+                    </Text>
+                  </TextClamp>
+                ) : (
+                  <Stack direction="column" spacing={1} fullWidth>
+                    {metadata.map(({ label, value }, index) => (
+                      <Stack fullWidth key={`${label} ${value} ${index}`}>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {label}
+                        </Text>
+                        <Text size={'xs'} role="productive" className={classes.value}>
+                          {value}
+                        </Text>
+                      </Stack>
+                    ))}
+                  </Stack>
+                )}
+              </Stack>
             </Box>
             {tags.length > 0 && (
               <Box className={classes.tagsContainer}>

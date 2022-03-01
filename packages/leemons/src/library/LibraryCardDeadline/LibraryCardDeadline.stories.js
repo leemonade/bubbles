@@ -42,6 +42,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
   withImage: false,
+  parentHovered: false,
   icon: <ArchiveIcon width={16} height={16} />,
   deadline: new Date('2022-02-20'),
   locale: 'es',
