@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
+import { getInputSizes, getInputStyle } from '../mixins/fieldStyles.mixins';
 
 export const SelectStyles = createStyles((theme, { size, orientation }) => {
   return {
@@ -11,7 +11,6 @@ export const SelectStyles = createStyles((theme, { size, orientation }) => {
     },
     rightSection: {
       color: theme.colors.text02,
-      pointerEvents: 'none',
     },
   };
 });
