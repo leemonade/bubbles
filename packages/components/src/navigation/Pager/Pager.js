@@ -8,7 +8,7 @@ import { PagerStyles } from './Pager.styles';
 export const PAGER_DIRECTIONS = ['column', 'row'];
 export const PAGER_VARIANTS = ['paged', 'infinity'];
 export const PAGER_DEFAULT_PROPS = {
-  total: 10,
+  totalCount: 10,
   size: 10,
   boundaries: 1,
   siblings: 1,
@@ -23,9 +23,11 @@ export const PAGER_DEFAULT_PROPS = {
     goTo: 'Go to',
   },
   variant: PAGER_VARIANTS[0],
+  page: 0,
 };
 export const PAGER_PROP_TYPES = {
-  total: PropTypes.number,
+  totalCount: PropTypes.number,
+  page: PropTypes.number,
   size: PropTypes.number,
   boundaries: PropTypes.number,
   siblings: PropTypes.number,
@@ -42,8 +44,9 @@ export const PAGER_PROP_TYPES = {
 const Pager = forwardRef(
   (
     {
-      total,
-      size,
+      totalCount,
+      size: sizeProp,
+      page: pageProp,
       boundaries,
       siblings,
       direction,
@@ -60,17 +63,29 @@ const Pager = forwardRef(
     },
     ref
   ) => {
-    const { classes, cx } = PagerStyles(
-      { withGoTo, withControls, withEdges, disabled, hidePages: variant === 'infinity' },
-      { name: 'Pager' }
-    );
+    const [goToPage, setGoToPage] = useState(Math.max(pageProp, 1));
+    const [page, setPage] = useState(pageProp);
+    const [size, setSize] = useState(sizeProp);
 
-    const inputMaxLenght = total.toString().length;
-    const [goToPage, setGoToPage] = useState(1);
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(size);
+    const inputMaxLength = totalCount.toString().length;
 
-    useEffect(() => setPageSize(size), [size]);
+    useEffect(() => {
+      if (size !== sizeProp) setSize(sizeProp);
+    }, [sizeProp]);
+
+    useEffect(() => {
+      if (page !== pageProp) setPage(pageProp);
+    }, [pageProp]);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setPage(goToPage);
+      }, 500);
+      return () => clearTimeout(timer);
+    }, [goToPage]);
+
+    // ·······························································
+    // HANDLERS
 
     const handleGoToPage = (e) => {
       let value = parseInt(e);
@@ -79,8 +94,8 @@ const Pager = forwardRef(
         setGoToPage(1);
         return;
       }
-      if (value > total) {
-        setGoToPage(total);
+      if (value > totalCount) {
+        setGoToPage(totalCount);
         return;
       }
       setGoToPage(value);
@@ -96,17 +111,18 @@ const Pager = forwardRef(
 
     const onSizeChangeHandler = (e) => {
       if (!disabled) {
-        setPageSize(e);
+        setSize(e);
         onSizeChange(e);
       }
     };
 
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setPage(goToPage);
-      }, 500);
-      return () => clearTimeout(timer);
-    }, [goToPage]);
+    // ·······························································
+    // STYLES
+
+    const { classes, cx } = PagerStyles(
+      { withGoTo, withControls, withEdges, disabled, hidePages: variant === 'infinity' },
+      { name: 'Pager' }
+    );
 
     return (
       <Stack direction={direction} alignItems={'center'} spacing={3}>
@@ -116,8 +132,8 @@ const Pager = forwardRef(
             <input
               type={'number'}
               min={1}
-              max={total}
-              maxLength={inputMaxLenght}
+              max={totalCount}
+              maxLength={inputMaxLength}
               className={classes.input}
               value={goToPage.toString()}
               onChange={(e) => handleGoToPage(e)}
@@ -130,7 +146,7 @@ const Pager = forwardRef(
         <MantinePagination
           {...props}
           ref={ref}
-          total={total}
+          total={totalCount}
           boundaries={boundaries}
           siblings={siblings}
           classNames={classes}
@@ -145,7 +161,7 @@ const Pager = forwardRef(
           <Box className={classes.size}>
             <Select
               onChange={onSizeChangeHandler}
-              value={pageSize}
+              value={size}
               data={[10, 20, 30, 40, 50].map((size) => ({
                 label: `${labels.show} ${size}`,
                 value: size,
