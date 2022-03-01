@@ -53,14 +53,12 @@ const SetupSubjects = ({
 }) => {
   let firstDigitOptions = cloneDeep(_firstDigitOptions);
 
-  if (sharedData.moreThanOneAcademicYear || sharedData.maxNumberOfCourses) {
+  if (sharedData.maxNumberOfCourses <= 1) {
     const index = findIndex(firstDigitOptions, { value: 'course' });
     if (index >= 0) {
       firstDigitOptions.splice(index, 1);
     }
   }
-
-  console.log(firstDigitOptions);
 
   const defaultValues = {
     allSubjectsSameDuration: false,
