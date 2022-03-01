@@ -22,6 +22,7 @@ export default {
   },
   argTypes: {
     direction: { control: { type: 'select' }, options: LIBRARYCARD_COVER_DIRECTIONS },
+    parentHovered: { control: 'boolean' },
   },
 };
 
@@ -49,4 +50,5 @@ Playground.args = {
     locale: 'es',
     isNew: false,
   },
+  parentHovered: false,
 };

@@ -1,7 +1,17 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
-import { Box, ImageLoader, Title, COLORS, TextClamp } from '@bubbles-ui/components';
+import {
+  Box,
+  ImageLoader,
+  Title,
+  COLORS,
+  Menu,
+  IconButton,
+  TextClamp,
+} from '@bubbles-ui/components';
+import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+// import {} from '@bubbles-ui/icons/outline/Bookmark'
 import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 
@@ -21,6 +31,7 @@ export const LIBRARY_CARD_COVER_PROP_TYPES = {
   direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
   fileIcon: PropTypes.node,
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
+  parentHovered: PropTypes.bool,
 };
 
 const LibraryCardCover = ({
@@ -32,13 +43,13 @@ const LibraryCardCover = ({
   direction,
   fileIcon,
   deadlineProps,
+  parentHovered,
   ...props
 }) => {
   const { classes, cx } = LibraryCardCoverStyles(
-    { color, height, blur, direction },
+    { color, height, blur, direction, parentHovered },
     { name: 'LibraryCardCover' }
   );
-
   const isVertical = direction === 'vertical';
 
   const icon = useMemo(
@@ -53,23 +64,57 @@ const LibraryCardCover = ({
     if (!deadlineProps) return;
     return (
       <Box className={classes.deadline}>
-        <LibraryCardDeadline {...deadlineProps} direction={direction} />
+        <LibraryCardDeadline
+          {...deadlineProps}
+          direction={direction}
+          parentHovered={parentHovered}
+        />
       </Box>
     );
   };
 
+  const iconRow = (
+    <Box className={classes.iconRow}>
+      <Box style={{ flex: 1 }}>
+        <Menu
+          control={
+            <IconButton
+              icon={<SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />}
+              variant={!isVertical ? 'transparent' : null}
+              size="xs"
+            />
+          }
+        />
+      </Box>
+      {!isVertical && (
+        <IconButton
+          icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
+          variant={!isVertical ? 'transparent' : null}
+          size="xs"
+        />
+      )}
+      <IconButton
+        icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
+        variant={!isVertical ? 'transparent' : null}
+        size="xs"
+      />
+    </Box>
+  );
+
   return (
     <Box className={classes.root}>
       <Box className={classes.blurryBox}>
+        {isVertical && iconRow}
         {isVertical && renderDeadline()}
-        <Box className={classes.color}></Box>
-        <Box className={classes.titleWrapper}>
-          <TextClamp lines={2}>
-            <Title order={5} className={classes.title}>
-              {name}
-            </Title>
-          </TextClamp>
+        <Box>
+          <Box className={classes.color} />
+          {!isVertical && iconRow}
         </Box>
+        <TextClamp lines={2}>
+          <Title order={5} className={classes.title}>
+            {name}
+          </Title>
+        </TextClamp>
       </Box>
       {!isVertical && renderDeadline()}
       {cover ? (

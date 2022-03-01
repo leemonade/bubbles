@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
@@ -60,9 +60,15 @@ const LibraryCard = ({
   locale,
   ...props
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const { classes, cx } = LibraryCardStyles({});
   return (
-    <Box className={classes.root}>
+    <Box
+      className={classes.root}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <LibraryCardCover
         name={asset.name}
         color={asset.color}
@@ -78,6 +84,7 @@ const LibraryCard = ({
         }
         deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
         direction={variant === 'assigment' ? 'vertical' : null}
+        parentHovered={isHovered}
       />
       <LibraryCardContent
         subtitle={asset.subtitle}
