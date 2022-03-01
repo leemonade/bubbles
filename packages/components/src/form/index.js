@@ -28,3 +28,4 @@ export * from './Input';
 export * from './TagsInput';
 export * from './Autocomplete';
 export * from './ImagePreviewInput';
+export * from './SearchInput';
