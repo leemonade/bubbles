@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box } from '@mantine/core';
+import React, { useState } from 'react';
 import { DatePicker, DATE_PICKER_DEFAULT_PROPS, DATE_PICKER_ORIENTATIONS } from './DatePicker';
 import mdx from './DatePicker.mdx';
 
@@ -16,22 +15,29 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     orientation: { options: DATE_PICKER_ORIENTATIONS, control: { type: 'select' } },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
+    onChange: { action: 'onChange' },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <DatePicker {...props}>{children}</DatePicker>;
+const Template = ({ onChange, ...props }) => {
+  const [value, setValue] = useState(null);
+  return (
+    <DatePicker
+      {...props}
+      value={value}
+      onChange={(e) => {
+        onChange(e);
+        setValue(e);
+      }}
+    />
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...DATE_PICKER_DEFAULT_PROPS,
   label: 'Label for date picker',
   description: 'Optional descriptive text for this date picker ',

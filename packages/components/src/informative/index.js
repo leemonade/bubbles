@@ -1,3 +1,4 @@
+export * from './PaginatedList';
 export * from './SortableList';
 export * from './Kanban';
 export * from './Avatar';
