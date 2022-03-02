@@ -1,20 +1,11 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { Box, Text, ImageLoader } from '@bubbles-ui/components';
 import { LibraryNavbarItemStyles } from './LibraryNavbarItem.styles';
-import { isFunction } from 'lodash';
-
-export const LIBRARY_NAVBAR_ITEM_DEFAULT_PROPS = {
-  selected: false,
-  disabled: false,
-};
-export const LIBRARY_NAVBAR_ITEM_PROP_TYPES = {
-  icon: PropTypes.oneOfType(PropTypes.node, PropTypes.string),
-  label: PropTypes.string.isRequired,
-  selected: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-};
+import {
+  LIBRARY_NAVBAR_ITEM_DEFAULT_PROPS,
+  LIBRARY_NAVBAR_ITEM_PROP_TYPES,
+} from './LibraryNavbarItem.constants';
 
 const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, ...props }) => {
   const onClickHandler = (e) => {

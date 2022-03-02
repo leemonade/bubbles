@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryCardFooter, LIBRARY_CARD_FOOTER_DEFAULT_PROPS } from './LibraryCardFooter';
+import { LibraryCardFooter } from './LibraryCardFooter';
+import { LIBRARY_CARD_FOOTER_DEFAULT_PROPS } from './LibraryCardFooter.constants';
 import mdx from './LibraryCardFooter.mdx';
 
 export default {

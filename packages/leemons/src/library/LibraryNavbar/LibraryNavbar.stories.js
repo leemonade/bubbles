@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryNavbar, LIBRARY_NAVBAR_DEFAULT_PROPS } from './LibraryNavbar';
-import { PluginKimIcon, PluginContentCreatorIcon, StarIcon } from '@bubbles-ui/icons/solid';
+import { LibraryNavbar } from './LibraryNavbar';
+import { LIBRARY_NAVBAR_DEFAULT_PROPS } from './LibraryNavbar.constants';
 import mdx from './LibraryNavbar.mdx';
 
 export default {

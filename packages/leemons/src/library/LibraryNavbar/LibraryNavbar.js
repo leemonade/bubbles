@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
 import { isEmpty, isFunction } from 'lodash';
 import {
   Box,
@@ -15,41 +14,7 @@ import { PluginLeebraryIcon, PluginKimIcon } from '@bubbles-ui/icons/solid';
 import { CloudUploadIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
-
-export const LIBRARY_NAVBAR_DEFAULT_PROPS = {
-  labels: {
-    uploadButton: '',
-    quickAccess: '',
-    createNewTitle: '',
-    fileUploadTitle: '',
-    fileUploadSubtitle: '',
-  },
-  categories: [],
-  selectedCategory: null,
-};
-export const LIBRARY_NAVBAR_PROP_TYPES = {
-  labels: PropTypes.shape({
-    uploadButton: PropTypes.string,
-    quickAccess: PropTypes.string,
-    createNewTitle: PropTypes.string,
-    fileUploadTitle: PropTypes.string,
-    fileUploadSubtitle: PropTypes.string,
-  }),
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      icon: PropTypes.node,
-      name: PropTypes.string,
-      slug: PropTypes.string,
-      creatable: PropTypes.bool,
-      createUrl: PropTypes.string,
-    })
-  ),
-  selectedCategory: PropTypes.string,
-  onNav: PropTypes.func,
-  onFile: PropTypes.func,
-  onNew: PropTypes.func,
-};
+import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './LibraryNavbar.constants';
 
 const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew }) => {
   const [isExpanded, setIsExpanded] = useState(false);

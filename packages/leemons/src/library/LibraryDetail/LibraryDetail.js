@@ -1,43 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import { LibraryDetailContent, LibraryDetailToolbar, LibraryDetailPlayer } from '../';
+import { LibraryDetailContent } from '../LibraryDetailContent';
+import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
+import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
 import { LibraryDetailStyles } from './LibraryDetail.styles';
-
-export const LIBRARY_DETAIL_VARIANTS = ['media', 'task'];
-export const LIBRARY_DETAIL_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-
-export const LIBRARY_DETAIL_DEFAULT_PROPS = {};
-export const LIBRARY_DETAIL_PROP_TYPES = {
-  asset: PropTypes.shape({
-    id: PropTypes.string,
-    fileType: PropTypes.string,
-    fileExtension: PropTypes.string,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    metadata: PropTypes.arrayOf(
-      PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-    ),
-    created: PropTypes.string,
-    version: PropTypes.string,
-    cover: PropTypes.string,
-    color: PropTypes.string,
-    url: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
-    category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
-    role: PropTypes.oneOf(LIBRARY_DETAIL_ROLES),
-  }),
-  variant: PropTypes.oneOf(LIBRARY_DETAIL_VARIANTS),
-  onEdit: PropTypes.func,
-  onDuplicate: PropTypes.func,
-  onDownload: PropTypes.func,
-  onDelete: PropTypes.func,
-  onShare: PropTypes.func,
-  onAssign: PropTypes.func,
-};
+import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
 const LibraryDetail = ({ asset, variant, ...events }) => {
-  const { classes, cx } = LibraryDetailStyles({});
+  const { classes, cx } = LibraryDetailStyles({}, { name: 'LibraryDetail' });
 
   const { id, name, fileType, fileExtension, cover, color, url, description, metadata, tags } =
     asset;

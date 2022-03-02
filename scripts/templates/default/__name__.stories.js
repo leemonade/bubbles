@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { __name__, __name__(constantCase)_DEFAULT_PROPS } from './__name__';
+import { __name__ } from './__name__';
+import { __name__(constantCase)_DEFAULT_PROPS } from './__name__.constants';
 import mdx from './__name__.mdx';
 
 export default {
@@ -21,8 +22,8 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <__name__ {...props}>{children}</__name__>;
+const Template = ({ ...props }) => {
+  return <__name__ {...props} />;
 };
 
 export const Playground = Template.bind({});
