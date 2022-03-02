@@ -28,6 +28,8 @@ export const ButtonStyles = createStyles((theme, { actived, position }) => {
     root: {
       backgroundColor: actived ? theme.colors.interactive02h : theme.colors.mainWhite,
       color: actived ? '#EDEFF5' : theme.colors.text01,
+      height: 40,
+      width: 40,
       ...getBorder(),
       borderColor: actived ? theme.colors.text02 : theme.colors.ui01,
       '&:hover': {
@@ -35,5 +37,7 @@ export const ButtonStyles = createStyles((theme, { actived, position }) => {
         color: actived ? '#EDEFF5' : theme.colors.text01,
       },
     },
+    inner: {},
+    leftIcon: {},
   };
 });

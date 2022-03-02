@@ -1,15 +1,14 @@
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import Strike from '@tiptap/extension-strike';
-import { StrikeToolExtension } from './extension';
 import { Button } from '../../form/Button/Button';
+import Strike from '@tiptap/extension-strike';
 
 const StrikeTool = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.commands.toggleStrike();
+    editor.chain().toggleStrike().focus().run();
   };
 
   return (
@@ -22,6 +21,6 @@ const StrikeTool = ({ ...props }) => {
   );
 };
 
-StrikeTool.extensions = [StrikeToolExtension, Strike];
+StrikeTool.extensions = [Strike];
 
 export { StrikeTool };

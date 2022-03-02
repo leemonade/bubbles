@@ -1,15 +1,14 @@
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import Italic from '@tiptap/extension-italic';
-import { ItalicToolExtension } from './extension';
 import { Button } from '../../form/Button/Button';
+import Italic from '@tiptap/extension-italic';
 
 const ItalicTool = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.commands.toggleItalic();
+    editor.chain().toggleItalic().focus().run();
   };
 
   return (
@@ -22,6 +21,6 @@ const ItalicTool = ({ ...props }) => {
   );
 };
 
-ItalicTool.extensions = [ItalicToolExtension, Italic];
+ItalicTool.extensions = [Italic];
 
 export { ItalicTool };

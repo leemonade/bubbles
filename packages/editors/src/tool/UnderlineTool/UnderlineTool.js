@@ -1,15 +1,14 @@
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import Underline from '@tiptap/extension-underline';
-import { UnderlineToolExtension } from './extension';
 import { Button } from '../../form/Button/Button';
+import Underline from '@tiptap/extension-underline';
 
 const UnderlineTool = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.commands.toggleUnderline();
+    editor.chain().toggleUnderline().focus().run();
   };
 
   return (
@@ -22,6 +21,6 @@ const UnderlineTool = ({ ...props }) => {
   );
 };
 
-UnderlineTool.extensions = [UnderlineToolExtension, Underline];
+UnderlineTool.extensions = [Underline];
 
 export { UnderlineTool };
