@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { isNil } from 'lodash';
+import ReactPlayer from 'react-player/lazy';
+import { ControlsPlayIcon, ControlsPauseIcon } from '@bubbles-ui/icons/solid';
 import {
   Box,
   ImageLoader,
@@ -9,25 +11,11 @@ import {
   Text,
   FileIcon,
 } from '@bubbles-ui/components';
-import { LIBRARY_DETAIL_VARIANTS } from '..';
 import { LibraryDetailPlayerStyles } from './LibraryDetailPlayer.styles';
-import { isNil } from 'lodash';
-import { ControlsPlayIcon, ControlsPauseIcon } from '@bubbles-ui/icons/solid';
-import ReactPlayer from 'react-player/lazy';
-
-export const LIBRARY_DETAIL_PLAYER_DEFAULT_PROPS = {
-  height: 202,
-};
-export const LIBRARY_DETAIL_PLAYER_PROP_TYPES = {
-  name: PropTypes.string,
-  height: PropTypes.number,
-  cover: PropTypes.string,
-  url: PropTypes.string,
-  color: PropTypes.string,
-  variant: PropTypes.oneOf(LIBRARY_DETAIL_VARIANTS),
-  fileIcon: PropTypes.element,
-  fileType: PropTypes.string,
-};
+import {
+  LIBRARY_DETAIL_PLAYER_DEFAULT_PROPS,
+  LIBRARY_DETAIL_PLAYER_PROP_TYPES,
+} from './LibraryDetailPlayer.constants';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);

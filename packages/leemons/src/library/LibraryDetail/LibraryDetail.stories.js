@@ -1,10 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import {
-  LibraryDetail,
-  LIBRARY_DETAIL_DEFAULT_PROPS,
-  LIBRARY_DETAIL_VARIANTS,
-} from './LibraryDetail';
+import { LibraryDetail } from './LibraryDetail';
+import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_VARIANTS } from './LibraryDetail.constants';
 import mdx from './LibraryDetail.mdx';
 
 export default {
@@ -16,7 +13,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=6757%3A75141',
     },
   },
   argTypes: {

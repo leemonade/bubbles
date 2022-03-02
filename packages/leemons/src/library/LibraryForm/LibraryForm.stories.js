@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryForm, LIBRARY_FORM_DEFAULT_PROPS } from './LibraryForm';
+import { LibraryForm } from './LibraryForm';
+import { LIBRARY_FORM_DEFAULT_PROPS } from './LibraryForm.constants';
 import mdx from './LibraryForm.mdx';
 
 export default {

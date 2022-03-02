@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryCardContent, LIBRARY_CARD_CONTENT_DEFAULT_PROPS } from './LibraryCardContent';
+import { LibraryCardContent } from './LibraryCardContent';
+import { LIBRARY_CARD_CONTENT_DEFAULT_PROPS } from './LibraryCardContent.constants';
 import { LIBRARYCARD_VARIANTS } from '../LibraryCard';
 import mdx from './LibraryCardContent.mdx';
 

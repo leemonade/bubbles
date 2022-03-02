@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryDetailContent, LIBRARY_DETAIL_CONTENT_DEFAULT_PROPS } from './LibraryDetailContent';
+import { LibraryDetailContent } from './LibraryDetailContent';
+import { LIBRARY_DETAIL_CONTENT_DEFAULT_PROPS } from './LibraryDetailContent.constants';
 import mdx from './LibraryDetailContent.mdx';
 
 export default {

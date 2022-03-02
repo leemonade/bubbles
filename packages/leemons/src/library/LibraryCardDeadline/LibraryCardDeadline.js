@@ -1,45 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { capitalize } from 'lodash';
 import { Box, ImageLoader } from '@bubbles-ui/components';
 import { LibraryCardDeadlineStyles } from './LibraryCardDeadline.styles';
-import { capitalize } from 'lodash';
-import { LIBRARYCARD_COVER_DIRECTIONS } from '../LibraryCardCover';
-
-export const LIBRARY_CARD_DEADLINE_DEFAULT_PROPS = {
-  labels: {
-    title: 'Coming soon',
-    new: 'New',
-    deadline: '',
-  },
-  locale: 'en',
-  isNew: false,
-};
-export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
-  labels: PropTypes.shape({
-    title: PropTypes.string,
-    new: PropTypes.string,
-    deadline: PropTypes.string,
-  }),
-  icon: PropTypes.oneOfType([
-    PropTypes.element,
-    (props, propName, componentName) => validateURL(props, propName, componentName),
-  ]),
-  locale: PropTypes.string,
-  deadline: PropTypes.instanceOf(Date),
-  direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
-  parentHovered: PropTypes.bool,
-};
-
-export const validateURL = (props, propName, componentName) => {
-  let url;
-  const errorString = `Invalid prop ${propName} supplied to ${componentName}. Validation failed.`;
-  try {
-    url = new URL(props.icon);
-  } catch (error) {
-    return new Error(errorString);
-  }
-  if (url.protocol !== 'http:' && url.protocol !== 'https:') return new Error(errorString);
-};
+import {
+  LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
+  LIBRARY_CARD_DEADLINE_PROP_TYPES,
+} from './LibraryCardDeadline.constants';
 
 const TODAY = new Date().getDate();
 

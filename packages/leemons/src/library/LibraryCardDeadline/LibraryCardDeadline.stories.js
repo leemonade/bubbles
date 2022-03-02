@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_DEFAULT_PROPS } from './LibraryCardDeadline';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid/';
+import { LibraryCardDeadline } from './LibraryCardDeadline';
+import { LIBRARY_CARD_DEADLINE_DEFAULT_PROPS } from './LibraryCardDeadline.constants';
 import mdx from './LibraryCardDeadline.mdx';
 
 export default {
