@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { difference, forEach, get } from 'lodash';
 import { Controller } from 'react-hook-form';
-import { Box, Col, Grid, Text, Select } from '@bubbles-ui/components';
+import { Box, Col, Grid, Select, Text } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../../context/DatasetItemDrawerContext';
 import { TextField } from './TextField';
 import { CommonRequiredField } from './CommonRequiredField';
@@ -54,7 +54,7 @@ const FieldType = () => {
       watch,
       control,
       unregister,
-      getValues,
+      setValue,
       formState: { errors },
     },
   } = useContext(DatasetItemDrawerContext);

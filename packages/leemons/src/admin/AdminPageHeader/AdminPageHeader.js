@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useForm, Controller } from 'react-hook-form';
-import { isArray, isString, trim, isFunction, flatMap, isObject, capitalize } from 'lodash';
+import { Controller, useForm } from 'react-hook-form';
+import { capitalize, flatMap, isArray, isFunction, isObject, isString, trim } from 'lodash';
 import {
   Box,
-  useResizeObserver,
-  Stack,
-  Divider,
-  PageContainer,
-  ContentLegible,
   Breadcrumbs,
   Button,
-  TextInput,
-  Textarea,
-  Title,
+  ContentLegible,
+  Divider,
+  PageContainer,
   Paragraph,
+  Stack,
+  Textarea,
+  TextInput,
+  Title,
+  useResizeObserver,
 } from '@bubbles-ui/components';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
@@ -281,7 +281,7 @@ const AdminPageHeader = ({
             {/* Description */}
             {!editMode && (
               <ContentLegible>
-                <Paragraph>{values.description}</Paragraph>
+                <Paragraph dangerouslySetInnerHTML={{ __html: values.description }} />
               </ContentLegible>
             )}
             {editMode && (
