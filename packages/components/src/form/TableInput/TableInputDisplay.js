@@ -5,10 +5,10 @@ import { useTable } from 'react-table';
 import { Controller, useForm } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { Text } from '../../typography';
+import { Text } from '../../typography/Text';
 import { TableStyles } from '../../informative/Table/Table.styles';
-import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.const';
-import { Button } from '../../form';
+import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
+import { Button } from '../Button';
 import { TableInputRow } from './TableInputRow';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
