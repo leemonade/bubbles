@@ -1,4 +1,3 @@
-import { ActionButton } from '@bubbles-ui/components';
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { useContext, Children } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
@@ -6,7 +5,7 @@ import Underline from '@tiptap/extension-underline';
 import { ColorToolExtension } from './extension';
 import { Button } from '../../form/Button/Button';
 
-const ColorTool = ({ position, ...props }) => {
+const ColorTool = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   /*useEffect(() => {
@@ -28,6 +27,7 @@ const ColorTool = ({ position, ...props }) => {
 
   return (
     <Button
+      {...props}
       icon={<ExpandDiagonalIcon />}
       actived={editor?.isActive('underline')}
       onClick={onClickHandler}

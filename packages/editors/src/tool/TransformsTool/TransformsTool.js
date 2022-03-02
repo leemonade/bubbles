@@ -1,13 +1,13 @@
 import { ColorTool } from '../ColorTool/ColorTool';
-import { Group } from '../../form/ButtonGroup/ButtonGroup';
+import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
 
 const TransfromsTool = ({}) => {
   return (
-    <Group>
+    <ButtonGroup>
       <ColorTool></ColorTool>
       <ColorTool></ColorTool>
       <ColorTool></ColorTool>
-    </Group>
+    </ButtonGroup>
   );
 };
 

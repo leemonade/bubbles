@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, BUTTON_DEFAULT_PROPS } from './Button';
 import { StarIcon } from '@bubbles-ui/icons/solid/';
+import isFunction from 'lodash/isFunction';
 
 export default {
   title: 'Atom/Form/Button',
@@ -19,8 +20,15 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Button {...props}></Button>;
+const Template = ({ onClick, ...props }) => {
+  const [actived, setActived] = React.useState(props.actived);
+
+  const onClickHandler = () => {
+    isFunction(onClick) && onClick();
+    setActived(!actived);
+  };
+
+  return <Button {...props} onClick={onClickHandler} actived={actived}></Button>;
 };
 
 export const Playground = Template.bind({});
