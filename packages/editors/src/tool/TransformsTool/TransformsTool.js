@@ -1,14 +1,7 @@
-import { ColorTool } from '../ColorTool/ColorTool';
 import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
 
-const TransfromsTool = ({}) => {
-  return (
-    <ButtonGroup>
-      <ColorTool></ColorTool>
-      <ColorTool></ColorTool>
-      <ColorTool></ColorTool>
-    </ButtonGroup>
-  );
+const TransformsTool = ({}) => {
+  return <ButtonGroup></ButtonGroup>;
 };
 
-export { TransfromsTool };
+export { TransformsTool };

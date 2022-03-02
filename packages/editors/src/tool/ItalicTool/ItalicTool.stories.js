@@ -1,13 +1,11 @@
 import React from 'react';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { TextEditor } from './TextEditor';
-// import mdx from './TextEditor.mdx';
+import { TextEditor } from '../../form/TextEditor/TextEditor';
+import { ItalicTool } from './ItalicTool';
 
 export default {
-  title: 'Atom/Form/TextEditor',
+  title: 'Atom/Form/ItalicTool',
   parameters: {
-    component: TextEditor,
+    component: ItalicTool,
     docs: {
       // page: mdx,
     },
@@ -19,11 +17,10 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ content, ...props }) => {
   return (
-    <TextEditor {...props}>
-      <ColorTool></ColorTool>
-      <TransformsTool></TransformsTool>
+    <TextEditor content={content}>
+      <ItalicTool {...props}></ItalicTool>
     </TextEditor>
   );
 };
