@@ -1,40 +1,32 @@
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
-import { useContext, Children } from 'react';
+import React, { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import Underline from '@tiptap/extension-underline';
 import { ColorToolExtension } from './extension';
 import { Button } from '../../form/Button/Button';
+import { ColorToolStyles } from './ColorTool.styles';
+import TextStyle from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import { useEffect } from 'react';
 
 const ColorTool = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
-  /*useEffect(() => {
-    if (!editor) return;
-    editor.extensionManager = new ExtensionManager(
-      editor.extensionManager.extensions.concat(Underline),
-      editor
-    );
-    editor.commandManager = new CommandManager({
-      editor,
-    });
-    console.log(editor);
-  }, [editor]);
-  */
+  const onClickHandler = () => {};
 
-  const onClickHandler = () => {
-    editor.commands.toggleUnderline();
-  };
-
+  const { classes } = ColorToolStyles({});
   return (
     <Button
       {...props}
       icon={<ExpandDiagonalIcon />}
       actived={editor?.isActive('underline')}
       onClick={onClickHandler}
-    ></Button>
+      classNames={classes}
+    >
+      <div className={classes.preview}></div>
+    </Button>
   );
 };
 
-ColorTool.extensions = [ColorToolExtension, Underline];
+ColorTool.extensions = [ColorToolExtension, Color, TextStyle];
 
 export { ColorTool };
