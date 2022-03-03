@@ -3,6 +3,7 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import { useEffect } from 'react';
 import { useExtensions } from '../../utils/use-extensions';
 import { TextEditorStyles } from './TextEditor.styles';
+import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
@@ -21,10 +22,9 @@ const TextEditor = ({ content, children }) => {
       Text,
       Paragraph.configure({
         HTMLAttributes: {
-          class: classes.document,
+          class: classes.paragraph,
         },
       }),
-      ,
       ...extensions,
     ],
     content: '',
@@ -37,7 +37,7 @@ const TextEditor = ({ content, children }) => {
 
   return (
     <TextEditorProvider editor={editor}>
-      <div>{children}</div>
+      <Box className={classes.toolbar}>{children}</Box>
 
       <EditorContent editor={editor} />
     </TextEditorProvider>
