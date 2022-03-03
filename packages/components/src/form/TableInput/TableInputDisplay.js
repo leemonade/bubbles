@@ -37,6 +37,7 @@ const TableInputDisplay = ({
   editable,
   removable,
   disabled,
+  disabledAddButton,
   classes,
   onChangeRow = () => {},
 }) => {
@@ -151,7 +152,13 @@ const TableInputDisplay = ({
             style={{ paddingLeft: 0, paddingBottom: 4 }}
           >
             {!disabled && (
-              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={handleOnAdd}>
+              <Button
+                variant="light"
+                size="sm"
+                disabled={disabledAddButton}
+                leftIcon={<AddCircleIcon />}
+                onClick={handleOnAdd}
+              >
                 {labels.add}
               </Button>
             )}
