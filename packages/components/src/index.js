@@ -21,5 +21,6 @@ export * from './overlay';
 export * from './layout';
 export * from './assets';
 export * from './dates';
+export * from './hooks';
 export * from './form';
 export * from './misc';
