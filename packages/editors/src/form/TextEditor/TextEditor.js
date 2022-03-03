@@ -2,7 +2,8 @@ import { TextEditorProvider } from '../TextEditorProvider';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { useEffect } from 'react';
 import { useExtensions } from '../../utils/use-extensions';
-
+import { TextEditorStyles } from './TextEditor.styles';
+import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
@@ -14,8 +15,18 @@ export const TEXT_EDITOR_PROP_TYPES = {
 
 const TextEditor = ({ content, children }) => {
   const extensions = useExtensions(children);
+  const { classes } = TextEditorStyles({});
   const editor = useEditor({
-    extensions: [Document, Text, Paragraph, ...extensions],
+    extensions: [
+      Document,
+      Text,
+      Paragraph.configure({
+        HTMLAttributes: {
+          class: classes.paragraph,
+        },
+      }),
+      ...extensions,
+    ],
     content: '',
   });
 
@@ -26,7 +37,7 @@ const TextEditor = ({ content, children }) => {
 
   return (
     <TextEditorProvider editor={editor}>
-      <div>{children}</div>
+      <Box className={classes.toolbar}>{children}</Box>
 
       <EditorContent editor={editor} />
     </TextEditorProvider>
