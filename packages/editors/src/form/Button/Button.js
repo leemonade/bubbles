@@ -21,7 +21,7 @@ export const BUTTON_PROP_TYPES = {
 const Button = ({ icon, label, actived, position, onClick, classNames, children }) => {
   const { classes, cx } = ButtonStyles({ actived, position }, { classNames });
   return (
-    <ActionButton size={'lg'} icon={icon} classNames={classes} tooltip={label} onClick={onClick}>
+    <ActionButton icon={icon} classNames={classes} tooltip={label} onClick={onClick}>
       {children}
     </ActionButton>
   );
