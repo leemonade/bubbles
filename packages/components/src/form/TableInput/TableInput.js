@@ -56,9 +56,9 @@ const TableInput = ({
   // HANDLERS
 
   const handleOnChange = (newData, event) => {
-    setTableData(cleanData);
-    if (isFunction(onChangeData)) onChangeData(deserializeData(cleanData), event);
-    if (isFunction(onChange)) onChange(deserializeData(cleanData), event);
+    setTableData(newData);
+    if (isFunction(onChangeData)) onChangeData(deserializeData(newData), event);
+    if (isFunction(onChange)) onChange(deserializeData(newData), event);
   };
 
   const handleOnAdd = async (item) => {
