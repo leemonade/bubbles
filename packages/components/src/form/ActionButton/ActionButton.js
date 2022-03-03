@@ -54,6 +54,7 @@ export const ActionButton = forwardRef(
       className,
       classNames,
       active,
+      children,
       ...props
     },
     ref
@@ -73,7 +74,7 @@ export const ActionButton = forwardRef(
         iconOnly: isNil(label) || (isString(label) && label === ''),
         active,
       },
-      { name: 'ActionButton' }
+      { classNames, name: 'ActionButton' }
     );
 
     return (
@@ -94,6 +95,7 @@ export const ActionButton = forwardRef(
           ref={ref}
         >
           {label}
+          {children}
         </MantineButton>
       </TooltipComponent>
     );
