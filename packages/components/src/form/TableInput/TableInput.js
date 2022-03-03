@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import update from 'immutability-helper';
-import { isFunction, isEmpty } from 'lodash';
+import { isFunction, isEmpty, uniq } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { InputError } from '../InputError';
 import { TableInputDisplay } from './TableInputDisplay';
-import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.const';
+import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
 import { TableInputStyles } from './TableInput.styles';
 
 // ----------------------------------------------------------------
@@ -31,16 +31,17 @@ function deserializeData(data) {
 
 const TableInput = ({
   data,
-  onChange,
-  onChangeData,
-  onBeforeRemove,
-  onAdd,
-  onUpdate,
-  onRemove,
-  onSort,
-  onBeforeAdd,
   form,
   error,
+  unique,
+  onChange = () => {},
+  onChangeData = () => {},
+  onBeforeRemove = () => {},
+  onBeforeAdd = () => {},
+  onAdd = () => {},
+  onUpdate = () => {},
+  onRemove = () => {},
+  onSort = () => {},
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
@@ -55,9 +56,9 @@ const TableInput = ({
   // HANDLERS
 
   const handleOnChange = (newData, event) => {
-    setTableData(newData);
-    if (isFunction(onChangeData)) onChangeData(deserializeData(newData), event);
-    if (isFunction(onChange)) onChange(deserializeData(newData), event);
+    setTableData(cleanData);
+    if (isFunction(onChangeData)) onChangeData(deserializeData(cleanData), event);
+    if (isFunction(onChange)) onChange(deserializeData(cleanData), event);
   };
 
   const handleOnAdd = async (item) => {

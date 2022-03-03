@@ -8,6 +8,9 @@ export const TextEditorStyles = createStyles((theme, { hasError }) => {
     },
     editor: {
       margin: theme.spacing[3],
+      textAlign: 'initial',
+      fontWeight: 'initial',
+
       ...getFontProductive(theme.fontSizes[2]),
 
       '.ProseMirror:focus-visible': {
@@ -21,6 +24,23 @@ export const TextEditorStyles = createStyles((theme, { hasError }) => {
         float: 'left',
         height: 0,
         pointerEvents: 'none',
+
+        h1: {
+          fontSize: theme.fontSizes[7],
+          fontWeight: 600,
+        },
+        h2: {
+          fontSize: theme.fontSizes[6],
+          fontWeight: 600,
+        },
+        h3: {
+          fontSize: theme.fontSizes[5],
+          fontWeight: 600,
+        },
+
+        strong: {
+          fontWeight: 600,
+        },
       },
     },
   };

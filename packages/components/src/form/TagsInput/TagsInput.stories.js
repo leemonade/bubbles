@@ -1,6 +1,8 @@
-import React from 'react';
-import { TagsInput, TAGS_INPUT_DEFAULT_PROPS } from './TagsInput';
+import React, { useEffect, useState } from 'react';
+import { TagsInput } from './TagsInput';
+import { TAGS_INPUT_DEFAULT_PROPS } from './TagsInput.constants';
 import mdx from './TagsInput.mdx';
+import { makeData } from './mocks/makeData';
 
 export default {
   title: 'Organisms/Form/TagsInput',
@@ -16,11 +18,51 @@ export default {
   },
   argTypes: {
     onChange: { action: 'onChange' },
+    onSearch: { action: 'onSearch' },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <TagsInput {...props}>{children}</TagsInput>;
+// Let's simulate a large dataset on the server (outside of our component)
+const totalCount = 10000;
+const serverData = makeData(totalCount);
+
+function getTags({ search, limit }) {
+  // Should comes from Server
+  const items = serverData.filter((item) => item.indexOf(search) === 0).slice(0, limit);
+
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(items);
+    }, 500)
+  );
+}
+
+const Template = ({ suggestions: suggestionsProp, onSearch, ...props }) => {
+  const [suggestions, setSuggestions] = useState(suggestionsProp);
+
+  useEffect(() => setSuggestions(suggestionsProp), [suggestionsProp]);
+
+  // ·······················································
+  // DATA LOAD
+
+  const loadTags = async (search, limit = 100) => {
+    const tags = await getTags({ search, limit });
+    setSuggestions(tags);
+  };
+
+  useEffect(() => {
+    loadTags('');
+  }, []);
+
+  // ·······················································
+  // HANDLERS
+
+  const handleOnSearch = async (search) => {
+    onSearch(search);
+    loadTags(search);
+  };
+
+  return <TagsInput {...props} suggestions={suggestions} onSearch={handleOnSearch} />;
 };
 
 export const Playground = Template.bind({});
@@ -32,7 +74,7 @@ Playground.args = {
   },
   label: 'Tags',
   placeholder: 'Name of tag',
-  suggestions: ['Cat', 'Dog', 'Horse', 'Bird', 'Fish'],
+  suggestions: [],
   value: ['Fish', 'Dog'],
   error: 'Please enter a tag',
 };
