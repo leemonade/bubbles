@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Stack } from '@bubbles-ui/components';
+import { Stack, TableInput } from '@bubbles-ui/components';
 import { TEXT_EDITOR_DEFAULT_PROPS, TextEditor } from './TextEditor';
 import mdx from './TextEditor.mdx';
 
@@ -44,3 +44,37 @@ Playground.args = {
   help: 'Help text for text editor',
   error: 'Descriptive text for error ',
 };
+
+const TableInputTemplate = ({ ...props }) => {
+  const columns = [
+    {
+      Header: 'Period name',
+      accessor: 'name',
+      input: {
+        node: <TextEditor />,
+        rules: { required: 'Required field' },
+      },
+    },
+  ];
+
+  const data = [
+    {
+      id: 1,
+      name: 'Anual subject',
+      amount: 2,
+      type: 'semester',
+    },
+  ];
+
+  const labels = {
+    add: 'Add',
+    remove: 'Remove',
+    edit: 'Edit',
+    accept: 'Accept',
+    cancel: 'Cancel',
+  };
+
+  return <TableInput columns={columns} data={data} labels={labels} />;
+};
+
+export const TableInputExample = TableInputTemplate.bind({});
