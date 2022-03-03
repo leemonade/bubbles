@@ -36,6 +36,10 @@ export const ButtonStyles = createStyles((theme, { actived, position }) => {
         backgroundColor: actived ? theme.colors.interactive02h : theme.colors.interactive03,
         color: actived ? '#EDEFF5' : theme.colors.text01,
       },
+      '&:active': {
+        backgroundColor: actived ? theme.colors.interactive02h : theme.colors.interactive03,
+        color: actived ? '#EDEFF5' : theme.colors.text01,
+      },
     },
     inner: {},
     leftIcon: {},

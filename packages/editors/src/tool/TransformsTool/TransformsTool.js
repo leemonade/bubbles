@@ -11,6 +11,12 @@ export const TRANSFORMSTOOL_DEFAULT_PROPS = {
   italic: true,
   underline: true,
   strike: true,
+  labels: {
+    bold: 'Bold',
+    italic: 'Italic',
+    underline: 'Underline',
+    strike: 'Strike',
+  },
 };
 
 export const TRANSFORMSTOOL_PROP_TYPES = {
@@ -18,15 +24,23 @@ export const TRANSFORMSTOOL_PROP_TYPES = {
   italic: PropTypes.bool,
   underline: PropTypes.bool,
   strike: PropTypes.bool,
+  labels: PropTypes.shape({
+    bold: PropTypes.string,
+    italic: PropTypes.string,
+    underline: PropTypes.string,
+    strike: PropTypes.string,
+  }),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-const TransformsTool = ({ bold, italic, underline, strike }) => {
+const TransformsTool = ({ bold, italic, underline, strike, labels, children }) => {
   return (
     <ButtonGroup>
-      {bold && <BoldTool />}
-      {italic && <ItalicTool />}
-      {underline && <UnderlineTool />}
-      {strike && <StrikeTool />}
+      {bold && <BoldTool label={labels.bold} />}
+      {italic && <ItalicTool label={labels.italic} />}
+      {underline && <UnderlineTool label={labels.underline} />}
+      {strike && <StrikeTool label={labels.strike} />}
+      {children}
     </ButtonGroup>
   );
 };

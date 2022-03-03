@@ -11,9 +11,10 @@ export const TITLE_TOOL_DEFAULT_PROPS = {
 
 export const TITLE_TOOL_PROP_TYPES = {
   level: PropTypes.number,
+  label: PropTypes.string,
 };
 
-const TitleTool = ({ level, ...props }) => {
+const TitleTool = ({ level, label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   if (level < 1 || level > 3) {
@@ -22,6 +23,19 @@ const TitleTool = ({ level, ...props }) => {
 
   const onClickHandler = () => {
     editor?.chain().focus().toggleHeading({ level: level }).run();
+  };
+
+  const getDefaultLabel = () => {
+    switch (level) {
+      case 1:
+        return 'Title';
+      case 2:
+        return 'Subtitle';
+      case 3:
+        return 'Sub-subtitle';
+      default:
+        return 'Title';
+    }
   };
 
   const getLevelIcon = () => {
@@ -33,7 +47,7 @@ const TitleTool = ({ level, ...props }) => {
   return (
     <Button
       {...props}
-      label={'Title 1'}
+      label={label || getDefaultLabel()}
       icon={getLevelIcon()}
       actived={editor?.isActive('heading', { level: level })}
       onClick={onClickHandler}

@@ -4,7 +4,7 @@ import {
   TRANSFORMSTOOL_DEFAULT_PROPS,
 } from '../../tool/TransformsTool/TransformsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
-// import mdx from './TextEditor.mdx';
+import { ColorTool } from '../../tool/ColorTool/ColorTool';
 
 export default {
   title: 'Atom/Form/TransformsTool',
@@ -21,10 +21,10 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ content, children, ...props }) => {
+const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <TransformsTool {...props}></TransformsTool>
+      <TransformsTool {...props} />
     </TextEditor>
   );
 };

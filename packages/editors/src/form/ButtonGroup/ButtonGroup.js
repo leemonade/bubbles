@@ -1,4 +1,6 @@
 import React, { Children, isValidElement } from 'react';
+import { Box } from '@bubbles-ui/components';
+import { ButtonGroupStyles } from './ButtonGroup.styles';
 
 const ButtonGroup = ({ children }) => {
   children = Children.toArray(children).map((child, index, group) => {
@@ -19,7 +21,8 @@ const ButtonGroup = ({ children }) => {
     });
   });
 
-  return <div>{children}</div>;
+  const { classes } = ButtonGroupStyles({});
+  return <Box className={classes.root}>{children}</Box>;
 };
 
 export { ButtonGroup };
