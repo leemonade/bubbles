@@ -1,9 +1,12 @@
 import { TextEditorProvider } from '../TextEditorProvider';
-import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useExtensions } from '../../utils/use-extensions';
+
+import PropTypes from 'prop-types';
+import Document from '@tiptap/extension-document';
+import Text from '@tiptap/extension-text';
+import Paragraph from '@tiptap/extension-paragraph';
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
@@ -12,7 +15,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
 const TextEditor = ({ content, children }) => {
   const extensions = useExtensions(children);
   const editor = useEditor({
-    extensions: [...extensions, StarterKit],
+    extensions: [Document, Text, Paragraph, ...extensions],
     content: '',
   });
 
