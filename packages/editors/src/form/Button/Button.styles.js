@@ -7,16 +7,16 @@ export const ButtonStyles = createStyles((theme, { actived, position }) => {
         border: '1px solid',
       },
       start: {
-        borderWidth: '1px 0.5px 1px 1px',
+        borderWidth: '1px 1px 1px 1px',
         borderTopRightRadius: '0px',
         borderBottomRightRadius: '0px',
       },
       center: {
-        borderWidth: '1px 0.5px',
+        borderWidth: '1px 1px 1px 0px',
         borderRadius: '0px',
       },
       end: {
-        borderWidth: '1px 1px 1px 0.5px',
+        borderWidth: '1px 1px 1px 0px',
         borderTopLeftRadius: '0px',
         borderBottomLeftRadius: '0px',
       },

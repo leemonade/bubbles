@@ -40,6 +40,7 @@ const ColorTool = ({ swatches, ...props }) => {
 
   const onClickHandler = (color) => {
     editor?.chain().focus().setColor(color).run();
+    setIsOpened(false);
   };
 
   const { classes } = ColorToolStyles({ color });
