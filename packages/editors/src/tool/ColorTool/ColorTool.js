@@ -27,13 +27,15 @@ export const DEFAULT_SWATCHES = [
 
 export const COLORTOOL_DEFAULT_PROPS = {
   swatches: DEFAULT_SWATCHES,
+  label: 'Color',
 };
 
 export const COLORTOOL_PROP_TYPES = {
   swatches: PropTypes.arrayOf(PropTypes.string),
+  label: PropTypes.string,
 };
 
-const ColorTool = ({ swatches, ...props }) => {
+const ColorTool = ({ swatches, label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
   const [isOpened, setIsOpened] = useState(false);
   const color = editor?.getAttributes('textStyle').color;
@@ -54,6 +56,7 @@ const ColorTool = ({ swatches, ...props }) => {
       target={
         <Button
           {...props}
+          label={label}
           icon={<ExpandDiagonalIcon />}
           onClick={() => setIsOpened(!isOpened)}
           actived={isOpened}

@@ -1,10 +1,19 @@
+import PropTypes from 'prop-types';
+import Strike from '@tiptap/extension-strike';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
-import Strike from '@tiptap/extension-strike';
 
-const StrikeTool = ({ ...props }) => {
+export const STRIKE_TOOL_DEFAULT_PROPS = {
+  label: 'Strike',
+};
+
+export const STRIKE_TOOL_PROP_TYPES = {
+  label: PropTypes.string,
+};
+
+const StrikeTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
@@ -14,6 +23,7 @@ const StrikeTool = ({ ...props }) => {
   return (
     <Button
       {...props}
+      label={label}
       icon={<StarIcon />}
       actived={editor?.isActive('strike')}
       onClick={onClickHandler}
@@ -21,6 +31,8 @@ const StrikeTool = ({ ...props }) => {
   );
 };
 
+StrikeTool.defaultProps = STRIKE_TOOL_DEFAULT_PROPS;
+StrikeTool.propTypes = STRIKE_TOOL_PROP_TYPES;
 StrikeTool.extensions = [Strike];
 
 export { StrikeTool };
