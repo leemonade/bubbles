@@ -51,7 +51,11 @@ const ContextContainer = ({
         result.push(node);
         if (i < nodes.length - 1) {
           result.push(
-            <Divider key={`d-${i}`} orientation={direction === 'row' ? 'vertical' : 'horizontal'} />
+            <Divider
+              key={`d-${i}`}
+              noFlex
+              orientation={direction === 'row' ? 'vertical' : 'horizontal'}
+            />
           );
         }
       });
