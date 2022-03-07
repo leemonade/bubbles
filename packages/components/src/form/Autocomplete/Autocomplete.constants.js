@@ -1,10 +1,10 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '../../layout/Box';
 import { Text } from '../../typography/Text';
 import {
-  INPUT_WRAPPER_PROP_TYPES,
   INPUT_WRAPPER_DEFAULT_PROPS,
+  INPUT_WRAPPER_PROP_TYPES,
 } from '../InputWrapper/InputWrapper.constants';
 
 export const AUTOCOMPLETE_DEFAULT_PROPS = {

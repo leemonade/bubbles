@@ -75,7 +75,7 @@ const TableInputRow = ({
         </Box>
       );
     }
-    return <TableCell cell={cell} />;
+    return <TableCell cell={cell} row={row} form={form} />;
   };
 
   const handleOnEdit = async () => {
