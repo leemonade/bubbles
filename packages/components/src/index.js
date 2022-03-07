@@ -7,10 +7,17 @@ export {
   Popper,
   SegmentedControl,
   UnstyledButton,
+  List
 } from '@mantine/core';
 export { useId, useScrollIntoView, useResizeObserver, useDebouncedValue } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
-export { getFontExpressive, getFontProductive, pxToRem, getPaddings } from './theme.mixins';
+export {
+  getFontExpressive,
+  getFontProductive,
+  pxToRem,
+  getPaddings,
+  getHtmlStyles,
+} from './theme.mixins';
 export { COLORS } from './theme.tokens';
 export * from './ThemeProvider';
 export * from './informative';
