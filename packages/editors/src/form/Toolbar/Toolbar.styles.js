@@ -11,5 +11,9 @@ export const ToolbarStyles = createStyles((theme) => {
       justifyContent: 'start',
       gap: 16,
     },
+    toolbarTool: {
+      flex: 1,
+      textAlign: 'right',
+    },
   };
 });

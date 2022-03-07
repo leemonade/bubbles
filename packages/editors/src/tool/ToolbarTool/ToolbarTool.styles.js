@@ -4,9 +4,10 @@ export const ToolbarToolStyles = createStyles((theme) => {
   return {
     root: {
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'end',
-      gap: 8,
+      // alignContent: 'flex-end',
+      // alignItems: 'center',
+      justifyContent: 'flex-end',
+      gap: 16,
       padding: 8,
       flexWrap: 'wrap',
     },

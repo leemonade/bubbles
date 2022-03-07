@@ -56,7 +56,11 @@ const Toolbar = ({ children, ...props }) => {
     <Box className={classes.root}>
       <Box ref={toolbarRef} className={classes.toolbar} {...props}>
         {toolbarChilds}
-        {dropdownChilds.length > 0 && <ToolbarTool tools={dropdownChilds} />}
+        {dropdownChilds.length > 0 && (
+          <Box className={classes.toolbarTool}>
+            <ToolbarTool tools={dropdownChilds} />
+          </Box>
+        )}
       </Box>
     </Box>
   );

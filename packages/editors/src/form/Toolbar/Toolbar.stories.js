@@ -27,6 +27,8 @@ const Template = ({ content, ...props }) => {
         <TransformsTool />
         <TransformsTool />
         <TransformsTool />
+        <TransformsTool />
+        <TransformsTool />
       </Toolbar>
     </TextEditor>
   );
