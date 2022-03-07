@@ -10,7 +10,6 @@ export const ToolbarStyles = createStyles((theme) => {
       alignItems: 'center',
       justifyContent: 'start',
       gap: 16,
-      borderRight: '1px solid black',
     },
   };
 });
