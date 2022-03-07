@@ -10,11 +10,7 @@ export const ToolbarStyles = createStyles((theme) => {
       alignItems: 'center',
       justifyContent: 'start',
       gap: 16,
-    },
-    dropdown: {},
-    hiddenChilds: {
-      position: 'absolute',
-      top: -9999,
+      borderRight: '1px solid black',
     },
   };
 });
