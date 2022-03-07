@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Children, useEffect, useRef, useState, createElement, cloneElement } from 'react';
-import { Stack, Box } from '@bubbles-ui/components';
+import { Children, useEffect, useRef, useState } from 'react';
+import { Box } from '@bubbles-ui/components';
 import { ToolbarStyles } from './Toolbar.styles';
 import { useDimensions } from '../../utils/use-dimensions';
 import { ToolbarTool } from '../../tool/ToolbarTool/ToolbarTool';
@@ -17,23 +17,25 @@ const Toolbar = ({ children, ...props }) => {
       {child}
     </Box>
   ));
-  const [toolbarChilds, setToolbarChilds] = useState([...originalChildren]);
+  const [childrenWidths, setChildrenWidths] = useState([]);
+  const [toolbarChilds, setToolbarChilds] = useState([]);
   const [dropdownChilds, setDropdownChilds] = useState([]);
   const { width: maxWidth } = useDimensions(toolbarRef);
 
   useEffect(() => {
-    if (!maxWidth) return;
+    if (!childrenWidths[0]) {
+      setChildrenWidths(originalChildren.map((child) => child.ref.current?.offsetWidth));
+    }
+  });
+
+  useEffect(() => {
+    if (maxWidth % 2 !== 0) return;
     let currentWidth = 0;
     let newToolbarChilds = [];
     let newDropdownChilds = [];
     originalChildren.forEach((child, index, array) => {
-      if (!originalChildren[index].ref) return;
-      if (!originalChildren[index].ref.current) return;
       const nextWidth =
-        currentWidth + child.ref.current.offsetWidth + (index === array.length - 1 ? 0 : 16);
-      // const childCopy = { ...child };
-      // childCopy.ref.current = {};
-      // console.log(childCopy);
+        currentWidth + childrenWidths[index] + (index === array.length - 1 ? 0 : 16);
       if (nextWidth > maxWidth) {
         newDropdownChilds.push(child);
       } else {
@@ -45,20 +47,11 @@ const Toolbar = ({ children, ...props }) => {
     setToolbarChilds([...newToolbarChilds]);
   }, [maxWidth]);
 
-  console.log(originalChildren);
-
   return (
     <Box className={classes.root}>
       <Box ref={toolbarRef} className={classes.toolbar} {...props}>
         {toolbarChilds}
-        {dropdownChilds.length > 0 && (
-          <Box className={classes.dropdown}>
-            <ToolbarTool tools={dropdownChilds} />
-          </Box>
-        )}
-      </Box>
-      <Box className={classes.hiddenChilds}>
-        <Stack>{dropdownChilds}</Stack>
+        {dropdownChilds.length > 0 && <ToolbarTool tools={dropdownChilds} />}
       </Box>
     </Box>
   );
