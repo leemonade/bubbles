@@ -7,6 +7,7 @@ export {
   Popper,
   SegmentedControl,
   UnstyledButton,
+  List
 } from '@mantine/core';
 export { useId, useScrollIntoView, useResizeObserver, useDebouncedValue } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
