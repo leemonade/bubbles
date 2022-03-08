@@ -62,6 +62,11 @@ export const TextEditorStyles = createStyles((theme, {}) => {
           color: 'inherit',
           fontSize: pxToRem(14),
         },
+        blockquote: {
+          margin: '0px 0px 0px 24px',
+          borderLeft: `4px solid ${theme.colors.ui01}`,
+          paddingLeft: pxToRem(16),
+        },
       },
     },
   };
