@@ -39,7 +39,7 @@ const TextEditor = ({ content, children }) => {
     <TextEditorProvider editor={editor}>
       <Box className={classes.toolbar}>{children}</Box>
 
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} className={classes.editor} />
     </TextEditorProvider>
   );
 };
