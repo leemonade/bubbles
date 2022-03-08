@@ -1,14 +1,11 @@
 import React from 'react';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { TitleTool } from '../../tool/TitleTool/TitleTool';
-import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { TextEditor } from './TextEditor';
-// import mdx from './TextEditor.mdx';
+import { TextEditor } from '../../form/TextEditor/TextEditor';
+import { TitleTool, TITLE_TOOL_DEFAULT_PROPS } from './TitleTool';
 
 export default {
-  title: 'Atom/Form/TextEditor',
+  title: 'Atom/Form/TitleTool',
   parameters: {
-    component: TextEditor,
+    component: TitleTool,
     docs: {
       // page: mdx,
     },
@@ -17,15 +14,21 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    level: {
+      control: {
+        type: 'number',
+        min: 1,
+        max: 3,
+      },
+    },
+  },
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ content, ...props }) => {
   return (
-    <TextEditor {...props}>
-      <ColorTool></ColorTool>
-      <TransformsTool></TransformsTool>
-      <TitleTool />
+    <TextEditor content={content}>
+      <TitleTool {...props}></TitleTool>
     </TextEditor>
   );
 };
@@ -33,6 +36,7 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...TITLE_TOOL_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

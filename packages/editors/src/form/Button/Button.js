@@ -18,10 +18,12 @@ export const BUTTON_PROP_TYPES = {
   onClick: PropTypes.func,
 };
 
-const Button = ({ icon, label, actived, position, onClick }) => {
-  const { classes, cx } = ButtonStyles({ actived, position });
+const Button = ({ icon, label, actived, position, onClick, classNames, children }) => {
+  const { classes, cx } = ButtonStyles({ actived, position }, { classNames });
   return (
-    <ActionButton icon={icon} classNames={classes} tooltip={label} onClick={onClick}></ActionButton>
+    <ActionButton icon={icon} classNames={classes} tooltip={label} onClick={onClick}>
+      {children}
+    </ActionButton>
   );
 };
 

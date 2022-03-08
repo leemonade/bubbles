@@ -1,14 +1,11 @@
 import React from 'react';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { TitleTool } from '../../tool/TitleTool/TitleTool';
-import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { TextEditor } from './TextEditor';
-// import mdx from './TextEditor.mdx';
+import { TextEditor } from '../../form/TextEditor/TextEditor';
+import { ParagraphTool, PARAGRAPH_TOOL_DEFAULT_PROPS } from './ParagraphTool';
 
 export default {
-  title: 'Atom/Form/TextEditor',
+  title: 'Atom/Form/ParagraphTool',
   parameters: {
-    component: TextEditor,
+    component: ParagraphTool,
     docs: {
       // page: mdx,
     },
@@ -20,12 +17,10 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ content, ...props }) => {
   return (
-    <TextEditor {...props}>
-      <ColorTool></ColorTool>
-      <TransformsTool></TransformsTool>
-      <TitleTool />
+    <TextEditor content={content}>
+      <ParagraphTool {...props}></ParagraphTool>
     </TextEditor>
   );
 };
@@ -33,6 +28,7 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...PARAGRAPH_TOOL_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };
