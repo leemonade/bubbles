@@ -20,7 +20,7 @@ export const USER_CARDS_DEFAULT_PROPS = {
 export const USER_CARDS_PROP_TYPES = {
   user: PropTypes.shape({
     name: PropTypes.string,
-    surname: PropTypes.string,
+    surnames: PropTypes.string,
     avatar: PropTypes.string,
     rol: PropTypes.string,
     email: PropTypes.string,
@@ -51,7 +51,7 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
     { variantStates, layoutStates, error, selected },
     { name: 'UserCards' }
   );
-  const { name, surname, avatar, rol, email, number } = user;
+  const { name, surnames, avatar, rol, email, number } = user;
 
   const birthdayLocale = user.birthday.toLocaleDateString('default', {
     month: 'long',
@@ -75,7 +75,7 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
             </Text>
           )}
           <Text color={'primary'} className={classes.name}>
-            {name} {surname}
+            {name} {surnames}
           </Text>
           {(isFull & isVertical || isContact) && <Text className={classes.number}>{number}</Text>}
           <a color={'interactive'} className={classes.email} href={`mailto:${email}`}>
