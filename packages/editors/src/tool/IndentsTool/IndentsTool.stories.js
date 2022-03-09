@@ -1,10 +1,11 @@
+import React from 'react';
+import { IndentsTool, INDENTS_TOOL_DEFAULT_PROPS } from './IndentsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
-import { IndentTool, INDENT_TOOL_DEFAULT_PROPS } from './IndentTool';
 
 export default {
-  title: 'Atom/Form/IndentTool',
+  title: 'Atom/Form/IndentsTool',
   parameters: {
-    component: IndentTool,
+    component: IndentsTool,
     docs: {
       // page: mdx,
     },
@@ -13,15 +14,13 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {
-    type: { control: 'select', options: ['indent', 'outdent'] },
-  },
+  argTypes: {},
 };
 
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <IndentTool {...props}></IndentTool>
+      <IndentsTool {...props} />
     </TextEditor>
   );
 };
@@ -29,7 +28,7 @@ const Template = ({ content, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...INDENT_TOOL_DEFAULT_PROPS,
+  ...INDENTS_TOOL_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

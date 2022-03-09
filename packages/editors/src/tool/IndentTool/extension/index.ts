@@ -35,10 +35,10 @@ export function clamp(val: number, min: number, max: number): number {
 
 export enum IndentProps {
   min = 0,
-  max = 210,
+  max = 80,
 
-  more = 30,
-  less = -30,
+  more = 40,
+  less = -40,
 }
 
 export function isBulletListNode(node: Node): boolean {
@@ -110,7 +110,7 @@ export const Indent = Extension.create<IndentOptions>({
 
   defaultOptions: {
     types: ['heading', 'paragraph'],
-    indentLevels: [0, 30, 60, 90, 120, 150, 180, 210],
+    indentLevels: [0, 40, 80],
     defaultIndentLevel: 0,
   },
 

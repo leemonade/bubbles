@@ -8,7 +8,9 @@ import { Button } from '../../form/Button/Button';
 
 export const INDENT_TOOL_TYPES = ['indent', 'outdent'];
 
-export const INDENT_TOOL_DEFAULT_PROPS = {};
+export const INDENT_TOOL_DEFAULT_PROPS = {
+  type: 'indent',
+};
 
 export const INDENT_TOOL_PROP_TYPES = {
   type: PropTypes.oneOf(INDENT_TOOL_TYPES),
