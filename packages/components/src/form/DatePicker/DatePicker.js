@@ -11,10 +11,10 @@ import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
 import {
-  InputWrapper,
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
+  InputWrapper,
 } from '../InputWrapper';
 import { TimeInputStyles } from '../TimeInput/TimeInput.styles';
 import { DatePickerStyles } from './DatePicker.styles';

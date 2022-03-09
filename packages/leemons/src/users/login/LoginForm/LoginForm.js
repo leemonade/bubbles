@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Alert,
   Box,
-  TextInput,
-  PasswordInput,
   Button,
   ContextContainer,
-  Alert,
+  PasswordInput,
+  TextInput,
 } from '@bubbles-ui/components';
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { LoginFormStyles } from './LoginForm.styles';
 
 export const LOGIN_FORM_DEFAULT_PROPS = {
@@ -181,4 +181,4 @@ LoginForm.propTypes = {
   recoverUrl: PropTypes.string,
 };
 
-export { LoginForm };
+export { LoginForm, EMAIL_REGEX };

@@ -3,17 +3,35 @@ import PropTypes from 'prop-types';
 import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { AvatarStyles } from './Avatar.styles';
+import { stringToHslColor } from '../../helpers';
 
 export const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
 export const AVATAR_STATE = ['normal', 'alert', 'notifications', 'error'];
 
 const Avatar = forwardRef(
   (
-    { image, icon, color, initials, size: sizeProp = 'sm', state: stateProp = 'normal', ...props },
+    {
+      image,
+      icon,
+      color,
+      initials,
+      fullName,
+      size: sizeProp = 'sm',
+      state: stateProp = 'normal',
+      ...props
+    },
     ref
   ) => {
     const size = AVATAR_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const state = AVATAR_STATE.includes(stateProp) ? stateProp : 'normal';
+
+    if (!initials && !!fullName) {
+      const texts = fullName.split(' ');
+      initials = `${texts[0][0].toUpperCase()}${texts[1] ? texts[1][0].toUpperCase() : ''}`;
+    }
+    if (!color && !!fullName) {
+      color = stringToHslColor(fullName, 50, 50);
+    }
 
     const { classes, cx } = AvatarStyles({ color, size });
 
@@ -74,6 +92,7 @@ Avatar.propTypes = {
   state: PropTypes.oneOf(AVATAR_STATE),
   color: PropTypes.string,
   initials: PropTypes.string,
+  fullName: PropTypes.string,
   icon: PropTypes.any,
 };
 
