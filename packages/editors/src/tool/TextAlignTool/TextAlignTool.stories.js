@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { TextAlignTool, TEXTALIGN_TOOL_DEFAULT_PROPS } from './TextAlignTool';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
 
 export default {
   title: 'Atom/Form/TextAlignTool',
@@ -21,9 +20,7 @@ export default {
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <TextAlignTool {...props}>
-        <ColorTool />
-      </TextAlignTool>
+      <TextAlignTool {...props}></TextAlignTool>
     </TextEditor>
   );
 };
