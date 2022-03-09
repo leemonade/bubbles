@@ -17,7 +17,7 @@ const StrikeTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.chain().toggleStrike().focus().run();
+    editor.chain().focus().toggleStrike().run();
   };
 
   return (

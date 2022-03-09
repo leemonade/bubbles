@@ -17,7 +17,7 @@ const ItalicTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.chain().toggleItalic().focus().run();
+    editor.chain().focus().toggleItalic().run();
   };
 
   return (

@@ -18,7 +18,7 @@ const UnderlineTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.chain().toggleUnderline().focus().run();
+    editor.chain().focus().toggleUnderline().run();
   };
 
   return (

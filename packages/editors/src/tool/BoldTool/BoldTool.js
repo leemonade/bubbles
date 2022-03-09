@@ -17,7 +17,7 @@ const BoldTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
-    editor.chain().toggleBold().focus().run();
+    editor.chain().focus().toggleBold().run();
   };
 
   return (
