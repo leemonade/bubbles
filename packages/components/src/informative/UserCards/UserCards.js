@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import {
+  PluginComunicaIcon,
+  CakeBirthdayIcon,
+  AlertWarningTriangleIcon,
+} from '@bubbles-ui/icons/solid';
+import { Box } from '../../layout/Box';
 import { UserCardsStyles } from './UserCards.styles';
-import { UserDisplayItem } from '../UserDisplayItem';
-import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
-import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid/';
-import { CakeBirthdayIcon } from '@bubbles-ui/icons/solid/';
 import { Avatar } from '../Avatar';
 import { Text } from '../../typography/Text';
 

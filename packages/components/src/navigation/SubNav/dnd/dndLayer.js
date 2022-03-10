@@ -2,7 +2,7 @@ import React from 'react';
 import { useDragLayer } from 'react-dnd';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 
 const dndLayers = {};
 

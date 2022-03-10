@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { findIndex, map } from 'lodash';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout';
 import { ListInputStyles } from './ListInput.styles';
 import { InputWrapper } from '../InputWrapper';
 import { useId } from '@mantine/hooks';

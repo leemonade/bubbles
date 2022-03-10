@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { HtmlTextStyles } from './HtmlText.styles';
 import { HTML_TEXT_DEFAULT_PROPS, HTML_TEXT_PROP_TYPES } from './HtmlText.constants';
 

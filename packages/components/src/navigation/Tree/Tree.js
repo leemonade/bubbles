@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, createContext, useContext, use
 import PropTypes from 'prop-types';
 import { find, isNil } from 'lodash';
 import { Tree as ReactTree } from '@leemonade/react-dnd-treeview';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { NodeRenderer } from './NodeRenderer';
 import { NodePlaceholderRenderer } from './NodePlaceholderRenderer';
 import { NodeDragPreview } from './NodeDragPreview';
