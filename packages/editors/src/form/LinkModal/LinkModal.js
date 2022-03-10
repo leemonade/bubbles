@@ -83,8 +83,9 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
     return url.protocol === 'http:' || url.protocol === 'https:';
   };
 
-  const submitHandler = (event) => {
-    isFunction(onChange) && onChange(event);
+  const submitHandler = (values) => {
+    if (modal !== 'four') delete values.embed;
+    isFunction(onChange) && onChange(values);
   };
 
   const onCancelHandler = () => {
