@@ -58,7 +58,7 @@ export const UserDisplayItemStyles = createStyles((theme, { variant, layout, siz
       ...inf.name,
       ...breakProps,
     },
-    surname: {
+    surnames: {
       display: !isBlock && 'none',
       lineHeight: pxToRem(16.25),
       fontSize: pxToRem(13),

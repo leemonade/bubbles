@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { isString, isEmpty } from 'lodash';
+import { Box } from '../Box';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
 import { Title, Paragraph } from '../../typography';

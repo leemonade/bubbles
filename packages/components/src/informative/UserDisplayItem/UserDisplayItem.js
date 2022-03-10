@@ -18,7 +18,7 @@ export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
 };
 export const USER_DISPLAY_ITEM_PROP_TYPES = {
   name: PropTypes.string,
-  surname: PropTypes.string,
+  surnames: PropTypes.string,
   avatar: PropTypes.string,
   rol: PropTypes.string,
   center: PropTypes.string,
@@ -32,7 +32,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
 
 const UserDisplayItem = ({
   name,
-  surname,
+  surnames,
   avatar,
   rol,
   center,
@@ -59,8 +59,8 @@ const UserDisplayItem = ({
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
   const fullName = useMemo(
-    () => (['rol'].includes(variant) ? `${name} ${surname}` : name),
-    [name, surname, variant]
+    () => (['rol'].includes(variant) ? `${name} ${surnames}` : name),
+    [name, surnames, variant]
   );
 
   return (
@@ -88,9 +88,9 @@ const UserDisplayItem = ({
             <Text color={textColor} className={classes.name}>
               {fullName}
             </Text>
-            {!isEmpty(surname) && (
-              <Text color={textColor} className={classes.surname}>
-                {surname}
+            {!isEmpty(surnames) && (
+              <Text color={textColor} className={classes.surnames}>
+                {surnames}
               </Text>
             )}
           </>

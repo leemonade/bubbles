@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { ContentLegibleStyles } from './ContentLegible.styles';
 
 export const CONTENT_LEGIBLE_DEFAULT_PROPS = {};

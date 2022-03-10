@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 import { KanbanStyles } from '../Kanban.styles';
 import { Draggable } from 'react-beautiful-dnd';
 import { QuoteList } from './QuoteList';

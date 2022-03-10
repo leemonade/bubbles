@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 // import hooks from 'leemons-hooks';
 
 const DndItem = ({ children, className, item, type, emptyLayout }) => {

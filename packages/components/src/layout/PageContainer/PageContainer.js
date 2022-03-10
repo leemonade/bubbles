@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { PageContainerStyles } from './PageContainer.styles';
 
 export const PAGE_CONTAINER_DEFAULT_PROPS = {};

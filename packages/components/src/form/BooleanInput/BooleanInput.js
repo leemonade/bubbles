@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { isFunction } from 'lodash';
+import { Box } from '../../layout/Box';
 import { InputWrapper } from '../InputWrapper';
 import { Text } from '../../typography';
 import { Checkbox } from './Checkbox/Checkbox';
