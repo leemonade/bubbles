@@ -4,7 +4,7 @@ import { Alert, Box, Button, ContextContainer, PasswordInput } from '@bubbles-ui
 import { Controller, useForm } from 'react-hook-form';
 import { RegisterPasswordFormStyles } from './RegisterPasswordForm.styles';
 
-export const LOGIN_FORM_DEFAULT_PROPS = {
+export const REGISTER_PASSWORD_FORM_DEFAULT_PROPS = {
   labels: {
     title: '',
     username: '',
@@ -113,7 +113,7 @@ const RegisterPasswordForm = ({
   );
 };
 
-RegisterPasswordForm.defaultProps = LOGIN_FORM_DEFAULT_PROPS;
+RegisterPasswordForm.defaultProps = REGISTER_PASSWORD_FORM_DEFAULT_PROPS;
 
 RegisterPasswordForm.propTypes = {
   labels: PropTypes.shape({

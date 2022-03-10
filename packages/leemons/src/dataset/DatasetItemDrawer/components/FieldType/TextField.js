@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Controller } from 'react-hook-form';
-import { Col, Grid, Checkbox } from '@bubbles-ui/components';
+import { Checkbox, Col, Grid } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../../context/DatasetItemDrawerContext';
 
 const TextField = () => {
@@ -15,7 +15,9 @@ const TextField = () => {
         <Controller
           name="config.required"
           control={control}
-          render={({ field }) => <Checkbox label={messages.textFieldRequiredLabel} {...field} />}
+          render={({ field }) => (
+            <Checkbox checked={field.value} label={messages.textFieldRequiredLabel} {...field} />
+          )}
         />
       </Col>
 
@@ -23,7 +25,9 @@ const TextField = () => {
         <Controller
           name="config.masked"
           control={control}
-          render={({ field }) => <Checkbox label={messages.textFieldMaskedLabel} {...field} />}
+          render={({ field }) => (
+            <Checkbox checked={field.value} label={messages.textFieldMaskedLabel} {...field} />
+          )}
         />
       </Col>
     </Grid>

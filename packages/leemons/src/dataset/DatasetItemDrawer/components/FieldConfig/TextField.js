@@ -26,7 +26,11 @@ const TextField = () => {
           name="config.onlyNumbers"
           control={control}
           render={({ field }) => (
-            <Checkbox label={messages.fieldLengthOnlyNumbersLabel} {...field} />
+            <Checkbox
+              checked={field.value}
+              label={messages.fieldLengthOnlyNumbersLabel}
+              {...field}
+            />
           )}
         />
       </MinMax>
