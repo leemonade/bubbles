@@ -4,6 +4,7 @@ import { getPaddings } from '../../theme.mixins';
 export const DrawerStyles = createStyles((theme, { empty }) => {
   const header = {
     ...getPaddings(theme.spacing[3], theme.spacing[3]),
+    zIndex: 9,
   };
   if (empty) {
     header.position = 'absolute';

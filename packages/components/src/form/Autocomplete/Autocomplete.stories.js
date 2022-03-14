@@ -1,6 +1,10 @@
 import React, { forwardRef } from 'react';
-import { Autocomplete, AUTOCOMPLETE_DEFAULT_PROPS } from './Autocomplete';
-import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../InputWrapper';
+import { Autocomplete } from './Autocomplete';
+import { AUTOCOMPLETE_DEFAULT_PROPS } from './Autocomplete.constants';
+import {
+  INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SIZES,
+} from '../InputWrapper/InputWrapper.constants';
 import mdx from './Autocomplete.mdx';
 import { UserDisplayItem } from '../../informative/UserDisplayItem';
 
@@ -20,11 +24,13 @@ export default {
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
     orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
     onItemSubmit: { action: 'onItemSubmit' },
+    onChange: { action: 'onChange' },
+    onSearch: { action: 'onSearch' },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Autocomplete {...props}>{children}</Autocomplete>;
+const Template = ({ ...props }) => {
+  return <Autocomplete {...props} />;
 };
 
 export const Playground = Template.bind({});

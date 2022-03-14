@@ -1,21 +1,20 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
+import PropTypes from 'prop-types';
+import { isEmpty, isFunction } from 'lodash';
 import {
   DatePicker as MantineDatePicker,
   DateRangePicker,
   TimeInput as MantineTimeInput,
-  TIME_INPUT_PROP_TYPES,
 } from '@mantine/dates';
 import { useId } from '@mantine/hooks';
-import { isEmpty } from 'lodash';
-import PropTypes from 'prop-types';
+import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
 import {
-  InputWrapper,
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
+  InputWrapper,
 } from '../InputWrapper';
 import { TimeInputStyles } from '../TimeInput/TimeInput.styles';
 import { DatePickerStyles } from './DatePicker.styles';
@@ -43,7 +42,10 @@ export const DATE_PICKER_PROP_TYPES = {
   /** Locale used for labels formatting, defaults to theme.datesLocale */
   locale: PropTypes.string,
   withTime: PropTypes.bool,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  ]),
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -83,10 +85,16 @@ const DatePicker = forwardRef(
     // EN: Notify the parent component when the date changes
     // ES: Notificar al componente padre cuando cambia la fecha
     useEffect(() => {
-      if (typeof onChange === 'function') {
+      if (isFunction(onChange) && JSON.stringify(userValue) !== JSON.stringify(date)) {
         onChange(date);
       }
-    }, [date, onChange]);
+    }, [date]);
+
+    useEffect(() => {
+      if (JSON.stringify(userValue) !== JSON.stringify(date)) {
+        setDate(userValue || null);
+      }
+    }, [userValue]);
 
     useEffect(() => {
       let mounted = true;
@@ -119,7 +127,7 @@ const DatePicker = forwardRef(
             uuid={uuid}
             ref={ref}
             size={size}
-            value={userValue || range ? undefined : date}
+            value={date}
             classNames={{ ...classes, ...calendarClasses }}
             error={!isEmpty(error)}
             onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}

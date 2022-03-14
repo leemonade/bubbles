@@ -1,10 +1,10 @@
 import React from 'react';
 import { find } from 'lodash';
 import { TableInput } from './TableInput';
+import { TABLE_INPUT_DEFAULT_PROPS } from './TableInput.constants';
 import { NumberInput, Select, TextInput } from '../../form';
-import { ContextContainer } from '../../layout';
+import { ContextContainer } from '../../layout/ContextContainer';
 import mdx from './TableInput.mdx';
-import { TABLE_INPUT_DEFAULT_PROPS } from './TableInput.const';
 
 export default {
   title: 'Organisms/Form/TableInput',

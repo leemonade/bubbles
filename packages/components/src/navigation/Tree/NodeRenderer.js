@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
-import { Box } from '@mantine/core';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { useDragOver } from '@leemonade/react-dnd-treeview';
+import { Box } from '../../layout/Box';
 import { Button } from '../../form';
 import { Text } from '../../typography';
 import { NodeActions } from './NodeActions';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout';
 import { KanbanStyles } from './Kanban.styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Column } from './components/Column';

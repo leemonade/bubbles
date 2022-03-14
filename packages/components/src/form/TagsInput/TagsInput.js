@@ -1,37 +1,13 @@
-import React, { useState, useRef, forwardRef } from 'react';
-import PropTypes from 'prop-types';
-import { isFunction, trim, uniq, isEmpty } from 'lodash';
+import React, { forwardRef, useRef, useState } from 'react';
+import { isEmpty, isFunction, trim, uniq } from 'lodash';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
 import { useId, useMergedRef } from '@mantine/hooks';
 import { Box, Stack } from '../../layout';
 import { Badge } from '../../informative';
 import { Autocomplete, Button } from '../../form';
+import { InputWrapper } from '../InputWrapper';
 import { TagsInputStyles } from './TagsInput.styles';
-import {
-  InputWrapper,
-  INPUT_WRAPPER_DEFAULT_PROPS,
-  INPUT_WRAPPER_PROP_TYPES,
-} from '../InputWrapper';
-
-export const TAGS_INPUT_DEFAULT_PROPS = {
-  ...INPUT_WRAPPER_DEFAULT_PROPS,
-  value: [],
-  suggestions: [],
-  labels: {
-    addButton: '',
-  },
-  placeholder: '',
-};
-export const TAGS_INPUT_PROP_TYPES = {
-  ...INPUT_WRAPPER_PROP_TYPES,
-  labels: PropTypes.shape({
-    addButton: PropTypes.string,
-  }),
-  placeholder: PropTypes.string,
-  value: PropTypes.arrayOf(PropTypes.string),
-  suggestions: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func,
-};
+import { TAGS_INPUT_DEFAULT_PROPS, TAGS_INPUT_PROP_TYPES } from './TagsInput.constants';
 
 const TagsInput = forwardRef(
   (
@@ -46,20 +22,21 @@ const TagsInput = forwardRef(
       value,
       required,
       suggestions,
-      onChange,
+      onChange = () => {},
       ...props
     },
     ref
   ) => {
     const [tags, setTags] = useState(value);
     const [inputValue, setInputValue] = useState('');
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const autoCompleteRef = useRef(null);
     const mergedRef = useMergedRef(ref, autoCompleteRef);
     const uuid = useId();
 
-    const handleItemSubmit = (value) => {
-      setInputValue(value.value);
-    };
+    React.useEffect(() => {
+      setTags(value);
+    }, [value]);
 
     const addTag = () => {
       if (!inputValue) {
@@ -82,12 +59,22 @@ const TagsInput = forwardRef(
       isFunction(onChange) && onChange(newTags);
     };
 
+    // ················································································
+    // HANDLERS
+
+    const handleItemSubmit = (value) => {
+      setInputValue(value.value);
+    };
+
     const handleKeyDown = (e) => {
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 && !isDropdownOpen) {
         e.stopPropagation();
         addTag();
       }
     };
+
+    // ················································································
+    // STYLES
 
     const { classes, cx } = TagsInputStyles({ name: 'TagsInput' });
 
@@ -106,6 +93,8 @@ const TagsInput = forwardRef(
               onKeyDown={handleKeyDown}
               error={error}
               ignoreWrapper
+              onDropdownOpen={() => setIsDropdownOpen(true)}
+              onDropdownClose={() => setIsDropdownOpen(false)}
             />
           </Box>
           <Box skipFlex>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, FileIcon, COLORS } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid';
+import { LibraryCardCover } from './LibraryCardCover';
 import {
-  LibraryCardCover,
   LIBRARY_CARD_COVER_DEFAULT_PROPS,
   LIBRARYCARD_COVER_DIRECTIONS,
-} from './LibraryCardCover';
+} from './LibraryCardCover.constants';
 import mdx from './LibraryCardCover.mdx';
 
 export default {

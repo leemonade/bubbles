@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
 import { useTable, usePagination } from 'react-table';
 import { Box, Stack, Paper } from '../../layout';
 import { LoadingOverlay } from '../../overlay';

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid';
-import { LibraryCard, LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard';
+import { LibraryCard } from './LibraryCard';
+import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
 
 export default {

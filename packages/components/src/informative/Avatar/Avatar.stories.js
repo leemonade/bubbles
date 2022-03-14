@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, AVATAR_SIZES, AVATAR_STATE } from './Avatar';
 import { StarIcon } from '@heroicons/react/outline';
 import mdx from './Avatar.mdx';
@@ -32,8 +32,7 @@ Playground.args = {
     'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
   alt: 'avatar',
   icon: <StarIcon />,
-  initials: 'SA',
-  color: '#fabada',
+  fullName: 'Pepe el del pueblo',
   test_showIcon: false,
   test_showImage: true,
 };

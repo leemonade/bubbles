@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Box } from '@mantine/core';
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { Stack } from '../../layout';
 import { ActionButton } from '../../form';
@@ -25,9 +24,18 @@ export default {
   },
 };
 
-const Template = ({ data, ...props }) => {
+const Template = ({ data, onChangeData, ...props }) => {
   const [tableData, setTableData] = useState(data);
-  return <Table {...props} data={tableData} onChangeData={(val) => setTableData(val.newData)} />;
+  return (
+    <Table
+      {...props}
+      data={tableData}
+      onChangeData={(val) => {
+        onChangeData(val);
+        setTableData(val.newData);
+      }}
+    />
+  );
 };
 
 export const Playground = Template.bind({});

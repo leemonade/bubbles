@@ -1,6 +1,5 @@
 import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { AutocompleteUserStyles } from './AutocompleteUser.styles';
 import { Autocomplete } from '../Autocomplete';
 import { UserDisplayItem } from '../../informative/UserDisplayItem';

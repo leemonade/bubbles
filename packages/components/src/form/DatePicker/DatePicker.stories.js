@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { ContextContainer, Box } from '../../layout';
+import { Button } from '../../form';
 import { DatePicker, DATE_PICKER_DEFAULT_PROPS, DATE_PICKER_ORIENTATIONS } from './DatePicker';
 import mdx from './DatePicker.mdx';
 
@@ -17,21 +20,36 @@ export default {
   argTypes: {
     orientation: { options: DATE_PICKER_ORIENTATIONS, control: { type: 'select' } },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
+    value: { control: { type: 'date' } },
     onChange: { action: 'onChange' },
   },
 };
 
-const Template = ({ onChange, ...props }) => {
-  const [value, setValue] = useState(null);
+const Template = ({ value, onChange: onChangeAction, ...props }) => {
+  const defaultValues = { date: value ? new Date(value) : null };
+
+  const { control, reset } = useForm({ defaultValues });
+
   return (
-    <DatePicker
-      {...props}
-      value={value}
-      onChange={(e) => {
-        onChange(e);
-        setValue(e);
-      }}
-    />
+    <ContextContainer divided>
+      <Controller
+        name="date"
+        control={control}
+        render={({ field: { onChange, ...field } }) => (
+          <DatePicker
+            {...props}
+            {...field}
+            onChange={(e) => {
+              onChange(e);
+              onChangeAction(e);
+            }}
+          />
+        )}
+      />
+      <Box>
+        <Button onClick={() => reset({})}>Reset</Button>
+      </Box>
+    </ContextContainer>
   );
 };
 

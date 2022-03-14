@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { Box, IconButton } from '@bubbles-ui/components';
-import { EditWriteIcon, DeleteBinIcon, PluginUsersIcon } from '@bubbles-ui/icons/solid/';
+import { EditWriteIcon, DeleteBinIcon, PluginUsersIcon } from '@bubbles-ui/icons/solid';
 import {
   DuplicateIcon,
   CloudUploadIcon,
@@ -9,18 +9,10 @@ import {
   MoveRightIcon,
 } from '@bubbles-ui/icons/outline';
 import { LibraryDetailToolbarStyles } from './LibraryDetailToolbar.styles';
-import { isFunction } from 'lodash';
-
-export const LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS = {};
-export const LIBRARY_DETAIL_TOOLBAR_PROP_TYPES = {
-  id: PropTypes.string,
-  onEdit: PropTypes.func,
-  onDuplicate: PropTypes.func,
-  onDownload: PropTypes.func,
-  onDelete: PropTypes.func,
-  onShare: PropTypes.func,
-  onAssign: PropTypes.func,
-};
+import {
+  LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS,
+  LIBRARY_DETAIL_TOOLBAR_PROP_TYPES,
+} from './LibraryDetailToolbar.constants';
 
 const LibraryDetailToolbar = ({
   id,

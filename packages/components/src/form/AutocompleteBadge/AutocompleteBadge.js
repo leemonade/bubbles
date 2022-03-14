@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { AutocompleteBadgeStyles } from './AutocompleteBadge.styles';
 import { Autocomplete } from '../Autocomplete';
 import { Badge } from '../../informative/Badge';

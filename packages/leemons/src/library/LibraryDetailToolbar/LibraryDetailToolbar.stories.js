@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { LibraryDetailToolbar, LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS } from './LibraryDetailToolbar';
+import { LibraryDetailToolbar } from './LibraryDetailToolbar';
+import { LIBRARY_DETAIL_TOOLBAR_DEFAULT_PROPS } from './LibraryDetailToolbar.constants';
 import mdx from './LibraryDetailToolbar.mdx';
 
 export default {

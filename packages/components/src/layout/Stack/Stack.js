@@ -90,7 +90,11 @@ const Stack = forwardRef(
             }
 
             // return React.cloneElement(child, { style, noFlex: undefined, skipFlex: undefined });
+          } else if (child?.props && child?.type) {
+            const { noFlex, skipFlex, ...rest } = child.props;
+            return <child.type {...rest} key={child.key} ref={child.ref} />;
           }
+
           return child;
         }),
       [children]

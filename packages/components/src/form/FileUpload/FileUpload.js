@@ -14,7 +14,7 @@ import { isEmpty, isFunction } from 'lodash';
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
   loading: false,
-  multiple: true,
+  multipleUpload: true,
   showError: false,
   hideUploadButton: false,
   single: false,

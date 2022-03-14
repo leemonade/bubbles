@@ -76,3 +76,172 @@ export function getFontExpressive(size, weight) {
 export function getFontProductive(size, weight) {
   return getFontFamily(FONT_TYPES.PRODUCTIVE, size, weight);
 }
+
+export function getHtmlStyles(theme) {
+  const headings = Object.keys(theme.headings.sizes).reduce((acc, h) => {
+    const order = parseInt(h.substring(1, 2));
+
+    acc[`& ${h}`] = {
+      ...getFontExpressive(theme.fontSizes[8 - order], 600),
+      marginTop: theme.spacing.xl * theme.headings.sizes[h].lineHeight,
+      marginBottom: theme.spacing.sm,
+      lineHeight: theme.headings.sizes[h].lineHeight,
+
+      '@media (max-width: 755px)': {
+        fontSize:
+          typeof theme.headings.sizes[h].fontSize === 'number' &&
+          theme.headings.sizes[h].fontSize / 1.3,
+      },
+    };
+
+    return acc;
+  }, {});
+
+  return {
+    root: {
+      ...getFontProductive(theme.fontSizes[2]),
+      color: theme.colors.text01,
+      lineHeight: theme.lineHeight,
+      fontSize: theme.fontSizes[2],
+
+      '@media (max-width: 755px)': {
+        fontSize: theme.fontSizes[1],
+      },
+
+      ...headings,
+
+      '& img': {
+        maxWidth: '100%',
+        marginBottom: theme.spacing.xs,
+      },
+
+      '& p': {
+        marginTop: 0,
+        marginBottom: theme.spacing.lg,
+      },
+
+      '& p:last-of-type': {
+        marginBottom: 0,
+      },
+
+      '& hr': {
+        marginTop: theme.spacing.md,
+        marginBottom: theme.spacing.sm,
+        borderBottom: 0,
+        borderLeft: 0,
+        borderRight: 0,
+        borderTop: `1px dashed ${theme.colors.gray[theme.colorScheme === 'dark' ? 4 : 6]}`,
+      },
+
+      '& a': {
+        color: theme.colors.interactive01,
+        textDecoration: 'none',
+
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+      },
+
+      '& pre': {
+        padding: theme.spacing.xs,
+        lineHeight: theme.lineHeight,
+        margin: 0,
+        marginTop: theme.spacing.md,
+        marginBottom: theme.spacing.md,
+        overflowX: 'auto',
+        fontFamily: theme.fontFamilyMonospace,
+        fontSize: theme.fontSizes.sm,
+        borderRadius: theme.radius.sm,
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.interactive03,
+        backgroundColor:
+          theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.interactive02,
+      },
+
+      '& code': {
+        lineHeight: theme.lineHeight,
+        padding: `1px ${theme.spacing.xs / 1}`,
+        borderRadius: theme.radius.sm,
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[0],
+        fontFamily: theme.fontFamilyMonospace,
+        fontSize: theme.fontSizes.xs,
+        border: `1px solid ${
+          theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[3]
+        }`,
+      },
+
+      '& ul, & ol': {
+        marginBottom: theme.spacing.md,
+        paddingLeft: theme.spacing.lg * 2,
+
+        '& li': {
+          marginTop: theme.spacing.xs,
+        },
+      },
+
+      '& table': {
+        width: '100%',
+        borderCollapse: 'collapse',
+        captionSide: 'bottom',
+        marginBottom: theme.spacing.md,
+
+        '& caption': {
+          marginTop: theme.spacing.xs,
+          fontSize: theme.fontSizes.sm,
+          color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+        },
+
+        '& th': {
+          textAlign: 'left',
+          fontWeight: 'bold',
+          color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+          fontSize: 14,
+          padding: '7px 10px',
+        },
+
+        '& thead th': {
+          borderBottom: `1px solid ${
+            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+          }`,
+        },
+
+        '& tfoot th': {
+          borderTop: `1px solid ${
+            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+          }`,
+        },
+
+        '& td': {
+          padding: '7px 10px',
+          borderBottom: `1px solid ${
+            theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+          }`,
+          fontSize: 14,
+        },
+
+        '& tr:last-of-type td': {
+          borderBottom: 'none',
+        },
+      },
+
+      '& blockquote': {
+        fontSize: theme.fontSizes[2],
+        lineHeight: theme.lineHeight,
+        margin: `${theme.spacing.md}px 0`,
+        marginLeft: theme.spacing[5],
+        borderLeft: `4px solid ${theme.colors.ui01}`,
+        padding: `${theme.spacing.md}px ${theme.spacing.lg}px`,
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+
+        '& cite': {
+          display: 'block',
+          fontSize: theme.fontSizes.sm,
+          marginTop: theme.spacing.xs,
+          color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        },
+      },
+    },
+  };
+}

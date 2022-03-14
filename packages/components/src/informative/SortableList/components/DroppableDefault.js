@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 
 const DroppableDefault = ({ provided, snapshot, children }) => {
   return (

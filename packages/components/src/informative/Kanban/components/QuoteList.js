@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { KanbanStyles } from '../Kanban.styles';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Box } from '../../../layout/Box';
+import { KanbanStyles } from '../Kanban.styles';
 import { QuoteItem } from './QuoteItem';
 
 const InnerQuoteList = ({ value, itemRender }) => {

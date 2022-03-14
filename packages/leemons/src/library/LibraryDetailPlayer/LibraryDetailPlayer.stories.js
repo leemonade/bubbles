@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, FileIcon, COLORS } from '@bubbles-ui/components';
-import { LibraryDetailPlayer, LIBRARY_DETAIL_PLAYER_DEFAULT_PROPS } from './LibraryDetailPlayer';
+import { LibraryDetailPlayer } from './LibraryDetailPlayer';
+import { LIBRARY_DETAIL_PLAYER_DEFAULT_PROPS } from './LibraryDetailPlayer.constants';
+import { LIBRARY_DETAIL_VARIANTS } from '../LibraryDetail';
 import mdx from './LibraryDetailPlayer.mdx';
-import { LIBRARY_DETAIL_VARIANTS } from '..';
 
 export default {
   title: 'leemons/Library/LibraryDetailPlayer',

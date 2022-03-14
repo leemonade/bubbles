@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { InlineSvgStyles } from './InlineSvg.styles';
 
 export const InlineSvg = ({

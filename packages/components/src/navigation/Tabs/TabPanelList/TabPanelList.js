@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 import TabContext from '../TabContext';
 import { TabPanelListStyles } from './TabPanelList.styles';
 

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { keyBy, map } from 'lodash';
-import update from 'immutability-helper';
-import { Box, Title, Table } from '@bubbles-ui/components';
+import { Box, Table, Title } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../context/DatasetItemDrawerContext';
 
 const Permissions = () => {
@@ -46,6 +45,8 @@ const Permissions = () => {
   function onChangeData(event) {
     if (event.changedField === 'view') {
       if (event.newData[event.itemIndex].edit.checked) {
+        event.newData[event.itemIndex].view.checked = true;
+        /*
         setTimeout(() => {
           setData(
             update(event.newData, {
@@ -55,10 +56,14 @@ const Permissions = () => {
             })
           );
         }, 10);
+
+         */
       }
     }
     if (event.changedField === 'edit') {
       if (event.newItem.checked) {
+        event.newData[event.itemIndex].view.checked = true;
+        /*
         setTimeout(() => {
           setData(
             update(event.newData, {
@@ -68,8 +73,11 @@ const Permissions = () => {
             })
           );
         }, 10);
+
+         */
       }
     }
+    setData(event.newData);
   }
 
   useEffect(() => {
@@ -95,7 +103,7 @@ const Permissions = () => {
     <Box sx={(theme) => ({ marginTop: theme.spacing[5] })}>
       <Title order={4}>{messages.fieldPermissionsTitle}</Title>
       <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
-        <Table columns={tableHeaders} data={data} setData={setData} onChangeData={onChangeData} />
+        <Table columns={tableHeaders} data={data} onChangeData={onChangeData} />
       </Box>
     </Box>
   );

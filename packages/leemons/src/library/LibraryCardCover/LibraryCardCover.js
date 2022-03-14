@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import {
   Box,
@@ -11,28 +10,12 @@ import {
   TextClamp,
 } from '@bubbles-ui/components';
 import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
-// import {} from '@bubbles-ui/icons/outline/Bookmark'
-import { LibraryCardDeadline, LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../LibraryCardDeadline';
+import { LibraryCardDeadline } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
-
-export const LIBRARYCARD_COVER_DIRECTIONS = ['vertical', 'horizontal'];
-
-export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
-  blur: 10,
-  height: 190,
-  direction: 'horizontal',
-};
-export const LIBRARY_CARD_COVER_PROP_TYPES = {
-  name: PropTypes.string,
-  height: PropTypes.number,
-  cover: PropTypes.string,
-  color: PropTypes.string,
-  blur: PropTypes.number,
-  direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
-  fileIcon: PropTypes.node,
-  deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
-  parentHovered: PropTypes.bool,
-};
+import {
+  LIBRARY_CARD_COVER_DEFAULT_PROPS,
+  LIBRARY_CARD_COVER_PROP_TYPES,
+} from './LibraryCardCover.constants';
 
 const LibraryCardCover = ({
   name,
