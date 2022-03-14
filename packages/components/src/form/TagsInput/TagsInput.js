@@ -1,5 +1,5 @@
-import React, { useState, useRef, forwardRef } from 'react';
-import { isFunction, trim, uniq, isEmpty } from 'lodash';
+import React, { forwardRef, useRef, useState } from 'react';
+import { isEmpty, isFunction, trim, uniq } from 'lodash';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
 import { useId, useMergedRef } from '@mantine/hooks';
 import { Box, Stack } from '../../layout';
@@ -33,6 +33,10 @@ const TagsInput = forwardRef(
     const autoCompleteRef = useRef(null);
     const mergedRef = useMergedRef(ref, autoCompleteRef);
     const uuid = useId();
+
+    React.useEffect(() => {
+      setTags(value);
+    }, [value]);
 
     const addTag = () => {
       if (!inputValue) {
