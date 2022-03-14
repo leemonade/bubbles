@@ -5,7 +5,6 @@ import {
   Box,
   ContextContainer,
   FileUpload,
-  TagsInput,
   ImagePreviewInput,
   TextInput,
   Textarea,
@@ -25,7 +24,7 @@ const LibraryForm = ({
   errorMessages,
   asset,
   onSubmit,
-  tagSuggestions,
+  children,
   ...props
 }) => {
   const defaultValues = {
@@ -34,7 +33,6 @@ const LibraryForm = ({
     description: asset.description || '',
     color: asset.color || '',
     coverFile: asset.cover || null,
-    tags: asset.tags || [],
   };
 
   const {
@@ -126,21 +124,7 @@ const LibraryForm = ({
               />
             </Stack>
           </ContextContainer>
-          <ContextContainer subtitle={labels.tags} spacing={1}>
-            <Controller
-              control={control}
-              name="tags"
-              render={({ field: { ref, ...field } }) => (
-                <TagsInput
-                  labels={{ addButton: labels.addTag }}
-                  placeholder={placeholders.tagsInput}
-                  suggestions={tagSuggestions}
-                  errorMessage={errorMessages.tags}
-                  {...field}
-                />
-              )}
-            />
-          </ContextContainer>
+          {children}
           <Stack justifyContent={'end'} fullWidth>
             <Button type="submit">{labels.submitForm}</Button>
           </Stack>

@@ -21,15 +21,15 @@ export const LIBRARY_NAVBAR_PROP_TYPES = {
   }),
   categories: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       icon: PropTypes.node,
       name: PropTypes.string,
-      slug: PropTypes.string,
+      key: PropTypes.string,
       creatable: PropTypes.bool,
       createUrl: PropTypes.string,
     })
   ),
-  selectedCategory: PropTypes.string,
+  selectedCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onNav: PropTypes.func,
   onFile: PropTypes.func,
   onNew: PropTypes.func,
