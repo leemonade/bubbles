@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Box } from '@mantine/core';
 import { isString } from 'lodash';
+import { Box } from '../../layout/Box';
 import { Text } from '../../typography';
 import { TreeStyles } from './Tree.styles';
 

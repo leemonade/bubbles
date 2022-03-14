@@ -66,7 +66,7 @@ const Template = ({ children, ...props }) => {
       <DatasetItemDrawer
         {...props}
         selectOptions={selectOptions}
-        defaultValues={{ config: { type: 'date', centers: ['*'] } }}
+        defaultValues={{ config: { centers: ['*'] } }}
         opened={opened}
         locales={TRANSLATOR_TABS_DATA.locales}
         defaultLocale={TRANSLATOR_TABS_DATA.defaultLocale}

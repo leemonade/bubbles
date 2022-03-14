@@ -8,11 +8,8 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   editable: false,
   removable: true,
   disabled: false,
+  unique: false,
   error: '',
-  onAdd: () => {},
-  onUpdate: () => {},
-  onRemove: () => {},
-  onSort: () => {},
 };
 
 export const TABLE_INPUT_PROP_TYPES = {
@@ -35,4 +32,5 @@ export const TABLE_INPUT_PROP_TYPES = {
   editable: PropTypes.bool,
   disabled: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  unique: PropTypes.bool,
 };

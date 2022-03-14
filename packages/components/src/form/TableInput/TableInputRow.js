@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout';
 import { get, isFunction } from 'lodash';
 import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Controller, useForm } from 'react-hook-form';
@@ -75,7 +75,7 @@ const TableInputRow = ({
         </Box>
       );
     }
-    return <TableCell cell={cell} />;
+    return <TableCell cell={cell} row={row} form={form} />;
   };
 
   const handleOnEdit = async () => {

@@ -46,6 +46,8 @@
     "@tiptap/extension-text-style": "^2.0.0-beta.23",
     "@tiptap/extension-underline": "^2.0.0-beta.22",
     "@tiptap/extension-link": "^2.0.0-beta.36",
+    "@tiptap/extension-superscript": "^2.0.0-beta.10",
+    "@tiptap/extension-subscript": "^2.0.0-beta.10",
     "@tiptap/react": "^2.0.0-beta.105",
     "@tiptap/starter-kit": "^2.0.0-beta.171",
     "lodash": "^4.17.21",

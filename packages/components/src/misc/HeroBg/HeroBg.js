@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { keysIn } from 'lodash';
-import { Box } from '@mantine/core';
 import { HeroBgStyles } from './HeroBg.styles';
 import { lg, xMD, xSM, ySM, yXS, xLG } from './sizes';
 

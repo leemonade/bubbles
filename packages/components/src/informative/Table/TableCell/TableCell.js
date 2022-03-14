@@ -1,10 +1,10 @@
 import React from 'react';
-import { isFunction, isObject, isString } from 'lodash';
-import { Stack, Box } from '../../../layout';
+import { isFunction, isObject } from 'lodash';
+import { Box, Stack } from '../../../layout';
 import { Checkbox } from '../../../form';
 import { TableCellStyles } from './TableCell.styles';
 
-export const TableCell = ({ cell, onChangeCell }) => {
+export const TableCell = ({ cell, row, form, onChangeCell }) => {
   const onCheckedChange = (val) => {
     onChangeCell(cell, { ...cell, value: { ...cell.value, checked: val } });
   };
@@ -20,7 +20,7 @@ export const TableCell = ({ cell, onChangeCell }) => {
   }
 
   if (isFunction(cell.column.valueRender)) {
-    return <Box className={classes.root}>{cell.column.valueRender(cell.value)}</Box>;
+    return <Box className={classes.root}>{cell.column.valueRender(cell.value, row, form)}</Box>;
   }
 
   if (isObject(cell.value)) {

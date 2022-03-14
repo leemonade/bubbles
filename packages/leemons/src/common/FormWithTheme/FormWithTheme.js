@@ -71,12 +71,17 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
     {
       isLoaded: () => !!ref.current,
       submit: () => {
-        ref.current.formElement.dispatchEvent(
-          new Event('submit', {
-            cancelable: true,
-            bubbles: true,
-          })
-        );
+        return new Promise((resolve) => {
+          ref.current.formElement.dispatchEvent(
+            new Event('submit', {
+              cancelable: true,
+              bubbles: true,
+            })
+          );
+          setTimeout(() => {
+            resolve();
+          }, 100);
+        });
       },
       getRef: () => ref.current,
       getErrors: () => ref.current.state.errors || [],

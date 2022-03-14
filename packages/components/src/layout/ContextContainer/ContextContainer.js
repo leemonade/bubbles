@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
 import { isString, isEmpty } from 'lodash';
+import { Box } from '../Box';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
 import { Title, Paragraph } from '../../typography';
@@ -51,7 +51,11 @@ const ContextContainer = ({
         result.push(node);
         if (i < nodes.length - 1) {
           result.push(
-            <Divider key={`d-${i}`} orientation={direction === 'row' ? 'vertical' : 'horizontal'} />
+            <Divider
+              key={`d-${i}`}
+              noFlex
+              orientation={direction === 'row' ? 'vertical' : 'horizontal'}
+            />
           );
         }
       });
@@ -69,7 +73,7 @@ const ContextContainer = ({
       fullHeight={fullHeight}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
-        <Stack direction="column" spacing={5} fullWidth>
+        <Stack direction="column" spacing={5} noFlex fullWidth>
           {hasTitle && (
             <Box>
               <Title order={4}>{title}</Title>

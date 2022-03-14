@@ -2,12 +2,12 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
-import { Box } from '@mantine/core';
+import { Box } from '../../layout/Box';
+import { PageContainer } from '../../layout/PageContainer';
 import { useMergedState } from './hooks';
 import { TabNavList } from './TabNavList/TabNavList';
 import { TabPanelList } from './TabPanelList/TabPanelList';
 import { TabsStyles } from './Tabs.styles';
-import { PageContainer } from '../../layout';
 import TabContext from './TabContext';
 
 export const TABS_PANEL_COLORS = ['default', 'solid'];

@@ -1,62 +1,14 @@
-import React, { forwardRef, useState, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef, useEffect, useState, useImperativeHandle } from 'react';
 import {
   MultiSelect as MantineMultiSelect,
   Autocomplete as MantineAutocomplete,
 } from '@mantine/core';
-import { DeleteIcon } from '@bubbles-ui/icons/solid/';
-import { isFunction, isEmpty } from 'lodash';
-import { useId } from '@mantine/hooks';
-import {
-  InputWrapper,
-  INPUT_WRAPPER_PROP_TYPES,
-  INPUT_WRAPPER_DEFAULT_PROPS,
-} from '../InputWrapper';
-import { Box } from '../../layout';
+import { DeleteIcon } from '@bubbles-ui/icons/solid';
+import { isFunction, isEmpty, trim } from 'lodash';
+import { useId, useDebouncedValue } from '@mantine/hooks';
+import { InputWrapper } from '../InputWrapper';
 import { AutocompleteStyles } from './Autocomplete.styles';
-import { Text } from '../../typography/Text';
-
-export const AUTOCOMPLETE_DEFAULT_PROPS = {
-  ...INPUT_WRAPPER_DEFAULT_PROPS,
-  itemComponent: forwardRef(({ value, ...others }, ref) => (
-    <Box ref={ref} {...others}>
-      <Text>{value}</Text>
-    </Box>
-  )),
-  valueComponent: forwardRef(({ value, onRemove, classNames, ...others }, ref) => (
-    <Box ref={ref} {...others} onClick={onRemove} style={{ cursor: 'pointer' }}>
-      <Text>{value}</Text>
-    </Box>
-  )),
-  multiple: false,
-  value: [],
-  placeholder: '',
-  ignoreWrapper: false,
-};
-
-export const AUTOCOMPLETE_PROP_TYPES = {
-  ...INPUT_WRAPPER_PROP_TYPES,
-  placeholder: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(
-      PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
-    ),
-  ]).isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(
-      PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
-    ),
-  ]),
-  itemComponent: PropTypes.elementType,
-  valueComponent: PropTypes.elementType,
-  nothingFoundLabel: PropTypes.string,
-  multiple: PropTypes.bool,
-  onItemSubmit: PropTypes.func,
-  id: PropTypes.string,
-  ignoreWrapper: PropTypes.bool,
-};
+import { AUTOCOMPLETE_DEFAULT_PROPS, AUTOCOMPLETE_PROP_TYPES } from './Autocomplete.constants';
 
 const Autocomplete = forwardRef(
   (
@@ -75,18 +27,34 @@ const Autocomplete = forwardRef(
       valueComponent,
       nothingFoundLabel,
       multiple,
-      onItemSubmit,
-      onChange,
       id,
       ignoreWrapper,
+      waitToSearch,
+      onItemSubmit = () => {},
+      onChange = () => {},
+      onSearch = () => {},
       ...props
     },
     ref
   ) => {
-    const { classes, cx } = AutocompleteStyles({ multiple }, { name: 'Autocomplete' });
     const [selectedValue, setSelectedValue] = useState(value.length > 1 ? value : null);
     const [inputValue, setInputValue] = useState('');
+    const [debouncedValue] = useDebouncedValue(inputValue, waitToSearch);
     const uuid = useId();
+
+    const Wrapper = !ignoreWrapper ? InputWrapper : React.Fragment;
+    const wrapperProps = !ignoreWrapper
+      ? { uuid: id || uuid, size, error, label, description, help, required }
+      : {};
+
+    useEffect(() => {
+      if (!isEmpty(trim(debouncedValue))) {
+        onSearch(debouncedValue);
+      }
+    }, [debouncedValue]);
+
+    // ················································································
+    // HANDLERS
 
     const onItemSubmitHandler = (e) => {
       isFunction(onItemSubmit) && onItemSubmit(e);
@@ -107,10 +75,10 @@ const Autocomplete = forwardRef(
       deleteValues: () => deleteValues(),
     }));
 
-    const Wrapper = !ignoreWrapper ? InputWrapper : React.Fragment;
-    const wrapperProps = !ignoreWrapper
-      ? { uuid: id || uuid, size, error, label, description, help, required }
-      : {};
+    // ················································································
+    // STYLES
+
+    const { classes, cx } = AutocompleteStyles({ multiple }, { name: 'Autocomplete' });
 
     return (
       <Wrapper {...wrapperProps}>

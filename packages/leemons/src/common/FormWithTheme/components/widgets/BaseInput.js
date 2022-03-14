@@ -77,7 +77,7 @@ function BaseInput(props) {
         newVal = event;
         break;
       case 'date':
-        newVal = event.toString();
+        newVal = event ? event.toString() : event;
         break;
       default:
         newVal = event;

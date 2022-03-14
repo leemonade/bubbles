@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDrag, useDrop } from 'react-dnd';
 import _ from 'lodash';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import { Box } from '@mantine/core';
+import { Box } from '../../../layout/Box';
 
 const DndSortItem = ({
   children,

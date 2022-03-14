@@ -1,43 +1,18 @@
-import React, { forwardRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mantine/core';
+import React, { useMemo } from 'react';
 import { isEmpty, isNil } from 'lodash';
 import { Text } from '../../typography';
-import { Stack } from '../../layout';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
 import { InputError } from '../InputError';
 import { InputDescription } from '../InputDescription';
 import { InputHelp } from '../InputHelp';
 import { InputWrapperStyles } from './InputWrapper.styles';
-
-export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
-export const INPUT_WRAPPER_ORIENTATIONS = ['horizontal', 'vertical'];
-
-export const INPUT_WRAPPER_SHARED_PROPS = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  help: PropTypes.string,
-  required: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
-};
-
-export const INPUT_WRAPPER_PROP_TYPES = {
-  ...INPUT_WRAPPER_SHARED_PROPS,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
-  headerClassName: PropTypes.string,
-  contentClassName: PropTypes.string,
-  headerStyle: PropTypes.any,
-  contentStyle: PropTypes.any,
-};
-export const INPUT_WRAPPER_DEFAULT_PROPS = {
-  label: '',
-  description: '',
-  error: '',
-  help: '',
-  orientation: 'vertical',
-  size: 'sm',
-  required: false,
-};
+import {
+  INPUT_WRAPPER_DEFAULT_PROPS,
+  INPUT_WRAPPER_PROP_TYPES,
+  INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SIZES,
+} from './InputWrapper.constants';
 
 const InputWrapper = ({
   orientation: orientationProp,
