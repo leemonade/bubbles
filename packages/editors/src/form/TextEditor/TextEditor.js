@@ -3,7 +3,9 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import { useEffect } from 'react';
 import { useExtensions } from '../../utils/use-extensions';
 import { TextEditorStyles } from './TextEditor.styles';
-import { Box } from '@bubbles-ui/components';
+import { Toolbar } from '../Toolbar/Toolbar';
+import { BubbleMenu } from '../BubbleMenu/BubbleMenu';
+import CardExtension from '../Card/extension';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
@@ -25,10 +27,24 @@ const TextEditor = ({ content, children }) => {
           class: classes.paragraph,
         },
       }),
+      CardExtension,
       ...extensions,
     ],
     content: '',
   });
+
+  const addCard = () => {
+    editor
+      ?.chain()
+      .focus()
+      .setCard({
+        title: 'El imperio romano',
+        description:
+          'No se que no se cuantos el imperio romano duro la tira de tiempo y por eso ahora estoy haciendo esta descripcion muy larga',
+        fileType: 'video',
+      })
+      .run();
+  };
 
   useEffect(() => {
     if (!editor) return;
@@ -37,8 +53,11 @@ const TextEditor = ({ content, children }) => {
 
   return (
     <TextEditorProvider editor={editor}>
-      <Box className={classes.toolbar}>{children}</Box>
-
+      <Toolbar>
+        {children}
+        <div onClick={addCard}>añadir card</div>
+      </Toolbar>
+      <BubbleMenu />
       <EditorContent editor={editor} className={classes.editor} />
     </TextEditorProvider>
   );

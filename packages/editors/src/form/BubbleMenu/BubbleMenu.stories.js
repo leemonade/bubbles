@@ -1,13 +1,10 @@
-import { Toolbar, TOOLBAR_DEFAULT_PROPS } from './Toolbar';
-import { TextEditor } from '../TextEditor/TextEditor';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
+import { TextEditor } from '../../form/TextEditor/TextEditor';
+import { BubbleMenu, BUBBLEMENU_DEFAULT_PROPS } from './BubbleMenu';
 
 export default {
-  title: 'Atom/Form/Toolbar',
+  title: 'Atom/Form/BubbleMenu',
   parameters: {
-    component: Toolbar,
+    component: BubbleMenu,
     docs: {
       // page: mdx,
     },
@@ -22,11 +19,7 @@ export default {
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <Toolbar {...props}>
-        <ColorTool />
-        <TransformsTool />
-        <HeadingsTool />
-      </Toolbar>
+      <BubbleMenu {...props}></BubbleMenu>
     </TextEditor>
   );
 };
@@ -34,7 +27,7 @@ const Template = ({ content, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...TOOLBAR_DEFAULT_PROPS,
+  ...BUBBLEMENU_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };
