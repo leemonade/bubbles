@@ -3,7 +3,7 @@ import capitalize from 'lodash/capitalize';
 import { Indent } from './extension/';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { StarIcon, LadybugIcon } from '@bubbles-ui/icons/solid';
+import { EditorIndentIncreaseIcon, EditorIndentDecreaseIcon } from '@bubbles-ui/icons/solid';
 import { Button } from '../../form/Button/Button';
 
 export const INDENT_TOOL_TYPES = ['indent', 'outdent'];
@@ -30,8 +30,8 @@ const IndentTool = ({ type, label, ...props }) => {
   };
 
   const getTypeIcon = () => {
-    if (type === 'outdent') return <LadybugIcon />;
-    return <StarIcon />;
+    if (type === 'outdent') return <EditorIndentDecreaseIcon />;
+    return <EditorIndentIncreaseIcon />;
   };
 
   return (

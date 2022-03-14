@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorTextBoldIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,7 +24,7 @@ const BoldTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorTextBoldIcon />}
       actived={editor?.isActive('bold')}
       onClick={onClickHandler}
     ></Button>

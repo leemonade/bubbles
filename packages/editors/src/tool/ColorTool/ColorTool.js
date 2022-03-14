@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ExpandDiagonalIcon, TypeCursorIcon } from '@bubbles-ui/icons/outline';
+import { TypeCursorIcon } from '@bubbles-ui/icons/outline';
+import { EditorTextColorIcon } from '@bubbles-ui/icons/solid';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 import { Popover, Box, COLORS } from '@bubbles-ui/components';
@@ -57,7 +58,7 @@ const ColorTool = ({ swatches, label, ...props }) => {
         <Button
           {...props}
           label={label}
-          icon={<ExpandDiagonalIcon />}
+          icon={<EditorTextColorIcon />}
           onClick={() => setIsOpened(!isOpened)}
           actived={isOpened}
           classNames={classes}

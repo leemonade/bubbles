@@ -4,7 +4,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { StarIcon, LadybugIcon } from '@bubbles-ui/icons/solid';
+import { EditorListBulletsIcon, EditorListNumbersIcon } from '@bubbles-ui/icons/solid';
 import { Button } from '../../form/Button/Button';
 
 export const LIST_TOOL_TYPES = ['ordered', 'unordered'];
@@ -32,7 +32,7 @@ const ListTool = ({ type, ...props }) => {
   return (
     <Button
       {...props}
-      icon={isOrdered ? <LadybugIcon /> : <StarIcon />}
+      icon={isOrdered ? <EditorListNumbersIcon /> : <EditorListBulletsIcon />}
       onClick={onClickHandler}
       actived={editor?.isActive(isOrdered ? 'orderedList' : 'bulletList')}
     ></Button>

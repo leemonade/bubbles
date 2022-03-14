@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,7 +24,7 @@ const CodeTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorProgrammingCodeIcon />}
       actived={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>

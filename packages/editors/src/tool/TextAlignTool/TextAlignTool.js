@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
-import { StarIcon, LadybugIcon, LikeIcon, MusicNoteIcon } from '@bubbles-ui/icons/solid';
+import {
+  EditorLeftAlignIcon,
+  LadybugIcon,
+  LikeIcon,
+  EditorRightAlignIcon,
+} from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -46,7 +51,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {left && (
         <Button
           label={labels.left}
-          icon={<StarIcon />}
+          icon={<EditorLeftAlignIcon />}
           actived={editor?.isActive({ textAlign: 'left' })}
           onClick={() => onClickHandler('left')}
         ></Button>
@@ -70,7 +75,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {right && (
         <Button
           label={labels.right}
-          icon={<MusicNoteIcon />}
+          icon={<EditorRightAlignIcon />}
           actived={editor?.isActive({ textAlign: 'right' })}
           onClick={() => onClickHandler('right')}
         ></Button>

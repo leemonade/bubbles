@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Subscript } from '@tiptap/extension-subscript';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorSubscriptIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,7 +24,7 @@ const SubscriptTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorSubscriptIcon />}
       actived={editor?.isActive('subscript')}
       onClick={onClickHandler}
     ></Button>

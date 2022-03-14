@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { StarIcon, LadybugIcon, MusicNoteIcon } from '@bubbles-ui/icons/solid';
+import {
+  EditorTextSize1Icon,
+  EditorTextSize2Icon,
+  EditorTextSize3Icon,
+} from '@bubbles-ui/icons/solid';
 import { Button } from '../../form/Button/Button';
 
 export const TITLE_TOOL_DEFAULT_PROPS = {
@@ -39,9 +43,9 @@ const TitleTool = ({ level, label, ...props }) => {
   };
 
   const getLevelIcon = () => {
-    if (level === 1) return <StarIcon />;
-    if (level === 2) return <LadybugIcon />;
-    if (level === 3) return <MusicNoteIcon />;
+    if (level === 1) return <EditorTextSize1Icon />;
+    if (level === 2) return <EditorTextSize2Icon />;
+    if (level === 3) return <EditorTextSize3Icon />;
   };
 
   return (

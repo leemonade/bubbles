@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Superscript } from '@tiptap/extension-superscript';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorSuperscriptIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,7 +24,7 @@ const SuperscriptTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorSuperscriptIcon />}
       actived={editor?.isActive('superscript')}
       onClick={onClickHandler}
     ></Button>
