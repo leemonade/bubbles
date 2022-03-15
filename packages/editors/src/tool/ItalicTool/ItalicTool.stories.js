@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ItalicTool } from './ItalicTool';
 
 export default {
-  title: 'Atom/Form/ItalicTool',
+  title: 'Atom/Tool/ItalicTool',
   parameters: {
     component: ItalicTool,
     docs: {

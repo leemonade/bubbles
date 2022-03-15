@@ -37,4 +37,5 @@ Playground.args = {
   ...BUTTON_DEFAULT_PROPS,
   icon: <StarIcon />,
   label: 'Star',
+  disabled: false,
 };

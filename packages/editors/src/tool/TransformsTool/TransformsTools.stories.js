@@ -4,10 +4,9 @@ import {
   TRANSFORMSTOOL_DEFAULT_PROPS,
 } from '../../tool/TransformsTool/TransformsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
 
 export default {
-  title: 'Atom/Form/TransformsTool',
+  title: 'Atom/Tool/TransformsTool',
   parameters: {
     component: TransformsTool,
     docs: {

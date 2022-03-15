@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ParagraphTool, PARAGRAPH_TOOL_DEFAULT_PROPS } from './ParagraphTool';
 
 export default {
-  title: 'Atom/Form/ParagraphTool',
+  title: 'Atom/Tool/ParagraphTool',
   parameters: {
     component: ParagraphTool,
     docs: {

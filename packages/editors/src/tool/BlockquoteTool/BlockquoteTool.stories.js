@@ -3,7 +3,7 @@ import { CodeTool } from '../CodeTool/CodeTool';
 import { BlockquoteTool } from './BlockquoteTool';
 
 export default {
-  title: 'Atom/Form/BlockquoteTool',
+  title: 'Atom/Tool/BlockquoteTool',
   parameters: {
     component: BlockquoteTool,
     docs: {

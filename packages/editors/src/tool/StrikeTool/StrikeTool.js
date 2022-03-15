@@ -26,6 +26,7 @@ const StrikeTool = ({ label, ...props }) => {
       label={label}
       icon={<EditorTextStrikeIcon />}
       actived={editor?.isActive('strike')}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

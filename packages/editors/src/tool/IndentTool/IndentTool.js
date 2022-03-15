@@ -39,6 +39,7 @@ const IndentTool = ({ type, label, ...props }) => {
       {...props}
       label={label || capitalize(type)}
       icon={getTypeIcon()}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import { ActionButton } from '@bubbles-ui/components';
 import { ButtonStyles } from './Button.styles';
-import PropTypes from 'prop-types';
 
 export const BUTTON_POSITIONS = ['start', 'center', 'end', 'default'];
 
@@ -18,17 +18,23 @@ export const BUTTON_PROP_TYPES = {
   onClick: PropTypes.func,
 };
 
-const Button = ({ icon, label, actived, position, onClick, classNames, children }) => {
+const Button = ({ icon, label, actived, position, disabled, onClick, classNames, children }) => {
   const { classes, cx } = ButtonStyles({ actived, position }, { classNames });
+
   return (
-    <ActionButton icon={icon} classNames={classes} tooltip={label} onClick={onClick}>
+    <ActionButton
+      icon={icon}
+      classNames={classes}
+      tooltip={disabled ? '' : label}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </ActionButton>
   );
 };
 
 Button.defaultProps = BUTTON_DEFAULT_PROPS;
-
 Button.propTypes = BUTTON_PROP_TYPES;
 
 export { Button };

@@ -26,6 +26,7 @@ const UnderlineTool = ({ label, ...props }) => {
       label={label}
       icon={<EditorTextUnderlineIcon />}
       actived={editor?.isActive('underline')}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

@@ -2,7 +2,7 @@ import { CodeQuoteTool, CODEQUOTE_TOOL_DEFAULT_PROPS } from './CodeQuoteTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/CodeQuoteTool',
+  title: 'Atom/Tool/CodeQuoteTool',
   parameters: {
     component: CodeQuoteTool,
     docs: {

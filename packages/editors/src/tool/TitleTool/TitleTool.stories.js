@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { TitleTool, TITLE_TOOL_DEFAULT_PROPS } from './TitleTool';
 
 export default {
-  title: 'Atom/Form/TitleTool',
+  title: 'Atom/Tool/TitleTool',
   parameters: {
     component: TitleTool,
     docs: {

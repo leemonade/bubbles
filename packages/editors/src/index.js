@@ -1,1 +1,1 @@
-export * from './TextEditor';
+export * from './form';

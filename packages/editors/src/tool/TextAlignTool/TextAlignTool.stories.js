@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { TextAlignTool, TEXTALIGN_TOOL_DEFAULT_PROPS } from './TextAlignTool';
 
 export default {
-  title: 'Atom/Form/TextAlignTool',
+  title: 'Atom/Tool/TextAlignTool',
   parameters: {
     component: TextAlignTool,
     docs: {

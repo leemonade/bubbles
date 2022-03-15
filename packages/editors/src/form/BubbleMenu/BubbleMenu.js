@@ -30,7 +30,7 @@ const BubbleMenu = ({ ...props }) => {
       shouldShow={shouldShowHandler}
       tippyOptions={{ duration: 100, placement: 'bottom-start', zIndex: 1000 }}
     >
-      <Paper padding={1} className={classes.root}>
+      <Paper padding={1} shadow="level100" className={classes.root}>
         <Stack spacing={2}>
           <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
           <Select

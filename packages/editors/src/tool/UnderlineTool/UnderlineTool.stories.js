@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { UnderlineTool } from './UnderlineTool';
 
 export default {
-  title: 'Atom/Form/UnderlineTool',
+  title: 'Atom/Tool/UnderlineTool',
   parameters: {
     component: UnderlineTool,
     docs: {

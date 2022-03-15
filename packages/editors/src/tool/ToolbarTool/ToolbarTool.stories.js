@@ -4,7 +4,7 @@ import { ToolbarTool } from './ToolbarTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/ToolbarTool',
+  title: 'Atom/Tool/ToolbarTool',
   parameters: {
     component: ToolbarTool,
     docs: {
