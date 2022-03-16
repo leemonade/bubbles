@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import lowlight from 'lowlight';
+import { Button } from '../../form/Button/Button';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button } from '../../form/Button/Button';
-import CodeBlock from '@tiptap/extension-code-block';
+import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
 
 export const CODE_TOOL_DEFAULT_PROPS = {
   label: 'Code block',
@@ -33,6 +34,6 @@ const CodeTool = ({ label, ...props }) => {
 
 CodeTool.defaultProps = CODE_TOOL_DEFAULT_PROPS;
 CodeTool.propTypes = CODE_TOOL_PROP_TYPES;
-CodeTool.extensions = [CodeBlock];
+CodeTool.extensions = [CodeBlockLowlight.configure({ lowlight })];
 
 export { CodeTool };

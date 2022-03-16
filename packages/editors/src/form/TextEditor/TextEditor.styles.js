@@ -67,6 +67,20 @@ export const TextEditorStyles = createStyles((theme, {}) => {
           borderLeft: `4px solid ${theme.colors.ui01}`,
           paddingLeft: pxToRem(16),
         },
+        '.hljs-comment, .hljs-quote': { color: '#616161' },
+        '.hljs-variable, .hljs-template-variable, .hljs-attribute, .hljs-tag, .hljs-name, .hljs-regexp, .hljs-link, .hljs-name, .hljs-selector-id, .hljs-selector-class':
+          {
+            color: '#f98181',
+          },
+        '.hljs-number, .hljs-meta, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params':
+          {
+            color: '#fbbc88',
+          },
+        '.hljs-string, .hljs-symbol, .hljs-bullet': { color: '#b9f18d' },
+        '.hljs-title, .hljs-section': { color: '#faf594' },
+        '.hljs-keyword, .hljs-selector-tag': { color: '#70cff8' },
+        '.hljs-emphasis': { fontStyle: 'italic' },
+        '.hljs-strong': { fontWeight: 700 },
       },
     },
   };

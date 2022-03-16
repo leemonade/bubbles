@@ -5,6 +5,7 @@ import { useExtensions } from '../../utils/use-extensions';
 import { TextEditorStyles } from './TextEditor.styles';
 import { Toolbar } from '../Toolbar/Toolbar';
 import { BubbleMenu } from '../BubbleMenu/BubbleMenu';
+import History from '@tiptap/extension-history';
 import CardExtension from '../Card/extension';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
@@ -27,6 +28,7 @@ const TextEditor = ({ content, children }) => {
           class: classes.paragraph,
         },
       }),
+      History,
       CardExtension,
       ...extensions,
     ],

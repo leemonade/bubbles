@@ -21,7 +21,19 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('cardExtension')) {
       return true;
     }
+    if (editor.isActive('codeBlock')) {
+      return true;
+    }
     return false;
+  };
+
+  const removeHandler = () => {
+    if (editor.isActive('cardExtension')) {
+      editor?.chain().focus().unsetCard().run();
+    }
+    if (editor.isActive('codeBlock')) {
+      editor?.chain().focus().toggleCodeBlock().run();
+    }
   };
 
   return (
@@ -41,7 +53,11 @@ const BubbleMenu = ({ ...props }) => {
             ]}
             zIndex={9999}
           />
-          <IconButton size="xs" icon={<DeleteBinIcon height={20} width={20} />} />
+          <IconButton
+            size="xs"
+            icon={<DeleteBinIcon height={20} width={20} />}
+            onClick={removeHandler}
+          />
         </Stack>
       </Paper>
     </BubbleMenuTipTap>
