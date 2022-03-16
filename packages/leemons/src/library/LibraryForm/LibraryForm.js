@@ -1,5 +1,5 @@
-import React from 'react';
-import { isFunction } from 'lodash';
+import React, { useEffect, useState } from 'react';
+import { isFunction, isEmpty, toLower } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   Box,
@@ -15,6 +15,21 @@ import {
 import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 import { LibraryFormStyles } from './LibraryForm.styles';
 import { LIBRARY_FORM_DEFAULT_PROPS, LIBRARY_FORM_PROP_TYPES } from './LibraryForm.constants';
+
+function isImageFile(file) {
+  if (file?.type && file?.type.indexOf('image') === 0) {
+    return true;
+  }
+
+  const name = file?.path || file?.name;
+
+  if (!isEmpty(name)) {
+    const ext = toLower(name.split('.').at(-1));
+    return ['png', 'jpeg', 'jpg', 'webp', 'gif', 'bmp'].includes(ext);
+  }
+
+  return false;
+}
 
 const LibraryForm = ({
   labels,
@@ -36,7 +51,6 @@ const LibraryForm = ({
   };
 
   const {
-    reset,
     control,
     handleSubmit,
     watch,
@@ -45,6 +59,15 @@ const LibraryForm = ({
   } = useForm({ defaultValues });
 
   const watchCoverFile = watch('coverFile');
+  const assetFile = watch('file');
+
+  const [isImage, setIsImage] = useState(false);
+
+  useEffect(() => {
+    if (!isEmpty(assetFile)) {
+      setIsImage(isImageFile(assetFile));
+    }
+  }, [assetFile]);
 
   const handleOnSubmit = (e) => {
     if (e.file.length === 1) e.file = e.file[0];
@@ -108,22 +131,27 @@ const LibraryForm = ({
               )}
             />
           </ContextContainer>
-          <ContextContainer subtitle={labels.featuredImage}>
-            <Stack direction="row" spacing={3}>
-              {!watchCoverFile && <Button variant={'outline'}>Search from library</Button>}
-              <Controller
-                control={control}
-                name="coverFile"
-                render={({ field: { ref, value, ...field } }) => (
-                  <ImagePreviewInput
-                    labels={{ changeImage: labels.changeImage, uploadButton: labels.uploadButton }}
-                    previewURL={value}
-                    {...field}
-                  />
-                )}
-              />
-            </Stack>
-          </ContextContainer>
+          {!isImage && (
+            <ContextContainer subtitle={labels.featuredImage}>
+              <Stack direction="row" spacing={3}>
+                {!watchCoverFile && <Button variant={'outline'}>Search from library</Button>}
+                <Controller
+                  control={control}
+                  name="coverFile"
+                  render={({ field: { ref, value, ...field } }) => (
+                    <ImagePreviewInput
+                      labels={{
+                        changeImage: labels.changeImage,
+                        uploadButton: labels.uploadButton,
+                      }}
+                      previewURL={value}
+                      {...field}
+                    />
+                  )}
+                />
+              </Stack>
+            </ContextContainer>
+          )}
           {children}
           <Stack justifyContent={'end'} fullWidth>
             <Button type="submit">{labels.submitForm}</Button>

@@ -14,27 +14,29 @@ export const LIBRARYCARD_ASSIGMENT = {
   avgAttempts: PropTypes.number,
 };
 
+export const ASSET_PROPS = PropTypes.shape({
+  id: PropTypes.string,
+  fileType: PropTypes.string,
+  fileExtension: PropTypes.string,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  subtitle: PropTypes.string,
+  metadata: PropTypes.arrayOf(
+    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
+  ),
+  created: PropTypes.string,
+  version: PropTypes.string,
+  cover: PropTypes.string,
+  color: PropTypes.string,
+  url: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
+  role: PropTypes.oneOf(LIBRARYCARD_ROLES),
+});
+
 export const LIBRARY_CARD_DEFAULT_PROPS = {};
 export const LIBRARY_CARD_PROP_TYPES = {
-  asset: PropTypes.shape({
-    id: PropTypes.string,
-    fileType: PropTypes.string,
-    fileExtension: PropTypes.string,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    subtitle: PropTypes.string,
-    metadata: PropTypes.arrayOf(
-      PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-    ),
-    created: PropTypes.string,
-    version: PropTypes.string,
-    cover: PropTypes.string,
-    color: PropTypes.string,
-    url: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.string),
-    category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
-    role: PropTypes.oneOf(LIBRARYCARD_ROLES),
-  }),
+  asset: ASSET_PROPS,
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
