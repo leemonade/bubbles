@@ -59,13 +59,13 @@ const UserDisplayItem = ({
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
   const fullName = useMemo(
-    () => (['rol'].includes(variant) ? `${name} ${surnames}` : name),
+    () => (['rol'].includes(variant) ? `${name}${surnames ? ` ${surnames}` : ''}` : name),
     [name, surnames, variant]
   );
 
   return (
     <Box {...props} className={classes.root}>
-      <Avatar image={avatar} size={avatarSize} />
+      <Avatar image={avatar} fullName={fullName} size={avatarSize} />
       <Box
         className={classes.userInfo}
         style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 26 : 32}px)` }}
