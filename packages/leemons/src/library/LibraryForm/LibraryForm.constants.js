@@ -5,8 +5,6 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
   labels: {
     title: '',
     featuredImage: '',
-    tags: '',
-    addTag: '',
     changeImage: '',
     uploadButton: '',
     submitForm: '',
@@ -14,7 +12,6 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     description: '',
   },
   placeholders: {
-    tagsInput: '',
     name: '',
     description: '',
     color: '',
@@ -22,16 +19,13 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
   errorMessages: {
     name: '',
     file: '',
-    tags: '',
   },
-  tagSuggestions: [],
+  loading: false,
 };
 export const LIBRARY_FORM_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,
     featuredImage: PropTypes.string,
-    tags: PropTypes.string,
-    addTag: PropTypes.string,
     changeImage: PropTypes.string,
     uploadButton: PropTypes.string,
     submitForm: PropTypes.string,
@@ -39,7 +33,6 @@ export const LIBRARY_FORM_PROP_TYPES = {
     description: PropTypes.string,
   }),
   placeholders: PropTypes.shape({
-    tagsInput: PropTypes.string,
     name: PropTypes.string,
     description: PropTypes.string,
     color: PropTypes.string,
@@ -49,7 +42,6 @@ export const LIBRARY_FORM_PROP_TYPES = {
   errorMessages: PropTypes.shape({
     name: PropTypes.string,
     file: PropTypes.string,
-    tags: PropTypes.string,
   }),
   asset: PropTypes.shape({
     id: PropTypes.string,
@@ -62,5 +54,5 @@ export const LIBRARY_FORM_PROP_TYPES = {
     tags: PropTypes.arrayOf(PropTypes.string),
   }),
   onSubmit: PropTypes.func,
-  tagSuggestions: PropTypes.arrayOf(PropTypes.string),
+  loading: PropTypes.bool,
 };

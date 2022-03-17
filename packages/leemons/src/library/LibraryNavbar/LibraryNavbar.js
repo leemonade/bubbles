@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { isEmpty, isFunction } from 'lodash';
 import {
   Box,
@@ -31,6 +31,11 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
     isFunction(onNav) && onNav(category);
   };
 
+  const quickAccessSelected = useMemo(
+    () => !selectedCategory || selectedCategory === '' || selectedCategory < 1,
+    [selectedCategory]
+  );
+
   const renderNavbarItems = useCallback(
     (callback, onlyCreatable = false) => {
       return categories
@@ -40,7 +45,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
             key={category.id}
             icon={category.icon}
             label={category.name}
-            selected={category.id === selectedCategory || category.slug === selectedCategory}
+            selected={category.id === selectedCategory || category.key === selectedCategory}
             onClick={() => callback(category)}
           />
         ));
@@ -108,7 +113,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
           icon={<PluginKimIcon />}
           label={labels.quickAccess}
           onClick={() => onNavHandler(null)}
-          selected={!selectedCategory || isEmpty(selectedCategory)}
+          selected={quickAccessSelected}
         />
         <Divider style={{ marginBlock: 8, marginInline: 10 }} />
         {renderNavbarItems(onNavHandler)}

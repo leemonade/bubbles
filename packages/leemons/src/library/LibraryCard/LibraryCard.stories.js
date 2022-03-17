@@ -4,6 +4,7 @@ import { ArchiveIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
+import { AUDIO_ASSET } from './mock/data';
 
 export default {
   title: 'leemons/Library/LibraryCard',
@@ -71,24 +72,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_CARD_DEFAULT_PROPS,
-  asset: {
-    color: '#DC5571',
-    name: 'El ritmo de la guerra',
-    fileType: 'audio',
-    created: '2022-02-04T16:26:31.485Z',
-    description:
-      'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
-    subtitle: '',
-    metadata: [
-      { label: 'Quality', value: '128kb' },
-      { label: 'Format', value: 'mp3' },
-      { label: 'Duration', value: '10 min' },
-      { label: 'Transcript', value: 'Not available' },
-    ],
-    tags: ['Fantasy', 'Adventure', 'Fiction'],
-    cover:
-      'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
-  },
+  asset: AUDIO_ASSET,
   assigment: {
     completed: 0.3,
     submission: 15,

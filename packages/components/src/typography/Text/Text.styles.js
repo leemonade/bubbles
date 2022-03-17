@@ -33,6 +33,7 @@ export const TextStyles = createStyles(
       secondary: theme.colors.text02,
       tertiary: theme.colors.text03,
       interactive: theme.colors.interactive01,
+      soft: theme.colors.text05,
     };
 
     let truncateProps = {};

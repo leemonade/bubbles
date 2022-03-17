@@ -48,6 +48,7 @@ Playground.args = {
         node: <TextInput />,
         rules: { required: 'Required field' },
       },
+      editable: false,
     },
     {
       Header: 'Number of periods',

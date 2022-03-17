@@ -52,14 +52,16 @@ Playground.args = {
     tags: 'Write a tag to add it',
   },
   tagSuggestions: ['Cat', 'Dog', 'Horse', 'Bird', 'Fish'],
-  // asset: {
-  //   id: '5e9f8f9b8f9d8b1c8c8b4567',
-  //   file: new File([], 'pepe.png'),
-  //   name: 'Pepe',
-  //   description: 'Pepe is a cat',
-  //   color: '#ff0000',
-  //   cover:
-  //     'https://static5.depositphotos.com/1000270/486/i/600/depositphotos_4869272-stock-photo-cute-bengal-kitten-looks-pensively.jpg',
-  //   tags: ['Cat', 'Cute'],
-  // },
+  /*
+  asset: {
+    id: '5e9f8f9b8f9d8b1c8c8b4567',
+    file: new File([], 'pepe.png'),
+    name: 'Pepe',
+    description: 'Pepe is a cat',
+    color: '#ff0000',
+    cover:
+      'https://static5.depositphotos.com/1000270/486/i/600/depositphotos_4869272-stock-photo-cute-bengal-kitten-looks-pensively.jpg',
+    tags: ['Cat', 'Cute'],
+  },
+  */
 };

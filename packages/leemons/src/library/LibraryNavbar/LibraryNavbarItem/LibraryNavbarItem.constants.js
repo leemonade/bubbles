@@ -5,7 +5,7 @@ export const LIBRARY_NAVBAR_ITEM_DEFAULT_PROPS = {
   disabled: false,
 };
 export const LIBRARY_NAVBAR_ITEM_PROP_TYPES = {
-  icon: PropTypes.oneOfType(PropTypes.node, PropTypes.string),
+  icon: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   label: PropTypes.string.isRequired,
   selected: PropTypes.bool,
   disabled: PropTypes.bool,
