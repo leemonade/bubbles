@@ -40,6 +40,7 @@ const LibraryForm = ({
   asset,
   onSubmit,
   children,
+  loading,
   ...props
 }) => {
   const defaultValues = {
@@ -154,7 +155,9 @@ const LibraryForm = ({
           )}
           {children}
           <Stack justifyContent={'end'} fullWidth>
-            <Button type="submit">{labels.submitForm}</Button>
+            <Button type="submit" loading={loading}>
+              {labels.submitForm}
+            </Button>
           </Stack>
         </ContextContainer>
       </form>

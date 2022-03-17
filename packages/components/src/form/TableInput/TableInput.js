@@ -34,6 +34,7 @@ const TableInput = ({
   form,
   error,
   unique,
+  showHeaders,
   onChange = () => {},
   onChangeData = () => {},
   onBeforeRemove = () => {},
@@ -120,6 +121,7 @@ const TableInput = ({
           onRemove={handleOnRemove}
           onEdit={handleOnEdit}
           onSort={handleOnSort}
+          showHeaders={showHeaders}
           classes={classes}
         />
       </Box>

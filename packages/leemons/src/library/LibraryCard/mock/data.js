@@ -19,6 +19,8 @@ export const AUDIO_ASSET = {
 
 export const VIDEO_ASSET = {
   id: '620bbb607129df59430f3329',
+  color: '#DC5571',
+  name: 'The Roman Empire',
   fileType: 'video',
   description:
     'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes we do. But what is the role of the neurons in the brain?',
@@ -32,6 +34,4 @@ export const VIDEO_ASSET = {
   cover:
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
   url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  color: '#DC5571',
-  name: 'The Roman Empire',
 };

@@ -44,7 +44,7 @@ const TableInputRow = ({
   });
 
   const getColumCellValue = (cell) => {
-    if (editing) {
+    if (editing && cell.column.editable !== false) {
       const { column, row } = cell;
       const fieldName = `${row.original.tableInputRowId}.${column.id}`;
       let { node, rules, ...inputProps } = column.input;

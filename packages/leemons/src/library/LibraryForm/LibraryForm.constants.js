@@ -20,6 +20,7 @@ export const LIBRARY_FORM_DEFAULT_PROPS = {
     name: '',
     file: '',
   },
+  loading: false,
 };
 export const LIBRARY_FORM_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -53,4 +54,5 @@ export const LIBRARY_FORM_PROP_TYPES = {
     tags: PropTypes.arrayOf(PropTypes.string),
   }),
   onSubmit: PropTypes.func,
+  loading: PropTypes.bool,
 };
