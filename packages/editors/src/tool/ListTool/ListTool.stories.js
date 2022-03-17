@@ -2,7 +2,7 @@ import { ListTool, LIST_TOOL_DEFAULT_PROPS, LIST_TOOL_TYPES } from './ListTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/ListTool',
+  title: 'Atom/Tool/ListTool',
   parameters: {
     component: ListTool,
     docs: {

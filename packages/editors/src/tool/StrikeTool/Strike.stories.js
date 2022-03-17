@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { StrikeTool } from './StrikeTool';
 
 export default {
-  title: 'Atom/Form/StrikeTool',
+  title: 'Atom/Tool/StrikeTool',
   parameters: {
     component: StrikeTool,
     docs: {

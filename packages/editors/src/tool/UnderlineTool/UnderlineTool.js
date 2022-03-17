@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import Underline from '@tiptap/extension-underline';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorTextUnderlineIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
-import { Label } from 'styled-icons/material-twotone';
 
 export const UNDERLINE_TOOL_DEFAULT_PROPS = {
   label: 'Underline',
@@ -25,8 +24,9 @@ const UnderlineTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorTextUnderlineIcon />}
       actived={editor?.isActive('underline')}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

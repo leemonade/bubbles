@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { BoldTool } from './BoldTool';
 
 export default {
-  title: 'Atom/Form/BoldTool',
+  title: 'Atom/Tool/BoldTool',
   parameters: {
     component: BoldTool,
     docs: {

@@ -1,7 +1,11 @@
 import React from 'react';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { TitleTool } from '../../tool/TitleTool/TitleTool';
+import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
+import { IndentsTool } from '../../tool/IndentsTool/IndentsTool';
+import { CodeQuoteTool } from '../../tool/CodeQuoteTool/CodeQuoteTool';
+import { TextAlignTool } from '../../tool/TextAlignTool/TextAlignTool';
+import { ScriptsTool } from '../../tool/ScriptsTool/ScriptsTool';
 import { TextEditor } from './TextEditor';
 // import mdx from './TextEditor.mdx';
 
@@ -24,8 +28,12 @@ const Template = ({ ...props }) => {
   return (
     <TextEditor {...props}>
       <ColorTool></ColorTool>
-      <TransformsTool></TransformsTool>
-      <TitleTool />
+      <TransformsTool />
+      <HeadingsTool />
+      <IndentsTool />
+      <CodeQuoteTool />
+      <TextAlignTool />
+      <ScriptsTool />
     </TextEditor>
   );
 };

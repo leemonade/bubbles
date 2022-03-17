@@ -3,7 +3,7 @@ import { IndentsTool, INDENTS_TOOL_DEFAULT_PROPS } from './IndentsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/IndentsTool',
+  title: 'Atom/Tool/IndentsTool',
   parameters: {
     component: IndentsTool,
     docs: {

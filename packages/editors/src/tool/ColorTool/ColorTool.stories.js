@@ -3,7 +3,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ColorTool, COLORTOOL_DEFAULT_PROPS } from './ColorTool';
 
 export default {
-  title: 'Atom/Form/ColorTool',
+  title: 'Atom/Tool/ColorTool',
   parameters: {
     component: ColorTool,
     docs: {

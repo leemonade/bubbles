@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
-import { StarIcon, LadybugIcon, LikeIcon, MusicNoteIcon } from '@bubbles-ui/icons/solid';
+import {
+  EditorLeftAlignIcon,
+  LadybugIcon,
+  LikeIcon,
+  EditorRightAlignIcon,
+} from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -46,8 +51,9 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {left && (
         <Button
           label={labels.left}
-          icon={<StarIcon />}
+          icon={<EditorLeftAlignIcon />}
           actived={editor?.isActive({ textAlign: 'left' })}
+          disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('left')}
         ></Button>
       )}
@@ -56,6 +62,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
           label={labels.center}
           icon={<LadybugIcon />}
           actived={editor?.isActive({ textAlign: 'center' })}
+          disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('center')}
         ></Button>
       )}
@@ -64,14 +71,16 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
           label={labels.justify}
           icon={<LikeIcon />}
           actived={editor?.isActive({ textAlign: 'justify' })}
+          disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('justify')}
         ></Button>
       )}
       {right && (
         <Button
           label={labels.right}
-          icon={<MusicNoteIcon />}
+          icon={<EditorRightAlignIcon />}
           actived={editor?.isActive({ textAlign: 'right' })}
+          disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('right')}
         ></Button>
       )}

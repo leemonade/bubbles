@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Italic from '@tiptap/extension-italic';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorTextItalicIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,8 +24,9 @@ const ItalicTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorTextItalicIcon />}
       actived={editor?.isActive('italic')}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

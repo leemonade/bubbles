@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
-import { SuperscriptTool } from '../../tool/SuperscriptTool/SuperscriptTool';
-import { SubscriptTool } from '../../tool/SubscriptTool/SubscriptTool';
-import { mergeExtensions } from '../../utils/merge-extensions';
+import { ButtonGroup, Button } from '../../form';
+import { EditorSuperscriptIcon, EditorSubscriptIcon } from '@bubbles-ui/icons/solid';
+import { Subscript } from '@tiptap/extension-subscript';
+import { Superscript } from '@tiptap/extension-superscript';
+import { useContext } from 'react';
+import { TextEditorContext } from '../../form/TextEditorProvider';
 
 export const SCRIPTS_TOOL_DEFAULT_PROPS = {
   superscript: true,
@@ -26,10 +28,50 @@ export const SCRIPTS_TOOL_PROP_TYPES = {
 };
 
 const ScriptsTool = ({ superscript, subscript, labels, children }) => {
+  const { editor } = useContext(TextEditorContext);
+
+  const onClickHandler = (action) => {
+    if (action === 'superscript') {
+      if (editor.isActive('subscript')) {
+        editor.chain().focus().unsetSubscript().run();
+      }
+      if (editor.isActive('superscript')) {
+        editor.chain().focus().unsetSuperscript().run();
+      } else {
+        editor.chain().focus().setSuperscript().run();
+      }
+    } else {
+      if (editor.isActive('superscript')) {
+        editor.chain().focus().unsetSuperscript().run();
+      }
+      if (editor.isActive('subscript')) {
+        editor.chain().focus().unsetSubscript().run();
+      } else {
+        editor.chain().focus().setSubscript().run();
+      }
+    }
+  };
+
   return (
     <ButtonGroup>
-      {superscript && <SuperscriptTool label={labels.superscript} />}
-      {subscript && <SubscriptTool label={labels.subscript} />}
+      {superscript && (
+        <Button
+          label={labels.superscript}
+          icon={<EditorSuperscriptIcon />}
+          actived={editor?.isActive('superscript')}
+          disabled={editor?.isActive('codeBlock')}
+          onClick={() => onClickHandler('superscript')}
+        ></Button>
+      )}
+      {subscript && (
+        <Button
+          label={labels.subscript}
+          icon={<EditorSubscriptIcon />}
+          actived={editor?.isActive('subscript')}
+          disabled={editor?.isActive('codeBlock')}
+          onClick={() => onClickHandler('subscript')}
+        ></Button>
+      )}
       {children}
     </ButtonGroup>
   );
@@ -37,6 +79,6 @@ const ScriptsTool = ({ superscript, subscript, labels, children }) => {
 
 ScriptsTool.defaultProps = SCRIPTS_TOOL_DEFAULT_PROPS;
 ScriptsTool.propTypes = SCRIPTS_TOOL_PROP_TYPES;
-ScriptsTool.extensions = mergeExtensions(SuperscriptTool, SubscriptTool);
+ScriptsTool.extensions = [Superscript, Subscript];
 
 export { ScriptsTool };

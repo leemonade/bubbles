@@ -3,7 +3,7 @@ import { HeadingsTool, HEADINGS_TOOL_DEFAULT_PROPS } from '../../tool/HeadingsTo
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/HeadingsTool',
+  title: 'Atom/Tool/HeadingsTool',
   parameters: {
     component: HeadingsTool,
     docs: {

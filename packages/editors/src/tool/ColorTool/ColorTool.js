@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ExpandDiagonalIcon, TypeCursorIcon } from '@bubbles-ui/icons/outline';
-import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button } from '../../form/Button/Button';
-import { Popover, Box, COLORS } from '@bubbles-ui/components';
-import { ColorToolStyles } from './ColorTool.styles';
 import TextStyle from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
+import { Button } from '../../form/Button/Button';
+import { TypeCursorIcon } from '@bubbles-ui/icons/outline';
+import { EditorTextColorIcon } from '@bubbles-ui/icons/solid';
+import { TextEditorContext } from '../../form/TextEditorProvider';
+import { Popover, Box, COLORS } from '@bubbles-ui/components';
+import { ColorToolStyles } from './ColorTool.styles';
 
 export const DEFAULT_SWATCHES = [
   COLORS.text01,
@@ -57,8 +58,9 @@ const ColorTool = ({ swatches, label, ...props }) => {
         <Button
           {...props}
           label={label}
-          icon={<ExpandDiagonalIcon />}
+          icon={<EditorTextColorIcon />}
           onClick={() => setIsOpened(!isOpened)}
+          disabled={editor?.isActive('codeBlock')}
           actived={isOpened}
           classNames={classes}
         >

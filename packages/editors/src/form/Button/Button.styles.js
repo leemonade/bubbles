@@ -1,6 +1,6 @@
 import { createStyles } from '@bubbles-ui/components';
 
-export const ButtonStyles = createStyles((theme, { actived, position }) => {
+export const ButtonStyles = createStyles((theme, { actived, position, disabled }) => {
   const getBorder = () => {
     const positions = {
       default: {

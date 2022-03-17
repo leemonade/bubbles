@@ -2,7 +2,7 @@ import { ScriptsTool, SCRIPTS_TOOL_DEFAULT_PROPS } from '../../tool/ScriptsTool/
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Form/ScriptsTool',
+  title: 'Atom/Tool/ScriptsTool',
   parameters: {
     component: ScriptsTool,
     docs: {

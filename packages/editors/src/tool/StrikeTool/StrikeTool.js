@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Strike from '@tiptap/extension-strike';
-import { StarIcon } from '@bubbles-ui/icons/solid';
+import { EditorTextStrikeIcon } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
@@ -24,8 +24,9 @@ const StrikeTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<StarIcon />}
+      icon={<EditorTextStrikeIcon />}
       actived={editor?.isActive('strike')}
+      disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>
   );

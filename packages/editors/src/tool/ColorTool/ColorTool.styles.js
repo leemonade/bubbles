@@ -3,17 +3,17 @@ import { createStyles } from '@bubbles-ui/components';
 export const ColorToolStyles = createStyles((theme, { color }) => {
   return {
     preview: {
-      height: 3,
-      width: 15,
+      height: 4,
+      width: 18,
       background: color || theme.colors.text01,
       borderRadius: 1,
-      transform: 'translateY(5px)',
+      transform: 'translateY(1px)',
     },
     inner: {
       flexDirection: 'column',
     },
     leftIcon: {
-      transform: 'translateY(8px)',
+      transform: 'translateY(11px)',
       '& svg': {
         height: 12,
       },

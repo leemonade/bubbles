@@ -2,6 +2,7 @@ import { Toolbar, TOOLBAR_DEFAULT_PROPS } from './Toolbar';
 import { TextEditor } from '../TextEditor/TextEditor';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
+import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
 
 export default {
   title: 'Atom/Form/Toolbar',
@@ -24,11 +25,7 @@ const Template = ({ content, ...props }) => {
       <Toolbar {...props}>
         <ColorTool />
         <TransformsTool />
-        <TransformsTool />
-        <TransformsTool />
-        <TransformsTool />
-        <TransformsTool />
-        <TransformsTool />
+        <HeadingsTool />
       </Toolbar>
     </TextEditor>
   );

@@ -2,7 +2,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { CodeTool } from './CodeTool';
 
 export default {
-  title: 'Atom/Form/CodeTool',
+  title: 'Atom/Tool/CodeTool',
   parameters: {
     component: CodeTool,
     docs: {
