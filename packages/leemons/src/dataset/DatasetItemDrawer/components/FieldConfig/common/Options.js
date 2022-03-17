@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { forEach, get } from 'lodash';
+import { forEach, get, map } from 'lodash';
 import { Controller } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
-import { Box, Col, Grid, Text, SortableList, Button, TextInput } from '@bubbles-ui/components';
+import { Box, Button, Col, Grid, SortableList, Text, TextInput } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
 
-const OptionItem = ({ value, onChange, index }) => {
+const OptionItem = ({ value, onChange }) => {
+  console.log(value);
   return (
     <Box
       sx={(theme) => ({
@@ -47,7 +48,12 @@ const Options = ({ label, addOptionLabel }) => {
     });
   }
 
-  function onRemove({ key }) {
+  function onRemove({ index }) {
+    const values = getValues('config.checkboxValues') || [];
+    const { key } = values[index];
+    values.splice(index, 1);
+    setValue('config.checkboxValues', values);
+
     forEach(locales, ({ code }) => {
       unregister(`locales.${code}.schema.frontConfig.checkboxLabels.${key}.label`);
     });
@@ -70,11 +76,20 @@ const Options = ({ label, addOptionLabel }) => {
               <>
                 <SortableList
                   {...field}
+                  onChange={() => {}}
+                  value={map(field.value, (value, index) => (
+                    <OptionItem
+                      value={value}
+                      onChange={(a) => {
+                        field.value[index] = a;
+                        field.onChange(field.value);
+                      }}
+                    />
+                  ))}
                   removable
                   sortable
                   error={get(errors, 'config.checkboxValues')}
                   mapKey="key"
-                  render={OptionItem}
                   onRemove={onRemove}
                 />
                 <Box sx={(theme) => ({ marginLeft: theme.spacing[8] })}>

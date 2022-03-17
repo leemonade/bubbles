@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
@@ -65,6 +65,7 @@ const MultiSelect = forwardRef(
     },
     ref
   ) => {
+    const [show, setShow] = React.useState(true);
     const uuid = useUuid();
     const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
@@ -74,12 +75,9 @@ const MultiSelect = forwardRef(
 
     // ······················································
     // HANDLERS
-
-    const [showClear, setShowClear] = useState(false);
+    const showClear = isArray(props.value) && props.value.length;
 
     const handleChange = (ev) => {
-      setShowClear(isArray(ev) && ev.length);
-
       if (isFunction(onChange)) {
         onChange(ev);
       }
@@ -88,6 +86,16 @@ const MultiSelect = forwardRef(
     const handleClear = () => {
       handleChange([]);
     };
+
+    // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
+    React.useEffect(() => {
+      if (!props.value || !props.value.length) {
+        setShow(false);
+        setTimeout(() => {
+          setShow(true);
+        }, 1);
+      }
+    }, [props.value]);
 
     // ······················································
     // STYLES
@@ -117,32 +125,37 @@ const MultiSelect = forwardRef(
                       return <Badge label={data?.label} closable={false} />;
                     }
                   }
+                  //
                   return null;
                 })
               : null}
           </>
         ) : (
-          <MantineMultiSelect
-            {...props}
-            ref={ref}
-            size={size}
-            autoComplete="off"
-            onChange={handleChange}
-            rightSection={
-              isClearable && showClear ? (
-                <ActionButton
-                  icon={<RemoveIcon />}
-                  tooltip={clearable}
-                  size={size}
-                  onClick={handleClear}
-                />
-              ) : (
-                <ChevDownIcon className={classes.rightSection} />
-              )
-            }
-            error={!isEmpty(error)}
-            classNames={classes}
-          />
+          <>
+            {show ? (
+              <MantineMultiSelect
+                {...props}
+                ref={ref}
+                size={size}
+                autoComplete="off"
+                onChange={handleChange}
+                rightSection={
+                  isClearable && showClear ? (
+                    <ActionButton
+                      icon={<RemoveIcon />}
+                      tooltip={clearable}
+                      size={size}
+                      onClick={handleClear}
+                    />
+                  ) : (
+                    <ChevDownIcon className={classes.rightSection} />
+                  )
+                }
+                error={!isEmpty(error)}
+                classNames={classes}
+              />
+            ) : null}
+          </>
         )}
       </InputWrapper>
     );
