@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { listLanguages } from 'lowlight/lib/core';
 import { useContext } from 'react';
 import { BubbleMenuStyles } from './BubbleMenu.styles';
 import { Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
@@ -9,6 +10,65 @@ import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
 export const BUBBLEMENU_DEFAULT_PROPS = {};
 
 export const BUBBLEMENU_PROP_TYPES = {};
+
+export const COMMON_LANGUAGE_LIST = [
+  'javascript',
+  'jsx',
+  'typescript',
+  'basic',
+  'c',
+  'csharp',
+  'css',
+  'markdown',
+  'java',
+  'json',
+  'kotlin',
+  'less',
+  'lua',
+  'php',
+  'python',
+  'ruby',
+  'rust',
+  'scss',
+  'sql',
+  'swift',
+  'yaml',
+  'html',
+  'xml',
+  'svg',
+  'yml',
+  'yaml',
+  'matlab',
+  'perl',
+  'powershell',
+  'shell',
+  'bash',
+  'cpp',
+  'coffeescript',
+  'fsharp',
+  'go',
+  'haml',
+  'haskell',
+  'java',
+  'julia',
+  'kotlin',
+  'lua',
+  'matlab',
+  'objectivec',
+  'perl',
+  'perl6',
+  'php',
+  'powershell',
+  'python',
+  'scala',
+  'swift',
+  'yaml',
+  'yml',
+  'abap',
+  'cobol',
+  'dart',
+  'fortran',
+];
 
 const BubbleMenu = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
@@ -36,6 +96,19 @@ const BubbleMenu = ({ ...props }) => {
     }
   };
 
+  const getData = () => {
+    if (editor?.isActive('codeBlock')) {
+      return [
+        { value: 'auto', label: 'auto' },
+        ...listLanguages().filter((lang) => COMMON_LANGUAGE_LIST.includes(lang)),
+      ];
+    }
+    return [
+      { value: 'card', label: 'Show as card' },
+      { value: 'fullwidth', label: 'Full width' },
+    ];
+  };
+
   return (
     <BubbleMenuTipTap
       editor={editor}
@@ -45,14 +118,7 @@ const BubbleMenu = ({ ...props }) => {
       <Paper padding={1} shadow="level100" className={classes.root}>
         <Stack spacing={2}>
           <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
-          <Select
-            size="xs"
-            data={[
-              { value: 'card', label: 'Show as card' },
-              { value: 'fullwidth', label: 'Full width' },
-            ]}
-            zIndex={9999}
-          />
+          <Select size="xs" defaultValue="auto" data={getData()} zIndex={9999} />
           <IconButton
             size="xs"
             icon={<DeleteBinIcon height={20} width={20} />}
