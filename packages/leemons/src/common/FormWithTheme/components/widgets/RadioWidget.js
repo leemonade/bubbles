@@ -21,12 +21,16 @@ function RadioWidget(props) {
   const help = options.help;
   const description = schema.description;
 
-  const data = map(enumOptions, (option) => {
+  let data = map(enumOptions, (option) => {
     const itemDisabled = enumDisabled && enumDisabled.indexOf(option.value) !== -1;
     const disabledCls = disabled || itemDisabled || readonly ? 'disabled' : '';
     const checked = value && value.value === option.value;
     return { ...option, checked, disabled: disabledCls };
   });
+
+  if (data.length === 0) {
+    data = [{ checked: false, value: '', label: '' }];
+  }
 
   return (
     <RadioGroup
