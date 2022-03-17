@@ -64,6 +64,6 @@ export const EFFECTS = {
   uiLevel01: '...',
   uiLevel02: '...',
   uiLevel03: '0px 10px 36px rgba(35, 43, 60, 0.05), 0px 2px 0px rgba(51, 63, 86, 0.05)',
-  uiLevel04: '...',
-  uiLevel100: '0px 10px 36px rgba(35, 43, 60, 0.17), 0px 2px 0px rgba(51, 63, 86, 0.05)',
+  uiLevel04: '-32px 0px 32px rgba(35, 43, 60, 0.05), -100px 0px 60px rgba(51, 63, 86, 0.03)',
+  uiLevel05: '0px 10px 36px rgba(35, 43, 60, 0.17), 0px 2px 0px rgba(51, 63, 86, 0.05);',
 };
