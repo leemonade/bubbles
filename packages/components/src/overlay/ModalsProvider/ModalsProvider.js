@@ -55,7 +55,6 @@ const ModalsWrapper = ({ children }) => {
   const modals = useModals();
 
   const openConfirmModal = ({ title, ...innerProps }) => {
-    console.log(innerProps);
     return modals.openContextModal('confirm', { title, innerProps });
   };
 
