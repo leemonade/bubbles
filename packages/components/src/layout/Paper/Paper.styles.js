@@ -5,7 +5,7 @@ export const PaperStyles = createStyles(
     const getShadows = (shadow) => {
       switch (shadow) {
         case 'level100':
-          return theme.shadows.shadow100;
+          return theme.shadows.shadow04;
         case 'level01':
           return theme.shadows.shadow01;
         case 'level02':
@@ -15,7 +15,7 @@ export const PaperStyles = createStyles(
         case 'none':
           return null;
         default:
-          return theme.shadows.shadow100;
+          return theme.shadows.shadow04;
       }
     };
 
