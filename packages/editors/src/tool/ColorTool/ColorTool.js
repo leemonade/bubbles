@@ -58,7 +58,7 @@ const ColorTool = ({ swatches, label, ...props }) => {
         <Button
           {...props}
           label={label}
-          icon={<EditorTextColorIcon />}
+          icon={<EditorTextColorIcon height={16} width={16} />}
           onClick={() => setIsOpened(!isOpened)}
           disabled={editor?.isActive('codeBlock')}
           actived={isOpened}

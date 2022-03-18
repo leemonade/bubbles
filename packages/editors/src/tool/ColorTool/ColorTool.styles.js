@@ -7,7 +7,7 @@ export const ColorToolStyles = createStyles((theme, { color }) => {
       width: 18,
       background: color || theme.colors.text01,
       borderRadius: 1,
-      transform: 'translateY(1px)',
+      transform: 'translateY(2px)',
     },
     inner: {
       flexDirection: 'column',

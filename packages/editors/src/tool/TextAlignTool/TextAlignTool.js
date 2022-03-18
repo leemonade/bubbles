@@ -51,7 +51,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {left && (
         <Button
           label={labels.left}
-          icon={<EditorLeftAlignIcon />}
+          icon={<EditorLeftAlignIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'left' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('left')}
@@ -60,7 +60,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {center && (
         <Button
           label={labels.center}
-          icon={<LadybugIcon />}
+          icon={<LadybugIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'center' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('center')}
@@ -69,7 +69,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {justify && (
         <Button
           label={labels.justify}
-          icon={<LikeIcon />}
+          icon={<LikeIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'justify' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('justify')}
@@ -78,7 +78,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {right && (
         <Button
           label={labels.right}
-          icon={<EditorRightAlignIcon />}
+          icon={<EditorRightAlignIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'right' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('right')}

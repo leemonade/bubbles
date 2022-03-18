@@ -30,8 +30,8 @@ const IndentTool = ({ type, label, ...props }) => {
   };
 
   const getTypeIcon = () => {
-    if (type === 'outdent') return <EditorIndentDecreaseIcon />;
-    return <EditorIndentIncreaseIcon />;
+    if (type === 'outdent') return <EditorIndentDecreaseIcon height={16} width={16} />;
+    return <EditorIndentIncreaseIcon height={16} width={16} />;
   };
 
   return (

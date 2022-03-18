@@ -25,7 +25,7 @@ const CodeTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<EditorProgrammingCodeIcon />}
+      icon={<EditorProgrammingCodeIcon height={16} width={16} />}
       actived={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
     ></Button>

@@ -19,7 +19,14 @@ const ParagraphTool = ({ label, ...props }) => {
     editor?.chain().focus().setParagraph().run();
   };
 
-  return <Button {...props} label={label} icon={<StarIcon />} onClick={onClickHandler}></Button>;
+  return (
+    <Button
+      {...props}
+      label={label}
+      icon={<StarIcon height={16} width={16} />}
+      onClick={onClickHandler}
+    ></Button>
+  );
 };
 
 ParagraphTool.defaultProps = PARAGRAPH_TOOL_DEFAULT_PROPS;

@@ -32,6 +32,8 @@ Playground.args = {
     switch: 'Embed player',
     cancel: 'Cancel',
     add: 'Add link',
+    cardInput: 'Item from library',
+    selectCard: 'Select item',
   },
   placeholders: {
     text: 'Introduce un texto',

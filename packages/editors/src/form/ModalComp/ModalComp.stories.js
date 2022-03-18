@@ -12,7 +12,9 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onChange: { action: 'onChange' },
+  },
 };
 
 const Template = ({ onClick, ...props }) => {

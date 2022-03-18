@@ -2,7 +2,7 @@ import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { LinkTool } from './LinkTool';
 
 export default {
-  title: 'Atom/Form/LinkTool',
+  title: 'Atom/Tool/LinkTool',
   parameters: {
     component: LinkTool,
     docs: {

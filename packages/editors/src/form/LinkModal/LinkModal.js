@@ -8,6 +8,7 @@ import {
   RadioGroup,
   Switch,
 } from '@bubbles-ui/components';
+import { ModalComp } from '../ModalComp/ModalComp';
 import {
   HyperlinkIcon,
   ExpandDiagonalIcon,
@@ -69,9 +70,10 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { text: '', link: '', embed: false } });
+  } = useForm({ defaultValues: { text: '', link: '', embed: false, card: null } });
 
   const watchInputs = watch(['text', 'link']);
+  const watchCard = watch('card');
 
   const isValidURL = (string) => {
     let url;
@@ -117,7 +119,22 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
       case 'two':
         return <Box>WIP</Box>;
       case 'three':
-        return <Box>WIP</Box>;
+        return (
+          <Controller
+            name="card"
+            control={control}
+            render={({ field: { onChange, value, ref, ...field } }) => {
+              return (
+                <ModalComp
+                  labels={{ input: labels.cardInput, select: labels.selectCard }}
+                  value={value}
+                  onChange={onChange}
+                  {...field}
+                />
+              );
+            }}
+          />
+        );
       case 'four':
         return (
           <Stack direction="column" spacing={3}>
@@ -147,6 +164,17 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
             />
           </Stack>
         );
+    }
+  };
+
+  const submitCondition = () => {
+    switch (modal) {
+      case 'one':
+        return !watchInputs[0] || !watchInputs[1];
+      case 'three':
+        return !watchInputs[0] || !watchCard;
+      default:
+        return true;
     }
   };
 
@@ -188,7 +216,7 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
               <Button size="xs" variant="light" onClick={onCancelHandler}>
                 {labels.cancel}
               </Button>
-              <Button size="xs" type="submit" disabled={!watchInputs[0] || !watchInputs[1]}>
+              <Button size="xs" type="submit" disabled={submitCondition()}>
                 {labels.add}
               </Button>
             </Stack>

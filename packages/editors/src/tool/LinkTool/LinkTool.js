@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
-import { Popover, Box } from '@bubbles-ui/components';
+import { Popover } from '@bubbles-ui/components';
 import { useState, useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 import { LinkModal } from '../../form/LinkModal/LinkModal';
+import CardExtension from '../../form/Card/extension';
 import Link from '@tiptap/extension-link';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
@@ -19,7 +20,12 @@ const LinkTool = ({ label, ...props }) => {
   const { editor } = useContext(TextEditorContext);
   const [isOpened, setIsOpened] = useState(false);
 
-  const onClickHandler = ({ text, link }) => {
+  const onClickHandler = ({ text, link, embed, card }) => {
+    if (card) {
+      editor?.chain().focus().setCard(card).run();
+      setIsOpened(false);
+      return;
+    }
     const numberOfCharacters = text.split('').length;
     const cursorPosition = editor.commands.command(({ state }) => {
       const anchor = state.selection.anchor;
@@ -40,7 +46,7 @@ const LinkTool = ({ label, ...props }) => {
   return (
     <Popover
       opened={isOpened}
-      onClose={() => setIsOpened(false)}
+      onClose={() => {}}
       width={360}
       position="bottom"
       placement="start"
@@ -48,7 +54,7 @@ const LinkTool = ({ label, ...props }) => {
         <Button
           {...props}
           label={label}
-          icon={<HyperlinkIcon />}
+          icon={<HyperlinkIcon height={16} width={16} />}
           actived={isOpened}
           onClick={() => setIsOpened(!isOpened)}
         ></Button>
@@ -61,6 +67,8 @@ const LinkTool = ({ label, ...props }) => {
           switch: 'Embed player',
           cancel: 'Cancel',
           add: 'Add link',
+          cardInput: 'Item from library',
+          selectCard: 'Select item',
         }}
         placeholders={{ text: 'Introduce un texto', link: 'Introduce un link' }}
         errorMessages={{
@@ -77,6 +85,11 @@ const LinkTool = ({ label, ...props }) => {
 
 LinkTool.defaultProps = LINK_TOOL_DEFAULT_PROPS;
 LinkTool.propTypes = LINK_TOOL_PROP_TYPES;
-LinkTool.extensions = [Link];
+LinkTool.extensions = [
+  Link.configure({
+    openOnClick: false,
+  }),
+  CardExtension,
+];
 
 export { LinkTool };

@@ -57,6 +57,6 @@ export const ModalCompStyles = createStyles((theme, {}) => {
     itemDate: {
       // marginLeft: 16,
     },
-    // itemAction: { marginLeft: 104 },
+    itemAction: { marginLeft: 104 },
   };
 });
