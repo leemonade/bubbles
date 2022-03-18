@@ -2,10 +2,14 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
+import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
+
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
-import { Text } from '../../typography/Text/Text';
+import { Text } from '../../typography';
+
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
+import { COLORS } from '../../theme.tokens';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -16,6 +20,8 @@ export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   layout: 'left',
   noBreak: false,
 };
+export const USER_DISPLAY_ITEM_SEVERITIES = ['warning', 'error'];
+
 export const USER_DISPLAY_ITEM_PROP_TYPES = {
   name: PropTypes.string,
   surnames: PropTypes.string,
@@ -26,6 +32,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   variant: PropTypes.oneOf(USER_DISPLAY_ITEM_VARIANTS),
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
   size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
+  severity: PropTypes.oneOf(USER_DISPLAY_ITEM_SEVERITIES),
   onChat: PropTypes.func,
   noBreak: PropTypes.bool,
 };
@@ -34,6 +41,7 @@ const UserDisplayItem = ({
   name,
   surnames,
   avatar,
+  severity,
   rol,
   center,
   email,
@@ -50,6 +58,7 @@ const UserDisplayItem = ({
       layout,
       size,
       noBreak,
+      severity,
     },
     { name: 'UserDisplayItem' }
   );
@@ -61,6 +70,20 @@ const UserDisplayItem = ({
   const fullName = useMemo(
     () => (['rol'].includes(variant) ? `${name}${surnames ? ` ${surnames}` : ''}` : name),
     [name, surnames, variant]
+  );
+
+  const Icon = (
+    <>
+      {severity === 'error' ? (
+        <BlockIcon className={classes.severityIcon} style={{ color: COLORS.fatic01 }} />
+      ) : null}
+      {severity === 'warning' ? (
+        <AlertWarningTriangleIcon
+          className={classes.severityIcon}
+          style={{ color: COLORS.fatic03 }}
+        />
+      ) : null}
+    </>
   );
 
   return (
@@ -84,9 +107,13 @@ const UserDisplayItem = ({
           </>
         ) : (
           <>
-            <Text className={classes.rol}>{role}</Text>
+            <Text className={classes.rol}>
+              {role}
+              {variant === 'rol' ? Icon : null}
+            </Text>
             <Text color={textColor} className={classes.name}>
               {fullName}
+              {variant !== 'rol' ? Icon : null}
             </Text>
             {!isEmpty(surnames) && (
               <Text color={textColor} className={classes.surnames}>

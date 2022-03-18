@@ -95,7 +95,7 @@ const MultiSelect = forwardRef(
           setShow(true);
         }, 1);
       }
-    }, [props.value]);
+    }, [JSON.stringify(props.value)]);
 
     // ······················································
     // STYLES

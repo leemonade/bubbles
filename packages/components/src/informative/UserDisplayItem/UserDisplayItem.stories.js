@@ -3,6 +3,7 @@ import { Box } from '../../layout';
 import {
   USER_DISPLAY_ITEM_DEFAULT_PROPS,
   USER_DISPLAY_ITEM_LAYOUT,
+  USER_DISPLAY_ITEM_SEVERITIES,
   USER_DISPLAY_ITEM_SIZES,
   USER_DISPLAY_ITEM_VARIANTS,
   UserDisplayItem,
@@ -25,13 +26,14 @@ export default {
     variant: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_VARIANTS },
     layout: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_LAYOUT },
     size: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SIZES },
+    severity: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SEVERITIES },
     onChat: { action: 'onChat' },
   },
 };
 
 const Template = ({ ...props }) => {
   return (
-    <Box style={{ width: 100 }}>
+    <Box style={{ width: 500 }}>
       <UserDisplayItem {...props} />
     </Box>
   );
