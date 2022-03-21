@@ -22,7 +22,7 @@ const Title = forwardRef(({ className, order, color, transform, ...props }, ref)
 
 Title.defaultProps = {
   order: 1,
-  color: 'secondary',
+  color: 'primary',
   transform: 'none',
 };
 

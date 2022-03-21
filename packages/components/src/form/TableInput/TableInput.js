@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import update from 'immutability-helper';
 import { isFunction, isEmpty, uniq } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { useForm } from 'react-hook-form';
 import { Box } from '../../layout/Box';
 import { InputError } from '../InputError';
 import { TableInputDisplay } from './TableInputDisplay';
@@ -31,10 +32,11 @@ function deserializeData(data) {
 
 const TableInput = ({
   data,
-  form,
+  form: formProp,
   error,
   unique,
   showHeaders,
+  resetOnAdd,
   onChange = () => {},
   onChangeData = () => {},
   onBeforeRemove = () => {},
@@ -47,6 +49,12 @@ const TableInput = ({
 }) => {
   const [tableData, setTableData] = useState([]);
   const hasError = useMemo(() => !isEmpty(error), [error]);
+
+  let form = formProp;
+
+  if (!form) {
+    form = useForm();
+  }
 
   useEffect(() => {
     const newData = serializeData(data);
@@ -72,6 +80,10 @@ const TableInput = ({
       const newData = update(tableData, { $push: [serializeItem(item)] });
       onAdd(serializeItem(item));
       handleOnChange(newData, { type: 'add' });
+
+      if (resetOnAdd) {
+        form.reset();
+      }
     }
   };
 

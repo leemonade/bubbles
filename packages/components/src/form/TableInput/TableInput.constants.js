@@ -11,6 +11,7 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   unique: false,
   error: '',
   showHeaders: true,
+  resetOnAdd: false,
 };
 
 export const TABLE_INPUT_PROP_TYPES = {
@@ -35,4 +36,5 @@ export const TABLE_INPUT_PROP_TYPES = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   unique: PropTypes.bool,
   showHeaders: PropTypes.bool,
+  resetOnAdd: PropTypes.bool,
 };

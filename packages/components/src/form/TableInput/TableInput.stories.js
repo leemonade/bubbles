@@ -67,6 +67,7 @@ Playground.args = {
         data: PERIOD_TYPES,
       },
       valueRender: (value) => find(PERIOD_TYPES, { value })['label'],
+      style: { width: '15%' },
     },
   ],
   data: [

@@ -73,7 +73,6 @@ const Select = forwardRef(
           ref={ref}
           autoComplete="off"
           id={uuid}
-          autoComplete="off"
           size={size}
           data={data}
           onChange={handleChange}
