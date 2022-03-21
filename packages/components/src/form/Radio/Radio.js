@@ -28,8 +28,6 @@ const Radio = forwardRef(
       { name: 'Radio' }
     );
 
-    console.log(props);
-
     return (
       <MantineRadio
         {...props}
