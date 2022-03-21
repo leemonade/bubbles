@@ -32,7 +32,13 @@ const ListTool = ({ type, ...props }) => {
   return (
     <Button
       {...props}
-      icon={isOrdered ? <EditorListNumbersIcon /> : <EditorListBulletsIcon />}
+      icon={
+        isOrdered ? (
+          <EditorListNumbersIcon height={16} width={16} />
+        ) : (
+          <EditorListBulletsIcon height={16} width={16} />
+        )
+      }
       onClick={onClickHandler}
       actived={editor?.isActive(isOrdered ? 'orderedList' : 'bulletList')}
     ></Button>

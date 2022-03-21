@@ -2,12 +2,12 @@ import React from 'react';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { IndentsTool } from '../../tool/IndentsTool/IndentsTool';
 import { CodeQuoteTool } from '../../tool/CodeQuoteTool/CodeQuoteTool';
 import { TextAlignTool } from '../../tool/TextAlignTool/TextAlignTool';
 import { ScriptsTool } from '../../tool/ScriptsTool/ScriptsTool';
 import { TextEditor } from './TextEditor';
-// import mdx from './TextEditor.mdx';
+import { ListIndentTool } from '../../tool/ListIndentTool/ListIndentTool';
+import { LeemonsTool } from '../../tool/LeemonsTool/LeemonsTool';
 
 export default {
   title: 'Atom/Form/TextEditor',
@@ -30,7 +30,8 @@ const Template = ({ ...props }) => {
       <ColorTool></ColorTool>
       <TransformsTool />
       <HeadingsTool />
-      <IndentsTool />
+      <ListIndentTool />
+      <LeemonsTool />
       <CodeQuoteTool />
       <TextAlignTool />
       <ScriptsTool />

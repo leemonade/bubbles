@@ -1,13 +1,10 @@
-import {
-  TransformsTool,
-  TRANSFORMSTOOL_DEFAULT_PROPS,
-} from '../../tool/TransformsTool/TransformsTool';
+import { ListsTool } from './ListsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 
 export default {
-  title: 'Atom/Tool/TransformsTool',
+  title: 'Atom/Tool/ListsTool',
   parameters: {
-    component: TransformsTool,
+    component: ListsTool,
     docs: {
       // page: mdx,
     },
@@ -22,7 +19,7 @@ export default {
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <TransformsTool {...props} />
+      <ListsTool {...props} />
     </TextEditor>
   );
 };
@@ -30,7 +27,6 @@ const Template = ({ content, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...TRANSFORMSTOOL_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

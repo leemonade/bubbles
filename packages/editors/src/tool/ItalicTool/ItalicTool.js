@@ -24,7 +24,7 @@ const ItalicTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<EditorTextItalicIcon />}
+      icon={<EditorTextItalicIcon height={16} width={16} />}
       actived={editor?.isActive('italic')}
       disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}

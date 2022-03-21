@@ -6,7 +6,6 @@ import { TextEditorStyles } from './TextEditor.styles';
 import { Toolbar } from '../Toolbar/Toolbar';
 import { BubbleMenu } from '../BubbleMenu/BubbleMenu';
 import History from '@tiptap/extension-history';
-import CardExtension from '../Card/extension';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
@@ -29,24 +28,10 @@ const TextEditor = ({ content, children }) => {
         },
       }),
       History,
-      CardExtension,
       ...extensions,
     ],
     content: '',
   });
-
-  const addCard = () => {
-    editor
-      ?.chain()
-      .focus()
-      .setCard({
-        title: 'El imperio romano',
-        description:
-          'No se que no se cuantos el imperio romano duro la tira de tiempo y por eso ahora estoy haciendo esta descripcion muy larga',
-        fileType: 'video',
-      })
-      .run();
-  };
 
   useEffect(() => {
     if (!editor) return;
@@ -55,10 +40,7 @@ const TextEditor = ({ content, children }) => {
 
   return (
     <TextEditorProvider editor={editor}>
-      <Toolbar>
-        {children}
-        <div onClick={addCard}>añadir card</div>
-      </Toolbar>
+      <Toolbar>{children}</Toolbar>
       <BubbleMenu />
       <EditorContent editor={editor} className={classes.editor} />
     </TextEditorProvider>

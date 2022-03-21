@@ -57,7 +57,7 @@ const ScriptsTool = ({ superscript, subscript, labels, children }) => {
       {superscript && (
         <Button
           label={labels.superscript}
-          icon={<EditorSuperscriptIcon />}
+          icon={<EditorSuperscriptIcon height={16} width={16} />}
           actived={editor?.isActive('superscript')}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('superscript')}
@@ -66,7 +66,7 @@ const ScriptsTool = ({ superscript, subscript, labels, children }) => {
       {subscript && (
         <Button
           label={labels.subscript}
-          icon={<EditorSubscriptIcon />}
+          icon={<EditorSubscriptIcon height={16} width={16} />}
           actived={editor?.isActive('subscript')}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('subscript')}

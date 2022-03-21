@@ -24,7 +24,7 @@ const BlockquoteTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<EditorQuotesIcon />}
+      icon={<EditorQuotesIcon height={16} width={16} />}
       actived={editor?.isActive('blockquote')}
       onClick={onClickHandler}
     ></Button>

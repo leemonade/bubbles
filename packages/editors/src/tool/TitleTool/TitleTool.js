@@ -43,9 +43,9 @@ const TitleTool = ({ level, label, ...props }) => {
   };
 
   const getLevelIcon = () => {
-    if (level === 1) return <EditorTextSize1Icon />;
-    if (level === 2) return <EditorTextSize2Icon />;
-    if (level === 3) return <EditorTextSize3Icon />;
+    if (level === 1) return <EditorTextSize1Icon height={16} width={16} />;
+    if (level === 2) return <EditorTextSize2Icon height={16} width={16} />;
+    if (level === 3) return <EditorTextSize3Icon height={16} width={16} />;
   };
 
   return (

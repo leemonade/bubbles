@@ -24,7 +24,7 @@ const StrikeTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<EditorTextStrikeIcon />}
+      icon={<EditorTextStrikeIcon height={16} width={16} />}
       actived={editor?.isActive('strike')}
       disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}

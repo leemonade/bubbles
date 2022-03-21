@@ -6,6 +6,7 @@ const CardExtension = Node.create({
   name: 'cardExtension',
   group: 'block',
   atom: true,
+  draggable: true,
 
   addAttributes() {
     return {

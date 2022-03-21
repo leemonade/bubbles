@@ -24,7 +24,7 @@ const BoldTool = ({ label, ...props }) => {
     <Button
       {...props}
       label={label}
-      icon={<EditorTextBoldIcon />}
+      icon={<EditorTextBoldIcon height={16} width={16} />}
       actived={editor?.isActive('bold')}
       disabled={editor?.isActive('codeBlock')}
       onClick={onClickHandler}
