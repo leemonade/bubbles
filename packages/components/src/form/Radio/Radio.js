@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Radio as MantineRadio, Box } from '@mantine/core';
+import { Box, Radio as MantineRadio } from '@mantine/core';
 import { RadioStyles } from './Radio.styles';
 
 export const RADIO_HELP_POSITIONS = ['right', 'bottom'];
@@ -28,14 +28,22 @@ const Radio = forwardRef(
       { name: 'Radio' }
     );
 
+    console.log(props);
+
     return (
-      <MantineRadio {...props} checked={checked} ref={ref} classNames={classes}>
-        <Box className={classes.container}>
-          {variant === 'icon' && <Box className={classes.icon}>{icon}</Box>}
-          <Box className={classes.title}>{children}</Box>
-          {help !== '' && <Box className={classes.help}>{help}</Box>}
-        </Box>
-      </MantineRadio>
+      <MantineRadio
+        {...props}
+        checked={checked}
+        ref={ref}
+        classNames={classes}
+        label={
+          <Box className={classes.container}>
+            {variant === 'icon' && <Box className={classes.icon}>{icon}</Box>}
+            <Box className={classes.title}>{children}</Box>
+            {help !== '' && <Box className={classes.help}>{help}</Box>}
+          </Box>
+        }
+      />
     );
   }
 );
