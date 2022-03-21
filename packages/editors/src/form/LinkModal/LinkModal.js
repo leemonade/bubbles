@@ -123,16 +123,14 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
           <Controller
             name="card"
             control={control}
-            render={({ field: { onChange, value, ref, ...field } }) => {
-              return (
-                <ModalComp
-                  labels={{ input: labels.cardInput, select: labels.selectCard }}
-                  value={value}
-                  onChange={onChange}
-                  {...field}
-                />
-              );
-            }}
+            render={({ field: { onChange, value, ref, ...field } }) => (
+              <ModalComp
+                labels={{ input: labels.cardInput, select: labels.selectCard }}
+                value={value || null}
+                onChange={onChange}
+                {...field}
+              />
+            )}
           />
         );
       case 'four':

@@ -109,6 +109,12 @@ const BubbleMenu = ({ ...props }) => {
     ];
   };
 
+  const getOnChangeHandler = (value) => {
+    if (editor?.isActive('codeBlock')) {
+      editor?.commands.updateAttributes('codeBlock', { language: value });
+    }
+  };
+
   return (
     <BubbleMenuTipTap
       editor={editor}
@@ -118,7 +124,13 @@ const BubbleMenu = ({ ...props }) => {
       <Paper padding={1} shadow="level100" className={classes.root}>
         <Stack spacing={2}>
           <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
-          <Select size="xs" defaultValue="auto" data={getData()} zIndex={9999} />
+          <Select
+            size="xs"
+            defaultValue="auto"
+            data={getData()}
+            zIndex={9999}
+            onChange={getOnChangeHandler}
+          />
           <IconButton
             size="xs"
             icon={<DeleteBinIcon height={20} width={20} />}
