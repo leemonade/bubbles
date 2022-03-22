@@ -76,6 +76,7 @@ Playground.args = {
       name: 'Anual subject',
       amount: 2,
       type: 'semester',
+      editable: false,
     },
     {
       id: 2,

@@ -42,6 +42,9 @@ export const NotificationStyles = createStyles((theme, { hasIcon, severity }) =>
         display: 'none',
       },
     },
+    icon: {
+      ...getColor(theme, severity),
+    },
     message: {
       color: theme.colors.text08,
     },
