@@ -8,6 +8,7 @@ import { BubbleMenu } from '../BubbleMenu/BubbleMenu';
 import History from '@tiptap/extension-history';
 import PropTypes from 'prop-types';
 import Document from '@tiptap/extension-document';
+import Focus from '@tiptap/extension-focus';
 import Text from '@tiptap/extension-text';
 import Paragraph from '@tiptap/extension-paragraph';
 
@@ -26,6 +27,9 @@ const TextEditor = ({ content, children }) => {
         HTMLAttributes: {
           class: classes.paragraph,
         },
+      }),
+      Focus.configure({
+        mode: 'deepest',
       }),
       History,
       ...extensions,

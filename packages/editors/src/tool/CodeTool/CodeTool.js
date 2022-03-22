@@ -5,16 +5,20 @@ import { Button } from '../../form/Button/Button';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
+import { CodeBlockComponent } from '../../form';
+import { ReactNodeViewRenderer } from '@tiptap/react';
 
 export const CODE_TOOL_DEFAULT_PROPS = {
   label: 'Code block',
+  languageList: [],
 };
 
 export const CODE_TOOL_PROP_TYPES = {
   label: PropTypes.string,
+  languageList: PropTypes.arrayOf(PropTypes.string),
 };
 
-const CodeTool = ({ label, ...props }) => {
+const CodeTool = ({ label, languageList, ...props }) => {
   const { editor } = useContext(TextEditorContext);
 
   const onClickHandler = () => {
@@ -34,6 +38,11 @@ const CodeTool = ({ label, ...props }) => {
 
 CodeTool.defaultProps = CODE_TOOL_DEFAULT_PROPS;
 CodeTool.propTypes = CODE_TOOL_PROP_TYPES;
-CodeTool.extensions = [CodeBlockLowlight.configure({ lowlight })];
-
+CodeTool.extensions = [
+  CodeBlockLowlight.extend({
+    addNodeView() {
+      return ReactNodeViewRenderer(CodeBlockComponent);
+    },
+  }).configure({ lowlight }),
+];
 export { CodeTool };

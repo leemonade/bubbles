@@ -7,3 +7,4 @@ export * from './ButtonGroup';
 export * from './Card';
 export * from './LinkModal';
 export * from './ModalComp';
+export * from './CodeBlockComponent';
