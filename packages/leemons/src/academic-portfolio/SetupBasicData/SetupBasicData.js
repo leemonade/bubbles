@@ -38,6 +38,7 @@ const SetupBasicData = ({
   helps,
   errorMessages,
   onNext,
+  evaluationSystemSelect,
   onPrevious,
   sharedData,
   setSharedData,
@@ -61,6 +62,7 @@ const SetupBasicData = ({
     oneStudentGroup: false,
     useCreditSystem: false,
     useOneStudentGroup: false,
+    evaluationSystem: '',
     ...sharedData,
     ...options,
   };
@@ -133,6 +135,26 @@ const SetupBasicData = ({
               </Box>
             </ContextContainer>
           </ContextContainer>
+          {evaluationSystemSelect ? (
+            <ContextContainer title={labels.evaluationSystem}>
+              <Controller
+                name="evaluationSystem"
+                control={control}
+                rules={{
+                  required: errorMessages.evaluationSystem?.required || 'Required Field',
+                }}
+                render={({ field }) =>
+                  React.cloneElement(evaluationSystemSelect, {
+                    ...field,
+                    error: errors.evaluationSystem,
+                    required: true,
+                    disabled: !editable,
+                  })
+                }
+              />
+            </ContextContainer>
+          ) : null}
+
           <ContextContainer title={labels.credits}>
             <Controller
               name="useCreditSystem"
