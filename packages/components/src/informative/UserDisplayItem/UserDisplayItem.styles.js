@@ -65,6 +65,7 @@ export const UserDisplayItemStyles = createStyles(
         gap: pxToRem(8),
         ...inf.root,
         ...getColor(theme, severity),
+        padding: theme.spacing[1],
       },
       severityIcon: {
         marginLeft: pxToRem(4),
@@ -75,6 +76,7 @@ export const UserDisplayItemStyles = createStyles(
         fontWeight: isBlock && 600,
         ...inf.name,
         ...breakProps,
+        paddingRight: theme.spacing[1],
       },
       surnames: {
         display: !isBlock && 'none',

@@ -154,22 +154,24 @@ const TableInputRow = ({
                   />
                 </>
               ) : (
-                <>
-                  {editable && (
-                    <ActionButton
-                      icon={<EditWriteIcon />}
-                      tooltip={labels.edit || 'Edit'}
-                      onClick={initEditing}
-                    />
-                  )}
-                  {removable && (
-                    <ActionButton
-                      icon={<DeleteBinIcon />}
-                      tooltip={labels.remove || 'Remove'}
-                      onClick={() => onRemove(index)}
-                    />
-                  )}
-                </>
+                row.original.editable !== false && (
+                  <>
+                    {editable && (
+                      <ActionButton
+                        icon={<EditWriteIcon />}
+                        tooltip={labels.edit || 'Edit'}
+                        onClick={initEditing}
+                      />
+                    )}
+                    {removable && (
+                      <ActionButton
+                        icon={<DeleteBinIcon />}
+                        tooltip={labels.remove || 'Remove'}
+                        onClick={() => onRemove(index)}
+                      />
+                    )}
+                  </>
+                )
               )}
             </td>
           </tr>

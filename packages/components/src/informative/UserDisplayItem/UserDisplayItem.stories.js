@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../layout';
+import { Box, Paper } from '../../layout';
 import {
   USER_DISPLAY_ITEM_DEFAULT_PROPS,
   USER_DISPLAY_ITEM_LAYOUT,
@@ -33,9 +33,9 @@ export default {
 
 const Template = ({ ...props }) => {
   return (
-    <Box style={{ width: 500 }}>
+    <Paper padding="none" bordered>
       <UserDisplayItem {...props} />
-    </Box>
+    </Paper>
   );
 };
 

@@ -67,6 +67,7 @@ Playground.args = {
         data: PERIOD_TYPES,
       },
       valueRender: (value) => find(PERIOD_TYPES, { value })['label'],
+      style: { width: '15%' },
     },
   ],
   data: [
@@ -75,6 +76,7 @@ Playground.args = {
       name: 'Anual subject',
       amount: 2,
       type: 'semester',
+      editable: false,
     },
     {
       id: 2,
