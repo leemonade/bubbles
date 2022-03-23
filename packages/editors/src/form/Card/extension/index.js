@@ -60,4 +60,4 @@ const CardExtension = Node.create({
   },
 });
 
-export default CardExtension;
+export { CardExtension };

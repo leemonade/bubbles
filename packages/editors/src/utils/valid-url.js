@@ -8,4 +8,4 @@ const isValidURL = (string) => {
   return url.protocol === 'http:' || url.protocol === 'https:';
 };
 
-export default isValidURL;
+export { isValidURL };

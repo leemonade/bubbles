@@ -3,9 +3,7 @@ import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
 import { useState, useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button } from '../../form/Button/Button';
-import { LinkModal } from '../../form/LinkModal/LinkModal';
-import CardExtension from '../../form/Card/extension';
+import { Button, LinkModal, CardExtension } from '../../form/';
 import Link from '@tiptap/extension-link';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
@@ -17,10 +15,15 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ label, ...props }) => {
-  const { editor } = useContext(TextEditorContext);
+  const { editor, library, libraryOnChange } = useContext(TextEditorContext);
   const [isOpened, setIsOpened] = useState(false);
 
-  const onClickHandler = ({ text, link, embed, card }) => {
+  if (!editor) return;
+  const { selection } = editor.state;
+  const { from, to } = selection;
+  const selectedText = editor.state.doc.textBetween(from, to, ' ');
+
+  const onClickHandler = ({ text, link, card }) => {
     if (card) {
       editor?.chain().focus().setCard(card).run();
       setIsOpened(false);
@@ -76,6 +79,9 @@ const LinkTool = ({ label, ...props }) => {
           link: 'Link is required',
           validURL: 'Link is not valid',
         }}
+        library={library}
+        libraryOnChange={libraryOnChange}
+        selectedText={selectedText}
         onCancel={() => setIsOpened(false)}
         onChange={onClickHandler}
       />

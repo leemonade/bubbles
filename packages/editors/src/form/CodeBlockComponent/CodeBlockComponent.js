@@ -1,9 +1,9 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { listLanguages } from 'lowlight/lib/core';
-import { Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
-import { NodeViewWrapper, NodeViewContent, getText } from '@tiptap/react';
+import { Box, Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
+import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
 import { EditWriteIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid';
-import { TextEditorContext } from '../TextEditorProvider';
+import { TextEditorContext } from '../';
 
 export const COMMON_LANGUAGE_LIST = [
   'javascript',
@@ -87,41 +87,46 @@ export const CodeBlockComponent = ({ ...props }) => {
 
   return (
     <NodeViewWrapper ref={codeBlockRef} className="code-block">
-      <pre>
-        <NodeViewContent as="code" />
-      </pre>
-      <Paper
-        padding={1}
-        shadow="level100"
-        style={{
-          opacity: shouldShowMenu ? 1 : dropdownOpened ? 1 : 0,
-          transition: 'opacity 0.1s',
-        }}
-      >
-        <Stack spacing={2}>
-          <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
-          <Select
-            size="xs"
-            defaultValue="auto"
-            data={data}
-            zIndex={9999}
-            onDropdownOpen={() => {
-              setDropdownOpened(true);
-            }}
-            onDropdownClose={() => {
-              parentNode.className += ' has-focus';
-              setDropdownOpened(false);
-            }}
-            style={{ marginBottom: 0 }}
-            onChange={onChangeHandler}
-          />
-          <IconButton
-            size="xs"
-            icon={<DeleteBinIcon height={20} width={20} />}
-            onClick={removeHandler}
-          />
-        </Stack>
-      </Paper>
+      <Box style={{ position: 'relative' }}>
+        <pre>
+          <NodeViewContent as="code" />
+        </pre>
+        <Paper
+          padding={1}
+          shadow="level100"
+          style={{
+            opacity: shouldShowMenu ? 1 : dropdownOpened ? 1 : 0,
+            transition: 'opacity 0.2s',
+            position: 'absolute',
+            bottom: -45,
+            zIndex: 1000,
+          }}
+        >
+          <Stack spacing={2}>
+            <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
+            <Select
+              size="xs"
+              defaultValue="auto"
+              data={data}
+              zIndex={9999}
+              onDropdownOpen={() => {
+                setDropdownOpened(true);
+              }}
+              onDropdownClose={() => {
+                parentNode.className += ' has-focus';
+                setDropdownOpened(false);
+              }}
+              style={{ marginBottom: 0 }}
+              onChange={onChangeHandler}
+            />
+            <IconButton
+              size="xs"
+              icon={<DeleteBinIcon height={20} width={20} />}
+              onClick={removeHandler}
+            />
+          </Stack>
+        </Paper>
+      </Box>
     </NodeViewWrapper>
   );
 };

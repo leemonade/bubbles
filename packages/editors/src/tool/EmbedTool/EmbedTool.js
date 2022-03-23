@@ -3,7 +3,7 @@ import { Embed } from './extension/';
 import { useContext } from 'react';
 import { TextEditorContext, Button } from '../../form/';
 import { StarIcon } from '@bubbles-ui/icons/solid';
-import isValidURL from '../../utils/valid-url';
+import { isValidURL } from '../../utils/';
 
 export const EMBED_TOOL_DEFAULT_PROPS = {
   label: 'Embed',

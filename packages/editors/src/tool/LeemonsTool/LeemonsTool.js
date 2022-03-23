@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
-import { LinkTool } from '../LinkTool/LinkTool';
+import { ButtonGroup } from '../../form/';
+import { LinkTool } from '../';
 import { mergeExtensions } from '../../utils/merge-extensions';
 
 export const LEEMONS_TOOL_DEFAULT_PROPS = {

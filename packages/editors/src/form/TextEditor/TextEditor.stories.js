@@ -1,13 +1,16 @@
 import React from 'react';
-import { ColorTool } from '../../tool/ColorTool/ColorTool';
-import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
-import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
-import { CodeQuoteTool } from '../../tool/CodeQuoteTool/CodeQuoteTool';
-import { TextAlignTool } from '../../tool/TextAlignTool/TextAlignTool';
-import { ScriptsTool } from '../../tool/ScriptsTool/ScriptsTool';
+import {
+  ColorTool,
+  HeadingsTool,
+  TransformsTool,
+  CodeQuoteTool,
+  TextAlignTool,
+  ScriptsTool,
+  ListIndentTool,
+  LeemonsTool,
+} from '../../tool/';
+import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
-import { ListIndentTool } from '../../tool/ListIndentTool/ListIndentTool';
-import { LeemonsTool } from '../../tool/LeemonsTool/LeemonsTool';
 
 export default {
   title: 'Atom/Form/TextEditor',
@@ -42,6 +45,7 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  library: <Box>Library component</Box>,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

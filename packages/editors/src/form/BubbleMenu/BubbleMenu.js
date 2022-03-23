@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { BubbleMenuStyles } from './BubbleMenu.styles';
 import { Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
-import { TextEditorContext } from '../../form/TextEditorProvider';
+import { TextEditorContext } from '../../form/';
 import { EditWriteIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
 
@@ -12,7 +12,6 @@ export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
   const { editor } = useContext(TextEditorContext);
-  const { classes, cx } = BubbleMenuStyles({});
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
@@ -21,12 +20,18 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('cardExtension')) {
       return true;
     }
+    if (editor.isActive('link')) {
+      return true;
+    }
     return false;
   };
 
   const removeHandler = () => {
     if (editor.isActive('cardExtension')) {
       editor?.chain().focus().unsetCard().run();
+    }
+    if (editor.isActive('link')) {
+      editor?.chain().focus().unsetLink().run();
     }
   };
 
@@ -39,6 +44,7 @@ const BubbleMenu = ({ ...props }) => {
 
   const getOnChangeHandler = (value) => {};
 
+  const { classes, cx } = BubbleMenuStyles({});
   return (
     <BubbleMenuTipTap
       editor={editor}

@@ -4,13 +4,11 @@ import Heading from '@tiptap/extension-heading';
 import {
   EditorLeftAlignIcon,
   LadybugIcon,
-  LikeIcon,
+  EditorJustifiedAlignIcon,
   EditorRightAlignIcon,
 } from '@bubbles-ui/icons/solid';
 import { useContext } from 'react';
-import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button } from '../../form/Button/Button';
-import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
+import { TextEditorContext, Button, ButtonGroup } from '../../form/';
 
 export const TEXTALIGN_TOOL_DEFAULT_PROPS = {
   left: true,
@@ -69,7 +67,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {justify && (
         <Button
           label={labels.justify}
-          icon={<LikeIcon height={16} width={16} />}
+          icon={<EditorJustifiedAlignIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'justify' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('justify')}

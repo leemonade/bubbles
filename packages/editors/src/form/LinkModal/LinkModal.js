@@ -6,26 +6,24 @@ import {
   Button,
   TextInput,
   RadioGroup,
-  Switch,
 } from '@bubbles-ui/components';
-import { ModalComp } from '../ModalComp/ModalComp';
 import {
   HyperlinkIcon,
   ExpandDiagonalIcon,
   FolderIcon,
   CloudUploadIcon,
-  QrCodeScanIcon,
 } from '@bubbles-ui/icons/outline';
+// import { ModalComp } from '../ModalComp/ModalComp';
 import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
-import { isFunction } from 'lodash';
-import { useState } from 'react';
+import isFunction from 'lodash/isFunction';
+import { useState, cloneElement } from 'react';
+import { isValidURL } from '../../utils/';
 
 export const LINKMODAL_DEFAULT_PROPS = {
   labels: {
     text: '',
     link: '',
-    switch: '',
     cancel: '',
     add: '',
   },
@@ -45,7 +43,6 @@ export const LINKMODAL_PROP_TYPES = {
   labels: PropTypes.shape({
     text: PropTypes.string,
     link: PropTypes.string,
-    switch: PropTypes.string,
     cancel: PropTypes.string,
     add: PropTypes.string,
   }),
@@ -58,35 +55,38 @@ export const LINKMODAL_PROP_TYPES = {
     link: PropTypes.string,
     validURL: PropTypes.string,
   }),
+  library: PropTypes.element,
+  libraryOnChange: PropTypes.func,
+  selectedText: PropTypes.string,
   onCancel: PropTypes.func,
   onChange: PropTypes.func,
 };
 
-const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ...props }) => {
+const LinkModal = ({
+  labels,
+  placeholders,
+  errorMessages,
+  library,
+  libraryOnChange,
+  selectedText,
+  onCancel,
+  onChange,
+  ...props
+}) => {
   const [modal, setModal] = useState('one');
+  const textValue = selectedText || '';
 
   const {
     control,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { text: '', link: '', embed: false, card: null } });
+  } = useForm({ defaultValues: { text: textValue, link: '', library: null } });
 
   const watchInputs = watch(['text', 'link']);
-  const watchCard = watch('card');
-
-  const isValidURL = (string) => {
-    let url;
-    try {
-      url = new URL(string);
-    } catch (_) {
-      return errorMessages.validURL || 'Link is not valid';
-    }
-    return url.protocol === 'http:' || url.protocol === 'https:';
-  };
+  const watchLibrary = watch('library');
 
   const submitHandler = (values) => {
-    if (modal !== 'four') delete values.embed;
     isFunction(onChange) && onChange(values);
   };
 
@@ -103,7 +103,7 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
             control={control}
             rules={{
               required: errorMessages.link || 'Required field',
-              validate: isValidURL,
+              validate: isValidURL ? '' : errorMessages.validURL || 'Link is not valid',
             }}
             render={({ field }) => (
               <TextInput
@@ -121,46 +121,18 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
       case 'three':
         return (
           <Controller
-            name="card"
+            name="library"
             control={control}
-            render={({ field: { onChange, value, ref, ...field } }) => (
-              <ModalComp
-                labels={{ input: labels.cardInput, select: labels.selectCard }}
-                value={value || null}
-                onChange={onChange}
-                {...field}
-              />
-            )}
+            render={({ field: { onChange, ref, ...field } }) =>
+              cloneElement(library, {
+                onChange: (value) => {
+                  onChange(value);
+                  libraryOnChange(value);
+                },
+                ...field,
+              })
+            }
           />
-        );
-      case 'four':
-        return (
-          <Stack direction="column" spacing={3}>
-            <Controller
-              name="link"
-              control={control}
-              rules={{
-                required: errorMessages.link || 'Required field',
-                validate: isValidURL,
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label={labels.link}
-                  placeholder={placeholders.link}
-                  error={errors.link}
-                  rightSection={<HyperlinkIcon />}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="embed"
-              control={control}
-              render={({ field }) => (
-                <Switch label={labels.switch} className={classes.switch} {...field} />
-              )}
-            />
-          </Stack>
         );
     }
   };
@@ -170,7 +142,7 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
       case 'one':
         return !watchInputs[0] || !watchInputs[1];
       case 'three':
-        return !watchInputs[0] || !watchCard;
+        return !watchInputs[0] || !watchLibrary;
       default:
         return true;
     }
@@ -185,7 +157,6 @@ const LinkModal = ({ labels, placeholders, errorMessages, onCancel, onChange, ..
             { value: 'one', icon: <ExpandDiagonalIcon height={16} width={16} /> },
             { value: 'two', icon: <FolderIcon height={16} width={16} /> },
             { value: 'three', icon: <CloudUploadIcon height={16} width={16} /> },
-            { value: 'four', icon: <QrCodeScanIcon height={16} width={16} /> },
           ]}
           variant={'icon'}
           fullWidth
