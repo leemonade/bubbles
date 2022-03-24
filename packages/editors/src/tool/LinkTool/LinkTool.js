@@ -58,7 +58,7 @@ const LinkTool = ({ label, ...props }) => {
           {...props}
           label={label}
           icon={<HyperlinkIcon height={16} width={16} />}
-          actived={isOpened}
+          actived={isOpened || editor?.isActive('link')}
           onClick={() => setIsOpened(!isOpened)}
         ></Button>
       }
