@@ -32,7 +32,7 @@ const Template = ({ ...props }) => {
     <TextEditor {...props}>
       <ColorTool></ColorTool>
       <TransformsTool />
-      <HeadingsTool />
+      <HeadingsTool paragraph={false} />
       <ListIndentTool />
       <LeemonsTool />
       <CodeQuoteTool />
