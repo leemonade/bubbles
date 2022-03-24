@@ -49,6 +49,7 @@ const TextEditor = ({
   onChange,
   placeholder,
   toolbars,
+  readonly,
   ...props
 }) => {
   const uuid = useId();
@@ -100,12 +101,16 @@ const TextEditor = ({
       help={help}
       required={required}
     >
-      <Box className={classes.root}>
-        <Toolbar editor={editor} blocks={toolbars} />
-        <Box className={classes.editor}>
-          <EditorContent editor={editor} />
+      {readonly ? (
+        <Box dangerouslySetInnerHTML={{ __html: value }} />
+      ) : (
+        <Box className={classes.root}>
+          <Toolbar editor={editor} blocks={toolbars} />
+          <Box className={classes.editor}>
+            <EditorContent editor={editor} />
+          </Box>
         </Box>
-      </Box>
+      )}
     </InputWrapper>
   );
 };

@@ -22,6 +22,7 @@ const ListItem = forwardRef(
       stopEdit,
       classes,
       onChange,
+      readonly,
       errorRequiredMessage,
     },
     ref
@@ -44,12 +45,19 @@ const ListItem = forwardRef(
 
     let children = (
       <>
-        <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
-          <SortDragIcon className={classes.sortableIcon} />
-        </Box>
+        {!readonly ? (
+          <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
+            <SortDragIcon className={classes.sortableIcon} />
+          </Box>
+        ) : null}
+
         <ItemValueRender item={item[valueKey]} />
-        <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
-        <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
+        {!readonly ? (
+          <>
+            <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
+            <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
+          </>
+        ) : null}
       </>
     );
     if (editingKey === item.__key) {
