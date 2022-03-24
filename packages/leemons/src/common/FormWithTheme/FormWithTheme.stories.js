@@ -23,14 +23,29 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
+  const [s, setS] = React.useState(null);
+  const a = React.useMemo(() => ({ formData: null }), []);
   const [form, actions] = FormWithTheme(
     mock.compileJsonSchema || mock.jsonSchema,
-    mock.compileJsonUI || mock.jsonUI
+    mock.compileJsonUI || mock.jsonUI,
+    undefined,
+    a
   );
   return (
     <>
       {form}
-      <Button onClick={() => actions.submit()}>Send</Button>
+
+      <Button
+        onClick={async () => {
+          await actions.submit();
+          const fErrors = actions.getErrors();
+          const datasetValues = actions.getValues();
+          console.log(fErrors, datasetValues);
+        }}
+      >
+        Send
+      </Button>
+      <Button onClick={() => setS(new Date().getTime())}>SETS</Button>
     </>
   );
 };

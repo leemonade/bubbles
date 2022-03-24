@@ -4,6 +4,10 @@ import { CheckIcon, DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid
 import { Box } from '../../../layout';
 import { ActionButton } from '../../ActionButton';
 
+const ItemValueRender2 = ({ item }) => {
+  return <Box sx={() => ({ width: '100%' })} dangerouslySetInnerHTML={{ __html: item }} />;
+};
+
 const ListItem = forwardRef(
   (
     {
@@ -12,6 +16,7 @@ const ListItem = forwardRef(
       removeItem,
       editItem,
       inputRender: InputRender,
+      itemValueRender: ItemValueRender = ItemValueRender2,
       editingKey,
       valueKey,
       stopEdit,
@@ -42,7 +47,7 @@ const ListItem = forwardRef(
         <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
           <SortDragIcon className={classes.sortableIcon} />
         </Box>
-        <Box sx={() => ({ width: '100%' })} dangerouslySetInnerHTML={{ __html: item[valueKey] }} />
+        <ItemValueRender item={item[valueKey]} />
         <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
         <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
       </>
