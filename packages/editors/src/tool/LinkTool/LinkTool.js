@@ -29,7 +29,11 @@ const LinkTool = ({ label, ...props }) => {
       setIsOpenedLink(false);
       return;
     }
-    const numberOfCharacters = text.split('').length;
+    const textArray = text.split('');
+    if (textArray[textArray.length - 1] === ' ') {
+      textArray.pop();
+    }
+    const numberOfCharacters = textArray.length;
     const cursorPosition = editor.commands.command(({ state }) => {
       const anchor = state.selection.anchor;
       const from = state.selection.ranges[0].$from.pos;
