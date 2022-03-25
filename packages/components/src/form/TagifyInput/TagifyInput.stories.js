@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TagifyInput {...props} />;
+  return <TagifyInput {...props} onChange={(e) => console.log(e)} />;
 };
 
 export const Playground = Template.bind({});

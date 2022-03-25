@@ -18,7 +18,7 @@ export const SubNavStyles = createStyles((theme, { width, pinned }) => {
       transitionProperty: 'transform',
       transitionTimingFunction: 'cubic-bezier(.51,.3,0,1)',
       transitionDuration: '150ms',
-      boxShadow: !pinned && theme.shadows.shadow100,
+      boxShadow: !pinned && theme.shadows.shadow04,
       zIndex: 20,
     },
     open: {

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Text, Box } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 import { IconError, IconWarning } from './../../../assets/FaticIcons.js';
 import { TabStyles } from './Tab.styles';
 
@@ -26,6 +26,7 @@ export const Tab = forwardRef(
       <button
         {...props}
         role="tab"
+        type="button"
         key={key}
         ref={ref}
         aria-selected={active}

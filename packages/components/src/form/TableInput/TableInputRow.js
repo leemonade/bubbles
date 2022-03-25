@@ -44,7 +44,7 @@ const TableInputRow = ({
   });
 
   const getColumCellValue = (cell) => {
-    if (editing) {
+    if (editing && cell.column.editable !== false) {
       const { column, row } = cell;
       const fieldName = `${row.original.tableInputRowId}.${column.id}`;
       let { node, rules, ...inputProps } = column.input;
@@ -154,22 +154,24 @@ const TableInputRow = ({
                   />
                 </>
               ) : (
-                <>
-                  {editable && (
-                    <ActionButton
-                      icon={<EditWriteIcon />}
-                      tooltip={labels.edit || 'Edit'}
-                      onClick={initEditing}
-                    />
-                  )}
-                  {removable && (
-                    <ActionButton
-                      icon={<DeleteBinIcon />}
-                      tooltip={labels.remove || 'Remove'}
-                      onClick={() => onRemove(index)}
-                    />
-                  )}
-                </>
+                row.original.editable !== false && (
+                  <>
+                    {editable && (
+                      <ActionButton
+                        icon={<EditWriteIcon />}
+                        tooltip={labels.edit || 'Edit'}
+                        onClick={initEditing}
+                      />
+                    )}
+                    {removable && (
+                      <ActionButton
+                        icon={<DeleteBinIcon />}
+                        tooltip={labels.remove || 'Remove'}
+                        onClick={() => onRemove(index)}
+                      />
+                    )}
+                  </>
+                )
               )}
             </td>
           </tr>

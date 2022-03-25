@@ -13,6 +13,7 @@ export const TableInputStyles = createStyles((theme, { hasError }) => {
     inputCell: {
       paddingLeft: theme.spacing[2],
       paddingRight: theme.spacing[2],
+      verticalAlign: 'top !important',
     },
     actionCell: {
       textAlign: 'center',

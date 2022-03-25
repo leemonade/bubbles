@@ -91,6 +91,7 @@ const SortableList = ({
                           provided={provided}
                           snapshot={snapshot}
                           item={item}
+                          index={index}
                           removeItem={() => removeItem(index)}
                           classes={classes}
                         />

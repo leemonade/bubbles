@@ -4,5 +4,8 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 export const StepperStyles = createStyles((theme, {}) => {
   return {
     root: {},
+    content: {
+      paddingTop: theme.spacing[6],
+    },
   };
 });

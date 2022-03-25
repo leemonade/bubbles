@@ -9,3 +9,4 @@ export * from './LibraryDetail';
 export * from './LibraryDetailPlayer';
 export * from './LibraryDetailContent';
 export * from './LibraryDetailToolbar';
+export * from './LibraryItem';
