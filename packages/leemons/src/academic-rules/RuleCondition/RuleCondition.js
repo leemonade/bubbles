@@ -5,14 +5,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { filter } from 'lodash';
 import {
   Box,
+  Menu,
+  MultiSelect,
   NumberInput,
   Paper,
   Select,
   Stack,
   Text,
   TextInput,
-  MultiSelect,
-  Menu,
 } from '@bubbles-ui/components';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
@@ -192,7 +192,7 @@ const RuleCondition = ({
       return (
         <Select
           className={classes.input}
-          data={LOGIC_OPERATORS}
+          data={LOGIC_OPERATORS || []}
           value={logicOperator.value}
           onChange={(e) => {
             setLogicOperator({ label: e.toUpperCase(), value: e });
@@ -342,7 +342,7 @@ const RuleCondition = ({
               <Box className={classes.sourceSelects} skipFlex>
                 <Select
                   className={classes.input}
-                  data={sources}
+                  data={sources || []}
                   placeholder={placeholders.selectItem}
                   value={sourceValue}
                   onChange={(e) => {
@@ -356,7 +356,7 @@ const RuleCondition = ({
                 {sourceValue && getSourceSelect(sourceValue)}
               </Box>
               <Select
-                data={filteredDataTypes}
+                data={filteredDataTypes || []}
                 placeholder={placeholders.selectDataType}
                 value={dataType}
                 onChange={(e) => {
@@ -371,7 +371,7 @@ const RuleCondition = ({
               {dataType !== 'enrolled' && (
                 <>
                   <Select
-                    data={operators}
+                    data={operators || []}
                     placeholder={placeholders.selectOperator}
                     value={operatorValue}
                     onChange={(e) => {
@@ -384,7 +384,7 @@ const RuleCondition = ({
                   />
                   {dataType === 'gpa' || dataType === 'grade' ? (
                     <Select
-                      data={grades}
+                      data={grades || []}
                       placeholder={placeholders.selectTargetGrade}
                       value={targetValue}
                       onChange={(e) => {

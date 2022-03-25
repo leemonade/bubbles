@@ -15,6 +15,7 @@ import StringField from './components/fields/StringField';
 import ObjectField from './components/fields/ObjectField';
 import SchemaField from './components/fields/SchemaField';
 import { FormWithThemeStyles } from './FormWithTheme.styles';
+import WysiwygWidget from './components/widgets/WysiwygWidget';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
@@ -28,46 +29,64 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
 
-  const ThemeForm = withTheme({
-    fields: {
-      ArrayField,
-      StringField,
-      ObjectField,
-      SchemaField,
-    },
-    widgets: {
-      BaseInput,
-      RadioWidget,
-      SelectWidget,
-      CheckboxWidget,
-      TextareaWidget,
-      CheckboxesWidget,
-      toggle: ToggleWidget,
-    },
-    validateSchema: getValidateSchema(schema),
-    transformAjvErrors,
-  });
+  const validateSchema = React.useMemo(() => getValidateSchema(schema), [schema]);
+
+  const ThemeForm = React.useMemo(
+    () =>
+      withTheme({
+        fields: {
+          ArrayField,
+          StringField,
+          ObjectField,
+          SchemaField,
+        },
+        widgets: {
+          BaseInput,
+          RadioWidget,
+          SelectWidget,
+          CheckboxWidget,
+          TextareaWidget,
+          CheckboxesWidget,
+          toggle: ToggleWidget,
+          wysiwyg: WysiwygWidget,
+        },
+        validateSchema,
+        transformAjvErrors,
+      }),
+    [validateSchema]
+  );
+
+  const customFormats = React.useMemo(
+    () => ({
+      numbers: FORM_WITH_THEME_REGEX.numbers,
+      phone: FORM_WITH_THEME_REGEX.phone,
+    }),
+    []
+  );
+
+  const form = React.useMemo(
+    () =>
+      schema || ui ? (
+        <ThemeForm
+          {...props}
+          ref={(e) => {
+            ref.current = e;
+            if (props.ref) props.ref = e;
+          }}
+          showErrorList={false}
+          schema={schema}
+          uiSchema={ui}
+          transformErrors={(e) => transformErrors(e, t)}
+          customFormats={customFormats}
+        >
+          <></>
+        </ThemeForm>
+      ) : null,
+    [JSON.stringify(schema), JSON.stringify(ui), JSON.stringify(props)]
+  );
 
   return [
-    schema || ui ? (
-      <ThemeForm
-        {...props}
-        ref={(e) => {
-          ref.current = e;
-          if (props.ref) props.ref = e;
-        }}
-        showErrorList={false}
-        schema={schema}
-        uiSchema={ui}
-        transformErrors={(e) => transformErrors(e, t)}
-        customFormats={{
-          numbers: FORM_WITH_THEME_REGEX.numbers,
-          phone: FORM_WITH_THEME_REGEX.phone,
-        }}
-      >
-        <></>
-      </ThemeForm>
-    ) : null,
+    form,
     {
       isLoaded: () => !!ref.current,
       submit: () => {

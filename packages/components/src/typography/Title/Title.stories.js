@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
-import { Title } from './Title';
+import { Title, TITLE_DEFAULT_PROPS, TITLE_COLORS, TITLE_TRANSFORMS } from './Title';
 import mdx from './Title.mdx';
 
 export default {
@@ -17,7 +17,8 @@ export default {
   },
   argTypes: {
     order: { options: [1, 2, 3, 4, 5, 6], control: { type: 'select' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    color: { options: TITLE_COLORS, control: { type: 'select' } },
+    transform: { options: TITLE_TRANSFORMS, control: { type: 'select' } },
   },
 };
 
@@ -28,5 +29,5 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  order: 1,
+  ...TITLE_DEFAULT_PROPS,
 };

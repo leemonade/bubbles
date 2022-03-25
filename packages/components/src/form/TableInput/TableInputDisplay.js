@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { find, isFunction } from 'lodash';
 import { useTable } from 'react-table';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
@@ -16,12 +16,14 @@ export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   onAdd: () => {},
   onRemove: () => {},
   classes: {},
+  showHeaders: true,
 };
 export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   ...TABLE_INPUT_PROP_TYPES,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,
   classes: PropTypes.any,
+  showHeaders: PropTypes.bool,
 };
 
 const TableInputDisplay = ({
@@ -38,6 +40,7 @@ const TableInputDisplay = ({
   removable,
   disabled,
   disabledAddButton,
+  showHeaders,
   classes,
   onChangeRow = () => {},
 }) => {
@@ -47,18 +50,13 @@ const TableInputDisplay = ({
     data,
   });
 
-  let _form = form;
-
-  if (!_form) {
-    _form = useForm();
-  }
   const {
     control,
     handleSubmit,
     trigger,
     watch,
     formState: { errors },
-  } = _form;
+  } = form;
 
   const formValues = watch();
 
@@ -117,24 +115,25 @@ const TableInputDisplay = ({
       })}
     >
       <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps({})}>
-            {sortable && !disabled && <th style={{ width: 20 }}></th>}
-            {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps({
-                  className: cx(tableClasses.th, column.className),
-                  style: { ...column.style, paddingLeft: 0 },
-                })}
-              >
-                <Text size="xs" role="productive" color="primary" strong>
-                  {column.render('Header')}
-                </Text>
-              </th>
-            ))}
-            <th style={{ width: '1%' }}></th>
-          </tr>
-        ))}
+        {showHeaders &&
+          headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps({})}>
+              {sortable && !disabled && <th style={{ width: 20 }}></th>}
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps({
+                    className: cx(tableClasses.th, column.className),
+                    style: { ...column.style, paddingLeft: 0 },
+                  })}
+                >
+                  <Text size="xs" role="productive" color="primary" strong>
+                    {column.render('Header')}
+                  </Text>
+                </th>
+              ))}
+              <th style={{ width: '1%' }}></th>
+            </tr>
+          ))}
 
         <tr className={rows.length > 0 ? tableClasses.tr : ''}>
           {sortable && !disabled && <th></th>}
@@ -142,7 +141,7 @@ const TableInputDisplay = ({
             <th
               key={`in-${i}`}
               className={cx(tableClasses.td, classes.inputCell)}
-              style={{ paddingLeft: 0 }}
+              style={{ ...column.style, paddingLeft: 0 }}
             >
               {getColumnInput(column.accessor)}
             </th>

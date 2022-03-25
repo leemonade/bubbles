@@ -1,11 +1,11 @@
-import React, { forwardRef, useEffect, useState, useImperativeHandle } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import {
-  MultiSelect as MantineMultiSelect,
   Autocomplete as MantineAutocomplete,
+  MultiSelect as MantineMultiSelect,
 } from '@mantine/core';
 import { DeleteIcon } from '@bubbles-ui/icons/solid';
-import { isFunction, isEmpty, trim } from 'lodash';
-import { useId, useDebouncedValue } from '@mantine/hooks';
+import { isEmpty, isFunction } from 'lodash';
+import { useDebouncedValue, useId } from '@mantine/hooks';
 import { InputWrapper } from '../InputWrapper';
 import { AutocompleteStyles } from './Autocomplete.styles';
 import { AUTOCOMPLETE_DEFAULT_PROPS, AUTOCOMPLETE_PROP_TYPES } from './Autocomplete.constants';
@@ -48,9 +48,7 @@ const Autocomplete = forwardRef(
       : {};
 
     useEffect(() => {
-      if (!isEmpty(trim(debouncedValue))) {
-        onSearch(debouncedValue);
-      }
+      onSearch(debouncedValue);
     }, [debouncedValue]);
 
     // ················································································

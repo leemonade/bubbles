@@ -30,6 +30,7 @@ const InputWrapper = ({
   contentStyle,
   className,
   style,
+  formValues,
   ...props
 }) => {
   const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';

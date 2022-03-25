@@ -6,6 +6,7 @@ import {
   MultiSelect,
 } from './MultiSelect';
 import mdx from './MultiSelect.mdx';
+import { Button } from '../Button';
 
 export default {
   title: 'Molecules/Form/MultiSelect',
@@ -28,19 +29,22 @@ export default {
 
 const Template = ({ children, data, ...props }) => {
   const [state, setState] = useState([]);
-  const [value, setValue] = useState(['Bender Bending Rodríguez']);
+  const [value, setValue] = useState([]);
   return (
-    <MultiSelect
-      {...props}
-      value={value}
-      onChange={setValue}
-      data={[...data, ...state]}
-      getCreateLabel={(query) => `+ Create ${query}`}
-      onCreate={(q) => setState([...state, q])}
-      maxSelectedValues={1}
-    >
-      {children}
-    </MultiSelect>
+    <>
+      <MultiSelect
+        {...props}
+        value={value}
+        onChange={setValue}
+        data={[...data, ...state]}
+        getCreateLabel={(query) => `+ Create ${query}`}
+        onCreate={(q) => setState([...state, q])}
+        maxSelectedValues={1}
+      >
+        {children}
+      </MultiSelect>
+      <Button onClick={() => setValue([])}>RESET</Button>
+    </>
   );
 };
 

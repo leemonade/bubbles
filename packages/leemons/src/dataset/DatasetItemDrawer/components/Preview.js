@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { isFunction } from 'lodash';
 import { Box, Paper, Title } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../context/DatasetItemDrawerContext';

@@ -11,6 +11,7 @@ export const PAPER_DEFAULT_PROPS = {
   padding: 5,
   shadow: 'level03',
   color: PAPER_COLORS[0],
+  bordered: false,
 };
 export const PAPER_PROP_TYPES = {
   radius: PropTypes.oneOf(PAPER_RADIUS),
@@ -18,15 +19,27 @@ export const PAPER_PROP_TYPES = {
   children: PropTypes.node,
   className: PropTypes.string,
   shadow: PropTypes.oneOf(PAPER_SHADOWS),
+  bordered: PropTypes.bool,
 };
 
 const Paper = forwardRef(
   (
-    { padding, radius, shadow, component, children, className, color, fullWidth, ...props },
+    {
+      padding,
+      radius,
+      shadow,
+      component,
+      children,
+      className,
+      color,
+      fullWidth,
+      bordered,
+      ...props
+    },
     ref
   ) => {
     const { classes, cx } = PaperStyles(
-      { padding, radius, shadow, color, fullWidth },
+      { padding, radius, shadow, color, fullWidth, bordered },
       { name: 'Paper' }
     );
 

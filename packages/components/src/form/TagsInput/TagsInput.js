@@ -49,6 +49,7 @@ const TagsInput = forwardRef(
         setTags(newTags);
       }
       setInputValue('');
+      if (isFunction(props.onSearch)) props.onSearch('');
       autoCompleteRef.current.deleteValues();
     };
 

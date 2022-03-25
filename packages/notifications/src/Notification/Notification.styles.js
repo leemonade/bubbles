@@ -29,7 +29,7 @@ function getColor(theme, severity) {
 export const NotificationStyles = createStyles((theme, { hasIcon, severity }) => {
   return {
     root: {
-      boxShadow: theme.shadows.shadow100,
+      boxShadow: theme.shadows.shadow04,
       backgroundColor: theme.colors.uiBackground05,
       ...getPaddings(theme.spacing[4], theme.spacing[3]),
       paddingLeft: `${theme.spacing[4]}px !important`,
@@ -41,6 +41,9 @@ export const NotificationStyles = createStyles((theme, { hasIcon, severity }) =>
       '&::before': {
         display: 'none',
       },
+    },
+    icon: {
+      ...getColor(theme, severity),
     },
     message: {
       color: theme.colors.text08,

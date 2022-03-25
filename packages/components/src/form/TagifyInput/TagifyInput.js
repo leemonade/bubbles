@@ -9,7 +9,7 @@ import {
 } from '../InputWrapper';
 import { TagifyInputStyles } from './TagifyInput.styles';
 import { MixedTags } from './tagify/react.tagify'; // React-wrapper file
-import './tagify/tagify.css';
+import './tagify/tagify.module.css';
 
 const noop = (_) => _;
 
@@ -76,7 +76,7 @@ const TagifyInput = forwardRef(
     ref
   ) => {
     const uuid = useId();
-    const { classes, cx } = TagifyInputStyles({ size, error });
+    const { classes, cx } = TagifyInputStyles({ size, error }, { name: 'TagifyInput' });
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>

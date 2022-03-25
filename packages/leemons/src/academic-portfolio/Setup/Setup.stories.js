@@ -4,10 +4,10 @@ import { Setup, SETUP_DEFAULT_PROPS } from './Setup';
 import mdx from './Setup.mdx';
 import {
   AcademicProgramSetupBasicData,
-  AcademicProgramSetupSubjects,
   AcademicProgramSetupCourses,
+  AcademicProgramSetupSubjects,
 } from '../';
-import { BASIC_DATA, COURSES_DATA, SUBJECTS_DATA, INIT_VALUES } from '../mocks/data';
+import { BASIC_DATA, COURSES_DATA, INIT_VALUES, SUBJECTS_DATA } from '../mocks/data';
 
 export default {
   title: 'leemons/AcademicPortfolio',
@@ -26,6 +26,10 @@ export default {
     onSave: { action: 'save' },
   },
 };
+const A = (p) => {
+  console.log(p);
+  return <div>Gatitos</div>;
+};
 
 const Template = ({ ...props }) => {
   return (
@@ -43,7 +47,7 @@ Playground.args = {
   data: [
     {
       label: 'Basic data',
-      content: <AcademicProgramSetupBasicData {...BASIC_DATA} />,
+      content: <AcademicProgramSetupBasicData {...BASIC_DATA} evaluationSystemSelect={<A />} />,
     },
     {
       label: 'Courses',

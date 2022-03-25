@@ -2,6 +2,7 @@
 // export * from './DetailPanel/DetailPanel';
 // export * from './EditPanel/EditPanel';
 export * from './LoadingOverlay';
+export * from './ModalsProvider';
 export * from './Tooltip';
 export * from './Popover';
 export * from './Drawer';

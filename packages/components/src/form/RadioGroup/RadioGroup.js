@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
 import { useUuid } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
@@ -133,7 +133,7 @@ const RadioGroup = forwardRef(
             classNames={classes}
             defaultValue={defaultValue ? defaultValue : ' '}
             value={value}
-            data={data.map(({ label, ...item }, index) => {
+            data={map(data, ({ label, ...item }, index) => {
               return {
                 value: item.value,
                 label: (

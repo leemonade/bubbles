@@ -66,7 +66,9 @@ const BooleanInput = forwardRef(
   ) => {
     const [isChecked, setIsChecked] = useState(checked);
 
-    useEffect(() => setIsChecked(checked), [checked]);
+    useEffect(() => {
+      setIsChecked(checked);
+    }, [checked]);
 
     const handleOnChange = () => {
       if (!props.disabled) {

@@ -1,8 +1,10 @@
-import React from 'react';
-import { Box } from '@mantine/core';
+import React, { useState } from 'react';
+import { Box, Stack } from '../../layout';
+import { Button } from '../../form/Button';
 import { Modal } from './Modal';
-import { MODAL_DEFAULT_PROPS } from './Modal.constants';
+import { MODAL_DEFAULT_PROPS, MODAL_SIZES } from './Modal.constants';
 import mdx from './Modal.mdx';
+import { Paragraph } from '../../typography';
 
 export default {
   title: 'Molecules/Overlay/Modal',
@@ -18,18 +20,40 @@ export default {
   },
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    size: { options: MODAL_SIZES, control: { type: 'select' } },
   },
 };
 
 const Template = ({ ...props }) => {
-  return <Modal {...props} />;
+  const [opened, setOpened] = useState(false);
+
+  return (
+    <>
+      <Modal {...props} opened={opened} onClose={() => setOpened(false)}>
+        <Box>
+          <Paragraph>Aquí un texto guapetón</Paragraph>
+        </Box>
+        <Stack fullWidth justifyContent="space-between">
+          <Button variant="light" onClick={() => setOpened(false)}>
+            Cancel
+          </Button>
+
+          <Button onClick={() => setOpened(false)}>Confirm</Button>
+        </Stack>
+      </Modal>
+
+      <Stack fullWidth justifyContent="center">
+        <Box>
+          <Button onClick={() => setOpened(true)}>Open Modal</Button>
+        </Box>
+      </Stack>
+    </>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...MODAL_DEFAULT_PROPS,
+  title: 'Introduce yourself!',
 };
