@@ -13,7 +13,6 @@ import {
   FolderIcon,
   CloudUploadIcon,
 } from '@bubbles-ui/icons/outline';
-// import { ModalComp } from '../ModalComp/ModalComp';
 import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
 import isFunction from 'lodash/isFunction';

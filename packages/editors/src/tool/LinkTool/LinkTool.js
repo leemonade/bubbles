@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
-import { Popover } from '@bubbles-ui/components';
-import { useState, useContext, useEffect } from 'react';
+import { Popover, useHotkeys } from '@bubbles-ui/components';
+import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button, LinkModal, CardExtension } from '../../form/';
 import Link from '@tiptap/extension-link';
@@ -18,10 +18,17 @@ const LinkTool = ({ label, ...props }) => {
   const { editor, library, libraryOnChange, isOpenedLink, setIsOpenedLink } =
     useContext(TextEditorContext);
 
+  document.addEventListener('keydown', (e) => {
+    console.log('keydown', e.key);
+    if (e.key === 'Escape') {
+      setIsOpenedLink(false);
+    }
+  });
+
   if (!editor) return;
   const { selection } = editor.state;
   const { from, to } = selection;
-  const selectedText = editor.state.doc.textBetween(from, to, ' ');
+  const selectedText = editor.state.doc.textBetween(from, to, '');
 
   const onClickHandler = ({ text, link, card }) => {
     if (card) {
