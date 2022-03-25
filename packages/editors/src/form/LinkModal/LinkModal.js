@@ -17,7 +17,7 @@ import {
 import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
 import isFunction from 'lodash/isFunction';
-import { useState, cloneElement } from 'react';
+import { useState, cloneElement, useEffect } from 'react';
 import { isValidURL } from '../../utils/';
 
 export const LINKMODAL_DEFAULT_PROPS = {
@@ -81,6 +81,7 @@ const LinkModal = ({
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm({ defaultValues: { text: textValue, link: '', library: null } });
 
   const watchInputs = watch(['text', 'link']);
@@ -147,6 +148,10 @@ const LinkModal = ({
         return true;
     }
   };
+
+  useEffect(() => {
+    setValue('text', selectedText);
+  }, [selectedText]);
 
   const { classes } = LinkModalStyles({});
   return (

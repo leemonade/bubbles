@@ -11,7 +11,7 @@ export const BUBBLEMENU_DEFAULT_PROPS = {};
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
-  const { editor } = useContext(TextEditorContext);
+  const { editor, setIsOpenedLink } = useContext(TextEditorContext);
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
@@ -20,7 +20,7 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('cardExtension')) {
       return true;
     }
-    if (editor.isActive('link')) {
+    if (editor.isActive('link') && !editor.getAttributes('link').isOpened) {
       return true;
     }
     return false;
@@ -28,10 +28,22 @@ const BubbleMenu = ({ ...props }) => {
 
   const removeHandler = () => {
     if (editor.isActive('cardExtension')) {
-      editor?.chain().focus().unsetCard().run();
+      editor.chain().focus().unsetCard().run();
     }
     if (editor.isActive('link')) {
-      editor?.chain().focus().unsetLink().run();
+      editor.chain().focus().unsetLink().run();
+    }
+  };
+
+  const editHandler = () => {
+    if (editor.isActive('link')) {
+      editor
+        .chain()
+        .extendMarkRange('link')
+        .focus()
+        .updateAttributes('link', { isOpened: true })
+        .run();
+      setIsOpenedLink(true);
     }
   };
 
@@ -53,7 +65,11 @@ const BubbleMenu = ({ ...props }) => {
     >
       <Paper padding={1} shadow="level100" className={classes.root}>
         <Stack spacing={2}>
-          <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
+          <IconButton
+            size="xs"
+            icon={<EditWriteIcon height={20} width={20} />}
+            onClick={editHandler}
+          />
           <Select
             size="xs"
             defaultValue="auto"

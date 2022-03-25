@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button, LinkModal, CardExtension } from '../../form/';
 import Link from '@tiptap/extension-link';
@@ -15,8 +15,8 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ label, ...props }) => {
-  const { editor, library, libraryOnChange } = useContext(TextEditorContext);
-  const [isOpened, setIsOpened] = useState(false);
+  const { editor, library, libraryOnChange, isOpenedLink, setIsOpenedLink } =
+    useContext(TextEditorContext);
 
   if (!editor) return;
   const { selection } = editor.state;
@@ -26,7 +26,7 @@ const LinkTool = ({ label, ...props }) => {
   const onClickHandler = ({ text, link, card }) => {
     if (card) {
       editor?.chain().focus().setCard(card).run();
-      setIsOpened(false);
+      setIsOpenedLink(false);
       return;
     }
     const numberOfCharacters = text.split('').length;
@@ -41,14 +41,15 @@ const LinkTool = ({ label, ...props }) => {
       .insertContent(text)
       .setTextSelection(range)
       .setLink({ href: link })
+      .setTextSelection(0)
       .focus()
       .run();
-    setIsOpened(false);
+    setIsOpenedLink(false);
   };
 
   return (
     <Popover
-      opened={isOpened}
+      opened={isOpenedLink}
       onClose={() => {}}
       width={360}
       position="bottom"
@@ -58,8 +59,16 @@ const LinkTool = ({ label, ...props }) => {
           {...props}
           label={label}
           icon={<HyperlinkIcon height={16} width={16} />}
-          actived={isOpened || editor?.isActive('link')}
-          onClick={() => setIsOpened(!isOpened)}
+          actived={isOpenedLink || editor?.isActive('link')}
+          onClick={() => {
+            editor
+              .chain()
+              .extendMarkRange('link')
+              .focus()
+              .updateAttributes('link', { isOpened: !isOpenedLink })
+              .run();
+            setIsOpenedLink(!isOpenedLink);
+          }}
         ></Button>
       }
     >
@@ -82,7 +91,15 @@ const LinkTool = ({ label, ...props }) => {
         library={library}
         libraryOnChange={libraryOnChange}
         selectedText={selectedText}
-        onCancel={() => setIsOpened(false)}
+        onCancel={() => {
+          editor
+            .chain()
+            .extendMarkRange('link')
+            .focus()
+            .updateAttributes('link', { isOpened: false })
+            .run();
+          setIsOpenedLink(false);
+        }}
         onChange={onClickHandler}
       />
     </Popover>
@@ -92,7 +109,16 @@ const LinkTool = ({ label, ...props }) => {
 LinkTool.defaultProps = LINK_TOOL_DEFAULT_PROPS;
 LinkTool.propTypes = LINK_TOOL_PROP_TYPES;
 LinkTool.extensions = [
-  Link.configure({
+  Link.extend({
+    addAttributes() {
+      return {
+        ...this.parent?.(),
+        isOpened: {
+          default: false,
+        },
+      };
+    },
+  }).configure({
     openOnClick: false,
   }),
   CardExtension,

@@ -1,6 +1,7 @@
 import { TextEditorContext } from './context';
 import PropTypes from 'prop-types';
 import { Editor } from '@tiptap/react';
+import { useState } from 'react';
 
 export const TEXT_EDITOR_PROVIDER_DEFAULT_PROPS = {
   library: <div></div>,
@@ -13,8 +14,12 @@ export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
 };
 
 const TextEditorProvider = ({ editor, library, libraryOnChange, children }) => {
+  const [isOpenedLink, setIsOpenedLink] = useState(false);
+
   return (
-    <TextEditorContext.Provider value={{ editor, library, libraryOnChange }}>
+    <TextEditorContext.Provider
+      value={{ editor, library, libraryOnChange, isOpenedLink, setIsOpenedLink }}
+    >
       {children}
     </TextEditorContext.Provider>
   );
