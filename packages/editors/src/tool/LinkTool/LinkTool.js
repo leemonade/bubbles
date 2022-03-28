@@ -19,7 +19,6 @@ const LinkTool = ({ label, ...props }) => {
     useContext(TextEditorContext);
 
   document.addEventListener('keydown', (e) => {
-    console.log('keydown', e.key);
     if (e.key === 'Escape') {
       setIsOpenedLink(false);
     }
@@ -52,6 +51,7 @@ const LinkTool = ({ label, ...props }) => {
       .insertContent(text)
       .setTextSelection(range)
       .setLink({ href: link })
+      .updateAttributes('link', { isOpened: false })
       .setTextSelection(0)
       .focus()
       .run();
