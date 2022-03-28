@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
-import { Popover, useHotkeys } from '@bubbles-ui/components';
+import { Popover } from '@bubbles-ui/components';
 import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button, LinkModal, CardExtension } from '../../form/';
@@ -18,16 +18,15 @@ const LinkTool = ({ label, ...props }) => {
   const { editor, library, libraryOnChange, isOpenedLink, setIsOpenedLink } =
     useContext(TextEditorContext);
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      setIsOpenedLink(false);
-    }
-  });
-
   if (!editor) return;
   const { selection } = editor.state;
   const { from, to } = selection;
   const selectedText = editor.state.doc.textBetween(from, to, '');
+  let selectedLink = '';
+
+  if (editor?.isActive('link')) {
+    selectedLink = editor.getAttributes('link').href;
+  }
 
   const onClickHandler = ({ text, link, card }) => {
     if (card) {
@@ -65,6 +64,13 @@ const LinkTool = ({ label, ...props }) => {
       width={360}
       position="bottom"
       placement="start"
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') {
+          if (editor.isActive('link'))
+            editor?.commands.updateAttributes('link', { isOpened: false });
+          setIsOpenedLink(false);
+        }
+      }}
       target={
         <Button
           {...props}
@@ -102,6 +108,7 @@ const LinkTool = ({ label, ...props }) => {
         library={library}
         libraryOnChange={libraryOnChange}
         selectedText={selectedText}
+        selectedLink={selectedLink}
         onCancel={() => {
           editor
             .chain()

@@ -57,6 +57,7 @@ export const LINKMODAL_PROP_TYPES = {
   library: PropTypes.element,
   libraryOnChange: PropTypes.func,
   selectedText: PropTypes.string,
+  selectedLink: PropTypes.string,
   onCancel: PropTypes.func,
   onChange: PropTypes.func,
 };
@@ -68,12 +69,14 @@ const LinkModal = ({
   library,
   libraryOnChange,
   selectedText,
+  selectedLink,
   onCancel,
   onChange,
   ...props
 }) => {
   const [modal, setModal] = useState('one');
   const textValue = selectedText || '';
+  const linkValue = selectedLink || '';
 
   const {
     control,
@@ -81,7 +84,7 @@ const LinkModal = ({
     watch,
     formState: { errors },
     setValue,
-  } = useForm({ defaultValues: { text: textValue, link: '', library: null } });
+  } = useForm({ defaultValues: { text: textValue, link: selectedLink, library: null } });
 
   const watchInputs = watch(['text', 'link']);
   const watchLibrary = watch('library');
