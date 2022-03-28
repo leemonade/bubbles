@@ -56,7 +56,10 @@ export const mock = {
     ],
   },
   jsonUI: {
-    rsfbbe337534da1075770d218c576a27e0f65856abfd1b13addb40daa6c7a7: { 'ui:widget': 'wysiwyg' },
-    rsf4d15b066c16f5e5a2ae2be80a0c5f1271d038cbc64dd4871962d8ccb487: {},
+    rsfbbe337534da1075770d218c576a27e0f65856abfd1b13addb40daa6c7a7: {
+      'ui:widget': 'wysiwyg',
+      'ui:readonly': true,
+    },
+    rsf4d15b066c16f5e5a2ae2be80a0c5f1271d038cbc64dd4871962d8ccb487: { 'ui:readonly': true },
   },
 };

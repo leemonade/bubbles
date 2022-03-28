@@ -4,7 +4,7 @@ export function getInputStyle(theme, variant) {
   return {
     ...getFontProductive(null, 400),
     color: theme.colors.text02,
-    marginBottom: theme.spacing['1'],
+    // marginBottom: theme.spacing['1'],
     background: variant === 'filled' ? theme.colors.ui03 : theme.colors.uiBackground04,
     borderColor: variant === 'filled' ? theme.colors.ui03 : theme.colors.ui01,
 

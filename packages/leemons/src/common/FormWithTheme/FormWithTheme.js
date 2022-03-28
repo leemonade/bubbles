@@ -31,8 +31,6 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
 
   const validateSchema = React.useMemo(() => getValidateSchema(schema), [schema]);
 
-  console.log(validateSchema);
-
   const ThemeForm = React.useMemo(
     () =>
       withTheme({

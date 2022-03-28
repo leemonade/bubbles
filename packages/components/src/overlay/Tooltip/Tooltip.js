@@ -32,6 +32,8 @@ const Tooltip = ({
       size={size}
       arrowSize={4}
       withArrow={withArrow}
+      withinPortal={false}
+      // allowPointerEvents={false}
     />
   );
 };

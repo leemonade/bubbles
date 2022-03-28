@@ -31,7 +31,7 @@ function WysiwygWidget(props) {
       placeholder={placeholder}
       required={required}
       disabled={disabled}
-      readOnly={readonly}
+      readonly={readonly}
       autoFocus={autofocus}
       rows={options.rows}
       onBlur={onBlur && ((event) => onBlur(id, event.target.value))}
