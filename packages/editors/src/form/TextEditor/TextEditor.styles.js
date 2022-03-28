@@ -1,10 +1,9 @@
-import { createStyles, getFontProductive, pxToRem } from '@bubbles-ui/components';
+import { createStyles, getFontProductive, pxToRem, getHtmlStyles } from '@bubbles-ui/components';
 
 export const TextEditorStyles = createStyles((theme, {}) => {
+  const { root } = getHtmlStyles(theme);
+
   return {
-    paragraph: {
-      color: theme.colors.text01,
-    },
     toolbar: {
       display: 'flex',
       alignItems: 'center',
@@ -12,11 +11,10 @@ export const TextEditorStyles = createStyles((theme, {}) => {
       gap: 16,
     },
     editor: {
+      ...root,
       margin: theme.spacing[3],
       textAlign: 'initial',
       fontWeight: 'initial',
-
-      ...getFontProductive(theme.fontSizes[2]),
 
       '.ProseMirror:focus-visible': {
         outline: 'none',
@@ -29,23 +27,6 @@ export const TextEditorStyles = createStyles((theme, {}) => {
         float: 'left',
         height: 0,
         pointerEvents: 'none',
-
-        h1: {
-          fontSize: theme.fontSizes[7],
-          fontWeight: 600,
-        },
-        h2: {
-          fontSize: theme.fontSizes[6],
-          fontWeight: 600,
-        },
-        h3: {
-          fontSize: theme.fontSizes[5],
-          fontWeight: 600,
-        },
-
-        strong: {
-          fontWeight: 600,
-        },
       },
 
       '.ProseMirror': {

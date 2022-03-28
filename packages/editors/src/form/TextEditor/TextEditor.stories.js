@@ -30,7 +30,7 @@ export default {
 const Template = ({ ...props }) => {
   return (
     <TextEditor {...props}>
-      <ColorTool></ColorTool>
+      <ColorTool />
       <TransformsTool />
       <HeadingsTool paragraph={false} />
       <ListIndentTool />
