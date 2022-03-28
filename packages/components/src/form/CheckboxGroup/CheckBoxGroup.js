@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
-import { useUuid } from '@mantine/hooks';
+import { useUuid, useDidUpdate } from '@mantine/hooks';
 import { BOOLEAN_INPUT_VARIANTS } from '../BooleanInput';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
@@ -80,9 +80,17 @@ const CheckBoxGroup = ({
     const newSelectedValues = selectedValues.includes(value)
       ? selectedValues.filter((v) => v !== value)
       : [...selectedValues, value];
+
     setSelectedValues(newSelectedValues);
     if (isFunction(onChange)) onChange(newSelectedValues);
   };
+
+  useDidUpdate(() => {
+    const values = data.map(({ value }) => value);
+    selectedValues.filter((v) => !values.includes(v)).forEach((v) => {
+      handleOnChange(v);
+    });
+  }, [data]);
 
   return (
     <InputWrapper
@@ -110,6 +118,7 @@ const CheckBoxGroup = ({
             key={index}
             size={size}
             variant={variant}
+            checked={selectedValues.includes(item.value)}
             onChange={() => {
               item.onChange && item.onChange(item.value);
               handleOnChange(item.value);

@@ -13,6 +13,7 @@ import * as styles from './tagify/tagify.css';
 
 // TODO: This condition is yo use the styles variable until we fix the style imports
 if (styles) {
+  //
 }
 
 const noop = (_) => _;
@@ -80,7 +81,7 @@ const TagifyInput = forwardRef(
     ref
   ) => {
     const uuid = useId();
-    const { classes, cx } = TagifyInputStyles({ size, error });
+    const { classes, cx } = TagifyInputStyles({ size, error }, { name: 'TagifyInput' });
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>

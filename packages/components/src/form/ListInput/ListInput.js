@@ -111,6 +111,7 @@ const ListInput = ({
             return (
               <ListRender
                 {...props}
+                readonly={readonly}
                 inputRender={InputRender}
                 editingKey={editingKey}
                 valueKey={valueKey}
@@ -128,7 +129,7 @@ const ListInput = ({
           }}
         />
       </Box>
-      {canAdd ? (
+      {canAdd && !readonly ? (
         <Box>
           <InputRender
             value={valueKey ? activeItem[valueKey] : activeItem}

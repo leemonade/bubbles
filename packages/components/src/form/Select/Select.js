@@ -31,6 +31,8 @@ const Select = forwardRef(
       searchable,
       getCreateLabel,
       onSearchChange,
+      onDropdownOpen,
+      onDropdownClose,
       creatable,
       onCreate,
       nothingFound,
@@ -86,6 +88,8 @@ const Select = forwardRef(
           disabled={disabled}
           searchable={searchable}
           onSearchChange={onSearchChange}
+          onDropdownOpen={onDropdownOpen}
+          onDropdownClose={onDropdownClose}
           getCreateLabel={getCreateLabel}
           nothingFound={nothingFound}
           placeholder={placeholder}
@@ -129,6 +133,9 @@ Select.propTypes = {
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,
   disabled: PropTypes.bool,
+  onDropdownOpen: PropTypes.func,
+  onDropdownClose: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export { Select };
