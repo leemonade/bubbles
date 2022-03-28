@@ -18,9 +18,15 @@ import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './Libra
 
 const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showUpload, setShowUpload] = useState(true);
 
   const onFileHandler = (e) => {
     isFunction(onFile) && onFile(e);
+    setShowUpload(false);
+    setTimeout(() => {
+      setShowUpload(true);
+      setIsExpanded(false);
+    }, 100);
   };
 
   const onNewHandler = (category) => {
@@ -84,16 +90,18 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
                 </Box>
               </Stack>
             )}
-            <Box className={classes.fileUpload}>
-              <FileUpload
-                icon={<CloudUploadIcon height={32} width={32} />}
-                title={labels.fileUploadTitle}
-                subtitle={labels.fileUploadSubtitle}
-                hideUploadButton
-                single
-                onChange={onFileHandler}
-              />
-            </Box>
+            {showUpload && (
+              <Box className={classes.fileUpload}>
+                <FileUpload
+                  icon={<CloudUploadIcon height={32} width={32} />}
+                  title={labels.fileUploadTitle}
+                  subtitle={labels.fileUploadSubtitle}
+                  hideUploadButton
+                  single
+                  onChange={onFileHandler}
+                />
+              </Box>
+            )}
           </Stack>
           <Stack
             direction={'column'}

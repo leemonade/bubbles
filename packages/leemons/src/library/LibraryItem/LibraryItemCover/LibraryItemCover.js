@@ -14,7 +14,7 @@ const LibraryItemCover = ({ size, cover, color, fileIcon }) => {
         ? React.cloneElement(fileIcon, {
             size: !cover ? Math.round(height / 2.2) : Math.round(height / 3),
             color: !color ? COLORS.text03 : COLORS.mainWhite,
-            iconStyle: { backgroundColor: COLORS.interactive03h },
+            iconStyle: { backgroundColor: color || COLORS.interactive03h },
           })
         : null,
     [fileIcon]

@@ -7,7 +7,7 @@ export const MasonryStyles = createStyles((theme, { fullWidth }) => {
       width: fullWidth && '100%',
     },
     item: {
-      transition: 'all .3s ease-out',
+      // transition: 'all .3s ease-out',
     },
   };
 });

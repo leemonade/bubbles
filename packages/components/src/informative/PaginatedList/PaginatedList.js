@@ -16,7 +16,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   columns: [],
   layout: PAGINATED_LIST_LAYOUTS[0],
   variant: PAGINATED_LIST_VARIANTS[0],
-  page: 1,
+  page: 0,
   size: 10,
   paperProps: { padding: 2, fullWidth: true },
   selectable: false,
@@ -47,6 +47,7 @@ const PaginatedList = ({
   size,
   items,
   totalCount,
+  totalPages,
   paperProps,
   selectable,
   variant,
@@ -132,7 +133,7 @@ const PaginatedList = ({
         <Stack fullWidth justifyContent={pagerPlace}>
           <Pager
             page={page}
-            totalCount={totalCount}
+            totalCount={totalPages}
             withSize={true}
             onSizeChange={handleSizeChange}
             onChange={handlePageChange}

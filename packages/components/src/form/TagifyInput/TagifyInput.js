@@ -9,7 +9,11 @@ import {
 } from '../InputWrapper';
 import { TagifyInputStyles } from './TagifyInput.styles';
 import { MixedTags } from './tagify/react.tagify'; // React-wrapper file
-import './tagify/tagify.css';
+import * as styles from './tagify/tagify.css';
+
+// TODO: This condition is yo use the styles variable until we fix the style imports
+if (styles) {
+}
 
 const noop = (_) => _;
 

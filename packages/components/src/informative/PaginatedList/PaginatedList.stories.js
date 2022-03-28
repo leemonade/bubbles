@@ -96,7 +96,7 @@ const columns = [
 ];
 
 // Let's simulate a large dataset on the server (outside of our component)
-const totalCount = 10000;
+const totalCount = 100;
 const serverData = makeData(totalCount);
 
 function getData({ page, size }) {
