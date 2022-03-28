@@ -19,7 +19,7 @@ const ToolbarTool = ({ tools, ...props }) => {
       onClose={() => setIsOpened(false)}
       position="bottom"
       placement="end"
-      noFocusTrap
+      trapFocus={false}
       target={
         <Button
           {...props}
