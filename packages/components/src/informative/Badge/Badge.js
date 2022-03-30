@@ -27,10 +27,14 @@ export const BADGE_PROP_TYPES = {
   image: PropTypes.string,
   onClose: PropTypes.func,
   closable: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 const Badge = forwardRef(
-  ({ label, size, radius, image, color, severity, onClose, closable, ...props }, ref) => {
+  (
+    { label, size, radius, image, color, severity, onClose, closable, className, ...props },
+    ref
+  ) => {
     if (radius === 'default') {
       image = null;
     }
@@ -41,7 +45,7 @@ const Badge = forwardRef(
     );
 
     return (
-      <Box className={classes.container}>
+      <Box className={cx(classes.container, className)}>
         {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} />}
         <MantineBadge
           rightSection={
