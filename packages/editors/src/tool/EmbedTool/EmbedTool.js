@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { Embed } from './extension/';
+import { Embed } from './extension';
 import { useContext } from 'react';
-import { TextEditorContext, Button } from '../../form/';
+import { Button, TextEditorContext } from '../../form/';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { isValidURL } from '../../utils/';
 

@@ -1,29 +1,7 @@
-import { Command, Extension } from '@tiptap/core';
-import { Node } from 'prosemirror-model';
-import { TextSelection, AllSelection, Transaction } from 'prosemirror-state';
+import { Extension } from '@tiptap/core';
+import { AllSelection, TextSelection } from 'prosemirror-state';
 
-type IndentOptions = {
-  types: string[];
-  indentLevels: number[];
-  defaultIndentLevel: number;
-};
-
-declare module '@tiptap/core' {
-  interface Commands {
-    indent: {
-      /**
-       * Set the indent attribute
-       */
-      indent: () => Command;
-      /**
-       * Unset the indent attribute
-       */
-      outdent: () => Command;
-    };
-  }
-}
-
-export function clamp(val: number, min: number, max: number): number {
+export function clamp(val, min, max) {
   if (val < min) {
     return min;
   }
@@ -33,31 +11,31 @@ export function clamp(val: number, min: number, max: number): number {
   return val;
 }
 
-export enum IndentProps {
-  min = 0,
-  max = 80,
+export const IndentProps = {
+  min: 0,
+  max: 80,
 
-  more = 40,
-  less = -40,
-}
+  more: 40,
+  less: -40,
+};
 
-export function isBulletListNode(node: Node): boolean {
+export function isBulletListNode(node) {
   return node.type.name === 'bullet_list';
 }
 
-export function isOrderedListNode(node: Node): boolean {
+export function isOrderedListNode(node) {
   return node.type.name === 'order_list';
 }
 
-export function isTodoListNode(node: Node): boolean {
+export function isTodoListNode(node) {
   return node.type.name === 'todo_list';
 }
 
-export function isListNode(node: Node): boolean {
+export function isListNode(node) {
   return isBulletListNode(node) || isOrderedListNode(node) || isTodoListNode(node);
 }
 
-function setNodeIndentMarkup(tr: Transaction, pos: number, delta: number): Transaction {
+function setNodeIndentMarkup(tr, pos, delta) {
   if (!tr.doc) return tr;
 
   const node = tr.doc.nodeAt(pos);
@@ -78,7 +56,7 @@ function setNodeIndentMarkup(tr: Transaction, pos: number, delta: number): Trans
   return tr.setNodeMarkup(pos, node.type, nodeAttrs, node.marks);
 }
 
-function updateIndentLevel(tr: Transaction, delta: number): Transaction {
+function updateIndentLevel(tr, delta) {
   const { doc, selection } = tr;
 
   if (!doc || !selection) return tr;
@@ -105,7 +83,7 @@ function updateIndentLevel(tr: Transaction, delta: number): Transaction {
   return tr;
 }
 
-export const Indent = Extension.create<IndentOptions>({
+export const Indent = Extension.create({
   name: 'indent',
 
   defaultOptions: {
