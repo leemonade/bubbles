@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ActionButton } from '@bubbles-ui/components';
 import { ButtonStyles } from './Button.styles';

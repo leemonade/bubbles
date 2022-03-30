@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextEditorContext } from './context';
 import PropTypes from 'prop-types';
 import { Editor } from '@tiptap/react';

@@ -1,6 +1,6 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { EditorQuotesIcon } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 import Blockquote from '@tiptap/extension-blockquote';

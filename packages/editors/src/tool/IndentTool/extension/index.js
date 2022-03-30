@@ -1,3 +1,4 @@
+import React from 'react';
 import { Extension } from '@tiptap/core';
 import { AllSelection, TextSelection } from 'prosemirror-state';
 

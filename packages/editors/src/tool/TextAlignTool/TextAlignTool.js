@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
 import {
-  EditorLeftAlignIcon,
-  LadybugIcon,
   EditorJustifiedAlignIcon,
+  EditorLeftAlignIcon,
   EditorRightAlignIcon,
+  LadybugIcon,
 } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
-import { TextEditorContext, Button, ButtonGroup } from '../../form/';
+import React, { useContext } from 'react';
+import { Button, ButtonGroup, TextEditorContext } from '../../form/';
 
 export const TEXTALIGN_TOOL_DEFAULT_PROPS = {
   left: true,

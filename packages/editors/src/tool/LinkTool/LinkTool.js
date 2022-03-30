@@ -1,9 +1,9 @@
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
-import { useState, useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button, LinkModal, CardExtension } from '../../form/';
+import { Button, CardExtension, LinkModal } from '../../form/';
 import Link from '@tiptap/extension-link';
 
 export const LINK_TOOL_DEFAULT_PROPS = {

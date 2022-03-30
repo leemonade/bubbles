@@ -1,23 +1,23 @@
+import React, { cloneElement, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Stack,
-  ContextContainer,
   Button,
-  TextInput,
+  ContextContainer,
   RadioGroup,
+  Stack,
+  TextInput,
 } from '@bubbles-ui/components';
 import {
-  HyperlinkIcon,
+  CloudUploadIcon,
   ExpandDiagonalIcon,
   FolderIcon,
-  CloudUploadIcon,
+  HyperlinkIcon,
 } from '@bubbles-ui/icons/outline';
 // import { ModalComp } from '../ModalComp/ModalComp';
 import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
 import isFunction from 'lodash/isFunction';
-import { useState, cloneElement } from 'react';
 import { isValidURL } from '../../utils/';
 
 export const LINKMODAL_DEFAULT_PROPS = {

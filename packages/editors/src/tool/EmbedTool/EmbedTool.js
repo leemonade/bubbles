@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button';

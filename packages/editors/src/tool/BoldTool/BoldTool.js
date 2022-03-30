@@ -1,7 +1,7 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Bold from '@tiptap/extension-bold';
 import { EditorTextBoldIcon } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 

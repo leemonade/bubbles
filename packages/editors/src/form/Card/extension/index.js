@@ -1,3 +1,4 @@
+import React from 'react';
 import { Node } from '@tiptap/core';
 import { mergeAttributes, ReactNodeViewRenderer } from '@tiptap/react';
 import { Card } from '../Card';

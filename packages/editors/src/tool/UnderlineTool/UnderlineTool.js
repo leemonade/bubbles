@@ -1,7 +1,7 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Underline from '@tiptap/extension-underline';
 import { EditorTextUnderlineIcon } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 

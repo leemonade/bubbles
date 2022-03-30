@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { capitalize } from 'lodash';
-import { EditorIndentIncreaseIcon, EditorIndentDecreaseIcon } from '@bubbles-ui/icons/solid';
+import { EditorIndentDecreaseIcon, EditorIndentIncreaseIcon } from '@bubbles-ui/icons/solid';
 import { Indent } from './extension';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Strike from '@tiptap/extension-strike';
 import { EditorTextStrikeIcon } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 

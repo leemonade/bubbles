@@ -1,8 +1,8 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Image from '@tiptap/extension-image';
 import { StarIcon } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
-import { TextEditorContext, Button } from '../../form/';
+import { Button, TextEditorContext } from '../../form/';
 import { isValidURL } from '../../utils/';
 
 export const IMAGE_TOOL_DEFAULT_PROPS = {

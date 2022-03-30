@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { BubbleMenuStyles } from './BubbleMenu.styles';
-import { Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
+import { IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/';
-import { EditWriteIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
 
 export const BUBBLEMENU_DEFAULT_PROPS = {};

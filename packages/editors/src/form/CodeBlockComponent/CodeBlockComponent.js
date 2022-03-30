@@ -1,8 +1,8 @@
-import { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { listLanguages } from 'lowlight/lib/core';
-import { Box, Paper, Stack, IconButton, Select } from '@bubbles-ui/components';
-import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
-import { EditWriteIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { Box, IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
+import { NodeViewContent, NodeViewWrapper } from '@tiptap/react';
+import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { TextEditorContext } from '../';
 
 export const COMMON_LANGUAGE_LIST = [
