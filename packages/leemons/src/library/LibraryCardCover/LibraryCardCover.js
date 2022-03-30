@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { isNil } from 'lodash';
 import {
   Box,
@@ -27,8 +27,10 @@ const LibraryCardCover = ({
   fileIcon,
   deadlineProps,
   parentHovered,
+  menuItems,
   ...props
 }) => {
+  const [showMenu, setShowMenu] = useState(false);
   const { classes, cx } = LibraryCardCoverStyles(
     { color, height, blur, direction, parentHovered },
     { name: 'LibraryCardCover' }
@@ -42,6 +44,12 @@ const LibraryCardCover = ({
         : null,
     [fileIcon]
   );
+
+  useEffect(() => {
+    if (!parentHovered && showMenu) {
+      setShowMenu(false);
+    }
+  }, [parentHovered, showMenu]);
 
   const renderDeadline = () => {
     if (!deadlineProps) return;
@@ -60,6 +68,13 @@ const LibraryCardCover = ({
     <Box className={classes.iconRow}>
       <Box style={{ flex: 1 }}>
         <Menu
+          opened={showMenu && parentHovered}
+          onOpen={() => setShowMenu(true)}
+          onClose={() => setShowMenu(false)}
+          items={menuItems.map((item) => ({
+            ...item,
+            className: cx(classes.menuItem, item.className),
+          }))}
           control={
             <IconButton
               icon={<SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />}

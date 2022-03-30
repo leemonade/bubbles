@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { Embed } from './extension';
 import { useContext } from 'react';
-import { Button, TextEditorContext } from '../../form/';
 import { StarIcon } from '@bubbles-ui/icons/solid';
-import { isValidURL } from '../../utils/';
+import { TextEditorContext } from '../../form/TextEditorProvider';
+import { Button } from '../../form/Button';
+import { isValidURL } from '../../utils';
+import { Embed } from './extension';
 
 export const EMBED_TOOL_DEFAULT_PROPS = {
   label: 'Embed',

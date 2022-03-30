@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import capitalize from 'lodash/capitalize';
-import { Indent } from './extension/';
 import { useContext } from 'react';
-import { TextEditorContext } from '../../form/TextEditorProvider';
+import PropTypes from 'prop-types';
+import { capitalize } from 'lodash';
 import { EditorIndentIncreaseIcon, EditorIndentDecreaseIcon } from '@bubbles-ui/icons/solid';
+import { Indent } from './extension';
+import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 
 export const INDENT_TOOL_TYPES = ['indent', 'outdent'];

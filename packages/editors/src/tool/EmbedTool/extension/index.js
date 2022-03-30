@@ -2,9 +2,7 @@ import { Node } from '@tiptap/core';
 
 export const Embed = Node.create({
   name: 'iframe',
-
   group: 'block',
-
   atom: true,
 
   addOptions() {
@@ -47,16 +45,16 @@ export const Embed = Node.create({
     return {
       setIframe:
         (options) =>
-        ({ tr, dispatch }) => {
-          const { selection } = tr;
-          const node = this.type.create(options);
+          ({ tr, dispatch }) => {
+            const { selection } = tr;
+            const node = this.type.create(options);
 
-          if (dispatch) {
-            tr.replaceRangeWith(selection.from, selection.to, node);
-          }
+            if (dispatch) {
+              tr.replaceRangeWith(selection.from, selection.to, node);
+            }
 
-          return true;
-        },
+            return true;
+          },
     };
   },
 });

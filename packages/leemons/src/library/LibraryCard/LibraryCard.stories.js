@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
-import { ArchiveIcon } from '@bubbles-ui/icons/solid';
+import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
@@ -92,4 +92,21 @@ Playground.args = {
     isNew: false,
   },
   action: 'View feedback',
+  menuItems: [
+    {
+      icon: <StarIcon />,
+      children: 'Item 1',
+      onClick: () => alert('Item 1 clicked'),
+    },
+    {
+      icon: <DeleteBinIcon />,
+      children: 'Item 2',
+      onClick: () => alert('Item 1 clicked'),
+    },
+    {
+      icon: <FlagIcon />,
+      children: 'Item 3',
+      onClick: () => alert('Item 3 clicked'),
+    },
+  ],
 };

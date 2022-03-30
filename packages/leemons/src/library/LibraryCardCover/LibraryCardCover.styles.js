@@ -84,6 +84,9 @@ export const LibraryCardCoverStyles = createStyles(
           : pxToRem(16),
         borderRadius: '4px 2px 0 0',
       },
+      menuItem: {
+        color: theme.colors.text04,
+      },
     };
   }
 );
