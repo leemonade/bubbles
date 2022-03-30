@@ -15,6 +15,7 @@ const LibraryCard = ({
   action,
   onAction,
   locale,
+  menuItems,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -42,6 +43,7 @@ const LibraryCard = ({
         deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
         direction={variant === 'assigment' ? 'vertical' : null}
         parentHovered={isHovered}
+        menuItems={menuItems}
       />
       <LibraryCardContent
         subtitle={asset.subtitle}

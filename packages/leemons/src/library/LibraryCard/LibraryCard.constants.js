@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../Library.constants';
+import { LIBRARY_CARD_DEADLINE_PROP_TYPES, LIBRARY_CARD_MENU_ITEM } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
 export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment'];
@@ -34,7 +34,9 @@ export const ASSET_PROPS = PropTypes.shape({
   role: PropTypes.oneOf(LIBRARYCARD_ROLES),
 });
 
-export const LIBRARY_CARD_DEFAULT_PROPS = {};
+export const LIBRARY_CARD_DEFAULT_PROPS = {
+  menuItems: [],
+};
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
@@ -43,4 +45,5 @@ export const LIBRARY_CARD_PROP_TYPES = {
   action: PropTypes.string,
   onAction: PropTypes.func,
   locale: PropTypes.string,
+  menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
 };
