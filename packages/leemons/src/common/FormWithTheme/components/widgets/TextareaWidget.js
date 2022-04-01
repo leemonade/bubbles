@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextEditor } from '@bubbles-ui/editors';
+import { TextEditorInput } from '@bubbles-ui/editors';
 
 function TextareaWidget(props) {
   const {
@@ -23,7 +23,7 @@ function TextareaWidget(props) {
   };
 
   return (
-    <TextEditor
+    <TextEditorInput
       id={id}
       label={label}
       value={value?.value ? value.value : ''}

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Box } from '@bubbles-ui/components';
 import { TextEditorInput } from './TextEditorInput';
 import { TEXT_EDITOR_INPUT_DEFAULT_PROPS } from './TextEditorInput.constants';
 import mdx from './TextEditorInput.mdx';
@@ -24,14 +23,15 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  const [value, setValue] = useState(TEXT_EDITOR_INPUT_DEFAULT_PROPS.value);
+  const [value, setValue] = useState('<p><strong>Hola Mundo</strong></p>');
+
   return (
     <TextEditorInput
       {...props}
       value={value}
-      onChange={(e) => {
-        setValue(e);
-        props.onChange(e);
+      onChange={(v) => {
+        props.onChange(v);
+        setValue(v);
       }}
     />
   );
