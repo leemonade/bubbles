@@ -24,7 +24,17 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TextEditorInput {...props} />;
+  const [value, setValue] = React.useState(TEXT_EDITOR_INPUT_DEFAULT_PROPS.value);
+  return (
+    <TextEditorInput
+      {...props}
+      value={value}
+      onChange={(v) => {
+        props.onChange(v);
+        setValue(v);
+      }}
+    />
+  );
 };
 
 export const Playground = Template.bind({});
