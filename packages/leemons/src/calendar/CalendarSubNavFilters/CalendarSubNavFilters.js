@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   Box,
-  SegmentedControl,
-  SubNav,
-  ProSwitch,
-  Text,
   ImageLoader,
+  ProSwitch,
+  SegmentedControl,
   Select,
+  SubNav,
+  Text,
 } from '@bubbles-ui/components';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
 
@@ -39,6 +39,7 @@ const CalendarSubNavFilters = ({
   centers,
   centerValue,
   centerOnChange,
+  style,
 }) => {
   const { classes, cx } = CalendarSubNavFiltersStyles({}, { name: 'SubnavFilters' });
 
@@ -48,89 +49,97 @@ const CalendarSubNavFilters = ({
   }
 
   return (
-    <SubNav
-      item={{ label: messages.title }}
-      className={classes.subNav}
-      subItems={[]}
-      messages={messages}
-      onClose={onClose}
-    >
-      <Box
-        sx={(theme) => ({
-          margin: theme.spacing[5],
-        })}
+    <>
+      <SubNav
+        item={{ label: messages.title }}
+        style={{ position: 'static' }}
+        className={classes.subNav}
+        subItems={[]}
+        width={'100%'}
+        open={true}
+        messages={messages}
+        onClose={onClose}
       >
-        <SegmentedControl
-          data={pages}
-          value={pageValue}
-          onChange={pageOnChange}
-          classNames={{
-            root: classes.segmentRoot,
-            label: classes.segmentLabel,
-            active: classes.segmentActive,
-            labelActive: classes.segmentLabelActive,
-            control: classes.segmentControl,
-          }}
-        />
-
-        {centers && centers.length > 1 ? (
-          <Box
-            sx={(theme) => ({
-              marginTop: theme.spacing[6],
-            })}
-          >
-            <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
-              {messages.centers}
-            </Text>
+        <Box
+          sx={(theme) => ({
+            margin: theme.spacing[5],
+          })}
+        >
+          <SegmentedControl
+            data={pages}
+            value={pageValue}
+            onChange={pageOnChange}
+            classNames={{
+              root: classes.segmentRoot,
+              label: classes.segmentLabel,
+              active: classes.segmentActive,
+              labelActive: classes.segmentLabelActive,
+              control: classes.segmentControl,
+            }}
+          />
+          {centers && centers.length > 1 ? (
             <Box
               sx={(theme) => ({
-                marginTop: theme.spacing[5],
+                marginTop: theme.spacing[6],
               })}
             >
-              <Select data={centers} value={centerValue} onChange={centerOnChange} />
-            </Box>
-          </Box>
-        ) : null}
-
-        {value.map(({ calendars, sectionName }, sectionIndex) => (
-          <Box
-            sx={(theme) => ({
-              marginTop: theme.spacing[6],
-            })}
-            key={`${sectionName}-${sectionIndex}`}
-          >
-            <Box>
               <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
-                {sectionName}
+                {messages.centers}
               </Text>
+              <Box
+                sx={(theme) => ({
+                  marginTop: theme.spacing[5],
+                })}
+              >
+                <Select data={centers} value={centerValue} onChange={centerOnChange} />
+              </Box>
             </Box>
+          ) : null}
+          {value.map(({ calendars, sectionName }, sectionIndex) => (
             <Box
               sx={(theme) => ({
-                marginTop: theme.spacing[5],
+                marginTop: theme.spacing[6],
               })}
+              key={`${sectionName}-${sectionIndex}`}
             >
-              {calendars.map((calendar, calendarIndex) => (
-                <Box
-                  sx={(theme) => ({ marginTop: theme.spacing[4], marginBottom: theme.spacing[4] })}
-                  key={calendarIndex}
-                >
-                  <ProSwitch
-                    classNames={{
-                      label: classes.switchLabel,
-                    }}
-                    label={calendar.name}
-                    color={calendar.bgColor}
-                    checked={calendar.showEvents}
-                    icon={calendar.icon ? <ImageLoader strokeCurrent src={calendar.icon} /> : null}
-                    onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
-                  />
-                </Box>
-              ))}
+              <Box>
+                <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+                  {sectionName}
+                </Text>
+              </Box>
+              <Box
+                sx={(theme) => ({
+                  marginTop: theme.spacing[5],
+                })}
+              >
+                {calendars.map((calendar, calendarIndex) => (
+                  <Box
+                    sx={(theme) => ({
+                      marginTop: theme.spacing[4],
+                      marginBottom: theme.spacing[4],
+                    })}
+                    key={calendarIndex}
+                  >
+                    <ProSwitch
+                      classNames={{
+                        label: classes.switchLabel,
+                      }}
+                      label={calendar.name}
+                      color={calendar.bgColor}
+                      checked={calendar.showEvents}
+                      icon={
+                        calendar.icon ? <ImageLoader strokeCurrent src={calendar.icon} /> : null
+                      }
+                      onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
+                    />
+                  </Box>
+                ))}
+              </Box>
             </Box>
-          </Box>
-        ))}
-      </Box>
-    </SubNav>
+          ))}
+        </Box>
+      </SubNav>
+    </>
   );
 };
 

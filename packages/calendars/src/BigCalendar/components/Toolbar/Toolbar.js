@@ -1,11 +1,11 @@
 import React from 'react';
 import { capitalize } from 'lodash';
-import { Box, Group, Text, ActionButton, Button, IconButton, Switch } from '@bubbles-ui/components';
+import { ActionButton, Box, Button, Group, IconButton, Switch, Text } from '@bubbles-ui/components';
 import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
 import {
+  AddIcon as PlusIcon,
   ChevLeftIcon as ChevronLeftIcon,
   ChevRightIcon as ChevronRightIcon,
-  AddIcon as PlusIcon,
 } from '@bubbles-ui/icons/outline';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
@@ -19,6 +19,10 @@ export const ToolBar = ({
   onView,
   showWeekends,
   setShowWeekends,
+  toolbarRightNode,
+  showToolbarAddButton,
+  showToolbarToggleWeekend,
+  showToolbarViewSwitcher,
   addEventClick,
   ...props
 }) => {
@@ -54,7 +58,7 @@ export const ToolBar = ({
       </Group>
 
       <Group style={{ gap: 12 }}>
-        {view !== RCBViews.DAY && (
+        {view !== RCBViews.DAY && showToolbarToggleWeekend ? (
           <Switch
             label={messages.showWeekends}
             labelPosition="start"
@@ -63,17 +67,23 @@ export const ToolBar = ({
               typeof setShowWeekends === 'function' ? setShowWeekends(event) : null
             }
           />
-        )}
-        <ViewNamesGroup
-          views={views}
-          messages={messages}
-          current={view}
-          classes={classes}
-          onChange={(val) => onView(val)}
-        />
-        <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
-          <PlusIcon />
-        </IconButton>
+        ) : null}
+        {showToolbarViewSwitcher ? (
+          <ViewNamesGroup
+            views={views}
+            messages={messages}
+            current={view}
+            classes={classes}
+            onChange={(val) => onView(val)}
+          />
+        ) : null}
+
+        {showToolbarAddButton ? (
+          <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+            <PlusIcon />
+          </IconButton>
+        ) : null}
+        {toolbarRightNode}
       </Group>
     </Group>
   );
