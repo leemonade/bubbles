@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-export const PROGRESS_STATES = ['notStarted', 'inProgress', 'completed', 'OK'];
+export const PROGRESS_STATES = ['pending', 'current', 'completed', 'OK', 'KO'];
 export const PROGRESS_POSITIONS = ['start', 'between', 'end'];
 
 export const PROGRESS_DEFAULT_PROPS = {
-  state: 'notStarted',
+  state: 'pending',
   position: 'between',
   isButton: false,
 };

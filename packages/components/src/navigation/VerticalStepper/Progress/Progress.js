@@ -2,25 +2,36 @@ import React from 'react';
 import { Box } from '../../../layout';
 import { ProgressStyles } from './Progress.styles';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
-import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
-const Progress = ({ state, position, isButton, ...props }) => {
+const Progress = ({ state, position, isButton, isChild, ...props }) => {
   const { classes, cx } = ProgressStyles({ position, isButton }, { name: 'Progress' });
 
   const renderState = () => {
+    if (isChild)
+      return (
+        <Box className={classes.progressContainer}>
+          <Box className={classes.progressBar} />
+        </Box>
+      );
     switch (state) {
-      case 'notStarted':
-        return <Box className={classes.notStarted}></Box>;
-      case 'inProgress':
+      case 'pending':
+        return <Box className={classes.pending}></Box>;
+      case 'current':
         return (
-          <Box className={classes.inProgress}>
-            <TimeClockCircleIcon height={20} width={20} className={classes.inProgressIcon} />
+          // <Box className={classes.current}>
+          //   <TimeClockCircleIcon height={20} width={20} className={classes.currentIcon} />
+          // </Box>
+          <Box className={classes.progressContainer}>
+            <Box className={classes.solidBar} />
+            <TimeClockCircleIcon height={20} width={20} className={classes.currentIcon} />
           </Box>
         );
       case 'completed':
         return (
-          <Box className={classes.completed}>
+          <Box className={classes.progressContainer}>
+            <Box className={classes.solidBar} />
             <CheckIcon height={12} width={12} className={classes.completedIcon} />
           </Box>
         );
@@ -28,6 +39,12 @@ const Progress = ({ state, position, isButton, ...props }) => {
         return (
           <Box className={classes.OK}>
             <CheckIcon height={12} width={12} className={classes.OKIcon} />
+          </Box>
+        );
+      case 'KO':
+        return (
+          <Box className={classes.KO}>
+            <RemoveBoldIcon height={12} width={12} className={classes.KOIcon} />
           </Box>
         );
     }

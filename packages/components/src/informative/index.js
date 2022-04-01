@@ -6,3 +6,4 @@ export * from './Table';
 export * from './Badge';
 export * from './FileItemDisplay';
 export * from './UserDisplayItem';
+export * from './Calification';

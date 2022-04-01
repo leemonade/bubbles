@@ -22,20 +22,34 @@ export default {
 const Template = ({ ...props }) => {
   return (
     <Box>
-      <Box>
+      {/* <Box>
         <Step {...props} position={'start'} />
         <Step {...props} />
         <Step {...props} position={'end'} />
-      </Box>
+      </Box> */}
       <Box>
-        <Step {...props} state={'completed'} position={'start'} />
+        <Step {...props} state={'current'} position={'start'} />
+        <Step {...props} state={'current'} />
+        <Step {...props} state={'current'} position={'end'} />
+      </Box>
+      {/* <Box>
+        <Step
+          {...props}
+          state={'completed'}
+          position={'start'}
+          subSteps={[
+            { label: 'Child 1', badge: 'Badge of child 1' },
+            { label: 'Child 2' },
+            { label: 'Child 3' },
+          ]}
+        />
         <Step {...props} state={'completed'} />
         <Step {...props} state={'completed'} position={'end'} />
       </Box>
       <Box>
-        <Step {...props} state={'inProgress'} position={'start'} />
-        <Step {...props} state={'inProgress'} />
-        <Step {...props} state={'inProgress'} position={'end'} />
+        <Step {...props} state={'pending'} position={'start'} />
+        <Step {...props} state={'pending'} />
+        <Step {...props} state={'pending'} position={'end'} />
       </Box>
       <Box>
         <Step {...props} state={'OK'} position={'start'} />
@@ -43,11 +57,16 @@ const Template = ({ ...props }) => {
         <Step {...props} state={'OK'} position={'end'} />
       </Box>
       <Box>
+        <Step {...props} state={'KO'} position={'start'} />
+        <Step {...props} state={'KO'} />
+        <Step {...props} state={'KO'} position={'end'} />
+      </Box>
+      <Box>
         <Step {...props} state={'OK'} position={'start'} />
         <Step {...props} state={'completed'} />
-        <Step {...props} state={'inProgress'} />
+        <Step {...props} state={'current'} />
         <Step {...props} position={'end'} />
-      </Box>
+      </Box> */}
     </Box>
   );
 };
@@ -56,6 +75,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...STEP_DEFAULT_PROPS,
-  label: 'Completed',
-  badge: 'badge',
+  label: 'Step label',
+  badge: 'Step badge',
 };

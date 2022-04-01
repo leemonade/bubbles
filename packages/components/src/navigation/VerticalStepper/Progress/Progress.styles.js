@@ -3,9 +3,30 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 export const ProgressStyles = createStyles((theme, { position, isButton }) => {
   const isFirst = position === 'start';
   const isLast = position === 'end';
+  const isBetween = position === 'between';
+
   return {
-    root: { ...getFontExpressive(theme.fontSizes['2']) },
-    notStarted: {
+    root: { minHeight: 20, minWidth: 20 },
+    progressContainer: {
+      height: 20,
+      width: 20,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+    },
+    pendingBar: {},
+    solidBar: {
+      position: 'absolute',
+      height: isBetween ? 43.5 : 31.75,
+      borderLeft: `1px solid ${theme.colors.ui01}`,
+      backgroundColor: theme.colors.ui01,
+      zIndex: -1,
+      top: isFirst && 0,
+      bottom: isLast && 0,
+    },
+    completedBar: {},
+    pending: {
       height: 12,
       width: 12,
       margin: 4,
@@ -32,7 +53,7 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
         zIndex: -1,
       },
     },
-    inProgress: {
+    current: {
       height: 20,
       width: 20,
       position: 'relative',
@@ -47,7 +68,7 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
       },
       '&:after': {
         content: !isLast && '""',
-        borderLeft: `1px dashed ${theme.colors.ui01}`,
+        borderLeft: `1px solid ${theme.colors.ui01}`,
         position: 'absolute',
         height: isButton ? 17 : 12,
         bottom: isButton ? -17 : -11,
@@ -66,8 +87,8 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
         content: !isFirst && '""',
         borderLeft: `1px solid ${theme.colors.ui01}`,
         position: 'absolute',
-        height: isButton ? 18 : 12,
-        top: isButton ? -18 : -12,
+        height: isButton ? 19 : 13,
+        top: isButton ? -19 : -13,
         left: 9.5,
         zIndex: -1,
       },
@@ -75,8 +96,8 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
         content: !isLast && '""',
         borderLeft: `1px solid ${theme.colors.ui01}`,
         position: 'absolute',
-        height: isButton ? 18 : 12,
-        bottom: isButton ? -18 : -12,
+        height: isButton ? 19 : 13,
+        bottom: isButton ? -19 : -13,
         left: 9.5,
         zIndex: -1,
       },
@@ -109,8 +130,47 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
         zIndex: -1,
       },
     },
-    inProgressIcon: { color: theme.colors.interactive01 },
-    completedIcon: { color: theme.colors.text06 },
+    KO: {
+      height: 20,
+      width: 20,
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.fatic01,
+      borderRadius: '50%',
+      '&:before': {
+        content: !isFirst && '""',
+        borderLeft: `1px solid ${theme.colors.ui01}`,
+        position: 'absolute',
+        height: isButton ? 18 : 12,
+        top: isButton ? -18 : -12,
+        left: 9.5,
+        zIndex: -1,
+      },
+      '&:after': {
+        content: !isLast && '""',
+        borderLeft: `1px solid ${theme.colors.ui01}`,
+        position: 'absolute',
+        height: isButton ? 18 : 12,
+        bottom: isButton ? -18 : -12,
+        left: 9.5,
+        zIndex: -1,
+      },
+    },
+
+    progressBar: {
+      height: 34,
+      width: 1,
+      backgroundColor: theme.colors.ui01,
+    },
+    currentIcon: { color: theme.colors.interactive01, backgroundColor: theme.colors.mainWhite },
+    completedIcon: {
+      color: theme.colors.text06,
+      padding: 4,
+      backgroundColor: theme.colors.interactive03,
+    },
     OKIcon: { color: theme.colors.mainWhite },
+    KOIcon: { color: theme.colors.mainWhite },
   };
 });

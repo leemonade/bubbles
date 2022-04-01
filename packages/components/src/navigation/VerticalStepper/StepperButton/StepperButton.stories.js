@@ -30,14 +30,19 @@ const Template = ({ ...props }) => {
         <StepperButton {...props} state={'completed'} position={'end'} />
       </Box>
       <Box>
-        <StepperButton {...props} state={'inProgress'} position={'start'} />
-        <StepperButton {...props} state={'inProgress'} />
-        <StepperButton {...props} state={'inProgress'} position={'end'} />
+        <StepperButton {...props} state={'current'} position={'start'} />
+        <StepperButton {...props} state={'current'} />
+        <StepperButton {...props} state={'current'} position={'end'} />
       </Box>
       <Box>
         <StepperButton {...props} state={'OK'} position={'start'} />
         <StepperButton {...props} state={'OK'} />
         <StepperButton {...props} state={'OK'} position={'end'} />
+      </Box>
+      <Box>
+        <StepperButton {...props} state={'KO'} position={'start'} />
+        <StepperButton {...props} state={'KO'} />
+        <StepperButton {...props} state={'KO'} position={'end'} />
       </Box>
       <Box>
         <StepperButton {...props} position={'start'} />
