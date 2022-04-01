@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
+import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import History from '@tiptap/extension-history';
@@ -12,6 +13,7 @@ import { BubbleMenu } from '../BubbleMenu';
 import { Toolbar } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
+import { useClickOutside } from '@mantine/hooks';
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
@@ -21,6 +23,9 @@ export const TEXT_EDITOR_PROP_TYPES = {
 };
 
 const TextEditor = ({ content, library, children, onChange, editorClassname }) => {
+  const store = React.useRef({
+    isFocus: false,
+  });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
@@ -28,9 +33,16 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     content: '',
   });
 
+  const ref = useClickOutside(() => {
+    if (store.current.isFocus) {
+      store.current.isFocus = false;
+      onUpdate();
+    }
+  });
+
   const onUpdate = () => {
     const html = editor.getHTML();
-    if (isFunction(onChange)) onChange(html);
+    if (isFunction(onChange) && html !== content) onChange(html);
   };
 
   useEffect(() => {
@@ -38,19 +50,29 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     editor.commands.setContent(content);
   }, [editor, content]);
 
+  /*
   useEffect(() => {
     if (editor) {
+      console.log(editor);
       editor.on('blur', onUpdate);
       return () => editor.off('blur', onUpdate);
     }
   }, [editor]);
+   */
 
   return (
-    <TextEditorProvider editor={editor} library={library}>
-      <Toolbar>{children}</Toolbar>
-      <BubbleMenu />
-      <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
-    </TextEditorProvider>
+    <Box
+      ref={ref}
+      onFocus={() => {
+        store.current.isFocus = true;
+      }}
+    >
+      <TextEditorProvider editor={editor} library={library}>
+        <Toolbar>{children}</Toolbar>
+        <BubbleMenu />
+        <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+      </TextEditorProvider>
+    </Box>
   );
 };
 
