@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { isFunction, isNil } from 'lodash';
 import { colord } from 'colord';
 import { ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
 import { NumberInput } from '../NumberInput';
@@ -24,6 +25,7 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   format: COLOR_PICKER_FORMATS[0],
   saturation: 50,
   lightness: 50,
+  manual: true,
 };
 
 export const ColorPicker = forwardRef(
@@ -41,6 +43,7 @@ export const ColorPicker = forwardRef(
       useHsl,
       saturation: saturationProp,
       lightness: lightnessProp,
+      manual,
       ...props
     },
     ref
@@ -67,6 +70,7 @@ export const ColorPicker = forwardRef(
     const [hue, setHue] = useState(null);
     const [lightness, setLightness] = useState(lightnessProp);
     const [saturation, setSaturation] = useState(saturationProp);
+    const [debouncedHue] = useDebouncedValue(hue, 100);
 
     const swatches = useMemo(() => {
       return (
@@ -110,17 +114,18 @@ export const ColorPicker = forwardRef(
     useEffect(() => {
       // debugger;
       if (
-        !isNil(hue) &&
+        !isNil(debouncedHue) &&
         !isNil(lightness) &&
         !isNil(saturation) &&
-        hue > -1 &&
+        debouncedHue > -1 &&
         lightness > -1 &&
         saturation > -1
       ) {
+        const newColor = `hsl(${debouncedHue}, ${saturation}%, ${lightness}%)`;
         setFormat('hsl');
-        setColor(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+        setColor(newColor);
       }
-    }, [lightness, hue, saturation]);
+    }, [lightness, debouncedHue, saturation]);
 
     useEffect(() => {
       if (useHsl && !hue) {
@@ -130,10 +135,12 @@ export const ColorPicker = forwardRef(
     }, [useHsl, lightness]);
 
     useEffect(() => {
-      const newFormat = determineFormat();
-      if (newFormat !== format) setFormat(newFormat);
+      // const newFormat = determineFormat();
+      // if (newFormat !== format) setFormat(newFormat);
+      const valueHex = colord(value).toHex();
+      const colorHex = colord(colorProp).toHex();
 
-      if (value !== colorProp && isFunction(props.onChange)) {
+      if (valueHex !== colorHex && isFunction(props.onChange)) {
         if (props.output && props.output === 'hex') {
           props.onChange(colord(value).toHex());
         } else {
@@ -209,7 +216,7 @@ export const ColorPicker = forwardRef(
               <Box style={{ flex: 1 }}>
                 <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
               </Box>
-              {!compact && (
+              {manual && (
                 <Box style={{ width: 75 }}>
                   <NumberInput autoComplete="false" value={hue} onChange={setHue} size="xs" />
                 </Box>
@@ -228,7 +235,7 @@ export const ColorPicker = forwardRef(
               onChange={setColor}
               autoComplete="false"
             />
-            {!compact && (
+            {manual && (
               <Box className={classes.manual}>
                 <Stack spacing={2}>
                   <Box style={{ width: 100, flex: 'auto' }}>
@@ -266,4 +273,5 @@ ColorPicker.propTypes = {
   format: PropTypes.oneOf(COLOR_PICKER_FORMATS),
   saturation: PropTypes.number,
   lightness: PropTypes.number,
+  manual: PropTypes.bool,
 };

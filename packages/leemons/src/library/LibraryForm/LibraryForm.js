@@ -128,7 +128,14 @@ const LibraryForm = ({
               control={control}
               name="color"
               render={({ field }) => (
-                <ColorInput label={labels.color} placeholder={placeholders.color} {...field} />
+                <ColorInput
+                  label={labels.color}
+                  placeholder={placeholders.color}
+                  useHsl
+                  compact={false}
+                  manual={false}
+                  {...field}
+                />
               )}
             />
           </ContextContainer>

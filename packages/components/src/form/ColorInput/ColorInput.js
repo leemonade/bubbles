@@ -1,7 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
-import { ColorInput as MantineColorInput } from '@mantine/core';
 import { colord } from 'colord';
 import { useId } from '@mantine/hooks';
 import { ColorSwatch } from '../ColorPicker/ColorSwatch/ColorSwatch';
@@ -41,9 +40,11 @@ export const COLOR_INPUT_PROP_TYPES = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  onlyHue: PropTypes.bool,
+  useHsl: PropTypes.bool,
   saturation: PropTypes.number,
   lightness: PropTypes.number,
+  compact: PropTypes.bool,
+  manual: PropTypes.bool,
 };
 
 export const COLOR_INPUT_DEFAULT_PROPS = {
@@ -54,9 +55,11 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   error: '',
   required: false,
   size: 'sm',
-  onlyHue: false,
+  useHsl: false,
   saturation: 50,
   lightness: 50,
+  compact: true,
+  manual: false,
 };
 
 const ColorInput = forwardRef(
@@ -78,9 +81,10 @@ const ColorInput = forwardRef(
       value,
       icon,
       placeholder,
-      onlyHue,
+      useHsl,
       saturation,
       lightness,
+      compact,
       onFocus = () => {},
       onBlur = () => {},
       onChange = () => {},
@@ -90,7 +94,6 @@ const ColorInput = forwardRef(
   ) => {
     const uuid = useId();
     const [opened, setOpened] = useState(false);
-    const [lastValidValue, setLastValidValue] = useState('#FFFFFF');
     const [inputValue, setInputValue] = useState('');
     const { classes, cx, theme } = ColorInputStyles({ size }, { name: 'ColorInput' });
 
@@ -101,14 +104,10 @@ const ColorInput = forwardRef(
     }, [value]);
 
     useEffect(() => {
-      if (inputValue !== lastValidValue && colord(inputValue).isValid()) {
-        setLastValidValue(inputValue);
+      if (colord(inputValue).isValid()) {
+        isFunction(onChange) && onChange(inputValue);
       }
     }, [inputValue]);
-
-    useEffect(() => {
-      isFunction(onChange) && onChange(lastValidValue);
-    }, [lastValidValue]);
 
     const handleInputChange = (event) => {
       setInputValue(event.target.value);
@@ -116,7 +115,6 @@ const ColorInput = forwardRef(
 
     const handleInputFocus = (event) => {
       isFunction(onFocus) && onFocus(event);
-      setTimeout(() => setInputValue(lastValidValue), 0);
       setOpened(true);
     };
 
@@ -158,7 +156,7 @@ const ColorInput = forwardRef(
                 icon={
                   icon || (
                     <ColorSwatch
-                      color={lastValidValue}
+                      color={inputValue}
                       size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
                     />
                   )
@@ -177,28 +175,18 @@ const ColorInput = forwardRef(
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
               <ColorPicker
                 {...props}
-                useHsl={onlyHue}
+                useHsl={useHsl}
                 saturation={saturation}
                 lightness={lightness}
-                compact
+                compact={compact}
                 output="hex"
                 onChange={setInputValue}
-                color={lastValidValue}
+                color={inputValue}
                 fullWidth
               />
             </Box>
           </Popover>
         )}
-        {/*
-        <MantineColorInput
-          {...props}
-          ref={ref}
-          size={size}
-          classNames={classes}
-          autoComplete="off"
-          error={!isEmpty(error)}
-        />
-    */}
       </InputWrapper>
     );
   }
