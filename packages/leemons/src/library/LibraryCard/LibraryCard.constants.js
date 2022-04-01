@@ -21,9 +21,7 @@ export const ASSET_PROPS = PropTypes.shape({
   name: PropTypes.string,
   description: PropTypes.string,
   subtitle: PropTypes.string,
-  metadata: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-  ),
+  metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   created: PropTypes.string,
   version: PropTypes.string,
   cover: PropTypes.string,

@@ -10,9 +10,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   subtitle: PropTypes.string,
   description: PropTypes.string,
-  metadata: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-  ),
+  metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   tags: PropTypes.arrayOf(PropTypes.string),
   locale: PropTypes.string,
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),

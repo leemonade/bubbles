@@ -3,6 +3,8 @@ import { createStyles, getFontProductive, pxToRem, getHtmlStyles } from '@bubble
 export const TextEditorStyles = createStyles((theme, {}) => {
   const { root } = getHtmlStyles(theme);
 
+  console.log(root);
+
   return {
     toolbar: {
       display: 'flex',

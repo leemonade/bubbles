@@ -7,8 +7,6 @@ export const LIBRARY_DETAIL_CONTENT_PROP_TYPES = {
   fileExtension: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  metadata: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-  ),
+  metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   tags: PropTypes.arrayOf(PropTypes.string),
 };

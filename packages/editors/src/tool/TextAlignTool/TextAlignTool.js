@@ -5,7 +5,7 @@ import {
   EditorJustifiedAlignIcon,
   EditorLeftAlignIcon,
   EditorRightAlignIcon,
-  LadybugIcon,
+  EditorCenterAlignIcon,
 } from '@bubbles-ui/icons/solid';
 import React, { useContext } from 'react';
 import { Button, ButtonGroup, TextEditorContext } from '../../form/';
@@ -58,7 +58,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {center && (
         <Button
           label={labels.center}
-          icon={<LadybugIcon height={16} width={16} />}
+          icon={<EditorCenterAlignIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'center' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('center')}

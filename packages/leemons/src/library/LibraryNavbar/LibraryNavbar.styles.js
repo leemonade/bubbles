@@ -56,6 +56,7 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
     },
     navbarTopList: {
       backgroundColor: theme.colors.ui03,
+      paddingBottom: theme.spacing[2],
       '& > span': {
         padding: 16,
       },

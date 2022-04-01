@@ -13,7 +13,7 @@ export const InputStyles = createStyles((theme, { size, variant }) => {
     },
     rightSection: { ...getRightSection(theme) },
     icon: {
-      bottom: theme.spacing['1'],
+      // bottom: theme.spacing['1'],
     },
   };
 });

@@ -9,7 +9,7 @@ export { LIBRARYCARD_COVER_DIRECTIONS };
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
   blur: 10,
-  height: 190,
+  height: 180,
   direction: 'horizontal',
   menuItems: [],
 };

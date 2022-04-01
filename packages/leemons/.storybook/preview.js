@@ -1,6 +1,7 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { Container } from './Container';
+import '!style-loader!css-loader!./global.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

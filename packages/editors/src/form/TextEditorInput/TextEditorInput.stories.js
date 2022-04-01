@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@bubbles-ui/components';
 import { TextEditorInput } from './TextEditorInput';
 import { TEXT_EDITOR_INPUT_DEFAULT_PROPS } from './TextEditorInput.constants';
@@ -24,7 +24,17 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TextEditorInput {...props} />;
+  const [value, setValue] = useState(TEXT_EDITOR_INPUT_DEFAULT_PROPS.value);
+  return (
+    <TextEditorInput
+      {...props}
+      value={value}
+      onChange={(e) => {
+        setValue(e);
+        props.onChange(e);
+      }}
+    />
+  );
 };
 
 export const Playground = Template.bind({});

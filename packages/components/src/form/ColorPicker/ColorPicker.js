@@ -1,36 +1,20 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
-import { ColorPickerStyles } from './ColorPicker.styles';
+import { isFunction, isNil } from 'lodash';
+import { colord } from 'colord';
 import { ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
 import { NumberInput } from '../NumberInput';
 import { Box, Stack } from '../../layout';
 import { ColorSwatch } from './ColorSwatch/ColorSwatch';
-import { colord } from 'colord';
+import { ColorPickerStyles } from './ColorPicker.styles';
 
 export const COLOR_PICKER_FORMATS = ['hex', 'rgba', 'rgb', 'hsla', 'hsl'];
-export const COLOR_PICKER_SWATCHES = [
-  '#DB6B6B',
-  '#D9A2C0',
-  '#EB9584',
-  '#E3AB6F',
-  '#C7B3A9',
-  '#E8C642',
-  '#F3E45C',
-  '#3F70CC',
-  '#4F96FF',
-  '#5E54CC',
-  '#9175E5',
-  '#71C995',
-  '#96CE82',
-  '#84CC16',
-];
 
 export const COLOR_PICKER_DEFAULT_PROPS = {
   color: '#000',
-  withSwatches: true,
+  withSwatches: false,
   fullWidth: false,
   compact: false,
   useHsl: false,
@@ -38,6 +22,8 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   swatchesPerRow: 7,
   spacing: 5,
   format: COLOR_PICKER_FORMATS[0],
+  saturation: 50,
+  lightness: 50,
 };
 
 export const ColorPicker = forwardRef(
@@ -46,13 +32,15 @@ export const ColorPicker = forwardRef(
       color: colorProp,
       format: formatProp,
       withSwatches,
-      swatches,
+      swatches: swatchesProp,
       compact,
       fullWidth,
       swatchesForGama,
       swatchesPerRow,
       spacing,
       useHsl,
+      saturation: saturationProp,
+      lightness: lightnessProp,
       ...props
     },
     ref
@@ -61,7 +49,6 @@ export const ColorPicker = forwardRef(
       swatchesForGama = 14;
     }
     swatchesPerRow = useHsl ? swatchesForGama : swatchesPerRow;
-    swatches = swatches || COLOR_PICKER_SWATCHES;
 
     const { classes, cx } = ColorPickerStyles(
       {
@@ -70,6 +57,7 @@ export const ColorPicker = forwardRef(
         spacing,
         fullWidth,
         useHsl,
+        withSwatches,
       },
       { name: 'ColorPicker' }
     );
@@ -77,7 +65,18 @@ export const ColorPicker = forwardRef(
     const [value, setColor] = useState(colorProp);
     const [format, setFormat] = useState(formatProp);
     const [hue, setHue] = useState(null);
-    const [lightness, setLightness] = useState(null);
+    const [lightness, setLightness] = useState(lightnessProp);
+    const [saturation, setSaturation] = useState(saturationProp);
+
+    const swatches = useMemo(() => {
+      return (
+        swatchesProp ||
+        [...Array(14)].map((_, i) => {
+          const h = Math.floor((180 / swatchesForGama) * i);
+          return `hsl(${h}, ${saturation}%, ${lightness}%)`;
+        })
+      );
+    }, [swatchesProp]);
 
     const determineFormat = () => {
       if (value[0] === '#') {
@@ -85,7 +84,7 @@ export const ColorPicker = forwardRef(
       }
       for (let i = 1; i < COLOR_PICKER_FORMATS.length; i++) {
         if (value.includes(COLOR_PICKER_FORMATS[i])) {
-          debugger;
+          // debugger;
           const asd = value.includes(COLOR_PICKER_FORMATS[i]);
           return COLOR_PICKER_FORMATS[i];
         }
@@ -105,76 +104,93 @@ export const ColorPicker = forwardRef(
       }
     }, [formatProp]);
 
-    useEffect(() => {
-      if (hue > 0) {
-        setFormat('hsl');
-        setColor(`hsl(${hue}, 100%, 50%)`);
-      }
-    }, [hue]);
+    useEffect(() => setSaturation(saturationProp), [saturationProp]);
+    useEffect(() => setLightness(lightnessProp), [lightnessProp]);
 
     useEffect(() => {
-      if (hue > 0 && lightness > -1) {
+      // debugger;
+      if (
+        !isNil(hue) &&
+        !isNil(lightness) &&
+        !isNil(saturation) &&
+        hue > -1 &&
+        lightness > -1 &&
+        saturation > -1
+      ) {
         setFormat('hsl');
-        setColor(`hsl(${hue}, 100%, ${lightness}%)`);
+        setColor(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
       }
-    }, [lightness, hue]);
+    }, [lightness, hue, saturation]);
 
     useEffect(() => {
       if (useHsl && !hue) {
         setHue(colord(value).toHsl().h);
-        setLightness(50);
+        setLightness(lightness || 50);
       }
-    }, [useHsl]);
+    }, [useHsl, lightness]);
 
     useEffect(() => {
-      if (value !== colorProp && isFunction(props.onChange)) {
-        props.onChange(value);
-      }
       const newFormat = determineFormat();
       if (newFormat !== format) setFormat(newFormat);
+
+      if (value !== colorProp && isFunction(props.onChange)) {
+        if (props.output && props.output === 'hex') {
+          props.onChange(colord(value).toHex());
+        } else {
+          props.onChange(value);
+        }
+      }
     }, [value]);
 
     return (
       <Box className={classes.root}>
         {useHsl ? (
-          <Box className={classes.hsl}>
-            <Box className={`${classes.swatches} lightness`} style={{ margin: 0 }}>
-              {[...Array(!compact ? 4 : 1)].map((_, i) => {
-                const lightness = 50 + 10 * i;
-                const color = `hsl(${hue}, 100%, ${lightness}%)`;
-                return (
-                  <ColorSwatch
-                    className={`${classes.swatch} ${classes.lightness}`}
-                    key={i}
-                    color={color}
-                    onClick={() => !compact && setLightness(lightness)}
-                    autoComplete="false"
-                  />
-                );
-              })}
-            </Box>
-            {!compact && (
-              <Box className={classes.swatches} style={{ margin: 0 }}>
-                {[...Array(4)].map((_, i) => {
-                  const lightness = 40 - 10 * i;
-                  const color = `hsl(${hue}, 100%, ${lightness}%)`;
+          <Box className={classes.wrapper}>
+            <Box className={classes.swatchesWrapper}>
+              <Box className={cx(classes.swatches, 'lightness')} style={{ margin: 0 }}>
+                {[...Array(!compact ? 4 : 1)].map((_, i) => {
+                  const light = 50 + 10 * i;
+                  const color = `hsl(${hue}, ${saturation}%, ${light}%)`;
                   return (
                     <ColorSwatch
-                      className={`${classes.swatch} ${classes.lightness}`}
+                      className={cx(classes.swatches, {
+                        [classes.lightness]: !compact,
+                        [classes.monocolor]: compact,
+                      })}
                       key={i}
                       color={color}
-                      onClick={() => setLightness(lightness)}
+                      onClick={() => !compact && setLightness(light)}
                       autoComplete="false"
+                      plain
                     />
                   );
                 })}
               </Box>
-            )}
-            <Box className={classes.sliders}>
-              <Box className={classes.swatches}>
+
+              {!compact && (
+                <Box className={classes.swatches} style={{ margin: 0 }}>
+                  {[...Array(4)].map((_, i) => {
+                    const light = 40 - 10 * i;
+                    const color = `hsl(${hue}, ${saturation}%, ${light}%)`;
+                    return (
+                      <ColorSwatch
+                        className={cx(classes.swatch, classes.lightness)}
+                        key={i}
+                        color={color}
+                        onClick={() => setLightness(light)}
+                        autoComplete="false"
+                        plain
+                      />
+                    );
+                  })}
+                </Box>
+              )}
+            </Box>
+            {withSwatches && (
+              <Box className={cx(classes.swatches, { [classes.body]: useHsl })}>
                 {[...Array(swatchesForGama)].map((_, i) => {
-                  const h = (360 / swatchesForGama) * i;
-                  const color = `hsl(${h}, 100%, 50%)`;
+                  const h = Math.floor((360 / swatchesForGama) * i);
+                  const color = `hsl(${h}, ${saturation}%, ${lightness}%)`;
                   return (
                     <ColorSwatch
                       className={classes.swatch}
@@ -187,19 +203,21 @@ export const ColorPicker = forwardRef(
                   );
                 })}
               </Box>
-              <Space h="sm"></Space>
-              <Stack className={classes.hue} spacing={3} alignItems="center">
-                <Box style={{ flex: 1 }}>
-                  <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
-                </Box>
+            )}
+
+            <Stack className={classes.hue} spacing={3} alignItems="center">
+              <Box style={{ flex: 1 }}>
+                <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
+              </Box>
+              {!compact && (
                 <Box style={{ width: 75 }}>
                   <NumberInput autoComplete="false" value={hue} onChange={setHue} size="xs" />
                 </Box>
-              </Stack>
-            </Box>
+              )}
+            </Stack>
           </Box>
         ) : (
-          <>
+          <Box className={classes.wrapper}>
             <MantineColorPicker
               {...props}
               format={format}
@@ -207,26 +225,28 @@ export const ColorPicker = forwardRef(
               value={value}
               fullWidth="true"
               swatches={withSwatches && swatches}
-              onChange={(e) => setColor(e)}
+              onChange={setColor}
               autoComplete="false"
             />
-            <Box className={classes.manual}>
-              <Stack spacing={2}>
-                <Box style={{ width: 100, flex: 'auto' }}>
-                  <Select
-                    data={COLOR_PICKER_FORMATS}
-                    value={format}
-                    onChange={setFormat}
-                    className={classes.format}
-                    autoComplete="false"
-                  />
-                </Box>
-                <Box>
-                  <TextInput autoComplete="false" value={value} onChange={setColor} />
-                </Box>
-              </Stack>
-            </Box>
-          </>
+            {!compact && (
+              <Box className={classes.manual}>
+                <Stack spacing={2}>
+                  <Box style={{ width: 100, flex: 'auto' }}>
+                    <Select
+                      data={COLOR_PICKER_FORMATS}
+                      value={format}
+                      onChange={setFormat}
+                      className={classes.format}
+                      autoComplete="false"
+                    />
+                  </Box>
+                  <Box>
+                    <TextInput autoComplete="false" value={value} onChange={setColor} />
+                  </Box>
+                </Stack>
+              </Box>
+            )}
+          </Box>
         )}
       </Box>
     );
@@ -244,4 +264,6 @@ ColorPicker.propTypes = {
   spacing: PropTypes.number,
   fullWidth: PropTypes.bool,
   format: PropTypes.oneOf(COLOR_PICKER_FORMATS),
+  saturation: PropTypes.number,
+  lightness: PropTypes.number,
 };
