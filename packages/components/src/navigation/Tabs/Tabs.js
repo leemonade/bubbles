@@ -15,16 +15,22 @@ export const TABS_PANEL_COLORS = ['default', 'solid'];
 // Used for accessibility
 let uuid = 0;
 
-function parseTabList(children) {
-  // Tab[]
-  return React.Children.map(children, (child, index) => {
-    const key = !isNil(child.key) ? child.key : index.toString();
-    return {
-      ...child.props,
-      key,
-      node: child,
-    };
+function parseTabList(children, acc = []) {
+  React.Children.forEach(children, (child, index) => {
+    if (child.type.name === 'TabPanel') {
+      const key = !isNil(child.key) ? child.key : index.toString();
+      acc.push({
+        ...child.props,
+        key,
+        node: child,
+      });
+    } else {
+      if (child?.props?.children && child.type.name !== 'Tabs') {
+        parseTabList(child.props.children, acc);
+      }
+    }
   });
+  return acc;
 }
 
 const Wrapper = ({ usePageLayout, className, children }) => {

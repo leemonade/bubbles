@@ -27,21 +27,57 @@ const Template = ({ position, disabled, ...props }) => {
     <Group noWrap>
       <Box style={{ width: '80%' }}>
         <Tabs position={position} forceRender>
-          {[...Array(numberOfTabs).keys()].map((i) => (
-            <TabPanel
-              {...props}
-              key={i}
-              disabled={disabled}
-              label={`Tab ${i}`}
-              notification={i === 5 ? i : undefined}
-              error={i === 2}
-              warning={i === 3}
-              leftIcon={<InformationCircleIcon style={{ width: 14, color: '#B9BEC4' }} />}
-              rightIcon={i === 3 ? <StarIcon style={{ width: 14, color: '#B9BEC4' }} /> : undefined}
-            >
-              <Paragraph>Content of {i}</Paragraph>
-            </TabPanel>
-          ))}
+          <Box>
+            <Box>
+              {[...Array(numberOfTabs).keys()].map((i) => (
+                <TabPanel
+                  {...props}
+                  key={i}
+                  disabled={disabled}
+                  label={`Tab ${i}`}
+                  notification={i === 5 ? i : undefined}
+                  error={i === 2}
+                  warning={i === 3}
+                  leftIcon={<InformationCircleIcon style={{ width: 14, color: '#B9BEC4' }} />}
+                  rightIcon={
+                    i === 3 ? <StarIcon style={{ width: 14, color: '#B9BEC4' }} /> : undefined
+                  }
+                >
+                  <Paragraph>Content of {i}</Paragraph>
+
+                  <Box style={{ width: '80%' }}>
+                    <Tabs position={position} forceRender>
+                      <Box>
+                        <Box>
+                          {[...Array(numberOfTabs).keys()].map((i) => (
+                            <TabPanel
+                              {...props}
+                              key={i}
+                              disabled={disabled}
+                              label={`Tab ${i}`}
+                              notification={i === 5 ? i : undefined}
+                              error={i === 2}
+                              warning={i === 3}
+                              leftIcon={
+                                <InformationCircleIcon style={{ width: 14, color: '#B9BEC4' }} />
+                              }
+                              rightIcon={
+                                i === 3 ? (
+                                  <StarIcon style={{ width: 14, color: '#B9BEC4' }} />
+                                ) : undefined
+                              }
+                            >
+                              <Paragraph>Content of {i}</Paragraph>
+                            </TabPanel>
+                          ))}
+                        </Box>
+                      </Box>
+                    </Tabs>
+                  </Box>
+                </TabPanel>
+              ))}
+            </Box>
+          </Box>
         </Tabs>
       </Box>
       <Paper padding="md" shadow="xs" style={{ width: 150 }}>
