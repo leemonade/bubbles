@@ -9,7 +9,19 @@ import {
 import isFunction from 'lodash/isFunction';
 import { Calification } from '../../informative/';
 
-const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
+const VerticalStepper = ({
+  data,
+  current,
+  onNext,
+  onPrevious,
+  rootClassName,
+  stepColumnClassname,
+  currentStepClassname,
+  rootStyles,
+  stepColumnStyles,
+  currentStepStyles,
+  ...props
+}) => {
   const [currentStep, setCurrentStep] = useState(current || 0);
   const [currentSubstep, setCurrentSubstep] = useState(0);
 
@@ -90,7 +102,7 @@ const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
     let isActive = false;
 
     if (index === 0) position = 'start';
-    if (index === data.length - 1) position = 'end';
+    if (index === data.length - 2) position = 'end';
 
     if (index < currentStep) state = step.status || 'completed';
     if (index === currentStep) {
@@ -115,14 +127,17 @@ const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
     }
   });
 
-  const { classes, cx } = VerticalStepperStyles({}, { name: 'VerticalStepper' });
+  const { classes, cx } = VerticalStepperStyles(
+    { rootStyles, stepColumnStyles, currentStepStyles },
+    { name: 'VerticalStepper' }
+  );
   return (
-    <Box className={classes.root}>
-      <Box>
+    <Box className={cx(classes.root, rootClassName)}>
+      <Box className={cx(classes.stepColumn, stepColumnClassname)}>
         {steps}
         {data[currentStep].allCompleted && <Calification />}
       </Box>
-      <Box>{renderStep()}</Box>
+      <Box className={cx(classes.currentStep, currentStepClassname)}>{renderStep()}</Box>
     </Box>
   );
 };

@@ -52,6 +52,7 @@ const Step = ({ label, badge, state, position, subSteps, currentSubstep, ...prop
               <Progress
                 position={'between'}
                 isChild
+                state={state}
                 isCurrent={state === 'current' && currentSubstep >= index + 1}
               />
             </Box>

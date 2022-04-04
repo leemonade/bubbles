@@ -6,7 +6,10 @@ import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
 const Progress = ({ state, position, isButton, isChild, isCurrent, ...props }) => {
-  const { classes, cx } = ProgressStyles({ position, isButton, isCurrent }, { name: 'Progress' });
+  const { classes, cx } = ProgressStyles(
+    { position, isButton, isCurrent, state },
+    { name: 'Progress' }
+  );
 
   const renderState = () => {
     if (isChild)
