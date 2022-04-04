@@ -12,6 +12,7 @@ import { Logo } from '../../misc';
 import { Box } from '../../layout';
 import { ActionButton } from '../../form';
 import { getActiveItem } from './helpers/getActiveItem';
+import { getUserFullName } from './helpers/getUserFullName';
 
 export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {
@@ -31,6 +32,7 @@ const MainNav = ({
   pinned,
   hideSubNavOnClose,
   useRouter,
+  session,
   ...props
 }) => {
   const [activeItem, setActiveItem] = useState(null);
@@ -167,9 +169,13 @@ const MainNav = ({
                 />
               ))}
           </SimpleBar>
-          <Avatar mx="auto" mb={10} radius="xl">
-            LE
-          </Avatar>
+          <Avatar
+            mx="auto"
+            mb={10}
+            radius="xl"
+            image={session?.avatar}
+            fullName={session ? getUserFullName(session) : undefined}
+          />
         </Box>
       </Box>
 
