@@ -8,10 +8,11 @@ import {
 export { LIBRARYCARD_COVER_DIRECTIONS };
 
 export const LIBRARY_CARD_COVER_DEFAULT_PROPS = {
-  blur: 10,
+  blur: 5,
   height: 180,
   direction: 'horizontal',
   menuItems: [],
+  dashboard: false,
 };
 export const LIBRARY_CARD_COVER_PROP_TYPES = {
   name: PropTypes.string,
@@ -24,4 +25,5 @@ export const LIBRARY_CARD_COVER_PROP_TYPES = {
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
   parentHovered: PropTypes.bool,
   menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
+  dashboard: PropTypes.bool,
 };

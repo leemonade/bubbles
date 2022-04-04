@@ -73,15 +73,15 @@ const ContextContainer = ({
       fullHeight={fullHeight}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
-        <Stack direction="column" spacing={5} noFlex fullWidth>
+        <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
             <Box>
-              <Title order={4}>{title}</Title>
+              <Title order={3}>{title}</Title>
             </Box>
           )}
           {hasSubtitle && (
             <Box>
-              <Title order={6}>{subtitle}</Title>
+              <Title order={5}>{subtitle}</Title>
             </Box>
           )}
           {hasDescription && (

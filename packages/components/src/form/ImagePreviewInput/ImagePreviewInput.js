@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction, isString } from 'lodash';
+import { UndoIcon, CloudUploadIcon } from '@bubbles-ui/icons/outline/';
 import { Box, Stack } from '../../layout';
 import { Button } from '../../form';
-import { ImageLoader } from '../../misc';
-import { UndoIcon, CloudUploadIcon } from '@bubbles-ui/icons/outline/';
+import { ImageLoader } from '../../misc/ImageLoader';
 import { ImagePreviewInputStyles } from './ImagePreviewInput.styles';
-import { isFunction } from 'lodash';
 
 export const IMAGE_PREVIEW_INPUT_DEFAULT_PROPS = {
   labels: {
@@ -37,6 +37,12 @@ const ImagePreviewInput = ({
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
+
+  useEffect(() => {
+    if (isString(previewURL) && imagePreview !== previewURL) {
+      setImagePreview(previewURL);
+    }
+  }, [previewURL]);
 
   const resetImage = () => {
     isFunction(onChange) && onChange(null);
@@ -70,7 +76,8 @@ const ImagePreviewInput = ({
 
   useEffect(() => {
     if (imageValue) {
-      setImagePreview(URL.createObjectURL(imageValue));
+      const imageSrc = URL.createObjectURL(imageValue);
+      setImagePreview(imageSrc);
     }
   }, [imageValue]);
 
