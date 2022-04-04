@@ -29,8 +29,8 @@ const Template = ({ ...props }) => {
           {text}
         </Text>
         <Box style={{ display: 'flex', justifyContent: 'space-between', marginTop: 16 }}>
-          <Button onClick={onPrevious}>onPrev</Button>
-          <Button onClick={onNext}>onNext</Button>
+          <Button onClick={onPrevious}>Previous</Button>
+          <Button onClick={onNext}>Next</Button>
         </Box>
       </Box>
     );
@@ -47,9 +47,13 @@ const Template = ({ ...props }) => {
       label: 'Tarea previa',
       content: <SimpleStepComp text={'Tarea previa'} />,
       subSteps: [
-        { label: 'Child 1', badge: 'Badge of child 1' },
-        { label: 'Child 2' },
-        { label: 'Child 3' },
+        {
+          label: 'Child 1',
+          badge: 'Badge of child 1',
+          content: <SimpleStepComp text={'Child 1'} />,
+        },
+        { label: 'Child 2', content: <SimpleStepComp text={'Child 2'} /> },
+        { label: 'Child 3', content: <SimpleStepComp text={'Child 3'} /> },
       ],
     },
     {

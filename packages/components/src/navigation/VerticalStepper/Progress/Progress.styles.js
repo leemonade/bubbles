@@ -1,9 +1,23 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
-export const ProgressStyles = createStyles((theme, { position, isButton }) => {
+export const ProgressStyles = createStyles((theme, { position, isButton, isCurrent }) => {
   const isFirst = position === 'start';
   const isLast = position === 'end';
   const isBetween = position === 'between';
+
+  const getSolidBarHeight = () => {
+    if (isBetween) {
+      return isButton ? 56 : 44;
+    }
+    return isButton ? 38 : 32;
+  };
+
+  const getPendingBarHeight = () => {
+    if (isBetween) {
+      return isButton ? 55 : 43;
+    }
+    return isButton ? 33 : 27;
+  };
 
   return {
     root: { minHeight: 20, minWidth: 20 },
@@ -15,17 +29,23 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
       justifyContent: 'center',
       position: 'relative',
     },
-    pendingBar: {},
+    pendingBar: {
+      position: 'absolute',
+      height: getPendingBarHeight(),
+      borderLeft: `1px dashed ${theme.colors.ui01}`,
+      zIndex: -1,
+      top: isFirst && (isButton ? 4.5 : 4),
+      bottom: isLast && (isButton ? 4.5 : 4),
+    },
     solidBar: {
       position: 'absolute',
-      height: isBetween ? 43.5 : 31.75,
+      height: getSolidBarHeight(),
       borderLeft: `1px solid ${theme.colors.ui01}`,
       backgroundColor: theme.colors.ui01,
       zIndex: -1,
       top: isFirst && 0,
       bottom: isLast && 0,
     },
-    completedBar: {},
     pending: {
       height: 12,
       width: 12,
@@ -33,136 +53,22 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
       borderRadius: '50%',
       border: `1.5px solid ${theme.colors.text06}`,
       backgroundColor: theme.colors.mainWhite,
-      position: 'relative',
-      '&:before': {
-        content: !isFirst && '""',
-        borderLeft: `1px dashed ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 20 : 15,
-        top: isButton ? -22 : -17,
-        left: 4,
-        zIndex: -1,
-      },
-      '&:after': {
-        content: !isLast && '""',
-        borderLeft: `1px dashed ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 20 : 15,
-        bottom: isButton ? -22.5 : -16.5,
-        left: 4,
-        zIndex: -1,
-      },
     },
-    current: {
-      height: 20,
-      width: 20,
-      position: 'relative',
-      '&:before': {
-        content: !isFirst && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 17 : 12,
-        top: isButton ? -17 : -12,
-        left: 9.5,
-        zIndex: -1,
-      },
-      '&:after': {
-        content: !isLast && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 17 : 12,
-        bottom: isButton ? -17 : -11,
-        left: 9.5,
-        zIndex: -1,
-      },
-    },
-    completed: {
-      height: 20,
-      width: 20,
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      '&:before': {
-        content: !isFirst && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 19 : 13,
-        top: isButton ? -19 : -13,
-        left: 9.5,
-        zIndex: -1,
-      },
-      '&:after': {
-        content: !isLast && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 19 : 13,
-        bottom: isButton ? -19 : -13,
-        left: 9.5,
-        zIndex: -1,
-      },
-    },
-    OK: {
-      height: 20,
-      width: 20,
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.fatic02,
-      borderRadius: '50%',
-      '&:before': {
-        content: !isFirst && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 18 : 12,
-        top: isButton ? -18 : -12,
-        left: 9.5,
-        zIndex: -1,
-      },
-      '&:after': {
-        content: !isLast && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 18 : 12,
-        bottom: isButton ? -18 : -12,
-        left: 9.5,
-        zIndex: -1,
-      },
-    },
-    KO: {
-      height: 20,
-      width: 20,
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.fatic01,
-      borderRadius: '50%',
-      '&:before': {
-        content: !isFirst && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 18 : 12,
-        top: isButton ? -18 : -12,
-        left: 9.5,
-        zIndex: -1,
-      },
-      '&:after': {
-        content: !isLast && '""',
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        position: 'absolute',
-        height: isButton ? 18 : 12,
-        bottom: isButton ? -18 : -12,
-        left: 9.5,
-        zIndex: -1,
-      },
-    },
-
     progressBar: {
       height: 34,
       width: 1,
       backgroundColor: theme.colors.ui01,
+      transform: 'translateY(2px)',
+      position: 'relative',
+    },
+    progressBarCurrent: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: isCurrent ? 34 : 0,
+      width: isCurrent ? 1 : 0,
+      backgroundColor: theme.colors.interactive01,
+      transition: 'height 0.2s ease-in-out',
     },
     currentIcon: { color: theme.colors.interactive01, backgroundColor: theme.colors.mainWhite },
     completedIcon: {
@@ -170,7 +76,17 @@ export const ProgressStyles = createStyles((theme, { position, isButton }) => {
       padding: 4,
       backgroundColor: theme.colors.interactive03,
     },
-    OKIcon: { color: theme.colors.mainWhite },
-    KOIcon: { color: theme.colors.mainWhite },
+    OKIcon: {
+      backgroundColor: theme.colors.fatic02,
+      borderRadius: '50%',
+      color: theme.colors.mainWhite,
+      padding: 4,
+    },
+    KOIcon: {
+      backgroundColor: theme.colors.fatic01,
+      borderRadius: '50%',
+      color: theme.colors.mainWhite,
+      padding: 4,
+    },
   };
 });

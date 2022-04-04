@@ -11,9 +11,11 @@ import { Calification } from '../../informative/';
 
 const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
   const [currentStep, setCurrentStep] = useState(current || 0);
+  const [currentSubstep, setCurrentSubstep] = useState(0);
 
   const handleNextStep = (step) => {
     if (step > data.length - 1) step--;
+    setCurrentSubstep(0);
     setCurrentStep(step);
     isFunction(onNext) && onNext(step);
   };
@@ -22,6 +24,63 @@ const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
     if (step < 0) step = 0;
     setCurrentStep(step);
     isFunction(onPrevious) && onPrevious(step);
+  };
+
+  const handleNextChild = (subSteps) => {
+    if (currentSubstep + 1 > subSteps) {
+      handleNextStep(currentStep + 1);
+      return;
+    }
+    setCurrentSubstep(currentSubstep + 1);
+  };
+
+  const handlePrevChild = () => {
+    if (currentSubstep === 0) {
+      handlePrevStep(currentStep - 1);
+      return;
+    }
+    setCurrentSubstep(currentSubstep - 1);
+  };
+
+  const getStepsContent = () => {
+    const stepsContent = [];
+    const subStepsContent = [];
+    data.forEach((step, index) => {
+      const propsToInject = {
+        ...step.content.props,
+        onNext: () =>
+          step.subSteps ? handleNextChild(step.subSteps.length) : handleNextStep(index + 1),
+        onPrevious: () => (step.subSteps ? handlePrevChild() : handlePrevStep(index - 1)),
+      };
+
+      stepsContent.push(cloneElement(step.content || <></>, { ...propsToInject }));
+      if (step.subSteps) {
+        subStepsContent.push({
+          key: index,
+          subSteps: [
+            ...step.subSteps.map((subStep) => {
+              const propsToInject = {
+                ...subStep.content.props,
+                onNext: () => handleNextChild(step.subSteps.length),
+                onPrevious: () => handlePrevChild(),
+              };
+              return cloneElement(subStep.content || <></>, { ...propsToInject });
+            }),
+          ],
+        });
+      }
+    });
+    return { stepsContent, subStepsContent };
+  };
+
+  const renderStep = () => {
+    const { stepsContent, subStepsContent } = getStepsContent();
+
+    const currentStepWithChild = subStepsContent.filter((step) => step.key === currentStep).pop();
+    if (currentStepWithChild && currentSubstep !== 0) {
+      return currentStepWithChild.subSteps[currentSubstep - 1];
+    }
+    return stepsContent[currentStep];
   };
 
   const steps = data.map((step, index) => {
@@ -44,22 +103,16 @@ const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
         <StepperButton key={index} {...step} state={state} position={position} active={isActive} />
       );
     } else {
-      return <Step key={index} {...step} state={state} position={position} />;
+      return (
+        <Step
+          key={index}
+          {...step}
+          state={state}
+          position={position}
+          currentSubstep={currentSubstep}
+        />
+      );
     }
-  });
-
-  const stepsContent = data.map((step, index) => {
-    const propsToInject = step.content
-      ? {
-          ...step.content.props,
-          onNext: () => handleNextStep(index + 1),
-          onPrevious: () => handlePrevStep(index - 1),
-        }
-      : {};
-
-    return cloneElement(step.content || <></>, {
-      ...propsToInject,
-    });
   });
 
   const { classes, cx } = VerticalStepperStyles({}, { name: 'VerticalStepper' });
@@ -69,7 +122,7 @@ const VerticalStepper = ({ data, current, onNext, onPrevious, ...props }) => {
         {steps}
         {data[currentStep].allCompleted && <Calification />}
       </Box>
-      <Box>{stepsContent[currentStep]}</Box>
+      <Box>{renderStep()}</Box>
     </Box>
   );
 };

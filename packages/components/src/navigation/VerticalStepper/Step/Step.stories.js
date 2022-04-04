@@ -22,17 +22,12 @@ export default {
 const Template = ({ ...props }) => {
   return (
     <Box>
-      {/* <Box>
+      <Box>
         <Step {...props} position={'start'} />
         <Step {...props} />
         <Step {...props} position={'end'} />
-      </Box> */}
-      <Box>
-        <Step {...props} state={'current'} position={'start'} />
-        <Step {...props} state={'current'} />
-        <Step {...props} state={'current'} position={'end'} />
       </Box>
-      {/* <Box>
+      <Box>
         <Step
           {...props}
           state={'completed'}
@@ -66,7 +61,7 @@ const Template = ({ ...props }) => {
         <Step {...props} state={'completed'} />
         <Step {...props} state={'current'} />
         <Step {...props} position={'end'} />
-      </Box> */}
+      </Box>
     </Box>
   );
 };

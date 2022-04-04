@@ -5,24 +5,28 @@ import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
 import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
-const Progress = ({ state, position, isButton, isChild, ...props }) => {
-  const { classes, cx } = ProgressStyles({ position, isButton }, { name: 'Progress' });
+const Progress = ({ state, position, isButton, isChild, isCurrent, ...props }) => {
+  const { classes, cx } = ProgressStyles({ position, isButton, isCurrent }, { name: 'Progress' });
 
   const renderState = () => {
     if (isChild)
       return (
         <Box className={classes.progressContainer}>
-          <Box className={classes.progressBar} />
+          <Box className={classes.progressBar}>
+            <Box className={classes.progressBarCurrent} />
+          </Box>
         </Box>
       );
     switch (state) {
       case 'pending':
-        return <Box className={classes.pending}></Box>;
+        return (
+          <Box className={classes.progressContainer}>
+            <Box className={classes.pendingBar} />
+            <Box className={classes.pending} />
+          </Box>
+        );
       case 'current':
         return (
-          // <Box className={classes.current}>
-          //   <TimeClockCircleIcon height={20} width={20} className={classes.currentIcon} />
-          // </Box>
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar} />
             <TimeClockCircleIcon height={20} width={20} className={classes.currentIcon} />
@@ -37,13 +41,15 @@ const Progress = ({ state, position, isButton, isChild, ...props }) => {
         );
       case 'OK':
         return (
-          <Box className={classes.OK}>
+          <Box className={classes.progressContainer}>
+            <Box className={classes.solidBar}></Box>
             <CheckIcon height={12} width={12} className={classes.OKIcon} />
           </Box>
         );
       case 'KO':
         return (
-          <Box className={classes.KO}>
+          <Box className={classes.progressContainer}>
+            <Box className={classes.solidBar}></Box>
             <RemoveBoldIcon height={12} width={12} className={classes.KOIcon} />
           </Box>
         );

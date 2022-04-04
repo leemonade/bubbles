@@ -6,7 +6,7 @@ import { Progress } from '../';
 import { StepStyles } from './Step.styles';
 import { STEP_DEFAULT_PROPS, STEP_PROP_TYPES } from './Step.constants';
 
-const Step = ({ label, badge, state, position, subSteps, ...props }) => {
+const Step = ({ label, badge, state, position, subSteps, currentSubstep, ...props }) => {
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
   const totalChilds = subSteps.length;
 
@@ -49,7 +49,11 @@ const Step = ({ label, badge, state, position, subSteps, ...props }) => {
                   />
                 )}
               </Box>
-              <Progress position={'between'} isChild />
+              <Progress
+                position={'between'}
+                isChild
+                isCurrent={state === 'current' && currentSubstep >= index + 1}
+              />
             </Box>
           ))}
       </Box>
