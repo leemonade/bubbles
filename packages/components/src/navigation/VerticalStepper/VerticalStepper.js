@@ -1,4 +1,4 @@
-import React, { cloneElement, useState } from 'react';
+import React from 'react';
 import { Box } from '../../layout';
 import { Step, StepperButton } from './';
 import { VerticalStepperStyles } from './VerticalStepper.styles';
@@ -6,12 +6,11 @@ import {
   VERTICAL_STEPPER_DEFAULT_PROPS,
   VERTICAL_STEPPER_PROP_TYPES,
 } from './VerticalStepper.constants';
-import isFunction from 'lodash/isFunction';
 import { Calification } from '../../informative/';
 
 const VerticalStepper = ({
   data,
-  current,
+  currentStep,
   onNext,
   onPrevious,
   calificationProps,
@@ -20,84 +19,89 @@ const VerticalStepper = ({
   currentStepClassname,
   rootStyles,
   stepColumnStyles,
-  currentStepStyles,
+  // currentStepStyles,
   ...props
 }) => {
-  const [currentStep, setCurrentStep] = useState(current || 0);
-  const [currentSubstep, setCurrentSubstep] = useState(0);
+  if (currentStep > data.length - 1) {
+    currentStep = data.length - 1;
+  }
+  // const [currentStep, setCurrentStep] = useState(current || 0);
+  // const [currentSubstep, setCurrentSubstep] = useState(0);
 
-  const handleNextStep = (step) => {
-    if (step > data.length - 1) step--;
-    setCurrentSubstep(0);
-    setCurrentStep(step);
-    isFunction(onNext) && onNext(step);
-  };
+  // const handleNextStep = (step) => {
+  //   if (step > data.length - 1) step--;
+  //   setCurrentSubstep(0);
+  //   setCurrentStep(step);
+  //   isFunction(onNext) && onNext(step);
+  // };
 
-  const handlePrevStep = (step) => {
-    if (step < 0) step = 0;
-    setCurrentStep(step);
-    isFunction(onPrevious) && onPrevious(step);
-  };
+  // const handlePrevStep = (step) => {
+  //   if (step < 0) step = 0;
+  //   setCurrentStep(step);
+  //   isFunction(onPrevious) && onPrevious(step);
+  // };
 
-  const handleNextChild = (subSteps) => {
-    if (currentSubstep + 1 > subSteps) {
-      handleNextStep(currentStep + 1);
-      return;
-    }
-    setCurrentSubstep(currentSubstep + 1);
-  };
+  // const handleNextChild = (subSteps) => {
+  //   if (currentSubstep + 1 > subSteps) {
+  //     handleNextStep(currentStep + 1);
+  //     return;
+  //   }
+  //   setCurrentSubstep(currentSubstep + 1);
+  // };
 
-  const handlePrevChild = () => {
-    if (currentSubstep === 0) {
-      handlePrevStep(currentStep - 1);
-      return;
-    }
-    setCurrentSubstep(currentSubstep - 1);
-  };
+  // const handlePrevChild = () => {
+  //   if (currentSubstep === 0) {
+  //     handlePrevStep(currentStep - 1);
+  //     return;
+  //   }
+  //   setCurrentSubstep(currentSubstep - 1);
+  // };
 
-  const getStepsContent = () => {
-    const stepsContent = [];
-    const subStepsContent = [];
-    data.forEach((step, index) => {
-      const propsToInject = {
-        ...step.content.props,
-        onNext: () =>
-          step.subSteps ? handleNextChild(step.subSteps.length) : handleNextStep(index + 1),
-        onPrevious: () => (step.subSteps ? handlePrevChild() : handlePrevStep(index - 1)),
-      };
+  // const getStepsContent = () => {
+  //   const stepsContent = [];
+  //   const subStepsContent = [];
+  //   data.forEach((step, index) => {
+  //     stepsContent.push(
+  //       cloneElement(step.content || <></>, {
+  //         onNext: () =>
+  //           step.subSteps ? handleNextChild(step.subSteps.length) : handleNextStep(index + 1),
+  //         onPrevious: () => (step.subSteps ? handlePrevChild() : handlePrevStep(index - 1)),
+  //       })
+  //     );
+  //     if (step.subSteps) {
+  //       subStepsContent.push({
+  //         key: index,
+  //         subSteps: [
+  //           ...step.subSteps.map((subStep) => {
+  //             const propsToInject = {
+  //               // ...subStep.content.props,
+  //               onNext: () => handleNextChild(step.subSteps.length),
+  //               onPrevious: () => handlePrevChild(),
+  //             };
+  //             return cloneElement(subStep.content || <></>, {
+  //               onNext: () => handleNextChild(step.subSteps.length),
+  //               onPrevious: () => handlePrevChild(),
+  //             });
+  //           }),
+  //         ],
+  //       });
+  //     }
+  //   });
+  //   return { stepsContent, subStepsContent };
+  // };
 
-      stepsContent.push(cloneElement(step.content || <></>, { ...propsToInject }));
-      if (step.subSteps) {
-        subStepsContent.push({
-          key: index,
-          subSteps: [
-            ...step.subSteps.map((subStep) => {
-              const propsToInject = {
-                ...subStep.content.props,
-                onNext: () => handleNextChild(step.subSteps.length),
-                onPrevious: () => handlePrevChild(),
-              };
-              return cloneElement(subStep.content || <></>, { ...propsToInject });
-            }),
-          ],
-        });
-      }
-    });
-    return { stepsContent, subStepsContent };
-  };
+  // const renderStep = () => {
+  //   const { stepsContent, subStepsContent } = getStepsContent();
 
-  const renderStep = () => {
-    const { stepsContent, subStepsContent } = getStepsContent();
-
-    const currentStepWithChild = subStepsContent.filter((step) => step.key === currentStep).pop();
-    if (currentStepWithChild && currentSubstep !== 0) {
-      return currentStepWithChild.subSteps[currentSubstep - 1];
-    }
-    return stepsContent[currentStep];
-  };
+  //   const currentStepWithChild = subStepsContent.find((step) => step.key === currentStep);
+  //   if (currentStepWithChild && currentSubstep !== 0) {
+  //     return currentStepWithChild.subSteps[currentSubstep - 1];
+  //   }
+  //   return stepsContent[currentStep];
+  // };
 
   const steps = data.map((step, index) => {
-    if (step.allCompleted) return;
+    if (step?.allCompleted) return;
     let position = 'between';
     let state = 'pending';
     let isActive = false;
@@ -116,20 +120,12 @@ const VerticalStepper = ({
         <StepperButton key={index} {...step} state={state} position={position} active={isActive} />
       );
     } else {
-      return (
-        <Step
-          key={index}
-          {...step}
-          state={state}
-          position={position}
-          currentSubstep={currentSubstep}
-        />
-      );
+      return <Step key={index} {...step} state={state} position={position} />;
     }
   });
 
   const { classes, cx } = VerticalStepperStyles(
-    { rootStyles, stepColumnStyles, currentStepStyles },
+    { rootStyles, stepColumnStyles },
     { name: 'VerticalStepper' }
   );
   return (
@@ -138,7 +134,7 @@ const VerticalStepper = ({
         {steps}
         {data[currentStep].allCompleted && <Calification {...calificationProps} />}
       </Box>
-      <Box className={cx(classes.currentStep, currentStepClassname)}>{renderStep()}</Box>
+      {/* <Box className={cx(classes.currentStep, currentStepClassname)}>{renderStep()}</Box> */}
     </Box>
   );
 };
