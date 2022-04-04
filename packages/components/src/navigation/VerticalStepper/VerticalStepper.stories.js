@@ -93,4 +93,9 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...VERTICAL_STEPPER_DEFAULT_PROPS,
+  calificationProps: {
+    label: 'Aprobado',
+    grade: 6,
+    minimumGrade: 5,
+  },
 };

@@ -14,6 +14,7 @@ const VerticalStepper = ({
   current,
   onNext,
   onPrevious,
+  calificationProps,
   rootClassName,
   stepColumnClassname,
   currentStepClassname,
@@ -135,7 +136,7 @@ const VerticalStepper = ({
     <Box className={cx(classes.root, rootClassName)}>
       <Box className={cx(classes.stepColumn, stepColumnClassname)}>
         {steps}
-        {data[currentStep].allCompleted && <Calification />}
+        {data[currentStep].allCompleted && <Calification {...calificationProps} />}
       </Box>
       <Box className={cx(classes.currentStep, currentStepClassname)}>{renderStep()}</Box>
     </Box>
