@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { isNil } from 'lodash';
+import { isNil, isEmpty } from 'lodash';
 import {
   Box,
   ImageLoader,
@@ -28,6 +28,7 @@ const LibraryCardCover = ({
   deadlineProps,
   parentHovered,
   menuItems,
+  dashboard,
   ...props
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -66,36 +67,44 @@ const LibraryCardCover = ({
 
   const iconRow = (
     <Box className={classes.iconRow}>
-      <Box style={{ flex: 1 }}>
-        <Menu
-          opened={showMenu && parentHovered}
-          onOpen={() => setShowMenu(true)}
-          onClose={() => setShowMenu(false)}
-          items={menuItems.map((item) => ({
-            ...item,
-            className: cx(classes.menuItem, item.className),
-          }))}
-          control={
+      {!isEmpty(menuItems) && (
+        <Box style={{ flex: 1 }}>
+          <Menu
+            opened={showMenu && parentHovered}
+            onOpen={() => setShowMenu(true)}
+            onClose={() => setShowMenu(false)}
+            items={menuItems.map((item) => ({
+              ...item,
+              className: cx(classes.menuItem, item.className),
+            }))}
+            control={
+              <IconButton
+                icon={
+                  <SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />
+                }
+                variant={!isVertical ? 'transparent' : null}
+                size="xs"
+              />
+            }
+          />
+        </Box>
+      )}
+      {dashboard && (
+        <>
+          {!isVertical && (
             <IconButton
-              icon={<SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />}
+              icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
               variant={!isVertical ? 'transparent' : null}
               size="xs"
             />
-          }
-        />
-      </Box>
-      {!isVertical && (
-        <IconButton
-          icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
-          variant={!isVertical ? 'transparent' : null}
-          size="xs"
-        />
+          )}
+          <IconButton
+            icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
+            variant={!isVertical ? 'transparent' : null}
+            size="xs"
+          />
+        </>
       )}
-      <IconButton
-        icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
-        variant={!isVertical ? 'transparent' : null}
-        size="xs"
-      />
     </Box>
   );
 

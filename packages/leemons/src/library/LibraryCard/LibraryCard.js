@@ -16,14 +16,15 @@ const LibraryCard = ({
   onAction,
   locale,
   menuItems,
+  dashboard,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { classes, cx } = LibraryCardStyles({});
+  const { classes, cx } = LibraryCardStyles({}, { name: 'LibraryCard' });
   return (
     <Box
-      className={classes.root}
+      className={cx(classes.root, props.className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -44,6 +45,7 @@ const LibraryCard = ({
         direction={variant === 'assigment' ? 'vertical' : null}
         parentHovered={isHovered}
         menuItems={menuItems}
+        dashboard={dashboard}
       />
       <LibraryCardContent
         subtitle={asset.subtitle}

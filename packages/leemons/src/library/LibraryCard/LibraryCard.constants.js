@@ -34,6 +34,7 @@ export const ASSET_PROPS = PropTypes.shape({
 
 export const LIBRARY_CARD_DEFAULT_PROPS = {
   menuItems: [],
+  dashboard: false,
 };
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -44,4 +45,5 @@ export const LIBRARY_CARD_PROP_TYPES = {
   onAction: PropTypes.func,
   locale: PropTypes.string,
   menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
+  dashboard: PropTypes.bool,
 };
