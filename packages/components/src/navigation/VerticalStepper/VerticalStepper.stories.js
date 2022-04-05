@@ -34,7 +34,7 @@ Playground.args = {
     },
     {
       label: 'Tarea previa',
-      subSteps: [
+      childSteps: [
         {
           label: 'Child 1',
           badge: 'Badge of child 1',
@@ -62,9 +62,6 @@ Playground.args = {
         console.log('Click on pruebas 2');
       },
       status: 'KO',
-    },
-    {
-      allCompleted: true,
     },
   ],
   calificationProps: {

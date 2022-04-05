@@ -32,7 +32,7 @@ const Template = ({ ...props }) => {
           {...props}
           state={'completed'}
           position={'start'}
-          subSteps={[
+          childSteps={[
             { label: 'Child 1', badge: 'Badge of child 1' },
             { label: 'Child 2' },
             { label: 'Child 3' },
