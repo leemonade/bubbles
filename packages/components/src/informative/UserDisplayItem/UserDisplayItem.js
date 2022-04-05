@@ -10,6 +10,7 @@ import { Text } from '../../typography';
 
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
+import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -37,21 +38,23 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   noBreak: PropTypes.bool,
 };
 
-const UserDisplayItem = ({
-  name,
-  surnames,
-  avatar,
-  severity,
-  rol,
-  center,
-  email,
-  variant,
-  layout,
-  onChat,
-  size,
-  noBreak,
-  ...props
-}) => {
+const UserDisplayItem = (properties) => {
+  const {
+    name,
+    surnames,
+    avatar,
+    severity,
+    rol,
+    center,
+    email,
+    variant,
+    layout,
+    onChat,
+    size,
+    noBreak,
+    ...props
+  } = properties;
+
   const { classes, cx } = UserDisplayItemStyles(
     {
       variant,
@@ -72,6 +75,8 @@ const UserDisplayItem = ({
     [name, surnames, variant]
   );
 
+  const userFullName = getUserFullName(properties);
+
   const Icon = (
     <>
       {severity === 'error' ? (
@@ -88,7 +93,7 @@ const UserDisplayItem = ({
 
   return (
     <Box {...props} className={classes.root}>
-      <Avatar image={avatar} fullName={fullName} size={avatarSize} />
+      <Avatar image={avatar} fullName={userFullName} size={avatarSize} />
       <Box
         className={classes.userInfo}
         style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 26 : 32}px)` }}
