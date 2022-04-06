@@ -12,7 +12,6 @@ import { inRange } from 'lodash';
 const VerticalStepper = ({
   data,
   currentStep,
-  currentChild,
   onNext,
   onPrevious,
   calificationProps,
@@ -21,7 +20,6 @@ const VerticalStepper = ({
   currentStepClassname,
   rootStyles,
   stepColumnStyles,
-  // currentStepStyles,
   ...props
 }) => {
   const allSteps = [];

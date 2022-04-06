@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 export const VERTICAL_STEPPER_DEFAULT_PROPS = {
   data: [],
   currentStep: 0,
-  currentChild: 0,
   onNext: null,
   onPrevious: null,
   calificationProps: {},
@@ -12,12 +11,10 @@ export const VERTICAL_STEPPER_DEFAULT_PROPS = {
   currentStepClassname: '',
   rootStyles: {},
   stepColumnStyles: {},
-  // currentStepStyles: {},
 };
 export const VERTICAL_STEPPER_PROP_TYPES = {
   data: PropTypes.arrayOf(PropTypes.object),
   currentStep: PropTypes.number,
-  currentChild: PropTypes.number,
   onNext: PropTypes.func,
   onPrevious: PropTypes.func,
   calificationProps: PropTypes.shape({
@@ -30,5 +27,4 @@ export const VERTICAL_STEPPER_PROP_TYPES = {
   currentStepClassname: PropTypes.string,
   rootStyles: PropTypes.object,
   stepColumnStyles: PropTypes.object,
-  // currentStepStyles: PropTypes.object,
 };
