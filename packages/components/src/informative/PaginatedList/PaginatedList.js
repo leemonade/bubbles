@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useTable, usePagination } from 'react-table';
-import { Box, Stack, Paper } from '../../layout';
+import { usePagination, useTable } from 'react-table';
+import { Box, Paper, Stack } from '../../layout';
 import { LoadingOverlay } from '../../overlay';
 import { Pager, PAGER_VARIANTS } from '../../navigation/Pager';
 import { TableView } from './views/TableView';
@@ -35,6 +35,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   size: PropTypes.number,
   items: PropTypes.arrayOf(PropTypes.any),
   totalCount: PropTypes.number,
+  totalPages: PropTypes.number,
   loading: PropTypes.bool,
   onSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
@@ -133,7 +134,7 @@ const PaginatedList = ({
         <Stack fullWidth justifyContent={pagerPlace}>
           <Pager
             page={page}
-            totalCount={totalPages}
+            totalPages={totalPages}
             withSize={true}
             onSizeChange={handleSizeChange}
             onChange={handlePageChange}
