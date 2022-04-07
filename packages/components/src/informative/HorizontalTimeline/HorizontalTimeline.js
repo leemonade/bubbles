@@ -8,9 +8,8 @@ import {
   HORIZONTAL_TIMELINE_PROP_TYPES,
 } from './HorizontalTimeline.constants';
 import { useElementSize } from '@mantine/hooks';
-import { first } from 'lodash';
 
-const HorizontalTimeline = ({ data, locale, color, ...props }) => {
+const HorizontalTimeline = ({ data, locale, color, dotColor, ...props }) => {
   const { ref, width: rootWidth } = useElementSize();
 
   if (!locale) {
@@ -97,7 +96,10 @@ const HorizontalTimeline = ({ data, locale, color, ...props }) => {
     });
   };
 
-  const { classes, cx } = HorizontalTimelineStyles({ color }, { name: 'HorizontalTimeline' });
+  const { classes, cx } = HorizontalTimelineStyles(
+    { color, dotColor },
+    { name: 'HorizontalTimeline' }
+  );
   return (
     <Box ref={ref} className={classes.root}>
       {renderTimeline()}

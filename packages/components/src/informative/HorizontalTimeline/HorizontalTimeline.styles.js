@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const HorizontalTimelineStyles = createStyles((theme, { color }) => {
+export const HorizontalTimelineStyles = createStyles((theme, { color, dotColor }) => {
   const isPositive = color === 'positive';
 
   return {
@@ -24,7 +24,7 @@ export const HorizontalTimelineStyles = createStyles((theme, { color }) => {
       borderRadius: '50%',
       border: `1px dashed ${isPositive ? theme.colors.mainWhite : theme.colors.interactive02h}`,
       marginBottom: 8,
-      backgroundColor: '#333',
+      backgroundColor: dotColor || '#333',
       zIndex: 2,
     },
     progress: {
