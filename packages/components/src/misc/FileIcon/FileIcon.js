@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { FileIconStyles } from './FileIcon.styles';
 import { Box } from '../../layout/';
 import { Text } from '../../typography';
-import { MeetingCameraIcon, VolumeControlMediumIcon } from '@bubbles-ui/icons/solid/';
+import {
+  MeetingCameraIcon,
+  VolumeControlMediumIcon,
+  AssetBookmarkIcon,
+} from '@bubbles-ui/icons/solid/';
 import { FormImageAttachIcon, HyperlinkIcon } from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
 
@@ -27,7 +31,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, ...props }) => 
     { key: 'video', value: <MeetingCameraIcon height={size} width={size} /> },
     { key: 'audio', value: <VolumeControlMediumIcon height={size} width={size} /> },
     { key: 'image', value: <FormImageAttachIcon height={size} width={size} /> },
-    { key: 'bookmark' },
+    { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} /> },
     { key: 'path', value: <HyperlinkIcon height={size} width={size} /> },
     { key: 'task' },
   ];

@@ -87,6 +87,8 @@ const LibraryDetailPlayer = ({
     [fileIcon]
   );
 
+  const playable = useMemo(() => ['audio', 'video'].includes(fileType), [fileType]);
+
   const { classes, cx } = LibraryDetailPlayerStyles(
     { height, color, seconds, showPlayer },
     { name: 'LibraryDetailPlayer' }
@@ -95,50 +97,57 @@ const LibraryDetailPlayer = ({
     <>
       <Box className={classes.root}>
         <Box className={classes.coverWrapper}>
-          <Box className={classes.reactPlayerWrapper}>
-            <ReactPlayer
-              ref={playerRef}
-              url={url}
-              width="100%"
-              height="100%"
-              playing={isPlaying}
-              onProgress={({ played, playedSeconds }) => handleOnProgress(played, playedSeconds)}
-              progressInterval={100}
-              className={classes.reactPlayer}
-            />
-            {fileType === 'audio' && (
-              <Box className={classes.audioIcon}>
-                <FileIcon fileType={fileType} size={64} color={'#FFF'} />
-              </Box>
-            )}
-            <Box className={classes.progressBarWrapper}>
-              <Box className={classes.progressBar}>
-                <Box
-                  className={classes.progressBarValue}
-                  style={{
-                    width: playedPercentage + '%',
-                  }}
-                />
-                <input
-                  className={classes.seekSlider}
-                  type={'range'}
-                  min={0}
-                  max={0.999999}
-                  step={'any'}
-                  value={seekValue}
-                  onChange={handleSeekChange}
-                  onMouseDown={handleSeekMouseDown}
-                  onMouseUp={handleSeekMouseUp}
-                />
-              </Box>
+          {playable && (
+            <Box className={classes.reactPlayerWrapper}>
+              <ReactPlayer
+                ref={playerRef}
+                url={url}
+                width="100%"
+                height="100%"
+                playing={isPlaying}
+                onProgress={({ played, playedSeconds }) => handleOnProgress(played, playedSeconds)}
+                progressInterval={100}
+                className={classes.reactPlayer}
+              />
+              {fileType === 'audio' && (
+                <Box className={classes.audioIcon}>
+                  <FileIcon fileType={fileType} size={64} color={'#FFF'} />
+                </Box>
+              )}
+              <Box className={classes.progressBarWrapper}>
+                <Box className={classes.progressBar}>
+                  <Box
+                    className={classes.progressBarValue}
+                    style={{
+                      width: playedPercentage + '%',
+                    }}
+                  />
+                  <input
+                    className={classes.seekSlider}
+                    type={'range'}
+                    min={0}
+                    max={0.999999}
+                    step={'any'}
+                    value={seekValue}
+                    onChange={handleSeekChange}
+                    onMouseDown={handleSeekMouseDown}
+                    onMouseUp={handleSeekMouseUp}
+                  />
+                </Box>
 
-              <Text size={'xs'} role={'productive'} className={classes.duration}>
-                {getDuration()}
-              </Text>
+                <Text size={'xs'} role={'productive'} className={classes.duration}>
+                  {getDuration()}
+                </Text>
+              </Box>
             </Box>
-          </Box>
+          )}
           {cover ? (
-            <ImageLoader src={cover} height={height} forceImage />
+            <ImageLoader
+              src={cover}
+              height={height}
+              forceImage
+              fit={fileType === 'image' ? 'contain' : 'cover'}
+            />
           ) : (
             <Box className={classes.fileIcon}>{icon}</Box>
           )}
@@ -149,30 +158,36 @@ const LibraryDetailPlayer = ({
             {name}
           </Title>
           {/* <IconButton size={'xs'} icon={<ExpandDiagonalIcon height={16} width={16} />} /> */}
-          <IconButton
-            icon={
-              !showPlayer ? (
-                <ControlsPlayIcon height={16} width={16} style={{ color: 'white' }} />
-              ) : isPlaying ? (
-                <ControlsPauseIcon height={16} width={16} style={{ color: COLORS.interactive01 }} />
-              ) : (
-                <ControlsPlayIcon height={16} width={16} style={{ color: 'white' }} />
-              )
-            }
-            rounded
-            style={{
-              backgroundColor: !isPlaying && COLORS.interactive01,
-              border: showPlayer && isPlaying && `2px solid ${COLORS.interactive01}`,
-            }}
-            onClick={
-              !showPlayer
-                ? () => {
-                    setShowPlayer(true);
-                    setIsPlaying(true);
-                  }
-                : () => setIsPlaying(!isPlaying)
-            }
-          />
+          {playable && (
+            <IconButton
+              icon={
+                !showPlayer ? (
+                  <ControlsPlayIcon height={16} width={16} style={{ color: 'white' }} />
+                ) : isPlaying ? (
+                  <ControlsPauseIcon
+                    height={16}
+                    width={16}
+                    style={{ color: COLORS.interactive01 }}
+                  />
+                ) : (
+                  <ControlsPlayIcon height={16} width={16} style={{ color: 'white' }} />
+                )
+              }
+              rounded
+              style={{
+                backgroundColor: !isPlaying && COLORS.interactive01,
+                border: showPlayer && isPlaying && `2px solid ${COLORS.interactive01}`,
+              }}
+              onClick={
+                !showPlayer
+                  ? () => {
+                      setShowPlayer(true);
+                      setIsPlaying(true);
+                    }
+                  : () => setIsPlaying(!isPlaying)
+              }
+            />
+          )}
         </Box>
       </Box>
     </>

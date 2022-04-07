@@ -6,7 +6,7 @@ import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
 import { LibraryDetailStyles } from './LibraryDetail.styles';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
-const LibraryDetail = ({ asset, variant, ...events }) => {
+const LibraryDetail = ({ asset, variant, toolbarItems, ...events }) => {
   const { classes, cx } = LibraryDetailStyles({}, { name: 'LibraryDetail' });
 
   const { id, name, fileType, fileExtension, cover, color, url, description, metadata, tags } =
@@ -14,7 +14,8 @@ const LibraryDetail = ({ asset, variant, ...events }) => {
 
   return (
     <Box className={classes.root}>
-      <LibraryDetailToolbar id={id} {...events} />
+      <LibraryDetailToolbar item={asset} toolbarItems={toolbarItems} {...events} />
+
       <LibraryDetailPlayer
         fileIcon={
           <FileIcon fileType={fileType} fileExtension={fileExtension} size={64} color={'#B9BEC4'} />
@@ -26,6 +27,7 @@ const LibraryDetail = ({ asset, variant, ...events }) => {
         name={name}
         fileType={fileType}
       />
+
       <LibraryDetailContent
         description={description}
         metadata={metadata}

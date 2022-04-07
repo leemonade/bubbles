@@ -133,7 +133,7 @@ const PaginatedList = ({
         <Stack fullWidth justifyContent={pagerPlace}>
           <Pager
             page={page}
-            totalCount={totalPages}
+            totalPages={totalPages}
             withSize={true}
             onSizeChange={handleSizeChange}
             onChange={handlePageChange}

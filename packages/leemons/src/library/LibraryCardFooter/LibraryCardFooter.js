@@ -1,6 +1,7 @@
 import React from 'react';
 import { capitalize, isFunction } from 'lodash';
-import { Box, FileIcon, Text, Button } from '@bubbles-ui/components';
+import { Box, Stack, FileIcon, Text, Button } from '@bubbles-ui/components';
+import { AssetBookmarkIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 import {
   LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
@@ -16,6 +17,7 @@ const LibraryCardFooter = ({
   locale,
   className,
   style,
+  variant,
   ...props
 }) => {
   const { classes, cx } = LibraryCardFooterStyles({ action }, { name: 'LibraryCardFooter' });
@@ -27,6 +29,8 @@ const LibraryCardFooter = ({
       return new Date(2010, 8, 21).toLocaleDateString('en-GB');
     }
   };
+
+  console.log(fileType, action, variant);
 
   const handleOnAction = () => {
     isFunction(onAction) && onAction();
