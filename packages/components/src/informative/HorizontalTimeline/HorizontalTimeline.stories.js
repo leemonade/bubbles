@@ -48,6 +48,10 @@ Playground.args = {
       date: new Date('2022-04-07'),
     },
     {
+      label: 'En curso',
+      date: new Date('2022-04-14'),
+    },
+    {
       label: 'Entrega',
       date: '2022-04-20T00:00:00.000Z',
     },
@@ -56,4 +60,5 @@ Playground.args = {
       date: new Date('2022-04-30'),
     },
   ],
+  dotColor: '#FABADA',
 };

@@ -9,99 +9,79 @@ import {
 } from './HorizontalTimeline.constants';
 import { useElementSize } from '@mantine/hooks';
 
-const HorizontalTimeline = ({ data, locale, color, dotColor, ...props }) => {
-  const { ref, width: rootWidth } = useElementSize();
+const HorizontalTimeline = ({ data, locale, color, ...props }) => {
+  const { ref: rootRef, width: rootWidth } = useElementSize();
 
   if (!locale) {
     locale = navigator.language || navigator.userLanguage;
   }
-
-  const getPositionStyle = (
-    firstDate,
-    lastDate,
-    date,
-    index,
-    dataLength,
-    lastWidth,
-    variantColor
-  ) => {
-    let positionStyle = {};
-    let progressStyle = {};
-    let dotStyle = {};
-    const isLast = index === dataLength - 1;
-    const isFirst = index === 0;
-    const intervalPosition = Math.round(((date - firstDate) / (lastDate - firstDate)) * 100);
-
-    if (new Date() >= date) {
-      dotStyle = {
-        backgroundColor: variantColor,
-      };
-    }
-    if (isFirst) {
-      const progressPosition = ((new Date() - firstDate) / (lastDate - firstDate)) * rootWidth;
-      progressStyle = {
-        left: '50%',
-        width: `${progressPosition}px`,
-        zIndex: 1,
-        borderTopStyle: 'solid',
-        borderTopWidth: 3,
-        transform: 'translateY(-1px)',
-      };
-    } else if (isLast) {
-      positionStyle = { right: 0 };
-      progressStyle = { right: '50%', width: `calc(${rootWidth - lastWidth}px - 100%)` };
-    } else {
-      positionStyle = { left: `${intervalPosition}%` };
-      progressStyle = {
-        right: '50%',
-        width: `${(intervalPosition / 100) * rootWidth - lastWidth}px`,
-      };
-    }
-
-    const nextWidth = (intervalPosition / 100) * rootWidth;
-    return { positionStyle, progressStyle, dotStyle, nextWidth };
-  };
+  const firstDate = new Date(data[0].date);
+  const lastDate = new Date(data[data.length - 1].date);
 
   const renderTimeline = () => {
-    if (data.lenght === 0) return;
-
-    const firstDate = new Date(data[0].date);
-    const lastDate = new Date(data[data.length - 1].date);
-    const variantColor = color === 'positive' ? COLORS.mainWhite : COLORS.interactive02;
-
     let lastWidth = 0;
-    return data.map((item, index) => {
-      const dateToReturn = new Date(item.date).toLocaleDateString(locale);
-
-      const { positionStyle, progressStyle, dotStyle, nextWidth } = getPositionStyle(
-        firstDate,
-        lastDate,
-        new Date(item.date),
-        index,
-        data.length,
-        lastWidth,
-        variantColor
+    return data.map((interval, index) => {
+      const { ref, width: labelWidth } = useElementSize();
+      const dateToReturn = new Date(interval.date).toLocaleDateString(locale);
+      const variantColor = color === 'positive' ? COLORS.mainWhite : COLORS.interactive02;
+      const intervalPosition = Math.round(
+        ((new Date(interval.date) - firstDate) / (lastDate - firstDate)) * 100
       );
+      let positionStyle = {};
+      let progressStyle = {};
+      let dotStyle = {};
+      const isFirst = index === 0;
+      const isLast = index === data.length - 1;
 
-      lastWidth = nextWidth;
+      if (new Date() >= new Date(interval.date)) {
+        dotStyle = {
+          backgroundColor: variantColor,
+        };
+      }
+      if (isFirst) {
+        let progressPosition = (new Date() - firstDate) / (lastDate - firstDate);
+        progressStyle = {
+          zIndex: 1,
+          left: '100%',
+          width: `${progressPosition > 1 ? 1 * rootWidth - 20 : progressPosition * rootWidth}px`,
+          borderTopStyle: 'solid',
+          borderTopWidth: 3,
+          transform: 'translateY(-1px)',
+        };
+      } else {
+        positionStyle = !isLast
+          ? { left: `${intervalPosition}%` }
+          : { left: `calc(${intervalPosition}% - 15px)` };
+        progressStyle = !isLast
+          ? { width: `${(intervalPosition / 100) * rootWidth - lastWidth - 16}px` }
+          : { width: `${(intervalPosition / 100) * rootWidth - lastWidth - 31}px` };
+      }
+
+      lastWidth = (intervalPosition / 100) * rootWidth;
 
       return (
-        <Box key={dateToReturn} className={classes.interval} style={positionStyle}>
-          <Box className={classes.dot} style={dotStyle} />
+        <Box key={interval.date} className={classes.dot} style={{ ...positionStyle, ...dotStyle }}>
           <Box className={classes.progress} style={progressStyle} />
-          <Text size="xs">{item.label}</Text>
-          <Text size="xs">{dateToReturn}</Text>
+          <Box
+            ref={ref}
+            className={classes.interval}
+            style={{ left: `-${labelWidth / 2 - 7.5}px` }}
+          >
+            <Text size="xs" className={classes.intervalLabel}>
+              {interval.label}
+            </Text>
+            <Text size="xs" className={classes.intervalDate}>
+              {dateToReturn}
+            </Text>
+          </Box>
         </Box>
       );
     });
   };
 
-  const { classes, cx } = HorizontalTimelineStyles(
-    { color, dotColor },
-    { name: 'HorizontalTimeline' }
-  );
+  const { classes, cx } = HorizontalTimelineStyles({ color }, { name: 'HorizontalTimeline' });
   return (
-    <Box ref={ref} className={classes.root}>
+    <Box ref={rootRef} className={classes.root}>
       {renderTimeline()}
     </Box>
   );

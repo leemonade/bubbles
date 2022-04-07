@@ -1,39 +1,42 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const HorizontalTimelineStyles = createStyles((theme, { color, dotColor }) => {
+export const HorizontalTimelineStyles = createStyles((theme, { color }) => {
   const isPositive = color === 'positive';
 
   return {
     root: {
       width: '100%',
-      height: 55,
       position: 'relative',
-    },
-    interval: {
-      position: 'absolute',
-      bottom: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      fontWeight: 500,
+      height: 51,
     },
     dot: {
       height: 15,
       width: 15,
       borderRadius: '50%',
       border: `1px dashed ${isPositive ? theme.colors.mainWhite : theme.colors.interactive02h}`,
-      marginBottom: 8,
-      backgroundColor: dotColor || '#333',
-      zIndex: 2,
+      position: 'absolute',
+    },
+    interval: {
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      bottom: -35,
+    },
+    intervalLabel: {
+      whiteSpace: 'nowrap',
+    },
+    intervalDate: {
+      whiteSpace: 'nowrap',
     },
     progress: {
       position: 'absolute',
-      height: 0,
       borderTopColor: isPositive ? theme.colors.mainWhite : theme.colors.interactive02,
       borderTopWidth: 1,
       borderTopStyle: 'dashed',
-      top: 6,
+      top: '50%',
+      right: 'calc(0% + 15px)',
       zIndex: 0,
     },
   };
