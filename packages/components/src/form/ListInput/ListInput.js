@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { findIndex, map } from 'lodash';
+import { findIndex, isFunction, map } from 'lodash';
 import { Box } from '../../layout';
 import { ListInputStyles } from './ListInput.styles';
 import { InputWrapper } from '../InputWrapper';
@@ -31,16 +31,20 @@ const ListInput = ({
   error,
   size,
   valueKey,
-  inputRender: InputRender,
-  listRender: ListRender,
+  inputRender: IInputRender,
+  listRender: LListRender,
   required,
   readonly,
   disabled,
   canAdd,
+  hideAddButton = false,
   value: originalValue,
   onChange,
 }) => {
   const { classes, cx } = ListInputStyles({});
+
+  const InputRender = isFunction(IInputRender) ? <IInputRender /> : IInputRender;
+  const ListRender = isFunction(LListRender) ? <LListRender /> : LListRender;
 
   const [hasError, setHasError] = useState(false);
   const [editingKey, setEditingKey] = useState(null);
@@ -108,41 +112,42 @@ const ListInput = ({
           onChange={setValue}
           dragDisabled={!!editingKey}
           itemRender={(props) => {
-            return (
-              <ListRender
-                {...props}
-                readonly={readonly}
-                inputRender={InputRender}
-                editingKey={editingKey}
-                valueKey={valueKey}
-                errorRequiredMessage={errorRequiredMessage}
-                editItem={() => editItem(props.item)}
-                stopEdit={() => setEditingKey(null)}
-                onChange={(event) => {
-                  const index = findIndex(value, { __key: props.item.__key });
-                  value[index][valueKey] = event;
-                  setValue([...value]);
-                  setEditingKey(null);
-                }}
-              />
-            );
+            return React.cloneElement(ListRender, {
+              ...props,
+              readonly,
+              inputRender: InputRender,
+              editingKey,
+              valueKey,
+              errorRequiredMessage,
+              editItem: () => editItem(props.item),
+              stopEdit: () => setEditingKey(null),
+              onChange: (event) => {
+                const index = findIndex(value, { __key: props.item.__key });
+                value[index][valueKey] = event;
+                setValue([...value]);
+                setEditingKey(null);
+              },
+            });
           }}
         />
       </Box>
       {canAdd && !readonly ? (
         <Box>
-          <InputRender
-            value={valueKey ? activeItem[valueKey] : activeItem}
-            onChange={(event) => {
+          {React.cloneElement(InputRender, {
+            value: valueKey ? activeItem[valueKey] : activeItem,
+            onChange: (event) => {
               setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
               if (event) setHasError(false);
-            }}
-            required={true}
-            error={hasError ? errorRequiredMessage : null}
-          />
-          <Button size="xs" onClick={addItem}>
-            {addButtonLabel}
-          </Button>
+            },
+            required: true,
+            error: hasError ? errorRequiredMessage : null,
+            addItem,
+          })}
+          {!hideAddButton ? (
+            <Button size="xs" onClick={addItem}>
+              {addButtonLabel}
+            </Button>
+          ) : null}
         </Box>
       ) : null}
     </InputWrapper>
