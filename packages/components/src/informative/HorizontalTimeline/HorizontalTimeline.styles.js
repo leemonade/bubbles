@@ -29,9 +29,11 @@ export const HorizontalTimelineStyles = createStyles((theme, { color, rootStyles
     },
     intervalLabel: {
       whiteSpace: 'nowrap',
+      color: isPositive && theme.colors.text07,
     },
     intervalDate: {
       whiteSpace: 'nowrap',
+      color: isPositive && theme.colors.text07,
     },
     progress: {
       position: 'absolute',
