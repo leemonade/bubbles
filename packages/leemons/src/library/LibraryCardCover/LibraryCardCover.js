@@ -117,11 +117,13 @@ const LibraryCardCover = ({
           <Box className={classes.color} />
           {!isVertical && iconRow}
         </Box>
-        <TextClamp lines={2}>
-          <Title order={5} className={classes.title}>
-            {name}
-          </Title>
-        </TextClamp>
+        <Box className={classes.titleWrapper}>
+          <TextClamp lines={2}>
+            <Title order={5} className={classes.title}>
+              {name}
+            </Title>
+          </TextClamp>
+        </Box>
       </Box>
       {!isVertical && renderDeadline()}
       {cover ? (

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { LIBRARY_CARD_DEADLINE_PROP_TYPES, LIBRARY_CARD_MENU_ITEM } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment'];
+export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark'];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
   subsmission: PropTypes.number,
@@ -27,6 +27,7 @@ export const ASSET_PROPS = PropTypes.shape({
   cover: PropTypes.string,
   color: PropTypes.string,
   url: PropTypes.string,
+  icon: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
   role: PropTypes.oneOf(LIBRARYCARD_ROLES),

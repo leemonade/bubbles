@@ -8,4 +8,5 @@ export const LIBRARY_CARD_FOOTER_PROP_TYPES = {
   action: PropTypes.string,
   onAction: PropTypes.func,
   locale: PropTypes.string,
+  variant: PropTypes.string,
 };

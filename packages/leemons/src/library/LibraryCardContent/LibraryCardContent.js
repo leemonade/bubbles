@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { isEmpty } from 'lodash';
-import { Box, Text, Badge, Stack, TextClamp } from '@bubbles-ui/components';
+import { Box, Text, Badge, Stack, TextClamp, ImageLoader, Anchor } from '@bubbles-ui/components';
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 import {
   LIBRARY_CARD_CONTENT_DEFAULT_PROPS,
   LIBRARY_CARD_CONTENT_PROP_TYPES,
 } from './LibraryCardContent.constants';
+
+const getAverageTime = (seconds) => {
+  if (seconds <= 59) {
+    return `${seconds}s`;
+  } else {
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    return secondsLeft === 0 ? `${minutes}m` : `${minutes}m ${secondsLeft}s`;
+  }
+};
+
+const getDomain = (url) => {
+  const domain = url.split('//')[1];
+  return (domain.split('/')[0] || '').replace('www.', '');
+};
 
 const LibraryCardContent = ({
   subtitle,
@@ -15,21 +30,13 @@ const LibraryCardContent = ({
   locale,
   variant,
   assigment,
+  icon,
+  url,
   ...props
 }) => {
   const { classes, cx } = LibraryCardContentStyles({}, { name: 'LibraryCardContent' });
 
-  const getAverageTime = (seconds) => {
-    if (seconds <= 59) {
-      return `${seconds}s`;
-    } else {
-      const minutes = Math.floor(seconds / 60);
-      const secondsLeft = seconds % 60;
-      return secondsLeft === 0 ? `${minutes}m` : `${minutes}m ${secondsLeft}s`;
-    }
-  };
-
-  const getBadge = () => {
+  const getBadge = useCallback(() => {
     if (assigment.completed <= 0.2)
       return (
         <Badge
@@ -57,7 +64,7 @@ const LibraryCardContent = ({
           radius={'default'}
         />
       );
-  };
+  }, [assigment]);
 
   const getVariant = () => {
     switch (variant) {
@@ -108,6 +115,16 @@ const LibraryCardContent = ({
           <>
             <Box className={classes.mainContainer}>
               <Stack direction="column" spacing={2} fullWidth>
+                {variant === 'bookmark' && !isEmpty(url) && (
+                  <Stack spacing={2} alignItems="center">
+                    {!isEmpty(icon) && (
+                      <ImageLoader src={icon} width={20} height={20} radius={'4px'} />
+                    )}
+                    <Box>
+                      <Text size="xs">{getDomain(url)}</Text>
+                    </Box>
+                  </Stack>
+                )}
                 {!isEmpty(subtitle) && (
                   <TextClamp lines={2}>
                     <Text role="productive" color="primary">
@@ -137,7 +154,7 @@ const LibraryCardContent = ({
                 )}
               </Stack>
             </Box>
-            {tags.length > 0 && (
+            {tags?.length > 0 && (
               <Box className={classes.tagsContainer}>
                 {tags.map((tag, index) => (
                   <Box key={`${tag} ${index}`}>

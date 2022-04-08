@@ -15,75 +15,97 @@ import {
 } from './LibraryDetailToolbar.constants';
 
 const LibraryDetailToolbar = ({
-  id,
+  item,
   onEdit,
   onDuplicate,
   onDownload,
   onDelete,
   onShare,
   onAssign,
+  onClose,
+  toolbarItems,
   ...props
 }) => {
   const { classes, cx } = LibraryDetailToolbarStyles({}, { name: 'LibraryDetailToolbar' });
 
   const handleEdit = () => {
-    isFunction(onEdit) && onEdit(id);
+    isFunction(onEdit) && onEdit(item);
   };
 
   const handleDuplicate = () => {
-    isFunction(onDuplicate) && onDuplicate(id);
+    isFunction(onDuplicate) && onDuplicate(item);
   };
 
   const handleDownload = () => {
-    isFunction(onDownload) && onDownload(id);
+    isFunction(onDownload) && onDownload(item);
   };
 
   const handleDelete = () => {
-    isFunction(onDelete) && onDelete(id);
+    isFunction(onDelete) && onDelete(item);
   };
 
   const handleShare = () => {
-    isFunction(onShare) && onShare(id);
+    isFunction(onShare) && onShare(item);
   };
 
   const handleAssign = () => {
-    isFunction(onAssign) && onAssign(id);
+    isFunction(onAssign) && onAssign(item);
+  };
+
+  const handleClose = () => {
+    isFunction(onClose) && onClose(item);
   };
 
   return (
     <Box className={classes.root}>
-      <IconButton
-        size={'xs'}
-        icon={<EditWriteIcon height={20} width={20} />}
-        onClick={handleEdit}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<DuplicateIcon height={20} width={20} />}
-        onClick={handleDuplicate}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<CloudUploadIcon height={20} width={20} />}
-        onClick={handleDownload}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<DeleteBinIcon height={20} width={20} />}
-        onClick={handleDelete}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<PluginUsersIcon height={20} width={20} />}
-        onClick={handleShare}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<PluginAssignmentsIcon height={20} width={20} />}
-        onClick={handleAssign}
-      />
+      {toolbarItems.edit && (
+        <IconButton
+          size={'xs'}
+          icon={<EditWriteIcon height={20} width={20} />}
+          onClick={handleEdit}
+        />
+      )}
+      {toolbarItems.duplicate && (
+        <IconButton
+          size={'xs'}
+          icon={<DuplicateIcon height={20} width={20} />}
+          onClick={handleDuplicate}
+        />
+      )}
+      {toolbarItems.download && (
+        <IconButton
+          size={'xs'}
+          icon={<CloudUploadIcon height={20} width={20} />}
+          onClick={handleDownload}
+        />
+      )}
+      {toolbarItems.delete && (
+        <IconButton
+          size={'xs'}
+          icon={<DeleteBinIcon height={20} width={20} />}
+          onClick={handleDelete}
+        />
+      )}
+      {toolbarItems.share && (
+        <IconButton
+          size={'xs'}
+          icon={<PluginUsersIcon height={20} width={20} />}
+          onClick={handleShare}
+        />
+      )}
+      {toolbarItems.assign && (
+        <IconButton
+          size={'xs'}
+          icon={<PluginAssignmentsIcon height={20} width={20} />}
+          onClick={handleAssign}
+        />
+      )}
       <Box className={classes.lastIcon}>
-        <IconButton size={'xs'} icon={<MoveRightIcon height={20} width={20} />} />
+        <IconButton
+          size={'xs'}
+          icon={<MoveRightIcon height={20} width={20} />}
+          onClick={handleClose}
+        />
       </Box>
     </Box>
   );

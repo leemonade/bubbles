@@ -25,8 +25,8 @@ const LibraryDetailContent = ({
       <LibraryCardFooter fileType={fileType} fileExtension={fileExtension} />
       <Box className={classes.lowerContent}>
         <LibraryCardContent metadata={metadata} />
-        <Box className={classes.tags}>
-          {tags.length > 0 && (
+        {tags?.length > 0 && (
+          <Box className={classes.tags}>
             <Box className={classes.tagsContainer}>
               {tags.map((tag, index) => (
                 <Box key={`${tag} ${index}`}>
@@ -40,8 +40,8 @@ const LibraryDetailContent = ({
                 </Box>
               ))}
             </Box>
-          )}
-        </Box>
+          </Box>
+        )}
       </Box>
     </Box>
   );
