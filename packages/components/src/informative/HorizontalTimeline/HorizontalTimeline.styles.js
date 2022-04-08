@@ -1,11 +1,14 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const HorizontalTimelineStyles = createStyles((theme, { color }) => {
+export const HorizontalTimelineStyles = createStyles((theme, { color, rootStyles }) => {
   const isPositive = color === 'positive';
 
   return {
     root: {
+      ...rootStyles,
+    },
+    timelineContainer: {
       width: '100%',
       position: 'relative',
       height: 51,

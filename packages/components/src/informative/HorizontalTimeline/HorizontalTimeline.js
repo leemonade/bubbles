@@ -9,8 +9,8 @@ import {
 } from './HorizontalTimeline.constants';
 import { useElementSize } from '@mantine/hooks';
 
-const HorizontalTimeline = ({ data, locale, color, ...props }) => {
-  const { ref: rootRef, width: rootWidth } = useElementSize();
+const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ...props }) => {
+  const { ref: timelineRef, width: timelineWidth } = useElementSize();
 
   if (!locale) {
     locale = navigator.language || navigator.userLanguage;
@@ -43,7 +43,9 @@ const HorizontalTimeline = ({ data, locale, color, ...props }) => {
         progressStyle = {
           zIndex: 1,
           left: '100%',
-          width: `${progressPosition > 1 ? 1 * rootWidth - 20 : progressPosition * rootWidth}px`,
+          width: `${
+            progressPosition > 1 ? 1 * timelineWidth - 20 : progressPosition * timelineWidth
+          }px`,
           borderTopStyle: 'solid',
           borderTopWidth: 3,
           transform: 'translateY(-1px)',
@@ -53,11 +55,11 @@ const HorizontalTimeline = ({ data, locale, color, ...props }) => {
           ? { left: `${intervalPosition}%` }
           : { left: `calc(${intervalPosition}% - 15px)` };
         progressStyle = !isLast
-          ? { width: `${(intervalPosition / 100) * rootWidth - lastWidth - 16}px` }
-          : { width: `${(intervalPosition / 100) * rootWidth - lastWidth - 31}px` };
+          ? { width: `${(intervalPosition / 100) * timelineWidth - lastWidth - 16}px` }
+          : { width: `${(intervalPosition / 100) * timelineWidth - lastWidth - 31}px` };
       }
 
-      lastWidth = (intervalPosition / 100) * rootWidth;
+      lastWidth = (intervalPosition / 100) * timelineWidth;
 
       return (
         <Box key={interval.date} className={classes.dot} style={{ ...positionStyle, ...dotStyle }}>
@@ -79,10 +81,15 @@ const HorizontalTimeline = ({ data, locale, color, ...props }) => {
     });
   };
 
-  const { classes, cx } = HorizontalTimelineStyles({ color }, { name: 'HorizontalTimeline' });
+  const { classes, cx } = HorizontalTimelineStyles(
+    { color, rootStyles },
+    { name: 'HorizontalTimeline' }
+  );
   return (
-    <Box ref={rootRef} className={classes.root}>
-      {renderTimeline()}
+    <Box className={cx(classes.root, rootClassname)}>
+      <Box ref={timelineRef} className={classes.timelineContainer}>
+        {renderTimeline()}
+      </Box>
     </Box>
   );
 };

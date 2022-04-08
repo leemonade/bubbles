@@ -60,5 +60,7 @@ Playground.args = {
       date: new Date('2022-04-30'),
     },
   ],
-  dotColor: '#FABADA',
+  rootStyles: {
+    padding: 24,
+  },
 };
