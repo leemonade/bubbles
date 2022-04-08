@@ -38,7 +38,7 @@ export const HorizontalTimelineStyles = createStyles((theme, { color, rootStyles
       borderTopColor: isPositive ? theme.colors.mainWhite : theme.colors.interactive02,
       borderTopWidth: 1,
       borderTopStyle: 'dashed',
-      top: '50%',
+      top: '49%',
       right: 'calc(0% + 15px)',
       zIndex: 0,
     },
