@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { ListInput, LIST_INPUT_DEFAULT_PROPS } from './ListInput';
+import { LIST_INPUT_DEFAULT_PROPS, ListInput } from './ListInput';
 import mdx from './ListInput.mdx';
 
 export default {
@@ -21,8 +20,17 @@ export default {
   },
 };
 
+function ListInputRender({ t, ...props }) {
+  console.log(props);
+  return 'Gatito';
+}
+
 const Template = ({ children, ...props }) => {
-  return <ListInput {...props}>{children}</ListInput>;
+  return (
+    <ListInput {...props} canAdd inputRender={<ListInputRender />}>
+      {children}
+    </ListInput>
+  );
 };
 
 export const Playground = Template.bind({});
