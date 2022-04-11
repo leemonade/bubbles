@@ -44,7 +44,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
           zIndex: 1,
           left: '100%',
           width: `${
-            progressPosition > 1 ? 1 * timelineWidth - 20 : progressPosition * timelineWidth
+            progressPosition > 1 ? 1 * timelineWidth - 15 : progressPosition * timelineWidth - 15
           }px`,
           borderTopStyle: 'solid',
           borderTopWidth: 3,
