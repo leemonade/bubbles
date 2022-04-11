@@ -9,6 +9,9 @@ export const LibraryDetailToolbarStyles = createStyles((theme, {}) => {
       padding: pxToRem(16),
       gap: pxToRem(8),
     },
+    button: {
+      color: theme.colors.text05,
+    },
     lastIcon: {
       flex: 1,
       display: 'flex',

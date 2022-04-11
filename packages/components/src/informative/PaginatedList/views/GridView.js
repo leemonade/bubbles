@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
-import { Masonry } from '../../../layout';
+import { Masonry, Stack } from '../../../layout';
 import { GridItemRender } from './GridItemRender';
 
 const GRID_VIEW_DEFAULT_PROPS = {
   itemRender: ({ key, ...props }) => <GridItemRender key={key} {...props} />,
+  itemMinWidth: 360,
+  style: {},
 };
 const GRID_VIEW_PROP_TYPES = {
   itemRender: PropTypes.func,
+  itemMinWidth: PropTypes.number,
+  style: PropTypes.any,
 };
 
 const GridView = ({
@@ -18,6 +22,8 @@ const GridView = ({
   itemRender,
   onSelect,
   selectable,
+  style,
+  itemMinWidth,
   ...props
 }) => {
   const [currentItem, setCurrentItem] = useState(null);
@@ -31,8 +37,20 @@ const GridView = ({
     }
   };
 
+  const gridStyle = useMemo(() => {
+    const colWidth =
+      rows.length < 3
+        ? `minmax(${itemMinWidth}px, ${itemMinWidth}px)`
+        : `minmax(${itemMinWidth}px, 1fr)`;
+    return {
+      ...style,
+      display: 'grid',
+      gridTemplateColumns: `repeat(auto-fit, ${colWidth})`,
+    };
+  }, [itemMinWidth, style, rows]);
+
   return (
-    <Masonry {...props}>
+    <Stack wrap="wrap" {...props} style={gridStyle}>
       {itemRender &&
         rows.map((row, i) => {
           prepareRow(row);
@@ -44,7 +62,7 @@ const GridView = ({
             onClick: () => handleOnSelect(row.original),
           });
         })}
-    </Masonry>
+    </Stack>
   );
 };
 

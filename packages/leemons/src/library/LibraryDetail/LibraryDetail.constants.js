@@ -6,12 +6,13 @@ export const LIBRARY_DETAIL_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
 
 export const LIBRARY_DETAIL_DEFAULT_PROPS = {
   toolbarItems: {
-    edit: true,
-    duplicate: false,
-    download: true,
-    delete: true,
-    share: true,
-    assign: false,
+    edit: 'Edit',
+    duplicate: 'Duplicate',
+    download: 'Download',
+    delete: 'Delete',
+    share: 'Share',
+    assign: 'Assign',
+    close: 'Close',
   },
 };
 export const LIBRARY_DETAIL_PROP_TYPES = {

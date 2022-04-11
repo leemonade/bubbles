@@ -2,6 +2,7 @@ import React, { useMemo, useState, useRef } from 'react';
 import { isNil } from 'lodash';
 import ReactPlayer from 'react-player/lazy';
 import { ControlsPlayIcon, ControlsPauseIcon } from '@bubbles-ui/icons/solid';
+import { OpenIcon } from '@bubbles-ui/icons/outline';
 import {
   Box,
   ImageLoader,
@@ -10,6 +11,7 @@ import {
   IconButton,
   Text,
   FileIcon,
+  ActionButton,
 } from '@bubbles-ui/components';
 import { LibraryDetailPlayerStyles } from './LibraryDetailPlayer.styles';
 import {
@@ -158,6 +160,12 @@ const LibraryDetailPlayer = ({
             {name}
           </Title>
           {/* <IconButton size={'xs'} icon={<ExpandDiagonalIcon height={16} width={16} />} /> */}
+          {variant === 'bookmark' && (
+            <ActionButton
+              icon={<OpenIcon height={16} width={16} />}
+              onClick={() => window.open(url, '_blank')}
+            />
+          )}
           {playable && (
             <IconButton
               icon={

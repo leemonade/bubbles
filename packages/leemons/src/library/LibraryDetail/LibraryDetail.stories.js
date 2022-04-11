@@ -3,7 +3,7 @@ import { Box } from '@bubbles-ui/components';
 import { LibraryDetail } from './LibraryDetail';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_VARIANTS } from './LibraryDetail.constants';
 import mdx from './LibraryDetail.mdx';
-import { VIDEO_ASSET, AUDIO_ASSET, IMAGE_ASSET } from '../LibraryCard/mock/data';
+import { VIDEO_ASSET, AUDIO_ASSET, IMAGE_ASSET, URL_ASSET } from '../LibraryCard/mock/data';
 
 export default {
   title: 'leemons/Library/LibraryDetail',
@@ -43,7 +43,7 @@ const Template = ({ children, asset, ...props }) => {
         </LibraryDetail>
       </Box>
       <Box style={{ width: 360 }}>
-        <LibraryDetail {...props} asset={IMAGE_ASSET}>
+        <LibraryDetail {...props} asset={URL_ASSET} variant="bookmark">
           {children}
         </LibraryDetail>
       </Box>

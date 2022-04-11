@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Badge } from '@bubbles-ui/components';
-import { LibraryCardContent } from '../LibraryCardContent';
+import { isEmpty } from 'lodash';
+import { Box, Badge, Paper, Stack, ImageLoader, Text } from '@bubbles-ui/components';
+import { LibraryCardContent, getDomain } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
 import { LibraryDetailContentStyles } from './LibraryDetailContent.styles';
 import {
@@ -12,6 +13,8 @@ const LibraryDetailContent = ({
   description,
   metadata,
   tags,
+  url,
+  icon,
   fileType,
   fileExtension,
   variant,
@@ -23,8 +26,29 @@ const LibraryDetailContent = ({
     <Box className={classes.root}>
       <LibraryCardContent description={description} />
       <LibraryCardFooter fileType={fileType} fileExtension={fileExtension} />
+      {variant === 'bookmark' && (
+        <Box sx={(theme) => ({ padding: theme.spacing[2] })}>
+          <Paper bordered padding={2} radius="sm" shadow="none" fullWidth>
+            <Stack spacing={2}>
+              <Box>
+                <ImageLoader src={icon} height={20} width={20} radius={4} />
+              </Box>
+              <Box>
+                <Stack direction="column">
+                  <Text size="xs" strong>
+                    {getDomain(url)}
+                  </Text>
+                  <Text size="xs" role="productive" truncated>
+                    {url}
+                  </Text>
+                </Stack>
+              </Box>
+            </Stack>
+          </Paper>
+        </Box>
+      )}
       <Box className={classes.lowerContent}>
-        <LibraryCardContent metadata={metadata} />
+        {!isEmpty(metadata) && <LibraryCardContent metadata={metadata} />}
         {tags?.length > 0 && (
           <Box className={classes.tags}>
             <Box className={classes.tagsContainer}>

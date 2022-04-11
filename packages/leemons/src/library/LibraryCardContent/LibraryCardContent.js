@@ -174,4 +174,4 @@ const LibraryCardContent = ({
 LibraryCardContent.defaultProps = LIBRARY_CARD_CONTENT_DEFAULT_PROPS;
 LibraryCardContent.propTypes = LIBRARY_CARD_CONTENT_PROP_TYPES;
 
-export { LibraryCardContent };
+export { LibraryCardContent, getDomain };

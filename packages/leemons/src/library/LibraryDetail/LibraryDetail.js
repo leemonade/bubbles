@@ -9,32 +9,21 @@ import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './Libra
 const LibraryDetail = ({ asset, variant, toolbarItems, ...events }) => {
   const { classes, cx } = LibraryDetailStyles({}, { name: 'LibraryDetail' });
 
-  const { id, name, fileType, fileExtension, cover, color, url, description, metadata, tags } =
-    asset;
+  const { fileType, fileExtension } = asset;
 
   return (
     <Box className={classes.root}>
       <LibraryDetailToolbar item={asset} toolbarItems={toolbarItems} {...events} />
 
       <LibraryDetailPlayer
+        {...asset}
+        variant={variant}
         fileIcon={
           <FileIcon fileType={fileType} fileExtension={fileExtension} size={64} color={'#B9BEC4'} />
         }
-        cover={cover}
-        color={color}
-        url={url}
-        variant={variant}
-        name={name}
-        fileType={fileType}
       />
 
-      <LibraryDetailContent
-        description={description}
-        metadata={metadata}
-        tags={tags}
-        fileType={fileType}
-        variant={variant}
-      />
+      <LibraryDetailContent {...asset} variant={variant} />
     </Box>
   );
 };
