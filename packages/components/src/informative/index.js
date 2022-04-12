@@ -8,3 +8,4 @@ export * from './Kanban';
 export * from './Table';
 export * from './Badge';
 export * from './Calification';
+export * from './HorizontalTimeline';
