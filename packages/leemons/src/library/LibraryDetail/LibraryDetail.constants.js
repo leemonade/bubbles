@@ -12,7 +12,16 @@ export const LIBRARY_DETAIL_DEFAULT_PROPS = {
     delete: 'Delete',
     share: 'Share',
     assign: 'Assign',
-    close: 'Close',
+    toggle: 'Toggle',
+  },
+  drawer: true,
+  toolbar: true,
+  open: true,
+  labels: {
+    copy: 'Copy',
+    copied: 'Copied',
+    sharedWith: 'Shared with',
+    sharedViewAll: 'View all',
   },
 };
 export const LIBRARY_DETAIL_PROP_TYPES = {
@@ -25,4 +34,8 @@ export const LIBRARY_DETAIL_PROP_TYPES = {
   onDelete: PropTypes.func,
   onShare: PropTypes.func,
   onAssign: PropTypes.func,
+  drawer: PropTypes.bool,
+  toolbar: PropTypes.bool,
+  open: PropTypes.bool,
+  labels: PropTypes.any,
 };

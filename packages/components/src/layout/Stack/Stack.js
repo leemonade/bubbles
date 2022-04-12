@@ -15,6 +15,7 @@ export const STACK_DEFAULT_PROPS = {
 };
 export const STACK_DIRECTIONS = ['column', 'row', 'row-reverse', 'column-reverse'];
 export const STACK_WRAP = ['nowrap', 'wrap', 'wrap-reverse'];
+export const STACK_DISPLAY = ['flex', 'grid', 'inline-flex', 'inline-grid'];
 export const STACK_ALIGN_CONTENT = [
   'normal',
   'center',
@@ -50,12 +51,23 @@ const Stack = forwardRef(
       fullHeight,
       spacing,
       children,
+      display,
       ...props
     },
     ref
   ) => {
     const { classes, cx } = StackStyles(
-      { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing },
+      {
+        direction,
+        display,
+        wrap,
+        alignContent,
+        justifyContent,
+        alignItems,
+        fullWidth,
+        fullHeight,
+        spacing,
+      },
       { name: 'Stack' }
     );
 
@@ -120,6 +132,7 @@ Stack.propTypes = {
   fullWidth: PropTypes.bool,
   fullHeight: PropTypes.bool,
   spacing: PropTypes.number,
+  display: PropTypes.string,
 };
 
 export { Stack };

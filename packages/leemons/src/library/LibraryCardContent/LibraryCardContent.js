@@ -32,6 +32,7 @@ const LibraryCardContent = ({
   assigment,
   icon,
   url,
+  truncated,
   ...props
 }) => {
   const { classes, cx } = LibraryCardContentStyles({}, { name: 'LibraryCardContent' });
@@ -126,14 +127,14 @@ const LibraryCardContent = ({
                   </Stack>
                 )}
                 {!isEmpty(subtitle) && (
-                  <TextClamp lines={2}>
+                  <TextClamp lines={truncated ? 2 : 10}>
                     <Text role="productive" color="primary">
                       {subtitle}
                     </Text>
                   </TextClamp>
                 )}
                 {!isEmpty(description) ? (
-                  <TextClamp lines={3}>
+                  <TextClamp lines={truncated ? 3 : 20}>
                     <Text size={'xs'} role="productive" className={classes.description}>
                       {description}
                     </Text>

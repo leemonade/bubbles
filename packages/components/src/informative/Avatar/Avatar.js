@@ -9,19 +9,7 @@ export const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
 export const AVATAR_STATE = ['normal', 'alert', 'notifications', 'error'];
 
 const Avatar = forwardRef(
-  (
-    {
-      image,
-      icon,
-      color,
-      initials,
-      fullName,
-      size: sizeProp = 'sm',
-      state: stateProp = 'normal',
-      ...props
-    },
-    ref
-  ) => {
+  ({ image, icon, color, initials, fullName, size: sizeProp, state: stateProp, ...props }, ref) => {
     const size = AVATAR_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const state = AVATAR_STATE.includes(stateProp) ? stateProp : 'normal';
 
@@ -85,6 +73,11 @@ const Avatar = forwardRef(
     );
   }
 );
+
+Avatar.defaultProps = {
+  size: 'sm',
+  state: 'normal',
+};
 
 Avatar.propTypes = {
   image: PropTypes.string,

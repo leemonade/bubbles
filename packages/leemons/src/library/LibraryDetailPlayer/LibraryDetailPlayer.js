@@ -12,6 +12,7 @@ import {
   Text,
   FileIcon,
   ActionButton,
+  TextClamp,
 } from '@bubbles-ui/components';
 import { LibraryDetailPlayerStyles } from './LibraryDetailPlayer.styles';
 import {
@@ -156,9 +157,11 @@ const LibraryDetailPlayer = ({
           <Box className={classes.color} />
         </Box>
         <Box className={classes.titleRow}>
-          <Title order={4} className={classes.title}>
-            {name}
-          </Title>
+          <TextClamp lines={6}>
+            <Title order={4} className={classes.title}>
+              {name}
+            </Title>
+          </TextClamp>
           {/* <IconButton size={'xs'} icon={<ExpandDiagonalIcon height={16} width={16} />} /> */}
           {variant === 'bookmark' && (
             <ActionButton

@@ -10,12 +10,16 @@ export const LibraryDetailToolbarStyles = createStyles((theme, {}) => {
       gap: pxToRem(8),
     },
     button: {
+      transition: 'transform 0.2s ease-out',
       color: theme.colors.text05,
     },
     lastIcon: {
       flex: 1,
       display: 'flex',
       justifyContent: 'flex-end',
+    },
+    flip: {
+      transform: 'rotateZ(180deg)',
     },
   };
 });
