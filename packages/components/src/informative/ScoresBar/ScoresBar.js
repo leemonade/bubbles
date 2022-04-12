@@ -1,15 +1,66 @@
 import React from 'react';
 import { Box } from '../../layout';
+import { getFontExpressive } from '../../theme.mixins';
 import { COLORS } from '../../theme.tokens';
 import { ResponsiveBar } from '@nivo/bar';
 import { ScoresBarStyles } from './ScoresBar.styles';
-import { SCORES_BAR_DEFAULT_PROPS, SCORES_BAR_PROP_TYPES } from './ScoresBar.constants';
+import {
+  SCORES_BAR_DEFAULT_PROPS,
+  SCORES_BAR_PROP_TYPES,
+  SCORES_BAR_BOTTOM_AXIS,
+} from './ScoresBar.constants';
 
-const ScoresBar = ({ data, minimumGrade, variant, withMarker, ...props }) => {
+const ScoresBar = ({
+  data,
+  minimumGrade,
+  gradeSystem,
+  variant,
+  withMarker,
+  markerLegend,
+  ...props
+}) => {
   const { classes, cx } = ScoresBarStyles({ withMarker }, { name: 'ScoresBar' });
-  const dataToShow = [...data];
-
   const isMultiColor = variant === 'multicolor';
+  const [bottomAxisSelector, setBottomAxisSelector] = React.useState(0);
+
+  const getData = () => {
+    let dataToShow = [
+      { score: 0 },
+      { score: 1 },
+      { score: 2 },
+      { score: 3 },
+      { score: 4 },
+      { score: 5 },
+      { score: 6 },
+      { score: 7 },
+      { score: 8 },
+      { score: 9 },
+      { score: 10 },
+    ];
+
+    let highestPercentage = 0;
+    dataToShow = dataToShow.map(({ score }) => {
+      const gradeCount = data.filter(({ grade }) => score === Math.round(grade)).length;
+
+      const lastPercentage = (gradeCount / data.length) * 10;
+
+      if (lastPercentage > highestPercentage) {
+        highestPercentage = lastPercentage;
+      }
+
+      return { score, scoreValue: lastPercentage };
+    });
+
+    if (highestPercentage <= 2.5) {
+      if (bottomAxisSelector !== 0) setBottomAxisSelector(0);
+    } else if (highestPercentage <= 5) {
+      if (bottomAxisSelector !== 1) setBottomAxisSelector(1);
+    } else if (highestPercentage <= 10) {
+      if (bottomAxisSelector !== 2) setBottomAxisSelector(2);
+    }
+
+    return dataToShow;
+  };
 
   const CustomBarComponent = ({ bar, ...props }) => {
     const getColor = () => {
@@ -52,45 +103,53 @@ const ScoresBar = ({ data, minimumGrade, variant, withMarker, ...props }) => {
     );
   };
 
-  if (withMarker) {
-    dataToShow.splice(minimumGrade, 0, { score: '' });
-    dataToShow.join();
-  }
-
-  console.log(dataToShow);
-
   return (
     <Box className={classes.root}>
       <ResponsiveBar
-        data={dataToShow}
+        data={getData()}
         minValue={0}
-        maxValue={10}
+        maxValue={
+          SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector][
+            SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector].length - 1
+          ]
+        }
         layout="horizontal"
         barComponent={CustomBarComponent}
         keys={['scoreValue']}
         indexBy="score"
         margin={{ right: 20, bottom: 25, left: 50 }}
-        padding={0.1}
+        padding={0.12}
+        valueFormat={(value) => `${Math.round((value / 10) * data.length)}`}
         axisBottom={{
           tickSize: 0,
           tickPadding: 10,
-          tickValues: [0, 2.5, 5, 7.5, 10],
+          tickValues: SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector],
           format: (value) => `${value * 10}%`,
         }}
         axisLeft={{
           tickSize: 0,
           tickPadding: 32,
         }}
-        enableGridX={true}
-        enableGridY={false}
-        gridXValues={[0, 2.5, 5, 7.5, 10]}
         markers={[
           {
             axis: 'y',
-            value: minimumGrade,
-            lineStyle: { stroke: COLORS.fatic03, strokeWidth: 2 },
+            value: minimumGrade - 1,
+            legend: markerLegend,
+            lineStyle: {
+              stroke: COLORS.fatic03,
+              strokeWidth: 1,
+            },
+            textStyle: {
+              ...getFontExpressive(12),
+              textColor: COLORS.text02,
+              display: !withMarker && 'none',
+              opacity: 0.7,
+            },
           },
         ]}
+        enableGridX={true}
+        enableGridY={false}
+        gridXValues={SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector]}
         colorBy="indexValue"
         colors={({ index }) => {
           if (index < minimumGrade) {
@@ -109,6 +168,8 @@ const ScoresBar = ({ data, minimumGrade, variant, withMarker, ...props }) => {
               strokeOpacity: 0.4,
             },
           },
+          ...getFontExpressive(12),
+          textColor: COLORS.text02,
         }}
         layers={['axes', 'bars', 'grid', 'markers']}
       />

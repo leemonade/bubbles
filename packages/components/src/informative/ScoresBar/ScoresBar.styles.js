@@ -10,8 +10,12 @@ export const ScoresBarStyles = createStyles((theme, { withMarker }) => {
         strokeWidth: '2px !important',
         strokeOpacity: 0.4,
       },
-      'svg > g g:last-child line:first-of-type': {
+      'svg > g g:nth-last-of-type(2) line:first-of-type': {
+        display: 'none',
+      },
+      'svg > g g:last-child line': {
         display: !withMarker && 'none',
+        transform: 'translateY(-0.5%)',
       },
     },
     label: {
