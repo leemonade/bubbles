@@ -47,5 +47,8 @@ Playground.args = {
     onAssign: (id) => {
       alert('onAssign: ' + id);
     },
+    onToggle: () => {
+      alert('onToggle');
+    },
   },
 };

@@ -6,6 +6,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   tags: [],
   variant: 'media',
   badgeColor: 'solid',
+  truncated: true,
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   subtitle: PropTypes.string,
@@ -15,4 +16,5 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   locale: PropTypes.string,
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
+  truncated: PropTypes.bool,
 };

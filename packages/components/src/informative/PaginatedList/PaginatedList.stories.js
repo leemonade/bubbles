@@ -62,6 +62,11 @@ const CustomItemRender = ({ key, item, headers, selected, className, ...props })
               </Stack>
             );
           })}
+          {Math.random() * 100 > 50 && (
+            <Text role="productive" size="md">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+            </Text>
+          )}
         </Stack>
       </Paper>
     </Box>
@@ -153,6 +158,7 @@ const Template = ({
 
   if (layout === 'grid') {
     customProps.itemRender = CustomItemRender;
+    customProps.spacing = 2;
   }
 
   return (

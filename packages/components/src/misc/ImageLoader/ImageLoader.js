@@ -8,7 +8,7 @@ import { ImageLoaderStyles } from './ImageLoader.styles';
 export const ImageLoader = ({
   src: srcProp,
   alt,
-  forceImage = false,
+  forceImage,
   height: heightProp,
   withPlaceholder,
   radius,
@@ -33,9 +33,13 @@ export const ImageLoader = ({
       alt={alt}
       height={height}
       withPlaceholder={withPlaceholder}
-      classNames={{ root: classes.inheritRadius }}
+      classNames={{ root: classes.root }}
     />
   );
+};
+
+ImageLoader.defaultProps = {
+  forceImage: false,
 };
 
 ImageLoader.propTypes = {

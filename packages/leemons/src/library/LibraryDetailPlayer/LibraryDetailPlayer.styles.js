@@ -103,7 +103,7 @@ export const LibraryDetailPlayerStyles = createStyles(
       },
       titleRow: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'baseline',
         padding: `${pxToRem(16)} ${pxToRem(16)} ${pxToRem(10)} ${pxToRem(16)}`,
         gap: pxToRem(16),
       },
