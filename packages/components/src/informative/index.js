@@ -7,3 +7,4 @@ export * from './Avatar';
 export * from './Kanban';
 export * from './Table';
 export * from './Badge';
+export * from './Calification';
