@@ -1,2 +1,2 @@
-export * from './extension/';
+export * from './extension';
 export * from './EmbedTool';

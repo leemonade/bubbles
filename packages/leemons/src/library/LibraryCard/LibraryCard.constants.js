@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { LIBRARY_CARD_DEADLINE_PROP_TYPES } from '../Library.constants';
+import { LIBRARY_CARD_DEADLINE_PROP_TYPES, LIBRARY_CARD_MENU_ITEM } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment'];
+export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark'];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
   subsmission: PropTypes.number,
@@ -21,20 +21,22 @@ export const ASSET_PROPS = PropTypes.shape({
   name: PropTypes.string,
   description: PropTypes.string,
   subtitle: PropTypes.string,
-  metadata: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })
-  ),
+  metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   created: PropTypes.string,
   version: PropTypes.string,
   cover: PropTypes.string,
   color: PropTypes.string,
   url: PropTypes.string,
+  icon: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
   role: PropTypes.oneOf(LIBRARYCARD_ROLES),
 });
 
-export const LIBRARY_CARD_DEFAULT_PROPS = {};
+export const LIBRARY_CARD_DEFAULT_PROPS = {
+  menuItems: [],
+  dashboard: false,
+};
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
@@ -43,4 +45,6 @@ export const LIBRARY_CARD_PROP_TYPES = {
   action: PropTypes.string,
   onAction: PropTypes.func,
   locale: PropTypes.string,
+  menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
+  dashboard: PropTypes.bool,
 };

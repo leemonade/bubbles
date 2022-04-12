@@ -35,6 +35,10 @@ export const BigCalendar = forwardRef(
       messages,
       monthRange,
       hooks,
+      toolbarRightNode = null,
+      showToolbarAddButton = true,
+      showToolbarToggleWeekend = true,
+      showToolbarViewSwitcher = true,
       showWeekends: showWeekendsProp,
       dateClick = () => {},
       onSelectDay = () => {},
@@ -220,6 +224,10 @@ export const BigCalendar = forwardRef(
                     addEventClick={addEventClick}
                     showWeekends={showWeekends}
                     setShowWeekends={setShowWeekends}
+                    toolbarRightNode={toolbarRightNode}
+                    showToolbarAddButton={showToolbarAddButton}
+                    showToolbarToggleWeekend={showToolbarToggleWeekend}
+                    showToolbarViewSwitcher={showToolbarViewSwitcher}
                   />
                 )
               : false,

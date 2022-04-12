@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const ColorSwatchStyles = createStyles((theme, { actived }) => {
+export const ColorSwatchStyles = createStyles((theme, { actived, plain }) => {
   return {
     root: {
       overflow: 'visible',
@@ -11,8 +11,12 @@ export const ColorSwatchStyles = createStyles((theme, { actived }) => {
         cursor: 'pointer',
       },
       '.mantine-ColorSwatch-shadowOverlay': {
-        outline: actived ? '2px solid white' : null,
-        boxShadow: actived ? '0 0 0 4px rgba(0,0,0,.25)' : 'none',
+        // outline: actived ? '2px solid white' : null,
+        boxShadow: actived
+          ? '0 0 0 4px rgb(0 0 0 / 15%)'
+          : plain
+          ? 'none'
+          : 'rgb(0 0 0 / 10%) 0px 0px 0px 1px inset, rgb(0 0 0 / 0%) 0px 0px 4px inset;',
       },
     },
   };

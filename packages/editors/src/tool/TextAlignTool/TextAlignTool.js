@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
 import {
-  EditorLeftAlignIcon,
-  LadybugIcon,
   EditorJustifiedAlignIcon,
+  EditorLeftAlignIcon,
   EditorRightAlignIcon,
+  EditorCenterAlignIcon,
 } from '@bubbles-ui/icons/solid';
-import { useContext } from 'react';
-import { TextEditorContext, Button, ButtonGroup } from '../../form/';
+import React, { useContext } from 'react';
+import { Button, ButtonGroup, TextEditorContext } from '../../form/';
 
 export const TEXTALIGN_TOOL_DEFAULT_PROPS = {
   left: true,
@@ -58,7 +58,7 @@ const TextAlignTool = ({ left, center, justify, right, labels, children, ...prop
       {center && (
         <Button
           label={labels.center}
-          icon={<LadybugIcon height={16} width={16} />}
+          icon={<EditorCenterAlignIcon height={16} width={16} />}
           actived={editor?.isActive({ textAlign: 'center' })}
           disabled={editor?.isActive('codeBlock')}
           onClick={() => onClickHandler('center')}

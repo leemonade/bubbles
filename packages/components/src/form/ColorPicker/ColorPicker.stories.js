@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Box } from '@mantine/core';
+import { Box, Paper } from '../../layout';
 import { Button } from '../Button';
 import { Popover } from '../../overlay';
+
 import { ColorPicker, COLOR_PICKER_DEFAULT_PROPS, COLOR_PICKER_FORMATS } from './ColorPicker';
 import mdx from './ColorPicker.mdx';
 
@@ -20,11 +21,17 @@ export default {
   argTypes: {
     onChange: { action: 'Color Changed' },
     format: { options: COLOR_PICKER_FORMATS, control: { type: 'select' } },
+    lightness: { control: 'number' },
+    saturation: { control: 'number' },
   },
 };
 
 const Template = ({ ...props }) => {
-  return <ColorPicker {...props} />;
+  return (
+    <Paper padding="sm" style={{ width: 300 }}>
+      <ColorPicker {...props} />
+    </Paper>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -41,7 +48,7 @@ const DropdownTemplate = ({ ...props }) => {
         opened={opened}
         onClose={() => setOpened(false)}
         target={<Button onClick={() => setOpened((o) => !o)}>Toggle popover</Button>}
-        width={260}
+        width={200}
         position="bottom"
       >
         <Box style={{ display: 'flex' }}>

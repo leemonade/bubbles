@@ -8,7 +8,7 @@ import { PagerStyles } from './Pager.styles';
 export const PAGER_DIRECTIONS = ['column', 'row'];
 export const PAGER_VARIANTS = ['paged', 'infinity'];
 export const PAGER_DEFAULT_PROPS = {
-  totalCount: 10,
+  totalPages: 10,
   size: 10,
   boundaries: 1,
   siblings: 1,
@@ -26,7 +26,7 @@ export const PAGER_DEFAULT_PROPS = {
   page: 0,
 };
 export const PAGER_PROP_TYPES = {
-  totalCount: PropTypes.number,
+  totalPages: PropTypes.number,
   page: PropTypes.number,
   size: PropTypes.number,
   boundaries: PropTypes.number,
@@ -44,7 +44,7 @@ export const PAGER_PROP_TYPES = {
 const Pager = forwardRef(
   (
     {
-      totalCount,
+      totalPages,
       size: sizeProp,
       page: pageProp,
       boundaries,
@@ -67,7 +67,7 @@ const Pager = forwardRef(
     const [page, setPage] = useState(pageProp);
     const [size, setSize] = useState(sizeProp);
 
-    const inputMaxLength = totalCount.toString().length;
+    const inputMaxLength = totalPages.toString().length;
 
     useEffect(() => {
       if (size !== sizeProp) setSize(sizeProp);
@@ -94,8 +94,8 @@ const Pager = forwardRef(
         setGoToPage(1);
         return;
       }
-      if (value > totalCount) {
-        setGoToPage(totalCount);
+      if (value > totalPages) {
+        setGoToPage(totalPages);
         return;
       }
       setGoToPage(value);
@@ -132,7 +132,7 @@ const Pager = forwardRef(
             <input
               type={'number'}
               min={1}
-              max={totalCount}
+              max={totalPages}
               maxLength={inputMaxLength}
               className={classes.input}
               value={goToPage.toString()}
@@ -146,7 +146,7 @@ const Pager = forwardRef(
         <MantinePagination
           {...props}
           ref={ref}
-          total={totalCount}
+          total={totalPages}
           boundaries={boundaries}
           siblings={siblings}
           classNames={classes}

@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
 import { BoldTool } from '../../tool/BoldTool/BoldTool';

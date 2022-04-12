@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import { Children, useEffect, useRef, useState } from 'react';
+import React, { Children, useEffect, useRef, useState } from 'react';
 import { Box } from '@bubbles-ui/components';
 import { ToolbarStyles } from './Toolbar.styles';
 import { useDimensions } from '../../utils/use-dimensions';

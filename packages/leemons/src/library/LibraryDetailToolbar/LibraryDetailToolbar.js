@@ -1,6 +1,6 @@
 import React from 'react';
 import { isFunction } from 'lodash';
-import { Box, IconButton } from '@bubbles-ui/components';
+import { Box, Stack, ActionButton } from '@bubbles-ui/components';
 import { EditWriteIcon, DeleteBinIcon, PluginUsersIcon } from '@bubbles-ui/icons/solid';
 import {
   DuplicateIcon,
@@ -15,76 +15,113 @@ import {
 } from './LibraryDetailToolbar.constants';
 
 const LibraryDetailToolbar = ({
-  id,
+  item,
+  open,
   onEdit,
   onDuplicate,
   onDownload,
   onDelete,
   onShare,
   onAssign,
+  onToggle,
+  toolbarItems,
   ...props
 }) => {
   const { classes, cx } = LibraryDetailToolbarStyles({}, { name: 'LibraryDetailToolbar' });
 
   const handleEdit = () => {
-    isFunction(onEdit) && onEdit(id);
+    isFunction(onEdit) && onEdit(item);
   };
 
   const handleDuplicate = () => {
-    isFunction(onDuplicate) && onDuplicate(id);
+    isFunction(onDuplicate) && onDuplicate(item);
   };
 
   const handleDownload = () => {
-    isFunction(onDownload) && onDownload(id);
+    isFunction(onDownload) && onDownload(item);
   };
 
   const handleDelete = () => {
-    isFunction(onDelete) && onDelete(id);
+    isFunction(onDelete) && onDelete(item);
   };
 
   const handleShare = () => {
-    isFunction(onShare) && onShare(id);
+    isFunction(onShare) && onShare(item);
   };
 
   const handleAssign = () => {
-    isFunction(onAssign) && onAssign(id);
+    isFunction(onAssign) && onAssign(item);
+  };
+
+  const handleToggle = () => {
+    isFunction(onToggle) && onToggle();
   };
 
   return (
     <Box className={classes.root}>
-      <IconButton
-        size={'xs'}
-        icon={<EditWriteIcon height={20} width={20} />}
-        onClick={handleEdit}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<DuplicateIcon height={20} width={20} />}
-        onClick={handleDuplicate}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<CloudUploadIcon height={20} width={20} />}
-        onClick={handleDownload}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<DeleteBinIcon height={20} width={20} />}
-        onClick={handleDelete}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<PluginUsersIcon height={20} width={20} />}
-        onClick={handleShare}
-      />
-      <IconButton
-        size={'xs'}
-        icon={<PluginAssignmentsIcon height={20} width={20} />}
-        onClick={handleAssign}
-      />
-      <Box className={classes.lastIcon}>
-        <IconButton size={'xs'} icon={<MoveRightIcon height={20} width={20} />} />
-      </Box>
+      {open && (
+        <Stack>
+          {toolbarItems.edit && (
+            <ActionButton
+              icon={<EditWriteIcon height={20} width={20} />}
+              onClick={handleEdit}
+              tooltip={toolbarItems.edit}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.duplicate && (
+            <ActionButton
+              icon={<DuplicateIcon height={20} width={20} />}
+              onClick={handleDuplicate}
+              tooltip={toolbarItems.duplicate}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.download && (
+            <ActionButton
+              icon={<CloudUploadIcon height={20} width={20} />}
+              onClick={handleDownload}
+              tooltip={toolbarItems.download}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.delete && (
+            <ActionButton
+              icon={<DeleteBinIcon height={20} width={20} />}
+              onClick={handleDelete}
+              tooltip={toolbarItems.delete}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.share && (
+            <ActionButton
+              icon={<PluginUsersIcon height={20} width={20} />}
+              onClick={handleShare}
+              tooltip={toolbarItems.share}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.assign && (
+            <ActionButton
+              icon={<PluginAssignmentsIcon height={20} width={20} />}
+              onClick={handleAssign}
+              tooltip={toolbarItems.assign}
+              className={classes.button}
+            />
+          )}
+        </Stack>
+      )}
+
+      {toolbarItems.toggle && (
+        <Box className={classes.lastIcon}>
+          <ActionButton
+            icon={<MoveRightIcon height={20} width={20} />}
+            onClick={handleToggle}
+            tooltip={toolbarItems.toggle}
+            className={cx(classes.button, { [classes.flip]: !open })}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

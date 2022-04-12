@@ -36,6 +36,7 @@ export const SubNav = forwardRef(
       className,
       useRouter,
       children,
+      style,
       ...props
     },
     ref
@@ -46,7 +47,11 @@ export const SubNav = forwardRef(
     );
 
     return !isNil(item) ? (
-      <Box ref={ref} className={cx(classes.root, className, { [classes.open]: open })}>
+      <Box
+        ref={ref}
+        style={style}
+        className={cx(classes.root, className, { [classes.open]: open })}
+      >
         {/* Header */}
         <Box className={classes.navHeader}>
           <Box className={classes.navHeaderLabel}>{item.label}</Box>

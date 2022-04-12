@@ -18,6 +18,7 @@ export default {
   argTypes: {
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
     orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
+    onChange: { action: 'Color Changed' },
   },
 };
 

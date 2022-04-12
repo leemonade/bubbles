@@ -1,23 +1,24 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   ActionButton,
+  Box,
+  COLORS,
+  FileIcon,
+  ImageLoader,
   Stack,
   Text,
-  Box,
-  ImageLoader,
-  FileIcon,
-  COLORS,
 } from '@bubbles-ui/components';
 import { LibraryItemStyles } from './LibraryItem.styles';
 import { DownloadIcon } from '@bubbles-ui/icons/outline/';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import isFunction from 'lodash/isFunction';
 
-export const MODALCOMP_DEFAULT_PROPS = {
+export const MODALCOMP_ITEM_DEFAULT_PROPS = {
   selected: false,
 };
 
-export const MODALCOMP_PROP_TYPES = {
+export const MODALCOMP_ITEM_PROP_TYPES = {
   card: PropTypes.shape({
     name: PropTypes.string,
     image: PropTypes.string,
@@ -75,7 +76,7 @@ const LibraryItem = ({
   );
 };
 
-LibraryItem.defaultProps = MODALCOMP_DEFAULT_PROPS;
-LibraryItem.propTypes = MODALCOMP_PROP_TYPES;
+LibraryItem.defaultProps = MODALCOMP_ITEM_DEFAULT_PROPS;
+LibraryItem.propTypes = MODALCOMP_ITEM_PROP_TYPES;
 
 export { LibraryItem };

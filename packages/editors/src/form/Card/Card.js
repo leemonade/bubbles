@@ -1,16 +1,17 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Stack,
-  ImageLoader,
-  Title,
-  TextClamp,
-  Text,
-  IconButton,
-  FileIcon,
   COLORS,
+  FileIcon,
+  IconButton,
+  ImageLoader,
+  Stack,
+  Text,
+  TextClamp,
+  Title,
 } from '@bubbles-ui/components';
-import { ExpandDiagonalIcon, CloudUploadIcon, HyperlinkIcon } from '@bubbles-ui/icons/outline';
+import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { NodeViewWrapper } from '@tiptap/react';
 import { CardStyles } from './Card.styles';

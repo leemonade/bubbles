@@ -1,25 +1,33 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Box, ColorSwatch as MantineColorSwatch } from '@mantine/core';
+import { ColorSwatch as MantineColorSwatch } from '@mantine/core';
 import { ColorSwatchStyles } from './ColorSwatch.styles';
 
 export const ColorSwatch = forwardRef(
   (
-    { component = 'button', type = 'button', color, actived, className, spacing = 2, ...props },
+    {
+      component = 'button',
+      type = 'button',
+      color,
+      actived,
+      className,
+      spacing = 2,
+      plain,
+      ...props
+    },
     ref
   ) => {
-    const { classes, cx } = ColorSwatchStyles({ actived });
+    const { classes, cx } = ColorSwatchStyles({ actived, plain });
 
     return (
-      <>
-        <MantineColorSwatch
-          color={color}
-          aria-label={color}
-          tabIndex={0}
-          {...props}
-          className={`${className} ${classes.root}`}
-        />
-      </>
+      <MantineColorSwatch
+        ref={ref}
+        {...props}
+        color={color}
+        aria-label={color}
+        tabIndex={0}
+        className={cx(className, classes.root)}
+      />
     );
   }
 );

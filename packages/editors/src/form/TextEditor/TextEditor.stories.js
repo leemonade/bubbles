@@ -13,7 +13,7 @@ import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
 
 export default {
-  title: 'Atom/Form/TextEditor',
+  title: 'Organism/Form/TextEditor',
   parameters: {
     component: TextEditor,
     docs: {

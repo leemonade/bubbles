@@ -4,10 +4,12 @@ export const LibraryDetailContentStyles = createStyles((theme, {}) => {
   return {
     root: {
       // ...getFontExpressive(theme.fontSizes['2']),
+      flex: 1,
     },
     lowerContent: {
+      flex: 1,
       backgroundColor: theme.colors.ui03,
-      padding: `${pxToRem(8)} ${pxToRem(8)} ${pxToRem(16)} ${pxToRem(8)}`,
+      padding: `${pxToRem(8)} ${pxToRem(8)} ${pxToRem(8)} ${pxToRem(8)}`,
     },
     tagsContainer: {
       minHeight: 38,

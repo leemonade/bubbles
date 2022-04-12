@@ -179,6 +179,13 @@ export function getHtmlStyles(theme) {
         },
       },
 
+      '& ul': {
+        listStyle: 'disc',
+      },
+      '& ol': {
+        listStyle: 'auto',
+      },
+
       '& table': {
         width: '100%',
         borderCollapse: 'collapse',
@@ -241,6 +248,14 @@ export function getHtmlStyles(theme) {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         },
+      },
+
+      '& strong': {
+        fontWeight: 700,
+      },
+
+      '& em': {
+        fontStyle: 'italic',
       },
     },
   };

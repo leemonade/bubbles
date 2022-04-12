@@ -1,9 +1,9 @@
-import React from 'react';
-import { Box } from '@bubbles-ui/components';
+import React, { useState } from 'react';
+import { Box, Stack } from '@bubbles-ui/components';
 import { LibraryDetail } from './LibraryDetail';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_VARIANTS } from './LibraryDetail.constants';
 import mdx from './LibraryDetail.mdx';
-import { VIDEO_ASSET } from '../LibraryCard/mock/data';
+import { VIDEO_ASSET, AUDIO_ASSET, IMAGE_ASSET, URL_ASSET } from '../LibraryCard/mock/data';
 
 export default {
   title: 'leemons/Library/LibraryDetail',
@@ -25,25 +25,32 @@ export default {
     onDelete: { action: 'onDelete' },
     onShare: { action: 'onShare' },
     onAssign: { action: 'onAssign' },
+    onClose: { action: 'onClose' },
   },
 };
 
 const Template = ({ children, asset, ...props }) => {
-  const audioAsset = {
-    ...asset,
-    fileType: 'audio',
-    url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3',
-  };
-
+  const [open, setOpen] = useState(true);
   return (
-    <Box style={{ display: 'flex', gap: 30 }}>
+    <Box style={{ display: 'flex', gap: 30, height: 'calc(100vh - 32px)' }}>
       <Box style={{ width: 360 }}>
         <LibraryDetail {...props} asset={asset}>
           {children}
         </LibraryDetail>
       </Box>
       <Box style={{ width: 360 }}>
-        <LibraryDetail {...props} asset={audioAsset}>
+        <LibraryDetail {...props} asset={AUDIO_ASSET}>
+          {children}
+        </LibraryDetail>
+      </Box>
+      <Box style={{ width: 360 }}>
+        <LibraryDetail
+          {...props}
+          asset={URL_ASSET}
+          variant="bookmark"
+          open={open}
+          onToggle={() => setOpen(!open)}
+        >
           {children}
         </LibraryDetail>
       </Box>

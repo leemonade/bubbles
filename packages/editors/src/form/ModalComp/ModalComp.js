@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Button,
   ActionButton,
-  Modal,
-  Stack,
-  Text,
   Box,
-  Select,
-  Pager,
-  TextInput,
+  Button,
   COLORS,
-  InputWrapper,
-  INPUT_WRAPPER_SIZES,
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
+  INPUT_WRAPPER_SIZES,
+  InputWrapper,
+  Modal,
+  Pager,
+  Select,
+  Stack,
+  Text,
+  TextInput,
   useId,
 } from '@bubbles-ui/components';
 import { ModalCompStyles } from './ModalComp.styles';

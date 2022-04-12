@@ -4,10 +4,20 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 export const StackStyles = createStyles(
   (
     theme,
-    { direction, wrap, alignContent, justifyContent, alignItems, fullWidth, fullHeight, spacing }
+    {
+      direction,
+      wrap,
+      alignContent,
+      justifyContent,
+      alignItems,
+      fullWidth,
+      fullHeight,
+      spacing,
+      display,
+    }
   ) => {
     const flexProps = {
-      display: 'inline-flex',
+      display: display || 'inline-flex',
       flexDirection: direction,
       flexWrap: wrap,
       alignContent: alignContent,
@@ -17,7 +27,7 @@ export const StackStyles = createStyles(
 
     if (fullWidth || fullHeight) {
       flexProps.flex = 1;
-      flexProps.display = 'flex';
+      flexProps.display = display || 'flex';
     }
 
     if (fullHeight) {

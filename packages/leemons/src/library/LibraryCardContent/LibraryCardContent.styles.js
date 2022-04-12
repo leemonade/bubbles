@@ -10,14 +10,14 @@ export const LibraryCardContentStyles = createStyles((theme, {}) => {
   return {
     root: {},
     mainContainer: {
-      minHeight: 86,
+      // minHeight: 86,
       padding: `${pxToRem(14)} ${pxToRem(16)}`,
     },
     description: {
       color: theme.colors.text02,
     },
     tagsContainer: {
-      minHeight: 38,
+      // minHeight: 38,
       display: 'flex',
       gap: pxToRem(10),
       alignItems: 'center',

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
+import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
+import { forEach, isFunction } from 'lodash';
 import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
@@ -21,6 +22,9 @@ export const TEXT_EDITOR_PROP_TYPES = {
 };
 
 const TextEditor = ({ content, library, children, onChange, editorClassname }) => {
+  const store = React.useRef({
+    isFocus: false,
+  });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
@@ -28,9 +32,11 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     content: '',
   });
 
+  const ref = React.useRef(null);
+
   const onUpdate = () => {
     const html = editor.getHTML();
-    if (isFunction(onChange)) onChange(html);
+    if (isFunction(onChange) && html !== content) onChange(html);
   };
 
   useEffect(() => {
@@ -38,19 +44,58 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     editor.commands.setContent(content);
   }, [editor, content]);
 
+  function getPath(element, acc = []) {
+    acc.push(element);
+    if (element.parentNode) {
+      return getPath(element.parentNode, acc);
+    }
+    return acc;
+  }
+
+  function updateIfOutside(e) {
+    let isOutside = true;
+    const path = getPath(e.target);
+    forEach(path, (node) => {
+      if (node === ref.current || node.classList?.contains('mantine-Popover-wrapper')) {
+        isOutside = false;
+      }
+    });
+    if (store.current.isFocus && isOutside) {
+      store.current.isFocus = false;
+      onUpdate();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', updateIfOutside);
+    return () => {
+      document.removeEventListener('click', updateIfOutside);
+    };
+  });
+
+  /*
   useEffect(() => {
     if (editor) {
+      console.log(editor);
       editor.on('blur', onUpdate);
       return () => editor.off('blur', onUpdate);
     }
   }, [editor]);
+   */
 
   return (
-    <TextEditorProvider editor={editor} library={library}>
-      <Toolbar>{children}</Toolbar>
-      <BubbleMenu />
-      <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
-    </TextEditorProvider>
+    <Box
+      ref={ref}
+      onFocus={() => {
+        store.current.isFocus = true;
+      }}
+    >
+      <TextEditorProvider editor={editor} library={library}>
+        <Toolbar>{children}</Toolbar>
+        <BubbleMenu />
+        <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+      </TextEditorProvider>
+    </Box>
   );
 };
 

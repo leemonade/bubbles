@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import {
   EditorTextSize1Icon,

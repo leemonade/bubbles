@@ -31,6 +31,11 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
 
   const onNewHandler = (category) => {
     isFunction(onNew) && onNew(category);
+    setShowUpload(false);
+    setTimeout(() => {
+      setShowUpload(true);
+      setIsExpanded(false);
+    }, 100);
   };
 
   const onNavHandler = (category) => {

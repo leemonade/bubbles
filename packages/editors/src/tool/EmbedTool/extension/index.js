@@ -1,28 +1,9 @@
+import React from 'react';
 import { Node } from '@tiptap/core';
 
-export interface IframeOptions {
-  allowFullscreen: boolean;
-  HTMLAttributes: {
-    [key: string]: any;
-  };
-}
-
-declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    iframe: {
-      /**
-       * Add an iframe
-       */
-      setIframe: (options: { src: string }) => ReturnType;
-    };
-  }
-}
-
-export const Embed = Node.create<IframeOptions>({
+export const Embed = Node.create({
   name: 'iframe',
-
   group: 'block',
-
   atom: true,
 
   addOptions() {
@@ -64,7 +45,7 @@ export const Embed = Node.create<IframeOptions>({
   addCommands() {
     return {
       setIframe:
-        (options: { src: string }) =>
+        (options) =>
         ({ tr, dispatch }) => {
           const { selection } = tr;
           const node = this.type.create(options);

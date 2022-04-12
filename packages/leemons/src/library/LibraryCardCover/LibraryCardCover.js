@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { isNil } from 'lodash';
+import React, { useMemo, useState, useEffect } from 'react';
+import { isNil, isEmpty } from 'lodash';
 import {
   Box,
   ImageLoader,
@@ -27,8 +27,11 @@ const LibraryCardCover = ({
   fileIcon,
   deadlineProps,
   parentHovered,
+  menuItems,
+  dashboard,
   ...props
 }) => {
+  const [showMenu, setShowMenu] = useState(false);
   const { classes, cx } = LibraryCardCoverStyles(
     { color, height, blur, direction, parentHovered },
     { name: 'LibraryCardCover' }
@@ -42,6 +45,12 @@ const LibraryCardCover = ({
         : null,
     [fileIcon]
   );
+
+  useEffect(() => {
+    if (!parentHovered && showMenu) {
+      setShowMenu(false);
+    }
+  }, [parentHovered, showMenu]);
 
   const renderDeadline = () => {
     if (!deadlineProps) return;
@@ -58,29 +67,44 @@ const LibraryCardCover = ({
 
   const iconRow = (
     <Box className={classes.iconRow}>
-      <Box style={{ flex: 1 }}>
-        <Menu
-          control={
+      {!isEmpty(menuItems) && (
+        <Box style={{ flex: 1 }}>
+          <Menu
+            opened={showMenu && parentHovered}
+            onOpen={() => setShowMenu(true)}
+            onClose={() => setShowMenu(false)}
+            items={menuItems.map((item) => ({
+              ...item,
+              className: cx(classes.menuItem, item.className),
+            }))}
+            control={
+              <IconButton
+                icon={
+                  <SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />
+                }
+                variant={!isVertical ? 'transparent' : null}
+                size="xs"
+              />
+            }
+          />
+        </Box>
+      )}
+      {dashboard && (
+        <>
+          {!isVertical && (
             <IconButton
-              icon={<SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />}
+              icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
               variant={!isVertical ? 'transparent' : null}
               size="xs"
             />
-          }
-        />
-      </Box>
-      {!isVertical && (
-        <IconButton
-          icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
-          variant={!isVertical ? 'transparent' : null}
-          size="xs"
-        />
+          )}
+          <IconButton
+            icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
+            variant={!isVertical ? 'transparent' : null}
+            size="xs"
+          />
+        </>
       )}
-      <IconButton
-        icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
-        variant={!isVertical ? 'transparent' : null}
-        size="xs"
-      />
     </Box>
   );
 
@@ -93,11 +117,13 @@ const LibraryCardCover = ({
           <Box className={classes.color} />
           {!isVertical && iconRow}
         </Box>
-        <TextClamp lines={2}>
-          <Title order={5} className={classes.title}>
-            {name}
-          </Title>
-        </TextClamp>
+        <Box className={classes.titleWrapper}>
+          <TextClamp lines={2}>
+            <Title order={5} className={classes.title}>
+              {name}
+            </Title>
+          </TextClamp>
+        </Box>
       </Box>
       {!isVertical && renderDeadline()}
       {cover ? (

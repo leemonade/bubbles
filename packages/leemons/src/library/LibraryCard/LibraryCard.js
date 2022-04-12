@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
+import { AssetBookmarkIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardCover } from '../LibraryCardCover';
 import { LibraryCardContent } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
@@ -15,47 +16,46 @@ const LibraryCard = ({
   action,
   onAction,
   locale,
+  menuItems,
+  dashboard,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { classes, cx } = LibraryCardStyles({});
+  const { classes, cx } = LibraryCardStyles({}, { name: 'LibraryCard' });
   return (
     <Box
-      className={classes.root}
+      className={cx(classes.root, props.className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <LibraryCardCover
-        name={asset.name}
-        color={asset.color}
-        cover={asset.cover}
+        {...asset}
         fileIcon={
-          <FileIcon
-            size={64}
-            fileExtension={asset.fileExtension}
-            fileType={asset.fileType}
-            color={'#B9BEC4'}
-            hideExtension
-          />
+          variant === 'bookmark' ? (
+            <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+              <AssetBookmarkIcon />
+            </Box>
+          ) : (
+            <FileIcon
+              size={64}
+              fileExtension={asset.fileExtension}
+              fileType={asset.fileType}
+              color={'#B9BEC4'}
+              hideExtension
+            />
+          )
         }
         deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
         direction={variant === 'assigment' ? 'vertical' : null}
         parentHovered={isHovered}
+        menuItems={menuItems}
+        dashboard={dashboard}
       />
-      <LibraryCardContent
-        subtitle={asset.subtitle}
-        description={asset.description}
-        metadata={asset.metadata}
-        tags={asset.tags}
-        locale={locale}
-        variant={variant}
-        assigment={assigment}
-      />
+      <LibraryCardContent {...asset} locale={locale} variant={variant} assigment={assigment} />
       <LibraryCardFooter
-        fileType={asset.fileType}
-        fileExtension={asset.fileExtension}
-        created={asset.created}
+        {...asset}
+        variant={variant}
         action={action}
         onAction={onAction}
         locale={locale}

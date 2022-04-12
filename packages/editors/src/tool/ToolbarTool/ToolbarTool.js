@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { ArrowChevDownIcon } from '@bubbles-ui/icons/solid';
-import { Popover, Box } from '@bubbles-ui/components/';
-import { useState } from 'react';
+import { Box, Popover } from '@bubbles-ui/components';
 import { Button } from '../../form/Button/Button';
 import { ToolbarToolStyles } from './ToolbarTool.styles';
 

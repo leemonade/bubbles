@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { ButtonGroup, Button } from '../../form';
-import { EditorSuperscriptIcon, EditorSubscriptIcon } from '@bubbles-ui/icons/solid';
+import { Button, ButtonGroup } from '../../form';
+import { EditorSubscriptIcon, EditorSuperscriptIcon } from '@bubbles-ui/icons/solid';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 
 export const SCRIPTS_TOOL_DEFAULT_PROPS = {

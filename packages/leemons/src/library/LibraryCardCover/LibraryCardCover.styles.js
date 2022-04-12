@@ -29,10 +29,12 @@ export const LibraryCardCoverStyles = createStyles(
         width: '100%',
         borderRadius: '4px 2px 0 0',
       },
+      titleWrapper: {
+        padding: pxToRem(12),
+      },
       title: {
         fontWeight: 600,
         lineHeight: pxToRem(20),
-        padding: pxToRem(12),
         backgroundColor: isVertical && 'white',
       },
       blurryBox: {
@@ -83,6 +85,9 @@ export const LibraryCardCoverStyles = createStyles(
           ? `${pxToRem(0)} ${pxToRem(16)} ${pxToRem(90)} ${pxToRem(16)}`
           : pxToRem(16),
         borderRadius: '4px 2px 0 0',
+      },
+      menuItem: {
+        color: theme.colors.text04,
       },
     };
   }

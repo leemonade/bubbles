@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup } from '../../form/';
 import { LinkTool } from '../';
