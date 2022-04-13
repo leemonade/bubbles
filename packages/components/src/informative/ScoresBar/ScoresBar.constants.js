@@ -10,14 +10,30 @@ export const SCORES_BAR_BOTTOM_AXIS = [
 export const SCORES_BAR_DEFAULT_PROPS = {
   minimumGrade: 5,
   variant: 'multicolor',
-  data: [],
+  scores: [],
+  grades: [],
   withMarker: false,
   markerLegend: '',
+  showLeftLegend: true,
+  showBarPercentage: false,
 };
 export const SCORES_BAR_PROP_TYPES = {
   minimumGrade: PropTypes.number,
   variant: PropTypes.oneOf(SCORES_BAR_VARIANTS),
-  data: PropTypes.arrayOf(PropTypes.object),
+  scores: PropTypes.arrayOf(
+    PropTypes.shape({
+      student: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+      score: PropTypes.number,
+    })
+  ),
+  grades: PropTypes.arrayOf(
+    PropTypes.shape({
+      score: PropTypes.number,
+      letter: PropTypes.string,
+    })
+  ),
   withMarker: PropTypes.bool,
   markerLegend: PropTypes.string,
+  showLeftLegend: PropTypes.bool,
+  showBarPercentage: PropTypes.bool,
 };

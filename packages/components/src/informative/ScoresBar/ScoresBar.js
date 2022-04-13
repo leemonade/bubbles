@@ -9,14 +9,17 @@ import {
   SCORES_BAR_PROP_TYPES,
   SCORES_BAR_BOTTOM_AXIS,
 } from './ScoresBar.constants';
+import { CustomBar } from './CustomBar';
 
 const ScoresBar = ({
-  data,
+  scores,
+  grades,
   minimumGrade,
-  gradeSystem,
   variant,
   withMarker,
   markerLegend,
+  showLeftLegend,
+  showBarPercentage,
   ...props
 }) => {
   const { classes, cx } = ScoresBarStyles({ withMarker }, { name: 'ScoresBar' });
@@ -24,31 +27,26 @@ const ScoresBar = ({
   const [bottomAxisSelector, setBottomAxisSelector] = React.useState(0);
 
   const getData = () => {
-    let dataToShow = [
-      { score: 0 },
-      { score: 1 },
-      { score: 2 },
-      { score: 3 },
-      { score: 4 },
-      { score: 5 },
-      { score: 6 },
-      { score: 7 },
-      { score: 8 },
-      { score: 9 },
-      { score: 10 },
-    ];
-
     let highestPercentage = 0;
-    dataToShow = dataToShow.map(({ score }) => {
-      const gradeCount = data.filter(({ grade }) => score === Math.round(grade)).length;
+    let useLetter = false;
+    const dataToShow = grades.map(({ number, letter }) => {
+      if (letter) {
+        useLetter = true;
+      }
+      const gradeCount = scores.filter(
+        ({ score: studentScore }) => number === Math.round(studentScore)
+      ).length;
 
-      const lastPercentage = (gradeCount / data.length) * 10;
+      const lastPercentage = (gradeCount / scores.length) * 10;
 
       if (lastPercentage > highestPercentage) {
         highestPercentage = lastPercentage;
       }
 
-      return { score, scoreValue: lastPercentage };
+      return {
+        score: useLetter ? letter : number,
+        scoreValue: !showBarPercentage ? lastPercentage : gradeCount,
+      };
     });
 
     if (highestPercentage <= 2.5) {
@@ -62,45 +60,43 @@ const ScoresBar = ({
     return dataToShow;
   };
 
-  const CustomBarComponent = ({ bar, ...props }) => {
-    const getColor = () => {
-      if (bar.index < minimumGrade) {
-        return isMultiColor ? '#DC5571' : COLORS.uiBackground05;
-      }
-      if (bar.index === minimumGrade) {
-        return isMultiColor ? '#E8C642' : COLORS.uiBackground05;
-      }
-      return isMultiColor ? '#50B579' : COLORS.uiBackground05;
-    };
+  const getMarkerValue = () => {
+    if (grades[0].letter) {
+      return grades[minimumGrade - 1].letter;
+    } else {
+      return minimumGrade - 1;
+    }
+  };
 
-    return (
-      <g transform={`translate(${bar.x}, ${bar.y})`}>
-        {bar.width > 0 && (
-          <g>
-            <rect
-              width={bar.width > 34 ? bar.width - 34 : 0}
-              height={bar.height}
-              fill={bar.color}
-            />
-            <rect
-              x={bar.width > 34 ? bar.width - 34 : 0}
-              width={34}
-              height={bar.height}
-              fill={getColor()}
-            />
-            <text
-              x={bar.width > 34 ? bar.width - 17 : 17}
-              y={bar.height / 2}
-              textAnchor="middle"
-              dominantBaseline={'central'}
-              className={classes.label}
-            >
-              {props.label}
-            </text>
-          </g>
-        )}
-      </g>
-    );
+  const getMaxValue = () => {
+    return !showBarPercentage
+      ? SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector][
+          SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector].length - 1
+        ]
+      : scores.length;
+  };
+
+  const getTickValues = () => {
+    const tickValues = [];
+    const tickStep = scores.length / 4;
+    for (let i = 0; i < 4; i++) {
+      tickValues.push(tickStep * i);
+    }
+    tickValues.push(scores.length);
+    return tickValues;
+  };
+
+  const getAxisBottom = () => {
+    return !showBarPercentage
+      ? {
+          tickValues: SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector],
+          format: (value) => `${value * 10}%`,
+        }
+      : { tickValues: getTickValues(), format: (value) => value.toFixed(0) };
+  };
+
+  const getXGridValues = () => {
+    return !showBarPercentage ? SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector] : getTickValues();
   };
 
   return (
@@ -108,32 +104,32 @@ const ScoresBar = ({
       <ResponsiveBar
         data={getData()}
         minValue={0}
-        maxValue={
-          SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector][
-            SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector].length - 1
-          ]
-        }
+        maxValue={getMaxValue()}
         layout="horizontal"
-        barComponent={CustomBarComponent}
+        barComponent={(barData) =>
+          CustomBar(barData, minimumGrade, isMultiColor, showBarPercentage, scores.length)
+        }
         keys={['scoreValue']}
         indexBy="score"
-        margin={{ right: 20, bottom: 25, left: 50 }}
+        margin={{ right: 20, bottom: 25, left: showLeftLegend ? 50 : 20 }}
         padding={0.12}
-        valueFormat={(value) => `${Math.round((value / 10) * data.length)}`}
+        valueFormat={(value) =>
+          !showBarPercentage ? `${Math.round((value / 10) * scores.length)}` : value
+        }
         axisBottom={{
           tickSize: 0,
           tickPadding: 10,
-          tickValues: SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector],
-          format: (value) => `${value * 10}%`,
+          ...getAxisBottom(),
         }}
         axisLeft={{
           tickSize: 0,
           tickPadding: 32,
+          format: (value) => (showLeftLegend ? value : ' '),
         }}
         markers={[
           {
             axis: 'y',
-            value: minimumGrade - 1,
+            value: getMarkerValue(),
             legend: markerLegend,
             lineStyle: {
               stroke: COLORS.fatic03,
@@ -149,7 +145,7 @@ const ScoresBar = ({
         ]}
         enableGridX={true}
         enableGridY={false}
-        gridXValues={SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector]}
+        gridXValues={getXGridValues()}
         colorBy="indexValue"
         colors={({ index }) => {
           if (index < minimumGrade) {
