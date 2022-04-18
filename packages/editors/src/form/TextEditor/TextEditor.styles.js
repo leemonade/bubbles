@@ -1,9 +1,7 @@
-import { createStyles, getFontProductive, pxToRem, getHtmlStyles } from '@bubbles-ui/components';
+import { createStyles, getFontProductive, getHtmlStyles, pxToRem } from '@bubbles-ui/components';
 
 export const TextEditorStyles = createStyles((theme, {}) => {
   const { root } = getHtmlStyles(theme);
-
-  console.log(root);
 
   return {
     toolbar: {

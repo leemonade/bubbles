@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import { RemoveIcon, SortDragIcon } from '@bubbles-ui/icons/outline';
 import { CheckIcon, DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
-import { Box } from '../../../layout';
+import { Box, Stack } from '../../../layout';
 import { ActionButton } from '../../ActionButton';
 import { isFunction } from 'lodash';
 
@@ -16,8 +16,8 @@ const ListItem = forwardRef(
       item,
       removeItem,
       editItem,
-      inputRender: InputRender,
-      itemContainerRender: IItemContainerRender = Box,
+      inputRender: IInputRender,
+      itemContainerRender: IItemContainerRender = <Stack alignItems="center" fullWidth />,
       itemValueRender: IItemValueRender = ItemValueRender2,
       editingKey,
       valueKey,
@@ -31,6 +31,8 @@ const ListItem = forwardRef(
   ) => {
     const [value, setValue] = useState(item[valueKey]);
     const [hasError, setHasError] = useState(false);
+
+    const InputRender = isFunction(IInputRender) ? <IInputRender /> : IInputRender;
 
     const ItemContainerRender = isFunction(IItemContainerRender) ? (
       <IItemContainerRender />
@@ -53,44 +55,43 @@ const ListItem = forwardRef(
     }, [item]);
 
     let children = React.cloneElement(ItemContainerRender, {
-      children: (
-        <>
-          {!readonly ? (
-            <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
-              <SortDragIcon className={classes.sortableIcon} />
-            </Box>
-          ) : null}
+      children: [
+        !readonly ? (
+          <Box key={1} sx={(theme) => ({ marginRight: theme.spacing[4] })}>
+            <SortDragIcon className={classes.sortableIcon} />
+          </Box>
+        ) : null,
 
-          {React.cloneElement(ItemValueRender, {
-            item: item[valueKey],
-          })}
-          {!readonly ? (
-            <>
-              <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
-              <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
-            </>
-          ) : null}
-        </>
-      ),
+        React.cloneElement(ItemValueRender, {
+          item: item[valueKey],
+          key: 2,
+        }),
+        !readonly ? (
+          <Stack key={3}>
+            <ActionButton icon={<EditWriteIcon />} disabled={!!editingKey} onClick={editItem} />
+            <ActionButton icon={<DeleteBinIcon />} disabled={!!editingKey} onClick={removeItem} />
+          </Stack>
+        ) : null,
+      ],
     });
     if (editingKey === item.__key) {
       children = React.cloneElement(ItemContainerRender, {
-        children: (
-          <>
-            <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
-              <SortDragIcon className={classes.sortableIcon} />
-            </Box>
-            <Box sx={(theme) => ({ width: '100%', marginRight: theme.spacing[4] })}>
-              {React.cloneElement(InputRender, {
-                value,
-                onChange: (event) => {
-                  setValue(event);
-                  if (event) setHasError(false);
-                },
-                required: true,
-                error: hasError ? errorRequiredMessage : null,
-              })}
-            </Box>
+        children: [
+          <Box sx={(theme) => ({ marginRight: theme.spacing[4] })}>
+            <SortDragIcon className={classes.sortableIcon} />
+          </Box>,
+          <Box sx={(theme) => ({ width: '100%', marginRight: theme.spacing[4] })}>
+            {React.cloneElement(InputRender, {
+              value,
+              onChange: (event) => {
+                setValue(event);
+                if (event) setHasError(false);
+              },
+              required: true,
+              error: hasError ? errorRequiredMessage : null,
+            })}
+          </Box>,
+          <Stack>
             <ActionButton icon={<CheckIcon />} onClick={update} />
             <ActionButton
               icon={<RemoveIcon />}
@@ -99,8 +100,8 @@ const ListItem = forwardRef(
                 stopEdit();
               }}
             />
-          </>
-        ),
+          </Stack>,
+        ],
       });
     }
 
