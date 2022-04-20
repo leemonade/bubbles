@@ -14,7 +14,7 @@ export const LIST_INPUT_DEFAULT_PROPS = {
   inputRender: (props) => {
     return <TextInput {...props} />;
   },
-  listRender: ListItem,
+  listRender: <ListItem />,
   onChange: () => {},
   valueKey: 'value',
   addButtonLabel: 'Add',

@@ -27,7 +27,7 @@ function ListInputRender({ t, ...props }) {
 
 const Template = ({ children, ...props }) => {
   return (
-    <ListInput {...props} canAdd inputRender={<ListInputRender />}>
+    <ListInput {...props} canAdd>
       {children}
     </ListInput>
   );
