@@ -13,6 +13,7 @@ import {
   HEADER_DROPDOWN_PROP_TYPES,
 } from './HeaderDropdown.constants';
 import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 
 const normalizeString = (string) => {
   return string
@@ -21,10 +22,23 @@ const normalizeString = (string) => {
     .replace(/[\u0300-\u036f]/g, '');
 };
 
-const HeaderDropdown = ({ data, placeholder, itemComponent, valueComponent, ...props }) => {
+const HeaderDropdown = ({
+  data,
+  placeholder,
+  itemComponent,
+  valueComponent,
+  onChange,
+  ...props
+}) => {
   const [isOpened, setIsOpened] = useState(false);
   const [filter, setFilter] = useState('');
   const [selectedItem, setSelectedItem] = useState(data[0] || {});
+
+  const onChangeHandler = (item) => {
+    setSelectedItem(item);
+    isFunction(onChange) && onChange(item);
+    setIsOpened(false);
+  };
 
   const loadItemList = () => {
     const itemListToReturn = data.filter((item) => {
@@ -41,10 +55,7 @@ const HeaderDropdown = ({ data, placeholder, itemComponent, valueComponent, ...p
         <Box
           key={`${index} ${item.id}`}
           className={classes.itemComponent}
-          onClick={() => {
-            setSelectedItem(item);
-            setIsOpened(false);
-          }}
+          onClick={() => onChangeHandler(item)}
         >
           <Box className={classes.itemImage}>
             <ImageLoader height={40} width={40} radius="50%" src={item.image} />
