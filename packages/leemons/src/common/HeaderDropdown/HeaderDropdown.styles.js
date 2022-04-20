@@ -15,9 +15,9 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
     },
     header: {
       backgroundColor: theme.colors.mainWhite,
-      borderTopLeftRadius: 4,
-      borderTopRightRadius: 4,
-      padding: 24,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      padding: '24px 24px 24px 26px',
       display: 'flex',
       alignItems: 'center',
     },
@@ -29,7 +29,7 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
       backgroundColor: theme.colors.mainWhite,
     },
     itemList: {
-      paddingInline: 20,
+      paddingInline: 22,
       paddingBottom: 4,
       display: 'flex',
       flexDirection: 'column',
