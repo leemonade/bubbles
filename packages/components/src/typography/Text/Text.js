@@ -14,6 +14,7 @@ export const TEXT_DEFAULT_PROPS = {
   color: 'secondary',
   transform: 'none',
   strong: false,
+  stronger: false,
   truncated: false,
 };
 
@@ -28,6 +29,7 @@ export const Text = forwardRef(
       className,
       role,
       strong,
+      stronger,
       truncated,
       ...props
     },
@@ -42,7 +44,15 @@ export const Text = forwardRef(
     // ····················································································
     // STYLES
 
-    const { classes, cx } = TextStyles({ role, transform, color, strong, size, truncated });
+    const { classes, cx } = TextStyles({
+      role,
+      transform,
+      color,
+      strong,
+      stronger,
+      size,
+      truncated,
+    });
 
     return (
       <MantineText
@@ -66,5 +76,6 @@ Text.propTypes = {
   role: PropTypes.oneOf(TEXT_ROLES),
   color: PropTypes.oneOf(TEXT_COLORS),
   strong: PropTypes.bool,
+  stronger: PropTypes.bool,
   truncated: PropTypes.bool,
 };
