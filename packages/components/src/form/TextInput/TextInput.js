@@ -27,6 +27,7 @@ export const TEXT_INPUT_PROP_TYPES = {
   maxLength: PropTypes.number,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
 export const TEXT_INPUT_DEFAULT_PROPS = {
@@ -49,6 +50,7 @@ const TextInput = forwardRef(
       value,
       onBlur,
       onChange,
+      onKeyDown,
       defaultValue,
       disabled,
       readOnly,
@@ -94,6 +96,7 @@ const TextInput = forwardRef(
             icon={icon}
             disabled={disabled}
             onBlur={onBlur}
+            onKeyDown={onKeyDown}
             {...variantProps}
             onChange={(e) => onChange(e.target.value)}
             defaultValue={defaultValue}

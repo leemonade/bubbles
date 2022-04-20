@@ -31,6 +31,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   paperProps: PropTypes.any,
   selectable: PropTypes.bool,
   onSelect: PropTypes.func,
+  selected: PropTypes.string,
   page: PropTypes.number,
   size: PropTypes.number,
   items: PropTypes.arrayOf(PropTypes.any),
@@ -51,6 +52,7 @@ const PaginatedList = ({
   totalPages,
   paperProps,
   selectable,
+  selected,
   variant,
   pagerPlace,
   loading,
@@ -124,10 +126,14 @@ const PaginatedList = ({
                 rows,
                 selectable,
                 onSelect,
+                selected,
               }}
             />
           ) : (
-            <GridView {...props} {...{ headerGroups, prepareRow, rows, selectable, onSelect }} />
+            <GridView
+              {...props}
+              {...{ headerGroups, prepareRow, rows, selectable, selected, onSelect }}
+            />
           )}
         </Paper>
 

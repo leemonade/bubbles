@@ -15,6 +15,7 @@ const Radio = forwardRef(
       help = '',
       helpPosition = RADIO_HELP_POSITIONS[0],
       icon,
+      size,
       ...props
     },
     ref
@@ -24,13 +25,14 @@ const Radio = forwardRef(
     }
 
     const { classes, cx } = RadioStyles(
-      { checked, variant, help, helpPosition },
+      { checked, variant, help, helpPosition, size },
       { name: 'Radio' }
     );
 
     return (
       <MantineRadio
         {...props}
+        size={size}
         checked={checked}
         ref={ref}
         classNames={classes}

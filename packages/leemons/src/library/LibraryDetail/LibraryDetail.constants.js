@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { ASSET_PROPS } from '../LibraryCard/LibraryCard.constants';
+import { ASSET_PROPS, LIBRARYCARD_VARIANTS } from '../LibraryCard/LibraryCard.constants';
 
-export const LIBRARY_DETAIL_VARIANTS = ['media', 'task'];
+export const LIBRARY_DETAIL_VARIANTS = LIBRARYCARD_VARIANTS;
 export const LIBRARY_DETAIL_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
 
 export const LIBRARY_DETAIL_DEFAULT_PROPS = {

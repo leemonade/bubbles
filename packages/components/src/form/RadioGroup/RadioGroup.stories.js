@@ -34,28 +34,19 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...RADIOGROUP_DEFAULT_PROPS,
-  label: 'Label for radio group',
-  description: 'Optional descriptive text for this radio group',
-  help: 'Help text for radio group',
-  error: 'Descriptive text for error',
   data: [
     {
       value: 'option1',
-      label: 'Label for option 1',
-      icon: <AcademicCapIcon height={32} width={32} />,
-      disabled: true,
+      icon: <AcademicCapIcon height={16} width={16} />,
     },
     {
       value: 'option2',
-      label: 'Label for option 2',
-      icon: <AcademicCapIcon height={32} width={32} />,
+
+      icon: <AcademicCapIcon height={16} width={16} />,
     },
     {
       value: 'option3',
-      label: 'Label for option 3',
-      icon: <AcademicCapIcon height={32} width={32} />,
-      help: 'Help text for option 3',
-      helpPosition: 'bottom',
+      icon: <AcademicCapIcon height={16} width={16} />,
     },
   ],
 };

@@ -11,7 +11,7 @@ const TableItemRender = ({ item, className, selected, ...props }) => {
     >
       {item.cells.map((cell, index) => {
         return (
-          <td key={`item-${index}`} {...cell.getCellProps({})}>
+          <td key={`item-${index}`} {...cell.getCellProps({})} style={{ verticalAlign: 'middle' }}>
             <TableCell cell={cell} />
           </td>
         );

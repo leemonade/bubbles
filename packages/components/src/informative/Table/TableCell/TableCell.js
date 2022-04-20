@@ -4,7 +4,7 @@ import { Box, Stack } from '../../../layout';
 import { Checkbox } from '../../../form';
 import { TableCellStyles } from './TableCell.styles';
 
-export const TableCell = ({ cell, row, form, onChangeCell }) => {
+export const TableCell = ({ cell, form, onChangeCell }) => {
   const onCheckedChange = (val) => {
     onChangeCell(cell, { ...cell, value: { ...cell.value, checked: val } });
   };
@@ -20,7 +20,11 @@ export const TableCell = ({ cell, row, form, onChangeCell }) => {
   }
 
   if (isFunction(cell.column.valueRender)) {
-    return <Box className={classes.root}>{cell.column.valueRender(cell.value, row, form)}</Box>;
+    return (
+      <Box className={classes.root}>
+        {cell.column.valueRender(cell.value, cell.row.original, form)}
+      </Box>
+    );
   }
 
   if (isObject(cell.value)) {
