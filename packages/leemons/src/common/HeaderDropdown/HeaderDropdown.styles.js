@@ -68,8 +68,8 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
       position: 'absolute',
       padding: 4,
       borderRadius: '50%',
-      bottom: 0,
-      right: -14,
+      top: 10,
+      right: -10,
       img: {
         filter:
           'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
