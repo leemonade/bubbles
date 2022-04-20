@@ -6,7 +6,10 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const HeaderDropdownStyles = createStyles((theme, {}) => {
+export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }) => {
+  const { height, top } = headerRef?.current?.getBoundingClientRect() || { height: 0, top: 0 };
+  const headerHeight = height + top || 0;
+
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -27,6 +30,13 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
       right: 0,
       left: 0,
       backgroundColor: theme.colors.mainWhite,
+      boxShadow: '32px 44px 32px rgba(35, 43, 60, 0.05), 100px 40px 60px rgba(51, 63, 86, 0.03)',
+      opacity: isOpened ? 1 : 0,
+      transform: isOpened ? 'translateY(0)' : 'translateY(-10px)',
+      transition: 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out',
+      zIndex: 200,
+      pointerEvents: isOpened ? 'all' : 'none',
+      paddingBottom: 20,
     },
     itemList: {
       paddingInline: 22,
@@ -34,6 +44,7 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
       display: 'flex',
       flexDirection: 'column',
       overflow: 'scroll',
+      maxHeight: `calc(100vh - ${headerHeight + 71 + 24}px)`,
     },
     searchInput: {
       padding: 16,
@@ -55,6 +66,9 @@ export const HeaderDropdownStyles = createStyles((theme, {}) => {
       cursor: 'pointer',
       paddingTop: 4,
       paddingBottom: 16,
+      '&:last-child': {
+        paddingBottom: 0,
+      },
     },
     itemComponentLabel: {
       flex: 1,

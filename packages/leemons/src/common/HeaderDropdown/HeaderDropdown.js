@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
   SearchInput,
@@ -14,6 +14,7 @@ import {
 } from './HeaderDropdown.constants';
 import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
+import { useClickOutside } from '@mantine/hooks';
 
 const normalizeString = (string) => {
   return string
@@ -27,12 +28,17 @@ const HeaderDropdown = ({
   placeholder,
   itemComponent,
   valueComponent,
+  value,
   onChange,
   ...props
 }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
-  const [selectedItem, setSelectedItem] = useState(data[0] || {});
+  const [selectedItem, setSelectedItem] = useState(
+    data.find((item) => item.id === value?.id) || data[0] || {}
+  );
+  const headerRef = useRef(null);
 
   const onChangeHandler = (item) => {
     setSelectedItem(item);
@@ -78,10 +84,14 @@ const HeaderDropdown = ({
     );
   };
 
-  const { classes, cx } = HeaderDropdownStyles({}, { name: 'HeaderDropdown' });
+  useEffect(() => {
+    setSelectedItem(data.find((item) => item.id === value?.id) || data[0] || {});
+  }, [value]);
+
+  const { classes, cx } = HeaderDropdownStyles({ isOpened, headerRef }, { name: 'HeaderDropdown' });
   return (
-    <Box className={classes.root}>
-      <Box className={classes.header}>
+    <Box ref={ref} className={classes.root}>
+      <Box ref={headerRef} className={classes.header}>
         {valueComponent ? (
           React.cloneElement(valueComponent, [...selectedItem])
         ) : (
@@ -121,19 +131,17 @@ const HeaderDropdown = ({
           onClick={() => setIsOpened(!isOpened)}
         />
       </Box>
-      {isOpened && (
-        <Box className={classes.dropDown}>
-          <Box className={classes.searchInput}>
-            <SearchInput
-              placeholder={placeholder}
-              variant="filled"
-              value={filter}
-              onChange={setFilter}
-            />
-          </Box>
-          <Box className={classes.itemList}>{loadItemList()}</Box>
+      <Box className={classes.dropDown}>
+        <Box className={classes.searchInput}>
+          <SearchInput
+            placeholder={placeholder}
+            variant="filled"
+            value={filter}
+            onChange={setFilter}
+          />
         </Box>
-      )}
+        <Box className={classes.itemList}>{loadItemList()}</Box>
+      </Box>
     </Box>
   );
 };

@@ -9,5 +9,6 @@ export const HEADER_DROPDOWN_PROP_TYPES = {
   placeholder: PropTypes.string,
   itemComponent: PropTypes.elementType,
   valueComponent: PropTypes.elementType,
+  value: PropTypes.shape({ id: PropTypes.string }),
   onChange: PropTypes.func,
 };
