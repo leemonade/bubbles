@@ -1,11 +1,11 @@
 import { createStyles } from '@mantine/styles';
 import { getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-const getFontStyle = (role, strong) => {
+const getFontStyle = (role, strong, stronger) => {
   let fontStyles = {};
   switch (role) {
     case 'productive':
-      fontStyles = getFontProductive(null, strong && 500);
+      fontStyles = getFontProductive(null, stronger ? 600 : strong && 500);
       break;
     case 'expressive':
       fontStyles = getFontExpressive(null, strong && 600);
@@ -27,7 +27,7 @@ const getSizes = (theme, size) => {
 };
 
 export const TextStyles = createStyles(
-  (theme, { role, transform, color, strong, size, truncated }) => {
+  (theme, { role, transform, color, strong, stronger, size, truncated }) => {
     const COLORS = {
       primary: theme.colors.text01,
       secondary: theme.colors.text02,
@@ -49,7 +49,7 @@ export const TextStyles = createStyles(
 
     return {
       root: {
-        ...getFontStyle(role, strong),
+        ...getFontStyle(role, strong, stronger),
         ...getSizes(theme, size),
         textTransform: transform,
         color: COLORS[color] || theme.colors.text02,
