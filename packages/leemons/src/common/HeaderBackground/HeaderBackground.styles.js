@@ -7,7 +7,7 @@ import {
 } from '@bubbles-ui/components';
 
 export const HeaderBackgroundStyles = createStyles(
-  (theme, { image, color, height, width, withBlur, blur, styles }) => {
+  (theme, { image, color, height, width, blur, styles }) => {
     const isHeightNum = /^\d+$/.test(height);
     const isWidthNum = /^\d+$/.test(width);
 
@@ -31,17 +31,16 @@ export const HeaderBackgroundStyles = createStyles(
         width: '100%',
         backgroundImage: image && `url(${image})`,
         backgroundSize: 'cover',
-        filter: withBlur && 'blur(2px)',
         zIndex: 1,
       },
-      // blur: {
-      //   position: 'absolute',
-      //   height: '100%',
-      //   width: '100%',
-      //   zIndex: 2,
-      //   backdropFilter: `blur(${blur}px)`,
-      //   background: 'rgba(0, 0, 0, 0.5)',
-      // },
+      blur: {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        zIndex: 2,
+        backdropFilter: `blur(${blur}px)`,
+        background: 'rgba(0, 0, 0, 0.1)',
+      },
       gradient: {
         position: 'absolute',
         height: '100%',

@@ -19,7 +19,7 @@ const HeaderBackground = ({
   ...props
 }) => {
   const { classes, cx } = HeaderBackgroundStyles(
-    { image, color, height, width, withBlur, styles },
+    { image, color, height, width, blur, styles },
     { name: 'HeaderBackground' }
   );
 
@@ -31,7 +31,7 @@ const HeaderBackground = ({
         style={{ backgroundImage: !image && `url(${backgroundImage})` }}
       />
       {withGradient && <Box className={classes.gradient} />}
-      {/* {withBlur && <Box className={classes.blur} />} */}
+      {withBlur && <Box className={classes.blur} />}
     </Box>
   );
 };
