@@ -28,14 +28,14 @@ export const HeaderBackgroundStyles = createStyles(
       },
       image: {
         position: 'absolute',
-        height: '110%',
-        width: '110%',
+        height: '114%',
+        width: '104%',
         backgroundImage: image && `url(${image})`,
         backgroundSize: 'cover',
         filter: withBlur && `blur(${blur}px)`,
         zIndex: 1,
-        marginLeft: '-2%',
-        marginTop: '-2%',
+        top: '-7%',
+        left: '-2%',
       },
       gradient: {
         position: 'absolute',
