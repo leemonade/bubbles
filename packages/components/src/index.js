@@ -15,6 +15,7 @@ export {
   useResizeObserver,
   useDebouncedValue,
   useClipboard,
+  useViewportSize,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {

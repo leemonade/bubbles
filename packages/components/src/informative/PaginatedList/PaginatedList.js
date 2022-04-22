@@ -142,6 +142,7 @@ const PaginatedList = ({
             page={page}
             totalPages={totalPages}
             withSize={true}
+            size={size}
             onSizeChange={handleSizeChange}
             onChange={handlePageChange}
             variant={variant}

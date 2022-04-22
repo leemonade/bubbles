@@ -162,10 +162,12 @@ const Pager = forwardRef(
             <Select
               onChange={onSizeChangeHandler}
               value={size}
-              data={[10, 20, 30, 40, 50].map((size) => ({
-                label: `${labels.show} ${size}`,
-                value: size,
-              }))}
+              data={[0.5, 1, 2, 3]
+                .map((n) => Math.floor(n * size))
+                .map((val) => ({
+                  label: `${labels.show} ${val}`,
+                  value: val,
+                }))}
             />
           </Box>
         )}

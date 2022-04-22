@@ -39,6 +39,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
   single: PropTypes.bool,
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
+  accept: PropTypes.arrayOf(PropTypes.string),
 };
 
 const FileUpload = ({
@@ -55,6 +56,7 @@ const FileUpload = ({
   single,
   inputWrapperProps = {},
   initialFiles,
+  accept,
   ...props
 }) => {
   const openRef = useRef();
@@ -84,6 +86,7 @@ const FileUpload = ({
       <InputWrapper {...inputWrapperProps}>
         <MantineDropzone
           {...props}
+          accept={accept}
           loading={loading}
           multiple={multipleUpload}
           onDrop={onDropHandler}

@@ -15,13 +15,14 @@ export const DRAWER_DEFAULT_PROPS = {
   position: 'right',
   back: '',
   close: true,
-  noCloseOnClickOutside: false,
-  noCloseOnEscape: false,
-  noScrollLock: false,
-  noFocusTrap: true,
-  noOverlay: false,
+  closeOnClickOutside: true,
+  closeOnEscape: true,
+  lockScroll: true,
+  trapFocus: false,
+  withOverlay: false,
   overlayOpacity: 0.75,
   empty: false,
+  shadow: true,
 };
 export const DRAWER_PROP_TYPES = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -31,24 +32,31 @@ export const DRAWER_PROP_TYPES = {
   overlayColor: PropTypes.string,
   overlayOpacity: PropTypes.number,
   position: PropTypes.oneOf(DRAWER_POSITIONS),
-  noCloseOnClickOutside: PropTypes.bool,
-  noCloseOnEscape: PropTypes.bool,
-  noScrollLock: PropTypes.bool,
-  noFocusTrap: PropTypes.bool,
-  noOverlay: PropTypes.bool,
+  closeOnClickOutside: PropTypes.bool,
+  closeOnEscape: PropTypes.bool,
+  lockScroll: PropTypes.bool,
+  trapFocus: PropTypes.bool,
+  withOverlay: PropTypes.bool,
   back: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   empty: PropTypes.bool,
+  shadow: PropTypes.bool,
 };
 
 const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow, ...props }) => {
-  const { classes, cx } = DrawerStyles({ empty });
+  const { classes, cx } = DrawerStyles({ empty, shadow }, { name: 'Drawer' });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
 
   return (
-    <MantineDrawer {...props} onClose={onClose} shadow={false} hideCloseButton classNames={classes}>
+    <MantineDrawer
+      {...props}
+      onClose={onClose}
+      shadow={false}
+      withCloseButton={false}
+      classNames={classes}
+    >
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>
           {back && back !== '' ? (
