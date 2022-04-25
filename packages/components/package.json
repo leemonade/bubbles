@@ -47,6 +47,8 @@
     "@mantine/dropzone": "^4.0.5",
     "@mantine/hooks": "^4.0.5",
     "@mantine/modals": "^4.0.5",
+    "@nivo/bar": "^0.79.1",
+    "@nivo/core": "^0.79.0",
     "@yaireo/tagify": "^4.9.4",
     "colord": "^2.9.2",
     "dayjs": "^1.10.7",

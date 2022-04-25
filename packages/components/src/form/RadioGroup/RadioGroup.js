@@ -98,13 +98,15 @@ const RadioGroup = forwardRef(
     useEffect(() => {
       const observer = new ResizeObserver(() => {
         if (value) {
-          const element = refs.current[value].closest('.mantine-SegmentedControl-label');
+          const element = refs.current[value]?.closest('.mantine-SegmentedControl-label');
 
-          const rect = element.getBoundingClientRect();
-          setActivePosition({
-            height: Math.floor(rect.height),
-            translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
-          });
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            setActivePosition({
+              height: Math.floor(rect.height),
+              translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
+            });
+          }
         }
       });
 

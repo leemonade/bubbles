@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { Text } from '../../../typography';
@@ -21,8 +21,13 @@ const TableView = ({
   itemRender,
   onSelect,
   selectable,
+  selected,
 }) => {
-  const [currentItem, setCurrentItem] = useState(null);
+  const [currentItem, setCurrentItem] = useState(selected);
+
+  useEffect(() => {
+    if (selected?.id !== currentItem?.id) setCurrentItem(selected);
+  }, [selected]);
 
   const handleOnSelect = (item) => {
     if (selectable) {

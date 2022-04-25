@@ -30,8 +30,6 @@ const LibraryCardFooter = ({
     }
   };
 
-  console.log(fileType, action, variant);
-
   const handleOnAction = () => {
     isFunction(onAction) && onAction();
   };

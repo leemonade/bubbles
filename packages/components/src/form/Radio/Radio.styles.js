@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const RadioStyles = createStyles((theme, { variant, help, helpPosition, checked }) => {
+export const RadioStyles = createStyles((theme, { variant, help, helpPosition, checked, size }) => {
   const isIcon = variant === 'icon';
   const isDefault = variant === 'default';
   const isBoxed = variant === 'boxed';
@@ -27,6 +27,9 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
       flexDirection: isBottom || isIcon ? 'column' : null,
       alignItems: isIcon ? 'center' : 'baseline',
     },
+    inner: {
+      display: isIcon && 'none',
+    },
     title: {
       ...getFontProductive(theme.fontSizes['2'], 500),
       marginTop: help !== '' && isBottom ? pxToRem(1.5) : null,
@@ -45,9 +48,10 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
     },
     label: {
       alignItems: help !== '' && isBottom ? 'flex-start' : null,
-      padding: pxToRem(theme.spacing[4]),
+      padding: size === 'xs' ? pxToRem(theme.spacing[3]) : pxToRem(theme.spacing[4]),
       justifyContent: isIcon ? 'center' : null,
       userSelect: 'none',
+      marginLeft: isIcon && 0,
     },
   };
 });

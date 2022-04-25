@@ -29,7 +29,7 @@ export const ASSET_PROPS = PropTypes.shape({
   url: PropTypes.string,
   icon: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
-  category: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
+  category: PropTypes.string,
   role: PropTypes.oneOf(LIBRARYCARD_ROLES),
 });
 

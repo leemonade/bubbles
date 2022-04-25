@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { Masonry, Stack } from '../../../layout';
@@ -22,11 +22,16 @@ const GridView = ({
   itemRender,
   onSelect,
   selectable,
+  selected,
   style,
   itemMinWidth,
   ...props
 }) => {
-  const [currentItem, setCurrentItem] = useState(null);
+  const [currentItem, setCurrentItem] = useState(selected);
+
+  useEffect(() => {
+    if (selected?.id !== currentItem?.id) setCurrentItem(selected);
+  }, [selected]);
 
   const handleOnSelect = (item) => {
     if (selectable) {
