@@ -22,6 +22,7 @@ export const LIBRARY_DETAIL_DEFAULT_PROPS = {
     copied: 'Copied',
     sharedWith: 'Shared with',
     sharedViewAll: 'View all',
+    sharedWithEverybody: 'Shared with everybody',
   },
 };
 export const LIBRARY_DETAIL_PROP_TYPES = {

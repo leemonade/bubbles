@@ -64,12 +64,19 @@ const LibraryDetail = ({
             }
           />
           <LibraryDetailContent {...asset} variant={variant} labels={labels} />
-          {!isEmpty(asset?.canAccess) && (
+          {!asset.public && !isEmpty(asset?.canAccess) && (
             <Stack direction="column" spacing={2} padding={4}>
               <Text role="productive" size="xs">
                 {labels.sharedWith}
               </Text>
               <AvatarsGroup size="xs" data={asset.canAccess} limit={3} />
+            </Stack>
+          )}
+          {asset.public && (
+            <Stack direction="column" spacing={2} padding={4}>
+              <Text role="productive" size="xs">
+                {labels.sharedWithEverybody}
+              </Text>
             </Stack>
           )}
         </Stack>
