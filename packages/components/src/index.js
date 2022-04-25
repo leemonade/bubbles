@@ -25,6 +25,7 @@ export {
   getHtmlStyles,
 } from './theme.mixins';
 export { COLORS } from './theme.tokens';
+export { colord } from 'colord';
 export * from './ThemeProvider';
 export * from './informative';
 export * from './navigation';

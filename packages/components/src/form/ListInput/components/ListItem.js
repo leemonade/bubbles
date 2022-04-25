@@ -26,6 +26,7 @@ const ListItem = forwardRef(
       onChange,
       readonly,
       errorRequiredMessage,
+      index,
     },
     ref
   ) => {
@@ -64,6 +65,7 @@ const ListItem = forwardRef(
 
         React.cloneElement(ItemValueRender, {
           item: item[valueKey],
+          index,
           key: 2,
         }),
         !readonly ? (
@@ -87,6 +89,7 @@ const ListItem = forwardRef(
                 setValue(event);
                 if (event) setHasError(false);
               },
+              index,
               required: true,
               error: hasError ? errorRequiredMessage : null,
             })}

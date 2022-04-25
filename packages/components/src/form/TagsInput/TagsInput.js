@@ -22,6 +22,7 @@ const TagsInput = forwardRef(
       value,
       required,
       suggestions,
+      canAddNewSuggestions = true,
       onChange = () => {},
       ...props
     },
@@ -43,7 +44,7 @@ const TagsInput = forwardRef(
         return;
       }
       const newTag = trim(inputValue);
-      if (!tags.includes(newTag)) {
+      if (!tags.includes(newTag) && canAddNewSuggestions) {
         const newTags = [...tags, newTag];
         isFunction(onChange) && onChange(newTags);
         setTags(newTags);
