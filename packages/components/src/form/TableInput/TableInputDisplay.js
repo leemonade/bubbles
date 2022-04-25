@@ -36,6 +36,7 @@ const TableInputDisplay = ({
   onSort,
   onEdit,
   sortable,
+  forceSortable,
   editable,
   removable,
   disabled,
@@ -118,7 +119,7 @@ const TableInputDisplay = ({
         {showHeaders &&
           headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps({})}>
-              {sortable && !disabled && <th style={{ width: 20 }}></th>}
+              {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps({
@@ -136,7 +137,7 @@ const TableInputDisplay = ({
           ))}
 
         <tr className={rows.length > 0 ? tableClasses.tr : ''}>
-          {sortable && !disabled && <th></th>}
+          {(sortable && !disabled) || forceSortable ? <th></th> : null}
           {columns.map((column, i) => (
             <th
               key={`in-${i}`}
@@ -181,7 +182,7 @@ const TableInputDisplay = ({
                     tableClasses={tableClasses}
                     cx={cx}
                     totalRows={rows.length}
-                    sortable={sortable && !disabled}
+                    sortable={(sortable && !disabled) || forceSortable}
                     editable={editable && !disabled}
                     removable={removable && !disabled}
                     disabled={disabled}
