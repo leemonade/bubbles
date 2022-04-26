@@ -17,7 +17,6 @@ export {
   useClipboard,
   useViewportSize,
 } from '@mantine/hooks';
-export { colord } from 'colord';
 export { createStyles } from '@mantine/styles';
 export {
   getFontExpressive,
