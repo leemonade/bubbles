@@ -7,7 +7,7 @@ import {
 } from '@bubbles-ui/components';
 
 export const AssetPlayerStyles = createStyles(
-  (theme, { height, width, styles, showPlayer, color, seconds }) => {
+  (theme, { height, width, styles, showPlayer, seconds }) => {
     const isHeightNum = /^\d+$/.test(height);
     const isWidthNum = /^\d+$/.test(width);
 
@@ -28,14 +28,14 @@ export const AssetPlayerStyles = createStyles(
         width: '100%',
         zIndex: showPlayer ? -1 : 1,
       },
-      color: {
-        backgroundColor: color,
-        height: 8,
-        position: 'absolute',
-        zIndex: showPlayer ? -1 : 1,
-        bottom: 0,
-        width: '100%',
-      },
+      // color: {
+      //   backgroundColor: color,
+      //   height: 8,
+      //   position: 'absolute',
+      //   zIndex: showPlayer ? -1 : 1,
+      //   bottom: 0,
+      //   width: '100%',
+      // },
       reactPlayer: {
         position: 'absolute',
         width: '100%',

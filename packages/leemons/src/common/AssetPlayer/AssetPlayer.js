@@ -43,7 +43,7 @@ const AssetPlayer = ({
   onError,
   ...props
 }) => {
-  const { name, color, cover, url, fileType } = asset;
+  const { name, cover, url, fileType } = asset;
   const playerRef = useRef(null);
   const isPlayable = useMemo(() => fileType === 'video' || fileType === 'audio', [fileType]);
   const [playedPercentage, setPlayedPercentage] = useState(0);
@@ -82,7 +82,7 @@ const AssetPlayer = ({
   };
 
   const { classes, cx } = AssetPlayerStyles(
-    { width, height, styles, showPlayer, color, seconds },
+    { width, height, styles, showPlayer, seconds },
     { name: 'AssetPlayer' }
   );
   return (
@@ -97,7 +97,7 @@ const AssetPlayer = ({
             </Box>
           )}
         </Box>
-        <Box className={classes.color} />
+        {/* <Box className={classes.color} /> */}
         {isPlayable && (
           <>
             <ReactPlayer
