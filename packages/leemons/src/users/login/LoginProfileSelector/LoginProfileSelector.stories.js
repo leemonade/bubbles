@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginProfileSelector, LOGIN_PROFILE_SELECTOR_DEFAULT_PROPS } from './LoginProfileSelector';
+import { LOGIN_PROFILE_SELECTOR_DEFAULT_PROPS, LoginProfileSelector } from './LoginProfileSelector';
 import mdx from './LoginProfileSelector.mdx';
 
 export default {
@@ -35,22 +35,40 @@ Playground.args = {
     remember: 'Always use this profile for quick access',
     help: 'You can easily change later your profile by clicking on your avatar in the sidebar of the application',
     login: 'Log in',
+    centerPlaceholder: 'Select a center',
   },
   errorMessages: {
     profile: {
       required: 'Please select a profile',
     },
   },
-  profiles: [
+  centers: [
     {
-      value: 'teacher',
-      label: 'Teacher',
-      // icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+      id: 'center1',
+      name: 'Centro 1',
+      profiles: [
+        {
+          id: 'teacher',
+          name: 'Teacher',
+          // icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+        },
+        {
+          id: 'mother',
+          name: 'Mother',
+          // icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+        },
+      ],
     },
     {
-      value: 'mother',
-      label: 'Mother',
-      // icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+      id: 'center2',
+      name: 'Centro 2',
+      profiles: [
+        {
+          id: 'teacher',
+          name: 'Teacher',
+          // icon: <SchoolTeacherMaleIcon height={32} width={32} />,
+        },
+      ],
     },
   ],
 };
