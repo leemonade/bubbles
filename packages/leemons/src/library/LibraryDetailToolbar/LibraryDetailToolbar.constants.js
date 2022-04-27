@@ -12,5 +12,7 @@ export const LIBRARY_DETAIL_TOOLBAR_PROP_TYPES = {
   onDelete: PropTypes.func,
   onShare: PropTypes.func,
   onAssign: PropTypes.func,
+  onPin: PropTypes.func,
+  onUnpin: PropTypes.func,
   onToggle: PropTypes.func,
 };
