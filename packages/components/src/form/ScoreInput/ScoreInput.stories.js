@@ -23,7 +23,7 @@ export default {
 };
 
 const Template = ({ acceptCustom, onChange, ...props }) => {
-  const [value, setValue] = React.useState({ score: 5 });
+  const [value, setValue] = React.useState(value || { score: 0 });
 
   const onChangeHandler = (value) => {
     setValue(value);
