@@ -36,7 +36,8 @@ export const ScoreInputStyles = createStyles(
       },
       selectedGradeBox: {
         position: 'absolute',
-        boxShadow: `inset 0 0 0 1px ${theme.colors.interactive01d}`,
+        // boxShadow: `inset 0 0 0 1px ${theme.colors.interactive01d}`,
+        border: `1px solid ${theme.colors.interactive01d}`,
         backgroundColor: theme.colors.mainWhite,
         minHeight: 95,
         height: 95,
