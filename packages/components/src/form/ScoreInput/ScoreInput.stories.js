@@ -22,9 +22,21 @@ export default {
   },
 };
 
-const Template = ({ acceptCustom, ...props }) => {
+const Template = ({ acceptCustom, onChange, ...props }) => {
+  const [value, setValue] = React.useState({ score: 5 });
+
+  const onChangeHandler = (value) => {
+    setValue(value);
+    onChange(value);
+  };
+
   return (
-    <ScoreInput {...props} acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined} />
+    <ScoreInput
+      {...props}
+      value={value}
+      onChange={onChangeHandler}
+      acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined}
+    />
   );
 };
 
