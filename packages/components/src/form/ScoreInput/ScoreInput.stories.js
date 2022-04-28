@@ -18,30 +18,20 @@ export default {
   },
   argTypes: {
     acceptCustom: { control: { type: 'select' }, options: ['text', 'number', 'none'] },
+    onChange: { action: 'onChange' },
   },
 };
 
-const Template = ({ useLetter, acceptCustom, ...props }) => {
-  const gradesArray = props.grades.map(({ score, letter }) => {
-    if (useLetter) return { score, letter };
-    else return { score };
-  });
-
+const Template = ({ acceptCustom, ...props }) => {
   return (
-    // <Box style={{ width: 610 }}>
-    <ScoreInput
-      {...props}
-      grades={gradesArray}
-      acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined}
-    />
-    // </Box>
+    <ScoreInput {...props} acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined} />
   );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  useLetter: false,
+  showLetters: false,
   acceptCustom: 'none',
   ...SCORE_INPUT_DEFAULT_PROPS,
   grades: [
@@ -56,20 +46,18 @@ Playground.args = {
     { score: 8, letter: 'B+' },
     { score: 9, letter: 'A' },
     { score: 10, letter: 'A+' },
-    { score: 11, letter: 'A++' },
-    { score: 12, letter: 'A+++' },
-    { score: 13, letter: 'A++++' },
-    { score: 14, letter: 'A+++++' },
-    { score: 15, letter: 'A++++++' },
-    { score: 16, letter: 'A+++++++' },
-    { score: 17, letter: 'A++++++++' },
-    { score: 18, letter: 'A+++++++++' },
-    { score: 19, letter: 'A++++++++++' },
-    { score: 20, letter: 'A+++++++++++' },
+    { score: 11, letter: 'A+' },
+    { score: 12, letter: '-S' },
+    { score: 13, letter: 'S' },
+    { score: 14, letter: 'S+' },
+    { score: 15, letter: '-T' },
+    { score: 16, letter: 'T' },
+    { score: 17, letter: 'T+' },
+    { score: 18, letter: '-U' },
+    { score: 19, letter: 'U' },
+    { score: 20, letter: 'U+' },
   ],
   label: 'Score input',
   description: 'This is a score input',
-  value: {
-    score: 11,
-  },
+  value: {},
 };
