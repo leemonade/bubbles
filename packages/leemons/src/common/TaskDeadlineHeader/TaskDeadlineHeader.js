@@ -31,7 +31,7 @@ const TaskDeadlineHeader = ({
   ...props
 }) => {
   const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
-  const [deadlineExpanded, setDeadlineExpanded] = useState(true);
+  const [deadlineExpanded, setDeadlineExpanded] = useState(false);
   let tempDeadlineValue = new Date(deadlineValue);
 
   const saveDeadline = () => {
