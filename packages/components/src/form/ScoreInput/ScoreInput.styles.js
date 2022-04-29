@@ -20,6 +20,13 @@ export const ScoreInputStyles = createStyles(
           border: `1px solid ${!error ? theme.colors.ui01 : theme.colors.fatic01}`,
         },
       },
+      select: {
+        input: {
+          fontSize: 'unset',
+          textAlign: 'unset',
+          border: `1px solid ${!error ? theme.colors.ui01 : theme.colors.fatic01}`,
+        },
+      },
       parentInput: {
         overflow: 'hidden',
         borderRadius: 4,

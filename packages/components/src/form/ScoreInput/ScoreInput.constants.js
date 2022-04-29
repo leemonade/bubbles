@@ -4,7 +4,9 @@ import { INPUT_WRAPPER_PROP_TYPES, INPUT_WRAPPER_DEFAULT_PROPS } from '../InputW
 export const SCORE_INPUT_DEFAULT_PROPS = {
   ...INPUT_WRAPPER_DEFAULT_PROPS,
   grades: [],
+  tags: [],
   showLetters: false,
+  placeholder: '',
 };
 
 export const SCORE_INPUT_PROP_TYPES = {
@@ -20,6 +22,8 @@ export const SCORE_INPUT_PROP_TYPES = {
     score: PropTypes.number,
     letter: PropTypes.string,
   }),
+  tags: PropTypes.arrayOf(PropTypes.string),
+  placeholder: PropTypes.string,
   showLetters: PropTypes.bool,
   onChange: PropTypes.func,
 };

@@ -5,13 +5,24 @@ import { isFunction } from 'lodash';
 import { useElementSize } from '@mantine/hooks';
 import { ScoreInputStyles } from './ScoreInput.styles';
 import { ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
-import { InputWrapper, TextInput, NumberInput } from '../';
+import { InputWrapper, TextInput, NumberInput, Select } from '../';
 import { SCORE_INPUT_DEFAULT_PROPS, SCORE_INPUT_PROP_TYPES } from './ScoreInput.constants';
 
-const ScoreInput = ({ grades, acceptCustom, value, onChange, error, showLetters, ...props }) => {
+const ScoreInput = ({
+  grades,
+  tags,
+  acceptCustom,
+  value,
+  onChange,
+  placeholder,
+  error,
+  showLetters,
+  ...props
+}) => {
   const [grade, setGrade] = useState(value);
   const [inputMaxWidth, setInputMaxWidth] = useState(10000);
   const [displacedGrades, setDisplacedGrades] = useState(0);
+  const [selectValue, setSelectValue] = useState('');
   const { ref: parentRef, width: parentWidth } = useElementSize();
   const { ref: inputRef, width: inputWidth } = useElementSize();
   const maxGrades = Math.floor((inputWidth + 2) / 40);
@@ -52,13 +63,12 @@ const ScoreInput = ({ grades, acceptCustom, value, onChange, error, showLetters,
       return (
         <NumberInput
           contentClassName={classes.heightStyles}
-          invalid={error}
           hideControls
           value={grade?.score}
           onChange={(value) =>
             onChangeHandler({
               score: value,
-              letter: grades.find(({ score }) => score === value)?.letter,
+              letter: grades.find(({ score }) => score === value)?.letter || selectValue,
             })
           }
         />
@@ -152,7 +162,24 @@ const ScoreInput = ({ grades, acceptCustom, value, onChange, error, showLetters,
     <Box className={classes.root}>
       <InputWrapper {...props} error={error}>
         <Box className={classes.inputWrapper}>
-          {acceptCustom && <Box className={classes.customInput}>{renderCustomInput()}</Box>}
+          {acceptCustom && (
+            <Box className={classes.customInput}>
+              {renderCustomInput()}
+              {acceptCustom === 'number' && tags.length > 0 && (
+                <Box className={classes.select}>
+                  <Select
+                    data={tags}
+                    placeholder={placeholder}
+                    value={selectValue}
+                    onChange={(value) => {
+                      onChangeHandler({ score: grade?.score, letter: value });
+                      setSelectValue(value);
+                    }}
+                  />
+                </Box>
+              )}
+            </Box>
+          )}
           <Box ref={parentRef} style={{ width: acceptCustom ? 'calc(100% - 128px)' : '100%' }}>
             <Box className={classes.parentInput} style={{ maxWidth: inputMaxWidth }}>
               <Box ref={inputRef} className={classes.input}>

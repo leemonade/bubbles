@@ -23,7 +23,7 @@ export default {
 };
 
 const Template = ({ acceptCustom, onChange, ...props }) => {
-  const [value, setValue] = React.useState(value || { score: 0 });
+  const [value, setValue] = React.useState(props.value || { score: 0 });
 
   const onChangeHandler = (value) => {
     setValue(value);
@@ -72,4 +72,6 @@ Playground.args = {
   label: 'Score input',
   description: 'This is a score input',
   value: {},
+  placeholder: 'Other tags',
+  tags: ['-S', 'S', 'S+', '-T', 'T', 'T+', '-U', 'U', 'U+'],
 };
