@@ -46,6 +46,10 @@ export const DATE_PICKER_PROP_TYPES = {
     PropTypes.instanceOf(Date),
     PropTypes.arrayOf(PropTypes.instanceOf(Date)),
   ]),
+  headerClassName: PropTypes.string,
+  contentClassName: PropTypes.string,
+  headerStyle: PropTypes.any,
+  contentStyle: PropTypes.any,
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -69,6 +73,10 @@ const DatePicker = forwardRef(
       withTime,
       value: userValue,
       onChange,
+      headerClassName,
+      contentClassName,
+      headerStyle,
+      contentStyle,
       ...props
     },
     ref
@@ -118,6 +126,10 @@ const DatePicker = forwardRef(
         orientation={orientation}
         required={required}
         help={help}
+        headerClassName={headerClassName}
+        contentClassName={contentClassName}
+        headerStyle={headerStyle}
+        contentStyle={contentStyle}
       >
         <Stack spacing={1} fullWidth>
           <Comp
