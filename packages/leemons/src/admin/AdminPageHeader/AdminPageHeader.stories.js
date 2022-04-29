@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
+import { Box, Paragraph } from '@bubbles-ui/components';
+import { PluginAssignmentsIcon } from '@bubbles-ui/icons/outline';
+import { AdminPageHeader } from './AdminPageHeader';
 import {
-  AdminPageHeader,
   ADMIN_PAGE_HEADER_DEFAULT_PROPS,
   ADMIN_PAGE_HEADER_BUTTON_TYPES,
-} from './AdminPageHeader';
+  ADMIN_PAGE_HEADER_VARIANTS,
+} from './AdminPageHeader.constants';
 import mdx from './AdminPageHeader.mdx';
 
 export default {
@@ -22,6 +24,7 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     isLoading: { options: ADMIN_PAGE_HEADER_BUTTON_TYPES, control: { type: 'select' } },
+    variant: { options: ADMIN_PAGE_HEADER_VARIANTS, control: { type: 'select' } },
     onNew: { action: 'New clicked' },
     onEdit: { action: 'Edit clicked' },
     onSave: { action: 'Save clicked' },
@@ -34,6 +37,18 @@ const Template = ({ ...props }) => {
   return (
     <Box style={{ margin: '-15px' }}>
       <AdminPageHeader {...props} />
+      <Box padding={5}>
+        {[...Array(10)].map((_, i) => (
+          <Paragraph key={`p-${i}`}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
+          </Paragraph>
+        ))}
+      </Box>
     </Box>
   );
 };
@@ -51,4 +66,5 @@ Playground.args = {
     title: 'Profile name',
     description: 'Profile description',
   },
+  icon: <PluginAssignmentsIcon />,
 };
