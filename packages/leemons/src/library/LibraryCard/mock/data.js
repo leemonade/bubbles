@@ -5,7 +5,7 @@ export const AUDIO_ASSET = {
   created: '2022-02-04T16:26:31.485Z',
   description:
     'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
-  subtitle: '',
+  tagline: '',
   metadata: [
     { label: 'Quality', value: '128kb' },
     { label: 'Format', value: 'mp3' },
@@ -43,7 +43,7 @@ export const IMAGE_ASSET = {
   created: '2022-02-04T16:26:31.485Z',
   description:
     'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
-  subtitle: '',
+  tagline: '',
   metadata: [{ label: 'Size', value: '128kb' }],
   tags: ['Adventure'],
   cover:
@@ -57,7 +57,7 @@ export const URL_ASSET = {
   created: '2022-02-04T16:26:31.485Z',
   description:
     'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
-  subtitle: '',
+  tagline: '',
   metadata: [],
   tags: ['Student', 'Learning'],
   icon: 'https://www.leemons.io/apple-touch-icon.png',

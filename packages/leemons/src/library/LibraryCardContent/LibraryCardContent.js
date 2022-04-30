@@ -23,7 +23,7 @@ const getDomain = (url) => {
 };
 
 const LibraryCardContent = ({
-  subtitle,
+  tagline,
   description,
   tags,
   metadata,
@@ -126,10 +126,10 @@ const LibraryCardContent = ({
                     </Box>
                   </Stack>
                 )}
-                {!isEmpty(subtitle) && (
+                {!isEmpty(tagline) && (
                   <TextClamp lines={truncated ? 2 : 10}>
                     <Text role="productive" color="primary">
-                      {subtitle}
+                      {tagline}
                     </Text>
                   </TextClamp>
                 )}
