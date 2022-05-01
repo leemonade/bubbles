@@ -28,6 +28,8 @@ const TaskDeadlineHeader = ({
   open,
   onDeadlineChange,
   onCloseTask,
+  styles,
+  className,
   ...props
 }) => {
   const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
@@ -67,11 +69,11 @@ const TaskDeadlineHeader = ({
   }, [deadline]);
 
   const { classes, cx } = TaskDeadlineHeaderStyles(
-    { color, deadlineExpanded },
+    { color, deadlineExpanded, styles },
     { name: 'TaskDeadlineHeader' }
   );
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       <Box className={classes.header}>
         <Text className={classes.title} color="primary">
           {title}
