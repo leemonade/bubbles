@@ -15,11 +15,12 @@ const HeaderBackground = ({
   withGradient,
   withBlur,
   blur,
+  backgroundPosition,
   styles,
   ...props
 }) => {
   const { classes, cx } = HeaderBackgroundStyles(
-    { image, color, height, width, withBlur, blur, styles },
+    { image, color, height, width, withBlur, blur, backgroundPosition, styles },
     { name: 'HeaderBackground' }
   );
 

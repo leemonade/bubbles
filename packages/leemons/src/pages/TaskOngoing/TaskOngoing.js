@@ -3,7 +3,12 @@ import { Box, Button, HorizontalTimeline, Text, ScoresBar, COLORS } from '@bubbl
 import { HeaderBackground, TaskDeadlineHeader } from '../../common';
 import { TaskOngoingStyles } from './TaskOngoing.styles';
 import { TASK_ONGOING_DEFAULT_PROPS, TASK_ONGOING_PROP_TYPES } from './TaskOngoing.constants';
-import { ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import {
+  ChevLeftIcon,
+  OpenIcon,
+  TimeClockCircleIcon,
+  CheckCircleIcon,
+} from '@bubbles-ui/icons/outline';
 import { mock } from './mock/mock';
 
 const TaskOngoing = ({ ...props }) => {
@@ -12,9 +17,15 @@ const TaskOngoing = ({ ...props }) => {
   return (
     <Box className={classes.root}>
       <Box className={classes.header}>
-        <HeaderBackground {...mock.headerBackground} styles={{ position: 'absolute' }} />
+        <HeaderBackground
+          {...mock.headerBackground}
+          styles={{ position: 'absolute' }}
+          backgroundPosition="center"
+          blur={10}
+        />
         <Button
           variant="light"
+          size="md"
           compact
           leftIcon={<ChevLeftIcon width={20} height={20} />}
           styles={{ zIndex: 5, color: COLORS.mainWhite }}
@@ -40,12 +51,38 @@ const TaskOngoing = ({ ...props }) => {
       </Box>
       <Box className={classes.mainContent}>
         <Box className={classes.leftSide}>
-          <Text>Resumen del estado</Text>
-          <ScoresBar />
+          <Text transform="uppercase">Resumen del estado</Text>
+          <Box className={classes.leftScoreBarWrapper}>
+            <Box className={classes.scoreBarLeftLegend}>
+              <Box className={classes.legend}>
+                <OpenIcon width={12} height={12} />
+                <Text role="productive">Open</Text>
+              </Box>
+              <Box className={classes.legend}>
+                <TimeClockCircleIcon width={12} height={12} />
+                <Text role="productive">Ongoing</Text>
+              </Box>
+              <Box className={classes.legend}>
+                <CheckCircleIcon width={12} height={12} />
+                <Text role="productive">Completed</Text>
+              </Box>
+            </Box>
+            <ScoresBar
+              {...mock.leftScoresBar}
+              showBarPercentage
+              showLeftLegend={false}
+              variant="onecolor"
+              styles={{
+                width: 'calc(100% - 95px)',
+              }}
+            />
+          </Box>
         </Box>
         <Box className={classes.rightSide}>
-          <Text>Status</Text>
-          <ScoresBar />
+          <Text transform="uppercase">Status</Text>
+          <Box className={classes.rightScoreBarWrapper}>
+            <ScoresBar {...mock.rightScoresBar} />
+          </Box>
         </Box>
       </Box>
     </Box>

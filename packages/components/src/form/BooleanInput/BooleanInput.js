@@ -83,7 +83,12 @@ const BooleanInput = forwardRef(
     );
 
     return (
-      <InputWrapper className={classes.wrapper} description={description} error={error} size={size}>
+      <InputWrapper
+        className={classes.wrapper}
+        description={description}
+        error={error}
+        size={size === 'md' ? 'sm' : size}
+      >
         <Box className={classes.root}>
           {display === BOOLEAN_INPUT_DISPLAYS[0] ? (
             <Checkbox

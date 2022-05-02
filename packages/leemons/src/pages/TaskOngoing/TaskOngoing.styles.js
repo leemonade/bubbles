@@ -13,7 +13,7 @@ export const TaskOngoingStyles = createStyles((theme, {}) => {
     },
     header: {
       position: 'relative',
-      height: 240,
+      height: 224,
     },
     mainContent: {
       height: '370px',
@@ -21,13 +21,33 @@ export const TaskOngoingStyles = createStyles((theme, {}) => {
       display: 'flex',
     },
     leftSide: {
-      backgroundColor: 'blue',
       width: '50%',
       padding: '16px 32px',
     },
+    leftScoreBarWrapper: {
+      height: 150,
+      display: 'flex',
+      marginTop: 48,
+    },
+    rightScoreBarWrapper: {
+      height: '93%',
+      width: '100%',
+      marginTop: 24,
+    },
+    scoreBarLeftLegend: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 23,
+      marginTop: 15,
+      marginRight: 60,
+    },
+    legend: {
+      display: 'flex',
+      gap: 8,
+      color: '#8E97A2',
+    },
     rightSide: {
       width: '50%',
-      backgroundColor: 'red',
       padding: 24,
     },
   };

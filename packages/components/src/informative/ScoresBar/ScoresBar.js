@@ -20,9 +20,11 @@ const ScoresBar = ({
   markerLegend,
   showLeftLegend,
   showBarPercentage,
+  styles,
+  className,
   ...props
 }) => {
-  const { classes, cx } = ScoresBarStyles({ withMarker }, { name: 'ScoresBar' });
+  const { classes, cx } = ScoresBarStyles({ withMarker, styles }, { name: 'ScoresBar' });
   const isMultiColor = variant === 'multicolor';
   const [bottomAxisSelector, setBottomAxisSelector] = React.useState(0);
 
@@ -100,7 +102,7 @@ const ScoresBar = ({
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       <ResponsiveBar
         data={getData()}
         minValue={0}
