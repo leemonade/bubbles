@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
-import { TaskOngoing } from './TaskOngoing';
-import { TASK_ONGOING_DEFAULT_PROPS } from './TaskOngoing.constants';
-import mdx from './TaskOngoing.mdx';
+import { TaskOngoingList } from './TaskOngoingList';
+import { TASK_ONGOING_LIST_DEFAULT_PROPS } from './TaskOngoingList.constants';
+import mdx from './TaskOngoingList.mdx';
 
 export default {
-  title: 'leemons/Pages/TaskOngoing',
+  title: 'leemons/Pages/TaskOngoingList',
   parameters: {
-    component: TaskOngoing,
+    component: TaskOngoingList,
     docs: {
       page: mdx,
     },
@@ -20,11 +20,11 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TaskOngoing {...props} />;
+  return <TaskOngoingList {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...TASK_ONGOING_DEFAULT_PROPS,
+  ...TASK_ONGOING_LIST_DEFAULT_PROPS,
 };

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Button, HorizontalTimeline, Text, ScoresBar, COLORS } from '@bubbles-ui/components';
 import { HeaderBackground, TaskDeadlineHeader } from '../../common';
-import { TaskOngoingStyles } from './TaskOngoing.styles';
-import { TASK_ONGOING_DEFAULT_PROPS, TASK_ONGOING_PROP_TYPES } from './TaskOngoing.constants';
+import { TaskOngoingListStyles } from './TaskOngoingList.styles';
+import {
+  TASK_ONGOING_LIST_DEFAULT_PROPS,
+  TASK_ONGOING_LIST_PROP_TYPES,
+} from './TaskOngoingList.constants';
 import {
   ChevLeftIcon,
   OpenIcon,
@@ -11,8 +14,8 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { mock } from './mock/mock';
 
-const TaskOngoing = ({ ...props }) => {
-  const { classes, cx } = TaskOngoingStyles({}, { name: 'TaskOngoing' });
+const TaskOngoingList = ({ ...props }) => {
+  const { classes, cx } = TaskOngoingListStyles({}, { name: 'TaskOngoingList' });
 
   return (
     <Box className={classes.root}>
@@ -89,7 +92,7 @@ const TaskOngoing = ({ ...props }) => {
   );
 };
 
-TaskOngoing.defaultProps = TASK_ONGOING_DEFAULT_PROPS;
-TaskOngoing.propTypes = TASK_ONGOING_PROP_TYPES;
+TaskOngoingList.defaultProps = TASK_ONGOING_LIST_DEFAULT_PROPS;
+TaskOngoingList.propTypes = TASK_ONGOING_LIST_PROP_TYPES;
 
-export { TaskOngoing };
+export { TaskOngoingList };

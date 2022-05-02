@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const TaskOngoingStyles = createStyles((theme, {}) => {
+export const TaskOngoingListStyles = createStyles((theme, {}) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
