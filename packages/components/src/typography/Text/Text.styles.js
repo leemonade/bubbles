@@ -32,6 +32,7 @@ export const TextStyles = createStyles(
       primary: theme.colors.text01,
       secondary: theme.colors.text02,
       tertiary: theme.colors.text03,
+      quartiary: theme.colors.text04,
       interactive: theme.colors.interactive01,
       soft: theme.colors.text05,
     };

@@ -70,15 +70,7 @@ const TaskOngoingList = ({ ...props }) => {
                 <Text role="productive">Completed</Text>
               </Box>
             </Box>
-            <ScoresBar
-              {...mock.leftScoresBar}
-              showBarPercentage
-              showLeftLegend={false}
-              variant="onecolor"
-              styles={{
-                width: 'calc(100% - 95px)',
-              }}
-            />
+            <ScoresBar {...mock.leftScoresBar} />
           </Box>
         </Box>
         <Box className={classes.rightSide}>

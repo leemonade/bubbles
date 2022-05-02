@@ -6,13 +6,14 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const TaskHeaderStyles = createStyles((theme, { color }) => {
+export const TaskHeaderStyles = createStyles((theme, { color, styles }) => {
   return {
     root: {
       padding: '24px 24px 26px 24px',
       display: 'flex',
       flexDirection: 'column',
       gap: 18,
+      ...styles,
     },
     title: {
       fontSize: 24,

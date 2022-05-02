@@ -9,5 +9,8 @@ export const ScoreFeedbackStyles = createStyles((theme, { styles }) => {
       border: `1px solid ${theme.colors.ui01}`,
       ...styles,
     },
+    children: {
+      flex: 1,
+    },
   };
 });

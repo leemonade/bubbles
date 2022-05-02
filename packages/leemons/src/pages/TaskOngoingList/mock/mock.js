@@ -107,6 +107,12 @@ export const mock = {
       { student: 'Manolo', score: 2 },
     ],
     grades: [{ number: 0 }, { number: 1 }, { number: 2 }],
+    showBarPercentage: true,
+    showLeftLegend: false,
+    variant: 'onecolor',
+    styles: {
+      width: 'calc(100% - 95px)',
+    },
   },
   rightScoresBar: {
     scores: [

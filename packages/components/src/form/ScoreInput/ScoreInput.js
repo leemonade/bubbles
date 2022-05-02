@@ -30,7 +30,7 @@ const ScoreInput = ({
     () => grades.length - (maxGrades - 1) - displacedGrades,
     [maxGrades, displacedGrades]
   );
-  const isOverflowing = grades.length >= maxGrades;
+  const isOverflowing = grades.length > maxGrades - 1;
   const selectedGradeIndex = grades.findIndex(({ score }) => score === grade.score);
   const gradeWidth = inputRef?.current?.lastChild?.getBoundingClientRect().width;
 
