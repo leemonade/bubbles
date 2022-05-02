@@ -36,4 +36,6 @@ export const SCORES_BAR_PROP_TYPES = {
   markerLegend: PropTypes.string,
   showLeftLegend: PropTypes.bool,
   showBarPercentage: PropTypes.bool,
+  styles: PropTypes.object,
+  className: PropTypes.string,
 };

@@ -6,35 +6,12 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const TaskDeadlineHeaderStyles = createStyles((theme, { color, deadlineExpanded }) => {
+export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded, styles }) => {
   return {
     root: {
       borderRadius: '16px 16px 0 0',
       backgroundColor: theme.colors.mainWhite,
-    },
-    header: {
-      padding: '24px 24px 26px 24px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 18,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 600,
-      lineHeight: '24px',
-    },
-    subtitleWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: 8,
-    },
-    icon: {
-      borderRadius: '50%',
-      backgroundColor: color,
-      padding: 4,
-    },
-    subtitle: {
-      fontWeight: 500,
+      ...styles,
     },
     deadlineWrapper: {
       backgroundColor: theme.colors.interactive03,
@@ -43,12 +20,12 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { color, deadlineEx
       padding: '8px 16px',
       fontWeight: 500,
       color: theme.colors.text04,
-      label: { color: theme.colors.text04, whiteSpace: 'nowrap' },
+      label: { color: theme.colors.text04 },
       gap: 24,
     },
     textColor: {
       color: theme.colors.text04,
-      whiteSpace: 'nowrap',
+      // whiteSpace: 'nowrap',
     },
     deadline: {
       display: 'flex',

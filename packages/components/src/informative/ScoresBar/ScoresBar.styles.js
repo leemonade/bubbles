@@ -1,10 +1,11 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const ScoresBarStyles = createStyles((theme, { withMarker }) => {
+export const ScoresBarStyles = createStyles((theme, { withMarker, styles }) => {
   return {
     root: {
       height: '100%',
+      width: '100%',
       userSelect: 'none',
       'svg > g g:nth-of-type(2) line': {
         stroke: `${theme.colors.uiBackground03} !important`,
@@ -18,6 +19,7 @@ export const ScoresBarStyles = createStyles((theme, { withMarker }) => {
         display: !withMarker && 'none',
         transform: 'translateY(-0.5%)',
       },
+      ...styles,
     },
     label: {
       ...getFontProductive(theme.fontSizes['1']),
