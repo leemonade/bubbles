@@ -4,32 +4,34 @@ import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
 import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
 
+export const BUBBLES_THEME = {
+  colors: {
+    ...COLORS,
+  },
+  spacing: {
+    ...SPACING,
+  },
+  fontSizes: {
+    ...FONT_SIZES,
+  },
+  radius: {
+    xs: '3px',
+    sm: '4px',
+  },
+  breakpoints: {},
+  shadows: { ...SHADOWS },
+  // TODO HACER PROPIEDAD FILTERS
+  headings: {
+    fontFamily: "'Lexend', sans-serif",
+  },
+  primaryColor: 'bubbles',
+};
+
 const THEME_PROVIDER_PROP_TYPES = {
   theme: PropTypes.object,
 };
 const THEME_PROVIDER_DEFAULT_PROPS = {
-  theme: {
-    colors: {
-      ...COLORS,
-    },
-    spacing: {
-      ...SPACING,
-    },
-    fontSizes: {
-      ...FONT_SIZES,
-    },
-    radius: {
-      xs: '3px',
-      sm: '4px',
-    },
-    breakpoints: {},
-    shadows: { ...SHADOWS },
-    // TODO HACER PROPIEDAD FILTERS
-    headings: {
-      fontFamily: "'Lexend', sans-serif",
-    },
-    primaryColor: 'bubbles',
-  },
+  theme: BUBBLES_THEME,
 };
 
 const ThemeProvider = ({ children, theme }) => {

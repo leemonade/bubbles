@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontExpressive, getPaddings } from '../../theme.mixins';
 
-export const SubNavStyles = createStyles((theme, { width, pinned }) => {
+export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) => {
   return {
     root: {
       display: 'flex',
@@ -13,7 +13,7 @@ export const SubNavStyles = createStyles((theme, { width, pinned }) => {
       top: 0,
       left: 0,
       overflow: 'hidden',
-      backgroundColor: theme.colors.uiBackground03,
+      backgroundColor: lightMode ? theme.colors.interactive03 : theme.colors.uiBackground03,
       transform: 'translateX(-100%)',
       transitionProperty: 'transform',
       transitionTimingFunction: 'cubic-bezier(.51,.3,0,1)',
@@ -38,7 +38,7 @@ export const SubNavStyles = createStyles((theme, { width, pinned }) => {
       ...getFontExpressive(pxToRem(13)),
       textTransform: 'uppercase',
       letterSpacing: '0.09em',
-      color: theme.colors.text07,
+      color: lightMode ? theme.colors.text04 : theme.colors.text07,
       width: '100%',
     },
     navHeaderActionIcon: {
