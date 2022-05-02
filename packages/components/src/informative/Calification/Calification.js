@@ -4,11 +4,22 @@ import { Text } from '../../typography';
 import { CalificationStyles } from './Calification.styles';
 import { CALIFICATION_DEFAULT_PROPS, CALIFICATION_PROP_TYPES } from './Calification.constants';
 
-const Calification = ({ label, grade, minimumGrade, ...props }) => {
-  const { classes, cx } = CalificationStyles({ grade, minimumGrade }, { name: 'Calification' });
-
+const Calification = ({
+  label,
+  grade,
+  minimumGrade,
+  orientation,
+  inverted,
+  styles,
+  className,
+  ...props
+}) => {
+  const { classes, cx } = CalificationStyles(
+    { grade, minimumGrade, orientation, inverted, styles },
+    { name: 'Calification' }
+  );
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       <Box className={classes.labelContainer}>
         <Text strong>{label}</Text>
       </Box>
