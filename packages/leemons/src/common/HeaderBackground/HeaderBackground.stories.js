@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box } from '@bubbles-ui/components';
 import { HeaderBackground } from './HeaderBackground';
-import { HEADER_BACKGROUND_DEFAULT_PROPS } from './HeaderBackground.constants';
+import {
+  HEADER_BACKGROUND_DEFAULT_PROPS,
+  HEADER_BACKGROUND_POSITIONS,
+} from './HeaderBackground.constants';
 import mdx from './HeaderBackground.mdx';
 
 export default {
@@ -16,7 +19,9 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    backgroundPosition: { control: { type: 'select' }, options: HEADER_BACKGROUND_POSITIONS },
+  },
 };
 
 const Template = ({ withImage, ...props }) => {

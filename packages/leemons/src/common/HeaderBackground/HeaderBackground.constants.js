@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+export const HEADER_BACKGROUND_POSITIONS = ['top', 'right', 'bottom', 'left', 'center', 'unset'];
+
 export const HEADER_BACKGROUND_DEFAULT_PROPS = {
   image: '',
   color: '',
@@ -9,6 +11,7 @@ export const HEADER_BACKGROUND_DEFAULT_PROPS = {
   withBlur: false,
   blur: 2,
   styles: {},
+  backgroundPosition: 'unset',
 };
 export const HEADER_BACKGROUND_PROP_TYPES = {
   image: PropTypes.string,

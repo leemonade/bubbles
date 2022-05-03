@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Text,
-  ImageLoader,
-  Button,
-  Switch,
-  DatePicker,
-  TimeInput,
-  COLORS,
-} from '@bubbles-ui/components';
+import { Box, Text, Button, Switch, DatePicker } from '@bubbles-ui/components';
 import { TaskDeadlineHeaderStyles } from './TaskDeadlineHeader.styles';
 import {
   TASK_DEADLINE_HEADER_DEFAULT_PROPS,
@@ -16,6 +7,7 @@ import {
 } from './TaskDeadlineHeader.constants';
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
+import { TaskHeader } from '../TaskHeader/TaskHeader';
 
 const TaskDeadlineHeader = ({
   labels,
@@ -28,6 +20,8 @@ const TaskDeadlineHeader = ({
   open,
   onDeadlineChange,
   onCloseTask,
+  styles,
+  className,
   ...props
 }) => {
   const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
@@ -67,24 +61,12 @@ const TaskDeadlineHeader = ({
   }, [deadline]);
 
   const { classes, cx } = TaskDeadlineHeaderStyles(
-    { color, deadlineExpanded },
+    { color, deadlineExpanded, styles },
     { name: 'TaskDeadlineHeader' }
   );
   return (
-    <Box className={classes.root}>
-      <Box className={classes.header}>
-        <Text className={classes.title} color="primary">
-          {title}
-        </Text>
-        <Box className={classes.subtitleWrapper}>
-          <Box className={classes.icon}>
-            <ImageLoader src={icon} height={12} width={12} />
-          </Box>
-          <Text className={classes.subtitle} color="primary">
-            {subtitle}
-          </Text>
-        </Box>
-      </Box>
+    <Box className={cx(classes.root, className)}>
+      <TaskHeader title={title} subtitle={subtitle} icon={icon} color={color} />
       <Box className={classes.deadlineWrapper}>
         <Box className={classes.deadline}>
           {!deadlineExpanded ? (
