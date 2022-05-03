@@ -1,6 +1,6 @@
 import { createStyles } from '@bubbles-ui/components';
 
-export const TextEditorInputStyles = createStyles((theme, { hasError }) => {
+export const TextEditorInputStyles = createStyles((theme, { hasError, editorStyles }) => {
   return {
     root: {
       marginTop: theme.spacing[1],
@@ -11,7 +11,7 @@ export const TextEditorInputStyles = createStyles((theme, { hasError }) => {
       margin: 0,
       marginTop: theme.spacing[4],
       padding: theme.spacing[3],
-
+      ...editorStyles,
       '&:disabled': {
         cursor: 'not-allowed',
         color: theme.colors.text06,

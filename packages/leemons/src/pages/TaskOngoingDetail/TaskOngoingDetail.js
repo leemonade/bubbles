@@ -2,6 +2,7 @@ import React from 'react';
 import { mock } from './mock/mock';
 import { TaskHeader, AssetPlayer } from '../../common';
 import { ChevLeftIcon } from '@bubbles-ui/icons/outline';
+import { TextEditorInput } from '@bubbles-ui/editors';
 import {
   Box,
   Text,
@@ -14,6 +15,7 @@ import {
   VerticalStepper,
   ContextContainer,
 } from '@bubbles-ui/components';
+
 import { TaskOngoingDetailStyles } from './TaskOngoingDetail.styles';
 import {
   TASK_ONGOING_DETAIL_DEFAULT_PROPS,
@@ -22,7 +24,6 @@ import {
 
 const TaskOngoingDetail = ({ ...props }) => {
   const { classes, cx } = TaskOngoingDetailStyles({}, { name: 'TaskOngoingDetail' });
-
   return (
     <Box className={classes.root}>
       <Box className={classes.header}>
@@ -73,7 +74,7 @@ const TaskOngoingDetail = ({ ...props }) => {
                       </Text>
                     </Box>
                   </Box>
-                  {/* <ScoresBar {...mock.scoreBar} /> */}
+                  <ScoresBar {...mock.scoreBar} />
                 </Box>
               </Box>
             </ScoreFeedback>
@@ -84,6 +85,12 @@ const TaskOngoingDetail = ({ ...props }) => {
           <ContextContainer title={mock.score}>
             <ScoreInput {...mock.scoreInput} />
           </ContextContainer>
+          <ContextContainer title={mock.comments}>
+            <TextEditorInput editorStyles={{ minHeight: 156 }} />
+          </ContextContainer>
+          <Box className={classes.submitButton}>
+            <Button style={{ width: 360 }}>Calificar</Button>
+          </Box>
         </Box>
       </Box>
     </Box>

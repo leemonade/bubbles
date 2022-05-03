@@ -32,14 +32,12 @@ const Template = ({ acceptCustom, onChange, ...props }) => {
   };
 
   return (
-    <Box style={{ display: 'flex' }}>
-      <ScoreInput
-        {...props}
-        value={value}
-        onChange={onChangeHandler}
-        acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined}
-      />
-    </Box>
+    <ScoreInput
+      {...props}
+      value={value}
+      onChange={onChangeHandler}
+      acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined}
+    />
   );
 };
 

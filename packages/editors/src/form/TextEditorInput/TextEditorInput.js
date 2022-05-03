@@ -27,6 +27,8 @@ const TextEditorInput = ({
   placeholder,
   toolbars,
   children,
+  editorStyles,
+  editorClassname,
   ...props
 }) => {
   const uuid = useId();
@@ -34,7 +36,10 @@ const TextEditorInput = ({
   // ··································································
   // STYLES
   const hasError = useMemo(() => !isEmpty(error), [error]);
-  const { classes } = TextEditorInputStyles({ hasError }, { name: 'TextEditorInput' });
+  const { classes, cx } = TextEditorInputStyles(
+    { hasError, editorStyles },
+    { name: 'TextEditorInput' }
+  );
 
   return (
     <InputWrapper
@@ -46,7 +51,12 @@ const TextEditorInput = ({
       required={required}
     >
       <Box className={classes.root}>
-        <TextEditor {...props} content={value} onChange={onChange} editorClassname={classes.editor}>
+        <TextEditor
+          {...props}
+          content={value}
+          onChange={onChange}
+          editorClassname={cx(classes.editor, editorClassname)}
+        >
           {toolbars.color && <ColorTool />}
           {toolbars.style && <TransformsTool />}
           {toolbars.heading && <HeadingsTool paragraph={false} />}

@@ -21,13 +21,14 @@ export const TaskOngoingDetailStyles = createStyles((theme, {}) => {
       display: 'flex',
     },
     detail: {
-      flex: 1,
       paddingTop: 24,
       paddingInline: 143,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       gap: 48,
+      width: '100%',
+      overflow: 'hidden',
     },
     comments: { padding: 24, width: '100%' },
     scoreBarLeftLegend: {
@@ -50,6 +51,9 @@ export const TaskOngoingDetailStyles = createStyles((theme, {}) => {
     },
     assetPlayerWrapper: {
       height: 376,
+    },
+    submitButton: {
+      textAlign: 'right',
     },
   };
 });
