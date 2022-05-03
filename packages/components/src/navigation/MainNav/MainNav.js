@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useClickOutside } from '@mantine/hooks';
 import { find, isArray, isFunction } from 'lodash';
 import { useLocation } from 'react-router-dom';
@@ -19,8 +20,11 @@ export const MAIN_NAV_DEFAULT_PROPS = {
   hideSubNavOnClose: true,
   useRouter: false,
   pinned: false,
+  lightMode: false,
 };
-export const MAIN_NAV_PROP_TYPES = {};
+export const MAIN_NAV_PROP_TYPES = {
+  lightMode: PropTypes.bool,
+};
 
 const MainNav = ({
   onClose,
@@ -33,6 +37,7 @@ const MainNav = ({
   hideSubNavOnClose,
   useRouter,
   session,
+  lightMode,
   ...props
 }) => {
   const [activeItem, setActiveItem] = useState(null);
@@ -144,7 +149,7 @@ const MainNav = ({
   // STYLES
 
   const { classes, cx } = MainNavStyles(
-    { itemWidth: MAIN_NAV_WIDTH, subNavWidth },
+    { itemWidth: MAIN_NAV_WIDTH, subNavWidth, lightMode },
     { name: 'MainNav' }
   );
 
@@ -166,6 +171,7 @@ const MainNav = ({
                   active={activeItem?.id === item.id}
                   onClick={() => handleItemClick(item)}
                   useRouter={useRouter}
+                  lightMode={lightMode}
                 />
               ))}
           </SimpleBar>
@@ -177,6 +183,7 @@ const MainNav = ({
             fullName={session ? getUserFullName(session) : undefined}
           />
         </Box>
+        <Box className={classes.navWrapperBorder} />
       </Box>
 
       {/* Sub Nav */}
@@ -194,6 +201,7 @@ const MainNav = ({
           onPin={handleOnPin}
           className={classes.subNav}
           useRouter={useRouter}
+          lightMode={lightMode}
         />
       )}
 
@@ -204,7 +212,7 @@ const MainNav = ({
             icon={<ComputerKeyboardNextIcon />}
             tooltip="Open"
             variant="solid"
-            color="negative"
+            color={!lightMode && 'negative'}
             style={{ borderRadius: '0 3px 3px 0' }}
             onClick={openSubNav}
           />

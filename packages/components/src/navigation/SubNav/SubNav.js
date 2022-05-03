@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import SimpleBar from 'simplebar-react';
 import { isNil } from 'lodash';
 import { List } from '@mantine/core';
@@ -16,8 +17,11 @@ export const SUB_NAV_DEFAULT_PROPS = {
   messages: {
     closeTooltip: 'Close',
   },
+  lightMode: false,
 };
-export const SUB_NAV_PROP_TYPES = {};
+export const SUB_NAV_PROP_TYPES = {
+  lightMode: PropTypes.bool,
+};
 
 export const SubNav = forwardRef(
   (
@@ -37,12 +41,13 @@ export const SubNav = forwardRef(
       useRouter,
       children,
       style,
+      lightMode,
       ...props
     },
     ref
   ) => {
     const { classes, cx } = SubNavStyles(
-      { itemWidth: MAIN_NAV_WIDTH, width, pinned },
+      { itemWidth: MAIN_NAV_WIDTH, width, pinned, lightMode },
       { name: 'SubNav' }
     );
 
@@ -61,14 +66,14 @@ export const SubNav = forwardRef(
             <ActionButton
               icon={<ComputerKeyboardPreviousIcon />}
               rounded
-              color="negative"
+              color={!lightMode && 'negative'}
               onClick={onClose}
               tooltip={messages?.closeTooltip || null}
             />
             <ActionButton
               icon={<PluginKimIcon />}
               rounded
-              color="negative"
+              color={!lightMode && 'negative'}
               active={pinned}
               onClick={onPin}
               tooltip={messages?.pinTooltip || null}
@@ -87,6 +92,7 @@ export const SubNav = forwardRef(
                     active={subItem.id === activeItem?.id}
                     onClick={onItemClick}
                     useRouter={useRouter}
+                    lightMode={lightMode}
                   />
                 </List.Item>
               ))}

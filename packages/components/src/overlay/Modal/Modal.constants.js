@@ -14,4 +14,5 @@ export const MODAL_PROP_TYPES = {
   size: PropTypes.oneOf(MODAL_SIZES),
   centered: PropTypes.bool,
   withCloseButton: PropTypes.bool,
+  empty: PropTypes.bool,
 };

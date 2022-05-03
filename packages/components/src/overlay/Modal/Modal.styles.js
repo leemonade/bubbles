@@ -1,8 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
-export const ModalStyles = createStyles((theme, { centerTitle }) => {
+export const ModalStyles = createStyles((theme, { centerTitle, empty }) => {
   let titleProps = {};
+  const header = {};
+
+  if (empty) {
+    header.position = 'absolute';
+    header.right = 0;
+    header.top = 0;
+  }
 
   if (centerTitle) {
     titleProps = {
@@ -16,8 +23,9 @@ export const ModalStyles = createStyles((theme, { centerTitle }) => {
       ...getFontExpressive(theme.fontSizes[3], 500),
       ...titleProps,
     },
+    header,
     modal: {
-      padding: `${pxToRem(theme.spacing[4])} !important`,
+      padding: empty ? '0px !important' : `${pxToRem(theme.spacing[4])} !important`,
       borderRadius: '2px !important',
       boxShadow: theme.shadows.shadow05,
     },

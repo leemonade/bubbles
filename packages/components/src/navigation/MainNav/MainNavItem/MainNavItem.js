@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Tooltip } from '@mantine/core';
+import { useClickOutside } from '@mantine/hooks';
 import { MainNavItemStyles } from './MainNavItem.styles';
 import { ImageLoader } from './../../../misc';
 
-export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...props }) => {
-  const { classes, cx } = MainNavItemStyles({ itemWidth, active });
+export const MainNavItem = ({
+  item,
+  itemWidth,
+  active,
+  onClick,
+  useRouter,
+  lightMode,
+  ...props
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const ref = useClickOutside(() => setIsHovered(false));
+
+  const { classes, cx } = MainNavItemStyles({ itemWidth, active, lightMode });
+
+  const handleClick = (e) => {
+    setIsHovered(false);
+    if (item.disabled) {
+      e.preventDefault();
+      return;
+    }
+    onClick(e);
+  };
 
   const Wrapper = ({ children }) => {
     if (item.url) {
@@ -28,6 +49,7 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...pr
 
   return (
     <Tooltip
+      opened={isHovered}
       position="right"
       label={item.label}
       withArrow
@@ -35,10 +57,13 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...pr
     >
       <Wrapper>
         <Button
+          ref={ref}
           className={classes.root}
-          onClick={(e) => (item.disabled ? e.preventDefault() : onClick(e))}
           disabled={item.disabled}
           aria-label={item.label}
+          onClick={handleClick}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           <ImageLoader
             className={cx(classes.icon)}
@@ -53,4 +78,6 @@ export const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, ...pr
   );
 };
 
-MainNavItem.propTypes = {};
+MainNavItem.propTypes = {
+  lightMode: PropTypes.bool,
+};

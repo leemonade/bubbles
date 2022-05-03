@@ -203,7 +203,7 @@ const getVariant = (variant, theme, color, disabled) => {
 };
 
 export const ButtonStyles = createStyles(
-  (theme, { size, color, position, variant, compact, fullWidth, disabled }) => {
+  (theme, { size, color, position, variant, compact, fullWidth, disabled, styles }) => {
     const currentVariant = getVariant(variant, theme, color);
 
     let compactOverrides = {};
@@ -227,6 +227,7 @@ export const ButtonStyles = createStyles(
         ...compactOverrides,
         width: fullWidth ? '100%' : 'auto',
         cursor: disabled ? 'not-allowed' : 'pointer',
+        ...styles,
       },
       inner: {
         justifyContent: position === 'apart' ? 'space-between' : position,

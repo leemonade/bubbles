@@ -1,12 +1,18 @@
 import React from 'react';
 import { isFunction } from 'lodash';
 import { Box, Stack, ActionButton } from '@bubbles-ui/components';
-import { EditWriteIcon, DeleteBinIcon, PluginUsersIcon } from '@bubbles-ui/icons/solid';
+import {
+  EditWriteIcon,
+  DeleteBinIcon,
+  PluginUsersIcon,
+  PluginKimIcon as PluginKimSolidIcon,
+} from '@bubbles-ui/icons/solid';
 import {
   DuplicateIcon,
   CloudUploadIcon,
   PluginAssignmentsIcon,
   MoveRightIcon,
+  PluginKimIcon,
 } from '@bubbles-ui/icons/outline';
 import { LibraryDetailToolbarStyles } from './LibraryDetailToolbar.styles';
 import {
@@ -24,6 +30,8 @@ const LibraryDetailToolbar = ({
   onShare,
   onAssign,
   onToggle,
+  onPin,
+  onUnpin,
   toolbarItems,
   ...props
 }) => {
@@ -51,6 +59,14 @@ const LibraryDetailToolbar = ({
 
   const handleAssign = () => {
     isFunction(onAssign) && onAssign(item);
+  };
+
+  const handlePin = () => {
+    isFunction(onPin) && onPin(item);
+  };
+
+  const handleUnpin = () => {
+    isFunction(onUnpin) && onUnpin(item);
   };
 
   const handleToggle = () => {
@@ -106,6 +122,24 @@ const LibraryDetailToolbar = ({
               icon={<PluginAssignmentsIcon height={20} width={20} />}
               onClick={handleAssign}
               tooltip={toolbarItems.assign}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.pin && (
+            <ActionButton
+              icon={<PluginKimIcon height={20} width={20} />}
+              onClick={handlePin}
+              tooltip={toolbarItems.pin}
+              className={classes.button}
+            />
+          )}
+          {toolbarItems.unpin && (
+            <ActionButton
+              icon={<PluginKimSolidIcon height={20} width={20} />}
+              active
+              variant="solid"
+              onClick={handleUnpin}
+              tooltip={toolbarItems.unpin}
               className={classes.button}
             />
           )}

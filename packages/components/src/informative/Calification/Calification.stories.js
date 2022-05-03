@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { Calification } from './Calification';
-import { CALIFICATION_DEFAULT_PROPS } from './Calification.constants';
+import { CALIFICATION_DEFAULT_PROPS, CALIFICATION_ORIENTATIONS } from './Calification.constants';
 import mdx from './Calification.mdx';
 
 export default {
@@ -16,11 +16,17 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    orientation: { control: { type: 'select' }, options: CALIFICATION_ORIENTATIONS },
+  },
 };
 
 const Template = ({ ...props }) => {
-  return <Calification {...props} />;
+  return (
+    <Box style={{ height: '80vh' }}>
+      <Calification {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});

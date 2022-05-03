@@ -9,3 +9,4 @@ export * from './Table';
 export * from './Badge';
 export * from './Calification';
 export * from './HorizontalTimeline';
+export * from './ScoresBar';

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from '../../../theme.mixins';
 
-export const SubNavItemStyles = createStyles((theme, { active, disabled, hasError }, getRef) => {
+export const SubNavItemStyles = createStyles((theme, { active, disabled, hasError, lightMode }) => {
   return {
     root: {
       ...getFontExpressive(pxToRem(14), 500),
@@ -9,7 +9,7 @@ export const SubNavItemStyles = createStyles((theme, { active, disabled, hasErro
       display: 'block',
       textDecoration: 'none',
       lineHeight: pxToRem(18),
-      color: disabled ? theme.colors.text05 : theme.colors.text07,
+      color: disabled ? theme.colors.text06 : lightMode ? theme.colors.text04 : theme.colors.text07,
       paddingLeft: pxToRem(theme.spacing['5']),
       paddingRight: pxToRem(theme.spacing['5']),
       paddingTop: pxToRem(theme.spacing['3']),
@@ -17,6 +17,7 @@ export const SubNavItemStyles = createStyles((theme, { active, disabled, hasErro
       cursor: disabled ? 'not-allowed' : 'pointer',
       '&:hover': {
         backgroundColor: !disabled && theme.colors.interactive01,
+        color: !disabled && `${theme.colors.text07} !important`,
       },
     },
     editMode: {

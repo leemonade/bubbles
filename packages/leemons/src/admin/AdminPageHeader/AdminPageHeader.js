@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Controller, useForm } from 'react-hook-form';
-import { capitalize, flatMap, isArray, isFunction, isObject, isString, trim } from 'lodash';
+import { capitalize, isArray, isFunction, isObject, isString, trim } from 'lodash';
 import {
   Box,
   Breadcrumbs,
@@ -18,56 +18,11 @@ import {
 } from '@bubbles-ui/components';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
-
-const BUTTONS = {
-  NEW: 'new',
-  EDIT: 'edit',
-  SAVE: 'save',
-  CANCEL: 'cancel',
-  DUPLICATE: 'duplicate',
-};
-
-export const ADMIN_PAGE_HEADER_BUTTONS = BUTTONS;
-export const ADMIN_PAGE_HEADER_BUTTON_TYPES = flatMap(BUTTONS);
-
-export const ADMIN_PAGE_HEADER_DEFAULT_PROPS = {
-  separator: true,
-  useRouter: false,
-  editMode: false,
-  labels: { title: '', description: '' },
-  placeholders: { title: '', description: '' },
-  values: { title: '', description: '' },
-  buttons: { new: '', edit: '', cancel: '', duplicate: '' },
-  loading: '',
-  required: { title: true, description: false },
-};
-export const ADMIN_PAGE_HEADER_PROP_TYPES = {
-  className: PropTypes.string,
-  breadcrumbs: PropTypes.array,
-  editMode: PropTypes.bool,
-  useRouter: PropTypes.bool,
-  labels: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }),
-  errors: PropTypes.shape({
-    title: PropTypes.shape({ required: PropTypes.string }),
-    description: PropTypes.shape({ required: PropTypes.string }),
-  }),
-  values: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }),
-  placeholders: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }),
-  buttons: PropTypes.shape({
-    new: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    edit: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    cancel: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    duplicate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  }),
-  required: PropTypes.shape({ title: PropTypes.bool, description: PropTypes.bool }),
-  loading: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  onNew: PropTypes.func,
-  onEdit: PropTypes.func,
-  onSave: PropTypes.func,
-  onButton: PropTypes.func,
-  onCancel: PropTypes.func,
-  onDuplicate: PropTypes.func,
-};
+import {
+  ADMIN_PAGE_HEADER_BUTTONS as BUTTONS,
+  ADMIN_PAGE_HEADER_PROP_TYPES,
+  ADMIN_PAGE_HEADER_DEFAULT_PROPS,
+} from './AdminPageHeader.constants';
 
 const AdminPageHeader = ({
   className,
@@ -78,6 +33,7 @@ const AdminPageHeader = ({
   values,
   buttons,
   loading,
+  icon,
   editMode,
   onNew,
   onEdit,
@@ -88,6 +44,8 @@ const AdminPageHeader = ({
   separator,
   useRouter,
   required,
+  variant,
+  onResize = () => {},
 }) => {
   const {
     control,
@@ -95,6 +53,11 @@ const AdminPageHeader = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const isTeacher = useMemo(() => variant === 'teacher', [variant]);
+
+  const [containerRef, containerRect] = useResizeObserver();
+  const [childRef, childRect] = useResizeObserver();
 
   // ····································································
   // HANDLERS
@@ -157,13 +120,15 @@ const AdminPageHeader = ({
     setValue('description', values?.description || '');
   }, [values]);
 
+  useEffect(() => onResize(childRect), [childRect]);
+
   // ····································································
   // STYLES
 
-  const [containerRef, containerRect] = useResizeObserver();
-  const [childRef, childRect] = useResizeObserver();
-
-  const { classes, cx } = AdminPageHeaderStyles({ editMode }, { name: 'AdminPageHeader' });
+  const { classes, cx } = AdminPageHeaderStyles(
+    { editMode, isTeacher },
+    { name: 'AdminPageHeader' }
+  );
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
@@ -179,7 +144,7 @@ const AdminPageHeader = ({
         >
           <PageContainer className={classes.section}>
             {/* Breadcrumbs */}
-            {isArray(breadcrumbs) && (
+            {!isTeacher && isArray(breadcrumbs) && (
               <Box className={classes.breadcrumbs}>
                 <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
               </Box>
@@ -187,10 +152,14 @@ const AdminPageHeader = ({
 
             {/* Header & Buttons */}
             <Stack spacing={4} alignItems={editMode ? 'end' : 'center'} className={classes.header}>
+              {/* Icon */}
+              {icon && <Box className={classes.icon}>{icon}</Box>}
               {/* Header */}
               {!editMode && values && values.title && (
                 <ContentLegible>
-                  <Title order={1}>{values.title}</Title>
+                  <Title order={isTeacher ? 2 : 1} className={classes.title}>
+                    {values.title}
+                  </Title>
                 </ContentLegible>
               )}
               {editMode && (
@@ -269,14 +238,14 @@ const AdminPageHeader = ({
               )}
             </Stack>
           </PageContainer>
-          {separator && (
+          {!isTeacher && separator && (
             <PageContainer>
               <Divider />
             </PageContainer>
           )}
         </Box>
 
-        {values && values.description ? (
+        {!isTeacher && values && values.description ? (
           <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
             {/* Description */}
             {!editMode && (

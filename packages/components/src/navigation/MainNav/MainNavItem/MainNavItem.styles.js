@@ -1,22 +1,29 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from '../../../theme.mixins';
 
-export const MainNavItemStyles = createStyles((theme, { itemWidth, active }) => {
+export const MainNavItemStyles = createStyles((theme, { itemWidth, active, lightMode }) => {
   return {
     root: {
       borderRadius: 0,
       width: pxToRem(itemWidth),
       height: pxToRem(itemWidth),
       padding: 0,
-      backgroundColor: active ? theme.colors.interactive02h : 'transparent',
+      backgroundColor: active
+        ? lightMode
+          ? theme.colors.interactive03
+          : theme.colors.interactive02h
+        : 'transparent',
       '&:hover': {
         backgroundColor: theme.colors.interactive01,
+        '.mantine-Button-label > div': {
+          color: `${theme.colors.text07} !important`,
+        },
       },
     },
     icon: {
       width: pxToRem(20),
       margin: '0 auto',
-      color: theme.colors.text07,
+      color: lightMode ? (active ? theme.colors.text01 : theme.colors.text05) : theme.colors.text07,
     },
     tooltipBody: {
       display: 'flex',

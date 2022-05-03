@@ -14,6 +14,7 @@ export const SubNavItem = ({
   changeToEditItem,
   useRouter,
   onClick,
+  lightMode,
   ...props
 }) => {
   const key = `label-${item.id}`;
@@ -26,6 +27,7 @@ export const SubNavItem = ({
   const { classes, cx } = SubNavItemStyles({
     active,
     disabled: item.disabled,
+    lightMode,
   });
 
   if (!isLayer && !editMode && !editItemMode && !isDragging) {
@@ -58,6 +60,7 @@ SubNavItem.defaultProps = {
   isDragging: false,
   isLayer: false,
   editMode: false,
+  lightMode: false,
 };
 
 SubNavItem.propTypes = {
@@ -69,4 +72,5 @@ SubNavItem.propTypes = {
   editItemMode: PropTypes.bool,
   useRouter: PropTypes.bool,
   onClick: PropTypes.func,
+  lightMode: PropTypes.bool,
 };
