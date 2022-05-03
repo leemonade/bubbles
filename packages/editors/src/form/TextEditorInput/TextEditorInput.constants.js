@@ -16,6 +16,7 @@ export const TEXT_EDITOR_INPUT_DEFAULT_PROPS = {
   help: '',
   required: false,
   error: '',
+  editorStyles: {},
 };
 export const TEXT_EDITOR_INPUT_PROP_TYPES = {
   placeholder: PropTypes.string,
@@ -35,4 +36,6 @@ export const TEXT_EDITOR_INPUT_PROP_TYPES = {
     list: PropTypes.bool,
     formulation: PropTypes.bool,
   }),
+  editorStyles: PropTypes.object,
+  editorClassname: PropTypes.string,
 };

@@ -7,3 +7,4 @@ export * from './Pager';
 export * from './Tree';
 export * from './Tabs';
 export * from './Menu';
+export * from './VerticalStepper';

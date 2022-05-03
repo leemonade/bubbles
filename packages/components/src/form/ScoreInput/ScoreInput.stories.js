@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mantine/core';
+import { ContextContainer } from '../../layout';
 import { ScoreInput } from './ScoreInput';
 import { SCORE_INPUT_DEFAULT_PROPS } from './ScoreInput.constants';
 import mdx from './ScoreInput.mdx';

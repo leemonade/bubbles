@@ -30,3 +30,4 @@ export * from './TagsInput';
 export * from './Autocomplete';
 export * from './ImagePreviewInput';
 export * from './SearchInput';
+export * from './ScoreInput';

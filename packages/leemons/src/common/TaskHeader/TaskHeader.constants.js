@@ -9,4 +9,6 @@ export const TASK_HEADER_PROP_TYPES = {
   subtitle: PropTypes.string,
   icon: PropTypes.string,
   color: PropTypes.string,
+  styles: PropTypes.object,
+  className: PropTypes.string,
 };
