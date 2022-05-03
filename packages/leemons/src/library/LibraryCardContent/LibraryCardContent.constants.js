@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { LIBRARYCARD_VARIANTS, LIBRARYCARD_ASSIGMENT } from '../LibraryCard/LibraryCard.constants';
+import { LIBRARYCARD_ASSIGMENT, LIBRARYCARD_VARIANTS } from '../LibraryCard/LibraryCard.constants';
 
 export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   metadata: [],
@@ -9,7 +9,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   truncated: true,
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
-  subtitle: PropTypes.string,
+  tagline: PropTypes.string,
   description: PropTypes.string,
   metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   tags: PropTypes.arrayOf(PropTypes.string),

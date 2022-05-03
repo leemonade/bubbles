@@ -20,7 +20,7 @@ export const ASSET_PROPS = PropTypes.shape({
   fileExtension: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  subtitle: PropTypes.string,
+  tagline: PropTypes.string,
   metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   created: PropTypes.string,
   version: PropTypes.string,

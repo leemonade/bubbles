@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { isEmpty } from 'lodash';
-import { Box, Text, Badge, Stack, TextClamp, ImageLoader, Anchor } from '@bubbles-ui/components';
+import { Badge, Box, ImageLoader, Stack, Text, TextClamp } from '@bubbles-ui/components';
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 import {
   LIBRARY_CARD_CONTENT_DEFAULT_PROPS,
@@ -23,7 +23,7 @@ const getDomain = (url) => {
 };
 
 const LibraryCardContent = ({
-  subtitle,
+  tagline,
   description,
   tags,
   metadata,
@@ -126,10 +126,10 @@ const LibraryCardContent = ({
                     </Box>
                   </Stack>
                 )}
-                {!isEmpty(subtitle) && (
+                {!isEmpty(tagline) && (
                   <TextClamp lines={truncated ? 2 : 10}>
                     <Text role="productive" color="primary">
-                      {subtitle}
+                      {tagline}
                     </Text>
                   </TextClamp>
                 )}

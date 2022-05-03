@@ -99,7 +99,9 @@ const VerticalStepper = ({
     <Box className={cx(classes.root, rootClassName)}>
       <Box className={cx(classes.stepColumn, stepColumnClassname)}>
         {renderSteps()}
-        {currentStep === allSteps.length && <Calification {...calificationProps} />}
+        {currentStep === allSteps.length && calificationProps ? (
+          <Calification {...calificationProps} />
+        ) : null}
       </Box>
       {/* <Box className={cx(classes.currentStep, currentStepClassname)}>{renderStep()}</Box> */}
     </Box>

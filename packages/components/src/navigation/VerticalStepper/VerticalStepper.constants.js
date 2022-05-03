@@ -5,7 +5,7 @@ export const VERTICAL_STEPPER_DEFAULT_PROPS = {
   currentStep: 0,
   onNext: null,
   onPrevious: null,
-  calificationProps: {},
+  calificationProps: null,
   rootClassName: '',
   stepColumnClassname: '',
   currentStepClassname: '',
