@@ -1,3 +1,4 @@
+export * from './VerticalStepper';
 export * from './Breadcrumbs';
 export * from './MainNav';
 export * from './Stepper';
@@ -7,4 +8,3 @@ export * from './Pager';
 export * from './Tree';
 export * from './Tabs';
 export * from './Menu';
-export * from './VerticalStepper';
