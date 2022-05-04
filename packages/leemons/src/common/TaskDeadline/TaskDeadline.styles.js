@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '@bubbles-ui/components';
 
-export const TaskDeadlineStyles = createStyles((theme, { isMedium }) => {
+export const TaskDeadlineStyles = createStyles((theme, { isMedium, styles }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -11,6 +11,7 @@ export const TaskDeadlineStyles = createStyles((theme, { isMedium }) => {
       backgroundColor: theme.colors.mainWhite,
       display: 'inline-flex',
       flexDirection: isMedium ? 'column' : 'row',
+      ...styles,
     },
     deadline: {
       display: 'flex',

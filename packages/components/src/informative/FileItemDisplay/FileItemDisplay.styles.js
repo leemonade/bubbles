@@ -46,7 +46,14 @@ const getExtensionPosition = (size) => {
 };
 
 export const FileItemDisplayStyles = createStyles(
-  (theme, { size, calculatedSize, colorStyle, iconStyle }) => {
+  (theme, { size, calculatedSize, colorStyle, iconStyle, url }) => {
+    const linkStyles = url
+      ? {
+          textDecoration: 'underline',
+          color: theme.colors.interactive01,
+          cursor: 'pointer',
+        }
+      : {};
     //
     return {
       root: {
@@ -60,6 +67,7 @@ export const FileItemDisplayStyles = createStyles(
         marginLeft: pxToRem(size / 1.5),
         fontSize: pxToRem(size),
         ...colorStyle,
+        ...linkStyles,
       },
       filetype: {
         textTransform: 'lowercase',

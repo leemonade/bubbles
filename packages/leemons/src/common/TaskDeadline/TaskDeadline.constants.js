@@ -14,4 +14,6 @@ export const TASK_DEADLINE_PROP_TYPES = {
   deadline: PropTypes.instanceOf(Date),
   alertDays: PropTypes.number,
   locale: PropTypes.string,
+  styles: PropTypes.object,
+  className: PropTypes.string,
 };
