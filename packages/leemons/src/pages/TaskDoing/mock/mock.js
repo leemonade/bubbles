@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import { Box, Text, Button, Title, FileItemDisplay } from '@bubbles-ui/components';
 
-const page3 = (classes, nextStep) => {
+const pageWithResources = (classes, nextStep) => {
   const renderFileItems = () => {
     const items = mock.fileItems.map((fileItem, index) => (
       <Box key={index} className={classes.itemDisplayContainer}>
@@ -96,12 +96,50 @@ const pageWithoutResources = (classes, nextStep) => (
   </Box>
 );
 
+const pagePreDoing = (classes, nextStep) => (
+  <Box className={classes.preDoing}>
+    <Title>Tarea Previa</Title>
+    <Title className={classes.preDoingSubtitle}>
+      ¿Cuánto sabes sobre el conflicto con los moriscos?
+    </Title>
+    <Box>
+      <Text color="primary" role="productive" className={classes.preDoingText}>
+        A continuación, te presentamos un test que te ayudará a saber cómo de preparado estás para
+        afrontar este ejercicio.
+      </Text>
+    </Box>
+    <Box>
+      <Text color="primary" role="productive" className={classes.preDoingText}>
+        Esta parte de la tarea es individual.
+      </Text>
+    </Box>
+    <Box>
+      <Text color="primary" role="productive" className={classes.preDoingText}>
+        Tienes 5 minutos para contestar al test de 3 preguntas
+      </Text>
+    </Box>
+    <Box className={classes.preDoingButton}>
+      <Button
+        position="left"
+        rightIcon={<ChevronRightIcon />}
+        style={{ width: 338 }}
+        rounded
+        compact
+        onClick={nextStep}
+      >
+        Hacer el test
+      </Button>
+    </Box>
+  </Box>
+);
+
 export const mock = {
   pages: [
-    page3,
+    pageWithResources,
     pageWithoutResources,
     pageWithoutResources,
     pageWithoutResources,
+    pagePreDoing,
     pageWithoutResources,
     pageWithoutResources,
     pageWithoutResources,
@@ -120,7 +158,7 @@ export const mock = {
     backgroundPosition: 'center',
   },
   taskHeader: {
-    title: 'La historia detrás del cuadro',
+    title: 'La historia detrás del cuadro que tiene más de dos lineas',
     subtitle: 'Geografía e historia - 3002',
     icon: 'https://icon-library.com/images/white-globe-icon/white-globe-icon-24.jpg',
     color: '#4F96FF',
@@ -149,7 +187,8 @@ export const mock = {
         ],
       },
       {
-        label: 'Pretask',
+        label: 'Tarea previa',
+        status: 'OK',
       },
       {
         label: 'Enunciado',
@@ -159,16 +198,22 @@ export const mock = {
       },
       {
         label: 'Entregable',
+        status: 'OK',
         onClick: () => {},
       },
       {
         label: 'Auto reflexión',
+        status: 'OK',
+
         onClick: () => {},
       },
       {
         label: 'Feedback',
+        status: 'OK',
+
         onClick: () => {},
       },
+      { label: 'Calificación', status: 'OK' },
     ],
     calificationProps: {
       label: 'Aprobado',
