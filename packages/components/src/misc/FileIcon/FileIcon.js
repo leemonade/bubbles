@@ -7,8 +7,10 @@ import {
   MeetingCameraIcon,
   VolumeControlMediumIcon,
   AssetBookmarkIcon,
+  AssetTaskIcon,
+  AssetPathIcon,
 } from '@bubbles-ui/icons/solid/';
-import { FormImageAttachIcon, HyperlinkIcon } from '@bubbles-ui/icons/outline/';
+import { FormImageAttachIcon } from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
 
 export const FILE_ICON_DEFAULT_PROPS = {
@@ -32,8 +34,8 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, ...props }) => 
     { key: 'audio', value: <VolumeControlMediumIcon height={size} width={size} /> },
     { key: 'image', value: <FormImageAttachIcon height={size} width={size} /> },
     { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} /> },
-    { key: 'path', value: <HyperlinkIcon height={size} width={size} /> },
-    { key: 'task' },
+    { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
+    { key: 'task', value: <AssetTaskIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);

@@ -44,10 +44,10 @@ const LibraryCardFooter = ({
         <>
           <FileIcon
             size={12}
-            fileType={fileType}
+            fileType={fileType || variant}
             fileExtension={fileExtension}
             color={'#636D7D'}
-            label={capitalize(fileType)}
+            label={capitalize(fileType || variant)}
             hideExtension
           />
           {created && (

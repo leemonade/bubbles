@@ -20,7 +20,11 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TaskOngoingList {...props} />;
+  return (
+    <Box style={{ margin: -16 }}>
+      <TaskOngoingList {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});

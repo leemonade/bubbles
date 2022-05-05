@@ -4,7 +4,7 @@ import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icon
 import { LibraryCard } from './LibraryCard';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
-import { AUDIO_ASSET, URL_ASSET } from './mock/data';
+import { AUDIO_ASSET, URL_ASSET, TASK_ASSET } from './mock/data';
 
 export default {
   title: 'leemons/Library/LibraryCard',
@@ -67,6 +67,13 @@ const Template = ({ children, asset, showImage, action, deadlineProps, variant, 
               {...props}
               asset={showImage ? URL_ASSET : { ...URL_ASSET, cover: undefined }}
               variant="bookmark"
+            />
+          </Box>
+          <Box style={{ width: 322 }}>
+            <LibraryCard
+              {...props}
+              asset={showImage ? TASK_ASSET : { ...TASK_ASSET, cover: undefined }}
+              variant="task"
             />
           </Box>
         </>

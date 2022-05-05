@@ -1,8 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import {
-  VERTICAL_STEPPER_CONTAINER_DEFAULT_PROPS,
-  VerticalStepperContainer,
-} from './VerticalStepperContainer';
+import { VerticalStepperContainer } from './VerticalStepperContainer';
+import { VERTICAL_STEPPER_CONTAINER_DEFAULT_PROPS } from './VerticalStepperContainer.constants';
 import mdx from './VerticalStepperContainer.mdx';
 import { SIMPLE_DATA as STEPPER_DATA } from '../../navigation/VerticalStepper/mock/data';
 import { Box } from '../Box';
@@ -48,13 +46,7 @@ const Template = ({ data, currentStep, ...props }) => {
       <VerticalStepperContainer {...props} data={data} currentStep={activeStep}>
         {
           [...Array(data.length)].map((_, i) => (
-            <Box
-              key={`step-${i}`}
-              sx={(theme) => ({
-                maxWidth: theme.breakpoints.xs,
-                padding: `${theme.spacing[5]}px 0`,
-              })}
-            >
+            <Box key={`step-${i}`}>
               <ContextContainer title={`Step ${i + 1}`}>
                 <Box>
                   {[...Array(randomContent[i])].map((_, j) => (
