@@ -1,5 +1,16 @@
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
-import { Box, Text, Button, Title, FileItemDisplay } from '@bubbles-ui/components';
+import { PluginComunicaIcon } from '@bubbles-ui/icons/solid';
+import {
+  Box,
+  Text,
+  Button,
+  Title,
+  FileItemDisplay,
+  ScoreFeedback,
+  ContextContainer,
+  Paragraph,
+  UserDisplayItem,
+} from '@bubbles-ui/components';
 
 const pageWithResources = (classes, nextStep) => {
   const renderFileItems = () => {
@@ -133,6 +144,45 @@ const pagePreDoing = (classes, nextStep) => (
   </Box>
 );
 
+const pageCalification = (classes, nextStep) => (
+  <Box className={classes.calification}>
+    <Title>Calificación</Title>
+    <Box className={classes.scoreFeedbackContainer}>
+      <ScoreFeedback {...mock.calificationScoreFeedback}>
+        <Box className={classes.scoreFeedback}>
+          <Text size="md" role="productive" stronger>
+            Comentarios
+          </Text>
+          <ContextContainer>
+            <Paragraph size="md" color="primary">
+              ¡Enhorabuena! Has hecho un gran trabajo con el video de explicación de tu cuadro.
+              Demuestras un conocimiento excelente no solo sobre la obra sino también sobre su
+              contextos histórico, me gusta como la has enmarcado en el estilo pictórico del
+              movimiento al que pertenece el artista así como la enumeración que haces de las
+              características del movimiento y su relación son el momento en que fue creada.
+            </Paragraph>
+            <Paragraph size="md" color="primary">
+              Una recomendación para subir nota en la siguiente ocasión: prepara el discurso y hazlo
+              tuyo, utilizando tus propias palabras, en tu grabación se percibe como hay partes del
+              discurso que lees y ello hace que pierdas el ritmo.
+            </Paragraph>
+            <Paragraph size="md" color="primary">
+              Sigue así.
+            </Paragraph>
+          </ContextContainer>
+        </Box>
+      </ScoreFeedback>
+    </Box>
+    <Box className={classes.calificationFooter}>
+      <Title order={4}>¿Quieres hacer alguna consulta sobre esta evaluaciónn</Title>
+      <UserDisplayItem {...mock.userDisplayItem} />
+      <Button rounded onClick={nextStep} rightIcon={<PluginComunicaIcon />}>
+        Escribe a tu profesor
+      </Button>
+    </Box>
+  </Box>
+);
+
 export const mock = {
   pages: [
     pageWithResources,
@@ -146,7 +196,7 @@ export const mock = {
     pageWithoutResources,
     pageWithoutResources,
     pageWithoutResources,
-    pageWithoutResources,
+    pageCalification,
   ],
   headerBackground: {
     styles: {
@@ -226,4 +276,19 @@ export const mock = {
     { filename: 'Cuadro_Embarque_Moriscos.jpg', url: 'https://www.leemons.io/es' },
     { filename: 'Cuadro_Embarque_Moriscos.jpg', url: 'https://www.leemons.io/es' },
   ],
+  calificationScoreFeedback: {
+    calification: {
+      minimumGrade: 5,
+      grade: 9,
+    },
+  },
+  userDisplayItem: {
+    name: 'Ana Maria',
+    surnames: 'Lopez Vilchez',
+    avatar:
+      'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+    rol: 'Profesor',
+    center: '',
+    email: 'bill.sanders@example.com',
+  },
 };
