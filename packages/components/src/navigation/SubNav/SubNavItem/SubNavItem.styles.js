@@ -33,7 +33,7 @@ export const SubNavItemStyles = createStyles((theme, { active, disabled, hasErro
       backgroundColor: theme.colors.ui03,
     },
     active: {
-      backgroundColor: theme.colors.interactive02d,
+      backgroundColor: lightMode ? theme.colors.interactive03h : theme.colors.interactive02d,
     },
     dragging: {
       border: `1px dashed ${theme.colors.ui01}`,

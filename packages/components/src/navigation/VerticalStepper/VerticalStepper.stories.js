@@ -1,6 +1,7 @@
 import React from 'react';
 import { VerticalStepper } from './VerticalStepper';
 import { VERTICAL_STEPPER_DEFAULT_PROPS } from './VerticalStepper.constants';
+import { DATA } from './mock/data';
 import mdx from './VerticalStepper.mdx';
 
 export default {
@@ -26,44 +27,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...VERTICAL_STEPPER_DEFAULT_PROPS,
-  data: [
-    {
-      label: 'Resumen',
-      badge: 'Badge',
-      status: 'OK',
-    },
-    {
-      label: 'Tarea previa',
-      childSteps: [
-        {
-          label: 'Child 1',
-          badge: 'Badge of child 1',
-        },
-        { label: 'Child 2' },
-        { label: 'Child 3' },
-      ],
-    },
-    {
-      label: 'Enunciado',
-      status: 'KO',
-    },
-    {
-      label: 'Desarrollo',
-    },
-    {
-      label: 'Pruebas',
-      onClick: () => {
-        console.log('Click on pruebas');
-      },
-    },
-    {
-      label: 'Pruebas 2',
-      onClick: () => {
-        console.log('Click on pruebas 2');
-      },
-      status: 'KO',
-    },
-  ],
+  data: DATA,
   calificationProps: {
     label: 'Por los pelos',
     grade: 5,

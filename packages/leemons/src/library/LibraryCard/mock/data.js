@@ -72,3 +72,26 @@ export const URL_ASSET = {
     { fullName: 'Tony Stark' },
   ],
 };
+
+export const TASK_ASSET = {
+  color: '#c8d98c',
+  name: 'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
+  fileType: 'task',
+  created: '2022-02-04T16:26:31.485Z',
+  description:
+    'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
+  tagline: '',
+  metadata: [],
+  tags: ['Student', 'Learning'],
+  icon: 'https://www.leemons.io/apple-touch-icon.png',
+  url: 'https://medium.com/leemons-edtech-es?Logo_1200x620_B_bc44bfa5fe',
+  cover:
+    'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/Logo_1200x620_B_bc44bfa5fe.png',
+  canAccess: [
+    { fullName: 'John Doe' },
+    { fullName: 'Mary Jane' },
+    { fullName: 'Peter Parker' },
+    { fullName: 'Will Teacher' },
+    { fullName: 'Tony Stark' },
+  ],
+};

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import { AssetBookmarkIcon } from '@bubbles-ui/icons/solid';
+import { AssetBookmarkIcon, AssetPathIcon, AssetTaskIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardCover } from '../LibraryCardCover';
 import { LibraryCardContent } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
@@ -32,11 +32,23 @@ const LibraryCard = ({
       <LibraryCardCover
         {...asset}
         fileIcon={
-          variant === 'bookmark' ? (
-            <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
-              <AssetBookmarkIcon />
-            </Box>
-          ) : (
+          {
+            bookmark: (
+              <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                <AssetBookmarkIcon />
+              </Box>
+            ),
+            path: (
+              <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                <AssetPathIcon />
+              </Box>
+            ),
+            task: (
+              <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                <AssetTaskIcon />
+              </Box>
+            ),
+          }[variant] || (
             <FileIcon
               size={64}
               fileExtension={asset.fileExtension}
