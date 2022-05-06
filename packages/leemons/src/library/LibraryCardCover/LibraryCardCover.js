@@ -29,6 +29,9 @@ const LibraryCardCover = ({
   parentHovered,
   menuItems,
   dashboard,
+  isNew,
+  role,
+  badge,
   ...props
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -60,6 +63,8 @@ const LibraryCardCover = ({
           {...deadlineProps}
           direction={direction}
           parentHovered={parentHovered}
+          isNew={isNew}
+          role={role}
         />
       </Box>
     );

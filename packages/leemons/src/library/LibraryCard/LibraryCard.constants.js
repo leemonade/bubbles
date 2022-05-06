@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { LIBRARY_CARD_DEADLINE_PROP_TYPES, LIBRARY_CARD_MENU_ITEM } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
+export const LIBRARYCARD_ASSIGMENT_ROLES = ['teacher', 'student'];
 export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark'];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
@@ -36,6 +37,8 @@ export const ASSET_PROPS = PropTypes.shape({
 export const LIBRARY_CARD_DEFAULT_PROPS = {
   menuItems: [],
   dashboard: false,
+  role: 'teacher',
+  isNew: false,
 };
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -47,4 +50,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
   locale: PropTypes.string,
   menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
   dashboard: PropTypes.bool,
+  isNew: PropTypes.bool,
+  role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
+  badge: PropTypes.string,
 };

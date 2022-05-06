@@ -24,9 +24,10 @@ export const FILE_ICON_PROP_TYPES = {
   label: PropTypes.string,
   size: PropTypes.number,
   color: PropTypes.string,
+  iconStyle: PropTypes.object,
 };
 
-const FileIcon = ({ fileType, fileExtension, label, size, color, ...props }) => {
+const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...props }) => {
   const { classes, cx } = FileIconStyles({ size, color });
 
   const FileTypeIcon = [
@@ -54,6 +55,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, ...props }) => 
           size={size}
           showFileName={label ? true : false}
           colorStyle={{ color: color }}
+          iconStyle={iconStyle}
         />
       )}
     </Box>

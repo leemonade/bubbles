@@ -31,11 +31,11 @@ export const LibraryCardCoverStyles = createStyles(
       },
       titleWrapper: {
         padding: pxToRem(12),
+        backgroundColor: isVertical && 'white',
       },
       title: {
         fontWeight: 600,
         lineHeight: pxToRem(20),
-        backgroundColor: isVertical && 'white',
       },
       blurryBox: {
         display: 'flex',
