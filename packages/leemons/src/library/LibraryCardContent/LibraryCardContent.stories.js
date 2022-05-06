@@ -23,9 +23,20 @@ export default {
   },
 };
 
-const Template = ({ children, description, showDescription, ...props }) => {
+const Template = ({
+  children,
+  description,
+  assigment,
+  showDescription,
+  showAssigment,
+  ...props
+}) => {
   return (
-    <LibraryCardContent {...props} description={showDescription ? description : null}>
+    <LibraryCardContent
+      {...props}
+      description={showDescription ? description : null}
+      assigment={showAssigment ? assigment : null}
+    >
       {children}
     </LibraryCardContent>
   );
@@ -34,8 +45,9 @@ const Template = ({ children, description, showDescription, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...LIBRARY_CARD_CONTENT_DEFAULT_PROPS,
   showDescription: true,
+  showAssigment: true,
+  ...LIBRARY_CARD_CONTENT_DEFAULT_PROPS,
   description:
     'This is a very large description of the book Rythim of War, the fourth book in The Stormlight Archive.',
   metadata: [

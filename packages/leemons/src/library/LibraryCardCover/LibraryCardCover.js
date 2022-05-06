@@ -8,6 +8,7 @@ import {
   Menu,
   IconButton,
   TextClamp,
+  Badge,
 } from '@bubbles-ui/components';
 import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
@@ -123,6 +124,11 @@ const LibraryCardCover = ({
           {!isVertical && iconRow}
         </Box>
         <Box className={classes.titleWrapper}>
+          {!isVertical && badge && (
+            <Box className={classes.badge}>
+              <Badge label={badge} color="stroke" radius="default" closable={false} />
+            </Box>
+          )}
           <TextClamp lines={2}>
             <Title order={5} className={classes.title}>
               {name}

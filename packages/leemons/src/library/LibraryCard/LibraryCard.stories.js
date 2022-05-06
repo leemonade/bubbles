@@ -2,7 +2,11 @@ import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
-import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
+import {
+  LIBRARY_CARD_DEFAULT_PROPS,
+  LIBRARYCARD_VARIANTS,
+  LIBRARYCARD_ASSIGMENT_ROLES,
+} from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
 import { AUDIO_ASSET, URL_ASSET, TASK_ASSET } from './mock/data';
 
@@ -21,6 +25,7 @@ export default {
   argTypes: {
     showImage: { control: 'boolean' },
     variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
+    role: { control: { type: 'select' }, options: LIBRARYCARD_ASSIGMENT_ROLES },
     onAction: { action: 'onAction' },
   },
 };
@@ -29,8 +34,10 @@ const Template = ({
   showImage,
   showDescription,
   showAction,
+  showAssigment,
   children,
   asset,
+  assigment,
   deadlineProps,
   variant,
   action,
@@ -49,6 +56,7 @@ const Template = ({
         {...props}
         asset={isBookmark ? { ...URL_ASSET, ...assetToRender } : { ...asset, ...assetToRender }}
         deadlineProps={deadlineProps}
+        assigment={showAssigment ? assigment : null}
         variant={variant}
         action={showAction ? action : undefined}
       />
@@ -105,8 +113,10 @@ Playground.args = {
   showImage: true,
   showDescription: true,
   showAction: false,
+  showAssigment: true,
   variant: 'media',
   action: 'View feedback',
+  badge: '',
   ...LIBRARY_CARD_DEFAULT_PROPS,
   asset: AUDIO_ASSET,
   assigment: {

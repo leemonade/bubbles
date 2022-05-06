@@ -89,6 +89,9 @@ export const LibraryCardCoverStyles = createStyles(
       menuItem: {
         color: theme.colors.text04,
       },
+      badge: {
+        marginBottom: 4,
+      },
     };
   }
 );

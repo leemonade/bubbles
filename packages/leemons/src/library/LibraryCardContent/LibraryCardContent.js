@@ -72,43 +72,68 @@ const LibraryCardContent = ({
       case 'assigment':
         return (
           <Box className={classes.mainContainer}>
-            <Stack direction="column" spacing={1} fullWidth>
-              <Stack fullWidth>
-                <Text size={'xs'} role="productive" className={classes.label}>
-                  Subject
-                </Text>
-                <Text size={'xs'} role="productive" weight={600}>
-                  {assigment.subject.name}
-                </Text>
-              </Stack>
-              <Stack fullWidth>
-                <Text size={'xs'} role="productive" className={classes.label}>
-                  Submission
-                </Text>
-                <Box>
-                  {getBadge()}
-                  <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
-                    {`(${assigment.submission}/${assigment.total})`}
+            {!isEmpty(assigment) ? (
+              <Stack direction="column" spacing={1} fullWidth>
+                <Stack fullWidth>
+                  <Text size={'xs'} role="productive" className={classes.label}>
+                    Subject
                   </Text>
-                </Box>
+                  <Text size={'xs'} role="productive" weight={600}>
+                    {assigment.subject.name}
+                  </Text>
+                </Stack>
+                <Stack fullWidth>
+                  <Text size={'xs'} role="productive" className={classes.label}>
+                    Submission
+                  </Text>
+                  <Box>
+                    {getBadge()}
+                    <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                      {`(${assigment.submission}/${assigment.total})`}
+                    </Text>
+                  </Box>
+                </Stack>
+                <Stack fullWidth>
+                  <Text size={'xs'} role="productive" className={classes.label}>
+                    Average time
+                  </Text>
+                  <Text size={'xs'} role="productive">
+                    {getAverageTime(assigment.avgTime)}
+                  </Text>
+                </Stack>
+                <Stack fullWidth>
+                  <Text size={'xs'} role="productive" className={classes.label}>
+                    Average attempts
+                  </Text>
+                  <Text size={'xs'} role="productive">
+                    {assigment.avgAttempts}
+                  </Text>
+                </Stack>
               </Stack>
-              <Stack fullWidth>
-                <Text size={'xs'} role="productive" className={classes.label}>
-                  Average time
-                </Text>
-                <Text size={'xs'} role="productive">
-                  {getAverageTime(assigment.avgTime)}
-                </Text>
-              </Stack>
-              <Stack fullWidth>
-                <Text size={'xs'} role="productive" className={classes.label}>
-                  Average attempts
-                </Text>
-                <Text size={'xs'} role="productive">
-                  {assigment.avgAttempts}
-                </Text>
-              </Stack>
-            </Stack>
+            ) : (
+              <>
+                {!isEmpty(description) ? (
+                  <TextClamp lines={truncated ? 3 : 20}>
+                    <Text size={'xs'} role="productive" className={classes.description}>
+                      {description}
+                    </Text>
+                  </TextClamp>
+                ) : (
+                  <Stack direction="column" spacing={1} fullWidth>
+                    {metadata.map(({ label, value }, index) => (
+                      <Stack fullWidth key={`${label} ${value} ${index}`}>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {label}
+                        </Text>
+                        <Text size={'xs'} role="productive" className={classes.value}>
+                          {value}
+                        </Text>
+                      </Stack>
+                    ))}
+                  </Stack>
+                )}
+              </>
+            )}
           </Box>
         );
       default:

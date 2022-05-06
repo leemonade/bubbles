@@ -1,5 +1,22 @@
 import { createStyles, pxToRem, getFontProductive } from '@bubbles-ui/components';
 
+const inRange = (value, min, max) => {
+  return value > min && value <= max;
+};
+
+const getSeverityColor = (theme, severity) => {
+  switch (severity) {
+    case 'low':
+      return theme.colors.fatic02;
+    case 'medium':
+      return theme.colors.fatic03;
+    case 'high':
+      return theme.colors.fatic01;
+    default:
+      return theme.colors.fatic02;
+  }
+};
+
 const getTitleColor = (theme, remainingDays, isNew, severity, role) => {
   const isTeacher = role === 'teacher';
   const isStudent = role === 'student';
@@ -9,12 +26,18 @@ const getTitleColor = (theme, remainingDays, isNew, severity, role) => {
 };
 
 const getTeacherColor = (theme, remainingDays, severity) => {
-  console.log(remainingDays);
-  return theme.colors.fatic01;
+  if (severity) return getSeverityColor(theme, severity);
+  if (inRange(remainingDays, 5, 7)) return theme.colors.fatic03;
+  if (remainingDays > 7) return theme.colors.fatic01;
+  // if (remainingDays === 0) return theme.colors.fatic01;
+  return theme.colors.fatic02;
 };
 
 const getStudentColor = (theme, remainingDays, severity) => {
-  return theme.colors.fatic01;
+  if (severity) return getSeverityColor(theme, severity);
+  if (remainingDays <= 2 || remainingDays == 1) return theme.colors.fatic01;
+  if (remainingDays < 5) return theme.colors.fatic03;
+  return theme.colors.fatic02;
 };
 
 export const LibraryCardDeadlineStyles = createStyles(
