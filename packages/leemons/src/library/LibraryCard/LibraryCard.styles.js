@@ -9,6 +9,7 @@ export const LibraryCardStyles = createStyles((theme, {}) => {
       '&:hover': {
         boxShadow: theme.shadows.shadow01,
       },
+      backgroundColor: theme.colors.mainWhite,
     },
   };
 });
