@@ -65,6 +65,11 @@ const LibraryCardCover = ({
     );
   };
 
+  const preventPropagation = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   const iconRow = (
     <Box className={classes.iconRow}>
       {!isEmpty(menuItems) && (
@@ -84,6 +89,7 @@ const LibraryCardCover = ({
                 }
                 variant={!isVertical ? 'transparent' : null}
                 size="xs"
+                onClick={preventPropagation}
               />
             }
           />

@@ -17,6 +17,7 @@ export const TabsStyles = createStyles(
         ...rootProps,
       },
       panelList: {
+        display: 'flex',
         backgroundColor: panelColor === 'solid' ? theme.colors.uiBackground02 : 'transparent',
         flex: 1,
       },

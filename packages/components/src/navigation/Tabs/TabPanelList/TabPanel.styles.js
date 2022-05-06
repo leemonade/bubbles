@@ -5,6 +5,7 @@ export const TabPanelStyles = createStyles((theme, { active }, getRef) => {
     root: {
       width: '100%',
       flex: 'none',
+      display: 'flex',
     },
   };
 });

@@ -4,6 +4,7 @@ export const TabPanelListStyles = createStyles((theme, { position, animated }, g
   return {
     root: {
       flex: 'auto',
+      display: 'flex',
     },
     content: {
       display: 'flex',
