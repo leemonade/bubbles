@@ -18,6 +18,9 @@ const LibraryCard = ({
   locale,
   menuItems,
   dashboard,
+  isNew,
+  role,
+  badge,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -63,6 +66,9 @@ const LibraryCard = ({
         parentHovered={isHovered}
         menuItems={menuItems}
         dashboard={dashboard}
+        isNew={isNew}
+        role={role}
+        badge={badge}
       />
       <LibraryCardContent {...asset} locale={locale} variant={variant} assigment={assigment} />
       <LibraryCardFooter

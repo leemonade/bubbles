@@ -2,7 +2,12 @@ import React from 'react';
 import { Box } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from './LibraryCardDeadline';
-import { LIBRARY_CARD_DEADLINE_DEFAULT_PROPS } from './LibraryCardDeadline.constants';
+import {
+  LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
+  LIBRARY_CARD_DEADLINE_SEVERITY,
+} from './LibraryCardDeadline.constants';
+import { LIBRARYCARD_COVER_DIRECTIONS } from '../Library.constants';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../LibraryCard/LibraryCard.constants';
 import mdx from './LibraryCardDeadline.mdx';
 
 export default {
@@ -23,16 +28,23 @@ export default {
       control: { type: 'select' },
       withImage: { type: 'boolean' },
     },
+    direction: { control: { type: 'select' }, options: LIBRARYCARD_COVER_DIRECTIONS },
+    severity: { control: { type: 'select' }, options: ['none', ...LIBRARY_CARD_DEADLINE_SEVERITY] },
+    role: { control: { type: 'select' }, options: LIBRARYCARD_ASSIGMENT_ROLES },
   },
 };
 
-const Template = ({ children, withImage, ...props }) => {
+const Template = ({ children, withImage, severity, ...props }) => {
   const image =
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80';
   const icon = props.icon;
 
   return (
-    <LibraryCardDeadline {...props} icon={withImage ? image : icon}>
+    <LibraryCardDeadline
+      {...props}
+      icon={withImage ? image : icon}
+      severity={severity !== 'none' ? severity : undefined}
+    >
       {children}
     </LibraryCardDeadline>
   );
@@ -45,7 +57,13 @@ Playground.args = {
   withImage: false,
   parentHovered: false,
   icon: <ArchiveIcon width={16} height={16} />,
-  deadline: new Date('2022-02-20'),
+  deadline: new Date('2022-05-20'),
   locale: 'es',
   isNew: false,
+  labels: {
+    title: '',
+    new: 'New',
+    deadline: 'Deadline',
+  },
+  role: 'teacher',
 };

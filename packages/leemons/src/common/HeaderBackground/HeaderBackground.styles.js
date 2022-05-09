@@ -32,7 +32,7 @@ export const HeaderBackgroundStyles = createStyles(
         width: withBlur ? '104%' : 'calc(100% + 1px)',
         backgroundImage: image && `url(${image})`,
         backgroundSize: 'cover',
-        backgroundPosition: backgroundPosition,
+        backgroundPosition: image ? backgroundPosition : 'unset',
         filter: withBlur && `blur(${blur}px)`,
         zIndex: 1,
         top: withBlur && '-7%',

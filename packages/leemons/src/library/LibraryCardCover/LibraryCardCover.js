@@ -8,6 +8,7 @@ import {
   Menu,
   IconButton,
   TextClamp,
+  Badge,
 } from '@bubbles-ui/components';
 import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
@@ -29,6 +30,9 @@ const LibraryCardCover = ({
   parentHovered,
   menuItems,
   dashboard,
+  isNew,
+  role,
+  badge,
   ...props
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -60,6 +64,8 @@ const LibraryCardCover = ({
           {...deadlineProps}
           direction={direction}
           parentHovered={parentHovered}
+          isNew={isNew}
+          role={role}
         />
       </Box>
     );
@@ -124,6 +130,11 @@ const LibraryCardCover = ({
           {!isVertical && iconRow}
         </Box>
         <Box className={classes.titleWrapper}>
+          {!isVertical && badge && (
+            <Box className={classes.badge}>
+              <Badge label={badge} color="stroke" radius="default" closable={false} />
+            </Box>
+          )}
           <TextClamp lines={2}>
             <Title order={5} className={classes.title}>
               {name}

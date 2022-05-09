@@ -2,7 +2,11 @@ import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
-import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
+import {
+  LIBRARY_CARD_DEFAULT_PROPS,
+  LIBRARYCARD_VARIANTS,
+  LIBRARYCARD_ASSIGMENT_ROLES,
+} from './LibraryCard.constants';
 import mdx from './LibraryCard.mdx';
 import { AUDIO_ASSET, URL_ASSET, TASK_ASSET } from './mock/data';
 
@@ -21,70 +25,98 @@ export default {
   argTypes: {
     showImage: { control: 'boolean' },
     variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
+    role: { control: { type: 'select' }, options: LIBRARYCARD_ASSIGMENT_ROLES },
     onAction: { action: 'onAction' },
   },
 };
 
-const Template = ({ children, asset, showImage, action, deadlineProps, variant, ...props }) => {
-  const assetWithoutCover = { ...asset, cover: undefined };
-  const assetWithoutDescription = { ...asset, description: undefined };
+const Template = ({
+  showImage,
+  showDescription,
+  showAction,
+  showAssigment,
+  children,
+  asset,
+  assigment,
+  deadlineProps,
+  variant,
+  action,
+  ...props
+}) => {
+  const isBookmark = variant === 'bookmark';
+
+  const assetToRender = {
+    cover: showImage ? (isBookmark ? URL_ASSET.cover : asset.cover) : undefined,
+    description: showDescription ? asset.description : undefined,
+  };
 
   return (
-    <Stack spacing={5}>
-      {variant === 'assigment' ? (
-        <Box style={{ width: 322 }}>
-          <LibraryCard
-            {...props}
-            asset={showImage ? asset : assetWithoutCover}
-            deadlineProps={deadlineProps}
-            variant={variant}
-          />
-        </Box>
-      ) : (
-        <>
-          <Box style={{ width: 322 }}>
-            <LibraryCard
-              {...props}
-              asset={showImage ? asset : assetWithoutCover}
-              deadlineProps={deadlineProps}
-              variant={variant}
-            />
-          </Box>
-          <Box style={{ width: 322 }}>
-            <LibraryCard
-              {...props}
-              asset={
-                showImage
-                  ? assetWithoutDescription
-                  : { ...assetWithoutCover, description: undefined }
-              }
-              action={action}
-              variant={variant}
-            />
-          </Box>
-          <Box style={{ width: 322 }}>
-            <LibraryCard
-              {...props}
-              asset={showImage ? URL_ASSET : { ...URL_ASSET, cover: undefined }}
-              variant="bookmark"
-            />
-          </Box>
-          <Box style={{ width: 322 }}>
-            <LibraryCard
-              {...props}
-              asset={showImage ? TASK_ASSET : { ...TASK_ASSET, cover: undefined }}
-              variant="task"
-            />
-          </Box>
-        </>
-      )}
-    </Stack>
+    <Box style={{ width: 322 }}>
+      <LibraryCard
+        {...props}
+        asset={isBookmark ? { ...URL_ASSET, ...assetToRender } : { ...asset, ...assetToRender }}
+        deadlineProps={deadlineProps}
+        assigment={showAssigment ? assigment : null}
+        variant={variant}
+        action={showAction ? action : undefined}
+      />
+    </Box>
+
+    // <Stack spacing={5}>
+    //   {variant === 'assigment' ? (
+    //     <Box style={{ width: 322 }}>
+    //       <LibraryCard
+    //         {...props}
+    //         asset={showImage ? asset : assetWithoutCover}
+    //         deadlineProps={deadlineProps}
+    //         variant={variant}
+    //       />
+    //     </Box>
+    //   ) : (
+    //     <>
+    //       <Box style={{ width: 322 }}>
+    //         <LibraryCard
+    //           {...props}
+    //           asset={showImage ? asset : assetWithoutCover}
+    //           deadlineProps={deadlineProps}
+    //           variant={variant}
+    //         />
+    //       </Box>
+    //       <Box style={{ width: 322 }}>
+    //         <LibraryCard
+    //           {...props}
+    //           asset={
+    //             showImage
+    //               ? assetWithoutDescription
+    //               : { ...assetWithoutCover, description: undefined }
+    //           }
+    //           action={action}
+    //           variant={variant}
+    //         />
+    //       </Box>
+    //       <Box style={{ width: 322 }}>
+    //         <LibraryCard
+    //           {...props}
+    //           asset={showImage ? URL_ASSET : { ...URL_ASSET, cover: undefined }}
+    //           variant="bookmark"
+    //         />
+    //       </Box>
+    //     </>
+    //   )}
+    // </Stack>
   );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  showImage: true,
+  showDescription: true,
+  showAction: false,
+  showAssigment: true,
+  variant: 'media',
+  action: 'View feedback',
+  badge: '',
   ...LIBRARY_CARD_DEFAULT_PROPS,
   asset: AUDIO_ASSET,
   assigment: {
@@ -97,15 +129,16 @@ Playground.args = {
     avgTime: 933,
     avgAttempts: 3,
   },
-  variant: 'media',
-  showImage: true,
   deadlineProps: {
     icon: <ArchiveIcon width={16} height={16} />,
     deadline: new Date('2022-02-20'),
     locale: 'es',
-    isNew: false,
+    labels: {
+      new: 'New',
+      deadline: 'Deadline',
+    },
   },
-  action: 'View feedback',
+
   menuItems: [
     {
       icon: <StarIcon />,

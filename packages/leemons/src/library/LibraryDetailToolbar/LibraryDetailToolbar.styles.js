@@ -8,6 +8,7 @@ export const LibraryDetailToolbarStyles = createStyles((theme, {}) => {
       color: theme.colors.text05,
       padding: pxToRem(16),
       gap: pxToRem(8),
+      backgroundColor: theme.colors.mainWhite,
     },
     button: {
       transition: 'transform 0.2s ease-out',

@@ -13,6 +13,7 @@ export const LibraryDetailStyles = createStyles((theme, { drawer, open }) => {
   return {
     root: {
       ...drawerProps,
+      backgroundColor: theme.colors.mainWhite,
     },
     wrapper: {
       opacity: 0,

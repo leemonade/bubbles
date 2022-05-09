@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from './LibraryCard';
+import { LIBRARY_CARD_DEADLINE_SEVERITY } from './LibraryCardDeadline';
 
 export const validateURL = (props, propName, componentName) => {
   let url;
@@ -27,6 +29,8 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   deadline: PropTypes.instanceOf(Date),
   direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
   parentHovered: PropTypes.bool,
+  role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
+  severity: PropTypes.oneOf(LIBRARY_CARD_DEADLINE_SEVERITY),
 };
 
 export const LIBRARY_CARD_MENU_ITEM = {

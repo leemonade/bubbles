@@ -4,6 +4,7 @@ import {
   LIBRARYCARD_COVER_DIRECTIONS,
   LIBRARY_CARD_MENU_ITEM,
 } from '../Library.constants';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../LibraryCard/LibraryCard.constants';
 
 export { LIBRARYCARD_COVER_DIRECTIONS };
 
@@ -26,4 +27,7 @@ export const LIBRARY_CARD_COVER_PROP_TYPES = {
   parentHovered: PropTypes.bool,
   menuItems: PropTypes.arrayOf(PropTypes.shape(LIBRARY_CARD_MENU_ITEM)),
   dashboard: PropTypes.bool,
+  isNew: PropTypes.bool,
+  role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
+  badge: PropTypes.string,
 };

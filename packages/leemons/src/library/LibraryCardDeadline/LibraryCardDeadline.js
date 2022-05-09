@@ -17,16 +17,19 @@ const LibraryCardDeadline = ({
   deadline,
   direction,
   parentHovered,
+  severity,
+  role,
   ...props
 }) => {
-  const [title, setTitle] = useState(labels.title);
-
   const formattedDate = `${labels.deadline + ' '}${deadline.toLocaleDateString(
     locale
   )} - ${deadline.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}`;
+  let remainingDays = 0;
+  let title = '';
 
-  useEffect(() => {
+  const renderTitle = () => {
     if (!deadline) return;
+    if (labels.title || !deadline) return labels.title || '';
     const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     let deltaDays = (deadline.getTime() - Date.now()) / (1000 * 3600 * 24);
     if (deltaDays < 1) {
@@ -39,12 +42,14 @@ const LibraryCardDeadline = ({
       }
     }
     deltaDays = Math.ceil(deltaDays);
+    remainingDays = deltaDays;
     const result = formatter.format(deltaDays, 'day');
-    setTitle(capitalize(result));
-  }, [deadline, locale]);
+    title = capitalize(result);
+  };
 
+  renderTitle();
   const { classes, cx } = LibraryCardDeadlineStyles(
-    { isNew, direction, parentHovered },
+    { isNew, direction, parentHovered, remainingDays, severity, role },
     { name: 'LibraryCardDeadline' }
   );
   return (

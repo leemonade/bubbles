@@ -106,6 +106,7 @@ export const LibraryDetailPlayerStyles = createStyles(
         alignItems: 'baseline',
         padding: `${pxToRem(16)} ${pxToRem(16)} ${pxToRem(10)} ${pxToRem(16)}`,
         gap: pxToRem(16),
+        backgroundColor: theme.colors.mainWhite,
       },
       title: {
         fontWeight: 600,

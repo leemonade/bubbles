@@ -8,10 +8,13 @@ import {
 
 export const LibraryCardContentStyles = createStyles((theme, {}) => {
   return {
-    root: {},
+    root: {
+      // backgroundColor: theme.colors.mainWhite,
+    },
     mainContainer: {
       // minHeight: 86,
       padding: `${pxToRem(14)} ${pxToRem(16)}`,
+      // backgroundColor: theme.colors.mainWhite,
     },
     description: {
       color: theme.colors.text02,

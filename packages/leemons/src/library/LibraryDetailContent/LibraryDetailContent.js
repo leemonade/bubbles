@@ -36,7 +36,9 @@ const LibraryDetailContent = ({
       <LibraryCardContent description={description} truncated={false} />
       <LibraryCardFooter fileType={fileType} fileExtension={fileExtension} />
       {variant === 'bookmark' && (
-        <Box sx={(theme) => ({ padding: theme.spacing[2] })}>
+        <Box
+          sx={(theme) => ({ padding: theme.spacing[2], backgroundColor: theme.colors.mainWhite })}
+        >
           <Paper bordered padding={2} radius="sm" shadow="none" fullWidth>
             <Stack spacing={2}>
               <Box>
