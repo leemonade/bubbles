@@ -19,12 +19,22 @@ export const PaperStyles = createStyles(
       }
     };
 
+    const getBgColor = (theme, color) => {
+      switch (color) {
+        case 'solid':
+          return theme.colors.uiBackground02;
+        case 'none':
+          return 'transparent';
+        default:
+          return theme.colors.uiBackground01;
+      }
+    };
+
     return {
       root: {
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: 'column',
-        backgroundColor:
-          color === 'solid' ? theme.colors.uiBackground02 : theme.colors.uiBackground01,
+        backgroundColor: getBgColor(theme, color),
         boxShadow: getShadows(shadow),
         padding: theme.spacing[padding],
         border: bordered && `1px solid ${theme.colors.ui01}`,
