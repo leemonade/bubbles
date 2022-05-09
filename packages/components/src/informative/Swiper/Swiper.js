@@ -54,6 +54,9 @@ const Swiper = ({
       <SwiperComp
         modules={[Navigation]}
         breakpoints={breakAt}
+        shortSwipes={false}
+        longSwipesMs={100}
+        longSwipesRatio={0.3}
         navigation={{
           nextEl: classes.nextButton,
           prevEl: classes.prevButton,
