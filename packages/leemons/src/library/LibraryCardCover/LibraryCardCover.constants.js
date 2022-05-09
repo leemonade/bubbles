@@ -3,8 +3,8 @@ import {
   LIBRARY_CARD_DEADLINE_PROP_TYPES,
   LIBRARYCARD_COVER_DIRECTIONS,
   LIBRARY_CARD_MENU_ITEM,
+  LIBRARYCARD_ASSIGMENT_ROLES,
 } from '../Library.constants';
-import { LIBRARYCARD_ASSIGMENT_ROLES } from '../LibraryCard/LibraryCard.constants';
 
 export { LIBRARYCARD_COVER_DIRECTIONS };
 

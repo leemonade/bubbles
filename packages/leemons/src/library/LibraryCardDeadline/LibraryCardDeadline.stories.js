@@ -6,8 +6,7 @@ import {
   LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
   LIBRARY_CARD_DEADLINE_SEVERITY,
 } from './LibraryCardDeadline.constants';
-import { LIBRARYCARD_COVER_DIRECTIONS } from '../Library.constants';
-import { LIBRARYCARD_ASSIGMENT_ROLES } from '../LibraryCard/LibraryCard.constants';
+import { LIBRARYCARD_COVER_DIRECTIONS, LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 import mdx from './LibraryCardDeadline.mdx';
 
 export default {

@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
-import { LIBRARY_CARD_DEADLINE_PROP_TYPES, LIBRARY_CARD_MENU_ITEM } from '../Library.constants';
+import {
+  LIBRARY_CARD_DEADLINE_PROP_TYPES,
+  LIBRARY_CARD_MENU_ITEM,
+  LIBRARYCARD_ASSIGMENT_ROLES,
+} from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_ASSIGMENT_ROLES = ['teacher', 'student'];
 export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark'];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,

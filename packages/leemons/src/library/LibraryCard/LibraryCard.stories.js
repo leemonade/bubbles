@@ -2,11 +2,8 @@ import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
-import {
-  LIBRARY_CARD_DEFAULT_PROPS,
-  LIBRARYCARD_VARIANTS,
-  LIBRARYCARD_ASSIGMENT_ROLES,
-} from './LibraryCard.constants';
+import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 import mdx from './LibraryCard.mdx';
 import { AUDIO_ASSET, URL_ASSET, TASK_ASSET } from './mock/data';
 
