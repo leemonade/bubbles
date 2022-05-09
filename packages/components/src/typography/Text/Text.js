@@ -31,6 +31,7 @@ export const Text = forwardRef(
       strong,
       stronger,
       truncated,
+      styles,
       ...props
     },
     ref
@@ -52,6 +53,7 @@ export const Text = forwardRef(
       stronger,
       size,
       truncated,
+      styles,
     });
 
     return (
@@ -78,4 +80,5 @@ Text.propTypes = {
   strong: PropTypes.bool,
   stronger: PropTypes.bool,
   truncated: PropTypes.bool,
+  styles: PropTypes.object,
 };

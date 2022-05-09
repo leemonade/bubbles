@@ -4,12 +4,15 @@ import { FileIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../typography';
 import { Box } from '../../layout';
 import { FileItemDisplayStyles } from './FileItemDisplay.styles';
+import { Link } from 'react-router-dom';
 
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   showFileName: true,
   size: 16,
   colorStyle: {},
   iconStyle: {},
+  url: '',
+  useRouter: false,
 };
 export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   filename: PropTypes.string,
@@ -20,6 +23,8 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   size: PropTypes.number,
   colorStyle: PropTypes.object,
   iconStyle: PropTypes.object,
+  url: PropTypes.string,
+  useRouter: PropTypes.bool,
 };
 
 const FileItemDisplay = ({
@@ -31,20 +36,15 @@ const FileItemDisplay = ({
   colorStyle,
   iconStyle,
   hideExtension,
+  url,
+  useRouter,
   ...props
 }) => {
   const calculatedSize = size / 3;
-
-  const { classes, cx } = FileItemDisplayStyles({
-    size,
-    calculatedSize,
-    colorStyle,
-    iconStyle,
-  });
-
-  let fileExtension = '';
-
+  const hasURLandRouter = useRouter && url;
   const hasExtension = filename.split('.').length > 1 && filename.split('.').pop() !== '';
+  const linkProps = url && !useRouter ? { as: 'a', href: url, target: '_blank' } : {};
+  let fileExtension = '';
 
   if (hasExtension) {
     fileExtension = filename.split('.').pop();
@@ -61,7 +61,14 @@ const FileItemDisplay = ({
     return filename;
   }, [filename, hideExtension, hasExtension]);
 
-  return (
+  const { classes, cx } = FileItemDisplayStyles({
+    size,
+    calculatedSize,
+    colorStyle,
+    iconStyle,
+    url,
+  });
+  const fileItemDisplay = (
     <Box className={classes.root} {...props}>
       <Box className={classes.iconWrapper}>
         <Text strong className={classes.iconFiletype}>
@@ -69,9 +76,15 @@ const FileItemDisplay = ({
         </Text>
         <FileIcon height={size} width={size} className={classes.icon} />
       </Box>
-      {showFileName && <Text className={classes.filename}>{name}</Text>}
+      {showFileName && (
+        <Text {...linkProps} className={classes.filename}>
+          {name}
+        </Text>
+      )}
     </Box>
   );
+
+  return hasURLandRouter ? <Link to={url}>{fileItemDisplay}</Link> : fileItemDisplay;
 };
 
 FileItemDisplay.defaultProps = FILE_ITEM_DISPLAY_DEFAULT_PROPS;

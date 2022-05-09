@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '../../layout';
-import { Text } from '../../typography';
+import { Box, Text } from '@bubbles-ui/components';
 import { TaskDeadlineStyles } from './TaskDeadline.styles';
 import { PluginCalendarIcon, AlarmBellTimerIcon } from '@bubbles-ui/icons/outline/';
 import { TASK_DEADLINE_DEFAULT_PROPS, TASK_DEADLINE_PROP_TYPES } from './TaskDeadline.constants';
@@ -25,26 +24,38 @@ const getDeadlineText = (deadline, locale) => {
   return capitalize(result);
 };
 
-const TaskDeadline = ({ label, size, deadline, alertDays, locale, ...props }) => {
+const TaskDeadline = ({
+  label,
+  size,
+  deadline,
+  alertDays,
+  locale,
+  styles,
+  className,
+  ...props
+}) => {
   const showAlert =
     new Date() >= new Date(deadline).setDate(new Date(deadline).getDate() - alertDays);
 
+  const renderDate = () => {
+    const date = deadline.toLocaleDateString(
+      locale,
+      isMedium ? {} : { weekday: 'long', day: 'numeric', month: 'long' }
+    );
+    return isMedium ? date : startCase(date);
+  };
+
   const isMedium = size === 'md';
-  const { classes, cx } = TaskDeadlineStyles({ isMedium }, { name: 'TaskDeadline' });
+  const { classes, cx } = TaskDeadlineStyles({ isMedium, styles }, { name: 'TaskDeadline' });
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)}>
       <Box className={classes.deadline}>
         <PluginCalendarIcon className={classes.calendarIcon} height={16} width={16} />
         <Text color="soft" size="xs" role="productive" transform="uppercase" strong>
           {label}
         </Text>
         <Text color="primary" role="productive" size="md" className={classes.date}>
-          {startCase(
-            deadline.toLocaleDateString(
-              locale,
-              isMedium ? {} : { weekday: 'long', day: 'numeric', month: 'long' }
-            )
-          )}
+          {renderDate()}
         </Text>
       </Box>
       {showAlert && (
