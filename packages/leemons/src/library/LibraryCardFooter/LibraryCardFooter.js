@@ -1,7 +1,6 @@
 import React from 'react';
 import { capitalize, isFunction } from 'lodash';
-import { Box, Stack, FileIcon, Text, Button } from '@bubbles-ui/components';
-import { AssetBookmarkIcon } from '@bubbles-ui/icons/solid';
+import { Box, Button, FileIcon, Text } from '@bubbles-ui/components';
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 import {
   LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
@@ -18,6 +17,7 @@ const LibraryCardFooter = ({
   className,
   style,
   variant,
+  variantTitle,
   ...props
 }) => {
   const { classes, cx } = LibraryCardFooterStyles({ action }, { name: 'LibraryCardFooter' });
@@ -47,7 +47,7 @@ const LibraryCardFooter = ({
             fileType={fileType || variant}
             fileExtension={fileExtension}
             color={'#636D7D'}
-            label={capitalize(fileType || variant)}
+            label={capitalize(fileType || variantTitle || variant)}
             hideExtension
           />
           {created && (

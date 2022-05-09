@@ -12,6 +12,7 @@ const LibraryCard = ({
   asset,
   assigment,
   variant,
+  variantTitle,
   deadlineProps,
   action,
   onAction,
@@ -74,6 +75,7 @@ const LibraryCard = ({
       <LibraryCardFooter
         {...asset}
         variant={variant}
+        variantTitle={variantTitle}
         action={action}
         onAction={onAction}
         locale={locale}
