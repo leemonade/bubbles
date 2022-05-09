@@ -15,6 +15,12 @@ const TaskDoing = ({ ...props }) => {
     setCurrentStep(isLastStep ? 0 : nextStep);
   };
 
+  const prevStep = () => {
+    const nextStep = currentStep - 1;
+    const isFirstStep = nextStep === -1;
+    setCurrentStep(isFirstStep ? mock.pages.length : nextStep);
+  };
+
   const taskDeadlineProps = {
     ...mock.taskDeadline,
     styles: { ...mock.taskDeadline.styles, right: isFirstStep ? 8 : 0 },
@@ -42,7 +48,7 @@ const TaskDoing = ({ ...props }) => {
         <Box className={classes.verticalStepper}>
           <VerticalStepper {...mock.verticalStepper} currentStep={currentStep} />
         </Box>
-        <Box className={classes.pages}>{mock.pages[currentStep](classes, nextStep)}</Box>
+        <Box className={classes.pages}>{mock.pages[currentStep](classes, nextStep, prevStep)}</Box>
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
+import { ChevronRightIcon, ChevronLeftIcon } from '@bubbles-ui/icons/outline';
 import { PluginComunicaIcon } from '@bubbles-ui/icons/solid';
 import {
   Box,
@@ -69,7 +69,7 @@ const pageWithResources = (classes, nextStep) => {
   );
 };
 
-const pageWithoutResources = (classes, nextStep) => (
+const pageWithoutResources = (classes, nextStep, prevStep) => (
   <Box className={classes.loremIpsum}>
     <Title order={2}>Lorem ipsum</Title>
     <Text color="primary" role="productive" strong className={classes.subtitle}>
@@ -93,6 +93,17 @@ const pageWithoutResources = (classes, nextStep) => (
       labore et dolore magna aliqua.
     </Text>
     <Box className={classes.continueButton}>
+      <Button
+        position="right"
+        variant="outline"
+        leftIcon={<ChevronLeftIcon />}
+        style={{ width: 338 }}
+        rounded
+        compact
+        onClick={prevStep}
+      >
+        Anterior
+      </Button>
       <Button
         position="left"
         rightIcon={<ChevronRightIcon />}

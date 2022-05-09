@@ -49,7 +49,9 @@ export const TaskDoingStyles = createStyles((theme, { isFirstStep }) => {
       gap: 4,
     },
     continueButton: {
-      textAlign: 'right',
+      display: 'flex',
+      justifyContent: 'end',
+      gap: theme.spacing[5],
     },
     preDoing: {
       width: '100%',
