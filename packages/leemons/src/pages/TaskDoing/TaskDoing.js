@@ -6,13 +6,19 @@ import { HeaderBackground, TaskHeader, TaskDeadline } from '../../common';
 import { TASK_DOING_DEFAULT_PROPS, TASK_DOING_PROP_TYPES } from './TaskDoing.constants';
 
 const TaskDoing = ({ ...props }) => {
-  const [currentStep, setCurrentStep] = React.useState(11);
+  const [currentStep, setCurrentStep] = React.useState(0);
   const isFirstStep = currentStep === 0;
 
   const nextStep = () => {
     const nextStep = currentStep + 1;
     const isLastStep = nextStep === mock.pages.length;
     setCurrentStep(isLastStep ? 0 : nextStep);
+  };
+
+  const prevStep = () => {
+    const nextStep = currentStep - 1;
+    const isFirstStep = nextStep === -1;
+    setCurrentStep(isFirstStep ? mock.pages.length : nextStep);
   };
 
   const taskDeadlineProps = {
@@ -42,7 +48,7 @@ const TaskDoing = ({ ...props }) => {
         <Box className={classes.verticalStepper}>
           <VerticalStepper {...mock.verticalStepper} currentStep={currentStep} />
         </Box>
-        <Box className={classes.pages}>{mock.pages[currentStep](classes, nextStep)}</Box>
+        <Box className={classes.pages}>{mock.pages[currentStep](classes, nextStep, prevStep)}</Box>
       </Box>
     </Box>
   );
