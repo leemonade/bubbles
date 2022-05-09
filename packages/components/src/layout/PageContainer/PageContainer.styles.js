@@ -4,6 +4,7 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 export const PageContainerStyles = createStyles((theme, {}) => {
   return {
     root: {
+      width: '100%',
       maxWidth: theme.breakpoints['lg'],
       paddingLeft: theme.spacing['8'],
       paddingRight: theme.spacing['5'],
