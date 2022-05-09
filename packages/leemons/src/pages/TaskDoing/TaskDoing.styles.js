@@ -19,7 +19,8 @@ export const TaskDoingStyles = createStyles((theme, { isFirstStep }) => {
       display: 'flex',
     },
     loremIpsum: {
-      padding: '16px 96px',
+      paddingTop: 16,
+      paddingInline: '10%',
     },
     resources: {
       padding: 16,
@@ -49,6 +50,23 @@ export const TaskDoingStyles = createStyles((theme, { isFirstStep }) => {
     },
     continueButton: {
       textAlign: 'right',
+    },
+    preDoing: {
+      width: '100%',
+      padding: '36px 247.5px',
+    },
+    preDoingText: {
+      display: 'block',
+      fontSize: 16,
+      paddingTop: 16,
+      paddingBottom: 16,
+    },
+    preDoingSubtitle: {
+      display: 'block',
+      paddingTop: 24,
+    },
+    preDoingButton: {
+      paddingTop: 24,
     },
   };
 });
