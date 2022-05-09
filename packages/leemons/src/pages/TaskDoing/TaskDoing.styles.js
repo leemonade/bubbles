@@ -68,5 +68,25 @@ export const TaskDoingStyles = createStyles((theme, { isFirstStep }) => {
     preDoingButton: {
       paddingTop: 24,
     },
+    scoreFeedbackContainer: {
+      marginTop: 48,
+      marginBottom: 40,
+    },
+    scoreFeedback: {
+      padding: 24,
+      borderTopRightRadius: 'inherit',
+      borderBottomRightRadius: 'inherit',
+    },
+    calification: {
+      paddingTop: 24,
+      paddingLeft: '10%',
+      paddingRight: '20%',
+    },
+    calificationFooter: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 16,
+    },
   };
 });

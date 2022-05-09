@@ -6,7 +6,7 @@ import { HeaderBackground, TaskHeader, TaskDeadline } from '../../common';
 import { TASK_DOING_DEFAULT_PROPS, TASK_DOING_PROP_TYPES } from './TaskDoing.constants';
 
 const TaskDoing = ({ ...props }) => {
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [currentStep, setCurrentStep] = React.useState(11);
   const isFirstStep = currentStep === 0;
 
   const nextStep = () => {
