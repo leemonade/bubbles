@@ -61,7 +61,8 @@ const LibraryCard = ({
             />
           )
         }
-        deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
+        deadlineProps={!isNil(deadlineProps) ? deadlineProps : null}
+        locale={locale || deadlineProps.locale}
         direction={variant === 'assigment' ? 'vertical' : null}
         parentHovered={isHovered}
         menuItems={menuItems}
