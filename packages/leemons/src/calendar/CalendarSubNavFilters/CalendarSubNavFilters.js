@@ -63,6 +63,7 @@ const CalendarSubNavFilters = ({
         <Box
           sx={(theme) => ({
             margin: theme.spacing[5],
+            paddingBottom: '80px',
           })}
         >
           <SegmentedControl
