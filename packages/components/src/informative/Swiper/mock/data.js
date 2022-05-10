@@ -44,6 +44,7 @@ export const childrens = [
     action="Ver tarea"
     isNew
     deadlineProps={{ ...deadlineProps, deadline: new Date('2022-05-30') }}
+    shadow={false}
   />,
   <LibraryCard
     variant="media"
@@ -59,6 +60,7 @@ export const childrens = [
         'https://s3-alpha-sig.figma.com/img/0e30/224d/b3942880e35918b873114442a704f1ee?Expires=1653264000&Signature=KmMKeiGa1IYlB3EoLCBxVTm5lCXuVCbDqyRDMNM9vbvk4ge94R5UJ22~jeBZpBYfC6XcS~7-nUKCdWb50jC4CCypsqgSvPuw2N1XstxDTEOak9XxPP6VrFdUgJwtDKrKMV8gD6HGMAqnjTo4iJKOEoTNZjCNBb9gsk5whpmKG02ecuxmrG7qgHVHL29-GSes2othN6TsgPyNZkHeJYWIO8aGAjJ-6DK4K4RIsbMuuztyS7IMJth31kLmpVHmrV-wh8a0y6MoUCE~qKfQ9KSq0K3Kd4u7tJx1pVxpnDUecRNjHxeeW1BNG4DFs5XtMSGovr0Op0jz2xSnTR6wY~O-ng__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
     }}
     deadlineProps={{ ...deadlineProps, deadline: new Date('2022-05-14') }}
+    shadow={false}
   />,
   <LibraryCard
     variant="media"
@@ -75,6 +77,7 @@ export const childrens = [
         'https://s3-alpha-sig.figma.com/img/88b5/5a2c/fe644f7caa4bb6b6cc1bb62f4dde0519?Expires=1653264000&Signature=JocIZGo3ivs~ZTlW85soeuyNYXvi-de2meD8YiZpZF9IIIRnITF44o2QfjQMdBy2FyqsreSeeduqK~NOoGpUc5l1okVZqDqwcGO3mqZ6gdbaYQ6lUnnUhD~JuCPhsVaJzJIiIfRA8MQlwybUe-qAlWOtjSC47BReZH5q3OWYrR6Ye65Ck7Xnzi1XehrAnZbBfEbAcbyqBJw0bhGFEnXHypyzV~iNK~lLxGijiIMmnCTdyoXFV20jyMjyMq25mHLEt8DjyfcY06XLGZeXjoNSYC2Jf8ic4VmbHYO4baxKTAXIg5F8WgrzqCAgM~t-novt3az~7L0w-2XNzq73wZLI2w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
     }}
     deadlineProps={{ ...deadlineProps, deadline: new Date('2022-05-20') }}
+    shadow={false}
   />,
   <LibraryCard
     variant="media"
@@ -92,6 +95,7 @@ export const childrens = [
     action="Ver tarea"
     isNew
     deadlineProps={{ ...deadlineProps, deadline: new Date('2022-05-30') }}
+    shadow={false}
   />,
   <LibraryCard
     variant="media"
@@ -107,5 +111,6 @@ export const childrens = [
         'https://s3-alpha-sig.figma.com/img/0e30/224d/b3942880e35918b873114442a704f1ee?Expires=1653264000&Signature=KmMKeiGa1IYlB3EoLCBxVTm5lCXuVCbDqyRDMNM9vbvk4ge94R5UJ22~jeBZpBYfC6XcS~7-nUKCdWb50jC4CCypsqgSvPuw2N1XstxDTEOak9XxPP6VrFdUgJwtDKrKMV8gD6HGMAqnjTo4iJKOEoTNZjCNBb9gsk5whpmKG02ecuxmrG7qgHVHL29-GSes2othN6TsgPyNZkHeJYWIO8aGAjJ-6DK4K4RIsbMuuztyS7IMJth31kLmpVHmrV-wh8a0y6MoUCE~qKfQ9KSq0K3Kd4u7tJx1pVxpnDUecRNjHxeeW1BNG4DFs5XtMSGovr0Op0jz2xSnTR6wY~O-ng__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
     }}
     deadlineProps={{ ...deadlineProps, deadline: new Date('2022-05-14') }}
+    shadow={false}
   />,
 ];

@@ -39,6 +39,7 @@ export const LIBRARY_CARD_DEFAULT_PROPS = {
   dashboard: false,
   role: 'teacher',
   isNew: false,
+  shadow: true,
 };
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -53,4 +54,5 @@ export const LIBRARY_CARD_PROP_TYPES = {
   isNew: PropTypes.bool,
   role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
   badge: PropTypes.string,
+  shadow: PropTypes.bool,
 };

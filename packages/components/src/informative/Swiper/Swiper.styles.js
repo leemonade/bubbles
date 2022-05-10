@@ -55,6 +55,10 @@ export const SwiperStyles = createStyles(
       selectWrapper: {
         height: '100%',
         width: '100%',
+        border: '1px solid transparent',
+      },
+      selectedSlide: {
+        border: `1px solid ${theme.colors.interactive01}`,
       },
     };
   }

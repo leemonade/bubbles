@@ -21,11 +21,12 @@ const LibraryCard = ({
   isNew,
   role,
   badge,
+  shadow,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { classes, cx } = LibraryCardStyles({}, { name: 'LibraryCard' });
+  const { classes, cx } = LibraryCardStyles({shadow}, { name: 'LibraryCard' });
   return (
     <Box
       className={cx(classes.root, props.className)}

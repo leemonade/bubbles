@@ -24,17 +24,23 @@ const Swiper = ({
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const onSelectIndexHandler = (index) => {
-    isFunction(onSelectIndex) && onSelectIndex(index);
+    selectedIndex === index ? setSelectedIndex(null) : setSelectedIndex(index);
+    isFunction(onSelectIndex) && onSelectIndex(selectedIndex === index ? null : index);
   };
 
   const getSwiperSlides = () => {
     return children.map((child, index) => {
+      const isSelected = selectedIndex === index;
       return (
         <SwiperSlide key={`slide${index}`}>
           {selectable ? (
-            <Box className={classes.selectWrapper} onClick={() => onSelectIndexHandler(index)}>
+            <Box
+              className={cx(classes.selectWrapper, isSelected ? classes.selectedSlide : '')}
+              onClick={() => onSelectIndexHandler(index)}
+            >
               {child}
             </Box>
           ) : (
