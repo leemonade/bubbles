@@ -5,7 +5,7 @@ import { PaperStyles } from './Paper.styles';
 
 export const PAPER_RADIUS = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
 export const PAPER_SHADOWS = ['none', 'level100', 'level01', 'level02', 'level03'];
-export const PAPER_COLORS = ['default', 'solid'];
+export const PAPER_COLORS = ['default', 'solid', 'none'];
 export const PAPER_DEFAULT_PROPS = {
   radius: 'md',
   padding: 5,

@@ -22,7 +22,7 @@ export const AdminPageHeaderStyles = createStyles((theme, { editMode, isTeacher 
     section: {
       paddingTop: theme.spacing[5],
       paddingBottom: theme.spacing[5],
-      paddingLeft: isTeacher && theme.spacing[5],
+      // paddingLeft: isTeacher && theme.spacing[5],
       backgroundColor: isTeacher ? theme.colors.interactive03 : theme.colors.uiBackground04,
     },
     breadcrumbs: {

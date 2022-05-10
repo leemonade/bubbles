@@ -165,6 +165,7 @@ const NodeRenderer = ({
                   [classes.nodeTextSelected]: isSelected,
                   [classes.nodeTextDefaultHover]: hover && !isSelected,
                 })}
+                truncated
               >
                 {node.text}
               </Text>

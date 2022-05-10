@@ -6,10 +6,12 @@ export const getActiveItem = (menuData) => {
 
   if (window && window.location) {
     const url = window.location.pathname;
+
     forEach(menuData, (item) => {
       if (item.url === url) {
         activeItem = item;
       }
+
       forEach(item.children, (subItem) => {
         if (subItem.url === url) {
           activeItem = item;
@@ -17,6 +19,7 @@ export const getActiveItem = (menuData) => {
           return false;
         }
       });
+
       if (activeItem) {
         return false;
       }
@@ -40,10 +43,15 @@ export const getActiveItem = (menuData) => {
             const matchUrl = url.indexOf(subItemUrl);
             if (matchUrl > -1 && matchUrl < 4) {
               activeItem = item;
+              activeSubItem = subItem;
               return false;
             }
           }
         });
+
+        if (activeItem) {
+          return false;
+        }
       });
     }
   }
