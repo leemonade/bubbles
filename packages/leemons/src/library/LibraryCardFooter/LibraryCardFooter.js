@@ -18,15 +18,16 @@ const LibraryCardFooter = ({
   style,
   variant,
   variantTitle,
+  variantIcon,
   ...props
 }) => {
   const { classes, cx } = LibraryCardFooterStyles({ action }, { name: 'LibraryCardFooter' });
 
   const formatDate = () => {
     try {
-      return new Date(created).toLocaleDateString('en-GB');
+      return new Date(created).toLocaleDateString(locale);
     } catch (e) {
-      return new Date(2010, 8, 21).toLocaleDateString('en-GB');
+      return new Date(2010, 8, 21).toLocaleDateString(locale);
     }
   };
 

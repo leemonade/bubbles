@@ -6,7 +6,7 @@ import {
 } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark'];
+export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark', 'curriculum'];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
   subsmission: PropTypes.number,
@@ -56,4 +56,6 @@ export const LIBRARY_CARD_PROP_TYPES = {
   isNew: PropTypes.bool,
   role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
   badge: PropTypes.string,
+  variantIcon: PropTypes.any,
+  variantTitle: PropTypes.string,
 };

@@ -49,6 +49,7 @@ const MainNav = ({
 
   const ref = useClickOutside(() => {
     if (!subNavPinned) closeSubNav(true);
+    handleRouteChange();
   });
   // ······································································
   // HANDLERS
@@ -91,7 +92,9 @@ const MainNav = ({
       (items && items.activeSubItem && activeSubItem && items.activeSubItem.id !== activeSubItem.id)
     ) {
       setActiveSubItem(items.activeSubItem);
-      if (!subNavPinned) setShowSubNavToggle(true);
+      if (!subNavPinned) {
+        setShowSubNavToggle(true);
+      }
     }
   };
 
@@ -136,9 +139,13 @@ const MainNav = ({
       handleRouteChange();
     }
     if (menuData && activeItem) {
-      setActiveItem(find(menuData, { id: activeItem.id }));
+      let menu = menuData;
+      if (sessionMenu) {
+        menu = [...menu, sessionMenu];
+      }
+      setActiveItem(find(menu, { id: activeItem.id }));
     }
-  }, [menuData, isLoading]);
+  }, [menuData, sessionMenu, isLoading]);
 
   try {
     const location = useLocation();
