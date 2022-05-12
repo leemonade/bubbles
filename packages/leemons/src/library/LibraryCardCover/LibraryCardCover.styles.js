@@ -70,7 +70,7 @@ export const LibraryCardCoverStyles = createStyles(
       color: {
         width: '100%',
         height: pxToRem(8),
-        backgroundColor: color,
+        backgroundColor: color || theme.colors.ui01,
         transition: 'all 0.2s ease-out',
         borderRadius: '2px 0 0 0',
       },

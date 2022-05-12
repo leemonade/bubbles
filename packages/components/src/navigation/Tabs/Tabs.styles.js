@@ -10,6 +10,7 @@ export const TabsStyles = createStyles(
     if (fullHeight) {
       rootProps.flex = 1;
       rootProps.height = '100%';
+      rootProps.width = '100%';
     }
 
     return {

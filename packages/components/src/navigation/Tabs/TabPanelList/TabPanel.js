@@ -47,7 +47,9 @@ export const TabPanel = ({
       style={{ ...mergedStyle, ...style }}
       className={cx(classes.root, className)}
     >
-      {active || visited || forceRender ? children : null}
+      <Box style={{ width: '100%', height: '100%' }}>
+        {active || visited || forceRender ? children : null}
+      </Box>
     </Box>
   );
 };

@@ -136,6 +136,45 @@ const LibraryCardContent = ({
             )}
           </Box>
         );
+      case 'curriculum':
+        return (
+          <>
+            <Box className={classes.mainContainer}>
+              <Stack direction="column" spacing={2} fullWidth>
+                {!isEmpty(tagline) && (
+                  <TextClamp lines={truncated ? 2 : 10}>
+                    <Text role="productive" color="primary">
+                      {tagline}
+                    </Text>
+                  </TextClamp>
+                )}
+                {!isEmpty(metadata) && (
+                  <Box>
+                    <Text size={'xs'} role="productive" className={classes.label}>
+                      {metadata[0].value} - {metadata[1].value}
+                    </Text>
+                  </Box>
+                )}
+                {!isEmpty(description) && (
+                  <TextClamp lines={truncated ? 3 : 20}>
+                    <Text size={'xs'} role="productive" className={classes.description}>
+                      {description}
+                    </Text>
+                  </TextClamp>
+                )}
+              </Stack>
+            </Box>
+            {tags?.length > 0 && (
+              <Box className={classes.tagsContainer}>
+                {tags.map((tag, index) => (
+                  <Box key={`${tag} ${index}`}>
+                    <Badge label={tag} size="xs" closable={false} radius={'default'} />
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </>
+        );
       default:
         return (
           <>

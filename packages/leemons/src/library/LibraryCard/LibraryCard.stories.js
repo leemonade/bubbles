@@ -2,13 +2,10 @@ import React from 'react';
 import { Box, Stack } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
-import {
-  LIBRARY_CARD_DEFAULT_PROPS,
-  LIBRARYCARD_VARIANTS,
-  LIBRARYCARD_ASSIGMENT_ROLES,
-} from './LibraryCard.constants';
+import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 import mdx from './LibraryCard.mdx';
-import { AUDIO_ASSET, URL_ASSET, TASK_ASSET } from './mock/data';
+import { AUDIO_ASSET, URL_ASSET, TASK_ASSET, CURRICULUM_ASSET } from './mock/data';
 
 export default {
   title: 'leemons/Library/LibraryCard',
@@ -44,6 +41,7 @@ const Template = ({
   ...props
 }) => {
   const isBookmark = variant === 'bookmark';
+  const isCurriculum = variant === 'curriculum';
 
   const assetToRender = {
     cover: showImage ? (isBookmark ? URL_ASSET.cover : asset.cover) : undefined,
@@ -54,9 +52,15 @@ const Template = ({
     <Box style={{ width: 322 }}>
       <LibraryCard
         {...props}
-        asset={isBookmark ? { ...URL_ASSET, ...assetToRender } : { ...asset, ...assetToRender }}
-        deadlineProps={deadlineProps}
-        assigment={showAssigment ? assigment : null}
+        asset={
+          isCurriculum
+            ? CURRICULUM_ASSET
+            : isBookmark
+            ? { ...URL_ASSET, ...assetToRender }
+            : { ...asset, ...assetToRender }
+        }
+        deadlineProps={isCurriculum ? null : deadlineProps}
+        assigment={!isCurriculum && showAssigment ? assigment : null}
         variant={variant}
         action={showAction ? action : undefined}
       />

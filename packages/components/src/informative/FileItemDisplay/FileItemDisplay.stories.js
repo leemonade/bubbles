@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { FileItemDisplay, FILE_ITEM_DISPLAY_DEFAULT_PROPS } from './FileItemDisplay';
 import mdx from './FileItemDisplay.mdx';
 
@@ -18,8 +18,14 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ children, ...props }) => {
-  return <FileItemDisplay {...props}>{children}</FileItemDisplay>;
+const Template = ({ children, useRouter, ...props }) => {
+  return (
+    <Router>
+      <FileItemDisplay {...props} useRouter={useRouter}>
+        {children}
+      </FileItemDisplay>
+    </Router>
+  );
 };
 
 export const Playground = Template.bind({});

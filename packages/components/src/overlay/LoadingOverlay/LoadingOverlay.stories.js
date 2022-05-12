@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { LoadingOverlay, LOADING_OVERLAY_DEFAULT_PROPS } from './LoadingOverlay';
 import mdx from './LoadingOverlay.mdx';
+import { Paper } from '../../layout';
 
 export default {
   title: 'Molecules/Overlay/LoadingOverlay',
@@ -21,8 +21,12 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <LoadingOverlay {...props}>{children}</LoadingOverlay>;
+const Template = ({ ...props }) => {
+  return (
+    <Paper color="solid" style={{ position: 'relative' }}>
+      <LoadingOverlay {...props} visible={true} />
+    </Paper>
+  );
 };
 
 export const Playground = Template.bind({});

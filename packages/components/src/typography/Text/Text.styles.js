@@ -27,7 +27,7 @@ const getSizes = (theme, size) => {
 };
 
 export const TextStyles = createStyles(
-  (theme, { role, transform, color, strong, stronger, size, truncated }) => {
+  (theme, { role, transform, color, strong, stronger, size, truncated, styles }) => {
     const COLORS = {
       primary: theme.colors.text01,
       secondary: theme.colors.text02,
@@ -55,6 +55,7 @@ export const TextStyles = createStyles(
         textTransform: transform,
         color: COLORS[color] || theme.colors.text02,
         ...truncateProps,
+        ...styles,
       },
     };
   }

@@ -24,7 +24,19 @@ export const TREE_DATA_1 = [
   {
     id: 'ID3',
     parent: 'ID2',
-    text: 'Class 1',
+    text: '2002 Lengua Castellana y Literatura 1',
+    actions: [
+      {
+        name: 'rename',
+        showOnHover: false,
+        icon: () => <span>R</span>,
+        handler: () => alert('Handler works'),
+      },
+      'edit',
+      {
+        name: 'delete',
+      },
+    ],
   },
   {
     id: 'ID4',

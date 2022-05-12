@@ -6,19 +6,22 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const TaskHeaderStyles = createStyles((theme, { color, styles }) => {
+export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) => {
+  const isSmall = size === 'sm';
+
   return {
     root: {
-      padding: '24px 24px 26px 24px',
+      padding: !isSmall ? '24px 24px 26px 24px' : 20,
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: !isSmall && 'column',
       gap: 18,
       ...styles,
     },
     title: {
-      fontSize: 24,
+      fontSize: !isSmall ? 24 : 20,
       fontWeight: 600,
-      lineHeight: '24px',
+      lineHeight: !isSmall ? '24px' : '20px',
+      flex: isSmall && 1,
     },
     subtitleWrapper: {
       display: 'flex',
@@ -31,6 +34,7 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles }) => {
       padding: 4,
     },
     subtitle: {
+      display: isSmall && 'none',
       fontWeight: 500,
     },
   };

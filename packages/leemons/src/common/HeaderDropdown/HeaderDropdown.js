@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Box,
-  SearchInput,
   ActionButton,
+  Box,
   ImageLoader,
-  TextClamp,
+  SearchInput,
   Text,
+  TextClamp,
 } from '@bubbles-ui/components';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
 import {
@@ -90,7 +90,7 @@ const HeaderDropdown = ({
 
   const { classes, cx } = HeaderDropdownStyles({ isOpened, headerRef }, { name: 'HeaderDropdown' });
   return (
-    <Box ref={ref} className={classes.root}>
+    <Box ref={ref} className={classes.root} {...props}>
       <Box ref={headerRef} className={classes.header}>
         {valueComponent ? (
           React.cloneElement(valueComponent, [...selectedItem])

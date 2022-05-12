@@ -5,6 +5,7 @@ export const TabPanelListStyles = createStyles((theme, { position, animated }, g
     root: {
       flex: 'auto',
       display: 'flex',
+      height: '100%',
     },
     content: {
       display: 'flex',

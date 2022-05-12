@@ -9,6 +9,7 @@ import {
   AssetBookmarkIcon,
   AssetTaskIcon,
   AssetPathIcon,
+  PluginCurriculumIcon,
 } from '@bubbles-ui/icons/solid/';
 import { FormImageAttachIcon } from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
@@ -37,6 +38,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} /> },
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'task', value: <AssetTaskIcon height={size} width={size} /> },
+    { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);

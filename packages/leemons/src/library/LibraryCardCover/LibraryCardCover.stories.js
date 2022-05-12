@@ -7,7 +7,7 @@ import {
   LIBRARYCARD_COVER_DIRECTIONS,
 } from './LibraryCardCover.constants';
 import mdx from './LibraryCardCover.mdx';
-import { LIBRARYCARD_ASSIGMENT_ROLES } from '../LibraryCard/LibraryCard.constants';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 
 export default {
   title: 'leemons/Library/LibraryCardCover',

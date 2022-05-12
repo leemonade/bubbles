@@ -4,7 +4,7 @@ import { TASK_DEADLINE_DEFAULT_PROPS, TASK_DEADLINE_SIZES } from './TaskDeadline
 import mdx from './TaskDeadline.mdx';
 
 export default {
-  title: 'Atoms/Informative/TaskDeadline',
+  title: 'leemons/Common/TaskDeadline',
   parameters: {
     component: TaskDeadline,
     docs: {

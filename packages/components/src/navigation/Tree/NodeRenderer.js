@@ -5,7 +5,7 @@ import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { useDragOver } from '@leemonade/react-dnd-treeview';
 import { Box } from '../../layout/Box';
 import { Button } from '../../form';
-import { Text } from '../../typography';
+import { Text, TextClamp } from '../../typography';
 import { NodeActions } from './NodeActions';
 import { TreeStyles } from './Tree.styles';
 
@@ -159,15 +159,17 @@ const NodeRenderer = ({
         ) : (
           <>
             {isString(node.text) ? (
-              <Text
-                className={cx({
-                  [classes.nodeTextDefault]: !isSelected,
-                  [classes.nodeTextSelected]: isSelected,
-                  [classes.nodeTextDefaultHover]: hover && !isSelected,
-                })}
-              >
-                {node.text}
-              </Text>
+              <TextClamp lines={2}>
+                <Text
+                  className={cx({
+                    [classes.nodeTextDefault]: !isSelected,
+                    [classes.nodeTextSelected]: isSelected,
+                    [classes.nodeTextDefaultHover]: hover && !isSelected,
+                  })}
+                >
+                  {node.text}
+                </Text>
+              </TextClamp>
             ) : (
               node.text
             )}
