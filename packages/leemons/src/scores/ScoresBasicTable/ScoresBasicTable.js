@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ScoreCell } from './ScoreCell';
 import { useSticky } from 'react-table-sticky';
 import { ActivityHeader } from './ActivityHeader';
@@ -9,11 +9,12 @@ import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
+import { isFunction } from 'lodash';
 
 const ScoresBasicTable = ({
   grades,
   activities,
-  value,
+  value: _value,
   labels,
   locale,
   onChange,
@@ -21,21 +22,24 @@ const ScoresBasicTable = ({
   ...props
 }) => {
   const { classes, cx } = ScoresBasicTableStyles({}, { name: 'ScoresBasicTable' });
+  const [value, setValue] = useState(_value);
+  const useNumbers = !grades.some((grade) => grade.letter);
 
   const getCompletionPercentage = (activityId) => {
     const studentsWithActivity = value.filter((student) => {
-      return student.activities.find((activity) => activity.id === activityId);
+      return student.activities.find((activity) => activity?.id === activityId);
     });
     const completionPercentage = Math.trunc((studentsWithActivity.length / value.length) * 100);
     return `${completionPercentage}%`;
   };
 
+  const findGradeLetter = (score) => grades.find(({ number }) => number === score)?.letter;
+
   const getActivities = (studentActivities) => {
     const activitiesObject = {};
-    activities.forEach(({ id, grade, score }) => {
-      const activity = studentActivities.find((studentActivity) => studentActivity.id === id);
-      activitiesObject[id] =
-        activity?.grade || activity?.score !== undefined ? activity.score : labels.noActivity;
+    activities.forEach(({ id }) => {
+      const activity = studentActivities.find((studentActivity) => studentActivity?.id === id);
+      activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
     });
     return activitiesObject;
   };
@@ -43,20 +47,16 @@ const ScoresBasicTable = ({
   const getAvgScore = (studentActivities) => {
     const sumOfScores = studentActivities.reduce((acc, { score }) => acc + score, 0);
     const averageScore = (sumOfScores / activities.length).toFixed(2);
-    return averageScore;
+    return useNumbers ? averageScore : findGradeLetter(Math.round(averageScore));
   };
 
   const getSeverity = (studentAttendance) => {
-    if (studentAttendance === 50) {
-      return 'warning';
-    }
-    if (studentAttendance > 50) {
-      return 'success';
-    }
+    if (studentAttendance === 50) return 'warning';
+    if (studentAttendance > 50) return 'success';
     return 'error';
   };
 
-  const getActivitiesPeriod = useCallback(() => {
+  const getActivitiesPeriod = () => {
     const earliestDeadline = activities.reduce((acc, { deadline }) => {
       return acc < deadline ? acc : deadline;
     }, activities[0].deadline);
@@ -66,13 +66,13 @@ const ScoresBasicTable = ({
     return `${new Date(earliestDeadline).toLocaleDateString(locale)} - ${new Date(
       latestDeadline
     ).toLocaleDateString(locale)}`;
-  }, [activities, locale]);
+  };
 
   const getRightBodyContent = () => {
-    return value.map(({ activities: studentActivities }) => {
+    return value.map(({ id, activities: studentActivities }) => {
       const studentAttendance = Math.trunc((studentActivities.length / activities.length) * 100);
       return (
-        <Box className={classes.contentRow}>
+        <Box key={id} className={classes.contentRow}>
           <Box className={classes.separator} />
           <Box className={classes.studentInfo}>
             <Text color="primary" role="productive">
@@ -125,8 +125,18 @@ const ScoresBasicTable = ({
             locale={locale}
           />
         ),
-        Cell: ({ value }) => {
-          return <ScoreCell value={value} />;
+        Cell: ({ value, row, column }) => {
+          return (
+            <ScoreCell
+              value={value}
+              noActivity={labels.noActivity}
+              grades={grades}
+              row={row}
+              column={column}
+              setValue={setValue}
+              onDataChange={onDataChange}
+            />
+          );
         },
       });
     });
@@ -138,15 +148,15 @@ const ScoresBasicTable = ({
     value.forEach(({ id, name, surname, image, activities }) => {
       data.push({
         student: { name, surname, image },
+        id,
         ...getActivities(activities),
-        gradingTasks: getAvgScore(activities),
       });
     });
     return data;
   };
 
-  const columns = useMemo(() => getColumns(), [activities, labels, locale]);
-  const data = useMemo(() => getData(), [activities, labels, locale]);
+  const columns = useMemo(() => getColumns(), [value, activities, labels, locale, useNumbers]);
+  const data = useMemo(() => getData(), [value, activities, labels, locale, useNumbers]);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
@@ -155,6 +165,14 @@ const ScoresBasicTable = ({
     useFlexLayout,
     useSticky
   );
+
+  useEffect(() => {
+    setValue(_value);
+  }, [..._value]);
+
+  useEffect(() => {
+    isFunction(onChange) && onChange(value);
+  }, [value]);
 
   return (
     <Box className={classes.root}>

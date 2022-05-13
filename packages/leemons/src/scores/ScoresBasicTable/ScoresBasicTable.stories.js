@@ -29,17 +29,27 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onChange: { action: 'onChange' },
+    onDataChange: { action: 'onDataChange' },
+  },
 };
 
-const Template = ({ ...props }) => {
-  return <ScoresBasicTable {...props} />;
+const Template = ({ grades, useLetters, ...props }) => {
+  const gradesToUse = useLetters
+    ? grades
+    : grades.map(({ number }) => {
+        return { number };
+      });
+
+  return <ScoresBasicTable {...props} grades={gradesToUse} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...SCORES_BASIC_TABLE_DEFAULT_PROPS,
+  useLetters: false,
   labels: {
     students: 'Estudiante',
     noActivity: 'No entregado',
