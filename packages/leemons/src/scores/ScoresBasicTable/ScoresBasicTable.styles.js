@@ -12,6 +12,7 @@ export const ScoresBasicTableStyles = createStyles((theme, {}) => {
       display: 'flex',
     },
     table: {
+      width: '100%',
       overflowX: 'auto',
       minWidth: '650px !important',
       backgroundColor: theme.colors.mainWhite,

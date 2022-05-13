@@ -177,7 +177,7 @@ const ScoresBasicTable = ({
   return (
     <Box className={classes.root}>
       <Box {...getTableProps()} className={classes.table}>
-        <Box>
+        <Box style={{ flex: 1 }}>
           <Box className={classes.tableHeader}>
             {headerGroups.map((headerGroup) => (
               <Box {...headerGroup.getHeaderGroupProps()} className={classes.tableHeaderRow}>
