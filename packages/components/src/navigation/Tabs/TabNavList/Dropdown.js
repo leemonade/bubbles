@@ -1,5 +1,6 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { Menu, Box } from '@mantine/core';
 import { ChevronDownIcon } from '@bubbles-ui/icons/outline';
 import { IconButton } from './../../../form';
@@ -57,7 +58,7 @@ export const Dropdown = forwardRef(({ tabs, rtl, onTabClick }, ref) => {
           <Menu.Item
             key={tab.key}
             onClick={(e) => {
-              if (onTabClick && typeof onTabClick === 'function') onTabClick(tab.key, e);
+              if (isFunction(onTabClick)) onTabClick(tab.key, e);
             }}
           >
             {tab.label}
