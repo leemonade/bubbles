@@ -5,14 +5,14 @@ import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
 import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
-const Progress = ({ state, position, isButton, isChild, isCurrent, ...props }) => {
+const Progress = ({ state, position, isButton, isChild, isText, isCurrent, ...props }) => {
   const { classes, cx } = ProgressStyles(
-    { position, isButton, isCurrent, state },
+    { position, isButton, isText, isCurrent, state },
     { name: 'Progress' }
   );
 
   const renderState = () => {
-    if (isChild)
+    if (isChild) {
       return (
         <Box className={classes.progressContainer}>
           <Box className={classes.progressBar}>
@@ -20,6 +20,14 @@ const Progress = ({ state, position, isButton, isChild, isCurrent, ...props }) =
           </Box>
         </Box>
       );
+    }
+    if (isText) {
+      return (
+        <Box className={classes.progressContainer}>
+          <Box className={classes.textBar}></Box>
+        </Box>
+      );
+    }
     switch (state) {
       case 'pending':
         return (

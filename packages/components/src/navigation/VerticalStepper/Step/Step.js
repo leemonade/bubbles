@@ -2,76 +2,94 @@ import React from 'react';
 import { Box } from '../../../layout/';
 import { Text } from '../../../typography';
 import { Badge } from '../../../informative';
+import { Button } from '../../../form';
 import { Progress } from '../';
 import { StepStyles } from './Step.styles';
 import { STEP_DEFAULT_PROPS, STEP_PROP_TYPES } from './Step.constants';
+import { isFunction } from 'lodash';
 
 const Step = ({
   label,
+  text,
   badge,
   state,
   position,
+  onClick,
   isChild,
-  totalChilds,
-  childPosition,
-  childPositions,
-  currentStep,
+  isActive,
+  showChild,
+  childRange,
   ...props
 }) => {
+  const isButton = !!onClick;
+  const isText = !!text;
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
-  let isCurrent = false;
-  let inRange = false;
-  if (isChild) {
-    isCurrent = currentStep >= childPosition && !isCompleted;
-    inRange = currentStep >= childPositions[0] - 1 && currentStep <= childPositions[1];
-  }
 
-  const { classes, cx } = StepStyles({ isCompleted, totalChilds }, { name: 'Step' });
+  if (isText) console.log(state);
+
+  const onClickHandler = () => {
+    isFunction(onClick) && onClick();
+  };
+
+  const renderVariant = () => {
+    if (isButton)
+      return (
+        <>
+          {isCompleted && <Text className={classes.label}>{label}</Text>}
+          {!isCompleted && (
+            <Button
+              size="xs"
+              disabled={!isActive}
+              position="center"
+              fullWidth
+              onClick={onClickHandler}
+            >
+              {label}
+            </Button>
+          )}
+        </>
+      );
+    if (isText) {
+      return (
+        <Text role="productive" size="xs" strong color="soft" transform="uppercase">
+          {text}
+        </Text>
+      );
+    }
+    return (
+      <>
+        <Text className={classes.label}>{label}</Text>
+        {badge && (
+          <Badge
+            className={classes.badge}
+            label={badge}
+            severity={'success'}
+            radius={'default'}
+            closable={false}
+            size={'xs'}
+          />
+        )}
+      </>
+    );
+  };
+
+  const { classes, cx } = StepStyles(
+    { isButton, isText, isActive, isCompleted, isChild, showChild, childRange },
+    { name: 'Step' }
+  );
   return (
-    <>
-      {!isChild ? (
-        <Box className={classes.root}>
-          <Box className={classes.isCompletedBackground} />
-          <Box className={classes.info}>
-            <Box>
-              <Text className={classes.label}>{label}</Text>
-              {badge && (
-                <Badge
-                  className={classes.badge}
-                  label={badge}
-                  severity={'success'}
-                  radius={'default'}
-                  closable={false}
-                  size={'xs'}
-                />
-              )}
-            </Box>
-          </Box>
-          <Progress state={state} position={position} />
-        </Box>
-      ) : (
-        (isCompleted || inRange) && (
-          <Box>
-            <Box className={classes.childStep}>
-              <Box className={classes.info}>
-                <Text className={classes.label}>{label}</Text>
-                {badge && (
-                  <Badge
-                    className={classes.badge}
-                    label={badge}
-                    severity={'success'}
-                    radius={'default'}
-                    closable={false}
-                    size={'xs'}
-                  />
-                )}
-              </Box>
-              <Progress position={'between'} isChild state={state} isCurrent={isCurrent} />
-            </Box>
-          </Box>
-        )
-      )}
-    </>
+    <Box className={classes.root}>
+      {!isChild && <Box className={classes.isCompletedBackground} />}
+      <Box className={classes.labelContainer}>{renderVariant()}</Box>
+      <Progress
+        state={state}
+        position={position}
+        isChild={isChild}
+        isText={isText}
+        isButton={isButton}
+        isCurrent={!isChild ? isActive : state === 'current'}
+      />
+    </Box>
   );
 };
 

@@ -4,6 +4,7 @@ export const DATA = [
     badge: 'Badge',
     status: 'OK',
   },
+  { text: 'Main tasks' },
   {
     label: 'Tarea previa',
     childSteps: [
