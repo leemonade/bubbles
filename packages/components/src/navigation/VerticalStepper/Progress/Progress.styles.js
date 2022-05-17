@@ -1,23 +1,23 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 export const ProgressStyles = createStyles(
-  (theme, { position, isButton, isText, isCurrent, state }) => {
+  (theme, { position, isButton, isActivity, isText, isCurrent, state }) => {
     const isFirst = position === 'start';
     const isLast = position === 'end';
     const isBetween = position === 'between';
 
     const getSolidBarHeight = () => {
       if (isBetween) {
-        return isButton ? 56 : 44;
+        return isButton || isActivity ? 56 : 44;
       }
-      return isButton ? 38 : 32;
+      return isButton || isActivity ? 38 : 32;
     };
 
     const getPendingBarHeight = () => {
       if (isBetween) {
-        return isButton ? 55 : 43;
+        return isButton || isActivity ? 55 : 43;
       }
-      return isButton ? 33 : 27;
+      return isButton || isActivity ? 33 : 27;
     };
 
     return {

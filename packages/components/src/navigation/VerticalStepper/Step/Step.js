@@ -5,12 +5,15 @@ import { Badge } from '../../../informative';
 import { Button } from '../../../form';
 import { Progress } from '../';
 import { StepStyles } from './Step.styles';
+import { RatingStarIcon as RatingStarIconSolid } from '@bubbles-ui/icons/solid';
+import { RatingStarIcon as RatingStarIconOutline } from '@bubbles-ui/icons/outline';
 import { STEP_DEFAULT_PROPS, STEP_PROP_TYPES } from './Step.constants';
 import { isFunction } from 'lodash';
 
 const Step = ({
   label,
   text,
+  completion,
   badge,
   state,
   position,
@@ -23,6 +26,7 @@ const Step = ({
 }) => {
   const isButton = !!onClick;
   const isText = !!text;
+  const isActivity = !!completion;
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
 
   const onClickHandler = () => {
@@ -32,7 +36,7 @@ const Step = ({
   const renderVariant = () => {
     if (isButton)
       return (
-        <>
+        <React.Fragment>
           {isCompleted && <Text className={classes.label}>{label}</Text>}
           {!isCompleted && (
             <Button
@@ -45,7 +49,7 @@ const Step = ({
               {label}
             </Button>
           )}
-        </>
+        </React.Fragment>
       );
     if (isText) {
       return (
@@ -54,8 +58,29 @@ const Step = ({
         </Text>
       );
     }
+    if (isActivity) {
+      const activityCompleted = completion.current === completion.total;
+      const badgeLabel = (
+        <Box className={classes.activityBadge}>
+          <Text>{`${completion.current}/${completion.total}`}</Text>
+          {!activityCompleted && <RatingStarIconOutline width={12} height={12} />}
+          {activityCompleted && <RatingStarIconSolid width={12} height={12} />}
+        </Box>
+      );
+      return (
+        <Box className={classes.activityStep}>
+          <Text className={classes.label}>{label}</Text>
+          <Badge
+            label={badgeLabel}
+            color={isActive ? 'stroke' : 'solid'}
+            closable={false}
+            size={'xs'}
+          />
+        </Box>
+      );
+    }
     return (
-      <>
+      <React.Fragment>
         <Text className={classes.label}>{label}</Text>
         {badge && (
           <Badge
@@ -67,16 +92,23 @@ const Step = ({
             size={'xs'}
           />
         )}
-      </>
+      </React.Fragment>
     );
   };
 
+  const getVariantClassName = () => {
+    if (isButton) return classes.buttonVariant;
+    if (isText) return classes.textVariant;
+    if (isActivity) return classes.activityVariant;
+    return classes.defaultVariant;
+  };
+
   const { classes, cx } = StepStyles(
-    { isButton, isText, isActive, isCompleted, isChild, showChild, childRange },
+    { isButton, isText, isActive, isActivity, isCompleted, isChild, showChild, childRange },
     { name: 'Step' }
   );
   return (
-    <Box className={classes.root}>
+    <Box className={getVariantClassName()}>
       {!isChild && <Box className={classes.isCompletedBackground} />}
       <Box className={classes.labelContainer}>{renderVariant()}</Box>
       <Progress
@@ -85,7 +117,8 @@ const Step = ({
         isChild={isChild}
         isText={isText}
         isButton={isButton}
-        isCurrent={!isChild ? isActive : state === 'current'}
+        isActivity={isActivity}
+        isCurrent={isChild ? state === 'current' : isActive}
       />
     </Box>
   );

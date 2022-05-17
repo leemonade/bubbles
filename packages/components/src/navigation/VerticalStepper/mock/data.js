@@ -19,9 +19,17 @@ export const DATA = [
   {
     label: 'Enunciado',
     status: 'KO',
+    completion: {
+      current: 3,
+      total: 4,
+    },
   },
   {
     label: 'Desarrollo',
+    completion: {
+      current: 4,
+      total: 4,
+    },
   },
   { text: 'Enunciado previo' },
   {
