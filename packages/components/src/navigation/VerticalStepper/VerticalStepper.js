@@ -22,12 +22,19 @@ const VerticalStepper = ({
 
   const getSteps = (data) => {
     const steps = [];
-    data.forEach((step, index) => {
+    const stepsFiltered = data.filter((step, index) => {
       if (step.text) {
         textSteps.push({ text: step.text, index });
-        return;
+        return false;
       }
-      steps.push(step);
+      return true;
+    });
+    stepsFiltered.forEach((step, index) => {
+      if (step.text) {
+        textSteps.push({ text: step.text, index });
+      } else {
+        steps.push(step);
+      }
       if (step.childSteps) {
         step.childRange = [index + 1, index + step.childSteps.length];
         steps.push(
@@ -53,73 +60,79 @@ const VerticalStepper = ({
     return 'between';
   };
 
-  const getCompletionState = (step, index) => {
-    if (!step.childSteps && completedSteps.includes(index)) return true;
-    if (
-      step.childRange &&
-      step.childRange.every((childIndex) => completedSteps.includes(childIndex))
-    ) {
-      return true;
-    }
-    if (step.isChild && completedSteps.includes(step.parentIndex)) return true;
+  const activeIndexInRange = (stepRange) => {
+    if (activeIndex >= stepRange[0] && activeIndex <= stepRange[1]) return true;
     return false;
   };
 
-  const getStepState = (index, step) => {
-    if (getCompletionState(step, index)) return step.status || 'completed';
-    if (step.childSteps && isIndexInParentRange(step.childRange, activeIndex)) return 'current';
-    if (step.isChild && index <= activeIndex && activeIndex <= step.siblingsRange[1]) {
-      return 'current';
+  const checkIfAllCompleted = (step, index) => {
+    const allChildrenCompleted = step.childRange.every((childIndex) =>
+      completedSteps.includes(childIndex)
+    );
+    if (completedSteps.includes(index) && allChildrenCompleted) return true;
+    return false;
+  };
+
+  const getStepState = (step, index) => {
+    if (step.isChild) {
+      if (step.siblingsRange.every((childIndex) => completedSteps.includes(childIndex)))
+        return 'completed';
+      if (index <= activeIndex && activeIndexInRange(step.siblingsRange)) return 'current';
+    }
+    if (step.childRange) {
+      if (checkIfAllCompleted(step, index)) return step.status || 'completed';
+      if (index === activeIndex || activeIndexInRange(step.childRange)) return 'current';
+      return 'pending';
+    }
+    if (completedSteps.includes(index)) {
+      return step.status || 'completed';
     }
     if (index === activeIndex) return 'current';
     return 'pending';
   };
 
-  const isIndexInParentRange = (siblingsRange, index) => {
-    return index >= siblingsRange[0] && index <= siblingsRange[1];
-  };
-
-  const isChildRangeActive = (childSteps) => {
-    return childSteps.some((siblingsIndex) => completedSteps.includes(siblingsIndex));
-  };
-
-  const shouldShowChild = (step, index) => {
-    if (!step.isChild) return false;
+  const shouldShowChild = (step) => {
+    if (!step.isChild) return;
     if (
       step.parentIndex === activeIndex ||
-      isIndexInParentRange(step.siblingsRange, activeIndex) ||
+      activeIndexInRange(step.siblingsRange) ||
       completedSteps.includes(step.parentIndex) ||
-      isChildRangeActive(step.siblingsRange)
+      step.siblingsRange.some((childIndex) => completedSteps.includes(childIndex))
     )
       return true;
     return false;
+  };
+
+  const getTextStepState = (textStep) => {
+    if (completedSteps.includes(textStep.index - 1)) return 'completed';
+    return 'pending';
+  };
+
+  const renderTextStep = (index) => {
+    const textStep = textSteps.find((step) => step.index === index);
+    if (textStep) {
+      return (
+        <Step key={`textStep${index}`} text={textStep.text} state={getTextStepState(textStep)} />
+      );
+    }
   };
 
   const onActiveIndexHandler = (index) => {
     setActiveIndex(index);
   };
 
-  const renderTextStep = (index, state) => {
-    const textStep = textSteps.find((step) => step.index === index);
-    if (textStep) {
-      return <Step key={`textStep${index}`} text={textStep.text} state={state} />;
-    }
-  };
-
   const renderSteps = () => {
     const stepsToRender = allSteps.map((step, index) => {
       const stepProps = {
         position: getStepPosition(index),
-        state: getStepState(index, step),
+        state: getStepState(step, index),
         isActive: index === activeIndex,
         showChild: shouldShowChild(step, index),
       };
 
-      const textStepState = activeIndex < index ? 'pending' : 'completed';
-
       return (
-        <>
-          {renderTextStep(index, textStepState)}
+        <React.Fragment key={`fragment${index}`}>
+          {renderTextStep(index)}
           <Box
             key={`container${index}`}
             onClick={() => onActiveIndexHandler(index)}
@@ -127,15 +140,15 @@ const VerticalStepper = ({
           >
             <Step key={index} {...step} {...stepProps} />
           </Box>
-        </>
+        </React.Fragment>
       );
     });
     return stepsToRender;
   };
 
   useEffect(() => {
-    if (autocompleteOnNext) {
-      setCompletedSteps([...new Set([...completedSteps, activeIndex - 1])]);
+    if (autocompleteOnNext && activeIndexProp > activeIndex) {
+      setCompletedSteps([...new Set([...completedSteps, activeIndex])]);
     }
     if (activeIndex !== activeIndexProp) {
       setActiveIndex(activeIndexProp);

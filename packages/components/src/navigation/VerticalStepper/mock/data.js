@@ -23,6 +23,7 @@ export const DATA = [
   {
     label: 'Desarrollo',
   },
+  { text: 'Enunciado previo' },
   {
     label: 'Pruebas',
     onClick: () => {

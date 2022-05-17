@@ -25,8 +25,6 @@ const Step = ({
   const isText = !!text;
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
 
-  if (isText) console.log(state);
-
   const onClickHandler = () => {
     isFunction(onClick) && onClick();
   };
