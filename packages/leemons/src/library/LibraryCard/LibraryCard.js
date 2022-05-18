@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
-import {
-  AssetBookmarkIcon,
-  AssetPathIcon,
-  AssetTaskIcon,
-  PluginCurriculumIcon,
-} from '@bubbles-ui/icons/solid';
+import { AssetBookmarkIcon, AssetPathIcon, AssetTaskIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardCover } from '../LibraryCardCover';
 import { LibraryCardContent } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
@@ -18,7 +13,6 @@ const LibraryCard = ({
   assigment,
   variant,
   variantTitle,
-  variantIcon,
   deadlineProps,
   action,
   onAction,
@@ -60,11 +54,6 @@ const LibraryCard = ({
                 <AssetTaskIcon />
               </Box>
             ),
-            curriculum: (
-              <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
-                <PluginCurriculumIcon />
-              </Box>
-            ),
           }[variant] || (
             <FileIcon
               size={64}
@@ -90,7 +79,6 @@ const LibraryCard = ({
         {...asset}
         variant={variant}
         variantTitle={variantTitle}
-        variantIcon={variantIcon}
         action={action}
         onAction={onAction}
         locale={locale}

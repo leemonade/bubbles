@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { LIBRARY_CARD_DEADLINE_SEVERITY } from './LibraryCardDeadline';
 
 export const validateURL = (props, propName, componentName) => {
   let url;
@@ -13,7 +14,6 @@ export const validateURL = (props, propName, componentName) => {
 
 export const LIBRARYCARD_COVER_DIRECTIONS = ['vertical', 'horizontal'];
 export const LIBRARYCARD_ASSIGMENT_ROLES = ['teacher', 'student'];
-export const LIBRARY_CARD_DEADLINE_SEVERITY = ['low', 'medium', 'high'];
 export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,

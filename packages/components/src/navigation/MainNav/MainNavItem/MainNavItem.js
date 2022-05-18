@@ -47,11 +47,6 @@ export const MainNavItem = ({
     return children;
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    setTimeout(() => setIsHovered(false), 3000);
-  };
-
   return (
     <Tooltip
       opened={isHovered}
@@ -67,7 +62,7 @@ export const MainNavItem = ({
           disabled={item.disabled}
           aria-label={item.label}
           onClick={handleClick}
-          onMouseEnter={handleMouseEnter}
+          onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <ImageLoader

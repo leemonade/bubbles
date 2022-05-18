@@ -2,12 +2,11 @@ import React from 'react';
 import { Box } from '@bubbles-ui/components';
 import { ArchiveIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from './LibraryCardDeadline';
-import { LIBRARY_CARD_DEADLINE_DEFAULT_PROPS } from './LibraryCardDeadline.constants';
 import {
-  LIBRARYCARD_COVER_DIRECTIONS,
-  LIBRARYCARD_ASSIGMENT_ROLES,
+  LIBRARY_CARD_DEADLINE_DEFAULT_PROPS,
   LIBRARY_CARD_DEADLINE_SEVERITY,
-} from '../Library.constants';
+} from './LibraryCardDeadline.constants';
+import { LIBRARYCARD_COVER_DIRECTIONS, LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 import mdx from './LibraryCardDeadline.mdx';
 
 export default {

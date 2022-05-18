@@ -198,15 +198,12 @@ export const TreeStyles = createStyles((theme, {}) => {
     },
     nodeTextDefault: {
       color: theme.colors.text02,
-      lineHeight: '1em',
     },
     nodeTextDefaultHover: {
       color: theme.colors.text01,
-      lineHeight: '1em',
     },
     nodeTextSelected: {
       color: theme.colors.interactive01,
-      lineHeight: '1em',
     },
     nodeContent: {
       gridArea: 'content',

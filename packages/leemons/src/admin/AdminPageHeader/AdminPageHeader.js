@@ -225,6 +225,7 @@ const AdminPageHeader = ({
 
                   {isNotEmpty(BUTTONS.NEW) && (
                     <Button
+                      color="secondary"
                       type="button"
                       loading={checkLoading(BUTTONS.NEW)}
                       onClick={(e) => onPressButton(onNew, e)}

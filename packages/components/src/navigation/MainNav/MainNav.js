@@ -31,7 +31,6 @@ const MainNav = ({
   onOpen,
   onPin,
   menuData,
-  sessionMenu,
   isLoading,
   subNavWidth,
   pinned,
@@ -49,7 +48,6 @@ const MainNav = ({
 
   const ref = useClickOutside(() => {
     if (!subNavPinned) closeSubNav(true);
-    handleRouteChange();
   });
   // ······································································
   // HANDLERS
@@ -70,11 +68,7 @@ const MainNav = ({
   };
 
   const handleRouteChange = () => {
-    let menu = menuData;
-    if (sessionMenu) {
-      menu = [...menu, sessionMenu];
-    }
-    const items = getActiveItem(menu);
+    const items = getActiveItem(menuData);
 
     if (
       (items && items.activeItem && !activeItem) ||
@@ -92,9 +86,7 @@ const MainNav = ({
       (items && items.activeSubItem && activeSubItem && items.activeSubItem.id !== activeSubItem.id)
     ) {
       setActiveSubItem(items.activeSubItem);
-      if (!subNavPinned) {
-        setShowSubNavToggle(true);
-      }
+      if (!subNavPinned) setShowSubNavToggle(true);
     }
   };
 
@@ -125,12 +117,6 @@ const MainNav = ({
     }
   };
 
-  function onAvatarClick() {
-    if (sessionMenu) {
-      handleItemClick(sessionMenu);
-    }
-  }
-
   // ······································································
   // WATCHERS
 
@@ -139,13 +125,9 @@ const MainNav = ({
       handleRouteChange();
     }
     if (menuData && activeItem) {
-      let menu = menuData;
-      if (sessionMenu) {
-        menu = [...menu, sessionMenu];
-      }
-      setActiveItem(find(menu, { id: activeItem.id }));
+      setActiveItem(find(menuData, { id: activeItem.id }));
     }
-  }, [menuData, sessionMenu, isLoading]);
+  }, [menuData, isLoading]);
 
   try {
     const location = useLocation();
@@ -199,7 +181,6 @@ const MainNav = ({
             radius="xl"
             image={session?.avatar}
             fullName={session ? getUserFullName(session) : undefined}
-            onClick={onAvatarClick}
           />
         </Box>
         <Box className={classes.navWrapperBorder} />

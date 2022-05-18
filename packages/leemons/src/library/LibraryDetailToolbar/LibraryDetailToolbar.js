@@ -10,7 +10,6 @@ import {
 import {
   DuplicateIcon,
   CloudUploadIcon,
-  DownloadDrawerIcon,
   PluginAssignmentsIcon,
   MoveRightIcon,
   PluginKimIcon,
@@ -96,7 +95,7 @@ const LibraryDetailToolbar = ({
           )}
           {toolbarItems.download && (
             <ActionButton
-              icon={<DownloadDrawerIcon height={20} width={20} />}
+              icon={<CloudUploadIcon height={20} width={20} />}
               onClick={handleDownload}
               tooltip={toolbarItems.download}
               className={classes.button}

@@ -95,22 +95,3 @@ export const TASK_ASSET = {
     { fullName: 'Tony Stark' },
   ],
 };
-
-export const CURRICULUM_ASSET = {
-  name: 'SEK Santa Isabel - ESO',
-  created: '2022-02-04T16:26:31.485Z',
-  description: 'Párrafo descriptivo de lo que va el curriculum, que es opcional.',
-  tagline: 'Curriculum Comunidad de Madrid',
-  metadata: [
-    { label: 'Language', value: 'Español' },
-    { label: 'Country', value: 'España' },
-  ],
-  tags: ['Student', 'Learning'],
-  canAccess: [
-    { fullName: 'John Doe' },
-    { fullName: 'Mary Jane' },
-    { fullName: 'Peter Parker' },
-    { fullName: 'Will Teacher' },
-    { fullName: 'Tony Stark' },
-  ],
-};
