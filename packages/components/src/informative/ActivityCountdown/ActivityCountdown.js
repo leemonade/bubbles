@@ -7,7 +7,7 @@ import {
   ACTIVITY_COUNTDOWN_DEFAULT_PROPS,
   ACTIVITY_COUNTDOWN_PROP_TYPES,
 } from './ActivityCountdown.constants';
-import { AlarmBellIcon } from '@bubbles-ui/icons/outline';
+import { AlarmClockIcon } from '@bubbles-ui/icons/outline';
 
 const ActivityCountdown = ({ finish, interval, rootStyles, rootClassname, ...props }) => {
   const countDownMiliseconds = new Date(finish) - Date.now();
@@ -32,7 +32,7 @@ const ActivityCountdown = ({ finish, interval, rootStyles, rootClassname, ...pro
   return (
     <Box className={cx(classes.root, rootClassname)}>
       <Text className={classes.countdown}>{getCountdown(timeLeft)}</Text>
-      <AlarmBellIcon width={24} height={24} />
+      <AlarmClockIcon width={24} height={24} className={classes.clockIcon} />
     </Box>
   );
 };
