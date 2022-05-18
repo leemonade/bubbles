@@ -10,14 +10,14 @@ import { Calification } from '../../informative/';
 
 const VerticalStepper = ({
   data,
-  activeIndex: activeIndexProp,
+  currentStep,
   completedSteps: completedStepsProp,
   autocompleteOnNext,
   calificationProps,
   ...props
 }) => {
   const [completedSteps, setCompletedSteps] = useState(completedStepsProp);
-  const [activeIndex, setActiveIndex] = useState(activeIndexProp);
+  const [activeIndex, setActiveIndex] = useState(currentStep);
   const textSteps = [];
 
   const getSteps = (data) => {
@@ -147,13 +147,13 @@ const VerticalStepper = ({
   };
 
   useEffect(() => {
-    if (autocompleteOnNext && activeIndexProp > activeIndex) {
+    if (autocompleteOnNext && currentStep > activeIndex) {
       setCompletedSteps([...new Set([...completedSteps, activeIndex])]);
     }
-    if (activeIndex !== activeIndexProp) {
-      setActiveIndex(activeIndexProp);
+    if (activeIndex !== currentStep) {
+      setActiveIndex(currentStep);
     }
-  }, [activeIndexProp]);
+  }, [currentStep]);
 
   useEffect(() => {
     setCompletedSteps([...new Set(completedStepsProp)]);
