@@ -1,20 +1,7 @@
-const path = require('path');
-
 module.exports = {
-  webpackFinal: async (config) => {
-    return {
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          react: path.resolve(require.resolve('react'), '..'),
-          'react-dom': path.resolve(require.resolve('react-dom'), '..'),
-          'react-router-dom': path.resolve(require.resolve('react-router-dom'), '..'),
-          // 'styled-components': path.resolve(require.resolve('styled-components'), '..'),
-        },
-      },
-    };
+  framework: '@storybook/react',
+  core: {
+    builder: 'webpack5',
   },
   stories: [
     './Welcome/Welcome.stories.js',
