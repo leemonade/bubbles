@@ -1,13 +1,13 @@
-import { Box } from '@mantine/core';
+import React, { useState } from 'react';
 import { isFunction } from 'lodash';
 import { Navigation } from 'swiper';
+import { Swiper as SwiperComp, SwiperSlide } from 'swiper/react';
+import { Box } from '../../layout';
 import { SwiperStyles } from './Swiper.styles';
-import React, { useState } from 'react';
 import { NextElement, PrevElement } from './NavigationElements';
-import { Swiper as SwiperComp, SwiperSlide } from 'swiper/react/swiper-react';
 import { SWIPER_DEFAULT_PROPS, SWIPER_PROP_TYPES } from './Swiper.constants';
-import 'swiper/swiper.min.css';
-import 'swiper/modules/navigation/navigation.min.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const Swiper = ({
   children,

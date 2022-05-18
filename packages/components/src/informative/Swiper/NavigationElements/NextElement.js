@@ -1,6 +1,7 @@
-import { Box } from '../../../layout';
-import { useSwiper } from 'swiper/react/swiper-react';
+import React from 'react';
+import { useSwiper } from 'swiper/react';
 import { ChevRightIcon } from '@bubbles-ui/icons/outline/';
+import { Box } from '../../../layout';
 
 const NextElement = ({ className }) => {
   const swiper = useSwiper();
