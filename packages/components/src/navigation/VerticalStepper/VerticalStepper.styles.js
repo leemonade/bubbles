@@ -8,9 +8,9 @@ export const VerticalStepperStyles = createStyles(
       stepColumn: {
         ...stepColumnStyles,
       },
-      // currentStep: {
-      //   ...currentStepStyles,
-      // },
+      clickableStep: {
+        cursor: 'pointer',
+      },
     };
   }
 );
