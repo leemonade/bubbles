@@ -62,6 +62,7 @@ const LibraryCardCover = ({
       <Box className={classes.deadline}>
         <LibraryCardDeadline
           {...deadlineProps}
+          locale={deadlineProps.locale}
           direction={direction}
           parentHovered={parentHovered}
           isNew={isNew}

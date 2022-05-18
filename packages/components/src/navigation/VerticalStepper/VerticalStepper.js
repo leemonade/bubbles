@@ -1,4 +1,5 @@
 import React from 'react';
+import { inRange } from 'lodash';
 import { Box } from '../../layout';
 import { Step, StepperButton } from './';
 import { VerticalStepperStyles } from './VerticalStepper.styles';
@@ -7,7 +8,6 @@ import {
   VERTICAL_STEPPER_PROP_TYPES,
 } from './VerticalStepper.constants';
 import { Calification } from '../../informative/';
-import { inRange } from 'lodash';
 
 const VerticalStepper = ({
   data,

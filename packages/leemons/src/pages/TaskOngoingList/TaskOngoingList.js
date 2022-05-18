@@ -51,6 +51,7 @@ const TaskOngoingList = ({ ...props }) => {
             zIndex: 5,
           }}
         />
+        <Box className={classes.timelineVeil} />
       </Box>
       <Box className={classes.mainContent}>
         <Box className={classes.leftSide}>

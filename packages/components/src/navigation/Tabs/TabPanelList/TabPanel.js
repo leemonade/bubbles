@@ -53,7 +53,7 @@ export const TabPanel = ({
     </Box>
   );
 };
-
+TabPanel.displayName = 'TabPanel';
 TabPanel.propTypes = {
   tab: PropTypes.node,
   disabled: PropTypes.bool,

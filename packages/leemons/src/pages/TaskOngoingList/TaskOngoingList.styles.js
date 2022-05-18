@@ -50,5 +50,13 @@ export const TaskOngoingListStyles = createStyles((theme, {}) => {
       width: '50%',
       padding: 24,
     },
+    timelineVeil: {
+      position: 'absolute',
+      top: 0,
+      height: '100%',
+      width: '100%',
+      zIndex: 4,
+      backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    },
   };
 });
