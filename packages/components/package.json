@@ -58,6 +58,7 @@
     "namor": "^2.0.3",
     "prop-types": "^15.7.2",
     "react-beautiful-dnd": "^13.1.0",
+    "react-countdown-hook": "^1.1.1",
     "react-dnd": "^14.0.5",
     "react-dnd-html5-backend": "^14.1.0",
     "react-helmet": "^6.1.0",
