@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { isFunction } from 'lodash';
 import raf from './wrapperRaf';
 
 export const useRaf = (callback) => {
@@ -27,7 +28,7 @@ export const useRaf = (callback) => {
 export const useRafState = (defaultState) => {
   const batchRef = useRef([]);
   const [, forceUpdate] = useState({});
-  const state = useRef(typeof defaultState === 'function' ? defaultState() : defaultState);
+  const state = useRef(isFunction(defaultState) ? defaultState() : defaultState);
 
   const flushUpdate = useRaf(() => {
     let current = state.current;

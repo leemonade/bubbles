@@ -21,9 +21,12 @@ const LibraryCardDeadline = ({
   role,
   ...props
 }) => {
-  const formattedDate = `${labels.deadline + ' '}${deadline.toLocaleDateString(
-    locale
-  )} - ${deadline.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}`;
+  const formattedDate = `${
+    labels.deadline ? labels.deadline + ' ' : ''
+  }${deadline.toLocaleDateString(locale)} - ${deadline.toLocaleTimeString(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+  })}`;
   let remainingDays = 0;
   let title = '';
 

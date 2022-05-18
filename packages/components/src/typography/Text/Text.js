@@ -4,7 +4,17 @@ import { Text as MantineText } from '@mantine/core';
 import { TextStyles } from './Text.styles';
 
 export const TEXT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
-export const TEXT_COLORS = ['interactive', 'primary', 'secondary', 'tertiary', 'quartiary', 'soft'];
+export const TEXT_COLORS = [
+  'interactive',
+  'primary',
+  'secondary',
+  'tertiary',
+  'quartiary',
+  'soft',
+  'success',
+  'warning',
+  'error',
+];
 export const TEXT_TRANSFORMS = ['capitalize', 'uppercase', 'lowercase', 'none'];
 export const TEXT_ROLES = ['productive', 'expressive', 'inherit'];
 export const TEXT_DEFAULT_PROPS = {

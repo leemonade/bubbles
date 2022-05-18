@@ -16,21 +16,23 @@ async function main() {
           const packagePath = path.resolve(dir, directory.name);
           const name = path.basename(packagePath);
 
-          childProcess
-            .exec(`yarn --cwd ${packagePath} link`)
-            // on finish
-            .on('message', (message) => {
-              console.log(`[${name}]`, message);
-            })
-            .on('exit', (code) => {
-              if (code !== 0) {
-                console.error(`Error linking ${name}`);
-                process.exit(1);
-              } else {
-                console.log(`Linked ${name}`);
-              }
-              resolve(name);
-            });
+          childProcess.exec(`yarn --cwd ${packagePath} unlink`).on('exit', () => {
+            childProcess
+              .exec(`yarn --cwd ${packagePath} link`)
+              // on finish
+              .on('message', (message) => {
+                console.log(`[${name}]`, message);
+              })
+              .on('exit', (code) => {
+                if (code !== 0) {
+                  console.error(`Error linking ${name}`);
+                  process.exit(1);
+                } else {
+                  console.log(`Linked ${name}`);
+                }
+                resolve(name);
+              });
+          });
         });
       })
   );

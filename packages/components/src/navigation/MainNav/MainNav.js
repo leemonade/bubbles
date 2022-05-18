@@ -31,7 +31,6 @@ const MainNav = ({
   onOpen,
   onPin,
   menuData,
-  sessionMenu,
   isLoading,
   subNavWidth,
   pinned,
@@ -69,11 +68,7 @@ const MainNav = ({
   };
 
   const handleRouteChange = () => {
-    let menu = menuData;
-    if (sessionMenu) {
-      menu = [...menu, sessionMenu];
-    }
-    const items = getActiveItem(menu);
+    const items = getActiveItem(menuData);
 
     if (
       (items && items.activeItem && !activeItem) ||
@@ -121,12 +116,6 @@ const MainNav = ({
       closeSubNav();
     }
   };
-
-  function onAvatarClick() {
-    if (sessionMenu) {
-      handleItemClick(sessionMenu);
-    }
-  }
 
   // ······································································
   // WATCHERS
@@ -192,7 +181,6 @@ const MainNav = ({
             radius="xl"
             image={session?.avatar}
             fullName={session ? getUserFullName(session) : undefined}
-            onClick={onAvatarClick}
           />
         </Box>
         <Box className={classes.navWrapperBorder} />
