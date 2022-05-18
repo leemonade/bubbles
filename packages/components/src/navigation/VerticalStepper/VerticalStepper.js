@@ -17,6 +17,7 @@ const VerticalStepper = ({
   ...props
 }) => {
   const [completedSteps, setCompletedSteps] = useState(completedStepsProp);
+  const [visitedSteps, setVisitedSteps] = useState([]);
   const [activeIndex, setActiveIndex] = useState(currentStep);
   const textSteps = [];
 
@@ -30,11 +31,7 @@ const VerticalStepper = ({
       return true;
     });
     stepsFiltered.forEach((step, index) => {
-      if (step.text) {
-        textSteps.push({ text: step.text, index });
-      } else {
-        steps.push(step);
-      }
+      steps.push(step);
       if (step.childSteps) {
         step.childRange = [index + 1, index + step.childSteps.length];
         steps.push(
@@ -118,6 +115,7 @@ const VerticalStepper = ({
   };
 
   const onActiveIndexHandler = (index) => {
+    if (!visitedSteps.includes(index) && !completedSteps.includes(index)) return;
     setActiveIndex(index);
   };
 
@@ -154,6 +152,10 @@ const VerticalStepper = ({
       setActiveIndex(currentStep);
     }
   }, [currentStep]);
+
+  useEffect(() => {
+    setVisitedSteps([...new Set([...visitedSteps, activeIndex])]);
+  }, [activeIndex]);
 
   useEffect(() => {
     setCompletedSteps([...new Set(completedStepsProp)]);
