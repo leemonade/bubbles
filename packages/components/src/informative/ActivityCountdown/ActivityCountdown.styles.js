@@ -17,5 +17,8 @@ export const ActivityCountdownStyles = createStyles((theme, { rootStyles }) => {
       color: theme.colors.text01,
       maxWidth: 90,
     },
+    clockIcon: {
+      color: theme.colors.text06,
+    },
   };
 });
