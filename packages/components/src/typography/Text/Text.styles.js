@@ -35,6 +35,9 @@ export const TextStyles = createStyles(
       quartiary: theme.colors.text04,
       interactive: theme.colors.interactive01,
       soft: theme.colors.text05,
+      error: theme.colors.fatic01,
+      success: theme.colors.fatic02,
+      warning: theme.colors.fatic03,
     };
 
     let truncateProps = {};

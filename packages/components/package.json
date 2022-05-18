@@ -71,7 +71,8 @@
   },
   "peerDependencies": {
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "webpack": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -89,6 +90,8 @@
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/addons": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
     "@storybook/react": "^6.4.19",
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-transform-import-styles": "^0.0.11",
@@ -104,5 +107,8 @@
     "rollup-plugin-styles": "^3.14.1",
     "rollup-plugin-terser": "^7.0.2",
     "storybook-addon-designs": "^6.2.1"
+  },
+  "resolutions": {
+    "@storybook/react/webpack": "^5"
   }
 }
