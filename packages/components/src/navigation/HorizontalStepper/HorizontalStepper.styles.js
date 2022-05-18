@@ -27,6 +27,7 @@ export const HorizontalStepperStyles = createStyles(
         position: 'relative',
         cursor: allowStepClick && 'pointer',
         zIndex: 2,
+        overflow: 'hidden',
       },
       selectedStep: {
         position: 'absolute',
@@ -79,7 +80,6 @@ export const HorizontalStepperStyles = createStyles(
         fontWeight: 500,
         color: theme.colors.text04,
         marginTop: 30,
-        paddingInline: '10%',
         textAlign: 'center',
         transition: 'all 0.1s ease-in-out',
       },
