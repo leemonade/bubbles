@@ -5,7 +5,7 @@ export const ActivityCountdownStyles = createStyles((theme, { rootStyles }) => {
   return {
     root: {
       display: 'inline-flex',
-      gap: 36,
+      gap: 46,
       paddingBlock: 18,
       paddingInline: 26,
       ...rootStyles,
@@ -15,6 +15,7 @@ export const ActivityCountdownStyles = createStyles((theme, { rootStyles }) => {
       lineHeight: '24px',
       fontWeight: 500,
       color: theme.colors.text01,
+      maxWidth: 90,
     },
   };
 });
