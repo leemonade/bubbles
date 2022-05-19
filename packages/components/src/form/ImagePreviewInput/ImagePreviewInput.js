@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString } from 'lodash';
-import { UndoIcon, CloudUploadIcon } from '@bubbles-ui/icons/outline/';
+import { CloudUploadIcon, UndoIcon } from '@bubbles-ui/icons/outline/';
 import { Box, Stack } from '../../layout';
 import { Button } from '../../form';
 import { ImageLoader } from '../../misc/ImageLoader';
@@ -33,6 +33,8 @@ const ImagePreviewInput = ({
   previewStyle,
   control,
   onChange,
+  readonly,
+  disabled,
   ...props
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
@@ -96,11 +98,19 @@ const ImagePreviewInput = ({
             radius={8}
             style={{ ...previewStyle }}
           />
-          <Box skipFlex>
-            <Button variant="light" size="sm" compact leftIcon={<UndoIcon />} onClick={resetImage}>
-              {labels.changeImage}
-            </Button>
-          </Box>
+          {!readonly && !disabled ? (
+            <Box skipFlex>
+              <Button
+                variant="light"
+                size="sm"
+                compact
+                leftIcon={<UndoIcon />}
+                onClick={resetImage}
+              >
+                {labels.changeImage}
+              </Button>
+            </Box>
+          ) : null}
         </Stack>
       )}
     </Box>
