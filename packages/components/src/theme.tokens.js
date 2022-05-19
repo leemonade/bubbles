@@ -77,4 +77,5 @@ export const SHADOWS = {
   shadow03: EFFECTS.uiLevel03,
   shadow04: EFFECTS.uiLevel04,
   shadow05: EFFECTS.uiLevel05,
+  shadow06: EFFECTS.uiLevel06,
 };

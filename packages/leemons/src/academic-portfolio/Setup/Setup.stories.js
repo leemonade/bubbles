@@ -47,7 +47,7 @@ Playground.args = {
   data: [
     {
       label: 'Basic data',
-      content: <AcademicProgramSetupBasicData {...BASIC_DATA} evaluationSystemSelect={<A />} />,
+      content: <AcademicProgramSetupBasicData {...BASIC_DATA} />,
     },
     {
       label: 'Courses',

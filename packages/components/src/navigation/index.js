@@ -1,3 +1,4 @@
+export * from './HorizontalStepper';
 export * from './VerticalStepper';
 export * from './Breadcrumbs';
 export * from './MainNav';

@@ -63,7 +63,7 @@ const MainNav = ({
     }
 
     if (isArray(item.children) && item.children.length) {
-      openSubNav(true);
+      setTimeout(() => openSubNav(true), 100);
     } else {
       closeSubNav(true);
     }

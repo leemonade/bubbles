@@ -40,7 +40,9 @@ export const getActiveItem = (menuData) => {
         // console.log('item.url:', item.url);
         if (item.url) {
           const itemUrl = item.url.replace(/([\/][^\/]+$)/g, '');
-          const match = url.indexOf(itemUrl);
+          // console.log('clean itemUrl:', itemUrl);
+          const match = url.indexOf(item.url);
+          // console.log(`${url}.indexOf(${item.url}):`, match);
           if (match > -1 && match < 4) {
             activeItem = item;
             return false;
@@ -51,7 +53,7 @@ export const getActiveItem = (menuData) => {
           // console.log('subItem.url:', subItem.url);
           if (subItem.url) {
             const subItemUrl = subItem.url.replace(/([\/][^\/]+$)/g, '');
-            const matchUrl = url.indexOf(subItemUrl);
+            const matchUrl = url.indexOf(subItem.url);
             if (matchUrl > -1 && matchUrl < 4) {
               activeItem = item;
               activeSubItem = subItem;

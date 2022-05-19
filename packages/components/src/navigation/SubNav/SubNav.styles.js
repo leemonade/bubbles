@@ -15,14 +15,18 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) =
       overflow: 'hidden',
       backgroundColor: lightMode ? theme.colors.interactive03 : theme.colors.uiBackground03,
       transform: 'translateX(-100%)',
-      transitionProperty: 'transform',
+      transitionProperty: 'all',
       transitionTimingFunction: 'cubic-bezier(.51,.3,0,1)',
-      transitionDuration: '150ms',
-      boxShadow: !pinned && theme.shadows.shadow04,
+      transitionDuration: '300ms',
       zIndex: 20,
+      boxShadow:
+        !pinned &&
+        lightMode &&
+        '32px 0px 32px rgba(35, 43, 60, 0.01), 100px 0px 60px rgba(51, 63, 86, 0.01)',
     },
     open: {
       transform: 'translateX(0)',
+      boxShadow: !pinned && lightMode && theme.shadows.shadow06,
     },
     navHeader: {
       display: 'flex',

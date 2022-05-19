@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
-import { Stack, Stepper, Title } from '@bubbles-ui/components';
+import { Stack, Stepper, Box, HorizontalStepper, Title } from '@bubbles-ui/components';
 import { SetupStyles } from './Setup.styles';
 
 export const SETUP_DEFAULT_PROPS = {
@@ -51,6 +51,7 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
   }, [values]);
 
   const handleOnNext = (formData) => {
+    console.log('se llama al onNext');
     if (active < data.length - 1) {
       setActive(active + 1);
       isFunction(onNext) && onNext(formData);
@@ -71,17 +72,21 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
       <Stack justifyContent="space-between" fullWidth>
         <Title order={2}>{labels.title}</Title>
       </Stack>
-      <Stepper
-        {...props}
-        active={active}
-        data={data}
-        onNext={handleOnNext}
-        onPrev={handleOnPrev}
-        sharedData={sharedData}
-        setSharedData={setSharedData}
-        editable={editable}
-        classNames={classes}
-      />
+      <HorizontalStepper data={data} currentStep={active} />
+      <Box>
+        {
+          data.map((item) =>
+            React.cloneElement(item.content, {
+              ...item.content.props,
+              onNext: handleOnNext,
+              onPrevious: handleOnPrev,
+              setSharedData,
+              sharedData,
+              editable,
+            })
+          )[active]
+        }
+      </Box>
     </Stack>
   );
 };
