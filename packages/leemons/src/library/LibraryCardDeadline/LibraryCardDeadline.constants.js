@@ -6,7 +6,7 @@ export const LIBRARY_CARD_DEADLINE_DEFAULT_PROPS = {
     new: '',
     deadline: '',
   },
-  locale: 'en',
+  locale: 'en-GB',
   isNew: false,
   role: 'teacher',
 };

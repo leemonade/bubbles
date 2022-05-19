@@ -9,6 +9,7 @@ export const HEADER_BACKGROUND_DEFAULT_PROPS = {
   width: '100%',
   withGradient: false,
   withBlur: false,
+  withOverlay: false,
   blur: 2,
   styles: {},
   backgroundPosition: 'unset',
@@ -22,4 +23,5 @@ export const HEADER_BACKGROUND_PROP_TYPES = {
   withBlur: PropTypes.bool,
   blur: PropTypes.number,
   styles: PropTypes.object,
+  withOverlay: PropTypes.bool,
 };

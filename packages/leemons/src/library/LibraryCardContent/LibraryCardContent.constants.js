@@ -7,6 +7,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   variant: 'media',
   badgeColor: 'solid',
   truncated: true,
+  locale: 'en-GB',
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   tagline: PropTypes.string,

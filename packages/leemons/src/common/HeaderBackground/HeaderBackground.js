@@ -14,6 +14,7 @@ const HeaderBackground = ({
   width,
   withGradient,
   withBlur,
+  withOverlay,
   blur,
   backgroundPosition,
   styles,
@@ -32,6 +33,7 @@ const HeaderBackground = ({
         style={{ backgroundImage: !image && `url(${backgroundImage})` }}
       />
       {withGradient && <Box className={classes.gradient} />}
+      {withOverlay && <Box className={classes.overlay} />}
     </Box>
   );
 };

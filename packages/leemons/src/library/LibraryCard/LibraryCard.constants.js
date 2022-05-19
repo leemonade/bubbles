@@ -43,6 +43,7 @@ export const LIBRARY_CARD_DEFAULT_PROPS = {
   role: 'teacher',
   isNew: false,
   shadow: true,
+  locale: 'en-GB',
 };
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,

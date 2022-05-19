@@ -45,6 +45,14 @@ export const HeaderBackgroundStyles = createStyles(
         background: 'linear-gradient(93.4deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 33.78%)',
         zIndex: 3,
       },
+      overlay: {
+        position: 'absolute',
+        top: 0,
+        height: '100%',
+        width: '100%',
+        zIndex: 4,
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+      },
     };
   }
 );
