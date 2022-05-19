@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { isFunction } from 'lodash';
 
 export const useMergedState = (
   defaultStateValue,
@@ -10,9 +11,9 @@ export const useMergedState = (
       return value;
     }
     if (defaultValue !== undefined) {
-      return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
+      return isFunction(defaultValue) ? defaultValue() : defaultValue;
     }
-    return typeof defaultStateValue === 'function' ? defaultStateValue() : defaultStateValue;
+    return isFunction(defaultStateValue) ? defaultStateValue() : defaultStateValue;
   });
 
   let mergedValue = value !== undefined ? value : innerValue;

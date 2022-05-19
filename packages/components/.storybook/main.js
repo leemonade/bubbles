@@ -1,6 +1,8 @@
-const path = require('path');
-
 module.exports = {
+  framework: '@storybook/react',
+  core: {
+    builder: 'webpack5',
+  },
   stories: [
     './Welcome/Welcome.stories.js',
     '../src/**/*.stories.mdx',

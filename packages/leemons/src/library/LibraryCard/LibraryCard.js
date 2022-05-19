@@ -28,13 +28,13 @@ const LibraryCard = ({
   isNew,
   role,
   badge,
+  shadow,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  console.log('deadlineProps:', deadlineProps);
+  const { classes, cx } = LibraryCardStyles({ shadow }, { name: 'LibraryCard' });
 
-  const { classes, cx } = LibraryCardStyles({}, { name: 'LibraryCard' });
   return (
     <Box
       className={cx(classes.root, props.className)}
@@ -75,7 +75,8 @@ const LibraryCard = ({
             />
           )
         }
-        deadlineProps={!isNil(deadlineProps) ? { ...deadlineProps, locale } : null}
+        deadlineProps={!isNil(deadlineProps) ? deadlineProps : null}
+        locale={locale || deadlineProps.locale}
         direction={variant === 'assigment' ? 'vertical' : null}
         parentHovered={isHovered}
         menuItems={menuItems}

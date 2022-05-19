@@ -247,7 +247,7 @@ export const ButtonStyles = createStyles(
         marginLeft: pxToRem(-8),
       },
       label: {
-        width: '100%',
+        width: !fullWidth && '100%',
       },
       filled: {
         ...getVariant('filled', theme, color, disabled),

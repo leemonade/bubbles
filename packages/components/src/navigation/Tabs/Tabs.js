@@ -1,7 +1,7 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isNil } from 'lodash';
+import { isNil, isFunction } from 'lodash';
 import { Box } from '../../layout/Box';
 import { PageContainer } from '../../layout/PageContainer';
 import { useMergedState } from './hooks';
@@ -17,7 +17,7 @@ let uuid = 0;
 
 function parseTabList(children, acc = []) {
   React.Children.forEach(children, (child, index) => {
-    if (child.type.name === 'TabPanel') {
+    if (child?.type?.displayName === 'TabPanel') {
       const key = !isNil(child.key) ? child.key : index.toString();
       acc.push({
         ...child.props,
@@ -25,7 +25,7 @@ function parseTabList(children, acc = []) {
         node: child,
       });
     } else {
-      if (child?.props?.children && child.type.name !== 'Tabs') {
+      if (child?.props?.children && child?.type?.displayName !== 'Tabs') {
         parseTabList(child.props.children, acc);
       }
     }
@@ -51,29 +51,24 @@ export const Tabs = forwardRef(
       direction,
       activeKey,
       defaultActiveKey,
-      position = 'left',
-      orientation = 'horizontal',
+      position,
+      orientation,
       destroyInactiveTabPanel,
-      animated = false,
-      fullHeight = false,
+      animated,
+      fullHeight,
       className,
       classNames,
       onChange,
       onTabClick,
       onTabScroll,
       usePageLayout,
-      panelColor = 'default',
+      panelColor,
       forceRender,
     },
     ref
   ) => {
     const tabs = parseTabList(children);
-
     const rtl = direction === 'rtl';
-
-    const mergedAnimated = {
-      tabPane: false,
-    };
 
     // ········································································
     // Active Key
@@ -104,7 +99,7 @@ export const Tabs = forwardRef(
     // Async generate id to avoid ssr mapping failed
     useEffect(() => {
       if (!id) {
-        setMergedId(`tabs-${process.env.NODE_ENV === 'test' ? 'test' : uuid}`);
+        setMergedId(`tabs-${uuid}`);
         uuid += 1;
       }
     }, []);
@@ -112,10 +107,10 @@ export const Tabs = forwardRef(
     // ········································································
     // Events
     function onInternalTabClick(key, e) {
-      if (onTabClick && typeof onTabClick === 'function') onTabClick(key, e);
+      if (isFunction(onTabClick)) onTabClick(key, e);
 
       setMergedActiveKey(key);
-      if (onChange && typeof onChange === 'function') onChange(key);
+      if (isFunction(onChange)) onChange(key);
     }
 
     // ········································································
@@ -163,6 +158,15 @@ export const Tabs = forwardRef(
     );
   }
 );
+
+Tabs.displayName = 'Tabs';
+Tabs.defaultProps = {
+  position: 'left',
+  orientation: 'horizontal',
+  animated: false,
+  fullHeight: false,
+  panelColor: 'default',
+};
 
 Tabs.propTypes = {
   id: PropTypes.string,

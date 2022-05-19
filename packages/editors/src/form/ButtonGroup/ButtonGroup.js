@@ -5,7 +5,7 @@ import { ButtonGroupStyles } from './ButtonGroup.styles';
 const ButtonGroup = ({ children }) => {
   const totalChildren = [];
   Children.toArray(children).forEach((child) => {
-    if (child.type.name === 'ButtonGroup') {
+    if (child.type.displayName === 'ButtonGroup') {
       child.props.children.length
         ? totalChildren.push(...child.props.children)
         : totalChildren.push(child.props.children);
@@ -35,5 +35,7 @@ const ButtonGroup = ({ children }) => {
   const { classes } = ButtonGroupStyles({});
   return <Box className={classes.root}>{children}</Box>;
 };
+
+ButtonGroup.displayName = 'ButtonGroup';
 
 export { ButtonGroup };
