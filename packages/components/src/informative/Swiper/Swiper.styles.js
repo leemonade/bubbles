@@ -1,16 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const SwiperStyles = createStyles(
   (
     theme,
-    { styles, slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd }
+    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd }
   ) => {
     const buttonCommonStyles = {
       position: 'absolute',
       top: 0,
       height: '100%',
-      backgroundColor: theme.colors.mainWhite,
+      backgroundColor: theme.colors.interactive03,
       marginTop: 0,
       borderRadius: 2,
       zIndex: 10,
@@ -22,18 +21,16 @@ export const SwiperStyles = createStyles(
       transition: 'width 0.3s ease-in-out',
       ...buttonStyles,
       '&:hover': {
-        backgroundColor: theme.colors.ui03,
+        backgroundColor: theme.colors.interactive03h,
       },
     };
 
     return {
       root: {
         '.swiper': {
-          backgroundColor: theme.colors.mainWhite,
-          paddingLeft: !isBeginning ? 64 : 0,
-          paddingRight: !isEnd ? 64 : 0,
+          paddingLeft: !isBeginning ? 45 : 0,
+          paddingRight: !isEnd ? 45 : 0,
           transition: 'all 0.3s ease-in-out',
-          ...styles,
         },
         '.swiper-slide': {
           height: '100%',

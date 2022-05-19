@@ -20,6 +20,7 @@ const Swiper = ({
   buttonStyles,
   nextButtonStyles,
   prevButtonStyles,
+  className,
   ...props
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -52,11 +53,11 @@ const Swiper = ({
   };
 
   const { classes, cx } = SwiperStyles(
-    { styles, slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
+    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
     { name: 'Swiper' }
   );
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, className)} style={styles}>
       <SwiperComp
         modules={[Navigation]}
         breakpoints={breakAt}

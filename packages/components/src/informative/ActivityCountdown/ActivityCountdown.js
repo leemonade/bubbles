@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
+import useCountDown from 'react-countdown-hook';
+import { AlarmClockIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../../layout';
 import { Text } from '../../typography';
-import useCountDown from 'react-countdown-hook';
 import { ActivityCountdownStyles } from './ActivityCountdown.styles';
 import {
   ACTIVITY_COUNTDOWN_DEFAULT_PROPS,
   ACTIVITY_COUNTDOWN_PROP_TYPES,
 } from './ActivityCountdown.constants';
-import { AlarmClockIcon } from '@bubbles-ui/icons/outline';
 
 const ActivityCountdown = ({ finish, interval, rootStyles, rootClassname, ...props }) => {
   const countDownMiliseconds = new Date(finish) - Date.now();
