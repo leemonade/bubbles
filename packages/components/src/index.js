@@ -12,10 +12,12 @@ export {
 export {
   useId,
   useScrollIntoView,
+  useElementSize,
   useResizeObserver,
   useDebouncedValue,
   useClipboard,
   useViewportSize,
+  useClickOutside,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {

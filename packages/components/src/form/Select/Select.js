@@ -33,6 +33,7 @@ const Select = forwardRef(
       onSearchChange,
       onDropdownOpen,
       onDropdownClose,
+      initiallyOpened,
       creatable,
       onCreate,
       nothingFound,
@@ -90,6 +91,7 @@ const Select = forwardRef(
           onSearchChange={onSearchChange}
           onDropdownOpen={onDropdownOpen}
           onDropdownClose={onDropdownClose}
+          initiallyOpened={initiallyOpened}
           getCreateLabel={getCreateLabel}
           nothingFound={nothingFound}
           placeholder={placeholder}

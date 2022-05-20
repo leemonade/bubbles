@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const ScoresBasicTableStyles = createStyles((theme, {}) => {
+export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overFlowRight }) => {
   return {
     root: {
       display: 'flex',
@@ -40,6 +40,10 @@ export const ScoresBasicTableStyles = createStyles((theme, {}) => {
       paddingTop: 48,
       '&:first-of-type': {
         maxWidth: 296,
+        boxShadow:
+          overFlowLeft &&
+          '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
+        transition: 'box-shadow 0.2s ease-in-out',
       },
       '&:not(:first-of-type)': {
         border: '1px solid transparent',
@@ -55,8 +59,12 @@ export const ScoresBasicTableStyles = createStyles((theme, {}) => {
       borderTop: '2px solid #F2F2F2',
     },
     bodyRow: {
-      '&:not(:last-of-type)': {
-        borderBottom: '1px solid #F2F2F2',
+      borderBottom: '1px solid #F2F2F2',
+      '& > div:first-of-type': {
+        boxShadow:
+          overFlowLeft &&
+          '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
+        transition: 'box-shadow 0.2s ease-in-out',
       },
     },
     bodyCell: {
@@ -85,7 +93,10 @@ export const ScoresBasicTableStyles = createStyles((theme, {}) => {
       minWidth: '300px',
       display: 'flex',
       flexDirection: 'column',
-      boxShadow: '-32px 0px 32px rgba(35, 43, 60, 0.05), -100px 0px 60px rgba(51, 63, 86, 0.03)',
+      boxShadow:
+        overFlowRight &&
+        '-32px 0px 32px rgba(35, 43, 60, 0.05), -100px 0px 60px rgba(51, 63, 86, 0.03)',
+      transition: 'box-shadow 0.2s ease-in-out',
     },
     rightBodyHeader: {
       height: 120,

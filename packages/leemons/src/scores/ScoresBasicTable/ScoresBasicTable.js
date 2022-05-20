@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ScoreCell } from './ScoreCell';
 import { useSticky } from 'react-table-sticky';
 import { ActivityHeader } from './ActivityHeader';
 import { ScoresBasicTableStyles } from './ScoresBasicTable.styles';
 import { useTable, useFlexLayout } from 'react-table';
-import { Box, Text, UserDisplayItem, Badge } from '@bubbles-ui/components';
+import { Box, Text, UserDisplayItem, Badge, useElementSize } from '@bubbles-ui/components';
 import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
-import { isFunction } from 'lodash';
+import { isFunction, over } from 'lodash';
 
 const ScoresBasicTable = ({
   grades,
@@ -21,9 +21,24 @@ const ScoresBasicTable = ({
   onDataChange,
   ...props
 }) => {
-  const { classes, cx } = ScoresBasicTableStyles({}, { name: 'ScoresBasicTable' });
+  const { ref: tableRef, width } = useElementSize(null);
   const [value, setValue] = useState(_value);
   const useNumbers = !grades.some((grade) => grade.letter);
+  const [overFlowLeft, setOverFlowLeft] = useState(false);
+  const [overFlowRight, setOverFlowRight] = useState(false);
+
+  const { classes, cx } = ScoresBasicTableStyles(
+    { overFlowLeft, overFlowRight },
+    { name: 'ScoresBasicTable' }
+  );
+
+  const onScrollHandler = () => {
+    const { scrollWidth, clientWidth, scrollLeft } = tableRef.current;
+    if (scrollLeft > 0) setOverFlowLeft(true);
+    else setOverFlowLeft(false);
+    if (scrollLeft + clientWidth === scrollWidth) setOverFlowRight(false);
+    else setOverFlowRight(true);
+  };
 
   const getCompletionPercentage = (activityId) => {
     const studentsWithActivity = value.filter((student) => {
@@ -174,9 +189,19 @@ const ScoresBasicTable = ({
     isFunction(onChange) && onChange(value);
   }, [value]);
 
+  useEffect(() => {
+    if (!tableRef.current) return;
+    const isOverflowing = tableRef.current.scrollWidth > tableRef.current.clientWidth;
+    if (isOverflowing && isOverflowing !== overFlowRight) {
+      setOverFlowRight(true);
+    } else if (isOverflowing !== overFlowRight) {
+      setOverFlowRight(false);
+    }
+  }, [tableRef.current?.scrollWidth]);
+
   return (
     <Box className={classes.root}>
-      <Box {...getTableProps()} className={classes.table}>
+      <Box ref={tableRef} {...getTableProps()} className={classes.table} onScroll={onScrollHandler}>
         <Box style={{ flex: 1 }}>
           <Box className={classes.tableHeader}>
             {headerGroups.map((headerGroup) => (
