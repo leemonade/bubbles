@@ -27,7 +27,7 @@ const ActivityAccordion = ({ children, ...props }) => {
   const { classes, cx } = ActivityAccordionStyles({}, { name: 'ActivityAccordion' });
 
   return (
-    <Accordion className={classes.root} classNames={classes} iconPosition="right">
+    <Accordion {...props} className={classes.root} classNames={classes} iconPosition="right">
       {React.Children.map(children, (child) => {
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
