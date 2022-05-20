@@ -42,7 +42,7 @@ export const CalificationStyles = createStyles(
         span: {
           color: theme.colors.mainWhite,
           lineHeight: isHorizontal ? '16px' : '24px',
-          transform: isVertical && 'rotate(180deg)',
+          transform: isVertical && 'rotate(-90deg)',
           paddingInline: isVertical && 16,
           fontSize: isVertical && 24,
         },
@@ -53,7 +53,7 @@ export const CalificationStyles = createStyles(
         justifyContent: 'center',
         width: isHorizontal ? 48 : 110,
         maxWidth: isHorizontal ? 48 : 110,
-        height: isVertical && 150,
+        height: isVertical && 135,
         ...colors[!inverted ? 1 : 0],
         span: {
           color: theme.colors.mainWhite,

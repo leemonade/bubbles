@@ -28,9 +28,7 @@ export default {
 
 const Template = ({ ...props }) => {
   return (
-    <Box
-      sx={(theme) => ({ backgroundColor: theme.colors.interactive03, padding: theme.spacing[9] })}
-    >
+    <Box sx={(theme) => ({ backgroundColor: theme.colors.ui02, padding: theme.spacing[9] })}>
       <ActivityAccordion {...props}>
         <ActivityAccordionPanel
           label="Test 1"
