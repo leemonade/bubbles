@@ -7,6 +7,7 @@ export const DATA = [
   { text: 'Main tasks' },
   {
     label: 'Tarea previa',
+    status: 'OK',
     childSteps: [
       {
         label: 'Child 1',
