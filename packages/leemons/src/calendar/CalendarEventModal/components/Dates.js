@@ -13,7 +13,16 @@ import {
 } from '@bubbles-ui/components';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 
-const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, onlyOneDate }) => {
+const Dates = ({
+  form,
+  classes,
+  messages,
+  errorMessages,
+  config,
+  selectData,
+  disabled,
+  onlyOneDate,
+}) => {
   const {
     control,
     watch,
@@ -44,7 +53,7 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, o
                       size="xs"
                       disabled={disabled}
                       error={get(errors, 'startDate')}
-                      label={messages.fromLabel}
+                      label={config.fromLabel || messages.fromLabel}
                       required
                       {...field}
                     />
@@ -59,16 +68,21 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, o
                     rules={{
                       required: errorMessages.startTimeRequired,
                     }}
-                    render={({ field }) => (
-                      <TimeInput
-                        disabled={disabled}
-                        error={get(errors, 'startTime')}
-                        size="xs"
-                        required
-                        {...field}
-                        value={field.value || new Date()}
-                      />
-                    )}
+                    render={({ field }) => {
+                      if (!field.value) {
+                        field.onChange(new Date());
+                      }
+                      return (
+                        <TimeInput
+                          disabled={disabled}
+                          error={get(errors, 'startTime')}
+                          size="xs"
+                          required
+                          {...field}
+                          value={field.value || new Date()}
+                        />
+                      );
+                    }}
                   />
                 </Col>
               ) : null}
@@ -104,16 +118,21 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, o
                       rules={{
                         required: errorMessages.endTimeRequired,
                       }}
-                      render={({ field }) => (
-                        <TimeInput
-                          disabled={disabled}
-                          error={get(errors, 'endTime')}
-                          size="xs"
-                          required
-                          {...field}
-                          value={field.value || new Date()}
-                        />
-                      )}
+                      render={({ field }) => {
+                        if (!field.value) {
+                          field.onChange(new Date());
+                        }
+                        return (
+                          <TimeInput
+                            disabled={disabled}
+                            error={get(errors, 'endTime')}
+                            size="xs"
+                            required
+                            {...field}
+                            value={field.value || new Date()}
+                          />
+                        );
+                      }}
                     />
                   </Col>
                 ) : null}
@@ -140,20 +159,22 @@ const Dates = ({ form, classes, messages, errorMessages, selectData, disabled, o
             />
 
             {/* ALL DAY */}
-            <Controller
-              name="isAllDay"
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  {...field}
-                  disabled={disabled}
-                  error={get(errors, 'isAllDay')}
-                  label={messages.allDayLabel}
-                  labelPosition="start"
-                  checked={field.value}
-                />
-              )}
-            />
+            {!config.hideAllDay ? (
+              <Controller
+                name="isAllDay"
+                control={control}
+                render={({ field }) => (
+                  <Switch
+                    {...field}
+                    disabled={disabled}
+                    error={get(errors, 'isAllDay')}
+                    label={messages.allDayLabel}
+                    labelPosition="start"
+                    checked={field.value}
+                  />
+                )}
+              />
+            ) : null}
           </ContextContainer>
         </Col>
       </Grid>

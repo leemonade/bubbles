@@ -96,6 +96,7 @@ const CalendarEventModal = (props) => {
   const type = watch('type');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
+  const config = eventTypesByValue[type]?.config;
 
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -151,7 +152,7 @@ const CalendarEventModal = (props) => {
             render={({ field }) => (
               <TextInput
                 disabled={disabled}
-                placeholder={messages.titlePlaceholder}
+                placeholder={config.titlePlaceholder || messages.titlePlaceholder}
                 error={get(errors, 'title')}
                 required
                 {...field}
@@ -188,6 +189,7 @@ const CalendarEventModal = (props) => {
             classes={classes}
             disabled={disabled}
             onlyOneDate={onlyOneDate}
+            config={config}
           />
 
           {hasComponent ? (

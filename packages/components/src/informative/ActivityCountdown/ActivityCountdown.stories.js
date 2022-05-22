@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '../../layout';
 import { ActivityCountdown } from './ActivityCountdown';
 import { ACTIVITY_COUNTDOWN_DEFAULT_PROPS } from './ActivityCountdown.constants';
 import mdx from './ActivityCountdown.mdx';
