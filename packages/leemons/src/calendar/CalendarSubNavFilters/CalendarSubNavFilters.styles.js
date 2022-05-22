@@ -10,10 +10,10 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, {}) => {
     },
     segmentRoot: {
       height: '42px',
-      padding: 0,
+      padding: 2,
       backgroundColor: theme.colors.uiBackground05,
-      paddingLeft: 3,
-      paddingRight: 0,
+      // paddingLeft: 3,
+      // paddingRight: 0,
     },
     segmentLabel: {
       ...getFontExpressive(),
@@ -33,8 +33,8 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, {}) => {
     },
     segmentActive: {
       backgroundColor: theme.colors.interactive02d,
-      top: 0,
-      bottom: 0,
+      top: 4,
+      left: 4,
     },
     segmentControl: {
       border: 'none!important',

@@ -98,6 +98,8 @@ const CalendarEventModal = (props) => {
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
 
+  React.useEffect(() => console.log('type:', type), [type]);
+
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (onlyOneDate) {
@@ -172,7 +174,7 @@ const CalendarEventModal = (props) => {
                   <RadioGroup
                     {...field}
                     disabled={disabled}
-                    variant="boxed"
+                    variant="icon"
                     direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
                     fullWidth
                     error={get(errors, 'type')}

@@ -46,4 +46,5 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...CALENDAR_EVENT_MODAL_DEFAULT_PROPS,
+  defaultValues: { type: 'plugins.calendar.task' },
 };

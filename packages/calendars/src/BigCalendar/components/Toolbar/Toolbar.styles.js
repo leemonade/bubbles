@@ -8,13 +8,12 @@ export const ToolbarStyles = createStyles((theme, {}) => {
       color: theme.colors.text03,
     },
     viewItemActive: {
-      top: 1,
-      bottom: 1,
-      left: 3,
+      top: 4,
+      left: 4,
     },
     viewItemGroup: {
-      paddingLeft: 2,
-      paddingRight: 0,
+      marginLeft: 2,
+      padding: 2,
     },
     navIcon: {
       width: 20,

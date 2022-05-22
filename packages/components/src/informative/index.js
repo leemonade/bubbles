@@ -1,4 +1,5 @@
 export * from './ActivityCountdown';
+export * from './ActivityAccordion';
 export * from './UserDisplayItem';
 export * from './FileItemDisplay';
 export * from './PaginatedList';
