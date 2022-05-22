@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
-import { Box } from '@bubbles-ui/components';
+import { Box, useDebouncedCallback } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
 import { forEach, isFunction } from 'lodash';
 import History from '@tiptap/extension-history';
@@ -33,15 +33,19 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
   });
 
   const ref = React.useRef(null);
+  const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    const html = editor.getHTML();
-    if (isFunction(onChange) && html !== content) onChange(html);
+    store.current.html = editor.getHTML();
+    if (isFunction(onChange) && store.current.html !== content) onChange(store.current.html);
   };
 
   useEffect(() => {
     if (!editor) return;
-    editor.commands.setContent(content);
+    if (content !== store.current.html) {
+      store.current.html = content;
+      editor.commands.setContent(content);
+    }
   }, [editor, content]);
 
   function getPath(element, acc = []) {
@@ -73,15 +77,22 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     };
   });
 
-  /*
+  const handleTransactions = (e) => {
+    if (contentChange.current) {
+      clearTimeout(contentChange.current);
+    }
+
+    contentChange.current = setTimeout(() => {
+      onUpdate();
+    }, 1000);
+  };
+
   useEffect(() => {
     if (editor) {
-      console.log(editor);
-      editor.on('blur', onUpdate);
-      return () => editor.off('blur', onUpdate);
+      editor.on('transaction', handleTransactions);
+      return () => editor.off('transaction', handleTransactions);
     }
   }, [editor]);
-   */
 
   return (
     <Box
