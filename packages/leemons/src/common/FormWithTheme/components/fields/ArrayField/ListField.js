@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextEditor } from '@bubbles-ui/editors';
+import { TextEditorInput } from '@bubbles-ui/editors';
 import { ListInput, ListItem } from '@bubbles-ui/components';
 import { Box } from '@bubbles-ui/components/src/layout/Box';
 import { map } from 'lodash';
@@ -28,20 +28,18 @@ const ListField = (props) => {
   const config = {
     inputRender: (props) => {
       const onChange = (value) => {
-        console.log('value', value);
         return props.onChange({ ...props.value, value: value === '' ? options.emptyValue : value });
       };
-      return <TextEditor {...props} onChange={onChange} />;
+      return <TextEditorInput {...props} value={props?.value?.value} onChange={onChange} />;
     },
   };
 
   if (schema.frontConfig.blockData.listType === 'textarea') {
     config.inputRender = (props) => {
       const onChange = (value) => {
-        console.log('value', value);
         return props.onChange({ ...props.value, value: value === '' ? options.emptyValue : value });
       };
-      return <TextEditor {...props} onChange={onChange} />;
+      return <TextEditorInput {...props} value={props?.value?.value} onChange={onChange} />;
     };
   }
 
