@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../../layout';
 import { Step } from './';
 import { VerticalStepperStyles } from './VerticalStepper.styles';
@@ -20,6 +20,15 @@ const VerticalStepper = ({
   const [visitedSteps, setVisitedSteps] = useState([]);
   const [activeIndex, setActiveIndex] = useState(currentStep);
   const textSteps = [];
+  const isMounted = useRef(false);
+
+  const getAllStepsPrevious = (index) => {
+    let previousSteps = [];
+    for (let i = 0; i < index; i++) {
+      previousSteps.push(i);
+    }
+    return previousSteps;
+  };
 
   const getSteps = (data) => {
     const steps = [];
@@ -70,6 +79,11 @@ const VerticalStepper = ({
     return false;
   };
 
+  const getIsChildActive = (step) => {
+    if (!step.childRange) return;
+    return activeIndexInRange(step.childRange);
+  };
+
   const getStepState = (step, index) => {
     if (step.isChild) {
       if (step.siblingsRange.every((childIndex) => completedSteps.includes(childIndex)))
@@ -100,16 +114,20 @@ const VerticalStepper = ({
     return false;
   };
 
-  const getTextStepState = (textStep) => {
-    if (completedSteps.includes(textStep.index - 1)) return 'completed';
-    return 'pending';
+  const getTextStepVisited = (textStep) => {
+    if (visitedSteps.includes(textStep.index - 1)) return true;
+    return false;
   };
 
   const renderTextStep = (index) => {
     const textStep = textSteps.find((step) => step.index === index);
     if (textStep) {
       return (
-        <Step key={`textStep${index}`} text={textStep.text} state={getTextStepState(textStep)} />
+        <Step
+          key={`textStep${index}`}
+          text={textStep.text}
+          isVisited={getTextStepVisited(textStep)}
+        />
       );
     }
   };
@@ -121,11 +139,14 @@ const VerticalStepper = ({
 
   const renderSteps = () => {
     const stepsToRender = allSteps.map((step, index) => {
+      const isChildActive = getIsChildActive(step);
       const stepProps = {
         position: getStepPosition(index),
         state: getStepState(step, index),
         isActive: index === activeIndex,
-        showChild: shouldShowChild(step, index),
+        showChild: shouldShowChild(step),
+        isVisited: isChildActive || visitedSteps.includes(index),
+        isChildActive: isChildActive,
       };
 
       return (
@@ -145,21 +166,39 @@ const VerticalStepper = ({
   };
 
   useEffect(() => {
-    if (autocompleteOnNext && currentStep > activeIndex) {
-      setCompletedSteps([...new Set([...completedSteps, activeIndex])]);
-    }
     if (activeIndex !== currentStep) {
       setActiveIndex(currentStep);
     }
   }, [currentStep]);
 
   useEffect(() => {
-    setVisitedSteps([...new Set([...visitedSteps, activeIndex])]);
+    setCompletedSteps([...new Set(completedStepsProp)]);
+  }, [completedStepsProp]);
+
+  useEffect(() => {
+    const previousSteps = getAllStepsPrevious(currentStep);
+    if (autocompleteOnNext) {
+      setCompletedSteps([...new Set([...completedSteps, ...previousSteps])]);
+      setVisitedSteps([...new Set([...visitedSteps, ...[...previousSteps, activeIndex]])]);
+    } else {
+      setVisitedSteps([...new Set([...visitedSteps, activeIndex])]);
+    }
   }, [activeIndex]);
 
   useEffect(() => {
-    setCompletedSteps([...new Set(completedStepsProp)]);
-  }, [completedStepsProp]);
+    if (!isMounted.current) return;
+    if (autocompleteOnNext) return;
+    const lastStepIndex = allSteps.findIndex((step) => !step.status && !step.isChild);
+    const previousSteps = getAllStepsPrevious(lastStepIndex);
+    setVisitedSteps([...new Set([...visitedSteps, ...previousSteps])]);
+  }, [data]);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const { classes, cx } = VerticalStepperStyles({}, { name: 'VerticalStepper' });
   return (

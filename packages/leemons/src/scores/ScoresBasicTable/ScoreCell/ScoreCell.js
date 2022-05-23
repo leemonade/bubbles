@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Text, Select } from '@bubbles-ui/components';
+import { Box, Text, Select, useClickOutside } from '@bubbles-ui/components';
 import { ScoreCellStyles } from './ScoreCell.styles';
 import { SCORES_CELL_DEFAULT_PROPS, SCORES_CELL_PROP_TYPES } from './ScoreCell.constants';
 import { isFunction } from 'lodash';
 
 const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataChange }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const selectRef = useRef(null);
   const isGrade = value !== undefined;
   const useNumbers = !grades.some((grade) => grade.letter);
+  const selectRef = useClickOutside(() => setIsEditing(false));
 
   const onClickHandler = () => {
     if (!isEditing) setIsEditing(true);
@@ -65,6 +65,7 @@ const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataCha
   };
 
   useEffect(() => {
+    console.log(isEditing);
     if (selectRef.current) selectRef.current.click();
   }, [isEditing]);
 

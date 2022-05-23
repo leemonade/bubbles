@@ -26,6 +26,7 @@ const Template = ({ ...props }) => {
   return (
     <Box>
       <Select {...props} />
+      <Select {...props} />
     </Box>
   );
 };
