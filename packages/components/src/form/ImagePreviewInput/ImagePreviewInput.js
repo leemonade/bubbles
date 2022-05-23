@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, isString } from 'lodash';
+import { isFunction, isString, isNil } from 'lodash';
 import { CloudUploadIcon, UndoIcon } from '@bubbles-ui/icons/outline/';
 import { Box, Stack } from '../../layout';
 import { Button } from '../../form';
@@ -43,8 +43,17 @@ const ImagePreviewInput = ({
   useEffect(() => {
     if (isString(previewURL) && imagePreview !== previewURL) {
       setImagePreview(previewURL);
+    } else if (isNil(previewURL)) {
+      setImagePreview(null);
     }
   }, [previewURL]);
+
+  useEffect(() => {
+    if (isNil(value)) {
+      setImagePreview(null);
+      setImageValue(null);
+    }
+  }, [value]);
 
   const resetImage = () => {
     isFunction(onChange) && onChange(null);
