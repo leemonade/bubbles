@@ -118,7 +118,7 @@ const SetupSubjects = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
           <Controller

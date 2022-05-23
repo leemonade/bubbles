@@ -38,6 +38,7 @@ const Select = forwardRef(
       nothingFound,
       placeholder,
       className,
+      autoComplete,
       ...props
     },
     ref
@@ -73,7 +74,7 @@ const Select = forwardRef(
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
         <MantineSelect
           ref={ref}
-          autoComplete="off"
+          autoComplete={autoComplete}
           id={uuid}
           size={size}
           data={data}
@@ -118,6 +119,7 @@ const Select = forwardRef(
 Select.defaultProps = {
   size: 'sm',
   orientation: 'vertical',
+  autoComplete: 'off',
 };
 
 Select.propTypes = {
@@ -136,6 +138,7 @@ Select.propTypes = {
   onDropdownOpen: PropTypes.func,
   onDropdownClose: PropTypes.func,
   style: PropTypes.object,
+  autoComplete: PropTypes.string,
 };
 
 export { Select };

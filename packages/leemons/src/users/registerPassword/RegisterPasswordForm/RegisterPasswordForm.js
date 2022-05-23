@@ -51,6 +51,7 @@ const RegisterPasswordForm = ({
           onSubmit(e);
         }
       })}
+      autoComplete="off"
     >
       <ContextContainer title={labels.title}>
         {formError && (

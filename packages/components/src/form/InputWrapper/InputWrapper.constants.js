@@ -19,6 +19,7 @@ export const INPUT_WRAPPER_PROP_TYPES = {
   contentClassName: PropTypes.string,
   headerStyle: PropTypes.any,
   contentStyle: PropTypes.any,
+  autoComplete: PropTypes.string,
 };
 export const INPUT_WRAPPER_DEFAULT_PROPS = {
   label: '',
@@ -28,4 +29,5 @@ export const INPUT_WRAPPER_DEFAULT_PROPS = {
   orientation: 'vertical',
   size: 'sm',
   required: false,
+  autoComplete: 'off',
 };

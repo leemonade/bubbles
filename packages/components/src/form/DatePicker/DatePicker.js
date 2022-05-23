@@ -33,6 +33,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   range: false,
   locale: 'en',
   withTime: false,
+  autoComplete: 'off',
 };
 export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -50,12 +51,13 @@ export const DATE_PICKER_PROP_TYPES = {
   contentClassName: PropTypes.string,
   headerStyle: PropTypes.any,
   contentStyle: PropTypes.any,
+  autoComplete: PropTypes.string,
 };
 
 function TimeInput({ onChange, size, ...props }) {
   const { classes } = TimeInputStyles({ size }, { name: 'TimeInput' });
 
-  return <MantineTimeInput onChange={onChange} classNames={classes} size={size} {...props} />;
+  return <MantineTimeInput {...props} onChange={onChange} classNames={classes} size={size} />;
 }
 
 const DatePicker = forwardRef(
@@ -77,6 +79,7 @@ const DatePicker = forwardRef(
       contentClassName,
       headerStyle,
       contentStyle,
+      autoComplete,
       ...props
     },
     ref
@@ -135,6 +138,7 @@ const DatePicker = forwardRef(
           <Comp
             {...props}
             {...compProps}
+            autoComplete={autoComplete}
             locale={currentLocale}
             uuid={uuid}
             ref={ref}
@@ -152,6 +156,7 @@ const DatePicker = forwardRef(
               size={size}
               error={!isEmpty(error)}
               skipFlex
+              autoComplete={autoComplete}
             />
           )}
         </Stack>

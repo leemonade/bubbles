@@ -144,7 +144,7 @@ const CalendarEventModal = (props) => {
           paddingBottom: '76px',
         })}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Controller
             name="title"
             control={control}

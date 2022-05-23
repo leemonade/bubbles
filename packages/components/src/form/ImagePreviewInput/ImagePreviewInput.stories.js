@@ -19,8 +19,22 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <ImagePreviewInput {...props}>{children}</ImagePreviewInput>;
+const Template = ({ children, onChange, ...props }) => {
+  const [value, setValue] = React.useState(null);
+
+  return (
+    <ImagePreviewInput
+      {...props}
+      value={value}
+      onChange={(e) => {
+        console.log(e);
+        onChange(e);
+        setTimeout(() => setValue(null), 2000);
+      }}
+    >
+      {children}
+    </ImagePreviewInput>
+  );
 };
 
 export const Playground = Template.bind({});

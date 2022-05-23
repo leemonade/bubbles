@@ -16,6 +16,7 @@ export const NUMBER_INPUT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  autoComplete: PropTypes.string,
 };
 
 export const NUMBER_INPUT_DEFAULT_PROPS = {
@@ -25,6 +26,7 @@ export const NUMBER_INPUT_DEFAULT_PROPS = {
   orientation: INPUT_WRAPPER_ORIENTATIONS[1],
   error: '',
   required: false,
+  autoComplete: 'off',
 };
 
 const NumberInput = forwardRef(
