@@ -39,26 +39,11 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...HORIZONTAL_TIMELINE_DEFAULT_PROPS,
   data: [
-    {
-      label: 'Asignada',
-      date: new Date('2022-04-01').toISOString(),
-    },
-    {
-      label: 'Iniciada',
-      date: new Date('2022-04-07'),
-    },
-    {
-      label: 'En curso',
-      date: new Date('2022-04-14'),
-    },
-    {
-      label: 'Entrega',
-      date: '2022-04-20T00:00:00.000Z',
-    },
-    {
-      label: 'Corrección',
-      date: new Date('2022-04-30'),
-    },
+    { label: 'Visualization', date: new Date('2022-05-01') },
+    { label: 'Start', date: new Date('2022-05-09') },
+    { label: 'Deadline', date: new Date('2022-06-10') },
+    { label: 'Evaluation', date: new Date('2022-06-11') },
+    { label: 'Results', date: new Date('2022-06-15') },
   ],
   rootStyles: {
     padding: 24,
