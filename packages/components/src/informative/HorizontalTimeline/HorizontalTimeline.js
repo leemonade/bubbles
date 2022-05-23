@@ -145,7 +145,6 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
       <Box ref={timelineRef} className={classes.timelineContainer}>
         {renderTimeline()}
       </Box>
-      <Box>Timeline width: {timelineWidth}</Box>
     </Box>
   );
 };
