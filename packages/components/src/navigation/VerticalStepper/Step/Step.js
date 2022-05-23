@@ -20,6 +20,8 @@ const Step = ({
   onClick,
   isChild,
   isActive,
+  isChildActive,
+  isVisited,
   showChild,
   childRange,
   ...props
@@ -104,12 +106,23 @@ const Step = ({
   };
 
   const { classes, cx } = StepStyles(
-    { isButton, isText, isActive, isActivity, isCompleted, isChild, showChild, childRange },
+    {
+      isButton,
+      isText,
+      isActive,
+      isActivity,
+      isChild,
+      showChild,
+      childRange,
+      isVisited,
+      isCompleted,
+      isChildActive,
+    },
     { name: 'Step' }
   );
   return (
     <Box className={getVariantClassName()}>
-      {!isChild && <Box className={classes.isCompletedBackground} />}
+      {!isChild && <Box className={classes.isVisitedBackground} />}
       <Box className={classes.labelContainer}>{renderVariant()}</Box>
       <Progress
         state={state}

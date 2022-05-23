@@ -11,7 +11,19 @@ const getStepHeight = (isButton, isText, isActivity) => {
 export const StepStyles = createStyles(
   (
     theme,
-    { isButton, isText, isActive, isActivity, isCompleted, isChild, showChild, childRange }
+
+    {
+      isButton,
+      isText,
+      isActive,
+      isActivity,
+      isChild,
+      showChild,
+      childRange,
+      isVisited,
+      isCompleted,
+      isChildActive,
+    }
   ) => {
     const stepHeight = getStepHeight(isButton, isText, isActivity);
     const childHeight = childRange ? 32 * (childRange[1] - childRange[0] + 1) : 0;
@@ -96,13 +108,15 @@ export const StepStyles = createStyles(
       badge: {
         marginLeft: '12px',
       },
-      isCompletedBackground: {
+      isVisitedBackground: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        height: isCompleted ? stepHeight + childHeight : 0,
+        height: isVisited
+          ? stepHeight + (isChildActive || isActive || isCompleted ? childHeight : 0)
+          : 0,
         overflow: 'hidden',
         transition: 'height 0.2s ease-in-out',
         backgroundColor: theme.colors.interactive03,
