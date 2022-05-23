@@ -9,6 +9,7 @@ import {
   Paper,
   IconButton,
   Divider,
+  SimpleBar,
 } from '@bubbles-ui/components';
 import { PluginLeebraryIcon, PluginKimIcon } from '@bubbles-ui/icons/solid';
 import { CloudUploadIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
@@ -71,68 +72,79 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
         <PluginLeebraryIcon height={24} width={24} />
         <Text className={classes.title}>{'Library'}</Text>
       </Box>
-      <Stack direction={'column'}>
-        <NavbarItem
-          icon={<PluginKimIcon />}
-          label={labels.quickAccess}
-          onClick={() => onNavHandler(null)}
-          selected={quickAccessSelected}
-        />
-        <Divider style={{ marginBlock: 8, marginInline: 10 }} />
-        {renderNavbarItems(onNavHandler)}
-      </Stack>
-      <Paper className={classes.navbarBottom} shadow={!isExpanded ? 'none' : 'level03'} padding={0}>
-        <Box className={classes.uploadButton}>
-          <Button size={'sm'} rightIcon={<CloudUploadIcon />} onClick={() => setIsExpanded(true)}>
-            {labels.uploadButton}
-          </Button>
-        </Box>
-        <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
-          <Stack
-            direction={'column'}
-            alignItems={'center'}
-            spacing={2}
-            className={classes.fileUploadWrapper}
-            skipFlex
-          >
-            {isExpanded && (
-              <Stack spacing={1} alignItems={'center'} fullWidth>
-                <Box style={{ flex: 1 }}>
-                  <Text transform="uppercase" className={classes.sectionTitle}>
-                    {labels.createNewTitle}
-                  </Text>
-                </Box>
-                <Box>
-                  <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
-                </Box>
-              </Stack>
-            )}
-          </Stack>
-          <Stack
-            direction={'column'}
-            alignItems={'start'}
-            className={classes.navbarTopList}
-            skipFlex
-          >
-            {renderNavbarItems(onNewHandler, true)}
-            <Text transform="uppercase" className={classes.sectionTitle}>
-              {labels.uploadTitle}
-            </Text>
-            {showUpload && (
-              <Box className={classes.fileUpload}>
-                <FileUpload
-                  icon={<CloudUploadIcon height={32} width={32} />}
-                  title={labels.fileUploadTitle}
-                  subtitle={labels.fileUploadSubtitle}
-                  hideUploadButton
-                  single
-                  onChange={onFileHandler}
-                />
-              </Box>
-            )}
-          </Stack>
+      <SimpleBar className={classes.navItems}>
+        <Stack direction={'column'} fullWidth>
+          <NavbarItem
+            icon={<PluginKimIcon />}
+            label={labels.quickAccess}
+            onClick={() => onNavHandler(null)}
+            selected={quickAccessSelected}
+          />
+          <Divider style={{ marginBlock: 8, marginInline: 10 }} />
+          {renderNavbarItems(onNavHandler)}
         </Stack>
-      </Paper>
+        <Paper
+          className={classes.navbarBottom}
+          shadow={!isExpanded ? 'none' : 'level03'}
+          padding={0}
+        >
+          <Box className={classes.uploadButton}>
+            <Button
+              size={'sm'}
+              fullWidth
+              rightIcon={<CloudUploadIcon />}
+              onClick={() => setIsExpanded(true)}
+            >
+              {labels.uploadButton}
+            </Button>
+          </Box>
+          <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
+            <Stack
+              direction={'column'}
+              alignItems={'center'}
+              spacing={2}
+              className={classes.fileUploadWrapper}
+              skipFlex
+            >
+              {isExpanded && (
+                <Stack spacing={1} alignItems={'center'} fullWidth>
+                  <Box style={{ flex: 1 }}>
+                    <Text transform="uppercase" className={classes.sectionTitle}>
+                      {labels.createNewTitle}
+                    </Text>
+                  </Box>
+                  <Box>
+                    <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
+                  </Box>
+                </Stack>
+              )}
+            </Stack>
+            <Stack
+              direction={'column'}
+              alignItems={'start'}
+              className={classes.navbarTopList}
+              skipFlex
+            >
+              {renderNavbarItems(onNewHandler, true)}
+              <Text transform="uppercase" className={classes.sectionTitle}>
+                {labels.uploadTitle}
+              </Text>
+              {showUpload && (
+                <Box className={classes.fileUpload}>
+                  <FileUpload
+                    icon={<CloudUploadIcon height={32} width={32} />}
+                    title={labels.fileUploadTitle}
+                    subtitle={labels.fileUploadSubtitle}
+                    hideUploadButton
+                    single
+                    onChange={onFileHandler}
+                  />
+                </Box>
+              )}
+            </Stack>
+          </Stack>
+        </Paper>
+      </SimpleBar>
     </Box>
   );
 };

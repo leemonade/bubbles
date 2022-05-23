@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { isDate } from 'lodash';
 import { Box } from '../../layout';
 import { Text } from '../../typography';
 import { COLORS } from '../../theme.tokens';
@@ -96,30 +97,34 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     if (!timelineWidth) return;
 
     let newEvents = [];
-    data.sort((a, b) => a.date - b.date);
+    let newData = data.map((item) => ({
+      ...item,
+      date: isDate(item.date) ? item.date : new Date(item.date),
+    }));
+    newData.sort((a, b) => a.date - b.date);
 
     let availableWidth = timelineWidth;
     const widthPerEvent = availableWidth / data.length;
 
     if (widthPerEvent <= EVENT_WIDTH) {
-      newEvents = data.map((event, i) => ({
+      newEvents = newData.map((event, i) => ({
         ...event,
         x: i * widthPerEvent,
       }));
     } else {
-      newEvents[firstIndex] = { ...data[firstIndex], x: 0 };
+      newEvents[firstIndex] = { ...newData[firstIndex], x: 0 };
       newEvents[lastIndex] = {
-        ...data[lastIndex],
+        ...newData[lastIndex],
         x: availableWidth - EVENT_WIDTH,
       };
 
       let offsetX = EVENT_WIDTH;
       availableWidth -= EVENT_WIDTH * 2;
-      const dayStart = data[firstIndex].date;
+      const dayStart = newData[firstIndex].date;
 
       for (let i = firstIndex, l = lastIndex - 1; i < l; l--) {
-        const dayFinish = data[l + 1].date;
-        const currentDay = data[l].date;
+        const dayFinish = newData[l + 1].date;
+        const currentDay = newData[l].date;
         const totalDays = (dayFinish - dayStart) / 1000 / 60 / 60 / 24;
         const widthPerDay = (availableWidth - (l - 1 * EVENT_WIDTH)) / totalDays;
         const offsetDays = (dayFinish - currentDay) / 1000 / 60 / 60 / 24;
@@ -127,7 +132,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
 
         availableWidth -= Math.max(offsetWidth, EVENT_WIDTH);
         newEvents[l] = {
-          ...data[l],
+          ...newData[l],
           x: Math.max(offsetX + availableWidth, offsetX * l),
         };
       }
@@ -138,7 +143,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
 
   const { classes, cx } = HorizontalTimelineStyles(
     { color, EVENT_WIDTH, rootStyles },
-    { name: 'HorizontalTimeline' }
+    { name: 'HTimeline' }
   );
   return (
     <Box className={cx(classes.root, rootClassname)}>

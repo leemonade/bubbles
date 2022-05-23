@@ -13,11 +13,12 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: theme.colors.ui03,
+      paddingBottom: theme.spacing[3],
     },
     header: {
       gap: 4,
       padding: 24,
-      paddingBottom: 40,
+      paddingBottom: 30,
       display: 'flex',
       color: theme.colors.text01,
     },
@@ -65,6 +66,11 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       '& > span': {
         padding: 16,
       },
+    },
+    navItems: {
+      // height: 300,
+      flexGrow: 1,
+      height: 1,
     },
   };
 });

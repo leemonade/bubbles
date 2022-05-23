@@ -103,10 +103,10 @@ const TaskDeadlineHeader = ({
         </Box>
         <Box className={classes.deadlineExtraTime}>
           <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>
-          <Button variant="filled" color="tertiary" size="xs" compact onClick={() => addDays(1)}>
+          <Button variant="outline" color="negative" size="xs" compact onClick={() => addDays(1)}>
             +1d
           </Button>
-          <Button variant="filled" color="tertiary" size="xs" compact onClick={() => addDays(7)}>
+          <Button variant="outline" color="negative" size="xs" compact onClick={() => addDays(7)}>
             +7d
           </Button>
         </Box>

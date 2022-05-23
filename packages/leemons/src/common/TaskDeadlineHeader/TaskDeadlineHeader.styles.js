@@ -14,7 +14,7 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded,
       ...styles,
     },
     deadlineWrapper: {
-      backgroundColor: theme.colors.interactive03,
+      backgroundColor: theme.colors.ui02,
       display: 'flex',
       alignItems: 'center',
       padding: '8px 16px',

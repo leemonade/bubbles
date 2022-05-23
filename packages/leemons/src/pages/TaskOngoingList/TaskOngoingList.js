@@ -1,17 +1,17 @@
 import React from 'react';
 import { Box, Button, HorizontalTimeline, Text, ScoresBar, COLORS } from '@bubbles-ui/components';
-import { HeaderBackground, TaskDeadlineHeader } from '../../common';
-import { TaskOngoingListStyles } from './TaskOngoingList.styles';
-import {
-  TASK_ONGOING_LIST_DEFAULT_PROPS,
-  TASK_ONGOING_LIST_PROP_TYPES,
-} from './TaskOngoingList.constants';
 import {
   ChevLeftIcon,
   OpenIcon,
   TimeClockCircleIcon,
   CheckCircleIcon,
 } from '@bubbles-ui/icons/outline';
+import { HeaderBackground, TaskDeadlineHeader } from '../../common';
+import { TaskOngoingListStyles } from './TaskOngoingList.styles';
+import {
+  TASK_ONGOING_LIST_DEFAULT_PROPS,
+  TASK_ONGOING_LIST_PROP_TYPES,
+} from './TaskOngoingList.constants';
 import { mock } from './mock/mock';
 
 const TaskOngoingList = ({ ...props }) => {
