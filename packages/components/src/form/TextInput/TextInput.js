@@ -28,6 +28,7 @@ export const TEXT_INPUT_PROP_TYPES = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
+  autoComplete: PropTypes.string,
 };
 
 export const TEXT_INPUT_DEFAULT_PROPS = {
@@ -37,6 +38,7 @@ export const TEXT_INPUT_DEFAULT_PROPS = {
   disabled: false,
   required: false,
   readOnly: false,
+  autoComplete: 'off',
 };
 
 const TextInput = forwardRef(
@@ -58,6 +60,7 @@ const TextInput = forwardRef(
       maxLength,
       icon,
       variant,
+      autoComplete,
       ...props
     },
     ref
@@ -106,6 +109,7 @@ const TextInput = forwardRef(
             invalid={!isEmpty(error)}
             className={className}
             maxLength={maxLength}
+            autoComplete={autoComplete}
           />
         )}
       </InputWrapper>

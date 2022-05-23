@@ -53,6 +53,7 @@ const Textarea = forwardRef(
       maxLength,
       counter,
       counterLabels,
+      autoComplete,
       ...props
     },
     ref
@@ -77,7 +78,7 @@ const Textarea = forwardRef(
       let count = 0;
       let result = '';
 
-      if (!isEmpty(value)) {
+      if (value && !isEmpty(value)) {
         if (counter === 'word') {
           count = value.match(/\S+/g).length;
         } else {
@@ -139,7 +140,8 @@ const Textarea = forwardRef(
               disabled={disabled}
               onBlur={onBlur}
               onChange={handleOnChange}
-              value={value}
+              value={value || ''}
+              autoComplete={autoComplete}
               classNames={classes}
               maxLength={isNumber(maxLength) && counter === 'char' ? maxLength : null}
               error={!isEmpty(error)}

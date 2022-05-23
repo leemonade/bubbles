@@ -79,7 +79,7 @@ const LibraryForm = ({
   const { classes, cx } = LibraryFormStyles({});
   return (
     <Box className={classes.root}>
-      <form onSubmit={handleSubmit(handleOnSubmit)}>
+      <form onSubmit={handleSubmit(handleOnSubmit)} autoComplete="off">
         <ContextContainer title={labels.title} divided>
           <ContextContainer>
             <Controller

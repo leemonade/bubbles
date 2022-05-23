@@ -5,7 +5,16 @@ import { InputStyles } from './Input.styles';
 export const INPUT_SIZES = ['xs', 'sm'];
 export const Input = forwardRef(
   (
-    { radius, variant, icon, rightSection = null, size: sizeProp = 'sm', className, ...props },
+    {
+      radius,
+      variant,
+      icon,
+      rightSection = null,
+      size: sizeProp = 'sm',
+      autoComplete = 'off',
+      className,
+      ...props
+    },
     ref
   ) => {
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
@@ -20,6 +29,7 @@ export const Input = forwardRef(
         size={size}
         rightSection={rightSection}
         classNames={classes}
+        autoComplete={autoComplete}
       />
     );
   }

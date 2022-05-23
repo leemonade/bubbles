@@ -26,6 +26,7 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   saturation: 50,
   lightness: 50,
   manual: true,
+  autoComplete: 'off',
 };
 
 export const ColorPicker = forwardRef(
@@ -274,4 +275,5 @@ ColorPicker.propTypes = {
   saturation: PropTypes.number,
   lightness: PropTypes.number,
   manual: PropTypes.bool,
+  autoComplete: PropTypes.string,
 };

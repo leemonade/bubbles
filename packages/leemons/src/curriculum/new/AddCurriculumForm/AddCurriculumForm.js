@@ -72,7 +72,7 @@ const AddCurriculumForm = ({
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <ContextContainer>
         <Group align="start" grow>
           <Box>

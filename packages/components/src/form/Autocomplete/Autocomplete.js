@@ -30,6 +30,7 @@ const Autocomplete = forwardRef(
       id,
       ignoreWrapper,
       waitToSearch,
+      autoComplete,
       onItemSubmit = () => {},
       onChange = () => {},
       onSearch = () => {},
@@ -102,6 +103,7 @@ const Autocomplete = forwardRef(
             onChange={onChangeHandler}
             data={data}
             ref={ref}
+            autoComplete={autoComplete}
             classNames={classes}
             error={!isEmpty(error)}
           />

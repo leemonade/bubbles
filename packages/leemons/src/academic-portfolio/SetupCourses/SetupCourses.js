@@ -213,7 +213,7 @@ const SetupCourses = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title}>
           <Stack direction="column" className={classes.checkboxGroup}>

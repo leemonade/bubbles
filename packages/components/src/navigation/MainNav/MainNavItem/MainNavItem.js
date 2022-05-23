@@ -6,6 +6,24 @@ import { useClickOutside } from '@mantine/hooks';
 import { MainNavItemStyles } from './MainNavItem.styles';
 import { ImageLoader } from './../../../misc';
 
+const Wrapper = ({ useRouter, item, children }) => {
+  if (item.url) {
+    if (useRouter) {
+      return (
+        <Link key={item.id} to={item.url}>
+          {children}
+        </Link>
+      );
+    }
+    return (
+      <a key={item.id} href={item.url}>
+        {children}
+      </a>
+    );
+  }
+  return children;
+};
+
 export const MainNavItem = ({
   item,
   itemWidth,
@@ -29,24 +47,6 @@ export const MainNavItem = ({
     onClick(e);
   };
 
-  const Wrapper = ({ children }) => {
-    if (item.url) {
-      if (useRouter) {
-        return (
-          <Link key={item.id} to={item.url}>
-            {children}
-          </Link>
-        );
-      }
-      return (
-        <a key={item.id} href={item.url}>
-          {children}
-        </a>
-      );
-    }
-    return children;
-  };
-
   const handleMouseEnter = () => {
     setIsHovered(true);
     setTimeout(() => setIsHovered(false), 3000);
@@ -60,7 +60,7 @@ export const MainNavItem = ({
       withArrow
       classNames={{ body: classes.tooltipBody, arrow: classes.tooltipArrow }}
     >
-      <Wrapper>
+      <Wrapper useRouter={useRouter} item={item}>
         <Button
           ref={ref}
           className={classes.root}

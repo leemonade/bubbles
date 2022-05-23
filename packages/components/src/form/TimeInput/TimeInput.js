@@ -28,6 +28,7 @@ const TimeInput = forwardRef(
       help,
       headerStyle,
       contentStyle,
+      autoComplete,
       ...props
     },
     ref
@@ -55,6 +56,7 @@ const TimeInput = forwardRef(
           ref={ref}
           size={size}
           classNames={classes}
+          autoComplete={autoComplete}
           error={!isEmpty(error)}
         />
       </InputWrapper>

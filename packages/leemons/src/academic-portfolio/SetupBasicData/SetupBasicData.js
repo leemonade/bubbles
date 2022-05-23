@@ -89,7 +89,7 @@ const SetupBasicData = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)}>
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
         <ContextContainer {...props} divided>
           <ContextContainer title={labels.title}>

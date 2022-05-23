@@ -131,7 +131,7 @@ const AdminPageHeader = ({
   );
 
   return (
-    <form onSubmit={handleSubmit(onSave)}>
+    <form onSubmit={handleSubmit(onSave)} autoComplete="off">
       <Box ref={containerRef} className={cx(classes.root, className)}>
         <Box
           ref={childRef}

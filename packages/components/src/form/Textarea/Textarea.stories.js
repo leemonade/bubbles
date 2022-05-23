@@ -30,7 +30,8 @@ export default {
 };
 
 const Template = ({ onChange, ...props }) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(null);
+
   return (
     <Textarea
       {...props}

@@ -165,7 +165,7 @@ const LinkModal = ({
         ></RadioGroup>
       </Box>
       <Box className={classes.form}>
-        <form onSubmit={handleSubmit(submitHandler)}>
+        <form onSubmit={handleSubmit(submitHandler)} autoComplete="off">
           <ContextContainer>
             <Controller
               name="text"
