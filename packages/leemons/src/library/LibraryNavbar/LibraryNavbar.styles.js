@@ -10,16 +10,16 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
   return {
     root: {
       height: '100%',
-      flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'start',
-      position: 'relative',
       backgroundColor: theme.colors.ui03,
     },
     header: {
+      gap: 4,
+      padding: 24,
+      paddingBottom: 40,
+      display: 'flex',
       color: theme.colors.text01,
-      padding: `${pxToRem(24)} ${pxToRem(0)} ${pxToRem(16)} ${pxToRem(24)}`,
     },
     title: {
       fontSize: pxToRem(24),
@@ -29,46 +29,42 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
     uploadButton: {
       display: isExpanded && 'none',
       padding: `${pxToRem(24)} ${pxToRem(14)} ${pxToRem(0)} ${pxToRem(14)}`,
-      // width: 'calc(100% - 16px)',
     },
-    navbarTop: {
+    navbarBottom: {
       width: 'calc(100% - 20px)',
+      marginTop: isExpanded ? 24 : 12,
       maxHeight: isExpanded ? 700 : 92,
       marginInline: 10,
-      backgroundColor: isExpanded ? theme.colors.mainWhite : 'inherit',
-      // transition:
-      //  'max-height 0.2s ease-out, box-shadow 0.2s ease-out, border 0.2s ease-out, background-color 0.2s ease-out',
       overflow: 'hidden',
       border: isExpanded ? `1px solid ${theme.colors.ui04}` : `1px solid transparent`,
       position: 'relative',
       zIndex: 2,
+      borderRadius: 4,
+      backgroundColor: isExpanded ? theme.colors.mainWhite : 'transparent',
     },
     navbarTopSubWrapper: {
       opacity: isExpanded ? 1 : 0,
       transition: 'opacity 0.2s ease-out',
     },
     fileUpload: {
-      width: '100%',
+      width: 'calc(100% - 20px)',
+      marginInline: 10,
+    },
+    sectionTitle: {
+      fontWeight: 500,
+      fontSize: 15,
     },
     fileUploadWrapper: {
-      padding: `${pxToRem(10)} ${pxToRem(16)} ${pxToRem(20)} ${pxToRem(16)}`,
-      backgroundColor: theme.colors.mainWhite,
+      paddingTop: 10,
+      paddingBottom: 4,
+      paddingLeft: 16,
+      paddingRight: 10,
     },
     navbarTopList: {
-      backgroundColor: theme.colors.ui03,
       paddingBottom: theme.spacing[2],
       '& > span': {
         padding: 16,
       },
-    },
-    navbarBody: {
-      position: 'absolute',
-      top: 180,
-      right: 0,
-      left: 0,
-    },
-    newTitle: {
-      color: theme.colors.text05,
     },
   };
 });

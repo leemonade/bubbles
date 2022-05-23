@@ -47,6 +47,7 @@ Playground.args = {
     uploadButton: 'Upload or create',
     quickAccess: 'Quick access',
     createNewTitle: 'Create new',
+    uploadTitle: 'Upload file',
     fileUploadTitle: 'Click to browse your file',
     fileUploadSubtitle: 'or drop here a file from your computer',
   },
