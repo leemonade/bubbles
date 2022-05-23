@@ -12,32 +12,73 @@ import { useElementSize } from '@mantine/hooks';
 const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ...props }) => {
   const { ref: timelineRef, width: timelineWidth } = useElementSize();
   const [events, setEvents] = useState([]);
+  const firstIndex = 0;
+  const lastIndex = data.length - 1;
   const EVENT_WIDTH = 100;
 
   if (!locale) {
     locale = navigator.language || navigator.userLanguage;
   }
 
+  const getDaysBetween = (firstDate, lastDate) => {
+    const daysBetween = (firstDate - lastDate) / (1000 * 60 * 60 * 24);
+    return daysBetween;
+  };
+
+  const getRealCompletionPercentage = (completionPercentage) => {
+    if (completionPercentage < 0) return 0;
+    if (completionPercentage > 1) return 1;
+    return completionPercentage;
+  };
+
   const renderTimeline = () => {
+    if (events.length === 0) return;
     let lastProgressWidth = 0;
+    let progressWidth = 0;
+    const currentDay = new Date();
+    for (let i = 0; i < events.length - 1; i++) {
+      const currentEventDate = events[i].date;
+      const nextEventDate = events[i + 1].date;
+
+      const intervalDays = getDaysBetween(nextEventDate, currentEventDate);
+      const daysSinceEvent = getDaysBetween(currentDay, currentEventDate);
+
+      const completionPercentage = daysSinceEvent / intervalDays;
+      const widthBetweenEvents = events[i + 1].x - 15 - lastProgressWidth;
+
+      const realCompletionPercentage = getRealCompletionPercentage(completionPercentage);
+      const nextProgressWidth =
+        widthBetweenEvents * realCompletionPercentage + (realCompletionPercentage === 1 ? 15 : 0);
+
+      progressWidth += nextProgressWidth;
+      lastProgressWidth = events[i + 1].x;
+    }
+    lastProgressWidth = 0;
     return events.map((interval, index) => {
       const dateToReturn = new Date(interval.date).toLocaleDateString(locale);
       const variantColor = color === 'positive' ? COLORS.mainWhite : COLORS.interactive02;
-      const dotStyle =
-        new Date() >= new Date(interval.date)
+      const isPastDay = new Date() >= new Date(interval.date);
+
+      const currentProgresStyle =
+        index === 0
           ? {
-              backgroundColor: variantColor,
+              top: 6,
+              borderTopStyle: 'solid',
+              borderTopWidth: 3,
+              left: 'calc(50% + 7px)',
+              zIndex: 2,
             }
           : {};
 
       const progressStyle = {
-        width: interval.x - 15 - lastProgressWidth,
+        width: index !== 0 ? interval.x - 15 - lastProgressWidth : progressWidth,
+        ...currentProgresStyle,
       };
       lastProgressWidth = interval.x;
       return (
         <Box key={interval.date} className={classes.event} style={{ left: interval.x }}>
           <Box className={classes.progress} style={progressStyle} />
-          <Box className={classes.dot} style={dotStyle}></Box>
+          <Box className={classes.dot} style={{ backgroundColor: isPastDay && variantColor }}></Box>
           <Box className={classes.eventInfo}>
             <Text size="xs" className={classes.intervalLabel}>
               {interval.label}
@@ -55,8 +96,6 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     if (!timelineWidth) return;
 
     let newEvents = [];
-    let firstIndex = 0;
-    let lastIndex = data.length - 1;
     data.sort((a, b) => a.date - b.date);
 
     let availableWidth = timelineWidth;
@@ -106,6 +145,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
       <Box ref={timelineRef} className={classes.timelineContainer}>
         {renderTimeline()}
       </Box>
+      <Box>Timeline width: {timelineWidth}</Box>
     </Box>
   );
 };
