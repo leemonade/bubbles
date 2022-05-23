@@ -7,6 +7,7 @@ import { useId } from '@mantine/hooks';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
+import { Paragraph } from '../../typography';
 
 export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
 export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
@@ -40,6 +41,7 @@ const Select = forwardRef(
       placeholder,
       className,
       autoComplete,
+      readOnly,
       ...props
     },
     ref
@@ -67,52 +69,69 @@ const Select = forwardRef(
     };
 
     // ······················································
+    // LABELS & STATIC
+
+    const dataValue = useMemo(() => {
+      if (isNil(value)) {
+        return '';
+      }
+
+      const found = data.find((d) => d.value === value);
+
+      return found ? found.label : '';
+    }, [data, value]);
+
+    // ······················································
     // STYLES
 
     const { classes, cx } = SelectStyles({ size }, { name: 'Select' });
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
-        <MantineSelect
-          ref={ref}
-          autoComplete={autoComplete}
-          id={uuid}
-          size={size}
-          data={data}
-          onChange={handleChange}
-          onBlur={onBlur}
-          value={value}
-          itemComponent={itemComponent}
-          creatable={creatable}
-          onCreate={onCreate}
-          defaultValue={defaultValue}
-          name={name}
-          disabled={disabled}
-          searchable={searchable}
-          onSearchChange={onSearchChange}
-          onDropdownOpen={onDropdownOpen}
-          onDropdownClose={onDropdownClose}
-          initiallyOpened={initiallyOpened}
-          getCreateLabel={getCreateLabel}
-          nothingFound={nothingFound}
-          placeholder={placeholder}
-          rightSection={
-            isClearable && showClear ? (
-              <ActionButton
-                icon={<RemoveIcon />}
-                tooltip={clearable}
-                size={size}
-                onClick={handleClear}
-              />
-            ) : (
-              <ChevDownIcon className={classes.rightSection} />
-            )
-          }
-          className={className}
-          classNames={classes}
-          icon={icon}
-          error={!isEmpty(error)}
-        />
+        {readOnly ? (
+          <Paragraph clean>{dataValue}</Paragraph>
+        ) : (
+          <MantineSelect
+            ref={ref}
+            autoComplete={autoComplete}
+            id={uuid}
+            size={size}
+            data={data}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={value}
+            itemComponent={itemComponent}
+            creatable={creatable}
+            onCreate={onCreate}
+            defaultValue={defaultValue}
+            name={name}
+            disabled={disabled}
+            searchable={searchable}
+            onSearchChange={onSearchChange}
+            onDropdownOpen={onDropdownOpen}
+            onDropdownClose={onDropdownClose}
+            initiallyOpened={initiallyOpened}
+            getCreateLabel={getCreateLabel}
+            nothingFound={nothingFound}
+            placeholder={placeholder}
+            rightSection={
+              isClearable && showClear ? (
+                <ActionButton
+                  icon={<RemoveIcon />}
+                  tooltip={clearable}
+                  size={size}
+                  onClick={handleClear}
+                />
+              ) : (
+                <ChevDownIcon className={classes.rightSection} />
+              )
+            }
+            className={className}
+            classNames={classes}
+            icon={icon}
+            error={!isEmpty(error)}
+          />
+        )}
       </InputWrapper>
     );
   }
@@ -122,6 +141,7 @@ Select.defaultProps = {
   size: 'sm',
   orientation: 'vertical',
   autoComplete: 'off',
+  readOnly: false,
 };
 
 Select.propTypes = {
@@ -141,6 +161,7 @@ Select.propTypes = {
   onDropdownClose: PropTypes.func,
   style: PropTypes.object,
   autoComplete: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 export { Select };

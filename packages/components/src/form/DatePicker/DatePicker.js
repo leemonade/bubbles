@@ -1,12 +1,14 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty, isFunction, isNil } from 'lodash';
 import {
   DatePicker as MantineDatePicker,
   DateRangePicker,
   TimeInput as MantineTimeInput,
 } from '@mantine/dates';
 import { useId } from '@mantine/hooks';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
@@ -19,6 +21,9 @@ import {
 import { TimeInputStyles } from '../TimeInput/TimeInput.styles';
 import { DatePickerStyles } from './DatePicker.styles';
 import { updateDate, updateTime } from './helpers';
+import { Paragraph } from '../../typography';
+
+dayjs.extend(localizedFormat);
 
 export const DATE_PICKER_SIZES = INPUT_WRAPPER_SIZES;
 export const DATE_PICKER_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
@@ -34,6 +39,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   locale: 'en',
   withTime: false,
   autoComplete: 'off',
+  readOnly: false,
 };
 export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -52,6 +58,7 @@ export const DATE_PICKER_PROP_TYPES = {
   headerStyle: PropTypes.any,
   contentStyle: PropTypes.any,
   autoComplete: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -80,6 +87,7 @@ const DatePicker = forwardRef(
       headerStyle,
       contentStyle,
       autoComplete,
+      readOnly,
       ...props
     },
     ref
@@ -134,32 +142,38 @@ const DatePicker = forwardRef(
         headerStyle={headerStyle}
         contentStyle={contentStyle}
       >
-        <Stack spacing={1} fullWidth>
-          <Comp
-            {...props}
-            {...compProps}
-            autoComplete={autoComplete}
-            locale={currentLocale}
-            uuid={uuid}
-            ref={ref}
-            size={size}
-            value={date}
-            classNames={{ ...classes, ...calendarClasses }}
-            error={!isEmpty(error)}
-            onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
-            icon={<PluginCalendarIcon />}
-          />
-          {withTime && !range && (
-            <TimeInput
-              onChange={(v) => updateTime(v, date, setDate)}
-              value={userValue || date}
-              size={size}
-              error={!isEmpty(error)}
-              skipFlex
+        {readOnly ? (
+          <Paragraph clean>
+            {!isNil(date) && dayjs(date).format(withTime && !range ? 'LL LT' : 'LL')}
+          </Paragraph>
+        ) : (
+          <Stack spacing={1} fullWidth>
+            <Comp
+              {...props}
+              {...compProps}
               autoComplete={autoComplete}
+              locale={currentLocale}
+              uuid={uuid}
+              ref={ref}
+              size={size}
+              value={date}
+              classNames={{ ...classes, ...calendarClasses }}
+              error={!isEmpty(error)}
+              onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
+              icon={<PluginCalendarIcon />}
             />
-          )}
-        </Stack>
+            {withTime && !range && (
+              <TimeInput
+                onChange={(v) => updateTime(v, date, setDate)}
+                value={userValue || date}
+                size={size}
+                error={!isEmpty(error)}
+                skipFlex
+                autoComplete={autoComplete}
+              />
+            )}
+          </Stack>
+        )}
       </InputWrapper>
     );
   }

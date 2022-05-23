@@ -21,6 +21,7 @@ const Dates = ({
   config,
   selectData,
   disabled,
+  readOnly,
   onlyOneDate,
 }) => {
   const {
@@ -51,9 +52,10 @@ const Dates = ({
                   render={({ field }) => (
                     <DatePicker
                       size="xs"
+                      readOnly={readOnly}
                       disabled={disabled}
                       error={get(errors, 'startDate')}
-                      label={config.fromLabel || messages.fromLabel}
+                      label={config?.fromLabel || messages.fromLabel}
                       required
                       {...field}
                     />
@@ -74,6 +76,7 @@ const Dates = ({
                       }
                       return (
                         <TimeInput
+                          readOnly={readOnly}
                           disabled={disabled}
                           error={get(errors, 'startTime')}
                           size="xs"
@@ -103,6 +106,7 @@ const Dates = ({
                         error={get(errors, 'endDate')}
                         size="xs"
                         disabled={disabled}
+                        readOnly={readOnly}
                         label={messages.toLabel}
                         required
                         {...field}
@@ -124,6 +128,7 @@ const Dates = ({
                         }
                         return (
                           <TimeInput
+                            readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'endTime')}
                             size="xs"
@@ -151,6 +156,7 @@ const Dates = ({
                   error={get(errors, 'repeat')}
                   size="xs"
                   disabled={disabled}
+                  readOnly={readOnly}
                   label={messages.repeatLabel}
                   {...field}
                   data={selectData.repeat}
@@ -159,7 +165,7 @@ const Dates = ({
             />
 
             {/* ALL DAY */}
-            {!config.hideAllDay ? (
+            {!config?.hideAllDay ? (
               <Controller
                 name="isAllDay"
                 control={control}
