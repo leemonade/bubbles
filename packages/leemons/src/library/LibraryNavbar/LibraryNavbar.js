@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { isEmpty, isFunction } from 'lodash';
+import React, { useState, useCallback, useMemo } from 'react';
+import { isFunction } from 'lodash';
 import {
   Box,
   Stack,
@@ -67,11 +67,21 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
   const { classes, cx } = LibraryNavbarStyles({ isExpanded }, { name: 'LibraryNavbar' });
   return (
     <Box className={classes.root}>
-      <Stack className={classes.header} spacing={2} alignItems={'center'}>
+      <Box className={classes.header}>
         <PluginLeebraryIcon height={24} width={24} />
         <Text className={classes.title}>{'Library'}</Text>
+      </Box>
+      <Stack direction={'column'}>
+        <NavbarItem
+          icon={<PluginKimIcon />}
+          label={labels.quickAccess}
+          onClick={() => onNavHandler(null)}
+          selected={quickAccessSelected}
+        />
+        <Divider style={{ marginBlock: 8, marginInline: 10 }} />
+        {renderNavbarItems(onNavHandler)}
       </Stack>
-      <Paper className={classes.navbarTop} shadow={!isExpanded ? 'none' : 'level03'} padding={0}>
+      <Paper className={classes.navbarBottom} shadow={!isExpanded ? 'none' : 'level03'} padding={0}>
         <Box className={classes.uploadButton}>
           <Button size={'sm'} rightIcon={<CloudUploadIcon />} onClick={() => setIsExpanded(true)}>
             {labels.uploadButton}
@@ -87,14 +97,27 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
           >
             {isExpanded && (
               <Stack spacing={1} alignItems={'center'} fullWidth>
-                <Box style={{ flex: 1, textAlign: 'center' }}>
-                  <Text>{labels.uploadButton}</Text>
+                <Box style={{ flex: 1 }}>
+                  <Text transform="uppercase" className={classes.sectionTitle}>
+                    {labels.createNewTitle}
+                  </Text>
                 </Box>
                 <Box>
                   <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
                 </Box>
               </Stack>
             )}
+          </Stack>
+          <Stack
+            direction={'column'}
+            alignItems={'start'}
+            className={classes.navbarTopList}
+            skipFlex
+          >
+            {renderNavbarItems(onNewHandler, true)}
+            <Text transform="uppercase" className={classes.sectionTitle}>
+              {labels.uploadTitle}
+            </Text>
             {showUpload && (
               <Box className={classes.fileUpload}>
                 <FileUpload
@@ -108,29 +131,8 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
               </Box>
             )}
           </Stack>
-          <Stack
-            direction={'column'}
-            alignItems={'start'}
-            className={classes.navbarTopList}
-            skipFlex
-          >
-            <Text size="xs" transform={'uppercase'} className={classes.newTitle}>
-              {labels.createNewTitle}
-            </Text>
-            {renderNavbarItems(onNewHandler, true)}
-          </Stack>
         </Stack>
       </Paper>
-      <Stack direction={'column'} className={classes.navbarBody}>
-        <NavbarItem
-          icon={<PluginKimIcon />}
-          label={labels.quickAccess}
-          onClick={() => onNavHandler(null)}
-          selected={quickAccessSelected}
-        />
-        <Divider style={{ marginBlock: 8, marginInline: 10 }} />
-        {renderNavbarItems(onNavHandler)}
-      </Stack>
     </Box>
   );
 };
