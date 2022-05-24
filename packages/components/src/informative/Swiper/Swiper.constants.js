@@ -9,12 +9,16 @@ export const SWIPER_DEFAULT_PROPS = {
   buttonStyles: {},
   nextButtonStyles: {},
   prevButtonStyles: {},
+  disableSelectedStyles: false,
+  deselectable: true,
 };
 export const SWIPER_PROP_TYPES = {
   children: PropTypes.arrayOf(PropTypes.element),
   variant: PropTypes.oneOf(SWIPER_VARIANTS),
   breakAt: PropTypes.object,
   selectable: PropTypes.bool,
+  deselectable: PropTypes.bool,
+  disableSelectedStyles: PropTypes.bool,
   onSelectIndex: PropTypes.func,
   styles: PropTypes.object,
   slideStyles: PropTypes.object,
