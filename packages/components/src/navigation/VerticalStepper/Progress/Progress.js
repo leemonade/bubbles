@@ -13,10 +13,11 @@ const Progress = ({
   isChild,
   isText,
   isCurrent,
+  isVisited,
   ...props
 }) => {
   const { classes, cx } = ProgressStyles(
-    { position, isButton, isActivity, isText, isCurrent, state },
+    { position, isButton, isActivity, isText, isCurrent, isVisited, state },
     { name: 'Progress' }
   );
 

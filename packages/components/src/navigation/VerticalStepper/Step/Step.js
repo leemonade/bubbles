@@ -132,6 +132,7 @@ const Step = ({
         isButton={isButton}
         isActivity={isActivity}
         isCurrent={isChild ? state === 'current' : isActive}
+        isVisited={isVisited}
       />
     </Box>
   );
