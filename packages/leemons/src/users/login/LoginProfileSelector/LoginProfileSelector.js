@@ -78,6 +78,7 @@ const LoginProfileSelector = ({
 
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
@@ -99,7 +100,11 @@ const LoginProfileSelector = ({
                 placeholder={labels.centerPlaceholder}
                 error={errors.center}
                 onChange={(e) => {
-                  setProfiles(getCenterProfiles(e));
+                  const profiles = getCenterProfiles(e);
+                  if (profiles.length < 2) {
+                    setValue('profile', profiles[0].value);
+                  }
+                  setProfiles(profiles);
                   onChange(e);
                 }}
                 value={value}
@@ -109,7 +114,7 @@ const LoginProfileSelector = ({
           />
         ) : null}
 
-        {profiles?.length ? (
+        {profiles?.length && profiles.length > 1 ? (
           <Controller
             name="profile"
             control={control}
