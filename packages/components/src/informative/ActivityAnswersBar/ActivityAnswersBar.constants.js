@@ -18,4 +18,5 @@ export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
       label: PropTypes.string,
     })
   ),
+  graphicHeight: PropTypes.number,
 };

@@ -20,18 +20,14 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ wrapperHeight, ...props }) => {
-  return (
-    <Box style={{ height: wrapperHeight }}>
-      <ActivityAnswersBar {...props} />
-    </Box>
-  );
+const Template = ({ ...props }) => {
+  return <ActivityAnswersBar {...props} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  wrapperHeight: 270,
+  graphicHeight: 150,
   ...ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS,
   data: DATA,
   selectables: SELECTABLES,
