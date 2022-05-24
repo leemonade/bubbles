@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 export const ProgressStyles = createStyles(
-  (theme, { position, isButton, isActivity, isText, isCurrent, state }) => {
+  (theme, { position, isButton, isActivity, isText, isCurrent, isVisited, state }) => {
     const isFirst = position === 'start';
     const isLast = position === 'end';
     const isBetween = position === 'between';
@@ -78,7 +78,10 @@ export const ProgressStyles = createStyles(
         backgroundColor: theme.colors.ui01,
         zIndex: -1,
       },
-      currentIcon: { color: theme.colors.interactive01, backgroundColor: theme.colors.mainWhite },
+      currentIcon: {
+        color: theme.colors.interactive01,
+        backgroundColor: isVisited ? theme.colors.interactive03 : theme.colors.mainWhite,
+      },
       completedIcon: {
         color: theme.colors.text06,
         padding: 4,

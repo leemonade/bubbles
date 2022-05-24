@@ -10,6 +10,7 @@ export const PROGRESS_DEFAULT_PROPS = {
   isActivity: false,
   isChild: false,
   isCurrent: false,
+  isVisited: false,
 };
 export const PROGRESS_PROP_TYPES = {
   state: PropTypes.oneOf(PROGRESS_STATES),
