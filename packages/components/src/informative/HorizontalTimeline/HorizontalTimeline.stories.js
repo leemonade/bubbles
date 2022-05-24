@@ -41,7 +41,7 @@ Playground.args = {
   data: [
     { label: 'Visualization', date: new Date('2022-05-01') },
     { label: 'Start', date: new Date('2022-05-09') },
-    { label: 'Deadline', date: new Date('2022-06-10') },
+    { label: 'Deadline', date: '2022-06-10T00:00:00.000Z' },
     { label: 'Evaluation', date: new Date('2022-06-11') },
     { label: 'Results', date: new Date('2022-06-15') },
   ],

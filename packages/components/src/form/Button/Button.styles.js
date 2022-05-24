@@ -109,13 +109,13 @@ const getVariant = (variant, theme, color, disabled) => {
         },
       },
       negative: {
-        borderColor: theme.colors.text07,
-        color: theme.colors.text07,
+        borderColor: theme.colors.text08,
+        color: theme.colors.text08,
         '&:hover': {
           opacity: '0.8',
         },
         '&:active': {
-          borderColor: theme.colors.text07,
+          borderColor: theme.colors.interactive01v0,
           color: theme.colors.text07,
           boxShadow: theme.shadows.drop01,
         },

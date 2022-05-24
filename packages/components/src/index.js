@@ -1,3 +1,5 @@
+import SimpleBar from 'simplebar-react';
+export { SimpleBar };
 export {
   Grid,
   Col,
@@ -30,6 +32,7 @@ export {
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';
 export { Helmet } from 'react-helmet';
+
 export * from '@nivo/bar';
 export * from './ThemeProvider';
 export * from './informative';

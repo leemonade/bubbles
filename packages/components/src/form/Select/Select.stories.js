@@ -22,11 +22,18 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ value: valueProp, onChange, ...props }) => {
+  const [value, setValue] = React.useState(valueProp);
   return (
     <Box>
-      <Select {...props} />
-      <Select {...props} />
+      <Select
+        {...props}
+        value={value}
+        onChange={(e) => {
+          setValue(e);
+          onChange(e);
+        }}
+      />
     </Box>
   );
 };
@@ -44,8 +51,10 @@ Playground.args = {
   required: true,
   searchable: false,
   creatable: false,
+  readOnly: false,
   clearable: 'Clear select field',
   error: 'Descriptive text for error ',
+  value: 'Carol Miller',
   data: [
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',

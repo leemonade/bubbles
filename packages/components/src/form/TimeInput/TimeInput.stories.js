@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { TimeInput, TIME_INPUT_DEFAULT_PROPS } from './TimeInput';
 import mdx from './TimeInput.mdx';
 import { INPUT_WRAPPER_SIZES } from '../InputWrapper';

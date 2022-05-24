@@ -10,7 +10,7 @@ function ExclamationIcon(props) {
   }, props), /*#__PURE__*/React.createElement("circle", {
     cx: 8,
     cy: 11.5,
-    r: 1.5
+    r: 2
   }));
 }
 

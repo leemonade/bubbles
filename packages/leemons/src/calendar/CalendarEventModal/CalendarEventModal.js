@@ -20,6 +20,7 @@ import { CalendarEventModalStyles } from './CalendarEventModal.styles';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
+  readOnly: false,
   onClose: () => {},
   onRemove: () => {},
   onSubmit: () => {},
@@ -78,6 +79,7 @@ const CalendarEventModal = (props) => {
     fromCalendar,
     onSubmit,
     defaultValues,
+    readOnly,
   } = props;
 
   const form = useForm({ defaultValues });
@@ -122,7 +124,7 @@ const CalendarEventModal = (props) => {
     hasComponent = true;
   }
 
-  const disabled = !isNew && !isOwner;
+  const disabled = (!isNew && !isOwner) || readOnly;
 
   return (
     <Drawer
@@ -153,8 +155,9 @@ const CalendarEventModal = (props) => {
             }}
             render={({ field }) => (
               <TextInput
+                readOnly={readOnly}
                 disabled={disabled}
-                placeholder={config.titlePlaceholder || messages.titlePlaceholder}
+                placeholder={config?.titlePlaceholder || messages.titlePlaceholder}
                 error={get(errors, 'title')}
                 required
                 {...field}
@@ -189,6 +192,7 @@ const CalendarEventModal = (props) => {
             {...props}
             form={form}
             classes={classes}
+            readOnly={readOnly}
             disabled={disabled}
             onlyOneDate={onlyOneDate}
             config={config}
@@ -205,6 +209,7 @@ const CalendarEventModal = (props) => {
             allFormData={watch()}
             data={watch('data')}
             classes={classes}
+            readOnly={readOnly}
             disabled={disabled}
             allProps={props}
             form={{
@@ -261,6 +266,7 @@ const CalendarEventModal = (props) => {
                       render={({ field }) => (
                         <Select
                           size="xs"
+                          readOnly={readOnly}
                           disabled={disabled}
                           placeholder={messages.calendarPlaceholder}
                           {...field}

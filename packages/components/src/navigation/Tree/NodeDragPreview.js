@@ -19,8 +19,8 @@ const NodeDragPreview = ({ monitorProps, ...props }) => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d="M0.333332 4.33301H13.3333" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M0.333332 1.6665H13.3333" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M0.333332 4.33301H13.3333" stroke="currentColor" strokeWidth="2" />
+            <path d="M0.333332 1.6665H13.3333" stroke="currentColor" strokeWidth="2" />
           </svg>
         </Box>
         {isString(item.text) ? <Text>{item.text}</Text> : item.text}
