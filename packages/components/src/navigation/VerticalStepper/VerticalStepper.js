@@ -167,7 +167,7 @@ const VerticalStepper = ({
 
   useEffect(() => {
     if (!isMounted.current) return;
-    setVisitedSteps([...visitedSteps, activeIndex]);
+    setVisitedSteps([...new Set([...visitedSteps, activeIndex])]);
     if (activeIndex !== currentStep) {
       setActiveIndex(currentStep);
     }
@@ -181,7 +181,7 @@ const VerticalStepper = ({
     const previousSteps = getAllStepsPrevious(currentStep);
     if (autocompleteOnNext) {
       setCompletedSteps([...new Set([...completedSteps, ...previousSteps])]);
-      setVisitedSteps([...new Set([...visitedSteps, previousSteps])]);
+      setVisitedSteps([...new Set([...visitedSteps, ...previousSteps])]);
     }
   }, [activeIndex]);
 
