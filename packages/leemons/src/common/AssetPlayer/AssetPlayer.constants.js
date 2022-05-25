@@ -11,6 +11,7 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   muted: false,
   volume: 1,
   loop: false,
+  fullScreen: false,
   nativeControls: false,
   progressInterval: 100,
 };
@@ -25,6 +26,7 @@ export const ASSET_PLAYER_PROP_TYPES = {
   muted: PropTypes.bool,
   volume: PropTypes.number,
   loop: PropTypes.bool,
+  fullScreen: PropTypes.bool,
   nativeControls: PropTypes.bool,
   progressInterval: PropTypes.number,
 };
