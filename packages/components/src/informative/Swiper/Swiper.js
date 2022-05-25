@@ -14,6 +14,8 @@ const Swiper = ({
   variant,
   breakAt,
   selectable,
+  deselectable,
+  disableSelectedStyles,
   onSelectIndex,
   styles,
   slideStyles,
@@ -28,8 +30,20 @@ const Swiper = ({
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const onSelectIndexHandler = (index) => {
-    selectedIndex === index ? setSelectedIndex(null) : setSelectedIndex(index);
-    isFunction(onSelectIndex) && onSelectIndex(selectedIndex === index ? null : index);
+    let shouldUpdate = false;
+    let newIndex;
+    if (selectedIndex === index && deselectable) {
+      newIndex = null;
+      shouldUpdate = true;
+    } else if (selectedIndex !== index) {
+      newIndex = index;
+      shouldUpdate = true;
+    }
+
+    if (shouldUpdate) {
+      setSelectedIndex(newIndex);
+      isFunction(onSelectIndex) && onSelectIndex(newIndex);
+    }
   };
 
   const getSwiperSlides = () => {
@@ -39,7 +53,10 @@ const Swiper = ({
         <SwiperSlide key={`slide${index}`}>
           {selectable ? (
             <Box
-              className={cx(classes.selectWrapper, isSelected ? classes.selectedSlide : '')}
+              className={cx(
+                classes.selectWrapper,
+                isSelected && !disableSelectedStyles ? classes.selectedSlide : ''
+              )}
               onClick={() => onSelectIndexHandler(index)}
             >
               {child}
