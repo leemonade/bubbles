@@ -13,10 +13,26 @@ import { CustomBar } from './CustomBar';
 
 const MARGIN_FOR_CHAR = 5.5;
 
-const ActivityAnswersBar = ({ data, selectables, graphicHeight, styles, ...props }) => {
+const ActivityAnswersBar = ({
+  data,
+  selectables,
+  graphicHeight,
+  styles,
+  onChangeType = () => {},
+  ...props
+}) => {
   const [selectedGroup, setSelectedGroup] = useState(selectables[0].value);
   const [renderedData, setRenderedData] = useState([]);
   const [longestKeyCharacters, setLongestKeyCharacters] = useState(0);
+
+  React.useEffect(() => {
+    onChangeType(selectables[0].value);
+  }, []);
+
+  const onSelect = (e) => {
+    onChangeType(e);
+    setSelectedGroup(e);
+  };
 
   const getMaxValue = () => {
     if (renderedData.length === 0) return 0;
@@ -48,7 +64,7 @@ const ActivityAnswersBar = ({ data, selectables, graphicHeight, styles, ...props
       <Select
         data={selectables}
         value={selectedGroup}
-        onChange={setSelectedGroup}
+        onChange={onSelect}
         style={{ width: 150, marginLeft: 10 }}
       />
       <Box className={classes.graphicWrapper}>
