@@ -14,3 +14,4 @@ export * from './Swiper';
 export * from './Calification';
 export * from './HorizontalTimeline';
 export * from './ScoresBar';
+export * from './ActivityAnswersBar';

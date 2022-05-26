@@ -82,7 +82,7 @@ Playground.args = {
   ...SCORE_FEEDBACK_DEFAULT_PROPS,
   calification: {
     minimumGrade: 5,
-    grade: 9,
+    grade: 5.2,
     label: 'SB',
   },
 };
