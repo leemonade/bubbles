@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 export const ACTIVITY_ANSWERS_BAR_STATUSES = ['OK', 'KO', null];
 
 export const ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS = {
-  barHeight: 45,
+  barHeight: 25,
   withLegend: true,
 };
 export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
