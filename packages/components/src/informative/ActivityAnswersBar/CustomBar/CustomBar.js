@@ -14,12 +14,10 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
   };
 
   const getPosition = () => {
-    if (isKO) return 0;
     return width > 40 ? width - 40 : 0;
   };
 
   const getLabelPosition = () => {
-    if (isKO) return 9;
     return width > 40 ? width - 29 : 29;
   };
 
@@ -37,7 +35,7 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
     if (isKO)
       return (
         <RemoveBoldIcon
-          x={20}
+          x={width - 20}
           y={height / 2 - 6.5}
           height={13}
           width={13}
@@ -62,12 +60,7 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
     <g transform={`translate(${x}, ${y})`}>
       {width > 0 && (
         <g>
-          <rect
-            x={isKO ? 40 : 0}
-            width={width > 40 ? width - 40 : 0}
-            height={height}
-            fill={color}
-          />
+          <rect x={0} width={width > 40 ? width - 40 : 0} height={height} fill={color} />
           <rect x={getPosition()} width={40} height={height} fill={getColor()} />
           <text
             x={getLabelPosition()}
