@@ -1,4 +1,5 @@
 import SimpleBar from 'simplebar-react';
+
 export { SimpleBar };
 export {
   Grid,
@@ -10,6 +11,7 @@ export {
   SegmentedControl,
   UnstyledButton,
   List,
+  useAccordionState,
 } from '@mantine/core';
 export {
   useId,
