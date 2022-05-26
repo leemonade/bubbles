@@ -4,6 +4,7 @@ export const ACTIVITY_ANSWERS_BAR_STATUSES = ['OK', 'KO', null];
 
 export const ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS = {
   barHeight: 45,
+  withLegend: true,
 };
 export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
   data: PropTypes.arrayOf(
@@ -26,4 +27,5 @@ export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
     null: PropTypes.string,
   }),
   barHeight: PropTypes.number,
+  withLegend: PropTypes.bool,
 };

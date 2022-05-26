@@ -10,10 +10,20 @@ import {
 } from './ActivityAnswersBar.constants';
 import { groupBy } from 'lodash';
 import { CustomBar } from './CustomBar';
+import { CustomLegend } from './CustomLegend';
+import { getFontProductive } from '../../theme.mixins';
 
-const MARGIN_FOR_CHAR = 5.5;
+const MARGIN_FOR_CHAR = 7.8;
 
-const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...props }) => {
+const ActivityAnswersBar = ({
+  data,
+  selectables,
+  labels,
+  barHeight,
+  styles,
+  withLegend,
+  ...props
+}) => {
   const [selectedGroup, setSelectedGroup] = useState(selectables[0].value);
   const [renderedData, setRenderedData] = useState([]);
   const [longestKeyCharacters, setLongestKeyCharacters] = useState(0);
@@ -25,6 +35,12 @@ const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...p
       ...renderedData.map(({ OK, KO, null: nullValue }) => OK + KO + nullValue)
     );
     return highestSumOfScores + 1;
+  };
+
+  const getLegends = (datum) => {
+    if (datum.id === 'OK') return labels.OK;
+    if (datum.id === 'KO') return labels.KO;
+    if (datum.id === 'null') return labels.null;
   };
 
   useEffect(() => {
@@ -44,9 +60,11 @@ const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...p
 
   useEffect(() => {
     setGraphicHeight(
-      renderedData.length * barHeight + 45 + (renderedData.length + 2) * barHeight * 0.1
+      renderedData.length * barHeight +
+        (withLegend ? 120 : 45) +
+        (renderedData.length + 2) * barHeight * 0.1
     );
-  }, [renderedData, barHeight]);
+  }, [renderedData, barHeight, withLegend]);
 
   const { classes, cx } = ActivityAnswersBarStyles(
     { styles, graphicHeight },
@@ -73,7 +91,24 @@ const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...p
           barComponent={(barData) => CustomBar(barData)}
           colors={['#50B579', '#DC5571', '#B9BEC4']}
           animate={false}
-          layers={['axes', 'bars', 'grid', 'markers']}
+          layers={['axes', 'bars', 'grid', 'markers', 'legends']}
+          legends={[
+            {
+              dataFrom: 'keys',
+              anchor: 'bottom-left',
+              direction: 'row',
+              justify: false,
+              translateX: withLegend ? 0 : -4000,
+              translateY: 70,
+              itemsSpacing: 2,
+              itemWidth: 100,
+              itemHeight: 20,
+              itemDirection: 'left-to-right',
+              symbolSize: 20,
+              symbolShape: CustomLegend,
+            },
+          ]}
+          legendLabel={getLegends}
           axisBottom={{
             tickSize: 0,
             tickPadding: 10,
@@ -84,7 +119,7 @@ const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...p
           }}
           margin={{
             right: 20,
-            bottom: 25,
+            bottom: withLegend ? 100 : 25,
             left: longestKeyCharacters * MARGIN_FOR_CHAR + 28,
             top: 20,
           }}
@@ -94,6 +129,19 @@ const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...p
                 strokeDasharray: '4',
                 stroke: COLORS.uiBackground03,
                 strokeOpacity: 0.4,
+              },
+            },
+            axis: {
+              ticks: {
+                text: {
+                  ...getFontProductive(13),
+                },
+              },
+            },
+            legends: {
+              text: {
+                ...getFontProductive(13),
+                fill: COLORS.text04,
               },
             },
           }}
