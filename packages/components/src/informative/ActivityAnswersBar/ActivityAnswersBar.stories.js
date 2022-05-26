@@ -27,8 +27,13 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  graphicHeight: 150,
+  barHeight: 30,
   ...ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS,
   data: DATA,
   selectables: SELECTABLES,
+  labels: {
+    OK: 'Acertada',
+    KO: 'Errónea',
+    null: 'NS/NC',
+  },
 };

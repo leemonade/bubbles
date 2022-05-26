@@ -18,5 +18,10 @@ export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
       label: PropTypes.string,
     })
   ),
+  labels: PropTypes.shape({
+    OK: PropTypes.string,
+    KO: PropTypes.string,
+    null: PropTypes.string,
+  }),
   graphicHeight: PropTypes.number,
 };

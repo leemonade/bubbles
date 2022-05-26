@@ -59,6 +59,42 @@ export const DATA = [
     level: 'Avanzado',
     status: 'KO',
   },
+  {
+    id: '11',
+    category: 'Castellano',
+    level: 'Avanzado',
+    status: null,
+  },
+  {
+    id: '12',
+    category: 'Historia',
+    level: 'Principiante',
+    status: null,
+  },
+  {
+    id: '13',
+    category: 'Mates',
+    level: 'Avanzado',
+    status: null,
+  },
+  {
+    id: '14',
+    category: 'Historia',
+    level: 'Principiante',
+    status: null,
+  },
+  {
+    id: '15',
+    category: 'Mates',
+    level: 'Principiante',
+    status: null,
+  },
+  {
+    id: '16',
+    category: 'Castellano',
+    level: 'Principiante',
+    status: null,
+  },
 ];
 
 export const SELECTABLES = [
