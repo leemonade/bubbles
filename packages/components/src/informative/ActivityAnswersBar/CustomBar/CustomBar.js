@@ -18,7 +18,7 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
   };
 
   const getLabelPosition = () => {
-    return width > 40 ? width - 29 : 29;
+    return width > 40 ? width - 29 : 11;
   };
 
   const getBarIcon = () => {
