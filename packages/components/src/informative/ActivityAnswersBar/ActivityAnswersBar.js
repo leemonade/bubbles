@@ -13,16 +13,18 @@ import { CustomBar } from './CustomBar';
 
 const MARGIN_FOR_CHAR = 5.5;
 
-const ActivityAnswersBar = ({ data, selectables, graphicHeight, styles, ...props }) => {
+const ActivityAnswersBar = ({ data, selectables, labels, barHeight, styles, ...props }) => {
   const [selectedGroup, setSelectedGroup] = useState(selectables[0].value);
   const [renderedData, setRenderedData] = useState([]);
   const [longestKeyCharacters, setLongestKeyCharacters] = useState(0);
+  const [graphicHeight, setGraphicHeight] = useState(0);
 
   const getMaxValue = () => {
     if (renderedData.length === 0) return 0;
-    const highestSumOfScores = Math.max(...renderedData.map(({ OK, KO }) => OK + KO));
-    const maxValue = Math.ceil(highestSumOfScores / 10) * 10;
-    return maxValue;
+    const highestSumOfScores = Math.max(
+      ...renderedData.map(({ OK, KO, null: nullValue }) => OK + KO + nullValue)
+    );
+    return highestSumOfScores + 1;
   };
 
   useEffect(() => {
@@ -32,12 +34,19 @@ const ActivityAnswersBar = ({ data, selectables, graphicHeight, styles, ...props
         [selectedGroup]: key,
         OK: groupedData[key].filter((item) => item.status === 'OK').length,
         KO: groupedData[key].filter((item) => item.status === 'KO').length,
+        null: groupedData[key].filter((item) => item.status === null).length,
       };
     });
     const longestKeyCharacters = Math.max(...Object.keys(groupedData).map((key) => key.length));
     setLongestKeyCharacters(longestKeyCharacters);
     setRenderedData(newData);
   }, [selectedGroup, data]);
+
+  useEffect(() => {
+    setGraphicHeight(
+      renderedData.length * barHeight + 45 + (renderedData.length + 2) * barHeight * 0.1
+    );
+  }, [renderedData, barHeight]);
 
   const { classes, cx } = ActivityAnswersBarStyles(
     { styles, graphicHeight },
@@ -56,12 +65,13 @@ const ActivityAnswersBar = ({ data, selectables, graphicHeight, styles, ...props
           enableGridX={true}
           enableGridY={false}
           maxValue={getMaxValue()}
-          keys={['OK', 'KO']}
+          padding={0.1}
+          keys={['OK', 'KO', 'null']}
           layout="horizontal"
           data={renderedData}
           indexBy={selectedGroup}
           barComponent={(barData) => CustomBar(barData)}
-          colors={['#50B579', '#DC5571']}
+          colors={['#50B579', '#DC5571', '#B9BEC4']}
           animate={false}
           layers={['axes', 'bars', 'grid', 'markers']}
           axisBottom={{

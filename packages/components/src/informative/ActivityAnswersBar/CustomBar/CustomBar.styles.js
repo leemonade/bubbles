@@ -28,5 +28,8 @@ export const CustomBarStyles = createStyles((theme, {}) => {
       fill: theme.colors.text02,
       fontWeight: 600,
     },
+    labelIcon: {
+      color: theme.colors.mainWhite,
+    },
   };
 });
