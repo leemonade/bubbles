@@ -7,16 +7,6 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
   const isOK = key.includes('OK');
   const isKO = key.includes('KO');
 
-  // if (isOK || isKO) {
-  //   console.log('Barra numero: ', index);
-  //   console.log('Barra key: ', key);
-  //   console.log('Barra width: ', width);
-  //   console.log('Barra height: ', height);
-  //   // console.log('Barra color: ', color);
-  //   console.log('Barra x: ', x);
-  //   console.log('Barra y: ', y);
-  // }
-
   const getColor = () => {
     if (isOK) return '#4BA773';
     if (isKO) return '#C9516C';
