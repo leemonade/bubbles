@@ -1,3 +1,4 @@
+export * from './ActivityAnswersBar';
 export * from './ActivityCountdown';
 export * from './ActivityAccordion';
 export * from './UserDisplayItem';

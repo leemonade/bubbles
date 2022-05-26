@@ -5,7 +5,7 @@ import {
   TASK_DEADLINE_HEADER_DEFAULT_PROPS,
   TASK_DEADLINE_HEADER_PROP_TYPES,
 } from './TaskDeadlineHeader.constants';
-import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
+import { EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
 import { TaskHeader } from '../TaskHeader/TaskHeader';
 
@@ -75,7 +75,7 @@ const TaskDeadlineHeader = ({
               <Text className={classes.deadlineDate}>
                 {deadlineValue?.toLocaleDateString(locale)}
               </Text>
-              <ExpandDiagonalIcon
+              <EditWriteIcon
                 className={classes.deadlineIcon}
                 height={16}
                 width={16}

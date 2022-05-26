@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { Box, ImageLoader, Text, FileIcon, COLORS } from '@bubbles-ui/components';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
@@ -31,6 +31,7 @@ const AssetPlayer = ({
   muted,
   volume,
   loop,
+  fullScreen,
   nativeControls,
   progressInterval,
   onReady,
@@ -45,6 +46,7 @@ const AssetPlayer = ({
 }) => {
   const { name, cover, url, fileType } = asset;
   const playerRef = useRef(null);
+  const rootRef = useRef(null);
   const isPlayable = useMemo(() => fileType === 'video' || fileType === 'audio', [fileType]);
   const [playedPercentage, setPlayedPercentage] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -53,6 +55,11 @@ const AssetPlayer = ({
 
   const getDuration = () => {
     return <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
+  };
+
+  const getTotalDuration = () => {
+    const totalDuration = playerRef.current ? playerRef.current.getDuration() : 0;
+    return <time dateTime={`P${Math.round(totalDuration)}S`}>{format(totalDuration)}</time>;
   };
 
   const handleOnProgress = (played, playedSeconds) => {
@@ -77,16 +84,33 @@ const AssetPlayer = ({
     playerRef.current.seekTo(parseFloat(seekValue));
   };
 
-  const onEventHandler = (event) => {
-    isFunction(event) && event();
+  const onEventHandler = (event, eventInfo) => {
+    isFunction(event) && event(eventInfo);
   };
+
+  useEffect(() => {
+    if (!rootRef.current) return;
+    if (fullScreen) {
+      try {
+        rootRef.current.requestFullscreen();
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        if (document.fullscreenElement) document.exitFullscreen();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [fullScreen]);
 
   const { classes, cx } = AssetPlayerStyles(
     { width, height, styles, showPlayer, seconds },
     { name: 'AssetPlayer' }
   );
   return (
-    <Box className={classes.root}>
+    <Box ref={rootRef} className={classes.root}>
       <Box className={classes.playerWrapper}>
         <Box className={classes.cover}>
           {cover ? (
@@ -97,7 +121,6 @@ const AssetPlayer = ({
             </Box>
           )}
         </Box>
-        {/* <Box className={classes.color} /> */}
         {isPlayable && (
           <>
             <ReactPlayer
@@ -114,14 +137,17 @@ const AssetPlayer = ({
               ref={playerRef}
               onProgress={({ played, playedSeconds }) => {
                 handleOnProgress(played, playedSeconds);
-                onEventHandler(onProgress);
+                onEventHandler(onProgress, {
+                  duration: getDuration(),
+                  totalDuration: getTotalDuration(),
+                });
               }}
-              onReady={() => onEventHandler(onReady)}
-              onStart={() => onEventHandler(onStart)}
-              onPlay={() => onEventHandler(onPlay)}
-              onPause={() => onEventHandler(onPause)}
-              onEnded={() => onEventHandler(onEnded)}
-              onError={() => onEventHandler(onError)}
+              onReady={(eventInfo) => onEventHandler(onReady, eventInfo)}
+              onStart={(eventInfo) => onEventHandler(onStart, eventInfo)}
+              onPlay={(eventInfo) => onEventHandler(onPlay, eventInfo)}
+              onPause={(eventInfo) => onEventHandler(onPause, eventInfo)}
+              onEnded={(eventInfo) => onEventHandler(onEnded, eventInfo)}
+              onError={(eventInfo) => onEventHandler(onError, eventInfo)}
             />
             {fileType === 'audio' && (
               <Box className={classes.audioIcon}>
