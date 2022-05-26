@@ -84,7 +84,7 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
 
     contentChange.current = setTimeout(() => {
       onUpdate();
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
