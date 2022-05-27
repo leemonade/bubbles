@@ -30,7 +30,14 @@ const Dates = ({
     formState: { errors },
   } = form;
 
+  const type = watch('type');
   const isAllDay = watch('isAllDay');
+  const hideInCalendar = watch('data.hideInCalendar');
+
+  let dateRequired = true;
+  if (type === 'plugins.calendar.task') {
+    if (hideInCalendar) dateRequired = false;
+  }
 
   return (
     <Box sx={(theme) => ({ paddingTop: theme.spacing[5] })}>
@@ -47,7 +54,10 @@ const Dates = ({
                   name="startDate"
                   control={control}
                   rules={{
-                    required: errorMessages.startDateRequired,
+                    validate: (e) => {
+                      if (dateRequired && !e) return errorMessages.startDateRequired;
+                      return true;
+                    },
                   }}
                   render={({ field }) => (
                     <DatePicker
@@ -56,7 +66,7 @@ const Dates = ({
                       disabled={disabled}
                       error={get(errors, 'startDate')}
                       label={config?.fromLabel || messages.fromLabel}
-                      required
+                      required={dateRequired}
                       {...field}
                     />
                   )}
@@ -68,7 +78,10 @@ const Dates = ({
                     name="startTime"
                     control={control}
                     rules={{
-                      required: errorMessages.startTimeRequired,
+                      validate: (e) => {
+                        if (dateRequired && !e) return errorMessages.startTimeRequired;
+                        return true;
+                      },
                     }}
                     render={({ field }) => {
                       if (!field.value) {
@@ -80,7 +93,7 @@ const Dates = ({
                           disabled={disabled}
                           error={get(errors, 'startTime')}
                           size="xs"
-                          required
+                          required={dateRequired}
                           {...field}
                           value={field.value || new Date()}
                         />
@@ -99,7 +112,10 @@ const Dates = ({
                     name="endDate"
                     control={control}
                     rules={{
-                      required: errorMessages.endDateRequired,
+                      validate: (e) => {
+                        if (dateRequired && !e) return errorMessages.endDateRequired;
+                        return true;
+                      },
                     }}
                     render={({ field }) => (
                       <DatePicker
@@ -108,7 +124,7 @@ const Dates = ({
                         disabled={disabled}
                         readOnly={readOnly}
                         label={messages.toLabel}
-                        required
+                        required={dateRequired}
                         {...field}
                       />
                     )}
@@ -120,7 +136,10 @@ const Dates = ({
                       name="endTime"
                       control={control}
                       rules={{
-                        required: errorMessages.endTimeRequired,
+                        validate: (e) => {
+                          if (dateRequired && !e) return errorMessages.endTimeRequired;
+                          return true;
+                        },
                       }}
                       render={({ field }) => {
                         if (!field.value) {
@@ -132,7 +151,7 @@ const Dates = ({
                             disabled={disabled}
                             error={get(errors, 'endTime')}
                             size="xs"
-                            required
+                            required={dateRequired}
                             {...field}
                             value={field.value || new Date()}
                           />

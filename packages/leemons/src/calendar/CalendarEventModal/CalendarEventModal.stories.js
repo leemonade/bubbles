@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@bubbles-ui/components';
 import { CALENDAR_EVENT_MODAL_DEFAULT_PROPS, CalendarEventModal } from './CalendarEventModal';
 import mdx from './CalendarEventModal.mdx';
-import { eventTypeMock, EVENT_DATA } from './mock/eventType';
+import { eventTypeMock } from './mock/eventType';
 
 export default {
   title: 'Leemons/Calendar/CalendarEventModal',
@@ -24,12 +24,12 @@ export default {
 
 const Template = ({ children, ...props }) => {
   const [opened, setOpened] = React.useState(true);
+  // EVENT_DATA
   return (
     <>
       <Button onClick={() => setOpened(true)}>Open</Button>
       <CalendarEventModal
         {...props}
-        defaultValues={EVENT_DATA}
         onClose={() => setOpened(false)}
         opened={opened}
         isNew={true}

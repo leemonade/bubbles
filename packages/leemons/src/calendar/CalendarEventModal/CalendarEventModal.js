@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isArray, isFunction, keyBy, map } from 'lodash';
+import { get, isArray, isFunction, isNil, keyBy, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   ActionButton,
@@ -11,6 +11,7 @@ import {
   Grid,
   RadioGroup,
   Select,
+  Switch,
   TextInput,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
@@ -45,6 +46,7 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     saveButtonLabel: 'Save',
     updateButtonLabel: 'Update',
     calendarPlaceholder: 'Select calendar',
+    showInCalendar: 'Show in calendar',
   },
   errorMessages: {
     titleRequired: 'Field is required',
@@ -82,6 +84,13 @@ const CalendarEventModal = (props) => {
     readOnly,
   } = props;
 
+  if (defaultValues?.type === 'plugins.calendar.task') {
+    if (isNil(defaultValues?.data?.hideInCalendar)) {
+      if (isNil(defaultValues.data)) defaultValues.data = {};
+      defaultValues.data.hideInCalendar = true;
+    }
+  }
+
   const form = useForm({ defaultValues });
   const {
     watch,
@@ -95,15 +104,27 @@ const CalendarEventModal = (props) => {
     formState: { errors, isSubmitted },
   } = form;
 
+  const calendar = watch('calendar');
+  const hideInCalendar = watch('data.hideInCalendar');
   const type = watch('type');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
 
-  React.useEffect(() => console.log('type:', type), [type]);
-
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
+      if (value.type === 'plugins.calendar.task') {
+        if (name === 'type') {
+          setValue('data.hideInCalendar', true);
+        }
+        if (
+          name === 'data.hideInCalendar' &&
+          hideInCalendar &&
+          calendar !== selectData.calendars[0]?.value
+        ) {
+          setValue('calendar', selectData.calendars[0]?.value);
+        }
+      }
       if (onlyOneDate) {
         if (name === 'startDate') {
           setValue('endDate', value.startDate);
@@ -188,6 +209,31 @@ const CalendarEventModal = (props) => {
             </Box>
           ) : null}
 
+          {type === 'plugins.calendar.task' ? (
+            <Box
+              sx={(theme) => ({ marginBottom: -theme.spacing[3], paddingTop: theme.spacing[3] })}
+            >
+              <Grid columns={100} gutter={0}>
+                <Col span={8} className={classes.icon} />
+                <Col span={92}>
+                  <Controller
+                    name="data.hideInCalendar"
+                    control={control}
+                    shouldUnregister
+                    render={({ field }) => (
+                      <Switch
+                        {...field}
+                        onChange={() => field.onChange(!field.value)}
+                        checked={!field.value}
+                        label={messages.showInCalendar}
+                      />
+                    )}
+                  />
+                </Col>
+              </Grid>
+            </Box>
+          ) : null}
+
           <Dates
             {...props}
             form={form}
@@ -245,7 +291,9 @@ const CalendarEventModal = (props) => {
             }}
           />
 
-          {isNew || (!isNew && isOwner) ? (
+          {(isNew || (!isNew && isOwner)) &&
+          (type !== 'plugins.calendar.task' ||
+            (type === 'plugins.calendar.task' && !hideInCalendar)) ? (
             <>
               <Box className={classes.divider}>
                 <Divider />
