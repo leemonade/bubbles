@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box, COLORS } from '@bubbles-ui/components';
 import { LibraryCardEmbed } from './LibraryCardEmbed';
-import { LIBRARY_CARD_EMBED_DEFAULT_PROPS } from './LibraryCardEmbed.constants';
+import {
+  LIBRARY_CARD_EMBED_DEFAULT_PROPS,
+  LIBRARY_CARD_EMBED_VARIANTS,
+} from './LibraryCardEmbed.constants';
 import mdx from './LibraryCardEmbed.mdx';
 
 export default {
@@ -16,7 +19,9 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    variant: { control: { type: 'select' }, options: LIBRARY_CARD_EMBED_VARIANTS },
+  },
 };
 
 const Template = ({ ...props }) => {
@@ -36,6 +41,7 @@ Playground.args = {
     image:
       'https://images.unsplash.com/photo-1646596504587-c3771cf62e81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NjkyNjM3OA&ixlib=rb-1.2.1&q=80&w=1080',
     url: 'https://www.youtube.com/watch?v=XfR9iY5y94s&ab_channel=MenAtWorkVEVO',
+    icon: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',
     metadata: [
       { label: 'Width', value: '1400' },
       { label: 'Height', value: '600' },
@@ -44,5 +50,8 @@ Playground.args = {
       { label: 'Duration', value: '10 min' },
       { label: 'Transcript', value: 'Not available' },
     ],
+  },
+  labels: {
+    link: 'Ir al enlace',
   },
 };

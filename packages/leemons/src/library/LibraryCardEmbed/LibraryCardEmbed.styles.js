@@ -7,7 +7,10 @@ import {
 } from '@bubbles-ui/components';
 
 export const LibraryCardEmbedStyles = createStyles(
-  (theme, { showPlayer, fullScreenMode, color }) => {
+  (theme, { showPlayer, fullScreenMode, color, variant, fileType }) => {
+    const isMedia = variant === 'media';
+    const isVideo = fileType === 'video';
+
     return {
       root: {
         borderRadius: showPlayer ? 8 : 4,
@@ -55,6 +58,8 @@ export const LibraryCardEmbedStyles = createStyles(
       footer: {
         paddingLeft: pxToRem(16),
         paddingBlock: pxToRem(8),
+        display: 'flex',
+        gap: 24,
       },
       playerWrapper: {
         display: 'flex',
@@ -80,11 +85,24 @@ export const LibraryCardEmbedStyles = createStyles(
         alignItems: 'center',
         justifyContent: 'space-between',
       },
+      expandIcon: {
+        backgroundColor: 'transparent',
+        display: isMedia && !isVideo && 'none',
+      },
       duration: {
         marginBlock: 8,
         marginLeft: 12,
         color: theme.colors.text05,
         fontWeight: 500,
+      },
+      bookmarkButton: {
+        display: 'flex',
+        alignItems: 'center',
+        fontWeight: 500,
+        span: {
+          color: theme.colors.text04,
+        },
+        cursor: 'pointer',
       },
     };
   }

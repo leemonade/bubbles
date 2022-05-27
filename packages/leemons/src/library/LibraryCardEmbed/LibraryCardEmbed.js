@@ -11,7 +11,7 @@ import {
   COLORS,
   useElementSize,
 } from '@bubbles-ui/components';
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import { AssetPlayer } from '../../common';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardEmbedStyles } from './LibraryCardEmbed.styles';
@@ -19,16 +19,50 @@ import {
   LIBRARY_CARD_EMBED_DEFAULT_PROPS,
   LIBRARY_CARD_EMBED_PROP_TYPES,
 } from './LibraryCardEmbed.constants';
-import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
+import { ExpandDiagonalIcon, ExpandFullIcon } from '@bubbles-ui/icons/outline';
 
-const LibraryCardEmbed = ({ asset, ...props }) => {
+const getDomain = (url) => {
+  const domain = url.split('//')[1];
+  return (domain.split('/')[0] || '').replace('www.', '');
+};
+
+const LibraryCardEmbed = ({ asset, variant, labels, ...props }) => {
   const { ref: rootRef, width } = useElementSize();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showPlayer, setShowPlayer] = useState(true);
+  const [showPlayer, setShowPlayer] = useState(false);
   const [duration, setDuration] = useState(['00:00', '00:00']);
   const [fullScreenMode, setFullScreenMode] = useState(false);
 
-  const { title, description, image, color, fileType, metadata } = asset;
+  const { title, description, image, color, fileType, metadata, url, icon } = asset;
+
+  const renderVariantButton = () => {
+    const isMedia = variant === 'media';
+    const isBookmark = variant === 'bookmark';
+
+    if (isMedia)
+      return (
+        <IconButton
+          style={{ backgroundColor: COLORS.interactive01, marginBlock: 4 }}
+          icon={<ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />}
+          rounded
+          onClick={() => {
+            setShowPlayer(true);
+            setIsPlaying(true);
+          }}
+        />
+      );
+    if (isBookmark)
+      return (
+        <Box className={classes.bookmarkButton} onClick={() => window.open(url)}>
+          <IconButton
+            style={{ marginBlock: 4 }}
+            icon={<ExpandFullIcon height={13} width={13} />}
+            rounded
+          />
+          <Text>{labels.link}</Text>
+        </Box>
+      );
+  };
 
   const getMediaRatio = () => {
     let mediaDimensions = {};
@@ -54,8 +88,6 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
     return mediaHeight;
   };
 
-  const mediaHeight = getMediaHeight();
-
   useEffect(() => {
     document.addEventListener('fullscreenchange', () => {
       setFullScreenMode(!!document.fullscreenElement);
@@ -63,7 +95,7 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
   }, []);
 
   const { classes, cx } = LibraryCardEmbedStyles(
-    { showPlayer, fullScreenMode, color },
+    { showPlayer, fullScreenMode, color, variant, fileType },
     { name: 'LibraryCardEmbed' }
   );
   return (
@@ -85,15 +117,7 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
               <Title order={5} className={classes.title}>
                 {title}
               </Title>
-              <IconButton
-                style={{ backgroundColor: COLORS.interactive01, marginBlock: 4 }}
-                icon={<ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />}
-                rounded
-                onClick={() => {
-                  setShowPlayer(true);
-                  setIsPlaying(true);
-                }}
-              />
+              {renderVariantButton()}
             </Box>
             <Box className={classes.description}>
               <TextClamp>
@@ -108,6 +132,16 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
                 label={capitalize(fileType) || 'File'}
                 hideExtension
               />
+              {variant === 'bookmark' && !isEmpty(url) && (
+                <Stack spacing={2} alignItems="center">
+                  {!isEmpty(icon) && (
+                    <ImageLoader src={icon} width={20} height={20} radius={'4px'} />
+                  )}
+                  <Box>
+                    <Text size="xs">{getDomain(url)}</Text>
+                  </Box>
+                </Stack>
+              )}
             </Box>
           </Box>
         </React.Fragment>
@@ -116,7 +150,7 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
         <Box className={classes.playerWrapper}>
           <AssetPlayer
             asset={asset}
-            height={mediaHeight}
+            height={getMediaHeight()}
             playing={isPlaying}
             showPlayer={showPlayer}
             fullScreen={fullScreenMode}
@@ -133,7 +167,7 @@ const LibraryCardEmbed = ({ asset, ...props }) => {
             </Box>
             <Box className={classes.playerControls}>
               <IconButton
-                style={{ backgroundColor: 'transparent' }}
+                className={classes.expandIcon}
                 icon={<ExpandDiagonalIcon height={13} width={13} />}
                 rounded
                 onClick={() => setFullScreenMode(true)}
