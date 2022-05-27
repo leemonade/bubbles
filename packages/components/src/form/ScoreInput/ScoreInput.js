@@ -23,6 +23,7 @@ const ScoreInput = ({
   const [inputMaxWidth, setInputMaxWidth] = useState(10000);
   const [displacedGrades, setDisplacedGrades] = useState(0);
   const [selectValue, setSelectValue] = useState('');
+  const [gradeWidth, setGradeWidth] = useState(0);
   const { ref: parentRef, width: parentWidth } = useElementSize();
   const { ref: inputRef, width: inputWidth } = useElementSize();
   const maxGrades = Math.floor((inputWidth + 2) / 40);
@@ -32,7 +33,6 @@ const ScoreInput = ({
   );
   const isOverflowing = grades.length > maxGrades - 1;
   const selectedGradeIndex = grades.findIndex(({ score }) => score === grade.score);
-  const gradeWidth = inputRef?.current?.lastChild?.getBoundingClientRect().width;
 
   if (!acceptCustom && value?.score && !grades.find(({ score }) => score === value?.score)) {
     acceptCustom = value?.letter ? 'text' : 'number';
@@ -78,6 +78,10 @@ const ScoreInput = ({
 
   const handleInputResize = () => {
     if (inputWidth === 0) return;
+
+    const lastChildWidth = inputRef?.current?.lastChild?.getBoundingClientRect().width;
+    if (lastChildWidth !== gradeWidth) setGradeWidth(lastChildWidth);
+
     const widthWithSpace = (maxGrades + 1) * 40 + 2;
     const widthWithoutSpace = maxGrades * 40 + 2;
 

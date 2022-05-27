@@ -22,24 +22,22 @@ const Toolbar = ({ children, ...props }) => {
   const { width: maxWidth } = useDimensions(toolbarRef);
 
   useEffect(() => {
+    if (maxWidth === 0) return;
     if (!childrenWidths[0]) {
       setChildrenWidths(
         originalChildren.map((child) => child.ref.current?.getBoundingClientRect().width)
       );
     }
-  });
+  }, [maxWidth, originalChildren]);
 
   useEffect(() => {
-    // if (maxWidth % 2 !== 0) return;
+    if (maxWidth === 0) return;
     let currentWidth = dropdownChilds.length > 0 ? 40 : 0;
     let newToolbarChilds = [];
     let newDropdownChilds = [];
     originalChildren.forEach((child, index, array) => {
       const nextWidth =
-        currentWidth +
-        childrenWidths[index] +
-        // (dropdownChilds.length > 0 ? 40 : 0) +
-        (index === array.length - 1 ? 0 : 16);
+        currentWidth + childrenWidths[index] + (index === array.length - 1 ? 0 : 16);
       if (nextWidth > maxWidth) {
         newDropdownChilds.push(child);
       } else {
@@ -49,7 +47,7 @@ const Toolbar = ({ children, ...props }) => {
     });
     setDropdownChilds([...newDropdownChilds]);
     setToolbarChilds([...newToolbarChilds]);
-  }, [maxWidth]);
+  }, [maxWidth, childrenWidths]);
 
   return (
     <Box className={classes.root}>
