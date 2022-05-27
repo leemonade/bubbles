@@ -42,6 +42,7 @@ const Select = forwardRef(
       className,
       autoComplete,
       readOnly,
+      variant,
       ...props
     },
     ref
@@ -114,6 +115,7 @@ const Select = forwardRef(
             getCreateLabel={getCreateLabel}
             nothingFound={nothingFound}
             placeholder={placeholder}
+            variant={variant}
             rightSection={
               isClearable && showClear ? (
                 <ActionButton
@@ -142,6 +144,7 @@ Select.defaultProps = {
   orientation: 'vertical',
   autoComplete: 'off',
   readOnly: false,
+  variant: 'default',
 };
 
 Select.propTypes = {
