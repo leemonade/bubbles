@@ -48,64 +48,68 @@ const Dates = ({
         <Col span={90}>
           <ContextContainer>
             {/* FROM */}
-            <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-              <Col span={isAllDay ? 100 : 70}>
-                <Controller
-                  name="startDate"
-                  control={control}
-                  rules={{
-                    validate: (e) => {
-                      if (dateRequired && !e) return errorMessages.startDateRequired;
-                      return true;
-                    },
-                  }}
-                  render={({ field }) => (
-                    <DatePicker
-                      size="xs"
-                      readOnly={readOnly}
-                      disabled={disabled}
-                      error={get(errors, 'startDate')}
-                      label={config?.fromLabel || messages.fromLabel}
-                      required={dateRequired}
-                      {...field}
-                    />
-                  )}
-                />
-              </Col>
-              {!isAllDay ? (
-                <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+            {!disabled || (disabled && form.getValues('startDate')) ? (
+              <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
+                <Col span={isAllDay ? 100 : 70}>
                   <Controller
-                    name="startTime"
+                    name="startDate"
                     control={control}
                     rules={{
                       validate: (e) => {
-                        if (dateRequired && !e) return errorMessages.startTimeRequired;
+                        if (dateRequired && !e) return errorMessages.startDateRequired;
                         return true;
                       },
                     }}
-                    render={({ field }) => {
-                      if (!field.value) {
-                        field.onChange(new Date());
-                      }
-                      return (
-                        <TimeInput
-                          readOnly={readOnly}
-                          disabled={disabled}
-                          error={get(errors, 'startTime')}
-                          size="xs"
-                          required={dateRequired}
-                          {...field}
-                          value={field.value || new Date()}
-                        />
-                      );
-                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        size="xs"
+                        withTime={disabled}
+                        readOnly={readOnly}
+                        disabled={disabled}
+                        error={get(errors, 'startDate')}
+                        label={config?.fromLabel || messages.fromLabel}
+                        required={dateRequired}
+                        {...field}
+                      />
+                    )}
                   />
                 </Col>
-              ) : null}
-            </Grid>
+                {!isAllDay ? (
+                  <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                    <Controller
+                      name="startTime"
+                      control={control}
+                      rules={{
+                        validate: (e) => {
+                          if (dateRequired && !e) return errorMessages.startTimeRequired;
+                          return true;
+                        },
+                      }}
+                      render={({ field }) => {
+                        if (disabled) return null;
+                        if (!field.value) {
+                          field.onChange(new Date());
+                        }
+                        return (
+                          <TimeInput
+                            readOnly={readOnly}
+                            disabled={disabled}
+                            error={get(errors, 'startTime')}
+                            size="xs"
+                            required={dateRequired}
+                            {...field}
+                            value={field.value || new Date()}
+                          />
+                        );
+                      }}
+                    />
+                  </Col>
+                ) : null}
+              </Grid>
+            ) : null}
 
             {/* TO */}
-            {!onlyOneDate ? (
+            {(!disabled || (disabled && form.getValues('endDate'))) && !onlyOneDate ? (
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
                 <Col span={isAllDay ? 100 : 70}>
                   <Controller
@@ -121,6 +125,7 @@ const Dates = ({
                       <DatePicker
                         error={get(errors, 'endDate')}
                         size="xs"
+                        withTime={disabled}
                         disabled={disabled}
                         readOnly={readOnly}
                         label={messages.toLabel}
@@ -142,6 +147,7 @@ const Dates = ({
                         },
                       }}
                       render={({ field }) => {
+                        if (disabled) return null;
                         if (!field.value) {
                           field.onChange(new Date());
                         }

@@ -1,37 +1,54 @@
 import { createStyles } from '@mantine/styles';
-import { getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getFontProductive } from '../../theme.mixins';
 
 export const KanbanStyles = createStyles((theme, {}) => {
   return {
     root: {
-      backgroundColor: theme.colors.uiBackground02,
       overflow: 'auto',
       whiteSpace: 'nowrap',
       height: '100%',
       maxHeight: '100%',
+      padding: theme.spacing[2],
+      backgroundColor: '#EDEFF5',
+      gap: theme.spacing[2],
+      display: 'flex',
     },
     column: {
       display: 'inline-flex',
-      width: '254px',
-      padding: theme.spacing[3],
+      position: 'relative',
+      width: '300px',
+      minWidth: '300px',
+      padding: theme.spacing[2],
       flexDirection: 'column',
+      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      borderRadius: theme.spacing[1],
     },
     columnHeader: {
-      paddingLeft: theme.spacing[2],
+      paddingLeft: theme.spacing[4],
+      paddingRight: theme.spacing[4],
+      paddingTop: theme.spacing[3],
       marginBottom: theme.spacing[4],
       color: theme.colors.text05,
       ...getFontProductive(theme.fontSizes['2'], 500),
-    },
-    columnHeaderCount: {
-      marginLeft: theme.spacing[2],
-      color: theme.colors.text01,
-      ...getFontExpressive(theme.fontSizes['2'], 500),
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     listDraggingOver: {
-      backgroundColor: theme.colors.ui04,
+      // backgroundColor: theme.colors.ui04,
     },
     list: {
       minHeight: '100px',
+    },
+    iconBig: {
+      position: 'absolute',
+      bottom: 20,
+      left: 20,
+      zIndex: 0,
+      img: {
+        filter:
+          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+      },
     },
   };
 });

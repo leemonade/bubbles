@@ -13,7 +13,7 @@ export const KANBAN_DEFAULT_PROPS = {
 };
 export const KANBAN_PROP_TYPES = {};
 
-const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => {
+const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props }) => {
   const { classes, cx } = KanbanStyles({});
 
   const onDragEnd = (result) => {
@@ -54,7 +54,15 @@ const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => 
       {(provided) => (
         <Box ref={provided.innerRef} {...provided.droppableProps} className={classes.root}>
           {value.columns.map((column, index) => (
-            <Column key={column.id} value={column} index={index} itemRender={itemRender} />
+            <Column
+              key={column.id}
+              value={column}
+              index={index}
+              itemRender={itemRender}
+              icon={
+                'https://dev.leemons.io/api/leebrary/file/53720f16-dfad-4ac5-a5dd-232e300f5104?authorization=%5B%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWdlbnQiOiI3N2VjYjdlNy0zMWI0LTRjM2EtOTMxZi1lNDBjNDQ4YWQ2YjQiLCJpYXQiOjE2NTM3Mjc5MDQsImV4cCI6MTY1MzgxNDMwNH0.Nbv0MMeY65CgN3ragf9qGcXDoKDC7cGfRjUDu1SvwrM%22%5D'
+              }
+            />
           ))}
           {provided.placeholder}
         </Box>

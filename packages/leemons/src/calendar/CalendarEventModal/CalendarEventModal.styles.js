@@ -25,5 +25,11 @@ export const CalendarEventModalStyles = createStyles((theme, {}) => {
       marginTop: theme.spacing[6],
       marginBottom: theme.spacing[6],
     },
+    headerActions: {
+      position: 'absolute',
+      left: theme.spacing[4],
+      top: theme.spacing[4],
+      width: '50%',
+    },
   };
 });
