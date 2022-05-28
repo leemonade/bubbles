@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box, useDebouncedCallback } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
-import { forEach, isFunction } from 'lodash';
+import { forEach, isFunction, isEmpty, isObject } from 'lodash';
 import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
@@ -36,7 +36,17 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    store.current.html = editor.getHTML();
+    let html = editor.getHTML();
+    const match = html.match(/<p.+>(.+?)<\/p>/);
+    console.log('match:', Boolean(match));
+    console.log('match[1]:', isObject(match));
+    if (!Boolean(match) || (isObject(match) && match[1] === '')) {
+      html = null;
+    }
+
+    console.log('html:', html);
+    store.current.html = html;
+
     if (isFunction(onChange) && store.current.html !== content) onChange(store.current.html);
   };
 
@@ -44,7 +54,7 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
     if (!editor) return;
     if (content !== store.current.html) {
       store.current.html = content;
-      editor.commands.setContent(content);
+      editor.commands.setContent(content || '');
     }
   }, [editor, content]);
 
