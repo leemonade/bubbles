@@ -54,6 +54,7 @@ export const IconButton = forwardRef(
         radius={radius}
         size={size}
         classNames={classes}
+        className={className}
         ref={ref}
       >
         {!isNil(icon) ? icon : children}
