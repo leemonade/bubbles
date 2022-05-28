@@ -39,5 +39,11 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, {}) => {
     segmentControl: {
       border: 'none!important',
     },
+    icon: {
+      img: {
+        filter:
+          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+      },
+    },
   };
 });

@@ -129,7 +129,18 @@ const CalendarSubNavFilters = ({
                       color={calendar.bgColor}
                       checked={calendar.showEvents}
                       icon={
-                        calendar.icon ? <ImageLoader strokeCurrent src={calendar.icon} /> : null
+                        calendar.icon ? (
+                          <Box className={classes.icon}>
+                            <ImageLoader
+                              height="12px"
+                              imageStyles={{
+                                width: 12,
+                              }}
+                              src={calendar.icon}
+                              forceImage
+                            />
+                          </Box>
+                        ) : null
                       }
                       onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
                     />

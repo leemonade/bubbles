@@ -49,7 +49,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
   const avatar = {
     image: null,
-    icon: calendar.icon ? (
+    icon: value.icon ? (
       <Box className={classes.icon}>
         <ImageLoader
           height="14px"
@@ -60,12 +60,12 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
           }}
-          src={calendar.icon}
+          src={value.icon}
           forceImage
         />
       </Box>
     ) : null,
-    color: calendar.bgColor,
+    color: value.bgColor,
   };
 
   if (calendar.isUserCalendar) {
@@ -101,7 +101,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
             <Avatar mx="auto" size="xs" {...avatar} />
             {!calendar.isUserCalendar ? (
               <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
-                {calendar.name}
+                {value.calendarName || calendar.name}
               </Paragraph>
             ) : null}
           </Box>
