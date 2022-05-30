@@ -38,7 +38,7 @@ const LibraryCardCover = ({
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { classes, cx } = LibraryCardCoverStyles(
-    { color, height, blur, parentHovered, subjectColor: subject.color },
+    { color, height, blur, parentHovered, subjectColor: subject?.color },
     { name: 'LibraryCardCover' }
   );
 
