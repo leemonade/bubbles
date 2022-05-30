@@ -28,7 +28,6 @@ export default {
       control: { type: 'select' },
       withImage: { type: 'boolean' },
     },
-    direction: { control: { type: 'select' }, options: LIBRARYCARD_COVER_DIRECTIONS },
     severity: { control: { type: 'select' }, options: ['none', ...LIBRARY_CARD_DEADLINE_SEVERITY] },
     role: { control: { type: 'select' }, options: LIBRARYCARD_ASSIGMENT_ROLES },
   },

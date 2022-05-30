@@ -8,6 +8,7 @@ import {
   Menu,
   IconButton,
   TextClamp,
+  Text,
   Badge,
 } from '@bubbles-ui/components';
 import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
@@ -24,12 +25,12 @@ const LibraryCardCover = ({
   cover,
   color,
   blur,
-  direction,
   fileIcon,
   deadlineProps,
   parentHovered,
   menuItems,
   dashboard,
+  subject,
   isNew,
   role,
   badge,
@@ -37,10 +38,9 @@ const LibraryCardCover = ({
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { classes, cx } = LibraryCardCoverStyles(
-    { color, height, blur, direction, parentHovered },
+    { color, height, blur, parentHovered, subjectColor: subject.color },
     { name: 'LibraryCardCover' }
   );
-  const isVertical = direction === 'vertical';
 
   const icon = useMemo(
     () =>
@@ -63,13 +63,34 @@ const LibraryCardCover = ({
         <LibraryCardDeadline
           {...deadlineProps}
           locale={deadlineProps.locale}
-          direction={direction}
           parentHovered={parentHovered}
           isNew={isNew}
           role={role}
         />
       </Box>
     );
+  };
+
+  const renderSubjectOrBadge = () => {
+    const badgeBox = (
+      <Box className={classes.badge}>
+        <Badge label={badge} color="stroke" radius="default" closable={false} />
+      </Box>
+    );
+    if (dashboard && subject)
+      return (
+        <Box className={classes.subject}>
+          <Box className={classes.subjectIcon}>
+            <ImageLoader forceImage height={12} imageStyles={{ width: 12 }} src={subject.icon} />
+          </Box>
+          <TextClamp lines={1}>
+            <Text color="primary" role="productive" size="xs">
+              {subject.name}
+            </Text>
+          </TextClamp>
+        </Box>
+      );
+    if (badge) return badgeBox;
   };
 
   const preventPropagation = (e) => {
@@ -94,7 +115,7 @@ const LibraryCardCover = ({
                 icon={
                   <SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />
                 }
-                variant={!isVertical ? 'transparent' : null}
+                variant={'transparent'}
                 size="xs"
                 onClick={preventPropagation}
               />
@@ -104,16 +125,14 @@ const LibraryCardCover = ({
       )}
       {dashboard && (
         <>
-          {!isVertical && (
-            <IconButton
-              icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
-              variant={!isVertical ? 'transparent' : null}
-              size="xs"
-            />
-          )}
+          <IconButton
+            icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
+            variant={'transparent'}
+            size="xs"
+          />
           <IconButton
             icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
-            variant={!isVertical ? 'transparent' : null}
+            variant={'transparent'}
             size="xs"
           />
         </>
@@ -124,26 +143,20 @@ const LibraryCardCover = ({
   return (
     <Box className={classes.root}>
       <Box className={classes.blurryBox}>
-        {isVertical && iconRow}
-        {isVertical && renderDeadline()}
         <Box>
           <Box className={classes.color} />
-          {!isVertical && iconRow}
+          {iconRow}
         </Box>
         <Box className={classes.titleWrapper}>
-          {!isVertical && badge && (
-            <Box className={classes.badge}>
-              <Badge label={badge} color="stroke" radius="default" closable={false} />
-            </Box>
-          )}
-          <TextClamp lines={2}>
+          {renderSubjectOrBadge()}
+          <TextClamp lines={4}>
             <Title order={5} className={classes.title}>
               {name}
             </Title>
           </TextClamp>
         </Box>
       </Box>
-      {!isVertical && renderDeadline()}
+      {renderDeadline()}
       {cover ? (
         <ImageLoader src={cover} height={height} forceImage />
       ) : (

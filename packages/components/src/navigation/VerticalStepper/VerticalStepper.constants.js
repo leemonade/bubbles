@@ -6,15 +6,18 @@ export const VERTICAL_STEPPER_DEFAULT_PROPS = {
   completedSteps: [],
   autocompleteOnNext: true,
   calificationProps: null,
+  onChangeActiveIndex: () => {},
 };
 export const VERTICAL_STEPPER_PROP_TYPES = {
   data: PropTypes.arrayOf(PropTypes.object),
   currentStep: PropTypes.number,
   completedSteps: PropTypes.arrayOf(PropTypes.number),
+  visitedSteps: PropTypes.arrayOf(PropTypes.number),
   autocompleteOnNext: PropTypes.bool,
   calificationProps: PropTypes.shape({
     label: PropTypes.string,
     grade: PropTypes.number,
     minimumGrade: PropTypes.number,
   }),
+  onChangeActiveIndex: PropTypes.func,
 };

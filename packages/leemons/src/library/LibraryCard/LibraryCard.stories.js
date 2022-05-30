@@ -32,12 +32,14 @@ const Template = ({
   showDescription,
   showAction,
   showAssigment,
+  showSubject,
   children,
   asset,
   assigment,
   deadlineProps,
   variant,
   action,
+  subject,
   ...props
 }) => {
   const isBookmark = variant === 'bookmark';
@@ -63,6 +65,7 @@ const Template = ({
         assigment={!isCurriculum && showAssigment ? assigment : null}
         variant={variant}
         action={showAction ? action : undefined}
+        subject={showSubject ? subject : undefined}
       />
     </Box>
 
@@ -118,6 +121,7 @@ Playground.args = {
   showDescription: true,
   showAction: false,
   showAssigment: true,
+  showSubject: true,
   variant: 'media',
   action: 'View feedback',
   badge: '',
@@ -142,7 +146,11 @@ Playground.args = {
       deadline: 'Deadline',
     },
   },
-
+  subject: {
+    name: 'Bases para el análisis y el tratamiento de',
+    color: '#FABADA',
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Globe_icon_2.svg',
+  },
   menuItems: [
     {
       icon: <StarIcon />,

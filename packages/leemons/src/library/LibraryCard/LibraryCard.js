@@ -29,6 +29,7 @@ const LibraryCard = ({
   role,
   badge,
   shadow,
+  subject,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -84,6 +85,7 @@ const LibraryCard = ({
         isNew={isNew}
         role={role}
         badge={badge}
+        subject={subject}
       />
       <LibraryCardContent {...asset} locale={locale} variant={variant} assigment={assigment} />
       <LibraryCardFooter

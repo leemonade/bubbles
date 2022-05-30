@@ -52,7 +52,7 @@ const TextClamp = ({
       )}
       onShowMore={onShowMore}
     >
-      {children}
+      {React.cloneElement(children, { style: { hyphens: 'auto' } })}
     </Clamp>
   );
 };
