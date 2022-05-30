@@ -1,26 +1,7 @@
 import { createStyles, pxToRem, getFontExpressive } from '@bubbles-ui/components';
 
 export const LibraryCardCoverStyles = createStyles(
-  (theme, { color, height, blur, direction, parentHovered }) => {
-    const isVertical = direction === 'vertical';
-
-    const getDeadlineStyles = () => {
-      if (!isVertical) {
-        return {
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          right: 0,
-          zIndex: 2,
-        };
-      }
-
-      return {
-        marginBottom: pxToRem(4),
-        marginInline: pxToRem(6),
-      };
-    };
-
+  (theme, { color, height, blur, parentHovered, subjectColor }) => {
     return {
       root: {
         ...getFontExpressive(theme.fontSizes['2']),
@@ -31,7 +12,6 @@ export const LibraryCardCoverStyles = createStyles(
       },
       titleWrapper: {
         padding: pxToRem(12),
-        backgroundColor: isVertical && 'white',
       },
       title: {
         fontWeight: 600,
@@ -40,32 +20,30 @@ export const LibraryCardCoverStyles = createStyles(
       blurryBox: {
         display: 'flex',
         flexDirection: 'column',
-        width: isVertical ? '100%' : '50%',
+        width: '50%',
         height: '100%',
         position: 'absolute',
-        bottom: isVertical && 0,
         zIndex: 1,
-        background: !isVertical
-          ? parentHovered
-            ? 'rgba(247, 248, 250, 0.95)'
-            : 'rgba(247, 248, 250, 0.8)'
-          : parentHovered && 'rgba(255, 255, 255, 0.5)',
-        backdropFilter: !isVertical ? `blur(${blur}px)` : parentHovered && `blur(${blur}px)`,
-        justifyContent: isVertical ? 'flex-end' : 'space-between',
+        background: parentHovered ? 'rgba(247, 248, 250, 0.95)' : 'rgba(247, 248, 250, 0.8)',
+        backdropFilter: `blur(${blur}px)`,
+        justifyContent: 'space-between',
         borderRadius: '4px 0 0 0',
       },
       iconRow: {
         display: parentHovered ? 'flex' : 'none',
-        alignItems: !isVertical && 'center',
-        flex: isVertical && 1,
-        paddingTop: isVertical ? pxToRem(4) : pxToRem(2),
-        paddingInline: isVertical && pxToRem(4),
+        alignItems: 'center',
+        paddingTop: pxToRem(2),
+        paddingInline: pxToRem(4),
       },
       menuIcon: {
         color: theme.colors.text05,
       },
       deadline: {
-        ...getDeadlineStyles(),
+        position: 'absolute',
+        bottom: 0,
+        left: '50%',
+        right: 0,
+        zIndex: 2,
       },
       color: {
         width: '100%',
@@ -81,16 +59,29 @@ export const LibraryCardCoverStyles = createStyles(
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         backgroundColor: theme.colors.interactive03h,
-        padding: isVertical
-          ? `${pxToRem(0)} ${pxToRem(16)} ${pxToRem(90)} ${pxToRem(16)}`
-          : pxToRem(16),
+        padding: pxToRem(16),
         borderRadius: '4px 2px 0 0',
       },
       menuItem: {
         color: theme.colors.text04,
       },
       badge: {
-        marginBottom: 4,
+        marginBottom: 8,
+      },
+      subject: {
+        marginBottom: 8,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+      },
+      subjectIcon: {
+        backgroundColor: subjectColor,
+        padding: 4,
+        borderRadius: '50%',
+        img: {
+          filter:
+            'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+        },
       },
     };
   }

@@ -26,7 +26,7 @@ export const ASSET_PROPS = PropTypes.shape({
   description: PropTypes.string,
   tagline: PropTypes.string,
   metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
-  created: PropTypes.string,
+  created: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   version: PropTypes.string,
   cover: PropTypes.string,
   color: PropTypes.string,
@@ -35,6 +35,12 @@ export const ASSET_PROPS = PropTypes.shape({
   tags: PropTypes.arrayOf(PropTypes.string),
   category: PropTypes.string,
   role: PropTypes.oneOf(LIBRARYCARD_ROLES),
+});
+
+export const SUBJECT_PROPS = PropTypes.shape({
+  name: PropTypes.string,
+  color: PropTypes.string,
+  icon: PropTypes.string,
 });
 
 export const LIBRARY_CARD_DEFAULT_PROPS = {
@@ -50,6 +56,7 @@ export const LIBRARY_CARD_PROP_TYPES = {
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
+  subject: SUBJECT_PROPS,
   action: PropTypes.string,
   onAction: PropTypes.func,
   locale: PropTypes.string,

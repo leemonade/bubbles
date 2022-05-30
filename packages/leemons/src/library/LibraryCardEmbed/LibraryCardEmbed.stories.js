@@ -21,17 +21,19 @@ export default {
   },
   argTypes: {
     variant: { control: { type: 'select' }, options: LIBRARY_CARD_EMBED_VARIANTS },
+    onDownload: { action: 'onDownload' },
   },
 };
 
-const Template = ({ ...props }) => {
-  return <LibraryCardEmbed {...props} />;
+const Template = ({ useOnDownload, ...props }) => {
+  return <LibraryCardEmbed {...props} onDownload={useOnDownload ? props.onDownload : undefined} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...LIBRARY_CARD_EMBED_DEFAULT_PROPS,
+  useOnDownload: true,
   asset: {
     title: 'PLAYER VIDEO/AUDIO',
     description:

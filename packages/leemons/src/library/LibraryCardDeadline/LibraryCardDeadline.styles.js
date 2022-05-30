@@ -29,7 +29,6 @@ const getTeacherColor = (theme, remainingDays, severity) => {
   if (severity) return getSeverityColor(theme, severity);
   if (inRange(remainingDays, 5, 7)) return theme.colors.fatic03;
   if (remainingDays > 7) return theme.colors.fatic01;
-  // if (remainingDays === 0) return theme.colors.fatic01;
   return theme.colors.fatic02;
 };
 
@@ -41,18 +40,15 @@ const getStudentColor = (theme, remainingDays, severity) => {
 };
 
 export const LibraryCardDeadlineStyles = createStyles(
-  (theme, { isNew, direction, parentHovered, remainingDays, severity, role }) => {
-    const isVertical = direction === 'vertical';
-
+  (theme, { isNew, parentHovered, remainingDays, severity, role }) => {
     const titleColor = getTitleColor(theme, remainingDays, isNew, severity, role);
 
     return {
       root: {
         ...getFontProductive(theme.fontSizes['2'], 400),
-        display: isVertical ? 'inline-flex' : 'flex',
-        padding: isVertical ? `${pxToRem(4)} ${pxToRem(8)}` : pxToRem(8),
+        display: 'flex',
+        padding: pxToRem(8),
         backgroundColor: 'white',
-        borderRadius: isVertical && '4px',
       },
       icon: {
         color: theme.colors.text04,
@@ -69,18 +65,11 @@ export const LibraryCardDeadlineStyles = createStyles(
         color: theme.colors.text02,
         fontSize: pxToRem(12),
         lineHeight: pxToRem(14),
-        height: !isVertical ? (parentHovered ? 14 : 0) : 14,
-        maxWidth: isVertical && (parentHovered ? 300 : 0),
-        opacity: isVertical && (parentHovered ? 1 : 0),
+        height: parentHovered ? 14 : 0,
         transition: 'height 0.2s ease-in, opacity 0.3s ease-in, max-width 0.3s ease-in',
-        overflow: !isVertical && 'hidden',
-        whiteSpace: isVertical && 'nowrap',
+        overflow: 'hidden',
       },
-      info: {
-        display: isVertical && 'flex',
-        alignItems: isVertical && 'center',
-        gap: isVertical && pxToRem(8),
-      },
+      info: {},
     };
   }
 );

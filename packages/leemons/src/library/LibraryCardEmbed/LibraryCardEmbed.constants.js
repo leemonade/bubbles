@@ -15,4 +15,5 @@ export const LIBRARY_CARD_EMBED_PROP_TYPES = {
   labels: PropTypes.shape({
     link: PropTypes.string,
   }),
+  onDownload: PropTypes.func,
 };
