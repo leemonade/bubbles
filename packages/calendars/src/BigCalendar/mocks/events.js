@@ -5,7 +5,7 @@ export default [
     title: 'Evento de Biología',
     allDay: true,
     start: DateTime.fromISO('2021-11-25T00:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2021-11-25T23:59:59.000Z').toJSDate(),
+    end: DateTime.fromISO('2021-12-25T23:59:59.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
       title: 'Evento de Biología',
@@ -13,8 +13,7 @@ export default [
         id: '061bf3c4-4351-4330-8ac7-adf82bffc57d',
         key: 'plugins.mvp-template.calendar-test',
         name: 'Biologia',
-        icon:
-          'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/biology_icon_3f80619648.svg',
+        icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/biology_icon_3f80619648.svg',
         bgColor: '#96D47F',
         borderColor: '#96D47F',
         section: 'plugins.mvp-template.Testing',
@@ -45,8 +44,7 @@ export default [
         id: '061bf3c4-4351-4330-8ac7-adf82bffc57d',
         key: 'plugins.mvp-template.calendar-test',
         name: 'Computación',
-        icon:
-          'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
+        icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
         bgColor: '#7449F4',
         borderColor: '#7449F4',
         section: 'plugins.mvp-template.Testing',
@@ -77,8 +75,7 @@ export default [
         id: '3c57941f-85af-4d47-be6e-153dd43d5c70',
         key: 'plugins.users.calendar.agent.3960807b-dbf5-47b7-9e18-213d94193e67',
         name: '3960807b-dbf5-47b7-9e18-213d94193e67',
-        icon:
-          'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/music_icon_525d4e994a.svg',
+        icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/music_icon_525d4e994a.svg',
         bgColor: '#DC5571',
         borderColor: '#DC5571',
         section: 'plugins.users.calendar.user_section',

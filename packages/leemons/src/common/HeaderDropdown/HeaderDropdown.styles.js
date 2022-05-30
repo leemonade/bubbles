@@ -82,8 +82,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       top: 10,
       right: -10,
       img: {
-        filter:
-          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+        filter: 'brightness(0) invert(1)',
       },
     },
     itemImage: {
@@ -98,8 +97,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       bottom: 0,
       right: -14,
       img: {
-        filter:
-          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+        filter: 'brightness(0) invert(1)',
       },
     },
     content: {

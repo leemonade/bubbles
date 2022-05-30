@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Box, createStyles, ImageLoader } from '@bubbles-ui/components';
+import { Avatar, Box, createStyles, ImageLoader } from '@bubbles-ui/components';
 import { colord } from 'colord';
+
+const emptyPixel =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
   return {
@@ -24,6 +27,9 @@ const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
       alignItems: 'center',
       justifyContent: 'center',
       verticalAlign: 'middle',
+      img: {
+        filter: 'brightness(0) invert(1)',
+      },
     },
     item: {
       display: 'flex!important',
@@ -71,12 +77,40 @@ function EventCell(thisprops) {
   userProps.style = {
     ...userProps.style,
   };
+
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
 
   const { classes } = eventCellStyles({
     isAllDay: event.allDay,
     bgColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
   });
+
+  const avatar = {
+    image: null,
+    icon: eventIcon ? (
+      <Box className={classes.icon}>
+        <ImageLoader
+          height="12px"
+          imageStyles={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            width: 12,
+            transform: 'translate(-50%, -50%)',
+          }}
+          src={eventIcon}
+          forceImage
+        />
+      </Box>
+    ) : null,
+    color: originalEvent.bgColor || originalEvent.calendar.bgColor,
+  };
+
+  if (originalEvent.calendar.isUserCalendar) {
+    avatar.fullName = originalEvent.calendar.fullName;
+  } else if (!avatar.image && !avatar.icon) {
+    avatar.image = emptyPixel;
+  }
 
   const content = (
     <Box
@@ -97,12 +131,8 @@ function EventCell(thisprops) {
         />
       ) : (
         <>
-          {eventIcon && (
-            <Box className={classes.icon}>
-              <ImageLoader src={eventIcon} />
-            </Box>
-          )}
-          <span style={{ marginLeft: eventIcon ? 4 : 0 }}>{title}</span>
+          <Avatar mx="auto" size="xs" {...avatar} />
+          <span style={{ marginLeft: 4 }}>{title}</span>
         </>
       )}
     </Box>

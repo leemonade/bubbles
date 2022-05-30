@@ -70,9 +70,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
   if (calendar.isUserCalendar) {
     avatar.fullName = calendar.fullName;
-  }
-
-  if (!avatar.image && !avatar.icon) {
+  } else if (!avatar.image && !avatar.icon) {
     avatar.image = emptyPixel;
   }
 

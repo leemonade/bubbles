@@ -75,8 +75,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       height: '16px',
       color: theme.colors.text07,
       img: {
-        filter:
-          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+        filter: 'brightness(0) invert(1)',
       },
     },
   };

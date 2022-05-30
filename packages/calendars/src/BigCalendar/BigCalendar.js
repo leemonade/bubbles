@@ -14,6 +14,7 @@ import { MonthView } from './components/MonthView/MonthView';
 import { WeekView } from './components/WeekView/WeekView';
 import { DayView } from './components/DayView/DayView';
 import { MonthRangeView } from './components/MonthRangeView/MonthRangeView';
+import { EventWrapper } from './components/EventWrapper';
 
 const TIMEZONE = DateTime.local().zoneName;
 const TODAY = DateTime.local().toJSDate();
@@ -140,7 +141,9 @@ export const BigCalendar = forwardRef(
               Interval.fromDateTimes(
                 DateTime.fromJSDate(dateRange.start),
                 DateTime.fromJSDate(dateRange.end)
-              ).contains(DateTime.fromJSDate(ev.start))
+              ).overlaps(
+                Interval.fromDateTimes(DateTime.fromJSDate(ev.start), DateTime.fromJSDate(ev.end))
+              )
             ) {
               acc.push(ev);
             }
@@ -217,6 +220,7 @@ export const BigCalendar = forwardRef(
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar
           components={{
+            eventWrapper: EventWrapper,
             toolbar: showToolbar
               ? (props) => (
                   <ToolBar
