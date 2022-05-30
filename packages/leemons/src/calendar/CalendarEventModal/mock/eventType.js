@@ -10,7 +10,7 @@ export const EVENT_DATA = {
   isAllDay: 0,
   isPrivate: 0,
   repeat: 'dont_repeat',
-  startDate: '2022-05-19T13:00:23.000Z',
+  startDate: '2022-05-19T13:26:23.000Z',
   status: 'active',
   title: 'Work group call for Biology class lorem ipsum',
   type: 'plugins.calendar.event',

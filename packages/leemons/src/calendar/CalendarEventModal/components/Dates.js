@@ -30,7 +30,14 @@ const Dates = ({
     formState: { errors },
   } = form;
 
+  const type = watch('type');
   const isAllDay = watch('isAllDay');
+  const hideInCalendar = watch('data.hideInCalendar');
+
+  let dateRequired = true;
+  if (type === 'plugins.calendar.task') {
+    if (hideInCalendar) dateRequired = false;
+  }
 
   return (
     <Box sx={(theme) => ({ paddingTop: theme.spacing[5] })}>
@@ -41,74 +48,88 @@ const Dates = ({
         <Col span={90}>
           <ContextContainer>
             {/* FROM */}
-            <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-              <Col span={isAllDay ? 100 : 70}>
-                <Controller
-                  name="startDate"
-                  control={control}
-                  rules={{
-                    required: errorMessages.startDateRequired,
-                  }}
-                  render={({ field }) => (
-                    <DatePicker
-                      size="xs"
-                      readOnly={readOnly}
-                      disabled={disabled}
-                      error={get(errors, 'startDate')}
-                      label={config?.fromLabel || messages.fromLabel}
-                      required
-                      {...field}
-                    />
-                  )}
-                />
-              </Col>
-              {!isAllDay ? (
-                <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+            {!disabled || (disabled && form.getValues('startDate')) ? (
+              <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
+                <Col span={isAllDay ? 100 : 70}>
                   <Controller
-                    name="startTime"
+                    name="startDate"
                     control={control}
                     rules={{
-                      required: errorMessages.startTimeRequired,
+                      validate: (e) => {
+                        if (dateRequired && !e) return errorMessages.startDateRequired;
+                        return true;
+                      },
                     }}
-                    render={({ field }) => {
-                      if (!field.value) {
-                        field.onChange(new Date());
-                      }
-                      return (
-                        <TimeInput
-                          readOnly={readOnly}
-                          disabled={disabled}
-                          error={get(errors, 'startTime')}
-                          size="xs"
-                          required
-                          {...field}
-                          value={field.value || new Date()}
-                        />
-                      );
-                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        size="xs"
+                        withTime={disabled}
+                        readOnly={readOnly}
+                        disabled={disabled}
+                        error={get(errors, 'startDate')}
+                        label={config?.fromLabel || messages.fromLabel}
+                        required={dateRequired}
+                        {...field}
+                      />
+                    )}
                   />
                 </Col>
-              ) : null}
-            </Grid>
+                {!isAllDay ? (
+                  <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
+                    <Controller
+                      name="startTime"
+                      control={control}
+                      rules={{
+                        validate: (e) => {
+                          if (dateRequired && !e) return errorMessages.startTimeRequired;
+                          return true;
+                        },
+                      }}
+                      render={({ field }) => {
+                        if (disabled) return null;
+                        if (!field.value) {
+                          field.onChange(new Date());
+                        }
+                        return (
+                          <TimeInput
+                            readOnly={readOnly}
+                            disabled={disabled}
+                            error={get(errors, 'startTime')}
+                            size="xs"
+                            required={dateRequired}
+                            {...field}
+                            value={field.value || new Date()}
+                          />
+                        );
+                      }}
+                    />
+                  </Col>
+                ) : null}
+              </Grid>
+            ) : null}
 
             {/* TO */}
-            {!onlyOneDate ? (
+            {(!disabled || (disabled && form.getValues('endDate'))) && !onlyOneDate ? (
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
                 <Col span={isAllDay ? 100 : 70}>
                   <Controller
                     name="endDate"
                     control={control}
                     rules={{
-                      required: errorMessages.endDateRequired,
+                      validate: (e) => {
+                        if (dateRequired && !e) return errorMessages.endDateRequired;
+                        return true;
+                      },
                     }}
                     render={({ field }) => (
                       <DatePicker
                         error={get(errors, 'endDate')}
                         size="xs"
+                        withTime={disabled}
                         disabled={disabled}
                         readOnly={readOnly}
                         label={messages.toLabel}
-                        required
+                        required={dateRequired}
                         {...field}
                       />
                     )}
@@ -120,9 +141,13 @@ const Dates = ({
                       name="endTime"
                       control={control}
                       rules={{
-                        required: errorMessages.endTimeRequired,
+                        validate: (e) => {
+                          if (dateRequired && !e) return errorMessages.endTimeRequired;
+                          return true;
+                        },
                       }}
                       render={({ field }) => {
+                        if (disabled) return null;
                         if (!field.value) {
                           field.onChange(new Date());
                         }
@@ -132,7 +157,7 @@ const Dates = ({
                             disabled={disabled}
                             error={get(errors, 'endTime')}
                             size="xs"
-                            required
+                            required={dateRequired}
                             {...field}
                             value={field.value || new Date()}
                           />

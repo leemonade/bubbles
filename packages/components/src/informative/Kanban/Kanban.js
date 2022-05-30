@@ -13,7 +13,7 @@ export const KANBAN_DEFAULT_PROPS = {
 };
 export const KANBAN_PROP_TYPES = {};
 
-const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => {
+const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props }) => {
   const { classes, cx } = KanbanStyles({});
 
   const onDragEnd = (result) => {
@@ -54,7 +54,13 @@ const Kanban = ({ value, isCombineEnabled, onChange, itemRender, ...props }) => 
       {(provided) => (
         <Box ref={provided.innerRef} {...provided.droppableProps} className={classes.root}>
           {value.columns.map((column, index) => (
-            <Column key={column.id} value={column} index={index} itemRender={itemRender} />
+            <Column
+              key={column.id}
+              value={column}
+              index={index}
+              itemRender={itemRender}
+              icon={icon}
+            />
           ))}
           {provided.placeholder}
         </Box>

@@ -25,33 +25,43 @@ const KanbanFilters = ({ value, data, messages, onChange, addEventClick, ...prop
 
   return (
     <Box className={classes.root}>
-      <Stack alignItems="center">
-        <ExcludeIcon className={classes.icon} />
-        <Title order={2} className={classes.title}>
-          {messages.title}
-        </Title>
-      </Stack>
-      <Stack alignItems="center">
-        <Text>{messages.filter}</Text>
-        <MultiSelect
-          value={value.calendars}
-          data={data.calendars}
-          className={classes.select}
-          icon={<PluginSubjectsIcon />}
-          onChange={(e) => onChange({ ...value, calendars: e })}
-          placeholder={messages.selectCalendarsSubjects}
-          clearable={true}
-        />
-        <Switch
-          value={value.showArchived}
-          onChange={(e) => onChange({ ...value, showArchived: e })}
-          label={messages.archived}
-        />
-      </Stack>
-      <Stack alignItems="center">
-        <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
-          <PlusIcon />
-        </IconButton>
+      <Stack fullWidth justifyContent="space-between" alignItems="center">
+        <Stack alignItems="center">
+          <Stack alignItems="center">
+            <ExcludeIcon className={classes.icon} />
+            <Title order={2} className={classes.title}>
+              {messages.title}
+            </Title>
+          </Stack>
+          <Box sx={(theme) => ({ marginLeft: theme.spacing[8] })}>
+            <Stack alignItems="center">
+              <Text>{messages.filter}</Text>
+              <MultiSelect
+                value={value.calendars}
+                data={data.calendars}
+                className={classes.select}
+                icon={<PluginSubjectsIcon />}
+                onChange={(e) => onChange({ ...value, calendars: e })}
+                placeholder={messages.selectCalendarsSubjects}
+                clearable={true}
+              />
+            </Stack>
+          </Box>
+        </Stack>
+        <Stack alignItems="center">
+          <Box sx={(theme) => ({ marginRight: theme.spacing[8] })}>
+            <Switch
+              value={value.showArchived}
+              onChange={(e) => onChange({ ...value, showArchived: e })}
+              label={messages.archived}
+            />
+          </Box>
+          <Stack alignItems="center">
+            <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+              <PlusIcon />
+            </IconButton>
+          </Stack>
+        </Stack>
       </Stack>
     </Box>
   );

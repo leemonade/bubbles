@@ -24,8 +24,21 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
     },
     bottomSection: {
       padding: theme.spacing[4],
-      backgroundColor:
-        colord(bgColor).desaturate(0.2).alpha(0.7).toRgbString() || theme.colors.uiBackground04,
+      backgroundColor: bgColor || theme.colors.uiBackground01,
+      position: 'relative',
+    },
+    bottomSectionBg: {
+      position: 'absolute',
+      zIndex: 1,
+      width: '100%',
+      height: '100%',
+      left: 0,
+      top: 0,
+      backgroundColor: 'rgba(246, 245, 247, 0.93)',
+    },
+    bottomSectionContent: {
+      position: 'relative',
+      zIndex: 2,
     },
     avatar: {
       display: 'flex',
@@ -51,11 +64,20 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, progress }) 
       backgroundColor: theme.colors.uiBackground03,
     },
     description: {
-      display: '-webkit-box',
-      '-webkit-line-clamp': '4',
-      '-webkit-box-orient': 'vertical',
-      overflow: 'hidden',
-      marginBottom: theme.spacing[4],
+      marginBottom: theme.spacing[5],
+    },
+    icon: {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '16px',
+      height: '16px',
+      color: theme.colors.text07,
+      img: {
+        filter:
+          'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+      },
     },
   };
 });

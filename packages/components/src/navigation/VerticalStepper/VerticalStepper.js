@@ -14,6 +14,7 @@ const VerticalStepper = ({
   completedSteps: completedStepsProp,
   autocompleteOnNext,
   calificationProps,
+  onChangeActiveIndex = () => {},
   ...props
 }) => {
   const [completedSteps, setCompletedSteps] = useState(completedStepsProp);
@@ -135,6 +136,7 @@ const VerticalStepper = ({
   const onActiveIndexHandler = (index) => {
     if (!visitedSteps.includes(index) && !completedSteps.includes(index)) return;
     setActiveIndex(index);
+    onChangeActiveIndex(index);
   };
 
   const renderSteps = () => {

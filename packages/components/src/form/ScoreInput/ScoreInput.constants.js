@@ -7,6 +7,7 @@ export const SCORE_INPUT_DEFAULT_PROPS = {
   tags: [],
   showLetters: false,
   placeholder: '',
+  value: {},
 };
 
 export const SCORE_INPUT_PROP_TYPES = {

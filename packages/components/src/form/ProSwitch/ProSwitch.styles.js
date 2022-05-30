@@ -11,7 +11,8 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
     },
     icon: {
       position: 'absolute',
-      top: '0',
+      top: '50%',
+      transform: 'translateY(-50%)',
       left: '0',
       width: '20px',
       height: '20px',
@@ -28,7 +29,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       transitionDuration: '150ms',
     },
     iconActive: {
-      transform: 'translateX(12px)',
+      transform: 'translate(12px, -50%)!important',
     },
     input: {
       width: '32px',

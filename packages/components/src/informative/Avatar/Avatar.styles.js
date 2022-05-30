@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFontExpressive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 import { avatarBadge, avatarBadgeNumber, avatarError } from '../../commons.mixins';
 
 const getSizes = (size, spacing) => {
@@ -33,6 +33,10 @@ const getSizes = (size, spacing) => {
 };
 
 export const AvatarStyles = createStyles((theme, { size, color }) => {
+  let placeholder = {};
+  if (size === 'xs') {
+    placeholder.fontSize = '11px';
+  }
   return {
     root: {
       borderRadius: '100%',
@@ -49,6 +53,7 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       color: theme.colors.text07,
       svg: { height: '80%' },
       fontSize: 'inherit',
+      ...placeholder,
     },
     avatarWrapper: {
       position: 'relative',

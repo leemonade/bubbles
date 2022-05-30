@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isArray, isFunction, keyBy, map } from 'lodash';
+import { get, isArray, isFunction, isNil, keyBy, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   ActionButton,
@@ -11,10 +11,12 @@ import {
   Grid,
   RadioGroup,
   Select,
+  Switch,
   TextInput,
+  Title,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Dates } from './components/Dates';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
 
@@ -45,6 +47,8 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     saveButtonLabel: 'Save',
     updateButtonLabel: 'Update',
     calendarPlaceholder: 'Select calendar',
+    calendarLabel: 'Choose calendar where to display',
+    showInCalendar: 'Show in calendar',
   },
   errorMessages: {
     titleRequired: 'Field is required',
@@ -63,6 +67,7 @@ function MyController(props) {
 }
 
 const CalendarEventModal = (props) => {
+  const [canEdit, setCanEdit] = React.useState(false);
   const { classes, cx } = CalendarEventModalStyles({});
 
   const {
@@ -82,6 +87,13 @@ const CalendarEventModal = (props) => {
     readOnly,
   } = props;
 
+  if (defaultValues?.type === 'plugins.calendar.task') {
+    if (isNil(defaultValues?.data?.hideInCalendar)) {
+      if (isNil(defaultValues.data)) defaultValues.data = {};
+      defaultValues.data.hideInCalendar = true;
+    }
+  }
+
   const form = useForm({ defaultValues });
   const {
     watch,
@@ -95,15 +107,27 @@ const CalendarEventModal = (props) => {
     formState: { errors, isSubmitted },
   } = form;
 
+  const calendar = watch('calendar');
+  const hideInCalendar = watch('data.hideInCalendar');
   const type = watch('type');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
 
-  React.useEffect(() => console.log('type:', type), [type]);
-
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
+      if (value.type === 'plugins.calendar.task') {
+        if (name === 'type') {
+          setValue('data.hideInCalendar', true);
+        }
+        if (
+          name === 'data.hideInCalendar' &&
+          hideInCalendar &&
+          calendar !== selectData.calendars[0]?.value
+        ) {
+          setValue('calendar', selectData.calendars[0]?.value);
+        }
+      }
       if (onlyOneDate) {
         if (name === 'startDate') {
           setValue('endDate', value.startDate);
@@ -124,25 +148,35 @@ const CalendarEventModal = (props) => {
     hasComponent = true;
   }
 
-  const disabled = (!isNew && !isOwner) || readOnly;
+  let disabled = !isNew || readOnly;
+  if (canEdit) disabled = false;
+
+  function onEdit() {
+    setCanEdit(true);
+  }
 
   return (
     <Drawer
       size={360}
-      empty
       className={classes.root}
       onClose={onClose}
       opened={opened}
       header={
-        !isNew && (!fromCalendar || isOwner) ? (
-          <ActionButton icon={<DeleteBinIcon />} onClick={onRemove} />
-        ) : null
+        <Box className={classes.headerActions}>
+          {isOwner && disabled ? <ActionButton icon={<EditWriteIcon />} onClick={onEdit} /> : null}
+
+          {!isNew && (!fromCalendar || isOwner) ? (
+            <ActionButton icon={<DeleteBinIcon />} onClick={onRemove} />
+          ) : null}
+        </Box>
       }
     >
       <Box
         sx={(theme) => ({
-          padding: theme.spacing[4],
-          paddingTop: theme.spacing[12],
+          //padding: theme.spacing[4],
+          // paddingTop: theme.spacing[12],
+          marginLeft: -theme.spacing[4],
+          marginRight: -theme.spacing[4],
           paddingBottom: '76px',
         })}
       >
@@ -153,16 +187,21 @@ const CalendarEventModal = (props) => {
             rules={{
               required: errorMessages.titleRequired,
             }}
-            render={({ field }) => (
-              <TextInput
-                readOnly={readOnly}
-                disabled={disabled}
-                placeholder={config?.titlePlaceholder || messages.titlePlaceholder}
-                error={get(errors, 'title')}
-                required
-                {...field}
-              />
-            )}
+            render={({ field }) => {
+              if (disabled) {
+                return <Title order={3}>{field.value}</Title>;
+              }
+              return (
+                <TextInput
+                  readOnly={disabled}
+                  disabled={disabled}
+                  placeholder={config?.titlePlaceholder || messages.titlePlaceholder}
+                  error={get(errors, 'title')}
+                  required
+                  {...field}
+                />
+              );
+            }}
           />
 
           {!forceType ? (
@@ -188,11 +227,36 @@ const CalendarEventModal = (props) => {
             </Box>
           ) : null}
 
+          {!disabled && type === 'plugins.calendar.task' ? (
+            <Box
+              sx={(theme) => ({ marginBottom: -theme.spacing[3], paddingTop: theme.spacing[3] })}
+            >
+              <Grid columns={100} gutter={0}>
+                <Col span={8} className={classes.icon} />
+                <Col span={92}>
+                  <Controller
+                    name="data.hideInCalendar"
+                    control={control}
+                    shouldUnregister
+                    render={({ field }) => (
+                      <Switch
+                        {...field}
+                        onChange={() => field.onChange(!field.value)}
+                        checked={!field.value}
+                        label={messages.showInCalendar}
+                      />
+                    )}
+                  />
+                </Col>
+              </Grid>
+            </Box>
+          ) : null}
+
           <Dates
             {...props}
             form={form}
             classes={classes}
-            readOnly={readOnly}
+            readOnly={disabled}
             disabled={disabled}
             onlyOneDate={onlyOneDate}
             config={config}
@@ -209,7 +273,7 @@ const CalendarEventModal = (props) => {
             allFormData={watch()}
             data={watch('data')}
             classes={classes}
-            readOnly={readOnly}
+            readOnly={disabled}
             disabled={disabled}
             allProps={props}
             form={{
@@ -245,7 +309,10 @@ const CalendarEventModal = (props) => {
             }}
           />
 
-          {isNew || (!isNew && isOwner) ? (
+          {disabled ||
+          ((isNew || (!isNew && isOwner)) &&
+            (type !== 'plugins.calendar.task' ||
+              (type === 'plugins.calendar.task' && !hideInCalendar))) ? (
             <>
               <Box className={classes.divider}>
                 <Divider />
@@ -266,8 +333,9 @@ const CalendarEventModal = (props) => {
                       render={({ field }) => (
                         <Select
                           size="xs"
-                          readOnly={readOnly}
+                          readOnly={disabled}
                           disabled={disabled}
+                          label={messages.calendarLabel}
                           placeholder={messages.calendarPlaceholder}
                           {...field}
                           required
@@ -282,13 +350,17 @@ const CalendarEventModal = (props) => {
             </>
           ) : null}
 
-          <Box className={classes.actionButtonsContainer}>
-            <Button type="button" variant="light" compact onClick={onClose}>
-              {messages.cancelButtonLabel}
-            </Button>
-            {isNew ? <Button type="submit">{messages.saveButtonLabel}</Button> : null}
-            {!isNew && isOwner ? <Button type="submit">{messages.updateButtonLabel}</Button> : null}
-          </Box>
+          {!disabled ? (
+            <Box className={classes.actionButtonsContainer}>
+              <Button type="button" variant="light" compact onClick={onClose}>
+                {messages.cancelButtonLabel}
+              </Button>
+              {isNew ? <Button type="submit">{messages.saveButtonLabel}</Button> : null}
+              {!isNew && isOwner ? (
+                <Button type="submit">{messages.updateButtonLabel}</Button>
+              ) : null}
+            </Box>
+          ) : null}
         </form>
       </Box>
     </Drawer>

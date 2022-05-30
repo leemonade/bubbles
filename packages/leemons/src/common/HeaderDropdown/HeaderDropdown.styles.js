@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, getFontExpressive } from '@bubbles-ui/components';
 
 export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }) => {
   const { height, top } = headerRef?.current?.getBoundingClientRect() || { height: 0, top: 0 };
@@ -78,7 +72,10 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       textAlign: 'right',
       marginRight: 20,
     },
+
     itemComponentIcon: {
+      border: '2px solid',
+      borderColor: theme.colors.uiBackground01,
       position: 'absolute',
       padding: 4,
       borderRadius: '50%',
@@ -93,6 +90,8 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       position: 'relative',
     },
     itemIcon: {
+      border: '2px solid',
+      borderColor: theme.colors.uiBackground01,
       position: 'absolute',
       padding: 8,
       borderRadius: '50%',
