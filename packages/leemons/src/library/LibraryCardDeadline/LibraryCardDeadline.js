@@ -15,7 +15,6 @@ const LibraryCardDeadline = ({
   isNew,
   locale,
   deadline,
-  direction,
   parentHovered,
   severity,
   role,
@@ -52,7 +51,7 @@ const LibraryCardDeadline = ({
 
   renderTitle();
   const { classes, cx } = LibraryCardDeadlineStyles(
-    { isNew, direction, parentHovered, remainingDays, severity, role },
+    { isNew, parentHovered, remainingDays, severity, role },
     { name: 'LibraryCardDeadline' }
   );
   return (

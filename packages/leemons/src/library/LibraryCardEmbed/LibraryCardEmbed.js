@@ -11,7 +11,7 @@ import {
   COLORS,
   useElementSize,
 } from '@bubbles-ui/components';
-import { capitalize, isEmpty } from 'lodash';
+import { capitalize, isEmpty, isFunction } from 'lodash';
 import { AssetPlayer } from '../../common';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCardEmbedStyles } from './LibraryCardEmbed.styles';
@@ -19,14 +19,14 @@ import {
   LIBRARY_CARD_EMBED_DEFAULT_PROPS,
   LIBRARY_CARD_EMBED_PROP_TYPES,
 } from './LibraryCardEmbed.constants';
-import { ExpandDiagonalIcon, ExpandFullIcon } from '@bubbles-ui/icons/outline';
+import { ExpandDiagonalIcon, ExpandFullIcon, DownloadIcon } from '@bubbles-ui/icons/outline';
 
 const getDomain = (url) => {
   const domain = url.split('//')[1];
   return (domain.split('/')[0] || '').replace('www.', '');
 };
 
-const LibraryCardEmbed = ({ asset, variant, labels, ...props }) => {
+const LibraryCardEmbed = ({ asset, variant, labels, onDownload, ...props }) => {
   const { ref: rootRef, width } = useElementSize();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -38,12 +38,32 @@ const LibraryCardEmbed = ({ asset, variant, labels, ...props }) => {
   const renderVariantButton = () => {
     const isMedia = variant === 'media';
     const isBookmark = variant === 'bookmark';
+    const isVideo = fileType === 'video';
+    const isAudio = fileType === 'audio';
 
-    if (isMedia)
+    if (isMedia) {
+      if (!isVideo && !isAudio) {
+        return (
+          <IconButton
+            style={{ marginBlock: 4 }}
+            icon={<DownloadIcon height={13} width={13} />}
+            rounded
+            onClick={() => {
+              isFunction(onDownload) ? onDownload(asset) : window.open(url);
+            }}
+          />
+        );
+      }
       return (
         <IconButton
           style={{ backgroundColor: COLORS.interactive01, marginBlock: 4 }}
-          icon={<ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />}
+          icon={
+            isAudio || isVideo ? (
+              <ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />
+            ) : (
+              <DownloadDrawerIcon height={13} width={13} />
+            )
+          }
           rounded
           onClick={() => {
             setShowPlayer(true);
@@ -51,6 +71,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, ...props }) => {
           }}
         />
       );
+    }
     if (isBookmark)
       return (
         <Box className={classes.bookmarkButton} onClick={() => window.open(url)}>
@@ -127,7 +148,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, ...props }) => {
             <Box className={classes.footer}>
               <FileIcon
                 size={13}
-                fileType={fileType}
+                fileType={variant === 'bookmark' ? 'bookmark' : fileType}
                 color={'#636D7D'}
                 label={capitalize(fileType) || 'File'}
                 hideExtension
