@@ -42,7 +42,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     if (value.data && value.data.subtask) {
       const total = value.data.subtask.length;
       const completed = filter(value.data.subtask, { checked: true }).length;
-      return (completed / total) * 100;
+      return parseInt((completed / total) * 100);
     }
     return null;
   }, [value]);
