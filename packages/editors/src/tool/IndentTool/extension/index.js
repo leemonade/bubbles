@@ -45,7 +45,10 @@ function setNodeIndentMarkup(tr, pos, delta) {
   const minIndent = IndentProps.min;
   const maxIndent = IndentProps.max;
 
-  const indent = clamp((node.attrs.indent || 0) + delta, minIndent, maxIndent);
+  const indentParsed =
+    typeof node.attrs.indent === 'object' ? node.attrs.indent.indent : node.attrs.indent;
+
+  const indent = clamp((indentParsed || 0) + delta, minIndent, maxIndent);
 
   if (indent === node.attrs.indent) return tr;
 
@@ -101,7 +104,9 @@ export const Indent = Extension.create({
           indent: {
             default: this.options.defaultIndentLevel,
             renderHTML: (attributes) => ({
-              style: `margin-left: ${attributes.indent}px!important;`,
+              style: `margin-left: ${
+                typeof attributes.indent === 'object' ? attributes.indent.indent : attributes.indent
+              }px!important;`,
             }),
             parseHTML: (element) => ({
               indent: parseInt(element.style.marginLeft) || this.options.defaultIndentLevel,
