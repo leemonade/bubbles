@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { isNil } from 'lodash';
 import { Box } from '../../layout';
 import { Step } from './';
 import { VerticalStepperStyles } from './VerticalStepper.styles';
@@ -12,13 +13,14 @@ const VerticalStepper = ({
   data,
   currentStep,
   completedSteps: completedStepsProp,
+  visitedSteps: visitedStepsProp,
   autocompleteOnNext,
   calificationProps,
-  onChangeActiveIndex = () => {},
+  onChangeActiveIndex,
   ...props
 }) => {
-  const [completedSteps, setCompletedSteps] = useState(completedStepsProp);
-  const [visitedSteps, setVisitedSteps] = useState([]);
+  const [completedSteps, setCompletedSteps] = useState(completedStepsProp || []);
+  const [visitedSteps, setVisitedSteps] = useState(visitedStepsProp || []);
   const [activeIndex, setActiveIndex] = useState(currentStep);
   const textSteps = [];
   const isMounted = useRef(false);
@@ -58,8 +60,18 @@ const VerticalStepper = ({
   };
 
   const allSteps = getSteps(data);
-  if (activeIndex > allSteps.length) setActiveIndex(allSteps.length);
-  if (activeIndex < 0) setActiveIndex(0);
+  if (activeIndex > allSteps.length) {
+    if (isNil(currentStep)) {
+      setActiveIndex(allSteps.length);
+    }
+    onChangeActiveIndex(allSteps.length);
+  }
+  if (activeIndex < 0) {
+    if (isNil(currentStep)) {
+      setActiveIndex(0);
+    }
+    onChangeActiveIndex(0);
+  }
 
   const getStepPosition = (index) => {
     if (index === 0) return 'start';
@@ -135,7 +147,10 @@ const VerticalStepper = ({
 
   const onActiveIndexHandler = (index) => {
     if (!visitedSteps.includes(index) && !completedSteps.includes(index)) return;
-    setActiveIndex(index);
+
+    if (isNil(currentStep)) {
+      setActiveIndex(index);
+    }
     onChangeActiveIndex(index);
   };
 
