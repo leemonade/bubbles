@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 import { findIndex, isFunction, map } from 'lodash';
+import { AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../../layout';
 import { ListInputStyles } from './ListInput.styles';
 import { InputWrapper } from '../InputWrapper';
@@ -12,15 +14,18 @@ import { ListItem } from './components/ListItem';
 
 export const LIST_INPUT_DEFAULT_PROPS = {
   inputRender: (props) => {
-    return <TextInput {...props} />;
+    return <TextInput {...props} style={{ flex: 1 }} />;
   },
   listRender: <ListItem />,
   onChange: () => {},
   valueKey: 'value',
   addButtonLabel: 'Add',
   errorRequiredMessage: 'Required',
+  hideAddButton: false,
 };
-export const LIST_INPUT_PROP_TYPES = {};
+export const LIST_INPUT_PROP_TYPES = {
+  hideAddButton: PropTypes.bool,
+};
 
 const ListInput = ({
   label,
@@ -37,13 +42,14 @@ const ListInput = ({
   readonly,
   disabled,
   canAdd,
-  hideAddButton = false,
+  hideAddButton,
   value: originalValue,
   onChange,
 }) => {
   const { classes, cx } = ListInputStyles({});
 
-  const InputRender = isFunction(IInputRender) ? <IInputRender /> : IInputRender;
+  const isCustomInputRender = isFunction(IInputRender);
+  const InputRender = isCustomInputRender ? <IInputRender /> : IInputRender;
   const ListRender = isFunction(LListRender) ? <LListRender /> : LListRender;
 
   const [hasError, setHasError] = useState(false);
@@ -132,7 +138,19 @@ const ListInput = ({
         />
       </Box>
       {canAdd && !readonly ? (
-        <Box>
+        <Box
+          sx={(theme) =>
+            !hideAddButton
+              ? {
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: theme.spacing[4],
+                  width: '100%',
+                  flex: 1,
+                }
+              : {}
+          }
+        >
           {React.cloneElement(InputRender, {
             value: valueKey ? activeItem[valueKey] : activeItem,
             onChange: (event) => {
@@ -144,9 +162,11 @@ const ListInput = ({
             addItem,
           })}
           {!hideAddButton ? (
-            <Button size="xs" onClick={addItem}>
-              {addButtonLabel}
-            </Button>
+            <Box style={{ flex: 0 }}>
+              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addItem}>
+                {addButtonLabel}
+              </Button>
+            </Box>
           ) : null}
         </Box>
       ) : null}

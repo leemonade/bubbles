@@ -29,6 +29,7 @@ export const LOGIN_FORM_DEFAULT_PROPS = {
   recoverUrl: '#',
   loading: false,
   formError: '',
+  showSignup: false,
 };
 
 const EMAIL_REGEX =
@@ -42,6 +43,7 @@ const LoginForm = ({
   onSubmit,
   onValidationError,
   loading,
+  showSignup,
   recoverUrl,
   useRouter,
   ...props
@@ -145,12 +147,13 @@ const LoginForm = ({
             {labels.login}
           </Button>
         </Box>
-
-        <Box>
-          <Button variant="light" rightIcon={<ChevronRightIcon />} type="button" fullWidth>
-            {labels.signup}
-          </Button>
-        </Box>
+        {showSignup && (
+          <Box>
+            <Button variant="light" rightIcon={<ChevronRightIcon />} type="button" fullWidth>
+              {labels.signup}
+            </Button>
+          </Box>
+        )}
       </ContextContainer>
     </form>
   );

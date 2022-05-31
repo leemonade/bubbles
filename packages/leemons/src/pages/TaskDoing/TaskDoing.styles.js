@@ -6,7 +6,7 @@ export const TaskDoingStyles = createStyles((theme, { isFirstStep }) => {
       ...getFontExpressive(theme.fontSizes['2']),
     },
     header: {
-      height: isFirstStep ? 'calc(25vh - 16px)' : 60,
+      height: isFirstStep ? 'calc(35vh - 16px)' : 60,
       position: 'relative',
     },
     mainContent: {

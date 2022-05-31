@@ -45,6 +45,14 @@ const TaskDeadline = ({
     return isMedium ? date : startCase(date);
   };
 
+  const renderTime = () => {
+    const time = deadline.toLocaleTimeString(locale, {
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    return time;
+  };
+
   const isMedium = size === 'md';
   const { classes, cx } = TaskDeadlineStyles({ isMedium, styles }, { name: 'TaskDeadline' });
   return (
@@ -57,6 +65,11 @@ const TaskDeadline = ({
         <Text color="primary" role="productive" size="md" className={classes.date}>
           {renderDate()}
         </Text>
+        {isMedium && (
+          <Text role="productive" size="xs" className={classes.date}>
+            {renderTime()}
+          </Text>
+        )}
       </Box>
       {showAlert && (
         <Box className={classes.alert}>

@@ -11,6 +11,7 @@ export const TaskDeadlineStyles = createStyles((theme, { isMedium, styles }) => 
       backgroundColor: theme.colors.mainWhite,
       display: 'inline-flex',
       flexDirection: isMedium ? 'column' : 'row',
+      transition: 'all 0.3s ease-in-out',
       ...styles,
     },
     deadline: {
@@ -19,7 +20,8 @@ export const TaskDeadlineStyles = createStyles((theme, { isMedium, styles }) => 
       justifyContent: 'center',
       flexDirection: isMedium ? 'column' : 'row',
       gap: pxToRem(8),
-      padding: isMedium ? 32 : '12px 16px',
+      padding: isMedium ? '18px 32px' : '12px 16px',
+      transition: 'all 0.3s ease-in-out',
     },
     calendarIcon: {
       marginBottom: isMedium && pxToRem(8),

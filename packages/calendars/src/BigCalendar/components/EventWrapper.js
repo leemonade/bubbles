@@ -22,7 +22,8 @@ const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
       marginTop: theme.spacing[1],
     },
     texts: {
-      marginTop: theme.spacing[1],
+      marginTop: 0, // theme.spacing[1]
+      lineHeight: '1em',
     },
     icon: {
       borderRadius: '50%',
