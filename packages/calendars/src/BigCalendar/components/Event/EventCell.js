@@ -11,11 +11,12 @@ const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
     root: {
       backgroundColor: `${
         isAllDay
-          ? colord(bgColor).desaturate(0.2).alpha(0.7).toRgbString()
+          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
           : theme.colors.uiBackground01
       }!important`,
       color: `${theme.colors.text01}!important`,
       borderRadius: '4px!important',
+      fontWeight: 500,
     },
     icon: {
       borderRadius: '50%',
