@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles } from '@bubbles-ui/components';
 
 export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) => {
   const isSmall = size === 'sm';
@@ -20,7 +14,7 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) =>
     title: {
       fontSize: !isSmall ? 24 : 20,
       fontWeight: 600,
-      lineHeight: !isSmall ? '24px' : '20px',
+      lineHeight: !isSmall ? '30px' : '24px',
       flex: isSmall && 1,
       transition: 'font-size 0.3s ease-in-out, line-height 0.3s ease-in-out',
     },
@@ -33,6 +27,10 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) =>
       borderRadius: '50%',
       backgroundColor: color,
       padding: 4,
+      position: 'relative',
+      img: {
+        filter: 'brightness(0) invert(1)',
+      },
     },
     subtitle: {
       display: isSmall && 'none',

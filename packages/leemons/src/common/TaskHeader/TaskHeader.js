@@ -15,7 +15,7 @@ const TaskHeader = ({ title, subtitle, color, icon, size, styles, className, ...
       </TextClamp>
       <Box className={classes.subtitleWrapper}>
         <Box className={classes.icon}>
-          <ImageLoader src={icon} height={12} width={12} />
+          <ImageLoader height="12px" width="12px" src={icon} forceImage />
         </Box>
         <Text className={classes.subtitle} color="primary">
           {subtitle}
