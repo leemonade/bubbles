@@ -11,7 +11,7 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) =>
 
   return {
     root: {
-      padding: !isSmall ? '24px 24px 26px 24px' : 20,
+      padding: !isSmall ? '24px 24px 26px 24px' : 22,
       display: 'flex',
       flexDirection: !isSmall && 'column',
       gap: 18,
@@ -22,6 +22,7 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) =>
       fontWeight: 600,
       lineHeight: !isSmall ? '24px' : '20px',
       flex: isSmall && 1,
+      transition: 'font-size 0.3s ease-in-out, line-height 0.3s ease-in-out',
     },
     subtitleWrapper: {
       display: 'flex',

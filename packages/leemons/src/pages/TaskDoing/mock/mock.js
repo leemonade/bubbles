@@ -215,7 +215,7 @@ export const mock = {
       zIndex: -1,
     },
     image:
-      'https://s3-alpha-sig.figma.com/img/9845/7ff2/9522c3f9e01cf33153ab13d4c28b6e6f?Expires=1652659200&Signature=QQnVH1PcB6LK5miPkoeC8bhoA8lngTokFivDa9~FmwvWZIrtF5sS75pMxml4K9r-Hf3A0SYLn5atrI6Mklv3gY-gH6c2fiOtpJm2ZN1umBN2W0CAwQOJAB202ACfKh-stLQs-YKONAHH1TF72jgst~wSIsdfItFvFIVQyogcMSEnj8HY~F-6X0Gmfnn0UHgi1fNpv0J9rtHYa4wsHIw7~mhOQK~biDJ~8cxtAoIoNO3FfF~GM0f7HpUV-6Sfb4fyhpKpU~R0dKE0pmeZoGQ6nwoHWgnSfSr4OtUo1X0k0VZBFQZSkt3scqcFqEa9JBtecx~AOlIiSOzuPkfuix-X~A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      'https://images.unsplash.com/photo-1652624770437-8a0272d1f732?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY1Mzk4NDY3NA&ixlib=rb-1.2.1&q=80&w=1080',
     backgroundPosition: 'center',
   },
   taskHeader: {
