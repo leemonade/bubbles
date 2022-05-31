@@ -68,7 +68,7 @@ const Dates = ({
                         disabled={disabled}
                         error={get(errors, 'startDate')}
                         label={config?.fromLabel || messages.fromLabel}
-                        required={dateRequired}
+                        required={dateRequired && !disabled}
                         {...field}
                       />
                     )}
@@ -96,7 +96,7 @@ const Dates = ({
                             disabled={disabled}
                             error={get(errors, 'startTime')}
                             size="xs"
-                            required={dateRequired}
+                            required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
                           />
@@ -129,7 +129,7 @@ const Dates = ({
                         disabled={disabled}
                         readOnly={readOnly}
                         label={messages.toLabel}
-                        required={dateRequired}
+                        required={dateRequired && !disabled}
                         {...field}
                       />
                     )}
@@ -157,7 +157,7 @@ const Dates = ({
                             disabled={disabled}
                             error={get(errors, 'endTime')}
                             size="xs"
-                            required={dateRequired}
+                            required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
                           />
@@ -170,24 +170,26 @@ const Dates = ({
             ) : null}
 
             {/* REPEAT */}
-            <Controller
-              name="repeat"
-              control={control}
-              rules={{
-                required: errorMessages.endTimeRequired,
-              }}
-              render={({ field }) => (
-                <Select
-                  error={get(errors, 'repeat')}
-                  size="xs"
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  label={messages.repeatLabel}
-                  {...field}
-                  data={selectData.repeat}
-                />
-              )}
-            />
+            {!config?.hideRepeat ? (
+              <Controller
+                name="repeat"
+                control={control}
+                rules={{
+                  required: errorMessages.endTimeRequired,
+                }}
+                render={({ field }) => (
+                  <Select
+                    error={get(errors, 'repeat')}
+                    size="xs"
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    label={messages.repeatLabel}
+                    {...field}
+                    data={selectData.repeat}
+                  />
+                )}
+              />
+            ) : null}
 
             {/* ALL DAY */}
             {!config?.hideAllDay ? (

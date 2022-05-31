@@ -33,7 +33,7 @@ const Column = ({ value, index, isScrollable, isCombineEnabled, itemRender, icon
             </Box>
             <Text color="primary">{value.cards.length}</Text>
           </Box>
-          <Box style={{ position: 'relative', zIndex: 2 }}>
+          <Box>
             <QuoteList
               listId={value.id}
               listType="QUOTE"

@@ -35,7 +35,8 @@ export const KanbanStyles = createStyles((theme, {}) => {
       alignItems: 'center',
     },
     listDraggingOver: {
-      // backgroundColor: theme.colors.ui04,
+      backgroundColor: '#EDEFF5',
+      borderRadius: 4,
     },
     list: {
       minHeight: '100px',

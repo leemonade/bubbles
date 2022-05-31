@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isArray, isFunction, isNil, keyBy, map } from 'lodash';
+import { find, get, isArray, isFunction, isNil, keyBy, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   ActionButton,
@@ -15,10 +15,11 @@ import {
   TextInput,
   Title,
 } from '@bubbles-ui/components';
-import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
+import { PluginCalendarIcon, UsersIcon } from '@bubbles-ui/icons/outline';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Dates } from './components/Dates';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
+import { Badge } from '@bubbles-ui/components/src/informative/Badge';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
@@ -85,6 +86,7 @@ const CalendarEventModal = (props) => {
     onSubmit,
     defaultValues,
     readOnly,
+    UsersComponent,
   } = props;
 
   if (defaultValues?.type === 'plugins.calendar.task') {
@@ -110,6 +112,7 @@ const CalendarEventModal = (props) => {
   const calendar = watch('calendar');
   const hideInCalendar = watch('data.hideInCalendar');
   const type = watch('type');
+  const taskColumn = watch('data.column');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
@@ -195,14 +198,26 @@ const CalendarEventModal = (props) => {
                 <TextInput
                   readOnly={disabled}
                   disabled={disabled}
+                  label={config?.titleLabel || messages.name}
                   placeholder={config?.titlePlaceholder || messages.titlePlaceholder}
                   error={get(errors, 'title')}
-                  required
+                  required={!disabled}
                   {...field}
                 />
               );
             }}
           />
+
+          {/*
+          {disabled && type === 'plugins.calendar.task' && taskColumn ? (
+            <Grid columns={100} gutter={0}>
+              <Col span={10} className={classes.icon} />
+              <Col span={90}>
+                <Text>{taskColumn}</Text>
+              </Col>
+            </Grid>
+          ) : null}
+*/}
 
           {!forceType ? (
             <Box sx={(theme) => ({ paddingTop: theme.spacing[4] })}>
@@ -212,17 +227,28 @@ const CalendarEventModal = (props) => {
                 rules={{
                   required: errorMessages.typeRequired,
                 }}
-                render={({ field }) => (
-                  <RadioGroup
-                    {...field}
-                    disabled={disabled}
-                    variant="icon"
-                    direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
-                    fullWidth
-                    error={get(errors, 'type')}
-                    data={selectData.eventTypes}
-                  />
-                )}
+                render={({ field }) => {
+                  if (disabled) {
+                    return (
+                      <Badge
+                        label={find(selectData.eventTypes, { value: field.value })?.label}
+                        closable={false}
+                      />
+                    );
+                  } else {
+                    return (
+                      <RadioGroup
+                        {...field}
+                        disabled={disabled}
+                        variant="icon"
+                        direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
+                        fullWidth
+                        error={get(errors, 'type')}
+                        data={selectData.eventTypes}
+                      />
+                    );
+                  }
+                }}
               />
             </Box>
           ) : null}
@@ -261,6 +287,29 @@ const CalendarEventModal = (props) => {
             onlyOneDate={onlyOneDate}
             config={config}
           />
+
+          {UsersComponent ? (
+            <Box sx={(theme) => ({ paddingTop: theme.spacing[4] })}>
+              <Grid columns={100} gutter={0}>
+                <Col span={10} className={classes.icon}>
+                  <UsersIcon />
+                </Col>
+                <Col span={90}>
+                  <Controller
+                    name="users"
+                    control={control}
+                    render={({ field }) =>
+                      React.cloneElement(UsersComponent, {
+                        ...field,
+                        readOnly: disabled,
+                        disabled,
+                      })
+                    }
+                  />
+                </Col>
+              </Grid>
+            </Box>
+          ) : null}
 
           {hasComponent ? (
             <Box className={classes.divider}>
@@ -335,10 +384,10 @@ const CalendarEventModal = (props) => {
                           size="xs"
                           readOnly={disabled}
                           disabled={disabled}
-                          label={messages.calendarLabel}
+                          label={disabled ? messages.calendarLabelDisabled : messages.calendarLabel}
                           placeholder={messages.calendarPlaceholder}
                           {...field}
-                          required
+                          required={!disabled}
                           error={get(errors, 'calendar')}
                           data={selectData.calendars}
                         />

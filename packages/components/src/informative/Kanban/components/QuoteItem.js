@@ -16,7 +16,7 @@ const QuoteItem = ({
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      sx={(theme) => ({ marginTop: theme.spacing[2], marginBottom: theme.spacing[2] })}
+      sx={(theme) => ({ marginTop: theme.spacing[2], marginBottom: theme.spacing[2], zIndex: 2 })}
     >
       <ItemRender isDragging={isDragging} isGroupedOver={isGroupedOver} value={value} />
     </Box>
