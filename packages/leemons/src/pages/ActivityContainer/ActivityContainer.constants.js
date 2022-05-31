@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
-export const ACTIVITY_CONTAINER_DEFAULT_PROPS = {};
+export const ACTIVITY_CONTAINER_DEFAULT_PROPS = {
+  collapsed: false,
+};
 export const ACTIVITY_CONTAINER_PROP_TYPES = {
   header: PropTypes.shape({
     title: PropTypes.string,
@@ -14,4 +16,5 @@ export const ACTIVITY_CONTAINER_PROP_TYPES = {
     date: PropTypes.string,
   }),
   children: PropTypes.node,
+  collapsed: PropTypes.bool,
 };

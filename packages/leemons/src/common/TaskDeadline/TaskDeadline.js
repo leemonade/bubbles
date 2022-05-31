@@ -66,7 +66,7 @@ const TaskDeadline = ({
           {renderDate()}
         </Text>
         {isMedium && (
-          <Text color="primary" role="productive" size="md" className={classes.date}>
+          <Text role="productive" size="xs" className={classes.date}>
             {renderTime()}
           </Text>
         )}

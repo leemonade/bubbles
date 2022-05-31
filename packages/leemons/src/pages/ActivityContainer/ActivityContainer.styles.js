@@ -11,15 +11,16 @@ export const ActivityContainerStyles = createStyles((theme, { isScrolled }) => {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
       overflowY: 'auto',
-      maxHeight: 'calc(100vh - 32px)',
+      maxHeight: '100vh',
     },
     header: {
       display: 'flex',
-      position: 'sticky',
+      position: 'fixed',
       minHeight: isScrolled ? 64 : 204,
       height: isScrolled ? 64 : '25vh',
       top: '0px',
       transition: 'height 0.3s ease-in-out',
+      zIndex: 9,
     },
     taskHeader: {
       backgroundColor: isScrolled ? theme.colors.interactive03 : theme.colors.mainWhite,
