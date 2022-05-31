@@ -77,7 +77,7 @@ Playground.args = {
         id: '28bfe616-6bd4-4b07-b2ca-edc3303b9cb7',
         day: 'monday',
         dayWeek: 0,
-        duration: 119,
+        duration: 120,
         end: '09:00',
         start: '07:00',
       },

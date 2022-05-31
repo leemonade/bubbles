@@ -70,7 +70,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
     <Box className={classes.root}>
       <Box className={classes.header}>
         <PluginLeebraryIcon height={24} width={24} />
-        <Text className={classes.title}>{'Library'}</Text>
+        <Text className={classes.title}>{labels.title}</Text>
       </Box>
       <SimpleBar className={classes.navItems}>
         <Stack direction={'column'} fullWidth>
