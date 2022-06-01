@@ -7,6 +7,7 @@ import {
   ContextContainer,
   DatePicker,
   Grid,
+  InputWrapper,
   Select,
   Switch,
   TimeInput,
@@ -56,7 +57,7 @@ const Dates = ({
             {/* FROM */}
             {!disabled || (disabled && startDate) ? (
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-                <Col span={isAllDay ? 100 : 70}>
+                <Col span={isAllDay || disabled ? 100 : 70}>
                   <Controller
                     name="startDate"
                     control={control}
@@ -72,6 +73,7 @@ const Dates = ({
                         withTime={disabled}
                         readOnly={readOnly}
                         disabled={disabled}
+                        orientation={disabled ? 'horizontal' : 'vertical'}
                         error={get(errors, 'startDate')}
                         label={config?.fromLabel || messages.fromLabel}
                         required={dateRequired && !disabled}
@@ -117,7 +119,7 @@ const Dates = ({
             {/* TO */}
             {(!disabled || (disabled && form.getValues('endDate'))) && !onlyOneDate ? (
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
-                <Col span={isAllDay ? 100 : 70}>
+                <Col span={isAllDay || disabled ? 100 : 70}>
                   <Controller
                     name="endDate"
                     control={control}
@@ -133,6 +135,7 @@ const Dates = ({
                         size="xs"
                         withTime={disabled}
                         disabled={disabled}
+                        orientation={disabled ? 'horizontal' : 'vertical'}
                         readOnly={readOnly}
                         label={messages.toLabel}
                         required={dateRequired && !disabled}
@@ -188,6 +191,7 @@ const Dates = ({
                     error={get(errors, 'repeat')}
                     size="xs"
                     disabled={disabled}
+                    orientation={disabled ? 'horizontal' : 'vertical'}
                     readOnly={readOnly}
                     label={messages.repeatLabel}
                     {...field}
@@ -198,20 +202,23 @@ const Dates = ({
             ) : null}
 
             {/* ALL DAY */}
-            {!config?.hideAllDay && (!disable || (disabled && form.getValues('isAllDay'))) ? (
+            {!config?.hideAllDay && (!disabled || (disabled && form.getValues('isAllDay'))) ? (
               <Controller
                 name="isAllDay"
                 control={control}
-                render={({ field }) => (
-                  <Switch
-                    {...field}
-                    disabled={disabled}
-                    error={get(errors, 'isAllDay')}
-                    label={messages.allDayLabel}
-                    labelPosition="start"
-                    checked={field.value}
-                  />
-                )}
+                render={({ field }) => {
+                  if (disabled) return <InputWrapper label={messages.allDayLabel} />;
+                  return (
+                    <Switch
+                      {...field}
+                      disabled={disabled}
+                      error={get(errors, 'isAllDay')}
+                      label={messages.allDayLabel}
+                      labelPosition="start"
+                      checked={field.value}
+                    />
+                  );
+                }}
               />
             ) : null}
           </ContextContainer>
