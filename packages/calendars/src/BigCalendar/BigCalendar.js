@@ -76,7 +76,7 @@ export const BigCalendar = forwardRef(
     const { localizer, defaultDate, scrollToTime, getNow } = useMemo(() => {
       // Settings.defaultZone = timezone;
       return {
-        localizer: luxonLocalizer(DateTime),
+        localizer: luxonLocalizer(DateTime, { firstDayOfWeek: 1 }),
         defaultDate: defaultDateProp,
         scrollToTime: DateTime.local().toJSDate(),
         getNow: () => DateTime.local().toJSDate(),
