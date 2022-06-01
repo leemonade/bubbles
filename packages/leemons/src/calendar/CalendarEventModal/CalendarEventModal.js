@@ -288,7 +288,7 @@ const CalendarEventModal = (props) => {
             config={config}
           />
 
-          {UsersComponent ? (
+          {UsersComponent && (!disabled || (disabled && form.getValues('users')?.length)) ? (
             <Box sx={(theme) => ({ paddingTop: theme.spacing[4] })}>
               <Grid columns={100} gutter={0}>
                 <Col span={10} className={classes.icon}>

@@ -192,7 +192,7 @@ const Dates = ({
             ) : null}
 
             {/* ALL DAY */}
-            {!config?.hideAllDay ? (
+            {!config?.hideAllDay && (!disable || (disabled && form.getValues('isAllDay'))) ? (
               <Controller
                 name="isAllDay"
                 control={control}
