@@ -324,7 +324,7 @@ const CalendarEventModal = (props) => {
             classes={classes}
             readOnly={disabled}
             disabled={disabled}
-            allProps={props}
+            allProps={{ ...props, form }}
             form={{
               Controller: MyController,
               control,

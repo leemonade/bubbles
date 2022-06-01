@@ -39,6 +39,12 @@ const Dates = ({
     if (hideInCalendar) dateRequired = false;
   }
 
+  const startDate = form.getValues('startDate');
+
+  if (disabled && !startDate) {
+    return null;
+  }
+
   return (
     <Box sx={(theme) => ({ paddingTop: theme.spacing[5] })}>
       <Grid columns={100} gutter={0}>
@@ -48,7 +54,7 @@ const Dates = ({
         <Col span={90}>
           <ContextContainer>
             {/* FROM */}
-            {!disabled || (disabled && form.getValues('startDate')) ? (
+            {!disabled || (disabled && startDate) ? (
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
                 <Col span={isAllDay ? 100 : 70}>
                   <Controller
