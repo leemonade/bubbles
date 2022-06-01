@@ -24,7 +24,7 @@ const ProgressBar = ({ value }) => {
   const { classes, cx } = KanbanTaskCardStyles({ progress: value });
   return (
     <Box className={classes.progress}>
-      {value.toFixed(2)}%
+      {parseInt(value)}%
       <Box className={classes.progressOut}>
         <Box className={classes.progressIn} />
       </Box>
