@@ -21,7 +21,7 @@ const UserDisplayItemList = ({ data, limit, labels, ...props }) => {
     });
   }, [data, limit, isOpen]);
 
-  const allVisible = limit === data.length;
+  const allVisible = limit >= data.length;
 
   const expandList = () => {
     setIsOpen(true);
