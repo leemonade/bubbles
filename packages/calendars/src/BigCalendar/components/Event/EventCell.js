@@ -80,6 +80,7 @@ function EventCell(thisprops) {
   };
 
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
+  const eventImage = originalEvent.image || originalEvent.calendar.image;
 
   const { classes } = eventCellStyles({
     isAllDay: event.allDay,
@@ -87,7 +88,7 @@ function EventCell(thisprops) {
   });
 
   const avatar = {
-    image: null,
+    image: eventImage || null,
     icon: eventIcon ? (
       <Box className={classes.icon}>
         <ImageLoader

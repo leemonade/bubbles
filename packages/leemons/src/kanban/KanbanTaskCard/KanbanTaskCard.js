@@ -47,8 +47,10 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     return null;
   }, [value]);
 
+  const image = value.image || calendar.image;
+
   const avatar = {
-    image: null,
+    image: image || null,
     icon: value.icon ? (
       <Box className={classes.icon}>
         <ImageLoader
