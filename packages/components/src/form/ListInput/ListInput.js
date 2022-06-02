@@ -151,16 +151,18 @@ const ListInput = ({
               : {}
           }
         >
-          {React.cloneElement(InputRender, {
-            value: valueKey ? activeItem[valueKey] : activeItem,
-            onChange: (event) => {
-              setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
-              if (event) setHasError(false);
-            },
-            required: true,
-            error: hasError ? errorRequiredMessage : null,
-            addItem,
-          })}
+          <Box style={{ width: '100%' }}>
+            {React.cloneElement(InputRender, {
+              value: valueKey ? activeItem[valueKey] : activeItem,
+              onChange: (event) => {
+                setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
+                if (event) setHasError(false);
+              },
+              required: true,
+              error: hasError ? errorRequiredMessage : null,
+              addItem,
+            })}
+          </Box>
           {!hideAddButton ? (
             <Box style={{ flex: 0 }}>
               <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addItem}>
