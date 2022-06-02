@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Paper } from '../../layout';
+import { TEXT_ROLES } from '../../typography';
 import {
   USER_DISPLAY_ITEM_DEFAULT_PROPS,
   USER_DISPLAY_ITEM_LAYOUT,
@@ -27,6 +28,7 @@ export default {
     layout: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_LAYOUT },
     size: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SIZES },
     severity: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SEVERITIES },
+    textRole: { control: { type: 'select' }, options: TEXT_ROLES },
     onChat: { action: 'onChat' },
   },
 };
@@ -50,4 +52,5 @@ Playground.args = {
   rol: 'Profesor',
   center: '',
   email: 'bill.sanders@example.com',
+  textRole: 'expressive',
 };

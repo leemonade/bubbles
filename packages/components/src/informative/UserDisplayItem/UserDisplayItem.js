@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
 import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
-
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
-import { Text } from '../../typography';
+import { Text, TEXT_ROLES } from '../../typography';
 
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
@@ -20,6 +19,7 @@ export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   variant: 'inline',
   layout: 'left',
   noBreak: false,
+  textRole: 'expressive',
 };
 export const USER_DISPLAY_ITEM_SEVERITIES = ['warning', 'error'];
 
@@ -34,6 +34,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
   size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
   severity: PropTypes.oneOf(USER_DISPLAY_ITEM_SEVERITIES),
+  textRole: PropTypes.oneOf(TEXT_ROLES),
   onChat: PropTypes.func,
   noBreak: PropTypes.bool,
 };
@@ -52,6 +53,7 @@ const UserDisplayItem = (properties) => {
     onChat,
     size,
     noBreak,
+    textRole,
     ...props
   } = properties;
 
@@ -116,12 +118,12 @@ const UserDisplayItem = (properties) => {
               {role}
               {variant === 'rol' ? Icon : null}
             </Text>
-            <Text color={textColor} className={classes.name}>
+            <Text color={textColor} className={classes.name} role={textRole}>
               {fullName}
               {variant !== 'rol' ? Icon : null}
             </Text>
             {!isEmpty(surnames) && (
-              <Text color={textColor} className={classes.surnames}>
+              <Text color={textColor} className={classes.surnames} role={textRole}>
                 {surnames}
               </Text>
             )}
