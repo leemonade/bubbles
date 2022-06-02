@@ -15,3 +15,4 @@ export * from './Calification';
 export * from './HorizontalTimeline';
 export * from './ScoresBar';
 export * from './ActivityAnswersBar';
+export * from './UserCards';

@@ -26,7 +26,7 @@ export const USER_CARDS_PROP_TYPES = {
     rol: PropTypes.string,
     email: PropTypes.string,
     number: PropTypes.string,
-    birthday: PropTypes.date,
+    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   }),
   variant: PropTypes.oneOf(USER_CARD_VARIANTS),
   layout: PropTypes.oneOf(USER_CARD_LAYOUT),
