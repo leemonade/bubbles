@@ -5,6 +5,15 @@ import { navigate } from 'react-big-calendar/lib/utils/constants';
 import TimeGrid from '../TimeGrid/TimeGrid';
 
 class WeekView extends React.Component {
+  componentDidMount() {
+    const days = this.props.localizer.visibleDays(this.props.date, this.props.localizer);
+    days[days.length - 1].setHours(23, 59, 59);
+    this.props.onRangeChange({
+      start: days[0],
+      end: days[days.length - 1],
+    });
+  }
+
   render() {
     /**
      * This allows us to default min, max, and scrollToTime
