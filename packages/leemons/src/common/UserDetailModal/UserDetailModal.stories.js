@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
+import { Box, Stack, Button } from '@bubbles-ui/components';
 import { UserDetailModal } from './UserDetailModal';
 import { USER_DETAIL_MODAL_DEFAULT_PROPS } from './UserDetailModal.constants';
 import mdx from './UserDetailModal.mdx';
@@ -22,7 +22,18 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <UserDetailModal {...props} />;
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <UserDetailModal {...props} opened={isOpen} onClose={() => setIsOpen(false)} />
+      <Stack fullWidth justifyContent="center">
+        <Box>
+          <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+        </Box>
+      </Stack>
+    </>
+  );
 };
 
 export const Playground = Template.bind({});

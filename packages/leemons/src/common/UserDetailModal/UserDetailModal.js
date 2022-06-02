@@ -1,14 +1,13 @@
 import React from 'react';
-import { Box, ContextContainer, UserCards, IconButton, Badge, Text } from '@bubbles-ui/components';
+import { Box, ContextContainer, UserCards, Badge, Text, Modal } from '@bubbles-ui/components';
 import { UserDetailModalStyles } from './UserDetailModal.styles';
 import {
   USER_DETAIL_MODAL_DEFAULT_PROPS,
   USER_DETAIL_MODAL_PROP_TYPES,
 } from './UserDetailModal.constants';
-import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
-const UserDetailModal = ({ user, labels, badges, onClose, ...props }) => {
+const UserDetailModal = ({ user, labels, badges, opened, onClose, ...props }) => {
   const userKeys = Object.keys(user);
   const filteredLabels = Object.keys(labels).filter((label) => userKeys.includes(label));
 
@@ -18,7 +17,7 @@ const UserDetailModal = ({ user, labels, badges, onClose, ...props }) => {
 
   const renderBadges = () => {
     return badges.map((badge) => (
-      <Box>
+      <Box key={badge}>
         <Badge label={badge} color="stroke" radius="default" closable={false} />
       </Box>
     ));
@@ -52,10 +51,7 @@ const UserDetailModal = ({ user, labels, badges, onClose, ...props }) => {
 
   const { classes, cx } = UserDetailModalStyles({}, { name: 'UserDetailModal' });
   return (
-    <Box className={classes.root}>
-      <Box className={classes.closeRow}>
-        <IconButton onClick={handleOnClose} icon={<RemoveIcon />} />
-      </Box>
+    <Modal opened={opened} onClose={handleOnClose} centered {...props}>
       <ContextContainer divided>
         <UserCards layout="horizontal" variant="full" user={{ ...user }} />
         <ContextContainer title={labels.personalInformation}>
@@ -68,7 +64,7 @@ const UserDetailModal = ({ user, labels, badges, onClose, ...props }) => {
           {renderBadges()}
         </ContextContainer>
       </ContextContainer>
-    </Box>
+    </Modal>
   );
 };
 

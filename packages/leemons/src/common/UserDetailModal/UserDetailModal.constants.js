@@ -26,5 +26,6 @@ export const USER_DETAIL_MODAL_PROP_TYPES = {
     gender: PropTypes.string,
   }),
   badges: PropTypes.arrayOf(PropTypes.string),
+  opened: PropTypes.bool,
   onClose: PropTypes.func,
 };

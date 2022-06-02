@@ -11,12 +11,6 @@ export const UserDetailModalStyles = createStyles((theme, {}) => {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
     },
-    closeRow: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      height: 64,
-    },
     personalInformation: {
       display: 'flex',
     },
