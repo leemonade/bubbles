@@ -53,7 +53,7 @@ const UserDetailModal = ({ user, labels, badges, opened, onClose, ...props }) =>
   return (
     <Drawer opened={opened} onClose={handleOnClose} centered position="right" size={650} {...props}>
       <ContextContainer divided>
-        <UserCards layout="horizontal" variant="full" user={{ ...user }} />
+        <UserCards layout="horizontal" variant="large" user={{ ...user }} />
         <ContextContainer title={labels.personalInformation}>
           <Box className={classes.personalInformation}>
             <Box className={classes.labelCol}>{renderLabels()}</Box>
