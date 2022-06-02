@@ -80,7 +80,7 @@ function EventCell(thisprops) {
   };
 
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
-  const eventImage = originalEvent.image || originalEvent.calendar.image;
+  const eventImage = originalEvent.image;
 
   const { classes } = eventCellStyles({
     isAllDay: event.allDay,
