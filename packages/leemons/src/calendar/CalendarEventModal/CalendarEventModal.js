@@ -87,6 +87,7 @@ const CalendarEventModal = (props) => {
     defaultValues,
     readOnly,
     UsersComponent,
+    form: _form,
   } = props;
 
   if (defaultValues?.type === 'plugins.calendar.task') {
@@ -96,7 +97,7 @@ const CalendarEventModal = (props) => {
     }
   }
 
-  const form = useForm({ defaultValues });
+  const form = _form ? _form : useForm({ defaultValues });
   const {
     watch,
     control,
