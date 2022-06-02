@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, ContextContainer, UserCards, Badge, Text, Modal } from '@bubbles-ui/components';
+import { Box, ContextContainer, UserCards, Badge, Text, Drawer } from '@bubbles-ui/components';
 import { UserDetailModalStyles } from './UserDetailModal.styles';
 import {
   USER_DETAIL_MODAL_DEFAULT_PROPS,
@@ -51,7 +51,7 @@ const UserDetailModal = ({ user, labels, badges, opened, onClose, ...props }) =>
 
   const { classes, cx } = UserDetailModalStyles({}, { name: 'UserDetailModal' });
   return (
-    <Modal opened={opened} onClose={handleOnClose} centered {...props}>
+    <Drawer opened={opened} onClose={handleOnClose} centered position="right" size={650} {...props}>
       <ContextContainer divided>
         <UserCards layout="horizontal" variant="full" user={{ ...user }} />
         <ContextContainer title={labels.personalInformation}>
@@ -64,7 +64,7 @@ const UserDetailModal = ({ user, labels, badges, opened, onClose, ...props }) =>
           {renderBadges()}
         </ContextContainer>
       </ContextContainer>
-    </Modal>
+    </Drawer>
   );
 };
 

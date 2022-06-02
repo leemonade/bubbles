@@ -29,7 +29,7 @@ const Template = ({ ...props }) => {
       <UserDetailModal {...props} opened={isOpen} onClose={() => setIsOpen(false)} />
       <Stack fullWidth justifyContent="center">
         <Box>
-          <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+          <Button onClick={() => setIsOpen(true)}>Open Drawer</Button>
         </Box>
       </Stack>
     </>
