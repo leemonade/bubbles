@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Popover, Text, TextClamp, UserDisplayItem } from '@bubbles-ui/components';
+import React, { useEffect, useState } from 'react';
+import { Box, UserDisplayItem, TextClamp, Text, Popover } from '@bubbles-ui/components';
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
 import {
   CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
@@ -12,15 +12,25 @@ import {
   TimeClockCircleIcon,
 } from '@bubbles-ui/icons/outline';
 
-const ClassroomHeaderBar = ({ classRoom, labels, ...props }) => {
+function formatTime(time) {
+  if (time.length > 5) {
+    return time.slice(0, 5);
+  }
+  return time;
+}
+
+const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   const [schedulesOpen, setSchedulesOpen] = useState(false);
+  const [weekDays, setWeekDays] = useState([]);
   const { schedule, address, virtual_classroom, teacher } = classRoom;
   const firstSchedule = schedule?.[0];
 
   const renderSchedule = (schedule) => {
-    const { day, start, end } = schedule;
+    const { day, start, end, dayWeek } = schedule;
     return (
-      <Text role="productive" transform="capitalize" truncated>{`${day} ${start}-${end}`}</Text>
+      <Text key={`${day}-${start}-${end}`} role="productive" transform="capitalize" truncated>{`${
+        weekDays[dayWeek]
+      } ${formatTime(start)}-${formatTime(end)}`}</Text>
     );
   };
 
@@ -31,6 +41,16 @@ const ClassroomHeaderBar = ({ classRoom, labels, ...props }) => {
   const handleScheduleOpen = () => {
     setSchedulesOpen(!schedulesOpen);
   };
+
+  useEffect(() => {
+    import(`dayjs/locale/${locale}.js`).then((e) => {
+      let orderedWeekdays = [];
+      orderedWeekdays = [...e.weekdays];
+      orderedWeekdays.push(orderedWeekdays.shift());
+      orderedWeekdays = [...orderedWeekdays];
+      setWeekDays(orderedWeekdays);
+    });
+  }, [locale]);
 
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (

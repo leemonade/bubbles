@@ -14,7 +14,9 @@ export default {
       type: 'figma',
     },
   },
-  argTypes: {},
+  argTypes: {
+    locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
+  },
 };
 
 const Template = ({ ...props }) => {
@@ -25,6 +27,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
+  locale: 'en',
   labels: {
     virtualClassroom: 'Clase virtual',
   },
