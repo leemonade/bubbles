@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { ContextContainer } from '../../layout';
 import { ScoreInput } from './ScoreInput';
-import { SCORE_INPUT_DEFAULT_PROPS } from './ScoreInput.constants';
+import {
+  SCORE_INPUT_DEFAULT_PROPS,
+  SCORE_INPUT_DIRECTION,
+  SCORE_INPUT_SEPARATORS,
+} from './ScoreInput.constants';
 import mdx from './ScoreInput.mdx';
 
 export default {
@@ -19,6 +21,8 @@ export default {
   },
   argTypes: {
     acceptCustom: { control: { type: 'select' }, options: ['text', 'number', 'none'] },
+    direction: { control: { type: 'select' }, options: SCORE_INPUT_DIRECTION },
+    decimalSeparator: { control: { type: 'select' }, options: SCORE_INPUT_SEPARATORS },
     onChange: { action: 'onChange' },
   },
 };
@@ -44,6 +48,9 @@ const Template = ({ acceptCustom, onChange, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  decimalPrecision: 0,
+  decimalSeparator: 'dot',
+  direction: 'ltr',
   showLetters: false,
   acceptCustom: 'none',
   ...SCORE_INPUT_DEFAULT_PROPS,
@@ -74,5 +81,10 @@ Playground.args = {
   description: 'This is a score input',
   value: {},
   placeholder: 'Other tags',
-  tags: ['-S', 'S', 'S+', '-T', 'T', 'T+', '-U', 'U', 'U+'],
+  tags: [
+    { letter: '-S', score: 9 },
+    { letter: 'S', score: 10 },
+    { letter: 'NP', score: 0 },
+    { letter: 'CNV', score: 5 },
+  ],
 };

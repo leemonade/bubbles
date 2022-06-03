@@ -17,6 +17,9 @@ const ScoreInput = ({
   placeholder,
   error,
   showLetters,
+  decimalPrecision,
+  decimalSeparator,
+  direction,
   ...props
 }) => {
   const [grade, setGrade] = useState(value);
@@ -32,7 +35,7 @@ const ScoreInput = ({
     [maxGrades, displacedGrades]
   );
   const isOverflowing = grades.length > maxGrades - 1;
-  const selectedGradeIndex = grades.findIndex(({ score }) => score === grade.score);
+  const selectedGradeIndex = grades.findIndex(({ score }) => score === Math.round(grade.score));
 
   if (!acceptCustom && value?.score && !grades.find(({ score }) => score === value?.score)) {
     acceptCustom = value?.letter ? 'text' : 'number';
@@ -65,6 +68,8 @@ const ScoreInput = ({
           contentClassName={classes.heightStyles}
           hideControls
           value={grade?.score}
+          precision={decimalPrecision}
+          decimalSeparator={decimalSeparator === 'dot' ? '.' : ','}
           onChange={(value) =>
             onChangeHandler({
               score: value,
@@ -114,7 +119,11 @@ const ScoreInput = ({
   };
 
   const renderGrades = () => {
-    const sortedGrades = grades.sort((a, b) => b?.score - a?.score);
+    const isLeftToRight = direction === 'ltr';
+
+    const sortedGrades = grades.sort((a, b) =>
+      isLeftToRight ? b?.score - a?.score : a?.score - b?.score
+    );
     const gradesToReturn = sortedGrades.map((arrayGrade) => {
       const isSelected = arrayGrade.score === grade.score;
       return (
@@ -169,14 +178,21 @@ const ScoreInput = ({
           {acceptCustom && (
             <Box className={classes.customInput}>
               {renderCustomInput()}
-              {acceptCustom === 'number' && tags.length > 0 && (
+              {tags.length > 0 && (
                 <Box className={classes.select}>
                   <Select
-                    data={tags}
+                    data={tags.map((tag) => ({
+                      value: tag.score,
+                      label: tag.letter,
+                    }))}
                     placeholder={placeholder}
                     value={selectValue}
                     onChange={(value) => {
-                      onChangeHandler({ score: grade?.score, letter: value });
+                      const parsedValue = parseFloat(value);
+                      onChangeHandler({
+                        score: parsedValue,
+                        letter: tags.find((tag) => tag.score === parsedValue)?.letter,
+                      });
                       setSelectValue(value);
                     }}
                   />
