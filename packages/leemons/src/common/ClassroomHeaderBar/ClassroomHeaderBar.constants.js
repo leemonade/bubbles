@@ -15,7 +15,12 @@ export const TEACHER_PROPS = PropTypes.shape({
   avatar: PropTypes.string,
 });
 
-export const CLASSROOM_HEADER_BAR_DEFAULT_PROPS = {};
+export const CLASSROOM_HEADER_BAR_DEFAULT_PROPS = {
+  labels: {
+    virtualClassroom: '',
+  },
+  locale: 'en',
+};
 export const CLASSROOM_HEADER_BAR_PROP_TYPES = {
   classRoom: PropTypes.shape({
     schedule: PropTypes.arrayOf(SCHEDULE_PROPS),
@@ -23,4 +28,8 @@ export const CLASSROOM_HEADER_BAR_PROP_TYPES = {
     virtual_classroom: PropTypes.string,
     teacher: TEACHER_PROPS,
   }),
+  labels: PropTypes.shape({
+    virtualClassroom: PropTypes.string,
+  }),
+  locale: PropTypes.string,
 };
