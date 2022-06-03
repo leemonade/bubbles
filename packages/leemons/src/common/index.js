@@ -7,3 +7,4 @@ export * from './TaskHeader';
 export * from './AssetPlayer';
 export * from './TaskDeadline';
 export * from './ClassroomHeaderBar';
+export * from './UserDetailModal';
