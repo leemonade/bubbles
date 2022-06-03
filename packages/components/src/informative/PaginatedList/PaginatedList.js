@@ -56,6 +56,7 @@ const PaginatedList = ({
   variant,
   pagerPlace,
   loading,
+  labels,
   onSelect = () => {},
   onSizeChange = () => {},
   onPageChange = () => {},
@@ -139,6 +140,7 @@ const PaginatedList = ({
 
         <Stack fullWidth justifyContent={pagerPlace}>
           <Pager
+            labels={labels}
             page={page}
             totalPages={totalPages}
             withSize={true}
