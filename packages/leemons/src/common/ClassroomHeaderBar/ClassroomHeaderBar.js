@@ -55,7 +55,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
-      {teacher ? (
+      {teacher && (
         <UserDisplayItem
           name={teacher.name}
           surnames={teacher.surnames}
@@ -63,18 +63,16 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
           size="xs"
           noBreak
         />
-      ) : null}
-
-      {address ? (
+      )}
+      {address && (
         <Box className={classes.classroomInfoBox}>
           <StyleThreePinTableIcon height={14} width={14} className={classes.pinIcon} />
           <TextClamp lines={1}>
             <Text color="interactive">{address}</Text>
           </TextClamp>
         </Box>
-      ) : null}
-
-      {virtual_classroom ? (
+      )}
+      {virtual_classroom && (
         <Box
           className={classes.classroomInfoBox}
           style={{ cursor: 'pointer' }}
@@ -85,8 +83,8 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
             {labels.virtualClassroom}
           </Text>
         </Box>
-      ) : null}
-      {schedule && schedule.length ? (
+      )}
+      {schedule && schedule.length && (
         <Popover
           opened={schedulesOpen}
           onClose={() => setSchedulesOpen(false)}
@@ -103,7 +101,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
             {schedule.map((schedule) => renderSchedule(schedule))}
           </Box>
         </Popover>
-      ) : null}
+      )}
     </Box>
   );
 };
