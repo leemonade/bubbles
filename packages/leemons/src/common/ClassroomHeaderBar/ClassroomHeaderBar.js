@@ -7,9 +7,9 @@ import {
 } from './ClassroomHeaderBar.constants';
 import { MeetingCameraIcon } from '@bubbles-ui/icons/solid';
 import {
+  ChevDownIcon,
   StyleThreePinTableIcon,
   TimeClockCircleIcon,
-  ChevDownIcon,
 } from '@bubbles-ui/icons/outline';
 
 function formatTime(time) {
@@ -23,7 +23,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   const [schedulesOpen, setSchedulesOpen] = useState(false);
   const [weekDays, setWeekDays] = useState([]);
   const { schedule, address, virtual_classroom, teacher } = classRoom;
-  const firstSchedule = schedule[0];
+  const firstSchedule = schedule?.[0];
 
   const renderSchedule = (schedule) => {
     const { day, start, end, dayWeek } = schedule;
@@ -55,45 +55,55 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
-      <UserDisplayItem
-        name={teacher.name}
-        surnames={teacher.surnames}
-        avatar={teacher.avatar}
-        size="xs"
-        noBreak
-      />
-      <Box className={classes.classroomInfoBox}>
-        <StyleThreePinTableIcon height={14} width={14} className={classes.pinIcon} />
-        <TextClamp lines={1}>
-          <Text color="interactive">{address}</Text>
-        </TextClamp>
-      </Box>
-      <Box
-        className={classes.classroomInfoBox}
-        style={{ cursor: 'pointer' }}
-        onClick={handleOpenVirtualClassroom}
-      >
-        <MeetingCameraIcon height={12} width={12} />
-        <Text color="interactive" truncated>
-          {labels.virtualClassroom}
-        </Text>
-      </Box>
-      <Popover
-        opened={schedulesOpen}
-        onClose={() => setSchedulesOpen(false)}
-        target={
-          <Box className={classes.scheduleBox} onClick={handleScheduleOpen}>
-            <TimeClockCircleIcon height={14} width={14} />
-            {renderSchedule(firstSchedule)}
-            <ChevDownIcon />
-          </Box>
-        }
-        position="bottom"
-      >
-        <Box className={classes.scheduleContainer}>
-          {schedule.map((schedule) => renderSchedule(schedule))}
+      {teacher ? (
+        <UserDisplayItem
+          name={teacher.name}
+          surnames={teacher.surnames}
+          avatar={teacher.avatar}
+          size="xs"
+          noBreak
+        />
+      ) : null}
+
+      {address ? (
+        <Box className={classes.classroomInfoBox}>
+          <StyleThreePinTableIcon height={14} width={14} className={classes.pinIcon} />
+          <TextClamp lines={1}>
+            <Text color="interactive">{address}</Text>
+          </TextClamp>
         </Box>
-      </Popover>
+      ) : null}
+
+      {virtual_classroom ? (
+        <Box
+          className={classes.classroomInfoBox}
+          style={{ cursor: 'pointer' }}
+          onClick={handleOpenVirtualClassroom}
+        >
+          <MeetingCameraIcon height={12} width={12} />
+          <Text color="interactive" truncated>
+            {labels.virtualClassroom}
+          </Text>
+        </Box>
+      ) : null}
+      {schedule && schedule.length ? (
+        <Popover
+          opened={schedulesOpen}
+          onClose={() => setSchedulesOpen(false)}
+          target={
+            <Box className={classes.scheduleBox} onClick={handleScheduleOpen}>
+              <TimeClockCircleIcon height={14} width={14} />
+              {renderSchedule(firstSchedule)}
+              <ChevDownIcon />
+            </Box>
+          }
+          position="bottom"
+        >
+          <Box className={classes.scheduleContainer}>
+            {schedule.map((schedule) => renderSchedule(schedule))}
+          </Box>
+        </Popover>
+      ) : null}
     </Box>
   );
 };

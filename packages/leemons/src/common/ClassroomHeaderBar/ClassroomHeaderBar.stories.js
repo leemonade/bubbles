@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
 import { ClassroomHeaderBar } from './ClassroomHeaderBar';
 import { CLASSROOM_HEADER_BAR_DEFAULT_PROPS } from './ClassroomHeaderBar.constants';
 import mdx from './ClassroomHeaderBar.mdx';
@@ -21,7 +20,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <ClassroomHeaderBar {...props} />;
+  return <s {...props} />;
 };
 
 export const Playground = Template.bind({});

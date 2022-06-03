@@ -6,6 +6,7 @@ export * from './calendar';
 export * from './dataset';
 export * from './common';
 export * from './kanban';
+export * from './pages';
 export * from './admin';
 export * from './users';
 export * from 'colord';

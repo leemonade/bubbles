@@ -47,7 +47,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     return null;
   }, [value]);
 
-  const image = value.image || calendar.image;
+  const image = value.image;
 
   const avatar = {
     image: image || null,
@@ -99,9 +99,9 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
           ) : null}
           <Box className={classes.avatar}>
             <Avatar mx="auto" size="xs" {...avatar} />
-            {!calendar.isUserCalendar ? (
+            {value.calendarName ? (
               <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
-                {value.calendarName || calendar.name}
+                {value.calendarName}
               </Paragraph>
             ) : null}
           </Box>
