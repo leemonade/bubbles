@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { SchedulePicker, SCHEDULE_PICKER_DEFAULT_PROPS } from './SchedulePicker';
+import { SCHEDULE_PICKER_DEFAULT_PROPS, SchedulePicker } from './SchedulePicker';
 import {
   ContextContainer,
-  INPUT_WRAPPER_SIZES,
   INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SIZES,
 } from '@bubbles-ui/components';
 import mdx from './SchedulePicker.mdx';
 
@@ -98,8 +98,5 @@ Playground.args = {
         start: '10:00',
       },
     ],
-    endDate: null,
-    startDate: null,
-    useCustomDates: false,
   },
 };
