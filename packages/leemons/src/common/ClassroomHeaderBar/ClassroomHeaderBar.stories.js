@@ -20,7 +20,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <s {...props} />;
+  return <ClassroomHeaderBar {...props} />;
 };
 
 export const Playground = Template.bind({});
