@@ -17,7 +17,7 @@ export const TABLE_PROP_TYPES = {
   onChangeData: PropTypes.func,
 };
 
-const Table = ({ columns, data, onChangeData }) => {
+const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -79,6 +79,8 @@ const Table = ({ columns, data, onChangeData }) => {
               {...row.getRowProps({
                 className: cx({ [classes.tr]: i < rows.length - 1 }),
               })}
+              style={styleRow}
+              onClick={() => onClickRow(row)}
             >
               {row.cells.map((cell, index) => {
                 return (
