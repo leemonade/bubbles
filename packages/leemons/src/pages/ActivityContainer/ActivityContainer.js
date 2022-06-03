@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, useResizeObserver } from '@bubbles-ui/components';
 import { ActivityContainerStyles } from './ActivityContainer.styles';
-import { HeaderBackground, TaskHeader, TaskDeadline } from '../../common';
+import { HeaderBackground, TaskDeadline, TaskHeader } from '../../common';
 import {
   ACTIVITY_CONTAINER_DEFAULT_PROPS,
   ACTIVITY_CONTAINER_PROP_TYPES,
@@ -38,7 +38,13 @@ const ActivityContainer = ({ header, deadline, children, collapsed, ...props }) 
           size={isScrolled ? 'sm' : 'md'}
           className={classes.taskHeader}
         />
-        <TaskDeadline {...deadline} size={isScrolled ? 'sm' : 'md'} className={classes.deadline} />
+        {deadline && deadline.deadline ? (
+          <TaskDeadline
+            {...deadline}
+            size={isScrolled ? 'sm' : 'md'}
+            className={classes.deadline}
+          />
+        ) : null}
       </Box>
       <Box className={classes.childrenContainer} style={{ marginTop: headerRect.height }}>
         {children}
