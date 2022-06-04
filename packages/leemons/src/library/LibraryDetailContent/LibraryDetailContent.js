@@ -1,8 +1,8 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
-import { Box, Badge, Paper, Stack, ImageLoader, Text, useClipboard } from '@bubbles-ui/components';
+import { Badge, Box, ImageLoader, Paper, Stack, Text, useClipboard } from '@bubbles-ui/components';
 import { DuplicateIcon } from '@bubbles-ui/icons/outline';
-import { LibraryCardContent, getDomain } from '../LibraryCardContent';
+import { getDomain, LibraryCardContent } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
 import { LibraryDetailContentStyles } from './LibraryDetailContent.styles';
 import {
@@ -20,6 +20,7 @@ const LibraryDetailContent = ({
   fileType,
   fileExtension,
   variant,
+  variantTitle,
   onCopy = () => {},
   ...props
 }) => {
@@ -34,7 +35,12 @@ const LibraryDetailContent = ({
   return (
     <Stack direction="column" className={classes.root}>
       <LibraryCardContent description={description} truncated={false} />
-      <LibraryCardFooter fileType={fileType} fileExtension={fileExtension} />
+      <LibraryCardFooter
+        variantTitle={variantTitle}
+        variant={variant}
+        fileType={fileType}
+        fileExtension={fileExtension}
+      />
       {variant === 'bookmark' && (
         <Box
           sx={(theme) => ({ padding: theme.spacing[2], backgroundColor: theme.colors.mainWhite })}

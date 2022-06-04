@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { isEmpty, isFunction } from 'lodash';
-import { Box, Button, Text, Stack, FileIcon, AvatarsGroup } from '@bubbles-ui/components';
+import React, { useEffect, useState } from 'react';
+import { isEmpty } from 'lodash';
+import { AvatarsGroup, FileIcon, Stack, Text } from '@bubbles-ui/components';
 import { LibraryDetailContent } from '../LibraryDetailContent';
 import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
 import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
 import { LibraryDetailStyles } from './LibraryDetail.styles';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
-import { Avatar } from '@bubbles-ui/components/src/informative';
 
 const LibraryDetail = ({
   asset,
   variant,
+  variantTitle,
   toolbar,
   toolbarItems,
   drawer,
   open,
   labels,
+  titleActionButton,
   ...events
 }) => {
   const [showDrawer, setShowDrawer] = useState(open);
@@ -54,6 +55,8 @@ const LibraryDetail = ({
             {...asset}
             labels={labels}
             variant={variant}
+            variantTitle={variantTitle}
+            titleActionButton={titleActionButton}
             fileIcon={
               <FileIcon
                 fileType={fileType}
@@ -63,7 +66,12 @@ const LibraryDetail = ({
               />
             }
           />
-          <LibraryDetailContent {...asset} variant={variant} labels={labels} />
+          <LibraryDetailContent
+            {...asset}
+            variantTitle={variantTitle}
+            variant={variant}
+            labels={labels}
+          />
           {!asset.public && !isEmpty(asset?.canAccess) && (
             <Stack direction="column" spacing={2} padding={4}>
               <Text role="productive" size="xs">

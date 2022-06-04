@@ -1,19 +1,19 @@
 import React from 'react';
 import { isFunction } from 'lodash';
-import { Box, Stack, ActionButton } from '@bubbles-ui/components';
+import { ActionButton, Box, Stack } from '@bubbles-ui/components';
 import {
-  EditWriteIcon,
   DeleteBinIcon,
-  PluginUsersIcon,
+  EditWriteIcon,
   PluginKimIcon as PluginKimSolidIcon,
+  PluginUsersIcon,
 } from '@bubbles-ui/icons/solid';
 import {
-  DuplicateIcon,
-  CloudUploadIcon,
+  AssignIcon,
   DownloadDrawerIcon,
-  PluginAssignmentsIcon,
+  DuplicateIcon,
   MoveRightIcon,
   PluginKimIcon,
+  ViewOnIcon,
 } from '@bubbles-ui/icons/outline';
 import { LibraryDetailToolbarStyles } from './LibraryDetailToolbar.styles';
 import {
@@ -24,6 +24,7 @@ import {
 const LibraryDetailToolbar = ({
   item,
   open,
+  onView,
   onEdit,
   onDuplicate,
   onDownload,
@@ -37,6 +38,10 @@ const LibraryDetailToolbar = ({
   ...props
 }) => {
   const { classes, cx } = LibraryDetailToolbarStyles({}, { name: 'LibraryDetailToolbar' });
+
+  const handleView = () => {
+    isFunction(onView) && onView(item);
+  };
 
   const handleEdit = () => {
     isFunction(onEdit) && onEdit(item);
@@ -78,6 +83,14 @@ const LibraryDetailToolbar = ({
     <Box className={classes.root}>
       {open && (
         <Stack>
+          {toolbarItems.view && (
+            <ActionButton
+              icon={<ViewOnIcon height={20} width={20} />}
+              onClick={handleView}
+              tooltip={toolbarItems.view}
+              className={classes.button}
+            />
+          )}
           {toolbarItems.edit && (
             <ActionButton
               icon={<EditWriteIcon height={20} width={20} />}
@@ -102,6 +115,14 @@ const LibraryDetailToolbar = ({
               className={classes.button}
             />
           )}
+          {toolbarItems.assign && (
+            <ActionButton
+              icon={<AssignIcon height={20} width={20} />}
+              onClick={handleAssign}
+              tooltip={toolbarItems.assign}
+              className={classes.button}
+            />
+          )}
           {toolbarItems.delete && (
             <ActionButton
               icon={<DeleteBinIcon height={20} width={20} />}
@@ -115,14 +136,6 @@ const LibraryDetailToolbar = ({
               icon={<PluginUsersIcon height={20} width={20} />}
               onClick={handleShare}
               tooltip={toolbarItems.share}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.assign && (
-            <ActionButton
-              icon={<PluginAssignmentsIcon height={20} width={20} />}
-              onClick={handleAssign}
-              tooltip={toolbarItems.assign}
               className={classes.button}
             />
           )}

@@ -4,14 +4,14 @@ import { FileIconStyles } from './FileIcon.styles';
 import { Box } from '../../layout/';
 import { Text } from '../../typography';
 import {
-  MeetingCameraIcon,
-  VolumeControlMediumIcon,
   AssetBookmarkIcon,
-  AssetTaskIcon,
   AssetPathIcon,
+  AssetTaskIcon,
+  MeetingCameraIcon,
   PluginCurriculumIcon,
+  VolumeControlMediumIcon,
 } from '@bubbles-ui/icons/solid/';
-import { FormImageAttachIcon } from '@bubbles-ui/icons/outline/';
+import { FormImageAttachIcon, PluginKanbanIcon } from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
 
 export const FILE_ICON_DEFAULT_PROPS = {
@@ -39,6 +39,8 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'task', value: <AssetTaskIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
+    { key: 'tests', value: <PluginKanbanIcon height={size} width={size} /> },
+    { key: 'questionBank', value: <PluginKanbanIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);

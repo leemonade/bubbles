@@ -1,18 +1,18 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { isNil } from 'lodash';
 import ReactPlayer from 'react-player/lazy';
-import { ControlsPlayIcon, ControlsPauseIcon } from '@bubbles-ui/icons/solid';
+import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { OpenIcon } from '@bubbles-ui/icons/outline';
 import {
-  Box,
-  ImageLoader,
-  COLORS,
-  Title,
-  IconButton,
-  Text,
-  FileIcon,
   ActionButton,
+  Box,
+  COLORS,
+  FileIcon,
+  IconButton,
+  ImageLoader,
+  Text,
   TextClamp,
+  Title,
 } from '@bubbles-ui/components';
 import { LibraryDetailPlayerStyles } from './LibraryDetailPlayer.styles';
 import {
@@ -44,6 +44,7 @@ const LibraryDetailPlayer = ({
   variant,
   fileIcon,
   fileType,
+  titleActionButton,
   ...props
 }) => {
   const playerRef = useRef(null);
@@ -169,6 +170,7 @@ const LibraryDetailPlayer = ({
               onClick={() => window.open(url, '_blank')}
             />
           )}
+          {titleActionButton ? <ActionButton {...titleActionButton} /> : null}
           {playable && (
             <IconButton
               icon={
