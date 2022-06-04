@@ -113,8 +113,10 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
 
     if (!showWeekends) {
+      // week.pop();
+      // week.shift();
       week.pop();
-      week.shift();
+      week.pop();
     }
 
     // let's not mutate props
@@ -194,8 +196,10 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
+      // weekRow.pop();
+      // weekRow.shift();
       weekRow.pop();
-      weekRow.shift();
+      weekRow.pop();
     }
 
     const first = weekRow[0];

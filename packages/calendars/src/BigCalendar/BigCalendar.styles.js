@@ -1,4 +1,4 @@
-import { createStyles, pxToRem, getPaddings, getFontProductive } from '@bubbles-ui/components';
+import { createStyles, getFontProductive, getPaddings, pxToRem } from '@bubbles-ui/components';
 
 const getEventStyles = (theme) => ({
   '.rbc-event': {
@@ -152,18 +152,18 @@ const getTimeGridStyles = (theme) => ({
 
     '&.hide-weekends': {
       '.rbc-time-content': {
-        '.rbc-time-column:nth-of-type(2)': {
+        '.rbc-time-column:nth-of-type(6)': {
           display: 'none',
         },
-        '.rbc-day-slot:last-of-type': {
+        '.rbc-day-slot:nth-of-type(7)': {
           display: 'none',
         },
       },
       '.rbc-time-header': {
-        '.rbc-header:first-of-type': {
+        '.rbc-header:nth-of-type(6)': {
           display: 'none',
         },
-        '.rbc-header:last-of-type': {
+        '.rbc-header:nth-of-type(7)': {
           display: 'none',
         },
         /*
@@ -173,7 +173,6 @@ const getTimeGridStyles = (theme) => ({
         '.rbc-day-bg:last-of-type': {
           display: 'none',
         },
-
         '.rbc-date-cell:first-of-type': {
           display: 'none',
         },
