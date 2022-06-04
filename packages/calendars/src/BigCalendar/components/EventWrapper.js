@@ -79,6 +79,7 @@ export function EventWrapper(props) {
         ...userProps.style,
         top: stringifyPercent(top),
         height: stringifyPercent(height),
+        minHeight: '35px',
         // Adding 10px to take events container right margin into account
         width: `calc(${width} + 10px)`,
         [rtl ? 'right' : 'left']: stringifyPercent(Math.max(0, xOffset)),
@@ -88,6 +89,7 @@ export function EventWrapper(props) {
         top: stringifyPercent(top),
         width: stringifyPercent(width),
         height: stringifyPercent(height),
+        minHeight: '35px',
         [rtl ? 'right' : 'left']: stringifyPercent(xOffset),
       };
 

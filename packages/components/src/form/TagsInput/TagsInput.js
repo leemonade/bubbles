@@ -39,11 +39,15 @@ const TagsInput = forwardRef(
       setTags(value);
     }, [value]);
 
-    const addTag = () => {
-      if (!inputValue) {
+    const addTag = (val) => {
+      let value = inputValue;
+      if (val) {
+        value = val;
+      }
+      if (!value) {
         return;
       }
-      const newTag = trim(inputValue);
+      const newTag = trim(value);
       if (!tags.includes(newTag) && canAddNewSuggestions) {
         const newTags = [...tags, newTag];
         isFunction(onChange) && onChange(newTags);
@@ -64,14 +68,17 @@ const TagsInput = forwardRef(
     // ················································································
     // HANDLERS
 
-    const handleItemSubmit = (value) => {
+    const handleItemSubmit = (value, e) => {
       setInputValue(value.value);
     };
 
     const handleKeyDown = (e) => {
-      if (e.keyCode === 13 && !isDropdownOpen) {
+      if (e.keyCode === 13) {
         e.stopPropagation();
-        addTag();
+        setTimeout(() => {
+          console.log(e.target.value);
+          addTag(e.target.value);
+        }, 50);
       }
     };
 

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TagsInput } from './TagsInput';
 import { TAGS_INPUT_DEFAULT_PROPS } from './TagsInput.constants';
 import mdx from './TagsInput.mdx';
-import { makeData } from './mocks/makeData';
 
 export default {
   title: 'Organisms/Form/TagsInput',
@@ -22,6 +21,7 @@ export default {
   },
 };
 
+/*
 // Let's simulate a large dataset on the server (outside of our component)
 const totalCount = 10000;
 const serverData = makeData(totalCount);
@@ -37,9 +37,12 @@ function getTags({ search, limit }) {
   );
 }
 
+ */
+
 const Template = ({ suggestions: suggestionsProp, onSearch, ...props }) => {
   const [suggestions, setSuggestions] = useState(suggestionsProp);
 
+  /*
   useEffect(() => setSuggestions(suggestionsProp), [suggestionsProp]);
 
   // ·······················································
@@ -62,7 +65,9 @@ const Template = ({ suggestions: suggestionsProp, onSearch, ...props }) => {
     loadTags(search);
   };
 
-  return <TagsInput {...props} suggestions={suggestions} onSearch={handleOnSearch} />;
+   */
+
+  return <TagsInput {...props} suggestions={suggestions} />;
 };
 
 export const Playground = Template.bind({});
