@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, UserDisplayItem, TextClamp, Text, Popover } from '@bubbles-ui/components';
+import { Box, Popover, Text, TextClamp, UserDisplayItem } from '@bubbles-ui/components';
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
 import {
   CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
@@ -55,7 +55,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
-      {teacher && (
+      {teacher ? (
         <UserDisplayItem
           name={teacher.name}
           surnames={teacher.surnames}
@@ -63,16 +63,16 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
           size="xs"
           noBreak
         />
-      )}
-      {address && (
+      ) : null}
+      {address ? (
         <Box className={classes.classroomInfoBox}>
           <StyleThreePinTableIcon height={14} width={14} className={classes.pinIcon} />
           <TextClamp lines={1}>
             <Text color="interactive">{address}</Text>
           </TextClamp>
         </Box>
-      )}
-      {virtual_classroom && (
+      ) : null}
+      {virtual_classroom ? (
         <Box
           className={classes.classroomInfoBox}
           style={{ cursor: 'pointer' }}
@@ -83,8 +83,8 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
             {labels.virtualClassroom}
           </Text>
         </Box>
-      )}
-      {schedule && schedule.length && (
+      ) : null}
+      {schedule && schedule.length ? (
         <Popover
           opened={schedulesOpen}
           onClose={() => setSchedulesOpen(false)}
@@ -101,7 +101,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
             {schedule.map((schedule) => renderSchedule(schedule))}
           </Box>
         </Popover>
-      )}
+      ) : null}
     </Box>
   );
 };
