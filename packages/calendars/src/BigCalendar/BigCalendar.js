@@ -163,9 +163,11 @@ export const BigCalendar = forwardRef(
 
     const handleRangeChange = (range) => {
       if (isArray(range) && range.length > 1) {
+        const end = range[range.length - 1];
+        end.setHours(23, 59, 59);
         range = {
           start: range[0],
-          end: range[range.length - 1],
+          end: end,
         };
       } else if (isArray(range) && range.length === 1) {
         const end = new Date(range[0]);

@@ -166,6 +166,8 @@ export default class TimeGrid extends Component {
       resizable,
     } = this.props;
 
+    const { cx } = components;
+
     width = width || this.state.gutterWidth;
 
     let start = range[0],
@@ -201,13 +203,12 @@ export default class TimeGrid extends Component {
     });
 
     allDayEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
-    const { cx, showWeekends } = components;
 
     return (
       <Box
         className={cx('rbc-time-view', {
           'rbc-time-view-resources': resources,
-          'hide-weekends': !showWeekends,
+          // 'hide-weekends': !showWeekends,
         })}
       >
         <TimeGridHeader

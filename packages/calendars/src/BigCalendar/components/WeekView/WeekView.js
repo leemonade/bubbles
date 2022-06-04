@@ -30,6 +30,15 @@ class WeekView extends React.Component {
     } = this.props;
     let range = WeekView.range(date, this.props);
 
+    const { showWeekends } = this.props.components;
+
+    if (!showWeekends) {
+      // week.pop();
+      // week.shift();
+      range.pop();
+      range.pop();
+    }
+
     return (
       <TimeGrid
         {...props}

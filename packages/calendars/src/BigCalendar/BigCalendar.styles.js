@@ -152,10 +152,18 @@ const getTimeGridStyles = (theme) => ({
 
     '&.hide-weekends': {
       '.rbc-time-content': {
-        '.rbc-time-column:nth-of-type(6)': {
+        '.rbc-day-slot:nth-of-type(7)': {
           display: 'none',
         },
-        '.rbc-day-slot:nth-of-type(7)': {
+        '.rbc-day-slot:nth-of-type(8)': {
+          display: 'none',
+        },
+      },
+      '.rbc-day-bg': {
+        '.rbc-day-bg:nth-of-type(6)': {
+          display: 'none',
+        },
+        '.rbc-day-bg:nth-of-type(7)': {
           display: 'none',
         },
       },
@@ -164,7 +172,7 @@ const getTimeGridStyles = (theme) => ({
           display: 'none',
         },
         '.rbc-header:nth-of-type(7)': {
-          display: 'none',
+          visibility: 'none',
         },
         /*
         '.rbc-day-bg:first-of-type': {

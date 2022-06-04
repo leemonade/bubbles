@@ -125,12 +125,15 @@ class DateContentRow extends React.Component {
     } = this.props;
 
     const { showWeekends, cx } = components;
+    /*
+
     if (!showWeekends && isAllDay && range.length > 5) {
       // range.pop();
       // range.shift();
       range.pop();
       range.pop();
     }
+     */
 
     if (renderForMeasure) return this.renderDummy();
 
