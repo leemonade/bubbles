@@ -27,10 +27,9 @@ const LibraryCardDeadline = ({
     minute: '2-digit',
   })}`;
   let remainingDays = 0;
-  let title = '';
 
   const renderTitle = () => {
-    if (!deadline) return;
+    if (!deadline) return '';
     if (labels.title || !deadline) return labels.title || '';
     const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     let deltaDays = (deadline.getTime() - Date.now()) / (1000 * 3600 * 24);
@@ -46,10 +45,10 @@ const LibraryCardDeadline = ({
     deltaDays = Math.ceil(deltaDays);
     remainingDays = deltaDays;
     const result = formatter.format(deltaDays, 'day');
-    title = capitalize(result);
+    return capitalize(result);
   };
 
-  renderTitle();
+  let title = renderTitle();
   const { classes, cx } = LibraryCardDeadlineStyles(
     { isNew, parentHovered, remainingDays, severity, role },
     { name: 'LibraryCardDeadline' }
