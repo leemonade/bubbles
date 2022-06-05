@@ -263,6 +263,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
 
     return days;
   }
+
   /*** END localized date arithmetic methods with moment ***/
 
   /**

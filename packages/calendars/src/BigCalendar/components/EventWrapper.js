@@ -95,8 +95,9 @@ export function EventWrapper(props) {
 
   const originalEvent = event.originalEvent;
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
+  const eventImage = originalEvent.image;
   const avatar = {
-    image: null,
+    image: eventImage || null,
     icon: eventIcon ? (
       <Box className={classes.icon}>
         <ImageLoader
