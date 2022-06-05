@@ -122,7 +122,7 @@ const ScoreInput = ({
     const isLeftToRight = direction === 'ltr';
 
     const sortedGrades = grades.sort((a, b) =>
-      isLeftToRight ? b?.score - a?.score : a?.score - b?.score
+      !isLeftToRight ? b?.score - a?.score : a?.score - b?.score
     );
     const gradesToReturn = sortedGrades.map((arrayGrade) => {
       const isSelected = arrayGrade.score === grade.score;
