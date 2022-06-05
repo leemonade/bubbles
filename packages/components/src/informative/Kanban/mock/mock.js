@@ -20,6 +20,7 @@ export const mock = {
           updated_at: '2022-01-24T10:00:16.000Z',
           deleted_at: null,
           fromCalendar: true,
+          disableDrag: true,
         },
         {
           id: '642b7dd7-a219-4792-87f3-5e62c6b2f4a4',

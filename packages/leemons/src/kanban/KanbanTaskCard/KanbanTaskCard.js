@@ -77,7 +77,12 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
   }
 
   return (
-    <Paper shadow="none" className={classes.root} onClick={() => onClick(value)}>
+    <Paper
+      shadow="none"
+      className={classes.root}
+      style={{ cursor: value.disableDrag ? 'default' : 'grab' }}
+      onClick={() => onClick(value)}
+    >
       <Box className={classes.topSection}>
         <Box className={classes.title}>{value.title}</Box>
 
