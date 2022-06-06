@@ -22,6 +22,7 @@ const ActivityAnswersBar = ({
   barHeight,
   styles,
   withLegend,
+  withSelect = true,
   ...props
 }) => {
   const [selectedGroup, setSelectedGroup] = useState(selectables[0].value);
@@ -72,12 +73,15 @@ const ActivityAnswersBar = ({
   );
   return (
     <Box className={classes.root}>
-      <Select
-        data={selectables}
-        value={selectedGroup}
-        onChange={setSelectedGroup}
-        style={{ width: 150, marginLeft: 10 }}
-      />
+      {withSelect ? (
+        <Select
+          data={selectables}
+          value={selectedGroup}
+          onChange={setSelectedGroup}
+          style={{ width: 150, marginLeft: 10 }}
+        />
+      ) : null}
+
       <Box className={classes.graphicWrapper}>
         <ResponsiveBar
           enableGridX={true}
