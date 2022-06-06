@@ -1,8 +1,8 @@
 import React from 'react';
+import { ResponsiveBar } from '@nivo/bar';
 import { Box } from '../../layout';
 import { getFontExpressive } from '../../theme.mixins';
 import { COLORS } from '../../theme.tokens';
-import { ResponsiveBar } from '@nivo/bar';
 import { ScoresBarStyles } from './ScoresBar.styles';
 import {
   SCORES_BAR_DEFAULT_PROPS,
@@ -113,7 +113,11 @@ const ScoresBar = ({
         }
         keys={['scoreValue']}
         indexBy="score"
-        margin={{ right: 20, bottom: 25, left: showLeftLegend ? 50 : 20 }}
+        margin={{
+          right: showBarPercentage ? 55 : 20,
+          bottom: 25,
+          left: showLeftLegend ? 50 : 20,
+        }}
         padding={0.12}
         valueFormat={(value) =>
           !showBarPercentage ? `${Math.round((value / 10) * scores.length)}` : value
@@ -151,12 +155,12 @@ const ScoresBar = ({
         colorBy="indexValue"
         colors={({ index }) => {
           if (index < minimumGrade) {
-            return isMultiColor ? '#C9516C' : COLORS.uiBackground03;
+            return isMultiColor ? '#C9516C' : '#647185';
           }
           if (index === minimumGrade) {
-            return isMultiColor ? '#D4B641' : COLORS.uiBackground03;
+            return isMultiColor ? '#D4B641' : '#647185';
           }
-          return isMultiColor ? '#4BA773' : COLORS.uiBackground03;
+          return isMultiColor ? '#4BA773' : '#647185';
         }}
         theme={{
           grid: {
