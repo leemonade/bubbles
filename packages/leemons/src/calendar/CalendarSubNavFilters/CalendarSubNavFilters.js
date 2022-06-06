@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   ImageLoader,
@@ -25,8 +26,11 @@ export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   centerOnChange: () => {},
   pageOnChange: () => {},
   onClose: () => {},
+  showPageControl: false,
 };
-export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {};
+export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {
+  showPageControl: PropTypes.bool
+};
 
 const CalendarSubNavFilters = ({
   messages,
@@ -39,6 +43,7 @@ const CalendarSubNavFilters = ({
   centers,
   centerValue,
   centerOnChange,
+  showPageControl,
   style,
 }) => {
   const { classes, cx } = CalendarSubNavFiltersStyles({}, { name: 'SubnavFilters' });
@@ -66,18 +71,20 @@ const CalendarSubNavFilters = ({
             paddingBottom: '80px',
           })}
         >
-          <SegmentedControl
-            data={pages}
-            value={pageValue}
-            onChange={pageOnChange}
-            classNames={{
-              root: classes.segmentRoot,
-              label: classes.segmentLabel,
-              active: classes.segmentActive,
-              labelActive: classes.segmentLabelActive,
-              control: classes.segmentControl,
-            }}
-          />
+          {showPageControl && (
+            <SegmentedControl
+              data={pages}
+              value={pageValue}
+              onChange={pageOnChange}
+              classNames={{
+                root: classes.segmentRoot,
+                label: classes.segmentLabel,
+                active: classes.segmentActive,
+                labelActive: classes.segmentLabelActive,
+                control: classes.segmentControl,
+              }}
+            />
+          )}
           {centers && centers.length > 1 ? (
             <Box
               sx={(theme) => ({
