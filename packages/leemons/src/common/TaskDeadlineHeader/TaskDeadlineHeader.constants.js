@@ -10,7 +10,7 @@ export const TASK_DEADLINE_HEADER_DEFAULT_PROPS = {
   },
   title: '',
   subtitle: '',
-  open: true,
+  closed: false,
   locale: 'en-GB',
 };
 export const TASK_DEADLINE_HEADER_PROP_TYPES = {
@@ -27,7 +27,7 @@ export const TASK_DEADLINE_HEADER_PROP_TYPES = {
   color: PropTypes.string,
   deadline: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   locale: PropTypes.string,
-  open: PropTypes.bool,
+  closed: PropTypes.bool,
   onDeadlineChange: PropTypes.func,
   onCloseTask: PropTypes.func,
 };
