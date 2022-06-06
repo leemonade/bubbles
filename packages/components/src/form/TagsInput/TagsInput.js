@@ -76,7 +76,6 @@ const TagsInput = forwardRef(
       if (e.keyCode === 13) {
         e.stopPropagation();
         setTimeout(() => {
-          console.log(e.target.value);
           addTag(e.target.value);
         }, 50);
       }
@@ -107,7 +106,7 @@ const TagsInput = forwardRef(
             />
           </Box>
           <Box skipFlex>
-            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addTag}>
+            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={() => addTag()}>
               {labels.addButton}
             </Button>
           </Box>

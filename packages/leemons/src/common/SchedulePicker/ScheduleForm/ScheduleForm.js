@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, isArray } from 'lodash';
+import { isArray, isFunction } from 'lodash';
 import {
   Box,
-  Stack,
-  CheckBoxGroup,
-  TimeInput,
-  Checkbox,
   Button,
-  Text,
-  Switch,
-  DatePicker,
+  CheckBoxGroup,
   ContextContainer,
+  DatePicker,
   InputError,
+  Stack,
+  Switch,
+  Text,
+  TimeInput,
 } from '@bubbles-ui/components';
 import { ScheduleFormStyles } from './ScheduleForm.styles';
 
@@ -36,14 +35,16 @@ const dateToHoursAndMinutes = (date) => {
   });
 };
 
-const dayToSchedule = (mapDay, day) => ({
-  id: mapDay.id || day.id,
-  start: dateToHoursAndMinutes(day.start),
-  end: dateToHoursAndMinutes(day.end),
-  duration: Math.floor((day.end - day.start) / 60000),
-  day: DAYS[mapDay.index],
-  dayWeek: mapDay.index,
-});
+const dayToSchedule = (mapDay, day) => {
+  return {
+    id: mapDay.id || day.id,
+    start: dateToHoursAndMinutes(day.start),
+    end: dateToHoursAndMinutes(day.end),
+    duration: parseInt((Math.abs(day.end.getTime() - day.start.getTime()) / (1000 * 60)) % 60),
+    day: DAYS[mapDay.index],
+    dayWeek: mapDay.index,
+  };
+};
 
 const compareWeekdays = (a, b) => {
   if (a.index < b.index) return -1;

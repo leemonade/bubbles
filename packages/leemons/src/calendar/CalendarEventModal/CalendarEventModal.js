@@ -86,6 +86,7 @@ const CalendarEventModal = (props) => {
     onSubmit,
     defaultValues,
     readOnly,
+    locale,
     UsersComponent,
     form: _form,
   } = props;
@@ -284,6 +285,7 @@ const CalendarEventModal = (props) => {
             form={form}
             classes={classes}
             readOnly={disabled}
+            locale={locale}
             disabled={disabled}
             onlyOneDate={onlyOneDate}
             config={config}
