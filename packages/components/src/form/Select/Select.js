@@ -85,7 +85,10 @@ const Select = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = SelectStyles({ size }, { name: 'Select' });
+    const { classes, cx } = SelectStyles(
+      { size, rightEvents: isClearable && showClear },
+      { name: 'Select' }
+    );
 
     return (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>

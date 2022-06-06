@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getInputStyle } from '../mixins/fieldStyles.mixins';
 
-export const MultiSelectStyles = createStyles((theme, { size, orientation }) => {
+export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => {
   const inputSizes = {
     xs: {
       minHeight: theme.spacing[7],
@@ -23,8 +23,10 @@ export const MultiSelectStyles = createStyles((theme, { size, orientation }) => 
     },
     rightSection: {
       color: theme.colors.text02,
-      bottom: 5,
+      bottom: 2,
       right: 3,
+      pointerEvents: rightEvents ? 'auto' : 'none',
+      cursor: 'pointer',
     },
   };
 });
