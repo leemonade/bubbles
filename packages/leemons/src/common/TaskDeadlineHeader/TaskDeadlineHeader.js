@@ -17,7 +17,7 @@ const TaskDeadlineHeader = ({
   color,
   deadline,
   locale,
-  open,
+  closed,
   onDeadlineChange,
   onCloseTask,
   styles,
@@ -111,7 +111,12 @@ const TaskDeadlineHeader = ({
           </Button>
         </Box>
         <Box className={classes.deadlineSwitch}>
-          <Switch size="md" label={labels.closeTask} onChange={onCloseTaskHandler} />
+          <Switch
+            size="md"
+            label={labels.closeTask}
+            onChange={onCloseTaskHandler}
+            checked={closed}
+          />
         </Box>
       </Box>
     </Box>
