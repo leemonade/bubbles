@@ -74,44 +74,60 @@ const LibraryCardContent = ({
           <Box className={classes.mainContainer}>
             {!isEmpty(assigment) ? (
               <Stack direction="column" spacing={1} fullWidth>
-                <Stack fullWidth>
-                  <Text size={'xs'} role="productive" className={classes.label}>
-                    Subject
-                  </Text>
-                  <Text size={'xs'} role="productive" weight={600}>
-                    {assigment.subject.name}
-                  </Text>
-                </Stack>
-                <Stack fullWidth>
-                  <Text size={'xs'} role="productive" className={classes.label}>
-                    Submission
-                  </Text>
-                  <Box>
-                    {getBadge()}
-                    <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
-                      {`(${assigment.submission}/${assigment.total})`}
+                {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
+                  <Stack fullWidth>
+                    <Text size={'xs'} role="productive" className={classes.label}>
+                      {assigment.labels?.subject || 'Subject'}
                     </Text>
-                  </Box>
-                </Stack>
-                <Stack fullWidth>
-                  <Text size={'xs'} role="productive" className={classes.label}>
-                    Average time
-                  </Text>
-                  <Text size={'xs'} role="productive">
-                    {getAverageTime(assigment.avgTime)}
-                  </Text>
-                </Stack>
-                <Stack fullWidth>
-                  <Text size={'xs'} role="productive" className={classes.label}>
-                    Average attempts
-                  </Text>
-                  <Text size={'xs'} role="productive">
-                    {assigment.avgAttempts}
-                  </Text>
-                </Stack>
+                    <Text size={'xs'} role="productive" weight={600}>
+                      {assigment.subject.name}
+                    </Text>
+                  </Stack>
+                )}
+                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.submission)) && (
+                  <Stack fullWidth>
+                    <Text size={'xs'} role="productive" className={classes.label}>
+                      {assigment.labels?.submission || 'Submission'}
+                    </Text>
+                    <Box>
+                      {getBadge()}
+                      <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                        {`(${assigment.submission}/${assigment.total})`}
+                      </Text>
+                    </Box>
+                  </Stack>
+                )}
+
+                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgTime)) && (
+                  <Stack fullWidth>
+                    <Text size={'xs'} role="productive" className={classes.label}>
+                      {assigment.labels?.avgTime || 'Average Time'}
+                    </Text>
+                    <Text size={'xs'} role="productive">
+                      {getAverageTime(assigment.avgTime)}
+                    </Text>
+                  </Stack>
+                )}
+                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgAttempts)) && (
+                  <Stack fullWidth>
+                    <Text size={'xs'} role="productive" className={classes.label}>
+                      {assigment.labels?.avgAttempts || 'Average Attempts'}
+                    </Text>
+                    <Text size={'xs'} role="productive">
+                      {assigment.avgAttempts}
+                    </Text>
+                  </Stack>
+                )}
               </Stack>
             ) : (
-              <>
+              <Stack direction="column" spacing={2} fullWidth>
+                {!isEmpty(tagline) && (
+                  <TextClamp lines={truncated ? 2 : 10}>
+                    <Text role="productive" color="primary">
+                      {tagline}
+                    </Text>
+                  </TextClamp>
+                )}
                 {!isEmpty(description) ? (
                   <TextClamp lines={truncated ? 3 : 20}>
                     <Text size={'xs'} role="productive" className={classes.description}>
@@ -132,7 +148,7 @@ const LibraryCardContent = ({
                     ))}
                   </Stack>
                 )}
-              </>
+              </Stack>
             )}
           </Box>
         );
