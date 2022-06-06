@@ -1,5 +1,6 @@
 export { default as AlertInformationCircleIcon } from './AlertInformationCircleIcon'
 export { default as AlertWarningTriangleIcon } from './AlertWarningTriangleIcon'
+export { default as AnalyticsGraphBarIcon } from './AnalyticsGraphBarIcon'
 export { default as ArchiveIcon } from './ArchiveIcon'
 export { default as ArrowChevDownIcon } from './ArrowChevDownIcon'
 export { default as ArrowChevLeftIcon } from './ArrowChevLeftIcon'

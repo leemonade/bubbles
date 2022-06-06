@@ -1,5 +1,6 @@
 export { default as AlertInformationCircleIcon } from './AlertInformationCircleIcon.js'
 export { default as AlertWarningTriangleIcon } from './AlertWarningTriangleIcon.js'
+export { default as AnalyticsGraphBarIcon } from './AnalyticsGraphBarIcon.js'
 export { default as ArchiveIcon } from './ArchiveIcon.js'
 export { default as ArrowChevDownIcon } from './ArrowChevDownIcon.js'
 export { default as ArrowChevLeftIcon } from './ArrowChevLeftIcon.js'

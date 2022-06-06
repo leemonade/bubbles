@@ -21,16 +21,18 @@ const LibraryCardDeadline = ({
   role,
   ...props
 }) => {
-  const formattedDate = `${
-    labels.deadline ? labels.deadline + ' ' : ''
-  }${deadline.toLocaleDateString(locale)} - ${deadline.toLocaleTimeString(locale, {
-    hour: '2-digit',
-    minute: '2-digit',
-  })}`;
+  const formattedDate =
+    deadline instanceof Date
+      ? `${labels.deadline ? labels.deadline + ' ' : ''}${deadline.toLocaleDateString(
+          locale
+        )} - ${deadline.toLocaleTimeString(locale, {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}`
+      : labels?.deadline;
   let remainingDays = 0;
 
   const renderTitle = () => {
-    if (!deadline) return '';
     if (labels.title || !deadline) return labels.title || '';
     const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
     let deltaDays = (deadline.getTime() - Date.now()) / (1000 * 3600 * 24);
@@ -64,7 +66,7 @@ const LibraryCardDeadline = ({
       )}
       <Box className={classes.info}>
         <Box className={classes.title}>{isNew ? labels.new : title}</Box>
-        {deadline && <Box className={classes.deadline}>{formattedDate}</Box>}
+        {formattedDate && <Box className={classes.deadline}>{formattedDate}</Box>}
       </Box>
     </Box>
   );

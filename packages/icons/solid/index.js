@@ -1,5 +1,6 @@
 module.exports.AlertInformationCircleIcon = require("./AlertInformationCircleIcon.js")
 module.exports.AlertWarningTriangleIcon = require("./AlertWarningTriangleIcon.js")
+module.exports.AnalyticsGraphBarIcon = require("./AnalyticsGraphBarIcon.js")
 module.exports.ArchiveIcon = require("./ArchiveIcon.js")
 module.exports.ArrowChevDownIcon = require("./ArrowChevDownIcon.js")
 module.exports.ArrowChevLeftIcon = require("./ArrowChevLeftIcon.js")
