@@ -6,10 +6,12 @@ export const TabPanelListStyles = createStyles((theme, { position, animated }, g
       flex: 'auto',
       display: 'flex',
       height: '100%',
+      maxWidth: '100%',
     },
     content: {
       display: 'flex',
       width: '100%',
+      maxWidth: '100%',
     },
   };
 });
