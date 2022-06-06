@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { ContextContainer, Box } from '../../layout';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Box, ContextContainer } from '../../layout';
 import { Button } from '../../form';
-import { DatePicker, DATE_PICKER_DEFAULT_PROPS, DATE_PICKER_ORIENTATIONS } from './DatePicker';
+import { DATE_PICKER_DEFAULT_PROPS, DATE_PICKER_ORIENTATIONS, DatePicker } from './DatePicker';
 import mdx from './DatePicker.mdx';
 
 export default {
@@ -62,4 +62,8 @@ Playground.args = {
   placeholder: 'Pick a date',
   help: 'Help text for date picker',
   error: 'Descriptive text for error ',
+  locale: 'ES',
+  readOnly: true,
+  value: new Date(),
+  withTime: true,
 };

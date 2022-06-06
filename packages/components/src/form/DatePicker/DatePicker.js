@@ -118,8 +118,8 @@ const DatePicker = forwardRef(
     useEffect(() => {
       let mounted = true;
 
-      import(`dayjs/locale/${locale}.js`).then(() => {
-        if (mounted) setCurrentLocale(locale);
+      import(`dayjs/locale/${locale.toLowerCase()}.js`).then(() => {
+        if (mounted) setCurrentLocale(locale.toLowerCase());
       });
 
       return () => {
@@ -144,7 +144,10 @@ const DatePicker = forwardRef(
       >
         {readOnly ? (
           <Paragraph clean>
-            {!isNil(date) && dayjs(date).format(withTime && !range ? 'LL LT' : 'LL')}
+            {!isNil(date) &&
+              dayjs(date)
+                .locale(currentLocale)
+                .format(withTime && !range ? 'LL LT' : 'LL')}
           </Paragraph>
         ) : (
           <Stack spacing={1} fullWidth>
