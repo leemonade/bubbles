@@ -4,7 +4,6 @@ import { findDOMNode } from 'react-dom';
 import * as animationFrame from 'dom-helpers/animationFrame';
 import memoize from 'memoize-one';
 import getWidth from 'dom-helpers/width';
-import DayColumn from 'react-big-calendar/lib/DayColumn';
 import TimeGutter from 'react-big-calendar/lib/TimeGutter';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
 import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
@@ -13,6 +12,7 @@ import { DayLayoutAlgorithmPropType } from 'react-big-calendar/lib/utils/propTyp
 import { Box } from '@bubbles-ui/components';
 
 import TimeGridHeader from './TimeGridHeader';
+import DayColumn from '../DayView/DayColumn';
 
 export default class TimeGrid extends Component {
   constructor(props) {
