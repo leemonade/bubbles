@@ -1,6 +1,6 @@
 import { createStyles, getFontExpressive } from '@bubbles-ui/components';
 
-export const LibraryCardStyles = createStyles((theme, { shadow }) => {
+export const LibraryCardStyles = createStyles((theme, { shadow, fullHeight }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -10,6 +10,9 @@ export const LibraryCardStyles = createStyles((theme, { shadow }) => {
         boxShadow: shadow && theme.shadows.shadow01,
       },
       backgroundColor: theme.colors.mainWhite,
+      height: fullHeight ? '100%' : 'auto',
+      display: 'flex',
+      flexDirection: 'column',
     },
   };
 });

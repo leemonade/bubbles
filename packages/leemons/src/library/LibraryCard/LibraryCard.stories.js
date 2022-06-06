@@ -51,7 +51,7 @@ const Template = ({
   };
 
   return (
-    <Box style={{ width: 322 }}>
+    <Box style={{ width: 322, height: 600 }}>
       <LibraryCard
         {...props}
         asset={
