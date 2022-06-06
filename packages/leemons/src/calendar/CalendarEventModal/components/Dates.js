@@ -22,6 +22,7 @@ const Dates = ({
   config,
   selectData,
   disabled,
+  locale,
   readOnly,
   onlyOneDate,
 }) => {
@@ -73,6 +74,7 @@ const Dates = ({
                         withTime={disabled}
                         readOnly={readOnly}
                         disabled={disabled}
+                        locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
                         error={get(errors, 'startDate')}
                         label={config?.fromLabel || messages.fromLabel}
@@ -135,6 +137,7 @@ const Dates = ({
                         size="xs"
                         withTime={disabled}
                         disabled={disabled}
+                        locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
                         readOnly={readOnly}
                         label={messages.toLabel}
