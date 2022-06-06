@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as MantinePagination } from '@mantine/core';
+import { isEmpty } from 'lodash';
 import { Box, Stack } from '../../layout';
 import { Select } from '../../form';
 import { PagerStyles } from './Pager.styles';
@@ -24,6 +25,7 @@ export const PAGER_DEFAULT_PROPS = {
   },
   variant: PAGER_VARIANTS[0],
   page: 0,
+  sizes: [],
 };
 export const PAGER_PROP_TYPES = {
   totalPages: PropTypes.number,
@@ -39,6 +41,7 @@ export const PAGER_PROP_TYPES = {
   withEdges: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  sizes: PropTypes.array,
 };
 
 const Pager = forwardRef(
@@ -47,6 +50,7 @@ const Pager = forwardRef(
       totalPages,
       size: sizeProp,
       page: pageProp,
+      sizes,
       boundaries,
       siblings,
       direction,
@@ -162,8 +166,8 @@ const Pager = forwardRef(
             <Select
               onChange={onSizeChangeHandler}
               value={size}
-              data={[0.5, 1, 2, 3]
-                .map((n) => Math.floor(n * size))
+              data={(!isEmpty(sizes) ? sizes : [0.5, 1, 2, 3].map((n) => Math.floor(n * size)))
+                .filter((val) => val > 0)
                 .map((val) => ({
                   label: `${labels.show} ${val}`,
                   value: val,

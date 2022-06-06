@@ -18,6 +18,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   variant: PAGINATED_LIST_VARIANTS[0],
   page: 0,
   size: 10,
+  sizes: [],
   paperProps: { padding: 2, fullWidth: true },
   selectable: false,
   pagerPlace: PAGINATED_LIST_PAGER_PLACES[1],
@@ -34,6 +35,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   selected: PropTypes.string,
   page: PropTypes.number,
   size: PropTypes.number,
+  sizes: PropTypes.array,
   items: PropTypes.arrayOf(PropTypes.any),
   totalCount: PropTypes.number,
   totalPages: PropTypes.number,
@@ -47,6 +49,7 @@ const PaginatedList = ({
   columns,
   page,
   size,
+  sizes,
   items,
   totalCount,
   totalPages,
@@ -145,6 +148,7 @@ const PaginatedList = ({
             totalPages={totalPages}
             withSize={true}
             size={size}
+            sizes={sizes}
             onSizeChange={handleSizeChange}
             onChange={handlePageChange}
             variant={variant}

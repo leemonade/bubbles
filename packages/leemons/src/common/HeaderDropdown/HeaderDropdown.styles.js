@@ -37,7 +37,8 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       paddingBottom: 4,
       display: 'flex',
       flexDirection: 'column',
-      overflow: 'scroll',
+      overflowY: 'auto',
+      overflowX: 'hidden',
       maxHeight: `calc(100vh - ${headerHeight + 71 + 24}px)`,
     },
     searchInput: {

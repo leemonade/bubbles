@@ -7,14 +7,14 @@ import {
   LIBRARY_NAVBAR_ITEM_PROP_TYPES,
 } from './LibraryNavbarItem.constants';
 
-const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, ...props }) => {
+const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, loading, ...props }) => {
   const onClickHandler = (e) => {
-    if (disabled) return;
+    if (disabled || loading) return;
     isFunction(onClick) && onClick(e);
   };
 
   const { classes, cx } = LibraryNavbarItemStyles(
-    { selected, disabled },
+    { selected, disabled, loading },
     { name: 'LibraryNavbarItem' }
   );
 

@@ -101,7 +101,7 @@ const columns = [
 ];
 
 // Let's simulate a large dataset on the server (outside of our component)
-const totalCount = 100;
+const totalCount = 6;
 const serverData = makeData(totalCount);
 
 function getData({ page, size }) {
@@ -181,6 +181,12 @@ const Template = ({
     </Paper>
   );
 };
+
+/*
+const Template = ({ ...props }) => {
+  return <PaginatedList {...props} />;
+};
+*/
 
 export const Playground = Template.bind({});
 

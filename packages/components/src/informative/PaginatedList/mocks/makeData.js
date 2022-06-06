@@ -12,8 +12,8 @@ const range = (len) => {
 const newPerson = () => {
   const statusChance = Math.random();
   return {
-    firstName: namor.generate({ words: 1, numbers: 0 }),
-    lastName: namor.generate({ words: 1, numbers: 0 }),
+    firstName: Math.floor(Math.random() * 30), // namor.generate({ words: 1, numbers: 0 }),
+    lastName: Math.floor(Math.random() * 30), // namor.generate(),
     age: Math.floor(Math.random() * 30),
     visits: Math.floor(Math.random() * 100),
     progress: Math.floor(Math.random() * 100),
@@ -22,6 +22,7 @@ const newPerson = () => {
 };
 
 export function makeData(...lens) {
+  console.log('namor:', namor);
   const makeDataLevel = (depth = 0) => {
     const len = lens[depth];
     return range(len).map((d) => {
