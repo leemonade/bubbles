@@ -71,14 +71,17 @@ const LibraryCardCover = ({
     );
   };
 
-  const renderSubjectOrBadge = () => {
-    const badgeBox = (
-      <Box className={classes.badge}>
-        <Badge label={badge} color="stroke" radius="default" closable={false} />
-      </Box>
-    );
-    if (dashboard && subject)
-      return (
+  const renderSubjectAndBadge = () => {
+    const components = [];
+    if (badge) {
+      components.push(
+        <Box className={classes.badge}>
+          <Badge label={badge} color="stroke" radius="default" closable={false} />
+        </Box>
+      );
+    }
+    if (dashboard && subject) {
+      components.push(
         <Box className={classes.subject}>
           <Box className={classes.subjectIcon}>
             <ImageLoader forceImage height={12} imageStyles={{ width: 12 }} src={subject.icon} />
@@ -90,7 +93,14 @@ const LibraryCardCover = ({
           </TextClamp>
         </Box>
       );
-    if (badge) return badgeBox;
+    }
+
+    if (!components?.length) {
+      return null;
+    }
+
+    return components;
+    // if (badge) return badgeBox;
   };
 
   const preventPropagation = (e) => {
@@ -148,7 +158,7 @@ const LibraryCardCover = ({
           {iconRow}
         </Box>
         <Box className={classes.titleWrapper}>
-          {renderSubjectOrBadge()}
+          {renderSubjectAndBadge()}
           <TextClamp lines={4}>
             <Title order={5} className={classes.title}>
               {name}

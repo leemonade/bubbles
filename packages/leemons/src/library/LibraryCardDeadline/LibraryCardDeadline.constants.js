@@ -9,4 +9,5 @@ export const LIBRARY_CARD_DEADLINE_DEFAULT_PROPS = {
   locale: 'en-GB',
   isNew: false,
   role: 'teacher',
+  disableHover: false,
 };
