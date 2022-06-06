@@ -30,11 +30,12 @@ const LibraryCard = ({
   badge,
   shadow,
   subject,
+  fullHeight,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const { classes, cx } = LibraryCardStyles({ shadow }, { name: 'LibraryCard' });
+  const { classes, cx } = LibraryCardStyles({ shadow, fullHeight }, { name: 'LibraryCard' });
 
   return (
     <Box
@@ -87,7 +88,13 @@ const LibraryCard = ({
         badge={badge}
         subject={subject}
       />
-      <LibraryCardContent {...asset} locale={locale} variant={variant} assigment={assigment} />
+      <LibraryCardContent
+        {...asset}
+        locale={locale}
+        variant={variant}
+        assigment={assigment}
+        fullHeight={fullHeight}
+      />
       <LibraryCardFooter
         {...asset}
         variant={variant}

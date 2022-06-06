@@ -15,6 +15,7 @@ const LibraryCardDeadline = ({
   isNew,
   locale,
   deadline,
+  disableHover,
   parentHovered,
   severity,
   role,
@@ -50,9 +51,10 @@ const LibraryCardDeadline = ({
 
   let title = renderTitle();
   const { classes, cx } = LibraryCardDeadlineStyles(
-    { isNew, parentHovered, remainingDays, severity, role },
+    { isNew, parentHovered: parentHovered || disableHover, remainingDays, severity, role },
     { name: 'LibraryCardDeadline' }
   );
+
   return (
     <Box className={classes.root}>
       {icon && (

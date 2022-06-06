@@ -28,6 +28,7 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   deadline: PropTypes.instanceOf(Date),
   direction: PropTypes.oneOf(LIBRARYCARD_COVER_DIRECTIONS),
   parentHovered: PropTypes.bool,
+  disableHover: PropTypes.bool,
   role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
   severity: PropTypes.oneOf(LIBRARY_CARD_DEADLINE_SEVERITY),
 };

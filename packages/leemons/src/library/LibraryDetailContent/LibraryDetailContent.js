@@ -46,8 +46,8 @@ const LibraryDetailContent = ({
           sx={(theme) => ({ padding: theme.spacing[2], backgroundColor: theme.colors.mainWhite })}
         >
           <Paper bordered padding={2} radius="sm" shadow="none" fullWidth>
-            <Stack spacing={2}>
-              <Box>
+            <Stack fullWidth spacing={2}>
+              <Box skipFlex>
                 <ImageLoader src={icon} height={20} width={20} radius={4} />
               </Box>
               <Box>
@@ -60,7 +60,7 @@ const LibraryDetailContent = ({
                   </Text>
                 </Stack>
               </Box>
-              <Box>
+              <Box skipFlex>
                 <ActionButton
                   icon={<DuplicateIcon height={16} width={16} onClick={handleCopy} />}
                   tooltip={

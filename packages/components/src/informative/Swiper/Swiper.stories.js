@@ -33,9 +33,9 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...SWIPER_DEFAULT_PROPS,
   variant: 'dashboard',
   selectable: false,
-  ...SWIPER_DEFAULT_PROPS,
   children: childrens,
   breakAt: {
     1200: { slidesPerView: 4, spaceBetween: 20 },
