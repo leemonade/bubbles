@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ScoreCell } from './ScoreCell';
 import { useSticky } from 'react-table-sticky';
 import { ActivityHeader } from './ActivityHeader';
@@ -9,7 +9,7 @@ import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
-import { isFunction, over } from 'lodash';
+import { isFunction } from 'lodash';
 
 const ScoresBasicTable = ({
   grades,
@@ -201,6 +201,7 @@ const ScoresBasicTable = ({
 
   return (
     <Box className={classes.root}>
+      <Box className={classes.shadowBox} />
       <Box ref={tableRef} {...getTableProps()} className={classes.table} onScroll={onScrollHandler}>
         <Box style={{ flex: 1 }}>
           <Box className={classes.tableHeader}>

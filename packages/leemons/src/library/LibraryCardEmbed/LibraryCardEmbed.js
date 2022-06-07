@@ -26,7 +26,7 @@ const getDomain = (url) => {
   return (domain.split('/')[0] || '').replace('www.', '');
 };
 
-const LibraryCardEmbed = ({ asset, variant, labels, onDownload, ...props }) => {
+const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...props }) => {
   const { ref: rootRef, width } = useElementSize();
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -41,6 +41,9 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, ...props }) => {
     const isVideo = fileType === 'video';
     const isAudio = fileType === 'audio';
 
+    if (actionIcon) {
+      return <Box style={{ marginBlock: 4 }}>{actionIcon}</Box>;
+    }
     if (isMedia) {
       if (!isVideo && !isAudio) {
         return (
