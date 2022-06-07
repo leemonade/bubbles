@@ -17,7 +17,7 @@ import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
 import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './LibraryNavbar.constants';
 
-const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew }) => {
+const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew, loading }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showUpload, setShowUpload] = useState(true);
 
@@ -57,12 +57,13 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
             key={category.id}
             icon={category.icon}
             label={category.name}
+            loading={loading}
             selected={category.id === selectedCategory || category.key === selectedCategory}
             onClick={() => callback(category)}
           />
         ));
     },
-    [categories, selectedCategory]
+    [categories, selectedCategory, loading]
   );
 
   const { classes, cx } = LibraryNavbarStyles({ isExpanded }, { name: 'LibraryNavbar' });

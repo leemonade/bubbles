@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled }) => {
+export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled, loading }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2'], 500),
@@ -21,7 +21,7 @@ export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled
       width: 'calc(100% - 16px)',
       borderRadius: 4,
       '&:hover': {
-        cursor: disabled ? 'not-allowed' : 'pointer',
+        cursor: disabled ? 'not-allowed' : loading ? 'progress' : 'pointer',
         backgroundColor: !selected && !disabled && theme.colors.interactive03,
       },
     },

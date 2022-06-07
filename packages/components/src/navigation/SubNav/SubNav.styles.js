@@ -29,20 +29,20 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) =
       boxShadow: !pinned && lightMode && theme.shadows.shadow06,
     },
     navHeader: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingTop: pxToRem(theme.spacing['5']),
+      paddingTop: pxToRem(theme.spacing['1']),
+      paddingRight: pxToRem(theme.spacing['1']),
       paddingLeft: pxToRem(theme.spacing['5']),
-      paddingRight: pxToRem(theme.spacing['3']),
       marginBottom: pxToRem(theme.spacing['4']),
     },
     navHeaderLabel: {
       ...getFontExpressive(pxToRem(13)),
       textTransform: 'uppercase',
       letterSpacing: '0.09em',
-      color: lightMode ? theme.colors.text04 : theme.colors.text07,
+      color: lightMode ? theme.colors.text04 : theme.colors.text08,
+      marginTop: pxToRem(theme.spacing['2']),
+      width: '100%',
+    },
+    navHeaderAction: {
       width: '100%',
     },
     navHeaderActionIcon: {

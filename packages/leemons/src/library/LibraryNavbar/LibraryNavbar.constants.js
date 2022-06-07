@@ -12,6 +12,7 @@ export const LIBRARY_NAVBAR_DEFAULT_PROPS = {
   },
   categories: [],
   selectedCategory: null,
+  loading: false,
 };
 export const LIBRARY_NAVBAR_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -36,4 +37,5 @@ export const LIBRARY_NAVBAR_PROP_TYPES = {
   onNav: PropTypes.func,
   onFile: PropTypes.func,
   onNew: PropTypes.func,
+  loading: PropTypes.bool,
 };

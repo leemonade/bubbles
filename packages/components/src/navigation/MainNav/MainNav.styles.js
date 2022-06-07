@@ -60,7 +60,7 @@ export const MainNavStyles = createStyles((theme, { itemWidth, subNavWidth, ligh
     },
     subNavHandler: {
       position: 'absolute',
-      top: 24,
+      top: 0,
       left: itemWidth,
       zIndex: 40,
     },

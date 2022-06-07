@@ -36,7 +36,7 @@ const UserDisplayItemList = ({ data, limit, labels, ...props }) => {
     <Box className={classes.root}>
       <Box className={classes.userList}>
         {visibleData.map((user, index) => {
-          return <UserDisplayItem key={index} {...user} size="xs" />;
+          return <UserDisplayItem key={index} {...user} size="xs" textRole="productive" />;
         })}
       </Box>
       <Box className={classes.hiddenData}>
@@ -45,10 +45,11 @@ const UserDisplayItemList = ({ data, limit, labels, ...props }) => {
           <Text
             onClick={expandList}
             role="productive"
+            size="xs"
           >{`(${hiddenData.length}) ${labels.showMore}`}</Text>
         )}
         {!allVisible && isOpen && (
-          <Text onClick={shrinkList} role="productive">
+          <Text onClick={shrinkList} role="productive" size="xs">
             {labels.showLess}
           </Text>
         )}
