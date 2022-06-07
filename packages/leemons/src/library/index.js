@@ -11,3 +11,4 @@ export * from './LibraryDetailContent';
 export * from './LibraryDetailToolbar';
 export * from './LibraryItem';
 export * from './LibraryCardEmbed';
+export * from './LibraryCardBasic';
