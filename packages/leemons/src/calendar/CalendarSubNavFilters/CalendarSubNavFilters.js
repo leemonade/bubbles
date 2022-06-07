@@ -29,7 +29,7 @@ export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   showPageControl: false,
 };
 export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {
-  showPageControl: PropTypes.bool
+  showPageControl: PropTypes.bool,
 };
 
 const CalendarSubNavFilters = ({
@@ -56,6 +56,7 @@ const CalendarSubNavFilters = ({
   return (
     <>
       <SubNav
+        hideHeaderActions={true}
         item={{ label: messages.title }}
         style={{ position: 'static' }}
         className={classes.subNav}

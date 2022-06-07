@@ -40,6 +40,7 @@ export const SubNav = forwardRef(
       className,
       useRouter,
       children,
+      hideHeaderActions,
       style,
       lightMode,
       ...props
@@ -60,23 +61,25 @@ export const SubNav = forwardRef(
         {/* Header */}
         <Box className={classes.navHeader}>
           {/* Close button */}
-          <Stack className={classes.navHeaderAction} justifyContent="end">
-            <ActionButton
-              icon={<PluginKimIcon />}
-              rounded
-              color={!lightMode && 'negative'}
-              active={pinned}
-              onClick={onPin}
-              tooltip={messages?.pinTooltip || null}
-            />
-            <ActionButton
-              icon={<ComputerKeyboardPreviousIcon />}
-              rounded
-              color={!lightMode && 'negative'}
-              onClick={onClose}
-              tooltip={messages?.closeTooltip || null}
-            />
-          </Stack>
+          {!hideHeaderActions ? (
+            <Stack className={classes.navHeaderAction} justifyContent="end">
+              <ActionButton
+                icon={<PluginKimIcon />}
+                rounded
+                color={!lightMode && 'negative'}
+                active={pinned}
+                onClick={onPin}
+                tooltip={messages?.pinTooltip || null}
+              />
+              <ActionButton
+                icon={<ComputerKeyboardPreviousIcon />}
+                rounded
+                color={!lightMode && 'negative'}
+                onClick={onClose}
+                tooltip={messages?.closeTooltip || null}
+              />
+            </Stack>
+          ) : null}
 
           <Box className={classes.navHeaderLabel}>{item.label}</Box>
         </Box>
