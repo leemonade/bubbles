@@ -18,6 +18,7 @@ export const LibraryCardBasicStyles = createStyles((theme, { height, blur, color
       img: {
         borderRadius: 2,
       },
+      overflow: 'hidden',
     },
     titleWrapper: {
       paddingBlock: 16,
