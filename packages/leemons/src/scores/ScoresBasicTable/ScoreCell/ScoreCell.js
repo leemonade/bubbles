@@ -65,7 +65,6 @@ const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataCha
   };
 
   useEffect(() => {
-    console.log(isEditing);
     if (selectRef.current) selectRef.current.click();
   }, [isEditing]);
 

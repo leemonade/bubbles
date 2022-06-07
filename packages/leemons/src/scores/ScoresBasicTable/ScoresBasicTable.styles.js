@@ -10,6 +10,8 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
   return {
     root: {
       display: 'flex',
+      position: 'relative',
+      overflow: 'hidden',
     },
     table: {
       width: '100%',
@@ -40,10 +42,6 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       paddingTop: 48,
       '&:first-of-type': {
         maxWidth: 296,
-        boxShadow:
-          overFlowLeft &&
-          '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
-        transition: 'box-shadow 0.2s ease-in-out',
       },
       '&:not(:first-of-type)': {
         border: '1px solid transparent',
@@ -60,12 +58,18 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
     },
     bodyRow: {
       borderBottom: '1px solid #F2F2F2',
-      '& > div:first-of-type': {
-        boxShadow:
-          overFlowLeft &&
-          '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
-        transition: 'box-shadow 0.2s ease-in-out',
-      },
+      '& > div:first-of-type': {},
+    },
+    shadowBox: {
+      zIndex: 4,
+      width: 198,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      bottom: -6,
+      boxShadow:
+        overFlowLeft &&
+        '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
     },
     bodyCell: {
       '&:first-of-type': {
