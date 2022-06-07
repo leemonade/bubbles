@@ -33,10 +33,10 @@ function parseTabList(children, acc = []) {
   return acc;
 }
 
-const Wrapper = ({ usePageLayout, className, children }) => {
+const Wrapper = ({ usePageLayout, fullWidth, className, children }) => {
   return usePageLayout ? (
     <Box className={className}>
-      <PageContainer>{children}</PageContainer>
+      <PageContainer fullWidth={fullWidth}>{children}</PageContainer>
     </Box>
   ) : (
     <Box className={className}>{children}</Box>
@@ -56,6 +56,7 @@ export const Tabs = forwardRef(
       destroyInactiveTabPanel,
       animated,
       fullHeight,
+      fullWidth,
       className,
       classNames,
       onChange,
@@ -139,11 +140,16 @@ export const Tabs = forwardRef(
     return (
       <TabContext.Provider value={{ tabs }}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
-          <Wrapper usePageLayout={usePageLayout} className={classNames?.navList}>
+          <Wrapper
+            usePageLayout={usePageLayout}
+            fullWidth={fullWidth}
+            className={classNames?.navList}
+          >
             <TabNavList {...tabNavBarProps} />
           </Wrapper>
           <Wrapper
             usePageLayout={usePageLayout}
+            fullWidth={fullWidth}
             className={cx(classes.panelList, classNames?.panelList)}
           >
             <TabPanelList
@@ -165,6 +171,7 @@ Tabs.defaultProps = {
   orientation: 'horizontal',
   animated: false,
   fullHeight: false,
+  fullWidth: false,
   panelColor: 'default',
 };
 
@@ -182,5 +189,6 @@ Tabs.propTypes = {
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
   fullHeight: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   forceRender: PropTypes.bool,
 };

@@ -8,12 +8,13 @@ export const LibraryDetailStyles = createStyles((theme, { drawer, open }) => {
       borderRight: 0,
       borderBottom: 0,
       borderRadius: '4px 0 0 0',
+      overflow: 'hidden',
+      backgroundColor: theme.colors.mainWhite,
     };
   }
   return {
     root: {
       ...drawerProps,
-      backgroundColor: theme.colors.mainWhite,
     },
     wrapper: {
       opacity: 0,

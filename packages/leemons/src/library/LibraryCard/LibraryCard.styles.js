@@ -13,6 +13,7 @@ export const LibraryCardStyles = createStyles((theme, { shadow, fullHeight }) =>
       height: fullHeight ? '100%' : 'auto',
       display: 'flex',
       flexDirection: 'column',
+      overflow: 'hidden',
     },
   };
 });

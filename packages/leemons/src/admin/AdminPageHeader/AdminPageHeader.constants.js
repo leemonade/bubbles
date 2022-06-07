@@ -24,6 +24,7 @@ export const ADMIN_PAGE_HEADER_DEFAULT_PROPS = {
   loading: '',
   required: { title: true, description: false },
   variant: 'default',
+  fullWidth: false,
 };
 export const ADMIN_PAGE_HEADER_PROP_TYPES = {
   className: PropTypes.string,
@@ -53,4 +54,5 @@ export const ADMIN_PAGE_HEADER_PROP_TYPES = {
   onCancel: PropTypes.func,
   onDuplicate: PropTypes.func,
   onResize: PropTypes.func,
+  fullWidth: PropTypes.bool,
 };

@@ -45,6 +45,7 @@ const AdminPageHeader = ({
   useRouter,
   required,
   variant,
+  fullWidth,
   onResize = () => {},
 }) => {
   const {
@@ -142,7 +143,7 @@ const AdminPageHeader = ({
           }}
           className={classes.headerContainer}
         >
-          <PageContainer className={classes.section}>
+          <PageContainer className={classes.section} fullWidth={fullWidth}>
             {/* Breadcrumbs */}
             {!isTeacher && isArray(breadcrumbs) && (
               <Box className={classes.breadcrumbs}>
@@ -238,14 +239,18 @@ const AdminPageHeader = ({
             </Stack>
           </PageContainer>
           {!isTeacher && separator && (
-            <PageContainer>
+            <PageContainer fullWidth={fullWidth}>
               <Divider />
             </PageContainer>
           )}
         </Box>
 
         {!isTeacher && values && values.description ? (
-          <PageContainer style={{ marginTop: childRect.height }} className={classes.section}>
+          <PageContainer
+            style={{ marginTop: childRect.height }}
+            className={classes.section}
+            fullWidth={fullWidth}
+          >
             {/* Description */}
             {!editMode && (
               <ContentLegible>
@@ -277,7 +282,7 @@ const AdminPageHeader = ({
             )}
           </PageContainer>
         ) : (
-          <PageContainer style={{ marginTop: childRect.height }} />
+          <PageContainer style={{ marginTop: childRect.height }} fullWidth={fullWidth} />
         )}
       </Box>
     </form>
