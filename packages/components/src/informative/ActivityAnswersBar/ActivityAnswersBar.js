@@ -10,8 +10,8 @@ import {
 } from './ActivityAnswersBar.constants';
 import { groupBy } from 'lodash';
 import { CustomBar } from './CustomBar';
-import { CustomLegend } from './CustomLegend';
 import { getFontProductive } from '../../theme.mixins';
+import { CustomLegend } from '../../../es/informative/ActivityAnswersBar/CustomLegend';
 
 const MARGIN_FOR_CHAR = 7.8;
 
@@ -22,6 +22,7 @@ const ActivityAnswersBar = ({
   barHeight,
   styles,
   withLegend,
+  showBarIcon = true,
   withSelect = true,
   ...props
 }) => {
@@ -92,7 +93,7 @@ const ActivityAnswersBar = ({
           layout="horizontal"
           data={renderedData}
           indexBy={selectedGroup}
-          barComponent={(barData) => CustomBar(barData)}
+          barComponent={(barData) => CustomBar(barData, { showIcon: showBarIcon })}
           colors={['#50B579', '#DC5571', '#B9BEC4']}
           animate={false}
           layers={['axes', 'bars', 'grid', 'markers', 'legends']}

@@ -60,7 +60,7 @@ export const BigCalendar = forwardRef(
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
     const { availableViews, showToolbar } = useMemo(() => {
-      let views = { month: MonthView, week: WeekView, day: DayView, agenda: true };
+      let views = { month: MonthView, week: WeekView, day: DayView }; // agenda: true
       let showToolbar = true;
 
       if (currentView === MONTH_RANGE) {

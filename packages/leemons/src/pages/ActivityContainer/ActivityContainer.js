@@ -53,8 +53,8 @@ const ActivityContainer = ({
           />
         ) : null}
       </Box>
-      <Box className={classes.childrenContainer} style={{ marginTop: headerRect.height }}>
-        {children}
+      <Box style={{ marginTop: headerRect.height }}>
+        {React.cloneElement(children, { marginTop: headerRect.height })}
       </Box>
     </Box>
   );
