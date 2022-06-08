@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const ScoresPeriodFormStyles = createStyles((theme, {}) => {
+export const ScoresPeriodFormStyles = createStyles((theme, { periodWrapperWidth }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -29,6 +29,23 @@ export const ScoresPeriodFormStyles = createStyles((theme, {}) => {
       div: {
         flex: 1,
       },
+    },
+    popover: {
+      width: periodWrapperWidth + 34,
+      padding: 16,
+    },
+    popoverTitle: {
+      display: 'flex',
+      gap: 14,
+      alignItems: 'center',
+      color: theme.colors.text01,
+      span: { fontWeight: 500, flex: 1 },
+      marginBottom: 32,
+    },
+    popoverContent: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 18,
     },
   };
 });

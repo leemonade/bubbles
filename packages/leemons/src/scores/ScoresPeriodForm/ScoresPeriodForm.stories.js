@@ -16,7 +16,10 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onSubmit: { action: 'onSubmit' },
+    onSave: { action: 'onSave' },
+  },
 };
 
 const Template = ({ ...props }) => {
@@ -28,24 +31,43 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...SCORES_PERIOD_FORM_DEFAULT_PROPS,
   fields: [
-    { name: 'program', placeholder: 'Program', data: [], required: 'Required field' },
-    { name: 'course', placeholder: 'All program', data: [], required: 'Required field' },
-    { name: 'subject', placeholder: 'Select subject', data: [] },
+    {
+      name: 'program',
+      placeholder: 'Select program',
+      data: ['Program 1', 'Program 2', 'Program 3'],
+      required: 'Required field',
+    },
+    {
+      name: 'course',
+      placeholder: 'Select course',
+      data: ['Course 1', 'Course 2', 'Course 3'],
+      required: 'Required field',
+    },
+    {
+      name: 'subject',
+      placeholder: 'Select subject',
+      data: ['Subject 1', 'Subject 2', 'Subject 3'],
+    },
   ],
   value: {
-    program: null,
-    course: null,
+    program: 'Program 3',
+    course: 'Course 2',
     subject: null,
     startDate: null,
-    endDate: null,
+    endDate: new Date(),
   },
   labels: {
     startDate: 'Start date',
     endDate: 'End date',
     submit: 'Search',
+    newPeriod: 'New period',
+    shareWithTeachers: 'Share with teachers',
+    saveButton: 'Save time period',
   },
   errorMessages: {
     startDate: 'Required start date',
     endDate: 'Required end date',
+    validateStartDate: 'Start date is greater than end date',
+    validateEndDate: 'End date is smaller than start date',
   },
 };

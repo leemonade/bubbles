@@ -4,12 +4,16 @@ export const SCORES_PERIOD_FORM_DEFAULT_PROPS = {
   labels: {
     startDate: '',
     endDate: '',
-
     submit: '',
+    newPeriod: '',
+    shareWithTeachers: '',
+    saveButton: '',
   },
   errorMessages: {
     startDate: '',
     endDate: '',
+    validateStartDate: '',
+    validateEndDate: '',
   },
 };
 export const SCORES_PERIOD_FORM_PROP_TYPES = {
@@ -32,10 +36,15 @@ export const SCORES_PERIOD_FORM_PROP_TYPES = {
     startDate: PropTypes.string,
     endDate: PropTypes.string,
     submit: PropTypes.string,
+    newPeriod: PropTypes.string,
+    shareWithTeachers: PropTypes.string,
+    saveButton: PropTypes.string,
   }),
   errorMessages: PropTypes.shape({
     startDate: PropTypes.string,
     endDate: PropTypes.string,
+    validateStartDate: PropTypes.string,
+    validateEndDate: PropTypes.string,
   }),
   onSubmit: PropTypes.func,
   onSave: PropTypes.func,
