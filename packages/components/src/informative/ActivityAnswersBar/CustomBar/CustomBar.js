@@ -3,7 +3,11 @@ import { CustomBarStyles } from './CustomBar.styles';
 import { CUSTOM_BAR_DEFAULT_PROPS, CUSTOM_BAR_PROP_TYPES } from './CustomBar.constants';
 import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 
-const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) => {
+const CustomBar = (
+  { bar: { width, height, color, x, y, index, key }, label },
+  { showIcon = true }
+) => {
+  const size = showIcon ? 40 : 25;
   const isOK = key.includes('OK');
   const isKO = key.includes('KO');
 
@@ -14,14 +18,17 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
   };
 
   const getPosition = () => {
-    return width > 40 ? width - 40 : 0;
+    return width > size ? width - size : 0;
   };
 
   const getLabelPosition = () => {
-    return width > 40 ? width - 29 : 11;
+    const s = showIcon ? 29 : 12;
+    const x = showIcon ? 11 : 5;
+    return width > size ? width - s : x;
   };
 
   const getBarIcon = () => {
+    if (!showIcon) return null;
     if (isOK)
       return (
         <CheckIcon
@@ -56,12 +63,13 @@ const CustomBar = ({ bar: { width, height, color, x, y, index, key }, label }) =
   };
 
   const { classes, cx } = CustomBarStyles({}, { name: 'CustomBar' });
+
   return (
     <g transform={`translate(${x}, ${y})`}>
       {width > 0 && (
         <g>
-          <rect x={0} width={width > 40 ? width - 40 : 0} height={height} fill={color} />
-          <rect x={getPosition()} width={40} height={height} fill={getColor()} />
+          <rect x={0} width={width > size ? width - size : 0} height={height} fill={color} />
+          <rect x={getPosition()} width={size} height={height} fill={getColor()} />
           <text
             x={getLabelPosition()}
             y={height / 2}

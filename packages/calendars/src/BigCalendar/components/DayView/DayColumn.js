@@ -204,8 +204,6 @@ class DayColumn extends React.Component {
       dayLayoutAlgorithm,
     });
 
-    console.log(styledEvents);
-
     return styledEvents.map(({ event, style }, idx) => {
       let end = accessors.end(event);
       let start = accessors.start(event);

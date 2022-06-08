@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '../../layout';
 import { ActivityAnswersBar } from './ActivityAnswersBar';
 import { ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS } from './ActivityAnswersBar.constants';
 import mdx from './ActivityAnswersBar.mdx';
@@ -30,6 +29,7 @@ Playground.args = {
   ...ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS,
   data: DATA,
   selectables: SELECTABLES,
+  showBarIcon: false,
   labels: {
     OK: 'Acertada',
     KO: 'Errónea',
