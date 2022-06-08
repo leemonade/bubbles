@@ -61,6 +61,7 @@ Playground.args = {
     endDate: 'End date',
     submit: 'Search',
     newPeriod: 'New period',
+    addPeriod: 'Add new period',
     shareWithTeachers: 'Share with teachers',
     saveButton: 'Save time period',
   },

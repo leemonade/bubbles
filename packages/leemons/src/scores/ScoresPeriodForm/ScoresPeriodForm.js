@@ -17,11 +17,17 @@ import {
   SCORES_PERIOD_FORM_DEFAULT_PROPS,
   SCORES_PERIOD_FORM_PROP_TYPES,
 } from './ScoresPeriodForm.constants';
-import { SearchIcon, PluginCalendarIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import {
+  SearchIcon,
+  PluginCalendarIcon,
+  RemoveIcon,
+  ChevDownIcon,
+} from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
 const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSave, ...props }) => {
   const [openPopover, setOpenPopover] = useState(false);
+  const [isSavingPeriod, setIsSavingPeriod] = useState(false);
   const [periodName, setPeriodName] = useState('');
   const [shareWithTeachers, setShareWithTeachers] = useState(false);
   const { ref: periodWrapperRef, width: periodWrapperWidth } = useElementSize();
@@ -73,6 +79,7 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
     const formValue = getValues();
     isFunction(onSave) && onSave(periodName, shareWithTeachers, formValue);
     setOpenPopover(false);
+    setIsSavingPeriod(false);
   };
 
   const onChangeHandler = (value, onChange) => {
@@ -83,6 +90,7 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
     requiredFields.push('startDate', 'endDate');
     const requiredFieldsCompleted = requiredFields.every((field) => formValue[field]);
     setOpenPopover(requiredFieldsCompleted);
+    setIsSavingPeriod(false);
   };
 
   const validateDates = () => {
@@ -108,7 +116,7 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
   };
 
   const { classes, cx } = ScoresPeriodFormStyles(
-    { periodWrapperWidth },
+    { periodWrapperWidth, isSavingPeriod },
     { name: 'ScoresPeriodForm' }
   );
   return (
@@ -118,7 +126,10 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
           <Box className={classes.selectWrapper}>{renderSelects()}</Box>
           <Popover
             opened={openPopover}
-            onClose={() => setOpenPopover(false)}
+            onClose={() => {
+              setOpenPopover(false);
+              setIsSavingPeriod(false);
+            }}
             position="bottom"
             placement="start"
             style={{ width: '100%' }}
@@ -166,10 +177,31 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
             <Box className={classes.popover}>
               <Box className={classes.popoverTitle}>
                 <PluginCalendarIcon height={24} width={24} />
-                <Text color="primary" size="md">
-                  {labels.newPeriod}
-                </Text>
-                <IconButton icon={<RemoveIcon />} onClick={() => setOpenPopover(false)} />
+                {isSavingPeriod && (
+                  <Text color="primary" size="md">
+                    {labels.newPeriod}
+                  </Text>
+                )}
+                {!isSavingPeriod && (
+                  <Button
+                    variant="light"
+                    rightIcon={<ChevDownIcon />}
+                    onClick={() => setIsSavingPeriod(true)}
+                    compact
+                    size="sm"
+                  >
+                    {labels.addPeriod}
+                  </Button>
+                )}
+                <Box className={classes.closeButton}>
+                  <IconButton
+                    icon={<RemoveIcon />}
+                    onClick={() => {
+                      setOpenPopover(false);
+                      setIsSavingPeriod(false);
+                    }}
+                  />
+                </Box>
               </Box>
               <Box className={classes.popoverContent}>
                 <TextInput value={periodName} onChange={setPeriodName} />
