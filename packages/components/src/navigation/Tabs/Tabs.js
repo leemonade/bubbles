@@ -33,13 +33,18 @@ function parseTabList(children, acc = []) {
   return acc;
 }
 
-const Wrapper = ({ usePageLayout, fullWidth, className, children }) => {
+const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children }) => {
   return usePageLayout ? (
     <Box className={className}>
       <PageContainer fullWidth={fullWidth}>{children}</PageContainer>
     </Box>
   ) : (
-    <Box className={className}>{children}</Box>
+    <Box
+      className={className}
+      sx={(theme) => ({ padding: usePaddedLayout && `0 ${theme.spacing[7]}px` })}
+    >
+      {children}
+    </Box>
   );
 };
 
@@ -63,6 +68,7 @@ export const Tabs = forwardRef(
       onTabClick,
       onTabScroll,
       usePageLayout,
+      usePaddedLayout,
       panelColor,
       forceRender,
     },
@@ -142,6 +148,7 @@ export const Tabs = forwardRef(
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
           <Wrapper
             usePageLayout={usePageLayout}
+            usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}
             className={classNames?.navList}
           >
@@ -149,6 +156,7 @@ export const Tabs = forwardRef(
           </Wrapper>
           <Wrapper
             usePageLayout={usePageLayout}
+            usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}
             className={cx(classes.panelList, classNames?.panelList)}
           >
@@ -184,6 +192,7 @@ Tabs.propTypes = {
   destroyInactiveTabPanel: PropTypes.bool,
   animated: PropTypes.bool,
   usePageLayout: PropTypes.bool,
+  usePaddedLayout: PropTypes.bool,
   panelColor: PropTypes.oneOf(TABS_PANEL_COLORS),
   onChange: PropTypes.func,
   onTabClick: PropTypes.func,

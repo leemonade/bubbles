@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack } from '@bubbles-ui/components';
+import { Box, Stack, Paper } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
@@ -51,7 +51,7 @@ const Template = ({
   };
 
   return (
-    <Box style={{ width: 322, height: 600 }}>
+    <Paper color="solid" style={{ width: 322, height: 600 }}>
       <LibraryCard
         {...props}
         asset={
@@ -67,7 +67,7 @@ const Template = ({
         action={showAction ? action : undefined}
         subject={showSubject ? subject : undefined}
       />
-    </Box>
+    </Paper>
 
     // <Stack spacing={5}>
     //   {variant === 'assigment' ? (

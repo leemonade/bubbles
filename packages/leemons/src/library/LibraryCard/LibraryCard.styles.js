@@ -4,7 +4,7 @@ export const LibraryCardStyles = createStyles((theme, { shadow, fullHeight }) =>
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
-      border: `2px solid ${theme.colors.ui03}`,
+      border: `1px solid ${theme.colors.ui01}`,
       borderRadius: '4px',
       '&:hover': {
         boxShadow: shadow && theme.shadows.shadow01,

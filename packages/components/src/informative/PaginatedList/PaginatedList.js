@@ -16,7 +16,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   columns: [],
   layout: PAGINATED_LIST_LAYOUTS[0],
   variant: PAGINATED_LIST_VARIANTS[0],
-  page: 0,
+  page: 1,
   size: 10,
   sizes: [],
   paperProps: { padding: 2, fullWidth: true },
@@ -96,6 +96,8 @@ const PaginatedList = ({
   );
 
   useEffect(() => {
+    console.log('page:', page);
+    console.log('pageIndex:', pageIndex);
     if (pageIndex !== page) gotoPage(page);
   }, [page]);
 
@@ -104,7 +106,8 @@ const PaginatedList = ({
   }, [size]);
 
   const handleSizeChange = (val) => {
-    setPageSize(val);
+    // setPageSize(parseInt(val));
+    onPageChange(1);
     onSizeChange(parseInt(val));
   };
 
@@ -141,19 +144,21 @@ const PaginatedList = ({
           )}
         </Paper>
 
-        <Stack fullWidth justifyContent={pagerPlace}>
-          <Pager
-            labels={labels}
-            page={page}
-            totalPages={totalPages}
-            withSize={true}
-            size={size}
-            sizes={sizes}
-            onSizeChange={handleSizeChange}
-            onChange={handlePageChange}
-            variant={variant}
-          />
-        </Stack>
+        {totalPages > 1 && (
+          <Stack fullWidth justifyContent={pagerPlace}>
+            <Pager
+              labels={labels}
+              page={page}
+              totalPages={totalPages}
+              withSize={true}
+              size={size}
+              sizes={sizes}
+              onSizeChange={handleSizeChange}
+              onChange={handlePageChange}
+              variant={variant}
+            />
+          </Stack>
+        )}
       </Stack>
     </Box>
   );

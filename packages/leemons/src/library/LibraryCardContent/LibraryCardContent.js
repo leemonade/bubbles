@@ -33,9 +33,10 @@ const LibraryCardContent = ({
   icon,
   url,
   truncated,
+  fullHeight,
   ...props
 }) => {
-  const { classes, cx } = LibraryCardContentStyles({}, { name: 'LibraryCardContent' });
+  const { classes, cx } = LibraryCardContentStyles({ fullHeight }, { name: 'LibraryCardContent' });
 
   const getBadge = useCallback(() => {
     if (assigment.completed <= 0.2)

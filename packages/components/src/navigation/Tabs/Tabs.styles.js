@@ -11,6 +11,7 @@ export const TabsStyles = createStyles(
       rootProps.flex = 1;
       rootProps.height = '100%';
       rootProps.width = '100%';
+      rootProps.overflow = 'hidden';
     }
 
     return {
@@ -21,6 +22,8 @@ export const TabsStyles = createStyles(
         display: 'flex',
         backgroundColor: panelColor === 'solid' ? theme.colors.uiBackground02 : 'transparent',
         flex: 1,
+        height: fullHeight && '100%',
+        overflowY: 'auto',
       },
     };
   }

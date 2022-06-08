@@ -7,7 +7,14 @@ import {
   ACTIVITY_CONTAINER_PROP_TYPES,
 } from './ActivityContainer.constants';
 
-const ActivityContainer = ({ header, deadline, children, collapsed, ...props }) => {
+const ActivityContainer = ({
+  header,
+  deadline,
+  children,
+  collapsed,
+  collapseOnScroll,
+  ...props
+}) => {
   const { title, subtitle, icon, color, image } = header;
   const [isScrolled, setIsScrolled] = useState(collapsed);
   const [rootRef, rootRect] = useResizeObserver();
@@ -23,7 +30,7 @@ const ActivityContainer = ({ header, deadline, children, collapsed, ...props }) 
 
   const { classes, cx } = ActivityContainerStyles({ isScrolled }, { name: 'ActivityContainer' });
   return (
-    <Box ref={rootRef} onScroll={handleScroll} className={classes.root}>
+    <Box ref={rootRef} onScroll={collapseOnScroll ? handleScroll : null} className={classes.root}>
       <Box
         ref={headerRef}
         className={classes.header}

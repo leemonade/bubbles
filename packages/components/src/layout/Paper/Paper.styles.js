@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 
 export const PaperStyles = createStyles(
-  (theme, { padding, radius, shadow, color, fullWidth, bordered }) => {
+  (theme, { padding, radius, shadow, color, fullWidth, fullHeight, bordered }) => {
     const getShadows = (shadow) => {
       switch (shadow) {
         case 'level100':
@@ -32,12 +32,15 @@ export const PaperStyles = createStyles(
 
     return {
       root: {
-        display: fullWidth ? 'flex' : 'inline-flex',
+        display: fullWidth || fullHeight ? 'flex' : 'inline-flex',
         flexDirection: 'column',
+        boxSizing: 'border-box',
         backgroundColor: getBgColor(theme, color),
         boxShadow: getShadows(shadow),
         padding: theme.spacing[padding],
         border: bordered && `1px solid ${theme.colors.ui01}`,
+        height: fullHeight && '100%',
+        flex: (fullWidth || fullHeight) && 1,
       },
     };
   }
