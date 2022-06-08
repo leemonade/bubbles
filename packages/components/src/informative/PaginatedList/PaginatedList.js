@@ -96,8 +96,6 @@ const PaginatedList = ({
   );
 
   useEffect(() => {
-    console.log('page:', page);
-    console.log('pageIndex:', pageIndex);
     if (pageIndex !== page) gotoPage(page);
   }, [page]);
 

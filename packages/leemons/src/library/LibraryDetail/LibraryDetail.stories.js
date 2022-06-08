@@ -34,18 +34,19 @@ const Template = ({ children, asset, ...props }) => {
   return (
     <Box style={{ display: 'flex', gap: 30, height: 'calc(100vh - 32px)' }}>
       <Box style={{ width: 360 }}>
-        <LibraryDetail {...props} asset={asset}>
+        <LibraryDetail {...props} asset={asset} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
       <Box style={{ width: 360 }}>
-        <LibraryDetail {...props} asset={AUDIO_ASSET}>
+        <LibraryDetail {...props} asset={AUDIO_ASSET} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
       <Box style={{ width: 360 }}>
         <LibraryDetail
           {...props}
+          style={{ width: 360 }}
           asset={URL_ASSET}
           variant="bookmark"
           open={open}
