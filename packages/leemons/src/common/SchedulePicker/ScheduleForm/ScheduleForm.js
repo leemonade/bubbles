@@ -35,12 +35,21 @@ const dateToHoursAndMinutes = (date) => {
   });
 };
 
+function diffMinutes(dt2, dt1) {
+  let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
+}
+
 const dayToSchedule = (mapDay, day) => {
+  day.start.setSeconds(0, 0);
+  day.end.setSeconds(0, 0);
+
   return {
     id: mapDay.id || day.id,
     start: dateToHoursAndMinutes(day.start),
     end: dateToHoursAndMinutes(day.end),
-    duration: parseInt((Math.abs(day.end.getTime() - day.start.getTime()) / (1000 * 60)) % 60),
+    duration: diffMinutes(day.start, day.end),
     day: DAYS[mapDay.index],
     dayWeek: mapDay.index,
   };
