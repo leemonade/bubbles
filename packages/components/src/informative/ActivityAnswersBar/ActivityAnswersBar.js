@@ -88,6 +88,7 @@ const ActivityAnswersBar = ({
           enableGridX={true}
           enableGridY={false}
           maxValue={getMaxValue()}
+          gridXValues={getMaxValue()}
           padding={0.1}
           keys={['OK', 'KO', 'null']}
           layout="horizontal"
@@ -114,10 +115,7 @@ const ActivityAnswersBar = ({
             },
           ]}
           legendLabel={getLegends}
-          axisBottom={{
-            tickSize: 0,
-            tickPadding: 10,
-          }}
+          axisBottom={{ tickSize: 0, tickPadding: 10, tickValues: getMaxValue() }}
           axisLeft={{
             tickSize: 0,
             tickPadding: 28,
