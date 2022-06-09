@@ -9,7 +9,6 @@ import {
 import {
   DownloadIcon,
   DuplicateIcon,
-  MoveRightIcon,
   PluginKimIcon,
   ViewOnIcon,
   ShareSocialIcon,
@@ -128,101 +127,84 @@ const LibraryDetailToolbar = ({
     isFunction(onUnpin) && onUnpin(item);
   };
 
-  const handleToggle = () => {
-    isFunction(onToggle) && onToggle();
-  };
-
   return (
     <Box className={classes.root}>
-      {open && (
-        <Stack>
-          {toolbarItems.view && (
-            <ActionButton
-              icon={<ViewOnIcon height={20} width={20} />}
-              onClick={handleView}
-              tooltip={toolbarItems.view}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.edit && (
-            <ActionButton
-              icon={<EditWriteIcon height={20} width={20} />}
-              onClick={handleEdit}
-              tooltip={toolbarItems.edit}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.duplicate && (
-            <ActionButton
-              icon={<DuplicateIcon height={20} width={20} />}
-              onClick={handleDuplicate}
-              tooltip={toolbarItems.duplicate}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.download && (
-            <ActionButton
-              icon={<DownloadIcon height={20} width={20} />}
-              onClick={handleDownload}
-              tooltip={toolbarItems.download}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.assign && (
-            <ActionButton
-              icon={<AssignIcon height={20} width={20} />}
-              onClick={handleAssign}
-              tooltip={toolbarItems.assign}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.delete && (
-            <ActionButton
-              icon={<DeleteBinIcon height={20} width={20} />}
-              onClick={handleDelete}
-              tooltip={toolbarItems.delete}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.share && (
-            <ActionButton
-              icon={<ShareSocialIcon height={20} width={20} />}
-              onClick={handleShare}
-              tooltip={toolbarItems.share}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.pin && (
-            <ActionButton
-              icon={<PluginKimIcon height={20} width={20} />}
-              onClick={handlePin}
-              tooltip={toolbarItems.pin}
-              className={classes.button}
-            />
-          )}
-          {toolbarItems.unpin && (
-            <ActionButton
-              icon={<PluginKimSolidIcon height={20} width={20} />}
-              active
-              variant="solid"
-              onClick={handleUnpin}
-              tooltip={toolbarItems.unpin}
-              className={classes.button}
-            />
-          )}
-        </Stack>
-      )}
-
-      {toolbarItems.toggle && (
-        <Box className={classes.lastIcon}>
+      <Stack>
+        {toolbarItems.view && (
           <ActionButton
-            icon={<MoveRightIcon height={20} width={20} />}
-            onClick={handleToggle}
-            tooltip={!open ? toolbarItems.open || toolbarItems.toggle : toolbarItems.toggle}
-            className={cx(classes.button, { [classes.flip]: !open })}
+            icon={<ViewOnIcon height={20} width={20} />}
+            onClick={handleView}
+            tooltip={toolbarItems.view}
+            className={classes.button}
           />
-        </Box>
-      )}
+        )}
+        {toolbarItems.edit && (
+          <ActionButton
+            icon={<EditWriteIcon height={20} width={20} />}
+            onClick={handleEdit}
+            tooltip={toolbarItems.edit}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.duplicate && (
+          <ActionButton
+            icon={<DuplicateIcon height={20} width={20} />}
+            onClick={handleDuplicate}
+            tooltip={toolbarItems.duplicate}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.download && (
+          <ActionButton
+            icon={<DownloadIcon height={20} width={20} />}
+            onClick={handleDownload}
+            tooltip={toolbarItems.download}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.assign && (
+          <ActionButton
+            icon={<AssignIcon height={20} width={20} />}
+            onClick={handleAssign}
+            tooltip={toolbarItems.assign}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.delete && (
+          <ActionButton
+            icon={<DeleteBinIcon height={20} width={20} />}
+            onClick={handleDelete}
+            tooltip={toolbarItems.delete}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.share && (
+          <ActionButton
+            icon={<ShareSocialIcon height={20} width={20} />}
+            onClick={handleShare}
+            tooltip={toolbarItems.share}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.pin && (
+          <ActionButton
+            icon={<PluginKimIcon height={20} width={20} />}
+            onClick={handlePin}
+            tooltip={toolbarItems.pin}
+            className={classes.button}
+          />
+        )}
+        {toolbarItems.unpin && (
+          <ActionButton
+            icon={<PluginKimSolidIcon height={20} width={20} />}
+            active
+            variant="solid"
+            onClick={handleUnpin}
+            tooltip={toolbarItems.unpin}
+            className={classes.button}
+          />
+        )}
+      </Stack>
     </Box>
   );
 };

@@ -13,6 +13,7 @@ export const TabPanelList = ({
   destroyInactiveTabPanel,
   className,
   forceRender,
+  fullHeight,
   children,
 }) => {
   const { tabs } = useContext(TabContext);
@@ -55,4 +56,5 @@ TabPanelList.propTypes = {
   position: PropTypes.string,
   destroyInactiveTabPanel: PropTypes.bool,
   forceRender: PropTypes.bool,
+  fullHeight: PropTypes.bool,
 };

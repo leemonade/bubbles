@@ -8,6 +8,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   badgeColor: 'solid',
   truncated: true,
   locale: 'en-GB',
+  fullHeight: false,
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   tagline: PropTypes.string,
@@ -18,4 +19,5 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
   truncated: PropTypes.bool,
+  fullHeight: PropTypes.bool,
 };

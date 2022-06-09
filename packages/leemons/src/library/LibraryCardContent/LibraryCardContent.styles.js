@@ -6,11 +6,11 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const LibraryCardContentStyles = createStyles((theme, {}) => {
+export const LibraryCardContentStyles = createStyles((theme, { fullHeight }) => {
   return {
     root: {
       // backgroundColor: theme.colors.mainWhite,
-      flex: 1,
+      flex: fullHeight && 1,
       display: 'flex',
       flexDirection: 'column',
     },

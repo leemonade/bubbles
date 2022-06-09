@@ -18,7 +18,7 @@ export const TableStyles = createStyles((theme, {}) => {
     tr: {
       ...reset,
       '& td, & th': {
-        borderBottom: `1px solid ${theme.colors.ui02}`,
+        borderBottom: `1px solid rgba(0, 0, 0, 0.05)`,
       },
     },
     trSelectable: {

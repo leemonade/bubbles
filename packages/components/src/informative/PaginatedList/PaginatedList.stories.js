@@ -101,7 +101,7 @@ const columns = [
 ];
 
 // Let's simulate a large dataset on the server (outside of our component)
-const totalCount = 6;
+const totalCount = 21;
 const serverData = makeData(totalCount);
 
 function getData({ page, size }) {
@@ -145,7 +145,8 @@ const Template = ({
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const result = await getData({ page, size });
+      const result = await getData({ page: page - 1, size });
+      result.page += 1;
       setServerData(result);
       setLoading(false);
     })();

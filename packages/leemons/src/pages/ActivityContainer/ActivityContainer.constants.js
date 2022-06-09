@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 export const ACTIVITY_CONTAINER_DEFAULT_PROPS = {
   collapsed: false,
+  collapseOnScroll: false,
 };
 export const ACTIVITY_CONTAINER_PROP_TYPES = {
   header: PropTypes.shape({
@@ -17,4 +18,5 @@ export const ACTIVITY_CONTAINER_PROP_TYPES = {
   }),
   children: PropTypes.node,
   collapsed: PropTypes.bool,
+  collapseOnScroll: PropTypes.bool,
 };

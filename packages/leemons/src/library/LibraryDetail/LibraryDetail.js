@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { isEmpty } from 'lodash';
-import { AvatarsGroup, FileIcon, Stack, Text } from '@bubbles-ui/components';
+import { isEmpty, isFunction } from 'lodash';
+import { AvatarsGroup, FileIcon, Stack, Text, Box, ActionButton } from '@bubbles-ui/components';
+import { MoveRightIcon } from '@bubbles-ui/icons/outline';
 import { LibraryDetailContent } from '../LibraryDetailContent';
 import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
 import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
@@ -17,6 +18,7 @@ const LibraryDetail = ({
   open,
   labels,
   titleActionButton,
+  style,
   ...events
 }) => {
   const [showDrawer, setShowDrawer] = useState(open);
@@ -25,7 +27,7 @@ const LibraryDetail = ({
     if (open) {
       setTimeout(() => setShowDrawer(true), 100);
     } else {
-      setShowDrawer(false);
+      setTimeout(() => setShowDrawer(false), 100);
     }
   }, [open]);
 
@@ -33,24 +35,35 @@ const LibraryDetail = ({
 
   const { fileType, fileExtension } = asset;
 
-  return (
-    <Stack direction="column" fullHeight className={classes.root}>
-      {toolbar && (
-        <LibraryDetailToolbar
-          {...events}
-          item={asset}
-          toolbarItems={toolbarItems}
-          open={open}
-          labels={labels}
-        />
-      )}
+  const handleToggle = () => {
+    isFunction(events?.onToggle) && events.onToggle();
+  };
 
-      {open && (
+  return (
+    <Box style={{ position: 'absolute', height: '100%', width: '100%' }}>
+      <Stack
+        direction="column"
+        fullHeight
+        className={cx(classes.root, classes.wrapper, { [classes.show]: showDrawer })}
+        style={style}
+      >
         <Stack
           direction="column"
           fullHeight
-          className={cx(classes.wrapper, { [classes.show]: showDrawer })}
+          // className={cx(classes.wrapper, { [classes.show]: showDrawer })}
         >
+          {toolbar && (
+            <Box>
+              <LibraryDetailToolbar
+                {...events}
+                item={asset}
+                toolbarItems={toolbarItems}
+                open={open}
+                labels={labels}
+              />
+            </Box>
+          )}
+
           <LibraryDetailPlayer
             {...asset}
             labels={labels}
@@ -88,8 +101,20 @@ const LibraryDetail = ({
             </Stack>
           )}
         </Stack>
+      </Stack>
+      {toolbarItems?.toggle && (
+        <Box className={cx(classes.lastIcon, { [classes.stickRight]: !showDrawer })}>
+          <ActionButton
+            icon={<MoveRightIcon height={20} width={20} />}
+            onClick={handleToggle}
+            tooltip={!open ? toolbarItems.open || toolbarItems.toggle : toolbarItems.toggle}
+            className={cx(classes.button, {
+              [classes.flip]: !showDrawer,
+            })}
+          />
+        </Box>
       )}
-    </Stack>
+    </Box>
   );
 };
 
