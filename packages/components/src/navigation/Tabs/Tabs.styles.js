@@ -23,7 +23,7 @@ export const TabsStyles = createStyles(
         backgroundColor: panelColor === 'solid' ? theme.colors.uiBackground02 : 'transparent',
         flex: 1,
         height: fullHeight && '100%',
-        overflowY: 'auto',
+        overflowY: fullHeight && 'auto',
       },
     };
   }
