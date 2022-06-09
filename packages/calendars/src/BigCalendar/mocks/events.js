@@ -4,8 +4,8 @@ export default [
   {
     title: 'Tarea de Computación',
     allDay: false,
-    start: DateTime.fromISO('2021-11-28T11:20:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2021-11-28T11:20:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2021-11-29T11:20:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2021-12-28T11:20:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -36,7 +36,7 @@ export default [
     title: 'Evento de Biología',
     allDay: false,
     start: DateTime.fromISO('2021-11-27T22:59:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2021-11-27T22:59:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2021-12-03T22:59:00.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
       title: 'Evento de Biología',

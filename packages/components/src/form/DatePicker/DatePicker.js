@@ -98,8 +98,12 @@ const DatePicker = forwardRef(
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
     const compProps = range ? { amountOfMonths: 2 } : {};
-
+    const [r, setR] = useState();
     const [date, setDate] = useState(userValue);
+
+    function render() {
+      setR(new Date().getTime());
+    }
 
     // EN: Notify the parent component when the date changes
     // ES: Notificar al componente padre cuando cambia la fecha
@@ -119,7 +123,10 @@ const DatePicker = forwardRef(
       let mounted = true;
 
       import(`dayjs/locale/${locale.toLowerCase()}.js`).then(() => {
-        if (mounted) setCurrentLocale(locale.toLowerCase());
+        if (mounted) {
+          setCurrentLocale(locale.toLowerCase());
+          render();
+        }
       });
 
       return () => {

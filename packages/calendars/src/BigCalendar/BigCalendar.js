@@ -15,6 +15,7 @@ import { WeekView } from './components/WeekView/WeekView';
 import { DayView } from './components/DayView/DayView';
 import { MonthRangeView } from './components/MonthRangeView/MonthRangeView';
 import { EventWrapper } from './components/EventWrapper';
+import Agenda from './components/AgentView/AgentView';
 
 const TIMEZONE = DateTime.local().zoneName;
 const TODAY = DateTime.local().toJSDate();
@@ -60,7 +61,7 @@ export const BigCalendar = forwardRef(
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
     const { availableViews, showToolbar } = useMemo(() => {
-      let views = { month: MonthView, week: WeekView, day: DayView }; // agenda: true
+      let views = { month: MonthView, week: WeekView, day: DayView }; // agenda: Agenda
       let showToolbar = true;
 
       if (currentView === MONTH_RANGE) {
@@ -137,6 +138,15 @@ export const BigCalendar = forwardRef(
               });
             });
           } else {
+            console.log(
+              Interval.fromDateTimes(
+                DateTime.fromJSDate(dateRange.start),
+                DateTime.fromJSDate(dateRange.end)
+              ).overlaps(
+                Interval.fromDateTimes(DateTime.fromJSDate(ev.start), DateTime.fromJSDate(ev.end))
+              ),
+              ev
+            );
             if (
               Interval.fromDateTimes(
                 DateTime.fromJSDate(dateRange.start),
@@ -181,6 +191,8 @@ export const BigCalendar = forwardRef(
       }
 
       if (range) {
+        range.end.setHours(23, 59, 59, 59);
+        range.start.setHours(0, 0, 0, 0);
         onRangeChange(range);
         setDateRange(range);
       }
