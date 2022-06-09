@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const LibraryCardFooterStyles = createStyles((theme, { action }) => {
+export const LibraryCardFooterStyles = createStyles((theme, { action, color, size }) => {
   return {
     root: {
       display: 'flex',
@@ -19,6 +19,17 @@ export const LibraryCardFooterStyles = createStyles((theme, { action }) => {
     date: {
       color: theme.colors.text04,
       fontSize: pxToRem(11),
+    },
+    FileIconRoot: {
+      ...getFontExpressive(theme.fontSizes['2']),
+      display: 'inline-flex',
+      alignItems: 'center',
+      color: color,
+    },
+    FileIconLabel: {
+      marginLeft: pxToRem(size / 1.5),
+      fontSize: pxToRem(size),
+      color: color,
     },
   };
 });

@@ -49,7 +49,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
   );
 
   const renderNavbarItems = useCallback(
-    (callback, onlyCreatable = false) => {
+    (callback, onlyCreatable = false, ignoreSelected = false) => {
       return categories
         .filter((item) => (onlyCreatable ? item.creatable === true : true))
         .map((category) => (
@@ -58,7 +58,10 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
             icon={category.icon}
             label={category.name}
             loading={loading}
-            selected={category.id === selectedCategory || category.key === selectedCategory}
+            selected={
+              !ignoreSelected &&
+              (category.id === selectedCategory || category.key === selectedCategory)
+            }
             onClick={() => callback(category)}
           />
         ));
@@ -126,7 +129,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
               className={classes.navbarTopList}
               skipFlex
             >
-              {renderNavbarItems(onNewHandler, true)}
+              {renderNavbarItems(onNewHandler, true, true)}
               <Text transform="uppercase" className={classes.sectionTitle}>
                 {labels.uploadTitle}
               </Text>

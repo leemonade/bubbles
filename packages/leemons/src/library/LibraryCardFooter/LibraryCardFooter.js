@@ -1,6 +1,6 @@
 import React from 'react';
 import { capitalize, isFunction } from 'lodash';
-import { Box, Button, FileIcon, Text } from '@bubbles-ui/components';
+import { Box, Button, FileIcon, FileIconStyles, Text } from '@bubbles-ui/components';
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 import {
   LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
@@ -21,7 +21,10 @@ const LibraryCardFooter = ({
   variantIcon,
   ...props
 }) => {
-  const { classes, cx } = LibraryCardFooterStyles({ action }, { name: 'LibraryCardFooter' });
+  const { classes, cx } = LibraryCardFooterStyles(
+    { action, size: 12, color: '#636D7D' },
+    { name: 'LibraryCardFooter' }
+  );
 
   const formatDate = () => {
     try {
@@ -35,22 +38,41 @@ const LibraryCardFooter = ({
     isFunction(onAction) && onAction();
   };
 
+  let component;
+  if (action) {
+    component = (
+      <Button variant={'link'} onClick={handleOnAction} size={'xs'}>
+        {action}
+      </Button>
+    );
+  } else if (variantIcon) {
+    const label = capitalize(fileType || variantTitle || variant);
+    component = (
+      <Box className={classes.FileIconRoot}>
+        {variantIcon}
+        {label && <Text className={classes.FileIconLabel}>{label}</Text>}
+      </Box>
+    );
+  } else {
+    component = (
+      <FileIcon
+        size={12}
+        fileType={fileType || variant}
+        fileExtension={fileExtension}
+        color={'#636D7D'}
+        label={capitalize(fileType || variantTitle || variant)}
+        hideExtension
+      />
+    );
+  }
+
   return (
     <Box className={cx(classes.root, className)} style={style}>
       {action ? (
-        <Button variant={'link'} onClick={handleOnAction} size={'xs'}>
-          {action}
-        </Button>
+        { component }
       ) : (
         <>
-          <FileIcon
-            size={12}
-            fileType={fileType || variant}
-            fileExtension={fileExtension}
-            color={'#636D7D'}
-            label={capitalize(fileType || variantTitle || variant)}
-            hideExtension
-          />
+          {component}
           {created && (
             <Text role="productive" className={classes.date}>
               {formatDate()}
