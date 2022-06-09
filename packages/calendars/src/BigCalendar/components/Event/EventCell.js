@@ -6,32 +6,38 @@ import { colord } from 'colord';
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
+function eventCellStylesRoot(colors, { isAllDay, bgColor }, imp) {
+  return {
+    backgroundColor: `${
+      isAllDay ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString() : colors.uiBackground01
+    }${imp ? '!important' : ''}`,
+    color: `${colors.text01}${imp ? '!important' : ''}`,
+    borderRadius: `4px${imp ? '!important' : ''}`,
+    fontWeight: 500,
+  };
+}
+
+function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
+  return {
+    borderRadius: '50%',
+    color: `${colors.text07}${imp ? '!important' : ''}`,
+    backgroundColor: `${bgColor}${imp ? '!important' : ''}`,
+    minWidth: '20px',
+    minHeight: '20px',
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    verticalAlign: 'middle',
+    img: {
+      filter: 'brightness(0) invert(1)',
+    },
+  };
+}
+
 const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
   return {
-    root: {
-      backgroundColor: `${
-        isAllDay
-          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-          : theme.colors.uiBackground01
-      }!important`,
-      color: `${theme.colors.text01}!important`,
-      borderRadius: '4px!important',
-      fontWeight: 500,
-    },
-    icon: {
-      borderRadius: '50%',
-      color: `${theme.colors.text07}!important`,
-      backgroundColor: `${bgColor}!important`,
-      minWidth: '20px',
-      minHeight: '20px',
-      position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
-      verticalAlign: 'middle',
-      img: {
-        filter: 'brightness(0) invert(1)',
-      },
-    },
+    root: eventCellStylesRoot(theme.colors, { isAllDay, bgColor }, true),
+    icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
     item: {
       display: 'flex!important',
       alignItems: 'center',
@@ -184,3 +190,4 @@ EventCell.propTypes = {
 };
 
 export default EventCell;
+export { eventCellStyles, eventCellStylesRoot, eventCellStylesIcon };

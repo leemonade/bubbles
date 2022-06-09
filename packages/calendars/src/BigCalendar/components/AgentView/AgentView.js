@@ -8,7 +8,13 @@ import scrollbarSize from 'dom-helpers/scrollbarSize';
 import { navigate } from 'react-big-calendar/lib/utils/constants';
 import { inRange } from 'react-big-calendar/lib/utils/eventLevels';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
-import { Box } from '@bubbles-ui/components';
+import { Avatar, Box, COLORS, ImageLoader, Text } from '@bubbles-ui/components';
+import { colord } from 'colord';
+import { eventCellStylesIcon, eventCellStylesRoot } from '../Event/EventCell';
+import { omit } from 'lodash';
+
+const emptyPixel =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 function Agenda({
   accessors,
@@ -57,16 +63,72 @@ function Agenda({
       const userProps = getters.eventProp(event, start, end, isSelected(event, selected));
 
       let dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
+      const dates = {};
+      if (idx === 0) {
+        dates.day = localizer.format(day, 'dd');
+        dates.dayOfWeek = localizer.format(day, 'ccc');
+        dates.month = localizer.format(day, 'LLL');
+      }
       let first =
         idx === 0 ? (
           <td rowSpan={events.length} className="rbc-agenda-date-cell">
             <Box className="rbc-agenda-td-data">
-              {AgendaDate ? <AgendaDate day={day} label={dateLabel} /> : dateLabel}
+              {AgendaDate ? (
+                <AgendaDate day={day} label={dateLabel} />
+              ) : (
+                <>
+                  <Text strong size="md">
+                    {dates.day}
+                  </Text>{' '}
+                  <Text strong>{dates.month.toUpperCase()}</Text>{' '}
+                  <Text strong>{dates.dayOfWeek.toUpperCase()}</Text>
+                </>
+              )}
             </Box>
           </td>
         ) : (
           false
         );
+
+      const eventIcon = event.originalEvent.icon || event.originalEvent.calendar.icon;
+      const eventImage = event.originalEvent.image;
+
+      const styleData = {
+        isAllDay: event.allDay,
+        bgColor: event.originalEvent.bgColor || event.originalEvent.calendar.bgColor,
+      };
+
+      let root = eventCellStylesRoot(COLORS, styleData);
+      let icon = eventCellStylesIcon(COLORS, styleData);
+      icon = omit(icon, 'img');
+
+      const avatar = {
+        image: eventImage || null,
+        icon: eventIcon ? (
+          <Box style={icon}>
+            <ImageLoader
+              height="12px"
+              imageStyles={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                width: 12,
+                transform: 'translate(-50%, -50%)',
+                filter: 'brightness(0) invert(1)',
+              }}
+              src={eventIcon}
+              forceImage
+            />
+          </Box>
+        ) : null,
+        color: event.originalEvent.bgColor || event.originalEvent.calendar.bgColor,
+      };
+
+      if (event.originalEvent.calendar.isUserCalendar) {
+        avatar.fullName = event.originalEvent.calendar.fullName;
+      } else if (!avatar.image && !avatar.icon) {
+        avatar.image = emptyPixel;
+      }
 
       return (
         <tr key={dayKey + '_' + idx} className={userProps.className} style={userProps.style}>
@@ -80,7 +142,25 @@ function Agenda({
             onDoubleClick={(e) => onDoubleClickEvent && onDoubleClickEvent(event, e)}
           >
             <Box className="rbc-agenda-td-data">
-              {Event ? <Event event={event} title={title} /> : title}
+              {Event ? (
+                <Event event={event} title={title} />
+              ) : (
+                <Box
+                  style={{
+                    ...root,
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingLeft: '4px',
+                    paddingTop: '6px',
+                    paddingBottom: '6px',
+                  }}
+                >
+                  <Avatar mx="auto" size="xs" {...avatar} />
+                  <Text color="primary" role="productive" strong style={{ marginLeft: 4 }}>
+                    {title}
+                  </Text>
+                </Box>
+              )}
             </Box>
           </td>
         </tr>
@@ -108,12 +188,39 @@ function Agenda({
       }
     }
 
-    if (localizer.gt(day, start, 'day')) labelClass = 'rbc-continues-prior';
-    if (localizer.lt(day, end, 'day')) labelClass += ' rbc-continues-after';
+    let prior = false;
+    let after = false;
+    if (localizer.gt(day, start, 'day')) {
+      labelClass = 'rbc-continues-prior';
+      prior = true;
+    }
+    if (localizer.lt(day, end, 'day')) {
+      labelClass += ' rbc-continues-after';
+      after = true;
+    }
+
+    const bgColor = colord(event.originalEvent.bgColor || event.originalEvent.calendar.bgColor)
+      .desaturate(0.2)
+      .alpha(0.2)
+      .toRgbString();
 
     return (
       <span className={labelClass.trim()}>
-        {TimeComponent ? <TimeComponent event={event} day={day} label={label} /> : label}
+        {TimeComponent ? (
+          <TimeComponent event={event} day={day} label={label} />
+        ) : (
+          <Text role="productive" strong>
+            {label}
+            {(prior && !after) || (!prior && after) ? (
+              <Box
+                className="rbc-continues-box"
+                style={event.allDay ? { backgroundColor: bgColor } : null}
+              >
+                {prior ? localizer.messages.end : localizer.messages.init}
+              </Box>
+            ) : null}
+          </Text>
+        )}
       </span>
     );
   };

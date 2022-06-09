@@ -248,25 +248,66 @@ const getAgendaStyles = (theme) => ({
               '.rbc-agenda-td-data': {
                 borderRadius: '4px 0 0 0',
               },
+              '&.rbc-agenda-date-cell': {
+                '+.rbc-agenda-time-cell': {
+                  '+.rbc-agenda-event-cell': {
+                    '.rbc-agenda-td-data': {
+                      borderRadius: '0 4px 0 0',
+                    },
+                  },
+                },
+              },
             },
           },
         },
         td: {
+          height: '0px',
           padding: '0px',
           border: '0px',
+          '.rbc-continues-box': {
+            fontSize: theme.fontSizes[1],
+            padding: '2px 5px',
+            background: theme.colors.uiBackground02,
+            borderRadius: '4px',
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            marginLeft: theme.spacing[2],
+          },
           '.rbc-agenda-td-data': {
             borderColor: theme.colors.ui01 + '!important',
             paddingTop: theme.spacing[2],
+            paddingBottom: theme.spacing[2],
+            paddingLeft: theme.spacing[4],
+            paddingRight: theme.spacing[4],
+            height: '100%',
           },
           '&.rbc-agenda-date-cell': {
             '.rbc-agenda-td-data': {
               paddingLeft: theme.spacing[4],
+              paddingRight: theme.spacing[4],
+            },
+          },
+          '&.rbc-agenda-event-cell': {
+            '.rbc-agenda-td-data': {
+              borderRight: '1px solid',
             },
           },
           '&:first-child': {
-            '.rbc-agenda-td-data': {
-              borderTop: '1px solid',
-              borderLeft: '1px solid',
+            '&.rbc-agenda-date-cell': {
+              '.rbc-agenda-td-data': {
+                borderTop: '1px solid',
+                borderLeft: '1px solid',
+              },
+              '+.rbc-agenda-time-cell': {
+                '.rbc-agenda-td-data': {
+                  borderTop: '1px solid',
+                },
+                '+.rbc-agenda-event-cell': {
+                  '.rbc-agenda-td-data': {
+                    borderTop: '1px solid',
+                  },
+                },
+              },
             },
           },
         },
@@ -275,20 +316,25 @@ const getAgendaStyles = (theme) => ({
       'tbody > tr:last-child': {
         td: {
           borderBottom: '1px solid',
+          borderColor: theme.colors.ui01 + '!important',
         },
       },
       'thead > tr > th': {
         border: '0px',
+        paddingLeft: theme.spacing[4],
         paddingBottom: theme.spacing[2],
+        '&:first-child': {
+          paddingLeft: 0,
+        },
       },
     },
   },
   '.rbc-agenda-time-cell': {
     '.rbc-continues-after:after': {
-      content: '" »"',
+      content: '""',
     },
     '.rbc-continues-prior:before': {
-      content: '"« "',
+      content: '""',
     },
   },
 });

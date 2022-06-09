@@ -61,7 +61,7 @@ export const BigCalendar = forwardRef(
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
     const { availableViews, showToolbar } = useMemo(() => {
-      let views = { month: MonthView, week: WeekView, day: DayView }; // agenda: Agenda
+      let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
       let showToolbar = true;
 
       if (currentView === MONTH_RANGE) {
@@ -138,15 +138,6 @@ export const BigCalendar = forwardRef(
               });
             });
           } else {
-            console.log(
-              Interval.fromDateTimes(
-                DateTime.fromJSDate(dateRange.start),
-                DateTime.fromJSDate(dateRange.end)
-              ).overlaps(
-                Interval.fromDateTimes(DateTime.fromJSDate(ev.start), DateTime.fromJSDate(ev.end))
-              ),
-              ev
-            );
             if (
               Interval.fromDateTimes(
                 DateTime.fromJSDate(dateRange.start),
@@ -289,6 +280,9 @@ BigCalendar.defaultProps = {
     previous: 'Previous',
     next: 'Next',
     showWeekends: 'View weekends',
+    allDay: 'All day',
+    init: 'Init',
+    end: 'End',
   },
 };
 
@@ -307,6 +301,9 @@ BigCalendar.propTypes = {
     previous: PropTypes.string,
     next: PropTypes.string,
     showWeekends: PropTypes.string,
+    allDay: PropTypes.string,
+    init: PropTypes.string,
+    end: PropTypes.string,
   }),
   validRange: PropTypes.shape({
     start: PropTypes.instanceOf(Date),

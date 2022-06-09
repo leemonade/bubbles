@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 export default [
   {
     title: 'Tarea de Computación',
-    allDay: false,
+    allDay: true,
     start: DateTime.fromISO('2021-11-29T11:20:00.000Z').toJSDate(),
     end: DateTime.fromISO('2021-12-28T11:20:00.000Z').toJSDate(),
     originalEvent: {
