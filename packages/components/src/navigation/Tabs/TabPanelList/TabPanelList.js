@@ -12,6 +12,7 @@ export const TabPanelList = ({
   rtl,
   destroyInactiveTabPanel,
   className,
+  tabPanelListStyle,
   forceRender,
   fullHeight,
   children,
@@ -23,7 +24,7 @@ export const TabPanelList = ({
   const activeIndex = tabs.findIndex((tab) => tab.key === activeKey);
 
   return (
-    <Box className={cx(classes.root, className)}>
+    <Box className={cx(classes.root, className)} style={tabPanelListStyle}>
       <Box
         className={cx(classes.content)}
         style={

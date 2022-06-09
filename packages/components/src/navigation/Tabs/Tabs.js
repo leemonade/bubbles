@@ -1,7 +1,7 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isNil, isFunction } from 'lodash';
+import { isFunction, isNil } from 'lodash';
 import { Box } from '../../layout/Box';
 import { PageContainer } from '../../layout/PageContainer';
 import { useMergedState } from './hooks';
@@ -71,6 +71,7 @@ export const Tabs = forwardRef(
       usePaddedLayout,
       panelColor,
       forceRender,
+      tabPanelListStyle,
     },
     ref
   ) => {
@@ -162,6 +163,7 @@ export const Tabs = forwardRef(
           >
             <TabPanelList
               {...sharedProps}
+              tabPanelListStyle={tabPanelListStyle}
               forceRender={forceRender}
               destroyInactiveTabPanel={destroyInactiveTabPanel}
               children={children}
