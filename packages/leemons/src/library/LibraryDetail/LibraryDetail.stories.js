@@ -33,17 +33,17 @@ const Template = ({ children, asset, ...props }) => {
   const [open, setOpen] = useState(true);
   return (
     <Box style={{ display: 'flex', gap: 30, height: 'calc(100vh - 32px)' }}>
-      <Box style={{ width: 360 }}>
+      <Box style={{ position: 'relative', width: 360 }}>
         <LibraryDetail {...props} asset={asset} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
-      <Box style={{ width: 360 }}>
+      <Box style={{ position: 'relative', width: 360 }}>
         <LibraryDetail {...props} asset={AUDIO_ASSET} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
-      <Box style={{ width: 360 }}>
+      <Box style={{ position: 'fixed', right: 0, width: open ? 360 : 0, height: '100%' }}>
         <LibraryDetail
           {...props}
           style={{ width: 360 }}

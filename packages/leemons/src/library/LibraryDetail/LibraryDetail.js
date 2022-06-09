@@ -103,7 +103,7 @@ const LibraryDetail = ({
         </Stack>
       </Stack>
       {toolbarItems?.toggle && (
-        <Box className={cx(classes.lastIcon, { [classes.stickRight]: !showDrawer })}>
+        <Box className={cx(classes.lastIcon, { [classes.stickRight]: !showDrawer && !open })}>
           <ActionButton
             icon={<MoveRightIcon height={20} width={20} />}
             onClick={handleToggle}
