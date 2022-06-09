@@ -238,18 +238,48 @@ const getTimeGridStyles = (theme) => ({
 const getAgendaStyles = (theme) => ({
   '.rbc-agenda-view': {
     'table.rbc-agenda-table': {
-      borderColor: theme.colors.ui04,
+      border: '0px',
 
-      'tbody > tr > td': {},
-      '.rbc-agenda-time-cell': {},
-      'tbody > tr > td + td': {
-        borderColor: theme.colors.ui04,
+      'tbody > tr': {
+        border: '0px',
+        '&:first-child': {
+          td: {
+            '&:first-child': {
+              '.rbc-agenda-td-data': {
+                borderRadius: '4px 0 0 0',
+              },
+            },
+          },
+        },
+        td: {
+          padding: '0px',
+          border: '0px',
+          '.rbc-agenda-td-data': {
+            borderColor: theme.colors.ui01 + '!important',
+            paddingTop: theme.spacing[2],
+          },
+          '&.rbc-agenda-date-cell': {
+            '.rbc-agenda-td-data': {
+              paddingLeft: theme.spacing[4],
+            },
+          },
+          '&:first-child': {
+            '.rbc-agenda-td-data': {
+              borderTop: '1px solid',
+              borderLeft: '1px solid',
+            },
+          },
+        },
       },
-      'tbody > tr + tr': {
-        borderColor: theme.colors.ui04,
+      'tbody > tr:first-child': {},
+      'tbody > tr:last-child': {
+        td: {
+          borderBottom: '1px solid',
+        },
       },
       'thead > tr > th': {
-        borderColor: theme.colors.ui04,
+        border: '0px',
+        paddingBottom: theme.spacing[2],
       },
     },
   },
