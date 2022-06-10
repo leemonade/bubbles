@@ -12,6 +12,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       display: 'flex',
       position: 'relative',
       overflow: 'hidden',
+      width: '100%',
     },
     table: {
       width: '100%',
@@ -70,6 +71,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       boxShadow:
         overFlowLeft &&
         '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
+      transition: 'box-shadow 0.2s ease-in-out',
     },
     bodyCell: {
       '&:first-of-type': {
