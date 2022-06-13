@@ -200,9 +200,7 @@ const ScoresBasicTable = ({
                 />
               ),
               style:
-                position === 'first'
-                  ? { boxShadow: 'inset 10px 0px 6px -6px rgba(0,0,0,0.10)' }
-                  : position === 'last'
+                position === 'last'
                   ? { boxShadow: 'inset -10px 0px 6px -6px rgba(0,0,0,0.10)' }
                   : { boxShadow: 'none' },
               Cell: ({ value, row, column }) => {

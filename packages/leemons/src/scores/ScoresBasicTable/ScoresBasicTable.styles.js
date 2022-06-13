@@ -61,7 +61,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       bottom: -6,
       boxShadow:
         overFlowLeft &&
-        '32px 0px 32px rgba(35, 43, 60, 0.05), 100px 0px 60px rgba(51, 63, 86, 0.03)',
+        '16px 0px 16px rgba(35, 43, 60, 0.05), 50px 0px 30px rgba(51, 63, 86, 0.03)',
       transition: 'box-shadow 0.2s ease-in-out',
     },
     bodyCell: {
@@ -93,7 +93,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       flexDirection: 'column',
       boxShadow:
         overFlowRight &&
-        '-32px 0px 32px rgba(35, 43, 60, 0.05), -100px 0px 60px rgba(51, 63, 86, 0.03)',
+        '-16px 0px 16px rgba(35, 43, 60, 0.05), -50px 0px 30px rgba(51, 63, 86, 0.03)',
       transition: 'box-shadow 0.2s ease-in-out',
     },
     rightBodyHeader: {
