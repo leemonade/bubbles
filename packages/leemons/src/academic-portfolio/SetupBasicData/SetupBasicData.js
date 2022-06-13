@@ -6,7 +6,9 @@ import {
   Box,
   Button,
   Checkbox,
+  ColorInput,
   ContextContainer,
+  InputWrapper,
   NumberInput,
   Paragraph,
   Stack,
@@ -43,6 +45,7 @@ const SetupBasicData = ({
   sharedData,
   setSharedData,
   editable,
+  ImagePicker,
   ...props
 }) => {
   const { classes, cx } = SetupBasicDataStyles({}, { name: 'APBasicData' });
@@ -55,6 +58,7 @@ const SetupBasicData = ({
   const defaultValues = {
     name: '',
     abbreviation: '',
+    color: '',
     credits: 0,
     maxGroupAbbreviation: 0,
     maxGroupAbbreviationIsOnlyNumbers: false,
@@ -134,6 +138,26 @@ const SetupBasicData = ({
                 />
               </Box>
             </ContextContainer>
+
+            <Box>
+              <Controller
+                control={control}
+                name="image"
+                render={({ field }) => (
+                  <InputWrapper label={labels.image}>
+                    <ImagePicker {...field} />
+                  </InputWrapper>
+                )}
+              />
+            </Box>
+
+            <Box>
+              <Controller
+                control={control}
+                name="color"
+                render={({ field }) => <ColorInput label={labels.color} {...field} />}
+              />
+            </Box>
           </ContextContainer>
           {evaluationSystemSelect ? (
             <ContextContainer title={labels.evaluationSystem}>
