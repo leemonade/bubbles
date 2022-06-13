@@ -69,10 +69,10 @@ const ScoresBasicTable = ({
       const activity = studentActivities.find((studentActivity) => studentActivity?.id === id);
       activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
     });
-    const expandedActivities = expandedData.value.find(
+    const expandedActivities = expandedData?.value.find(
       (student) => student.id === studentId
     )?.activities;
-    expandedData.activities.forEach(({ id }) => {
+    expandedData?.activities?.forEach(({ id }) => {
       const activity = expandedActivities.find((expandedActivity) => expandedActivity?.id === id);
       activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
     });
