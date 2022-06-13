@@ -3,7 +3,7 @@ import { Box } from '../../layout';
 import { Text } from '../../typography';
 import { COLORS } from '../../theme.tokens';
 import { DrawerPush } from './DrawerPush';
-import { DRAWER_PUSH_DEFAULT_PROPS } from './DrawerPush.constants';
+import { DRAWER_PUSH_DEFAULT_PROPS, DRAWER_PUSH_DIRECTIONS } from './DrawerPush.constants';
 import { BookLaptopIcon, MoveLeftIcon, MoveRightIcon } from '@bubbles-ui/icons/outline';
 import mdx from './DrawerPush.mdx';
 
@@ -19,26 +19,39 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    direction: { control: { type: 'select' }, options: DRAWER_PUSH_DIRECTIONS },
+  },
 };
 
-const Template = ({ opened, title, drawerContent, ...props }) => {
+const Template = ({ opened, title, direction, drawerContent, ...props }) => {
   const [isOpened, setIsOpened] = React.useState(false);
 
   useEffect(() => {
     setIsOpened(opened);
   }, [opened]);
 
-  return (
-    <Box style={{ height: 'calc(100vh - 32px)', display: 'flex' }}>
-      <DrawerPush
-        opened={isOpened}
-        {...props}
+  const isHorizontal = direction === 'ltr' || direction === 'rtl';
+  const isLeftToRight = direction === 'ltr';
+  const isVertical = direction === 'ttb' || direction === 'btt';
+  const isTopToBottom = direction === 'ttb';
+
+  const drawerPush = (
+    <DrawerPush
+      opened={isOpened}
+      direction={direction}
+      {...props}
+      style={{
+        borderRight: isHorizontal && isLeftToRight && isOpened && `1px solid ${COLORS.ui01}`,
+        borderLeft: isHorizontal && !isLeftToRight && isOpened && `1px solid ${COLORS.ui01}`,
+        borderBottom: isVertical && isTopToBottom && isOpened && `1px solid ${COLORS.ui01}`,
+        borderTop: isVertical && !isTopToBottom && isOpened && `1px solid ${COLORS.ui01}`,
+      }}
+    >
+      <Box
         style={{
-          padding: isOpened && 32,
-          paddingLeft: isOpened && 48,
-          borderRight: isOpened && `1px solid ${COLORS.ui01}`,
-          width: isOpened ? 300 : 0,
+          padding: 32,
+          paddingLeft: 48,
         }}
       >
         <Box
@@ -75,7 +88,20 @@ const Template = ({ opened, title, drawerContent, ...props }) => {
         >
           Search period
         </Text>
-      </DrawerPush>
+      </Box>
+    </DrawerPush>
+  );
+
+  return (
+    <Box
+      style={{
+        height: 'calc(100vh - 32px)',
+        display: 'flex',
+        flexDirection: isVertical ? 'column' : 'row',
+      }}
+    >
+      {isHorizontal && isLeftToRight && drawerPush}
+      {isVertical && isTopToBottom && drawerPush}
       <Box style={{ height: '100%', flex: 1, backgroundColor: COLORS.interactive03, padding: 32 }}>
         <Box
           style={{ display: 'flex', alignItems: 'center', gap: 16, cursor: 'pointer' }}
@@ -91,6 +117,8 @@ const Template = ({ opened, title, drawerContent, ...props }) => {
           </Text>
         </Box>
       </Box>
+      {isHorizontal && !isLeftToRight && drawerPush}
+      {isVertical && !isTopToBottom && drawerPush}
     </Box>
   );
 };
