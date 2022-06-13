@@ -10,20 +10,25 @@ import {
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
 import { isFunction } from 'lodash';
+import { motion } from 'framer-motion';
 
 const ScoresBasicTable = ({
   grades,
   activities,
   value: _value,
   labels,
+  expandedData,
+  expandedColumn: _expandedColumn,
   locale,
   onChange,
   onDataChange,
+  onColumnExpand,
   ...props
 }) => {
-  const { ref: tableRef, width } = useElementSize(null);
+  const { ref: tableRef } = useElementSize(null);
   const [value, setValue] = useState(_value);
   const useNumbers = !grades.some((grade) => grade.letter);
+  const [expandedColumn, setExpandedColumn] = useState(_expandedColumn);
   const [overFlowLeft, setOverFlowLeft] = useState(false);
   const [overFlowRight, setOverFlowRight] = useState(false);
 
@@ -31,6 +36,11 @@ const ScoresBasicTable = ({
     { overFlowLeft, overFlowRight },
     { name: 'ScoresBasicTable' }
   );
+
+  const onColumnExpandHandler = (columnId) => {
+    isFunction(onColumnExpand) && onColumnExpand(columnId);
+    setExpandedColumn(columnId);
+  };
 
   const onScrollHandler = () => {
     const { scrollWidth, clientWidth, scrollLeft } = tableRef.current;
@@ -40,20 +50,30 @@ const ScoresBasicTable = ({
     else setOverFlowRight(true);
   };
 
-  const getCompletionPercentage = (activityId) => {
-    const studentsWithActivity = value.filter((student) => {
+  const getCompletionPercentage = (activityId, isExpanded) => {
+    const activities = isExpanded ? expandedData.value : value;
+    const studentsWithActivity = activities.filter((student) => {
       return student.activities.find((activity) => activity?.id === activityId);
     });
-    const completionPercentage = Math.trunc((studentsWithActivity.length / value.length) * 100);
+    const completionPercentage = Math.trunc(
+      (studentsWithActivity.length / activities.length) * 100
+    );
     return `${completionPercentage}%`;
   };
 
   const findGradeLetter = (score) => grades.find(({ number }) => number === score)?.letter;
 
-  const getActivities = (studentActivities) => {
+  const getActivities = (studentActivities, studentId) => {
     const activitiesObject = {};
     activities.forEach(({ id }) => {
       const activity = studentActivities.find((studentActivity) => studentActivity?.id === id);
+      activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
+    });
+    const expandedActivities = expandedData.value.find(
+      (student) => student.id === studentId
+    )?.activities;
+    expandedData.activities.forEach(({ id }) => {
+      const activity = expandedActivities.find((expandedActivity) => expandedActivity?.id === id);
       activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
     });
     return activitiesObject;
@@ -138,6 +158,9 @@ const ScoresBasicTable = ({
             {...activity}
             completionPercentage={completionPercentage}
             locale={locale}
+            isExpandable={activity.expandable}
+            isExpanded={expandedColumn === activity.id}
+            onColumnExpand={onColumnExpandHandler}
           />
         ),
         Cell: ({ value, row, column }) => {
@@ -154,6 +177,53 @@ const ScoresBasicTable = ({
           );
         },
       });
+      if (activity.expandable && expandedColumn === activity.id) {
+        columns.push(
+          ...expandedData.activities.map((expandedActivity, index) => {
+            const position =
+              index === 0
+                ? 'first'
+                : index === expandedData.activities.length - 1
+                ? 'last'
+                : 'between';
+            const completionPercentage = getCompletionPercentage(expandedActivity.id, true);
+            return {
+              accessor: expandedActivity.id,
+              width: 148,
+              Header: () => (
+                <ActivityHeader
+                  {...expandedActivity}
+                  completionPercentage={completionPercentage}
+                  locale={locale}
+                  isExpanded={true}
+                  position={position}
+                />
+              ),
+              style:
+                position === 'first'
+                  ? { boxShadow: 'inset 10px 0px 6px -6px rgba(0,0,0,0.10)' }
+                  : position === 'last'
+                  ? { boxShadow: 'inset -10px 0px 6px -6px rgba(0,0,0,0.10)' }
+                  : { boxShadow: 'none' },
+              Cell: ({ value, row, column }) => {
+                return (
+                  <ScoreCell
+                    value={value}
+                    noActivity={labels.noActivity}
+                    grades={grades}
+                    row={row}
+                    column={column}
+                    isExpanded={true}
+                    setValue={setValue}
+                    onDataChange={onDataChange}
+                    position={position}
+                  />
+                );
+              },
+            };
+          })
+        );
+      }
     });
     return columns;
   };
@@ -164,14 +234,20 @@ const ScoresBasicTable = ({
       data.push({
         student: { name, surname, image },
         id,
-        ...getActivities(activities),
+        ...getActivities(activities, id),
       });
     });
     return data;
   };
 
-  const columns = useMemo(() => getColumns(), [value, activities, labels, locale, useNumbers]);
-  const data = useMemo(() => getData(), [value, activities, labels, locale, useNumbers]);
+  const columns = useMemo(
+    () => getColumns(),
+    [value, activities, labels, locale, useNumbers, expandedData, expandedColumn]
+  );
+  const data = useMemo(
+    () => getData(),
+    [value, activities, labels, locale, useNumbers, expandedData, expandedColumn]
+  );
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
     {
       columns,
@@ -199,6 +275,16 @@ const ScoresBasicTable = ({
     }
   }, [tableRef.current?.scrollWidth]);
 
+  useEffect(() => {
+    setExpandedColumn(_expandedColumn);
+  }, [_expandedColumn]);
+
+  const spring = {
+    type: 'spring',
+    stiffness: 100,
+    damping: 18,
+  };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.shadowBox} />
@@ -207,10 +293,15 @@ const ScoresBasicTable = ({
           <Box className={classes.tableHeader}>
             {headerGroups.map((headerGroup) => (
               <Box {...headerGroup.getHeaderGroupProps()} className={classes.tableHeaderRow}>
-                {headerGroup.headers.map((column, index) => (
-                  <Box {...column.getHeaderProps()} className={classes.tableHeaderCell}>
+                {headerGroup.headers.map((column) => (
+                  <motion.div
+                    layout
+                    transition={spring}
+                    {...column.getHeaderProps([{ style: column.style }])}
+                    className={classes.tableHeaderCell}
+                  >
                     {column.render('Header')}
-                  </Box>
+                  </motion.div>
                 ))}
               </Box>
             ))}
@@ -220,13 +311,18 @@ const ScoresBasicTable = ({
               prepareRow(row);
               return (
                 <Box {...row.getRowProps()} className={classes.bodyRow}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <Box {...cell.getCellProps()} className={classes.bodyCell}>
-                        {cell.render('Cell')}
-                      </Box>
-                    );
-                  })}
+                  {row.cells.map((cell) => (
+                    <motion.div
+                      layout
+                      transition={spring}
+                      {...cell.getCellProps([
+                        { style: { ...cell.column.style, background: 'white' } },
+                      ])}
+                      className={classes.bodyCell}
+                    >
+                      {cell.render('Cell')}
+                    </motion.div>
+                  ))}
                 </Box>
               );
             })}

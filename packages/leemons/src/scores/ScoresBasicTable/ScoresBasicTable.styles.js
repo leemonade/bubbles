@@ -39,17 +39,8 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
     tableHeader: {},
     tableHeaderRow: {},
     tableHeaderCell: {
-      paddingTop: 48,
       '&:first-of-type': {
         maxWidth: 296,
-      },
-      '&:not(:first-of-type)': {
-        border: '1px solid transparent',
-        cursor: 'pointer',
-        '&:hover': {
-          borderColor: theme.colors.interactive01d,
-          backgroundColor: '#F1F7FF',
-        },
       },
       backgroundColor: theme.colors.mainWhite,
     },
@@ -75,6 +66,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       '&:first-of-type': {
         maxWidth: 296,
       },
+      transition: 'margin-left 0.2s ease-in-out',
     },
     students: {
       padding: 16,

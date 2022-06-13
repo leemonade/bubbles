@@ -6,15 +6,48 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const ActivityHeaderStyles = createStyles((theme, {}) => {
-  return {
-    root: {
-      padding: 16,
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 4,
-      alignItems: 'center',
-    },
-  };
-});
+export const ActivityHeaderStyles = createStyles(
+  (theme, { hovered, isExpandable, isExpanded, position }) => {
+    const isFirst = position === 'first';
+    const isLast = position === 'last';
+    const isBetween = position === 'between';
+
+    return {
+      root: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: isExpandable && (hovered || isExpanded) ? 'space-between' : 'center',
+        backgroundColor: isExpanded && theme.colors.interactive01v1,
+        border: `1px solid ${isExpanded ? theme.colors.interactive01d : 'transparent'}`,
+        borderRightColor: (isFirst || isBetween) && theme.colors.interactive01v1,
+        borderLeftColor: (isLast || isBetween) && theme.colors.interactive01v1,
+        '&:hover': {
+          border: `1px solid ${theme.colors.interactive01d}`,
+          borderRightColor: (isFirst || isBetween) && theme.colors.interactive01v1,
+          borderLeftColor: (isLast || isBetween) && theme.colors.interactive01v1,
+          backgroundColor: theme.colors.interactive01v1,
+        },
+      },
+      header: {
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
+        alignItems: 'center',
+        paddingTop: 64,
+      },
+      expandedHeader: {
+        marginLeft: 300,
+      },
+      expandBox: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.colors.interactive01d,
+        color: theme.colors.mainWhite,
+        paddingInline: 6,
+        cursor: 'pointer',
+      },
+    };
+  }
+);

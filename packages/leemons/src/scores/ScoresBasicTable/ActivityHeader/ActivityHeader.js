@@ -1,29 +1,62 @@
 import React from 'react';
-import { Box, Text, TextClamp } from '@bubbles-ui/components';
+import { Box, Text, TextClamp, useHover } from '@bubbles-ui/components';
 import { ActivityHeaderStyles } from './ActivityHeader.styles';
+import { MoveLeftIcon, MoveRightIcon } from '@bubbles-ui/icons/outline';
 import {
   ACTIVIY_HEADER_DEFAULT_PROPS,
   ACTIVIY_HEADER_PROP_TYPES,
 } from './ActivityHeader.constants';
+import { isFunction } from 'lodash';
 
-const ActivityHeader = ({ id, name, deadline, completionPercentage, locale }) => {
-  const { classes, cx } = ActivityHeaderStyles({}, { name: 'ActivityHeader' });
+const ActivityHeader = ({
+  id,
+  name,
+  deadline,
+  completionPercentage,
+  isExpandable,
+  isExpanded,
+  locale,
+  onColumnExpand,
+  position,
+}) => {
+  const { ref, hovered } = useHover();
+
+  const onColumnExpandHandler = () => {
+    if (isExpanded) {
+      isFunction(onColumnExpand) && onColumnExpand(null);
+      return;
+    }
+    isFunction(onColumnExpand) && onColumnExpand(id);
+  };
+
+  const { classes, cx } = ActivityHeaderStyles(
+    { hovered, isExpandable, isExpanded, position },
+    { name: 'ActivityHeader' }
+  );
   return (
-    <Box className={classes.root}>
-      <Box>
-        <TextClamp lines={1}>
-          <Text role="productive" color="primary" stronger>
-            {name}
-          </Text>
-        </TextClamp>
+    <Box ref={ref} className={classes.root}>
+      <Box className={classes.header}>
+        <Box>
+          <TextClamp lines={1}>
+            <Text role="productive" color="primary" stronger>
+              {name}
+            </Text>
+          </TextClamp>
+        </Box>
+        <Box>
+          <TextClamp lines={1}>
+            <Text role="productive" color="primary" size="xs">
+              {`${new Date(deadline).toLocaleDateString(locale)} - ${completionPercentage}`}
+            </Text>
+          </TextClamp>
+        </Box>
       </Box>
-      <Box>
-        <TextClamp lines={1}>
-          <Text role="productive" color="primary" size="xs">
-            {`${new Date(deadline).toLocaleDateString(locale)} - ${completionPercentage}`}
-          </Text>
-        </TextClamp>
-      </Box>
+      {isExpandable && (hovered || isExpanded) && (
+        <Box className={classes.expandBox} onClick={onColumnExpandHandler}>
+          {isExpanded && <MoveLeftIcon width={16} height={16} />}
+          {!isExpanded && <MoveRightIcon width={16} height={16} />}
+        </Box>
+      )}
     </Box>
   );
 };
