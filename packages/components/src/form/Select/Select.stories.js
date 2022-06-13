@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '../../layout';
-import { Select, SELECT_SIZES, SELECT_ORIENTATIONS, SELECT_POSITIONS } from './Select';
+import { Select } from './Select';
+import { SELECT_SIZES, SELECT_ORIENTATIONS, SELECT_VARIANTS } from './Select.constants';
 import mdx from './Select.mdx';
 
 export default {
@@ -18,6 +19,7 @@ export default {
   argTypes: {
     size: { options: SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: SELECT_ORIENTATIONS, control: { type: 'select' } },
+    variant: { options: SELECT_VARIANTS, control: { type: 'select' } },
     onChange: { action: 'Value changed' },
   },
 };

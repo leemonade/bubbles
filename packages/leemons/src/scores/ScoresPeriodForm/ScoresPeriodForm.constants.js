@@ -16,6 +16,7 @@ export const SCORES_PERIOD_FORM_DEFAULT_PROPS = {
     validateStartDate: '',
     validateEndDate: '',
   },
+  fields: [],
 };
 export const SCORES_PERIOD_FORM_PROP_TYPES = {
   value: PropTypes.shape({

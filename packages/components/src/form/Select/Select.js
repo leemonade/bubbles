@@ -1,16 +1,13 @@
 import React, { forwardRef, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
 import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
+import { SELECT_PROP_TYPES, SELECT_DEFAULT_PROPS } from './Select.constants';
 import { useId } from '@mantine/hooks';
-import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
+import { InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 import { Paragraph } from '../../typography';
-
-export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 const Select = forwardRef(
   (
@@ -86,7 +83,7 @@ const Select = forwardRef(
     // STYLES
 
     const { classes, cx } = SelectStyles(
-      { size, rightEvents: isClearable && showClear },
+      { size, rightEvents: isClearable && showClear, variant },
       { name: 'Select' }
     );
 
@@ -142,32 +139,7 @@ const Select = forwardRef(
   }
 );
 
-Select.defaultProps = {
-  size: 'sm',
-  orientation: 'vertical',
-  autoComplete: 'off',
-  readOnly: false,
-  variant: 'default',
-};
-
-Select.propTypes = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
-  data: PropTypes.any,
-  required: PropTypes.bool,
-  size: PropTypes.oneOf(SELECT_SIZES),
-  orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  searchable: PropTypes.bool,
-  clearable: PropTypes.string,
-  nothingFound: PropTypes.any,
-  disabled: PropTypes.bool,
-  onDropdownOpen: PropTypes.func,
-  onDropdownClose: PropTypes.func,
-  style: PropTypes.object,
-  autoComplete: PropTypes.string,
-  readOnly: PropTypes.bool,
-};
+Select.defaultProps = SELECT_DEFAULT_PROPS;
+Select.propTypes = SELECT_PROP_TYPES;
 
 export { Select };
