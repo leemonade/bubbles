@@ -21,6 +21,10 @@ export const SCORES_BASIC_TABLE_DEFAULT_PROPS = {
     gradingTasks: '',
     attendance: '',
   },
+  expandedData: {
+    activities: [],
+    value: [],
+  },
 };
 export const SCORES_BASIC_TABLE_PROP_TYPES = {
   grades: PropTypes.arrayOf(
@@ -46,7 +50,7 @@ export const SCORES_BASIC_TABLE_PROP_TYPES = {
         deadline: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
       })
     ),
-    value: SCORES_BASIC_TABLE_VALUE,
+    value: PropTypes.arrayOf(SCORES_BASIC_TABLE_VALUE),
   }),
   expandedColumn: PropTypes.number,
   labels: PropTypes.shape({
