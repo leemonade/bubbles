@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
+import { MultiSelect } from './MultiSelect';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_SIZES,
-  MultiSelect,
-} from './MultiSelect';
+} from './MultiSelect.constants';
 import mdx from './MultiSelect.mdx';
 import { Button } from '../Button';
+import { UserDisplayItem } from '../../informative';
 
 export default {
   title: 'Molecules/Form/MultiSelect',
@@ -27,7 +28,11 @@ export default {
   },
 };
 
-const Template = ({ children, data, ...props }) => {
+const Template = ({ children, data, useValueComponent, ...props }) => {
+  const CustomValueComponent = forwardRef(({ label }, ref) => {
+    return <UserDisplayItem name={label} />;
+  });
+
   const [state, setState] = useState([]);
   const [value, setValue] = useState([]);
   return (
@@ -39,7 +44,7 @@ const Template = ({ children, data, ...props }) => {
         data={[...data, ...state]}
         getCreateLabel={(query) => `+ Create ${query}`}
         onCreate={(q) => setState([...state, q])}
-        maxSelectedValues={1}
+        valueComponent={useValueComponent ? CustomValueComponent : undefined}
       >
         {children}
       </MultiSelect>
@@ -52,6 +57,8 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...MULTI_SELECT_DEFAULT_PROPS,
+  useValueComponent: false,
+  maxSelectedValues: 0,
   label: 'Label for select',
   placeholder: 'Select one',
   description: 'Optional descriptive text for this select field ',

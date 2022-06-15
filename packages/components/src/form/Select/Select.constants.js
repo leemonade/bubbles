@@ -23,6 +23,8 @@ export const SELECT_PROP_TYPES = {
   variant: PropTypes.oneOf(SELECT_VARIANTS),
   orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  itemComponent: PropTypes.node,
+  valueComponent: PropTypes.node,
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,

@@ -8,6 +8,7 @@ import { InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 import { Paragraph } from '../../typography';
+import { MultiSelect } from '../MultiSelect';
 
 const Select = forwardRef(
   (
@@ -19,6 +20,7 @@ const Select = forwardRef(
       clearable,
       onChange,
       itemComponent,
+      valueComponent,
       onBlur,
       value: _value,
       defaultValue,
@@ -87,7 +89,16 @@ const Select = forwardRef(
       { name: 'Select' }
     );
 
-    return (
+    return valueComponent ? (
+      <MultiSelect
+        data={data}
+        value={[value]}
+        onChange={handleChange}
+        valueComponent={valueComponent}
+        multiple={false}
+        clearable={clearable}
+      ></MultiSelect>
+    ) : (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
         {readOnly ? (
           <Paragraph clean>{dataValue}</Paragraph>
