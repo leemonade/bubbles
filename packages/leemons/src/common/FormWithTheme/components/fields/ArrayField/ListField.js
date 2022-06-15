@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextEditorInput } from '@bubbles-ui/editors';
-import { ListInput, ListItem } from '@bubbles-ui/components';
-import { Box } from '@bubbles-ui/components/src/layout/Box';
+import { Box, ListInput, ListItem } from '@bubbles-ui/components';
 import { map } from 'lodash';
 
 const ItemValueRender = ({ item }) => {
