@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, useMemo, useRef } from 'react';
 import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
@@ -15,13 +15,15 @@ import {
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
 
-const GetValueComponent = forwardRef(({ others: { Component, classNames, ...others } }, ref) => {
-  return (
-    <Box ref={ref} {...others}>
-      <Component {...others} />
-    </Box>
-  );
-});
+const GetValueComponent = forwardRef(
+  ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
+    return (
+      <Box ref={ref} {...others}>
+        <Component {...others} />
+      </Box>
+    );
+  }
+);
 
 const MultiSelect = forwardRef(
   (
@@ -51,6 +53,7 @@ const MultiSelect = forwardRef(
       ? orientationProp
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
+    const multiSelectRef = useRef();
     if (!multiple) maxSelectedValues = 3;
 
     // ······················································
@@ -61,6 +64,8 @@ const MultiSelect = forwardRef(
       if (!multiple && isFunction(onChange)) {
         const selectedValue = ev.pop();
         onChange(selectedValue ? [selectedValue] : []);
+        multiSelectRef.current.blur();
+        multiSelectRef.current.focus();
         return;
       }
       if (isFunction(onChange)) {
@@ -123,7 +128,7 @@ const MultiSelect = forwardRef(
             {show ? (
               <MantineMultiSelect
                 {...props}
-                ref={ref}
+                ref={multiSelectRef}
                 size={size}
                 autoComplete="off"
                 onChange={handleChange}

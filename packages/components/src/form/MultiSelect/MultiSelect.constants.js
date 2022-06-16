@@ -28,8 +28,6 @@ export const MULTI_SELECT_DEFAULT_PROPS = {
 
 export const MULTI_SELECT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
-  data: PropTypes.arrayOf(PropTypes.string),
-  value: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   data: PropTypes.any,
