@@ -36,6 +36,7 @@ const MultiSelect = forwardRef(
       orientation: orientationProp,
       dropdownPosition,
       placeholder,
+      value,
       readOnly,
       error,
       clearable,
@@ -59,12 +60,12 @@ const MultiSelect = forwardRef(
 
     // ······················································
     // HANDLERS
-    const showClear = isArray(props.value) && props.value.length;
+    const showClear = multiple ? isArray(value) && !!value.length : !!value;
 
     const handleChange = (ev) => {
       if (!multiple && isFunction(onChange)) {
         const selectedValue = ev.pop();
-        onChange(selectedValue ? [selectedValue] : []);
+        onChange(selectedValue);
         multiSelectRef.current.blur();
         multiSelectRef.current.focus();
         return;
@@ -75,7 +76,7 @@ const MultiSelect = forwardRef(
     };
 
     const handleClear = () => {
-      handleChange([]);
+      handleChange(multiple ? [] : [undefined]);
     };
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
@@ -130,6 +131,7 @@ const MultiSelect = forwardRef(
               <MantineMultiSelect
                 ref={multiSelectRef}
                 size={size}
+                value={multiple ? value : [value]}
                 autoComplete="off"
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
