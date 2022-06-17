@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Controller, useForm } from 'react-hook-form';
 import { capitalize, isArray, isFunction, isObject, isString, trim } from 'lodash';
 import {
@@ -20,8 +19,8 @@ import { AddIcon } from '@bubbles-ui/icons/outline';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
 import {
   ADMIN_PAGE_HEADER_BUTTONS as BUTTONS,
-  ADMIN_PAGE_HEADER_PROP_TYPES,
   ADMIN_PAGE_HEADER_DEFAULT_PROPS,
+  ADMIN_PAGE_HEADER_PROP_TYPES,
 } from './AdminPageHeader.constants';
 
 const AdminPageHeader = ({
@@ -158,9 +157,11 @@ const AdminPageHeader = ({
               {/* Header */}
               {!editMode && values && values.title && (
                 <ContentLegible>
-                  <Title order={isTeacher ? 2 : 1} className={classes.title}>
-                    {values.title}
-                  </Title>
+                  <Title
+                    order={isTeacher ? 2 : 1}
+                    className={classes.title}
+                    dangerouslySetInnerHTML={{ __html: values.title }}
+                  />
                 </ContentLegible>
               )}
               {editMode && (
