@@ -4,6 +4,7 @@
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "types/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "repository": {
@@ -15,7 +16,8 @@
   "files": [
     "lib/**/*",
     "es/**/*",
-    "umd/**/*"
+    "umd/**/*",
+    "types/**/*"
   ],
   "keywords": [
     "react",
@@ -30,12 +32,21 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
+    "publish": "npm publish",
+    "build": "run-s -cs build:clean build:lib build:fix types",
+    "build:no-types": "run-s -cs build:clean build:lib build:fix",
+    "build:clean": "rimraf es lib umd esm cjs storybook-static build",
+    "build:lib": "node scripts/build.js",
+    "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
     "start": "yarn storybook",
     "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
     "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9003",
-    "clean": "rimraf es lib umd esm cjs storybook-static build"
+    "types": "run-s -cs types:clean types:generate types:fix",
+    "types:clean": "rimraf types _types",
+    "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
+    "types:fix": "mv _types types && rimraf _types types/**/mocks"
   },
   "dependencies": {
     "@leemonade/rjsf-core": "^3.0.0",

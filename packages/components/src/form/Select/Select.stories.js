@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
+import { UserDisplayItem } from '../..';
 import { Box } from '../../layout';
 import { Select } from './Select';
 import { SELECT_SIZES, SELECT_ORIENTATIONS, SELECT_VARIANTS } from './Select.constants';
@@ -24,7 +25,11 @@ export default {
   },
 };
 
-const Template = ({ value: valueProp, onChange, ...props }) => {
+const Template = ({ value: valueProp, useValueComponent, onChange, ...props }) => {
+  const CustomValueComponent = forwardRef(({ label }, ref) => {
+    return <UserDisplayItem name={label} />;
+  });
+
   const [value, setValue] = React.useState(valueProp);
   return (
     <Box>
@@ -35,6 +40,7 @@ const Template = ({ value: valueProp, onChange, ...props }) => {
           setValue(e);
           onChange(e);
         }}
+        valueComponent={useValueComponent ? CustomValueComponent : undefined}
       />
     </Box>
   );
@@ -57,6 +63,7 @@ Playground.args = {
   clearable: 'Clear select field',
   error: 'Descriptive text for error ',
   value: 'Carol Miller',
+  useValueComponent: false,
   data: [
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
