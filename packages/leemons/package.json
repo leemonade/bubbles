@@ -36,6 +36,7 @@
     "version:patch": "npm version patch",
     "publish": "npm publish",
     "build": "run-s -cs build:clean build:lib build:fix types",
+    "build:no-types": "run-s -cs build:clean build:lib build:fix",
     "build:clean": "rimraf es lib umd esm cjs storybook-static build",
     "build:lib": "node scripts/build.js",
     "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
