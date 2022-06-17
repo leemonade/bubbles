@@ -31,7 +31,7 @@ const Template = ({ value, onChange: onChangeAction, ...props }) => {
   const { control, reset } = useForm({ defaultValues });
 
   return (
-    <ContextContainer divided>
+    <ContextContainer divided style={{ width: '140px' }}>
       <Controller
         name="date"
         control={control}

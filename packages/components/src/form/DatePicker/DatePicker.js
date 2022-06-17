@@ -94,12 +94,12 @@ const DatePicker = forwardRef(
   ) => {
     const uuid = useId();
     const [currentLocale, setCurrentLocale] = useState(locale);
-    const { classes } = DatePickerStyles({ size });
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
     const compProps = range ? { amountOfMonths: 2 } : {};
     const [r, setR] = useState();
     const [date, setDate] = useState(userValue);
+    const { classes } = DatePickerStyles({ size, date, range });
 
     function render() {
       setR(new Date().getTime());

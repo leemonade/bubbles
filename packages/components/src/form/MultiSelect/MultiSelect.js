@@ -35,6 +35,7 @@ const MultiSelect = forwardRef(
       size: sizeProp,
       orientation: orientationProp,
       dropdownPosition,
+      placeholder,
       readOnly,
       error,
       clearable,
@@ -127,12 +128,12 @@ const MultiSelect = forwardRef(
           <>
             {show ? (
               <MantineMultiSelect
-                {...props}
                 ref={multiSelectRef}
                 size={size}
                 autoComplete="off"
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
+                placeholder={placeholder}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (
@@ -156,6 +157,7 @@ const MultiSelect = forwardRef(
                 }
                 error={!isEmpty(error)}
                 classNames={classes}
+                {...props}
               />
             ) : null}
           </>
