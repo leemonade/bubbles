@@ -34,6 +34,7 @@ const LibraryCardCover = ({
   isNew,
   role,
   badge,
+  hideDashboardIcons,
   ...props
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -133,7 +134,7 @@ const LibraryCardCover = ({
           />
         </Box>
       )}
-      {dashboard && (
+      {dashboard && !hideDashboardIcons && (
         <>
           <IconButton
             icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
