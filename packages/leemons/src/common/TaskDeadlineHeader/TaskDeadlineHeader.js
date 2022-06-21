@@ -18,8 +18,14 @@ const TaskDeadlineHeader = ({
   deadline,
   locale,
   closed,
+  archived,
+  disableClose,
+  disableArchive,
+  hideClose,
+  hideArchive,
   onDeadlineChange,
   onCloseTask,
+  onArchiveTask,
   styles,
   className,
   ...props
@@ -46,6 +52,10 @@ const TaskDeadlineHeader = ({
 
   const onCloseTaskHandler = (value) => {
     isFunction(onCloseTask) && onCloseTask(value);
+  };
+
+  const onArchiveTaskHandler = (value) => {
+    isFunction(onArchiveTask) && onArchiveTask(value);
   };
 
   const addDays = (days) => {
@@ -111,12 +121,25 @@ const TaskDeadlineHeader = ({
           </Button>
         </Box>
         <Box className={classes.deadlineSwitch}>
-          <Switch
-            size="md"
-            label={labels.closeTask}
-            onChange={onCloseTaskHandler}
-            checked={closed}
-          />
+          {!hideClose && (
+            <Switch
+              size="md"
+              label={labels.closeTask}
+              onChange={onCloseTaskHandler}
+              disabled={disableClose}
+              checked={closed}
+            />
+          )}
+
+          {!hideArchive && (
+            <Switch
+              size="md"
+              label={labels.archiveTask}
+              onChange={onArchiveTaskHandler}
+              disabled={disableArchive}
+              checked={archived}
+            />
+          )}
         </Box>
       </Box>
     </Box>
