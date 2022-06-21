@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Box } from '@bubbles-ui/components';
+import { ContextContainer } from '@bubbles-ui/components';
 import * as types from '../../types';
 import AddButton from '../AddButton';
+import {
+  ADDITIONAL_PROPERTY_FLAG,
+  canExpand,
+  getDefaultRegistry,
+  orderProperties,
+  retrieveSchema,
+} from '../../utils';
 
 function DefaultObjectFieldTemplate(props) {
   const { TitleField, DescriptionField } = props;
   return (
-    <Box id={props.idSchema.$id}>
+    <ContextContainer id={props.idSchema.$id}>
       {(props.uiSchema['ui:title'] || props.title) && (
         <TitleField
           id={`${props.idSchema.$id}__title`}
@@ -30,7 +37,7 @@ function DefaultObjectFieldTemplate(props) {
           disabled={props.disabled || props.readonly}
         />
       )}
-    </Box>
+    </ContextContainer>
   );
 }
 
@@ -271,10 +278,3 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default ObjectField;
-import {
-  ADDITIONAL_PROPERTY_FLAG,
-  canExpand,
-  getDefaultRegistry,
-  orderProperties,
-  retrieveSchema,
-} from '../../utils';
