@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { chunk } from 'lodash';
+import { capitalize, chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -10,7 +10,7 @@ import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
-import { Box, Popper } from '@bubbles-ui/components';
+import { Box, COLORS, Popper } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
@@ -107,6 +107,8 @@ class MonthView extends React.Component {
       getters,
       showAllEvents,
       hideBgTitles,
+      isMonthView,
+      monthNumber,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -159,12 +161,14 @@ class MonthView extends React.Component {
         rtl={this.props.rtl}
         resizable={this.props.resizable}
         showAllEvents={showAllEvents}
+        isMonthView={isMonthView}
+        monthNumber={monthNumber}
       />
     );
   };
 
-  readerDateHeading = ({ date, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer } = this.props;
+  readerDateHeading = ({ date, isWeekend, className, ...props }) => {
+    let { date: currentDate, getDrilldownView, localizer, isMonthView } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
     let isCurrent = localizer.isSameDate(date, currentDate);
     let drilldownView = getDrilldownView(date);
@@ -177,7 +181,11 @@ class MonthView extends React.Component {
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
         role="cell"
-        style={{ pointerEvents: 'all' }}
+        style={{
+          pointerEvents: 'all',
+          visibility: isMonthView && isOffRange && 'hidden',
+          backgroundColor: isMonthView && isWeekend && COLORS.ui02,
+        }}
       >
         <DateHeaderComponent
           label={label}
@@ -191,13 +199,11 @@ class MonthView extends React.Component {
   };
 
   renderHeaders(row) {
-    const { localizer, components } = this.props;
+    const { localizer, components, isMonthView } = this.props;
     const HeaderComponent = components.header || Header;
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
-      // weekRow.pop();
-      // weekRow.shift();
       weekRow.pop();
       weekRow.pop();
     }
@@ -205,15 +211,16 @@ class MonthView extends React.Component {
     const first = weekRow[0];
     const last = weekRow[weekRow.length - 1];
 
-    return localizer.range(first, last, 'day').map((day, idx) => (
-      <Box key={'header_' + idx} className="rbc-header">
-        <HeaderComponent
-          date={day}
-          localizer={localizer}
-          label={localizer.format(day, 'weekdayFormat')}
-        />
-      </Box>
-    ));
+    return localizer.range(first, last, 'day').map((day, idx) => {
+      const dayName = isMonthView
+        ? localizer.format(day, 'weekdayFormat')[0]
+        : localizer.format(day, 'weekdayFormat');
+      return (
+        <Box key={'header_' + idx} className="rbc-header">
+          <HeaderComponent date={day} localizer={localizer} label={capitalize(dayName)} />
+        </Box>
+      );
+    });
   }
 
   renderOverlay() {

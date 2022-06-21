@@ -28,7 +28,7 @@ export default {
     selected: {},
   },
 
-  renderEvent(props, event) {
+  renderEvent(props, event, isMonthView) {
     let {
       selected,
       isAllDay: _,
@@ -62,19 +62,29 @@ export default {
         slotEnd={slotMetrics.last}
         selected={isSelected(event, selected)}
         resizable={resizable}
+        isMonthView={isMonthView}
       />
     );
   },
 
-  renderSpan(slots, len, key, content = ' ') {
+  renderSpan(slots, len, key, content = ' ', event) {
     let per = (Math.abs(len) / slots) * 100 + '%';
+
+    const rightArrow = event && event.originalEvent.calendar.rightArrow;
+    const leftArrow = event && event.originalEvent.calendar.leftArrow;
 
     return (
       <Box
         key={key}
         className="rbc-row-segment"
         // IE10/11 need max-width. flex-basis doesn't respect box-sizing
-        style={{ WebkitFlexBasis: per, flexBasis: per, maxWidth: per }}
+        style={{
+          WebkitFlexBasis: per,
+          flexBasis: per,
+          maxWidth: per,
+          display: (rightArrow || leftArrow) && 'flex',
+          flexDirection: leftArrow && 'row-reverse',
+        }}
       >
         {content}
       </Box>

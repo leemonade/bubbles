@@ -6,14 +6,28 @@ import { colord } from 'colord';
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
-function eventCellStylesRoot(colors, { isAllDay, bgColor }, imp) {
+function eventCellStylesRoot(
+  colors,
+  { isAllDay, bgColor, borderStyle, oneDay, isMonthView, rightArrow, leftArrow },
+  imp
+) {
   return {
     backgroundColor: `${
       isAllDay ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString() : colors.uiBackground01
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
-    borderRadius: `4px${imp ? '!important' : ''}`,
+    border:
+      isMonthView && !oneDay
+        ? `2px ${borderStyle} ${colors.mainBlack}${imp ? '!important' : ''}`
+        : `2px ${borderStyle} transparent${imp ? '!important' : ''}`,
+    borderRadius:
+      !rightArrow && !leftArrow && isMonthView && oneDay
+        ? `50%${imp ? '!important' : ''}`
+        : `4px${imp ? '!important' : ''}`,
     fontWeight: 500,
+    borderTopRightRadius: rightArrow && `0px${imp ? '!important' : ''}`,
+    borderBottomRightRadius: rightArrow && `0px${imp ? '!important' : ''}`,
+    width: (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
   };
 }
 
@@ -34,16 +48,32 @@ function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
   };
 }
 
-const eventCellStyles = createStyles((theme, { isAllDay, bgColor }) => {
-  return {
-    root: eventCellStylesRoot(theme.colors, { isAllDay, bgColor }, true),
-    icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
-    item: {
-      display: 'flex!important',
-      alignItems: 'center',
-    },
-  };
-});
+const eventCellStyles = createStyles(
+  (theme, { isAllDay, bgColor, borderStyle, isMonthView, oneDay, rightArrow, leftArrow }) => {
+    return {
+      root: eventCellStylesRoot(
+        theme.colors,
+        { isAllDay, bgColor, borderStyle, isMonthView, oneDay, rightArrow, leftArrow },
+        true
+      ),
+      icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
+      item: {
+        display: 'flex!important',
+        alignItems: 'center',
+      },
+      rightArrow: {
+        borderTop: '18px solid transparent',
+        borderBottom: '18px solid transparent',
+        borderLeft: `6px solid ${colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()}`,
+      },
+      leftArrow: {
+        borderTop: '18px solid transparent',
+        borderBottom: '18px solid transparent',
+        borderRight: `6px solid ${colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()}`,
+      },
+    };
+  }
+);
 
 function EventCell(thisprops) {
   let {
@@ -64,6 +94,7 @@ function EventCell(thisprops) {
     components: { cx, event: Event, eventWrapper: EventWrapper },
     slotStart,
     slotEnd,
+    isMonthView,
     ...props
   } = thisprops;
   delete props.resizable;
@@ -88,9 +119,17 @@ function EventCell(thisprops) {
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
 
+  const rightArrow = event.originalEvent.calendar.rightArrow;
+  const leftArrow = event.originalEvent.calendar.leftArrow;
+
   const { classes } = eventCellStyles({
     isAllDay: event.allDay,
     bgColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    borderStyle: originalEvent.borderStyle || originalEvent.calendar.borderStyle,
+    oneDay: localizer.isSameDate(start, end),
+    isMonthView,
+    rightArrow,
+    leftArrow,
   });
 
   const avatar = {
@@ -164,6 +203,8 @@ function EventCell(thisprops) {
       >
         {typeof children === 'function' ? children(content) : content}
       </Box>
+      {rightArrow && <Box className={classes.rightArrow} />}
+      {leftArrow && <Box className={classes.leftArrow} />}
     </EventWrapper>
   );
 }

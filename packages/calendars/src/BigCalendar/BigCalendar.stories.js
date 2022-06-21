@@ -65,9 +65,9 @@ MonthRangeView.args = {
   locale: 'es-ES',
   defaultDate: EVENTS[1].start,
   monthRange: {
-    startYear: 2020,
-    startMonth: 9,
-    endYear: 2021,
-    endMonth: 7,
+    startYear: 2022,
+    startMonth: 4,
+    endYear: 2022,
+    endMonth: 6,
   },
 };
