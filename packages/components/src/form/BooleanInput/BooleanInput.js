@@ -70,10 +70,10 @@ const BooleanInput = forwardRef(
       setIsChecked(checked);
     }, [checked]);
 
-    const handleOnChange = () => {
+    const handleOnChange = (event) => {
       if (!props.disabled) {
         setIsChecked(!isChecked);
-        if (isFunction(onChange)) onChange(!isChecked);
+        if (isFunction(onChange)) onChange(!isChecked, event);
       }
     };
 
