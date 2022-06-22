@@ -16,6 +16,7 @@ import ObjectField from './components/fields/ObjectField';
 import SchemaField from './components/fields/SchemaField';
 import { FormWithThemeStyles } from './FormWithTheme.styles';
 import WysiwygWidget from './components/widgets/WysiwygWidget';
+import { FormContext } from './FormContext';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
@@ -25,7 +26,7 @@ export const FORM_WITH_THEME_REGEX = {
   phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
 
-const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
+const FormWithTheme = (schema, ui, conditions, props = {}, t, context = {}) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
 
@@ -67,22 +68,24 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
   const form = React.useMemo(
     () =>
       schema || ui ? (
-        <ThemeForm
-          {...props}
-          ref={(e) => {
-            ref.current = e;
-            if (props.ref) props.ref = e;
-          }}
-          showErrorList={false}
-          schema={schema}
-          uiSchema={ui}
-          transformErrors={(e) => transformErrors(e, t)}
-          customFormats={customFormats}
-        >
-          <></>
-        </ThemeForm>
+        <FormContext.Provider value={{ ...context, t }}>
+          <ThemeForm
+            {...props}
+            ref={(e) => {
+              ref.current = e;
+              if (props.ref) props.ref = e;
+            }}
+            showErrorList={false}
+            schema={schema}
+            uiSchema={ui}
+            transformErrors={(e) => transformErrors(e, t)}
+            customFormats={customFormats}
+          >
+            <></>
+          </ThemeForm>
+        </FormContext.Provider>
       ) : null,
-    [JSON.stringify(schema), JSON.stringify(ui), JSON.stringify(props)]
+    [JSON.stringify(schema), JSON.stringify(ui), JSON.stringify(props), t]
   );
 
   return [

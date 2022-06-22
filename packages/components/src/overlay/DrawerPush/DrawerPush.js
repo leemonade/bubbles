@@ -3,7 +3,7 @@ import { Box } from '../../layout';
 import { DrawerPushStyles } from './DrawerPush.styles';
 import { DRAWER_PUSH_DEFAULT_PROPS, DRAWER_PUSH_PROP_TYPES } from './DrawerPush.constants';
 
-const DrawerPush = ({ opened, size, direction, children, style, className, ...props }) => {
+const DrawerPush = ({ opened, size, direction, children, style, className, fixed, ...props }) => {
   const { classes, cx } = DrawerPushStyles(
     { opened, size, style, direction },
     { name: 'DrawerPush' }
@@ -11,7 +11,7 @@ const DrawerPush = ({ opened, size, direction, children, style, className, ...pr
 
   return (
     <Box className={cx(classes.root, className)}>
-      <Box className={classes.childrenWrapper}>{children}</Box>
+      <Box className={cx(classes.childrenWrapper, { [classes.fixed]: fixed })}>{children}</Box>
     </Box>
   );
 };

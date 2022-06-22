@@ -18,6 +18,7 @@ const NodeRenderer = ({
   allowDropOutside,
   allowMultipleOpen,
   allowDragParents,
+  canToggleItems,
   onAdd,
   onSelect,
   hasChild,
@@ -33,7 +34,6 @@ const NodeRenderer = ({
   const indent = (isButton ? Math.max(0, depth - 1) : depth) * 24 + (!hasChild ? 10 : 0);
   const dragOverProps =
     allowDropOutside && allowMultipleOpen ? useDragOver(node.id, isOpen, onToggle) : {};
-
   useEffect(() => {
     if (!hasOpenSiblings && isButton) {
       setShowButton(true);
@@ -88,7 +88,7 @@ const NodeRenderer = ({
       {...dragOverProps}
     >
       {/* TOGGLE ARROW */}
-      {hasChild && !isSelected && (
+      {hasChild && !isSelected && canToggleItems && (
         <Box
           onClick={handleToggle}
           className={cx(classes.toggle, {
@@ -127,7 +127,7 @@ const NodeRenderer = ({
         {/* DRAG HANDLER */}
         {!isButton &&
           !isSelected &&
-          ((allowDragParents && !isOpen && !hasOpenSiblings) || !hasChild) && (
+          ((allowDragParents && !isOpen && !hasOpenSiblings) || (!hasChild && node.draggable)) && (
             <Box className={cx(classes.dragHandler, { [classes.dragHandlerHover]: hover })}>
               <svg
                 width="14"

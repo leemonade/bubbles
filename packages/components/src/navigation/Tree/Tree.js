@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, createContext, useContext, useRef } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { find, isNil } from 'lodash';
 import { Tree as ReactTree } from '@leemonade/react-dnd-treeview';
@@ -52,6 +52,8 @@ const TreeView = ({
   initialOpen,
   rootId,
   className,
+  canToggleItems = true,
+  canSelectItems = true,
   ...props
 }) => {
   const [initialized, setInitialized] = useState(false);
@@ -106,15 +108,18 @@ const TreeView = ({
     if (hasChild && !allowDragParents) {
       return false;
     }
-    return node.draggable !== false;
+    return !!node.draggable;
   };
   const handleOnToggle = (node, isOpen, onToggle) => {
-    if (!isOpen) {
-      openBranch(node.id, true, !allowMultipleOpen);
-    } else if (isOpen && node.parent === 0 && !allowMultipleOpen) {
-      closeAllNodes();
-    } else {
-      onToggle(node.id);
+    if (canToggleItems) {
+      if (!isOpen) {
+        openBranch(node.id, true, !allowMultipleOpen);
+      } else if (isOpen && node.parent === 0 && !allowMultipleOpen) {
+        closeAllNodes();
+      } else {
+        onToggle(node.id);
+      }
+      currentNode.current = node;
     }
     /*
     else if (currentNode.current && currentNode.current.id === node.id) {
@@ -123,15 +128,15 @@ const TreeView = ({
       onToggle(node.id);
     }
     */
-
-    currentNode.current = node;
   };
 
   const handleSelect = (node, onSelect, e, onToggle) => {
-    if (onSelect) {
-      onSelect(node, onToggle);
-    } else {
-      onToggle();
+    if (canSelectItems) {
+      if (onSelect) {
+        onSelect(node, onToggle);
+      } else {
+        onToggle();
+      }
     }
     return false;
   };
@@ -178,6 +183,7 @@ const TreeView = ({
               allowDropOutside={allowDropOutside}
               allowMultipleOpen={allowMultipleOpen}
               allowDragParents={allowDragParents}
+              canToggleItems={canToggleItems}
               onAdd={onAdd}
               onDelete={onDelete}
             />

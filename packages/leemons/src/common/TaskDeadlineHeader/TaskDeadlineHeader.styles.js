@@ -58,7 +58,7 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded,
     },
     deadlineSwitch: {
       display: 'flex',
-      flexDirection: 'row-reverse',
+      flexDirection: 'row',
       flex: deadlineExpanded && 1,
     },
   };
