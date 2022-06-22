@@ -32,5 +32,8 @@ export const DrawerPushStyles = createStyles((theme, { opened, size, style, dire
       height: !isHorizontal && size,
       transition: 'transform 0.3s ease-in-out',
     },
+    fixed: {
+      position: 'fixed',
+    },
   };
 });
