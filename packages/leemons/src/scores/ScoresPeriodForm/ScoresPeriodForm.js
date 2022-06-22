@@ -25,11 +25,48 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
-const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSave, ...props }) => {
-  const [openPopover, setOpenPopover] = useState(false);
+function Periods({ periods, cx, classes, locale, watch, setValue }) {
+  const startDate = watch('startDate')?.getTime();
+  const endDate = watch('endDate')?.getTime();
+
+  return periods?.map((period) => {
+    return (
+      <Box
+        className={cx(classes.period, {
+          [classes.selectedPeriod]:
+            startDate === period.startDate.getTime() && endDate === period.endDate.getTime(),
+        })}
+        key={period.id}
+        onClick={() => {
+          setValue('startDate', period.startDate);
+          setValue('endDate', period.endDate);
+        }}
+      >
+        <Text color="quartiary">
+          {period.startDate?.toLocaleDateString(locale)} -{' '}
+          {period.endDate.toLocaleDateString(locale)}
+        </Text>
+        <Text color="primary" strong>
+          {period.name}
+        </Text>
+      </Box>
+    );
+  });
+}
+
+const ScoresPeriodForm = ({
+  value,
+  fields,
+  labels,
+  errorMessages,
+  onSubmit,
+  onSave,
+  allowCreate,
+  periods,
+  locale,
+  ...props
+}) => {
   const [isSavingPeriod, setIsSavingPeriod] = useState(false);
-  const [periodName, setPeriodName] = useState('');
-  const [shareWithTeachers, setShareWithTeachers] = useState(false);
   const { ref: periodWrapperRef, width: periodWrapperWidth } = useElementSize();
 
   const defaultValues = {
@@ -40,7 +77,8 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
     control,
     handleSubmit,
     getValues,
-    clearErrors,
+    watch,
+    setValue,
     setError,
     formState: { errors },
   } = useForm({ defaultValues });
@@ -71,48 +109,22 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
     return selects;
   };
 
-  const onSubmitHandler = (formValue) => {
+  const onSubmitHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
     isFunction(onSubmit) && onSubmit(formValue);
   };
 
-  const onSaveHandler = () => {
-    const formValue = getValues();
-    isFunction(onSave) && onSave(periodName, shareWithTeachers, formValue);
-    setOpenPopover(false);
-    setIsSavingPeriod(false);
+  const onSaveHandler = (formValue) => {
+    const { periodName, shareWithTeachers, ...values } = formValue;
+    isFunction(onSave) && onSave(periodName, !!shareWithTeachers, values);
+    // setIsSavingPeriod(false);
   };
 
   const onChangeHandler = (value, onChange) => {
     onChange(value);
-    if (!validateDates()) return;
     const formValue = getValues();
     const requiredFields = fields.filter((field) => field.required).map((field) => field.name);
     requiredFields.push('startDate', 'endDate');
-    const requiredFieldsCompleted = requiredFields.every((field) => formValue[field]);
-    setOpenPopover(requiredFieldsCompleted);
     setIsSavingPeriod(false);
-  };
-
-  const validateDates = () => {
-    const { startDate, endDate } = getValues();
-    if (!startDate || !endDate) return false;
-    if (startDate > endDate) {
-      setError('startDate', {
-        type: 'custom',
-        message: errorMessages.validateStartDate || 'Invalid start date',
-      });
-    } else {
-      clearErrors('startDate');
-    }
-    if (endDate < startDate) {
-      setError('endDate', {
-        type: 'custom',
-        message: errorMessages.validateEndDate || 'Invalid end date',
-      });
-    } else {
-      clearErrors('endDate');
-    }
-    return startDate < endDate;
   };
 
   const { classes, cx } = ScoresPeriodFormStyles(
@@ -124,111 +136,137 @@ const ScoresPeriodForm = ({ value, fields, labels, errorMessages, onSubmit, onSa
       <Box className={classes.formWrapper}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <Box className={classes.selectWrapper}>{renderSelects()}</Box>
-          <Popover
-            opened={openPopover}
-            onClose={() => {
-              setOpenPopover(false);
-              setIsSavingPeriod(false);
-            }}
-            position="bottom"
-            placement="start"
-            style={{ width: '100%' }}
-            withArrow
-            trapFocus={false}
-            target={
-              <Box ref={periodWrapperRef} className={classes.periodWrapper}>
-                <Controller
-                  control={control}
-                  name="startDate"
-                  rules={{
-                    required: errorMessages.startDate || 'Required Field',
-                  }}
-                  render={({ field: { onChange, ...field } }) => (
-                    <DatePicker
-                      label={labels.startDate}
-                      error={errors.startDate}
-                      required
-                      headerStyle={{ flex: 'none' }}
-                      onChange={(value) => onChangeHandler(value, onChange)}
-                      {...field}
-                    />
-                  )}
-                />
-                <Controller
-                  control={control}
-                  name="endDate"
-                  rules={{
-                    required: errorMessages.endDate || 'Required Field',
-                  }}
-                  render={({ field: { onChange, ...field } }) => (
-                    <DatePicker
-                      label={labels.endDate}
-                      error={errors.endDate}
-                      required
-                      headerStyle={{ flex: 'none' }}
-                      onChange={(value) => onChangeHandler(value, onChange)}
-                      {...field}
-                    />
-                  )}
-                />
-              </Box>
-            }
-          >
-            <Box className={classes.popover}>
-              <Box className={classes.popoverTitle}>
-                <PluginCalendarIcon height={24} width={24} />
-                {isSavingPeriod && (
-                  <Text color="primary" size="md">
-                    {labels.newPeriod}
-                  </Text>
+          <Box ref={periodWrapperRef} className={classes.periodWrapper}>
+            <Box className={classes.datePicker}>
+              <Controller
+                control={control}
+                name="startDate"
+                rules={{
+                  required: errorMessages.startDate || 'Required Field',
+                  validate: (value) => {
+                    const endDate = getValues('endDate');
+
+                    if (!endDate) {
+                      return true;
+                    }
+
+                    if (value > endDate) {
+                      return errorMessages.validateStartDate || 'Invalid start date';
+                    }
+
+                    return true;
+                  },
+                }}
+                render={({ field }) => (
+                  <DatePicker
+                    label={labels.startDate}
+                    error={errors.startDate}
+                    required
+                    maxDate={watch('endDate')}
+                    headerStyle={{ flex: 'none' }}
+                    {...field}
+                    onChange={(value) => {
+                      if (!value) {
+                        field.onChange(value);
+                        return;
+                      }
+                      const date = new Date(value);
+
+                      date.setHours(0, 0, 0, 0);
+
+                      field.onChange(date);
+                    }}
+                    // onChange={(value) => onChangeHandler(value, onChange)}
+                  />
                 )}
-                {!isSavingPeriod && (
-                  <Button
-                    variant="light"
-                    rightIcon={<ChevDownIcon />}
-                    onClick={() => setIsSavingPeriod(true)}
-                    compact
-                    size="sm"
-                  >
-                    {labels.addPeriod}
-                  </Button>
-                )}
-                <Box className={classes.closeButton}>
-                  <IconButton
-                    icon={<RemoveIcon />}
-                    onClick={() => {
-                      setOpenPopover(false);
-                      setIsSavingPeriod(false);
+              />
+              <Controller
+                control={control}
+                name="endDate"
+                rules={{
+                  required: errorMessages.endDate || 'Required Field',
+                  validate: (value) => {
+                    const startDate = getValues('startDate');
+
+                    if (!startDate) {
+                      return true;
+                    }
+
+                    if (value < startDate) {
+                      return errorMessages.validateEndDate || 'Invalid end date';
+                    }
+
+                    return true;
+                  },
+                }}
+                render={({ field }) => (
+                  <DatePicker
+                    label={labels.endDate}
+                    error={errors.endDate}
+                    required
+                    minDate={watch('startDate')}
+                    headerStyle={{ flex: 'none' }}
+                    {...field}
+                    onChange={(value) => {
+                      if (!value) {
+                        field.onChange(value);
+                        return;
+                      }
+
+                      const date = new Date(value);
+
+                      date.setHours(0, 0, 0, 0);
+
+                      field.onChange(date);
                     }}
                   />
-                </Box>
-              </Box>
-              <Box className={classes.popoverContent}>
-                <TextInput value={periodName} onChange={setPeriodName} />
-                <Switch
-                  size="md"
-                  label={labels.shareWithTeachers}
-                  value={shareWithTeachers}
-                  onChange={setShareWithTeachers}
-                ></Switch>
-                <Button fullWidth position="center" onClick={onSaveHandler}>
-                  {labels.saveButton}
-                </Button>
-              </Box>
+                )}
+              />
             </Box>
-          </Popover>
-          <Box className={classes.buttonWrapper}>
-            <Button
-              type="submit"
-              color="secondary"
-              position="left"
-              style={{ width: '100%' }}
-              rightIcon={<SearchIcon />}
-              rounded
-            >
-              {labels.submit}
-            </Button>
+            {!allowCreate && (
+              <Periods
+                periods={periods}
+                cx={cx}
+                classes={classes}
+                locale={locale}
+                watch={watch}
+                setValue={setValue}
+              />
+            )}
           </Box>
+          {allowCreate ? (
+            <Box className={classes.createContent}>
+              <Controller
+                control={control}
+                name="periodName"
+                rules={{
+                  required: errorMessages.periodName || 'Required Field',
+                }}
+                render={({ field }) => <TextInput {...field} required error={errors.periodName} />}
+              />
+              <Controller
+                control={control}
+                name="shareWithTeachers"
+                render={({ field }) => (
+                  <Switch
+                    {...field}
+                    size="md"
+                    label={labels.shareWithTeachers}
+                    checked={field.value}
+                  ></Switch>
+                )}
+              />
+              <Button fullWidth position="center" onClick={handleSubmit(onSaveHandler)}>
+                {labels.saveButton}
+              </Button>
+            </Box>
+          ) : (
+            <Box className={classes.buttonWrapper}>
+              <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
+                {labels.submit}
+              </Button>
+            </Box>
+          )}
         </form>
       </Box>
     </Box>
