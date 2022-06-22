@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { Anchor } from './Anchor';
+import { Anchor, ANCHOR_DEFAULT_PROPS } from './Anchor';
 import mdx from './Anchor.mdx';
 
 export default {
@@ -28,6 +27,6 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  ...ANCHOR_DEFAULT_PROPS,
+  children: 'Hello World',
 };

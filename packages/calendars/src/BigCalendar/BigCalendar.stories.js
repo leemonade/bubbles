@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box, TextInput, Select, ColorInput, Button, DatePicker } from '@bubbles-ui/components';
 import { BigCalendar, BIGCALENDAR_VIEWS } from './BigCalendar';
 import mdx from './BigCalendar.mdx';
 import EVENTS from './mocks/events';
@@ -65,9 +66,76 @@ MonthRangeView.args = {
   locale: 'es-ES',
   defaultDate: EVENTS[1].start,
   monthRange: {
-    startYear: 2020,
-    startMonth: 9,
-    endYear: 2021,
-    endMonth: 7,
+    startYear: 2022,
+    startMonth: 4,
+    endYear: 2022,
+    endMonth: 6,
   },
+};
+
+const EventCreationTemplate = (props) => {
+  const [events, setEvents] = React.useState([]);
+  const [eventTitle, setEventTitle] = React.useState('');
+  const [borderStyle, setBorderStyle] = React.useState('');
+  const [eventColor, setEventColor] = React.useState('#000000');
+  const [borderColor, setBorderColor] = React.useState('#000000');
+  const [eventRange, setEventRange] = React.useState([undefined, undefined]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const newEvent = {
+      title: eventTitle,
+      allDay: true,
+      start: eventRange[0],
+      end: eventRange[1] || eventRange[0],
+      originalEvent: {
+        calendar: { bgColor: eventColor, borderStyle: borderStyle, borderColor: borderColor },
+      },
+    };
+
+    setEvents([...events, newEvent]);
+    setEventTitle('');
+    setBorderStyle('');
+    setBorderColor('#000000');
+    setEventColor('#000000');
+    setEventRange([undefined, undefined]);
+  };
+
+  return (
+    <Box style={{ height: 'calc(100vh - 40px)', display: 'flex' }}>
+      <Box style={{ maxWidth: 620, overflow: 'scroll' }}>
+        <BigCalendar events={events} {...props} style={{ height: '100%' }} />
+      </Box>
+      <Box style={{ flex: 1, backgroundColor: 'whitesmoke', height: '100%', padding: 48 }}>
+        <form
+          onSubmit={submitHandler}
+          style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
+        >
+          <TextInput label="Event title" value={eventTitle} onChange={setEventTitle} />
+          <Select
+            label="Border style"
+            data={['solid', 'dashed', 'dotted']}
+            value={borderStyle}
+            onChange={setBorderStyle}
+          />
+          <ColorInput label="Event color" value={eventColor} onChange={setEventColor} />
+          <ColorInput label="Border color" value={borderColor} onChange={setBorderColor} />
+          <DatePicker label="Event range" value={eventRange} range onChange={setEventRange} />
+          <Button type="submit" rounded>
+            Añadir evento
+          </Button>
+        </form>
+      </Box>
+    </Box>
+  );
+};
+
+export const EventCreationForm = EventCreationTemplate.bind({});
+
+EventCreationForm.args = {
+  currentView: BIGCALENDAR_VIEWS[4],
+  locale: 'es-ES',
+  defaultDate: EVENTS[1].start,
+  monthRange: { startYear: 2022, endYear: 2022, startMonth: 0, endMonth: 11 },
 };
