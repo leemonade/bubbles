@@ -8,7 +8,7 @@ const emptyPixel =
 
 function eventCellStylesRoot(
   colors,
-  { isAllDay, bgColor, borderStyle, oneDay, isMonthView, rightArrow, leftArrow },
+  { isAllDay, bgColor, borderStyle, borderColor, oneDay, isMonthView, rightArrow, leftArrow },
   imp
 ) {
   return {
@@ -18,8 +18,10 @@ function eventCellStylesRoot(
     color: `${colors.text01}${imp ? '!important' : ''}`,
     border:
       isMonthView && !oneDay
-        ? `2px ${borderStyle} ${colors.mainBlack}${imp ? '!important' : ''}`
-        : `2px ${borderStyle} transparent${imp ? '!important' : ''}`,
+        ? `2px ${borderStyle || 'dashed'} ${borderColor || colors.mainBlack}${
+            imp ? '!important' : ''
+          }`
+        : `2px ${borderStyle || 'dashed'} transparent${imp ? '!important' : ''}`,
     borderRadius:
       !rightArrow && !leftArrow && isMonthView && oneDay
         ? `50%${imp ? '!important' : ''}`
@@ -49,11 +51,14 @@ function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
 }
 
 const eventCellStyles = createStyles(
-  (theme, { isAllDay, bgColor, borderStyle, isMonthView, oneDay, rightArrow, leftArrow }) => {
+  (
+    theme,
+    { isAllDay, bgColor, borderStyle, borderColor, isMonthView, oneDay, rightArrow, leftArrow }
+  ) => {
     return {
       root: eventCellStylesRoot(
         theme.colors,
-        { isAllDay, bgColor, borderStyle, isMonthView, oneDay, rightArrow, leftArrow },
+        { isAllDay, bgColor, borderStyle, borderColor, isMonthView, oneDay, rightArrow, leftArrow },
         true
       ),
       icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
@@ -126,7 +131,8 @@ function EventCell(thisprops) {
     isAllDay: event.allDay,
     bgColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
     borderStyle: originalEvent.borderStyle || originalEvent.calendar.borderStyle,
-    oneDay: localizer.isSameDate(start, end),
+    borderColor: originalEvent.borderColor || originalEvent.calendar.borderColor,
+    oneDay: localizer.isSameDate(start, end) && !event.realEnd,
     isMonthView,
     rightArrow,
     leftArrow,

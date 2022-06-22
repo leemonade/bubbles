@@ -72,8 +72,8 @@ export default [
   {
     title: 'Evento de Matematicas',
     allDay: true,
-    start: DateTime.fromISO('2022-06-20T00:59:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-06-20T00:59:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
       title: 'Evento de Matematicas',
@@ -140,7 +140,7 @@ export default [
   {
     title: 'Fin de curso',
     allDay: true,
-    start: DateTime.fromISO('2022-06-30T00:59:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-06-27T00:59:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-07-03T00:59:00.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
@@ -172,13 +172,13 @@ export default [
     },
   },
   {
-    title: 'noseque de mayo',
+    title: 'Fin de mayo',
     allDay: true,
     start: DateTime.fromISO('2022-05-31T00:59:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-05-31T00:59:00.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
-      title: 'noseque de mayo',
+      title: 'Fin de mayo',
       calendar: {
         id: '061bf3c4-4351-4330-8ac7-adf82bffc57d',
         key: 'plugins.mvp-template.calendar-test',

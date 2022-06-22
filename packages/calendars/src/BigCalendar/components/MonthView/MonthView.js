@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize, chunk } from 'lodash';
+import { capitalize, chunk, last } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -14,8 +14,28 @@ import { Box, COLORS, Popper } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
-let eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
+let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
+  const range = { start, end };
+  const filteredEvents = events.filter((event) =>
+    localizer.inEventRange({
+      event: { ...event },
+      range: range,
+    })
+  );
+
+  const finalEvents = filteredEvents.map((event) => {
+    if (isLastWeek) {
+      if (event.end.getMonth() > end.getMonth())
+        return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
+    }
+    if (isFirstWeek) {
+      if (event.start.getDate() > 1) return { ...event, start: start };
+    }
+    return event;
+  });
+
+  return finalEvents;
+};
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -93,7 +113,7 @@ class MonthView extends React.Component {
     );
   }
 
-  renderWeek = (week, weekIdx) => {
+  renderWeek = (week, weekIdx, monthWeeks) => {
     let {
       events,
       components,
@@ -115,19 +135,31 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
 
     if (!showWeekends) {
-      // week.pop();
-      // week.shift();
       week.pop();
       week.pop();
     }
 
+    const isFirstWeek = weekIdx === 0;
+    const isLastWeek = weekIdx === monthWeeks.length - 1;
+
+    let firstDayPosition = 0;
+    let lastDayPosition = 0;
+    if (isFirstWeek) firstDayPosition = week.findIndex((day) => day.getDate() === 1);
+    if (isLastWeek) {
+      const endOfMonth = localizer.endOf(week[0], 'months').getDate();
+      lastDayPosition = week.findIndex((day) => day.getDate() === endOfMonth);
+    }
+    const startOfWeek = isMonthView && isFirstWeek ? week[firstDayPosition] : week[0];
+    const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
+
     // let's not mutate props
     const weeksEvents = eventsForWeek(
       [...events],
-      week[0],
-      week[week.length - 1],
-      accessors,
-      localizer
+      startOfWeek,
+      endOfWeeek,
+      localizer,
+      isFirstWeek,
+      isLastWeek
     );
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
