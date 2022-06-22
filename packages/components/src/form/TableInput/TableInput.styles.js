@@ -28,7 +28,8 @@ export const TableInputStyles = createStyles((theme, { hasError }) => {
     },
     sortIcon: {
       color: theme.colors.ui01,
-      cursor: 'drag',
+      cursor: 'grab',
+      paddingTop: theme.spacing[2],
     },
   };
 });
