@@ -34,6 +34,7 @@ export const DrawerPushStyles = createStyles((theme, { opened, size, style, dire
     },
     fixed: {
       position: 'fixed',
+      overflow: 'auto',
     },
   };
 });

@@ -31,6 +31,7 @@ export const ScoresPeriodFormStyles = createStyles(
       },
       datePicker: {
         display: 'flex',
+        flexDirection: 'column',
         gap: theme.spacing[2],
         div: {
           flex: 1,
