@@ -98,7 +98,7 @@ const UserDisplayItem = (properties) => {
       <Avatar image={avatar} fullName={userFullName} size={avatarSize} />
       <Box
         className={classes.userInfo}
-        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 26 : 32}px)` }}
+        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
       >
         {variant === 'email' ? (
           <>
