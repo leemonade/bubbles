@@ -66,7 +66,8 @@ const getMonthViewStyles = (theme) => ({
 const getHeaderStyles = (theme) => ({
   '.rbc-header': {
     ...getFontProductive(theme.fontSizes['2'], 500),
-    color: theme.colors.text05,
+    color: theme.colors.text02,
+    textTransform: 'capitalize',
     border: 'none',
     borderBottom: `1px solid ${theme.colors.ui04}`,
     textAlign: 'right',
@@ -87,9 +88,10 @@ const getRowStyles = (theme) => ({
   },
 });
 
-const getTimeColumnStyles = (theme) => ({
+const getTimeColumnStyles = (theme, { timeslotHeight }) => ({
   '.rbc-timeslot-group': {
     borderColor: theme.colors.ui04,
+    minHeight: timeslotHeight + 'px',
   },
   '.rbc-day-slot': {
     '.rbc-events-container': {
@@ -339,7 +341,7 @@ const getAgendaStyles = (theme) => ({
   },
 });
 
-export const BigCalendarStyles = createStyles((theme, {}) => {
+export const BigCalendarStyles = createStyles((theme, { timeslotHeight }) => {
   return {
     root: {
       '.rbc-off-range': {
@@ -365,7 +367,7 @@ export const BigCalendarStyles = createStyles((theme, {}) => {
       ...getMonthViewStyles(theme),
       // ·················································
       // TIME GRID
-      ...getTimeColumnStyles(theme),
+      ...getTimeColumnStyles(theme, { timeslotHeight }),
       ...getTimeGridStyles(theme),
       // ·················································
       // AGENDA

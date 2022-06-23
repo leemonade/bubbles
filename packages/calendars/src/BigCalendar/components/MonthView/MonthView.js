@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { chunk } from 'lodash';
+import _, { chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -113,10 +113,9 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
 
     if (!showWeekends) {
-      // week.pop();
-      // week.shift();
-      week.pop();
-      week.pop();
+      week = _.filter(week, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
     }
 
     // let's not mutate props
