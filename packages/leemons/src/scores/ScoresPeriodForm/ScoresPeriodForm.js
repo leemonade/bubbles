@@ -60,7 +60,7 @@ function RenderSelects({ fields, control, errors }) {
     const id = Date.now();
 
     const selects = fields.map((field, index) => {
-      const { name, placeholder, data, required, disabled } = field;
+      const { name, placeholder, data, required, disabled, label } = field;
 
       return (
         <Controller
@@ -74,6 +74,7 @@ function RenderSelects({ fields, control, errors }) {
             <Select
               placeholder={placeholder}
               error={errors[name]}
+              label={label}
               data={data}
               disabled={disabled}
               required={!!required}
