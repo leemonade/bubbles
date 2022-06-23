@@ -6,7 +6,7 @@ import Header from 'react-big-calendar/lib/Header';
 import ResourceHeader from 'react-big-calendar/lib/ResourceHeader';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
-import { Box, Anchor } from '@bubbles-ui/components';
+import { Box } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
@@ -59,6 +59,7 @@ class TimeGridHeader extends React.Component {
       );
     });
   }
+
   readerDateHeading = ({ date, className, ...props }) => {
     let { date: currentDate, getDrilldownView, localizer } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
@@ -149,6 +150,7 @@ class TimeGridHeader extends React.Component {
         cx,
         timeGutterHeader: TimeGutterHeader,
         resourceHeader: ResourceHeaderComponent = ResourceHeader,
+        hideAllDayCells,
       },
       resizable,
     } = this.props;
@@ -194,29 +196,31 @@ class TimeGridHeader extends React.Component {
               {this.renderHeaderCells(range)}
             </Box>
 
-            <DateContentRow
-              isAllDay
-              rtl={rtl}
-              getNow={getNow}
-              minRows={2}
-              range={range}
-              events={groupedEvents.get(id) || []}
-              resourceId={resource && id}
-              className="rbc-allday-cell"
-              selectable={selectable}
-              selected={this.props.selected}
-              components={components}
-              accessors={accessors}
-              getters={getters}
-              localizer={localizer}
-              renderHeader={this.readerDateHeading}
-              onSelect={this.props.onSelectEvent}
-              onDoubleClick={this.props.onDoubleClickEvent}
-              onKeyPress={this.props.onKeyPressEvent}
-              onSelectSlot={this.props.onSelectSlot}
-              longPressThreshold={this.props.longPressThreshold}
-              resizable={resizable}
-            />
+            {!hideAllDayCells ? (
+              <DateContentRow
+                isAllDay
+                rtl={rtl}
+                getNow={getNow}
+                minRows={2}
+                range={range}
+                events={groupedEvents.get(id) || []}
+                resourceId={resource && id}
+                className="rbc-allday-cell"
+                selectable={selectable}
+                selected={this.props.selected}
+                components={components}
+                accessors={accessors}
+                getters={getters}
+                localizer={localizer}
+                renderHeader={this.readerDateHeading}
+                onSelect={this.props.onSelectEvent}
+                onDoubleClick={this.props.onDoubleClickEvent}
+                onKeyPress={this.props.onKeyPressEvent}
+                onSelectSlot={this.props.onSelectSlot}
+                longPressThreshold={this.props.longPressThreshold}
+                resizable={resizable}
+              />
+            ) : null}
           </Box>
         ))}
       </Box>

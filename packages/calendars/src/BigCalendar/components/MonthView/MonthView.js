@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize, chunk, last } from 'lodash';
+import { capitalize, chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
 import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
-import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
+import { sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
@@ -135,8 +135,9 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
 
     if (!showWeekends) {
-      week.pop();
-      week.pop();
+      week = _.filter(week, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
     }
 
     const isFirstWeek = weekIdx === 0;
