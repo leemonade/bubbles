@@ -10,6 +10,7 @@ import {
   IconButton,
   TextInput,
   Switch,
+  useId,
 } from '@bubbles-ui/components';
 import { Controller, useForm } from 'react-hook-form';
 import { ScoresPeriodFormStyles } from './ScoresPeriodForm.styles';
@@ -54,6 +55,39 @@ function Periods({ periods, cx, classes, locale, watch, setValue }) {
   });
 }
 
+function RenderSelects({ fields, control, errors }) {
+  return React.useMemo(() => {
+    const id = Date.now();
+
+    const selects = fields.map((field, index) => {
+      const { name, placeholder, data, required, disabled } = field;
+
+      return (
+        <Controller
+          // EN: The key should change if the value changes, otherwise the component will not re-render.
+          // ES: El key debe cambiar si el valor cambia, de lo contrario el componente no se renderizará.
+          key={`${name}-${index}-${id}`}
+          control={control}
+          name={name}
+          rules={{ required: required }}
+          render={({ field }) => (
+            <Select
+              placeholder={placeholder}
+              error={errors[name]}
+              data={data}
+              disabled={disabled}
+              required={!!required}
+              {...field}
+            />
+          )}
+        />
+      );
+    });
+
+    return selects;
+  }, [fields, control, errors]);
+}
+
 const ScoresPeriodForm = ({
   value,
   fields,
@@ -96,31 +130,6 @@ const ScoresPeriodForm = ({
     }
   }, [watch, onChange]);
 
-  const renderSelects = () => {
-    const selects = fields.map((field, index) => {
-      const { name, placeholder, data, required } = field;
-
-      return (
-        <Controller
-          key={`${name}-${index}`}
-          control={control}
-          name={name}
-          rules={{ required: required }}
-          render={({ field }) => (
-            <Select
-              placeholder={placeholder}
-              error={errors[name]}
-              data={data}
-              required={!!required}
-              {...field}
-            />
-          )}
-        />
-      );
-    });
-    return selects;
-  };
-
   const onSubmitHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
     isFunction(onSubmit) && onSubmit(formValue);
   };
@@ -139,7 +148,9 @@ const ScoresPeriodForm = ({
     <Box className={classes.root}>
       <Box className={classes.formWrapper}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Box className={classes.selectWrapper}>{renderSelects()}</Box>
+          <Box className={classes.selectWrapper}>
+            <RenderSelects fields={fields} control={control} errors={errors} />
+          </Box>
           <Box ref={periodWrapperRef} className={classes.periodWrapper}>
             <Box className={classes.datePicker}>
               <Controller
