@@ -166,7 +166,7 @@ export default class TimeGrid extends Component {
       resizable,
     } = this.props;
 
-    const { cx } = components;
+    const { cx, noAllDayEvents } = components;
 
     width = width || this.state.gutterWidth;
 

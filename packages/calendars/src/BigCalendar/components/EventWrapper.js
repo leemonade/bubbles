@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from '@bubbles-ui/components';
+import { colord } from 'colord';
 
 function stringifyPercent(v) {
   return typeof v === 'string' ? v : v + '%';
@@ -62,6 +63,7 @@ export function EventWrapper(props) {
     onDoubleClick,
     isBackgroundEvent,
     onKeyPress,
+    components: { forceBgColorToEvents },
   } = props;
 
   const { classes } = eventWrapperStyles({});
@@ -74,6 +76,10 @@ export function EventWrapper(props) {
   let userProps = getters.eventProp(event, start, end, selected);
 
   let { height, top, width, xOffset } = style;
+
+  const originalEvent = event.originalEvent;
+  const bgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+
   const eventStyle = isBackgroundEvent
     ? {
         ...userProps.style,
@@ -89,11 +95,13 @@ export function EventWrapper(props) {
         top: stringifyPercent(top),
         width: stringifyPercent(width),
         height: stringifyPercent(height),
+        backgroundColor: forceBgColorToEvents
+          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+          : null,
         minHeight: '35px',
         [rtl ? 'right' : 'left']: stringifyPercent(xOffset),
       };
 
-  const originalEvent = event.originalEvent;
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
   const avatar = {
@@ -114,7 +122,7 @@ export function EventWrapper(props) {
         />
       </Box>
     ) : null,
-    color: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    color: bgColor,
   };
 
   if (originalEvent.calendar.isUserCalendar) {

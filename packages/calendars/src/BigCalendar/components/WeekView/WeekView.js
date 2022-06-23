@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from 'react-big-calendar/lib/utils/constants';
 
 import TimeGrid from '../TimeGrid/TimeGrid';
+import _ from 'lodash';
 
 class WeekView extends React.Component {
   componentDidMount() {
@@ -30,13 +31,30 @@ class WeekView extends React.Component {
     } = this.props;
     let range = WeekView.range(date, this.props);
 
-    const { showWeekends } = this.props.components;
+    const { showWeekends, minHour, maxHour, minWeekDay, maxWeekDay, firstDayOfWeek } =
+      this.props.components;
 
-    if (!showWeekends) {
-      // week.pop();
-      // week.shift();
-      range.pop();
-      range.pop();
+    if (_.isNumber(minWeekDay) && _.isNumber(maxWeekDay)) {
+      range = _.filter(range, (date) => {
+        if (minWeekDay < firstDayOfWeek) {
+          return date.getDay() <= minWeekDay || date.getDay() >= maxWeekDay;
+        }
+        return date.getDay() >= minWeekDay && date.getDay() <= maxWeekDay;
+      });
+    }
+    if (!showWeekends && !_.isNumber(minWeekDay) && !_.isNumber(maxWeekDay)) {
+      range = _.filter(range, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
+    }
+
+    if (minHour) {
+      const mi = minHour.split(':');
+      min.setHours(parseInt(mi[0], 10), parseInt(mi[1], 10));
+    }
+    if (maxHour) {
+      const ma = maxHour.split(':');
+      max.setHours(parseInt(ma[0], 10), parseInt(ma[1], 10));
     }
 
     return (

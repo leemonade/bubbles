@@ -37,7 +37,16 @@ export const BigCalendar = forwardRef(
       messages,
       monthRange,
       hooks,
+      minHour,
+      maxHour,
+      minWeekDay,
+      maxWeekDay,
+      timeslots,
+      timeslotHeight = 40,
+      hideAllDayCells,
       toolbarRightNode = null,
+      hideToolbar = false,
+      forceBgColorToEvents,
       showToolbarAddButton = true,
       showToolbarToggleWeekend = true,
       showToolbarViewSwitcher = true,
@@ -60,7 +69,7 @@ export const BigCalendar = forwardRef(
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
-    const { availableViews, showToolbar } = useMemo(() => {
+    let { availableViews, showToolbar } = useMemo(() => {
       let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
       let showToolbar = true;
 
@@ -71,13 +80,19 @@ export const BigCalendar = forwardRef(
       return { availableViews: views, showToolbar };
     }, [currentView]);
 
+    if (hideToolbar) {
+      showToolbar = false;
+    }
+
     // ·················································
     // TIMEZONE CONFIG
+
+    const firstDayOfWeek = 1;
 
     const { localizer, defaultDate, scrollToTime, getNow } = useMemo(() => {
       // Settings.defaultZone = timezone;
       return {
-        localizer: luxonLocalizer(DateTime, { firstDayOfWeek: 1 }),
+        localizer: luxonLocalizer(DateTime, { firstDayOfWeek }),
         defaultDate: defaultDateProp,
         scrollToTime: DateTime.local().toJSDate(),
         getNow: () => DateTime.local().toJSDate(),
@@ -219,7 +234,10 @@ export const BigCalendar = forwardRef(
     // ·················································
     // STYLES
 
-    const { classes, cx } = BigCalendarStyles({ isMonthRange: currentView === MONTH_RANGE });
+    const { classes, cx } = BigCalendarStyles({
+      timeslotHeight,
+      isMonthRange: currentView === MONTH_RANGE,
+    });
 
     return (
       <Box className={cx(classes.root, className)} style={style}>
@@ -242,9 +260,17 @@ export const BigCalendar = forwardRef(
               : false,
             cx,
             showWeekends,
+            minHour,
+            maxHour,
+            minWeekDay,
+            maxWeekDay,
+            hideAllDayCells,
+            forceBgColorToEvents,
+            firstDayOfWeek,
           }}
           toolbar={showToolbar}
           events={events}
+          timeslots={timeslots}
           messages={messages}
           defaultView={currentView}
           defaultDate={defaultDate}

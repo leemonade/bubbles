@@ -92,7 +92,8 @@ const getMonthViewStyles = (theme, isMonthRange) => ({
 const getHeaderStyles = (theme, isMonthRange) => ({
   '.rbc-header': {
     ...getFontProductive(theme.fontSizes[isMonthRange ? '1' : '2'], 500),
-    color: isMonthRange ? theme.colors.text06 : theme.colors.text05,
+    color: isMonthRange ? theme.colors.text06 : theme.colors.text02,
+    textTransform: 'capitalize',
     border: 'none',
     borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
     textAlign: isMonthRange ? 'center' : 'right',
@@ -115,9 +116,10 @@ const getRowStyles = (theme, isMonthRange) => ({
   },
 });
 
-const getTimeColumnStyles = (theme) => ({
+const getTimeColumnStyles = (theme, { timeslotHeight }) => ({
   '.rbc-timeslot-group': {
     borderColor: theme.colors.ui04,
+    minHeight: timeslotHeight + 'px',
   },
   '.rbc-day-slot': {
     '.rbc-events-container': {
@@ -367,7 +369,7 @@ const getAgendaStyles = (theme) => ({
   },
 });
 
-export const BigCalendarStyles = createStyles((theme, { isMonthRange }) => {
+export const BigCalendarStyles = createStyles((theme, { timeslotHeight, isMonthRange }) => {
   return {
     root: {
       '.rbc-off-range': {
@@ -393,7 +395,7 @@ export const BigCalendarStyles = createStyles((theme, { isMonthRange }) => {
       ...getMonthViewStyles(theme, isMonthRange),
       // ·················································
       // TIME GRID
-      ...getTimeColumnStyles(theme),
+      ...getTimeColumnStyles(theme, { timeslotHeight }),
       ...getTimeGridStyles(theme),
       // ·················································
       // AGENDA

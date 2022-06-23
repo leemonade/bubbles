@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Select,
@@ -64,6 +64,7 @@ const ScoresPeriodForm = ({
   allowCreate,
   periods,
   locale,
+  onChange,
   ...props
 }) => {
   const [isSavingPeriod, setIsSavingPeriod] = useState(false);
@@ -83,6 +84,18 @@ const ScoresPeriodForm = ({
     formState: { errors },
   } = useForm({ defaultValues });
 
+  useEffect(() => {
+    if (isFunction(onChange)) {
+      const subscription = watch((value) => {
+        onChange(value);
+      });
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    }
+  }, [watch, onChange]);
+
   const renderSelects = () => {
     const selects = fields.map((field, index) => {
       const { name, placeholder, data, required } = field;
@@ -93,13 +106,12 @@ const ScoresPeriodForm = ({
           control={control}
           name={name}
           rules={{ required: required }}
-          render={({ field: { onChange, ...field } }) => (
+          render={({ field }) => (
             <Select
               placeholder={placeholder}
               error={errors[name]}
               data={data}
               required={!!required}
-              onChange={(value) => onChangeHandler(value, onChange)}
               {...field}
             />
           )}
@@ -117,14 +129,6 @@ const ScoresPeriodForm = ({
     const { periodName, shareWithTeachers, ...values } = formValue;
     isFunction(onSave) && onSave(periodName, !!shareWithTeachers, values);
     // setIsSavingPeriod(false);
-  };
-
-  const onChangeHandler = (value, onChange) => {
-    onChange(value);
-    const formValue = getValues();
-    const requiredFields = fields.filter((field) => field.required).map((field) => field.name);
-    requiredFields.push('startDate', 'endDate');
-    setIsSavingPeriod(false);
   };
 
   const { classes, cx } = ScoresPeriodFormStyles(
