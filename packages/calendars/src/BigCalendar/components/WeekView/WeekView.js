@@ -35,11 +35,8 @@ class WeekView extends React.Component {
       this.props.components;
 
     if (_.isNumber(minWeekDay) && _.isNumber(maxWeekDay)) {
-      range = _.filter(range, (date) => {
-        if (minWeekDay < firstDayOfWeek) {
-          return date.getDay() <= minWeekDay || date.getDay() >= maxWeekDay;
-        }
-        return date.getDay() >= minWeekDay && date.getDay() <= maxWeekDay;
+      range = _.filter(range, (date, index) => {
+        return index >= minWeekDay && index <= maxWeekDay;
       });
     }
     if (!showWeekends && !_.isNumber(minWeekDay) && !_.isNumber(maxWeekDay)) {

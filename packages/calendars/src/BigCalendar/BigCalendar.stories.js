@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextInput, Select, ColorInput, Button, DatePicker } from '@bubbles-ui/components';
+import { Box, Button, ColorInput, DatePicker, Select, TextInput } from '@bubbles-ui/components';
 import { BigCalendar, BIGCALENDAR_VIEWS } from './BigCalendar';
 import mdx from './BigCalendar.mdx';
 import EVENTS from './mocks/events';
@@ -51,6 +51,7 @@ Playground.args = {
   events: EVENTS,
   currentView: BIGCALENDAR_VIEWS[1],
   locale: 'es-ES',
+  /*
   minWeekDay: 0,
   maxWeekDay: 3,
   timeslots: 1,
@@ -60,6 +61,8 @@ Playground.args = {
   hideAllDayCells: true,
   minHour: '12:15',
   maxHour: '13:15',
+
+   */
   defaultDate: EVENTS[1].start,
 };
 

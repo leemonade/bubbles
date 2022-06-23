@@ -210,16 +210,18 @@ class DateContentRow extends React.Component {
           {/* EVENTS ··········· */}
           <ScrollableWeekComponent>
             <WeekWrapper isAllDay={isAllDay} {...eventRowProps}>
-              {levels.map((segs, idx) => (
-                <EventRow
-                  key={idx}
-                  segments={segs}
-                  monthNumber={monthNumber}
-                  isMonthView={isMonthView}
-                  range={range}
-                  {...eventRowProps}
-                />
-              ))}
+              {levels.map((segs, idx) => {
+                return (
+                  <EventRow
+                    key={idx}
+                    segments={segs}
+                    monthNumber={monthNumber}
+                    isMonthView={isMonthView}
+                    range={range}
+                    {...eventRowProps}
+                  />
+                );
+              })}
               {!!extra.length && (
                 <EventEndingRow
                   segments={extra}
