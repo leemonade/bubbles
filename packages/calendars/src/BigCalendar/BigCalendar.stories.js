@@ -49,8 +49,17 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   events: EVENTS,
-  currentView: BIGCALENDAR_VIEWS[3],
+  currentView: BIGCALENDAR_VIEWS[1],
   locale: 'es-ES',
+  minWeekDay: 0,
+  maxWeekDay: 3,
+  timeslots: 1,
+  hideToolbar: true,
+  timeslotHeight: 100,
+  forceBgColorToEvents: true,
+  hideAllDayCells: true,
+  minHour: '12:15',
+  maxHour: '13:15',
   defaultDate: EVENTS[1].start,
 };
 

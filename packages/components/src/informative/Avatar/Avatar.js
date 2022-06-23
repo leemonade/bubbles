@@ -18,10 +18,12 @@ const Avatar = forwardRef(
       const texts = fullName.split(' ');
       initials = `${texts[0][0].toUpperCase()}${texts[1] ? texts[1][0].toUpperCase() : ''}`;
     }
-    if (!color && !!fullName && !isEmpty(trim(fullName))) {
-      color = stringToHslColor(fullName, 50, 50);
-    } else {
-      color = '#FFFFFF';
+    if (!color) {
+      if (!!fullName && !isEmpty(trim(fullName))) {
+        color = stringToHslColor(fullName, 50, 50);
+      } else {
+        color = '#FFFFFF';
+      }
     }
 
     const { classes, cx } = AvatarStyles({ color, size });
