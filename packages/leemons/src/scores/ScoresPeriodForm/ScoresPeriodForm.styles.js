@@ -15,43 +15,50 @@ export const ScoresPeriodFormStyles = createStyles(
       selectWrapper: {
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
+        gap: theme.spacing[2],
       },
       buttonWrapper: {
-        marginTop: 84,
+        marginTop: theme.spacing[7],
       },
       periodWrapper: {
-        marginTop: 8,
+        marginTop: theme.spacing[2],
         display: 'flex',
-        padding: 16,
-        gap: 8,
+        flexDirection: 'column',
+        padding: theme.spacing[4],
+        gap: theme.spacing[3],
         border: `1px solid ${theme.colors.ui01}`,
-        borderRadius: 4,
+        borderRadius: theme.spacing[1],
+      },
+      datePicker: {
+        display: 'flex',
+        gap: theme.spacing[2],
         div: {
           flex: 1,
         },
       },
-      popover: {
-        width: periodWrapperWidth + 34,
-        padding: 16,
-      },
-      popoverTitle: {
+      period: {
+        border: `1px solid ${theme.colors.ui01}`,
+        borderRadius: theme.spacing[1],
+        padding: theme.spacing[4],
         display: 'flex',
-        gap: 14,
-        alignItems: 'center',
-        color: theme.colors.text01,
-        span: { fontWeight: 500 },
-        marginBottom: isSavingPeriod && 32,
+        flexDirection: 'column',
+        gap: theme.spacing[2],
+        cursor: 'pointer',
+      },
+      selectedPeriod: {
+        borderColor: theme.colors.interactive01d,
+        backgroundColor: theme.colors.interactive01v1,
       },
       closeButton: {
         flex: 1,
         display: 'flex',
         justifyContent: 'end',
       },
-      popoverContent: {
-        display: isSavingPeriod ? 'flex' : 'none',
+      createContent: {
+        marginTop: theme.spacing[6],
+        display: 'flex',
         flexDirection: 'column',
-        gap: 18,
+        gap: theme.spacing[4],
       },
     };
   }

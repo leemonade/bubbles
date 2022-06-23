@@ -19,6 +19,7 @@ export default {
   argTypes: {
     onSubmit: { action: 'onSubmit' },
     onSave: { action: 'onSave' },
+    onChange: { action: 'onChange' },
   },
 };
 

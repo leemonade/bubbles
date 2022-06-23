@@ -1,21 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _, { chunk } from 'lodash';
+import { capitalize, chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
 import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
-import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
+import { sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
-import { Box, Popper } from '@bubbles-ui/components';
+import { Box, COLORS, Popper } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
-let eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
+let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
+  const range = { start, end };
+  const filteredEvents = events.filter((event) =>
+    localizer.inEventRange({
+      event: { ...event },
+      range: range,
+    })
+  );
+
+  const finalEvents = filteredEvents.map((event) => {
+    if (isLastWeek) {
+      if (event.end.getMonth() > end.getMonth())
+        return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
+    }
+    if (isFirstWeek) {
+      if (event.start.getDate() > 1) return { ...event, start: start };
+    }
+    return event;
+  });
+
+  return finalEvents;
+};
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -93,7 +113,7 @@ class MonthView extends React.Component {
     );
   }
 
-  renderWeek = (week, weekIdx) => {
+  renderWeek = (week, weekIdx, monthWeeks) => {
     let {
       events,
       components,
@@ -107,6 +127,8 @@ class MonthView extends React.Component {
       getters,
       showAllEvents,
       hideBgTitles,
+      isMonthView,
+      monthNumber,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -118,13 +140,27 @@ class MonthView extends React.Component {
       });
     }
 
+    const isFirstWeek = weekIdx === 0;
+    const isLastWeek = weekIdx === monthWeeks.length - 1;
+
+    let firstDayPosition = 0;
+    let lastDayPosition = 0;
+    if (isFirstWeek) firstDayPosition = week.findIndex((day) => day.getDate() === 1);
+    if (isLastWeek) {
+      const endOfMonth = localizer.endOf(week[0], 'months').getDate();
+      lastDayPosition = week.findIndex((day) => day.getDate() === endOfMonth);
+    }
+    const startOfWeek = isMonthView && isFirstWeek ? week[firstDayPosition] : week[0];
+    const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
+
     // let's not mutate props
     const weeksEvents = eventsForWeek(
       [...events],
-      week[0],
-      week[week.length - 1],
-      accessors,
-      localizer
+      startOfWeek,
+      endOfWeeek,
+      localizer,
+      isFirstWeek,
+      isLastWeek
     );
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
@@ -158,12 +194,14 @@ class MonthView extends React.Component {
         rtl={this.props.rtl}
         resizable={this.props.resizable}
         showAllEvents={showAllEvents}
+        isMonthView={isMonthView}
+        monthNumber={monthNumber}
       />
     );
   };
 
-  readerDateHeading = ({ date, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer } = this.props;
+  readerDateHeading = ({ date, isWeekend, className, ...props }) => {
+    let { date: currentDate, getDrilldownView, localizer, isMonthView } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
     let isCurrent = localizer.isSameDate(date, currentDate);
     let drilldownView = getDrilldownView(date);
@@ -176,7 +214,11 @@ class MonthView extends React.Component {
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
         role="cell"
-        style={{ pointerEvents: 'all' }}
+        style={{
+          pointerEvents: 'all',
+          visibility: isMonthView && isOffRange && 'hidden',
+          backgroundColor: isMonthView && isWeekend && COLORS.ui02,
+        }}
       >
         <DateHeaderComponent
           label={label}
@@ -190,13 +232,11 @@ class MonthView extends React.Component {
   };
 
   renderHeaders(row) {
-    const { localizer, components } = this.props;
+    const { localizer, components, isMonthView } = this.props;
     const HeaderComponent = components.header || Header;
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
-      // weekRow.pop();
-      // weekRow.shift();
       weekRow.pop();
       weekRow.pop();
     }
@@ -204,15 +244,16 @@ class MonthView extends React.Component {
     const first = weekRow[0];
     const last = weekRow[weekRow.length - 1];
 
-    return localizer.range(first, last, 'day').map((day, idx) => (
-      <Box key={'header_' + idx} className="rbc-header">
-        <HeaderComponent
-          date={day}
-          localizer={localizer}
-          label={localizer.format(day, 'weekdayFormat')}
-        />
-      </Box>
-    ));
+    return localizer.range(first, last, 'day').map((day, idx) => {
+      const dayName = isMonthView
+        ? localizer.format(day, 'weekdayFormat')[0]
+        : localizer.format(day, 'weekdayFormat');
+      return (
+        <Box key={'header_' + idx} className="rbc-header">
+          <HeaderComponent date={day} localizer={localizer} label={capitalize(dayName)} />
+        </Box>
+      );
+    });
   }
 
   renderOverlay() {

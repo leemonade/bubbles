@@ -17,6 +17,9 @@ export const SCORES_PERIOD_FORM_DEFAULT_PROPS = {
     validateEndDate: '',
   },
   fields: [],
+  allowCreate: false,
+  periods: [],
+  locale: 'en-US',
 };
 export const SCORES_PERIOD_FORM_PROP_TYPES = {
   value: PropTypes.shape({
@@ -51,4 +54,15 @@ export const SCORES_PERIOD_FORM_PROP_TYPES = {
   }),
   onSubmit: PropTypes.func,
   onSave: PropTypes.func,
+  onChange: PropTypes.func,
+  allowCreate: PropTypes.bool,
+  periods: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+      name: PropTypes.string,
+    })
+  ),
+  locale: PropTypes.string,
 };

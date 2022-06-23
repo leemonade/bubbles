@@ -234,7 +234,10 @@ export const BigCalendar = forwardRef(
     // ·················································
     // STYLES
 
-    const { classes, cx } = BigCalendarStyles({ timeslotHeight });
+    const { classes, cx } = BigCalendarStyles({
+      timeslotHeight,
+      isMonthRange: currentView === MONTH_RANGE,
+    });
 
     return (
       <Box className={cx(classes.root, className)} style={style}>

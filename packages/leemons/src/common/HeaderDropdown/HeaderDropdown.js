@@ -7,14 +7,14 @@ import {
   Text,
   TextClamp,
 } from '@bubbles-ui/components';
+import { isFunction, isEmpty, isNil } from 'lodash';
+import { useClickOutside } from '@mantine/hooks';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
 import {
   HEADER_DROPDOWN_DEFAULT_PROPS,
   HEADER_DROPDOWN_PROP_TYPES,
 } from './HeaderDropdown.constants';
 import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
-import { isFunction } from 'lodash';
-import { useClickOutside } from '@mantine/hooks';
 
 const normalizeString = (string) => {
   return string
@@ -36,7 +36,7 @@ const HeaderDropdown = ({
   const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
   const [selectedItem, setSelectedItem] = useState(
-    data.find((item) => item.id === value?.id) || data[0] || {}
+    data.find((item) => item?.id === value?.id) || data[0] || {}
   );
   const headerRef = useRef(null);
 
@@ -48,8 +48,8 @@ const HeaderDropdown = ({
 
   const loadItemList = () => {
     const itemListToReturn = data.filter((item) => {
-      const itemLabel = normalizeString(item.label);
-      const itemDescription = normalizeString(item.description);
+      const itemLabel = normalizeString(item?.label);
+      const itemDescription = normalizeString(item?.description);
       const filterValue = normalizeString(filter);
       return itemLabel.includes(filterValue) || itemDescription.includes(filterValue);
     });
@@ -59,24 +59,33 @@ const HeaderDropdown = ({
         React.cloneElement(itemComponent, [...item])
       ) : (
         <Box
-          key={`${index} ${item.id}`}
+          key={`${index} ${item?.id}`}
           className={classes.itemComponent}
           onClick={() => onChangeHandler(item)}
         >
-          <Box className={classes.itemImage}>
-            <ImageLoader height={40} width={40} radius="50%" src={item.image} />
-            <Box className={classes.itemComponentIcon} style={{ backgroundColor: item.color }}>
-              <ImageLoader forceImage height={16} imageStyles={{ width: 16 }} src={item.icon} />
+          {!isNil(item?.image) && !isEmpty(item?.image) ? (
+            <Box className={classes.itemImage}>
+              <ImageLoader height={40} width={40} radius="50%" src={item?.image} />
+              {!isNil(item?.icon) && !isEmpty(item?.icon) ? (
+                <Box className={classes.itemComponentIcon} style={{ backgroundColor: item?.color }}>
+                  <ImageLoader
+                    forceImage
+                    height={16}
+                    imageStyles={{ width: 16 }}
+                    src={item?.icon}
+                  />
+                </Box>
+              ) : null}
             </Box>
-          </Box>
+          ) : null}
           <TextClamp lines={1} maxLines={1}>
             <Text className={classes.itemComponentLabel} color="primary" strong>
-              {item.label}
+              {item?.label}
             </Text>
           </TextClamp>
           <TextClamp lines={1} maxLines={1}>
             <Text className={classes.itemComponentDescription} role="productive" size="xs" stronger>
-              {item.description}
+              {item?.description}
             </Text>
           </TextClamp>
         </Box>
@@ -85,7 +94,7 @@ const HeaderDropdown = ({
   };
 
   useEffect(() => {
-    setSelectedItem(data.find((item) => item.id === value?.id) || data[0] || {});
+    setSelectedItem(data.find((item) => item?.id === value?.id) || data[0] || {});
   }, [value]);
 
   const { classes, cx } = HeaderDropdownStyles({ isOpened, headerRef }, { name: 'HeaderDropdown' });
@@ -96,17 +105,24 @@ const HeaderDropdown = ({
           React.cloneElement(valueComponent, [...selectedItem])
         ) : (
           <Box className={classes.valueComponent}>
-            <Box className={classes.itemImage}>
-              <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
-              <Box className={classes.itemIcon} style={{ backgroundColor: selectedItem?.color }}>
-                <ImageLoader
-                  forceImage
-                  height={16}
-                  imageStyles={{ width: 16 }}
-                  src={selectedItem?.icon}
-                />
+            {!isNil(selectedItem?.image) && !isEmpty(selectedItem?.image) ? (
+              <Box className={classes.itemImage}>
+                <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
+                {!isNil(selectedItem?.icon) && !isEmpty(selectedItem?.icon) ? (
+                  <Box
+                    className={classes.itemIcon}
+                    style={{ backgroundColor: selectedItem?.color }}
+                  >
+                    <ImageLoader
+                      forceImage
+                      height={16}
+                      imageStyles={{ width: 16 }}
+                      src={selectedItem?.icon}
+                    />
+                  </Box>
+                ) : null}
               </Box>
-            </Box>
+            ) : null}
             <Box className={classes.content}>
               <TextClamp lines={1} maxLines={1}>
                 <Text color="primary" size="lg" strong>
