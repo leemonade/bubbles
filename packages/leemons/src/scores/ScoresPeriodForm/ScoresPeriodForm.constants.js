@@ -54,6 +54,7 @@ export const SCORES_PERIOD_FORM_PROP_TYPES = {
   }),
   onSubmit: PropTypes.func,
   onSave: PropTypes.func,
+  onChange: PropTypes.func,
   allowCreate: PropTypes.bool,
   periods: PropTypes.arrayOf(
     PropTypes.shape({
