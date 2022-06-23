@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 
+/*
 export default [
   {
     id: '425989f9-4716-4519-b9ea-4b67bb725897-0',
@@ -38,7 +39,9 @@ export default [
     },
   },
 ];
-/*
+
+ */
+
 export default [
   {
     title: 'Tarea de Computación',
@@ -110,7 +113,7 @@ export default [
   },
   {
     title: 'Evento de Matematicas',
-    allDay: true,
+    allDay: false,
     start: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
     originalEvent: {
@@ -144,7 +147,7 @@ export default [
   },
   {
     title: 'Inicio de curso',
-    allDay: true,
+    allDay: false,
     start: DateTime.fromISO('2022-06-01T00:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-06-01T00:59:00.000Z').toJSDate(),
     originalEvent: {
@@ -178,7 +181,7 @@ export default [
   },
   {
     title: 'Fin de curso',
-    allDay: true,
+    allDay: false,
     start: DateTime.fromISO('2022-06-27T00:59:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-07-03T00:59:00.000Z').toJSDate(),
     originalEvent: {
@@ -245,6 +248,3 @@ export default [
     },
   },
 ];
-
-
- */

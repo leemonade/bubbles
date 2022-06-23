@@ -27,9 +27,9 @@ function eventCellStylesRoot(
         ? `50%${imp ? '!important' : ''}`
         : `4px${imp ? '!important' : ''}`,
     fontWeight: 500,
-    borderTopRightRadius: rightArrow && `0px${imp ? '!important' : ''}`,
-    borderBottomRightRadius: rightArrow && `0px${imp ? '!important' : ''}`,
-    width: (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
+    borderTopRightRadius: isMonthView && rightArrow && `0px${imp ? '!important' : ''}`,
+    borderBottomRightRadius: isMonthView && rightArrow && `0px${imp ? '!important' : ''}`,
+    width: isMonthView && (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
   };
 }
 
