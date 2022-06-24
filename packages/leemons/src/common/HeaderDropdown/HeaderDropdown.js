@@ -7,7 +7,7 @@ import {
   Text,
   TextClamp,
 } from '@bubbles-ui/components';
-import { isFunction, isEmpty, isNil } from 'lodash';
+import { isEmpty, isFunction, isNil } from 'lodash';
 import { useClickOutside } from '@mantine/hooks';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
 import {
@@ -95,7 +95,7 @@ const HeaderDropdown = ({
 
   useEffect(() => {
     setSelectedItem(data.find((item) => item?.id === value?.id) || data[0] || {});
-  }, [value]);
+  }, [JSON.stringify(value)]);
 
   const { classes, cx } = HeaderDropdownStyles({ isOpened, headerRef }, { name: 'HeaderDropdown' });
   return (
