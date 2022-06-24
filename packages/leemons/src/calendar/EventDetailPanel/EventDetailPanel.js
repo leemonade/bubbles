@@ -1,24 +1,23 @@
 import React from 'react';
 import { EventDetailPanelStyles } from './EventDetailPanel.styles';
 import {
+  Anchor,
   Box,
+  Button,
   ContextContainer,
   Drawer,
+  ImageLoader,
   Text,
-  Button,
   UserDisplayItem,
-  Anchor,
 } from '@bubbles-ui/components';
 import {
-  TimeClockCircleIcon,
-  RedoIcon,
-  PluginClassesIcon,
-  SchoolTeacherMaleIcon,
   MeetingCameraIcon,
+  PluginClassesIcon,
+  RedoIcon,
+  SchoolTeacherMaleIcon,
   StopwatchIcon,
   StyleThreePinTableIcon,
 } from '@bubbles-ui/icons/outline';
-import { LadybugIcon } from '@bubbles-ui/icons/solid';
 import {
   EVENT_DETAIL_PANEL_DEFAULT_PROPS,
   EVENT_DETAIL_PANEL_PROP_TYPES,
@@ -34,27 +33,28 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
     isFunction(onControl) && onControl();
   };
 
-  const { title, dateRange, period, classGroup, subject, teacher, classroom, location } = event;
-
   const renderDateRange = () => {
-    const dateString = `${dateRange[0].toLocaleDateString(locale, {
+    const dateString = `${event.dateRange[0].toLocaleDateString(locale, {
       weekday: 'long',
-    })}, ${dateRange[0].toLocaleDateString(locale, {
+    })}, ${event.dateRange[0].toLocaleDateString(locale, {
       day: 'numeric',
-    })} ${dateRange[0].toLocaleDateString(locale, {
+    })} ${event.dateRange[0].toLocaleDateString(locale, {
       month: 'short',
       year: 'numeric',
-    })} — ${dateRange[0].toLocaleTimeString(locale, {
+    })} — ${event.dateRange[0].toLocaleTimeString(locale, {
       hour12: false,
       timeStyle: 'short',
-    })} - ${dateRange[1].toLocaleTimeString(locale, { hour12: false, timeStyle: 'short' })}`;
+    })} - ${event.dateRange[1].toLocaleTimeString(locale, { hour12: false, timeStyle: 'short' })}`;
 
     return <Text role="productive">{`${dateString}`}</Text>;
   };
 
   const { classes, cx } = EventDetailPanelStyles({}, { name: 'EventDetailPanel' });
-  return (
-    <Drawer opened={opened} onClose={handleOnClose} className={classes.root} size={500}>
+
+  let inside = null;
+  if (event) {
+    const { title, period, classGroup, subject, teacher, classroom, location } = event;
+    inside = (
       <Box style={{ margin: -16 }}>
         <ContextContainer title={title} divided>
           <Box className={classes.section}>
@@ -73,9 +73,17 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
               </Text>
             </Box>
             <Box className={classes.sectionRow}>
-              <LadybugIcon height={16} width={16} className={classes.icon} />
+              {subject.icon ? (
+                <ImageLoader
+                  className={classes.subjectIcon}
+                  height={16}
+                  imageStyles={{ width: 16 }}
+                  src={subject.icon}
+                />
+              ) : null}
+
               <Text role="productive" color="primary">
-                {subject}
+                {subject.name}
               </Text>
             </Box>
             <Box className={classes.sectionRow}>
@@ -102,21 +110,32 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
             </Button>
           </Box>
           <Box className={classes.section}>
-            <Box className={classes.sectionRow}>
-              <MeetingCameraIcon height={16} width={16} className={classes.icon} />
-              <Anchor style={{ textDecoration: 'none' }} role="productive">
-                {classroom}
-              </Anchor>
-            </Box>
-            <Box className={classes.sectionRow}>
-              <StyleThreePinTableIcon height={16} width={16} className={classes.icon} />
-              <Text role="productive" color="primary">
-                {location}
-              </Text>
-            </Box>
+            {classroom ? (
+              <Box className={classes.sectionRow}>
+                <MeetingCameraIcon height={16} width={16} className={classes.icon} />
+                <Anchor style={{ textDecoration: 'none' }} role="productive">
+                  {classroom}
+                </Anchor>
+              </Box>
+            ) : null}
+
+            {location ? (
+              <Box className={classes.sectionRow}>
+                <StyleThreePinTableIcon height={16} width={16} className={classes.icon} />
+                <Text role="productive" color="primary">
+                  {location}
+                </Text>
+              </Box>
+            ) : null}
           </Box>
         </ContextContainer>
       </Box>
+    );
+  }
+
+  return (
+    <Drawer opened={opened} onClose={handleOnClose} className={classes.root} size={500}>
+      {inside}
     </Drawer>
   );
 };

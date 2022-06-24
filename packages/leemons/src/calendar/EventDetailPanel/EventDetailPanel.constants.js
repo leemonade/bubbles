@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 export const EVENT_DETAIL_PANEL_DEFAULT_PROPS = {
-  event: {},
   labels: {
     attendanceControl: '',
     mainTeacher: '',
@@ -13,7 +12,10 @@ export const EVENT_DETAIL_PANEL_PROP_TYPES = {
     title: PropTypes.string,
     period: PropTypes.string,
     classGroup: PropTypes.string,
-    subject: PropTypes.string,
+    subject: PropTypes.shape({
+      name: PropTypes.string,
+      icon: PropTypes.string,
+    }),
     teacher: PropTypes.shape({
       image: PropTypes.string,
       name: PropTypes.string,

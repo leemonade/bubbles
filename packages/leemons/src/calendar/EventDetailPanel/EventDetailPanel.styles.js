@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, getFontExpressive } from '@bubbles-ui/components';
 
 export const EventDetailPanelStyles = createStyles((theme, {}) => {
   return {
@@ -28,6 +22,9 @@ export const EventDetailPanelStyles = createStyles((theme, {}) => {
     },
     icon: {
       color: theme.colors.text05,
+    },
+    subjectIcon: {
+      filter: 'brightness(0) invert(0.57)',
     },
   };
 });

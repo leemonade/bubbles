@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Button } from '@bubbles-ui/components';
+import { Box, Button, Stack } from '@bubbles-ui/components';
 import { EventDetailPanel } from './EventDetailPanel';
 import { EVENT_DETAIL_PANEL_DEFAULT_PROPS } from './EventDetailPanel.constants';
 import mdx from './EventDetailPanel.mdx';
@@ -55,7 +55,10 @@ Playground.args = {
     dateRange: [new Date(nowDate), new Date(nowDate.setHours(nowDate.getHours() + 2))],
     period: 'Every week on working days',
     classGroup: '3º ESO - Group 3ºA',
-    subject: 'Biology',
+    subject: {
+      icon: 'http://localhost:8080/api/leebrary/img/bd0bfe67-1380-4e7c-a094-e6e6fd7d53f6@1.0.0?authorization=%5B%22eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uQ29uZmlnIjp7InByb2dyYW0iOiI2NGJmM2ZmZi1iZWQ3LTRlOTktYWMwOS0yYzA0YzRlZjcwOTkifSwidXNlckFnZW50IjoiYmMzOWMwNWEtYTEwOS00MzgwLWE5NTgtMWU5Njk5MmVhMmYxIiwiaWF0IjoxNjU2MDU1NzcxLCJleHAiOjE2NTYxNDIxNzF9.GRyDsSI20aW9PeaUm-jZ9nRkL_pU7TKbxb_h6MN3RPU%22%5D',
+      name: 'Biology',
+    },
     teacher: {
       image:
         'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
