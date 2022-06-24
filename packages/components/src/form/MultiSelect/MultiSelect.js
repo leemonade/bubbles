@@ -8,10 +8,10 @@ import { InputWrapper } from '../InputWrapper';
 import { useUuid } from '@mantine/hooks';
 import { Badge } from '../../informative';
 import {
-  MULTI_SELECT_PROP_TYPES,
   MULTI_SELECT_DEFAULT_PROPS,
-  MULTI_SELECT_SIZES,
   MULTI_SELECT_ORIENTATIONS,
+  MULTI_SELECT_PROP_TYPES,
+  MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
 
@@ -81,13 +81,13 @@ const MultiSelect = forwardRef(
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
     React.useEffect(() => {
-      if (!props.value || !props.value.length) {
+      if (!value || !value.length) {
         setShow(false);
         setTimeout(() => {
           setShow(true);
         }, 1);
       }
-    }, [JSON.stringify(props.value)]);
+    }, [JSON.stringify(value)]);
 
     // ······················································
     // STYLES
@@ -110,12 +110,12 @@ const MultiSelect = forwardRef(
       >
         {readOnly ? (
           <>
-            {props.value
-              ? props.value.map((v) => {
+            {value
+              ? value.map((v) => {
                   const data = find(props.data, { value: v });
                   if (data) {
-                    if (props.valueComponent) {
-                      return <props.valueComponent {...data} />;
+                    if (valueComponent) {
+                      return <valueComponent {...data} />;
                     } else {
                       return <Badge label={data?.label} closable={false} />;
                     }
