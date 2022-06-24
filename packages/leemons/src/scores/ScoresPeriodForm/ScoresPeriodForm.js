@@ -55,7 +55,7 @@ function Periods({ periods, cx, classes, locale, watch, setValue }) {
   });
 }
 
-function RenderSelects({ fields, control, errors }) {
+function RenderSelects({ fields, control, errors, clearLabel }) {
   return React.useMemo(() => {
     const id = Date.now();
 
@@ -75,6 +75,7 @@ function RenderSelects({ fields, control, errors }) {
               placeholder={placeholder}
               error={errors[name]}
               label={label}
+              clearable={!required && clearLabel}
               data={data}
               disabled={disabled}
               required={!!required}
@@ -150,95 +151,93 @@ const ScoresPeriodForm = ({
       <Box className={classes.formWrapper}>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <Box className={classes.selectWrapper}>
-            <RenderSelects fields={fields} control={control} errors={errors} />
+            <RenderSelects fields={fields} control={control} errors={errors} clearLabel={'clear'} />
           </Box>
           <Box ref={periodWrapperRef} className={classes.periodWrapper}>
-            <Box className={classes.datePicker}>
-              <Controller
-                control={control}
-                name="startDate"
-                rules={{
-                  required: errorMessages.startDate || 'Required Field',
-                  validate: (value) => {
-                    const endDate = getValues('endDate');
+            <Controller
+              control={control}
+              name="startDate"
+              rules={{
+                required: errorMessages.startDate || 'Required Field',
+                validate: (value) => {
+                  const endDate = getValues('endDate');
 
-                    if (!endDate) {
-                      return true;
-                    }
-
-                    if (value > endDate) {
-                      return errorMessages.validateStartDate || 'Invalid start date';
-                    }
-
+                  if (!endDate) {
                     return true;
-                  },
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    label={labels.startDate}
-                    error={errors.startDate}
-                    required
-                    maxDate={watch('endDate')}
-                    headerStyle={{ flex: 'none' }}
-                    {...field}
-                    onChange={(value) => {
-                      if (!value) {
-                        field.onChange(value);
-                        return;
-                      }
-                      const date = new Date(value);
+                  }
 
-                      date.setHours(0, 0, 0, 0);
+                  if (value > endDate) {
+                    return errorMessages.validateStartDate || 'Invalid start date';
+                  }
 
-                      field.onChange(date);
-                    }}
-                    // onChange={(value) => onChangeHandler(value, onChange)}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="endDate"
-                rules={{
-                  required: errorMessages.endDate || 'Required Field',
-                  validate: (value) => {
-                    const startDate = getValues('startDate');
-
-                    if (!startDate) {
-                      return true;
+                  return true;
+                },
+              }}
+              render={({ field }) => (
+                <DatePicker
+                  label={labels.startDate}
+                  error={errors.startDate}
+                  required
+                  maxDate={watch('endDate')}
+                  headerStyle={{ flex: 'none' }}
+                  {...field}
+                  onChange={(value) => {
+                    if (!value) {
+                      field.onChange(value);
+                      return;
                     }
+                    const date = new Date(value);
 
-                    if (value < startDate) {
-                      return errorMessages.validateEndDate || 'Invalid end date';
-                    }
+                    date.setHours(0, 0, 0, 0);
 
+                    field.onChange(date);
+                  }}
+                  // onChange={(value) => onChangeHandler(value, onChange)}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="endDate"
+              rules={{
+                required: errorMessages.endDate || 'Required Field',
+                validate: (value) => {
+                  const startDate = getValues('startDate');
+
+                  if (!startDate) {
                     return true;
-                  },
-                }}
-                render={({ field }) => (
-                  <DatePicker
-                    label={labels.endDate}
-                    error={errors.endDate}
-                    required
-                    minDate={watch('startDate')}
-                    headerStyle={{ flex: 'none' }}
-                    {...field}
-                    onChange={(value) => {
-                      if (!value) {
-                        field.onChange(value);
-                        return;
-                      }
+                  }
 
-                      const date = new Date(value);
+                  if (value < startDate) {
+                    return errorMessages.validateEndDate || 'Invalid end date';
+                  }
 
-                      date.setHours(0, 0, 0, 0);
+                  return true;
+                },
+              }}
+              render={({ field }) => (
+                <DatePicker
+                  label={labels.endDate}
+                  error={errors.endDate}
+                  required
+                  minDate={watch('startDate')}
+                  headerStyle={{ flex: 'none' }}
+                  {...field}
+                  onChange={(value) => {
+                    if (!value) {
+                      field.onChange(value);
+                      return;
+                    }
 
-                      field.onChange(date);
-                    }}
-                  />
-                )}
-              />
-            </Box>
+                    const date = new Date(value);
+
+                    date.setHours(0, 0, 0, 0);
+
+                    field.onChange(date);
+                  }}
+                />
+              )}
+            />
             {!allowCreate && (
               <Periods
                 periods={periods}
@@ -258,7 +257,14 @@ const ScoresPeriodForm = ({
                 rules={{
                   required: errorMessages.periodName || 'Required Field',
                 }}
-                render={({ field }) => <TextInput {...field} required error={errors.periodName} />}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={labels?.periodName}
+                    required
+                    error={errors.periodName}
+                  />
+                )}
               />
               <Controller
                 control={control}
