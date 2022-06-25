@@ -184,8 +184,14 @@ function EventCell(thisprops) {
         />
       ) : (
         <>
-          <Avatar mx="auto" size="xs" {...avatar} />
-          <span style={{ marginLeft: 4 }}>{title}</span>
+          {event.component ? (
+            event.component
+          ) : (
+            <>
+              <Avatar mx="auto" size="xs" {...avatar} />
+              <span style={{ marginLeft: 4 }}>{title}</span>
+            </>
+          )}
         </>
       )}
     </Box>

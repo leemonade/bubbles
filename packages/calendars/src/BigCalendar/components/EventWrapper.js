@@ -15,6 +15,9 @@ function stringifyPercent(v) {
   return typeof v === 'string' ? v : v + '%';
 }
 
+const emptyPixel =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
   return {
     date: {
@@ -149,19 +152,23 @@ export function EventWrapper(props) {
         }
       )}
     >
-      <Stack spacing={1}>
-        <Box>
-          <Avatar mx="auto" size="xs" {...avatar} />
-        </Box>
-        <Box className={classes.texts}>
+      {event.component ? (
+        event.component
+      ) : (
+        <Stack spacing={1}>
           <Box>
-            <Text role="productive" color="primary" size="xs">
-              {title}
-            </Text>
+            <Avatar mx="auto" size="xs" {...avatar} />
           </Box>
-          <Box className={classes.date}>{label}</Box>
-        </Box>
-      </Stack>
+          <Box className={classes.texts}>
+            <Box>
+              <Text role="productive" color="primary" size="xs">
+                {title}
+              </Text>
+            </Box>
+            <Box className={classes.date}>{label}</Box>
+          </Box>
+        </Stack>
+      )}
     </Box>
   );
 }

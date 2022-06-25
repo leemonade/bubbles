@@ -26,7 +26,7 @@ export const FORM_WITH_THEME_REGEX = {
   phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
 
-const FormWithTheme = (schema, ui, conditions, props = {}, t, context = {}) => {
+const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, context = {}) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
 
@@ -85,7 +85,12 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t, context = {}) => {
           </ThemeForm>
         </FormContext.Provider>
       ) : null,
-    [JSON.stringify(schema), JSON.stringify(ui), JSON.stringify(props), t]
+    [
+      JSON.stringify(schema),
+      JSON.stringify(ui),
+      JSON.stringify(props),
+      JSON.stringify(translations),
+    ]
   );
 
   return [
