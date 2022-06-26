@@ -4,21 +4,15 @@ export const getActiveItem = (menuData) => {
   let activeItem = null;
   let activeSubItem = null;
 
-  // console.log('menuData:', menuData);
-
   if (window && window.location) {
     const url = window.location.pathname;
 
-    // console.log('url:', url);
-
     forEach(menuData, (item) => {
-      // console.log('item.url:', item.url);
       if (item.url === url) {
         activeItem = item;
       }
 
       forEach(item.children, (subItem) => {
-        // console.log('subItem.url:', subItem.url);
         if (subItem.url === url) {
           activeItem = item;
           activeSubItem = subItem;
@@ -27,22 +21,17 @@ export const getActiveItem = (menuData) => {
       });
 
       if (activeItem) {
-        // console.log('-> ActiveItem:', activeItem);
-        // console.log('-> ActiveSubItem:', activeItem);
         return false;
       }
     });
 
     // Check if parent root is found in their children
     if (!activeItem) {
-      // console.log('----- AÚN NO TENEMOS ITEM ----');
       forEach(menuData, (item) => {
-        // console.log('item.url:', item.url);
         if (item.url) {
           const itemUrl = item.url.replace(/([\/][^\/]+$)/g, '');
-          // console.log('clean itemUrl:', itemUrl);
           const match = url.indexOf(item.url);
-          // console.log(`${url}.indexOf(${item.url}):`, match);
+
           if (match > -1 && match < 4) {
             activeItem = item;
             return false;
@@ -50,7 +39,6 @@ export const getActiveItem = (menuData) => {
         }
 
         forEach(item.children, (subItem) => {
-          // console.log('subItem.url:', subItem.url);
           if (subItem.url) {
             const subItemUrl = subItem.url.replace(/([\/][^\/]+$)/g, '');
             const matchUrl = url.indexOf(subItem.url);
@@ -63,8 +51,6 @@ export const getActiveItem = (menuData) => {
         });
 
         if (activeItem) {
-          // console.log('-> ActiveItem:', activeItem);
-          // console.log('-> ActiveSubItem:', activeItem);
           return false;
         }
       });
