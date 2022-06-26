@@ -57,8 +57,6 @@ function Periods({ periods, cx, classes, locale, watch, setValue }) {
 
 function RenderSelects({ fields, control, errors, clearLabel }) {
   return React.useMemo(() => {
-    const id = Date.now();
-
     const selects = fields.map((field, index) => {
       const { name, placeholder, data, required, disabled, label } = field;
 
@@ -66,22 +64,30 @@ function RenderSelects({ fields, control, errors, clearLabel }) {
         <Controller
           // EN: The key should change if the value changes, otherwise the component will not re-render.
           // ES: El key debe cambiar si el valor cambia, de lo contrario el componente no se renderizará.
-          key={`${name}-${index}-${id}`}
+          key={`${name}-${index}`}
           control={control}
           name={name}
           rules={{ required: required }}
-          render={({ field }) => (
-            <Select
-              placeholder={placeholder}
-              error={errors[name]}
-              label={label}
-              clearable={!required && clearLabel}
-              data={data}
-              disabled={disabled}
-              required={!!required}
-              {...field}
-            />
-          )}
+          render={({ field }) => {
+            React.useEffect(() => {
+              if (field.value && !data.some((item) => item.value === field.value)) {
+                field.onChange(null);
+              }
+            }, [data]);
+
+            return (
+              <Select
+                placeholder={placeholder}
+                error={errors[name]}
+                label={label}
+                clearable={!required && clearLabel}
+                data={data}
+                disabled={disabled}
+                required={!!required}
+                {...field}
+              />
+            );
+          }}
         />
       );
     });
@@ -178,6 +184,7 @@ const ScoresPeriodForm = ({
                   label={labels.startDate}
                   error={errors.startDate}
                   required
+                  locale={locale}
                   maxDate={watch('endDate')}
                   headerStyle={{ flex: 'none' }}
                   {...field}
@@ -192,7 +199,6 @@ const ScoresPeriodForm = ({
 
                     field.onChange(date);
                   }}
-                  // onChange={(value) => onChangeHandler(value, onChange)}
                 />
               )}
             />
@@ -220,6 +226,7 @@ const ScoresPeriodForm = ({
                   label={labels.endDate}
                   error={errors.endDate}
                   required
+                  locale={locale}
                   minDate={watch('startDate')}
                   headerStyle={{ flex: 'none' }}
                   {...field}

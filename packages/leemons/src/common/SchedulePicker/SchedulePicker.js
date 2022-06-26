@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState, forwardRef } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isFunction, isEmpty } from 'lodash';
+import { find, forEach, isEmpty, isFunction } from 'lodash';
 import {
-  Input,
-  InputWrapper,
-  useId,
-  INPUT_WRAPPER_SIZES,
-  INPUT_WRAPPER_ORIENTATIONS,
   Badge,
-  Popover,
   Box,
+  Input,
+  INPUT_WRAPPER_ORIENTATIONS,
+  INPUT_WRAPPER_SIZES,
+  InputWrapper,
+  Popover,
+  useId,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { ScheduleForm } from './ScheduleForm/';
@@ -56,6 +56,7 @@ const SchedulePicker = forwardRef(
       placeholders,
       helps,
       errorMessages,
+      firstDayOfWeek = 1,
       locale,
       value,
       onChange,
@@ -82,13 +83,17 @@ const SchedulePicker = forwardRef(
 
       import(`dayjs/locale/${locale}.js`).then((e) => {
         orderedWeekdays = [...e.weekdays];
-        orderedWeekdays.push(orderedWeekdays.shift());
-        orderedWeekdays = [...orderedWeekdays];
+        if (firstDayOfWeek > 0) {
+          const e = [...Array(firstDayOfWeek).keys()];
+          forEach(e, () => {
+            orderedWeekdays.push(orderedWeekdays.shift());
+          });
+        }
         setlocaleWeekdays(
           orderedWeekdays.map((day, index) => {
             let dayLabel = day.substring(0, 2);
             dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
-            return { label: dayLabel, value: { index }, day: day };
+            return { label: dayLabel, value: { index: e.weekdays.indexOf(day) }, day: day };
           })
         );
       });
@@ -154,24 +159,25 @@ const SchedulePicker = forwardRef(
                 <Box className={classes.wrapper}>
                   <Box className={classes.values}>
                     {!isEmpty(localeWeekdays) &&
-                      schedule.days.map((day) => (
-                        <Badge
-                          key={day.dayWeek}
-                          label={`${localeWeekdays[day.dayWeek].label} - ${day.start} ${
-                            labels.divider
-                          } ${day.end}`}
-                          closable={false}
-                          onClick={() => setOpenForm(true)}
-                          onClose={() => {
-                            setSchedule({
-                              ...schedule,
-                              days: schedule.days.filter((item) => {
-                                return item.dayWeek !== day.dayWeek;
-                              }),
-                            });
-                          }}
-                        />
-                      ))}
+                      schedule.days.map((day) => {
+                        const label = find(localeWeekdays, { value: { index: day.dayWeek } }).label;
+                        return (
+                          <Badge
+                            key={day.dayWeek}
+                            label={`${label} - ${day.start} ${labels.divider} ${day.end}`}
+                            closable={false}
+                            onClick={() => setOpenForm(true)}
+                            onClose={() => {
+                              setSchedule({
+                                ...schedule,
+                                days: schedule.days.filter((item) => {
+                                  return item.dayWeek !== day.dayWeek;
+                                }),
+                              });
+                            }}
+                          />
+                        );
+                      })}
                   </Box>
                   <input
                     ref={inputRef}
@@ -197,6 +203,7 @@ const SchedulePicker = forwardRef(
               placeholders={placeholders}
               errorMessages={errorMessages}
               localeWeekdays={localeWeekdays}
+              firstDayOfWeek={firstDayOfWeek}
               setOpenForm={setOpenForm}
               onChange={handleOnChange}
               savedSchedule={schedule}

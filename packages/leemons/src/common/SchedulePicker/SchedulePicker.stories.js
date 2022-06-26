@@ -47,6 +47,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...SCHEDULE_PICKER_DEFAULT_PROPS,
+  locale: 'en',
   labels: {
     input: 'Class schedule',
     checkboxLabel: 'Same time slot for each class',
@@ -75,7 +76,7 @@ Playground.args = {
     days: [
       {
         id: '28bfe616-6bd4-4b07-b2ca-edc3303b9cb7',
-        day: 'monday',
+        day: 'sunday',
         dayWeek: 0,
         duration: 120,
         end: '09:00',
@@ -84,7 +85,7 @@ Playground.args = {
       {
         id: '8bfe6162-bd46-b074-2cab-dc3303b9cb7e',
         day: 'wednesday',
-        dayWeek: 2,
+        dayWeek: 3,
         duration: 60,
         end: '12:00',
         start: '11:00',
@@ -92,7 +93,7 @@ Playground.args = {
       {
         id: 'bfe61628-d46b-074b-cab2-c3303b9cb7ed',
         day: 'friday',
-        dayWeek: 4,
+        dayWeek: 5,
         duration: 60,
         end: '11:00',
         start: '10:00',

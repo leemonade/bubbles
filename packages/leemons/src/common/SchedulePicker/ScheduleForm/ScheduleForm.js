@@ -41,7 +41,7 @@ function diffMinutes(dt2, dt1) {
   return Math.abs(Math.round(diff));
 }
 
-const dayToSchedule = (mapDay, day) => {
+const dayToSchedule = (mapDay, day, firstDayOfWeek) => {
   day.start.setSeconds(0, 0);
   day.end.setSeconds(0, 0);
 
@@ -86,6 +86,7 @@ const ScheduleForm = ({
   localeWeekdays,
   setOpenForm,
   onChange,
+  firstDayOfWeek,
   savedSchedule,
   displayCustomDays,
   ...props
@@ -144,6 +145,7 @@ const ScheduleForm = ({
       setOpenForm(false);
     } else {
       if (!validateSchedule()) return;
+
       isFunction(onChange) && onChange(schedule);
       setOpenForm(false);
     }
@@ -162,13 +164,13 @@ const ScheduleForm = ({
   useEffect(() => {
     oneScheduleOnly
       ? setSchedule({
-          days: selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue)),
+          days: selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue, firstDayOfWeek)),
           startDate,
           endDate,
           useCustomDates,
         })
       : setSchedule({
-          days: selectedDays.map((day) => dayToSchedule(day, day)),
+          days: selectedDays.map((day) => dayToSchedule(day, day, firstDayOfWeek)),
           startDate,
           endDate,
           useCustomDates,
@@ -182,7 +184,7 @@ const ScheduleForm = ({
         start: new Date(`01/01/1970 ${day.start}`),
         end: new Date(`01/01/1970 ${day.end}`),
         error: false,
-        index: day.dayWeek,
+        index: (day.dayWeek + firstDayOfWeek) % 6,
       }))
     );
   }, [savedSchedule]);
@@ -194,10 +196,12 @@ const ScheduleForm = ({
           size="xs"
           label={labels.groupLabel}
           variant={'boxed'}
-          data={localeWeekdays.map((day, index) => ({
-            ...day,
-            checked: savedSchedule.days.some((savedDay) => savedDay.dayWeek === index),
-          }))}
+          data={localeWeekdays.map((day) => {
+            return {
+              ...day,
+              checked: savedSchedule.days.some((savedDay) => savedDay.dayWeek === day.value.index),
+            };
+          })}
           onChange={(e) => {
             const orderedDays = e.map((day) => {
               return {
