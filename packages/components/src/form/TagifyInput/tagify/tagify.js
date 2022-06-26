@@ -65,11 +65,6 @@
     return target;
   }
 
-  // console.json = console.json || function(argument){
-  //     for(var arg=0; arg < arguments.length; ++arg)
-  //         console.log(  JSON.stringify(arguments[arg], null, 4)  )
-  // }
-  // const isEdge = /Edge/.test(navigator.userAgent)
   const sameStr = (s1, s2, caseSensitive, trim) => {
     // cast to String
     s1 = '' + s1;
