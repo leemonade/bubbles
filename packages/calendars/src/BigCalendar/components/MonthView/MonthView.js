@@ -6,7 +6,7 @@ import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
 import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
-import { sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
+import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
@@ -14,6 +14,7 @@ import { Box, COLORS, Popper } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
+/*
 let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
   const range = { start, end };
   const filteredEvents = events.filter((event) =>
@@ -36,6 +37,11 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
 
   return finalEvents;
 };
+
+ */
+
+let eventsForWeek = (evts, start, end, accessors, localizer) =>
+  evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -154,6 +160,7 @@ class MonthView extends React.Component {
     const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
 
     // let's not mutate props
+    /*
     const weeksEvents = eventsForWeek(
       [...events],
       startOfWeek,
@@ -161,6 +168,16 @@ class MonthView extends React.Component {
       localizer,
       isFirstWeek,
       isLastWeek
+    );
+
+     */
+
+    const weeksEvents = eventsForWeek(
+      [...events],
+      week[0],
+      week[week.length - 1],
+      accessors,
+      localizer
     );
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
@@ -237,8 +254,9 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
-      weekRow.pop();
-      weekRow.pop();
+      weekRow = _.filter(weekRow, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
     }
 
     const first = weekRow[0];

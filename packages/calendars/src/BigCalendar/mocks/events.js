@@ -46,8 +46,8 @@ export default [
   {
     title: 'Tarea de Computación',
     allDay: true,
-    start: DateTime.fromISO('2022-06-10T20:20:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-06-15T11:20:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-06-29T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-06-29T22:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -79,9 +79,9 @@ export default [
   },
   {
     title: 'Evento de Biología',
-    allDay: false,
-    start: DateTime.fromISO('2022-06-14T00:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-06-17T00:00:00.000Z').toJSDate(),
+    allDay: true,
+    start: DateTime.fromISO('2022-06-30T21:59:59.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-06-30T21:59:59.000Z').toJSDate(),
     originalEvent: {
       id: '04814d2b-172a-46a7-b2ad-fc678b20661d',
       title: 'Evento de Biología',
@@ -111,6 +111,7 @@ export default [
       updated_at: DateTime.fromISO('2021-06-25T19:35:54.000Z').toJSDate(),
     },
   },
+  /*
   {
     title: 'Evento de Matematicas',
     allDay: false,
@@ -247,4 +248,6 @@ export default [
       updated_at: DateTime.fromISO('2021-06-25T19:35:54.000Z').toJSDate(),
     },
   },
+
+   */
 ];
