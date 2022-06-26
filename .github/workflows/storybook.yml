@@ -12,11 +12,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Install 🔧
-        uses: borales/actions-yarn@v3.0.0
+        uses: CultureHQ/actions-yarn@master
         with:
           cmd: install # will run `yarn install` command
       - name: Build 🔧
-        uses: borales/actions-yarn@v3.0.0
+        uses: CultureHQ/actions-yarn@master
         with:
           cmd: build-all # will run `yarn build-all` command
       - name: Deploy 🚀
