@@ -14,11 +14,11 @@ jobs:
       - name: Install 🔧
         uses: CultureHQ/actions-yarn@master
         with:
-          cmd: install # will run `yarn install` command
+          args: install # will run `yarn install` command
       - name: Build 🔧
         uses: CultureHQ/actions-yarn@master
         with:
-          cmd: build-all # will run `yarn build-all` command
+          args: build-all # will run `yarn build-all` command
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
