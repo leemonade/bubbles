@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/notifications",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,12 +29,20 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
     "start": "yarn storybook",
-    "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9004",
-    "clean": "rimraf es lib umd esm cjs storybook-static build"
+    "build-all": "run-s build build-storybook",
+    "build": "run-s build:clean build:lib build:fix",
+    "build:lib": "node scripts/build.js",
+    "build:clean": "rimraf es lib umd esm cjs storybook-static build",
+    "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-storybook": "run-s build:storybook:clean build:storybook",
+    "build:storybook:clean": "rimraf ../../docs-build/notifications",
+    "build:storybook": "cross-env NODE_ENV=production build-storybook -o ../../docs-build/notifications",
+    "storybook": "run-s storybook:clean storybook:start",
+    "storybook:clean": "rimraf node_modules/.cache/storybook",
+    "storybook:start": "start-storybook -p 9004"
   },
   "dependencies": {
     "@mantine/notifications": "^4.0.5",
@@ -43,12 +51,13 @@
     "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.0.26",
-    "@bubbles-ui/icons": "^1.0.10",
+    "@bubbles-ui/components": "^1.0.37",
+    "@bubbles-ui/icons": "^1.0.26",
     "@mantine/core": "^4.0.5",
     "@mantine/hooks": "^4.0.5",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "webpack": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -67,6 +76,8 @@
     "@storybook/addon-links": "^6.4.9",
     "@storybook/addons": "^6.4.9",
     "@storybook/react": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-transform-import-styles": "^0.0.11",
     "cross-env": "^7.0.3",
@@ -74,11 +85,6 @@
     "load-styles": "^2.0.0",
     "npm-which": "^3.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.58.0",
-    "rollup-plugin-import-css": "^3.0.2",
-    "rollup-plugin-strip-banner": "^2.0.0",
-    "rollup-plugin-styles": "^3.14.1",
-    "rollup-plugin-terser": "^7.0.2",
     "storybook-addon-designs": "^6.2.0"
   }
 }

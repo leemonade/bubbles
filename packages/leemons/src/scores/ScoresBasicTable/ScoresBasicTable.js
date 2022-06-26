@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ScoreCell } from './ScoreCell';
+import { Box, Text, UserDisplayItem, Badge, useElementSize } from '@bubbles-ui/components';
+import { useTable, useFlexLayout } from 'react-table';
+import { isFunction } from 'lodash';
+import { motion } from 'framer-motion';
 import { useSticky } from 'react-table-sticky';
+import { ScoreCell } from './ScoreCell';
 import { ActivityHeader } from './ActivityHeader';
 import { ScoresBasicTableStyles } from './ScoresBasicTable.styles';
-import { useTable, useFlexLayout } from 'react-table';
-import { Box, Text, UserDisplayItem, Badge, useElementSize } from '@bubbles-ui/components';
 import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
-import { isFunction } from 'lodash';
-import { motion } from 'framer-motion';
 
 const ScoresBasicTable = ({
   grades,

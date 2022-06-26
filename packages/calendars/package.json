@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/calendars",
-  "version": "1.0.3",
+  "version": "1.0.31",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -30,12 +30,20 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
     "start": "yarn storybook",
-    "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9002",
-    "clean": "rimraf es lib umd esm cjs storybook-static build"
+    "build": "run-s build:clean build:lib build:fix",
+    "build-all": "run-s build build-storybook",
+    "build:lib": "node scripts/build.js",
+    "build:clean": "rimraf es lib umd esm cjs storybook-static build",
+    "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-storybook": "run-s build:storybook:clean build:storybook",
+    "build:storybook": "cross-env NODE_ENV=production build-storybook -o ../../docs-build/calendars",
+    "build:storybook:clean": "rimraf ../../docs-build/calendars",
+    "storybook": "run-s storybook:clean storybook:start",
+    "storybook:clean": "rimraf node_modules/.cache/storybook",
+    "storybook:start": "start-storybook -p 9002"
   },
   "dependencies": {
     "colord": "^2.9.2",
@@ -48,8 +56,8 @@
     "rrule": "^2.6.8"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.0.23",
-    "@bubbles-ui/icons": "^1.0.10",
+    "@bubbles-ui/components": "^1.0.37",
+    "@bubbles-ui/icons": "^1.0.26",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "webpack": "*"
@@ -80,11 +88,6 @@
     "load-styles": "^2.0.0",
     "npm-which": "^3.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.58.0",
-    "rollup-plugin-import-css": "^3.0.2",
-    "rollup-plugin-strip-banner": "^2.0.0",
-    "rollup-plugin-styles": "^3.14.1",
-    "rollup-plugin-terser": "^7.0.2",
     "storybook-addon-designs": "^6.2.0"
   },
   "resolutions": {

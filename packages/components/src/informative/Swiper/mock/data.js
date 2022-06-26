@@ -1,10 +1,21 @@
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
-import { Stack, Paper } from '../../../layout';
+import { Paper } from '../../../layout';
+import { Text } from '../../../typography';
 
 export const childrens = [
-  <Paper fullWidth>Hola Mundo</Paper>,
-  <Paper fullWidth>Hola Mundo</Paper>,
-  <Paper fullWidth>Hola Mundo</Paper>,
-  <Paper fullWidth>Hola Mundo</Paper>,
-  <Paper fullWidth>Hola Mundo</Paper>,
+  <Paper fullWidth>
+    <Text>Hello world</Text>
+  </Paper>,
+  <Paper fullWidth>
+    <Text>Hello world</Text>
+  </Paper>,
+  <Paper fullWidth>
+    <Text>Hello world</Text>
+  </Paper>,
+  <Paper fullWidth>
+    <Text>Hello world</Text>
+  </Paper>,
+  <Paper fullWidth>
+    <Text>Hello world</Text>
+  </Paper>,
 ];

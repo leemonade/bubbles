@@ -12,7 +12,7 @@ const logger = new Logger('build-package');
 
 async function main() {
   const argv = yargs(process.argv).argv;
-  const toInclude = Object.keys(argv).filter((key) => !['_', '$0'].includes(key));
+  const toInclude = Object.keys(argv).filter((key) => !['_', '$0', 'all', 'nomadge'].includes(key));
   const packages = (await getPackagesBuildOrder()).filter((package) => {
     if (toInclude.length === 0) {
       return true;
@@ -35,18 +35,29 @@ async function main() {
 
       const startTime = Date.now();
 
-      spawn(`yarn madge:circular ${item.path + '/src'}`);
+      if (!argv.nomadge) {
+        spawn(`yarn madge:circular ${item.path + '/src'}`);
+      }
 
-      await execa('yarn', ['workspace', item.packageJson.name, 'build']);
+      try {
+        await execa('yarn', [
+          'workspace',
+          item.packageJson.name,
+          argv.all ? 'build-all' : 'build',
+          '--silent',
+        ]);
 
-      logger.info(
-        `Package ${chalk.cyan(item.packageJson.name)} built in ${chalk.green(
-          `${((Date.now() - startTime) / 1000).toFixed(2)}s`
-        )}`
-      );
+        logger.info(
+          `Package ${chalk.cyan(item.packageJson.name)} built in ${chalk.green(
+            `${((Date.now() - startTime) / 1000).toFixed(2)}s`
+          )}`
+        );
+      } catch (err) {
+        logger.error(`Failed to compile package: ${chalk.cyan(item.packageJson.name)}`);
+        process.stdout.write(`${err.toString('minimal')}\n`);
+        process.exit(1);
+      }
     } catch (err) {
-      logger.error(`Failed to compile package: ${chalk.cyan(item.packageJson.name)}`);
-      process.stdout.write(`${err.toString('minimal')}\n`);
       process.exit(1);
     }
   }

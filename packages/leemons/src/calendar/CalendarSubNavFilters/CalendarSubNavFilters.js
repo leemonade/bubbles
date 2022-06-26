@@ -72,7 +72,7 @@ const CalendarSubNavFilters = ({
             paddingBottom: '80px',
           })}
         >
-          {showPageControl && (
+          {showPageControl ? (
             <SegmentedControl
               data={pages}
               value={pageValue}
@@ -85,7 +85,7 @@ const CalendarSubNavFilters = ({
                 control: classes.segmentControl,
               }}
             />
-          )}
+          ) : null}
           {centers && centers.length > 1 ? (
             <Box
               sx={(theme) => ({

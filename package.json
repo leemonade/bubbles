@@ -30,6 +30,7 @@
   "scripts": {
     "generate": "node ./scripts/generate.js",
     "build": "node ./scripts/build.js",
+    "build-all": "node ./scripts/build.js --all --nomadge",
     "linkAll": "node ./scripts/link.js",
     "madge:circular": "madge --circular"
   },

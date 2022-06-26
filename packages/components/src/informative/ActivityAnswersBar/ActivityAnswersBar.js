@@ -11,7 +11,7 @@ import {
 import { groupBy } from 'lodash';
 import { CustomBar } from './CustomBar';
 import { getFontProductive } from '../../theme.mixins';
-import { CustomLegend } from '../../../es/informative/ActivityAnswersBar/CustomLegend';
+import { CustomLegend } from './CustomLegend';
 
 const MARGIN_FOR_CHAR = 7.8;
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Kanban, KANBAN_DEFAULT_PROPS } from './Kanban';
 import mdx from './Kanban.mdx';
 import { mock } from './mock/mock';
-import { KanbanTaskCard } from '@bubbles-ui/leemons';
 import { mockCard } from './mock/mockCard';
 
 export default {
@@ -26,12 +25,7 @@ export default {
 const Template = ({ children, ...props }) => {
   const [value, setValue] = useState(mock);
   return (
-    <Kanban
-      {...props}
-      value={value}
-      onChange={setValue}
-      itemRender={(props) => <KanbanTaskCard config={mockCard} {...props} />}
-    >
+    <Kanban {...props} value={value} onChange={setValue}>
       {children}
     </Kanban>
   );

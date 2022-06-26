@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/icons",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "The Bubbles Design System icons library.",
   "license": "MIT",
   "repository": {
@@ -26,11 +26,17 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "npm run build-outline && npm run build-solid && npm run build-react",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
+    "build-all": "run-s build",
+    "build": "run-s build-outline build-solid build-react",
     "build-react": "node ./scripts/build.js react",
-    "build-outline": "rimraf ./optimized/outline && svgo --config=svgo.outline.js -f ./src/outline -o ./optimized/outline --pretty --indent=2",
-    "build-solid": "rimraf ./optimized/solid && svgo --config=svgo.solid.js -f ./src/solid -o ./optimized/solid --pretty --indent=2"
+    "build-outline": "run-s build-outline:clean build-outline:lib",
+    "build-solid": "run-s build-solid:clean build-solid:lib",
+    "build-outline:clean": "rimraf ./optimized/outline",
+    "build-outline:lib": "svgo --config=svgo.outline.js -f ./src/outline -o ./optimized/outline --pretty --indent=2",
+    "build-solid:clean": "rimraf ./optimized/solid",
+    "build-solid:lib": "svgo --config=svgo.solid.js -f ./src/solid -o ./optimized/solid --pretty --indent=2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
