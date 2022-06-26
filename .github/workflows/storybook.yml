@@ -15,13 +15,9 @@ jobs:
         with:
           node-version: 14
       - name: Install 🔧
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: install # will run `yarn install` command
+        run: yarn install --frozen-lockfile
       - name: Build 🔧
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: build-all # will run `yarn build-all` command
+        run: yarn build-all
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
