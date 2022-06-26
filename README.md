@@ -3,8 +3,7 @@
 [![NPM](https://img.shields.io/npm/l/@bubbles-ui/components)](https://github.com/leemonade/bubbles/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/leemonade/bubbles)](https://github.com/leemonade/bubbles/graphs/contributors)
 [![npm](https://img.shields.io/npm/v/@bubbles-ui/components)](https://www.npmjs.com/package/@bubbles-ui/components)
-[![npm](https://img.shields.io/npm/dm/@bubbles-ui/calendars)](https://www.npmjs.com/package/@bubbles-ui/calendars)
-[![npm](https://img.shields.io/npm/dm/@bubbles-ui/editors)](https://www.npmjs.com/package/@bubbles-ui/editors)
+[![npm](https://img.shields.io/npm/dm/@bubbles-ui/components)](https://www.npmjs.com/package/@bubbles-ui/components)
 
 ## Packages
 
