@@ -35,6 +35,7 @@
     "start": "yarn storybook",
     "build": "run-s build:clean build:lib build:fix",
     "build-all": "run-s build build-storybook",
+    "build-all:no-types": "run-s build-all",
     "build:lib": "node scripts/build.js",
     "build:clean": "rimraf es lib umd esm cjs storybook-static build",
     "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",

@@ -12,7 +12,9 @@ const logger = new Logger('build-package');
 
 async function main() {
   const argv = yargs(process.argv).argv;
-  const toInclude = Object.keys(argv).filter((key) => !['_', '$0', 'all', 'nomadge'].includes(key));
+  const toInclude = Object.keys(argv).filter(
+    (key) => !['_', '$0', 'all', 'nomadge', 'notypes'].includes(key)
+  );
   const packages = (await getPackagesBuildOrder()).filter((package) => {
     if (toInclude.length === 0) {
       return true;
@@ -29,6 +31,8 @@ async function main() {
     return found;
   });
 
+  const suffix = argv.notypes ? ':no-types' : '';
+
   for (const item of packages) {
     try {
       logger.info(`Building package ${chalk.cyan(item.packageJson.name)}`);
@@ -43,7 +47,7 @@ async function main() {
         await execa('yarn', [
           'workspace',
           item.packageJson.name,
-          argv.all ? 'build-all' : 'build',
+          argv.all ? `build-all${suffix}` : `build${suffix}`,
           '--silent',
         ]);
 

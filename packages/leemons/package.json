@@ -37,6 +37,7 @@
     "start": "yarn storybook",
     "build": "run-s -cs build:clean build:lib build:fix types",
     "build-all": "run-s -cs build",
+    "build-all:no-types": "run-s build:no-types build-storybook",
     "build:no-types": "run-s -cs build:clean build:lib build:fix",
     "build:clean": "rimraf es lib umd esm cjs storybook-static build",
     "build:lib": "node scripts/build.js",
