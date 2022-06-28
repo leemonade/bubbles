@@ -11,11 +11,11 @@ import mdx from './IconButton.mdx';
 
 export default {
   title: 'Atoms/Form/IconButton',
-  docs: {
-    page: mdx,
-  },
   parameters: {
     component: IconButton,
+    docs: {
+      page: mdx,
+    },
   },
   argTypes: {
     rounded: { control: { type: 'boolean' } },
@@ -24,7 +24,7 @@ export default {
   },
 };
 
-const Template = (props) => {
+const Template = ({ ...props }) => {
   return (
     <IconButton {...props}>
       <ChevronRightIcon />
