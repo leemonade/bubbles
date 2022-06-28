@@ -67,20 +67,29 @@ const ScoresBasicTable = ({
     const activitiesObject = {};
     activities.forEach(({ id }) => {
       const activity = studentActivities.find((studentActivity) => studentActivity?.id === id);
-      activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
+      activitiesObject[id] = {
+        score: useNumbers ? activity?.score : findGradeLetter(activity?.score),
+        isSubmitted: activity?.isSubmitted,
+      };
     });
     const expandedActivities = expandedData?.value.find(
       (student) => student.id === studentId
     )?.activities;
     expandedData?.activities?.forEach(({ id }) => {
       const activity = expandedActivities.find((expandedActivity) => expandedActivity?.id === id);
-      activitiesObject[id] = useNumbers ? activity?.score : findGradeLetter(activity?.score);
+      activitiesObject[id] = {
+        score: useNumbers ? activity?.score : findGradeLetter(activity?.score),
+        isSubmitted: activity?.isSubmitted,
+      };
     });
     return activitiesObject;
   };
 
   const getAvgScore = (studentActivities) => {
-    const sumOfScores = studentActivities.reduce((acc, { score }) => acc + score, 0);
+    const sumOfScores = studentActivities.reduce(
+      (acc, { score }) => acc + (isNaN(score) ? 0 : score),
+      0
+    );
     const averageScore = (sumOfScores / activities.length).toFixed(2);
     return useNumbers ? averageScore : findGradeLetter(Math.round(averageScore));
   };
@@ -114,14 +123,14 @@ const ScoresBasicTable = ({
               {getAvgScore(studentActivities)}
             </Text>
           </Box>
-          <Box className={classes.studentInfo}>
+          {/* <Box className={classes.studentInfo}>
             <Badge
               label={`${studentAttendance}%`}
               severity={getSeverity(studentAttendance)}
               closable={false}
               radius="default"
             />
-          </Box>
+          </Box> */}
         </Box>
       );
     });
@@ -163,11 +172,13 @@ const ScoresBasicTable = ({
             onColumnExpand={onColumnExpandHandler}
           />
         ),
-        Cell: ({ value, row, column }) => {
+        Cell: ({ value, row, column, ...others }) => {
           return (
             <ScoreCell
-              value={value}
+              value={value.score}
               noActivity={labels.noActivity}
+              allowChange={activity.allowChange}
+              isSubmitted={value.isSubmitted}
               grades={grades}
               row={row}
               column={column}
@@ -206,8 +217,10 @@ const ScoresBasicTable = ({
               Cell: ({ value, row, column }) => {
                 return (
                   <ScoreCell
-                    value={value}
+                    value={value.score}
                     noActivity={labels.noActivity}
+                    allowChange={expandedActivity.allowChange}
+                    isSubmitted={value.isSubmitted}
                     grades={grades}
                     row={row}
                     column={column}
@@ -341,11 +354,11 @@ const ScoresBasicTable = ({
                 {labels.gradingTasks}
               </Text>
             </Box>
-            <Box className={classes.columnHeader}>
+            {/* <Box className={classes.columnHeader}>
               <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
                 {labels.attendance}
               </Text>
-            </Box>
+            </Box> */}
           </Box>
           <Box className={classes.rightBodyContent}>{getRightBodyContent()}</Box>
         </Box>

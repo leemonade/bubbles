@@ -7,11 +7,11 @@ import mdx from './ScoresBasicTable.mdx';
 const generateRandomActivities = () => {
   const activities = [];
   for (let i = 1; i <= 6; i++) {
-    const shouldSkip = Math.random() > 0.7;
-    if (shouldSkip) continue;
+    const shouldSkip = Math.random() > 0.8;
     activities.push({
       id: `a-0${i}`,
-      score: Math.floor(Math.random() * 10),
+      score: shouldSkip ? undefined : Math.floor(Math.random() * 10),
+      isSubmitted: Math.random() > 0.2,
     });
   }
   return activities;
@@ -21,10 +21,10 @@ const generateRandomExpandedActivities = () => {
   const activities = [];
   for (let i = 1; i <= 3; i++) {
     const shouldSkip = Math.random() > 0.7;
-    if (shouldSkip) continue;
     activities.push({
       id: `expanded-a-0${i}`,
-      score: Math.floor(Math.random() * 10),
+      score: shouldSkip ? undefined : Math.floor(Math.random() * 10),
+      isSubmitted: Math.random() > 0.2,
     });
   }
   return activities;
@@ -85,12 +85,48 @@ Playground.args = {
     { number: 10, letter: 'A+' },
   ],
   activities: [
-    { id: 'a-01', name: 'Test Moriscos', deadline: '2020-01-01', expandable: true },
-    { id: 'a-02', name: 'La historia detras del cuadro', deadline: '2020-02-20', expandable: true },
-    { id: 'a-03', name: 'Patios moriscos', deadline: '2020-03-10', expandable: true },
-    { id: 'a-04', name: 'Examen siglo XVII', deadline: '2020-04-20', expandable: true },
-    { id: 'a-05', name: 'La edad del bronze', deadline: '2020-05-09', expandable: true },
-    { id: 'a-06', name: 'La edad media', deadline: '2020-06-30', expandable: true },
+    {
+      id: 'a-01',
+      name: 'Test Moriscos',
+      deadline: '2020-01-01',
+      expandable: true,
+      allowChange: true,
+    },
+    {
+      id: 'a-02',
+      name: 'La historia detras del cuadro',
+      deadline: '2020-02-20',
+      expandable: true,
+      allowChange: false,
+    },
+    {
+      id: 'a-03',
+      name: 'Patios moriscos',
+      deadline: '2020-03-10',
+      expandable: true,
+      allowChange: true,
+    },
+    {
+      id: 'a-04',
+      name: 'Examen siglo XVII',
+      deadline: '2020-04-20',
+      expandable: true,
+      allowChange: true,
+    },
+    {
+      id: 'a-05',
+      name: 'La edad del bronze',
+      deadline: '2020-05-09',
+      expandable: true,
+      allowChange: true,
+    },
+    {
+      id: 'a-06',
+      name: 'La edad media',
+      deadline: '2020-06-30',
+      expandable: true,
+      allowChange: true,
+    },
   ],
   value: [
     {
@@ -173,9 +209,19 @@ Playground.args = {
   ],
   expandedData: {
     activities: [
-      { id: 'expanded-a-01', name: 'El imperio romano', deadline: '2020-01-01' },
-      { id: 'expanded-a-02', name: 'Periodo de los Reinos combatientes', deadline: '2020-02-20' },
-      { id: 'expanded-a-03', name: 'Migraciones humanas', deadline: '2020-03-10' },
+      { id: 'expanded-a-01', name: 'El imperio romano', deadline: '2020-01-01', allowChange: true },
+      {
+        id: 'expanded-a-02',
+        name: 'Periodo de los Reinos combatientes',
+        deadline: '2020-02-20',
+        allowChange: false,
+      },
+      {
+        id: 'expanded-a-03',
+        name: 'Migraciones humanas',
+        deadline: '2020-03-10',
+        allowChange: true,
+      },
     ],
     value: [
       {
