@@ -5,6 +5,7 @@ import {
   SEARCH_INPUT_ORIENTATIONS,
   SEARCH_INPUT_SIZES,
 } from './SearchInput';
+import { Text } from '../../typography';
 import { TEXT_INPUT_VARIANTS } from '../TextInput';
 import mdx from './SearchInput.mdx';
 
@@ -29,16 +30,21 @@ export default {
 };
 
 const Template = ({ onChange, ...props }) => {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   return (
-    <SearchInput
-      {...props}
-      value={value}
-      onChange={(e) => {
-        setValue(e);
-        onChange(e);
-      }}
-    />
+    <>
+      <SearchInput
+        {...props}
+        value={value}
+        onChange={(e) => {
+          setValue(e);
+          onChange(e);
+        }}
+      />
+      <Text color="primary" style={{ display: 'block', marginTop: 16 }}>
+        {value}
+      </Text>
+    </>
   );
 };
 

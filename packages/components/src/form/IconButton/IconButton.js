@@ -72,5 +72,6 @@ IconButton.propTypes = {
   variant: PropTypes.oneOf(ICON_BUTTON_VARIANTS),
   //iconOnly: PropTypes.bool,
   // Adds icon before button label
+  label: PropTypes.string,
   icon: PropTypes.node,
 };

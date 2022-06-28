@@ -1,0 +1,46 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Input.stories.js';
+import { Input } from './Input.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# Input
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/Input/Input.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Input is the base for others inputs
+
+<ThemeProvider>
+  <Input placeholder="Placeholder" />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-form-input--playground" />
+</Preview>
+
+<Props of={Input} />
+
+## References
+
+[MDN: ARIA Input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/Input/Input.mdx)
