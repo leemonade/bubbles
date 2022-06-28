@@ -37,9 +37,11 @@ Playground.args = {
   deadline: new Date('2022-05-20 18:00:00'),
   locale: 'es-ES',
   labels: {
+    noDeadline: 'No deadline',
     deadline: 'Deadline',
     deadlineExtraTime: 'Add extra time',
     closeTask: 'Close task',
+    archiveTask: 'Archive task',
     save: 'Save',
     cancel: 'Cancel',
   },

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 export const TASK_DEADLINE_HEADER_DEFAULT_PROPS = {
   labels: {
+    noDeadline: '',
     deadline: '',
     deadlineExtraTime: '',
     closeTask: '',

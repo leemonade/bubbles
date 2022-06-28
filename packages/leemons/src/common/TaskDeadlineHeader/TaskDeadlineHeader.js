@@ -65,7 +65,9 @@ const TaskDeadlineHeader = ({
   };
 
   useEffect(() => {
-    if (deadlineValue !== new Date(deadline)) {
+    if (deadline === null && deadlineValue !== deadline) {
+      setDeadlineValue(null);
+    } else if (deadlineValue !== new Date(deadline)) {
       setDeadlineValue(new Date(deadline));
     }
   }, [deadline]);
@@ -78,48 +80,69 @@ const TaskDeadlineHeader = ({
     <Box className={cx(classes.root, className)}>
       <TaskHeader title={title} subtitle={subtitle} icon={icon} color={color} />
       <Box className={classes.deadlineWrapper}>
-        <Box className={classes.deadline}>
-          {!deadlineExpanded ? (
-            <>
-              <Text className={classes.textColor}>{labels.deadline}</Text>
-              <Text className={classes.deadlineDate}>
-                {deadlineValue?.toLocaleDateString(locale)}
-              </Text>
-              <EditWriteIcon
-                className={classes.deadlineIcon}
-                height={16}
-                width={16}
-                onClick={() => setDeadlineExpanded(true)}
-              />
-            </>
-          ) : (
-            <>
-              <DatePicker
+        {deadlineValue ? (
+          <>
+            <Box className={classes.deadline}>
+              {!deadlineExpanded ? (
+                <>
+                  <Text className={classes.textColor}>{labels.deadline}</Text>
+                  <Text className={classes.deadlineDate}>
+                    {deadlineValue?.toLocaleDateString(locale)}
+                  </Text>
+                  <EditWriteIcon
+                    className={classes.deadlineIcon}
+                    height={16}
+                    width={16}
+                    onClick={() => setDeadlineExpanded(true)}
+                  />
+                </>
+              ) : (
+                <>
+                  <DatePicker
+                    size="xs"
+                    locale={locale}
+                    withTime
+                    contentClassName={classes.datePicker}
+                    value={tempDeadlineValue}
+                    onChange={(date) => (tempDeadlineValue = date)}
+                  />
+                  <Button size="xs" compact onClick={saveDeadline}>
+                    {labels.save}
+                  </Button>
+                  <Button size="xs" compact onClick={cancelDeadline}>
+                    {labels.cancel}
+                  </Button>
+                </>
+              )}
+            </Box>
+            <Box className={classes.deadlineExtraTime}>
+              <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>
+              <Button
+                variant="outline"
+                color="negative"
                 size="xs"
-                locale={locale}
-                withTime
-                contentClassName={classes.datePicker}
-                value={tempDeadlineValue}
-                onChange={(date) => (tempDeadlineValue = date)}
-              />
-              <Button size="xs" compact onClick={saveDeadline}>
-                {labels.save}
+                compact
+                onClick={() => addDays(1)}
+              >
+                +1d
               </Button>
-              <Button size="xs" compact onClick={cancelDeadline}>
-                {labels.cancel}
+              <Button
+                variant="outline"
+                color="negative"
+                size="xs"
+                compact
+                onClick={() => addDays(7)}
+              >
+                +7d
               </Button>
-            </>
-          )}
-        </Box>
-        <Box className={classes.deadlineExtraTime}>
-          <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>
-          <Button variant="outline" color="negative" size="xs" compact onClick={() => addDays(1)}>
-            +1d
-          </Button>
-          <Button variant="outline" color="negative" size="xs" compact onClick={() => addDays(7)}>
-            +7d
-          </Button>
-        </Box>
+            </Box>
+          </>
+        ) : (
+          <Box className={classes.deadline}>
+            <Text>{labels?.noDeadline}</Text>
+          </Box>
+        )}
+
         <Box className={classes.deadlineSwitch}>
           {!hideClose && (
             <Switch
