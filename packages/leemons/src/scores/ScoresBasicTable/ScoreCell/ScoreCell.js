@@ -4,13 +4,24 @@ import { ScoreCellStyles } from './ScoreCell.styles';
 import { SCORES_CELL_DEFAULT_PROPS, SCORES_CELL_PROP_TYPES } from './ScoreCell.constants';
 import { isFunction } from 'lodash';
 
-const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataChange }) => {
+const ScoreCell = ({
+  value,
+  noActivity,
+  allowChange,
+  isSubmitted,
+  grades,
+  row,
+  column,
+  setValue,
+  onDataChange,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const isGrade = value !== undefined;
   const useNumbers = !grades.some((grade) => grade.letter);
   const selectRef = useClickOutside(() => setIsEditing(false));
 
   const onClickHandler = () => {
+    if (!allowChange) return;
     if (!isEditing) setIsEditing(true);
   };
 
@@ -36,7 +47,7 @@ const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataCha
   };
 
   const renderInputCell = () => {
-    if (!isGrade)
+    if (!isSubmitted)
       return (
         <Text color="primary" role="productive">
           {noActivity}
@@ -47,9 +58,9 @@ const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataCha
 
     return (
       <Box className={classes.inputContainer} onClick={onClickHandler}>
-        {!isEditing ? (
+        {!isEditing || !allowChange ? (
           <Text color="primary" role="productive">
-            {value}
+            {isNaN(value) ? '-' : value}
           </Text>
         ) : (
           <Select
@@ -68,7 +79,7 @@ const ScoreCell = ({ value, noActivity, grades, row, column, setValue, onDataCha
     if (selectRef.current) selectRef.current.click();
   }, [isEditing]);
 
-  const { classes, cx } = ScoreCellStyles({ isEditing }, { name: 'ScoreCell' });
+  const { classes, cx } = ScoreCellStyles({ isEditing, allowChange }, { name: 'ScoreCell' });
   return <Box className={classes.root}>{renderInputCell()}</Box>;
 };
 

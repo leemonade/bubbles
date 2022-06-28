@@ -6,7 +6,7 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const ScoreCellStyles = createStyles((theme, { isEditing }) => {
+export const ScoreCellStyles = createStyles((theme, { isEditing, allowChange }) => {
   return {
     root: {
       width: '100%',
@@ -23,7 +23,7 @@ export const ScoreCellStyles = createStyles((theme, { isEditing }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      cursor: 'pointer',
+      cursor: allowChange && 'pointer',
       input: {
         height: 46,
         borderRadius: 0,
