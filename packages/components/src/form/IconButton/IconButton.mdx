@@ -13,16 +13,14 @@ import { IconButton } from './IconButton.js';
 
 - [Overview](#overview)
 - [Component API](#component-api)
-- [Button `as`](#button-as)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Buttons are clickable elements that are used to trigger actions. They
+IconButton are clickable elements that are used to trigger actions. They
 communicate calls to action to the user and allow users to interact with pages
-in a variety of ways. `Button` labels express what action will occur when the
-user interacts with it.
+in a variety of ways.
 
 <Preview>
   <Story id="atoms-form-iconbutton--playground" />
@@ -32,31 +30,16 @@ user interacts with it.
 
 <Props of={IconButton} />
 
-Additional props passed into `Button` will be forwarded along to the underlying
-button element.
-
-### Button `as`
-
-This prop allows you to specify a different element to be rendered as a
-`Button`. You may also need to add a [role](#button-role) for accessibility if
-an element other than a `button` is rendered.
-
-```jsx
-<Button component="div" role="button">
-  I'm a div tag
-</Button>
-```
-
 ## References
 
 [MDN: ARIA button role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA button role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/button/button.html)
+[W3: ARIA button role example](https://www.w3.org/WAI/ARIA/apg/example-index/button/button.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack,
 or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/button/Button.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/IconButton/IconButton.mdx)
