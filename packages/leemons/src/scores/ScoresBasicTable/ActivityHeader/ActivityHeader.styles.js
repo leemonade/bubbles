@@ -29,12 +29,25 @@ export const ActivityHeaderStyles = createStyles(
         },
       },
       header: {
-        padding: 16,
+        // padding: 16,
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
         alignItems: 'center',
-        paddingTop: 64,
+        // paddingTop: 64,
+        height: 116,
+        maxHeight: 116,
+        position: 'relative',
+        width: '100%',
+        textAlign: 'center',
+      },
+      title: {
+        marginTop: 48,
+        height: 34,
+        marginInline: 16,
+      },
+      info: {
+        marginInline: 16,
       },
       expandedHeader: {
         marginLeft: 300,
@@ -47,6 +60,9 @@ export const ActivityHeaderStyles = createStyles(
         color: theme.colors.mainWhite,
         paddingInline: 6,
         cursor: 'pointer',
+      },
+      starIcon: {
+        color: theme.colors.text04,
       },
     };
   }
