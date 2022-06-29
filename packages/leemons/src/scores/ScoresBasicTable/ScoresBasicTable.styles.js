@@ -40,6 +40,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
     tableHeader: {},
     tableHeaderRow: {},
     tableHeaderCell: {
+      maxHeight: 120,
       '&:first-of-type': {
         maxWidth: 296,
       },
@@ -110,7 +111,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
     },
     columnHeader: {
       display: 'inline-block',
-      width: '50%',
+      width: '100%',
       textAlign: 'center',
       verticalAlign: 'middle',
       paddingTop: 24,
@@ -125,7 +126,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
       borderBottom: '1px solid #F2F2F2',
     },
     studentInfo: {
-      width: '50%',
+      width: '100%',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
