@@ -7,11 +7,12 @@ import mdx from './ScoresBasicTable.mdx';
 const generateRandomActivities = () => {
   const activities = [];
   for (let i = 1; i <= 6; i++) {
-    const shouldSkip = Math.random() > 0.8;
+    const shouldSkip = Math.random() > 0.2;
+    const isSubmitted = Math.random() > 0.2;
     activities.push({
       id: `a-0${i}`,
-      score: shouldSkip ? undefined : Math.floor(Math.random() * 10),
-      isSubmitted: Math.random() > 0.2,
+      score: isSubmitted ? (shouldSkip ? Math.floor(Math.random() * 10) : undefined) : undefined,
+      isSubmitted: isSubmitted,
     });
   }
   return activities;
@@ -20,11 +21,12 @@ const generateRandomActivities = () => {
 const generateRandomExpandedActivities = () => {
   const activities = [];
   for (let i = 1; i <= 3; i++) {
-    const shouldSkip = Math.random() > 0.7;
+    const shouldSkip = Math.random() > 0.2;
+    const isSubmitted = Math.random() > 0.2;
     activities.push({
       id: `expanded-a-0${i}`,
-      score: shouldSkip ? undefined : Math.floor(Math.random() * 10),
-      isSubmitted: Math.random() > 0.2,
+      score: isSubmitted ? (shouldSkip ? Math.floor(Math.random() * 10) : undefined) : undefined,
+      isSubmitted: isSubmitted,
     });
   }
   return activities;
@@ -46,6 +48,7 @@ export default {
     onChange: { action: 'onChange' },
     onDataChange: { action: 'onDataChange' },
     onColumnExpand: { action: 'onColumnExpand' },
+    onOpen: { action: 'onOpen' },
   },
 };
 
@@ -67,7 +70,7 @@ Playground.args = {
   labels: {
     students: 'Estudiante',
     noActivity: 'No entregado',
-    avgScore: 'Average score',
+    avgScore: 'Weighted score',
     gradingTasks: 'Grading tasks',
     attendance: 'Attendance',
   },
@@ -90,14 +93,18 @@ Playground.args = {
       name: 'Test Moriscos',
       deadline: '2020-01-01',
       expandable: true,
-      allowChange: true,
+      allowChange: false,
+      weight: 0.3,
+      type: 'calificable',
     },
     {
       id: 'a-02',
       name: 'La historia detras del cuadro',
       deadline: '2020-02-20',
       expandable: true,
-      allowChange: false,
+      allowChange: true,
+      weight: 0.8,
+      type: 'evaluable',
     },
     {
       id: 'a-03',
@@ -105,6 +112,8 @@ Playground.args = {
       deadline: '2020-03-10',
       expandable: true,
       allowChange: true,
+      weight: 0.0,
+      type: 'calificable',
     },
     {
       id: 'a-04',
@@ -112,6 +121,8 @@ Playground.args = {
       deadline: '2020-04-20',
       expandable: true,
       allowChange: true,
+      weight: 0.1,
+      type: 'evaluable',
     },
     {
       id: 'a-05',
@@ -119,6 +130,8 @@ Playground.args = {
       deadline: '2020-05-09',
       expandable: true,
       allowChange: true,
+      weight: 0.5,
+      type: 'calificable',
     },
     {
       id: 'a-06',
@@ -126,6 +139,8 @@ Playground.args = {
       deadline: '2020-06-30',
       expandable: true,
       allowChange: true,
+      weight: 0.2,
+      type: 'evaluable',
     },
   ],
   value: [

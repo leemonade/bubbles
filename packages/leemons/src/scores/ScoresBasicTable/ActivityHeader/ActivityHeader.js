@@ -7,6 +7,7 @@ import {
   ACTIVIY_HEADER_PROP_TYPES,
 } from './ActivityHeader.constants';
 import { isFunction } from 'lodash';
+import { CutStarIcon } from '@bubbles-ui/icons/solid';
 
 const ActivityHeader = ({
   id,
@@ -18,8 +19,11 @@ const ActivityHeader = ({
   locale,
   onColumnExpand,
   position,
+  type,
 }) => {
   const { ref, hovered } = useHover();
+
+  const isEvaluable = type === 'evaluable';
 
   const onColumnExpandHandler = () => {
     if (isExpanded) {
@@ -36,17 +40,20 @@ const ActivityHeader = ({
   return (
     <Box ref={ref} className={classes.root}>
       <Box className={classes.header}>
-        <Box>
-          <TextClamp lines={1}>
+        <Box className={classes.title}>
+          <TextClamp lines={2}>
             <Text role="productive" color="primary" stronger>
               {name}
             </Text>
           </TextClamp>
         </Box>
-        <Box>
+        <Box className={classes.info}>
           <TextClamp lines={1}>
             <Text role="productive" color="primary" size="xs">
-              {`${new Date(deadline).toLocaleDateString(locale)} - ${completionPercentage}`}
+              {`${new Date(deadline).toLocaleDateString(locale)} - ${
+                isEvaluable ? '' : completionPercentage
+              }`}
+              {isEvaluable && <CutStarIcon className={classes.starIcon} />}
             </Text>
           </TextClamp>
         </Box>

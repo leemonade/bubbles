@@ -40,6 +40,7 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
     tableHeader: {},
     tableHeaderRow: {},
     tableHeaderCell: {
+      maxHeight: 120,
       '&:first-of-type': {
         maxWidth: 296,
       },

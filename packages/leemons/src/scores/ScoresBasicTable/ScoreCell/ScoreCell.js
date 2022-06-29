@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, Select, useClickOutside } from '@bubbles-ui/components';
+import { Box, Text, Select, IconButton, useClickOutside } from '@bubbles-ui/components';
+import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { ScoreCellStyles } from './ScoreCell.styles';
 import { SCORES_CELL_DEFAULT_PROPS, SCORES_CELL_PROP_TYPES } from './ScoreCell.constants';
 import { isFunction } from 'lodash';
@@ -14,15 +15,23 @@ const ScoreCell = ({
   column,
   setValue,
   onDataChange,
+  onOpen,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const isGrade = value !== undefined;
   const useNumbers = !grades.some((grade) => grade.letter);
-  const selectRef = useClickOutside(() => setIsEditing(false));
+  const [expandBox, setExpandBox] = useState();
+  const selectRef = useClickOutside(() => setIsEditing(false), null, [expandBox]);
 
   const onClickHandler = () => {
     if (!allowChange) return;
     if (!isEditing) setIsEditing(true);
+  };
+
+  const onOpenHandler = () => {
+    const rowId = row.original.id;
+    const columnId = column.id;
+    isFunction(onOpen) && onOpen({ rowId, columnId });
+    setIsEditing(false);
   };
 
   const onChangeHandler = (score) => {
@@ -63,13 +72,23 @@ const ScoreCell = ({
             {isNaN(value) ? '-' : value}
           </Text>
         ) : (
-          <Select
-            value={value}
-            data={data}
-            onChange={onChangeHandler}
-            onDropdownClose={() => setIsEditing(false)}
-            ref={selectRef}
-          />
+          <>
+            <Select
+              value={value}
+              data={data}
+              onChange={onChangeHandler}
+              onDropdownClose={() => setIsEditing(false)}
+              style={{ flex: 1 }}
+              ref={selectRef}
+            />
+            <Box ref={setExpandBox} className={classes.expandIcon}>
+              <IconButton
+                variant="transparent"
+                onClick={onOpenHandler}
+                icon={<ExpandDiagonalIcon width={16} height={16} />}
+              />
+            </Box>
+          </>
         )}
       </Box>
     );

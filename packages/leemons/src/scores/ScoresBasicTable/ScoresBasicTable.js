@@ -23,6 +23,7 @@ const ScoresBasicTable = ({
   onChange,
   onDataChange,
   onColumnExpand,
+  onOpen,
   ...props
 }) => {
   const { ref: tableRef } = useElementSize(null);
@@ -86,12 +87,16 @@ const ScoresBasicTable = ({
   };
 
   const getAvgScore = (studentActivities) => {
-    const sumOfScores = studentActivities.reduce(
-      (acc, { score }) => acc + (isNaN(score) ? 0 : score),
-      0
-    );
-    const averageScore = (sumOfScores / activities.length).toFixed(2);
-    return useNumbers ? averageScore : findGradeLetter(Math.round(averageScore));
+    let weightedScore = 0;
+    studentActivities.forEach((studentActivity) => {
+      weightedScore +=
+        (studentActivity.score ? studentActivity.score : 0) *
+        activities.find((activity) => activity.id === studentActivity.id).weight;
+    });
+    let sumOfWeights = 0;
+    activities.forEach((activities) => (sumOfWeights += activities.weight));
+    const weightedAverage = (weightedScore / sumOfWeights).toFixed(2);
+    return useNumbers ? weightedAverage : findGradeLetter(Math.round(weightedAverage));
   };
 
   const getSeverity = (studentAttendance) => {
@@ -170,6 +175,7 @@ const ScoresBasicTable = ({
             isExpandable={activity.expandable}
             isExpanded={expandedColumn === activity.id}
             onColumnExpand={onColumnExpandHandler}
+            type={activity.type}
           />
         ),
         Cell: ({ value, row, column, ...others }) => {
@@ -184,6 +190,7 @@ const ScoresBasicTable = ({
               column={column}
               setValue={setValue}
               onDataChange={onDataChange}
+              onOpen={onOpen}
             />
           );
         },
@@ -208,6 +215,7 @@ const ScoresBasicTable = ({
                   locale={locale}
                   isExpanded={true}
                   position={position}
+                  type={activity.type}
                 />
               ),
               style:
@@ -228,6 +236,7 @@ const ScoresBasicTable = ({
                     setValue={setValue}
                     onDataChange={onDataChange}
                     position={position}
+                    onOpen={onOpen}
                   />
                 );
               },

@@ -29,5 +29,17 @@ export const ScoreCellStyles = createStyles((theme, { isEditing, allowChange }) 
         borderRadius: 0,
       },
     },
+    expandIcon: {
+      height: '100%',
+      width: 40,
+      backgroundColor: theme.colors.interactive01v1,
+      button: {
+        height: '100%',
+        width: '100%',
+      },
+      svg: {
+        color: theme.colors.interactive01,
+      },
+    },
   };
 });

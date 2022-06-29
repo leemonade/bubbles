@@ -9,9 +9,12 @@ export const SCORES_BASIC_TABLE_VALUE = PropTypes.shape({
     PropTypes.shape({
       id: PropTypes.string,
       score: PropTypes.number,
+      isSubmitted: PropTypes.bool,
     })
   ),
 });
+
+export const ACTIVITY_TYPES = ['calificable', 'evaluable'];
 
 export const SCORES_BASIC_TABLE_DEFAULT_PROPS = {
   labels: {
@@ -39,6 +42,9 @@ export const SCORES_BASIC_TABLE_PROP_TYPES = {
       name: PropTypes.string,
       deadline: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
       expandable: PropTypes.bool,
+      allowChanges: PropTypes.bool,
+      weight: PropTypes.number,
+      type: PropTypes.oneOf(ACTIVITY_TYPES),
     })
   ),
   value: PropTypes.arrayOf(SCORES_BASIC_TABLE_VALUE),
@@ -48,6 +54,7 @@ export const SCORES_BASIC_TABLE_PROP_TYPES = {
         id: PropTypes.string,
         name: PropTypes.string,
         deadline: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
+        allowChanges: PropTypes.bool,
       })
     ),
     value: PropTypes.arrayOf(SCORES_BASIC_TABLE_VALUE),
