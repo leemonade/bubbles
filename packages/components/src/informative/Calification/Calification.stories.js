@@ -23,7 +23,7 @@ export default {
 
 const Template = ({ ...props }) => {
   return (
-    <Box style={{ height: '80vh' }}>
+    <Box>
       <Calification {...props} />
     </Box>
   );
@@ -33,4 +33,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...CALIFICATION_DEFAULT_PROPS,
+  minimumGrade: 5,
+  grade: 5,
 };
