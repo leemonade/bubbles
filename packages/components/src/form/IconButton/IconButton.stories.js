@@ -21,6 +21,7 @@ export default {
     rounded: { control: { type: 'boolean' } },
     size: { options: ICON_BUTTON_SIZES, control: { type: 'select' } },
     color: { options: ICON_BUTTON_COLORS, control: { type: 'select' } },
+    variant: { options: ICON_BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
 

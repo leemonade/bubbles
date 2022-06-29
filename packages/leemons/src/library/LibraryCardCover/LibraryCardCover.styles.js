@@ -1,4 +1,4 @@
-import { createStyles, pxToRem, getFontExpressive } from '@bubbles-ui/components';
+import { createStyles, getFontExpressive, pxToRem } from '@bubbles-ui/components';
 
 export const LibraryCardCoverStyles = createStyles(
   (theme, { color, height, blur, parentHovered, subjectColor }) => {
@@ -8,14 +8,14 @@ export const LibraryCardCoverStyles = createStyles(
         position: 'relative',
         height: height,
         width: '100%',
-        borderRadius: '4px 2px 0 0',
+        borderRadius: '4px 2px 0 0'
       },
       titleWrapper: {
-        padding: pxToRem(12),
+        padding: pxToRem(12)
       },
       title: {
         fontWeight: 600,
-        lineHeight: pxToRem(20),
+        lineHeight: pxToRem(20)
       },
       blurryBox: {
         display: 'flex',
@@ -27,30 +27,30 @@ export const LibraryCardCoverStyles = createStyles(
         background: parentHovered ? 'rgba(247, 248, 250, 0.95)' : 'rgba(247, 248, 250, 0.8)',
         backdropFilter: `blur(${blur}px)`,
         justifyContent: 'space-between',
-        borderRadius: '4px 0 0 0',
+        borderRadius: '4px 0 0 0'
       },
       iconRow: {
         display: parentHovered ? 'flex' : 'none',
         alignItems: 'center',
         paddingTop: pxToRem(2),
-        paddingInline: pxToRem(4),
+        paddingInline: pxToRem(4)
       },
       menuIcon: {
-        color: theme.colors.text05,
+        color: theme.colors.text05
       },
       deadline: {
         position: 'absolute',
         bottom: 0,
         left: '50%',
         right: 0,
-        zIndex: 2,
+        zIndex: 2
       },
       color: {
         width: '100%',
         height: pxToRem(8),
         backgroundColor: color || theme.colors.ui01,
         transition: 'all 0.2s ease-out',
-        borderRadius: '2px 0 0 0',
+        borderRadius: '2px 0 0 0'
       },
       fileIcon: {
         height: '100%',
@@ -60,19 +60,19 @@ export const LibraryCardCoverStyles = createStyles(
         alignItems: 'flex-end',
         backgroundColor: theme.colors.interactive03h,
         padding: pxToRem(16),
-        borderRadius: '4px 2px 0 0',
+        borderRadius: '4px 2px 0 0'
       },
       menuItem: {
-        color: theme.colors.text04,
+        color: theme.colors.text04
       },
       badge: {
-        marginBottom: 8,
+        marginBottom: 8
       },
       subject: {
         marginBottom: 8,
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
+        gap: 8
       },
       subjectIcon: {
         backgroundColor: subjectColor,
@@ -80,9 +80,9 @@ export const LibraryCardCoverStyles = createStyles(
         borderRadius: '50%',
         img: {
           filter:
-            'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
-        },
-      },
+            'brightness(0) invert(1)'
+        }
+      }
     };
   }
 );

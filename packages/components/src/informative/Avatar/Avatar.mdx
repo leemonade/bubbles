@@ -1,0 +1,112 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Box } from '@mantine/core';
+import * as stories from './Avatar.stories.js';
+import { Avatar } from './Avatar.js';
+import { Group, Space } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+import { StarIcon } from '@heroicons/react/outline';
+
+# Avatar
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Avatar/Avatar.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Avatar sizes](#avatar-sizes)
+- [Avatar states](#avatar-states)
+- [Avatar initial and icon](#avatar-initials-and-icon)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Avatar is a component to show a user profile image, initials or a fallback icon
+
+<ThemeProvider>
+  <Avatar image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80" />
+</ThemeProvider>
+
+## Avatar sizes
+
+It has four different sizes: `xs`, `sm`, `md` and `lg`.
+
+<ThemeProvider>
+  <Group style={{ gap: 16 }} justifyContent="end">
+    <Avatar
+      size="xs"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+    <Avatar image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80" />
+    <Avatar
+      size="md"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+    <Avatar
+      size="lg"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+  </Group>
+</ThemeProvider>
+
+## Avatar states
+
+Avatar can display different states, by default its `normal`, but also has: `alert`, `notifications` and `error`
+
+<ThemeProvider>
+  <Group style={{ gap: 16 }} justifyContent="end">
+    <Avatar
+      size="md"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+    <Avatar
+      size="md"
+      state="alert"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+    <Avatar
+      size="md"
+      state="notifications"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+    <Avatar
+      size="md"
+      state="error"
+      image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    />
+  </Group>
+</ThemeProvider>
+
+## Avatar initials and icon
+
+If you don't provide an image, you can provide a `fullName` or an `icon`. To display an icon, you must also provide a `fullName` (it shows a random color based on the string) or a `color`.
+
+<ThemeProvider>
+  <Group style={{ gap: 16 }} justifyContent="end">
+    <Avatar size="md" fullName="Random Name" />
+    <Avatar size="md" fullName="Random Name" icon={<StarIcon />} color="blueviolet" />
+  </Group>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-informative-avatar--playground" />
+</Preview>
+
+<Props of={Avatar} />
+
+## References
+
+[MDN: ARIA Img role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Avatar/Avatar.mdx)

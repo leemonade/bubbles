@@ -9,10 +9,10 @@ import { Link } from 'react-router-dom';
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   showFileName: true,
   size: 16,
-  colorStyle: {},
-  iconStyle: {},
   url: '',
   useRouter: false,
+  filename: '',
+  color: '',
 };
 export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   filename: PropTypes.string,
@@ -20,9 +20,8 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   description: PropTypes.string,
   metadata: PropTypes.object,
   showFileName: PropTypes.bool,
+  color: PropTypes.string,
   size: PropTypes.number,
-  colorStyle: PropTypes.object,
-  iconStyle: PropTypes.object,
   url: PropTypes.string,
   useRouter: PropTypes.bool,
 };
@@ -33,8 +32,7 @@ const FileItemDisplay = ({
   metadata,
   showFileName,
   size,
-  colorStyle,
-  iconStyle,
+  color,
   hideExtension,
   url,
   useRouter,
@@ -64,8 +62,7 @@ const FileItemDisplay = ({
   const { classes, cx } = FileItemDisplayStyles({
     size,
     calculatedSize,
-    colorStyle,
-    iconStyle,
+    color,
     url,
   });
   const fileItemDisplay = (
