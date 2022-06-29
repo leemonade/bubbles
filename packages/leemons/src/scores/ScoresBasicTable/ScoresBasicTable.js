@@ -91,7 +91,7 @@ const ScoresBasicTable = ({
     studentActivities.forEach((studentActivity) => {
       weightedScore +=
         (studentActivity.score ? studentActivity.score : 0) *
-        activities.find((activity) => activity.id === studentActivity.id).weight;
+        (activities.find((activity) => activity.id === studentActivity.id)?.weight || 0);
     });
     let sumOfWeights = 0;
     activities.forEach((activities) => (sumOfWeights += activities.weight));

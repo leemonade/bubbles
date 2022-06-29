@@ -13,7 +13,7 @@ const ActivityHeader = ({
   id,
   name,
   deadline,
-  completionPercentage,
+  weight,
   isExpandable,
   isExpanded,
   locale,
@@ -37,6 +37,7 @@ const ActivityHeader = ({
     { hovered, isExpandable, isExpanded, position },
     { name: 'ActivityHeader' }
   );
+
   return (
     <Box ref={ref} className={classes.root}>
       <Box className={classes.header}>
@@ -51,7 +52,7 @@ const ActivityHeader = ({
           <TextClamp lines={1}>
             <Text role="productive" color="primary" size="xs">
               {`${new Date(deadline).toLocaleDateString(locale)} - ${
-                isEvaluable ? '' : completionPercentage
+                isEvaluable ? '' : `${(weight * 100).toFixed(2)}%`
               }`}
               {isEvaluable && <CutStarIcon className={classes.starIcon} />}
             </Text>
