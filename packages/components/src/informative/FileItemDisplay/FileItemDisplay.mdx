@@ -1,12 +1,12 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
-import * as stories from './FileItemDisplay.stories.js';
-import { FileItemDisplay } from './FileItemDisplay.js';
-import { Box } from '@mantine/core';
+import { Group, Space } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { FileItemDisplay } from './FileItemDisplay.js';
+import * as stories from './FileItemDisplay.stories.js';
 
-# **name**
+# FileItemDisplay
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/FileItemDisplay>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/FileItemDisplay/FileItemDisplay.js)
 
 ## Table of Contents
 
@@ -14,35 +14,59 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [FileItemDisplay options](#fileitemdisplay-options)
+- [FileItemDisplay sizes](#fileitemdisplay-sizes)
+- [FileItemDisplay colors](#fileitemdisplay-colors)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+FileItemDisplay is a component to display a file. Provide a `filename` with an extension, it will automatically separate the name of the file and the extension.
 
 <ThemeProvider>
-  <FileItemDisplay>File item display</FileItemDisplay>
+  <FileItemDisplay filename="Filename.png" />
+</ThemeProvider>
+
+## FileItemDisplay options
+
+You can choose to hide the extension or the name with `hideExtension` and `showFileName` respectively
+
+<ThemeProvider>
+  <FileItemDisplay filename="Filename.png" hideExtension size={22} />
+  <Space style={{ marginBlock: 8 }} />
+  <FileItemDisplay filename="Filename.png" showFileName={false} size={22} />
+</ThemeProvider>
+
+## FileItemDisplay sizes
+
+You can provide a `size` to change it's size.
+
+<ThemeProvider>
+  <FileItemDisplay filename="Filename.png" size={20} />
+  <Space style={{ marginBlock: 8 }} />
+  <FileItemDisplay filename="Filename.png" size={30} />
+</ThemeProvider>
+
+## FileItemDisplay colors
+
+You can provide a `color` to change it's color.
+
+<ThemeProvider>
+  <FileItemDisplay filename="Filename.png" size={20} color="#FABADA" />
+  <Space style={{ marginBlock: 8 }} />
+  <FileItemDisplay filename="Filename.png" size={20} color="blueviolet" />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-informative-file-item-display--playground" />
+  <Story id="atoms-informative-fileitemdisplay--playground" />
 </Preview>
 
 <Props of={FileItemDisplay} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/file-item-display_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/file-item-display/file-item-display.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/FileItemDisplay.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/FileItemDisplay/FileItemDisplay.mdx)

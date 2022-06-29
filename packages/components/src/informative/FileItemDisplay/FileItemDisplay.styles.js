@@ -45,48 +45,43 @@ const getExtensionPosition = (size) => {
   }
 };
 
-export const FileItemDisplayStyles = createStyles(
-  (theme, { size, calculatedSize, colorStyle, iconStyle, url }) => {
-    const linkStyles = url
-      ? {
-          textDecoration: 'underline',
-          color: theme.colors.interactive01,
-          cursor: 'pointer',
-        }
-      : {};
-    //
-    return {
-      root: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        color: theme.colors.text02,
-        position: 'relative',
-        ...colorStyle,
-      },
-      filename: {
-        marginLeft: pxToRem(size / 1.5),
-        fontSize: pxToRem(size),
-        ...colorStyle,
-        ...linkStyles,
-      },
-      filetype: {
-        textTransform: 'lowercase',
-      },
-      iconWrapper: {
-        position: 'relative',
-        ...iconStyle,
-      },
-      iconFiletype: {
-        textTransform: 'uppercase',
-        backgroundColor: theme.colors.uiBackground01,
-        fontSize: pxToRem(calculatedSize),
-        position: 'absolute',
-        lineHeight: 1,
-        userSelect: 'none',
-        ...getExtensionPosition(size),
-        ...colorStyle,
-        ...iconStyle,
-      },
-    };
-  }
-);
+export const FileItemDisplayStyles = createStyles((theme, { size, calculatedSize, color, url }) => {
+  const linkStyles = url
+    ? {
+        textDecoration: 'underline',
+        color: theme.colors.interactive01,
+        cursor: 'pointer',
+      }
+    : {};
+
+  return {
+    root: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      color: color || theme.colors.text02,
+      position: 'relative',
+    },
+    filename: {
+      marginLeft: pxToRem(size / 1.5),
+      fontSize: pxToRem(size),
+      color: color || theme.colors.text02,
+      ...linkStyles,
+    },
+    filetype: {
+      textTransform: 'lowercase',
+    },
+    iconWrapper: {
+      position: 'relative',
+    },
+    iconFiletype: {
+      textTransform: 'uppercase',
+      backgroundColor: theme.colors.uiBackground01,
+      fontSize: pxToRem(calculatedSize),
+      position: 'absolute',
+      lineHeight: 1,
+      userSelect: 'none',
+      ...getExtensionPosition(size),
+      color: color || theme.colors.text02,
+    },
+  };
+});
