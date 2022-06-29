@@ -13,7 +13,7 @@ import {
   Select,
   Switch,
   TextInput,
-  Title,
+  Title
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon, UsersIcon } from '@bubbles-ui/icons/outline';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
@@ -24,19 +24,22 @@ import { Badge } from '@bubbles-ui/components/src/informative/Badge';
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
   readOnly: false,
-  onClose: () => {},
-  onRemove: () => {},
-  onSubmit: () => {},
+  onClose: () => {
+  },
+  onRemove: () => {
+  },
+  onSubmit: () => {
+  },
   selectData: {
     repeat: [
-      { label: "Don't repeat", value: 'dont_repeat' },
+      { label: 'Don\'t repeat', value: 'dont_repeat' },
       { label: 'Every day', value: 'every_day' },
       { label: 'Every week', value: 'every_week' },
       { label: 'Every month', value: 'every_month' },
-      { label: 'Every year', value: 'every_year' },
+      { label: 'Every year', value: 'every_year' }
     ],
     calendars: [],
-    eventTypes: [],
+    eventTypes: []
   },
   messages: {
     fromLabel: 'From',
@@ -49,7 +52,7 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     updateButtonLabel: 'Update',
     calendarPlaceholder: 'Select calendar',
     calendarLabel: 'Choose calendar where to display',
-    showInCalendar: 'Show in calendar',
+    showInCalendar: 'Show in calendar'
   },
   errorMessages: {
     titleRequired: 'Field is required',
@@ -58,8 +61,8 @@ export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
     endDateRequired: 'Field is required',
     endTimeRequired: 'Field is required',
     calendarRequired: 'Field is required',
-    typeRequired: 'Field is required',
-  },
+    typeRequired: 'Field is required'
+  }
 };
 export const CALENDAR_EVENT_MODAL_PROP_TYPES = {};
 
@@ -88,7 +91,7 @@ const CalendarEventModal = (props) => {
     readOnly,
     locale,
     UsersComponent,
-    form: _form,
+    form: _form
   } = props;
 
   if (defaultValues?.type === 'plugins.calendar.task') {
@@ -108,16 +111,19 @@ const CalendarEventModal = (props) => {
     getValues,
     unregister,
     handleSubmit,
-    formState: { errors, isSubmitted },
+    formState: { errors, isSubmitted }
   } = form;
 
   const calendar = watch('calendar');
   const hideInCalendar = watch('data.hideInCalendar');
+  const hideCalendarField = watch('data.hideCalendarField');
   const type = watch('type');
   const taskColumn = watch('data.column');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
+
+  console.log(hideCalendarField);
 
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -182,15 +188,15 @@ const CalendarEventModal = (props) => {
           // paddingTop: theme.spacing[12],
           marginLeft: -theme.spacing[4],
           marginRight: -theme.spacing[4],
-          paddingBottom: '76px',
+          paddingBottom: '76px'
         })}
       >
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <Controller
-            name="title"
+            name='title'
             control={control}
             rules={{
-              required: errorMessages.titleRequired,
+              required: errorMessages.titleRequired
             }}
             render={({ field }) => {
               if (disabled) {
@@ -224,10 +230,10 @@ const CalendarEventModal = (props) => {
           {!forceType ? (
             <Box sx={(theme) => ({ paddingTop: theme.spacing[4] })}>
               <Controller
-                name="type"
+                name='type'
                 control={control}
                 rules={{
-                  required: errorMessages.typeRequired,
+                  required: errorMessages.typeRequired
                 }}
                 render={({ field }) => {
                   if (disabled) {
@@ -242,7 +248,7 @@ const CalendarEventModal = (props) => {
                       <RadioGroup
                         {...field}
                         disabled={disabled}
-                        variant="icon"
+                        variant='icon'
                         direction={selectData.eventTypes.length < 3 ? 'row' : 'column'}
                         fullWidth
                         error={get(errors, 'type')}
@@ -263,7 +269,7 @@ const CalendarEventModal = (props) => {
                 <Col span={8} className={classes.icon} />
                 <Col span={92}>
                   <Controller
-                    name="data.hideInCalendar"
+                    name='data.hideInCalendar'
                     control={control}
                     shouldUnregister
                     render={({ field }) => (
@@ -299,13 +305,13 @@ const CalendarEventModal = (props) => {
                 </Col>
                 <Col span={90}>
                   <Controller
-                    name="users"
+                    name='users'
                     control={control}
                     render={({ field }) =>
                       React.cloneElement(UsersComponent, {
                         ...field,
                         readOnly: disabled,
-                        disabled,
+                        disabled
                       })
                     }
                   />
@@ -357,11 +363,11 @@ const CalendarEventModal = (props) => {
                 if (isArray(refs)) return trigger(map(refs, (ref) => `data.${ref}`));
                 return trigger(`data.${refs}`);
               },
-              formState: { errors: errors ? errors.data : {}, isSubmitted },
+              formState: { errors: errors ? errors.data : {}, isSubmitted }
             }}
           />
 
-          {disabled ||
+          {(!hideCalendarField && disabled) ||
           ((isNew || (!isNew && isOwner)) &&
             (type !== 'plugins.calendar.task' ||
               (type === 'plugins.calendar.task' && !hideInCalendar))) ? (
@@ -377,14 +383,14 @@ const CalendarEventModal = (props) => {
                   </Col>
                   <Col span={90}>
                     <Controller
-                      name="calendar"
+                      name='calendar'
                       control={control}
                       rules={{
-                        required: errorMessages.calendarRequired,
+                        required: errorMessages.calendarRequired
                       }}
                       render={({ field }) => (
                         <Select
-                          size="xs"
+                          size='xs'
                           readOnly={disabled}
                           disabled={disabled}
                           label={disabled ? messages.calendarLabelDisabled : messages.calendarLabel}
@@ -404,12 +410,12 @@ const CalendarEventModal = (props) => {
 
           {!disabled ? (
             <Box className={classes.actionButtonsContainer}>
-              <Button type="button" variant="light" compact onClick={onClose}>
+              <Button type='button' variant='light' compact onClick={onClose}>
                 {messages.cancelButtonLabel}
               </Button>
-              {isNew ? <Button type="submit">{messages.saveButtonLabel}</Button> : null}
+              {isNew ? <Button type='submit'>{messages.saveButtonLabel}</Button> : null}
               {!isNew && isOwner ? (
-                <Button type="submit">{messages.updateButtonLabel}</Button>
+                <Button type='submit'>{messages.updateButtonLabel}</Button>
               ) : null}
             </Box>
           ) : null}
