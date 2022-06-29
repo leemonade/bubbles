@@ -23,7 +23,7 @@ const ScoreCell = ({
   const selectRef = useClickOutside(() => setIsEditing(false), null, [expandBox]);
 
   const onClickHandler = () => {
-    if (!allowChange) return;
+    // if (!allowChange) return;
     if (!isEditing) setIsEditing(true);
   };
 
@@ -67,27 +67,44 @@ const ScoreCell = ({
 
     return (
       <Box className={classes.inputContainer} onClick={onClickHandler}>
-        {!isEditing || !allowChange ? (
-          <Text color="primary" role="productive">
-            {isNaN(value) ? '-' : value}
-          </Text>
+        {allowChange ? (
+          isEditing ? (
+            <>
+              <Select
+                value={value}
+                data={data}
+                onChange={onChangeHandler}
+                onDropdownClose={() => setIsEditing(false)}
+                style={{ flex: 1 }}
+                ref={selectRef}
+              />
+              <Box ref={setExpandBox} className={classes.expandIcon}>
+                <IconButton
+                  variant="transparent"
+                  onClick={onOpenHandler}
+                  icon={<ExpandDiagonalIcon width={16} height={16} />}
+                />
+              </Box>
+            </>
+          ) : (
+            <Text color="primary" role="productive">
+              {isNaN(value) ? '-' : value}
+            </Text>
+          )
         ) : (
           <>
-            <Select
-              value={value}
-              data={data}
-              onChange={onChangeHandler}
-              onDropdownClose={() => setIsEditing(false)}
-              style={{ flex: 1 }}
-              ref={selectRef}
-            />
-            <Box ref={setExpandBox} className={classes.expandIcon}>
-              <IconButton
-                variant="transparent"
-                onClick={onOpenHandler}
-                icon={<ExpandDiagonalIcon width={16} height={16} />}
-              />
-            </Box>
+            <Text color="primary" role="productive" style={{ flex: 1 }}>
+              {isNaN(value) ? '-' : value}
+            </Text>
+            {isEditing && (
+              <Box ref={setExpandBox} className={classes.expandIcon}>
+                <IconButton
+                  variant="transparent"
+                  onClick={onOpenHandler}
+                  icon={<ExpandDiagonalIcon width={16} height={16} />}
+                />
+              </Box>
+            )}
           </>
         )}
       </Box>

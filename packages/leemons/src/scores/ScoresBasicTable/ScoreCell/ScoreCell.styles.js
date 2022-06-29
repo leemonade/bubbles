@@ -23,7 +23,8 @@ export const ScoreCellStyles = createStyles((theme, { isEditing, allowChange }) 
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      cursor: allowChange && 'pointer',
+      cursor: 'pointer',
+      textAlign: 'center',
       input: {
         height: 46,
         borderRadius: 0,
