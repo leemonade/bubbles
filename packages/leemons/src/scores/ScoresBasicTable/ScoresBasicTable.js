@@ -24,6 +24,8 @@ const ScoresBasicTable = ({
   onDataChange,
   onColumnExpand,
   onOpen,
+  from,
+  to,
   ...props
 }) => {
   const { ref: tableRef } = useElementSize(null);
@@ -106,15 +108,15 @@ const ScoresBasicTable = ({
   };
 
   const getActivitiesPeriod = () => {
-    const earliestDeadline = activities.reduce((acc, { deadline }) => {
-      return acc < deadline ? acc : deadline;
-    }, activities[0].deadline);
-    const latestDeadline = activities.reduce((acc, { deadline }) => {
-      return acc > deadline ? acc : deadline;
-    }, activities[0].deadline);
-    return `${new Date(earliestDeadline).toLocaleDateString(locale)} - ${new Date(
-      latestDeadline
-    ).toLocaleDateString(locale)}`;
+    // const earliestDeadline = activities.reduce((acc, { deadline }) => {
+    //   return acc < deadline ? acc : deadline;
+    // }, activities[0].deadline);
+    // const latestDeadline = activities.reduce((acc, { deadline }) => {
+    //   return acc > deadline ? acc : deadline;
+    // }, activities[0].deadline);
+    return `${new Date(from).toLocaleDateString(locale)} - ${new Date(to).toLocaleDateString(
+      locale
+    )}`;
   };
 
   const getRightBodyContent = () => {
