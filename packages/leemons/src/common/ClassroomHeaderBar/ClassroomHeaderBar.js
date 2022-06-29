@@ -3,14 +3,15 @@ import { Box, Popover, Text, TextClamp, UserDisplayItem } from '@bubbles-ui/comp
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
 import {
   CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
-  CLASSROOM_HEADER_BAR_PROP_TYPES,
+  CLASSROOM_HEADER_BAR_PROP_TYPES
 } from './ClassroomHeaderBar.constants';
 import { MeetingCameraIcon } from '@bubbles-ui/icons/solid';
 import {
   ChevDownIcon,
   StyleThreePinTableIcon,
-  TimeClockCircleIcon,
+  TimeClockCircleIcon
 } from '@bubbles-ui/icons/outline';
+import { find, forEach } from 'lodash';
 
 function formatTime(time) {
   if (time.length > 5) {
@@ -19,7 +20,7 @@ function formatTime(time) {
   return time;
 }
 
-const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
+const ClassroomHeaderBar = ({ classRoom, labels, locale, firstDayOfWeek = 1, ...props }) => {
   const [schedulesOpen, setSchedulesOpen] = useState(false);
   const [weekDays, setWeekDays] = useState([]);
   const { schedule, address, virtual_classroom, teacher } = classRoom;
@@ -27,9 +28,10 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
 
   const renderSchedule = (schedule) => {
     const { day, start, end, dayWeek } = schedule;
+    const week = find(weekDays, { index: dayWeek });
     return (
-      <Text key={`${day}-${start}-${end}`} role="productive" transform="capitalize" truncated>{`${
-        weekDays[dayWeek]
+      <Text key={`${day}-${start}-${end}`} role='productive' transform='capitalize' truncated>{`${
+        week.label
       } ${formatTime(start)}-${formatTime(end)}`}</Text>
     );
   };
@@ -43,12 +45,22 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
   };
 
   useEffect(() => {
+    let orderedWeekdays = [];
     import(`dayjs/locale/${locale}.js`).then((e) => {
-      let orderedWeekdays = [];
       orderedWeekdays = [...e.weekdays];
-      orderedWeekdays.push(orderedWeekdays.shift());
-      orderedWeekdays = [...orderedWeekdays];
-      setWeekDays(orderedWeekdays);
+      if (firstDayOfWeek > 0) {
+        const e = [...Array(firstDayOfWeek).keys()];
+        forEach(e, () => {
+          orderedWeekdays.push(orderedWeekdays.shift());
+        });
+      }
+      setWeekDays(
+        orderedWeekdays.map((day, index) => {
+          let dayLabel = day.substring(0, 2);
+          dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
+          return { label: dayLabel, index: e.weekdays.indexOf(day), day: day };
+        })
+      );
     });
   }, [locale]);
 
@@ -60,7 +72,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
           name={teacher.name}
           surnames={teacher.surnames}
           avatar={teacher.avatar}
-          size="xs"
+          size='xs'
           noBreak
         />
       ) : null}
@@ -68,7 +80,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
         <Box className={classes.classroomInfoBox}>
           <StyleThreePinTableIcon height={14} width={14} className={classes.pinIcon} />
           <TextClamp lines={1}>
-            <Text color="interactive">{address}</Text>
+            <Text color='interactive'>{address}</Text>
           </TextClamp>
         </Box>
       ) : null}
@@ -79,7 +91,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
           onClick={handleOpenVirtualClassroom}
         >
           <MeetingCameraIcon height={12} width={12} />
-          <Text color="interactive" truncated>
+          <Text color='interactive' truncated>
             {labels.virtualClassroom}
           </Text>
         </Box>
@@ -95,7 +107,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, ...props }) => {
               <ChevDownIcon />
             </Box>
           }
-          position="bottom"
+          position='bottom'
         >
           <Box className={classes.scheduleContainer}>
             {schedule.map((schedule) => renderSchedule(schedule))}
