@@ -35,7 +35,9 @@ const ScoreInput = ({
     [maxGrades, displacedGrades]
   );
   const isOverflowing = grades.length > maxGrades - 1;
-  const selectedGradeIndex = grades.findIndex(({ score }) => score === Math.round(grade.score));
+  const selectedGradeIndex = grades.findIndex(({ score }) =>
+    showLetters ? score === grade.score : score === Math.round(grade.score)
+  );
 
   if (!acceptCustom && value?.score && !grades.find(({ score }) => score === value?.score)) {
     acceptCustom = value?.letter ? 'text' : 'number';

@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import { colord } from 'colord';
@@ -13,7 +13,7 @@ import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
-  InputWrapper,
+  InputWrapper
 } from '../InputWrapper';
 import { ColorInputStyles } from './ColorInput.styles';
 
@@ -22,7 +22,7 @@ const SWATCH_SIZES = {
   sm: 18,
   md: 22,
   lg: 28,
-  xl: 36,
+  xl: 36
 };
 
 const ARROW_OFFSET = {
@@ -30,7 +30,7 @@ const ARROW_OFFSET = {
   sm: 15,
   md: 17,
   lg: 21,
-  xl: 25,
+  xl: 25
 };
 
 export const COLOR_INPUT_PROP_TYPES = {
@@ -44,7 +44,7 @@ export const COLOR_INPUT_PROP_TYPES = {
   saturation: PropTypes.number,
   lightness: PropTypes.number,
   compact: PropTypes.bool,
-  manual: PropTypes.bool,
+  manual: PropTypes.bool
 };
 
 export const COLOR_INPUT_DEFAULT_PROPS = {
@@ -59,7 +59,7 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   saturation: 50,
   lightness: 50,
   compact: true,
-  manual: false,
+  manual: false
 };
 
 const ColorInput = forwardRef(
@@ -85,9 +85,12 @@ const ColorInput = forwardRef(
       saturation,
       lightness,
       compact,
-      onFocus = () => {},
-      onBlur = () => {},
-      onChange = () => {},
+      onFocus = () => {
+      },
+      onBlur = () => {
+      },
+      onChange = () => {
+      },
       ...props
     },
     ref
@@ -152,10 +155,11 @@ const ColorInput = forwardRef(
                 disabled={disabled}
                 placeholder={placeholder}
                 invalid={!isEmpty(error)}
-                autoComplete="false"
+                autoComplete='false'
                 icon={
                   icon || (
                     <ColorSwatch
+                      pointerEvents='none'
                       color={inputValue}
                       size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
                     />
@@ -168,8 +172,8 @@ const ColorInput = forwardRef(
               />
             }
             width={200}
-            position="bottom"
-            placement="start"
+            position='bottom'
+            placement='start'
             withArrow
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
@@ -179,7 +183,7 @@ const ColorInput = forwardRef(
                 saturation={saturation}
                 lightness={lightness}
                 compact={compact}
-                output="hex"
+                output='hex'
                 onChange={setInputValue}
                 color={inputValue}
                 fullWidth
