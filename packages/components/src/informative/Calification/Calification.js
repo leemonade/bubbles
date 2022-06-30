@@ -22,7 +22,9 @@ const Calification = ({
   );
   return (
     <Box className={cx(classes.root, className)}>
-      <Box className={classes.labelContainer}>{!isEmpty(label) && <Text strong>{label}</Text>}</Box>
+      <Box className={showOnlyLabel ? classes.gradeContainer : classes.labelContainer}>
+        {!isEmpty(label) && <Text strong>{label}</Text>}
+      </Box>
       {(!showOnlyLabel || isEmpty(label)) && (
         <Box className={classes.gradeContainer}>
           <Text size="xl">{grade}</Text>
