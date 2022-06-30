@@ -2,10 +2,12 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './VerticalStepperContainer.stories.js';
 import { VerticalStepperContainer } from './VerticalStepperContainer.js';
 import { ThemeProvider } from './../../ThemeProvider';
+import { ContextContainer, Box } from '../../layout';
+import { Paragraph } from '../../typography';
 
 # VerticalStepperContainer
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/layout/VerticalStepperContainer)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/layout/VerticalStepperContainer/VerticalStepperContainer.js)
 
 ## Table of Contents
 
@@ -13,35 +15,149 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [VerticalStepper width](#verticalstepper-width)
+- [Content padding](#content-padding)
+- [VerticalStepper sticky at](#verticalstepper-sticky-at)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-VerticalStepperContainer is ...
+VerticalStepperContainer is component to render a VerticalStepper including the steps.
 
 <ThemeProvider>
-  <VerticalStepperContainer>VerticalStepperContainer</VerticalStepperContainer>
+  <VerticalStepperContainer
+    data={[
+      {
+        label: 'Resumen',
+        badge: 'Badge',
+        status: 'OK',
+      },
+      {
+        label: 'Pruebas',
+        onClick: () => {},
+      },
+    ]}
+  ></VerticalStepperContainer>
+</ThemeProvider>
+
+## VerticalStepper width
+
+You can control the width of the VerticalStepper with the ``navWidth` prop.
+
+<ThemeProvider>
+  <VerticalStepperContainer
+    navWidth={400}
+    data={[
+      {
+        label: 'Resumen',
+        badge: 'Badge',
+        status: 'OK',
+      },
+      {
+        label: 'Pruebas',
+        onClick: () => {},
+      },
+    ]}
+  ></VerticalStepperContainer>
+  <VerticalStepperContainer
+    navWidth={800}
+    data={[
+      {
+        label: 'Resumen',
+        badge: 'Badge',
+        status: 'OK',
+      },
+      {
+        label: 'Pruebas',
+        onClick: () => {},
+      },
+    ]}
+  ></VerticalStepperContainer>
+</ThemeProvider>
+
+## Content padding
+
+With the boolean props `disableContentPadding`, control if you want padding for the content or not
+
+<ThemeProvider>
+  <VerticalStepperContainer
+    disableContentPadding
+    data={[
+      {
+        label: 'Resumen',
+        badge: 'Badge',
+        status: 'OK',
+      },
+      {
+        label: 'Pruebas',
+      },
+    ]}
+  >
+    <ContextContainer title="Step 1">
+      <Box>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum
+        </Paragraph>
+      </Box>
+    </ContextContainer>
+  </VerticalStepperContainer>
+</ThemeProvider>
+
+## VerticalStepper sticky at
+
+With the `stickyAt` prop, control the position in pixels from the top at which the VerticalStepper becomes sticky.
+
+<ThemeProvider>
+  <VerticalStepperContainer
+    stickyAt={50}
+    data={[
+      {
+        label: 'Resumen',
+        badge: 'Badge',
+        status: 'OK',
+      },
+      {
+        label: 'Pruebas',
+      },
+    ]}
+  >
+    <ContextContainer title="Step 1">
+      <Box>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum
+        </Paragraph>
+      </Box>
+    </ContextContainer>
+  </VerticalStepperContainer>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-layout-Verticalsteppercontainer--playground" />
+  <Story id="atoms-layout-verticalsteppercontainer--playground" />
 </Preview>
 
 <Props of={VerticalStepperContainer} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/verticalsteppercontainer_role)
+[MDN: ARIA navigation role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/verticalsteppercontainer/verticalsteppercontainer.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/layout/VerticalStepperContainer.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/layout/VerticalStepperContainer/VerticalStepperContainer.mdx)
