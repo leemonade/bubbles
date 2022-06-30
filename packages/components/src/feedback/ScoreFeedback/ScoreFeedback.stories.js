@@ -84,5 +84,6 @@ Playground.args = {
     minimumGrade: 5,
     grade: 5.2,
     label: 'SB',
+    showOnlyLabel: false,
   },
 };
