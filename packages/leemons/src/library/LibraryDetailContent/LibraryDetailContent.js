@@ -1,6 +1,15 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
-import { Badge, Box, ImageLoader, Paper, Stack, Text, useClipboard } from '@bubbles-ui/components';
+import {
+  Badge,
+  Box,
+  ImageLoader,
+  Paper,
+  Stack,
+  Text,
+  useClipboard,
+  ActionButton,
+} from '@bubbles-ui/components';
 import { DuplicateIcon } from '@bubbles-ui/icons/outline';
 import { getDomain, LibraryCardContent } from '../LibraryCardContent';
 import { LibraryCardFooter } from '../LibraryCardFooter';
@@ -9,7 +18,6 @@ import {
   LIBRARY_DETAIL_CONTENT_DEFAULT_PROPS,
   LIBRARY_DETAIL_CONTENT_PROP_TYPES,
 } from './LibraryDetailContent.constants';
-import { ActionButton } from '@bubbles-ui/components/src/form';
 
 const LibraryDetailContent = ({
   description,
