@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/leemons",
-  "version": "1.0.38",
+  "version": "1.0.40",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -73,7 +73,7 @@
   },
   "peerDependencies": {
     "@bubbles-ui/calendars": "^1.0.31",
-    "@bubbles-ui/components": "^1.0.37",
+    "@bubbles-ui/components": "^1.0.39",
     "@bubbles-ui/editors": "^1.0.27",
     "@bubbles-ui/icons": "^1.0.26",
     "dayjs": "^1.10.7",
