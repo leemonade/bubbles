@@ -9,7 +9,7 @@ export const BOX_PROP_TYPES = {
 };
 
 const Box = forwardRef(({ className, noFlex, skipFlex, padding, ...props }, ref) => {
-  const { classes, cx } = BoxStyles({ padding });
+  const { classes, cx } = BoxStyles({ padding }, { name: 'Box' });
 
   return <MantineBox {...props} ref={ref} className={cx(classes.root, className)} />;
 });

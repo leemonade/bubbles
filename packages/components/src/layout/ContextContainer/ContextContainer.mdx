@@ -2,11 +2,12 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './ContextContainer.stories.js';
 import { ContextContainer } from './ContextContainer.js';
 import { Box } from '@mantine/core';
+import { TextInput } from '../../form';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # ContextContainer
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/layout/ContextContainer)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/layout/ContextContainer/ContextContainer.js)
 
 ## Table of Contents
 
@@ -14,35 +15,87 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [ContextContainer spacing](#contextcontainer-spacing)
+- [ContextContainer direction](#contextcontainer-direction)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**ContextContainer** is ...
+ContextContainer is a component to stack and divide elements inside, with padding and dividers.
 
 <ThemeProvider>
-  <ContextContainer>Context container</ContextContainer>
+  <ContextContainer
+    title="Context title"
+    subtitle="Context subtitle"
+    description="Context description"
+    divided
+  >
+    <TextInput headerStyle={{ width: 300 }} label="Label" />
+    <TextInput headerStyle={{ width: 300 }} label="Label" />
+  </ContextContainer>
+</ThemeProvider>
+
+## ContextContainer spacing
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 32, paddingTop: 32 }}>
+    <ContextContainer title="Context title" spacing={0}>
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+    </ContextContainer>
+    <ContextContainer title="Context title" spacing={4}>
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+    </ContextContainer>
+    <ContextContainer title="Context title" spacing={10}>
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+      <TextInput headerStyle={{ width: 300 }} label="Label" />
+    </ContextContainer>
+  </Box>
+</ThemeProvider>
+
+## ContextContainer direction
+
+ContextContainer has 4 different directions: `column`, `row`, `row-reverse`, `column-reverse`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <ContextContainer title="Context title">
+      <TextInput headerStyle={{ width: 300 }} label="Label 1" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 2" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 3" />
+    </ContextContainer>
+    <ContextContainer title="Context title" direction="column-reverse">
+      <TextInput headerStyle={{ width: 300 }} label="Label 1" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 2" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 3" />
+    </ContextContainer>
+    <ContextContainer title="Context title" direction="row">
+      <TextInput headerStyle={{ width: 300 }} label="Label 1 " />
+      <TextInput headerStyle={{ width: 300 }} label="Label 2" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 3" />
+    </ContextContainer>
+    <ContextContainer title="Context title" direction="row-reverse">
+      <TextInput headerStyle={{ width: 300 }} label="Label 1" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 2" />
+      <TextInput headerStyle={{ width: 300 }} label="Label 3" />
+    </ContextContainer>
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-layout-context-container--playground" />
+  <Story id="atoms-layout-contextcontainer--playground" />
 </Preview>
 
 <Props of={ContextContainer} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/context-container_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/context-container/context-container.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/layout/ContextContainer.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/layout/ContextContainer/ContextContainer.mdx)

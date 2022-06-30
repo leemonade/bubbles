@@ -2,11 +2,12 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Divider.stories.js';
 import { Divider } from './Divider.js';
 import { Box } from '@mantine/core';
+import { Text } from '../../typography';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# Divider
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/layout/Divider>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/layout/Divider/Divider.js)
 
 ## Table of Contents
 
@@ -20,10 +21,26 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+Divider is an element to divide other elements
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <Divider>Divider</Divider>
+    <Divider>Divider</Divider>
+  </Box>
+</ThemeProvider>
+
+## Divider orientation
+
+Divider accepts two orientations: `horizontal` and `vertical`
 
 <ThemeProvider>
   <Divider>Divider</Divider>
+  <Box style={{ marginTop: 24, display: 'flex', gap: 34 }}>
+    <Text>Hola</Text>
+    <Divider orientation="vertical" />
+    <Text>Mundo</Text>
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -36,13 +53,11 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/divider_role>)
+[MDN: ARIA separator role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/divider/divider.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/layout/Divider.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/layout/Divider/Divider.mdx)

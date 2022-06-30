@@ -10,7 +10,7 @@ const DrawerPush = ({ opened, size, direction, children, style, className, fixed
   );
 
   return (
-    <Box className={cx(classes.root, className)}>
+    <Box className={cx(classes.root, className)} aria-modal role="dialog">
       <Box className={cx(classes.childrenWrapper, { [classes.fixed]: fixed })}>{children}</Box>
     </Box>
   );

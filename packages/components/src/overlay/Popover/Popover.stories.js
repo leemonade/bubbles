@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box } from '@mantine/core';
+import { Button } from '../../form';
 import { Popover, POPOVER_DEFAULT_PROPS } from './Popover';
 import mdx from './Popover.mdx';
+import { Text } from '../../typography';
+import { Box } from '../../layout';
 
 export default {
   title: 'Atoms/Overlay/Popover',
@@ -22,13 +24,26 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Popover {...props}>{children}</Popover>;
+  const [opened, setOpened] = React.useState(false);
+  return (
+    <Popover
+      opened={opened}
+      target={<Button onClick={() => setOpened(!opened)}>Toggle popover</Button>}
+      position="bottom"
+      {...props}
+    >
+      {children}
+      <Box style={{ padding: 8 }}>
+        <Text color="primary" size="lg">
+          I'm a popover
+        </Text>
+      </Box>
+    </Popover>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...POPOVER_DEFAULT_PROPS,
 };

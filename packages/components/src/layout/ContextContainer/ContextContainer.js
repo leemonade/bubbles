@@ -36,6 +36,7 @@ const ContextContainer = ({
   spacing,
   direction,
   fullHeight,
+  style,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -71,6 +72,7 @@ const ContextContainer = ({
       fullWidth
       className={cx(classes.root, className)}
       fullHeight={fullHeight}
+      style={style}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={2} noFlex fullWidth>
