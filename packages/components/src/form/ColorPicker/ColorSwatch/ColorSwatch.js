@@ -12,12 +12,13 @@ export const ColorSwatch = forwardRef(
       actived,
       className,
       spacing = 2,
+      pointerEvents,
       plain,
       ...props
     },
     ref
   ) => {
-    const { classes, cx } = ColorSwatchStyles({ actived, plain });
+    const { classes, cx } = ColorSwatchStyles({ actived, pointerEvents, plain });
 
     return (
       <MantineColorSwatch
@@ -37,5 +38,5 @@ ColorSwatch.propTypes = {
   color: PropTypes.string,
   onClick: PropTypes.func,
   actived: PropTypes.bool,
-  spacing: PropTypes.number,
+  spacing: PropTypes.number
 };

@@ -1,12 +1,12 @@
 import { createStyles } from '@mantine/styles';
 
-export const ColorSwatchStyles = createStyles((theme, { actived, plain }) => {
+export const ColorSwatchStyles = createStyles((theme, { pointerEvents, actived, plain }) => {
   return {
     root: {
       overflow: 'visible',
-      pointerEvents: 'none',
+      pointerEvents: pointerEvents ? pointerEvents : 'all',
       '.mantine-ColorSwatch-overlay': {
-        pointerEvents: 'none',
+        pointerEvents: pointerEvents ? pointerEvents : 'all',
         cursor: 'pointer'
       },
       '.mantine-ColorSwatch-shadowOverlay': {

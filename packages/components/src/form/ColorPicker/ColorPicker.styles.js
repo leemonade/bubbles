@@ -30,10 +30,6 @@ export const ColorPickerStyles = createStyles(
         '.mantine-ColorPicker-sliderOverlay, .mantine-ColorSlider-sliderOverlay': {
           boxShadow: 'none !important'
         },
-        '.mantine-Input-icon, .mantine-ColorSwatch-overlay, .mantine-ColorSwatch-shadowOverlay': {
-          pointerEvents: 'none!important'
-        },
-
         paddingBottom: pxToRem(theme.spacing[3])
       },
       wrapper: {
@@ -46,14 +42,12 @@ export const ColorPickerStyles = createStyles(
         margin: pxToRem(spacing * -1),
         display: 'flex',
         flexWrap: 'wrap',
-        padding: !useHsl && `0 ${pxToRem(theme.spacing[3])}`,
-        pointerEvents: 'none'
+        padding: !useHsl && `0 ${pxToRem(theme.spacing[3])}`
       },
       swatchesWrapper: {
         // marginBottom: pxToRem(theme.spacing[3]),
         overflow: 'hidden',
-        borderRadius: 4,
-        pointerEvents: 'none'
+        borderRadius: 4
       },
       swatch: {
         width: `calc(${100 / swatchesPerRow}% - ${pxToRem(spacing * 2)})`,
@@ -61,7 +55,7 @@ export const ColorPickerStyles = createStyles(
         paddingBottom: `calc(${100 / swatchesPerRow}% - ${pxToRem(spacing * 2)})`,
         margin: pxToRem(spacing),
         boxSizing: 'content-box',
-        pointerEvents: 'none',
+        borderRadius: 0,
         borderRadius: '100%',
         '.mantine-ColorSwatch-overlay': {
           borderRadius: '100%'
