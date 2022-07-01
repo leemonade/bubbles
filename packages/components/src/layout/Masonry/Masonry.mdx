@@ -2,11 +2,13 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Masonry.stories.js';
 import { Masonry } from './Masonry.js';
 import { Box } from '@mantine/core';
+import { Paper } from '../../layout';
+import { Text } from '../../typography';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # Masonry
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/layout/Masonry>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/layout/Masonry/Masonry.js)
 
 ## Table of Contents
 
@@ -15,15 +17,42 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Masonry is ...
+Masonry is a component to display an array of elements.
+
+Provide the `breakAt` prop to control the amount of elements for each row, like this:
+
+```js
+breakAt: {
+  1200: 4,
+  940: 3,
+  520: 2,
+  360: 1,
+},
+```
+
+Masonry also accepts a `margin` prop to control the gap between elements.
 
 <ThemeProvider>
-  <Masonry>Masonry</Masonry>
+  <Text style={{ marginBottom: 10, display: 'block' }}>Default margin</Text>
+  <Masonry>
+    {[0, 1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+      <Paper key={index}>
+        <Text>{item + 1}</Text>
+      </Paper>
+    ))}
+  </Masonry>
+  <Text style={{ marginBottom: 10, display: 'block' }}>30 margin</Text>
+  <Masonry margin={30}>
+    {[0, 1, 2, 3, 4, 5, 6, 7].map((item, index) => (
+      <Paper key={index}>
+        <Text>{item + 1}</Text>
+      </Paper>
+    ))}
+  </Masonry>
 </ThemeProvider>
 
 ## Component API
@@ -34,15 +63,7 @@ Masonry is ...
 
 <Props of={Masonry} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/masonry_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/masonry/masonry.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/layout/Masonry.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/layout/Masonry/Masonry.mdx)

@@ -4,9 +4,9 @@ import { Paper } from './Paper.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# Paper
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/layout/Paper>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/layout/Paper/Paper.js)
 
 ## Table of Contents
 
@@ -14,16 +14,46 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Paper radius](#paper-radius)
+- [Paper shadow](#paper-shadow)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+Paper is component to contain other elements, and give it paddings, shadows, borders.
 
 <ThemeProvider>
   <Paper>Paper</Paper>
+</ThemeProvider>
+
+## Paper radius
+
+Paper has six different radius: `none`, `xs`, `sm`, `md`, `lg`, `xl`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 8, padding: 8, backgroundColor: '#EEE' }}>
+    <Paper radius="none">Hello world!</Paper>
+    <Paper radius="xs">Hello world!</Paper>
+    <Paper radius="sm">Hello world!</Paper>
+    <Paper radius="md">Hello world!</Paper>
+    <Paper radius="lg">Hello world!</Paper>
+    <Paper radius="xl">Hello world!</Paper>
+  </Box>
+</ThemeProvider>
+
+## Paper shadows
+
+Paper has five different shadows: `none`, `level100`, `level01`, `level02`, `level03`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 70, padding: 8 }}>
+    <Paper shadow="none">Hello world!</Paper>
+    <Paper shadow="level100">Hello world!</Paper>
+    <Paper shadow="level01">Hello world!</Paper>
+    <Paper shadow="level02">Hello world!</Paper>
+    <Paper shadow="level03">Hello world!</Paper>
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -34,15 +64,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 <Props of={Paper} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/paper_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/paper/paper.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/layout/Paper.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/layout/Paper/Paper.mdx)
