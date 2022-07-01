@@ -1,0 +1,50 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './InlineSvg.stories.js';
+import { InlineSvg } from './InlineSvg.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# InlineSvg
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/misc/InlineSvg/InlineSvg.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+InlineSvg is a component to svgs from a `src` link.
+
+<ThemeProvider>
+  <InlineSvg
+    style={{ position: 'relative' }}
+    src="https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/logo_leemons_86b21f7eea.svg"
+    height="300px"
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-misc-inlinesvg--playground" />
+</Preview>
+
+<Props of={InlineSvg} />¨
+
+## References
+
+[MDN: ARIA Img role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/misc/InlineSvg/InlineSvg.mdx)

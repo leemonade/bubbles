@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Text
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/typography/Text)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/typography/Text/Text.js)
 
 ## Table of Contents
 
@@ -14,21 +14,140 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Text size](#text-size)
+- [Text transform](#text-transform)
+- [Text role](#text-role)
+- [Text colors](#text-colors)
+- [Text truncated](#text-truncated)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Text is ...
+Text is a component to render text.
 
 <ThemeProvider>
-  <Text>Text</Text>
+  <Text>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel augue sed ante molestie
+    pharetra. Aliquam facilisis venenatis iaculis
+  </Text>
+</ThemeProvider>
+
+## Text size
+
+Text has five different sizes: `xs`, `sm`, `md`, `lg` and `xl`:
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <Text size="xs">Extra small text</Text>
+    <Text>Small text</Text>
+    <Text size="md">Medium text</Text>
+    <Text size="lg">Large text</Text>
+    <Text size="xl">Extra large text</Text>
+  </Box>
+</ThemeProvider>
+
+## Text transform
+
+You can transform the text with the `transform` prop, it accepts four different values: `capitalize`, `uppercase`, `lowercase` and `none`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <Text size="md" transform="capitalize">
+      Capitalized text
+    </Text>
+    <Text size="md" transform="uppercase">
+      Uppercase text
+    </Text>
+    <Text size="md" transform="lowercase">
+      Lowercase text
+    </Text>
+    <Text size="md">Normal text</Text>
+  </Box>
+</ThemeProvider>
+
+## Text role
+
+You can change the text font to `productive`, `expressive` or `inherit`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <Text size="md">Expressive text</Text>
+    <Text size="md" role="productive">
+      Productive text
+    </Text>
+  </Box>
+</ThemeProvider>
+
+## Text colors
+
+Text has nine different colors: `interactive`, `primary`, `secondary`, `tertiary`, `quartiary`, `soft`, `success`, `warning` and `error`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <Text size="md" color="interactive">
+      Interactive
+    </Text>
+    <Text size="md" color="primary">
+      Primary
+    </Text>
+    <Text size="md">Secondary</Text>
+    <Text size="md" color="tertiary">
+      Tertiary
+    </Text>
+    <Text size="md" color="quartiary">
+      Quartiary
+    </Text>
+    <Text size="md" color="soft">
+      Soft
+    </Text>
+    <Text size="md" color="success">
+      Success
+    </Text>
+    <Text size="md" color="warning">
+      Warning
+    </Text>
+    <Text size="md" color="error">
+      Error
+    </Text>
+  </Box>
+</ThemeProvider>
+
+## Text bold
+
+You can change the text to bold with `strong`, or if you are using `role="productive"`, you can also use `stronger`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <Text strong>Expressive strong text</Text>
+    <Text stronger>Expressive stronger text</Text>
+    <Text strong role="productive">
+      Productive strong text
+    </Text>
+    <Text stronger role="productive">
+      Productive stronger text
+    </Text>
+  </Box>
+</ThemeProvider>
+
+## Text truncated
+
+If you have a very long text and dont want it to use more than one line, you can use `truncated`
+
+<ThemeProvider>
+  <Text truncated>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac eros sed mi finibus
+    placerat id vitae neque. Vivamus volutpat lacus sed sodales hendrerit. Nullam et elit elementum,
+    mattis lectus sit amet, pretium neque. Donec bibendum tempor neque, et malesuada ligula
+    tincidunt nec. Proin tincidunt eros non posuere semper. Quisque ac commodo massa. Aenean
+    fringilla leo a aliquam ornare. Nam id est lorem. Ut quis urna orci. Pellentesque libero lorem,
+    imperdiet eget purus a, vestibulum tristique nibh. Proin felis velit, interdum et quam ac,
+    volutpat fermentum risus. Integer nunc erat, sagittis ac lorem et, malesuada mattis leo. Nam
+    quis dui in magna feugiat vehicula a et orci.
+  </Text>
 </ThemeProvider>
 
 ## Component API
-
-<Box>{stories.Playground}</Box>
 
 <Preview>
   <Story id="atoms-typography-text--playground" />
@@ -36,15 +155,7 @@ Text is ...
 
 <Props of={Text} />
 
-## References
-
-[MDN: ARIA Text role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/text_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Text role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/text/text.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/typography/Text.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/typography/Text/Text.mdx)

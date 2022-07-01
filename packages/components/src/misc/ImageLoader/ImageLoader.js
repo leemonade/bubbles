@@ -45,6 +45,7 @@ ImageLoader.defaultProps = {
 ImageLoader.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
+  height: PropTypes.string,
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
   radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

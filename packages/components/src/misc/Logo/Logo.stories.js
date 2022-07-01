@@ -10,7 +10,9 @@ export default {
       page: mdx,
     },
   },
-  argTypes: {},
+  argTypes: {
+    variant: { control: { type: 'select' }, options: LOGO_VARIANTS },
+  },
 };
 
 const Template = (props) => {
