@@ -6,16 +6,16 @@ import { CalificationStyles } from './Calification.styles';
 import { CALIFICATION_DEFAULT_PROPS, CALIFICATION_PROP_TYPES } from './Calification.constants';
 
 const Calification = ({
-  label,
-  grade,
-  minimumGrade,
-  orientation,
-  inverted,
-  styles,
-  className,
-  showOnlyLabel,
-  ...props
-}) => {
+                        label,
+                        grade,
+                        minimumGrade,
+                        orientation,
+                        inverted,
+                        styles,
+                        className,
+                        showOnlyLabel,
+                        ...props
+                      }) => {
   const { classes, cx } = CalificationStyles(
     { grade, minimumGrade, orientation, inverted, styles },
     { name: 'Calification' }
@@ -27,7 +27,7 @@ const Calification = ({
       </Box>
       {(!showOnlyLabel || isEmpty(label)) && (
         <Box className={classes.gradeContainer}>
-          <Text size="xl">{grade}</Text>
+          <Text size='xl'>{grade.toFixed(2)}</Text>
         </Box>
       )}
     </Box>
