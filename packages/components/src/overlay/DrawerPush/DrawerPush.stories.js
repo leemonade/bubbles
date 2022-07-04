@@ -14,10 +14,10 @@ export default {
     docs: {
       page: mdx,
     },
-    design: {
-      type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
-    },
+    // design: {
+    //   type: 'figma',
+    //   // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+    // },
   },
   argTypes: {
     direction: { control: { type: 'select' }, options: DRAWER_PUSH_DIRECTIONS },

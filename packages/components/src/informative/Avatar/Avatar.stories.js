@@ -10,6 +10,10 @@ export default {
     docs: {
       page: mdx,
     },
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=1130%3A25568',
+    },
   },
   argTypes: {
     size: { options: AVATAR_SIZES, control: { type: 'select' } },
