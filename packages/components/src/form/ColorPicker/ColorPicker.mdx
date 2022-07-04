@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # ColorPicker
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/ColorPicker)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/ColorPicker/ColorPicker.js)
 
 ## Table of Contents
 
@@ -15,12 +15,11 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-ColorPicker is ...
+ColorPicker is a component that displays an input to choose a color.
 
 <ThemeProvider>
   <ColorPicker />
@@ -28,7 +27,7 @@ ColorPicker is ...
 
 ## ColorPicker variants
 
-ColorPicker can be compact to hide the color swatches and make it smaller:
+ColorPicker can be `compact` to hide the color swatches and make it smaller:
 
 <ThemeProvider>
   <Group>
@@ -38,7 +37,7 @@ ColorPicker can be compact to hide the color swatches and make it smaller:
   </Group>
 </ThemeProvider>
 
-It can also has a mode for only use the HSL model:
+It can also has a mode for only `useHSL` model:
 
 <ThemeProvider>
   <Group>
@@ -48,7 +47,7 @@ It can also has a mode for only use the HSL model:
   </Group>
 </ThemeProvider>
 
-And it can also be set to fullwidth:
+And it can also be set to `fullWidth`:
 
 <ThemeProvider>
   <Box style={{ width: '50%' }}>
@@ -67,15 +66,7 @@ And it can also be set to fullwidth:
 
 <Props of={ColorPicker} />
 
-## References
-
-[MDN: ARIA Color picker role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/color-picker_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Color picker role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/color-picker/color-picker.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/ColorPicker.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/ColorPicker/ColorPicker.mdx)

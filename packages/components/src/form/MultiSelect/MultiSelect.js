@@ -136,6 +136,7 @@ const MultiSelect = forwardRef(
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
+                dropdownPosition={dropdownPosition}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (

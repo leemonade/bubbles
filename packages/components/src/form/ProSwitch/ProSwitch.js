@@ -1,11 +1,19 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { Box, Switch } from '@mantine/core';
+// import { Switch } from '../../form';
 import { ProSwitchStyles } from './ProSwitch.styles';
 
 export const PRO_SWITCH_DEFAULT_PROPS = {
   onChange: () => {},
+  checked: false,
+  color: '',
 };
-export const PRO_SWITCH_PROP_TYPES = {};
+export const PRO_SWITCH_PROP_TYPES = {
+  color: PropTypes.string,
+  icon: PropTypes.node,
+  checked: false,
+};
 
 const ProSwitch = forwardRef(({ color, icon, checked, onChange, classNames, ...props }, ref) => {
   const { classes, cx } = ProSwitchStyles({ color, hasIcon: !!icon });

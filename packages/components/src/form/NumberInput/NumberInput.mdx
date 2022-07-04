@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # NumberInput
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/NumberInput)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/NumberInput/NumberInput.js)
 
 ## Table of Contents
 
@@ -14,35 +14,42 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Hide controls](#hide-controls)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-NumberInput is ...
+NumberInput is an component that allows the user to only input numbers.
 
 <ThemeProvider>
-  <NumberInput>Number input</NumberInput>
+  <NumberInput label="Number input label" placeholder="Enter a number" />
+</ThemeProvider>
+
+## Hide controls
+
+You can choose to hide the arrow at the right of input with `hideControls`
+
+<ThemeProvider>
+  <NumberInput label="Number input label" placeholder="Enter a number" hideControls />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-number-input--playground" />
+  <Story id="molecules-form-numberinput--playground" />
 </Preview>
 
 <Props of={NumberInput} />
 
 ## References
 
-[MDN: ARIA Number input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/number-input_role)
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Number input role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/number-input/number-input.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/NumberInput.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/NumberInput/NumberInput.mdx)

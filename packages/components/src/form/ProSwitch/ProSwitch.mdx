@@ -3,10 +3,11 @@ import * as stories from './ProSwitch.stories.js';
 import { ProSwitch } from './ProSwitch.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { EmailPileIcon } from '@bubbles-ui/icons/outline';
 
 # ProSwitch
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/ProSwitch>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/ProSwitch)
 
 ## Table of Contents
 
@@ -20,29 +21,34 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-ProSwitch is ...
+ProSwitch is a wrapper around the Switch component, so it has the same props, with the addition of `color` and `icon`. That allows you to customize the Switch.
 
 <ThemeProvider>
-  <ProSwitch>Pro switch</ProSwitch>
+  <ProSwitch
+    size="md"
+    color="#FABADA"
+    icon={<EmailPileIcon />}
+    label="Switch with color and icon changes"
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-pro-switch--playground" />
+  <Story id="molecules-form-proswitch--playground" />
 </Preview>
 
 <Props of={ProSwitch} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/pro-switch_role>)
+[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/pro-switch_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/pro-switch/pro-switch.html>)
+[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/pro-switch/pro-switch.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/ProSwitch.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/ProSwitch.mdx)

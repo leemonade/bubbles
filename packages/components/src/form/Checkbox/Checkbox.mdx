@@ -15,6 +15,8 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Checkbox variants](#checkbox-variants)
+- [Help and label positions](#help-and-label-positions)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
@@ -29,15 +31,17 @@ Checkbox is a component to capture boolean input from user
 
 ## Checkbox variants
 
-The checkbox component has two variants: default and boxed.
+The checkbox component has two variants: `default` and `boxed`. It also has a `disabled` state.
 
 <ThemeProvider>
   <Checkbox label="Checkbox 1"></Checkbox>
   <Space></Space>
   <Checkbox label="Checkbox 2" variant="boxed"></Checkbox>
+  <Space></Space>
+  <Checkbox label="Checkbox 3" disabled></Checkbox>
 </ThemeProvider>
 
-## Help positions
+## Help and label positions
 
 You can also place the help text to the right or bottom of the checkbox label.
 
@@ -45,15 +49,14 @@ You can also place the help text to the right or bottom of the checkbox label.
   <Checkbox label="Default checkbox 1" help="Right help"></Checkbox>
   <Space></Space>
   <Checkbox label="Default checkbox 2" help="Bottom help" helpPosition="bottom"></Checkbox>
+</ThemeProvider>
+
+And you can place the label with the `labelPosition` prop to: `start` or `end`
+
+<ThemeProvider>
+  <Checkbox label="Default checkbox 1"></Checkbox>
   <Space></Space>
-  <Checkbox variant="boxed" label="Boxed checkbox 1" help="Right help"></Checkbox>
-  <Space></Space>
-  <Checkbox
-    variant="boxed"
-    label="Boxed checkbox 2"
-    help="Bottom help"
-    helpPosition="bottom"
-  ></Checkbox>
+  <Checkbox label="Default checkbox 2" labelPosition="start"></Checkbox>
 </ThemeProvider>
 
 ## Component API

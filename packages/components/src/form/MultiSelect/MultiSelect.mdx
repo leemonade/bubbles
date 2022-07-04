@@ -14,33 +14,149 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Dropdown position](#dropdown-position)
+- [MultiSelect multiple](#multiselect-multiple)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-MultiSelect is ...
+MultiSelect is an input that allows the selection of multiple values. You can customize the value and list components with: `valueComponent` and `itemComponent`.
 
 <ThemeProvider>
-  <MultiSelect>Multi select</MultiSelect>
+  <MultiSelect
+    data={[
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+        label: 'Bender Bending Rodríguez',
+        value: 'Bender Bending Rodríguez',
+        description: 'Fascinated with cooking',
+      },
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+        label: 'Carol Miller',
+        value: 'Carol Miller',
+        description: 'One of the richest people on Earth',
+      },
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
+        label: 'Homer Simpson',
+        value: 'Homer Simpson',
+        description: 'Overweight, lazy, and often ignorant',
+      },
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
+        label: 'Spongebob Squarepants',
+        value: 'Spongebob Squarepants',
+        description: 'Not just a sponge',
+      },
+    ]}
+  />
+</ThemeProvider>
+
+## Dropdown position
+
+You can change the `dropdownPosition` prop to: `bottom`, `top` or 'flip'
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <MultiSelect
+      placeholder="Bottom position"
+      data={[
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+          description: 'Fascinated with cooking',
+        },
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+          description: 'One of the richest people on Earth',
+        },
+      ]}
+    />
+    <MultiSelect
+      placeholder="Top position"
+      dropdownPosition="top"
+      data={[
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+          description: 'Fascinated with cooking',
+        },
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+          description: 'One of the richest people on Earth',
+        },
+      ]}
+    />
+    <MultiSelect
+      placeholder="Flip position"
+      dropdownPosition="flip"
+      data={[
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+          description: 'Fascinated with cooking',
+        },
+        {
+          image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+          description: 'One of the richest people on Earth',
+        },
+      ]}
+    />
+  </Box>
+</ThemeProvider>
+
+## MultiSelect multiple
+
+MultiSelect also accepts a boolean `multiple` prop which is `true` by default. It is used as a `Select` to be able to customize the valueComponent when using a `Select`.
+
+<ThemeProvider>
+  <MultiSelect
+    placeholder="Multiple to false"
+    multiple={false}
+    data={[
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+        label: 'Bender Bending Rodríguez',
+        value: 'Bender Bending Rodríguez',
+        description: 'Fascinated with cooking',
+      },
+      {
+        image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+        label: 'Carol Miller',
+        value: 'Carol Miller',
+        description: 'One of the richest people on Earth',
+      },
+    ]}
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-multi-select--playground" />
+  <Story id="molecules-form-multiselect--playground" />
 </Preview>
 
 <Props of={MultiSelect} />
 
 ## References
 
-[MDN: ARIA Multi select role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/multi-select_role)
+[MDN: ARIA Listbox role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA Multi select role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/multi-select/multi-select.html)
+[W3: ARIA Multi select role example](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/)
 
 ## Feedback
 

@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react';
 import { MultiSelect } from './MultiSelect';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
+  MULTI_SELECT_DROPDOWN_POSITIONS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
@@ -24,6 +25,7 @@ export default {
   argTypes: {
     size: { options: MULTI_SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: MULTI_SELECT_ORIENTATIONS, control: { type: 'select' } },
+    dropdownPosition: { options: MULTI_SELECT_DROPDOWN_POSITIONS, control: { type: 'select' } },
     onChange: { action: 'Value changed' },
   },
 };

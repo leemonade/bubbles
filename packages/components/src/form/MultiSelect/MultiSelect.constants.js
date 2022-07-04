@@ -9,6 +9,8 @@ import {
 export const MULTI_SELECT_SIZES = INPUT_WRAPPER_SIZES;
 export const MULTI_SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
+export const MULTI_SELECT_DROPDOWN_POSITIONS = ['bottom', 'top', 'flip'];
+
 export const MULTI_SELECT_DEFAULT_PROPS = {
   label: '',
   description: '',
@@ -33,6 +35,7 @@ export const MULTI_SELECT_PROP_TYPES = {
   data: PropTypes.any,
   size: PropTypes.oneOf(MULTI_SELECT_SIZES),
   orientation: PropTypes.oneOf(MULTI_SELECT_ORIENTATIONS),
+  dropdownPosition: PropTypes.oneOf(MULTI_SELECT_DROPDOWN_POSITIONS),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   creatable: PropTypes.bool,

@@ -14,7 +14,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3640%3A33370',
     },
   },
   argTypes: {
@@ -31,7 +31,7 @@ const Template = ({ value, onChange: onChangeAction, ...props }) => {
   const { control, reset } = useForm({ defaultValues });
 
   return (
-    <ContextContainer divided style={{ width: '140px' }}>
+    <ContextContainer divided>
       <Controller
         name="date"
         control={control}
@@ -63,7 +63,7 @@ Playground.args = {
   help: 'Help text for date picker',
   error: 'Descriptive text for error ',
   locale: 'ES',
-  readOnly: true,
+  readOnly: false,
   value: new Date(),
   withTime: true,
 };

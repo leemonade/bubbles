@@ -21,19 +21,14 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return (
-    <>
-      <ProSwitch {...props} color="#DC5571" />
-      <ProSwitch {...props} color="#DC5571" icon={<EmailPileIcon />} />
-    </>
-  );
+const Template = ({ children, useIcon, icon, ...props }) => {
+  return <ProSwitch {...props} icon={useIcon ? icon : undefined} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...PRO_SWITCH_DEFAULT_PROPS,
+  useIcon: true,
+  icon: <EmailPileIcon />,
 };

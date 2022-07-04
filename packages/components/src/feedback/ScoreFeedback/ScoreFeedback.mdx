@@ -2,11 +2,12 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import { Box } from '@mantine/core';
 import * as stories from './ScoreFeedback.stories.js';
 import { ScoreFeedback } from './ScoreFeedback.js';
+import { Text } from '../../typography';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# ScoreFeedback
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/feedback/ScoreFeedback>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/feedback/ScoreFeedback/ScoreFeedback.js)
 
 ## Table of Contents
 
@@ -20,29 +21,31 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+ScoreFeedback is a component that displays a `Calification`, with a custom feedback node.
 
 <ThemeProvider>
-  <ScoreFeedback>Score feedback</ScoreFeedback>
+  <ScoreFeedback calification={{ minimumGrade: 5, grade: 5.2, label: 'FB', showOnlyLabel: false }}>
+    <Box style={{ padding: 32 }}>
+      <Text color="primary">This is the feedback for your calification...</Text>
+    </Box>
+  </ScoreFeedback>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-feedback-score-feedback--playground" />
+  <Story id="molecules-feedback-scorefeedback--playground" />
 </Preview>
 
 <Props of={ScoreFeedback} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/score-feedback_role>)
+[MDN: ARIA Comment role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/comment_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/score-feedback/score-feedback.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/feedback/ScoreFeedback.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/feedback/ScoreFeedback/ScoreFeedback.mdx)

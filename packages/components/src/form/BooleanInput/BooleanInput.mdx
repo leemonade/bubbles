@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # BooleanInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/BooleanInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/BooleanInput/BooleanInput.js)
 
 ## Table of Contents
 
@@ -14,35 +14,85 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [BooleanInput sizes](#booleaninput-sizes)
+- [BooleanInput variants](#booleaninput-variants)
+- [Help and label positions](#help-and-label-positions)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-BooleanInput is ...
+BooleanInput is a input for boolean values, it's a wrapper for `Checkbox` and `Switch` components.
+
+You can choose which input to show with the `display` prop, which accepts: `checkbox` and `switch`.
 
 <ThemeProvider>
-  <BooleanInput>Boolean input</BooleanInput>
+  <BooleanInput label="Boolean input" />
+  <BooleanInput display="switch" label="Boolean input" />
+</ThemeProvider>
+
+## BooleanInput sizes
+
+When using `display="switch"`, BooleanInput accepts three different sizes: `xs`, `sm`, `md`:
+
+<ThemeProvider>
+  <BooleanInput display="switch" label="Switch label" size="xs" />
+  <BooleanInput display="switch" label="Switch label" size="sm" />
+  <BooleanInput display="switch" label="Switch label" size="md" />
+</ThemeProvider>
+
+## BooleanInput variants
+
+The BooleanInput component has two variants: `default` and `boxed`. It also has a `disabled` state.
+
+<ThemeProvider>
+  <BooleanInput label="BooleanInput 1"></BooleanInput>
+  <Space></Space>
+  <BooleanInput label="BooleanInput 2" variant="boxed"></BooleanInput>
+  <Space></Space>
+  <BooleanInput label="BooleanInput 3" disabled></BooleanInput>
+</ThemeProvider>
+
+## Help and label positions
+
+You can also place the help text to the right or bottom of the BooleanInput label.
+
+<ThemeProvider>
+  <BooleanInput label="BooleanInput 1" help="Right help"></BooleanInput>
+  <Space></Space>
+  <BooleanInput label="BooleanInput 2" help="Bottom help" helpPosition="bottom"></BooleanInput>
+</ThemeProvider>
+
+And you can place the label with the `labelPosition` prop to: `start` or `end`
+
+<ThemeProvider>
+  <BooleanInput label="BooleanInput 1"></BooleanInput>
+  <Space></Space>
+  <BooleanInput label="BooleanInput 2" labelPosition="start"></BooleanInput>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-boolean-input--playground" />
+  <Story id="molecules-form-booleaninput--playground" />
 </Preview>
 
 <Props of={BooleanInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/boolean-input_role>)
+[MDN: ARIA checkbox role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role)
+
+[MDN: ARIA switch role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/switch_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/boolean-input/boolean-input.html>)
+[W3: ARIA checkbox role example](https://www.w3.org/WAI/ARIA/apg/example-index/checkbox/checkbox.html)
+
+[W3: ARIA switch role example](https://www.w3.org/WAI/ARIA/apg/example-index/switch/switch-checkbox.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/BooleanInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/BooleanInput/BooleanInput.mdx)
