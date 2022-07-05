@@ -3,10 +3,11 @@ import * as stories from './Select.stories.js';
 import { Select } from './Select.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { UserDisplayItem } from '../..';
 
 # Select
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/Select)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/Select/Select.js)
 
 ## Table of Contents
 
@@ -14,22 +15,133 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Select variants](#select-variants)
+- [Custom select](#custom-select)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Select is ...
+Select is a select input that allows to search, customize dropdown items and value items.
+
+You can allow searching on the select with the `searchable` prop.
 
 <ThemeProvider>
-  <Select>Select</Select>
+  <Select
+    placeholder="Select a value"
+    data={[
+      {
+        label: 'Bender Bending Rodríguez',
+        value: 'Bender Bending Rodríguez',
+      },
+      {
+        label: 'Carol Miller',
+        value: 'Carol Miller',
+      },
+      {
+        label: 'Homer Simpson',
+        value: 'Homer Simpson',
+      },
+      {
+        label: 'Spongebob Squarepants',
+        value: 'Spongebob Squarepants',
+      },
+    ]}
+  />
 </ThemeProvider>
+
+## Select variants
+
+Select has three different variants: `default`, `filled` and `unstyled`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <Select
+      placeholder="Default variant"
+      data={[
+        {
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+        },
+        {
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+        },
+        {
+          label: 'Homer Simpson',
+          value: 'Homer Simpson',
+        },
+        {
+          label: 'Spongebob Squarepants',
+          value: 'Spongebob Squarepants',
+        },
+      ]}
+    />
+    <Select
+      placeholder="Filled variant"
+      variant="filled"
+      data={[
+        {
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+        },
+        {
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+        },
+        {
+          label: 'Homer Simpson',
+          value: 'Homer Simpson',
+        },
+        {
+          label: 'Spongebob Squarepants',
+          value: 'Spongebob Squarepants',
+        },
+      ]}
+    />
+    <Select
+      placeholder="Unstyled variant"
+      variant="unstyled"
+      data={[
+        {
+          label: 'Bender Bending Rodríguez',
+          value: 'Bender Bending Rodríguez',
+        },
+        {
+          label: 'Carol Miller',
+          value: 'Carol Miller',
+        },
+        {
+          label: 'Homer Simpson',
+          value: 'Homer Simpson',
+        },
+        {
+          label: 'Spongebob Squarepants',
+          value: 'Spongebob Squarepants',
+        },
+      ]}
+    />
+  </Box>
+</ThemeProvider>
+
+## Custom select
+
+You can use your custom dropdown item or value item with `itemComponent` and `valueComponent`. See story for an example.
+
+```jsx
+  <Select
+    valueComponent={({ label }) => <UserDisplayItem name={label} />}
+    itemComponent={({ label }) => <UserDisplayItem name={label} />}
+    placeholder="Default variant"
+    data={[...]}
+  />
+```
 
 ## Component API
 
 <Preview>
-  <Story id="form-select--playground" />
+  <Story id="molecules-form-select--playground" />
 </Preview>
 
 <Props of={Select} />
@@ -40,9 +152,13 @@ Select is ...
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA Select role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/select/select.html)
+[W3: ARIA Select role example](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-select-only.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/Select.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/Select/Select.mdx)
+
+```
+
+```

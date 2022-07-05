@@ -12,7 +12,7 @@ export const PRO_SWITCH_DEFAULT_PROPS = {
 export const PRO_SWITCH_PROP_TYPES = {
   color: PropTypes.string,
   icon: PropTypes.node,
-  checked: false,
+  checked: PropTypes.bool,
 };
 
 const ProSwitch = forwardRef(({ color, icon, checked, onChange, classNames, ...props }, ref) => {

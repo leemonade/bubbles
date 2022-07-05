@@ -4,9 +4,9 @@ import * as stories from './ScoreInput.stories.js';
 import { ScoreInput } from './ScoreInput.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# ScoreInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/ScoreInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/ScoreInput/ScoreInput.js)
 
 ## Table of Contents
 
@@ -14,35 +14,183 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Using letters](#using-letters)
+- [Custom score input](#custom-score-input)
+- [ScoreInput direction](#scoreinput-direction)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+ScoreInput is an input that allows the user to select a score.
 
 <ThemeProvider>
-  <ScoreInput>Score input</ScoreInput>
+  <ScoreInput
+    grades={[
+      { score: 0 },
+      { score: 1 },
+      { score: 2 },
+      { score: 3 },
+      { score: 4 },
+      { score: 5 },
+      { score: 6 },
+      { score: 7 },
+      { score: 8 },
+      { score: 9 },
+      { score: 10 },
+    ]}
+  />
+</ThemeProvider>
+
+## Using letters
+
+If you provide a grade array with letters, something like this:
+
+```js
+{
+  score: 3.333,
+  letter: 'B+',
+}
+```
+
+And if you pass the `showLetters` prop, it will show the letters instead of the number:
+
+<ThemeProvider>
+  <ScoreInput
+    showLetters
+    grades={[
+      {
+        score: 0,
+        letter: 'F',
+      },
+      {
+        score: 0.667,
+        letter: 'D-',
+      },
+      {
+        score: 1,
+        letter: 'D',
+      },
+      {
+        score: 1.333,
+        letter: 'D+',
+      },
+      {
+        score: 1.667,
+        letter: 'C-',
+      },
+      {
+        score: 2,
+        letter: 'C',
+      },
+      {
+        score: 2.333,
+        letter: 'C+',
+      },
+      {
+        score: 2.667,
+        letter: 'B-',
+      },
+      {
+        score: 3,
+        letter: 'B',
+      },
+      {
+        score: 3.333,
+        letter: 'B+',
+      },
+      {
+        score: 3.667,
+        letter: 'A-',
+      },
+      {
+        score: 4,
+        letter: 'A',
+      },
+    ]}
+  />
+</ThemeProvider>
+
+## Custom score input
+
+You can also input your custom score with the `acceptCustom` prop set to `text` or `number`:
+
+<ThemeProvider>
+  <ScoreInput
+    acceptCustom="number"
+    grades={[
+      { score: 0 },
+      { score: 1 },
+      { score: 2 },
+      { score: 3 },
+      { score: 4 },
+      { score: 5 },
+      { score: 6 },
+      { score: 7 },
+      { score: 8 },
+      { score: 9 },
+      { score: 10 },
+    ]}
+  />
+</ThemeProvider>
+
+## ScoreInput direction
+
+ScoreInput also allows to change the direction of the grades with the `direction` prop, set to `ltr` or `rtl`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <ScoreInput
+      direction="ltr"
+      grades={[
+        { score: 0 },
+        { score: 1 },
+        { score: 2 },
+        { score: 3 },
+        { score: 4 },
+        { score: 5 },
+        { score: 6 },
+        { score: 7 },
+        { score: 8 },
+        { score: 9 },
+        { score: 10 },
+      ]}
+    />
+    <ScoreInput
+      direction="rtl"
+      grades={[
+        { score: 0 },
+        { score: 1 },
+        { score: 2 },
+        { score: 3 },
+        { score: 4 },
+        { score: 5 },
+        { score: 6 },
+        { score: 7 },
+        { score: 8 },
+        { score: 9 },
+        { score: 10 },
+      ]}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-score-input--playground" />
+  <Story id="molecules-form-scoreinput--playground" />
 </Preview>
 
 <Props of={ScoreInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/score-input_role>)
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/score-input/score-input.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/ScoreInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/ScoreInput/ScoreInput.mdx)

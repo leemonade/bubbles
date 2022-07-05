@@ -1,0 +1,61 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './TextInput.stories.js';
+import { TextInput } from './TextInput.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+import { SearchIcon } from '@bubbles-ui/icons/outline';
+import { StarIcon } from '@bubbles-ui/icons/solid';
+
+# TextInput
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/TextInput/TextInput.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Icon and right section](#icon-and-right-section)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+TextInput is an component that allows the user to input text.
+
+<ThemeProvider>
+  <TextInput placeholder="TextInput placeholder" />
+</ThemeProvider>
+
+## Icon and right section
+
+You can add an icon to the left and right sides with the `icon` and `rightSection` props respectively.
+
+<ThemeProvider>
+  <TextInput
+    placeholder="TextInput with icon and rightSection"
+    icon={<SearchIcon />}
+    rightSection={<StarIcon />}
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-form-textinput--playground" />
+</Preview>
+
+<Props of={TextInput} />
+
+## References
+
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/TextInput/TextInput.mdx)
