@@ -32,11 +32,26 @@ export const BADGE_PROP_TYPES = {
 
 const Badge = forwardRef(
   (
-    { label, size, radius, image, color, severity, onClose, closable, className, ...props },
+    {
+      label,
+      size,
+      radius,
+      image,
+      color,
+      severity,
+      onClose,
+      closable,
+      className,
+      children,
+      ...props
+    },
     ref
   ) => {
     if (radius === 'default') {
       image = null;
+    }
+    if (!label && children) {
+      label = children;
     }
 
     const { classes, cx } = BadgeStyles(

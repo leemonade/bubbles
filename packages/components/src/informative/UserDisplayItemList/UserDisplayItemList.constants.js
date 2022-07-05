@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 export const USER_DISPLAY_ITEM_LIST_DEFAULT_PROPS = {
   labels: {
-    showMore: '',
-    showLess: '',
+    showMore: 'Show more',
+    showLess: 'Show less',
   },
   limit: 3,
   data: [],

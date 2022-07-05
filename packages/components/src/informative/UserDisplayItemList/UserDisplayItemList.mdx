@@ -4,9 +4,9 @@ import * as stories from './UserDisplayItemList.stories.js';
 import { UserDisplayItemList } from './UserDisplayItemList.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# UserDisplayItemList
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/UserDisplayItemList>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/UserDisplayItemList/UserDisplayItemList.js)
 
 ## Table of Contents
 
@@ -14,35 +14,138 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [UserDisplayItemList limit](#userdisplayitemlist-limit)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+UserDisplayItemList is a component to display a list of UserDisplayItem.
 
 <ThemeProvider>
-  <UserDisplayItemList>User display item list</UserDisplayItemList>
+  <UserDisplayItemList
+    data={[
+      {
+        name: 'Jean',
+        surnames: 'Dow',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Bruno',
+        surnames: 'Petresky',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Juan',
+        surnames: 'Perez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Ana',
+        surnames: 'Lopez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Maria',
+        surnames: 'García',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Adrián',
+        surnames: 'Diaz',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'José',
+        surnames: 'Ruiz',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Carla',
+        surnames: 'Vazquez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+    ]}
+  />
+</ThemeProvider>
+
+## UserDisplayItemList limit
+
+You can set the `limit` prop to whatever number you want.
+
+<ThemeProvider>
+  <UserDisplayItemList
+    limit={1}
+    data={[
+      {
+        name: 'Jean',
+        surnames: 'Dow',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Bruno',
+        surnames: 'Petresky',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Juan',
+        surnames: 'Perez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Ana',
+        surnames: 'Lopez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Maria',
+        surnames: 'García',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Adrián',
+        surnames: 'Diaz',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'José',
+        surnames: 'Ruiz',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+      {
+        name: 'Carla',
+        surnames: 'Vazquez',
+        avatar:
+          'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+      },
+    ]}
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-informative-user-display-item-list--playground" />
+  <Story id="molecules-informative-userdisplayitemlist--playground" />
 </Preview>
 
 <Props of={UserDisplayItemList} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-display-item-list_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-display-item-list/user-display-item-list.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/UserDisplayItemList.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/UserDisplayItemList/UserDisplayItemList.mdx)
