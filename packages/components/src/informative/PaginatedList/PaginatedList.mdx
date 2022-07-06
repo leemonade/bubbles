@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # PaginatedList
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/informative/PaginatedList)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/PaginatedList/PaginatedList.js)
 
 ## Table of Contents
 
@@ -14,35 +14,147 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [PaginatedList layout](#paginatedlist-layout)
+- [Pager place](#pager-place)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-PaginatedList is ...
+PaginatedList is a component that renders a paginated list. See story for more information.
 
 <ThemeProvider>
-  <PaginatedList />
+  <PaginatedList
+    columns={[
+      { Header: 'Name', accessor: 'name' },
+      { Header: 'Surname', accessor: 'surname' },
+    ]}
+    items={[
+      { name: 'John', surname: 'Doe' },
+      { name: 'Manuel', surname: 'Garcia' },
+      { name: 'Juan', surname: 'Y medio' },
+      { name: 'David', surname: 'Martin' },
+      { name: 'Javier', surname: 'Gomez' },
+    ]}
+    size={5}
+    spacing={2}
+    totalCount={18}
+    totalPages={4}
+  />
+</ThemeProvider>
+
+## PaginatedList layout
+
+PaginatedList has two different layouts to display a list: `table` and `grid`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 16 }}>
+    <PaginatedList
+      style={{ flex: 1 }}
+      columns={[
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Surname', accessor: 'surname' },
+      ]}
+      items={[
+        { name: 'John', surname: 'Doe' },
+        { name: 'Manuel', surname: 'Garcia' },
+        { name: 'Juan', surname: 'Y medio' },
+        { name: 'David', surname: 'Martin' },
+        { name: 'Javier', surname: 'Gomez' },
+      ]}
+      size={5}
+      spacing={2}
+      totalCount={18}
+      totalPages={4}
+    />
+    <PaginatedList
+      layout="grid"
+      style={{ flex: 1 }}
+      columns={[
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Surname', accessor: 'surname' },
+      ]}
+      items={[
+        { name: 'John', surname: 'Doe' },
+        { name: 'Manuel', surname: 'Garcia' },
+        { name: 'Juan', surname: 'Y medio' },
+        { name: 'David', surname: 'Martin' },
+        { name: 'Javier', surname: 'Gomez' },
+      ]}
+      size={5}
+      spacing={2}
+      totalCount={18}
+      totalPages={4}
+    />
+  </Box>
+</ThemeProvider>
+
+## Pager place
+
+You can change the pager place to `start`, `center` or `end`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <PaginatedList
+      pagerPlace="start"
+      columns={[
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Surname', accessor: 'surname' },
+      ]}
+      items={[
+        { name: 'John', surname: 'Doe' },
+        { name: 'Manuel', surname: 'Garcia' },
+      ]}
+      size={5}
+      totalCount={18}
+      totalPages={4}
+    />
+    <PaginatedList
+      columns={[
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Surname', accessor: 'surname' },
+      ]}
+      items={[
+        { name: 'John', surname: 'Doe' },
+        { name: 'Manuel', surname: 'Garcia' },
+      ]}
+      size={5}
+      totalCount={18}
+      totalPages={4}
+    />
+    <PaginatedList
+      pagerPlace="end"
+      columns={[
+        { Header: 'Name', accessor: 'name' },
+        { Header: 'Surname', accessor: 'surname' },
+      ]}
+      items={[
+        { name: 'John', surname: 'Doe' },
+        { name: 'Manuel', surname: 'Garcia' },
+      ]}
+      size={5}
+      totalCount={18}
+      totalPages={4}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-informative-paginated-list--playground" />
+  <Story id="molecules-informative-paginatedlist--playground" />
 </Preview>
 
 <Props of={PaginatedList} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/paged-list_role)
+[MDN: ARIA List role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/paged-list/paged-list.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/informative/PaginatedList.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/PaginatedList/PaginatedList.mdx)

@@ -5,40 +5,73 @@ import { Group, Box, Anchor, Text } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 import { Button } from './../../form/Button/Button.js';
 
-# ActionButton
+# Breadcrumbs
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/Navigation/Breadcrumbs/Breadcrumbs)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/Breadcrumbs/Breadcrumbs.js)
 
-## Variants
+## Table of Contents
 
-We have two variants:
-Back link and normal Breadcrumbs
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Back label](#back-label)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Breadcrumbs is a list of links to display the route to the your current page.
 
 <ThemeProvider>
-  <Group style={{ gap: 32 }} mt="24px" mb="0" mx="2px">
-    <Breadcrumbs separator="">
-      <Anchor href="#">
-        {' '}
-        <Text component="span">←</Text> Back{' '}
-      </Anchor>
-      <Anchor> Last </Anchor>
-    </Breadcrumbs>
-  </Group>
+  <Box style={{ padding: 16 }}>
+    <Breadcrumbs
+      items={[
+        { label: 'Mantine', href: 'https://mantine.dev' },
+        { label: 'Mantine hooks', href: 'https://mantine.dev/hooks/getting-started' },
+        { label: 'use-id', href: 'https://mantine.dev/hooks/use-id' },
+        { label: 'use-id' },
+      ]}
+    />
+  </Box>
 </ThemeProvider>
+
+## Back label
+
+You can add a `backLabel` and it will show a button to go to the previous page.
+
 <ThemeProvider>
-  <Group style={{ gap: 32 }} mt="16px" mb="40px" mx="2px">
-    <Breadcrumbs separator="›">
-      <Anchor href="#">Primay Level</Anchor>
-      <Anchor href="#">Secondary Level</Anchor>
-      <Anchor> Last </Anchor>
-    </Breadcrumbs>
-  </Group>
-</ThemeProvider>{' '}
+  <Box style={{ padding: 16 }}>
+    <Breadcrumbs
+      backLabel="Go back"
+      items={[
+        { label: 'Mantine', href: 'https://mantine.dev' },
+        { label: 'Mantine hooks', href: 'https://mantine.dev/hooks/getting-started' },
+        { label: 'use-id', href: 'https://mantine.dev/hooks/use-id' },
+        { label: 'use-id' },
+      ]}
+    />
+  </Box>
+</ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="navigation-breadcrumbs--default-breadcrumbs" />
+  <Story id="molecules-navigation-breadcrumbs--playground" />
 </Preview>
 
 <Props of={Breadcrumbs} />
+
+## References
+
+[MDN: ARIA Link role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA Link role example](https://www.w3.org/WAI/ARIA/apg/example-index/link/link.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/Breadcrumbs/Breadcrumbs.mdx)

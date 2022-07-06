@@ -3,10 +3,12 @@ import { Box } from '@mantine/core';
 import * as stories from './Swiper.stories.js';
 import { Swiper } from './Swiper.js';
 import { ThemeProvider } from './../../ThemeProvider';
+import { Paper } from '../../layout';
+import { Text } from '../../typography';
 
-# **name**
+# Swiper
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/Swiper>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Swiper/Swiper.js)
 
 ## Table of Contents
 
@@ -14,16 +16,130 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Selected and selected styles](#selected-and-selected-styles)
+- [Deselectable](#deselectable)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+Swiper is a component to display a elements in a swiper. You will need the `breakAt` prop
+to control how many elements are shown and the space between them, something like this:
+
+```js
+breakAt: {
+  1200: { slidesPerView: 4, spaceBetween: 20 },
+  940: { slidesPerView: 3, spaceBetween: 20 },
+  520: { slidesPerView: 2, spaceBetween: 30 },
+  360: { slidesPerView: 1, spaceBetween: 40 },
+},
+```
 
 <ThemeProvider>
-  <Swiper>Swiper</Swiper>
+  <Swiper
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+  </Swiper>
+</ThemeProvider>
+
+## Selected and selected styles
+
+Swiper allows you to select the elements with the `selectable` prop, but you can disable the styles of the selected element with `disableSelectedStyles`.
+
+<ThemeProvider>
+  <Swiper
+    selectable
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+  </Swiper>
+  <Box style={{ marginTop: 16 }} />
+  <Swiper
+    selectable
+    disableSelectedStyles
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+  </Swiper>
+</ThemeProvider>
+
+## Deselectable
+
+With the `deselectable` prop you can control if the element is unselected when you click it again
+
+<ThemeProvider>
+  <Swiper
+    selectable
+    deselectable={false}
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+  </Swiper>
 </ThemeProvider>
 
 ## Component API
@@ -34,15 +150,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 <Props of={Swiper} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/swiper_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/swiper/swiper.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/Swiper.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Swiper/Swiper.mdx)

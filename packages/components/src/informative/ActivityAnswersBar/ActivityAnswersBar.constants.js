@@ -5,6 +5,11 @@ export const ACTIVITY_ANSWERS_BAR_STATUSES = ['OK', 'KO', null];
 export const ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS = {
   barHeight: 25,
   withLegend: true,
+  labels: {
+    OK: '',
+    KO: '',
+    null: '',
+  },
 };
 export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
   data: PropTypes.arrayOf(

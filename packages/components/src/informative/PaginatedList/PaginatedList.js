@@ -63,6 +63,7 @@ const PaginatedList = ({
   onSelect = () => {},
   onSizeChange = () => {},
   onPageChange = () => {},
+  style,
   ...props
 }) => {
   const {
@@ -113,7 +114,7 @@ const PaginatedList = ({
     onPageChange(val);
   };
 
-  const { classes, cx } = PaginatedListStyles({}, { name: 'PaginatedList' });
+  const { classes, cx } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
 
   return (
     <Box className={classes.root}>

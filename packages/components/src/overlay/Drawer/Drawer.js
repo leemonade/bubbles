@@ -8,6 +8,7 @@ import { Box, Stack } from '../../layout';
 import { DrawerStyles } from './Drawer.styles';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
+export const DRAWERS_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'full'];
 
 export const DRAWER_DEFAULT_PROPS = {
   size: 'md',

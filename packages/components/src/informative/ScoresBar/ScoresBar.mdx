@@ -3,10 +3,11 @@ import { Box } from '@mantine/core';
 import * as stories from './ScoresBar.stories.js';
 import { ScoresBar } from './ScoresBar.js';
 import { ThemeProvider } from './../../ThemeProvider';
+import { FULL_SCORES, GRADES } from './mock/data';
 
-# **name**
+# ScoresBar
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/ScoresBar>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/ScoresBar/ScoresBar.js)
 
 ## Table of Contents
 
@@ -14,35 +15,78 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [ScoresBar variants](#scoresbar-variants)
+- [ScoresBar marker](#scoresbar-marker)
+- [Left legend and bar percentage](#left-legend-and-bar-percentage)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+ScoresBar is a component that renders a graphic of the distribution of scores.
+
+You can provide a `minimumGrade` and the scores greater than the minimum will show in green, the scores smaller will show in red and if its the same it will show in yellow
 
 <ThemeProvider>
-  <ScoresBar>Scores bar</ScoresBar>
+  <Box style={{ height: 200 }}>
+    <ScoresBar scores={FULL_SCORES} grades={GRADES} />
+  </Box>
+</ThemeProvider>
+
+## ScoresBar variants
+
+ScoreBar has two variants: `multicolor` and `onecolor`
+
+<ThemeProvider>
+  <Box style={{ height: 200 }}>
+    <ScoresBar scores={FULL_SCORES} grades={GRADES} />
+  </Box>
+  <Box style={{ height: 200, marginTop: 16 }}>
+    <ScoresBar scores={FULL_SCORES} grades={GRADES} variant="onecolor" />
+  </Box>
+</ThemeProvider>
+
+## ScoresBar marker
+
+With the `withMarker` prop and `markerLegend` you can display a marker at the level of the `minimumGrade`.
+
+<ThemeProvider>
+  <Box style={{ height: 200 }}>
+    <ScoresBar scores={FULL_SCORES} grades={GRADES} withMarker markerLegend="Minimum grade" />
+  </Box>
+</ThemeProvider>
+
+## Left legend and bar percentage
+
+You can choose to not display the leftLegends with `showLeftLegend` and to display the percentage of the score in the bar with `showBarPercentage`
+
+<ThemeProvider>
+  <Box style={{ height: 200 }}>
+    <ScoresBar
+      scores={FULL_SCORES}
+      grades={GRADES}
+      showBarPercentage={true}
+      showLeftLegend={false}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-informative-scores-bar--playground" />
+  <Story id="organisms-informative-scoresbar--playground" />
 </Preview>
 
 <Props of={ScoresBar} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/scores-bar_role>)
+[MDN: ARIA Image role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/scores-bar/scores-bar.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/ScoresBar.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/ScoresBar/ScoresBar.mdx)
