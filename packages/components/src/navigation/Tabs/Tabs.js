@@ -17,7 +17,10 @@ let uuid = 0;
 
 function parseTabList(children, acc = []) {
   React.Children.forEach(children, (child, index) => {
-    if (child?.type?.displayName === 'TabPanel') {
+    if (
+      child?.type?.displayName === 'TabPanel' ||
+      child?.type?.displayName === 'MDXCreateElement'
+    ) {
       const key = !isNil(child.key) ? child.key : index.toString();
       acc.push({
         ...child.props,

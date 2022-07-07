@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { cloneDeep } from 'lodash';
 import { Box } from '../../layout';
 import { KanbanStyles } from './Kanban.styles';
@@ -11,7 +12,21 @@ export const KANBAN_DEFAULT_PROPS = {
     return <>{value.title}</>;
   },
 };
-export const KANBAN_PROP_TYPES = {};
+export const KANBAN_PROP_TYPES = {
+  value: PropTypes.shape({
+    columns: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+        cards: PropTypes.arrayOf(PropTypes.object),
+      })
+    ),
+  }),
+  isCombineEnabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  icon: PropTypes.node,
+  itemRender: PropTypes.node,
+};
 
 const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props }) => {
   const { classes, cx } = KanbanStyles({});

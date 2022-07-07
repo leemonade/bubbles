@@ -4,9 +4,9 @@ import { UserCards } from './UserCards.js';
 import { Box, Group } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **UserCards**
+# UserCards
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/informative/UserCards)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/UserCards/UserCards.js)
 
 ## Table of Contents
 
@@ -14,32 +14,31 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [UserCards variants](#usercards-variants)
+- [UserCards selected state](#usercards-selected-state)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**UserCards** is ...
+UserCards is a component to display information about an user.
 
 <ThemeProvider>
 
 </ThemeProvider>
 
-## User Cards variants
+## UserCards variants
 
-The UserCards component has 4 variants: full, simple, large and contact
+UserCards has 4 different variants: `full`, `simple`, `large` and `contact`
 
-And full and vertical have 2 different layouts: horizontal and vertical
-
-Full variant:
+`Full` and `vertical` have 2 different layouts: `horizontal` and `vertical`
 
 <ThemeProvider>
-  <Group position={'apart'}>
+<Box style={{display:'flex', gap: 16}}>
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Full',
+        surnames: 'Variant',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -50,8 +49,8 @@ Full variant:
     />
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Full',
+        surnames: 'Variant Vertical',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -61,17 +60,16 @@ Full variant:
       }}
       layout={'vertical'}
     />
-  </Group>
+</Box>
+
 </ThemeProvider>
 
-Simple variant:
-
 <ThemeProvider>
-  <Group position={'apart'}>
+  <Box style={{ display: 'flex', gap: 16 }}>
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Simple',
+        surnames: 'Variant',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -83,8 +81,8 @@ Simple variant:
     />
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Simple',
+        surnames: 'Variant Vertical',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -95,17 +93,15 @@ Simple variant:
       variant={'simple'}
       layout={'vertical'}
     />
-  </Group>
+  </Box>
 </ThemeProvider>
 
-Large variant and contact variant (with error):
-
 <ThemeProvider>
-  <Group position={'apart'}>
+  <Box style={{ display: 'flex', gap: 16 }}>
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Large',
+        surnames: 'Variant',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -117,8 +113,8 @@ Large variant and contact variant (with error):
     />
     <UserCards
       user={{
-        name: 'Marcelina',
-        surnames: 'Cartes Ramirez',
+        name: 'Contact',
+        surnames: 'Variant',
         avatar:
           'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
         rol: 'Tutor',
@@ -129,12 +125,12 @@ Large variant and contact variant (with error):
       variant={'contact'}
       error={'Contact already added'}
     />
-  </Group>
+  </Box>
 </ThemeProvider>
 
-## User card states
+## UserCards selected state
 
-And full, simple and large variant has a selected state
+`Full`, `simple` and `large` variants can have a `selected` state
 
 <ThemeProvider>
   <Group>
@@ -190,15 +186,7 @@ And full, simple and large variant has a selected state
 
 <Props of={UserCards} />
 
-## References
-
-[MDN: ARIA **UserCards** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/user-cards_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **UserCards** role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/user-cards/user-cards.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/informative/UserCards.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/UserCards/UserCards.mdx)
