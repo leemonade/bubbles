@@ -22,11 +22,9 @@ export default {
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <Toolbar {...props}>
-        <ColorTool />
-        <TransformsTool />
-        <HeadingsTool />
-      </Toolbar>
+      <ColorTool />
+      <TransformsTool />
+      <HeadingsTool />
     </TextEditor>
   );
 };

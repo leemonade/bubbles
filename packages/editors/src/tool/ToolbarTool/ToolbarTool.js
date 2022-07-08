@@ -27,7 +27,9 @@ const ToolbarTool = ({ tools, ...props }) => {
         ></Button>
       }
     >
-      <Box className={classes.root}>{tools}</Box>
+      <Box className={classes.root}>
+        {tools.map((tool, index) => React.cloneElement(tool, { key: `tool .${index}` }))}
+      </Box>
     </Popover>
   );
 };
