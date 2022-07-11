@@ -13,6 +13,7 @@ export const ImageLoader = ({
   withPlaceholder,
   radius,
   imageStyles,
+  useAria,
   ...props
 }) => {
   const [src, setSrc] = useState(srcProp);
@@ -34,6 +35,7 @@ export const ImageLoader = ({
       height={height}
       withPlaceholder={withPlaceholder}
       classNames={{ root: classes.root }}
+      role={useAria ? 'image' : undefined}
     />
   );
 };
@@ -45,7 +47,7 @@ ImageLoader.defaultProps = {
 ImageLoader.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
-  height: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
   radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

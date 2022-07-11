@@ -42,6 +42,7 @@ const Select = forwardRef(
       autoComplete,
       readOnly,
       variant,
+      ariaLabel,
       ...props
     },
     ref
@@ -113,6 +114,7 @@ const Select = forwardRef(
         nothingFound={nothingFound}
         placeholder={placeholder}
         error={error}
+        ariaLabel={ariaLabel}
         {...props}
       ></MultiSelect>
     ) : (
@@ -160,6 +162,7 @@ const Select = forwardRef(
             classNames={classes}
             icon={icon}
             error={!isEmpty(error)}
+            aria-label={ariaLabel}
           />
         )}
       </InputWrapper>

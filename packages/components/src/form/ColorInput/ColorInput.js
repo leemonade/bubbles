@@ -13,7 +13,7 @@ import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
-  InputWrapper
+  InputWrapper,
 } from '../InputWrapper';
 import { ColorInputStyles } from './ColorInput.styles';
 
@@ -22,7 +22,7 @@ const SWATCH_SIZES = {
   sm: 18,
   md: 22,
   lg: 28,
-  xl: 36
+  xl: 36,
 };
 
 const ARROW_OFFSET = {
@@ -30,21 +30,33 @@ const ARROW_OFFSET = {
   sm: 15,
   md: 17,
   lg: 21,
-  xl: 25
+  xl: 25,
 };
 
 export const COLOR_INPUT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
+  /** Controls input orientation */
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
+  /** Controls input size */
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  /** Function called on input focus event */
   onFocus: PropTypes.func,
+  /** Function called on input blur event */
   onBlur: PropTypes.func,
+  /** Function called when values changes */
   onChange: PropTypes.func,
+  /** Controls if color dropdown uses HSL  */
   useHsl: PropTypes.bool,
+  /** Controls saturation */
   saturation: PropTypes.number,
+  /** Controls lightness */
   lightness: PropTypes.number,
+  /** Controls if color dropdown is compact */
   compact: PropTypes.bool,
-  manual: PropTypes.bool
+  /** Controls if color dropdown uses manual inputs */
+  manual: PropTypes.bool,
+  /** Controls if ColorInput uses aria role */
+  useAria: PropTypes.bool,
 };
 
 export const COLOR_INPUT_DEFAULT_PROPS = {
@@ -59,7 +71,8 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   saturation: 50,
   lightness: 50,
   compact: true,
-  manual: false
+  manual: false,
+  useAria: true,
 };
 
 const ColorInput = forwardRef(
@@ -85,12 +98,10 @@ const ColorInput = forwardRef(
       saturation,
       lightness,
       compact,
-      onFocus = () => {
-      },
-      onBlur = () => {
-      },
-      onChange = () => {
-      },
+      onFocus = () => {},
+      onBlur = () => {},
+      onChange = () => {},
+      useAria,
       ...props
     },
     ref
@@ -155,11 +166,11 @@ const ColorInput = forwardRef(
                 disabled={disabled}
                 placeholder={placeholder}
                 invalid={!isEmpty(error)}
-                autoComplete='false'
+                autoComplete="off"
                 icon={
                   icon || (
                     <ColorSwatch
-                      pointerEvents='none'
+                      pointerEvents="none"
                       color={inputValue}
                       size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
                     />
@@ -172,8 +183,8 @@ const ColorInput = forwardRef(
               />
             }
             width={200}
-            position='bottom'
-            placement='start'
+            position="bottom"
+            placement="start"
             withArrow
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
@@ -183,10 +194,11 @@ const ColorInput = forwardRef(
                 saturation={saturation}
                 lightness={lightness}
                 compact={compact}
-                output='hex'
+                output="hex"
                 onChange={setInputValue}
                 color={inputValue}
                 fullWidth
+                role={useAria ? 'input' : undefined}
               />
             </Box>
           </Popover>

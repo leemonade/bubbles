@@ -27,6 +27,11 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   lightness: 50,
   manual: true,
   autoComplete: 'off',
+  ariaSaturationLabel: 'Saturation',
+  ariaSliderLabel: 'Slider',
+  ariaColorFormat: 'Color format',
+  ariaColorValue: 'Color value',
+  ariaHueValue: 'HUE value',
 };
 
 export const ColorPicker = forwardRef(
@@ -45,6 +50,11 @@ export const ColorPicker = forwardRef(
       saturation: saturationProp,
       lightness: lightnessProp,
       manual,
+      ariaSaturationLabel,
+      ariaSliderLabel,
+      ariaColorFormat,
+      ariaColorValue,
+      ariaHueValue,
       ...props
     },
     ref
@@ -168,7 +178,7 @@ export const ColorPicker = forwardRef(
                       key={i}
                       color={color}
                       onClick={() => !compact && setLightness(light)}
-                      autoComplete="false"
+                      autoComplete="off"
                       plain
                     />
                   );
@@ -186,7 +196,7 @@ export const ColorPicker = forwardRef(
                         key={i}
                         color={color}
                         onClick={() => setLightness(light)}
-                        autoComplete="false"
+                        autoComplete="off"
                         plain
                       />
                     );
@@ -206,7 +216,7 @@ export const ColorPicker = forwardRef(
                       color={color}
                       onClick={() => setHue(h)}
                       actived={hue === h}
-                      autoComplete="false"
+                      autoComplete="off"
                     />
                   );
                 })}
@@ -215,11 +225,23 @@ export const ColorPicker = forwardRef(
 
             <Stack className={classes.hue} spacing={3} alignItems="center">
               <Box style={{ flex: 1 }}>
-                <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
+                <HueSlider
+                  autoComplete="off"
+                  value={hue}
+                  onChange={setHue}
+                  size="sm"
+                  aria-label={ariaSliderLabel}
+                />
               </Box>
               {manual && (
                 <Box style={{ width: 75 }}>
-                  <NumberInput autoComplete="false" value={hue} onChange={setHue} size="xs" />
+                  <NumberInput
+                    autoComplete="off"
+                    value={hue}
+                    onChange={setHue}
+                    size="xs"
+                    ariaLabel={ariaHueValue}
+                  />
                 </Box>
               )}
             </Stack>
@@ -234,7 +256,9 @@ export const ColorPicker = forwardRef(
               fullWidth="true"
               swatches={withSwatches && swatches}
               onChange={setColor}
-              autoComplete="false"
+              autoComplete="off"
+              saturationLabel={ariaSaturationLabel}
+              hueLabel={ariaSliderLabel}
             />
             {manual && (
               <Box className={classes.manual}>
@@ -245,11 +269,17 @@ export const ColorPicker = forwardRef(
                       value={format}
                       onChange={setFormat}
                       className={classes.format}
-                      autoComplete="false"
+                      autoComplete="off"
+                      ariaLabel={ariaColorFormat}
                     />
                   </Box>
                   <Box>
-                    <TextInput autoComplete="false" value={value} onChange={setColor} />
+                    <TextInput
+                      autoComplete="off"
+                      value={value}
+                      onChange={setColor}
+                      ariaLabel={ariaColorValue}
+                    />
                   </Box>
                 </Stack>
               </Box>
@@ -276,4 +306,9 @@ ColorPicker.propTypes = {
   lightness: PropTypes.number,
   manual: PropTypes.bool,
   autoComplete: PropTypes.string,
+  ariaSaturationLabel: PropTypes.string,
+  ariaSliderLabel: PropTypes.string,
+  ariaColorFormat: PropTypes.string,
+  ariaColorValue: PropTypes.string,
+  ariaHueValue: PropTypes.string,
 };

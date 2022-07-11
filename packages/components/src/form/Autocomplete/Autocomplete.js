@@ -81,7 +81,29 @@ const Autocomplete = forwardRef(
 
     return (
       <Wrapper {...wrapperProps}>
-        {!multiple ? (
+        {multiple ? (
+          <MantineMultiSelect
+            {...props}
+            id={id || uuid}
+            ref={ref}
+            classNames={classes}
+            placeholder={placeholder}
+            data={data}
+            searchable={true}
+            value={selectedValue}
+            itemComponent={itemComponent}
+            valueComponent={valueComponent}
+            nothingFound={nothingFoundLabel}
+            rightSection={<></>}
+            rightSectionWidth={0}
+            autoComplete={autoComplete}
+            onChange={(e) => {
+              onItemSubmitHandler(e);
+              setInputValue(e);
+            }}
+            error={!isEmpty(error)}
+          />
+        ) : (
           <MantineAutocomplete
             {...props}
             id={id || uuid}
@@ -105,27 +127,6 @@ const Autocomplete = forwardRef(
             ref={ref}
             autoComplete={autoComplete}
             classNames={classes}
-            error={!isEmpty(error)}
-          />
-        ) : (
-          <MantineMultiSelect
-            {...props}
-            id={id || uuid}
-            ref={ref}
-            classNames={classes}
-            placeholder={placeholder}
-            data={data}
-            searchable={true}
-            value={selectedValue}
-            itemComponent={itemComponent}
-            valueComponent={valueComponent}
-            nothingFound={nothingFoundLabel}
-            rightSection={<></>}
-            rightSectionWidth={0}
-            onChange={(e) => {
-              onItemSubmitHandler(e);
-              setInputValue(e);
-            }}
             error={!isEmpty(error)}
           />
         )}

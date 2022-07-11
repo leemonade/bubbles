@@ -122,6 +122,7 @@ const TagifyInput = forwardRef(
           placeholder={placeholder}
           defaultValue={defaultValue}
           showDropdown={showDropdown}
+          ariaLabel={props.label || ariaLabel}
         />
       </InputWrapper>
     );

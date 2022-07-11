@@ -12,14 +12,20 @@ export const LOADER_DEFAULT_PROPS = {
   padded: false,
   label: '',
   labelPosition: LOADER_LABEL_POSITIONS[0],
+  useAria: true,
 };
 export const LOADER_PROP_TYPES = {
+  /** Controls the amount of padding */
   padded: CONTEXT_CONTAINER_PROP_TYPES.padded,
+  /** Controls if there is text */
   label: PropTypes.string,
+  /** Controls the label position */
   labelPosition: PropTypes.oneOf(LOADER_LABEL_POSITIONS),
+  /** Controls if Loader uses aria role */
+  useAria: PropTypes.bool,
 };
 
-const Loader = ({ padded, label, labelPosition, ...props }) => {
+const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
   const { classes, cx } = LoaderStyles({});
   const direction = useMemo(() => (labelPosition === 'right' ? 'row' : 'column'), [labelPosition]);
 
@@ -29,6 +35,8 @@ const Loader = ({ padded, label, labelPosition, ...props }) => {
       padded={padded}
       alignItems="center"
       justifyContent="center"
+      role={useAria ? 'progressbar' : undefined}
+      aria-label={useAria ? 'BubblesLoader' : undefined}
       {...props}
     >
       <MantineLoader classNames={classes} />

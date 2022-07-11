@@ -60,6 +60,7 @@ const TagifyWrapper = ({
   placeholder = '',
   defaultValue,
   showDropdown,
+  ariaLabel,
 }) => {
   const mountedRef = useRef();
   const inputElmRef = useRef();
@@ -116,6 +117,8 @@ const TagifyWrapper = ({
       .on('dropdown:scroll', onDropdownScroll)
       .on('dropdown:noMatch', onDropdownNoMatch)
       .on('dropdown:updated', onDropdownUpdated);
+
+    t.DOM.input.ariaLabel = ariaLabel;
 
     // Bridge Tagify instance with parent component
     if (tagifyRef) {
@@ -192,7 +195,7 @@ const TagifyWrapper = ({
     // a wrapper must be used because Tagify will appened inside it it's component,
     // keeping the virtual-DOM out of the way
     <div className="tags-input">
-      <InputMode {...inputAttrs} />
+      <InputMode {...inputAttrs} aria-label={ariaLabel} />
     </div>
   );
 };
@@ -237,10 +240,9 @@ TagifyWrapper.propTypes = {
 const Tags = React.memo(TagifyWrapper);
 Tags.displayName = 'Tags';
 
-export const MixedTags = ({ children, ...rest }) => (
-  <Tags InputMode="textarea" {...rest}>
+export const MixedTags = ({ children, ariaLabel, ...rest }) => (
+  <Tags InputMode="textarea" {...rest} ariaLabel={ariaLabel}>
     {children}
   </Tags>
 );
-
 export default Tags;

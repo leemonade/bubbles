@@ -8,8 +8,8 @@ import {
 export const SWITCH_DEFAULT_PROPS = BOOLEAN_INPUT_DEFAULT_PROPS;
 export const SWITCH_PROP_TYPES = BOOLEAN_INPUT_PROP_TYPES;
 
-const Switch = forwardRef(({ display, ...props }, ref) => {
-  return <BooleanInput {...props} display="switch" ref={ref} />;
+const Switch = forwardRef(({ display, useAria, ...props }, ref) => {
+  return <BooleanInput {...props} display="switch" useAria={useAria} ref={ref} />;
 });
 
 Switch.defaultProps = SWITCH_DEFAULT_PROPS;

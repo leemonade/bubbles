@@ -10,7 +10,7 @@ import { TEXT_INPUT_VARIANTS } from '../TextInput';
 import mdx from './SearchInput.mdx';
 
 export default {
-  title: 'Atoms/Form/SearchInput',
+  title: 'Molecules/Form/SearchInput',
   parameters: {
     component: SearchInput,
     docs: {
@@ -51,5 +51,6 @@ const Template = ({ onChange, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  label: 'Search input',
   ...SEARCH_INPUT_DEFAULT_PROPS,
 };

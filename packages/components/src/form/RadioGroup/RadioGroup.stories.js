@@ -37,16 +37,21 @@ Playground.args = {
   data: [
     {
       value: 'option1',
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 1',
+      icon: <AcademicCapIcon height={32} width={32} />,
+      disabled: true,
     },
     {
       value: 'option2',
-
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 2',
+      icon: <AcademicCapIcon height={32} width={32} />,
     },
     {
       value: 'option3',
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 3',
+      icon: <AcademicCapIcon height={32} width={32} />,
+      help: 'Help text for option 3',
+      helpPosition: 'bottom',
     },
   ],
 };

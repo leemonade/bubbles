@@ -44,6 +44,7 @@ const MultiSelect = forwardRef(
       maxSelectedValues,
       valueComponent,
       onChange,
+      useAria,
       ...props
     },
     ref
@@ -161,6 +162,7 @@ const MultiSelect = forwardRef(
                 error={!isEmpty(error)}
                 classNames={classes}
                 {...props}
+                role={useAria ? 'listbox' : undefined}
               />
             ) : null}
           </>

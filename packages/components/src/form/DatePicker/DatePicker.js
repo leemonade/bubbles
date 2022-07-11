@@ -40,6 +40,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   withTime: false,
   autoComplete: 'off',
   readOnly: false,
+  clearButtonLabel: 'Clear',
 };
 export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -59,6 +60,7 @@ export const DATE_PICKER_PROP_TYPES = {
   contentStyle: PropTypes.any,
   autoComplete: PropTypes.string,
   readOnly: PropTypes.bool,
+  clearButtonLabel: PropTypes.string,
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -87,6 +89,7 @@ const DatePicker = forwardRef(
       headerStyle,
       contentStyle,
       autoComplete,
+      clearButtonLabel,
       readOnly,
       ...props
     },
@@ -171,6 +174,7 @@ const DatePicker = forwardRef(
               error={!isEmpty(error)}
               onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
               icon={<PluginCalendarIcon />}
+              clearButtonLabel={clearButtonLabel}
             />
             {withTime && !range && (
               <TimeInput

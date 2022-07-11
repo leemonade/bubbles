@@ -27,6 +27,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   defaultValue: '',
   value: '',
   fullWidth: false,
+  useAria: true,
 };
 export const RADIOGROUP_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -39,6 +40,7 @@ export const RADIOGROUP_PROP_TYPES = {
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.any,
+  useAria: PropTypes.bool,
 };
 
 const RadioGroup = forwardRef(
@@ -56,6 +58,7 @@ const RadioGroup = forwardRef(
       defaultValue,
       direction,
       fullWidth,
+      useAria,
       ...props
     },
     ref
@@ -125,7 +128,7 @@ const RadioGroup = forwardRef(
         error={error}
         required={required}
       >
-        <Box ref={wrapperRef}>
+        <Box ref={wrapperRef} role={useAria ? 'radiogroup' : undefined}>
           <MantineSegmentedControl
             {...props}
             ref={ref}
@@ -151,6 +154,7 @@ const RadioGroup = forwardRef(
                     variant={variant}
                     checked={value === item.value}
                     onChange={() => {}}
+                    useAria={useAria}
                   >
                     {label}
                   </Radio>
