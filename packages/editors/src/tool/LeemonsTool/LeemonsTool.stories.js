@@ -1,12 +1,13 @@
 import { LeemonsTool, LEEMONS_TOOL_DEFAULT_PROPS } from './LeemonsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './LeemonsTool.mdx';
 
 export default {
   title: 'Atom/Tool/LeemonsTool',
   parameters: {
     component: LeemonsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

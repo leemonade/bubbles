@@ -3,13 +3,14 @@ import {
   TRANSFORMSTOOL_DEFAULT_PROPS,
 } from '../../tool/TransformsTool/TransformsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './TransformsTool.mdx';
 
 export default {
   title: 'Atom/Tool/TransformsTool',
   parameters: {
     component: TransformsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

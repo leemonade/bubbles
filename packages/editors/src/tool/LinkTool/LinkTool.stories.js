@@ -1,12 +1,13 @@
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { LinkTool } from './LinkTool';
+import mdx from './LinkTool.mdx';
 
 export default {
   title: 'Atom/Tool/LinkTool',
   parameters: {
     component: LinkTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { StrikeTool } from './StrikeTool';
+import mdx from './StrikeTool.mdx';
 
 export default {
   title: 'Atom/Tool/StrikeTool',
   parameters: {
     component: StrikeTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

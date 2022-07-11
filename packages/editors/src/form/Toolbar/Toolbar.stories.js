@@ -3,13 +3,14 @@ import { TextEditor } from '../TextEditor/TextEditor';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
 import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
+import mdx from './Toolbar.mdx';
 
 export default {
   title: 'Atom/Form/Toolbar',
   parameters: {
     component: Toolbar,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

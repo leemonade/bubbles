@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ParagraphTool, PARAGRAPH_TOOL_DEFAULT_PROPS } from './ParagraphTool';
+import mdx from './ParagraphTool.mdx';
 
 export default {
   title: 'Atom/Tool/ParagraphTool',
   parameters: {
     component: ParagraphTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

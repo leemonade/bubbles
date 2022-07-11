@@ -1,12 +1,13 @@
 import { ScriptsTool, SCRIPTS_TOOL_DEFAULT_PROPS } from '../../tool/ScriptsTool/ScriptsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './ScriptsTool.mdx';
 
 export default {
   title: 'Atom/Tool/ScriptsTool',
   parameters: {
     component: ScriptsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

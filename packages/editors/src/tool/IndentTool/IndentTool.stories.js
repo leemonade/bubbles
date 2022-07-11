@@ -1,12 +1,13 @@
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { IndentTool, INDENT_TOOL_DEFAULT_PROPS } from './IndentTool';
+import mdx from './IndentTool.mdx';
 
 export default {
   title: 'Atom/Tool/IndentTool',
   parameters: {
     component: IndentTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

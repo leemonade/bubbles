@@ -1,0 +1,61 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Toolbar } from './Toolbar.js';
+import { ThemeProvider } from '@bubbles-ui/components';
+import * as stories from './Toolbar.stories.js';
+import { TextEditor } from '../';
+import {
+  ColorTool,
+  TransformsTool,
+  HeadingsTool,
+  ListIndentTool,
+  TextAlignTool,
+  ScriptsTool,
+} from '../../tool';
+
+# Toolbar
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/form/Toolbar/Toolbar.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Toolbar is a component that display `Buttons` and `ButtonGroups` in a toolbar, if there's not enought space for the tools group in a dropdown tool.
+
+<ThemeProvider>
+  <TextEditor>
+    <ColorTool />
+    <TransformsTool />
+    <HeadingsTool />
+    <ListIndentTool />
+    <TextAlignTool />
+    <ScriptsTool />
+  </TextEditor>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atom-form-toolbar--playground" />
+</Preview>
+
+<Props of={Toolbar} />
+
+## References
+
+[MDN: ARIA menu role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/form/Toolbar/Toolbar.mdx)

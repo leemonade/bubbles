@@ -2,13 +2,14 @@ import { TransformsTool } from '../TransformsTool/TransformsTool';
 import { ColorTool } from '../ColorTool/ColorTool';
 import { ToolbarTool } from './ToolbarTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './ToolbarTool.mdx';
 
 export default {
   title: 'Atom/Tool/ToolbarTool',
   parameters: {
     component: ToolbarTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

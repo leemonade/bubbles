@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ColorTool, COLORTOOL_DEFAULT_PROPS } from './ColorTool';
+import mdx from './ColorTool.mdx';
 
 export default {
   title: 'Atom/Tool/ColorTool',
   parameters: {
     component: ColorTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

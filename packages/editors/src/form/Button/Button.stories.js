@@ -1,14 +1,15 @@
 import React from 'react';
-import { Button, BUTTON_DEFAULT_PROPS } from './Button';
+import { Button, BUTTON_DEFAULT_PROPS, BUTTON_POSITIONS } from './Button';
 import { StarIcon } from '@bubbles-ui/icons/solid/';
 import isFunction from 'lodash/isFunction';
+import mdx from './Button.mdx';
 
 export default {
   title: 'Atom/Form/Button',
   parameters: {
     component: Button,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',
@@ -17,6 +18,7 @@ export default {
   },
   argTypes: {
     onClick: { action: 'onClick' },
+    position: { control: { type: 'select' }, options: BUTTON_POSITIONS },
   },
 };
 
