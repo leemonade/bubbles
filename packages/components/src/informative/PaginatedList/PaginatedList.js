@@ -23,6 +23,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   selectable: false,
   pagerPlace: PAGINATED_LIST_PAGER_PLACES[1],
   loading: false,
+  useAria: true,
 };
 export const PAGINATED_LIST_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -42,6 +43,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   loading: PropTypes.bool,
   onSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
+  useAria: PropTypes.bool,
 };
 
 const PaginatedList = ({
@@ -64,6 +66,7 @@ const PaginatedList = ({
   onSizeChange = () => {},
   onPageChange = () => {},
   style,
+  useAria,
   ...props
 }) => {
   const {
@@ -133,12 +136,13 @@ const PaginatedList = ({
                 selectable,
                 onSelect,
                 selected,
+                useAria,
               }}
             />
           ) : (
             <GridView
               {...props}
-              {...{ headerGroups, prepareRow, rows, selectable, selected, onSelect }}
+              {...{ headerGroups, prepareRow, rows, selectable, selected, onSelect, useAria }}
             />
           )}
         </Paper>

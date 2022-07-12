@@ -15,6 +15,7 @@ export const MENU_DEFAULT_PROPS = {
   placement: 'center',
   gutter: 0,
   withArrow: false,
+  menuButtonLabel: 'Menu button',
 };
 export const MENU_PROP_TYPES = {
   items: PropTypes.arrayOf(
@@ -32,6 +33,7 @@ export const MENU_PROP_TYPES = {
   gutter: PropTypes.number,
   withArrow: PropTypes.bool,
   control: PropTypes.node,
+  menuButtonLabel: PropTypes.string,
 };
 
 const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref) => {

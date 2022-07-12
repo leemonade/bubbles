@@ -22,6 +22,9 @@ const Swiper = ({
   buttonStyles,
   nextButtonStyles,
   prevButtonStyles,
+  nextButtonAriaLabel,
+  prevButtonAriaLabel,
+  useAria,
   className,
   ...props
 }) => {
@@ -95,8 +98,20 @@ const Swiper = ({
         }}
       >
         {getSwiperSlides()}
-        {<PrevElement className={classes.prevButton} />}
-        {<NextElement className={classes.nextButton} />}
+        {
+          <PrevElement
+            className={classes.prevButton}
+            useAria={useAria}
+            ariaLabel={prevButtonAriaLabel}
+          />
+        }
+        {
+          <NextElement
+            className={classes.nextButton}
+            useAria={useAria}
+            ariaLabel={nextButtonAriaLabel}
+          />
+        }
       </SwiperComp>
     </Box>
   );

@@ -45,6 +45,7 @@ const MultiSelect = forwardRef(
       valueComponent,
       onChange,
       useAria,
+      ariaLabel,
       ...props
     },
     ref
@@ -159,10 +160,12 @@ const MultiSelect = forwardRef(
                     <ChevDownIcon className={classes.rightSection} />
                   )
                 }
+                clearButtonLabel={clearable}
                 error={!isEmpty(error)}
                 classNames={classes}
+                role={useAria ? 'textbox' : undefined}
+                aria-label={label || ariaLabel}
                 {...props}
-                role={useAria ? 'listbox' : undefined}
               />
             ) : null}
           </>

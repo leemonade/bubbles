@@ -40,6 +40,7 @@ const Avatar = forwardRef(
           classNames={classes}
           size={size}
           state={state}
+          alt={alt}
         />
         {state === 'notifications' && (
           <Text componet="span" className={classes.avatarBadgeNumber}>

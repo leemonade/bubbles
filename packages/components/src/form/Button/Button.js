@@ -42,6 +42,7 @@ export const Button = forwardRef(
       fullWidth,
       disabled,
       useAria,
+      ariaLabel,
       ...props
     },
     ref
@@ -85,6 +86,7 @@ export const Button = forwardRef(
         classNames={classes}
         disabled={disabled}
         role={useAria ? 'button' : undefined}
+        aria-label={ariaLabel}
       />
     );
   }
@@ -124,4 +126,8 @@ Button.propTypes = {
   compact: PropTypes.bool,
   /** Controls the disabled state */
   disabled: PropTypes.bool,
+  /** Controls if Button uses aria role */
+  useAria: PropTypes.bool,
+  /** Aria label for button */
+  ariaLabel: PropTypes.string,
 };

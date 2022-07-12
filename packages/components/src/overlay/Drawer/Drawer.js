@@ -42,9 +42,21 @@ export const DRAWER_PROP_TYPES = {
   close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   empty: PropTypes.bool,
   shadow: PropTypes.bool,
+  modalAriaLabel: PropTypes.string,
 };
 
-const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow, ...props }) => {
+const Drawer = ({
+  close,
+  onClose,
+  onBack,
+  children,
+  back,
+  header,
+  empty,
+  shadow,
+  modalAriaLabel,
+  ...props
+}) => {
   const { classes, cx } = DrawerStyles({ empty, shadow }, { name: 'Drawer' });
 
   const justifyContent =
@@ -57,6 +69,7 @@ const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow,
       shadow={false}
       withCloseButton={false}
       classNames={classes}
+      aria-label={modalAriaLabel}
     >
       <Box className={classes.header}>
         <Stack fullWidth justifyContent={justifyContent}>

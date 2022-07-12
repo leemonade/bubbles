@@ -44,4 +44,5 @@ export const MULTI_SELECT_PROP_TYPES = {
   maxSelectedValues: PropTypes.number,
   readOnly: PropTypes.bool,
   useAria: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };

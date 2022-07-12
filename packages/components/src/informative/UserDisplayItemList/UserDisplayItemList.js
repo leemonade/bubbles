@@ -8,7 +8,7 @@ import {
   USER_DISPLAY_ITEM_LIST_PROP_TYPES,
 } from './UserDisplayItemList.constants';
 
-const UserDisplayItemList = ({ data, limit, labels, ...props }) => {
+const UserDisplayItemList = ({ data, limit, labels, useAria, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const visibleData = useMemo(() => {
     if (isOpen) return data;
@@ -34,9 +34,17 @@ const UserDisplayItemList = ({ data, limit, labels, ...props }) => {
   const { classes, cx } = UserDisplayItemListStyles({}, { name: 'UserDisplayItemList' });
   return (
     <Box className={classes.root}>
-      <Box className={classes.userList}>
+      <Box className={classes.userList} role={useAria ? 'list' : undefined}>
         {visibleData.map((user, index) => {
-          return <UserDisplayItem key={index} {...user} size="xs" textRole="productive" />;
+          return (
+            <UserDisplayItem
+              key={index}
+              {...user}
+              size="xs"
+              textRole="productive"
+              role={useAria ? 'listitem' : undefined}
+            />
+          );
         })}
       </Box>
       <Box className={classes.hiddenData}>

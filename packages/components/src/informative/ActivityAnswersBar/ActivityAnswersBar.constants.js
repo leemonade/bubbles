@@ -10,6 +10,7 @@ export const ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS = {
     KO: '',
     null: '',
   },
+  groupSelectAriaLabel: 'Group by',
 };
 export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
   data: PropTypes.arrayOf(
@@ -33,4 +34,6 @@ export const ACTIVITY_ANSWERS_BAR_PROP_TYPES = {
   }),
   barHeight: PropTypes.number,
   withLegend: PropTypes.bool,
+  groupSelectAriaLabel: PropTypes.string,
+  graphAlt: PropTypes.string,
 };

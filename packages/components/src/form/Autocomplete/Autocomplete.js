@@ -31,6 +31,7 @@ const Autocomplete = forwardRef(
       ignoreWrapper,
       waitToSearch,
       autoComplete,
+      ariaLabel,
       onItemSubmit = () => {},
       onChange = () => {},
       onSearch = () => {},
@@ -102,6 +103,7 @@ const Autocomplete = forwardRef(
               setInputValue(e);
             }}
             error={!isEmpty(error)}
+            aria-label={ariaLabel}
           />
         ) : (
           <MantineAutocomplete
@@ -128,6 +130,7 @@ const Autocomplete = forwardRef(
             autoComplete={autoComplete}
             classNames={classes}
             error={!isEmpty(error)}
+            aria-label={ariaLabel}
           />
         )}
       </Wrapper>

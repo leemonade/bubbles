@@ -95,7 +95,12 @@ const UserDisplayItem = (properties) => {
 
   return (
     <Box {...props} className={classes.root}>
-      <Avatar image={avatar} fullName={userFullName} size={avatarSize} />
+      <Avatar
+        image={avatar}
+        fullName={userFullName}
+        size={avatarSize}
+        alt={`Avatar of ${userFullName}`}
+      />
       <Box
         className={classes.userInfo}
         style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}

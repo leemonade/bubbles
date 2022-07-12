@@ -31,6 +31,8 @@ export const ACTION_BUTTON_PROP_TYPES = {
   active: PropTypes.bool,
   /** Controls if ActionButton uses aria role */
   useAria: PropTypes.bool,
+  /** Aria label for ActionButton */
+  ariaLabel: PropTypes.string,
 };
 
 const TooltipComponent = ({ children, tooltip, useAria }) => {
@@ -69,6 +71,7 @@ export const ActionButton = forwardRef(
       classNames,
       active,
       useAria,
+      ariaLabel,
       children,
       ...props
     },
@@ -104,7 +107,7 @@ export const ActionButton = forwardRef(
           color={color}
           className={className}
           classNames={classes}
-          aria-label={tooltip || label || ''}
+          aria-label={tooltip || label || ariaLabel || undefined}
           // title={tooltip || ''}
           radius={radius}
           style={style}

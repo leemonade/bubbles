@@ -19,7 +19,17 @@ export const BUTTON_PROP_TYPES = {
   onClick: PropTypes.func,
 };
 
-const Button = ({ icon, label, actived, position, disabled, onClick, classNames, children }) => {
+const Button = ({
+  icon,
+  label,
+  actived,
+  position,
+  disabled,
+  onClick,
+  classNames,
+  children,
+  ariaLabel,
+}) => {
   const { classes, cx } = ButtonStyles({ actived, position }, { classNames });
 
   return (
@@ -29,6 +39,7 @@ const Button = ({ icon, label, actived, position, disabled, onClick, classNames,
       tooltip={disabled ? '' : label}
       onClick={onClick}
       disabled={disabled}
+      ariaLabel={ariaLabel}
     >
       {children}
     </ActionButton>
