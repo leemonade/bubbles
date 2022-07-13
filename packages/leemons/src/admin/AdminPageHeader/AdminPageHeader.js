@@ -13,45 +13,48 @@ import {
   Textarea,
   TextInput,
   Title,
-  useResizeObserver,
+  useResizeObserver
 } from '@bubbles-ui/components';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
 import {
   ADMIN_PAGE_HEADER_BUTTONS as BUTTONS,
   ADMIN_PAGE_HEADER_DEFAULT_PROPS,
-  ADMIN_PAGE_HEADER_PROP_TYPES,
+  ADMIN_PAGE_HEADER_PROP_TYPES
 } from './AdminPageHeader.constants';
 
 const AdminPageHeader = ({
-  className,
-  breadcrumbs,
-  labels,
-  placeholders,
-  errors: errorLabels,
-  values,
-  buttons,
-  loading,
-  icon,
-  editMode,
-  onNew,
-  onEdit,
-  onSave,
-  onCancel,
-  onButton,
-  onDuplicate,
-  separator,
-  useRouter,
-  required,
-  variant,
-  fullWidth,
-  onResize = () => {},
-}) => {
+                           className,
+                           breadcrumbs,
+                           labels,
+                           placeholders,
+                           errors: errorLabels,
+                           values,
+                           buttons,
+                           loading,
+                           icon,
+                           editMode,
+                           onNew,
+                           onEdit,
+                           onSave,
+                           onCancel,
+                           onButton,
+                           onDuplicate,
+                           separator,
+                           useRouter,
+                           required,
+                           variant,
+                           fullWidth,
+                           baseRef,
+                           descriptionRef,
+                           onResize = () => {
+                           }
+                         }) => {
   const {
     control,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const isTeacher = useMemo(() => variant === 'teacher', [variant]);
@@ -131,162 +134,168 @@ const AdminPageHeader = ({
   );
 
   return (
-    <form onSubmit={handleSubmit(onSave)} autoComplete="off">
-      <Box ref={containerRef} className={cx(classes.root, className)}>
-        <Box
-          ref={childRef}
-          style={{
-            width: containerRect.width,
-            top: containerRect.top,
-            // left: containerRect.left,
-          }}
-          className={classes.headerContainer}
-        >
-          <PageContainer className={classes.section} fullWidth={fullWidth}>
-            {/* Breadcrumbs */}
-            {!isTeacher && isArray(breadcrumbs) && (
-              <Box className={classes.breadcrumbs}>
-                <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
-              </Box>
-            )}
-
-            {/* Header & Buttons */}
-            <Stack spacing={4} alignItems={editMode ? 'end' : 'center'} className={classes.header}>
-              {/* Icon */}
-              {icon && <Box className={classes.icon}>{icon}</Box>}
-              {/* Header */}
-              {!editMode && values && values.title && (
-                <ContentLegible>
-                  <Title
-                    order={isTeacher ? 2 : 1}
-                    className={classes.title}
-                    dangerouslySetInnerHTML={{ __html: values.title }}
-                  />
-                </ContentLegible>
-              )}
-              {editMode && (
-                <ContentLegible>
-                  <Controller
-                    name="title"
-                    control={control}
-                    defaultValue={values?.title || ''}
-                    rules={{
-                      required: required.title
-                        ? getErrorLabel('title', 'required', 'Required field')
-                        : false,
-                    }}
-                    render={({ field }) => (
-                      <TextInput
-                        label={getInputLabel('title')}
-                        placeholder={getInputPlaceholder('title')}
-                        error={errors?.title?.message}
-                        required={required.title}
-                        {...field}
-                      />
-                    )}
-                  />
-                </ContentLegible>
-              )}
-              {/* Buttons */}
-              {buttons && (
-                <Stack spacing={2} justifyContent="end" className={classes.actions}>
-                  {isNotEmpty(BUTTONS.CANCEL) && (
-                    <Button
-                      variant="light"
-                      type="button"
-                      loading={checkLoading(BUTTONS.CANCEL)}
-                      onClick={(e) => onPressButton(onCancel, e)}
-                    >
-                      {buttonLabel(BUTTONS.CANCEL)}
-                    </Button>
-                  )}
-                  {isNotEmpty(BUTTONS.DUPLICATE) && (
-                    <Button
-                      variant="outline"
-                      type="button"
-                      loading={checkLoading(BUTTONS.DUPLICATE)}
-                      onClick={(e) => onPressButton(onDuplicate, e)}
-                    >
-                      {buttonLabel(BUTTONS.DUPLICATE)}
-                    </Button>
-                  )}
-                  {isNotEmpty(BUTTONS.EDIT) && (
-                    <Button
-                      type="button"
-                      loading={checkLoading(BUTTONS.EDIT)}
-                      onClick={(e) => onPressButton(onEdit, e)}
-                    >
-                      {buttonLabel(BUTTONS.EDIT)}
-                    </Button>
-                  )}
-                  {isNotEmpty(BUTTONS.SAVE) && (
-                    <Button type="submit" loading={checkLoading(BUTTONS.SAVE)}>
-                      {buttonLabel(BUTTONS.SAVE)}
-                    </Button>
-                  )}
-
-                  {isNotEmpty(BUTTONS.NEW) && (
-                    <Button
-                      type="button"
-                      loading={checkLoading(BUTTONS.NEW)}
-                      onClick={(e) => onPressButton(onNew, e)}
-                      leftIcon={<AddIcon />}
-                    >
-                      {buttonLabel(BUTTONS.NEW)}
-                    </Button>
-                  )}
-                </Stack>
-              )}
-            </Stack>
-          </PageContainer>
-          {!isTeacher && separator && (
-            <PageContainer fullWidth={fullWidth}>
-              <Divider />
-            </PageContainer>
-          )}
-        </Box>
-
-        {!isTeacher && values && values.description ? (
-          <PageContainer
-            style={{ marginTop: childRect.height }}
-            className={classes.section}
-            fullWidth={fullWidth}
+    <Box ref={baseRef}>
+      <form onSubmit={handleSubmit(onSave)} autoComplete='off'>
+        <Box ref={containerRef} className={cx(classes.root, className)}>
+          <Box
+            ref={childRef}
+            style={{
+              width: containerRect.width,
+              top: containerRect.top
+              // left: containerRect.left,
+            }}
+            className={classes.headerContainer}
           >
-            {/* Description */}
-            {!editMode && (
-              <ContentLegible>
-                <Paragraph dangerouslySetInnerHTML={{ __html: values.description }} />
-              </ContentLegible>
-            )}
-            {editMode && (
-              <ContentLegible>
-                <Controller
-                  name="description"
-                  control={control}
-                  defaultValue={values?.description || ''}
-                  rules={{
-                    required: required.description
-                      ? getErrorLabel('description', 'required', 'Required field')
-                      : false,
-                  }}
-                  render={({ field }) => (
-                    <Textarea
-                      label={getInputLabel('description')}
-                      placeholder={getInputPlaceholder('description')}
-                      error={errors?.description?.message}
-                      required={required.description}
-                      {...field}
+            <PageContainer className={classes.section} fullWidth={fullWidth}>
+              {/* Breadcrumbs */}
+              {!isTeacher && isArray(breadcrumbs) && (
+                <Box className={classes.breadcrumbs}>
+                  <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
+                </Box>
+              )}
+
+              {/* Header & Buttons */}
+              <Stack spacing={4} alignItems={editMode ? 'end' : 'center'}
+                     className={classes.header}>
+                {/* Icon */}
+                {icon && <Box className={classes.icon}>{icon}</Box>}
+                {/* Header */}
+                {!editMode && values && values.title && (
+                  <ContentLegible>
+                    <Title
+                      order={isTeacher ? 2 : 1}
+                      className={classes.title}
+                      dangerouslySetInnerHTML={{ __html: values.title }}
                     />
-                  )}
-                />
-              </ContentLegible>
+                  </ContentLegible>
+                )}
+                {editMode && (
+                  <ContentLegible>
+                    <Controller
+                      name='title'
+                      control={control}
+                      defaultValue={values?.title || ''}
+                      rules={{
+                        required: required.title
+                          ? getErrorLabel('title', 'required', 'Required field')
+                          : false
+                      }}
+                      render={({ field }) => (
+                        <TextInput
+                          label={getInputLabel('title')}
+                          placeholder={getInputPlaceholder('title')}
+                          error={errors?.title?.message}
+                          required={required.title}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </ContentLegible>
+                )}
+                {/* Buttons */}
+                {buttons && (
+                  <Stack spacing={2} justifyContent='end' className={classes.actions}>
+                    {isNotEmpty(BUTTONS.CANCEL) && (
+                      <Button
+                        variant='light'
+                        type='button'
+                        loading={checkLoading(BUTTONS.CANCEL)}
+                        onClick={(e) => onPressButton(onCancel, e)}
+                      >
+                        {buttonLabel(BUTTONS.CANCEL)}
+                      </Button>
+                    )}
+                    {isNotEmpty(BUTTONS.DUPLICATE) && (
+                      <Button
+                        variant='outline'
+                        type='button'
+                        loading={checkLoading(BUTTONS.DUPLICATE)}
+                        onClick={(e) => onPressButton(onDuplicate, e)}
+                      >
+                        {buttonLabel(BUTTONS.DUPLICATE)}
+                      </Button>
+                    )}
+                    {isNotEmpty(BUTTONS.EDIT) && (
+                      <Button
+                        type='button'
+                        loading={checkLoading(BUTTONS.EDIT)}
+                        onClick={(e) => onPressButton(onEdit, e)}
+                      >
+                        {buttonLabel(BUTTONS.EDIT)}
+                      </Button>
+                    )}
+                    {isNotEmpty(BUTTONS.SAVE) && (
+                      <Button type='submit' loading={checkLoading(BUTTONS.SAVE)}>
+                        {buttonLabel(BUTTONS.SAVE)}
+                      </Button>
+                    )}
+
+                    {isNotEmpty(BUTTONS.NEW) && (
+                      <Button
+                        type='button'
+                        loading={checkLoading(BUTTONS.NEW)}
+                        onClick={(e) => onPressButton(onNew, e)}
+                        leftIcon={<AddIcon />}
+                      >
+                        {buttonLabel(BUTTONS.NEW)}
+                      </Button>
+                    )}
+                  </Stack>
+                )}
+              </Stack>
+            </PageContainer>
+            {!isTeacher && separator && (
+              <PageContainer fullWidth={fullWidth}>
+                <Divider />
+              </PageContainer>
             )}
-          </PageContainer>
-        ) : (
-          <PageContainer style={{ marginTop: childRect.height }} fullWidth={fullWidth} />
-        )}
-      </Box>
-    </form>
+          </Box>
+
+          {!isTeacher && values && values.description ? (
+            <Box ref={descriptionRef}>
+              <PageContainer
+                style={{ marginTop: childRect.height }}
+                className={classes.section}
+                fullWidth={fullWidth}
+              >
+                {/* Description */}
+                {!editMode && (
+                  <ContentLegible>
+                    <Paragraph dangerouslySetInnerHTML={{ __html: values.description }} />
+                  </ContentLegible>
+                )}
+                {editMode && (
+                  <ContentLegible>
+                    <Controller
+                      name='description'
+                      control={control}
+                      defaultValue={values?.description || ''}
+                      rules={{
+                        required: required.description
+                          ? getErrorLabel('description', 'required', 'Required field')
+                          : false
+                      }}
+                      render={({ field }) => (
+                        <Textarea
+                          label={getInputLabel('description')}
+                          placeholder={getInputPlaceholder('description')}
+                          error={errors?.description?.message}
+                          required={required.description}
+                          {...field}
+                        />
+                      )}
+                    />
+                  </ContentLegible>
+                )}
+              </PageContainer>
+            </Box>
+          ) : (
+            <PageContainer style={{ marginTop: childRect.height }} fullWidth={fullWidth} />
+          )}
+
+        </Box>
+      </form>
+    </Box>
   );
 };
 
