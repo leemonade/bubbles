@@ -42,6 +42,7 @@ export const Text = forwardRef(
       stronger,
       truncated,
       styles,
+      ariaRole,
       ...props
     },
     ref
@@ -73,6 +74,7 @@ export const Text = forwardRef(
         component={as}
         size={size}
         className={cx(classes.root, className)}
+        role={ariaRole}
       >
         {children}
       </MantineText>

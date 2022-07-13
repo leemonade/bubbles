@@ -15,6 +15,12 @@ export const CALENDAR_DEFAULT_PROPS = {
   firstDayOfWeek: CALENDAR_FIRST_DAYS[1],
   labelFormat: 'MMMM YYYY',
   range: false,
+  nextMonthLabel: 'Next month',
+  previousMonthLabel: 'Previous month',
+  nextYearLabel: 'Next year',
+  previousNextLabel: 'Previous year',
+  nextDecadeLabel: 'Next decade',
+  previousDecadeLabel: 'Previous decade',
 };
 export const CALENDAR_PROP_TYPES = {
   /** Month for controlled calendar */

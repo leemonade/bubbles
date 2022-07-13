@@ -10,7 +10,15 @@ import {
   ACTIVITY_COUNTDOWN_PROP_TYPES,
 } from './ActivityCountdown.constants';
 
-const ActivityCountdown = ({ finish, interval, withIcon, rootStyles, rootClassname, ...props }) => {
+const ActivityCountdown = ({
+  finish,
+  interval,
+  withIcon,
+  rootStyles,
+  rootClassname,
+  useAria,
+  ...props
+}) => {
   const countDownMiliseconds = new Date(finish) - Date.now();
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(countDownMiliseconds, interval);
 
@@ -31,7 +39,7 @@ const ActivityCountdown = ({ finish, interval, withIcon, rootStyles, rootClassna
 
   const { classes, cx } = ActivityCountdownStyles({ rootStyles }, { name: 'ActivityCountdown' });
   return (
-    <Box className={cx(classes.root, rootClassname)}>
+    <Box className={cx(classes.root, rootClassname)} role={useAria ? 'timer' : undefined}>
       <Text className={classes.countdown}>{getCountdown(timeLeft)}</Text>
       {withIcon && <AlarmClockIcon width={24} height={24} className={classes.clockIcon} />}
     </Box>

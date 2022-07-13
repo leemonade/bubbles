@@ -19,6 +19,7 @@ export const BUTTON_DEFAULT_PROPS = {
   compact: false,
   fullWidth: false,
   disabled: false,
+  useAria: true,
 };
 
 export const Button = forwardRef(
@@ -40,6 +41,8 @@ export const Button = forwardRef(
       compact,
       fullWidth,
       disabled,
+      useAria,
+      ariaLabel,
       ...props
     },
     ref
@@ -82,6 +85,8 @@ export const Button = forwardRef(
         size={size}
         classNames={classes}
         disabled={disabled}
+        role={useAria ? 'button' : undefined}
+        aria-label={ariaLabel}
       />
     );
   }
@@ -107,6 +112,7 @@ Button.propTypes = {
    Use rounded style with outline variation for  the  actions suggestion buttons
     */
   rounded: PropTypes.bool,
+  /** Controls if is loading */
   loading: PropTypes.bool,
   /** Adds icon before button label */
   leftIcon: PropTypes.node,
@@ -114,7 +120,14 @@ Button.propTypes = {
   rightIcon: PropTypes.node,
   /** Sets button width to 100% of parent element */
   fullWidth: PropTypes.bool,
+  /** Controls the position of the label inside the button */
   position: PropTypes.oneOf(BUTTON_POSITIONS),
+  /** Controls if the button is compact */
   compact: PropTypes.bool,
+  /** Controls the disabled state */
   disabled: PropTypes.bool,
+  /** Controls if Button uses aria role */
+  useAria: PropTypes.bool,
+  /** Aria label for button */
+  ariaLabel: PropTypes.string,
 };

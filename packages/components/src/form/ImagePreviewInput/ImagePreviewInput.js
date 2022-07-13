@@ -35,6 +35,7 @@ const ImagePreviewInput = ({
   onChange,
   readonly,
   disabled,
+  useAria,
   ...props
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
@@ -106,6 +107,7 @@ const ImagePreviewInput = ({
             skipFlex
             radius={8}
             style={{ ...previewStyle }}
+            useAria={useAria}
           />
           {!readonly && !disabled ? (
             <Box skipFlex>
@@ -115,6 +117,7 @@ const ImagePreviewInput = ({
                 compact
                 leftIcon={<UndoIcon />}
                 onClick={resetImage}
+                useAria={useAria}
               >
                 {labels.changeImage}
               </Button>

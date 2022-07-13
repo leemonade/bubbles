@@ -30,5 +30,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
+  opened: true,
+  modalAriaLabel: 'Example of a Drawer',
   ...DRAWER_DEFAULT_PROPS,
 };

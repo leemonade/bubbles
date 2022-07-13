@@ -1,12 +1,13 @@
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ImageTool } from './ImageTool';
+import mdx from './ImageTool.mdx';
 
 export default {
   title: 'Atom/Tool/ImageTool',
   parameters: {
     component: ImageTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

@@ -14,6 +14,7 @@ export const ICON_BUTTON_DEFAULT_PROPS = {
   rounded: false,
   variant: 'default',
   label: '',
+  useAria: true,
 };
 
 export const IconButton = forwardRef(
@@ -31,6 +32,7 @@ export const IconButton = forwardRef(
       classNames,
       label,
       children,
+      useAria,
       ...props
     },
     ref
@@ -56,6 +58,7 @@ export const IconButton = forwardRef(
         classNames={classes}
         className={className}
         ref={ref}
+        role={useAria ? 'button' : undefined}
       >
         {!isNil(icon) ? icon : children}
       </MantineActionIcon>
@@ -66,12 +69,16 @@ export const IconButton = forwardRef(
 IconButton.defaultProps = ICON_BUTTON_DEFAULT_PROPS;
 
 IconButton.propTypes = {
+  /** Controls the size */
   size: PropTypes.oneOf(ICON_BUTTON_SIZES),
+  /** Controls the color */
   color: PropTypes.oneOf(ICON_BUTTON_COLORS),
+  /** Controls if its rounded */
   rounded: PropTypes.bool,
+  /** Controls the appearance */
   variant: PropTypes.oneOf(ICON_BUTTON_VARIANTS),
-  //iconOnly: PropTypes.bool,
-  // Adds icon before button label
+  /** Button label */
   label: PropTypes.string,
+  /** Button icon */
   icon: PropTypes.node,
 };

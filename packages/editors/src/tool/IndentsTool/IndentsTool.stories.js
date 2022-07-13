@@ -1,13 +1,14 @@
 import React from 'react';
 import { IndentsTool, INDENTS_TOOL_DEFAULT_PROPS } from './IndentsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './IndentsTool.mdx';
 
 export default {
   title: 'Atom/Tool/IndentsTool',
   parameters: {
     component: IndentsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

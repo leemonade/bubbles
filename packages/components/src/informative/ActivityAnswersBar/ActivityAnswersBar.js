@@ -24,6 +24,8 @@ const ActivityAnswersBar = ({
   withLegend,
   showBarIcon = true,
   withSelect = true,
+  groupSelectAriaLabel,
+  graphAlt,
   ...props
 }) => {
   const [selectedGroup, setSelectedGroup] = useState(selectables[0].value);
@@ -80,11 +82,13 @@ const ActivityAnswersBar = ({
           value={selectedGroup}
           onChange={setSelectedGroup}
           style={{ width: 150, marginLeft: 10 }}
+          ariaLabel={groupSelectAriaLabel}
         />
       ) : null}
 
       <Box className={classes.graphicWrapper}>
         <ResponsiveBar
+          ariaLabel={graphAlt}
           enableGridX={true}
           enableGridY={false}
           maxValue={getMaxValue()}

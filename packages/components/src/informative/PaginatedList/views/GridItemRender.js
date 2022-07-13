@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '../../../layout';
 import { TableCell } from '../../Table';
 
-const GridItemRender = ({ item, className }) => {
+const GridItemRender = ({ item, className, useAria }) => {
   return item.cells.map((cell, index) => {
     return (
       <Box
@@ -10,8 +10,9 @@ const GridItemRender = ({ item, className }) => {
         {...cell.getCellProps({
           className,
         })}
+        role={useAria ? 'row' : undefined}
       >
-        <TableCell cell={cell} />
+        <TableCell cell={cell} useAria={useAria} />
       </Box>
     );
   });

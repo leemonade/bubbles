@@ -1,4 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { PasswordInput as MantinePasswordInput } from '@mantine/core';
 import { isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
@@ -15,6 +16,7 @@ export const PASSWORD_INPUT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const PASSWORD_INPUT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
+  ariaLabel: PropTypes.string,
 };
 export const PASSWORD_INPUT_DEFAULT_PROPS = {
   label: '',
@@ -37,6 +39,7 @@ const PasswordInput = forwardRef(
       description,
       placeholder,
       required,
+      ariaLabel,
       ...props
     },
     ref
@@ -63,6 +66,7 @@ const PasswordInput = forwardRef(
           placeholder={placeholder}
           classNames={classes}
           error={!isEmpty(error)}
+          aria-label={ariaLabel}
         />
       </InputWrapper>
     );

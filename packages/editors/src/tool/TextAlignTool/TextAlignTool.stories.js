@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { TextAlignTool, TEXTALIGN_TOOL_DEFAULT_PROPS } from './TextAlignTool';
+import mdx from './TextAlignTool.mdx';
 
 export default {
   title: 'Atom/Tool/TextAlignTool',
   parameters: {
     component: TextAlignTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

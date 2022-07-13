@@ -108,7 +108,7 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
       }}
     >
       <TextEditorProvider editor={editor} library={library}>
-        <Toolbar>{children}</Toolbar>
+        <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
         <BubbleMenu />
         <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
       </TextEditorProvider>

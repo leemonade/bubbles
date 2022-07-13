@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { BoldTool } from './BoldTool';
+import mdx from './BoldTool.mdx';
 
 export default {
   title: 'Atom/Tool/BoldTool',
   parameters: {
     component: BoldTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

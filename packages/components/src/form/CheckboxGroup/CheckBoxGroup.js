@@ -24,11 +24,14 @@ export const CHECKBOX_GROUP_DEFAULT_PROPS = {
   size: 'sm',
   variant: 'default',
   fullWidth: false,
+  useAria: true,
 };
 
 export const CHECKBOX_GROUP_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
+  /** Controls input size */
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  /** Data shown in the dropdown */
   data: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.any,
@@ -40,11 +43,18 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
       checked: PropTypes.bool,
     })
   ),
+  /** Controls the input direction */
   direction: PropTypes.oneOf(STACK_DIRECTIONS),
+  /** Controls the appearance */
   variant: PropTypes.oneOf(BOOLEAN_INPUT_VARIANTS),
+  /** Controls the input orientation */
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
+  /** Control if input is full width */
   fullWidth: PropTypes.bool,
+  /** Function called when value changes */
   onChange: PropTypes.func,
+  /** Controls if CheckBoxGroup uses aria role */
+  useAria: PropTypes.bool,
 };
 
 const CheckBoxGroup = ({
@@ -62,6 +72,7 @@ const CheckBoxGroup = ({
   onChange,
   headerStyle,
   contentStyle,
+  useAria,
   ...props
 }) => {
   const uuid = useUuid();
@@ -87,9 +98,11 @@ const CheckBoxGroup = ({
 
   useDidUpdate(() => {
     const values = data.map(({ value }) => value);
-    selectedValues.filter((v) => !values.includes(v)).forEach((v) => {
-      handleOnChange(v);
-    });
+    selectedValues
+      .filter((v) => !values.includes(v))
+      .forEach((v) => {
+        handleOnChange(v);
+      });
   }, [data]);
 
   return (
@@ -123,6 +136,7 @@ const CheckBoxGroup = ({
               item.onChange && item.onChange(item.value);
               handleOnChange(item.value);
             }}
+            useAria={useAria}
           />
         ))}
       </Stack>

@@ -16,18 +16,34 @@ export const ACTION_BUTTON_DEFAULT_PROPS = {
   label: '',
   rounded: false,
   active: false,
+  useAria: true,
 };
 export const ACTION_BUTTON_PROP_TYPES = {
+  /** Controls the size */
   size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
+  /** Control the color */
   color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
+  /** Controls the appearance */
   variant: PropTypes.oneOf(ACTION_BUTTON_VARIANTS),
+  /** Control the tooltip of the button */
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  /** Controls the active state of the button */
   active: PropTypes.bool,
+  /** Controls if ActionButton uses aria role */
+  useAria: PropTypes.bool,
+  /** Aria label for ActionButton */
+  ariaLabel: PropTypes.string,
 };
 
-const TooltipComponent = ({ children, tooltip }) => {
+const TooltipComponent = ({ children, tooltip, useAria }) => {
   return isString(tooltip) && tooltip !== '' ? (
-    <Tooltip position="bottom" label={tooltip} withArrow={false} color="secondary">
+    <Tooltip
+      position="bottom"
+      label={tooltip}
+      withArrow={false}
+      useAria={useAria}
+      color="secondary"
+    >
       {children}
     </Tooltip>
   ) : (
@@ -54,6 +70,8 @@ export const ActionButton = forwardRef(
       className,
       classNames,
       active,
+      useAria,
+      ariaLabel,
       children,
       ...props
     },
@@ -78,7 +96,7 @@ export const ActionButton = forwardRef(
     );
 
     return (
-      <TooltipComponent tooltip={tooltip}>
+      <TooltipComponent tooltip={tooltip} useAria={useAria}>
         <MantineButton
           {...props}
           component={as}
@@ -89,11 +107,12 @@ export const ActionButton = forwardRef(
           color={color}
           className={className}
           classNames={classes}
-          aria-label={tooltip || label || ''}
+          aria-label={tooltip || label || ariaLabel || undefined}
           // title={tooltip || ''}
           radius={radius}
           style={style}
           ref={ref}
+          role={useAria ? 'button' : undefined}
         >
           {label}
           {children}

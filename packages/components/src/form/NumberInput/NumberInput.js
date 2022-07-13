@@ -44,6 +44,7 @@ const NumberInput = forwardRef(
       contentStyle,
       headerClassName,
       contentClassName,
+      ariaLabel,
       ...props
     },
     ref
@@ -69,7 +70,13 @@ const NumberInput = forwardRef(
         {readOnly ? (
           <Paragraph clean>{value || defaultValue || ''}</Paragraph>
         ) : (
-          <MantineNumberInput {...props} ref={ref} classNames={classes} error={!isEmpty(error)} />
+          <MantineNumberInput
+            {...props}
+            ref={ref}
+            classNames={classes}
+            error={!isEmpty(error)}
+            aria-label={ariaLabel}
+          />
         )}
       </InputWrapper>
     );

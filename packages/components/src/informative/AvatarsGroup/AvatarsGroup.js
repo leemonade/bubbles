@@ -27,7 +27,13 @@ const AvatarsGroup = ({ data, size, limit, total, ...props }) => {
     <>
       <Box {...props} className={classes.root}>
         {avatars.map((item, index) => (
-          <Avatar key={`k-${index}`} fullName={item.fullName} image={item.avatar} size={size} />
+          <Avatar
+            key={`k-${index}`}
+            fullName={item.fullName}
+            image={item.avatar}
+            size={size}
+            alt={`Avatar of ${item.fullName}`}
+          />
         ))}
         {overflow > 0 && (
           <Avatar

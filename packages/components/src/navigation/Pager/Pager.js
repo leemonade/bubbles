@@ -26,6 +26,13 @@ export const PAGER_DEFAULT_PROPS = {
   variant: PAGER_VARIANTS[0],
   page: 0,
   sizes: [],
+  goToAriaLabel: 'Go to page',
+  pagesSelectAriaLabel: 'Number of pages shown',
+  dotsAriaLabel: 'Pages between',
+  nextAriaLabel: 'Next pages',
+  prevAriaLabel: 'Previous pages',
+  firstAriaLabel: 'Go to first page',
+  lastAriaLabel: 'Go to last page',
 };
 export const PAGER_PROP_TYPES = {
   totalPages: PropTypes.number,
@@ -42,6 +49,13 @@ export const PAGER_PROP_TYPES = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   sizes: PropTypes.array,
+  goToAriaLabel: PropTypes.string,
+  pagesSelectAriaLabel: PropTypes.string,
+  dotsAriaLabel: PropTypes.string,
+  nextAriaLabel: PropTypes.string,
+  prevAriaLabel: PropTypes.string,
+  firstAriaLabel: PropTypes.string,
+  lastAriaLabel: PropTypes.string,
 };
 
 const Pager = forwardRef(
@@ -63,6 +77,13 @@ const Pager = forwardRef(
       onSizeChange,
       labels,
       variant,
+      goToAriaLabel,
+      pagesSelectAriaLabel,
+      dotsAriaLabel,
+      nextAriaLabel,
+      prevAriaLabel,
+      firstAriaLabel,
+      lastAriaLabel,
       ...props
     },
     ref
@@ -142,6 +163,7 @@ const Pager = forwardRef(
               value={goToPage.toString()}
               onChange={(e) => handleGoToPage(e)}
               disabled={disabled}
+              aria-label={goToAriaLabel}
             />
             {/* NumberInput is not really an input type="number" so im using <input/> instead */}
             {/* <NumberInput hideControls /> */}
@@ -160,6 +182,20 @@ const Pager = forwardRef(
           withEdges={withEdges}
           page={page}
           onChange={(e) => onChangeHandler(e)}
+          getItemAriaLabel={(page) => {
+            switch (page) {
+              case 'dots':
+                return dotsAriaLabel;
+              case 'prev':
+                return prevAriaLabel;
+              case 'next':
+                return nextAriaLabel;
+              case 'first':
+                return firstAriaLabel;
+              case 'last':
+                return lastAriaLabel;
+            }
+          }}
         />
         {withSize && (
           <Box className={classes.size}>
@@ -172,6 +208,7 @@ const Pager = forwardRef(
                   label: `${labels.show} ${val}`,
                   value: val,
                 }))}
+              ariaLabel={pagesSelectAriaLabel}
             />
           </Box>
         )}

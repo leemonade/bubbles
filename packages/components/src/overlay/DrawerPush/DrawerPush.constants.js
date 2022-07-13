@@ -7,6 +7,7 @@ export const DRAWER_PUSH_DEFAULT_PROPS = {
   size: 300,
   style: {},
   direction: 'ltr',
+  useAria: true,
 };
 export const DRAWER_PUSH_PROP_TYPES = {
   opened: PropTypes.bool,
@@ -14,4 +15,6 @@ export const DRAWER_PUSH_PROP_TYPES = {
   direction: PropTypes.oneOf(DRAWER_PUSH_DIRECTIONS),
   style: PropTypes.object,
   className: PropTypes.string,
+  modalAriaLabel: PropTypes.string,
+  useAria: PropTypes.bool,
 };

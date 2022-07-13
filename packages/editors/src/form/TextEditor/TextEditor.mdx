@@ -1,0 +1,53 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { TextEditor } from './TextEditor.js';
+import { ThemeProvider } from '@bubbles-ui/components';
+import * as stories from './TextEditor.stories.js';
+import {
+  ColorTool,
+  TransformsTool,
+  HeadingsTool,
+  ListIndentTool,
+  TextAlignTool,
+  ScriptsTool,
+} from '../../tool';
+
+# TextEditor
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/form/TextEditor/TextEditor.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [Feedback](#feedback)
+
+## Overview
+
+TextEditor is a component that displays a WYSIWYG text editor. It includes the `BubbleMenu` component and a `Toolbar` with whatever tool you want to include.
+
+<ThemeProvider>
+  <TextEditor content="This is the content of TextEditor">
+    <ColorTool />
+    <TransformsTool />
+    <HeadingsTool />
+    <ListIndentTool />
+    <TextAlignTool />
+    <ScriptsTool />
+  </TextEditor>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="organism-form-texteditor--playground" />
+</Preview>
+
+<Props of={TextEditor} />
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/form/TextEditor/TextEditor.mdx)

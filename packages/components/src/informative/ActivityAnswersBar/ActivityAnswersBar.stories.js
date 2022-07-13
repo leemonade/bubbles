@@ -35,4 +35,5 @@ Playground.args = {
     KO: 'Errónea',
     null: 'NS/NC',
   },
+  graphAlt: 'Graphic of activities',
 };

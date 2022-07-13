@@ -11,13 +11,14 @@ import {
 } from '../../tool/';
 import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
+import mdx from './TextEditor.mdx';
 
 export default {
   title: 'Organism/Form/TextEditor',
   parameters: {
     component: TextEditor,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

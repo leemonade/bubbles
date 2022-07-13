@@ -8,26 +8,27 @@ import { useElementSize } from '@mantine/hooks';
 const GRID_VIEW_DEFAULT_PROPS = {
   itemRender: ({ key, ...props }) => <GridItemRender key={key} {...props} />,
   itemMinWidth: 360,
-  style: {}
+  style: {},
 };
 const GRID_VIEW_PROP_TYPES = {
   itemRender: PropTypes.func,
   itemMinWidth: PropTypes.number,
-  style: PropTypes.any
+  style: PropTypes.any,
 };
 
 const GridView = ({
-                    headerGroups,
-                    rows,
-                    prepareRow,
-                    itemRender,
-                    onSelect,
-                    selectable,
-                    selected,
-                    style,
-                    itemMinWidth,
-                    ...props
-                  }) => {
+  headerGroups,
+  rows,
+  prepareRow,
+  itemRender,
+  onSelect,
+  selectable,
+  selected,
+  style,
+  itemMinWidth,
+  useAria,
+  ...props
+}) => {
   const [currentItem, setCurrentItem] = useState(selected);
   const { ref, width } = useElementSize();
   useEffect(() => {
@@ -56,21 +57,23 @@ const GridView = ({
     return {
       ...style,
       display: 'grid',
-      gridTemplateColumns: `repeat(auto-fit, ${colWidth})`
+      gridTemplateColumns: `repeat(auto-fit, ${colWidth})`,
     };
   }, [itemMinWidth, style, rows, width]);
 
   return (
-    <Stack ref={ref} wrap='wrap' {...props} style={gridStyle}>
+    <Stack ref={ref} wrap="wrap" {...props} style={gridStyle} role={useAria ? 'grid' : undefined}>
       {itemRender &&
         rows.map((row, i) => {
           prepareRow(row);
+          console.log(useAria);
           return itemRender({
             key: `mitem-${i}`,
             item: row,
             headers: headerGroups[0]?.headers,
             selected: row.original.id === currentItem?.id,
-            onClick: () => handleOnSelect(row.original)
+            onClick: () => handleOnSelect(row.original),
+            useAria,
           });
         })}
     </Stack>

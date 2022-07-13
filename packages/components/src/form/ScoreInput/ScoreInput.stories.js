@@ -139,6 +139,18 @@ Playground.args = {
     {
       score: 10,
     },
+    {
+      score: 11,
+    },
+    {
+      score: 12,
+    },
+    {
+      score: 13,
+    },
+    {
+      score: 14,
+    },
   ],
   label: 'Score input',
   description: 'This is a score input',

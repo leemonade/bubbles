@@ -20,12 +20,24 @@ export const SEARCH_INPUT_DEFAULT_PROPS = {
 };
 export const SEARCH_INPUT_PROP_TYPES = {
   ...TEXT_INPUT_PROP_TYPES,
+  /** The debounce wait in milliseconds*/
   wait: PropTypes.number,
+  /** The value of the input */
   value: PropTypes.string,
+  /** Function called when value changes */
   onChange: PropTypes.func,
+  /** Aria label for the input */
+  ariaLabel: PropTypes.string,
 };
 
-const SearchInput = ({ wait, minChars, value: valueProp, onChange = () => {}, ...props }) => {
+const SearchInput = ({
+  wait,
+  minChars,
+  value: valueProp,
+  onChange = () => {},
+  ariaLabel,
+  ...props
+}) => {
   const [value, setValue] = useState(valueProp);
   const [debounced] = useDebouncedValue(value, wait);
 
@@ -37,7 +49,15 @@ const SearchInput = ({ wait, minChars, value: valueProp, onChange = () => {}, ..
     onChange(debounced);
   }, [debounced]);
 
-  return <TextInput {...props} value={value} onChange={(e) => setValue(e)} icon={<SearchIcon />} />;
+  return (
+    <TextInput
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e)}
+      icon={<SearchIcon />}
+      ariaLabel={ariaLabel}
+    />
+  );
 };
 
 SearchInput.defaultProps = SEARCH_INPUT_DEFAULT_PROPS;

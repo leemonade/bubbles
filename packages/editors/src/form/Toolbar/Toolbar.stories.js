@@ -3,13 +3,14 @@ import { TextEditor } from '../TextEditor/TextEditor';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
 import { HeadingsTool } from '../../tool/HeadingsTool/HeadingsTool';
+import mdx from './Toolbar.mdx';
 
 export default {
   title: 'Atom/Form/Toolbar',
   parameters: {
     component: Toolbar,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',
@@ -33,6 +34,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...TOOLBAR_DEFAULT_PROPS,
+  toolbarLabel: 'Toolbar',
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

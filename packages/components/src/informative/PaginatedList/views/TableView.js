@@ -22,6 +22,7 @@ const TableView = ({
   onSelect,
   selectable,
   selected,
+  useAria,
 }) => {
   const [currentItem, setCurrentItem] = useState(selected);
 
@@ -44,6 +45,7 @@ const TableView = ({
       {...getTableProps({
         className: tableClasses.root,
       })}
+      role={useAria ? 'table' : undefined}
     >
       <thead>
         {headerGroups.map((headerGroup) => (

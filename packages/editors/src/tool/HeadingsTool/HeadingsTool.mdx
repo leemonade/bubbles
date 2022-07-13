@@ -1,0 +1,42 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { HeadingsTool } from './HeadingsTool.js';
+import { ThemeProvider } from '@bubbles-ui/components';
+import * as stories from './HeadingsTool.stories.js';
+
+# HeadingsTool
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/tool/HeadingsTool/HeadingsTool.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+HeadingsTool is a group of tools that includes `TitleTool`, with its 3 levels, and `ParagraphTool`.
+You can change the tools you want setting `title1`, `title2`, `title3` or `paragraph` to false
+
+## Component API
+
+<Preview>
+  <Story id="atom-tool-headingstool--playground" />
+</Preview>
+
+<Props of={HeadingsTool} />
+
+## References
+
+[MDN: ARIA button role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/tool/HeadingsTool/HeadingsTool.mdx)

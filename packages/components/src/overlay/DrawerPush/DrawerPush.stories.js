@@ -128,5 +128,6 @@ export const Playground = Template.bind({});
 Playground.args = {
   title: 'Click to open/close',
   drawerContent: 'Drawer is open',
+  modalAriaLabel: 'Example of a DrawerPush',
   ...DRAWER_PUSH_DEFAULT_PROPS,
 };

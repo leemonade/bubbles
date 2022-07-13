@@ -28,4 +28,5 @@ Playground.args = {
   imageStyles: {
     width: '100%',
   },
+  alt: 'Dog asking for treats',
 };

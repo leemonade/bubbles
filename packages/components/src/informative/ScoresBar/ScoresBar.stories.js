@@ -44,4 +44,5 @@ Playground.args = {
   scores: FULL_SCORES,
   grades: GRADES,
   markerLegend: 'Pass level',
+  graphAlt: 'Scores graphic',
 };

@@ -1,12 +1,13 @@
 import { TextEditor } from '../../form/';
 import { EmbedTool, EMBED_TOOL_DEFAULT_PROPS } from './EmbedTool';
+import mdx from './EmbedTool.mdx';
 
 export default {
   title: 'Atom/Tool/EmbedTool',
   parameters: {
     component: EmbedTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

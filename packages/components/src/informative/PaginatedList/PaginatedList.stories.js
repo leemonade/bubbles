@@ -35,7 +35,7 @@ export default {
 
 const CustomItemRender = ({ key, item, headers, selected, className, ...props }) => {
   return (
-    <Box key={key} {...props}>
+    <Box key={key} {...props} role="row">
       <Paper
         style={{
           border: selected ? '1px solid cornflowerblue' : '1px solid transparent',
@@ -158,7 +158,7 @@ const Template = ({
   const customProps = {};
 
   if (layout === 'grid') {
-    customProps.itemRender = CustomItemRender;
+    // customProps.itemRender = CustomItemRender;
     customProps.spacing = 2;
   }
 

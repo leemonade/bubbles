@@ -1,12 +1,13 @@
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { CodeTool } from './CodeTool';
+import mdx from './CodeTool.mdx';
 
 export default {
   title: 'Atom/Tool/CodeTool',
   parameters: {
     component: CodeTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

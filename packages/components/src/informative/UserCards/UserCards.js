@@ -68,7 +68,12 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
   return (
     <Box {...props} className={classes.root}>
       <Box className={classes.container}>
-        <Avatar image={avatar} size={avatarSize} className={classes.avatar} />
+        <Avatar
+          image={avatar}
+          size={avatarSize}
+          className={classes.avatar}
+          alt={`Avatar of ${name} ${surnames}`}
+        />
         <Box className={classes.userInfo}>
           {isFull && isVertical && (
             <Text color={'primary'} className={classes.rol}>

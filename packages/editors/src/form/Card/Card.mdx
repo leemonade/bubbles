@@ -1,0 +1,51 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Card } from './Card.js';
+import { ThemeProvider } from '@bubbles-ui/components';
+import * as stories from './Card.stories.js';
+
+# Card
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/form/Card/Card.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Card is a component that is used to display cards inside the `TextEditor`.
+
+<ThemeProvider>
+  <Card
+    node={{
+      attrs: {
+        title: 'PLAYER VIDEO/AUDIO',
+        description:
+          'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes…',
+        color: 'blueviolet',
+        fileType: 'video',
+        image:
+          'https://images.unsplash.com/photo-1646596504587-c3771cf62e81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NjkyNjM3OA&ixlib=rb-1.2.1&q=80&w=1080',
+      },
+    }}
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atom-form-card--playground" />
+</Preview>
+
+<Props of={Card} />
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/form/Card/Card.mdx)
