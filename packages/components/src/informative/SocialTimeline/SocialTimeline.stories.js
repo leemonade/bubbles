@@ -37,7 +37,7 @@ Playground.args = {
   messages: [
     {
       actor: {
-        name: 'Nuevo mensage',
+        name: 'Nuevo mensaje',
       },
       verb: 'en el chat',
       object: { id: 'id01', definition: { name: 'Grupo Moriscos 4' } },

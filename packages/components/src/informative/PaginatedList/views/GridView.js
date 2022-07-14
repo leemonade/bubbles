@@ -66,7 +66,6 @@ const GridView = ({
       {itemRender &&
         rows.map((row, i) => {
           prepareRow(row);
-          console.log(useAria);
           return itemRender({
             key: `mitem-${i}`,
             item: row,

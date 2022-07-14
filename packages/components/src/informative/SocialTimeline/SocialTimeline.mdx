@@ -4,9 +4,9 @@ import * as stories from './SocialTimeline.stories.js';
 import { SocialTimeline } from './SocialTimeline.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# SocialTimeline
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/SocialTimeline>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/SocialTimeline/SocialTimeline.js)
 
 ## Table of Contents
 
@@ -20,29 +20,62 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+SocialTimeline displays a timeline of social events. You must provide a `messages` array with this shape:
+
+```js
+{
+  actor: {
+    name: 'Name',
+    avatar: 'Link to avatar',
+  },
+  verb: 'sent you a message to',
+  object: {
+    id: 'object-id',
+    definition: {
+      name: 'Group 3',
+    }
+  }
+  timestamp: '2022-07-05T18:30:32.360Z'
+}
+```
+
+By default SocialTimelines uses the navigator locale but you can provide the locale you want
 
 <ThemeProvider>
-  <SocialTimeline>Social timeline</SocialTimeline>
+  <SocialTimeline
+    messages={[
+      {
+        actor: {
+          name: 'Nuevo mensaje',
+        },
+        verb: 'en el chat',
+        object: { id: 'id01', definition: { name: 'Grupo Moriscos 4' } },
+        timestamp: new Date(new Date(new Date()).setHours(new Date().getHours() - 24)),
+      },
+      {
+        actor: {
+          name: 'Josefina',
+          avatar:
+            'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+        },
+        verb: 'te ha añadido a la tarea',
+        object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+        timestamp: new Date(new Date(new Date()).setHours(new Date().getHours() - 72)),
+      },
+    ]}
+    locale="ca"
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-informative-social-timeline--playground" />
+  <Story id="organisms-informative-socialtimeline--playground" />
 </Preview>
 
 <Props of={SocialTimeline} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/social-timeline_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/social-timeline/social-timeline.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/SocialTimeline.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/SocialTimeline/SocialTimeline.mdx)
