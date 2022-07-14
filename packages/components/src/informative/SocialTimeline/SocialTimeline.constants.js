@@ -23,4 +23,5 @@ export const SOCIAL_TIMELINE_PROP_TYPES = {
       timestamp: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     })
   ),
+  locale: PropTypes.string,
 };

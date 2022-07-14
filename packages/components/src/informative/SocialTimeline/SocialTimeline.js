@@ -1,56 +1,80 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { Box } from '../../layout';
-import { Avatar } from '../Avatar';
 import { Text } from '../../typography';
 import { SocialTimelineStyles } from './SocialTimeline.styles';
 import {
   SOCIAL_TIMELINE_DEFAULT_PROPS,
   SOCIAL_TIMELINE_PROP_TYPES,
 } from './SocialTimeline.constants';
+import { capitalize } from 'lodash';
+import { MessageItem } from './';
 
-const SocialTimeline = ({ messages, ...props }) => {
-  const { classes, cx } = SocialTimelineStyles({}, { name: 'SocialTimeline' });
+const getRelativeTime = (day, locale) => {
+  const NOW = new Date();
+  const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
+  let deltaDays = (day.getTime() - Date.now()) / (1000 * 3600 * 24);
+  if (deltaDays < 1) {
+    if (day.getDate() === NOW) {
+      deltaDays = 0;
+    } else if (day.getDate() === NOW - 1) {
+      deltaDays = -1;
+    } else if (day.getDate() === NOW + 1) {
+      deltaDays = 1;
+    }
+  }
+  deltaDays = Math.ceil(deltaDays);
+  const result = formatter.format(deltaDays, 'day');
+  return result;
+};
 
-  const getTimelineDays = useCallback(() => {
-    let days = [];
+const SocialTimeline = ({ messages, locale, ...props }) => {
+  if (!locale) locale = navigator.language;
+
+  const getDayMessages = (day) => {
+    return messages
+      .filter((message) => new Date(message.timestamp).toDateString() === day.toDateString())
+      .sort((a, b) => a.timestamp - b.timestamp);
+  };
+
+  const getTimelineDays = () => {
+    let timeline = [];
     for (const message of messages) {
       const adjustedDate = new Date(message.timestamp).setHours(0, 0, 0, 0);
-      if (!days.includes(adjustedDate)) {
-        days.push(adjustedDate);
+      if (!timeline.includes(adjustedDate)) {
+        timeline.push(adjustedDate);
       }
     }
-    return days.map((day) => new Date(day));
-  }, [messages]);
+    return timeline
+      .map((arrayDay) => {
+        const day = new Date(arrayDay);
+        const messages = getDayMessages(day);
+        return { day, messages };
+      })
+      .sort((a, b) => b.day - a.day);
+  };
 
-  const message = (
-    <Box className={classes.messageRoot}>
-      <Box className={classes.avatarSide}>
-        <Box className={classes.line} />
-        <Box className={classes.avatarWrapper}>
-          <Avatar src="https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
-        </Box>
-      </Box>
-      <Box className={classes.messageInfo}>
-        <Text>{new Date('2012-07-05T18:30:32.360Z').toLocaleTimeString()}</Text>
-        <Box className={classes.message}>
-          <Text color="primary" role="productive" stronger>
-            Martina{' '}
-          </Text>
-          <Text color="primary" role="productive">
-            te ha añadido a la tarea{' '}
-          </Text>
-          <Text color="primary" role="productive" stronger>
-            Casas Moriscas
-          </Text>
-        </Box>
-      </Box>
-    </Box>
-  );
-
+  const timeline = useMemo(() => getTimelineDays(), [messages]);
+  const { classes, cx } = SocialTimelineStyles({}, { name: 'SocialTimeline' });
   return (
     <Box className={classes.root}>
-      {message}
-      {message}
+      {timeline.map(({ day, messages }) => (
+        <Box className={classes.dayWrapper} key={day}>
+          <Box className={classes.dayHeader}>
+            <Text role="productive" stronger color="primary">
+              {capitalize(getRelativeTime(day, locale))}
+            </Text>
+            <Text role="productive" color="quartiary">
+              {day.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })}
+            </Text>
+          </Box>
+          {messages.map(({ actor, timestamp, verb, object }, index) => (
+            <MessageItem
+              key={`${timestamp} ${index}`}
+              {...{ actor, timestamp, verb, object, index, locale }}
+            />
+          ))}
+        </Box>
+      ))}
     </Box>
   );
 };
