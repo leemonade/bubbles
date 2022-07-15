@@ -14,6 +14,9 @@ export const SocialTimelineStyles = createStyles((theme, {}) => {
       display: 'flex',
       alignItems: 'center',
       gap: 8,
+      position: 'sticky',
+      top: '0px',
+      zIndex: 10,
     },
   };
 });

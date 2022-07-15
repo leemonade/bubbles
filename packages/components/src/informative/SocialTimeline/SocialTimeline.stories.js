@@ -25,7 +25,11 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <SocialTimeline {...props} />;
+  return (
+    <Box style={{ overflowY: 'scroll', height: 'calc(100vh - 32px)' }}>
+      <SocialTimeline {...props} />
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -35,6 +39,66 @@ const today = new Date();
 Playground.args = {
   ...SOCIAL_TIMELINE_DEFAULT_PROPS,
   messages: [
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 102)),
+    },
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 122)),
+    },
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 142)),
+    },
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 162)),
+    },
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 182)),
+    },
+    {
+      actor: {
+        name: 'Josefina',
+        avatar:
+          'https://s3-alpha-sig.figma.com/img/86f5/00bf/5087006856da2fdf6b83170bc7c6e193?Expires=1658707200&Signature=c40gVblB1b9Jklq8YagxF6Q3o6~x3p-EjSl9fCXZMZZfyA5CU8rbDUNfi69Xp2jKK54Y79DwPaI0-J0qy-7qgWD~GUfCqZ4AR50A20h3n0sgEsUVkZg4Pbbci43TZi36B~fmPBzp4qQHUCL808Ew3gQZ0JiFc-VH3ygW3tcFIYEEN33jHbhdqfYJahQumJHgNDiNqISdzYRQMLujlMMPGshZ6aneF5M9H~4GxkEiQ9B5Vn1cpIu1E0Ho1-~G6RhyDJHU8b~FbnCvGovWoNNJzPsJPoABxBx8n947df-8CXJrncsugglplPfiZmdyrWIlBTvqU8LRXv9UQ-n5JrfQXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+      },
+      verb: 'te ha añadido a la tarea',
+      object: { id: 'id01', definition: { name: 'Casas moriscas' } },
+      timestamp: new Date(new Date(today).setHours(today.getHours() - 222)),
+    },
     {
       actor: {
         name: 'Nuevo mensaje',
