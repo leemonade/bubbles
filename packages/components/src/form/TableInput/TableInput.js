@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import update from 'immutability-helper';
-import { isFunction, isEmpty, uniq } from 'lodash';
+import { isEmpty, isFunction } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { Box } from '../../layout/Box';
@@ -31,22 +31,30 @@ function deserializeData(data) {
 // COMPONENT
 
 const TableInput = ({
-  data,
-  form: formProp,
-  error,
-  unique,
-  showHeaders,
-  resetOnAdd,
-  onChange = () => {},
-  onChangeData = () => {},
-  onBeforeRemove = () => {},
-  onBeforeAdd = () => {},
-  onAdd = () => {},
-  onUpdate = () => {},
-  onRemove = () => {},
-  onSort = () => {},
-  ...props
-}) => {
+                      data,
+                      form: formProp,
+                      error,
+                      unique,
+                      showHeaders,
+                      resetOnAdd,
+                      onChange = () => {
+                      },
+                      onChangeData = () => {
+                      },
+                      onBeforeRemove = () => {
+                      },
+                      onBeforeAdd = () => {
+                      },
+                      onAdd = () => {
+                      },
+                      onUpdate = () => {
+                      },
+                      onRemove = () => {
+                      },
+                      onSort = () => {
+                      },
+                      ...props
+                    }) => {
   const [tableData, setTableData] = useState([]);
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
@@ -59,7 +67,7 @@ const TableInput = ({
   useEffect(() => {
     const newData = serializeData(data);
     setTableData(newData);
-  }, [data]);
+  }, [JSON.stringify(data)]);
 
   // ··················
   // HANDLERS
@@ -113,8 +121,8 @@ const TableInput = ({
     const newData = update(tableData, {
       $splice: [
         [from, 1],
-        [to, 0, record],
-      ],
+        [to, 0, record]
+      ]
     });
     onSort({ from, to });
     handleOnChange(newData, { type: 'sort' });
