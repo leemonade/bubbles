@@ -27,7 +27,7 @@ const Radio = forwardRef(
         label={
           <Box className={classes.container}>
             {variant === 'icon' && <Box className={classes.icon}>{icon}</Box>}
-            <Box className={classes.title}>{children}</Box>
+            {children && <Box className={classes.title}>{children}</Box>}
             {help !== '' && <Box className={classes.help}>{help}</Box>}
           </Box>
         }
