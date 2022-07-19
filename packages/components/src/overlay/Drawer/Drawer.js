@@ -55,9 +55,10 @@ const Drawer = ({
   empty,
   shadow,
   modalAriaLabel,
+  contentPadding,
   ...props
 }) => {
-  const { classes, cx } = DrawerStyles({ empty, shadow }, { name: 'Drawer' });
+  const { classes, cx } = DrawerStyles({ empty, shadow, contentPadding }, { name: 'Drawer' });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
