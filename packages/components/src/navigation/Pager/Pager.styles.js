@@ -71,7 +71,7 @@ export const PagerStyles = createStyles(
       },
       dots: {
         color: theme.colors.text05,
-        transform: `translateY(${pxToRem(4)})`,
+        // transform: `translateY(${pxToRem(4)})`,
       },
       container: {
         display: 'flex',

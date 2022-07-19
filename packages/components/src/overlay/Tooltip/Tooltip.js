@@ -14,6 +14,7 @@ const Tooltip = ({
   position = 'top',
   placement = 'center',
   withArrow = 'true',
+  useAria,
   ...props
 }) => {
   size = TOOLTIP_SIZES.includes(size) ? size : 'xs';
@@ -33,16 +34,22 @@ const Tooltip = ({
       arrowSize={4}
       withArrow={withArrow}
       withinPortal={false}
+      role={useAria ? 'tooltip' : undefined}
       // allowPointerEvents={false}
     />
   );
 };
 
 Tooltip.propTypes = {
+  /** Controls the size */
   size: PropTypes.oneOf(TOOLTIP_SIZES),
+  /** Controls the color */
   color: PropTypes.oneOf(TOOLTIP_COLORS),
+  /** Controls the position relative to the target element  */
   position: PropTypes.oneOf(TOOLTIP_POSITION),
+  /** Controls the placement relative to the target element  */
   placement: PropTypes.oneOf(TOOLTIP_PLACEMENT),
+  /** Controls if has arrow or not */
   withArrow: PropTypes.bool,
 };
 

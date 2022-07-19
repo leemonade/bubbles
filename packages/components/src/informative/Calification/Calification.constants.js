@@ -11,6 +11,7 @@ export const CALIFICATION_DEFAULT_PROPS = {
   styles: {},
   className: '',
   showOnlyLabel: false,
+  decimalNumbers: 2,
 };
 export const CALIFICATION_PROP_TYPES = {
   label: PropTypes.string,
@@ -21,4 +22,5 @@ export const CALIFICATION_PROP_TYPES = {
   styles: PropTypes.object,
   className: PropTypes.string,
   showOnlyLabel: PropTypes.bool,
+  decimalNumber: PropTypes.number,
 };

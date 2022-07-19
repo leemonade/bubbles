@@ -20,6 +20,10 @@ const ScoreInput = ({
   decimalPrecision,
   decimalSeparator,
   direction,
+  customLabel,
+  moveRightLabel,
+  moveLeftLabel,
+  useAria,
   ...props
 }) => {
   const [grade, setGrade] = useState(value);
@@ -61,6 +65,7 @@ const ScoreInput = ({
               letter: value.toUpperCase(),
             })
           }
+          ariaLabel={customLabel}
         />
       );
     }
@@ -78,6 +83,7 @@ const ScoreInput = ({
               letter: grades.find(({ score }) => score === value)?.letter || selectValue,
             })
           }
+          ariaLabel={customLabel}
         />
       );
     }
@@ -148,7 +154,13 @@ const ScoreInput = ({
       gradesToReturn.splice(
         displacedGrades,
         0,
-        <Box key={'leftcontrol'} className={classes.control} onClick={handleDisplaceToRight}>
+        <Box
+          key={'leftcontrol'}
+          className={classes.control}
+          onClick={handleDisplaceToRight}
+          aria-label={moveLeftLabel}
+          role={useAria ? 'button' : undefined}
+        >
           <ChevLeftIcon height={32} width={32} />
         </Box>
       );
@@ -157,7 +169,13 @@ const ScoreInput = ({
       gradesToReturn.splice(
         maxGrades - 1 + displacedGrades,
         0,
-        <Box key={'rightcontrol'} className={classes.control} onClick={handleDisplaceToLeftGrades}>
+        <Box
+          key={'rightcontrol'}
+          className={classes.control}
+          onClick={handleDisplaceToLeftGrades}
+          aria-label={moveRightLabel}
+          role={useAria ? 'button' : undefined}
+        >
           <ChevRightIcon height={32} width={32} />
         </Box>
       );

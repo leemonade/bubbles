@@ -29,6 +29,7 @@ export const TEXT_INPUT_PROP_TYPES = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   autoComplete: PropTypes.string,
+  ariaLabel: PropTypes.string,
 };
 
 export const TEXT_INPUT_DEFAULT_PROPS = {
@@ -61,6 +62,7 @@ const TextInput = forwardRef(
       icon,
       variant,
       autoComplete,
+      ariaLabel,
       ...props
     },
     ref
@@ -110,6 +112,7 @@ const TextInput = forwardRef(
             className={className}
             maxLength={maxLength}
             autoComplete={autoComplete}
+            aria-label={ariaLabel}
           />
         )}
       </InputWrapper>

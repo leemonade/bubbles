@@ -1,11 +1,12 @@
 import { LinkModal, LINKMODAL_DEFAULT_PROPS } from './LinkModal';
+import mdx from './LinkModal.mdx';
 
 export default {
   title: 'Atom/Form/LinkModal',
   parameters: {
     component: LinkModal,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

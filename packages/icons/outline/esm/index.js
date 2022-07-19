@@ -40,6 +40,7 @@ export { default as ComputerKeyboardPreviousIcon } from './ComputerKeyboardPrevi
 export { default as ComputerKeyboardReturnIcon } from './ComputerKeyboardReturnIcon.js'
 export { default as ComputerKeyboardIcon } from './ComputerKeyboardIcon.js'
 export { default as CursorIcon } from './CursorIcon.js'
+export { default as DeleteBinIcon } from './DeleteBinIcon.js'
 export { default as DoneCircleIcon } from './DoneCircleIcon.js'
 export { default as DoneSquareIcon } from './DoneSquareIcon.js'
 export { default as DownloadDrawerIcon } from './DownloadDrawerIcon.js'

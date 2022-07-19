@@ -24,6 +24,7 @@ export const AUTOCOMPLETE_DEFAULT_PROPS = {
   placeholder: '',
   ignoreWrapper: false,
   waitToSearch: 1000,
+  autoComplete: 'off',
 };
 
 export const AUTOCOMPLETE_PROP_TYPES = {

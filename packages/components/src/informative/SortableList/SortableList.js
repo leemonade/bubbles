@@ -17,6 +17,8 @@ export const SORTABLE_LIST_DEFAULT_PROPS = {
   onRemove: () => {},
   dragDisabled: false,
   useRefs: () => {},
+  useAria: true,
+  removeLabel: 'Remove',
 };
 export const SORTABLE_LIST_PROP_TYPES = {
   value: PropTypes.arrayOf(PropTypes.any),
@@ -29,6 +31,8 @@ export const SORTABLE_LIST_PROP_TYPES = {
   onBeforeDragStart: PropTypes.func,
   dragDisabled: PropTypes.bool,
   useRefs: PropTypes.func,
+  useAria: PropTypes.bool,
+  removeLabel: PropTypes.string,
 };
 
 const SortableList = ({
@@ -42,6 +46,8 @@ const SortableList = ({
   containerRender: Container,
   itemRender: Item,
   useRefs,
+  useAria,
+  removeLabel,
 }) => {
   const { classes, cx } = SortableListStyles({});
 
@@ -76,7 +82,7 @@ const SortableList = ({
       <Droppable droppableId={uuid}>
         {(provided, snapshot) => {
           return (
-            <Container provided={provided} snapshot={snapshot}>
+            <Container provided={provided} snapshot={snapshot} useAria={useAria}>
               {value.map((item, index) => {
                 return (
                   <Draggable
@@ -94,6 +100,7 @@ const SortableList = ({
                           index={index}
                           removeItem={() => removeItem(index)}
                           classes={classes}
+                          removeLabel={removeLabel}
                         />
                       );
                     }}

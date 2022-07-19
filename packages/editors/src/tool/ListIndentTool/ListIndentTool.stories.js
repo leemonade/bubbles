@@ -1,12 +1,13 @@
 import { ListIndentTool } from './ListIndentTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './ListIndentTool.mdx';
 
 export default {
   title: 'Atom/Tool/ListIndentTool',
   parameters: {
     component: ListIndentTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

@@ -6,7 +6,7 @@ export const mock = {
       cards: [
         {
           id: 'a5182556-be4e-452f-ad42-36c3490d2771',
-          title: 'wef',
+          title: 'Next task',
           calendar: '9c1ec044-beb7-4f86-b1db-0c8b365ee786',
           startDate: '2022-01-05T09:03:10.000Z',
           endDate: '2022-01-06T09:03:10.000Z',
@@ -24,7 +24,7 @@ export const mock = {
         },
         {
           id: '642b7dd7-a219-4792-87f3-5e62c6b2f4a4',
-          title: 'aaaaaaa',
+          title: 'Next task 2',
           calendar: '9c1ec044-beb7-4f86-b1db-0c8b365ee786',
           startDate: '2022-01-11T23:00:00.000Z',
           endDate: '2022-01-13T22:59:59.000Z',
@@ -52,7 +52,7 @@ export const mock = {
       cards: [
         {
           id: 'd067ff9c-8eda-4590-9e81-a6c62ac5b79e',
-          title: 'vvvvvvv',
+          title: 'Task in progress',
           calendar: '9c1ec044-beb7-4f86-b1db-0c8b365ee786',
           startDate: '2022-01-05T23:00:00.000Z',
           endDate: '2022-01-06T22:59:59.000Z',

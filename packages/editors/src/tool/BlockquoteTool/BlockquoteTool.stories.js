@@ -1,13 +1,14 @@
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { CodeTool } from '../CodeTool/CodeTool';
 import { BlockquoteTool } from './BlockquoteTool';
+import mdx from './BlockquoteTool.mdx';
 
 export default {
   title: 'Atom/Tool/BlockquoteTool',
   parameters: {
     component: BlockquoteTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

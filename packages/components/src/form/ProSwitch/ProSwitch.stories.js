@@ -31,4 +31,5 @@ Playground.args = {
   ...PRO_SWITCH_DEFAULT_PROPS,
   useIcon: true,
   icon: <EmailPileIcon />,
+  ariaLabel: 'Email switch',
 };

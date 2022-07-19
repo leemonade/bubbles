@@ -4,9 +4,9 @@ import { Drawer } from './Drawer.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# Drawer
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/overlay/Drawer>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/Drawer/Drawer.js)
 
 ## Table of Contents
 
@@ -14,17 +14,39 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Drawer positions](#drawer-positions)
+- [Drawer sizes](#drawer-sizes)
+- [Drawer overlay and shadow](#drawer-overlay-and-shadow)
+- [Drawer back button](#drawer-back-button)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+Drawer is a component to display an area at any side of the screen. To explore all the props, go to the story.
 
 <ThemeProvider>
-  <Drawer>Drawer</Drawer>
+  <Drawer size={150} opened />
 </ThemeProvider>
+
+## Drawer positions
+
+Drawer can appear from 4 different positions: `left`, `right`, `top` or `bottom`.
+
+## Drawer sizes
+
+There are six different sizes: `xs`, 'sm', `md`, 'lg', `xl` and `full`. Also you can pass a number in `px` or a percentage of the screen.
+
+## Drawer overlay and shadow
+
+You can open the Drawer with an overlay for the rest of the screen with `withOverlay` and control the opacity with `overlayOpacity`.
+
+You can also choose to display a shadow or not with the `shadow` prop.
+
+## Drawer back button
+
+You can render a back button with the `back` prop.
 
 ## Component API
 
@@ -36,13 +58,11 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/drawer_role>)
+[MDN: ARIA dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/drawer/drawer.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/overlay/Drawer.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/Drawer/Drawer.mdx)

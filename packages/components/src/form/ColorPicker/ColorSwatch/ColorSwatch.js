@@ -25,7 +25,7 @@ export const ColorSwatch = forwardRef(
         ref={ref}
         {...props}
         color={color}
-        aria-label={color}
+        // aria-label={color}
         tabIndex={0}
         className={cx(className, classes.root)}
       />
@@ -38,5 +38,5 @@ ColorSwatch.propTypes = {
   color: PropTypes.string,
   onClick: PropTypes.func,
   actived: PropTypes.bool,
-  spacing: PropTypes.number
+  spacing: PropTypes.number,
 };

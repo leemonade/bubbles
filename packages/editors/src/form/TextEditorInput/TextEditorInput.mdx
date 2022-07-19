@@ -5,7 +5,7 @@ import { TextEditorInput } from './TextEditorInput.js';
 
 # TextEditorInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/TextEditorInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/form/TextEditorInput/TextEditorInput.js)
 
 ## Table of Contents
 
@@ -19,29 +19,46 @@ import { TextEditorInput } from './TextEditorInput.js';
 
 ## Overview
 
-TextEditorInput is ...
+TextEditorInput is a wrapper around TextEditor, it includes all the props of a normal input, for example `label`, `description`, `placeholder` and `error`.
+
+It also includes some tools by default, but you can turn them off with the `toolbars` prop:
+
+```js
+toolbars = {
+  style: true,
+  align: true,
+  list: true,
+  history: true,
+  heading: true,
+  color: true,
+  formulation: false,
+};
+```
 
 <ThemeProvider>
-  <TextEditorInput>Text editor input</TextEditorInput>
+  <TextEditorInput
+    label="TextEditor label"
+    placeholder="TextEditor placeholder"
+    description="TextEditor description"
+    error="TextEditor error"
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-text-editor-input--playground" />
+  <Story id="organism-form-texteditorinput--playground" />
 </Preview>
 
 <Props of={TextEditorInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/text-editor-input_role>)
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/text-editor-input/text-editor-input.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/TextEditorInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/form/TextEditorInput/TextEditorInput.mdx)

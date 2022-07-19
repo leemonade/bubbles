@@ -17,6 +17,7 @@ export const BADGE_DEFAULT_PROPS = {
   severity: 'default',
   radius: 'rounded',
   closable: true,
+  useAria: true,
 };
 export const BADGE_PROP_TYPES = {
   label: PropTypes.node,
@@ -25,9 +26,11 @@ export const BADGE_PROP_TYPES = {
   color: PropTypes.oneOf(BADGE_COLORS),
   severity: PropTypes.oneOf(BADGE_SEVERITIES),
   image: PropTypes.string,
+  alt: PropTypes.string,
   onClose: PropTypes.func,
   closable: PropTypes.bool,
   className: PropTypes.string,
+  useAria: PropTypes.bool,
 };
 
 const Badge = forwardRef(
@@ -37,12 +40,14 @@ const Badge = forwardRef(
       size,
       radius,
       image,
+      alt,
       color,
       severity,
       onClose,
       closable,
       className,
       children,
+      useAria,
       ...props
     },
     ref
@@ -61,7 +66,7 @@ const Badge = forwardRef(
 
     return (
       <Box className={cx(classes.container, className)}>
-        {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} />}
+        {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} alt={alt} />}
         <MantineBadge
           rightSection={
             closable ? <RemoveIcon className={classes.closeButton} onClick={onClose} /> : null
@@ -70,6 +75,7 @@ const Badge = forwardRef(
           ref={ref}
           classNames={classes}
           className={classes.badgeRoot}
+          role={useAria ? 'status' : undefined}
         >
           {label}
         </MantineBadge>

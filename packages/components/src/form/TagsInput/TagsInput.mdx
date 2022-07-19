@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # TagsInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/TagsInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/TagsInput/TagsInput.js)
 
 ## Table of Contents
 
@@ -14,35 +14,42 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Suggestions](#suggestions)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-TagsInput is ...
+TagsInput is a component that lets you select or write tags.
 
 <ThemeProvider>
-  <TagsInput>Tags input</TagsInput>
+  <TagsInput labels={{ addButton: 'Add tag' }} />
+</ThemeProvider>
+
+## Suggestions
+
+You can provide an array of `suggestions`, to let the user select from a list.
+
+<ThemeProvider>
+  <TagsInput labels={{ addButton: 'Add tag' }} suggestions={['Cats', 'Dogs', 'Elephants']} />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-form-tags-input--playground" />
+  <Story id="organisms-form-tagsinput--playground" />
 </Preview>
 
 <Props of={TagsInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tags-input_role>)
+[MDN: ARIA Input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/tags-input/tags-input.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/TagsInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/TagsInput/TagsInput.mdx)

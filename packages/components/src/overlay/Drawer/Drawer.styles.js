@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings } from '../../theme.mixins';
 
-export const DrawerStyles = createStyles((theme, { empty, shadow }) => {
+export const DrawerStyles = createStyles((theme, { empty, shadow, contentPadding }) => {
   const header = {
     ...getPaddings(theme.spacing[3], theme.spacing[3]),
     zIndex: 9,
@@ -22,7 +22,7 @@ export const DrawerStyles = createStyles((theme, { empty, shadow }) => {
       },
     },
     content: {
-      padding: empty ? 0 : theme.spacing[7],
+      padding: empty ? 0 : !isNaN(contentPadding) ? contentPadding : theme.spacing[7],
       flex: 1,
       overflowY: 'auto',
       // padding: `0px ${theme.spacing[7]}px ${theme.spacing[7]}px ${theme.spacing[7]}px`,

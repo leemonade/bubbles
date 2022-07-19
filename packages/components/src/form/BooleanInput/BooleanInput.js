@@ -15,18 +15,30 @@ export const BOOLEAN_INPUT_SIZES = ['xs', 'sm', 'md'];
 export const BOOLEAN_INPUT_LABEL_POSITIONS = ['start', 'end'];
 
 export const BOOLEAN_INPUT_PROP_TYPES = {
+  /** Control the position of the help text */
   helpPosition: PropTypes.oneOf(BOOLEAN_INPUT_HELP_POSITIONS),
+  /** Controls the position of the label */
   labelPosition: PropTypes.oneOf(BOOLEAN_INPUT_LABEL_POSITIONS),
+  /** Controls the appearance */
   variant: PropTypes.oneOf(BOOLEAN_INPUT_VARIANTS),
+  /** Controls the displayed input */
   display: PropTypes.oneOf(BOOLEAN_INPUT_DISPLAYS),
+  /** Controls the indeterminate state */
   indeterminate: PropTypes.bool,
+  /** Controls the disabled state */
   disabled: PropTypes.bool,
+  /** Function called when the value changes */
   onChange: PropTypes.func,
-  value: PropTypes.any,
+  /** Input label */
   label: PropTypes.string,
+  /** Input help */
   help: PropTypes.string,
+  /** Input boolean value*/
   checked: PropTypes.bool,
+  /** Controls the input size */
   size: PropTypes.oneOf(BOOLEAN_INPUT_SIZES),
+  /** Controls if BooleanInput uses aria role */
+  useAria: PropTypes.bool,
 };
 
 export const BOOLEAN_INPUT_DEFAULT_PROPS = {
@@ -43,6 +55,7 @@ export const BOOLEAN_INPUT_DEFAULT_PROPS = {
   label: '',
   help: '',
   error: '',
+  useAria: true,
 };
 
 const BooleanInput = forwardRef(
@@ -60,6 +73,7 @@ const BooleanInput = forwardRef(
       label,
       onChange,
       indeterminate,
+      useAria,
       ...props
     },
     ref
@@ -99,6 +113,7 @@ const BooleanInput = forwardRef(
               checked={isChecked}
               onChange={handleOnChange}
               indeterminate={indeterminate}
+              useAria={useAria}
             />
           ) : (
             <Switch
@@ -108,6 +123,7 @@ const BooleanInput = forwardRef(
               label={required ? `${label} *` : label}
               checked={isChecked}
               onChange={handleOnChange}
+              useAria={useAria}
             />
           )}
           {help && (

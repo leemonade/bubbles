@@ -10,14 +10,16 @@ import { TableStyles } from './Table.styles';
 export const TABLE_DEFAULT_PROPS = {
   columns: [],
   data: [],
+  useAria: true,
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
   data: PropTypes.arrayOf(PropTypes.any),
   onChangeData: PropTypes.func,
+  useAria: PropTypes.bool,
 };
 
-const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData }) => {
+const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData, useAria }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -48,6 +50,7 @@ const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData })
       {...getTableProps({
         className: classes.root,
       })}
+      role={useAria ? 'table' : undefined}
     >
       <thead>
         {headerGroups.map((headerGroup) => (
@@ -89,7 +92,7 @@ const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData })
                       className: classes.td,
                     })}
                   >
-                    <TableCell cell={cell} onChangeCell={onChangeCell} />
+                    <TableCell cell={cell} onChangeCell={onChangeCell} useAria={useAria} />
                   </td>
                 );
               })}

@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { UnderlineTool } from './UnderlineTool';
+import mdx from './UnderlineTool.mdx';
 
 export default {
   title: 'Atom/Tool/UnderlineTool',
   parameters: {
     component: UnderlineTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

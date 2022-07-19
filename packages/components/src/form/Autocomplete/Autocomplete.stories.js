@@ -100,4 +100,5 @@ withAvatar.args = {
       />
     </div>
   )),
+  ariaLabel: 'Student',
 };

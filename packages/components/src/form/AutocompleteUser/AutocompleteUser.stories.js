@@ -83,4 +83,5 @@ Playground.args = {
   ],
   nothingFoundLabel: 'No maches found',
   itemPadding: 4,
+  ariaLabel: 'Student',
 };

@@ -1,12 +1,13 @@
 import { Box, COLORS } from '@bubbles-ui/components';
 import { Card, CARD_DEFAULT_PROPS } from './Card';
+import mdx from './Card.mdx';
 
 export default {
   title: 'Atom/Form/Card',
   parameters: {
     component: Card,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

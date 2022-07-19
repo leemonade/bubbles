@@ -4,7 +4,7 @@ import { TEXT_EDITOR_INPUT_DEFAULT_PROPS } from './TextEditorInput.constants';
 import mdx from './TextEditorInput.mdx';
 
 export default {
-  title: 'Molecules/Form/TextEditorInput',
+  title: 'Organism/Form/TextEditorInput',
   parameters: {
     component: TextEditorInput,
     docs: {

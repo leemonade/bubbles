@@ -20,6 +20,7 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   single: false,
   initialFiles: [],
   inputWrapperProps: {},
+  useAria: true,
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -40,6 +41,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
   accept: PropTypes.arrayOf(PropTypes.string),
+  useAria: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -57,6 +59,7 @@ const FileUpload = ({
   inputWrapperProps = {},
   initialFiles,
   accept,
+  useAria,
   ...props
 }) => {
   const openRef = useRef();
@@ -122,6 +125,7 @@ const FileUpload = ({
               <SynchronizeArrowIcon /> <span style={{ marginLeft: 8 }}>Browse file again</span>
             </>
           }
+          useAria={useAria}
         >
           {errorMessage.message}
         </Alert>

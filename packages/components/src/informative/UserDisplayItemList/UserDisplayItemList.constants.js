@@ -7,6 +7,7 @@ export const USER_DISPLAY_ITEM_LIST_DEFAULT_PROPS = {
   },
   limit: 3,
   data: [],
+  useAria: true,
 };
 export const USER_DISPLAY_ITEM_LIST_PROP_TYPES = {
   data: PropTypes.arrayOf(
@@ -21,4 +22,5 @@ export const USER_DISPLAY_ITEM_LIST_PROP_TYPES = {
     showMore: PropTypes.string,
     showLess: PropTypes.string,
   }),
+  useAria: PropTypes.bool,
 };

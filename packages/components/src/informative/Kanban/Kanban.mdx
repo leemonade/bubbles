@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Kanban
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/Kanban>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Kanban/Kanban.js)
 
 ## Table of Contents
 
@@ -15,15 +15,61 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Kanban is ...
+Kanban is a component that displays a kanban board. You must provide a `value` which consists of a columns array property,
+the items of the this array will have this shape:
+
+```js
+{
+  id: '734c8a98-ce1b-4d8a-912f-f65eeb850f24',
+  title: 'Column title',
+  cards: [
+    {
+      id: 'a5182556-be4e-452f-ad42-36c3490d2771',
+      title: 'Task title',
+      calendar: '9c1ec044-beb7-4f86-b1db-0c8b365ee786',
+      startDate: '2022-01-05T09:03:10.000Z',
+      endDate: '2022-01-06T09:03:10.000Z',
+      isAllDay: 0,
+      repeat: 'dont_repeat',
+      type: 'plugins.calendar.task',
+      status: 'active',
+      data: { column: '734c8a98-ce1b-4d8a-912f-f65eeb850f24' },
+      deleted: 0,
+      created_at: '2022-01-24T09:59:27.000Z',
+      updated_at: '2022-01-24T10:00:16.000Z',
+      deleted_at: null,
+      fromCalendar: true,
+      disableDrag: false,
+    },
+  ],
+}
+```
+
+You can change how the task is rendered with the `itemRenderer` prop
 
 <ThemeProvider>
-  <Kanban>Kanban</Kanban>
+  <Box style={{ height: 200 }}>
+    <Kanban
+      value={{
+        columns: [
+          {
+            id: 'id1',
+            title: 'Column title',
+            cards: [
+              { id: 'task1', title: 'Task 1' },
+              { id: 'task4', title: 'Task 4' },
+            ],
+          },
+          { id: 'id2', title: 'Column 2 title', cards: [{ id: 'task2', title: 'Task 2' }] },
+          { id: 'id3', title: 'Column 3 title', cards: [{ id: 'task3', title: 'Task 3' }] },
+        ],
+      }}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -34,15 +80,7 @@ Kanban is ...
 
 <Props of={Kanban} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/kanban_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/kanban/kanban.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/Kanban.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Kanban/Kanban.mdx)

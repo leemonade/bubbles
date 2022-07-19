@@ -21,6 +21,7 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
           backgroundColor: theme.colors.interactive01,
         },
       },
+      marginRight: 0,
     },
     container: {
       display: 'flex',
@@ -33,6 +34,7 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
     title: {
       ...getFontProductive(theme.fontSizes['2'], 500),
       marginTop: help !== '' && isBottom ? pxToRem(1.5) : null,
+      marginLeft: 12,
       color: isIcon ? (checked ? theme.colors.text01 : theme.colors.text02) : theme.colors.text01,
       lineHeight: pxToRem(17),
     },
