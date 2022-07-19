@@ -5,6 +5,7 @@ export const SCORE_FEEDBACK_DEFAULT_PROPS = {
     label: '',
     grade: 0,
     minimumGrade: 0,
+    decimalNumbers: 2,
   },
   styles: {},
   className: '',
@@ -16,6 +17,7 @@ export const SCORE_FEEDBACK_PROP_TYPES = {
     label: PropTypes.string,
     grade: PropTypes.number,
     minimumGrade: PropTypes.number,
+    decimalNumbers: PropTypes.number,
   }),
   /** The content that is shown inside ScoreFeedback */
   children: PropTypes.node,

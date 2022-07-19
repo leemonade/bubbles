@@ -85,5 +85,6 @@ Playground.args = {
     grade: 5.2,
     label: 'SB',
     showOnlyLabel: false,
+    decimalNumbers: 2,
   },
 };
