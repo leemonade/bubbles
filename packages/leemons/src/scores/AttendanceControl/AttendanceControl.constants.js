@@ -10,6 +10,7 @@ export const ATTENDANCE_CONTROL_DEFAULT_PROPS = {
   },
   students: [],
   attendance: [],
+  fixedFooter: false,
 };
 export const ATTENDANCE_CONTROL_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -31,5 +32,7 @@ export const ATTENDANCE_CONTROL_PROP_TYPES = {
       status: PropTypes.oneOf(STUDENT_STATUSES),
     })
   ),
+  fixedFooter: PropTypes.bool,
   onSave: PropTypes.func,
+  onChange: PropTypes.func,
 };
