@@ -40,6 +40,7 @@ const AttendanceControlDrawer = ({
       onBack={handleOnBack}
     >
       <AttendanceControl
+        fixedFooter={true}
         {...props}
         {...{ labels, classTitle, students, value, onSave, onChange }}
       />

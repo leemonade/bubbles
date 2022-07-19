@@ -6,11 +6,12 @@ import {
   getFontProductive,
 } from '@bubbles-ui/components';
 
-export const AttendanceControlStyles = createStyles((theme, { isFullScrolled }) => {
+export const AttendanceControlStyles = createStyles((theme, { fixedFooter, isFullScrolled }) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
       height: '100%',
+      overflow: fixedFooter && 'hidden',
     },
     header: {
       display: 'flex',
@@ -20,8 +21,9 @@ export const AttendanceControlStyles = createStyles((theme, { isFullScrolled }) 
     },
     controlWrapper: {
       backgroundColor: theme.colors.ui03,
-      maxHeight: 'calc(100% - 164.8px)',
-      overflowY: 'auto',
+      paddingBottom: !fixedFooter && 8,
+      maxHeight: fixedFooter && 'calc(100% - 164.8px)',
+      overflowY: fixedFooter && 'auto',
       '::-webkit-scrollbar': {
         display: 'block',
         overflow: 'auto',
@@ -88,7 +90,7 @@ export const AttendanceControlStyles = createStyles((theme, { isFullScrolled }) 
       padding: 16,
       display: 'flex',
       justifyContent: 'flex-end',
-      boxShadow: !isFullScrolled && '0px -4px 60px 0px rgba(0, 0, 0, 0.15)',
+      boxShadow: fixedFooter && !isFullScrolled && '0px -4px 60px 0px rgba(0, 0, 0, 0.15)',
       transition: 'box-shadow 0.3s',
     },
   };
