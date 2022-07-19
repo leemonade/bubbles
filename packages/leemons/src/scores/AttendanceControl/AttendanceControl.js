@@ -13,7 +13,16 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
-const AttendanceControl = ({ labels, classTitle, students, value, onSave, onChange, ...props }) => {
+const AttendanceControl = ({
+  labels,
+  classTitle,
+  students,
+  value,
+  fixedFooter,
+  onSave,
+  onChange,
+  ...props
+}) => {
   const [attendanceControl, setAttendanceControl] = useState(value);
   const [allPresent, setAllPresent] = useState(false);
   const [isFullScrolled, setIsFullScrolled] = useState(false);
@@ -50,7 +59,7 @@ const AttendanceControl = ({ labels, classTitle, students, value, onSave, onChan
   }, [value]);
 
   const { classes, cx } = AttendanceControlStyles(
-    { isFullScrolled },
+    { isFullScrolled, fixedFooter },
     { name: 'AttendanceControl' }
   );
   return (
