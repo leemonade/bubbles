@@ -72,23 +72,30 @@ const Drawer = ({
       classNames={classes}
       aria-label={modalAriaLabel}
     >
-      <Box className={classes.header}>
-        <Stack fullWidth justifyContent={justifyContent}>
-          {back && back !== '' ? (
-            <ActionButton icon={<ChevronLeftIcon />} label={back} onClick={onBack} tooltip={back} />
-          ) : null}
+      {(close || back) && (
+        <Box className={classes.header}>
+          <Stack fullWidth justifyContent={justifyContent}>
+            {back && back !== '' ? (
+              <ActionButton
+                icon={<ChevronLeftIcon />}
+                label={back}
+                onClick={onBack}
+                tooltip={back}
+              />
+            ) : null}
 
-          {header ? header : null}
+            {header ? header : null}
 
-          {close ? (
-            <ActionButton
-              icon={<RemoveIcon />}
-              onClick={onClose}
-              tooltip={isString(close) && trim(close) !== '' ? close : null}
-            />
-          ) : null}
-        </Stack>
-      </Box>
+            {close ? (
+              <ActionButton
+                icon={<RemoveIcon />}
+                onClick={onClose}
+                tooltip={isString(close) && trim(close) !== '' ? close : null}
+              />
+            ) : null}
+          </Stack>
+        </Box>
+      )}
       <Box className={classes.content}>{children}</Box>
     </MantineDrawer>
   );
