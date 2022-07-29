@@ -6,10 +6,10 @@ import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
 import { Text, TEXT_ROLES } from '../../typography';
-
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
+import { AVATAR_STATE } from '../Avatar/Avatar.constants';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -27,6 +27,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   name: PropTypes.string,
   surnames: PropTypes.string,
   avatar: PropTypes.string,
+  state: PropTypes.oneOf(AVATAR_STATE),
   rol: PropTypes.string,
   center: PropTypes.string,
   email: PropTypes.string,
@@ -44,6 +45,7 @@ const UserDisplayItem = (properties) => {
     name,
     surnames,
     avatar,
+    state,
     severity,
     rol,
     center,
@@ -99,6 +101,7 @@ const UserDisplayItem = (properties) => {
         image={avatar}
         fullName={userFullName}
         size={avatarSize}
+        state={state}
         alt={`Avatar of ${userFullName}`}
       />
       <Box

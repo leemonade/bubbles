@@ -32,7 +32,36 @@ const getSizes = (size, spacing) => {
   }[size];
 };
 
-export const AvatarStyles = createStyles((theme, { size, color }) => {
+const getActivityStatus = (size) => {
+  return {
+    xs: {
+      height: 8,
+      width: 8,
+      bottom: 0,
+      right: 0,
+    },
+    sm: {
+      height: 10,
+      width: 10,
+      bottom: 0,
+      right: 0,
+    },
+    md: {
+      height: 14,
+      width: 14,
+      bottom: 0,
+      right: 0,
+    },
+    lg: {
+      height: 28,
+      width: 28,
+      bottom: 4,
+      right: 4,
+    },
+  }[size];
+};
+
+export const AvatarStyles = createStyles((theme, { size, color, activityStatus }) => {
   let placeholder = {};
   if (size === 'xs') {
     placeholder.fontSize = '11px';
@@ -76,6 +105,13 @@ export const AvatarStyles = createStyles((theme, { size, color }) => {
       top: 0,
       right: 0,
       transform: 'translateY(2%)',
+    },
+    avatarActivity: {
+      position: 'absolute',
+      borderRadius: '50%',
+      border: `1px solid ${theme.colors.mainWhite}`,
+      backgroundColor: theme.colors.fatic02,
+      ...getActivityStatus(size, activityStatus),
     },
   };
 });

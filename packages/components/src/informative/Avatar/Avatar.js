@@ -5,13 +5,27 @@ import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
 import { ExclamationIcon } from '@heroicons/react/solid';
 import { AvatarStyles } from './Avatar.styles';
 import { stringToHslColor } from '../../helpers';
-
-export const AVATAR_SIZES = ['xs', 'sm', 'md', 'lg'];
-export const AVATAR_STATE = ['normal', 'alert', 'notifications', 'error'];
+import {
+  AVATAR_DEFAULT_PROPS,
+  AVATAR_PROP_TYPES,
+  AVATAR_SIZES,
+  AVATAR_STATE,
+} from './Avatar.constants';
 
 const Avatar = forwardRef(
   (
-    { image, icon, color, initials, fullName, size: sizeProp, state: stateProp, alt, ...props },
+    {
+      image,
+      icon,
+      color,
+      initials,
+      fullName,
+      size: sizeProp,
+      state: stateProp,
+      activityStatus,
+      alt,
+      ...props
+    },
     ref
   ) => {
     const size = AVATAR_SIZES.includes(sizeProp) ? sizeProp : 'sm';
@@ -29,8 +43,24 @@ const Avatar = forwardRef(
       }
     }
 
-    const { classes, cx } = AvatarStyles({ color, size });
+    const renderState = () => {
+      return {
+        notifications: (
+          <Text componet="span" className={classes.avatarBadgeNumber}>
+            2
+          </Text>
+        ),
+        alert: <Text componet="span" className={classes.avatarBadge} />,
+        error: (
+          <Text componet="span" className={classes.avatarError}>
+            <ExclamationIcon />{' '}
+          </Text>
+        ),
+        activity: <Box className={classes.avatarActivity}></Box>,
+      }[state];
+    };
 
+    const { classes, cx } = AvatarStyles({ color, size, activityStatus });
     return image ? (
       <Box className={classes.avatarWrapper}>
         <MantineAvatar
@@ -42,17 +72,7 @@ const Avatar = forwardRef(
           state={state}
           alt={alt}
         />
-        {state === 'notifications' && (
-          <Text componet="span" className={classes.avatarBadgeNumber}>
-            2
-          </Text>
-        )}
-        {state === 'alert' && <Text componet="span" className={classes.avatarBadge} />}
-        {state === 'error' && (
-          <Text componet="span" className={classes.avatarError}>
-            <ExclamationIcon />{' '}
-          </Text>
-        )}
+        {renderState()}
       </Box>
     ) : (
       <Box className={classes.avatarWrapper}>
@@ -68,36 +88,14 @@ const Avatar = forwardRef(
         >
           {icon ? icon : initials}
         </MantineAvatar>
-        {state === 'notifications' && (
-          <Text componet="span" className={classes.avatarBadgeNumber}>
-            2
-          </Text>
-        )}
-        {state === 'alert' && <Text componet="span" className={classes.avatarBadge} />}
-        {state === 'error' && (
-          <Text componet="span" className={classes.avatarError}>
-            <ExclamationIcon />{' '}
-          </Text>
-        )}
+        {renderState()}
       </Box>
     );
   }
 );
 
-Avatar.defaultProps = {
-  size: 'sm',
-  state: 'normal',
-};
+Avatar.defaultProps = AVATAR_DEFAULT_PROPS;
 
-Avatar.propTypes = {
-  image: PropTypes.string,
-  size: PropTypes.oneOf(AVATAR_SIZES),
-  state: PropTypes.oneOf(AVATAR_STATE),
-  color: PropTypes.string,
-  initials: PropTypes.string,
-  fullName: PropTypes.string,
-  icon: PropTypes.any,
-  alt: PropTypes.string,
-};
+Avatar.propTypes = AVATAR_PROP_TYPES;
 
 export { Avatar };
