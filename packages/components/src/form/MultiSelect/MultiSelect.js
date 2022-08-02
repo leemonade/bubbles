@@ -11,7 +11,7 @@ import {
   MULTI_SELECT_DEFAULT_PROPS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_PROP_TYPES,
-  MULTI_SELECT_SIZES,
+  MULTI_SELECT_SIZES
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
 
@@ -99,6 +99,8 @@ const MultiSelect = forwardRef(
       { name: 'MultiSelect' }
     );
 
+    console.log('En el multi', show);
+
     return (
       <InputWrapper
         uuid={uuid}
@@ -114,17 +116,17 @@ const MultiSelect = forwardRef(
           <>
             {value
               ? value.map((v) => {
-                  const data = find(props.data, { value: v });
-                  if (data) {
-                    if (valueComponent) {
-                      return <valueComponent {...data} />;
-                    } else {
-                      return <Badge label={data?.label} closable={false} />;
-                    }
+                const data = find(props.data, { value: v });
+                if (data) {
+                  if (valueComponent) {
+                    return <valueComponent {...data} />;
+                  } else {
+                    return <Badge label={data?.label} closable={false} />;
                   }
-                  //
-                  return null;
-                })
+                }
+                //
+                return null;
+              })
               : null}
           </>
         ) : (
@@ -134,7 +136,7 @@ const MultiSelect = forwardRef(
                 ref={multiSelectRef}
                 size={size}
                 value={multiple ? value : [value]}
-                autoComplete="off"
+                autoComplete='off'
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
@@ -142,10 +144,10 @@ const MultiSelect = forwardRef(
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (
-                        <GetValueComponent
-                          others={{ ...componentInfo, Component: valueComponent }}
-                        />
-                      )
+                      <GetValueComponent
+                        others={{ ...componentInfo, Component: valueComponent }}
+                      />
+                    )
                     : undefined
                 }
                 rightSection={

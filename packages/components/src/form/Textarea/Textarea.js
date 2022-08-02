@@ -1,8 +1,8 @@
-import React, { useEffect, forwardRef, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useId } from '@mantine/hooks';
 import { Textarea as MantineTextarea } from '@mantine/core';
-import { isEmpty, isFunction, isNumber, isNil } from 'lodash';
+import { isEmpty, isFunction, isNil, isNumber } from 'lodash';
 import { Box } from '../../layout';
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
 import { TextareaStyles } from './Textarea.styles';
@@ -21,7 +21,7 @@ export const TEXTAREA_DEFAULT_PROPS = {
   showCounter: false,
   maxLength: false,
   counter: TEXTAREA_COUNTERS[0],
-  counterLabels: null,
+  counterLabels: null
 };
 
 export const TEXTAREA_PROP_TYPES = {
@@ -31,7 +31,7 @@ export const TEXTAREA_PROP_TYPES = {
   showCounter: PropTypes.bool,
   maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   counter: PropTypes.oneOf(TEXTAREA_COUNTERS),
-  counterLabels: PropTypes.object,
+  counterLabels: PropTypes.object
 };
 
 const Textarea = forwardRef(
@@ -54,6 +54,8 @@ const Textarea = forwardRef(
       counter,
       counterLabels,
       autoComplete,
+      onKeyPress = () => {
+      },
       ...props
     },
     ref
@@ -135,6 +137,7 @@ const Textarea = forwardRef(
               size={size}
               autosize={autosize}
               minRows={minRows}
+              onKeyPress={onKeyPress}
               placeholder={placeholder}
               name={name}
               disabled={disabled}

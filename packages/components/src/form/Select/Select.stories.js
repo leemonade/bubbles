@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react';
+import _ from 'lodash';
 import { UserDisplayItem } from '../..';
 import { Box } from '../../layout';
 import { Select } from './Select';
-import { SELECT_SIZES, SELECT_ORIENTATIONS, SELECT_VARIANTS } from './Select.constants';
+import { SELECT_ORIENTATIONS, SELECT_SIZES, SELECT_VARIANTS } from './Select.constants';
 import mdx from './Select.mdx';
 
 export default {
@@ -10,36 +11,46 @@ export default {
   parameters: {
     component: Select,
     docs: {
-      page: mdx,
+      page: mdx
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3649%3A33102',
-    },
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3649%3A33102'
+    }
   },
   argTypes: {
     size: { options: SELECT_SIZES, control: { type: 'select' } },
     orientation: { options: SELECT_ORIENTATIONS, control: { type: 'select' } },
     variant: { options: SELECT_VARIANTS, control: { type: 'select' } },
-    onChange: { action: 'Value changed' },
-  },
+    onChange: { action: 'Value changed' }
+  }
 };
 
-const Template = ({ value: valueProp, useValueComponent, onChange, ...props }) => {
+const Template = ({ value: valueProp, useValueComponent, onChange, data, ...props }) => {
   const CustomValueComponent = forwardRef(({ label }, ref) => {
     return <UserDisplayItem name={label} />;
   });
-
+  const [filterData, setFilterData] = React.useState(data);
   const [value, setValue] = React.useState(valueProp);
+
+  function search(e) {
+    setFilterData(_.filter(data, ({ label }) => label.indexOf(e) >= 0));
+  }
+
+  console.log(filterData);
+
   return (
     <Box>
       <Select
         {...props}
+        data={filterData}
         value={value}
+        searchable
         onChange={(e) => {
           setValue(e);
           onChange(e);
         }}
+        onSearchChange={search}
         valueComponent={useValueComponent ? CustomValueComponent : undefined}
       />
     </Box>
@@ -69,26 +80,26 @@ Playground.args = {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
       label: 'Bender Bending Rodríguez',
       value: 'Bender Bending Rodríguez',
-      description: 'Fascinated with cooking',
+      description: 'Fascinated with cooking'
     },
 
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
       label: 'Carol Miller',
       value: 'Carol Miller',
-      description: 'One of the richest people on Earth',
+      description: 'One of the richest people on Earth'
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
       label: 'Homer Simpson',
       value: 'Homer Simpson',
-      description: 'Overweight, lazy, and often ignorant',
+      description: 'Overweight, lazy, and often ignorant'
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
       label: 'Spongebob Squarepants',
       value: 'Spongebob Squarepants',
-      description: 'Not just a sponge',
-    },
-  ],
+      description: 'Not just a sponge'
+    }
+  ]
 };
