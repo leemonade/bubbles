@@ -11,7 +11,7 @@ import {
   MULTI_SELECT_DEFAULT_PROPS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_PROP_TYPES,
-  MULTI_SELECT_SIZES
+  MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
 
@@ -40,6 +40,7 @@ const MultiSelect = forwardRef(
       readOnly,
       error,
       clearable,
+      searchable,
       multiple,
       maxSelectedValues,
       valueComponent,
@@ -58,7 +59,7 @@ const MultiSelect = forwardRef(
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
     const multiSelectRef = useRef();
-    if (!multiple) maxSelectedValues = 3;
+    if (!multiple) maxSelectedValues = 2;
 
     // ······················································
     // HANDLERS
@@ -66,8 +67,8 @@ const MultiSelect = forwardRef(
 
     const handleChange = (ev) => {
       if (!multiple && isFunction(onChange)) {
-        const selectedValue = ev.pop();
-        onChange(selectedValue);
+        const selectedValue = ev?.pop();
+        onChange(selectedValue ? [selectedValue] : undefined);
         multiSelectRef.current.blur();
         multiSelectRef.current.focus();
         return;
@@ -78,7 +79,7 @@ const MultiSelect = forwardRef(
     };
 
     const handleClear = () => {
-      handleChange(multiple ? [] : [undefined]);
+      handleChange(undefined);
     };
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
@@ -95,11 +96,9 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear, multiple },
+      { size, rightEvents: isClearable && showClear },
       { name: 'MultiSelect' }
     );
-
-    console.log('En el multi', show);
 
     return (
       <InputWrapper
@@ -116,38 +115,39 @@ const MultiSelect = forwardRef(
           <>
             {value
               ? value.map((v) => {
-                const data = find(props.data, { value: v });
-                if (data) {
-                  if (valueComponent) {
-                    return <valueComponent {...data} />;
-                  } else {
-                    return <Badge label={data?.label} closable={false} />;
+                  const data = find(props.data, { value: v });
+                  if (data) {
+                    if (valueComponent) {
+                      return <valueComponent {...data} />;
+                    } else {
+                      return <Badge label={data?.label} closable={false} />;
+                    }
                   }
-                }
-                //
-                return null;
-              })
+                  //
+                  return null;
+                })
               : null}
           </>
         ) : (
           <>
-            {show ? (
+            {show && (
               <MantineMultiSelect
                 ref={multiSelectRef}
                 size={size}
-                value={multiple ? value : [value]}
-                autoComplete='off'
+                value={value}
+                autoComplete="off"
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
+                searchable={searchable}
                 dropdownPosition={dropdownPosition}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (
-                      <GetValueComponent
-                        others={{ ...componentInfo, Component: valueComponent }}
-                      />
-                    )
+                        <GetValueComponent
+                          others={{ ...componentInfo, Component: valueComponent }}
+                        />
+                      )
                     : undefined
                 }
                 rightSection={
@@ -169,7 +169,7 @@ const MultiSelect = forwardRef(
                 aria-label={label || ariaLabel}
                 {...props}
               />
-            ) : null}
+            )}
           </>
         )}
       </InputWrapper>
