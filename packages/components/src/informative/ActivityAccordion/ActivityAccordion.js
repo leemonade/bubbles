@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Accordion } from '@mantine/core';
 import { Box, Stack } from '../../layout';
 import { Text } from '../../typography';
@@ -9,12 +8,18 @@ import {
   ACTIVITY_ACCORDION_PROP_TYPES,
 } from './ActivityAccordion.constants';
 
-function AccordionLabel({ label, icon, rightSection }) {
+function AccordionLabel({ label, icon, rightSection, compact, classes }) {
   return (
     <Stack fullWidth alignItems="center">
       <Stack fullWidth justifyContent="start" alignItems="center" spacing={4}>
-        {icon ? React.cloneElement(icon, { width: 22, height: 22 }) : null}
-        <Text size="md" strong color="primary" role="productive">
+        {icon
+          ? React.cloneElement(icon, {
+              width: compact ? 16 : 22,
+              height: compact ? 16 : 22,
+              className: classes.labelIcon,
+            })
+          : null}
+        <Text size="md" strong color="primary" role="productive" className={classes.label}>
           {label}
         </Text>
       </Stack>
@@ -23,15 +28,17 @@ function AccordionLabel({ label, icon, rightSection }) {
   );
 }
 
-const ActivityAccordion = ({ children, ...props }) => {
-  const { classes, cx } = ActivityAccordionStyles({}, { name: 'ActivityAccordion' });
+const ActivityAccordion = ({ children, compact, ...props }) => {
+  const { classes, cx } = ActivityAccordionStyles({ compact }, { name: 'ActivityAccordion' });
 
   return (
     <Accordion {...props} className={classes.root} classNames={classes} iconPosition="right">
       {React.Children.map(children, (child) => {
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
-          <Accordion.Item label={<AccordionLabel {...panelProps} />}>
+          <Accordion.Item
+            label={<AccordionLabel {...panelProps} compact={compact} classes={classes} />}
+          >
             <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
               {panelContent}
             </Box>
