@@ -15,30 +15,30 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   padded: false,
   divided: false,
   spacing: 5,
-  direction: 'column'
+  direction: 'column',
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
-  spacing: PropTypes.number
+  spacing: PropTypes.number,
 };
 
 const ContextContainer = ({
-                            children,
-                            className,
-                            title,
-                            subtitle,
-                            description,
-                            padded,
-                            divided,
-                            spacing,
-                            direction,
-                            fullHeight,
-                            style,
-                            ...props
-                          }) => {
+  children,
+  className,
+  title,
+  subtitle,
+  description,
+  padded,
+  divided,
+  spacing,
+  direction,
+  fullHeight,
+  style,
+  ...props
+}) => {
   const { classes, cx } = ContextContainerStyles({ padded });
   const hasTitle = useMemo(() => !isEmpty(title), [title]);
   const hasSubtitle = useMemo(() => !isEmpty(subtitle), [subtitle]);
@@ -67,15 +67,16 @@ const ContextContainer = ({
 
   return (
     <Stack
-      direction='column'
+      direction="column"
       spacing={5}
       fullWidth
       className={cx(classes.root, className)}
       fullHeight={fullHeight}
       style={style}
+      {...props}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
-        <Stack direction='column' spacing={2} noFlex fullWidth>
+        <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
             <Box>
               <Title order={3}>{title}</Title>
@@ -88,13 +89,15 @@ const ContextContainer = ({
           )}
           {hasDescription && (
             <Box>
-              <Paragraph className={classes.description}
-                         dangerouslySetInnerHTML={{ __html: description }} />
+              <Paragraph
+                className={classes.description}
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             </Box>
           )}
         </Stack>
       )}
-      <Stack {...props} direction={direction} spacing={spacing} fullWidth fullHeight={fullHeight}>
+      <Stack direction={direction} spacing={spacing} fullWidth fullHeight={fullHeight}>
         {childrenNodes}
       </Stack>
     </Stack>
