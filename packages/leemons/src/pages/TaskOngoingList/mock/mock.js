@@ -16,6 +16,7 @@ export const mock = {
       deadline: 'Deadline',
       deadlineExtraTime: 'Add extra time',
       closeTask: 'Close task',
+      archiveTask: 'Archive task',
       save: 'Save',
       cancel: 'Cancel',
     },
