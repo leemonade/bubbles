@@ -19,7 +19,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
@@ -89,10 +89,7 @@ const ContextContainer = ({
           )}
           {hasDescription && (
             <Box>
-              <Paragraph
-                className={classes.description}
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
+              <Paragraph className={classes.description}>{description}</Paragraph>
             </Box>
           )}
         </Stack>
