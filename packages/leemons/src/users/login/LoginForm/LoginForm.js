@@ -50,11 +50,16 @@ const LoginForm = ({
 }) => {
   const { classes, cx } = LoginFormStyles({});
 
+  const defaultValues = {
+    email: '',
+    password: '',
+  };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   const recoveryProps = {};
   if (useRouter) {
