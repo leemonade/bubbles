@@ -67,7 +67,7 @@ const LoginForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ContextContainer title={labels.title}>
+      <ContextContainer title={labels.title} {...props}>
         {formError && <Alert severity="error">{formError}</Alert>}
 
         <Controller
