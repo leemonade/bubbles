@@ -89,7 +89,11 @@ const ContextContainer = ({
           )}
           {hasDescription && (
             <Box>
-              <Paragraph className={classes.description}>{description}</Paragraph>
+              {typeof description === 'string' ? (
+                <Paragraph className={classes.description}>{description}</Paragraph>
+              ) : (
+                description
+              )}
             </Box>
           )}
         </Stack>
