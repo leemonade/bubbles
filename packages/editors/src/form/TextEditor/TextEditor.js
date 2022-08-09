@@ -37,7 +37,7 @@ const TextEditor = ({ content, library, children, onChange, editorClassname }) =
 
   const onUpdate = () => {
     let html = editor.getHTML();
-    const match = html.match(/<p.+>(.+?)<\/p>/);
+    const match = html.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
     if (!Boolean(match) || (isObject(match) && match[1] === '')) {
       html = null;
     }
