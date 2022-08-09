@@ -37,6 +37,10 @@ const ContextContainer = ({
   direction,
   fullHeight,
   style,
+  alignItems,
+  justifyContent,
+  wrap,
+  alignContent,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -98,7 +102,16 @@ const ContextContainer = ({
           )}
         </Stack>
       )}
-      <Stack direction={direction} spacing={spacing} fullWidth fullHeight={fullHeight}>
+      <Stack
+        alignItems={alignItems}
+        justifyContent={justifyContent}
+        direction={direction}
+        spacing={spacing}
+        fullWidth
+        fullHeight={fullHeight}
+        wrap={wrap}
+        alignContent={alignContent}
+      >
         {childrenNodes}
       </Stack>
     </Stack>

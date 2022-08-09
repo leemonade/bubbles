@@ -46,8 +46,8 @@ export default [
   {
     title: 'Tarea de Computación',
     allDay: true,
-    start: DateTime.fromISO('2022-06-29T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-06-29T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -64,7 +64,7 @@ export default [
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
         updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
-        showEvents: true,
+        showEvents: true
       },
       startDate: DateTime.fromISO('2022-11-10T20:10:00.000Z').toJSDate(),
       endDate: DateTime.fromISO('2022-11-15T11:00:00.000Z').toJSDate(),
@@ -74,9 +74,10 @@ export default [
       status: 'active',
       data: null,
       created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
-      updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
-    },
-  },
+      updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate()
+    }
+  }
+  /*
   {
     title: 'Evento de Biología',
     allDay: true,
@@ -98,7 +99,7 @@ export default [
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-06-25T19:35:54.000Z').toJSDate(),
         updated_at: DateTime.fromISO('2022-06-25T19:35:54.000Z').toJSDate(),
-        showEvents: true,
+        showEvents: true
       },
       startDate: DateTime.fromISO('2022-06-14T00:00:00.000Z').toJSDate(),
       endDate: DateTime.fromISO('2022-06-17T00:00:00.000Z').toJSDate(),
@@ -108,9 +109,11 @@ export default [
       status: 'active',
       data: null,
       created_at: DateTime.fromISO('2021-06-25T19:35:54.000Z').toJSDate(),
-      updated_at: DateTime.fromISO('2021-06-25T19:35:54.000Z').toJSDate(),
-    },
-  },
+      updated_at: DateTime.fromISO('2021-06-25T19:35:54.000Z').toJSDate()
+    }
+  }
+
+   */
   /*
   {
     title: 'Evento de Matematicas',
