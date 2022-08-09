@@ -31,7 +31,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, firstDayOfWeek = 1, ...
     const week = find(weekDays, { index: dayWeek });
     return (
       <Text key={`${day}-${start}-${end}`} role='productive' transform='capitalize' truncated>{`${
-        week.label
+        week?.label
       } ${formatTime(start)}-${formatTime(end)}`}</Text>
     );
   };
