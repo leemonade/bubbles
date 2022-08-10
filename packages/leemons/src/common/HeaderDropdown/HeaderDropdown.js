@@ -5,14 +5,14 @@ import {
   ImageLoader,
   SearchInput,
   Text,
-  TextClamp,
+  TextClamp
 } from '@bubbles-ui/components';
 import { isEmpty, isFunction, isNil } from 'lodash';
 import { useClickOutside } from '@mantine/hooks';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
 import {
   HEADER_DROPDOWN_DEFAULT_PROPS,
-  HEADER_DROPDOWN_PROP_TYPES,
+  HEADER_DROPDOWN_PROP_TYPES
 } from './HeaderDropdown.constants';
 import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 
@@ -24,14 +24,14 @@ const normalizeString = (string) => {
 };
 
 const HeaderDropdown = ({
-  data,
-  placeholder,
-  itemComponent,
-  valueComponent,
-  value,
-  onChange,
-  ...props
-}) => {
+                          data,
+                          placeholder,
+                          itemComponent,
+                          valueComponent,
+                          value,
+                          onChange,
+                          ...props
+                        }) => {
   const [isOpened, setIsOpened] = useState(false);
   const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
@@ -65,7 +65,7 @@ const HeaderDropdown = ({
         >
           {!isNil(item?.image) && !isEmpty(item?.image) ? (
             <Box className={classes.itemImage}>
-              <ImageLoader height={40} width={40} radius="50%" src={item?.image} />
+              <ImageLoader height={40} width={40} radius='50%' src={item?.image} />
               {!isNil(item?.icon) && !isEmpty(item?.icon) ? (
                 <Box className={classes.itemComponentIcon} style={{ backgroundColor: item?.color }}>
                   <ImageLoader
@@ -79,12 +79,12 @@ const HeaderDropdown = ({
             </Box>
           ) : null}
           <TextClamp lines={1} maxLines={1}>
-            <Text className={classes.itemComponentLabel} color="primary" strong>
+            <Text className={classes.itemComponentLabel} color='primary' strong>
               {item?.label}
             </Text>
           </TextClamp>
           <TextClamp lines={1} maxLines={1}>
-            <Text className={classes.itemComponentDescription} role="productive" size="xs" stronger>
+            <Text className={classes.itemComponentDescription} role='productive' size='xs' stronger>
               {item?.description}
             </Text>
           </TextClamp>
@@ -107,8 +107,8 @@ const HeaderDropdown = ({
           <Box className={classes.valueComponent}>
             {!isNil(selectedItem?.image) && !isEmpty(selectedItem?.image) ? (
               <Box className={classes.itemImage}>
-                <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
-                {!isNil(selectedItem?.icon) && !isEmpty(selectedItem?.icon) ? (
+                <ImageLoader height={80} width={80} radius='50%' src={selectedItem?.image} />
+                {!isNil(selectedItem?.icon) && !isEmpty(selectedItem?.icon) && !isNil(selectedItem?.color) && !isEmpty(selectedItem?.color) ? (
                   <Box
                     className={classes.itemIcon}
                     style={{ backgroundColor: selectedItem?.color }}
@@ -125,11 +125,11 @@ const HeaderDropdown = ({
             ) : null}
             <Box className={classes.content}>
               <TextClamp lines={1} maxLines={1}>
-                <Text color="primary" size="lg" strong>
+                <Text color='primary' size='lg' strong>
                   {selectedItem?.label}
                 </Text>
               </TextClamp>
-              <Text role="productive" size="md" stronger>
+              <Text role='productive' size='md' stronger>
                 {selectedItem?.description}
               </Text>
             </Box>
@@ -151,7 +151,7 @@ const HeaderDropdown = ({
         <Box className={classes.searchInput}>
           <SearchInput
             placeholder={placeholder}
-            variant="filled"
+            variant='filled'
             value={filter}
             onChange={setFilter}
           />
