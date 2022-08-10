@@ -37,6 +37,7 @@ export const AUTOCOMPLETE_PROP_TYPES = {
     ),
   ]).isRequired,
   value: PropTypes.oneOfType([
+    PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(
       PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })

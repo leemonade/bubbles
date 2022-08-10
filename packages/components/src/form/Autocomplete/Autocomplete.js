@@ -32,6 +32,7 @@ const Autocomplete = forwardRef(
       waitToSearch,
       autoComplete,
       ariaLabel,
+      className,
       onItemSubmit = () => {},
       onChange = () => {},
       onSearch = () => {},
@@ -88,6 +89,7 @@ const Autocomplete = forwardRef(
             id={id || uuid}
             ref={ref}
             classNames={classes}
+            className={className}
             placeholder={placeholder}
             data={data}
             searchable={true}
@@ -113,6 +115,7 @@ const Autocomplete = forwardRef(
             placeholder={placeholder}
             itemComponent={itemComponent}
             onItemSubmit={onItemSubmitHandler}
+            className={className}
             nothingFound={nothingFoundLabel}
             rightSection={
               selectedValue && (
