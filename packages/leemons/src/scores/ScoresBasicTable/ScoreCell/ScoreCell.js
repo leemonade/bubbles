@@ -3,7 +3,7 @@ import { Box, Text, Select, IconButton, useClickOutside } from '@bubbles-ui/comp
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { ScoreCellStyles } from './ScoreCell.styles';
 import { SCORES_CELL_DEFAULT_PROPS, SCORES_CELL_PROP_TYPES } from './ScoreCell.constants';
-import { isFunction } from 'lodash';
+import { isFunction, isNil } from 'lodash';
 
 const ScoreCell = ({
   value,
@@ -88,13 +88,13 @@ const ScoreCell = ({
             </>
           ) : (
             <Text color="primary" role="productive">
-              {value || '-'}
+              {isNil(value) || '-'}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {value || '-'}
+              {isNil(value) || '-'}
             </Text>
             {isEditing && (
               <Box ref={setExpandBox} className={classes.expandIcon}>

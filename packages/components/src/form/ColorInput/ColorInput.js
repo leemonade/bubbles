@@ -55,6 +55,8 @@ export const COLOR_INPUT_PROP_TYPES = {
   compact: PropTypes.bool,
   /** Controls if color dropdown uses manual inputs */
   manual: PropTypes.bool,
+  /** Controls if only shows light colors when using useHsl*/
+  lightOnly: PropTypes.bool,
   /** Controls if ColorInput uses aria role */
   useAria: PropTypes.bool,
 };
@@ -72,6 +74,7 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   lightness: 50,
   compact: true,
   manual: false,
+  lightOnly: false,
   useAria: true,
 };
 
@@ -98,6 +101,7 @@ const ColorInput = forwardRef(
       saturation,
       lightness,
       compact,
+      lightOnly,
       onFocus = () => {},
       onBlur = () => {},
       onChange = () => {},
@@ -170,8 +174,8 @@ const ColorInput = forwardRef(
                 icon={
                   icon || (
                     <ColorSwatch
-                      pointerEvents="none"
                       color={inputValue}
+                      onClick={() => setOpened(!opened)}
                       size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
                     />
                   )
@@ -195,6 +199,7 @@ const ColorInput = forwardRef(
                 lightness={lightness}
                 compact={compact}
                 output="hex"
+                lightOnly={lightOnly}
                 onChange={setInputValue}
                 color={inputValue}
                 fullWidth

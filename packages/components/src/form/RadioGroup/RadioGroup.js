@@ -11,6 +11,7 @@ import {
   INPUT_WRAPPER_SIZES,
   InputWrapper,
 } from '../InputWrapper';
+import { isFunction } from 'lodash';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
@@ -24,6 +25,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   direction: 'row',
   size: 'sm',
   variant: RADIO_VARIANTS[0],
+  rounded: false,
   defaultValue: '',
   value: '',
   fullWidth: false,
@@ -32,6 +34,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
 export const RADIOGROUP_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
   variant: PropTypes.oneOf(RADIO_VARIANTS),
+  rounded: PropTypes.bool,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   data: PropTypes.arrayOf(Object),
   defaultValue: PropTypes.string,
@@ -54,6 +57,7 @@ const RadioGroup = forwardRef(
       size,
       orientation,
       variant,
+      rounded,
       data,
       defaultValue,
       direction,
@@ -75,7 +79,7 @@ const RadioGroup = forwardRef(
     }, [props.value]);
 
     const { classes, cx } = RadioGroupStyles(
-      { variant, value, direction, fullWidth, activePosition, hasError },
+      { variant, value, direction, fullWidth, activePosition, hasError, rounded },
       { name: 'RadioGroup' }
     );
 
@@ -93,7 +97,7 @@ const RadioGroup = forwardRef(
     const onChange = (value) => {
       const item = data.find((item) => item.value === value);
       if (!props.disabled && !item.disabled) {
-        props.onChange(value);
+        isFunction(props.onChange) && props.onChange(value);
         setValue(value);
       }
     };
@@ -107,7 +111,7 @@ const RadioGroup = forwardRef(
             const rect = element.getBoundingClientRect();
             setActivePosition({
               height: Math.floor(rect.height),
-              translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
+              // translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
             });
           }
         }
