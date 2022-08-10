@@ -29,6 +29,7 @@ const HeaderDropdown = ({
   itemComponent,
   valueComponent,
   value,
+  readOnly,
   onChange,
   ...props
 }) => {
@@ -39,7 +40,6 @@ const HeaderDropdown = ({
     data.find((item) => item?.id === value?.id) || data[0] || {}
   );
   const headerRef = useRef(null);
-  const moreThanOneData = data.length > 1;
 
   const onChangeHandler = (item) => {
     setSelectedItem(item);
@@ -139,7 +139,7 @@ const HeaderDropdown = ({
             </Box>
           </Box>
         )}
-        {moreThanOneData && (
+        {!readOnly && (
           <ActionButton
             className={classes.dropDownIcon}
             icon={
@@ -153,7 +153,7 @@ const HeaderDropdown = ({
           />
         )}
       </Box>
-      {moreThanOneData && (
+      {!readOnly && (
         <Box className={classes.dropDown}>
           <Box className={classes.searchInput}>
             <SearchInput
