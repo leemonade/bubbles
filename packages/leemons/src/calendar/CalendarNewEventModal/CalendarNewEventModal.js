@@ -45,7 +45,10 @@ const CalendarNewEventModal = ({
   const isSchoolDay = watch('dayType') === 'schoolDays';
 
   const onSubmitHandler = (event) => {
-    if (event.dayType !== 'schoolDays') delete event.withoutOrdinaryDays;
+    if (event.dayType !== 'schoolDays') {
+      delete event.withoutOrdinaryDays;
+      delete event.color;
+    }
     isFunction(onSubmit) && onSubmit(event);
   };
 
@@ -58,13 +61,14 @@ const CalendarNewEventModal = ({
       arrowSize={6}
       withArrow
       withCloseButton={false}
+      trapFocus={false}
     >
       <form onSubmit={handleSubmit(onSubmitHandler)} className={classes.root}>
         <Controller
           control={control}
           name="periodName"
           rules={{
-            required: errorMessages.periodRange,
+            validate: (v) => (v[0] ? true : errorMessages.periodName),
           }}
           render={({ field }) => (
             <Autocomplete
@@ -127,25 +131,27 @@ const CalendarNewEventModal = ({
             />
           )}
         />
-        <Controller
-          control={control}
-          name="color"
-          rules={{
-            required: errorMessages.color,
-          }}
-          render={({ field }) => (
-            <ColorInput
-              label={labels.color}
-              placeholder={placeholders.color}
-              useHsl
-              error={errors.color}
-              lightOnly
-              headerStyle={{ marginTop: 16 }}
-              compact={false}
-              {...field}
-            />
-          )}
-        />
+        {isSchoolDay && (
+          <Controller
+            control={control}
+            name="color"
+            rules={{
+              required: errorMessages.color,
+            }}
+            render={({ field }) => (
+              <ColorInput
+                label={labels.color}
+                placeholder={placeholders.color}
+                useHsl
+                error={errors.color}
+                lightOnly
+                headerStyle={{ marginTop: 16 }}
+                compact={false}
+                {...field}
+              />
+            )}
+          />
+        )}
         <Box className={classes.buttonWrapper}>
           <Button type="submit">{labels.add}</Button>
         </Box>
