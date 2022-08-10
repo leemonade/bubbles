@@ -163,6 +163,7 @@ const MultiSelect = forwardRef(
                   )
                 }
                 clearButtonLabel={clearable}
+                zIndex={299}
                 error={!isEmpty(error)}
                 classNames={classes}
                 role={useAria ? 'textbox' : undefined}
