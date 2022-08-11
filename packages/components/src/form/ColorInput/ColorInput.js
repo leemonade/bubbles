@@ -97,14 +97,27 @@ const ColorInput = forwardRef(
       value,
       icon,
       placeholder,
-      useHsl,
-      saturation,
-      lightness,
-      compact,
-      lightOnly,
       onFocus = () => {},
       onBlur = () => {},
       onChange = () => {},
+      format,
+      withSwatches,
+      swatches,
+      compact,
+      fullWidth,
+      swatchesForGama,
+      swatchesPerRow,
+      spacing,
+      useHsl,
+      lightOnly,
+      saturation,
+      lightness,
+      manual,
+      ariaSaturationLabel,
+      ariaSliderLabel,
+      ariaColorFormat,
+      ariaColorValue,
+      ariaHueValue,
       useAria,
       ...props
     },
@@ -154,6 +167,7 @@ const ColorInput = forwardRef(
         contentStyle={contentStyle}
         headerClassName={headerClassName}
         contentClassName={contentClassName}
+        {...props}
       >
         {readOnly ? (
           <Paragraph clean>{value || ''}</Paragraph>
@@ -193,16 +207,26 @@ const ColorInput = forwardRef(
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
               <ColorPicker
-                {...props}
+                color={inputValue}
+                format={format}
+                withSwatches={withSwatches}
+                compact={compact}
+                fullWidth
+                swatchesForGama={swatchesForGama}
+                swatchesPerRow={swatchesPerRow}
+                spacing={spacing}
                 useHsl={useHsl}
+                lightOnly={lightOnly}
                 saturation={saturation}
                 lightness={lightness}
-                compact={compact}
+                manual={manual}
                 output="hex"
-                lightOnly={lightOnly}
+                ariaSaturationLabel={ariaSaturationLabel}
+                ariaSliderLabel={ariaSliderLabel}
+                ariaColorFormat={ariaColorFormat}
+                ariaColorValue={ariaColorValue}
+                ariaHueValue={ariaHueValue}
                 onChange={setInputValue}
-                color={inputValue}
-                fullWidth
                 role={useAria ? 'input' : undefined}
               />
             </Box>
