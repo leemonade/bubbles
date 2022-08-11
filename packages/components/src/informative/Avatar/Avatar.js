@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { isEmpty, trim } from 'lodash';
 import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
 import { ExclamationIcon } from '@heroicons/react/solid';
@@ -9,7 +8,7 @@ import {
   AVATAR_DEFAULT_PROPS,
   AVATAR_PROP_TYPES,
   AVATAR_SIZES,
-  AVATAR_STATE,
+  AVATAR_STATE
 } from './Avatar.constants';
 
 const Avatar = forwardRef(
@@ -46,17 +45,17 @@ const Avatar = forwardRef(
     const renderState = () => {
       return {
         notifications: (
-          <Text componet="span" className={classes.avatarBadgeNumber}>
+          <Text componet='span' className={classes.avatarBadgeNumber}>
             2
           </Text>
         ),
-        alert: <Text componet="span" className={classes.avatarBadge} />,
+        alert: <Text componet='span' className={classes.avatarBadge} />,
         error: (
-          <Text componet="span" className={classes.avatarError}>
+          <Text componet='span' className={classes.avatarError}>
             <ExclamationIcon />{' '}
           </Text>
         ),
-        activity: <Box className={classes.avatarActivity}></Box>,
+        activity: <Box className={classes.avatarActivity}></Box>
       }[state];
     };
 
@@ -68,10 +67,14 @@ const Avatar = forwardRef(
           ref={ref}
           src={image}
           classNames={classes}
+          className={cx(classes, classes.avatarsolid)}
+          color={color}
           size={size}
           state={state}
           alt={alt}
-        />
+        >
+          {icon ? icon : initials}
+        </MantineAvatar>
         {renderState()}
       </Box>
     ) : (
