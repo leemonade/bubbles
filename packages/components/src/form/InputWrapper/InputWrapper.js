@@ -44,7 +44,7 @@ const InputWrapper = ({
   const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
 
   return (
-    <Box className={cx(classes.root, className)} style={style}>
+    <Box className={cx(classes.root, className)} style={style} {...props}>
       {/* Label & Description */}
       {hasHeader && (
         <Stack
