@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Select,
-  Button,
-  DatePicker,
-  Popover,
-  Text,
-  useElementSize,
-  IconButton,
-  TextInput,
-  Switch,
-  useId,
-} from '@bubbles-ui/components';
+import React from 'react';
+import { Box, Select, Button, DatePicker, Text, TextInput, Switch } from '@bubbles-ui/components';
+import _ from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import { ScoresPeriodFormStyles } from './ScoresPeriodForm.styles';
 import {
   SCORES_PERIOD_FORM_DEFAULT_PROPS,
   SCORES_PERIOD_FORM_PROP_TYPES,
 } from './ScoresPeriodForm.constants';
-import {
-  SearchIcon,
-  PluginCalendarIcon,
-  RemoveIcon,
-  ChevDownIcon,
-} from '@bubbles-ui/icons/outline';
+import { SearchIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
-function Periods({ periods, cx, classes, locale, watch, setValue, labels, onPeriodSelect }) {
+function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValue, watch }) {
   const startDate = watch('startDate')?.getTime();
   const endDate = watch('endDate')?.getTime();
+  const [periodSelected, setPeriodSelected] = React.useState(null);
+
+  React.useEffect(() => {
+    if (
+      periodSelected &&
+      (periodSelected.startDate.getTime() !== startDate ||
+        periodSelected.endDate.getTime() !== endDate)
+    ) {
+      setPeriodSelected(null);
+      if (_.isFunction(onPeriodSelect)) {
+        onPeriodSelect(null);
+      }
+    }
+  }, [startDate, endDate]);
 
   if (!periods?.length) {
     return null;
@@ -48,6 +46,7 @@ function Periods({ periods, cx, classes, locale, watch, setValue, labels, onPeri
             })}
             key={period.id}
             onClick={() => {
+              setPeriodSelected(period);
               if (_.isFunction(onPeriodSelect)) {
                 onPeriodSelect(period);
               }
@@ -69,7 +68,7 @@ function Periods({ periods, cx, classes, locale, watch, setValue, labels, onPeri
   );
 }
 
-function RenderSelects({ fields, control, errors, clearLabel }) {
+function RenderSelects({ classes, clearLabel, control, errors, fields }) {
   return React.useMemo(() => {
     const selects = fields.map((field, index) => {
       const { name, placeholder, data, required, disabled, label, ...props } = field;
@@ -81,7 +80,7 @@ function RenderSelects({ fields, control, errors, clearLabel }) {
           key={`${name}-${index}`}
           control={control}
           name={name}
-          rules={{ required: required }}
+          rules={{ required }}
           render={({ field }) => {
             React.useEffect(() => {
               if (field.value && !data.some((item) => item.value === field.value)) {
@@ -107,11 +106,152 @@ function RenderSelects({ fields, control, errors, clearLabel }) {
       );
     });
 
-    return selects;
+    return <Box className={classes.selectWrapper}>{selects}</Box>;
   }, [fields, control, errors]);
 }
 
-const ScoresPeriodForm = ({
+function SelectDates({
+  classes,
+  control,
+  errorMessages,
+  errors,
+  labels,
+  locale,
+  watch,
+  getValues,
+}) {
+  return (
+    <Box className={classes.periodWrapper}>
+      <Controller
+        control={control}
+        name="startDate"
+        rules={{
+          required: errorMessages.startDate || 'Required Field',
+          validate: (value) => {
+            const endDate = getValues('endDate');
+
+            if (!endDate) {
+              return true;
+            }
+
+            if (value > endDate) {
+              return errorMessages.validateStartDate || 'Invalid start date';
+            }
+
+            return true;
+          },
+        }}
+        render={({ field }) => (
+          <DatePicker
+            label={labels.startDate}
+            error={errors.startDate}
+            required
+            locale={locale}
+            maxDate={watch('endDate')}
+            headerStyle={{ flex: 'none' }}
+            {...field}
+            onChange={(value) => {
+              if (!value) {
+                field.onChange(value);
+                return;
+              }
+              const date = new Date(value);
+
+              date.setHours(0, 0, 0, 0);
+
+              field.onChange(date);
+            }}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="endDate"
+        rules={{
+          required: errorMessages.endDate || 'Required Field',
+          validate: (value) => {
+            const startDate = getValues('startDate');
+
+            if (!startDate) {
+              return true;
+            }
+
+            if (value < startDate) {
+              return errorMessages.validateEndDate || 'Invalid end date';
+            }
+
+            return true;
+          },
+        }}
+        render={({ field }) => (
+          <DatePicker
+            label={labels.endDate}
+            error={errors.endDate}
+            required
+            locale={locale}
+            minDate={watch('startDate')}
+            headerStyle={{ flex: 'none' }}
+            {...field}
+            onChange={(value) => {
+              if (!value) {
+                field.onChange(value);
+                return;
+              }
+
+              const date = new Date(value);
+
+              date.setHours(0, 0, 0, 0);
+
+              field.onChange(date);
+            }}
+          />
+        )}
+      />
+    </Box>
+  );
+}
+
+function PeriodCreationForm({
+  classes,
+  control,
+  errorMessages,
+  labels,
+  errors,
+  handleSubmit,
+  onSaveHandler,
+}) {
+  return (
+    <Box className={classes.createContent}>
+      <Controller
+        control={control}
+        name="periodName"
+        rules={{
+          required: errorMessages.periodName || 'Required Field',
+        }}
+        render={({ field }) => (
+          <TextInput {...field} label={labels?.periodName} required error={errors.periodName} />
+        )}
+      />
+      <Controller
+        control={control}
+        name="shareWithTeachers"
+        render={({ field }) => (
+          <Switch
+            {...field}
+            size="md"
+            label={labels.shareWithTeachers}
+            checked={field.value}
+          ></Switch>
+        )}
+      />
+      <Button fullWidth position="center" onClick={handleSubmit(onSaveHandler)}>
+        {labels.saveButton}
+      </Button>
+    </Box>
+  );
+}
+
+function ScoresPeriodForm({
   value,
   fields,
   labels,
@@ -123,29 +263,34 @@ const ScoresPeriodForm = ({
   locale,
   onChange,
   onPeriodSelect,
-  ...props
-}) => {
-  const [isSavingPeriod, setIsSavingPeriod] = useState(false);
-  const { ref: periodWrapperRef, width: periodWrapperWidth } = useElementSize();
-
-  const defaultValues = {
-    ...value,
-  };
-
+}) {
   const {
     control,
     handleSubmit,
     getValues,
     watch,
     setValue,
-    setError,
     formState: { errors },
-  } = useForm({ defaultValues });
+  } = useForm({ defaultValues: value });
 
-  useEffect(() => {
+  const onSubmitHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
+    if (_.isFunction(onSubmit)) {
+      onSubmit(formValue);
+    }
+  };
+
+  const onSaveHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
+    if (_.isFunction(onSave)) {
+      onSave(formValue);
+    }
+  };
+
+  React.useEffect(() => {
     if (isFunction(onChange)) {
-      const subscription = watch((value) => {
-        onChange(value);
+      const subscription = watch((value, { name }) => {
+        if (!['startDate', 'endDate'].includes(name)) {
+          onChange(_.omit(value, ['startDate', 'endDate']));
+        }
       });
 
       return () => {
@@ -154,179 +299,74 @@ const ScoresPeriodForm = ({
     }
   }, [watch, onChange]);
 
-  const onSubmitHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
-    isFunction(onSubmit) && onSubmit(formValue);
-  };
+  const { classes, cx } = ScoresPeriodFormStyles({}, { name: 'ScoresPeriodForm' });
 
-  const onSaveHandler = (formValue) => {
-    const { periodName, shareWithTeachers, ...values } = formValue;
-    isFunction(onSave) && onSave(periodName, !!shareWithTeachers, values);
-    // setIsSavingPeriod(false);
-  };
-
-  const { classes, cx } = ScoresPeriodFormStyles(
-    { periodWrapperWidth, isSavingPeriod },
-    { name: 'ScoresPeriodForm' }
-  );
   return (
-    <Box className={classes.root}>
-      <Box className={classes.formWrapper}>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <Box className={classes.selectWrapper}>
-            <RenderSelects fields={fields} control={control} errors={errors} clearLabel={'clear'} />
+    <Box>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <RenderSelects
+          classes={classes}
+          clearLabel={'clear'}
+          control={control}
+          errors={errors}
+          fields={fields}
+        />
+
+        {!allowCreate && (
+          <Periods
+            classes={classes}
+            cx={cx}
+            labels={labels}
+            locale={locale}
+            onPeriodSelect={onPeriodSelect}
+            periods={periods}
+            setValue={setValue}
+            watch={watch}
+          />
+        )}
+
+        {!allowCreate && (
+          <Box className={classes.customPeriodTitle}>
+            <Text role="productive" strong color="soft" size="xs" transform="uppercase">
+              {labels?.customPeriod}
+            </Text>
           </Box>
-          {!allowCreate && (
-            <Periods
-              labels={labels}
-              periods={periods}
-              cx={cx}
-              classes={classes}
-              locale={locale}
-              watch={watch}
-              setValue={setValue}
-              onPeriodSelect={onPeriodSelect}
-            />
-          )}
+        )}
 
-          {!allowCreate && (
-            <Box className={classes.customPeriodTitle}>
-              <Text role="productive" strong color="soft" size="xs" transform="uppercase">
-                {labels?.customPeriod}
-              </Text>
-            </Box>
-          )}
-          <Box ref={periodWrapperRef} className={classes.periodWrapper}>
-            <Controller
-              control={control}
-              name="startDate"
-              rules={{
-                required: errorMessages.startDate || 'Required Field',
-                validate: (value) => {
-                  const endDate = getValues('endDate');
+        <SelectDates
+          classes={classes}
+          control={control}
+          errorMessages={errorMessages}
+          errors={errors}
+          labels={labels}
+          locale={locale}
+          watch={watch}
+          getValues={getValues}
+        />
 
-                  if (!endDate) {
-                    return true;
-                  }
+        {allowCreate && (
+          <PeriodCreationForm
+            classes={classes}
+            control={control}
+            errorMessages={errorMessages}
+            labels={labels}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            onSaveHandler={onSaveHandler}
+          />
+        )}
 
-                  if (value > endDate) {
-                    return errorMessages.validateStartDate || 'Invalid start date';
-                  }
-
-                  return true;
-                },
-              }}
-              render={({ field }) => (
-                <DatePicker
-                  label={labels.startDate}
-                  error={errors.startDate}
-                  required
-                  locale={locale}
-                  maxDate={watch('endDate')}
-                  headerStyle={{ flex: 'none' }}
-                  {...field}
-                  onChange={(value) => {
-                    if (!value) {
-                      field.onChange(value);
-                      return;
-                    }
-                    const date = new Date(value);
-
-                    date.setHours(0, 0, 0, 0);
-
-                    field.onChange(date);
-                  }}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="endDate"
-              rules={{
-                required: errorMessages.endDate || 'Required Field',
-                validate: (value) => {
-                  const startDate = getValues('startDate');
-
-                  if (!startDate) {
-                    return true;
-                  }
-
-                  if (value < startDate) {
-                    return errorMessages.validateEndDate || 'Invalid end date';
-                  }
-
-                  return true;
-                },
-              }}
-              render={({ field }) => (
-                <DatePicker
-                  label={labels.endDate}
-                  error={errors.endDate}
-                  required
-                  locale={locale}
-                  minDate={watch('startDate')}
-                  headerStyle={{ flex: 'none' }}
-                  {...field}
-                  onChange={(value) => {
-                    if (!value) {
-                      field.onChange(value);
-                      return;
-                    }
-
-                    const date = new Date(value);
-
-                    date.setHours(0, 0, 0, 0);
-
-                    field.onChange(date);
-                  }}
-                />
-              )}
-            />
+        {!allowCreate && (
+          <Box className={classes.buttonWrapper}>
+            <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
+              {labels.submit}
+            </Button>
           </Box>
-          {allowCreate ? (
-            <Box className={classes.createContent}>
-              <Controller
-                control={control}
-                name="periodName"
-                rules={{
-                  required: errorMessages.periodName || 'Required Field',
-                }}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={labels?.periodName}
-                    required
-                    error={errors.periodName}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="shareWithTeachers"
-                render={({ field }) => (
-                  <Switch
-                    {...field}
-                    size="md"
-                    label={labels.shareWithTeachers}
-                    checked={field.value}
-                  ></Switch>
-                )}
-              />
-              <Button fullWidth position="center" onClick={handleSubmit(onSaveHandler)}>
-                {labels.saveButton}
-              </Button>
-            </Box>
-          ) : (
-            <Box className={classes.buttonWrapper}>
-              <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
-                {labels.submit}
-              </Button>
-            </Box>
-          )}
-        </form>
-      </Box>
+        )}
+      </form>
     </Box>
   );
-};
+}
 
 ScoresPeriodForm.defaultProps = SCORES_PERIOD_FORM_DEFAULT_PROPS;
 ScoresPeriodForm.propTypes = SCORES_PERIOD_FORM_PROP_TYPES;
