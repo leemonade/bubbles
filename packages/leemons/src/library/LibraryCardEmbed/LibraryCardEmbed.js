@@ -131,7 +131,13 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
               <ImageLoader src={image} width={172} height={156} radius={'2px 0px 0px 2px'} />
             ) : (
               <Box className={classes.imagePlaceholder}>
-                <FileIcon size={64} fileType={fileType} color={COLORS.text06} hideExtension />
+                <FileIcon
+                  size={64}
+                  fileType={fileType}
+                  color={COLORS.text06}
+                  iconStyle={{ backgroundColor: COLORS.interactive03h }}
+                  hideExtension
+                />
               </Box>
             )}
           </Box>

@@ -24,6 +24,7 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       background: PANEL_COLORS.default,
       borderBottomRightRadius: BORDER_RADIUS,
       borderBottomLeftRadius: BORDER_RADIUS,
+      wordBreak: 'normal',
     },
     contentInner: {
       padding: 0,

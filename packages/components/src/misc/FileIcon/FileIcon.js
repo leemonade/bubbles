@@ -58,7 +58,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
           filename={`${label ? label : ''}${fileExtension ? '.' + fileExtension : ''}`}
           size={size}
           showFileName={label ? true : false}
-          colorStyle={{ color: color }}
+          color={color}
           iconStyle={iconStyle}
         />
       )}
