@@ -7,7 +7,7 @@ import {
   Paper,
   Paragraph,
   Text,
-  TextClamp,
+  TextClamp
 } from '@bubbles-ui/components';
 import { filter, find } from 'lodash';
 import dayjs from 'dayjs';
@@ -16,7 +16,8 @@ const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 export const KANBAN_TASK_CARD_DEFAULT_PROPS = {
-  onClick: () => {},
+  onClick: () => {
+  }
 };
 export const KANBAN_TASK_CARD_PROP_TYPES = {};
 
@@ -39,7 +40,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
   const { classes, cx } = KanbanTaskCardStyles({ bgColor: value.bgColor || calendar.bgColor });
 
   const percentaje = useMemo(() => {
-    if (value.data && value.data.subtask) {
+    if (value.data && value.data.subtask && value.data.subtask.length) {
       const total = value.data.subtask.length;
       const completed = filter(value.data.subtask, { checked: true }).length;
       return parseInt((completed / total) * 100);
@@ -54,20 +55,20 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     icon: value.icon ? (
       <Box className={classes.icon}>
         <ImageLoader
-          height="14px"
+          height='14px'
           imageStyles={{
             width: 14,
             position: 'absolute',
             left: '50%',
             top: '50%',
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%)'
           }}
           src={value.icon}
           forceImage
         />
       </Box>
     ) : null,
-    color: value.bgColor,
+    color: value.bgColor
   };
 
   if (calendar.isUserCalendar) {
@@ -78,7 +79,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
   return (
     <Paper
-      shadow="none"
+      shadow='none'
       className={classes.root}
       style={{ cursor: value.disableDrag ? 'pointer' : 'grab' }}
       onClick={() => onClick(value)}
@@ -88,7 +89,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
         {value.startDate ? (
           <Box>
-            <Text size="xs">{dayjs(value.startDate).format('DD/MM/YYYY HH:mm')}</Text>
+            <Text size='xs'>{dayjs(value.startDate).format('DD/MM/YYYY HH:mm')}</Text>
           </Box>
         ) : null}
       </Box>
@@ -98,14 +99,14 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
           {value.data && value.data.description ? (
             <Box className={classes.description}>
               <TextClamp lines={1} showTooltip>
-                <Text role="productive">{value.data.description}</Text>
+                <Text role='productive'>{value.data.description}</Text>
               </TextClamp>
             </Box>
           ) : null}
           <Box className={classes.avatar}>
-            <Avatar mx="auto" size="xs" {...avatar} />
+            <Avatar mx='auto' size='xs' {...avatar} />
             {value.calendarName ? (
-              <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
+              <Paragraph size='xs' sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
                 {value.calendarName}
               </Paragraph>
             ) : null}

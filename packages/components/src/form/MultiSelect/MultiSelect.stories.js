@@ -38,20 +38,17 @@ const Template = ({ children, data, useValueComponent, ...props }) => {
   const [state, setState] = useState([]);
   const [value, setValue] = useState([]);
   return (
-    <>
-      <MultiSelect
-        {...props}
-        value={value}
-        onChange={setValue}
-        data={[...data, ...state]}
-        getCreateLabel={(query) => `+ Create ${query}`}
-        onCreate={(q) => setState([...state, q])}
-        valueComponent={useValueComponent ? CustomValueComponent : undefined}
-      >
-        {children}
-      </MultiSelect>
-      <Button onClick={() => setValue([])}>RESET</Button>
-    </>
+    <MultiSelect
+      {...props}
+      value={value}
+      onChange={setValue}
+      data={[...data, ...state]}
+      getCreateLabel={(query) => `+ Create ${query}`}
+      onCreate={(q) => setState([...state, q])}
+      valueComponent={useValueComponent ? CustomValueComponent : undefined}
+    >
+      {children}
+    </MultiSelect>
   );
 };
 

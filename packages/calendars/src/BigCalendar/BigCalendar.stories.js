@@ -9,8 +9,8 @@ export default {
   parameters: {
     component: BigCalendar,
     docs: {
-      page: mdx,
-    },
+      page: mdx
+    }
     // design: {
     //  type: 'figma',
     //  url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
@@ -24,8 +24,8 @@ export default {
     onSelectDay: { action: 'Day selected' },
     onRangeChange: { action: 'Range changed' },
     onSelectEvent: { action: 'Event selected' },
-    addEventClick: { action: 'Add Event clicked' },
-  },
+    addEventClick: { action: 'Add Event clicked' }
+  }
 };
 
 const Template = (props) => {
@@ -39,7 +39,7 @@ const Template = (props) => {
       today: 'Hoy',
       previous: 'Anterior',
       next: 'siguiente',
-      showWeekends: 'Mostrar fines de semana',
+      showWeekends: 'Mostrar fines de semana'
     };
   }
   return <BigCalendar {...props} messages={messages} style={{ height: 'calc(100vh - 40px)' }} />;
@@ -49,7 +49,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   events: EVENTS,
-  currentView: BIGCALENDAR_VIEWS[1],
+  currentView: BIGCALENDAR_VIEWS[0],
   locale: 'es-ES',
   /*
   minWeekDay: 0,
@@ -63,7 +63,7 @@ Playground.args = {
   maxHour: '13:15',
 
    */
-  defaultDate: EVENTS[1].start,
+  defaultDate: EVENTS[0].start
 };
 
 const MonthRangeTemplate = (props) => {
@@ -76,13 +76,13 @@ MonthRangeView.args = {
   events: EVENTS,
   currentView: BIGCALENDAR_VIEWS[4],
   locale: 'es-ES',
-  defaultDate: EVENTS[1].start,
+  defaultDate: EVENTS[0].start,
   monthRange: {
     startYear: 2022,
     startMonth: 4,
     endYear: 2022,
-    endMonth: 6,
-  },
+    endMonth: 6
+  }
 };
 
 const EventCreationTemplate = (props) => {
@@ -102,8 +102,8 @@ const EventCreationTemplate = (props) => {
       start: eventRange[0],
       end: eventRange[1] || eventRange[0],
       originalEvent: {
-        calendar: { bgColor: eventColor, borderStyle: borderStyle, borderColor: borderColor },
-      },
+        calendar: { bgColor: eventColor, borderStyle: borderStyle, borderColor: borderColor }
+      }
     };
 
     setEvents([...events, newEvent]);
@@ -124,17 +124,17 @@ const EventCreationTemplate = (props) => {
           onSubmit={submitHandler}
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
         >
-          <TextInput label="Event title" value={eventTitle} onChange={setEventTitle} />
+          <TextInput label='Event title' value={eventTitle} onChange={setEventTitle} />
           <Select
-            label="Border style"
+            label='Border style'
             data={['solid', 'dashed', 'dotted']}
             value={borderStyle}
             onChange={setBorderStyle}
           />
-          <ColorInput label="Event color" value={eventColor} onChange={setEventColor} />
-          <ColorInput label="Border color" value={borderColor} onChange={setBorderColor} />
-          <DatePicker label="Event range" value={eventRange} range onChange={setEventRange} />
-          <Button type="submit" rounded>
+          <ColorInput label='Event color' value={eventColor} onChange={setEventColor} />
+          <ColorInput label='Border color' value={borderColor} onChange={setBorderColor} />
+          <DatePicker label='Event range' value={eventRange} range onChange={setEventRange} />
+          <Button type='submit' rounded>
             Añadir evento
           </Button>
         </form>
@@ -148,6 +148,6 @@ export const EventCreationForm = EventCreationTemplate.bind({});
 EventCreationForm.args = {
   currentView: BIGCALENDAR_VIEWS[4],
   locale: 'es-ES',
-  defaultDate: EVENTS[1].start,
-  monthRange: { startYear: 2022, endYear: 2022, startMonth: 0, endMonth: 11 },
+  defaultDate: EVENTS[0].start,
+  monthRange: { startYear: 2022, endYear: 2022, startMonth: 0, endMonth: 11 }
 };

@@ -15,6 +15,7 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
     wrapper: {
       padding: 3,
       margin: -3,
+      overflow: 'visible !important',
     },
     input: {
       ...getInputStyle(theme),

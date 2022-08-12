@@ -93,7 +93,7 @@ const Select = forwardRef(
     return valueComponent ? (
       <MultiSelect
         data={data}
-        value={value}
+        value={value ? [value] : undefined}
         onChange={handleChange}
         valueComponent={valueComponent}
         multiple={false}

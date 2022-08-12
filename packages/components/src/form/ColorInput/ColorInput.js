@@ -55,6 +55,8 @@ export const COLOR_INPUT_PROP_TYPES = {
   compact: PropTypes.bool,
   /** Controls if color dropdown uses manual inputs */
   manual: PropTypes.bool,
+  /** Controls if only shows light colors when using useHsl*/
+  lightOnly: PropTypes.bool,
   /** Controls if ColorInput uses aria role */
   useAria: PropTypes.bool,
 };
@@ -72,6 +74,7 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   lightness: 50,
   compact: true,
   manual: false,
+  lightOnly: false,
   useAria: true,
 };
 
@@ -94,13 +97,27 @@ const ColorInput = forwardRef(
       value,
       icon,
       placeholder,
-      useHsl,
-      saturation,
-      lightness,
-      compact,
       onFocus = () => {},
       onBlur = () => {},
       onChange = () => {},
+      format,
+      withSwatches,
+      swatches,
+      compact,
+      fullWidth,
+      swatchesForGama,
+      swatchesPerRow,
+      spacing,
+      useHsl,
+      lightOnly,
+      saturation,
+      lightness,
+      manual,
+      ariaSaturationLabel,
+      ariaSliderLabel,
+      ariaColorFormat,
+      ariaColorValue,
+      ariaHueValue,
       useAria,
       ...props
     },
@@ -150,6 +167,7 @@ const ColorInput = forwardRef(
         contentStyle={contentStyle}
         headerClassName={headerClassName}
         contentClassName={contentClassName}
+        {...props}
       >
         {readOnly ? (
           <Paragraph clean>{value || ''}</Paragraph>
@@ -170,8 +188,8 @@ const ColorInput = forwardRef(
                 icon={
                   icon || (
                     <ColorSwatch
-                      pointerEvents="none"
                       color={inputValue}
+                      onClick={() => setOpened(!opened)}
                       size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
                     />
                   )
@@ -189,15 +207,26 @@ const ColorInput = forwardRef(
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
               <ColorPicker
-                {...props}
+                color={inputValue}
+                format={format}
+                withSwatches={withSwatches}
+                compact={compact}
+                fullWidth
+                swatchesForGama={swatchesForGama}
+                swatchesPerRow={swatchesPerRow}
+                spacing={spacing}
                 useHsl={useHsl}
+                lightOnly={lightOnly}
                 saturation={saturation}
                 lightness={lightness}
-                compact={compact}
+                manual={manual}
                 output="hex"
+                ariaSaturationLabel={ariaSaturationLabel}
+                ariaSliderLabel={ariaSliderLabel}
+                ariaColorFormat={ariaColorFormat}
+                ariaColorValue={ariaColorValue}
+                ariaHueValue={ariaHueValue}
                 onChange={setInputValue}
-                color={inputValue}
-                fullWidth
                 role={useAria ? 'input' : undefined}
               />
             </Box>

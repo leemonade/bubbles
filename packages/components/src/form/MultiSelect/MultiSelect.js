@@ -40,6 +40,7 @@ const MultiSelect = forwardRef(
       readOnly,
       error,
       clearable,
+      searchable,
       multiple,
       maxSelectedValues,
       valueComponent,
@@ -58,7 +59,7 @@ const MultiSelect = forwardRef(
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
     const multiSelectRef = useRef();
-    if (!multiple) maxSelectedValues = 3;
+    if (!multiple) maxSelectedValues = 2;
 
     // ······················································
     // HANDLERS
@@ -66,8 +67,8 @@ const MultiSelect = forwardRef(
 
     const handleChange = (ev) => {
       if (!multiple && isFunction(onChange)) {
-        const selectedValue = ev.pop();
-        onChange(selectedValue);
+        const selectedValue = ev?.pop();
+        onChange(selectedValue ? [selectedValue] : undefined);
         multiSelectRef.current.blur();
         multiSelectRef.current.focus();
         return;
@@ -78,7 +79,7 @@ const MultiSelect = forwardRef(
     };
 
     const handleClear = () => {
-      handleChange(multiple ? [] : [undefined]);
+      handleChange(undefined);
     };
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
@@ -95,7 +96,7 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear, multiple },
+      { size, rightEvents: isClearable && showClear },
       { name: 'MultiSelect' }
     );
 
@@ -129,15 +130,16 @@ const MultiSelect = forwardRef(
           </>
         ) : (
           <>
-            {show ? (
+            {show && (
               <MantineMultiSelect
                 ref={multiSelectRef}
                 size={size}
-                value={multiple ? value : [value]}
+                value={value}
                 autoComplete="off"
                 onChange={handleChange}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
+                searchable={searchable}
                 dropdownPosition={dropdownPosition}
                 valueComponent={
                   valueComponent
@@ -161,13 +163,14 @@ const MultiSelect = forwardRef(
                   )
                 }
                 clearButtonLabel={clearable}
+                zIndex={299}
                 error={!isEmpty(error)}
                 classNames={classes}
                 role={useAria ? 'textbox' : undefined}
                 aria-label={label || ariaLabel}
                 {...props}
               />
-            ) : null}
+            )}
           </>
         )}
       </InputWrapper>

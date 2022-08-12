@@ -50,11 +50,16 @@ const LoginForm = ({
 }) => {
   const { classes, cx } = LoginFormStyles({});
 
+  const defaultValues = {
+    email: '',
+    password: '',
+  };
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   const recoveryProps = {};
   if (useRouter) {
@@ -67,7 +72,7 @@ const LoginForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <ContextContainer title={labels.title}>
+      <ContextContainer title={labels.title} {...props}>
         {formError && <Alert severity="error">{formError}</Alert>}
 
         <Controller

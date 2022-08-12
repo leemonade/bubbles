@@ -26,39 +26,53 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
-function Periods({ periods, cx, classes, locale, watch, setValue }) {
+function Periods({ periods, cx, classes, locale, watch, setValue, labels, onPeriodSelect }) {
   const startDate = watch('startDate')?.getTime();
   const endDate = watch('endDate')?.getTime();
 
-  return periods?.map((period) => {
-    return (
-      <Box
-        className={cx(classes.period, {
-          [classes.selectedPeriod]:
-            startDate === period.startDate.getTime() && endDate === period.endDate.getTime(),
-        })}
-        key={period.id}
-        onClick={() => {
-          setValue('startDate', period.startDate);
-          setValue('endDate', period.endDate);
-        }}
-      >
-        <Text color="quartiary">
-          {period.startDate?.toLocaleDateString(locale)} -{' '}
-          {period.endDate.toLocaleDateString(locale)}
-        </Text>
-        <Text color="primary" strong>
-          {period.name}
-        </Text>
-      </Box>
-    );
-  });
+  if (!periods?.length) {
+    return null;
+  }
+
+  return (
+    <Box className={classes.periodsList}>
+      <Text role="productive" strong color="soft" size="xs" transform="uppercase">
+        {labels?.evaluations}
+      </Text>
+      {periods?.map((period) => {
+        return (
+          <Box
+            className={cx(classes.period, {
+              [classes.selectedPeriod]:
+                startDate === period.startDate.getTime() && endDate === period.endDate.getTime(),
+            })}
+            key={period.id}
+            onClick={() => {
+              if (_.isFunction(onPeriodSelect)) {
+                onPeriodSelect(period);
+              }
+              setValue('startDate', period.startDate);
+              setValue('endDate', period.endDate);
+            }}
+          >
+            <Text color="primary" strong>
+              {period.name}
+            </Text>
+            <Text color="quartiary">
+              {period.startDate?.toLocaleDateString(locale)} -{' '}
+              {period.endDate.toLocaleDateString(locale)}
+            </Text>
+          </Box>
+        );
+      })}
+    </Box>
+  );
 }
 
 function RenderSelects({ fields, control, errors, clearLabel }) {
   return React.useMemo(() => {
     const selects = fields.map((field, index) => {
-      const { name, placeholder, data, required, disabled, label } = field;
+      const { name, placeholder, data, required, disabled, label, ...props } = field;
 
       return (
         <Controller
@@ -77,6 +91,7 @@ function RenderSelects({ fields, control, errors, clearLabel }) {
 
             return (
               <Select
+                {...props}
                 placeholder={placeholder}
                 error={errors[name]}
                 label={label}
@@ -107,6 +122,7 @@ const ScoresPeriodForm = ({
   periods,
   locale,
   onChange,
+  onPeriodSelect,
   ...props
 }) => {
   const [isSavingPeriod, setIsSavingPeriod] = useState(false);
@@ -159,6 +175,26 @@ const ScoresPeriodForm = ({
           <Box className={classes.selectWrapper}>
             <RenderSelects fields={fields} control={control} errors={errors} clearLabel={'clear'} />
           </Box>
+          {!allowCreate && (
+            <Periods
+              labels={labels}
+              periods={periods}
+              cx={cx}
+              classes={classes}
+              locale={locale}
+              watch={watch}
+              setValue={setValue}
+              onPeriodSelect={onPeriodSelect}
+            />
+          )}
+
+          {!allowCreate && (
+            <Box className={classes.customPeriodTitle}>
+              <Text role="productive" strong color="soft" size="xs" transform="uppercase">
+                {labels?.customPeriod}
+              </Text>
+            </Box>
+          )}
           <Box ref={periodWrapperRef} className={classes.periodWrapper}>
             <Controller
               control={control}
@@ -245,16 +281,6 @@ const ScoresPeriodForm = ({
                 />
               )}
             />
-            {!allowCreate && (
-              <Periods
-                periods={periods}
-                cx={cx}
-                classes={classes}
-                locale={locale}
-                watch={watch}
-                setValue={setValue}
-              />
-            )}
           </Box>
           {allowCreate ? (
             <Box className={classes.createContent}>

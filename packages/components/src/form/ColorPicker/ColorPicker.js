@@ -26,6 +26,7 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   saturation: 50,
   lightness: 50,
   manual: true,
+  lightOnly: false,
   autoComplete: 'off',
   ariaSaturationLabel: 'Saturation',
   ariaSliderLabel: 'Slider',
@@ -47,6 +48,7 @@ export const ColorPicker = forwardRef(
       swatchesPerRow,
       spacing,
       useHsl,
+      lightOnly,
       saturation: saturationProp,
       lightness: lightnessProp,
       manual,
@@ -185,7 +187,7 @@ export const ColorPicker = forwardRef(
                 })}
               </Box>
 
-              {!compact && (
+              {!compact && !lightOnly && (
                 <Box className={classes.swatches} style={{ margin: 0 }}>
                   {[...Array(4)].map((_, i) => {
                     const light = 40 - 10 * i;
@@ -305,6 +307,7 @@ ColorPicker.propTypes = {
   saturation: PropTypes.number,
   lightness: PropTypes.number,
   manual: PropTypes.bool,
+  lightOnly: PropTypes.bool,
   autoComplete: PropTypes.string,
   ariaSaturationLabel: PropTypes.string,
   ariaSliderLabel: PropTypes.string,

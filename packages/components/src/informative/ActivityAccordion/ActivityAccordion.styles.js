@@ -3,7 +3,7 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 
 const BORDER_RADIUS = 8;
 
-export const ActivityAccordionStyles = createStyles((theme, {}) => {
+export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
   const PANEL_COLORS = {
     default: theme.colors.uiBackground01,
     solid: theme.colors.interactive03h,
@@ -37,6 +37,13 @@ export const ActivityAccordionStyles = createStyles((theme, {}) => {
     },
     contentSolid: {
       background: PANEL_COLORS.solid,
+    },
+    labelIcon: {
+      color: compact && theme.colors.text02,
+    },
+    label: {
+      color: compact && theme.colors.text02,
+      fontWeight: compact && 600,
     },
   };
 });

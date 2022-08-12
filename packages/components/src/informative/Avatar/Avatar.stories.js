@@ -1,5 +1,6 @@
 import React from 'react';
-import { Avatar, AVATAR_SIZES, AVATAR_STATE } from './Avatar';
+import { Avatar } from './Avatar';
+import { AVATAR_SIZES, AVATAR_STATE, AVATAR_ACTIVITY_STATUS } from './Avatar.constants';
 import { StarIcon } from '@heroicons/react/outline';
 import mdx from './Avatar.mdx';
 
@@ -18,6 +19,7 @@ export default {
   argTypes: {
     size: { options: AVATAR_SIZES, control: { type: 'select' } },
     state: { options: AVATAR_STATE, control: { type: 'select' } },
+    activityStatus: { options: ['none', ...AVATAR_ACTIVITY_STATUS], control: { type: 'select' } },
   },
 };
 

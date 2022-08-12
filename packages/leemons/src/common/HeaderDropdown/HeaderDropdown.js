@@ -29,6 +29,7 @@ const HeaderDropdown = ({
   itemComponent,
   valueComponent,
   value,
+  readOnly,
   onChange,
   ...props
 }) => {
@@ -108,7 +109,10 @@ const HeaderDropdown = ({
             {!isNil(selectedItem?.image) && !isEmpty(selectedItem?.image) ? (
               <Box className={classes.itemImage}>
                 <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
-                {!isNil(selectedItem?.icon) && !isEmpty(selectedItem?.icon) ? (
+                {!isNil(selectedItem?.icon) &&
+                !isEmpty(selectedItem?.icon) &&
+                !isNil(selectedItem?.color) &&
+                !isEmpty(selectedItem?.color) ? (
                   <Box
                     className={classes.itemIcon}
                     style={{ backgroundColor: selectedItem?.color }}
@@ -135,29 +139,33 @@ const HeaderDropdown = ({
             </Box>
           </Box>
         )}
-        <ActionButton
-          className={classes.dropDownIcon}
-          icon={
-            isOpened ? (
-              <ChevUpIcon height={24} width={24} />
-            ) : (
-              <ChevDownIcon height={24} width={24} />
-            )
-          }
-          onClick={() => setIsOpened(!isOpened)}
-        />
-      </Box>
-      <Box className={classes.dropDown}>
-        <Box className={classes.searchInput}>
-          <SearchInput
-            placeholder={placeholder}
-            variant="filled"
-            value={filter}
-            onChange={setFilter}
+        {!readOnly && (
+          <ActionButton
+            className={classes.dropDownIcon}
+            icon={
+              isOpened ? (
+                <ChevUpIcon height={24} width={24} />
+              ) : (
+                <ChevDownIcon height={24} width={24} />
+              )
+            }
+            onClick={() => setIsOpened(!isOpened)}
           />
-        </Box>
-        <Box className={classes.itemList}>{loadItemList()}</Box>
+        )}
       </Box>
+      {!readOnly && (
+        <Box className={classes.dropDown}>
+          <Box className={classes.searchInput}>
+            <SearchInput
+              placeholder={placeholder}
+              variant="filled"
+              value={filter}
+              onChange={setFilter}
+            />
+          </Box>
+          <Box className={classes.itemList}>{loadItemList()}</Box>
+        </Box>
+      )}
     </Box>
   );
 };
