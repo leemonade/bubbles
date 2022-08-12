@@ -46,6 +46,15 @@ export const ScoresPeriodFormStyles = createStyles(
         gap: theme.spacing[2],
         cursor: 'pointer',
       },
+      periodsList: {
+        marginTop: theme.spacing[2],
+        display: 'flex',
+        flexDirection: 'column',
+        gap: theme.spacing[2],
+      },
+      customPeriodTitle: {
+        marginTop: theme.spacing[2],
+      },
       selectedPeriod: {
         borderColor: theme.colors.interactive01d,
         backgroundColor: theme.colors.interactive01v1,
