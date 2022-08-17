@@ -14,7 +14,7 @@ import {
   Switch,
   TableInput,
   Text,
-  TextInput,
+  TextInput
 } from '@bubbles-ui/components';
 import { ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { SetupSubjectsStyles } from './SetupSubjects.styles';
@@ -23,7 +23,7 @@ export const SETUP_SUBJECTS_DEFAULT_PROPS = {
   sharedData: {},
   errorMessages: {},
   firstDigitOptions: [],
-  frequencyOptions: [],
+  frequencyOptions: []
 };
 export const SETUP_SUBJECTS_PROP_TYPES = {
   labels: PropTypes.object,
@@ -35,22 +35,22 @@ export const SETUP_SUBJECTS_PROP_TYPES = {
   setSharedData: PropTypes.func,
   firstDigitOptions: PropTypes.array,
   frequencyOptions: PropTypes.array,
-  editable: PropTypes.bool,
+  editable: PropTypes.bool
 };
 
 const SetupSubjects = ({
-  labels,
-  helps,
-  errorMessages,
-  onNext,
-  onPrevious,
-  sharedData,
-  setSharedData,
-  firstDigitOptions: _firstDigitOptions,
-  frequencyOptions,
-  editable,
-  ...props
-}) => {
+                         labels,
+                         helps,
+                         errorMessages,
+                         onNext,
+                         onPrevious,
+                         sharedData,
+                         setSharedData,
+                         firstDigitOptions: _firstDigitOptions,
+                         frequencyOptions,
+                         editable,
+                         ...props
+                       }) => {
   let firstDigitOptions = cloneDeep(_firstDigitOptions);
 
   if (sharedData.maxNumberOfCourses <= 1) {
@@ -68,7 +68,7 @@ const SetupSubjects = ({
     subjectsFirstDigit: firstDigitOptions[0]?.value,
     subjectsDigits: 0,
     customSubstages: [],
-    ...sharedData,
+    ...sharedData
   };
 
   const [subjectsFirstDigit, setSubjectsFirstDigit] = useState(defaultValues.subjectsFirstDigit);
@@ -90,13 +90,13 @@ const SetupSubjects = ({
       const firstNumber = subjectsFirstDigit === firstDigitOptions[0]?.value ? currentNumber : '';
       subjectsID.push(
         <Box key={`k-${currentNumber}`} className={classes.subjectID}>
-          <Text size="md">{`${firstNumber}${'0'.repeat(
+          <Text size='md'>{`${firstNumber}${'0'.repeat(
             subjectsDigits - 1
           )}1-${firstNumber}${'9'.repeat(subjectsDigits)}`}</Text>
         </Box>
       );
       if (currentNumber < numberOfCourses) {
-        subjectsID.push(<Divider key={`d-${currentNumber}`} orientation="vertical" />);
+        subjectsID.push(<Divider key={`d-${currentNumber}`} orientation='vertical' />);
       }
     }
     return subjectsID;
@@ -106,7 +106,7 @@ const SetupSubjects = ({
     watch,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({ defaultValues });
 
   const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
@@ -118,11 +118,11 @@ const SetupSubjects = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete='off'>
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
           <Controller
-            name="allSubjectsSameDuration"
+            name='allSubjectsSameDuration'
             control={control}
             render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
@@ -148,16 +148,16 @@ const SetupSubjects = ({
                   accessor: 'name',
                   input: {
                     node: <TextInput />,
-                    rules: { required: errorMessages?.periodName?.required || 'Required field' },
-                  },
+                    rules: { required: errorMessages?.periodName?.required || 'Required field' }
+                  }
                 },
                 {
                   Header: labels.numOfPeriods,
                   accessor: 'number',
                   input: {
                     node: <NumberInput />,
-                    rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' },
-                  },
+                    rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' }
+                  }
                 },
                 {
                   Header: labels.substagesFrequency,
@@ -165,20 +165,20 @@ const SetupSubjects = ({
                   input: {
                     node: <Select />,
                     rules: {
-                      required: errorMessages?.substagesFrequency?.required || 'Required field',
+                      required: errorMessages?.substagesFrequency?.required || 'Required field'
                     },
-                    data: frequencyOptions,
+                    data: frequencyOptions
                   },
                   valueRender: (value) => {
                     const item = find(frequencyOptions, { value });
                     return item ? item.label : value;
-                  },
-                },
+                  }
+                }
               ]}
               data={customSubstages}
               labels={{
                 add: labels.buttonAdd,
-                remove: labels.buttonRemove,
+                remove: labels.buttonRemove
               }}
               onChangeData={(val) => setCustomSubstages(val)}
             />
@@ -186,7 +186,7 @@ const SetupSubjects = ({
         </ContextContainer>
         <ContextContainer title={labels.knowledgeAreas}>
           <Controller
-            name="haveKnowledge"
+            name='haveKnowledge'
             control={control}
             render={({ field: { onChange, value, ref, ...field } }) => (
               <Switch
@@ -202,12 +202,12 @@ const SetupSubjects = ({
               />
             )}
           />
-          {haveKnowledge && (
+          {haveKnowledge ? (
             <Controller
-              name="maxKnowledgeAbbreviation"
+              name='maxKnowledgeAbbreviation'
               control={control}
               render={({ field }) => (
-                <ContextContainer direction="row" alignItems="center">
+                <ContextContainer direction='row' alignItems='center'>
                   <NumberInput
                     label={labels.maxKnowledgeAbbreviation}
                     help={helps.maxKnowledgeAbbreviation}
@@ -216,7 +216,7 @@ const SetupSubjects = ({
                     {...field}
                   />
                   <Controller
-                    name="maxKnowledgeAbbreviationIsOnlyNumbers"
+                    name='maxKnowledgeAbbreviationIsOnlyNumbers'
                     control={control}
                     render={({ field: { onChange, value, ...field } }) => (
                       <Checkbox
@@ -231,12 +231,12 @@ const SetupSubjects = ({
                 </ContextContainer>
               )}
             />
-          )}
+          ) : null}
         </ContextContainer>
         <ContextContainer title={labels.subjectsIDConfig}>
-          <ContextContainer direction="row" alignItems="center">
+          <ContextContainer direction='row' alignItems='center'>
             <Controller
-              name="subjectsFirstDigit"
+              name='subjectsFirstDigit'
               control={control}
               render={({ field: { onChange, ...field } }) => (
                 <Select
@@ -257,7 +257,7 @@ const SetupSubjects = ({
               </Text>
             </Box>
             <Controller
-              name="subjectsDigits"
+              name='subjectsDigits'
               control={control}
               render={({ field: { onChange, ...field } }) => (
                 <NumberInput
@@ -280,17 +280,17 @@ const SetupSubjects = ({
             <Box className={classes.subjectsID}>{generateSubjectsID()}</Box>
           </ContextContainer>
         </ContextContainer>
-        <Stack justifyContent="space-between" fullWidth>
+        <Stack justifyContent='space-between' fullWidth>
           <Button
             compact
-            variant="light"
+            variant='light'
             leftIcon={<ChevLeftIcon height={20} width={20} />}
             onClick={onPrevious}
           >
             {labels.buttonPrev}
           </Button>
 
-          <Button type="submit">{labels.buttonNext}</Button>
+          <Button type='submit'>{labels.buttonNext}</Button>
         </Stack>
       </ContextContainer>
     </form>
