@@ -20,7 +20,7 @@ const LibraryCardBasic = ({ asset, height, blur, children, ...props }) => {
           <Box className={classes.color} />
         </Box>
         <Box className={classes.titleWrapper}>
-          <TextClamp lines={2}>
+          <TextClamp lines={3}>
             <Title order={3} className={classes.title}>
               {name}
             </Title>
