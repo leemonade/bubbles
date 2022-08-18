@@ -8,6 +8,7 @@ import {
   Checkbox,
   DatePicker,
   ColorInput,
+  Stack,
 } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,6 +17,7 @@ import {
   CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS,
   CALENDAR_NEW_EVENT_MODAL_PROP_TYPES,
 } from './CalendarNewEventModal.constants';
+import { ColorPicker } from './';
 
 const CalendarNewEventModal = ({
   opened,
@@ -31,7 +33,8 @@ const CalendarNewEventModal = ({
     periodName: '',
     dayType: '',
     withoutOrdinaryDays: false,
-    periodRange: [null, null],
+    startDate: null,
+    endDate: null,
     color: '',
   };
 
@@ -75,6 +78,7 @@ const CalendarNewEventModal = ({
               label={labels.periodName}
               placeholder={placeholders.periodName}
               data={suggestions}
+              required
               error={errors.periodName}
               {...field}
             />
@@ -96,6 +100,7 @@ const CalendarNewEventModal = ({
               error={errors.dayType}
               rounded
               fullWidth
+              required
               className={classes.dayType}
               {...field}
             />
@@ -114,23 +119,38 @@ const CalendarNewEventModal = ({
             )}
           />
         )}
-        <Controller
-          control={control}
-          name="periodRange"
-          rules={{
-            validate: (v) => (v[0] && v[1] ? true : errorMessages.periodRange),
-          }}
-          render={({ field }) => (
-            <DatePicker
-              label={labels.periodRange}
-              placeholder={placeholders.periodRange}
-              range
-              error={errors.periodRange}
-              headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
-              {...field}
-            />
-          )}
-        />
+        <Stack spacing={4}>
+          <Controller
+            control={control}
+            name="startDate"
+            rules={{
+              required: errorMessages.startDate,
+            }}
+            render={({ field }) => (
+              <DatePicker
+                label={labels.startDate}
+                placeholder={placeholders.startDate}
+                error={errors.startDate}
+                headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
+                required
+                {...field}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="endDate"
+            render={({ field }) => (
+              <DatePicker
+                label={labels.endDate}
+                placeholder={placeholders.endDate}
+                error={errors.endDate}
+                headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
+                {...field}
+              />
+            )}
+          />
+        </Stack>
         {isSchoolDay && (
           <Controller
             control={control}
@@ -144,9 +164,11 @@ const CalendarNewEventModal = ({
                 placeholder={placeholders.color}
                 useHsl
                 error={errors.color}
+                required
                 lightOnly
                 headerStyle={{ marginTop: 16 }}
                 compact={false}
+                colorPickerComponent={ColorPicker}
                 {...field}
               />
             )}
