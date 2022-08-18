@@ -57,6 +57,8 @@ export const COLOR_INPUT_PROP_TYPES = {
   manual: PropTypes.bool,
   /** Controls if only shows light colors when using useHsl*/
   lightOnly: PropTypes.bool,
+  /** Custom color picker component */
+  colorPickerCompoennt: PropTypes.node,
   /** Controls if ColorInput uses aria role */
   useAria: PropTypes.bool,
 };
@@ -118,6 +120,7 @@ const ColorInput = forwardRef(
       ariaColorFormat,
       ariaColorValue,
       ariaHueValue,
+      colorPickerComponent,
       useAria,
       ...props
     },
@@ -200,35 +203,42 @@ const ColorInput = forwardRef(
                 spellCheck={false}
               />
             }
-            width={200}
+            width={colorPickerComponent ? undefined : 200}
             position="bottom"
             placement="start"
             withArrow
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
-              <ColorPicker
-                color={inputValue}
-                format={format}
-                withSwatches={withSwatches}
-                compact={compact}
-                fullWidth
-                swatchesForGama={swatchesForGama}
-                swatchesPerRow={swatchesPerRow}
-                spacing={spacing}
-                useHsl={useHsl}
-                lightOnly={lightOnly}
-                saturation={saturation}
-                lightness={lightness}
-                manual={manual}
-                output="hex"
-                ariaSaturationLabel={ariaSaturationLabel}
-                ariaSliderLabel={ariaSliderLabel}
-                ariaColorFormat={ariaColorFormat}
-                ariaColorValue={ariaColorValue}
-                ariaHueValue={ariaHueValue}
-                onChange={setInputValue}
-                role={useAria ? 'input' : undefined}
-              />
+              {!colorPickerComponent ? (
+                <ColorPicker
+                  color={inputValue}
+                  format={format}
+                  withSwatches={withSwatches}
+                  compact={compact}
+                  fullWidth
+                  swatchesForGama={swatchesForGama}
+                  swatchesPerRow={swatchesPerRow}
+                  spacing={spacing}
+                  useHsl={useHsl}
+                  lightOnly={lightOnly}
+                  saturation={saturation}
+                  lightness={lightness}
+                  manual={manual}
+                  output="hex"
+                  ariaSaturationLabel={ariaSaturationLabel}
+                  ariaSliderLabel={ariaSliderLabel}
+                  ariaColorFormat={ariaColorFormat}
+                  ariaColorValue={ariaColorValue}
+                  ariaHueValue={ariaHueValue}
+                  onChange={setInputValue}
+                  role={useAria ? 'input' : undefined}
+                />
+              ) : (
+                React.createElement(colorPickerComponent, {
+                  inputValue: inputValue,
+                  onChange: setInputValue,
+                })
+              )}
             </Box>
           </Popover>
         )}
