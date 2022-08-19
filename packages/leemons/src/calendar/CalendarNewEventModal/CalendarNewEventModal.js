@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Popover,
@@ -23,6 +23,7 @@ const CalendarNewEventModal = ({
   opened,
   target,
   labels,
+  values,
   placeholders,
   errorMessages,
   suggestions,
@@ -30,16 +31,17 @@ const CalendarNewEventModal = ({
   ...props
 }) => {
   const defaultValues = {
-    periodName: '',
-    dayType: '',
-    withoutOrdinaryDays: false,
-    startDate: null,
-    endDate: null,
-    color: '',
+    periodName: values.periodName || '',
+    dayType: values.dayType || '',
+    withoutOrdinaryDays: values.withoutOrdinaryDays || false,
+    startDate: values.startDate || null,
+    endDate: values.endDate || null,
+    color: values.color || '',
   };
 
   const {
     watch,
+    reset,
     control,
     handleSubmit,
     formState: { errors },
@@ -55,6 +57,10 @@ const CalendarNewEventModal = ({
     isFunction(onSubmit) && onSubmit(event);
   };
 
+  useEffect(() => {
+    reset(values);
+  }, [JSON.stringify(values)]);
+
   const { classes, cx } = CalendarNewEventModalStyles({ isSchoolDay }, { name: 'CalendarModal' });
   return (
     <Popover
@@ -65,13 +71,14 @@ const CalendarNewEventModal = ({
       withArrow
       withCloseButton={false}
       trapFocus={false}
+      {...props}
     >
       <form onSubmit={handleSubmit(onSubmitHandler)} className={classes.root}>
         <Controller
           control={control}
           name="periodName"
           rules={{
-            validate: (v) => (v[0] ? true : errorMessages.periodName),
+            required: errorMessages.periodName,
           }}
           render={({ field }) => (
             <Autocomplete
@@ -115,6 +122,7 @@ const CalendarNewEventModal = ({
                 label={labels.withoutOrdinaryDays}
                 className={classes.withoutOrdinaryDays}
                 {...field}
+                checked={field.value}
               />
             )}
           />
