@@ -34,6 +34,7 @@ const Template = ({ opened, ...props }) => {
     <Box style={{ display: 'flex', justifyContent: 'center' }}>
       <CalendarNewEventModal
         opened={_opened}
+        onClose={() => setOpened(false)}
         target={<Button onClick={() => setOpened(!_opened)}>Open modal</Button>}
         {...props}
       />
@@ -54,14 +55,6 @@ Playground.args = {
     endDate: 'End date',
     color: 'Color',
     add: 'Add',
-  },
-  values: {
-    periodName: 'Pepito',
-    dayType: 'schoolDays',
-    withoutOrdinaryDays: true,
-    startDate: new Date(),
-    endDate: new Date(),
-    color: '#FABADA',
   },
   placeholders: {
     periodName: 'Final exams',

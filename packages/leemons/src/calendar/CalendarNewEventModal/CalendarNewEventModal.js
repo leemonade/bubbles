@@ -32,7 +32,7 @@ const CalendarNewEventModal = ({
 }) => {
   const defaultValues = {
     periodName: values.periodName || '',
-    dayType: values.dayType || '',
+    dayType: values.dayType || 'schoolDays',
     withoutOrdinaryDays: values.withoutOrdinaryDays || false,
     startDate: values.startDate || null,
     endDate: values.endDate || null,
@@ -58,8 +58,12 @@ const CalendarNewEventModal = ({
   };
 
   useEffect(() => {
-    reset(values);
+    reset(defaultValues);
   }, [JSON.stringify(values)]);
+
+  useEffect(() => {
+    if (opened) reset(defaultValues);
+  }, [opened]);
 
   const { classes, cx } = CalendarNewEventModalStyles({ isSchoolDay }, { name: 'CalendarModal' });
   return (
@@ -67,10 +71,12 @@ const CalendarNewEventModal = ({
       opened={opened}
       target={target}
       position="bottom"
+      width={590}
       arrowSize={6}
       withArrow
-      withCloseButton={false}
+      withCloseButton={true}
       trapFocus={false}
+      withinPortal
       {...props}
     >
       <form onSubmit={handleSubmit(onSubmitHandler)} className={classes.root}>
@@ -127,7 +133,7 @@ const CalendarNewEventModal = ({
             )}
           />
         )}
-        <Stack spacing={4}>
+        <Stack spacing={4} fullWidth>
           <Controller
             control={control}
             name="startDate"
@@ -139,9 +145,10 @@ const CalendarNewEventModal = ({
                 label={labels.startDate}
                 placeholder={placeholders.startDate}
                 error={errors.startDate}
-                headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
+                headerStyle={{ marginTop: isSchoolDay ? 8 : 16, flex: 1 }}
                 required
                 {...field}
+                style={{ flex: 1 }}
               />
             )}
           />
@@ -155,6 +162,7 @@ const CalendarNewEventModal = ({
                 error={errors.endDate}
                 headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
                 {...field}
+                style={{ flex: 1 }}
               />
             )}
           />

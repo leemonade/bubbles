@@ -26,6 +26,13 @@ export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
     endDate: '',
     color: '',
   },
+  errorMessages: {
+    periodName: '',
+    dayType: '',
+    startDate: '',
+    endDate: '',
+    color: '',
+  },
   suggestions: [],
 };
 export const CALENDAR_NEW_EVENT_MODAL_PROP_TYPES = {
