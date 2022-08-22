@@ -27,6 +27,8 @@ const CalendarNewEventModal = ({
   placeholders,
   errorMessages,
   suggestions,
+  minDate,
+  maxDate,
   onSubmit,
   ...props
 }) => {
@@ -48,6 +50,8 @@ const CalendarNewEventModal = ({
   } = useForm({ defaultValues });
 
   const isSchoolDay = watch('dayType') === 'schoolDays';
+  const startDate = watch('startDate');
+  const endDate = watch('endDate');
 
   const onSubmitHandler = (event) => {
     if (event.dayType !== 'schoolDays') {
@@ -65,6 +69,14 @@ const CalendarNewEventModal = ({
     if (opened) reset(defaultValues);
   }, [opened]);
 
+  let _maxDate = maxDate;
+  let _minDate = minDate;
+  if (!_maxDate || _maxDate > endDate) {
+    _maxDate = endDate || maxDate;
+  }
+  if (!_minDate || _minDate < startDate) {
+    _minDate = startDate;
+  }
   const { classes, cx } = CalendarNewEventModalStyles({ isSchoolDay }, { name: 'CalendarModal' });
   return (
     <Popover
@@ -76,7 +88,7 @@ const CalendarNewEventModal = ({
       withArrow
       withCloseButton={true}
       trapFocus={false}
-      withinPortal
+      closeOnClickOutside={false}
       {...props}
     >
       <form onSubmit={handleSubmit(onSubmitHandler)} className={classes.root}>
@@ -147,6 +159,8 @@ const CalendarNewEventModal = ({
                 error={errors.startDate}
                 headerStyle={{ marginTop: isSchoolDay ? 8 : 16, flex: 1 }}
                 required
+                minDate={minDate}
+                maxDate={_maxDate}
                 {...field}
                 style={{ flex: 1 }}
               />
@@ -160,6 +174,8 @@ const CalendarNewEventModal = ({
                 label={labels.endDate}
                 placeholder={placeholders.endDate}
                 error={errors.endDate}
+                minDate={_minDate}
+                maxDate={maxDate}
                 headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
                 {...field}
                 style={{ flex: 1 }}

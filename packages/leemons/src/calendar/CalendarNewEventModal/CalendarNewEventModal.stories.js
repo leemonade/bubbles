@@ -70,4 +70,6 @@ Playground.args = {
     color: 'Field required',
   },
   suggestions: ['Semana de la ciencia', 'Día del león'],
+  // minDate: new Date(),
+  // maxDate: new Date(new Date().setDate(new Date().getDate() + 7)),
 };
