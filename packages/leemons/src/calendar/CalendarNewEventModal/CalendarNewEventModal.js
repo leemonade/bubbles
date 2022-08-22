@@ -16,6 +16,7 @@ import { CalendarNewEventModalStyles } from './CalendarNewEventModal.styles';
 import {
   CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS,
   CALENDAR_NEW_EVENT_MODAL_PROP_TYPES,
+  CALENDAR_NEW_EVENT_MODAL_COLORS as MODAL_COLORS,
 } from './CalendarNewEventModal.constants';
 import { ColorPicker } from './';
 
@@ -77,6 +78,7 @@ const CalendarNewEventModal = ({
   if (!_minDate || _minDate < startDate) {
     _minDate = startDate;
   }
+
   const { classes, cx } = CalendarNewEventModalStyles({ isSchoolDay }, { name: 'CalendarModal' });
   return (
     <Popover
@@ -189,6 +191,8 @@ const CalendarNewEventModal = ({
             name="color"
             rules={{
               required: errorMessages.color,
+              validate: (v) =>
+                MODAL_COLORS.includes(v.toUpperCase()) ? true : errorMessages.invalidColor,
             }}
             render={({ field }) => (
               <ColorInput
