@@ -215,8 +215,8 @@ function EventCell(thisprops) {
       >
         {typeof children === 'function' ? children(content) : content}
       </Box>
-      {rightArrow && <Box className={classes.rightArrow} />}
-      {leftArrow && <Box className={classes.leftArrow} />}
+      {isMonthView && rightArrow && <Box className={classes.rightArrow} />}
+      {isMonthView && leftArrow && <Box className={classes.leftArrow} />}
     </EventWrapper>
   );
 }

@@ -14,7 +14,6 @@ import { Box, COLORS, Popper } from '@bubbles-ui/components';
 
 import DateContentRow from '../Date/DateContentRow';
 
-/*
 let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
   const range = { start, end };
   const filteredEvents = events.filter((event) =>
@@ -37,11 +36,6 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
 
   return finalEvents;
 };
-
- */
-
-let eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -160,25 +154,9 @@ class MonthView extends React.Component {
     const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
 
     // let's not mutate props
-    /*
-    const weeksEvents = eventsForWeek(
-      [...events],
-      startOfWeek,
-      endOfWeeek,
-      localizer,
-      isFirstWeek,
-      isLastWeek
-    );
-
-     */
-
-    const weeksEvents = eventsForWeek(
-      [...events],
-      week[0],
-      week[week.length - 1],
-      accessors,
-      localizer
-    );
+    const weeksEvents = isMonthView
+      ? eventsForWeek([...events], startOfWeek, endOfWeeek, localizer, isFirstWeek, isLastWeek)
+      : [...events].filter((e) => inRange(e, startOfWeek, endOfWeeek, accessors, localizer));
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 

@@ -117,7 +117,7 @@ export default [
   /*
   {
     title: 'Evento de Matematicas',
-    allDay: false,
+    allDay: true,
     start: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-06-20T00:00:00.000Z').toJSDate(),
     originalEvent: {
@@ -151,7 +151,7 @@ export default [
   },
   {
     title: 'Inicio de curso',
-    allDay: false,
+    allDay: true,
     start: DateTime.fromISO('2022-06-01T00:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-06-01T00:59:00.000Z').toJSDate(),
     originalEvent: {
@@ -185,7 +185,7 @@ export default [
   },
   {
     title: 'Fin de curso',
-    allDay: false,
+    allDay: true,
     start: DateTime.fromISO('2022-06-27T00:59:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-07-03T00:59:00.000Z').toJSDate(),
     originalEvent: {
