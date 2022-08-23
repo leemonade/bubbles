@@ -10,6 +10,8 @@ const emptyPixel =
 function eventCellStylesRoot(
   colors,
   {
+    zIndex = -1,
+    desaturateColor = true,
     rotate = 0,
     isAllDay,
     bgColor,
@@ -25,7 +27,7 @@ function eventCellStylesRoot(
   const data = {
     position: 'relative',
     backgroundColor: `${
-      isAllDay ? _.isArray(bgColor) ? bgColor[0] : colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString() : colors.uiBackground01
+      isAllDay ? _.isArray(bgColor) ? bgColor[0] : desaturateColor ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString() : bgColor : colors.uiBackground01
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
     border:
@@ -44,10 +46,11 @@ function eventCellStylesRoot(
     width: isMonthView && (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
     transform: `rotate(${rotate}deg)`,
     overflow: 'hidden',
-    zIndex: -2
+    zIndex: zIndex
   };
   if (_.isArray(bgColor)) {
     data.border = 'none';
+    data.borderRadius = '50%!important';
     data['&:before'] = {
       content: '""',
       position: 'absolute',
@@ -55,7 +58,7 @@ function eventCellStylesRoot(
       left: 0,
       width: '100%',
       height: '100%',
-      zIndex: -1,
+      zIndex: zIndex + 1,
       backgroundColor: bgColor[1]
     };
   }
@@ -83,6 +86,8 @@ const eventCellStyles = createStyles(
   (
     theme,
     {
+      zIndex,
+      desaturateColor,
       rotate,
       isAllDay,
       bgColor,
@@ -98,6 +103,8 @@ const eventCellStyles = createStyles(
       root: eventCellStylesRoot(
         theme.colors,
         {
+          zIndex,
+          desaturateColor,
           rotate,
           isAllDay,
           bgColor,
@@ -153,6 +160,8 @@ function EventCell(thisprops) {
   } = thisprops;
   delete props.resizable;
 
+  console.log(event);
+
   const originalEvent = event.originalEvent;
 
   const title = accessors.title(event);
@@ -177,6 +186,8 @@ function EventCell(thisprops) {
   const leftArrow = event.originalEvent.calendar.leftArrow;
 
   const { classes } = eventCellStyles({
+    zIndex: originalEvent.zIndex || originalEvent.calendar.zIndex,
+    desaturateColor: originalEvent.desaturateColor || originalEvent.calendar.desaturateColor,
     rotate: originalEvent.rotate || originalEvent.calendar.rotate,
     isAllDay: event.allDay,
     bgColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
