@@ -24,13 +24,13 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
   );
 
   const finalEvents = filteredEvents.map((event) => {
-    if (isLastWeek) {
-      if (event.end.getMonth() > end.getMonth())
-        return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
-    }
-    if (isFirstWeek) {
-      if (event.start.getDate() > 1) return { ...event, start: start };
-    }
+    // if (isLastWeek) {
+    //   if (event.end.getMonth() > end.getMonth())
+    //     return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
+    // }
+    // if (isFirstWeek) {
+    //   if (event.start.getDate() > 1) return { ...event, start: start };
+    // }
     return event;
   });
 
@@ -211,6 +211,7 @@ class MonthView extends React.Component {
         role="cell"
         style={{
           pointerEvents: 'all',
+          zIndex: -5,
           visibility: isMonthView && isOffRange && 'hidden',
           backgroundColor: isMonthView && isWeekend && COLORS.ui02,
         }}
