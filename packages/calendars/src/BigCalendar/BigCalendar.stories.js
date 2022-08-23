@@ -79,9 +79,9 @@ MonthRangeView.args = {
   defaultDate: EVENTS[0].start,
   monthRange: {
     startYear: 2022,
-    startMonth: 4,
+    startMonth: 1,
     endYear: 2022,
-    endMonth: 6
+    endMonth: 12
   }
 };
 

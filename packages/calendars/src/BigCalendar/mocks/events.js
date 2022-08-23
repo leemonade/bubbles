@@ -56,10 +56,11 @@ export default [
         key: 'plugins.mvp-template.calendar-test',
         name: 'Computación',
         icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
-        bgColor: '#7449F4',
-        borderColor: '#7449F4',
-        borderStyle: 'dashed', // dashed, solid, etc
-        rightArrow: false, // debe apuntar hacia la derecha, marca el inicio de algún periodo
+        bgColor: ['#000000', '#000000'],
+        borderColor: '#000000',
+        rotate: 0,
+        borderStyle: 'solid', // dashed, solid, etc
+        rightArrow: true, // debe apuntar hacia la derecha, marca el inicio de algún periodo
         leftArrow: false, // debe apuntar hacia la izquierda, marca el final de algún periodo
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
