@@ -46,8 +46,8 @@ export default [
   {
     title: 'Tarea de Computación',
     allDay: true,
-    start: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-04T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-08-04T22:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -56,12 +56,12 @@ export default [
         key: 'plugins.mvp-template.calendar-test',
         name: 'Computación',
         icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
-        bgColor: ['#000000', '#000000'],
-        borderColor: '#000000',
+        bgColor: ['#F6E1F3', '#ECD8E9'],
+        borderStyle: 'solid',
+        borderColor: '#F6E1F3',
+        leftArrow: false,
+        rightArrow: false,
         rotate: 0,
-        borderStyle: 'solid', // dashed, solid, etc
-        rightArrow: true, // debe apuntar hacia la derecha, marca el inicio de algún periodo
-        leftArrow: false, // debe apuntar hacia la izquierda, marca el final de algún periodo
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
         updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),

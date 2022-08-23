@@ -249,8 +249,6 @@ export const BigCalendar = forwardRef(
       isMonthRange: currentView === MONTH_RANGE
     });
 
-    console.log(events);
-
     return (
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar

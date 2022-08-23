@@ -19,10 +19,11 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
   const filteredEvents = events.filter((event) =>
     localizer.inEventRange({
       event: { ...event },
-      range: range,
+      range: range
     })
   );
 
+  /*
   const finalEvents = filteredEvents.map((event) => {
     if (isLastWeek) {
       if (event.end.getMonth() > end.getMonth())
@@ -33,8 +34,9 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
     }
     return event;
   });
+   */
 
-  return finalEvents;
+  return filteredEvents;
 };
 
 class MonthView extends React.Component {
@@ -46,14 +48,14 @@ class MonthView extends React.Component {
     this.slotRowRef = React.createRef();
     this.state = {
       rowLimit: 5,
-      needLimitMeasure: true,
+      needLimitMeasure: true
     };
   }
 
   UNSAFE_componentWillReceiveProps({ date }) {
     const { date: propsDate, localizer } = this.props;
     this.setState({
-      needLimitMeasure: localizer.neq(date, propsDate, 'month'),
+      needLimitMeasure: localizer.neq(date, propsDate, 'month')
     });
   }
 
@@ -64,7 +66,7 @@ class MonthView extends React.Component {
     days[days.length - 1].setHours(23, 59, 59);
     this.props.onRangeChange({
       start: days[0],
-      end: days[days.length - 1],
+      end: days[days.length - 1]
     });
 
     if (this.state.needLimitMeasure) this.measureRowLimit(this.props);
@@ -103,8 +105,8 @@ class MonthView extends React.Component {
     this._weekCount = weeks.length;
 
     return (
-      <Box style={style} className={'rbc-month-view'} role="table" aria-label="Month View">
-        <Box className="rbc-row rbc-month-header" role="row">
+      <Box style={style} className={'rbc-month-view'} role='table' aria-label='Month View'>
+        <Box className='rbc-row rbc-month-header' role='row'>
           {this.renderHeaders(weeks[0])}
         </Box>
         {weeks.map(this.renderWeek)}
@@ -128,7 +130,7 @@ class MonthView extends React.Component {
       showAllEvents,
       hideBgTitles,
       isMonthView,
-      monthNumber,
+      monthNumber
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -160,12 +162,13 @@ class MonthView extends React.Component {
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 
+
     return (
       <DateContentRow
         key={weekIdx}
         ref={weekIdx === 0 ? this.slotRowRef : undefined}
         container={this.getContainer}
-        className="rbc-month-row"
+        className='rbc-month-row'
         getNow={getNow}
         date={date}
         range={week}
@@ -208,11 +211,11 @@ class MonthView extends React.Component {
       <Box
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
-        role="cell"
+        role='cell'
         style={{
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',
-          backgroundColor: isMonthView && isWeekend && COLORS.ui02,
+          backgroundColor: isMonthView && isWeekend && COLORS.ui02
         }}
       >
         <DateHeaderComponent
@@ -245,7 +248,7 @@ class MonthView extends React.Component {
         ? localizer.format(day, 'weekdayFormat')[0]
         : localizer.format(day, 'weekdayFormat');
       return (
-        <Box key={'header_' + idx} className="rbc-header">
+        <Box key={'header_' + idx} className='rbc-header'>
           <HeaderComponent date={day} localizer={localizer} label={capitalize(dayName)} />
         </Box>
       );
@@ -258,9 +261,9 @@ class MonthView extends React.Component {
 
     return (
       <Popper
-        position="bottom"
-        placement="center"
-        transition="fade"
+        position='bottom'
+        placement='center'
+        transition='fade'
         mounted={!!overlay.position}
         onHide={() => this.setState({ overlay: null })}
         referenceElement={overlay.target}
@@ -292,7 +295,7 @@ class MonthView extends React.Component {
   measureRowLimit() {
     this.setState({
       needLimitMeasure: false,
-      rowLimit: this.slotRowRef.current.getRowLimit(),
+      rowLimit: this.slotRowRef.current.getRowLimit()
     });
   }
 
@@ -333,7 +336,7 @@ class MonthView extends React.Component {
       let position = getPosition(cell, findDOMNode(this));
 
       this.setState({
-        overlay: { date, events, position, target },
+        overlay: { date, events, position, target }
       });
     } else if (doShowMoreDrillDown) {
       notify(onDrillDown, [date, getDrilldownView(date) || views.DAY]);
@@ -344,7 +347,7 @@ class MonthView extends React.Component {
 
   overlayDisplay = () => {
     this.setState({
-      overlay: null,
+      overlay: null
     });
   };
 
@@ -365,7 +368,7 @@ class MonthView extends React.Component {
       end,
       action: slotInfo.action,
       bounds: slotInfo.bounds,
-      box: slotInfo.box,
+      box: slotInfo.box
     });
   }
 
@@ -417,9 +420,9 @@ MonthView.propTypes = {
     PropTypes.number,
     PropTypes.shape({
       x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  ]),
+      y: PropTypes.number
+    })
+  ])
 };
 
 MonthView.range = (date, { localizer }) => {
