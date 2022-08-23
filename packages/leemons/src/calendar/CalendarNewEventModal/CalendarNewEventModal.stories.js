@@ -68,6 +68,7 @@ Playground.args = {
     startDate: 'Field required',
     endDate: 'Field required',
     color: 'Field required',
+    invalidColor: 'Invalid color',
   },
   suggestions: ['Semana de la ciencia', 'Día del león'],
 };

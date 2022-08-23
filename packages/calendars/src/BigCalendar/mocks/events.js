@@ -46,8 +46,8 @@ export default [
   {
     title: 'Tarea de Computación',
     allDay: true,
-    start: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-01T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-08-11T22:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -56,12 +56,50 @@ export default [
         key: 'plugins.mvp-template.calendar-test',
         name: 'Computación',
         icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
-        bgColor: ['#000000', '#000000'],
+        zIndex: -5,
+        desaturateColor: false,
+        bgColor: '#DAF1F9',
+        borderStyle: 'dashed',
         borderColor: '#000000',
-        rotate: 0,
-        borderStyle: 'solid', // dashed, solid, etc
-        rightArrow: true, // debe apuntar hacia la derecha, marca el inicio de algún periodo
-        leftArrow: false, // debe apuntar hacia la izquierda, marca el final de algún periodo
+        leftArrow: false,
+        rightArrow: false,
+        section: 'plugins.mvp-template.Testing',
+        created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
+        updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
+        showEvents: true
+      },
+      startDate: DateTime.fromISO('2022-11-10T20:10:00.000Z').toJSDate(),
+      endDate: DateTime.fromISO('2022-11-15T11:00:00.000Z').toJSDate(),
+      isAllDay: 1,
+      repeat: null,
+      type: 'plugins.calendar.task',
+      status: 'active',
+      data: null,
+      created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
+      updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate()
+    }
+  },
+
+  {
+    title: 'Tarea de Computación 2',
+    allDay: true,
+    start: DateTime.fromISO('2022-08-08T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-08-09T22:00:00.000Z').toJSDate(),
+    originalEvent: {
+      id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
+      title: 'Tarea Leemons',
+      calendar: {
+        id: '061bf3c4-4351-4330-8ac7-adf82bffc57d',
+        key: 'plugins.mvp-template.calendar-test',
+        name: 'Computación',
+        icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
+        zIndex: -2,
+        desaturateColor: false,
+        bgColor: ['#d94b4b', '#d90c0c'],
+        borderStyle: 'solid',
+        borderColor: '#000000',
+        leftArrow: false,
+        rightArrow: false,
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
         updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),

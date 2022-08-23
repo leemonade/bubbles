@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
 
+export const CALENDAR_NEW_EVENT_MODAL_COLORS = [
+  '#D9DCF9',
+  '#DEE9F9',
+  '#DAF1F9',
+  '#E2F9F3',
+  '#F5F9DE',
+  '#F5F0DC',
+  '#F4E2D9',
+  '#F3DFE3',
+];
+
 export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
   labels: {
@@ -32,6 +43,7 @@ export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
     startDate: '',
     endDate: '',
     color: '',
+    invalidColor: '',
   },
   suggestions: [],
 };

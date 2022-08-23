@@ -207,6 +207,7 @@ const ColorInput = forwardRef(
             position="bottom"
             placement="start"
             withArrow
+            trapFocus={false}
           >
             <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
               {!colorPickerComponent ? (

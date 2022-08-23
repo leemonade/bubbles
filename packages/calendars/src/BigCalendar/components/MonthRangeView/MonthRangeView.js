@@ -23,7 +23,7 @@ const MonthRangeView = ({ ...props }) => {
   useEffect(() => {
     onRangeChange({
       start: new Date(dateMonthRange.startYear, dateMonthRange.startMonth, 1, 0, 0, 0),
-      end: new Date(dateMonthRange.endYear, dateMonthRange.endMonth + 1, 0, 23, 59, 59),
+      end: new Date(dateMonthRange.endYear, dateMonthRange.endMonth + 1, 0, 23, 59, 59)
     });
   }, []);
 
@@ -56,7 +56,8 @@ const MonthRangeView = ({ ...props }) => {
                     date={date}
                     isMonthView={true}
                     monthNumber={month}
-                    onRangeChange={() => {}}
+                    onRangeChange={() => {
+                    }}
                   />
                 </Box>
               </Box>
