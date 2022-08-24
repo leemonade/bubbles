@@ -309,9 +309,14 @@ function EventCell(thisprops) {
   if (oneDayStyle) {
     let goodStart = DateTime.fromJSDate(event.start < slotStart ? slotStart : event.start);
     let goodEnd = DateTime.fromJSDate(event.end > slotEnd ? slotEnd : event.end);
+    let sum = 1;
+    if (event.end > slotEnd) {
+      sum = 0;
+    }
 
     const diff = goodEnd.diff(goodStart, ['days']);
-    arr = [...Array(Math.ceil(diff.days + 1)).keys()];
+    arr = [...Array(Math.ceil(diff.days + sum)).keys()];
+    console.log(arr.length, diff.days);
   }
 
   return (

@@ -43,6 +43,7 @@ export default [
  */
 
 export default [
+  /*
   {
     title: 'Tarea de Computación',
     allDay: true,
@@ -80,11 +81,13 @@ export default [
     }
   },
 
+   */
+
   {
     title: 'Prueba',
     allDay: true,
-    start: DateTime.fromISO('2022-08-10T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-11T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-01T22:00:00.000Z').toJSDate(),
+    end: DateTime.fromISO('2022-08-25T22:00:00.000Z').toJSDate(),
     originalEvent: {
       id: '1b61226d-b659-4f73-aa40-c621ad87c44a',
       title: 'Tarea Leemons',
@@ -95,12 +98,11 @@ export default [
         icon: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/computer_icon_56ca0c26bc.svg',
         zIndex: -2,
         desaturateColor: false,
-        bgColor: ['#d94b4b', '#d90c0c'],
+        bgColor: ['#F6E1F3', '#ECD8E9'],
         borderStyle: 'solid',
         borderColor: '#000000',
+        rotate: -45,
         oneDayStyle: true,
-        leftArrow: false,
-        rightArrow: false,
         section: 'plugins.mvp-template.Testing',
         created_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),
         updated_at: DateTime.fromISO('2022-11-25T19:35:54.000Z').toJSDate(),

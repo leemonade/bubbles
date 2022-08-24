@@ -27,7 +27,11 @@ class EventRow extends React.Component {
         let goodStart = DateTime.fromJSDate(event.start < slotMetrics.first ? slotMetrics.first : event.start);
         let goodEnd = DateTime.fromJSDate(event.end > slotMetrics.last ? slotMetrics.last : event.end);
         const diff = goodEnd.diff(goodStart, ['days']);
-        span = diff.days + 1;
+        let sum = 1;
+        if (event.end > slotMetrics.last) {
+          sum = 0;
+        }
+        span = diff.days + sum;
       }
       row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
       lastEnd = right + 1;
