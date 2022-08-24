@@ -312,7 +312,6 @@ function EventCell(thisprops) {
 
     const diff = goodEnd.diff(goodStart, ['days']);
     arr = [...Array(Math.ceil(diff.days + 1)).keys()];
-    console.log(arr, thisprops);
   }
 
   return (
