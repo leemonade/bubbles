@@ -162,7 +162,6 @@ class MonthView extends React.Component {
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 
-
     return (
       <DateContentRow
         key={weekIdx}
@@ -214,11 +213,21 @@ class MonthView extends React.Component {
         role='cell'
         style={{
           pointerEvents: 'all',
-          zIndex: -5,
           visibility: isMonthView && isOffRange && 'hidden',
-          backgroundColor: isMonthView && isWeekend && COLORS.ui02
+          position: 'relative'
         }}
       >
+        {isMonthView && isWeekend && COLORS.ui02 ?
+          <Box style={{
+            backgroundColor: COLORS.ui02,
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -99999
+          }} />
+          : null}
         <DateHeaderComponent
           label={label}
           date={date}

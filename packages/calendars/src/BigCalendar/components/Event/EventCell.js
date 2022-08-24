@@ -3,6 +3,7 @@ import React from 'react';
 import { Avatar, Box, createStyles, ImageLoader } from '@bubbles-ui/components';
 import { colord } from 'colord';
 import _ from 'lodash';
+import { DateTime } from 'luxon';
 
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
@@ -20,29 +21,21 @@ function eventCellStylesRoot(
     oneDay,
     isMonthView,
     rightArrow,
-    leftArrow,
+    leftArrow
   },
   imp
 ) {
   const data = {
     position: 'relative',
     backgroundColor: `${
-<<<<<<< HEAD
-      isAllDay
-        ? _.isArray(bgColor)
-          ? bgColor[0]
-          : colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-        : colors.uiBackground01
-=======
       isAllDay ? _.isArray(bgColor) ? bgColor[0] : desaturateColor ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString() : bgColor : colors.uiBackground01
->>>>>>> origin/calendar/year-view
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
     border:
       isMonthView && !oneDay
         ? `2px ${borderStyle || 'dashed'} ${borderColor || colors.mainBlack}${
-            imp ? '!important' : ''
-          }`
+          imp ? '!important' : ''
+        }`
         : `2px ${borderStyle || 'dashed'} transparent${imp ? '!important' : ''}`,
     borderRadius:
       !rightArrow && !leftArrow && isMonthView && oneDay
@@ -55,17 +48,17 @@ function eventCellStylesRoot(
     borderBottomLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
     width: isMonthView && (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
     transform: `rotate(${rotate}deg)`,
-<<<<<<< HEAD
-    // overflow: 'hidden',
-    zIndex: -2,
-=======
     overflow: 'hidden',
     zIndex: zIndex
->>>>>>> origin/calendar/year-view
   };
+
+  if (borderColor) {
+    data.border = `2px ${borderStyle || 'dashed'} ${borderColor || colors.mainBlack}${
+      imp ? '!important' : ''}`;
+  }
   if (_.isArray(bgColor)) {
     data.border = 'none';
-    data.borderRadius = '50%!important';
+    // data.borderRadius = '50%!important';
     data['&:before'] = {
       content: '""',
       position: 'absolute',
@@ -73,13 +66,8 @@ function eventCellStylesRoot(
       left: 0,
       width: '100%',
       height: '100%',
-<<<<<<< HEAD
-      zIndex: -1,
-      backgroundColor: bgColor[1],
-=======
       zIndex: zIndex + 1,
       backgroundColor: bgColor[1]
->>>>>>> origin/calendar/year-view
     };
   }
   return data;
@@ -97,8 +85,8 @@ function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
     justifyContent: 'center',
     verticalAlign: 'middle',
     img: {
-      filter: 'brightness(0) invert(1)',
-    },
+      filter: 'brightness(0) invert(1)'
+    }
   };
 }
 
@@ -116,7 +104,7 @@ const eventCellStyles = createStyles(
       isMonthView,
       oneDay,
       rightArrow,
-      leftArrow,
+      leftArrow
     }
   ) => {
     return {
@@ -133,31 +121,29 @@ const eventCellStyles = createStyles(
           isMonthView,
           oneDay,
           rightArrow,
-          leftArrow,
+          leftArrow
         },
         true
       ),
       icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
       item: {
         display: 'flex!important',
-        alignItems: 'center',
+        alignItems: 'center'
       },
       rightArrow: {
-        borderTop: '18px solid transparent',
-        borderBottom: '18px solid transparent',
-        borderRight: '18px solid transparent',
-        borderLeft: `6px solid ${
-          _.isArray(bgColor) ? bgColor[0] : colord(borderColor).toRgbString()
-        }`,
+        width: 0,
+        height: 0,
+        borderStyle: 'solid',
+        borderWidth: '18px 0 18px 8px',
+        borderColor: 'transparent transparent transparent ' + colord(borderColor).toRgbString()
       },
       leftArrow: {
-        borderTop: '18px solid transparent',
-        borderBottom: '18px solid transparent',
-        borderLeft: '18px solid transparent',
-        borderRight: `6px solid ${
-          _.isArray(bgColor) ? bgColor[0] : colord(borderColor).toRgbString()
-        }`,
-      },
+        width: 0,
+        height: 0,
+        borderStyle: 'solid',
+        borderWidth: '18px 8px 18px 0',
+        borderColor: 'transparent ' + colord(borderColor).toRgbString() + ' transparent transparent'
+      }
     };
   }
 );
@@ -186,8 +172,6 @@ function EventCell(thisprops) {
   } = thisprops;
   delete props.resizable;
 
-  console.log(event);
-
   const originalEvent = event.originalEvent;
 
   const title = accessors.title(event);
@@ -202,7 +186,7 @@ function EventCell(thisprops) {
   const userProps = getters.eventProp(event, start, end, selected);
 
   userProps.style = {
-    ...userProps.style,
+    ...userProps.style
   };
 
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
@@ -224,7 +208,7 @@ function EventCell(thisprops) {
       _.isArray(originalEvent.calendar.bgColor),
     isMonthView,
     rightArrow,
-    leftArrow,
+    leftArrow
   });
 
   const avatar = {
@@ -232,20 +216,20 @@ function EventCell(thisprops) {
     icon: eventIcon ? (
       <Box className={classes.icon}>
         <ImageLoader
-          height="12px"
+          height='12px'
           imageStyles={{
             position: 'absolute',
             left: '50%',
             top: '50%',
             width: 12,
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%)'
           }}
           src={eventIcon}
           forceImage
         />
       </Box>
     ) : null,
-    color: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    color: originalEvent.bgColor || originalEvent.calendar.bgColor
   };
 
   if (originalEvent.calendar.isUserCalendar) {
@@ -277,7 +261,7 @@ function EventCell(thisprops) {
             event.component
           ) : (
             <>
-              <Avatar mx="auto" size="xs" {...avatar} />
+              <Avatar mx='auto' size='xs' {...avatar} />
               <span style={{ marginLeft: 4 }}>{title}</span>
             </>
           )}
@@ -286,26 +270,68 @@ function EventCell(thisprops) {
     </Box>
   );
 
+  const oneDayStyle = isMonthView && originalEvent.calendar.oneDayStyle;
+
+  const finalContent = <>
+    <Box
+      {...props}
+      tabIndex={0}
+      style={{ ...userProps.style, ...style }}
+      className={cx(classes.root, 'rbc-event', className, userProps.className, {
+        'rbc-selected': selected,
+        'rbc-event-allday': showAsAllDay,
+        'rbc-event-continues-prior': continuesPrior,
+        'rbc-event-continues-after': continuesAfter
+      })}
+      onClick={(e) => {
+        if (!isMonthView) {
+          onSelect && onSelect(event, e);
+        }
+      }}
+      onDoubleClick={(e) => {
+        if (!isMonthView) {
+          onDoubleClick && onDoubleClick(event, e);
+        }
+      }}
+      onKeyPress={(e) => {
+        if (!isMonthView) {
+          onKeyPress && onKeyPress(event, e);
+        }
+      }}
+    >
+      {isMonthView ? null : typeof children === 'function' ? children(content) : content}
+    </Box>
+    {isMonthView && rightArrow && <Box className={classes.rightArrow} />}
+    {isMonthView && leftArrow && <Box className={classes.leftArrow} />}
+  </>;
+
+  let arr = [];
+  if (oneDayStyle) {
+    let goodStart = DateTime.fromJSDate(event.start < slotStart ? slotStart : event.start);
+    let goodEnd = DateTime.fromJSDate(event.end > slotEnd ? slotEnd : event.end);
+
+    const diff = goodEnd.diff(goodStart, ['days']);
+    arr = [...Array(Math.ceil(diff.days + 1)).keys()];
+    console.log(arr, thisprops);
+  }
+
   return (
-    <EventWrapper {...thisprops} type="date">
-      <Box
-        {...props}
-        tabIndex={0}
-        style={{ ...userProps.style, ...style }}
-        className={cx(classes.root, 'rbc-event', className, userProps.className, {
-          'rbc-selected': selected,
-          'rbc-event-allday': showAsAllDay,
-          'rbc-event-continues-prior': continuesPrior,
-          'rbc-event-continues-after': continuesAfter,
-        })}
-        onClick={(e) => onSelect && onSelect(event, e)}
-        onDoubleClick={(e) => onDoubleClick && onDoubleClick(event, e)}
-        onKeyPress={(e) => onKeyPress && onKeyPress(event, e)}
-      >
-        {typeof children === 'function' ? children(content) : content}
-      </Box>
-      {isMonthView && rightArrow && <Box className={classes.rightArrow} />}
-      {isMonthView && leftArrow && <Box className={classes.leftArrow} />}
+    <EventWrapper {...thisprops} type='date'>
+      {oneDayStyle ?
+        <Box style={{ width: '100%', height: '100%', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+          {arr.map((i) => {
+            return <Box style={{
+              position: 'relative',
+              height: '100%',
+              width: 100 / arr.length + '%',
+              display: 'inline-block'
+            }}>
+              <Box style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }}>
+                {finalContent}
+              </Box>
+            </Box>;
+          })}
+        </Box> : finalContent}
     </EventWrapper>
   );
 }
@@ -328,7 +354,7 @@ EventCell.propTypes = {
 
   onSelect: PropTypes.func,
   onDoubleClick: PropTypes.func,
-  onKeyPress: PropTypes.func,
+  onKeyPress: PropTypes.func
 };
 
 export default EventCell;
