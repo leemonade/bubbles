@@ -316,7 +316,6 @@ function EventCell(thisprops) {
 
     const diff = goodEnd.diff(goodStart, ['days']);
     arr = [...Array(Math.ceil(diff.days + sum)).keys()];
-    console.log(arr.length, diff.days);
   }
 
   return (

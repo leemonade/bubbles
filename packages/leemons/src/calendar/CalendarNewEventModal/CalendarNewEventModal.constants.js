@@ -8,7 +8,7 @@ export const CALENDAR_NEW_EVENT_MODAL_COLORS = [
   '#F5F9DE',
   '#F5F0DC',
   '#F4E2D9',
-  '#F3DFE3',
+  '#F3DFE3'
 ];
 
 export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
@@ -21,7 +21,7 @@ export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
     startDate: '',
     endDate: '',
     color: '',
-    add: '',
+    add: ''
   },
   values: {
     periodName: '',
@@ -29,13 +29,13 @@ export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
     withoutOrdinaryDays: false,
     startDate: null,
     endDate: null,
-    color: '',
+    color: ''
   },
   placeholders: {
     periodName: '',
     startDate: '',
     endDate: '',
-    color: '',
+    color: ''
   },
   errorMessages: {
     periodName: '',
@@ -43,11 +43,12 @@ export const CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS = {
     startDate: '',
     endDate: '',
     color: '',
-    invalidColor: '',
+    invalidColor: ''
   },
-  suggestions: [],
+  suggestions: []
 };
 export const CALENDAR_NEW_EVENT_MODAL_PROP_TYPES = {
+  locale: PropTypes.string,
   opened: PropTypes.bool,
   values: PropTypes.shape({
     periodName: PropTypes.string,
@@ -55,7 +56,7 @@ export const CALENDAR_NEW_EVENT_MODAL_PROP_TYPES = {
     withoutOrdinaryDays: PropTypes.bool,
     startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-    color: PropTypes.string,
+    color: PropTypes.string
   }),
   labels: PropTypes.shape({
     periodName: PropTypes.string,
@@ -65,20 +66,20 @@ export const CALENDAR_NEW_EVENT_MODAL_PROP_TYPES = {
     startDate: PropTypes.string,
     endDate: PropTypes.string,
     color: PropTypes.string,
-    add: PropTypes.string,
+    add: PropTypes.string
   }),
   placeholders: PropTypes.shape({
     periodName: PropTypes.string,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    color: PropTypes.string,
+    color: PropTypes.string
   }),
   errorMessages: PropTypes.shape({
     periodName: PropTypes.string,
     dayType: PropTypes.string,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    color: PropTypes.string,
+    color: PropTypes.string
   }),
-  suggestions: PropTypes.arrayOf(PropTypes.string),
+  suggestions: PropTypes.arrayOf(PropTypes.string)
 };
