@@ -176,7 +176,7 @@ export const BigCalendar = forwardRef(
         });
       }
       return acc;
-    }, [JSON.stringify(eventsProp), JSON.stringify(dateRange)]);
+    }, [eventsProp, JSON.stringify(dateRange)]);
 
     // ·················································
     // INTERACTION HANDLE
