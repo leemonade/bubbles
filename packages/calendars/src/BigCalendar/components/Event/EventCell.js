@@ -239,12 +239,14 @@ function EventCell(thisprops) {
   const rightArrow = event.originalEvent.calendar.rightArrow;
   const leftArrow = event.originalEvent.calendar.leftArrow;
 
+  const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+
   const { classes } = eventCellStyles({
     zIndex: originalEvent.zIndex || originalEvent.calendar.zIndex,
     desaturateColor: originalEvent.desaturateColor || originalEvent.calendar.desaturateColor,
     rotate: originalEvent.rotate || originalEvent.calendar.rotate,
     isAllDay: event.allDay,
-    bgColor: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    bgColor: eventBgColor,
     borderStyle: originalEvent.borderStyle || originalEvent.calendar.borderStyle,
     borderColor: originalEvent.borderColor || originalEvent.calendar.borderColor,
     oneDay:
@@ -396,7 +398,13 @@ function EventCell(thisprops) {
                 }}
               >
                 <Box
-                  style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }}
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
                 >
                   {finalContent}
                 </Box>

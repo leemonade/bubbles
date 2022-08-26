@@ -13,7 +13,7 @@ class EventRow extends React.Component {
       slotMetrics: { slots },
       className,
       isMonthView,
-      slotMetrics
+      slotMetrics,
     } = this.props;
 
     let lastEnd = 1;
@@ -24,8 +24,12 @@ class EventRow extends React.Component {
       const content = EventRowMixin.renderEvent(this.props, event, isMonthView);
       if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
       if (isMonthView) {
-        let goodStart = DateTime.fromJSDate(event.start < slotMetrics.first ? slotMetrics.first : event.start);
-        let goodEnd = DateTime.fromJSDate(event.end > slotMetrics.last ? slotMetrics.last : event.end);
+        let goodStart = DateTime.fromJSDate(
+          event.start < slotMetrics.first ? slotMetrics.first : event.start
+        );
+        let goodEnd = DateTime.fromJSDate(
+          event.end > slotMetrics.last ? slotMetrics.last : event.end
+        );
         const diff = goodEnd.diff(goodStart, ['days']);
         let sum = 1;
         if (event.end > slotMetrics.last) {
@@ -44,11 +48,11 @@ class EventRow extends React.Component {
 
 EventRow.propTypes = {
   segments: PropTypes.array,
-  ...EventRowMixin.propTypes
+  ...EventRowMixin.propTypes,
 };
 
 EventRow.defaultProps = {
-  ...EventRowMixin.defaultProps
+  ...EventRowMixin.defaultProps,
 };
 
 export default EventRow;
