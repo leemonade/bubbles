@@ -15,6 +15,7 @@ const Tooltip = ({
   placement = 'center',
   withArrow = 'true',
   useAria,
+  withinPortal,
   ...props
 }) => {
   size = TOOLTIP_SIZES.includes(size) ? size : 'xs';
@@ -33,7 +34,7 @@ const Tooltip = ({
       size={size}
       arrowSize={4}
       withArrow={withArrow}
-      withinPortal={false}
+      withinPortal={withinPortal}
       role={useAria ? 'tooltip' : undefined}
       // allowPointerEvents={false}
     />

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Avatar, Box, createStyles, ImageLoader } from '@bubbles-ui/components';
+import { Avatar, Box, createStyles, ImageLoader, Tooltip } from '@bubbles-ui/components';
 import { colord } from 'colord';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
@@ -53,7 +53,7 @@ function eventCellStylesRoot(
     borderBottomRightRadius: isMonthView && rightArrow && `0px${imp ? '!important' : ''}`,
     borderTopLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
     borderBottomLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
-    width: isMonthView && (rightArrow || leftArrow) && `30px${imp ? '!important' : ''}`,
+    width: isMonthView && (rightArrow || leftArrow) && `32px${imp ? '!important' : ''}`,
     transform: isMonthView && `rotate(${rotate}deg)`,
     overflow: !leftArrow && !rightArrow && 'hidden',
     zIndex: zIndex,
@@ -317,8 +317,9 @@ function EventCell(thisprops) {
   );
 
   const oneDayStyle = isMonthView && originalEvent.calendar.oneDayStyle;
+  const withTooltip = isMonthView && title;
 
-  const finalContent = (
+  const eventElement = (
     <Box
       {...props}
       tabIndex={0}
@@ -349,6 +350,24 @@ function EventCell(thisprops) {
       {isMonthView && rightArrow && <Box className={classes.rightArrow} />}
       {isMonthView && leftArrow && <Box className={classes.leftArrow} />}
     </Box>
+  );
+
+  let finalContent = withTooltip ? (
+    <Tooltip
+      label={title}
+      style={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: leftArrow && 'row-reverse',
+        pointerEvents: 'all'
+      }}
+      color='secondary'
+      withinPortal
+    >
+      {eventElement}
+    </Tooltip>
+  ) : (
+    eventElement
   );
 
   let arr = [];

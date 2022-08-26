@@ -160,6 +160,7 @@ export default [
     },
   },
   {
+    title: 'Evento de computación',
     allDay: true,
     start: DateTime.fromISO('2022-08-09T22:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-08-16T22:00:00.000Z').toJSDate(),
