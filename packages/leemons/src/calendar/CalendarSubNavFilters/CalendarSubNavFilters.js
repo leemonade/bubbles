@@ -113,8 +113,9 @@ const CalendarSubNavFilters = ({
               data={pages}
               value={pageValue}
               onChange={pageOnChange}
+              orientation={pages.length > 2 ? 'vertical' : 'horizontal'}
               classNames={{
-                root: classes.segmentRoot,
+                root: pages.length > 2 ? classes.segmentRoot2 : classes.segmentRoot,
                 label: classes.segmentLabel,
                 active: classes.segmentActive,
                 labelActive: classes.segmentLabelActive,
