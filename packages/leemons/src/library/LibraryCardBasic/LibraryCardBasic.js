@@ -14,7 +14,7 @@ const LibraryCardBasic = ({ asset, height, blur, children, ...props }) => {
     { name: 'LibraryCardBasic' }
   );
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} {...props}>
       <Box className={classes.blurryBox}>
         <Box>
           <Box className={classes.color} />
