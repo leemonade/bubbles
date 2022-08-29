@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ScoresPeriodFormStyles } from './ScoresPeriodForm.styles';
 import {
   SCORES_PERIOD_FORM_DEFAULT_PROPS,
-  SCORES_PERIOD_FORM_PROP_TYPES
+  SCORES_PERIOD_FORM_PROP_TYPES,
 } from './ScoresPeriodForm.constants';
 import { SearchIcon } from '@bubbles-ui/icons/outline';
 
@@ -33,7 +33,7 @@ function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValu
 
   return (
     <Box className={classes.periodsList}>
-      <Text role='productive' strong color='soft' size='xs' transform='uppercase'>
+      <Text role="productive" strong color="soft" size="xs" transform="uppercase">
         {labels?.evaluations}
       </Text>
       {periods?.map((period) => {
@@ -41,7 +41,7 @@ function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValu
           <Box
             className={cx(classes.period, {
               [classes.selectedPeriod]:
-              startDate === period.startDate.getTime() && endDate === period.endDate.getTime()
+                startDate === period.startDate.getTime() && endDate === period.endDate.getTime(),
             })}
             key={period.id}
             onClick={() => {
@@ -53,10 +53,10 @@ function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValu
               setValue('endDate', period.endDate);
             }}
           >
-            <Text color='primary' strong>
+            <Text color="primary" strong>
               {period.name}
             </Text>
-            <Text color='quartiary'>
+            <Text color="quartiary">
               {period.startDate?.toLocaleDateString(locale)} -{' '}
               {period.endDate.toLocaleDateString(locale)}
             </Text>
@@ -65,6 +65,16 @@ function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValu
       })}
     </Box>
   );
+}
+
+function oldValueExistsOnCurrentData(value, data) {
+  if (Array.isArray(value)) {
+    const diff = _.difference(value, _.map(data, 'value'));
+
+    return diff.length === 0;
+  }
+
+  return data.some((item) => item.value === value);
 }
 
 function RenderSelects({ classes, clearLabel, control, errors, fields }) {
@@ -81,8 +91,10 @@ function RenderSelects({ classes, clearLabel, control, errors, fields }) {
           name={name}
           rules={{ required }}
           render={({ field }) => {
+            // EN: Clean the old value if the data has changed
+            // ES: Elimina el valor antiguo si los datos han cambiado
             React.useEffect(() => {
-              if (field.value && !data.some((item) => item.value === field.value)) {
+              if (field.value && !oldValueExistsOnCurrentData(field.value, data)) {
                 field.onChange(null);
               }
             }, [data]);
@@ -110,20 +122,21 @@ function RenderSelects({ classes, clearLabel, control, errors, fields }) {
 }
 
 function SelectDates({
-                       classes,
-                       control,
-                       errorMessages,
-                       errors,
-                       labels,
-                       locale,
-                       watch,
-                       getValues
-                     }) {
+  classes,
+  control,
+  errorMessages,
+  errors,
+  labels,
+  locale,
+  watch,
+  getValues,
+  required,
+}) {
   return (
     <Box className={classes.periodWrapper}>
       <Controller
         control={control}
-        name='startDate'
+        name="startDate"
         rules={{
           required: errorMessages.startDate || 'Required Field',
           validate: (value) => {
@@ -138,13 +151,13 @@ function SelectDates({
             }
 
             return true;
-          }
+          },
         }}
         render={({ field }) => (
           <DatePicker
             label={labels.startDate}
             error={errors.startDate}
-            required
+            required={required}
             locale={locale}
             maxDate={watch('endDate')}
             headerStyle={{ flex: 'none' }}
@@ -165,7 +178,7 @@ function SelectDates({
       />
       <Controller
         control={control}
-        name='endDate'
+        name="endDate"
         rules={{
           required: errorMessages.endDate || 'Required Field',
           validate: (value) => {
@@ -180,7 +193,7 @@ function SelectDates({
             }
 
             return true;
-          }
+          },
         }}
         render={({ field }) => (
           <DatePicker
@@ -211,21 +224,21 @@ function SelectDates({
 }
 
 function PeriodCreationForm({
-                              classes,
-                              control,
-                              errorMessages,
-                              labels,
-                              errors,
-                              handleSubmit,
-                              onSaveHandler
-                            }) {
+  classes,
+  control,
+  errorMessages,
+  labels,
+  errors,
+  handleSubmit,
+  onSaveHandler,
+}) {
   return (
     <Box className={classes.createContent}>
       <Controller
         control={control}
-        name='periodName'
+        name="periodName"
         rules={{
-          required: errorMessages.periodName || 'Required Field'
+          required: errorMessages.periodName || 'Required Field',
         }}
         render={({ field }) => (
           <TextInput {...field} label={labels?.periodName} required error={errors.periodName} />
@@ -233,17 +246,17 @@ function PeriodCreationForm({
       />
       <Controller
         control={control}
-        name='shareWithTeachers'
+        name="shareWithTeachers"
         render={({ field }) => (
           <Switch
             {...field}
-            size='md'
+            size="md"
             label={labels.shareWithTeachers}
             checked={field.value}
           ></Switch>
         )}
       />
-      <Button fullWidth position='center' onClick={handleSubmit(onSaveHandler)}>
+      <Button fullWidth position="center" onClick={handleSubmit(onSaveHandler)}>
         {labels.saveButton}
       </Button>
     </Box>
@@ -251,25 +264,25 @@ function PeriodCreationForm({
 }
 
 function ScoresPeriodForm({
-                            value,
-                            fields,
-                            labels,
-                            errorMessages,
-                            onSubmit,
-                            onSave,
-                            allowCreate,
-                            periods,
-                            locale,
-                            onChange,
-                            onPeriodSelect
-                          }) {
+  value,
+  fields,
+  labels,
+  errorMessages,
+  onSubmit,
+  onSave,
+  allowCreate,
+  periods,
+  locale,
+  onChange,
+  onPeriodSelect,
+}) {
   const {
     control,
     handleSubmit,
     getValues,
     watch,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm({ defaultValues: value });
 
   const onSubmitHandler = ({ periodName, shareWithTeachers, ...formValue }) => {
@@ -326,7 +339,7 @@ function ScoresPeriodForm({
 
         {!allowCreate && (
           <Box className={classes.customPeriodTitle}>
-            <Text role='productive' strong color='soft' size='xs' transform='uppercase'>
+            <Text role="productive" strong color="soft" size="xs" transform="uppercase">
               {labels?.customPeriod}
             </Text>
           </Box>
@@ -341,6 +354,7 @@ function ScoresPeriodForm({
           locale={locale}
           watch={watch}
           getValues={getValues}
+          required={allowCreate}
         />
 
         {allowCreate && (
@@ -357,7 +371,7 @@ function ScoresPeriodForm({
 
         {!allowCreate && (
           <Box className={classes.buttonWrapper}>
-            <Button type='submit' position='center' fullWidth rightIcon={<SearchIcon />}>
+            <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
               {labels.submit}
             </Button>
           </Box>
