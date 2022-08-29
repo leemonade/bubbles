@@ -88,13 +88,13 @@ const ScoreCell = ({
             </>
           ) : (
             <Text color="primary" role="productive">
-              {isNil(value) || '-'}
+              {!isNil(value) ? value : '-'}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {isNil(value) || '-'}
+              {!isNil(value) ? value : '-'}
             </Text>
             {isEditing && (
               <Box ref={setExpandBox} className={classes.expandIcon}>
