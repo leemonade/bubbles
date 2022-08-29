@@ -91,6 +91,7 @@ const DatePicker = forwardRef(
       autoComplete,
       clearButtonLabel,
       readOnly,
+      style,
       ...props
     },
     ref
@@ -151,6 +152,7 @@ const DatePicker = forwardRef(
         contentClassName={contentClassName}
         headerStyle={headerStyle}
         contentStyle={contentStyle}
+        style={style}
       >
         {readOnly ? (
           <Paragraph clean>

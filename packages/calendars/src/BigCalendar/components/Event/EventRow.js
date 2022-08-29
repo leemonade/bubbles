@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@bubbles-ui/components';
 
 import EventRowMixin from './EventRowMixin';
+import { DateTime } from 'luxon';
 
 class EventRow extends React.Component {
   render() {
@@ -12,53 +13,36 @@ class EventRow extends React.Component {
       slotMetrics: { slots },
       className,
       isMonthView,
-      monthNumber,
+      slotMetrics,
     } = this.props;
 
     let lastEnd = 1;
 
-    return (
-      <Box className={cx(className, 'rbc-row')}>
-        {segments.reduce((row, { event, left, right, span }, li) => {
-          const key = '_lvl_' + li;
-          const gap = left - lastEnd;
-
-          const content = EventRowMixin.renderEvent(this.props, event);
-
-          if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
-
-          row.push(EventRowMixin.renderSpan(slots, span, key, content));
-
-          lastEnd = right + 1;
-
-          return row;
-        }, [])}
-      </Box>
-    );
-
-    /*
     const row = segments.reduce((row, { event, left, right, span }, li) => {
       const key = '_lvl_' + li;
       const gap = left - lastEnd;
-      const notMonthEvent =
-        event.start.getMonth() !== monthNumber && event.end.getMonth() !== monthNumber;
-      console.log(notMonthEvent);
-      if (notMonthEvent) {
-        if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', event));
-        row.push(EventRowMixin.renderSpan(slots, span, key, '', event));
-        lastEnd = right + 1;
-        return row;
-      }
       const content = EventRowMixin.renderEvent(this.props, event, isMonthView);
-      if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', event));
-      row.push(EventRowMixin.renderSpan(slots, span, key, content, event));
+      if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
+      if (isMonthView) {
+        let goodStart = DateTime.fromJSDate(
+          event.start < slotMetrics.first ? slotMetrics.first : event.start
+        );
+        let goodEnd = DateTime.fromJSDate(
+          event.end > slotMetrics.last ? slotMetrics.last : event.end
+        );
+        const diff = goodEnd.diff(goodStart, ['days']);
+        let sum = 1;
+        if (event.end > slotMetrics.last) {
+          sum = 0;
+        }
+        span = diff.days + sum;
+      }
+      row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
       lastEnd = right + 1;
       return row;
     }, []);
 
-    return <Box className={cx(className, 'rbc-row', 'rbc-event-row')}>{row}</Box>;
-
-     */
+    return <Box className={cx(className, 'rbc-row', { 'rbc-event-row': isMonthView })}>{row}</Box>;
   }
 }
 

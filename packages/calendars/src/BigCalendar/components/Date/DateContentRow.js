@@ -149,7 +149,11 @@ class DateContentRow extends React.Component {
       }
     });
 
-    let metrics = this.slotMetrics({ ...this.props, events: normalEvents });
+    let metrics = this.slotMetrics({
+      ...this.props,
+      maxRows: isMonthView ? 20 : this.props.maxRows || undefined,
+      events: normalEvents,
+    });
     let { levels, extra } = metrics;
 
     let ScrollableWeekComponent = showAllEvents ? ScrollableWeekWrapper : NoopWrapper;
@@ -167,6 +171,7 @@ class DateContentRow extends React.Component {
       resourceId,
       slotMetrics: metrics,
       resizable,
+      events,
     };
 
     return (

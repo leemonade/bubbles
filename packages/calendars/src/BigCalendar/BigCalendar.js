@@ -176,7 +176,7 @@ export const BigCalendar = forwardRef(
         });
       }
       return acc;
-    }, [JSON.stringify(eventsProp), JSON.stringify(dateRange)]);
+    }, [eventsProp, JSON.stringify(dateRange)]);
 
     // ·················································
     // INTERACTION HANDLE
@@ -248,8 +248,6 @@ export const BigCalendar = forwardRef(
       timeslotHeight,
       isMonthRange: currentView === MONTH_RANGE
     });
-
-    console.log(events);
 
     return (
       <Box className={cx(classes.root, className)} style={style}>

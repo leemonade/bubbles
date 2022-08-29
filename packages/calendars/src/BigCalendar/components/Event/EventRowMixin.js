@@ -67,11 +67,11 @@ export default {
     );
   },
 
-  renderSpan(slots, len, key, content = ' ', event) {
+  renderSpan(slots, len, key, content = ' ', isMonthView, event) {
     let per = (Math.abs(len) / slots) * 100 + '%';
 
-    const rightArrow = event && event.originalEvent.calendar.rightArrow;
-    const leftArrow = event && event.originalEvent.calendar.leftArrow;
+    const rightArrow = isMonthView && event && event.originalEvent.calendar.rightArrow;
+    const leftArrow = isMonthView && event && event.originalEvent.calendar.leftArrow;
 
     return (
       <Box

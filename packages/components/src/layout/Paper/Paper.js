@@ -17,7 +17,7 @@ export const PAPER_DEFAULT_PROPS = {
 };
 export const PAPER_PROP_TYPES = {
   radius: PropTypes.oneOf(PAPER_RADIUS),
-  padding: PropTypes.number,
+  padding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   children: PropTypes.node,
   className: PropTypes.string,
   shadow: PropTypes.oneOf(PAPER_SHADOWS),
