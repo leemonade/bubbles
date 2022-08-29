@@ -67,6 +67,16 @@ function Periods({ classes, cx, labels, locale, onPeriodSelect, periods, setValu
   );
 }
 
+function oldValueExistsOnCurrentData(value, data) {
+  if (Array.isArray(value)) {
+    const diff = _.difference(value, _.map(data, 'value'));
+
+    return diff.length === 0;
+  }
+
+  return data.some((item) => item.value === value);
+}
+
 function RenderSelects({ classes, clearLabel, control, errors, fields }) {
   return React.useMemo(() => {
     const selects = fields.map((field, index) => {
@@ -81,8 +91,10 @@ function RenderSelects({ classes, clearLabel, control, errors, fields }) {
           name={name}
           rules={{ required }}
           render={({ field }) => {
+            // EN: Clean the old value if the data has changed
+            // ES: Elimina el valor antiguo si los datos han cambiado
             React.useEffect(() => {
-              if (field.value && !data.some((item) => item.value === field.value)) {
+              if (field.value && !oldValueExistsOnCurrentData(field.value, data)) {
                 field.onChange(null);
               }
             }, [data]);
@@ -117,8 +129,9 @@ function SelectDates({
                        labels,
                        locale,
                        watch,
-                       getValues
-                     }) {
+                       getValues,
+                       required,
+}) {
   return (
     <Box className={classes.periodWrapper}>
       <Controller
@@ -144,7 +157,7 @@ function SelectDates({
           <DatePicker
             label={labels.startDate}
             error={errors.startDate}
-            required
+            required={required}
             locale={locale}
             maxDate={watch('endDate')}
             headerStyle={{ flex: 'none' }}
@@ -341,6 +354,7 @@ function ScoresPeriodForm({
           locale={locale}
           watch={watch}
           getValues={getValues}
+          required={allowCreate}
         />
 
         {allowCreate && (
