@@ -17,7 +17,7 @@ export const ScoresPeriodFormStyles = createStyles((theme) => {
       gap: theme.spacing[2],
     },
     buttonWrapper: {
-      marginTop: theme.spacing[7],
+      marginTop: theme.spacing[4],
     },
     periodWrapper: {
       marginTop: theme.spacing[2],

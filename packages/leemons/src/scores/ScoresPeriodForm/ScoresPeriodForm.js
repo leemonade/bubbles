@@ -133,7 +133,7 @@ function SelectDates({
   required,
 }) {
   return (
-    <Box className={classes.periodWrapper}>
+    <>
       <Controller
         control={control}
         name="startDate"
@@ -219,7 +219,7 @@ function SelectDates({
           />
         )}
       />
-    </Box>
+    </>
   );
 }
 
@@ -316,66 +316,71 @@ function ScoresPeriodForm({
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
-        <RenderSelects
-          classes={classes}
-          clearLabel={'clear'}
-          control={control}
-          errors={errors}
-          fields={fields}
-        />
-
-        {!allowCreate && (
-          <Periods
+        <Box sx={(theme) => ({ display: 'flex', flexDirection: 'column', gap: theme.spacing[4] })}>
+          <RenderSelects
             classes={classes}
-            cx={cx}
-            labels={labels}
-            locale={locale}
-            onPeriodSelect={onPeriodSelect}
-            periods={periods}
-            setValue={setValue}
-            watch={watch}
-          />
-        )}
-
-        {!allowCreate && (
-          <Box className={classes.customPeriodTitle}>
-            <Text role="productive" strong color="soft" size="xs" transform="uppercase">
-              {labels?.customPeriod}
-            </Text>
-          </Box>
-        )}
-
-        <SelectDates
-          classes={classes}
-          control={control}
-          errorMessages={errorMessages}
-          errors={errors}
-          labels={labels}
-          locale={locale}
-          watch={watch}
-          getValues={getValues}
-          required={allowCreate}
-        />
-
-        {allowCreate && (
-          <PeriodCreationForm
-            classes={classes}
+            clearLabel={'clear'}
             control={control}
-            errorMessages={errorMessages}
-            labels={labels}
             errors={errors}
-            handleSubmit={handleSubmit}
-            onSaveHandler={onSaveHandler}
+            fields={fields}
           />
-        )}
 
-        {!allowCreate && (
-          <Box className={classes.buttonWrapper}>
-            <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
-              {labels.submit}
-            </Button>
+          {!allowCreate && (
+            <Periods
+              classes={classes}
+              cx={cx}
+              labels={labels}
+              locale={locale}
+              onPeriodSelect={onPeriodSelect}
+              periods={periods}
+              setValue={setValue}
+              watch={watch}
+            />
+          )}
+
+          <Box>
+            {!allowCreate && (
+              <Box className={classes.customPeriodTitle}>
+                <Text role="productive" strong color="soft" size="xs" transform="uppercase">
+                  {labels?.customPeriod}
+                </Text>
+              </Box>
+            )}
+
+            <Box className={classes.periodWrapper}>
+              <SelectDates
+                classes={classes}
+                control={control}
+                errorMessages={errorMessages}
+                errors={errors}
+                labels={labels}
+                locale={locale}
+                watch={watch}
+                getValues={getValues}
+                required={allowCreate}
+              />
+              {!allowCreate && (
+                <Box className={classes.buttonWrapper}>
+                  <Button type="submit" position="center" fullWidth rightIcon={<SearchIcon />}>
+                    {labels.submit}
+                  </Button>
+                </Box>
+              )}
+            </Box>
           </Box>
-        )}
+
+          {allowCreate && (
+            <PeriodCreationForm
+              classes={classes}
+              control={control}
+              errorMessages={errorMessages}
+              labels={labels}
+              errors={errors}
+              handleSubmit={handleSubmit}
+              onSaveHandler={onSaveHandler}
+            />
+          )}
+        </Box>
       </form>
     </Box>
   );
