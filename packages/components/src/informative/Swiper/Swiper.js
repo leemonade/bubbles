@@ -29,7 +29,7 @@ const Swiper = ({
   ...props
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
+  const [isEnd, setIsEnd] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const onSelectIndexHandler = (index) => {
