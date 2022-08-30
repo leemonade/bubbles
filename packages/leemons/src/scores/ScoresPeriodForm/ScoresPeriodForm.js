@@ -199,7 +199,7 @@ function SelectDates({
           <DatePicker
             label={labels.endDate}
             error={errors.endDate}
-            required
+            required={required}
             locale={locale}
             minDate={watch('startDate')}
             headerStyle={{ flex: 'none' }}
