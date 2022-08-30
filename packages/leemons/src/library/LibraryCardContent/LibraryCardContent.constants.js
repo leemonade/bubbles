@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 import { LIBRARYCARD_ASSIGMENT, LIBRARYCARD_VARIANTS } from '../LibraryCard/LibraryCard.constants';
 
 export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
@@ -9,6 +10,7 @@ export const LIBRARY_CARD_CONTENT_DEFAULT_PROPS = {
   truncated: true,
   locale: 'en-GB',
   fullHeight: false,
+  role: 'teacher',
 };
 export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   tagline: PropTypes.string,
@@ -20,4 +22,5 @@ export const LIBRARY_CARD_CONTENT_PROP_TYPES = {
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
   truncated: PropTypes.bool,
   fullHeight: PropTypes.bool,
+  role: PropTypes.oneOf(LIBRARYCARD_ASSIGMENT_ROLES),
 };

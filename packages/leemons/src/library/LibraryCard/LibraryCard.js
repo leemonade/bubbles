@@ -94,6 +94,7 @@ const LibraryCard = ({
         variant={variant}
         assigment={assigment}
         fullHeight={fullHeight}
+        role={role}
       />
       <LibraryCardFooter
         {...asset}

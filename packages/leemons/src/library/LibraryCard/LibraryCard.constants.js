@@ -16,6 +16,8 @@ export const LIBRARYCARD_ASSIGMENT = {
   }),
   avgTime: PropTypes.number,
   avgAttempts: PropTypes.number,
+  activityType: PropTypes.string,
+  grade: PropTypes.number,
 };
 
 export const ASSET_PROPS = PropTypes.shape({
