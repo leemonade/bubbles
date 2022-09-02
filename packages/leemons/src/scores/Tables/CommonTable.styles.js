@@ -1,12 +1,6 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles } from '@bubbles-ui/components';
 
-export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overFlowRight }) => {
+export const CommonTableStyles = createStyles((theme, { overFlowLeft, overFlowRight }) => {
   return {
     root: {
       display: 'flex',
@@ -37,8 +31,6 @@ export const ScoresBasicTableStyles = createStyles((theme, { overFlowLeft, overF
         borderRadius: 4,
       },
     },
-    tableHeader: {},
-    tableHeaderRow: {},
     tableHeaderCell: {
       maxHeight: 120,
       '&:first-of-type': {

@@ -12,7 +12,6 @@ export const SELECT_DEFAULT_PROPS = {
   autoComplete: 'off',
   readOnly: false,
   variant: 'default',
-  useAria: true,
 };
 export const SELECT_PROP_TYPES = {
   label: PropTypes.string,
@@ -34,5 +33,4 @@ export const SELECT_PROP_TYPES = {
   style: PropTypes.object,
   autoComplete: PropTypes.string,
   readOnly: PropTypes.bool,
-  useAria: PropTypes.bool,
 };

@@ -11,6 +11,7 @@ import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
+import { CommonTableStyles } from '../CommonTable.styles';
 
 const ScoresBasicTable = ({
   grades,
@@ -35,10 +36,12 @@ const ScoresBasicTable = ({
   const [overFlowLeft, setOverFlowLeft] = useState(false);
   const [overFlowRight, setOverFlowRight] = useState(false);
 
-  const { classes, cx } = ScoresBasicTableStyles(
+  const { classes: commonClasses } = CommonTableStyles(
     { overFlowLeft, overFlowRight },
-    { name: 'ScoresBasicTable' }
+    { name: 'CommonTable' }
   );
+  const { classes: basicClasses, cx } = ScoresBasicTableStyles({}, { name: 'ScoresBasicTable' });
+  const classes = { ...commonClasses, ...basicClasses };
 
   const onColumnExpandHandler = (columnId) => {
     isFunction(onColumnExpand) && onColumnExpand(columnId);
@@ -108,12 +111,6 @@ const ScoresBasicTable = ({
   };
 
   const getActivitiesPeriod = () => {
-    // const earliestDeadline = activities.reduce((acc, { deadline }) => {
-    //   return acc < deadline ? acc : deadline;
-    // }, activities[0].deadline);
-    // const latestDeadline = activities.reduce((acc, { deadline }) => {
-    //   return acc > deadline ? acc : deadline;
-    // }, activities[0].deadline);
     return `${new Date(from).toLocaleDateString(locale)} - ${new Date(to).toLocaleDateString(
       locale
     )}`;

@@ -1,5 +1,5 @@
-import { Box } from '@bubbles-ui/components/';
 import React from 'react';
+import { Box } from '@bubbles-ui/components/';
 import { ScoresBasicTable } from './ScoresBasicTable';
 import { SCORES_BASIC_TABLE_DEFAULT_PROPS } from './ScoresBasicTable.constants';
 import mdx from './ScoresBasicTable.mdx';
@@ -74,19 +74,6 @@ Playground.args = {
     gradingTasks: 'Grading tasks',
     attendance: 'Attendance',
   },
-  // grades: [
-  //   { number: 0, letter: 'F' },
-  //   { number: 1, letter: 'E' },
-  //   { number: 2, letter: 'E+' },
-  //   { number: 3, letter: 'D' },
-  //   { number: 4, letter: 'D+' },
-  //   { number: 5, letter: 'C' },
-  //   { number: 6, letter: 'C+' },
-  //   { number: 7, letter: 'B' },
-  //   { number: 8, letter: 'B+' },
-  //   { number: 9, letter: 'A' },
-  //   { number: 10, letter: 'A+' },
-  // ],
   grades: [
     {
       number: 0,
@@ -137,41 +124,6 @@ Playground.args = {
       letter: 'A',
     },
   ],
-  // grades: [
-  //   {
-  //     score: 0,
-  //   },
-  //   {
-  //     score: 1,
-  //   },
-  //   {
-  //     score: 2,
-  //   },
-  //   {
-  //     score: 3,
-  //   },
-  //   {
-  //     score: 4,
-  //   },
-  //   {
-  //     score: 5,
-  //   },
-  //   {
-  //     score: 6,
-  //   },
-  //   {
-  //     score: 7,
-  //   },
-  //   {
-  //     score: 8,
-  //   },
-  //   {
-  //     score: 9,
-  //   },
-  //   {
-  //     score: 10,
-  //   },
-  // ],
   activities: [
     {
       id: 'a-01',
