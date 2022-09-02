@@ -27,7 +27,7 @@ const getSizes = (theme, size) => {
 };
 
 export const TextStyles = createStyles(
-  (theme, { role, transform, color, strong, stronger, size, truncated, styles }) => {
+  (theme, { role, transform, color, strong, stronger, size, truncated, styles, highlighted }) => {
     const COLORS = {
       primary: theme.colors.text01,
       secondary: theme.colors.text02,
@@ -51,6 +51,15 @@ export const TextStyles = createStyles(
       };
     }
 
+    let highlightProps = {};
+    if (highlighted) {
+      highlightProps = {
+        boxShadow: `0 -0.9em 0 inset ${theme.colors.fatic05}`,
+        padding: `0px 0.2rem`,
+        margin: `0px -0.2rem`,
+      };
+    }
+
     return {
       root: {
         ...getFontStyle(role, strong, stronger),
@@ -58,6 +67,7 @@ export const TextStyles = createStyles(
         textTransform: transform,
         color: COLORS[color] || theme.colors.text02,
         ...truncateProps,
+        ...highlightProps,
         ...styles,
       },
     };

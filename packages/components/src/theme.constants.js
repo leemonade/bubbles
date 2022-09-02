@@ -48,6 +48,7 @@ export const PALETTE = {
   faticWarningLight: '#FEFBE8',
   faticInfo: '#384FE3',
   faticInfoLight: '#212B3D',
+  faticHighlight: '#FEFF8C',
 };
 
 export const SPACING = [0, 4, 8, 12, 16, 24, 28, 32, 40, 44, 48, 54, 60, 80];
