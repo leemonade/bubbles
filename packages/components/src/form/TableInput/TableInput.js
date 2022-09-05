@@ -88,12 +88,14 @@ const TableInput = ({
       const newData = update(tableData, { $push: [serializeItem(item)] });
       onAdd(serializeItem(item));
       handleOnChange(newData, { type: 'add' });
-
-      if (resetOnAdd) {
-        form.reset();
-      }
     }
   };
+
+  React.useEffect(() => {
+    if (form.formState.isSubmitSuccessful && resetOnAdd) {
+      form.reset();
+    }
+  }, [form.formState, form.reset]);
 
   const handleOnEdit = (newItem, index) => {
     const newData = [...tableData];
