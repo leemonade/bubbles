@@ -38,6 +38,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       minHeight: '20px',
       border: '1px solid',
       borderColor: theme.colors.ui01,
+      cursor: 'pointer',
       backgroundColor: 'transparent',
       '&:checked': {
         backgroundColor: color,

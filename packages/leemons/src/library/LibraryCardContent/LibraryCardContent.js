@@ -48,6 +48,8 @@ const LibraryCardContent = ({
   };
 
   const getBadge = useCallback(() => {
+    console.log(assigment);
+    if (variant !== 'assigment' || !assigment) return;
     if (role === 'teacher') {
       return (
         <Badge
@@ -68,7 +70,7 @@ const LibraryCardContent = ({
         />
       );
     }
-  }, [assigment, role, assigment.completed]);
+  }, [assigment, role, assigment?.completed]);
 
   const getVariant = () => {
     switch (variant) {

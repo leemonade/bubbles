@@ -13,11 +13,12 @@ const generateRandomSubjects = () => {
   const activities = [];
   for (let i = 1; i <= 3; i++) {
     let periodScores = [];
-    for (let i = 1; i <= 4; i++) {
+    for (let k = 1; k <= 4; k++) {
       const shouldSkip = Math.random() > 0.2;
       const isSubmitted = Math.random() > 0.2;
       periodScores.push({
-        name: getPeriodName(i - 1),
+        id: `p-0${k}`,
+        name: getPeriodName(k - 1),
         score: isSubmitted ? (shouldSkip ? Math.floor(Math.random() * 10) : undefined) : undefined,
         isSubmitted: isSubmitted,
       });
@@ -66,7 +67,7 @@ Playground.args = {
     noActivity: 'No entregado',
     avgScore: 'Weighted score',
     gradingTasks: 'Grading tasks',
-    attendance: 'Attendance',
+    customScore: 'Custom',
   },
   grades: [
     {
@@ -118,6 +119,52 @@ Playground.args = {
       letter: 'A',
     },
   ],
+  // grades: [
+  //   {
+  //     number: 0,
+  //     letter: 'F',
+  //   },
+  //   {
+  //     number: 1,
+  //     letter: 'D-',
+  //   },
+  //   {
+  //     number: 2,
+  //     letter: 'D',
+  //   },
+  //   {
+  //     number: 3,
+  //     letter: 'D+',
+  //   },
+  //   {
+  //     number: 4,
+  //     letter: 'C-',
+  //   },
+  //   {
+  //     number: 5,
+  //     letter: 'C',
+  //   },
+  //   {
+  //     number: 6,
+  //     letter: 'C+',
+  //   },
+  //   {
+  //     number: 7,
+  //     letter: 'B-',
+  //   },
+  //   {
+  //     number: 8,
+  //     letter: 'B',
+  //   },
+  //   {
+  //     number: 9,
+  //     letter: 'B+',
+  //   },
+  //   {
+  //     number: 10,
+  //     letter: 'A-',
+  //   },
+  // ],
   subjects: [
     {
       id: 'a-01',
@@ -127,15 +174,19 @@ Playground.args = {
       color: 'green',
       periods: [
         {
+          id: 'p-01',
           name: '1st',
         },
         {
+          id: 'p-02',
           name: '2nd',
         },
         {
+          id: 'p-03',
           name: '3th',
         },
         {
+          id: 'p-04',
           name: 'Final',
           allowChange: true,
         },
@@ -149,17 +200,22 @@ Playground.args = {
       color: 'red',
       periods: [
         {
+          id: 'p-01',
           name: '1st',
         },
         {
+          id: 'p-02',
           name: '2nd',
         },
         {
+          id: 'p-03',
           name: '3th',
         },
         {
+          id: 'p-04',
           name: 'Final',
           allowChange: true,
+          weight: 0.8,
         },
       ],
     },
@@ -171,15 +227,19 @@ Playground.args = {
       color: 'purple',
       periods: [
         {
+          id: 'p-01',
           name: '1st',
         },
         {
+          id: 'p-02',
           name: '2nd',
         },
         {
+          id: 'p-03',
           name: '3th',
         },
         {
+          id: 'p-04',
           name: 'Final',
           allowChange: true,
         },
@@ -193,6 +253,7 @@ Playground.args = {
       surname: 'Scott',
       image: 'https://areajugones.sport.es/wp-content/uploads/2021/05/the-office-2.jpg',
       subjects: generateRandomSubjects(),
+      customScore: 8.73,
     },
     {
       id: 's-02',
