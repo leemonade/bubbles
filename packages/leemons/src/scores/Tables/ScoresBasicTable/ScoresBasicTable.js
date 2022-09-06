@@ -27,6 +27,7 @@ const ScoresBasicTable = ({
   onOpen,
   from,
   to,
+  hideCustom,
   ...props
 }) => {
   const { ref: tableRef } = useElementSize(null);
@@ -37,7 +38,7 @@ const ScoresBasicTable = ({
   const [overFlowRight, setOverFlowRight] = useState(false);
 
   const { classes: commonClasses } = CommonTableStyles(
-    { overFlowLeft, overFlowRight },
+    { overFlowLeft, overFlowRight, hideCustom },
     { name: 'CommonTable' }
   );
   const { classes: basicClasses, cx } = ScoresBasicTableStyles({}, { name: 'ScoresBasicTable' });
@@ -117,16 +118,24 @@ const ScoresBasicTable = ({
   };
 
   const getRightBodyContent = () => {
-    return value.map(({ id, activities: studentActivities }) => {
+    return value.map(({ id, activities: studentActivities, customScore }) => {
       const studentAttendance = Math.trunc((studentActivities.length / activities.length) * 100);
+      const avgScore = getAvgScore(studentActivities);
       return (
         <Box key={id} className={classes.contentRow}>
           <Box className={classes.separator} />
           <Box className={classes.studentInfo}>
             <Text color="primary" role="productive">
-              {getAvgScore(studentActivities)}
+              {avgScore}
             </Text>
           </Box>
+          {!hideCustom && (
+            <Box className={classes.studentInfo}>
+              <Text color="primary" role="productive">
+                {customScore ? customScore.toFixed(2) : avgScore}
+              </Text>
+            </Box>
+          )}
           {/* <Box className={classes.studentInfo}>
             <Badge
               label={`${studentAttendance}%`}
@@ -362,11 +371,13 @@ const ScoresBasicTable = ({
                 {labels.gradingTasks}
               </Text>
             </Box>
-            {/* <Box className={classes.columnHeader}>
-              <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
-                {labels.attendance}
-              </Text>
-            </Box> */}
+            {!hideCustom && (
+              <Box className={classes.columnHeader}>
+                <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
+                  {labels.customScore}
+                </Text>
+              </Box>
+            )}
           </Box>
           <Box className={classes.rightBodyContent}>{getRightBodyContent()}</Box>
         </Box>

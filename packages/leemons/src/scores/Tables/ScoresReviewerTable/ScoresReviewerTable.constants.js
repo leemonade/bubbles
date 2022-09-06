@@ -12,10 +12,12 @@ export const SCORES_REVIEWER_TABLE_VALUE = PropTypes.shape({
       isSubmitted: PropTypes.bool,
     })
   ),
+  customScore: PropTypes.number,
 });
 
 export const SCORES_REVIEWER_TABLE_DEFAULT_PROPS = {
   value: [],
+  hideCustom: false,
 };
 export const SCORES_REVIEWER_TABLE_PROP_TYPES = {
   grades: PropTypes.arrayOf(
@@ -40,6 +42,7 @@ export const SCORES_REVIEWER_TABLE_PROP_TYPES = {
     noActivity: PropTypes.string,
     avgScore: PropTypes.string,
     gradingTasks: PropTypes.string,
-    attendance: PropTypes.string,
+    customScore: PropTypes.string,
   }),
+  hideCustom: PropTypes.bool,
 };
