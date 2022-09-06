@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { AVATAR_SIZES } from '../Avatar/Avatar';
+import { AVATAR_SIZES } from '../Avatar/Avatar.constants';
 
 export const AVATARS_GROUP_DEFAULT_PROPS = {
   size: 'sm',
