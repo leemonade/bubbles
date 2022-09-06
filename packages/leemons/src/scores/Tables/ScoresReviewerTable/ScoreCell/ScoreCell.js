@@ -24,7 +24,7 @@ const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataCh
           const newPeriodScores = subject.periodScores.map((period) => {
             if (columnId !== `${subject.id}-${period.name}` || rowId !== student.id) return period;
             period.score = useNumbers
-              ? parseInt(score)
+              ? parseFloat(score)
               : grades.find(({ letter }) => letter === score)?.number;
             return period;
           });
@@ -55,13 +55,13 @@ const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataCh
             />
           ) : (
             <Text color="primary" role="productive">
-              {!isNil(value) ? value : '-'}
+              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {!isNil(value) ? value : '-'}
+              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
             </Text>
           </>
         )}
