@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { capitalize, forEach, isArray, isFunction } from 'lodash';
+import { capitalize, flatten, forEach, isArray, isFunction, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
+  Badge,
   Box,
   Button,
   Checkbox,
   ContextContainer,
+  MultiSelect,
   NumberInput,
   Select,
   Stack,
   Switch,
-  TextInput,
+  TableInput,
+  TextInput
 } from '@bubbles-ui/components';
 import { ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {
   sharedData: {},
-  frequencyOptions: [],
+  frequencyOptions: []
 };
 export const SETUP_COURSES_PROP_TYPES = {
   labels: PropTypes.object,
@@ -29,7 +32,7 @@ export const SETUP_COURSES_PROP_TYPES = {
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
   frequencyOptions: PropTypes.array,
-  editable: PropTypes.bool,
+  editable: PropTypes.bool
 };
 
 const resets = {
@@ -40,27 +43,27 @@ const resets = {
     'maxSubstageAbbreviation',
     'maxSubstageAbbreviationIsOnlyNumbers',
     'customSubstages',
-    'substages',
+    'substages'
   ],
   useDefaultSubstagesName: [
     'maxSubstageAbbreviation',
     'maxSubstageAbbreviationIsOnlyNumbers',
-    'substages',
-  ],
+    'substages'
+  ]
 };
 
 const SetupCourses = ({
-  labels,
-  placeholders,
-  errorMessages,
-  onPrevious,
-  onNext,
-  sharedData,
-  setSharedData,
-  frequencyOptions,
-  editable,
-  ...props
-}) => {
+                        labels,
+                        placeholders,
+                        errorMessages,
+                        onPrevious,
+                        onNext,
+                        sharedData,
+                        setSharedData,
+                        frequencyOptions,
+                        editable,
+                        ...props
+                      }) => {
   const defaultValues = {
     maxNumberOfCourses: 0,
     courseCredits: 0,
@@ -73,7 +76,7 @@ const SetupCourses = ({
     maxSubstageAbbreviationIsOnlyNumbers: false,
     hideCoursesInTree: false,
     moreThanOneAcademicYear: false,
-    ...sharedData,
+    ...sharedData
   };
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 0);
@@ -100,10 +103,54 @@ const SetupCourses = ({
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
+    getValues
   } = useForm({ defaultValues });
 
+  const maxNumberOfCourses = watch('maxNumberOfCourses') || 1;
   const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
+  const haveCycles = watch('haveCycles');
+  const cycles = watch('cycles');
+
+  function getArrayOfNumbersCourses() {
+    return map([...Array(maxNumberOfCourses).keys()], (a) => a + 1);
+  }
+
+  React.useEffect(() => {
+    if (editable) {
+      const existCourses = getArrayOfNumbersCourses();
+      const finalCycles = [];
+      forEach(cycles, (cycle) => {
+        const courses = [...cycle.courses];
+        forEach(courses, (course) => {
+          if (!existCourses.includes(course)) {
+            const index = courses.indexOf(course);
+            courses.splice(index, 1);
+          }
+        });
+        if (courses.length) {
+          finalCycles.push({
+            ...cycle,
+            courses
+          });
+        }
+      });
+      setValue('cycles', finalCycles);
+    }
+  }, [maxNumberOfCourses]);
+
+  const coursesData = React.useMemo(() => {
+    const usedCourses = flatten(map(cycles, 'courses'));
+    const result = [];
+    forEach(getArrayOfNumbersCourses(), (index) => {
+      if (!usedCourses.includes(index)) {
+        result.push({
+          value: index,
+          label: index
+        });
+      }
+    });
+    return result;
+  }, [maxNumberOfCourses, cycles]);
 
   useEffect(() => {
     const subscription = watch((formData, event) => {
@@ -151,12 +198,12 @@ const SetupCourses = ({
       }
 
       substages.push(
-        <ContextContainer key={substageKey} direction="row">
+        <ContextContainer key={substageKey} direction='row'>
           <Controller
             name={substageName}
             control={control}
             rules={{
-              required: errorMessages.useDefaultSubstagesName?.required || 'Required Field',
+              required: errorMessages.useDefaultSubstagesName?.required || 'Required Field'
             }}
             render={({ field }) => (
               <TextInput
@@ -173,7 +220,7 @@ const SetupCourses = ({
             control={control}
             rules={{
               // required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
-              maxLength: maxSubstageAbbreviation,
+              maxLength: maxSubstageAbbreviation
             }}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
@@ -212,18 +259,50 @@ const SetupCourses = ({
     isFunction(onNext) && onNext(data);
   };
 
+  const tableConfig = React.useMemo(
+    () => ({
+      columns: [
+        {
+          Header: labels.cycleName,
+          accessor: 'name',
+          input: {
+            node: <TextInput required />,
+            rules: { required: labels.cycleNameRequired }
+          }
+        },
+        {
+          Header: labels.cycleCourses,
+          accessor: 'courses',
+          input: {
+            node: <MultiSelect data={coursesData} />,
+            rules: { required: labels.cycleCoursesRequired }
+          },
+          valueRender: (values) => <>{values.map((v) => <Badge closable={false}>{v}</Badge>)}</>
+        }
+      ],
+      labels: {
+        add: labels.add,
+        remove: labels.remove,
+        edit: labels.edit,
+        accept: labels.accept,
+        cancel: labels.cancel
+      }
+    }),
+    [coursesData]
+  );
+
   return (
-    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete='off'>
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title}>
-          <Stack direction="column" className={classes.checkboxGroup}>
+          <Stack direction='column' className={classes.checkboxGroup}>
             <Checkbox
               label={labels.oneCourseOnly}
               checked={onlyOneCourse}
               disabled={!editable}
               onChange={(e) => {
                 setOnlyOneCourse(e);
-                setValue('maxNumberOfCourses', e ? 1 : 0);
+                setValue('maxNumberOfCourses', 1);
                 setValue('courseCredits', 0);
                 setValue('moreThanOneAcademicYear', false);
               }}
@@ -244,7 +323,7 @@ const SetupCourses = ({
             */}
             {!onlyOneCourse ? (
               <Controller
-                name="moreThanOneAcademicYear"
+                name='moreThanOneAcademicYear'
                 control={control}
                 render={({ field: { value, ...field } }) => (
                   <Checkbox
@@ -258,17 +337,16 @@ const SetupCourses = ({
             ) : null}
           </Stack>
 
-          {!onlyOneCourse && (
-            <ContextContainer direction="row">
+          {!onlyOneCourse ? (
+            <ContextContainer direction='row'>
               <Controller
-                name="maxNumberOfCourses"
+                name='maxNumberOfCourses'
                 control={control}
                 rules={{ required: errorMessages.maxNumberOfCourses?.required }}
                 render={({ field }) => (
                   <NumberInput
                     label={labels.maxNumberOfCourses}
-                    // defaultValue={0}
-                    min={0}
+                    min={1}
                     disabled={!editable}
                     error={errors.maxNumberOfCourses}
                     {...field}
@@ -276,7 +354,7 @@ const SetupCourses = ({
                 )}
               />
               <Controller
-                name="courseCredits"
+                name='courseCredits'
                 control={control}
                 render={({ field }) => (
                   <NumberInput
@@ -289,11 +367,46 @@ const SetupCourses = ({
                 )}
               />
             </ContextContainer>
-          )}
+          ) : null}
+        </ContextContainer>
+        <ContextContainer title={labels.cycles}>
+          <Controller
+            name='haveCycles'
+            control={control}
+            render={({ field }) => (
+              <Switch
+                {...field}
+                onChange={() => {
+                  field.onChange(!field.value);
+                }}
+                label={labels.haveCycles}
+                checked={!!field.value || false}
+                disabled={!editable}
+              />
+            )}
+          />
+          {haveCycles ? <Controller
+            control={control}
+            name='cycles'
+            render={({ field }) => {
+              return <TableInput
+                {...tableConfig}
+                {...field}
+                disabled={!editable}
+                onChange={(e) => {
+                  if (editable) field.onChange(e);
+                }}
+                data={field.value}
+                editable={false}
+                resetOnAdd
+                sortable={false}
+              />;
+            }}
+          /> : null}
         </ContextContainer>
         <ContextContainer title={labels.courseSubstage}>
           <Controller
-            name="haveSubstagesPerCourse"
+            name='haveSubstagesPerCourse'
             control={control}
             render={({ field }) => (
               <Switch
@@ -307,11 +420,11 @@ const SetupCourses = ({
               />
             )}
           />
-          {haveSubstagesPerCourse && (
+          {haveSubstagesPerCourse ? (
             <ContextContainer>
-              <ContextContainer direction="row">
+              <ContextContainer direction='row'>
                 <Controller
-                  name="substagesFrequency"
+                  name='substagesFrequency'
                   control={control}
                   rules={{ required: errorMessages.substagesFrequency?.required }}
                   render={({ field: { onChange, value, ...field } }) => (
@@ -331,7 +444,7 @@ const SetupCourses = ({
                   )}
                 />
                 <Controller
-                  name="numberOfSubstages"
+                  name='numberOfSubstages'
                   control={control}
                   rules={{ required: errorMessages.numberOfSubstages?.required }}
                   render={({ field: { onChange, value, ...field } }) => (
@@ -353,7 +466,7 @@ const SetupCourses = ({
               </ContextContainer>
               <ContextContainer subtitle={labels.subtagesNames}>
                 <Controller
-                  name="useDefaultSubstagesName"
+                  name='useDefaultSubstagesName'
                   control={control}
                   render={({ field: { onChange, value, ref, ...field } }) => (
                     <Switch
@@ -369,13 +482,13 @@ const SetupCourses = ({
                   )}
                 />
 
-                {!useDefaultSubstagesName && (
+                {!useDefaultSubstagesName ? (
                   <>
                     <Controller
-                      name="maxSubstageAbbreviation"
+                      name='maxSubstageAbbreviation'
                       control={control}
                       render={({ field: { onChange, value, ...field } }) => (
-                        <ContextContainer direction="row" alignItems="end">
+                        <ContextContainer direction='row' alignItems='end'>
                           <NumberInput
                             // defaultValue={0}
                             min={0}
@@ -390,7 +503,7 @@ const SetupCourses = ({
                           />
 
                           <Controller
-                            name="maxSubstageAbbreviationIsOnlyNumbers"
+                            name='maxSubstageAbbreviationIsOnlyNumbers'
                             control={control}
                             render={({ field: { onChange, value, ...field } }) => (
                               <Checkbox
@@ -412,16 +525,16 @@ const SetupCourses = ({
                     />
                     {substagesFrequency && getSubstages()}
                   </>
-                )}
+                ) : null}
               </ContextContainer>
             </ContextContainer>
-          )}
+          ) : null}
         </ContextContainer>
-        <Stack fullWidth justifyContent="space-between">
+        <Stack fullWidth justifyContent='space-between'>
           <Box>
             <Button
               compact
-              variant="light"
+              variant='light'
               leftIcon={<ChevLeftIcon height={20} width={20} />}
               onClick={onPrevious}
             >
@@ -429,7 +542,7 @@ const SetupCourses = ({
             </Button>
           </Box>
           <Box>
-            <Button type="submit" rightIcon={<ChevRightIcon height={20} width={20} />}>
+            <Button type='submit' rightIcon={<ChevRightIcon height={20} width={20} />}>
               {labels.buttonNext}
             </Button>
           </Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SetupCourses, SETUP_COURSES_DEFAULT_PROPS } from './SetupCourses';
+import { SETUP_COURSES_DEFAULT_PROPS, SetupCourses } from './SetupCourses';
 import mdx from './SetupCourses.mdx';
 import { COURSES_DATA } from '../mocks/data';
 
@@ -8,26 +8,26 @@ export default {
   parameters: {
     component: SetupCourses,
     docs: {
-      page: mdx,
+      page: mdx
     },
     design: {
-      type: 'figma',
+      type: 'figma'
       //url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
-    },
+    }
   },
   argTypes: {
     onPrevious: { action: 'onPrevious' },
-    onNext: { action: 'onNext' },
-  },
+    onNext: { action: 'onNext' }
+  }
 };
 
 const Template = ({ ...props }) => {
-  return <SetupCourses {...props} />;
+  return <SetupCourses {...props} editable={true} />;
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...SETUP_COURSES_DEFAULT_PROPS,
-  ...COURSES_DATA,
+  ...COURSES_DATA
 };
