@@ -44,7 +44,7 @@ const ScoreCell = ({
         const newStudentActivities = student.activities.map((activity) => {
           if (activity.id !== columnId) return activity;
           activity.score = useNumbers
-            ? parseInt(score)
+            ? parseFloat(score)
             : grades.find(({ letter }) => letter === score)?.number;
           return activity;
         });
@@ -58,7 +58,7 @@ const ScoreCell = ({
   const renderInputCell = () => {
     if (!isSubmitted)
       return (
-        <Text color="primary" role="productive">
+        <Text color="soft" role="productive">
           {noActivity}
         </Text>
       );
@@ -88,13 +88,13 @@ const ScoreCell = ({
             </>
           ) : (
             <Text color="primary" role="productive">
-              {!isNil(value) ? value : '-'}
+              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {!isNil(value) ? value : '-'}
+              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
             </Text>
             {isEditing && (
               <Box ref={setExpandBox} className={classes.expandIcon}>

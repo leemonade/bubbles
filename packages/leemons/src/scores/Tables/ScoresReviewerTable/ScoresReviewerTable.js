@@ -24,6 +24,7 @@ const ScoresReviewerTable = ({
   onDataChange,
   from,
   to,
+  hideCustom,
   ...props
 }) => {
   const { ref: tableRef } = useElementSize(null);
@@ -33,7 +34,7 @@ const ScoresReviewerTable = ({
   const [overFlowRight, setOverFlowRight] = useState(false);
 
   const { classes: commonClasses } = CommonTableStyles(
-    { overFlowLeft, overFlowRight },
+    { overFlowLeft, overFlowRight, hideCustom },
     { name: 'CommonTable' }
   );
   const { classes: reviewerClasses } = ScoresReviewerTableStyles(
@@ -64,15 +65,16 @@ const ScoresReviewerTable = ({
     return activitiesObject;
   };
 
-  const getAvgScore = (studentActivities) => {
+  const getAvgScore = (studentSubjects) => {
     let weightedScore = 0;
-    studentActivities.forEach((studentActivity) => {
+    studentSubjects.forEach((studentSubject) => {
+      const { score: lastScore } = studentSubject.periodScores.at(-1);
       weightedScore +=
-        (studentActivity.score ? studentActivity.score : 0) *
-        (subjects.find((activity) => activity.id === studentActivity.id)?.weight || 0);
+        (lastScore ? lastScore : 0) *
+        (subjects.find((subject) => subject.id === studentSubject.id).periods.at(-1)?.weight || 1);
     });
     let sumOfWeights = 0;
-    subjects.forEach((activities) => (sumOfWeights += activities.weight));
+    subjects.forEach((subject) => (sumOfWeights += subject.periods.at(-1).weight || 1));
     const weightedAverage = (weightedScore / sumOfWeights).toFixed(2);
     return useNumbers ? weightedAverage : findGradeLetter(Math.round(weightedAverage));
   };
@@ -84,24 +86,23 @@ const ScoresReviewerTable = ({
   };
 
   const getRightBodyContent = () => {
-    return value.map(({ id, subjects: studentSubjects }) => {
-      const studentAttendance = Math.trunc((studentSubjects.length / subjects.length) * 100);
+    return value.map(({ id, subjects: studentSubjects, customScore }) => {
+      const avgScore = getAvgScore(studentSubjects);
       return (
         <Box key={id} className={classes.contentRow}>
           <Box className={classes.separator} />
           <Box className={classes.studentInfo}>
             <Text color="primary" role="productive">
-              {getAvgScore(studentSubjects)}
+              {avgScore}
             </Text>
           </Box>
-          {/* <Box className={classes.studentInfo}>
-            <Badge
-              label={`${studentAttendance}%`}
-              severity={getSeverity(studentAttendance)}
-              closable={false}
-              radius="default"
-            />
-          </Box> */}
+          {!hideCustom && (
+            <Box className={classes.studentInfo}>
+              <Text color="primary" role="productive">
+                {customScore ? customScore.toFixed(2) : avgScore}
+              </Text>
+            </Box>
+          )}
         </Box>
       );
     });
@@ -275,11 +276,13 @@ const ScoresReviewerTable = ({
                 {labels.gradingTasks}
               </Text>
             </Box>
-            {/* <Box className={classes.columnHeader}>
-              <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
-                {labels.attendance}
-              </Text>
-            </Box> */}
+            {!hideCustom && (
+              <Box className={classes.columnHeader}>
+                <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
+                  {labels.customScore}
+                </Text>
+              </Box>
+            )}
           </Box>
           <Box className={classes.rightBodyContent}>{getRightBodyContent()}</Box>
         </Box>
