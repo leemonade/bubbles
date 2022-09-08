@@ -65,6 +65,7 @@ const SetupCourses = ({
   ...props
 }) => {
   const defaultValues = {
+    onlyOneCourse: false,
     maxNumberOfCourses: 2,
     courseCredits: 0,
     haveSubstagesPerCourse: true,
@@ -79,8 +80,6 @@ const SetupCourses = ({
     ...sharedData,
   };
 
-  const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 0);
-
   const [useDefaultSubstagesName, setUseDefaultSubstagesName] = useState(
     defaultValues.useDefaultSubstagesName
   );
@@ -93,8 +92,6 @@ const SetupCourses = ({
   const [substagesFrequency, setSubstagesFrequency] = useState(defaultValues.substagesFrequency);
   const [numberOfSubstages, setNumberOfSubstages] = useState(defaultValues.numberOfSubstages);
 
-  const { classes, cx } = SetupCoursesStyles({ onlyOneCourse }, { name: 'SetupCourses' });
-
   const {
     watch,
     control,
@@ -106,10 +103,13 @@ const SetupCourses = ({
     getValues,
   } = useForm({ defaultValues });
 
-  const maxNumberOfCourses = watch('maxNumberOfCourses') || 1;
+  const onlyOneCourse = watch('onlyOneCourse');
+  const maxNumberOfCourses = watch('maxNumberOfCourses') || 2;
   const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
   const haveCycles = watch('haveCycles');
   const cycles = watch('cycles');
+
+  const { classes, cx } = SetupCoursesStyles({ onlyOneCourse }, { name: 'SetupCourses' });
 
   function getArrayOfNumbersCourses() {
     return map([...Array(maxNumberOfCourses).keys()], (a) => a + 1);
@@ -300,16 +300,23 @@ const SetupCourses = ({
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title}>
           <Stack direction="column" className={classes.checkboxGroup}>
-            <Checkbox
-              label={labels.oneCourseOnly}
-              checked={onlyOneCourse}
-              disabled={!editable}
-              onChange={(e) => {
-                setOnlyOneCourse(e);
-                setValue('maxNumberOfCourses', 1);
-                setValue('courseCredits', 0);
-                setValue('moreThanOneAcademicYear', false);
-              }}
+            <Controller
+              name="onlyOneCourse"
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <Checkbox
+                  label={labels.oneCourseOnly}
+                  checked={value}
+                  onChange={(e) => {
+                    onChange(e);
+                    setValue('maxNumberOfCourses', e ? 1 : 2);
+                    setValue('courseCredits', 0);
+                    setValue('moreThanOneAcademicYear', false);
+                  }}
+                  disabled={!editable}
+                  {...field}
+                />
+              )}
             />
             {/*
            <Controller
@@ -349,6 +356,7 @@ const SetupCourses = ({
                 render={({ field }) => (
                   <NumberInput
                     label={labels.maxNumberOfCourses}
+                    defaultValue={2}
                     min={2}
                     disabled={!editable}
                     error={errors.maxNumberOfCourses}

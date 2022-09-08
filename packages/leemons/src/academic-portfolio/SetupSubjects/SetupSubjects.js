@@ -120,7 +120,7 @@ const SetupSubjects = ({
   return (
     <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
-        {!allSubjectsSameDuration && haveSubstagesPerCourse && (
+        {haveSubstagesPerCourse && (
           <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
             <Controller
               name="allSubjectsSameDuration"
@@ -139,52 +139,53 @@ const SetupSubjects = ({
                 />
               )}
             />
-
-            <TableInput
-              sortable={false}
-              disabled={!editable}
-              columns={[
-                {
-                  Header: labels.periodName,
-                  accessor: 'name',
-                  input: {
-                    node: <TextInput />,
-                    rules: { required: errorMessages?.periodName?.required || 'Required field' },
-                  },
-                },
-                {
-                  Header: labels.numOfPeriods,
-                  accessor: 'number',
-                  input: {
-                    node: <NumberInput />,
-                    rules: {
-                      required: errorMessages?.numOfPeriods?.required || 'Required field',
+            {!allSubjectsSameDuration && (
+              <TableInput
+                sortable={false}
+                disabled={!editable}
+                columns={[
+                  {
+                    Header: labels.periodName,
+                    accessor: 'name',
+                    input: {
+                      node: <TextInput />,
+                      rules: { required: errorMessages?.periodName?.required || 'Required field' },
                     },
                   },
-                },
-                {
-                  Header: labels.substagesFrequency,
-                  accessor: 'frequency',
-                  input: {
-                    node: <Select />,
-                    rules: {
-                      required: errorMessages?.substagesFrequency?.required || 'Required field',
+                  {
+                    Header: labels.numOfPeriods,
+                    accessor: 'number',
+                    input: {
+                      node: <NumberInput />,
+                      rules: {
+                        required: errorMessages?.numOfPeriods?.required || 'Required field',
+                      },
                     },
-                    data: frequencyOptions,
                   },
-                  valueRender: (value) => {
-                    const item = find(frequencyOptions, { value });
-                    return item ? item.label : value;
+                  {
+                    Header: labels.substagesFrequency,
+                    accessor: 'frequency',
+                    input: {
+                      node: <Select />,
+                      rules: {
+                        required: errorMessages?.substagesFrequency?.required || 'Required field',
+                      },
+                      data: frequencyOptions,
+                    },
+                    valueRender: (value) => {
+                      const item = find(frequencyOptions, { value });
+                      return item ? item.label : value;
+                    },
                   },
-                },
-              ]}
-              data={customSubstages}
-              labels={{
-                add: labels.buttonAdd,
-                remove: labels.buttonRemove,
-              }}
-              onChangeData={(val) => setCustomSubstages(val)}
-            />
+                ]}
+                data={customSubstages}
+                labels={{
+                  add: labels.buttonAdd,
+                  remove: labels.buttonRemove,
+                }}
+                onChangeData={(val) => setCustomSubstages(val)}
+              />
+            )}
           </ContextContainer>
         )}
         <ContextContainer title={labels.knowledgeAreas}>
