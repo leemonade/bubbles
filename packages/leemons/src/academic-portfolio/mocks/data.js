@@ -1,6 +1,6 @@
 export const FIRST_DIGIT_OPTIONS = [
   { label: 'Course Nº', value: 'course' },
-  { label: 'None', value: 'none' }
+  { label: 'None', value: 'none' },
 ];
 
 export const FREQUENCY_OPTIONS = [
@@ -10,7 +10,7 @@ export const FREQUENCY_OPTIONS = [
   { label: 'Four-month period', value: 'Four-month' },
   { label: 'Monthly', value: 'Monthly' },
   { label: 'Weekly', value: 'Weekly' },
-  { label: 'Daily', value: 'Daily' }
+  { label: 'Daily', value: 'Daily' },
 ];
 
 export const BASIC_DATA = {
@@ -24,25 +24,25 @@ export const BASIC_DATA = {
     groupsIDAbbrev: 'Groups ID Abbreviation',
     maxGroupAbbreviation: 'Max abbreviation length for groups:',
     maxGroupAbbreviationIsOnlyNumbers: 'Only numbers',
-    buttonNext: 'Next'
+    buttonNext: 'Next',
   },
   descriptions: {
     maxGroupAbbreviation:
-      'If you need to create more than one group of students (classrooms) per subject, this configuration allow you to define the alphanumeric ID format.'
+      'If you need to create more than one group of students (classrooms) per subject, this configuration allow you to define the alphanumeric ID format.',
   },
   placeholders: {
     name: 'My awesome program',
-    abbreviation: 'HIGSxxxx'
+    abbreviation: 'HIGSxxxx',
   },
   helps: {
     abbreviation: '(8 char. max)',
-    maxGroupAbbreviation: '(i.e: G01, G02, G03…)'
+    maxGroupAbbreviation: '(i.e: G01, G02, G03…)',
   },
   errorMessages: {
     name: { required: 'Program name is required' },
     abbreviation: { required: 'Program abbreviation is required' },
-    maxGroupAbbreviation: { required: 'Max group abbreviation is required' }
-  }
+    maxGroupAbbreviation: { required: 'Max group abbreviation is required' },
+  },
 };
 
 export const COURSES_DATA = {
@@ -74,11 +74,10 @@ export const COURSES_DATA = {
     remove: 'Remove',
     edit: 'Edit',
     accept: 'Accept',
-    cancel: 'Cancel'
-
+    cancel: 'Cancel',
   },
   placeholders: {
-    substagesFrequency: 'Select frequency...'
+    substagesFrequency: 'Select frequency...',
   },
   errorMessages: {
     useDefaultSubstagesName: { required: 'Required field' },
@@ -86,9 +85,9 @@ export const COURSES_DATA = {
     courseCredits: { required: 'Required field' },
     substagesFrequency: { required: 'Required field' },
     numberOfSubstages: { required: 'Required field' },
-    maxSubstageAbbreviation: { required: 'Required field' }
+    maxSubstageAbbreviation: { required: 'Required field' },
   },
-  frequencyOptions: FREQUENCY_OPTIONS
+  frequencyOptions: FREQUENCY_OPTIONS,
 };
 
 export const SUBJECTS_DATA = {
@@ -110,18 +109,18 @@ export const SUBJECTS_DATA = {
     buttonNext: 'Save Program',
     buttonPrev: 'Previous',
     buttonAdd: 'Add',
-    buttonRemove: 'Remove'
+    buttonRemove: 'Remove',
   },
   helps: {
-    maxKnowledgeAbbreviation: '(i.e: MKTG, MATH, HIST…)'
+    maxKnowledgeAbbreviation: '(i.e: MKTG, MATH, HIST…)',
   },
   errorMessages: {
     periodName: { required: 'Required field' },
     numOfPeriods: { required: 'Required field' },
-    substagesFrequency: { required: 'Required field' }
+    substagesFrequency: { required: 'Required field' },
   },
   firstDigitOptions: FIRST_DIGIT_OPTIONS,
-  frequencyOptions: FREQUENCY_OPTIONS
+  frequencyOptions: FREQUENCY_OPTIONS,
 };
 
 export const INIT_VALUES = {
@@ -142,7 +141,7 @@ export const INIT_VALUES = {
   oneStudentGroup: false,
   substages: [
     { name: 'Sem 1', abbreviation: 'S01' },
-    { name: 'Sem 2', abbreviation: 'S02' }
+    { name: 'Sem 2', abbreviation: 'S02' },
   ],
   substagesFrequency: 'Half-yearly',
   useCreditSystem: false,
@@ -152,11 +151,11 @@ export const INIT_VALUES = {
   allSubjectsSameDuration: false,
   customSubstages: [
     { name: 'Quarter 1', amount: 1, frequency: 'Quarterly' },
-    { name: 'Quarter 2', amount: 1, frequency: 'Quarterly' }
+    { name: 'Quarter 2', amount: 1, frequency: 'Quarterly' },
   ],
   haveKnowledge: true,
   maxKnowledgeAbbreviation: 4,
   maxKnowledgeAbbreviationIsOnlyNumbers: false,
   subjectsFirstDigit: 'course',
-  subjectsDigits: 1
+  subjectsDigits: 2,
 };
