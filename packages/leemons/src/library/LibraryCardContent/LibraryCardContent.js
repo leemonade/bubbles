@@ -48,7 +48,6 @@ const LibraryCardContent = ({
   };
 
   const getBadge = useCallback(() => {
-    console.log(assigment);
     if (variant !== 'assigment' || !assigment) return;
     if (role === 'teacher') {
       return (

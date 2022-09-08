@@ -14,14 +14,14 @@ import {
   Stack,
   Switch,
   TableInput,
-  TextInput
+  TextInput,
 } from '@bubbles-ui/components';
 import { ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { SetupCoursesStyles } from './SetupCourses.styles';
 
 export const SETUP_COURSES_DEFAULT_PROPS = {
   sharedData: {},
-  frequencyOptions: []
+  frequencyOptions: [],
 };
 export const SETUP_COURSES_PROP_TYPES = {
   labels: PropTypes.object,
@@ -32,7 +32,7 @@ export const SETUP_COURSES_PROP_TYPES = {
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
   frequencyOptions: PropTypes.array,
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
 };
 
 const resets = {
@@ -43,27 +43,27 @@ const resets = {
     'maxSubstageAbbreviation',
     'maxSubstageAbbreviationIsOnlyNumbers',
     'customSubstages',
-    'substages'
+    'substages',
   ],
   useDefaultSubstagesName: [
     'maxSubstageAbbreviation',
     'maxSubstageAbbreviationIsOnlyNumbers',
-    'substages'
-  ]
+    'substages',
+  ],
 };
 
 const SetupCourses = ({
-                        labels,
-                        placeholders,
-                        errorMessages,
-                        onPrevious,
-                        onNext,
-                        sharedData,
-                        setSharedData,
-                        frequencyOptions,
-                        editable,
-                        ...props
-                      }) => {
+  labels,
+  placeholders,
+  errorMessages,
+  onPrevious,
+  onNext,
+  sharedData,
+  setSharedData,
+  frequencyOptions,
+  editable,
+  ...props
+}) => {
   const defaultValues = {
     maxNumberOfCourses: 0,
     courseCredits: 0,
@@ -76,7 +76,7 @@ const SetupCourses = ({
     maxSubstageAbbreviationIsOnlyNumbers: false,
     hideCoursesInTree: false,
     moreThanOneAcademicYear: false,
-    ...sharedData
+    ...sharedData,
   };
 
   const [onlyOneCourse, setOnlyOneCourse] = useState(defaultValues.maxNumberOfCourses === 0);
@@ -103,7 +103,7 @@ const SetupCourses = ({
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
   } = useForm({ defaultValues });
 
   const maxNumberOfCourses = watch('maxNumberOfCourses') || 1;
@@ -130,7 +130,7 @@ const SetupCourses = ({
         if (courses.length) {
           finalCycles.push({
             ...cycle,
-            courses
+            courses,
           });
         }
       });
@@ -145,7 +145,7 @@ const SetupCourses = ({
       if (!usedCourses.includes(index)) {
         result.push({
           value: index,
-          label: index
+          label: index,
         });
       }
     });
@@ -167,8 +167,6 @@ const SetupCourses = ({
     });
     return () => subscription.unsubscribe();
   }, [watch]);
-
-  // useEffect(() => console.log(errors), [errors]);
 
   const getSubstageAbbr = (currentSubstage) => {
     let substageAbbr = `${currentSubstage}`;
@@ -198,12 +196,12 @@ const SetupCourses = ({
       }
 
       substages.push(
-        <ContextContainer key={substageKey} direction='row'>
+        <ContextContainer key={substageKey} direction="row">
           <Controller
             name={substageName}
             control={control}
             rules={{
-              required: errorMessages.useDefaultSubstagesName?.required || 'Required Field'
+              required: errorMessages.useDefaultSubstagesName?.required || 'Required Field',
             }}
             render={({ field }) => (
               <TextInput
@@ -220,7 +218,7 @@ const SetupCourses = ({
             control={control}
             rules={{
               // required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
-              maxLength: maxSubstageAbbreviation
+              maxLength: maxSubstageAbbreviation,
             }}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
@@ -267,35 +265,41 @@ const SetupCourses = ({
           accessor: 'name',
           input: {
             node: <TextInput required />,
-            rules: { required: labels.cycleNameRequired }
-          }
+            rules: { required: labels.cycleNameRequired },
+          },
         },
         {
           Header: labels.cycleCourses,
           accessor: 'courses',
           input: {
             node: <MultiSelect data={coursesData} />,
-            rules: { required: labels.cycleCoursesRequired }
+            rules: { required: labels.cycleCoursesRequired },
           },
-          valueRender: (values) => <>{values.map((v) => <Badge closable={false}>{v}</Badge>)}</>
-        }
+          valueRender: (values) => (
+            <>
+              {values.map((v) => (
+                <Badge closable={false}>{v}</Badge>
+              ))}
+            </>
+          ),
+        },
       ],
       labels: {
         add: labels.add,
         remove: labels.remove,
         edit: labels.edit,
         accept: labels.accept,
-        cancel: labels.cancel
-      }
+        cancel: labels.cancel,
+      },
     }),
     [coursesData]
   );
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)} autoComplete='off'>
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
         <ContextContainer title={labels.title}>
-          <Stack direction='column' className={classes.checkboxGroup}>
+          <Stack direction="column" className={classes.checkboxGroup}>
             <Checkbox
               label={labels.oneCourseOnly}
               checked={onlyOneCourse}
@@ -321,9 +325,9 @@ const SetupCourses = ({
               )}
             />
             */}
-            {!onlyOneCourse ? (
+            {!onlyOneCourse && (
               <Controller
-                name='moreThanOneAcademicYear'
+                name="moreThanOneAcademicYear"
                 control={control}
                 render={({ field: { value, ...field } }) => (
                   <Checkbox
@@ -334,19 +338,18 @@ const SetupCourses = ({
                   />
                 )}
               />
-            ) : null}
+            )}
           </Stack>
-
-          {!onlyOneCourse ? (
-            <ContextContainer direction='row'>
+          {!onlyOneCourse && (
+            <ContextContainer direction="row">
               <Controller
-                name='maxNumberOfCourses'
+                name="maxNumberOfCourses"
                 control={control}
                 rules={{ required: errorMessages.maxNumberOfCourses?.required }}
                 render={({ field }) => (
                   <NumberInput
                     label={labels.maxNumberOfCourses}
-                    min={1}
+                    min={2}
                     disabled={!editable}
                     error={errors.maxNumberOfCourses}
                     {...field}
@@ -354,7 +357,7 @@ const SetupCourses = ({
                 )}
               />
               <Controller
-                name='courseCredits'
+                name="courseCredits"
                 control={control}
                 render={({ field }) => (
                   <NumberInput
@@ -367,46 +370,52 @@ const SetupCourses = ({
                 )}
               />
             </ContextContainer>
-          ) : null}
+          )}
         </ContextContainer>
-        <ContextContainer title={labels.cycles}>
-          <Controller
-            name='haveCycles'
-            control={control}
-            render={({ field }) => (
-              <Switch
-                {...field}
-                onChange={() => {
-                  field.onChange(!field.value);
+        {!onlyOneCourse && (
+          <ContextContainer title={labels.cycles}>
+            <Controller
+              name="haveCycles"
+              control={control}
+              render={({ field }) => (
+                <Switch
+                  {...field}
+                  onChange={() => {
+                    field.onChange(!field.value);
+                  }}
+                  label={labels.haveCycles}
+                  checked={!!field.value || false}
+                  disabled={!editable}
+                />
+              )}
+            />
+            {haveCycles && (
+              <Controller
+                control={control}
+                name="cycles"
+                render={({ field }) => {
+                  return (
+                    <TableInput
+                      {...tableConfig}
+                      {...field}
+                      disabled={!editable}
+                      onChange={(e) => {
+                        if (editable) field.onChange(e);
+                      }}
+                      data={field.value}
+                      editable={false}
+                      resetOnAdd
+                      sortable={false}
+                    />
+                  );
                 }}
-                label={labels.haveCycles}
-                checked={!!field.value || false}
-                disabled={!editable}
               />
             )}
-          />
-          {haveCycles ? <Controller
-            control={control}
-            name='cycles'
-            render={({ field }) => {
-              return <TableInput
-                {...tableConfig}
-                {...field}
-                disabled={!editable}
-                onChange={(e) => {
-                  if (editable) field.onChange(e);
-                }}
-                data={field.value}
-                editable={false}
-                resetOnAdd
-                sortable={false}
-              />;
-            }}
-          /> : null}
-        </ContextContainer>
+          </ContextContainer>
+        )}
         <ContextContainer title={labels.courseSubstage}>
           <Controller
-            name='haveSubstagesPerCourse'
+            name="haveSubstagesPerCourse"
             control={control}
             render={({ field }) => (
               <Switch
@@ -422,9 +431,9 @@ const SetupCourses = ({
           />
           {haveSubstagesPerCourse ? (
             <ContextContainer>
-              <ContextContainer direction='row'>
+              <ContextContainer direction="row">
                 <Controller
-                  name='substagesFrequency'
+                  name="substagesFrequency"
                   control={control}
                   rules={{ required: errorMessages.substagesFrequency?.required }}
                   render={({ field: { onChange, value, ...field } }) => (
@@ -444,14 +453,14 @@ const SetupCourses = ({
                   )}
                 />
                 <Controller
-                  name='numberOfSubstages'
+                  name="numberOfSubstages"
                   control={control}
                   rules={{ required: errorMessages.numberOfSubstages?.required }}
                   render={({ field: { onChange, value, ...field } }) => (
                     <NumberInput
                       label={labels.numberOfSubstages}
-                      // defaultValue={0}
-                      min={0}
+                      defaultValue={1}
+                      min={1}
                       onChange={(e) => {
                         onChange(e);
                         setNumberOfSubstages(e);
@@ -466,7 +475,7 @@ const SetupCourses = ({
               </ContextContainer>
               <ContextContainer subtitle={labels.subtagesNames}>
                 <Controller
-                  name='useDefaultSubstagesName'
+                  name="useDefaultSubstagesName"
                   control={control}
                   render={({ field: { onChange, value, ref, ...field } }) => (
                     <Switch
@@ -485,13 +494,13 @@ const SetupCourses = ({
                 {!useDefaultSubstagesName ? (
                   <>
                     <Controller
-                      name='maxSubstageAbbreviation'
+                      name="maxSubstageAbbreviation"
                       control={control}
                       render={({ field: { onChange, value, ...field } }) => (
-                        <ContextContainer direction='row' alignItems='end'>
+                        <ContextContainer direction="row" alignItems="end">
                           <NumberInput
-                            // defaultValue={0}
-                            min={0}
+                            defaultValue={2}
+                            min={2}
                             label={labels.maxSubstageAbbreviation}
                             onChange={(e) => {
                               onChange(e);
@@ -503,7 +512,7 @@ const SetupCourses = ({
                           />
 
                           <Controller
-                            name='maxSubstageAbbreviationIsOnlyNumbers'
+                            name="maxSubstageAbbreviationIsOnlyNumbers"
                             control={control}
                             render={({ field: { onChange, value, ...field } }) => (
                               <Checkbox
@@ -530,11 +539,11 @@ const SetupCourses = ({
             </ContextContainer>
           ) : null}
         </ContextContainer>
-        <Stack fullWidth justifyContent='space-between'>
+        <Stack fullWidth justifyContent="space-between">
           <Box>
             <Button
               compact
-              variant='light'
+              variant="light"
               leftIcon={<ChevLeftIcon height={20} width={20} />}
               onClick={onPrevious}
             >
@@ -542,7 +551,7 @@ const SetupCourses = ({
             </Button>
           </Box>
           <Box>
-            <Button type='submit' rightIcon={<ChevRightIcon height={20} width={20} />}>
+            <Button type="submit" rightIcon={<ChevRightIcon height={20} width={20} />}>
               {labels.buttonNext}
             </Button>
           </Box>
