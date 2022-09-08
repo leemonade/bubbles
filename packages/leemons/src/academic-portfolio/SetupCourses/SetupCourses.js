@@ -65,14 +65,14 @@ const SetupCourses = ({
   ...props
 }) => {
   const defaultValues = {
-    maxNumberOfCourses: 0,
+    maxNumberOfCourses: 2,
     courseCredits: 0,
     haveSubstagesPerCourse: true,
     substagesFrequency: frequencyOptions[0]?.value,
     substages: [],
-    numberOfSubstages: 0,
+    numberOfSubstages: 1,
     useDefaultSubstagesName: false,
-    maxSubstageAbbreviation: 0,
+    maxSubstageAbbreviation: 2,
     maxSubstageAbbreviationIsOnlyNumbers: false,
     hideCoursesInTree: false,
     moreThanOneAcademicYear: false,

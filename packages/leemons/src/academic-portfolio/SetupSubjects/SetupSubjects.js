@@ -63,10 +63,10 @@ const SetupSubjects = ({
   const defaultValues = {
     allSubjectsSameDuration: false,
     haveKnowledge: false,
-    maxKnowledgeAbbreviation: 0,
+    maxKnowledgeAbbreviation: 2,
     maxKnowledgeAbbreviationIsOnlyNumbers: false,
     subjectsFirstDigit: firstDigitOptions[0]?.value,
-    subjectsDigits: 0,
+    subjectsDigits: 2,
     customSubstages: [],
     ...sharedData,
   };
@@ -120,25 +120,26 @@ const SetupSubjects = ({
   return (
     <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
-        <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
-          <Controller
-            name="allSubjectsSameDuration"
-            control={control}
-            render={({ field: { onChange, value, ref, ...field } }) => (
-              <Switch
-                label={labels.allSubjectsSameDuration}
-                help={helps.allSubjectsSameDuration}
-                onChange={(e) => {
-                  setAllSubjectsSameDuration(!allSubjectsSameDuration);
-                  onChange(e);
-                }}
-                checked={value || false}
-                disabled={!editable}
-                {...field}
-              />
-            )}
-          />
-          {!allSubjectsSameDuration && haveSubstagesPerCourse && (
+        {!allSubjectsSameDuration && haveSubstagesPerCourse && (
+          <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
+            <Controller
+              name="allSubjectsSameDuration"
+              control={control}
+              render={({ field: { onChange, value, ref, ...field } }) => (
+                <Switch
+                  label={labels.allSubjectsSameDuration}
+                  help={helps.allSubjectsSameDuration}
+                  onChange={(e) => {
+                    setAllSubjectsSameDuration(!allSubjectsSameDuration);
+                    onChange(e);
+                  }}
+                  checked={value || false}
+                  disabled={!editable}
+                  {...field}
+                />
+              )}
+            />
+
             <TableInput
               sortable={false}
               disabled={!editable}
@@ -156,7 +157,9 @@ const SetupSubjects = ({
                   accessor: 'number',
                   input: {
                     node: <NumberInput />,
-                    rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' },
+                    rules: {
+                      required: errorMessages?.numOfPeriods?.required || 'Required field',
+                    },
                   },
                 },
                 {
@@ -182,8 +185,8 @@ const SetupSubjects = ({
               }}
               onChangeData={(val) => setCustomSubstages(val)}
             />
-          )}
-        </ContextContainer>
+          </ContextContainer>
+        )}
         <ContextContainer title={labels.knowledgeAreas}>
           <Controller
             name="haveKnowledge"
@@ -206,12 +209,14 @@ const SetupSubjects = ({
             <Controller
               name="maxKnowledgeAbbreviation"
               control={control}
+              rules={{ min: 2 }}
               render={({ field }) => (
                 <ContextContainer direction="row" alignItems="center">
                   <NumberInput
                     label={labels.maxKnowledgeAbbreviation}
                     help={helps.maxKnowledgeAbbreviation}
-                    min={0}
+                    defaultValue={2}
+                    min={2}
                     disabled={!editable}
                     {...field}
                   />
