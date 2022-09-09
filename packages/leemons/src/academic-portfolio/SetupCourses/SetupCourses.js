@@ -263,6 +263,10 @@ const SetupCourses = ({
     isFunction(onNext) && onNext(data);
   };
 
+  if (maxNumberOfCourses === 1 && !onlyOneCourse) {
+    setValue('onlyOneCourse', true);
+  }
+
   const tableConfig = React.useMemo(
     () => ({
       columns: [
