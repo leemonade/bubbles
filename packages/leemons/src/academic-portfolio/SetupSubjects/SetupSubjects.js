@@ -120,7 +120,7 @@ const SetupSubjects = ({
   return (
     <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
-        {haveSubstagesPerCourse && (
+        {!!haveSubstagesPerCourse && (
           <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
             <Controller
               name="allSubjectsSameDuration"
