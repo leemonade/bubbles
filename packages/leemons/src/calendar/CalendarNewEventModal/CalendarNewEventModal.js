@@ -47,6 +47,7 @@ const CalendarNewEventModal = ({
     watch,
     reset,
     control,
+    setValue,
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues });
@@ -166,6 +167,12 @@ const CalendarNewEventModal = ({
                 minDate={minDate}
                 maxDate={_maxDate}
                 {...field}
+                onChange={(value) => {
+                  if (!value) {
+                    setValue('endDate', null);
+                  }
+                  field.onChange(value);
+                }}
                 style={{ flex: 1 }}
               />
             )}
@@ -181,8 +188,11 @@ const CalendarNewEventModal = ({
                 error={errors.endDate}
                 minDate={_minDate}
                 maxDate={maxDate}
+                clearable={false}
+                disabled={!startDate}
                 headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
                 {...field}
+                value={endDate || startDate}
                 style={{ flex: 1 }}
               />
             )}
