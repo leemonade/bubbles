@@ -35,7 +35,7 @@ const ConfirmModal = ({ context, id, innerProps }) => {
   };
 
   return (
-    <Box>
+    <Stack direction="column" spacing={4}>
       {children && <Box>{children}</Box>}
       <Stack fullWidth justifyContent="space-between">
         <Button variant="light" {...cancelProps} onClick={handleCancel}>
@@ -45,7 +45,7 @@ const ConfirmModal = ({ context, id, innerProps }) => {
           {confirmProps?.children || labels.confirm}
         </Button>
       </Stack>
-    </Box>
+    </Stack>
   );
 };
 
