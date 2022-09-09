@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { capitalize, flatten, forEach, isArray, isFunction, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
@@ -106,6 +106,7 @@ const SetupCourses = ({
   const onlyOneCourse = watch('onlyOneCourse');
   const maxNumberOfCourses = watch('maxNumberOfCourses') || 2;
   const haveSubstagesPerCourse = watch('haveSubstagesPerCourse');
+  const abbrevationOnlyNumbers = watch('maxSubstageAbbreviationIsOnlyNumbers');
   const haveCycles = watch('haveCycles');
   const cycles = watch('cycles');
 
@@ -181,7 +182,7 @@ const SetupCourses = ({
     return substageAbbr;
   };
 
-  const getSubstages = () => {
+  const getSubstages = useCallback(() => {
     const substages = [];
     for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
       const defaultValue = getSubstageAbbr(currentSubstage + 1);
@@ -217,7 +218,12 @@ const SetupCourses = ({
             name={substageAbbrev}
             control={control}
             rules={{
-              // required: errorMessages.maxSubstageAbbreviation?.required || 'Required Field',
+              validate:
+                abbrevationOnlyNumbers &&
+                ((value) =>
+                  value.match(/^\d+$/)
+                    ? true
+                    : errorMessages.abbrevationOnlyNumbers || 'Only numbers allowed'),
               maxLength: maxSubstageAbbreviation,
             }}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
@@ -238,7 +244,7 @@ const SetupCourses = ({
       );
     }
     return substages;
-  };
+  }, [numberOfSubstages, abbrevationOnlyNumbers]);
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e };
@@ -312,6 +318,8 @@ const SetupCourses = ({
                     setValue('maxNumberOfCourses', e ? 1 : 2);
                     setValue('courseCredits', 0);
                     setValue('moreThanOneAcademicYear', false);
+                    setValue('haveCycles', false);
+                    setValue('cycles', []);
                   }}
                   disabled={!editable}
                   {...field}
@@ -430,6 +438,13 @@ const SetupCourses = ({
                 {...field}
                 onChange={() => {
                   field.onChange(!field.value);
+                  if (field.value) {
+                    console.log('aqui deberia follarme todo');
+                    setValue('customSubstages', []);
+                    setValue('numberOfSubstages', 1);
+                    setValue('substagesFrequency', frequencyOptions[0]?.value);
+                    setNumberOfSubstages(1);
+                  }
                 }}
                 label={labels.haveSubstagesPerCourse}
                 checked={!field.value || false}
