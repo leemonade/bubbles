@@ -60,7 +60,7 @@ const SetupBasicData = ({
     abbreviation: '',
     color: '',
     credits: 0,
-    maxGroupAbbreviation: 0,
+    maxGroupAbbreviation: 2,
     maxGroupAbbreviationIsOnlyNumbers: false,
     creditSystem: false,
     oneStudentGroup: false,
