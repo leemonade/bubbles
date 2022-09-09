@@ -35,19 +35,17 @@ const ConfirmModal = ({ context, id, innerProps }) => {
   };
 
   return (
-    <>
+    <Box>
       {children && <Box>{children}</Box>}
-
       <Stack fullWidth justifyContent="space-between">
         <Button variant="light" {...cancelProps} onClick={handleCancel}>
           {cancelProps?.children || labels.cancel}
         </Button>
-
         <Button {...confirmProps} onClick={handleConfirm}>
           {confirmProps?.children || labels.confirm}
         </Button>
       </Stack>
-    </>
+    </Box>
   );
 };
 
@@ -62,13 +60,13 @@ const ModalsWrapper = ({ children }) => {
 };
 
 const ModalsProvider = ({ children, modals, modalProps }) => {
-  const { classes } = ModalStyles({}, { name: 'Modal' });
+  const { classes } = ModalStyles({ size: modalProps?.size }, { name: 'Modal' });
   return (
     <MantineModalsProvider
       modals={{ ...modals, confirm: ConfirmModal }}
       modalProps={{
         centered: true,
-        size: 'md',
+        // size: 'md',
         withCloseButton: false,
         ...modalProps,
         classNames: classes,
