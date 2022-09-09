@@ -12,6 +12,7 @@ export const SCORES_BASIC_TABLE_VALUE = PropTypes.shape({
       isSubmitted: PropTypes.bool,
     })
   ),
+  customScore: PropTypes.number,
 });
 
 export const ACTIVITY_TYPES = ['calificable', 'evaluable'];
@@ -28,6 +29,7 @@ export const SCORES_BASIC_TABLE_DEFAULT_PROPS = {
     activities: [],
     value: [],
   },
+  hideCustom: false,
 };
 export const SCORES_BASIC_TABLE_PROP_TYPES = {
   grades: PropTypes.arrayOf(
@@ -65,8 +67,9 @@ export const SCORES_BASIC_TABLE_PROP_TYPES = {
     noActivity: PropTypes.string,
     avgScore: PropTypes.string,
     gradingTasks: PropTypes.string,
-    attendance: PropTypes.string,
+    customScore: PropTypes.string,
   }),
+  hideCustom: PropTypes.bool,
   onChange: PropTypes.func,
   onDataChange: PropTypes.func,
   onColumnExpand: PropTypes.func,

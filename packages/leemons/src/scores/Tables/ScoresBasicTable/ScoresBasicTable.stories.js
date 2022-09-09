@@ -72,7 +72,7 @@ Playground.args = {
     noActivity: 'No entregado',
     avgScore: 'Weighted score',
     gradingTasks: 'Grading tasks',
-    attendance: 'Attendance',
+    customScore: 'Custom',
   },
   grades: [
     {
@@ -187,6 +187,7 @@ Playground.args = {
       surname: 'Scott',
       image: 'https://areajugones.sport.es/wp-content/uploads/2021/05/the-office-2.jpg',
       activities: generateRandomActivities(),
+      customScore: 8.73,
     },
     {
       id: 's-02',
