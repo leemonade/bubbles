@@ -22,6 +22,12 @@ const ScoreCell = ({
   const [expandBox, setExpandBox] = useState();
   const selectRef = useClickOutside(() => setIsEditing(false), null, [expandBox]);
 
+  const renderValue = (value) => {
+    if (isNil(value)) return '-';
+    if (typeof value === 'string') return value;
+    return value % 1 === 0 ? value : value.toFixed(2);
+  };
+
   const onClickHandler = () => {
     // if (!allowChange) return;
     if (!isEditing) setIsEditing(true);
@@ -88,13 +94,13 @@ const ScoreCell = ({
             </>
           ) : (
             <Text color="primary" role="productive">
-              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
+              {renderValue(value)}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
+              {renderValue(value)}
             </Text>
             {isEditing && (
               <Box ref={setExpandBox} className={classes.expandIcon}>
