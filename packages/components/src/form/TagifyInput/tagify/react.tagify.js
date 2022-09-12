@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { array, bool, func, object, oneOfType, string } from 'prop-types';
+import { Box } from '../../../layout';
+import { Badge } from '../../../informative';
 
 import Tagify from './tagify';
 
@@ -61,6 +63,7 @@ const TagifyWrapper = ({
   defaultValue,
   showDropdown,
   ariaLabel,
+  withSuggestions,
 }) => {
   const mountedRef = useRef();
   const inputElmRef = useRef();
@@ -84,6 +87,30 @@ const TagifyWrapper = ({
   const setFocus = useCallback(() => {
     autoFocus && tagify.current && tagify.current.DOM.input.focus();
   }, [tagify]);
+
+  const addSuggestion = (suggestion) => {
+    const suggestionValue = suggestion.value;
+    tagify.current.addMixTags([suggestion]);
+    const nodes = Array.from(tagify.current.DOM.input.childNodes);
+    let lastTagSuggestedIndex = 0;
+    nodes.forEach((node, index) => {
+      if (node && node?.__tagifyTagData?.value === suggestionValue)
+        lastTagSuggestedIndex = index + 1;
+    });
+    tagify.current.DOM.input.focus();
+    tagify.current.placeCaretAfterNode(nodes[lastTagSuggestedIndex]);
+  };
+
+  const renderSuggestions = () => {
+    return settings.whitelist.map((suggestion, index) => (
+      <Badge
+        key={`${index} ${suggestion.value}`}
+        label={suggestion.value}
+        closable={false}
+        onClick={() => addSuggestion(suggestion)}
+      />
+    ));
+  };
 
   useEffect(() => {
     templatesToString(settings.templates);
@@ -196,6 +223,11 @@ const TagifyWrapper = ({
     // keeping the virtual-DOM out of the way
     <div className="tags-input">
       <InputMode {...inputAttrs} aria-label={ariaLabel} />
+      {settings?.whitelist?.length > 1 && withSuggestions && (
+        <Box style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+          {renderSuggestions()}
+        </Box>
+      )}
     </div>
   );
 };
@@ -216,6 +248,7 @@ TagifyWrapper.propTypes = {
   placeholder: string,
   defaultValue: oneOfType([string, array]),
   showDropdown: oneOfType([string, bool]),
+  withSuggestions: bool,
   onInput: func,
   onAdd: func,
   onRemove: func,
