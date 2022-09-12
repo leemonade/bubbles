@@ -35,6 +35,7 @@ export const TAGIFY_DEFAULT_PROPS = {
   help: '',
   settings: {},
   withSuggestions: false,
+  amountOfDuplicates: 1,
 };
 
 const TagifyInput = forwardRef(
@@ -75,6 +76,7 @@ const TagifyInput = forwardRef(
       defaultValue,
       showDropdown,
       withSuggestions,
+      amountOfDuplicates,
       mixed,
       error,
       size,
@@ -125,6 +127,7 @@ const TagifyInput = forwardRef(
           defaultValue={defaultValue}
           showDropdown={showDropdown}
           withSuggestions={withSuggestions}
+          amountOfDuplicates={amountOfDuplicates}
           ariaLabel={props.label || ariaLabel}
         />
       </InputWrapper>
@@ -152,6 +155,7 @@ TagifyInput.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   showDropdown: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   withSuggestions: PropTypes.bool,
+  amountOfDuplicates: PropTypes.number,
   onInput: PropTypes.func,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,
