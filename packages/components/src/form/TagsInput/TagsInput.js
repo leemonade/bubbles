@@ -24,6 +24,7 @@ const TagsInput = forwardRef(
       suggestions,
       canAddNewSuggestions = true,
       onChange = () => {},
+      onSearch,
       ...props
     },
     ref
@@ -39,11 +40,8 @@ const TagsInput = forwardRef(
       setTags(value);
     }, [value]);
 
-    const addTag = (val) => {
-      let value = inputValue;
-      if (val) {
-        value = val;
-      }
+    const addTag = (_value) => {
+      const value = _value || inputValue;
       if (!value) {
         return;
       }
@@ -54,13 +52,12 @@ const TagsInput = forwardRef(
         setTags(newTags);
       }
       setInputValue('');
-      if (isFunction(props.onSearch)) props.onSearch('');
+      if (isFunction(onSearch)) onSearch('');
       autoCompleteRef.current.deleteValues();
     };
 
     const removeTag = (tag) => {
       const newTags = tags.filter((t) => t !== tag);
-
       setTags(newTags);
       isFunction(onChange) && onChange(newTags);
     };
@@ -94,7 +91,7 @@ const TagsInput = forwardRef(
               {...props}
               ref={mergedRef}
               id={uuid}
-              value={tags}
+              value={inputValue}
               data={uniq([...suggestions, ...tags])}
               onChange={setInputValue}
               onItemSubmit={handleItemSubmit}
