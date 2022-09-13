@@ -82,8 +82,6 @@ const Autocomplete = forwardRef(
       deleteValues: () => deleteValues(),
     }));
 
-    console.log('inputValue', inputValue);
-
     // ················································································
     // STYLES
 
