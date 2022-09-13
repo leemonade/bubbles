@@ -63,10 +63,10 @@ const SetupSubjects = ({
   const defaultValues = {
     allSubjectsSameDuration: false,
     haveKnowledge: false,
-    maxKnowledgeAbbreviation: 0,
+    maxKnowledgeAbbreviation: 2,
     maxKnowledgeAbbreviationIsOnlyNumbers: false,
     subjectsFirstDigit: firstDigitOptions[0]?.value,
-    subjectsDigits: 0,
+    subjectsDigits: 2,
     customSubstages: [],
     ...sharedData,
   };
@@ -120,70 +120,74 @@ const SetupSubjects = ({
   return (
     <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
-        <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
-          <Controller
-            name="allSubjectsSameDuration"
-            control={control}
-            render={({ field: { onChange, value, ref, ...field } }) => (
-              <Switch
-                label={labels.allSubjectsSameDuration}
-                help={helps.allSubjectsSameDuration}
-                onChange={(e) => {
-                  setAllSubjectsSameDuration(!allSubjectsSameDuration);
-                  onChange(e);
-                }}
-                checked={value || false}
+        {!!haveSubstagesPerCourse && (
+          <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
+            <Controller
+              name="allSubjectsSameDuration"
+              control={control}
+              render={({ field: { onChange, value, ref, ...field } }) => (
+                <Switch
+                  label={labels.allSubjectsSameDuration}
+                  help={helps.allSubjectsSameDuration}
+                  onChange={(e) => {
+                    setAllSubjectsSameDuration(!allSubjectsSameDuration);
+                    onChange(e);
+                  }}
+                  checked={value || false}
+                  disabled={!editable}
+                  {...field}
+                />
+              )}
+            />
+            {!allSubjectsSameDuration && (
+              <TableInput
+                sortable={false}
                 disabled={!editable}
-                {...field}
+                columns={[
+                  {
+                    Header: labels.periodName,
+                    accessor: 'name',
+                    input: {
+                      node: <TextInput />,
+                      rules: { required: errorMessages?.periodName?.required || 'Required field' },
+                    },
+                  },
+                  {
+                    Header: labels.numOfPeriods,
+                    accessor: 'number',
+                    input: {
+                      node: <NumberInput />,
+                      rules: {
+                        required: errorMessages?.numOfPeriods?.required || 'Required field',
+                      },
+                    },
+                  },
+                  {
+                    Header: labels.substagesFrequency,
+                    accessor: 'frequency',
+                    input: {
+                      node: <Select />,
+                      rules: {
+                        required: errorMessages?.substagesFrequency?.required || 'Required field',
+                      },
+                      data: frequencyOptions,
+                    },
+                    valueRender: (value) => {
+                      const item = find(frequencyOptions, { value });
+                      return item ? item.label : value;
+                    },
+                  },
+                ]}
+                data={customSubstages}
+                labels={{
+                  add: labels.buttonAdd,
+                  remove: labels.buttonRemove,
+                }}
+                onChangeData={(val) => setCustomSubstages(val)}
               />
             )}
-          />
-          {!allSubjectsSameDuration && haveSubstagesPerCourse && (
-            <TableInput
-              sortable={false}
-              disabled={!editable}
-              columns={[
-                {
-                  Header: labels.periodName,
-                  accessor: 'name',
-                  input: {
-                    node: <TextInput />,
-                    rules: { required: errorMessages?.periodName?.required || 'Required field' },
-                  },
-                },
-                {
-                  Header: labels.numOfPeriods,
-                  accessor: 'number',
-                  input: {
-                    node: <NumberInput />,
-                    rules: { required: errorMessages?.numOfPeriods?.required || 'Required field' },
-                  },
-                },
-                {
-                  Header: labels.substagesFrequency,
-                  accessor: 'frequency',
-                  input: {
-                    node: <Select />,
-                    rules: {
-                      required: errorMessages?.substagesFrequency?.required || 'Required field',
-                    },
-                    data: frequencyOptions,
-                  },
-                  valueRender: (value) => {
-                    const item = find(frequencyOptions, { value });
-                    return item ? item.label : value;
-                  },
-                },
-              ]}
-              data={customSubstages}
-              labels={{
-                add: labels.buttonAdd,
-                remove: labels.buttonRemove,
-              }}
-              onChangeData={(val) => setCustomSubstages(val)}
-            />
-          )}
-        </ContextContainer>
+          </ContextContainer>
+        )}
         <ContextContainer title={labels.knowledgeAreas}>
           <Controller
             name="haveKnowledge"
@@ -206,12 +210,14 @@ const SetupSubjects = ({
             <Controller
               name="maxKnowledgeAbbreviation"
               control={control}
+              rules={{ min: 2 }}
               render={({ field }) => (
                 <ContextContainer direction="row" alignItems="center">
                   <NumberInput
                     label={labels.maxKnowledgeAbbreviation}
                     help={helps.maxKnowledgeAbbreviation}
-                    min={0}
+                    defaultValue={2}
+                    min={2}
                     disabled={!editable}
                     {...field}
                   />

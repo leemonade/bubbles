@@ -50,4 +50,5 @@ Playground.args = {
       { id: 105, value: '01, 02, ..', title: '01, 02, ..' },
     ],
   },
+  withSuggestions: true,
 };

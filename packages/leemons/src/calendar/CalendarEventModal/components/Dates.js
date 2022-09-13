@@ -10,26 +10,26 @@ import {
   InputWrapper,
   Select,
   Switch,
-  TimeInput,
+  TimeInput
 } from '@bubbles-ui/components';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 
 const Dates = ({
-  form,
-  classes,
-  messages,
-  errorMessages,
-  config,
-  selectData,
-  disabled,
-  locale,
-  readOnly,
-  onlyOneDate,
-}) => {
+                 form,
+                 classes,
+                 messages,
+                 errorMessages,
+                 config,
+                 selectData,
+                 disabled,
+                 locale,
+                 readOnly,
+                 onlyOneDate
+               }) => {
   const {
     control,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = form;
 
   const type = watch('type');
@@ -60,17 +60,17 @@ const Dates = ({
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
                 <Col span={isAllDay || disabled ? 100 : 70}>
                   <Controller
-                    name="startDate"
+                    name='startDate'
                     control={control}
                     rules={{
                       validate: (e) => {
                         if (dateRequired && !e) return errorMessages.startDateRequired;
                         return true;
-                      },
+                      }
                     }}
                     render={({ field }) => (
                       <DatePicker
-                        size="xs"
+                        size='xs'
                         withTime={disabled}
                         readOnly={readOnly}
                         disabled={disabled}
@@ -80,6 +80,13 @@ const Dates = ({
                         label={config?.fromLabel || messages.fromLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        maxDate={form.getValues('endDate')}
+                        onChange={(value) => {
+                          if (!value) {
+                            form.setValue('endDate', null);
+                          }
+                          field.onChange(value);
+                        }}
                       />
                     )}
                   />
@@ -87,13 +94,13 @@ const Dates = ({
                 {!isAllDay ? (
                   <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
                     <Controller
-                      name="startTime"
+                      name='startTime'
                       control={control}
                       rules={{
                         validate: (e) => {
                           if (dateRequired && !e) return errorMessages.startTimeRequired;
                           return true;
-                        },
+                        }
                       }}
                       render={({ field }) => {
                         if (disabled) return null;
@@ -105,7 +112,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'startTime')}
-                            size="xs"
+                            size='xs'
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -123,26 +130,29 @@ const Dates = ({
               <Grid columns={100} gutter={0} className={classes.inputsDatesContainer}>
                 <Col span={isAllDay || disabled ? 100 : 70}>
                   <Controller
-                    name="endDate"
+                    name='endDate'
                     control={control}
                     rules={{
                       validate: (e) => {
                         if (dateRequired && !e) return errorMessages.endDateRequired;
                         return true;
-                      },
+                      }
                     }}
                     render={({ field }) => (
                       <DatePicker
                         error={get(errors, 'endDate')}
-                        size="xs"
+                        size='xs'
                         withTime={disabled}
-                        disabled={disabled}
                         locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
                         readOnly={readOnly}
                         label={messages.toLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        clearable={false}
+                        disabled={disabled || !form.getValues('startDate')}
+                        minDate={form.getValues('startDate')}
+                        value={field.value || form.getValues('startDate')}
                       />
                     )}
                   />
@@ -150,13 +160,13 @@ const Dates = ({
                 {!isAllDay ? (
                   <Col span={30} sx={(theme) => ({ paddingLeft: theme.spacing[2] })}>
                     <Controller
-                      name="endTime"
+                      name='endTime'
                       control={control}
                       rules={{
                         validate: (e) => {
                           if (dateRequired && !e) return errorMessages.endTimeRequired;
                           return true;
-                        },
+                        }
                       }}
                       render={({ field }) => {
                         if (disabled) return null;
@@ -168,7 +178,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'endTime')}
-                            size="xs"
+                            size='xs'
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -184,15 +194,15 @@ const Dates = ({
             {/* REPEAT */}
             {!config?.hideRepeat ? (
               <Controller
-                name="repeat"
+                name='repeat'
                 control={control}
                 rules={{
-                  required: errorMessages.endTimeRequired,
+                  required: errorMessages.endTimeRequired
                 }}
                 render={({ field }) => (
                   <Select
                     error={get(errors, 'repeat')}
-                    size="xs"
+                    size='xs'
                     disabled={disabled}
                     orientation={disabled ? 'horizontal' : 'vertical'}
                     readOnly={readOnly}
@@ -207,7 +217,7 @@ const Dates = ({
             {/* ALL DAY */}
             {!config?.hideAllDay && (!disabled || (disabled && form.getValues('isAllDay'))) ? (
               <Controller
-                name="isAllDay"
+                name='isAllDay'
                 control={control}
                 render={({ field }) => {
                   if (disabled) return <InputWrapper label={messages.allDayLabel} />;
@@ -217,7 +227,7 @@ const Dates = ({
                       disabled={disabled}
                       error={get(errors, 'isAllDay')}
                       label={messages.allDayLabel}
-                      labelPosition="start"
+                      labelPosition='start'
                       checked={field.value}
                     />
                   );

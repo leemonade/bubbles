@@ -2,9 +2,9 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Badge as MantineBadge, Box } from '@mantine/core';
 import { BadgeStyles } from './Badge.styles';
-import { XIcon } from '@heroicons/react/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Avatar } from '../Avatar/Avatar';
+import { isFunction } from 'lodash';
 
 export const BADGE_SIZES = ['xs', 'md', 'lg'];
 export const BADGE_COLORS = ['solid', 'stroke'];
@@ -47,6 +47,7 @@ const Badge = forwardRef(
       closable,
       className,
       children,
+      onClick,
       useAria,
       ...props
     },
@@ -60,12 +61,16 @@ const Badge = forwardRef(
     }
 
     const { classes, cx } = BadgeStyles(
-      { size, color, image, radius, severity },
+      { size, color, image, radius, severity, hasOnClick: isFunction(onClick) },
       { name: 'Badge' }
     );
 
+    const onClickHandler = () => {
+      isFunction(onClick) && onClick();
+    };
+
     return (
-      <Box className={cx(classes.container, className)}>
+      <Box className={cx(classes.container, className)} onClick={onClickHandler}>
         {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} alt={alt} />}
         <MantineBadge
           rightSection={

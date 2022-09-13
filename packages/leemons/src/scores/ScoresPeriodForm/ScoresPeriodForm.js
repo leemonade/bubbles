@@ -197,6 +197,11 @@ function SelectDates({
         }}
         render={({ field }) => {
           const startDate = watch('startDate');
+
+          if (field.value && !startDate) {
+            field.onChange(null);
+          }
+
           return (
             <DatePicker
               label={labels.endDate}

@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { array, bool, func, object, oneOfType, string } from 'prop-types';
-
+import { array, bool, func, object, oneOfType, string, number } from 'prop-types';
+import { Box } from '../../../layout';
+import { Badge } from '../../../informative';
+import { isFunction } from 'lodash';
 import Tagify from './tagify';
 
 const noop = (_) => _;
@@ -29,8 +31,8 @@ const TagifyWrapper = ({
   value,
   loading = false,
   onInput = noop,
-  onAdd = noop,
-  onRemove = noop,
+  onAdd,
+  onRemove,
   onEditInput = noop,
   onEditBeforeUpdate = noop,
   onEditUpdated = noop,
@@ -61,11 +63,15 @@ const TagifyWrapper = ({
   defaultValue,
   showDropdown,
   ariaLabel,
+  withSuggestions,
+  amountOfDuplicates,
 }) => {
   const mountedRef = useRef();
   const inputElmRef = useRef();
   const tagify = useRef();
   const _value = defaultValue || value;
+  const [tagifyLoaded, setTagifyLoaded] = useState(false);
+  const [triggerRender, setTriggerRender] = useState({});
 
   const inputAttrs = useMemo(
     () => ({
@@ -85,6 +91,47 @@ const TagifyWrapper = ({
     autoFocus && tagify.current && tagify.current.DOM.input.focus();
   }, [tagify]);
 
+  const onAddHandler = () => {
+    isFunction(onAdd) && onAdd();
+    setTriggerRender({ ...triggerRender });
+  };
+
+  const onRemoveHandler = () => {
+    isFunction(onAdd) && onRemove();
+    setTriggerRender({ ...triggerRender });
+  };
+
+  const addSuggestion = (suggestion) => {
+    if (tagify.current.isTagDuplicate(suggestion.value) >= amountOfDuplicates) return;
+
+    const suggestionValue = suggestion.value;
+    tagify.current.addMixTags([suggestion]);
+    const nodes = Array.from(tagify.current.DOM.input.childNodes);
+    let lastTagSuggestedIndex = 0;
+    nodes.forEach((node, index) => {
+      if (node && node?.__tagifyTagData?.value === suggestionValue)
+        lastTagSuggestedIndex = index + 1;
+    });
+    tagify.current.DOM.input.focus();
+    tagify.current.placeCaretAfterNode(nodes[lastTagSuggestedIndex]);
+    onAddHandler();
+  };
+
+  const renderSuggestions = () => {
+    const suggestions = settings.whitelist;
+    const filteredSuggestions = suggestions.filter(
+      (suggestion) => tagify.current?.isTagDuplicate(suggestion.value) < amountOfDuplicates
+    );
+    return filteredSuggestions.map((suggestion, index) => (
+      <Badge
+        key={`${index} ${suggestion.value}`}
+        label={suggestion.value}
+        closable={false}
+        onClick={() => addSuggestion(suggestion)}
+      />
+    ));
+  };
+
   useEffect(() => {
     templatesToString(settings.templates);
 
@@ -96,8 +143,8 @@ const TagifyWrapper = ({
     const t = new Tagify(inputElmRef.current, settings);
 
     t.on('input', onInput)
-      .on('add', onAdd)
-      .on('remove', onRemove)
+      .on('add', onAddHandler)
+      .on('remove', onRemoveHandler)
       .on('invalid', onInvalid)
       .on('keydown', onKeydown)
       .on('focus', onFocus)
@@ -191,11 +238,20 @@ const TagifyWrapper = ({
     mountedRef.current = true;
   }, []);
 
+  useEffect(() => {
+    if (tagify.current && !tagifyLoaded) setTagifyLoaded(true);
+  }, [tagify.current]);
+
   return (
     // a wrapper must be used because Tagify will appened inside it it's component,
     // keeping the virtual-DOM out of the way
     <div className="tags-input">
       <InputMode {...inputAttrs} aria-label={ariaLabel} />
+      {tagifyLoaded && settings?.whitelist?.length > 1 && withSuggestions && (
+        <Box style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+          {renderSuggestions()}
+        </Box>
+      )}
     </div>
   );
 };
@@ -216,6 +272,8 @@ TagifyWrapper.propTypes = {
   placeholder: string,
   defaultValue: oneOfType([string, array]),
   showDropdown: oneOfType([string, bool]),
+  withSuggestions: bool,
+  amountOfDuplicates: number,
   onInput: func,
   onAdd: func,
   onRemove: func,

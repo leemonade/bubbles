@@ -39,7 +39,6 @@ Playground.args = {
       value: 'option1',
       label: 'Label for option 1',
       icon: <AcademicCapIcon height={32} width={32} />,
-      disabled: true,
     },
     {
       value: 'option2',

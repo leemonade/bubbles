@@ -38,8 +38,6 @@ export const RadioGroupStyles = createStyles(
         left: 4,
         bottom: 0,
         height: isColumn && activePosition.height,
-        // transform: isColumn && `translateY(${activePosition.translate}px) !important`,
-        // marginLeft: !isColumn && 4,
         transitionTimingFunction: 'ease-out',
       },
       radio: {
