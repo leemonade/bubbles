@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Radio as MantineRadio } from '@mantine/core';
 import { RadioStyles } from './Radio.styles';
 
+export const RADIO_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 export const RADIO_HELP_POSITIONS = ['right', 'bottom'];
 export const RADIO_VARIANTS = ['default', 'boxed', 'icon'];
 
@@ -13,7 +14,7 @@ const Radio = forwardRef(
     }
 
     const { classes, cx } = RadioStyles(
-      { checked, variant, help, helpPosition, size },
+      { checked, variant, help, helpPosition },
       { name: 'Radio' }
     );
 
@@ -39,6 +40,7 @@ const Radio = forwardRef(
 
 Radio.defaultProps = {
   variant: RADIO_VARIANTS[0],
+  size: 'md',
   help: '',
   helpPosition: RADIO_HELP_POSITIONS[0],
   useAria: true,

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const RadioStyles = createStyles((theme, { variant, help, helpPosition, checked, size }) => {
+export const RadioStyles = createStyles((theme, { variant, help, helpPosition, checked }) => {
   const isIcon = variant === 'icon';
   const isDefault = variant === 'default';
   const isBoxed = variant === 'boxed';
@@ -12,6 +12,12 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
     },
+    radioWrapper: {
+      padding: 16,
+      alignItems: isBottom && 'flex-start',
+      // backgroundColor: !isDefault && (checked ? 'white' : theme.colors.interactive03),
+      // border: !isDefault && (checked ? `1px solid ${theme.colors.ui01}` : `1px solid transparent`),
+    },
     radio: {
       display: isIcon ? 'none' : null,
       '&:checked': {
@@ -21,25 +27,21 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
           backgroundColor: theme.colors.interactive01,
         },
       },
-      marginRight: 0,
     },
     container: {
       display: 'flex',
       flexDirection: isBottom || isIcon ? 'column' : null,
       alignItems: isIcon ? 'center' : 'baseline',
     },
-    inner: {
-      display: isIcon && 'none',
-    },
     title: {
       ...getFontProductive(theme.fontSizes['2'], 500),
       marginTop: help !== '' && isBottom ? pxToRem(1.5) : null,
-      marginLeft: 12,
       color: isIcon ? (checked ? theme.colors.text01 : theme.colors.text02) : theme.colors.text01,
       lineHeight: pxToRem(17),
     },
     icon: {
       color: checked ? theme.colors.interactive01h : theme.colors.text05,
+      marginBottom: isIcon && 10,
     },
     help: {
       ...getFontProductive(theme.fontSizes[isBoxed ? '2' : '1'], isBoxed ? 500 : 400),
@@ -48,9 +50,11 @@ export const RadioStyles = createStyles((theme, { variant, help, helpPosition, c
       marginLeft: isRight ? pxToRem(theme.spacing[4]) : null,
       marginTop: isBottom ? pxToRem(theme.spacing[1]) : null,
     },
+    inner: {
+      display: isIcon && 'none',
+    },
     label: {
       alignItems: help !== '' && isBottom ? 'flex-start' : null,
-      padding: size === 'xs' ? pxToRem(theme.spacing[3]) : pxToRem(theme.spacing[4]),
       justifyContent: isIcon ? 'center' : null,
       userSelect: 'none',
       marginLeft: isIcon && 0,
