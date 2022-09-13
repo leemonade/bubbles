@@ -68,19 +68,21 @@ const Autocomplete = forwardRef(
     };
 
     const onChangeHandler = (e) => {
-      isFunction(onChange) && onChange(e);
       setInputValue(e);
+      isFunction(onChange) && onChange(e);
     };
 
     const deleteValues = () => {
       setSelectedValue(null);
       setInputValue('');
-      isFunction(onChange) && onChange(null);
+      isFunction(onChange) && onChange('');
     };
 
     useImperativeHandle(ref, () => ({
       deleteValues: () => deleteValues(),
     }));
+
+    console.log('inputValue', inputValue);
 
     // ················································································
     // STYLES
