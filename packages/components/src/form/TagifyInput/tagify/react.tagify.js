@@ -247,7 +247,7 @@ const TagifyWrapper = ({
     // keeping the virtual-DOM out of the way
     <div className="tags-input">
       <InputMode {...inputAttrs} aria-label={ariaLabel} />
-      {tagifyLoaded && settings?.whitelist?.length > 1 && withSuggestions && (
+      {tagifyLoaded && settings?.whitelist?.length >= 1 && withSuggestions && (
         <Box style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 4, flexWrap: 'wrap' }}>
           {renderSuggestions()}
         </Box>
