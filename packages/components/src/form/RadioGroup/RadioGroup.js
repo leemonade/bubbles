@@ -142,29 +142,27 @@ const RadioGroup = forwardRef(
             classNames={classes}
             defaultValue={defaultValue ? defaultValue : ' '}
             value={value}
-            data={map(data, ({ label, ...item }, index) => {
-              return {
-                value: item.value,
-                label: (
-                  <Radio
-                    {...item}
-                    disabled={item.disabled || props.disabled}
-                    ref={(node) => {
-                      refs.current[item.value] = node;
-                    }}
-                    size={size}
-                    key={index}
-                    className={classes.radio}
-                    variant={variant}
-                    checked={value === item.value}
-                    onChange={() => {}}
-                    useAria={useAria}
-                  >
-                    {label}
-                  </Radio>
-                ),
-              };
-            })}
+            data={map(data, ({ label, ...item }, index) => ({
+              value: item.value,
+              label: (
+                <Radio
+                  {...item}
+                  disabled={item.disabled || props.disabled}
+                  ref={(node) => {
+                    refs.current[item.value] = node;
+                  }}
+                  size={size}
+                  key={index}
+                  className={classes.radio}
+                  variant={variant}
+                  checked={value === item.value}
+                  onChange={() => {}}
+                  useAria={useAria}
+                >
+                  {label}
+                </Radio>
+              ),
+            }))}
           />
         </Box>
       </InputWrapper>

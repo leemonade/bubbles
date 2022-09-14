@@ -10,6 +10,12 @@ const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataCh
   const [inputContainer, setInputContainer] = useState();
   const selectRef = useClickOutside(() => setIsEditing(false), null, [inputContainer]);
 
+  const renderValue = (value) => {
+    if (isNil(value)) return '-';
+    if (typeof value === 'string') return value;
+    return value % 1 === 0 ? value : value.toFixed(2);
+  };
+
   const onClickHandler = () => {
     if (!isEditing) setIsEditing(true);
   };
@@ -55,13 +61,13 @@ const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataCh
             />
           ) : (
             <Text color="primary" role="productive">
-              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
+              {renderValue(value)}
             </Text>
           )
         ) : (
           <>
             <Text color="primary" role="productive" style={{ flex: 1 }}>
-              {!isNil(value) ? (value % 1 === 0 ? value : value.toFixed(2)) : '-'}
+              {renderValue(value)}
             </Text>
           </>
         )}

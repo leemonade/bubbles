@@ -3163,13 +3163,13 @@
     prefixedTextToTag(tagsItem) {
       var _s = this.settings,
         tagElm,
-        createdFromDelimiters = this.state.tag.delimiters;
+        createdFromDelimiters = this.state.tag?.delimiters;
 
       _s.transformTag.call(this, tagsItem);
 
       tagsItem.prefix =
         tagsItem.prefix || this.state.tag
-          ? this.state.tag.prefix
+          ? this.state.tag?.prefix
           : (_s.pattern.source || _s.pattern)[0]; // TODO: should check if the tag is valid
 
       tagElm = this.createTagElem(tagsItem); // tries to replace a taged textNode with a tagElm, and if not able,

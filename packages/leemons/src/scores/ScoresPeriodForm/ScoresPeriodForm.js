@@ -195,29 +195,38 @@ function SelectDates({
             return true;
           },
         }}
-        render={({ field }) => (
-          <DatePicker
-            label={labels.endDate}
-            error={errors.endDate}
-            required={required}
-            locale={locale}
-            minDate={watch('startDate')}
-            headerStyle={{ flex: 'none' }}
-            {...field}
-            onChange={(value) => {
-              if (!value) {
-                field.onChange(value);
-                return;
-              }
+        render={({ field }) => {
+          const startDate = watch('startDate');
 
-              const date = new Date(value);
+          if (field.value && !startDate) {
+            field.onChange(null);
+          }
 
-              date.setHours(0, 0, 0, 0);
+          return (
+            <DatePicker
+              label={labels.endDate}
+              error={errors.endDate}
+              required={required}
+              locale={locale}
+              minDate={startDate}
+              disabled={!startDate}
+              headerStyle={{ flex: 'none' }}
+              {...field}
+              onChange={(value) => {
+                if (!value) {
+                  field.onChange(value);
+                  return;
+                }
 
-              field.onChange(date);
-            }}
-          />
-        )}
+                const date = new Date(value);
+
+                date.setHours(0, 0, 0, 0);
+
+                field.onChange(date);
+              }}
+            />
+          );
+        }}
       />
     </>
   );
