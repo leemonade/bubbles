@@ -86,7 +86,7 @@ const ScoresReviewerTable = ({
   };
 
   const getRightBodyContent = () => {
-    return value.map(({ id, subjects: studentSubjects, customScore }) => {
+    return value.map(({ id, subjects: studentSubjects, customScore, allowCustomChange }) => {
       const avgScore = getAvgScore(studentSubjects);
       return (
         <Box key={id} className={classes.contentRow}>
@@ -98,9 +98,15 @@ const ScoresReviewerTable = ({
           </Box>
           {!hideCustom && (
             <Box className={classes.studentInfo}>
-              <Text color="primary" role="productive">
-                {customScore ? customScore.toFixed(2) : avgScore}
-              </Text>
+              <ScoreCell
+                value={customScore ? customScore.toFixed(2) : avgScore}
+                allowChange={allowCustomChange}
+                grades={grades}
+                row={id}
+                column={'customScore'}
+                isCustom
+                onDataChange={onDataChange}
+              />
             </Box>
           )}
         </Box>

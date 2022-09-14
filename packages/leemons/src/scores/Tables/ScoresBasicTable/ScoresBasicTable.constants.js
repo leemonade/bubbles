@@ -13,6 +13,7 @@ export const SCORES_BASIC_TABLE_VALUE = PropTypes.shape({
     })
   ),
   customScore: PropTypes.number,
+  allowCustomChange: PropTypes.bool,
 });
 
 export const ACTIVITY_TYPES = ['calificable', 'evaluable'];

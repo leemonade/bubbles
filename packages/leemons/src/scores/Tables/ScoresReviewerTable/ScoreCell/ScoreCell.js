@@ -4,7 +4,16 @@ import { ScoreCellStyles } from './ScoreCell.styles';
 import { SCORES_CELL_DEFAULT_PROPS, SCORES_CELL_PROP_TYPES } from './ScoreCell.constants';
 import { isFunction, isNil } from 'lodash';
 
-const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataChange, onOpen }) => {
+const ScoreCell = ({
+  value,
+  allowChange,
+  grades,
+  row,
+  column,
+  setValue,
+  onDataChange,
+  isCustom,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const useNumbers = !grades.some((grade) => grade.letter);
   const [inputContainer, setInputContainer] = useState();
@@ -21,26 +30,28 @@ const ScoreCell = ({ value, allowChange, grades, row, column, setValue, onDataCh
   };
 
   const onChangeHandler = (score) => {
-    const rowId = row.original.id;
-    const columnId = column.id;
+    const rowId = isCustom ? row : row.original.id;
+    const columnId = isCustom ? column : column.id;
 
-    setValue((oldValue) => {
-      const newValue = oldValue.map((student) => {
-        const newStudentSubjects = student.subjects.map((subject) => {
-          const newPeriodScores = subject.periodScores.map((period) => {
-            if (columnId !== `${subject.id}-${period.name}` || rowId !== student.id) return period;
-            period.score = useNumbers
-              ? parseFloat(score)
-              : grades.find(({ letter }) => letter === score)?.number;
-            return period;
+    isFunction(setValue) &&
+      setValue((oldValue) => {
+        const newValue = oldValue.map((student) => {
+          const newStudentSubjects = student.subjects.map((subject) => {
+            const newPeriodScores = subject.periodScores.map((period) => {
+              if (columnId !== `${subject.id}-${period.name}` || rowId !== student.id)
+                return period;
+              period.score = useNumbers
+                ? parseFloat(score)
+                : grades.find(({ letter }) => letter === score)?.number;
+              return period;
+            });
+            subject.periodScores = newPeriodScores;
+            return subject;
           });
-          subject.periodScores = newPeriodScores;
-          return subject;
+          return { ...student, subjects: newStudentSubjects };
         });
-        return { ...student, subjects: newStudentSubjects };
+        return newValue;
       });
-      return newValue;
-    });
     isFunction(onDataChange) && onDataChange({ rowId, columnId, value: score });
   };
 

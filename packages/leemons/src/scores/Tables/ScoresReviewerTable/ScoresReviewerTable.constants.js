@@ -13,6 +13,7 @@ export const SCORES_REVIEWER_TABLE_VALUE = PropTypes.shape({
     })
   ),
   customScore: PropTypes.number,
+  allowCustomChange: PropTypes.bool,
 });
 
 export const SCORES_REVIEWER_TABLE_DEFAULT_PROPS = {
