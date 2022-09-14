@@ -20,8 +20,8 @@ const ScoreCell = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const useNumbers = !grades.some((grade) => grade.letter);
-  const [expandBox, setExpandBox] = useState();
-  const selectRef = useClickOutside(() => setIsEditing(false), null, [expandBox]);
+  const [inputContainer, setInputContainer] = useState();
+  const selectRef = useClickOutside(() => setIsEditing(false), null, [inputContainer]);
 
   const renderValue = (value) => {
     if (isNil(value)) return '-';
@@ -74,7 +74,7 @@ const ScoreCell = ({
     const data = grades.map(({ letter, number }) => letter || number.toString());
 
     return (
-      <Box className={classes.inputContainer} onClick={onClickHandler}>
+      <Box className={classes.inputContainer} ref={setInputContainer} onClick={onClickHandler}>
         {allowChange ? (
           isEditing ? (
             <>
@@ -87,7 +87,7 @@ const ScoreCell = ({
                 ref={selectRef}
               />
               {!isCustom && (
-                <Box ref={setExpandBox} className={classes.expandIcon}>
+                <Box className={classes.expandIcon}>
                   <IconButton
                     variant="transparent"
                     onClick={onOpenHandler}
@@ -107,7 +107,7 @@ const ScoreCell = ({
               {renderValue(value)}
             </Text>
             {isEditing && !isCustom && (
-              <Box ref={setExpandBox} className={classes.expandIcon}>
+              <Box className={classes.expandIcon}>
                 <IconButton
                   variant="transparent"
                   onClick={onOpenHandler}
