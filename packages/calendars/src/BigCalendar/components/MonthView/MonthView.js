@@ -23,6 +23,11 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
       range: range,
     })
   );
+  filteredEvents.sort((eventA, eventB) => {
+    const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
+    const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
+    return eventAzIndex - eventBzIndex;
+  });
 
   /*
   const finalEvents = filteredEvents.map((event) => {
