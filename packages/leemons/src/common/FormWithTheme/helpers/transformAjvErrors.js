@@ -1,5 +1,7 @@
+import { isArray } from 'lodash';
+
 export function transformAjvErrors(errors) {
-  if (errors === null) {
+  if (!isArray(errors)) {
     return [];
   }
 
@@ -14,7 +16,7 @@ export function transformAjvErrors(errors) {
       message,
       params, // specific to ajv
       stack: `${property} ${message}`.trim(),
-      schemaPath,
+      schemaPath
     };
   });
 }
