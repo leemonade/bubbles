@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { array, bool, func, object, oneOfType, string, number } from 'prop-types';
+import { array, bool, func, number, object, oneOfType, string } from 'prop-types';
 import { Box } from '../../../layout';
 import { Badge } from '../../../informative';
 import { isFunction } from 'lodash';
@@ -27,45 +27,45 @@ function templatesToString(templates) {
 }
 
 const TagifyWrapper = ({
-  name,
-  value,
-  loading = false,
-  onInput = noop,
-  onAdd,
-  onRemove,
-  onEditInput = noop,
-  onEditBeforeUpdate = noop,
-  onEditUpdated = noop,
-  onEditStart = noop,
-  onEditKeydown = noop,
-  onInvalid = noop,
-  onClick = noop,
-  onKeydown = noop,
-  onFocus = noop,
-  onBlur = noop,
-  onChange = noop,
-  onDropdownShow = noop,
-  onDropdownHide = noop,
-  onDropdownSelect = noop,
-  onDropdownScroll = noop,
-  onDropdownNoMatch = noop,
-  onDropdownUpdated = noop,
-  readOnly,
-  disabled,
-  children,
-  settings = {},
-  InputMode = 'input',
-  autoFocus,
-  className,
-  whitelist,
-  tagifyRef,
-  placeholder = '',
-  defaultValue,
-  showDropdown,
-  ariaLabel,
-  withSuggestions,
-  amountOfDuplicates,
-}) => {
+                         name,
+                         value,
+                         loading = false,
+                         onInput = noop,
+                         onAdd,
+                         onRemove,
+                         onEditInput = noop,
+                         onEditBeforeUpdate = noop,
+                         onEditUpdated = noop,
+                         onEditStart = noop,
+                         onEditKeydown = noop,
+                         onInvalid = noop,
+                         onClick = noop,
+                         onKeydown = noop,
+                         onFocus = noop,
+                         onBlur = noop,
+                         onChange = noop,
+                         onDropdownShow = noop,
+                         onDropdownHide = noop,
+                         onDropdownSelect = noop,
+                         onDropdownScroll = noop,
+                         onDropdownNoMatch = noop,
+                         onDropdownUpdated = noop,
+                         readOnly,
+                         disabled,
+                         children,
+                         settings = {},
+                         InputMode = 'input',
+                         autoFocus,
+                         className,
+                         whitelist,
+                         tagifyRef,
+                         placeholder = '',
+                         defaultValue,
+                         showDropdown,
+                         ariaLabel,
+                         withSuggestions,
+                         amountOfDuplicates
+                       }) => {
   const mountedRef = useRef();
   const inputElmRef = useRef();
   const tagify = useRef();
@@ -82,7 +82,7 @@ const TagifyWrapper = ({
       readOnly,
       disabled,
       autoFocus,
-      placeholder,
+      placeholder
     }),
     []
   );
@@ -245,9 +245,9 @@ const TagifyWrapper = ({
   return (
     // a wrapper must be used because Tagify will appened inside it it's component,
     // keeping the virtual-DOM out of the way
-    <div className="tags-input">
+    <div className='tags-input'>
       <InputMode {...inputAttrs} aria-label={ariaLabel} />
-      {tagifyLoaded && settings?.whitelist?.length > 1 && withSuggestions && (
+      {tagifyLoaded && settings?.whitelist?.length >= 1 && withSuggestions && (
         <Box style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 4, flexWrap: 'wrap' }}>
           {renderSuggestions()}
         </Box>
@@ -292,14 +292,14 @@ TagifyWrapper.propTypes = {
   onDropdownSelect: func,
   onDropdownScroll: func,
   onDropdownNoMatch: func,
-  onDropdownUpdated: func,
+  onDropdownUpdated: func
 };
 
 const Tags = React.memo(TagifyWrapper);
 Tags.displayName = 'Tags';
 
 export const MixedTags = ({ children, ariaLabel, ...rest }) => (
-  <Tags InputMode="textarea" {...rest} ariaLabel={ariaLabel}>
+  <Tags InputMode='textarea' {...rest} ariaLabel={ariaLabel}>
     {children}
   </Tags>
 );
