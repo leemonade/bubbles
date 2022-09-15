@@ -200,6 +200,10 @@ function SelectDates({
 
           if (field.value && !startDate) {
             field.onChange(null);
+          } else if (!field.value && startDate) {
+            let followingDay = new Date(startDate);
+            followingDay.setDate(startDate.getDate() + 1);
+            field.onChange(followingDay);
           }
 
           return (
