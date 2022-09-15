@@ -16,11 +16,12 @@ const ScoreCell = ({
   setValue,
   onDataChange,
   onOpen,
+  isCustom,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const useNumbers = !grades.some((grade) => grade.letter);
-  const [expandBox, setExpandBox] = useState();
-  const selectRef = useClickOutside(() => setIsEditing(false), null, [expandBox]);
+  const [inputContainer, setInputContainer] = useState();
+  const selectRef = useClickOutside(() => setIsEditing(false), null, [inputContainer]);
 
   const renderValue = (value) => {
     if (isNil(value)) return '-';
@@ -41,28 +42,29 @@ const ScoreCell = ({
   };
 
   const onChangeHandler = (score) => {
-    const rowId = row.original.id;
-    const columnId = column.id;
+    const rowId = isCustom ? row : row.original.id;
+    const columnId = isCustom ? column : column.id;
 
-    setValue((oldValue) => {
-      const newValue = oldValue.map((student) => {
-        if (student.id !== rowId) return student;
-        const newStudentActivities = student.activities.map((activity) => {
-          if (activity.id !== columnId) return activity;
-          activity.score = useNumbers
-            ? parseFloat(score)
-            : grades.find(({ letter }) => letter === score)?.number;
-          return activity;
+    isFunction(setValue) &&
+      setValue((oldValue) => {
+        const newValue = oldValue.map((student) => {
+          if (student.id !== rowId) return student;
+          const newStudentActivities = student.activities.map((activity) => {
+            if (activity.id !== columnId) return activity;
+            activity.score = useNumbers
+              ? parseFloat(score)
+              : grades.find(({ letter }) => letter === score)?.number;
+            return activity;
+          });
+          return { ...student, activities: newStudentActivities };
         });
-        return { ...student, activities: newStudentActivities };
+        return newValue;
       });
-      return newValue;
-    });
     isFunction(onDataChange) && onDataChange({ rowId, columnId, value: score });
   };
 
   const renderInputCell = () => {
-    if (!isSubmitted)
+    if (!isSubmitted && !isCustom)
       return (
         <Text color="soft" role="productive">
           {noActivity}
@@ -72,7 +74,7 @@ const ScoreCell = ({
     const data = grades.map(({ letter, number }) => letter || number.toString());
 
     return (
-      <Box className={classes.inputContainer} onClick={onClickHandler}>
+      <Box className={classes.inputContainer} ref={setInputContainer} onClick={onClickHandler}>
         {allowChange ? (
           isEditing ? (
             <>
@@ -84,13 +86,15 @@ const ScoreCell = ({
                 style={{ flex: 1 }}
                 ref={selectRef}
               />
-              <Box ref={setExpandBox} className={classes.expandIcon}>
-                <IconButton
-                  variant="transparent"
-                  onClick={onOpenHandler}
-                  icon={<ExpandDiagonalIcon width={16} height={16} />}
-                />
-              </Box>
+              {!isCustom && (
+                <Box className={classes.expandIcon}>
+                  <IconButton
+                    variant="transparent"
+                    onClick={onOpenHandler}
+                    icon={<ExpandDiagonalIcon width={16} height={16} />}
+                  />
+                </Box>
+              )}
             </>
           ) : (
             <Text color="primary" role="productive">
@@ -102,8 +106,8 @@ const ScoreCell = ({
             <Text color="primary" role="productive" style={{ flex: 1 }}>
               {renderValue(value)}
             </Text>
-            {isEditing && (
-              <Box ref={setExpandBox} className={classes.expandIcon}>
+            {isEditing && !isCustom && (
+              <Box className={classes.expandIcon}>
                 <IconButton
                   variant="transparent"
                   onClick={onOpenHandler}
@@ -120,6 +124,8 @@ const ScoreCell = ({
   useEffect(() => {
     if (selectRef.current) selectRef.current.click();
   }, [isEditing]);
+
+  // console.log(isCustom, row);
 
   const { classes, cx } = ScoreCellStyles({ isEditing, allowChange }, { name: 'ScoreCell' });
   return <Box className={classes.root}>{renderInputCell()}</Box>;
