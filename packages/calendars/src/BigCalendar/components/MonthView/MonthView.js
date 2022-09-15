@@ -237,7 +237,7 @@ class MonthView extends React.Component {
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',
           position: 'relative',
-          color: dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
+          color: isMonthView && dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
         }}
       >
         {isMonthView && isWeekend && COLORS.ui02 ? (
