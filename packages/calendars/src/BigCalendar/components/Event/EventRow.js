@@ -14,6 +14,7 @@ class EventRow extends React.Component {
       className,
       isMonthView,
       slotMetrics,
+      printMode,
     } = this.props;
 
     let lastEnd = 1;
@@ -21,7 +22,7 @@ class EventRow extends React.Component {
     const row = segments.reduce((row, { event, left, right, span }, li) => {
       const key = '_lvl_' + li;
       const gap = left - lastEnd;
-      const content = EventRowMixin.renderEvent(this.props, event, isMonthView);
+      const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
       if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
       if (isMonthView) {
         let goodStart = DateTime.fromJSDate(

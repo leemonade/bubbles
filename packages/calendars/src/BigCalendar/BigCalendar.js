@@ -241,6 +241,7 @@ export const BigCalendar = forwardRef(
     const { classes, cx } = BigCalendarStyles({
       timeslotHeight,
       isMonthRange: currentView === MONTH_RANGE,
+      printMode,
     });
 
     return (

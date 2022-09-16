@@ -49,7 +49,7 @@ const MonthRangeView = ({ ...props }) => {
                   {capitalize(localizer.format(date, 'monthHeaderFormat'))}
                 </Text>
               </Box>
-              <Box style={{ paddingBottom: '100%', position: 'relative' }}>
+              <Box style={{ paddingBottom: printMode ? '196px' : '100%', position: 'relative' }}>
                 <Box style={{ position: 'absolute', width: '100%', height: '100%' }}>
                   <MonthView
                     {...props}

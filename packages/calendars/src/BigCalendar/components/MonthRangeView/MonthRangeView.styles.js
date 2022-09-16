@@ -6,16 +6,15 @@ export const MonthRangeViewStyles = createStyles((theme, { printMode }) => {
     monthRangeView: {
       display: 'flex',
       flexWrap: 'wrap',
-      rowGap: printMode ? 0 : 16,
+      rowGap: printMode ? 4 : 16,
       columnGap: printMode ? 0 : 76,
       justifyContent: printMode && 'space-between',
-      paddingInline: printMode && 16,
+      paddingInline: printMode && 40,
     },
     month: {
-      width: 252,
-      minWidth: 252,
-      maxWidth: 252,
-      transform: printMode && 'scale(0.9)',
+      width: printMode ? 196 : 252,
+      minWidth: printMode ? 196 : 252,
+      maxWidth: printMode ? 196 : 252,
     },
   };
 });

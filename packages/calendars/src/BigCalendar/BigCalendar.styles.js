@@ -29,7 +29,7 @@ const getEventStyles = (theme, isMonthRange) => ({
   },
 });
 
-const getMonthViewStyles = (theme, isMonthRange) => ({
+const getMonthViewStyles = (theme, isMonthRange, printMode) => ({
   '.rbc-month-view': {
     // borderColor: theme.colors.ui04,
     border: 'none',
@@ -39,9 +39,9 @@ const getMonthViewStyles = (theme, isMonthRange) => ({
     border: !isMonthRange && `1px solid ${theme.colors.ui04}`,
     borderTop: 'none',
     borderBottom: 'none',
-    height: isMonthRange && 36,
-    maxHeight: isMonthRange && 36,
-    minHeight: isMonthRange && 36,
+    height: isMonthRange && printMode ? 28 : 36,
+    maxHeight: isMonthRange && printMode ? 28 : 36,
+    minHeight: isMonthRange && printMode ? 28 : 36,
   },
   '.rbc-month-row + .rbc-month-row': {
     borderColor: theme.colors.ui04,
@@ -89,7 +89,7 @@ const getMonthViewStyles = (theme, isMonthRange) => ({
   },
 });
 
-const getHeaderStyles = (theme, isMonthRange) => ({
+const getHeaderStyles = (theme, isMonthRange, printMode) => ({
   '.rbc-header': {
     ...getFontProductive(theme.fontSizes[isMonthRange ? '1' : '2'], 500),
     color: isMonthRange ? theme.colors.text06 : theme.colors.text02,
@@ -98,12 +98,14 @@ const getHeaderStyles = (theme, isMonthRange) => ({
     borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
     textAlign: isMonthRange ? 'center' : 'right',
     ...getPaddings(8, 5),
-    height: isMonthRange && 36,
+    height: isMonthRange && printMode ? 28 : 36,
+    paddingBottom: isMonthRange && printMode && 0,
+    paddingTop: isMonthRange && printMode && 5,
   },
   '.rbc-header + .rbc-header': {
     border: 'none',
     borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
-    height: isMonthRange && 36,
+    height: isMonthRange && printMode ? 28 : 36,
   },
   '.rbc-rtl .rbc-header + .rbc-header': {
     borderColor: theme.colors.ui04,
@@ -369,37 +371,39 @@ const getAgendaStyles = (theme) => ({
   },
 });
 
-export const BigCalendarStyles = createStyles((theme, { timeslotHeight, isMonthRange }) => {
-  return {
-    root: {
-      '.rbc-off-range': {
-        color: theme.colors.text06,
+export const BigCalendarStyles = createStyles(
+  (theme, { timeslotHeight, isMonthRange, printMode }) => {
+    return {
+      root: {
+        '.rbc-off-range': {
+          color: theme.colors.text06,
+        },
+        '.rbc-off-range-bg': {
+          background: isMonthRange ? 'transparent' : theme.colors.ui03,
+        },
+        '.rbc-today': {
+          background: 'transparent',
+        },
+        // ·················································
+        // HEADER
+        ...getHeaderStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // ROW
+        ...getRowStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // EVENTS
+        ...getEventStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // MONTH VIEW
+        ...getMonthViewStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // TIME GRID
+        ...getTimeColumnStyles(theme, { timeslotHeight }),
+        ...getTimeGridStyles(theme),
+        // ·················································
+        // AGENDA
+        ...getAgendaStyles(theme),
       },
-      '.rbc-off-range-bg': {
-        background: isMonthRange ? 'transparent' : theme.colors.ui03,
-      },
-      '.rbc-today': {
-        background: 'transparent',
-      },
-      // ·················································
-      // HEADER
-      ...getHeaderStyles(theme, isMonthRange),
-      // ·················································
-      // ROW
-      ...getRowStyles(theme, isMonthRange),
-      // ·················································
-      // EVENTS
-      ...getEventStyles(theme, isMonthRange),
-      // ·················································
-      // MONTH VIEW
-      ...getMonthViewStyles(theme, isMonthRange),
-      // ·················································
-      // TIME GRID
-      ...getTimeColumnStyles(theme, { timeslotHeight }),
-      ...getTimeGridStyles(theme),
-      // ·················································
-      // AGENDA
-      ...getAgendaStyles(theme),
-    },
-  };
-});
+    };
+  }
+);
