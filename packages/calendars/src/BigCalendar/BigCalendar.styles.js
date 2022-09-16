@@ -70,6 +70,7 @@ const getMonthViewStyles = (theme, isMonthRange, printMode) => ({
     alignItems: isMonthRange && 'center',
     a: {
       ...getPaddings(0, 2),
+      fontSize: printMode && 12,
     },
   },
   '.rbc-day-bg + .rbc-day-bg': {

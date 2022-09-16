@@ -69,7 +69,7 @@ Playground.args = {
 const MonthRangeTemplate = (props) => {
   return (
     <Box style={{ width: '210mm', height: '297mm', backgroundColor: 'whitesmoke' }}>
-      <BigCalendar {...props} />;
+      <BigCalendar {...props} />
     </Box>
   );
 };
