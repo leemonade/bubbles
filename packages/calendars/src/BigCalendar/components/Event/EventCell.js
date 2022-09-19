@@ -21,7 +21,8 @@ function eventCellStylesRoot(
     oneDay,
     isMonthView,
     rightArrow,
-    leftArrow
+    leftArrow,
+    printMode,
   },
   imp
 ) {
@@ -32,8 +33,8 @@ function eventCellStylesRoot(
         ? _.isArray(bgColor)
           ? bgColor[0]
           : desaturateColor
-            ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-            : bgColor
+          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+          : bgColor
         : colors.uiBackground01
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
@@ -41,8 +42,8 @@ function eventCellStylesRoot(
     border:
       isMonthView && !oneDay
         ? `2px ${borderStyle || 'dashed'} ${borderColor || colors.mainBlack}${
-          imp ? '!important' : ''
-        }`
+            imp ? '!important' : ''
+          }`
         : `2px ${borderStyle || 'dashed'} transparent${imp ? '!important' : ''}`,
     borderRadius:
       !rightArrow && !leftArrow && isMonthView && oneDay
@@ -53,12 +54,15 @@ function eventCellStylesRoot(
     borderBottomRightRadius: isMonthView && rightArrow && `0px${imp ? '!important' : ''}`,
     borderTopLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
     borderBottomLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
-    width: isMonthView && (rightArrow || leftArrow) && `32px${imp ? '!important' : ''}`,
+    width:
+      isMonthView &&
+      (rightArrow || leftArrow) &&
+      `${printMode ? '24px' : '32px'}${imp ? '!important' : ''}`,
     transform: isMonthView && `rotate(${rotate}deg)`,
     overflow: !leftArrow && !rightArrow && 'hidden',
     zIndex: zIndex,
     borderRight: isMonthView && rightArrow && 'none!important',
-    borderLeft: isMonthView && leftArrow && 'none!important'
+    borderLeft: isMonthView && leftArrow && 'none!important',
   };
 
   if (isMonthView && borderColor) {
@@ -76,7 +80,7 @@ function eventCellStylesRoot(
       width: '100%',
       height: '100%',
       zIndex: zIndex + 1,
-      backgroundColor: bgColor[1]
+      backgroundColor: bgColor[1],
     };
   }
   return data;
@@ -94,51 +98,59 @@ function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
     justifyContent: 'center',
     verticalAlign: 'middle',
     img: {
-      filter: 'brightness(0) invert(1)'
-    }
+      filter: 'brightness(0) invert(1)',
+    },
   };
 }
 
-const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, zIndex) => {
+const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, printMode) => {
   const transparentBgColor = bgColor === 'transparent';
 
   const arrowBorder = {
-    content: '\'\'',
+    content: "''",
     position: 'absolute',
     left: rightArrow && -5,
     right: leftArrow && -5,
     width: 1.5,
-    height: 19,
-    backgroundColor: borderColor
+    height: printMode ? 15 : 19,
+    backgroundColor: borderColor,
   };
 
   return {
     position: 'absolute',
-    top: 0,
+    top: printMode ? -2 : 0,
     bottom: 0,
     right: rightArrow && -4,
     left: leftArrow && -3.5,
     width: 0,
     height: 0,
     borderStyle: 'solid',
-    borderWidth: rightArrow ? '16px 0 16px 4px' : leftArrow ? '16px 4px 16px 0px' : undefined,
+    borderWidth: rightArrow
+      ? printMode
+        ? '14px 0px 14px 4px'
+        : '16px 0 16px 4px'
+      : leftArrow
+      ? printMode
+        ? '14px 4px 14px 0px'
+        : '16px 4px 16px 0px'
+      : undefined,
     borderColor: transparentBgColor
       ? 'transparent transparent transparent transparent'
       : `transparent ${leftArrow ? colord(bgColor).toRgbString() : 'transparent'} transparent ${
-        rightArrow ? colord(bgColor).toRgbString() : 'transparent'
-      }`,
+          rightArrow ? colord(bgColor).toRgbString() : 'transparent'
+        }`,
     '&:before': {
       ...arrowBorder,
       top: -1,
       transform: `rotate(${rightArrow ? '' : leftArrow ? '-' : ''}15deg)`,
-      transformOrigin: 'bottom'
+      transformOrigin: 'bottom',
     },
     '&:after': {
       ...arrowBorder,
       bottom: -1,
       transform: `rotate(${rightArrow ? '-' : leftArrow ? '' : ''}15deg)`,
-      transformOrigin: 'top'
-    }
+      transformOrigin: 'top',
+    },
   };
 };
 
@@ -156,7 +168,8 @@ const eventCellStyles = createStyles(
       isMonthView,
       oneDay,
       rightArrow,
-      leftArrow
+      leftArrow,
+      printMode,
     }
   ) => {
     return {
@@ -173,21 +186,22 @@ const eventCellStyles = createStyles(
           isMonthView,
           oneDay,
           rightArrow,
-          leftArrow
+          leftArrow,
+          printMode,
         },
         true
       ),
       icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
       item: {
         display: 'flex!important',
-        alignItems: 'center'
+        alignItems: 'center',
       },
       rightArrow: {
-        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, zIndex)
+        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
       leftArrow: {
-        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, zIndex)
-      }
+        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
+      },
     };
   }
 );
@@ -212,6 +226,7 @@ function EventCell(thisprops) {
     slotStart,
     slotEnd,
     isMonthView,
+    printMode,
     ...props
   } = thisprops;
   delete props.resizable;
@@ -230,7 +245,7 @@ function EventCell(thisprops) {
   const userProps = getters.eventProp(event, start, end, selected);
 
   userProps.style = {
-    ...userProps.style
+    ...userProps.style,
   };
 
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
@@ -240,9 +255,10 @@ function EventCell(thisprops) {
   const leftArrow = event.originalEvent.calendar.leftArrow;
 
   const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+  const eventzIndex = originalEvent.zIndex || originalEvent.calendar.zIndex;
 
   const { classes } = eventCellStyles({
-    zIndex: originalEvent.zIndex || originalEvent.calendar.zIndex,
+    zIndex: eventzIndex,
     desaturateColor: originalEvent.desaturateColor || originalEvent.calendar.desaturateColor,
     rotate: originalEvent.rotate || originalEvent.calendar.rotate,
     isAllDay: event.allDay,
@@ -254,28 +270,32 @@ function EventCell(thisprops) {
       _.isArray(originalEvent.calendar.bgColor),
     isMonthView,
     rightArrow,
-    leftArrow
+    leftArrow,
+    printMode,
   });
 
   const avatar = {
     image: eventImage || null,
-    icon: eventIcon && _.isString(eventIcon) ? (
-      <Box className={classes.icon}>
-        <ImageLoader
-          height='12px'
-          imageStyles={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            width: 12,
-            transform: 'translate(-50%, -50%)'
-          }}
-          src={eventIcon}
-          forceImage
-        />
-      </Box>
-    ) : eventIcon,
-    color: originalEvent.bgColor || originalEvent.calendar.bgColor
+    icon:
+      eventIcon && _.isString(eventIcon) ? (
+        <Box className={classes.icon}>
+          <ImageLoader
+            height="12px"
+            imageStyles={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              width: 12,
+              transform: 'translate(-50%, -50%)',
+            }}
+            src={eventIcon}
+            forceImage
+          />
+        </Box>
+      ) : (
+        eventIcon
+      ),
+    color: originalEvent.bgColor || originalEvent.calendar.bgColor,
   };
 
   if (originalEvent.calendar.isUserCalendar) {
@@ -307,8 +327,11 @@ function EventCell(thisprops) {
             event.component
           ) : (
             <>
-              {eventIcon && !_.isString(eventIcon) ? eventIcon :
-                <Avatar mx='auto' size='xs' {...avatar} />}
+              {eventIcon && !_.isString(eventIcon) ? (
+                eventIcon
+              ) : (
+                <Avatar mx="auto" size="xs" {...avatar} />
+              )}
 
               <span style={{ marginLeft: 4 }}>{title}</span>
             </>
@@ -330,7 +353,7 @@ function EventCell(thisprops) {
         'rbc-selected': selected,
         'rbc-event-allday': showAsAllDay,
         'rbc-event-continues-prior': continuesPrior,
-        'rbc-event-continues-after': continuesAfter
+        'rbc-event-continues-after': continuesAfter,
       })}
       onClick={(e) => {
         if (!isMonthView) {
@@ -361,9 +384,9 @@ function EventCell(thisprops) {
         height: '100%',
         display: 'flex',
         flexDirection: leftArrow && 'row-reverse',
-        pointerEvents: 'all'
+        pointerEvents: 'all',
       }}
-      color='secondary'
+      color="secondary"
       withinPortal
     >
       {eventElement}
@@ -386,7 +409,7 @@ function EventCell(thisprops) {
   }
 
   return (
-    <EventWrapper {...thisprops} type='date'>
+    <EventWrapper {...thisprops} type="date">
       {oneDayStyle ? (
         <Box style={{ width: '100%', height: '100%', overflow: 'hidden', whiteSpace: 'nowrap' }}>
           {arr.map((i) => {
@@ -396,7 +419,7 @@ function EventCell(thisprops) {
                   position: 'relative',
                   height: '100%',
                   width: 100 / arr.length + '%',
-                  display: 'inline-block'
+                  display: 'inline-block',
                 }}
               >
                 <Box
@@ -439,7 +462,7 @@ EventCell.propTypes = {
 
   onSelect: PropTypes.func,
   onDoubleClick: PropTypes.func,
-  onKeyPress: PropTypes.func
+  onKeyPress: PropTypes.func,
 };
 
 export default EventCell;
