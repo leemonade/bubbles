@@ -30,7 +30,8 @@ const FormWithTheme = (schema, ui, conditions, props = {}, {
   t = () => {
   }, translations = {},
   fields = {},
-  widgets = {}
+  widgets = {},
+  customValidateSchema
 } = {}, context = {}) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
@@ -58,10 +59,10 @@ const FormWithTheme = (schema, ui, conditions, props = {}, {
           wysiwyg: WysiwygWidget,
           ...widgets
         },
-        validateSchema,
+        validateSchema: customValidateSchema || validateSchema,
         transformAjvErrors
       }),
-    [validateSchema]
+    [validateSchema, customValidateSchema]
   );
 
   const customFormats = React.useMemo(
