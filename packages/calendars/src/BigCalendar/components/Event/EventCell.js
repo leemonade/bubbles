@@ -22,6 +22,7 @@ function eventCellStylesRoot(
     isMonthView,
     rightArrow,
     leftArrow,
+    printMode,
   },
   imp
 ) {
@@ -53,7 +54,10 @@ function eventCellStylesRoot(
     borderBottomRightRadius: isMonthView && rightArrow && `0px${imp ? '!important' : ''}`,
     borderTopLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
     borderBottomLeftRadius: isMonthView && leftArrow && `0px${imp ? '!important' : ''}`,
-    width: isMonthView && (rightArrow || leftArrow) && `32px${imp ? '!important' : ''}`,
+    width:
+      isMonthView &&
+      (rightArrow || leftArrow) &&
+      `${printMode ? '24px' : '32px'}${imp ? '!important' : ''}`,
     transform: isMonthView && `rotate(${rotate}deg)`,
     overflow: !leftArrow && !rightArrow && 'hidden',
     zIndex: zIndex,
@@ -99,7 +103,7 @@ function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
   };
 }
 
-const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, zIndex) => {
+const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, printMode) => {
   const transparentBgColor = bgColor === 'transparent';
 
   const arrowBorder = {
@@ -108,20 +112,28 @@ const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, zIndex) => 
     left: rightArrow && -5,
     right: leftArrow && -5,
     width: 1.5,
-    height: 19,
+    height: printMode ? 15 : 19,
     backgroundColor: borderColor,
   };
 
   return {
     position: 'absolute',
-    top: 0,
+    top: printMode ? -2 : 0,
     bottom: 0,
     right: rightArrow && -4,
     left: leftArrow && -3.5,
     width: 0,
     height: 0,
     borderStyle: 'solid',
-    borderWidth: rightArrow ? '16px 0 16px 4px' : leftArrow ? '16px 4px 16px 0px' : undefined,
+    borderWidth: rightArrow
+      ? printMode
+        ? '14px 0px 14px 4px'
+        : '16px 0 16px 4px'
+      : leftArrow
+      ? printMode
+        ? '14px 4px 14px 0px'
+        : '16px 4px 16px 0px'
+      : undefined,
     borderColor: transparentBgColor
       ? 'transparent transparent transparent transparent'
       : `transparent ${leftArrow ? colord(bgColor).toRgbString() : 'transparent'} transparent ${
@@ -157,6 +169,7 @@ const eventCellStyles = createStyles(
       oneDay,
       rightArrow,
       leftArrow,
+      printMode,
     }
   ) => {
     return {
@@ -174,6 +187,7 @@ const eventCellStyles = createStyles(
           oneDay,
           rightArrow,
           leftArrow,
+          printMode,
         },
         true
       ),
@@ -183,10 +197,10 @@ const eventCellStyles = createStyles(
         alignItems: 'center',
       },
       rightArrow: {
-        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, zIndex),
+        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
       leftArrow: {
-        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, zIndex),
+        ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
     };
   }
@@ -212,6 +226,7 @@ function EventCell(thisprops) {
     slotStart,
     slotEnd,
     isMonthView,
+    printMode,
     ...props
   } = thisprops;
   delete props.resizable;
@@ -256,6 +271,7 @@ function EventCell(thisprops) {
     isMonthView,
     rightArrow,
     leftArrow,
+    printMode,
   });
 
   const avatar = {

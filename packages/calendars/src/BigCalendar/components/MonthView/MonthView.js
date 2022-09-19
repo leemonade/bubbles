@@ -137,6 +137,7 @@ class MonthView extends React.Component {
       hideBgTitles,
       isMonthView,
       monthNumber,
+      printMode,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -199,6 +200,7 @@ class MonthView extends React.Component {
         showAllEvents={showAllEvents}
         isMonthView={isMonthView}
         monthNumber={monthNumber}
+        printMode={printMode}
       />
     );
   };

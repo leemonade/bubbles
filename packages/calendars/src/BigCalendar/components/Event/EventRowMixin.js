@@ -28,7 +28,7 @@ export default {
     selected: {},
   },
 
-  renderEvent(props, event, isMonthView) {
+  renderEvent(props, event, isMonthView, printMode) {
     let {
       selected,
       isAllDay: _,
@@ -63,6 +63,7 @@ export default {
         selected={isSelected(event, selected)}
         resizable={resizable}
         isMonthView={isMonthView}
+        printMode={printMode}
       />
     );
   },
