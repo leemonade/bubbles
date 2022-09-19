@@ -29,6 +29,7 @@ const HeaderDropdown = ({
   itemComponent,
   valueComponent,
   value,
+  showIcon,
   onChange,
   ...props
 }) => {
@@ -98,14 +99,16 @@ const HeaderDropdown = ({
           <Box className={classes.valueComponent}>
             <Box className={classes.itemImage}>
               <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
-              <Box className={classes.itemIcon} style={{ backgroundColor: selectedItem?.color }}>
-                <ImageLoader
-                  forceImage
-                  height={16}
-                  imageStyles={{ width: 16 }}
-                  src={selectedItem?.icon}
-                />
-              </Box>
+              {showIcon && (
+                <Box className={classes.itemIcon} style={{ backgroundColor: selectedItem?.color }}>
+                  <ImageLoader
+                    forceImage
+                    height={16}
+                    imageStyles={{ width: 16 }}
+                    src={selectedItem?.icon}
+                  />
+                </Box>
+              )}
             </Box>
             <Box className={classes.content}>
               <TextClamp lines={1} maxLines={1}>
