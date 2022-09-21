@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
@@ -108,6 +108,16 @@ const TextEditor = ({ content, library, children, onChange, editorClassname, pla
       return () => editor.off('transaction', handleTransactions);
     }
   }, [editor]);
+
+  useEffect(() => {
+    if (editor && placeholder) {
+      const placeholderExtension = editor.extensionManager.extensions.find(
+        (extension) => extension.name === 'placeholder'
+      );
+      placeholderExtension.options['placeholder'] = placeholder;
+      editor.view.dispatch(editor.state.tr);
+    }
+  }, [placeholder]);
 
   return (
     <Box
