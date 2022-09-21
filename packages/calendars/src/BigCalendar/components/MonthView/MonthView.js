@@ -17,33 +17,31 @@ import DateContentRow from '../Date/DateContentRow';
 
 let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
   const range = { start, end };
-  const filteredEvents = events.filter((event) =>
-    localizer.inEventRange({
+  const filteredEvents = events.filter((event) => {
+    return localizer.inEventRange({
       event: { ...event },
       range: range,
-    })
-  );
+    });
+  });
   filteredEvents.sort((eventA, eventB) => {
     const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
     const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
     return eventAzIndex - eventBzIndex;
   });
-
-  /*
   const finalEvents = filteredEvents.map((event) => {
-    // if (isLastWeek) {
-    //   if (event.end.getMonth() > end.getMonth())
-    //     return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
-    // }
-    // if (isFirstWeek) {
-    //   if (event.start.getDate() > 1) return { ...event, start: start };
-    // }
+    if (isLastWeek) {
+      if (event.end.getMonth() > end.getMonth()) return { ...event, end: end, realEnd: event.end };
+    }
+    if (isFirstWeek) {
+      if (event.start.getMonth() < start.getMonth()) return { ...event, start: start };
+    }
     return event;
   });
-   */
-
-  return filteredEvents;
+  return finalEvents;
 };
+
+// let eventsForWeekNormal = (evts, start, end, accessors, localizer) =>
+//   evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
 class MonthView extends React.Component {
   constructor(...args) {
