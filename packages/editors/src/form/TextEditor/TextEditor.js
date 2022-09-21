@@ -7,6 +7,7 @@ import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
 import Text from '@tiptap/extension-text';
+import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
@@ -21,14 +22,22 @@ export const TEXT_EDITOR_PROP_TYPES = {
   editorClassname: PropTypes.string,
 };
 
-const TextEditor = ({ content, library, children, onChange, editorClassname }) => {
+const TextEditor = ({ content, library, children, onChange, editorClassname, placeholder }) => {
   const store = React.useRef({
     isFocus: false,
   });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
-    extensions: [Document, Text, Paragraph, Focus, History, ...extensions],
+    extensions: [
+      Document,
+      Text,
+      Paragraph,
+      Focus,
+      History,
+      Placeholder.configure({ placeholder: placeholder }),
+      ...extensions,
+    ],
     content: '',
   });
 

@@ -53,6 +53,7 @@ const TextEditorInput = ({
       <Box className={classes.root}>
         <TextEditor
           {...props}
+          placeholder={placeholder}
           content={value}
           onChange={onChange}
           editorClassname={cx(classes.editor, editorClassname)}
