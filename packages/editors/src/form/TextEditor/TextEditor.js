@@ -110,7 +110,7 @@ const TextEditor = ({ content, library, children, onChange, editorClassname, pla
   }, [editor]);
 
   useEffect(() => {
-    if (editor && placeholder) {
+    if (editor) {
       const placeholderExtension = editor.extensionManager.extensions.find(
         (extension) => extension.name === 'placeholder'
       );
