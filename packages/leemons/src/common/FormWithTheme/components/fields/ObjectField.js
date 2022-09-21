@@ -30,7 +30,7 @@ function DefaultObjectFieldTemplate(props) {
           formContext={props.formContext}
         />
       )}
-      <Tab>
+      <Tab {...(props.schema.tabProps || {})}>
         {props.properties.map((prop, i) => {
           if (props.schema.asTabs) {
             return <TabPanel

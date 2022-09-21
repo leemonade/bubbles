@@ -45,6 +45,7 @@ export default [
 export default [
   {
     allDay: true,
+    title: 'Inicio de curso',
     start: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
     originalEvent: {
@@ -61,6 +62,7 @@ export default [
   },
   {
     allDay: true,
+    title: 'Fin de curso',
     start: DateTime.fromISO('2022-08-30T22:00:00.000Z').toJSDate(),
     end: DateTime.fromISO('2022-08-30T22:00:00.000Z').toJSDate(),
     originalEvent: {
