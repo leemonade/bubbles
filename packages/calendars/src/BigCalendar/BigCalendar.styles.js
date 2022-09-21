@@ -100,13 +100,13 @@ const getHeaderStyles = (theme, isMonthRange, printMode) => ({
     textAlign: isMonthRange ? 'center' : 'right',
     ...getPaddings(8, 5),
     height: isMonthRange && (printMode ? 28 : 36),
-    paddingBottom: isMonthRange && printMode && 0,
-    paddingTop: isMonthRange && printMode && 5,
+    paddingBottom: isMonthRange && printMode ? 0 : 8,
+    paddingTop: isMonthRange && printMode ? 5 : 8,
   },
   '.rbc-header + .rbc-header': {
     border: 'none',
     borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
-    height: isMonthRange && printMode ? 28 : 36,
+    height: isMonthRange && (printMode ? 28 : 36),
   },
   '.rbc-rtl .rbc-header + .rbc-header': {
     borderColor: theme.colors.ui04,
