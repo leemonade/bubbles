@@ -40,8 +40,18 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
   return finalEvents;
 };
 
-// let eventsForWeekNormal = (evts, start, end, accessors, localizer) =>
-//   evts.filter((e) => inRange(e, start, end, accessors, localizer));
+let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
+  const filteredEvents = evts.filter((e) => inRange(e, start, end, accessors, localizer));
+  const finalEvents = filteredEvents.map((event) => {
+    const eStart = event.start;
+    const eEnd = event.end;
+    if (localizer.isSameDate(eStart, eEnd)) return event;
+    event.realEnd = eEnd;
+    event.end = new Date(new Date(eEnd).setHours(2, 0, 0));
+    return event;
+  });
+  return finalEvents;
+};
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -163,7 +173,7 @@ class MonthView extends React.Component {
     // let's not mutate props
     const weeksEvents = isMonthView
       ? eventsForWeek([...events], startOfWeek, endOfWeeek, localizer, isFirstWeek, isLastWeek)
-      : [...events].filter((e) => inRange(e, startOfWeek, endOfWeeek, accessors, localizer));
+      : eventsForWeekNormal([...events], week[0], week[week.length - 1], accessors, localizer);
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 

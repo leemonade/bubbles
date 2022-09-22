@@ -20,26 +20,36 @@ class EventRow extends React.Component {
     let lastEnd = 1;
 
     const row = segments.reduce((row, { event, left, right, span }, li) => {
-      const key = '_lvl_' + li;
-      const gap = left - lastEnd;
-      const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
-      if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
-
-      let goodStart = DateTime.fromJSDate(
-        event.start < slotMetrics.first ? slotMetrics.first : event.start
-      );
-      let goodEnd = DateTime.fromJSDate(
-        event.end > slotMetrics.last ? slotMetrics.last : event.end
-      );
-      const diff = goodEnd.diff(goodStart, ['days']);
-      let sum = 1;
-      if (event.end > slotMetrics.last) {
-        sum = 0;
+      if (isMonthView) {
+        const key = '_lvl_' + li;
+        const gap = left - lastEnd;
+        const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
+        if (gap)
+          row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
+        let goodStart = DateTime.fromJSDate(
+          event.start < slotMetrics.first ? slotMetrics.first : event.start
+        );
+        let goodEnd = DateTime.fromJSDate(
+          event.end > slotMetrics.last ? slotMetrics.last : event.end
+        );
+        const diff = goodEnd.diff(goodStart, ['days']);
+        let sum = 1;
+        if (event.end > slotMetrics.last) {
+          sum = 0;
+        }
+        span = diff.days + sum;
+        lastEnd = right + (gap ? gap : 0) + 1;
+        row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
+        return row;
+      } else {
+        let key = '_lvl_' + li;
+        let gap = left - lastEnd;
+        let content = EventRowMixin.renderEvent(this.props, event);
+        if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
+        row.push(EventRowMixin.renderSpan(slots, span, key, content));
+        lastEnd = right + 1;
+        return row;
       }
-      span = diff.days + sum;
-      row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
-      lastEnd = right + (gap ? gap : 0) + 1;
-      return row;
     }, []);
 
     return <Box className={cx(className, 'rbc-row', { 'rbc-event-row': isMonthView })}>{row}</Box>;

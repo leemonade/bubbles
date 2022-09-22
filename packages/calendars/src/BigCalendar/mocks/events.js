@@ -97,7 +97,7 @@ export default [
   {
     allDay: true,
     title: 'erg',
-    start: DateTime.fromISO('2022-08-14').toJSDate(),
+    start: DateTime.fromISO('2022-08-13').toJSDate(),
     end: DateTime.fromISO('2022-08-16').toJSDate(),
     originalEvent: {
       calendar: {
