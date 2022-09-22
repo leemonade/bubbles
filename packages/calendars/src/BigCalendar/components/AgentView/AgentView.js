@@ -16,6 +16,13 @@ import { omit } from 'lodash';
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
+let customInRange = (event, day, localizer) => {
+  const eStart = event.start;
+  const eEnd = event.end;
+  const dayIsRange = day >= eStart && day <= eEnd;
+  return dayIsRange;
+};
+
 function Agenda({
   accessors,
   components,
@@ -51,9 +58,18 @@ function Agenda({
   const renderDay = (day, events, dayKey) => {
     const { event: Event, date: AgendaDate } = components;
 
-    events = events.filter((e) =>
-      inRange(e, localizer.startOf(day, 'day'), localizer.endOf(day, 'day'), accessors, localizer)
-    );
+    // Se estaba utilizando esta funcion pero por algun motivo no determinaba bien que el final del evento tambien
+    // estaba dentro del rango
+    // let newEvents = [...events];
+    // events = events.filter((e) =>
+    //   inRange(e, localizer.startOf(day, 'day'), localizer.endOf(day, 'day'), accessors, localizer)
+    // );
+    events = events.filter((e) => customInRange(e, day, localizer));
+
+    if (events.length > 0) {
+      console.log('events: ', events);
+      console.log('day', day);
+    }
 
     return events.map((event, idx) => {
       let title = accessors.title(event);
