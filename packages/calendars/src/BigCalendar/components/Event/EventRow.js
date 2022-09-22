@@ -24,22 +24,21 @@ class EventRow extends React.Component {
       const gap = left - lastEnd;
       const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
       if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
-      if (isMonthView) {
-        let goodStart = DateTime.fromJSDate(
-          event.start < slotMetrics.first ? slotMetrics.first : event.start
-        );
-        let goodEnd = DateTime.fromJSDate(
-          event.end > slotMetrics.last ? slotMetrics.last : event.end
-        );
-        const diff = goodEnd.diff(goodStart, ['days']);
-        let sum = 1;
-        if (event.end > slotMetrics.last) {
-          sum = 0;
-        }
-        span = diff.days + sum;
+
+      let goodStart = DateTime.fromJSDate(
+        event.start < slotMetrics.first ? slotMetrics.first : event.start
+      );
+      let goodEnd = DateTime.fromJSDate(
+        event.end > slotMetrics.last ? slotMetrics.last : event.end
+      );
+      const diff = goodEnd.diff(goodStart, ['days']);
+      let sum = 1;
+      if (event.end > slotMetrics.last) {
+        sum = 0;
       }
+      span = diff.days + sum;
       row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
-      lastEnd = right + 1;
+      lastEnd = right + (gap ? gap : 0) + 1;
       return row;
     }, []);
 
