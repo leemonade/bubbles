@@ -33,4 +33,5 @@ Playground.args = {
   placeholder: 'Set a number',
   help: 'Help text for number input',
   error: 'Descriptive text for error ',
+  readOnly: false,
 };
