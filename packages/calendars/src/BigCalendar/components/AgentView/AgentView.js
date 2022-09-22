@@ -66,11 +66,6 @@ function Agenda({
     // );
     events = events.filter((e) => customInRange(e, day, localizer));
 
-    if (events.length > 0) {
-      console.log('events: ', events);
-      console.log('day', day);
-    }
-
     return events.map((event, idx) => {
       let title = accessors.title(event);
       let end = accessors.end(event);
