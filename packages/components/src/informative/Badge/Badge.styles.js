@@ -61,7 +61,7 @@ const getColor = (theme, color) => {
 };
 
 export const BadgeStyles = createStyles(
-  (theme, { size, color, image, radius, severity, hasOnClick }) => {
+  (theme, { size, color, image, radius, severity, hasOnClick, labelStyles }) => {
     const isLarge = size === 'lg';
     const isSmall = size === 'xs';
     const isMedium = size === 'md';
@@ -128,6 +128,7 @@ export const BadgeStyles = createStyles(
       },
       inner: {
         overflow: 'unset',
+        ...labelStyles,
       },
       rightSection: {
         marginLeft: pxToRem(9),

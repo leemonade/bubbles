@@ -18,6 +18,7 @@ export const BADGE_DEFAULT_PROPS = {
   radius: 'rounded',
   closable: true,
   useAria: true,
+  labelStyles: {},
 };
 export const BADGE_PROP_TYPES = {
   label: PropTypes.node,
@@ -25,6 +26,7 @@ export const BADGE_PROP_TYPES = {
   radius: PropTypes.oneOf(BADGE_RADIUS),
   color: PropTypes.oneOf(BADGE_COLORS),
   severity: PropTypes.oneOf(BADGE_SEVERITIES),
+  labelStyles: PropTypes.object,
   image: PropTypes.string,
   alt: PropTypes.string,
   onClose: PropTypes.func,
@@ -43,6 +45,7 @@ const Badge = forwardRef(
       alt,
       color,
       severity,
+      labelStyles,
       onClose,
       closable,
       className,
@@ -61,7 +64,7 @@ const Badge = forwardRef(
     }
 
     const { classes, cx } = BadgeStyles(
-      { size, color, image, radius, severity, hasOnClick: isFunction(onClick) },
+      { size, color, image, radius, severity, hasOnClick: isFunction(onClick), labelStyles },
       { name: 'Badge' }
     );
 
