@@ -131,7 +131,7 @@ const ScoresBasicTable = ({
           {!hideCustom && (
             <Box className={classes.studentInfo}>
               <ScoreCell
-                value={customScore !== null ? customScore.toFixed(2) : avgScore}
+                value={isNaN(customScore) ? avgScore : customScore}
                 allowChange={allowCustomChange}
                 grades={grades}
                 row={id}

@@ -99,7 +99,7 @@ const ScoresReviewerTable = ({
           {!hideCustom && (
             <Box className={classes.studentInfo}>
               <ScoreCell
-                value={customScore ? customScore.toFixed(2) : avgScore}
+                value={isNaN(customScore) ? avgScore : customScore}
                 allowChange={allowCustomChange}
                 grades={grades}
                 row={id}

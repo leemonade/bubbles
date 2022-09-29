@@ -7,7 +7,7 @@ export const StepperButtonStyles = createStyles((theme, { isCompleted }) => {
       padding: '12px 14px 12px 24px',
       display: 'flex',
       alignItems: 'center',
-      height: 56,
+      minHeight: 56,
       position: 'relative',
     },
     isCompletedBackground: {

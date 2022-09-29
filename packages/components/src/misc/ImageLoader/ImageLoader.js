@@ -32,6 +32,7 @@ export const ImageLoader = ({
       {...props}
       src={src}
       alt={alt}
+      radius={radius}
       height={height}
       withPlaceholder={withPlaceholder}
       classNames={{ root: classes.root }}

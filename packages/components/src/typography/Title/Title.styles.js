@@ -6,6 +6,7 @@ export const TitleStyles = createStyles((theme, { order, transform, color, highl
     primary: theme.colors.text01,
     secondary: theme.colors.text02,
     tertiary: theme.colors.text03,
+    quartiary: theme.colors.text04,
     soft: theme.colors.text05,
     interactive: theme.colors.interactive01,
   };

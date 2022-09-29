@@ -39,7 +39,8 @@ export const StepStyles = createStyles(
         position: 'relative',
       },
       defaultVariant: {
-        height: isChild ? 32 : stepHeight,
+        minHeight: isChild ? 32 : stepHeight,
+        height: isChild && 32,
         display: isChild && !showChild ? 'none' : 'flex',
         paddingRight: 8,
         position: 'relative',
@@ -48,7 +49,7 @@ export const StepStyles = createStyles(
         paddingBottom: 12,
       },
       buttonVariant: {
-        height: stepHeight,
+        minHeight: stepHeight,
         display: 'flex',
         paddingRight: 8,
         alignItems: 'center',
@@ -58,7 +59,7 @@ export const StepStyles = createStyles(
         paddingBottom: 12,
       },
       textVariant: {
-        height: stepHeight,
+        minHeight: stepHeight,
         display: 'flex',
         paddingRight: 8,
         position: 'relative',

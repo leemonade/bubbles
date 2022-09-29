@@ -17,6 +17,7 @@ export default {
     },
   },
   argTypes: {
+    logoUrl: { control: { type: 'text' } },
     onOpen: { action: 'OpenSubNav' },
     onClose: { action: 'CloseSubNav' },
     onPin: { action: 'PinSubNav' },
