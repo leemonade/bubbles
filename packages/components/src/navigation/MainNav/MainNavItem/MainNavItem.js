@@ -31,12 +31,13 @@ export const MainNavItem = ({
   onClick,
   useRouter,
   lightMode,
+  drawerColor,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useClickOutside(() => setIsHovered(false));
 
-  const { classes, cx } = MainNavItemStyles({ itemWidth, active, lightMode });
+  const { classes, cx } = MainNavItemStyles({ itemWidth, active, lightMode, drawerColor });
 
   const handleClick = (e) => {
     setIsHovered(false);

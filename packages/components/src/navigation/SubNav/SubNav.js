@@ -9,6 +9,7 @@ import { ActionButton } from './../../form';
 import { MAIN_NAV_WIDTH } from '../MainNav/MainNav';
 import { SubNavItem } from './SubNavItem/SubNavItem';
 import { SubNavStyles } from './SubNav.styles';
+import { PALETTE } from '../../theme.constants';
 
 export const SUB_NAV_DEFAULT_PROPS = {
   useRouter: false,
@@ -18,9 +19,15 @@ export const SUB_NAV_DEFAULT_PROPS = {
     closeTooltip: 'Close',
   },
   lightMode: false,
+  drawerColor: PALETTE.neutral90,
 };
 export const SUB_NAV_PROP_TYPES = {
+  useRouter: PropTypes.bool,
+  open: PropTypes.bool,
+  pinned: PropTypes.bool,
+  messages: PropTypes.any,
   lightMode: PropTypes.bool,
+  drawerColor: PropTypes.string,
 };
 
 export const SubNav = forwardRef(
@@ -43,12 +50,13 @@ export const SubNav = forwardRef(
       hideHeaderActions,
       style,
       lightMode,
+      drawerColor,
       ...props
     },
     ref
   ) => {
     const { classes, cx } = SubNavStyles(
-      { itemWidth: MAIN_NAV_WIDTH, width, pinned, lightMode },
+      { itemWidth: MAIN_NAV_WIDTH, width, pinned, lightMode, drawerColor },
       { name: 'SubNav' }
     );
 
