@@ -12,13 +12,15 @@ function AccordionLabel({ label, icon, rightSection, compact, classes }) {
   return (
     <Stack fullWidth alignItems="center">
       <Stack fullWidth justifyContent="start" alignItems="center" spacing={4}>
-        {icon
-          ? React.cloneElement(icon, {
-              width: compact ? 16 : 22,
-              height: compact ? 16 : 22,
-              className: classes.labelIcon,
-            })
-          : null}
+        <Box className={classes.iconWrapper}>
+          {icon
+            ? React.cloneElement(icon, {
+                width: compact ? 16 : 22,
+                height: compact ? 16 : 22,
+                className: classes.labelIcon,
+              })
+            : null}
+        </Box>
         <Text size="md" strong color="primary" role="productive" className={classes.label}>
           {label}
         </Text>
