@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { keysIn } from 'lodash';
+import { keysIn, max } from 'lodash';
+import { colord } from 'colord';
 import { HeroBgStyles } from './HeroBg.styles';
 import { lg, xMD, xSM, ySM, yXS, xLG } from './sizes';
 
@@ -14,6 +15,7 @@ export const HERO_BG_DEFAULT_PROPS = {
   animate: true,
   decay: 1,
   speed: 500,
+  accentColor: '#FEFF8C',
 };
 export const HERO_BG_PROP_TYPES = {
   className: PropTypes.string,
@@ -23,6 +25,7 @@ export const HERO_BG_PROP_TYPES = {
   animate: PropTypes.bool,
   speed: PropTypes.number,
   solid: PropTypes.bool,
+  accentColor: PropTypes.string,
 };
 
 const HeroBg = ({
@@ -34,13 +37,27 @@ const HeroBg = ({
   decay,
   speed,
   solid,
+  accentColor: accentColorProp,
 }) => {
   const color = HERO_BG_COLORS.includes(colorProp) ? colorProp : HERO_BG_DEFAULT_PROPS.color;
   const size = HERO_BG_SIZES.includes(sizeProp) ? sizeProp : HERO_BG_DEFAULT_PROPS.size;
   const [currentType, setCurrentType] = useState(null);
   const animationRef = useRef(0);
 
-  useEffect(() => initAnimation(), [style, sizeProp, colorProp, className, animate]);
+  const accentColor = useMemo(() => {
+    if (accentColorProp === HERO_BG_DEFAULT_PROPS.accentColor) {
+      return accentColorProp;
+    }
+
+    const color = colord(accentColorProp);
+    const brightness = color.brightness();
+    const newColor = color.alpha(Math.max(1 - (0.95 - brightness) * 2.5, 0.2)).toRgbString();
+    return newColor;
+  }, [accentColorProp]);
+
+  useEffect(() => console.log('Bubbles >> HeroBg >> accentColor:', accentColor), [accentColor]);
+
+  useEffect(() => initAnimation(), [style, sizeProp, colorProp, className, animate, accentColor]);
 
   const { classes, cx } = HeroBgStyles({ color, size });
 
@@ -106,6 +123,20 @@ const HeroBg = ({
               ? { opacity: solid ? 1 : Math.random() / 3, transition: 'opacity 3s' }
               : animStyles[i],
         });
+      } else if (
+        currentNode.props.fill === 'accentColor' ||
+        currentNode.props.stroke === 'accentColor'
+      ) {
+        const nodeProps = {};
+        if (currentNode.props.fill === 'accentColor') {
+          nodeProps.fill = accentColor;
+        }
+
+        if (currentNode.props.stroke === 'accentColor') {
+          nodeProps.stroke = accentColor;
+        }
+
+        currentNodes[i] = React.cloneElement(currentNode, nodeProps);
       } else {
         currentNodes[i] = React.cloneElement(currentNode);
       }
