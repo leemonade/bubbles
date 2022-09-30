@@ -10,6 +10,7 @@ import {
   MeetingCameraIcon,
   PluginCurriculumIcon,
   VolumeControlMediumIcon,
+  PluginFeedbackIcon,
 } from '@bubbles-ui/icons/solid/';
 import { FormImageAttachIcon, PluginKanbanIcon } from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
@@ -41,6 +42,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
     { key: 'tests', value: <PluginKanbanIcon height={size} width={size} /> },
     { key: 'questionBank', value: <PluginKanbanIcon height={size} width={size} /> },
+    { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
