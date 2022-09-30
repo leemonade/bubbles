@@ -30,10 +30,12 @@ let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, wee
   });
   const finalEvents = filteredEvents.map((event) => {
     if (isLastWeek) {
-      if (event.end.getMonth() > end.getMonth()) return { ...event, end: end, realEnd: event.end };
+      if (event.end.getYear() > end.getYear() || event.end.getMonth() > end.getMonth())
+        return { ...event, end: end, realEnd: event.end };
     }
     if (isFirstWeek) {
-      if (event.start.getMonth() < start.getMonth()) return { ...event, start: start };
+      if (event.start.getYear() < start.getYear() || event.start.getMonth() < start.getMonth())
+        return { ...event, start: start };
     }
     return event;
   });
