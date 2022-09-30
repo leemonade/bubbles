@@ -47,7 +47,7 @@ export const PALETTE = {
   faticWarning: '#E0914B',
   faticWarningLight: '#FEFBE8',
   faticInfo: '#384FE3',
-  faticInfoLight: '#212B3D',
+  faticInfoLight: '#D8E8FF',
   faticHighlight: '#FEFF8C',
 };
 
