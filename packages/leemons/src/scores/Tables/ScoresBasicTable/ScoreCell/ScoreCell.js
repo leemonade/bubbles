@@ -125,8 +125,6 @@ const ScoreCell = ({
     if (selectRef.current) selectRef.current.click();
   }, [isEditing]);
 
-  // console.log(isCustom, row);
-
   const { classes, cx } = ScoreCellStyles({ isEditing, allowChange }, { name: 'ScoreCell' });
   return <Box className={classes.root}>{renderInputCell()}</Box>;
 };

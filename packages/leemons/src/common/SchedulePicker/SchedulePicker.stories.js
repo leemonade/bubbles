@@ -3,7 +3,7 @@ import { SCHEDULE_PICKER_DEFAULT_PROPS, SchedulePicker } from './SchedulePicker'
 import {
   ContextContainer,
   INPUT_WRAPPER_ORIENTATIONS,
-  INPUT_WRAPPER_SIZES
+  INPUT_WRAPPER_SIZES,
 } from '@bubbles-ui/components';
 import mdx from './SchedulePicker.mdx';
 
@@ -12,33 +12,32 @@ export default {
   parameters: {
     component: SchedulePicker,
     docs: {
-      page: mdx
+      page: mdx,
     },
     design: {
-      type: 'figma'
+      type: 'figma',
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
-    }
+    },
   },
   argTypes: {
     onChange: { action: 'onChange' },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },
-    orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } }
-  }
+    orientation: { options: INPUT_WRAPPER_ORIENTATIONS, control: { type: 'select' } },
+  },
 };
 
 const Template = ({ test_value, onChange, ...props }) => {
   const [value, setValue] = useState(test_value);
   const [a, setA] = useState(false);
   return (
-    <ContextContainer direction='row'>
+    <ContextContainer direction="row">
       <SchedulePicker
         {...props}
         value={value}
         readOnly={a}
         onChange={(val) => {
           setValue(val);
-          console.log('onChange:', val);
           setA(true);
         }}
       />
@@ -61,19 +60,19 @@ Playground.args = {
     startDate: 'Start date',
     endDate: 'End date',
     apply: 'Apply',
-    clear: 'Clear'
+    clear: 'Clear',
   },
   errorMessages: {
     invalidSchedule: 'The class must have a duration',
-    invalidDates: 'The finish time must be later than the start time'
+    invalidDates: 'The finish time must be later than the start time',
   },
   helps: {
-    input: 'Select the class schedule'
+    input: 'Select the class schedule',
   },
   placeholders: {
     input: 'Select a class schedule',
     startDate: 'Please select a start date',
-    endDate: 'Please select an end date'
+    endDate: 'Please select an end date',
   },
   test_value: {
     days: [
@@ -83,7 +82,7 @@ Playground.args = {
         dayWeek: 0,
         duration: 120,
         end: '09:00',
-        start: '07:00'
+        start: '07:00',
       },
       {
         id: '8bfe6162-bd46-b074-2cab-dc3303b9cb7e',
@@ -91,7 +90,7 @@ Playground.args = {
         dayWeek: 3,
         duration: 60,
         end: '12:00',
-        start: '11:00'
+        start: '11:00',
       },
       {
         id: 'bfe61628-d46b-074b-cab2-c3303b9cb7ed',
@@ -99,8 +98,8 @@ Playground.args = {
         dayWeek: 5,
         duration: 60,
         end: '11:00',
-        start: '10:00'
-      }
-    ]
-  }
+        start: '10:00',
+      },
+    ],
+  },
 };

@@ -10,13 +10,11 @@ const UserField = () => {
   } = useContext(DatasetItemDrawerContext);
 
   function onChange(newValue, onchange) {
-    console.log(onchange);
     const index = newValue.indexOf('*');
     if (index > 0) {
       onchange([]);
     } else {
       if (index === 0) newValue.splice(index, 1);
-      console.log(newValue);
       onchange(newValue);
     }
   }

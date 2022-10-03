@@ -89,7 +89,9 @@ const SetupCourses = ({
   const [maxSubstageAbbreviationIsOnlyNumbers, setMaxSubstageAbbreviationIsOnlyNumbers] = useState(
     defaultValues.maxSubstageAbbreviationIsOnlyNumbers
   );
-  const [substagesFrequency, setSubstagesFrequency] = useState(defaultValues.substagesFrequency);
+  const [substagesFrequencyLabel, setSubstagesFrequencyLabel] = useState(
+    frequencyOptions[0]?.label
+  );
   const [numberOfSubstages, setNumberOfSubstages] = useState(defaultValues.numberOfSubstages);
 
   const {
@@ -109,6 +111,7 @@ const SetupCourses = ({
   const abbrevationOnlyNumbers = watch('maxSubstageAbbreviationIsOnlyNumbers');
   const haveCycles = watch('haveCycles');
   const cycles = watch('cycles');
+  const substagesFrequencyValue = watch('substagesFrequency');
 
   const { classes, cx } = SetupCoursesStyles({ onlyOneCourse }, { name: 'SetupCourses' });
 
@@ -176,8 +179,9 @@ const SetupCourses = ({
       '0'
     );
     substageAbbr =
-      (maxSubstageAbbreviationIsOnlyNumbers ? '' : substagesFrequency.charAt(0).toUpperCase()) +
-      substageAbbr;
+      (maxSubstageAbbreviationIsOnlyNumbers
+        ? ''
+        : substagesFrequencyValue.charAt(0).toUpperCase()) + substageAbbr;
 
     return substageAbbr;
   };
@@ -206,7 +210,7 @@ const SetupCourses = ({
             }}
             render={({ field }) => (
               <TextInput
-                label={`${capitalize(substagesFrequency)}`}
+                label={`${capitalize(substagesFrequencyLabel)}`}
                 error={isArray(errors.substages) ? errors.substages[currentSubstage]?.name : null}
                 required
                 disabled={!editable}
@@ -244,7 +248,7 @@ const SetupCourses = ({
       );
     }
     return substages;
-  }, [numberOfSubstages, abbrevationOnlyNumbers]);
+  }, [numberOfSubstages, abbrevationOnlyNumbers, substagesFrequencyValue]);
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e };
@@ -443,7 +447,6 @@ const SetupCourses = ({
                 onChange={() => {
                   field.onChange(!field.value);
                   if (field.value) {
-                    console.log('aqui deberia follarme todo');
                     setValue('customSubstages', []);
                     setValue('numberOfSubstages', 1);
                     setValue('substagesFrequency', frequencyOptions[0]?.value);
@@ -470,7 +473,9 @@ const SetupCourses = ({
                       data={frequencyOptions}
                       onChange={(e) => {
                         onChange(e);
-                        setSubstagesFrequency(e);
+                        setSubstagesFrequencyLabel(
+                          frequencyOptions.find((option) => option.value === e).label
+                        );
                       }}
                       required
                       value={value}
@@ -559,7 +564,7 @@ const SetupCourses = ({
                         </ContextContainer>
                       )}
                     />
-                    {substagesFrequency && getSubstages()}
+                    {substagesFrequencyValue && getSubstages()}
                   </>
                 ) : null}
               </ContextContainer>

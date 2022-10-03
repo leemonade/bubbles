@@ -22,7 +22,6 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  console.log(mock);
   return (
     <KanbanTaskCard {...props} value={mock.events[0]} config={mock}>
       {children}
