@@ -56,7 +56,10 @@ const CalendarSubNavFilters = ({
   lightMode,
   style,
 }) => {
-  const { classes, cx } = CalendarSubNavFiltersStyles({ mainColor }, { name: 'SubnavFilters' });
+  const { classes, cx } = CalendarSubNavFiltersStyles(
+    { mainColor, lightMode },
+    { name: 'SubnavFilters' }
+  );
 
   const [, setR] = useState();
   const ref = useRef({});
