@@ -250,8 +250,11 @@ const MainNav = ({
             icon={<ComputerKeyboardNextIcon />}
             tooltip="Open"
             variant="solid"
-            color={!lightMode && 'negative'}
-            style={{ borderRadius: '0 3px 3px 0', backgroundColor: mainColor }}
+            color={lightMode ? 'positive' : 'negative'}
+            style={{
+              borderRadius: '0 3px 3px 0',
+              backgroundColor: lightMode ? PALETTE.interactive10 : mainColor,
+            }}
             onClick={openSubNav}
           />
         </Box>
