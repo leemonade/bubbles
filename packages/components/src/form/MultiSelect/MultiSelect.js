@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useRef } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
 import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
@@ -46,6 +46,8 @@ const MultiSelect = forwardRef(
       valueComponent,
       onChange,
       useAria,
+      disabled,
+      autoSelectOneOption,
       ariaLabel,
       ...props
     },
@@ -59,7 +61,10 @@ const MultiSelect = forwardRef(
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
     const multiSelectRef = useRef();
+    const autoSelectOneOptionMode = autoSelectOneOption && props.data.length === 1;
     if (!multiple) maxSelectedValues = 2;
+
+    const isDisabled = disabled || autoSelectOneOptionMode;
 
     // ······················································
     // HANDLERS
@@ -91,6 +96,15 @@ const MultiSelect = forwardRef(
         }, 1);
       }
     }, [JSON.stringify(value)]);
+
+    // ······················································
+    // useEffects
+
+    useEffect(() => {
+      if (!autoSelectOneOptionMode) return;
+      if (props.data[0].value && props.data[0].value !== value?.[0])
+        handleChange([props.data[0].value]);
+    }, [autoSelectOneOption, props.data]);
 
     // ······················································
     // STYLES
@@ -137,6 +151,7 @@ const MultiSelect = forwardRef(
                 value={value}
                 autoComplete="off"
                 onChange={handleChange}
+                disabled={isDisabled}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
                 searchable={searchable}
@@ -151,7 +166,7 @@ const MultiSelect = forwardRef(
                     : undefined
                 }
                 rightSection={
-                  isClearable && showClear ? (
+                  isClearable && showClear && !isDisabled ? (
                     <ActionButton
                       icon={<RemoveIcon />}
                       tooltip={clearable}

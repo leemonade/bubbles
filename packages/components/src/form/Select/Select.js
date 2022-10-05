@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
 import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
@@ -42,15 +42,17 @@ const Select = forwardRef(
       autoComplete,
       readOnly,
       variant,
+      autoSelectOneOption,
       ariaLabel,
       ...props
     },
     ref
   ) => {
-    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d.value.toString() }));
+    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d?.value.toString() }));
     const value = isNil(_value) ? _value : _value.toString();
     const uuid = useId();
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
+    const autoSelectOneOptionMode = autoSelectOneOption && data.length === 1;
 
     // ······················································
     // HANDLERS
@@ -83,6 +85,15 @@ const Select = forwardRef(
     }, [data, value]);
 
     // ······················································
+    // useEffects
+
+    useEffect(() => {
+      if (!autoSelectOneOptionMode) return;
+      if (data[0].value && data[0].value !== value)
+        handleChange(valueComponent ? [data[0].value] : data[0].value);
+    }, [autoSelectOneOption, data]);
+
+    // ······················································
     // STYLES
 
     const { classes, cx } = SelectStyles(
@@ -104,7 +115,7 @@ const Select = forwardRef(
         onCreate={onCreate}
         defaultValue={defaultValue}
         name={name}
-        disabled={disabled}
+        disabled={disabled || autoSelectOneOptionMode}
         searchable={searchable}
         onSearchChange={onSearchChange}
         onDropdownOpen={onDropdownOpen}
@@ -136,7 +147,7 @@ const Select = forwardRef(
             onCreate={onCreate}
             defaultValue={defaultValue}
             name={name}
-            disabled={disabled}
+            disabled={disabled || autoSelectOneOptionMode}
             searchable={searchable}
             onSearchChange={onSearchChange}
             onDropdownOpen={onDropdownOpen}
@@ -147,7 +158,7 @@ const Select = forwardRef(
             placeholder={placeholder}
             variant={variant}
             rightSection={
-              isClearable && showClear ? (
+              isClearable && showClear && !autoSelectOneOptionMode ? (
                 <ActionButton
                   icon={<RemoveIcon />}
                   tooltip={clearable}

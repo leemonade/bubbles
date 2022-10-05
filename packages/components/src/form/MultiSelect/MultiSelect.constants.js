@@ -26,6 +26,7 @@ export const MULTI_SELECT_DEFAULT_PROPS = {
   clearable: '',
   readOnly: false,
   multiple: true,
+  autoSelectOneOption: false,
   useAria: true,
 };
 
@@ -43,6 +44,7 @@ export const MULTI_SELECT_PROP_TYPES = {
   multiple: PropTypes.bool,
   maxSelectedValues: PropTypes.number,
   readOnly: PropTypes.bool,
+  autoSelectOneOption: PropTypes.bool,
   useAria: PropTypes.bool,
   ariaLabel: PropTypes.string,
 };
