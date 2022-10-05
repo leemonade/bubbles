@@ -6,7 +6,8 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, { mainColor, lig
       height: '100%',
     },
     switchLabel: {
-      color: theme.colors.text07,
+      color: lightMode ? theme.colors.text01 : theme.colors.text07,
+      fontWeight: 500,
     },
     segmentRoot: {
       height: '42px',

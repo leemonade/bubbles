@@ -138,7 +138,11 @@ const CalendarSubNavFilters = ({
                 marginTop: theme.spacing[6],
               })}
             >
-              <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+              <Text
+                strong
+                size="xs"
+                sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+              >
                 {messages.centers}
               </Text>
               <Box
@@ -158,7 +162,11 @@ const CalendarSubNavFilters = ({
               key={`${sectionName}-${sectionIndex}`}
             >
               <Box>
-                <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+                <Text
+                  strong
+                  size="xs"
+                  sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+                >
                   {sectionName}
                 </Text>
               </Box>
