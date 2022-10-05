@@ -1,4 +1,4 @@
-import React, { cloneElement, useState } from 'react';
+import React, { cloneElement, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -17,8 +17,10 @@ import {
 // import { ModalComp } from '../ModalComp/ModalComp';
 import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
-import isFunction from 'lodash/isFunction';
+import { isFunction, isEmpty } from 'lodash';
 import { isValidURL } from '../../utils/';
+import { useContext } from 'react';
+import { TextEditorContext } from '../TextEditorProvider';
 
 export const LINKMODAL_DEFAULT_PROPS = {
   labels: {
@@ -60,6 +62,7 @@ export const LINKMODAL_PROP_TYPES = {
   selectedText: PropTypes.string,
   onCancel: PropTypes.func,
   onChange: PropTypes.func,
+  useCase: PropTypes.string,
 };
 
 const LinkModal = ({
@@ -71,20 +74,28 @@ const LinkModal = ({
   selectedText,
   onCancel,
   onChange,
+  useCase,
   ...props
 }) => {
-  const [modal, setModal] = useState('one');
-  const textValue = selectedText || '';
+  const [modal, setModal] = useState('link');
+  const { link } = useContext(TextEditorContext);
+  const textValue = selectedText || link?.text || '';
 
   const {
     control,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { text: textValue, link: '', library: null } });
+  } = useForm({ defaultValues: { text: textValue, link: link?.href || '', library: null } });
 
   const watchInputs = watch(['text', 'link']);
   const watchLibrary = watch('library');
+
+  useEffect(() => {
+    if (useCase && !isEmpty(useCase)) {
+      setModal(useCase);
+    }
+  }, [useCase]);
 
   const submitHandler = (values) => {
     isFunction(onChange) && onChange(values);
@@ -96,14 +107,15 @@ const LinkModal = ({
 
   const getWidgetForm = () => {
     switch (modal) {
-      case 'one':
+      case 'link':
         return (
           <Controller
             name="link"
             control={control}
             rules={{
               required: errorMessages.link || 'Required field',
-              validate: isValidURL ? '' : errorMessages.validURL || 'Link is not valid',
+              validate: (value) =>
+                isValidURL(value) ? undefined : errorMessages.validURL || 'Link is not valid',
             }}
             render={({ field }) => (
               <TextInput
@@ -116,9 +128,7 @@ const LinkModal = ({
             )}
           />
         );
-      case 'two':
-        return <Box>WIP</Box>;
-      case 'three':
+      case 'library':
         return (
           <Controller
             name="library"
@@ -139,9 +149,9 @@ const LinkModal = ({
 
   const submitCondition = () => {
     switch (modal) {
-      case 'one':
+      case 'link':
         return !watchInputs[0] || !watchInputs[1];
-      case 'three':
+      case 'library':
         return !watchInputs[0] || !watchLibrary;
       default:
         return true;
@@ -151,19 +161,20 @@ const LinkModal = ({
   const { classes } = LinkModalStyles({});
   return (
     <Box className={classes.root} {...props}>
-      <Box className={classes.radioGroup}>
-        <RadioGroup
-          data={[
-            { value: 'one', icon: <ExpandDiagonalIcon height={16} width={16} /> },
-            { value: 'two', icon: <FolderIcon height={16} width={16} /> },
-            { value: 'three', icon: <CloudUploadIcon height={16} width={16} /> },
-          ]}
-          variant={'icon'}
-          fullWidth
-          value={modal}
-          onChange={setModal}
-        ></RadioGroup>
-      </Box>
+      {!useCase && (
+        <Box className={classes.radioGroup}>
+          <RadioGroup
+            data={[
+              { value: 'link', icon: <ExpandDiagonalIcon height={16} width={16} /> },
+              { value: 'library', icon: <CloudUploadIcon height={16} width={16} /> },
+            ]}
+            variant={'icon'}
+            fullWidth
+            value={modal}
+            onChange={setModal}
+          ></RadioGroup>
+        </Box>
+      )}
       <Box className={classes.form}>
         <form onSubmit={handleSubmit(submitHandler)} autoComplete="off">
           <ContextContainer>
@@ -186,7 +197,7 @@ const LinkModal = ({
                 {labels.cancel}
               </Button>
               <Button size="xs" type="submit" disabled={submitCondition()}>
-                {labels.add}
+                {link.editing ? labels.update : labels.add}
               </Button>
             </Stack>
           </ContextContainer>
