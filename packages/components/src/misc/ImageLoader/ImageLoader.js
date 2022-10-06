@@ -24,7 +24,10 @@ export const ImageLoader = ({
     if (srcProp !== src) setSrc(srcProp);
   }, [srcProp]);
 
-  const { classes, cx } = ImageLoaderStyles({ radius, imageStyles }, { name: 'ImageLoader' });
+  const { classes, cx } = ImageLoaderStyles(
+    { radius, imageStyles, height },
+    { name: 'ImageLoader' }
+  );
   return isSvg ? (
     <InlineSvg src={src} {...props} />
   ) : (
@@ -35,7 +38,11 @@ export const ImageLoader = ({
       radius={radius}
       height={height}
       withPlaceholder={withPlaceholder}
-      classNames={{ root: classes.root }}
+      classNames={{
+        root: classes.root,
+        imageWrapper: classes.imageWrapper,
+        figure: classes.figure,
+      }}
       role={useAria ? 'image' : undefined}
     />
   );

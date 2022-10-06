@@ -12,14 +12,14 @@ import {
   useElementSize,
 } from '@bubbles-ui/components';
 import { capitalize, isEmpty, isFunction } from 'lodash';
-import { AssetPlayer } from '../../common';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
+import { ExpandDiagonalIcon, ExpandFullIcon, DownloadIcon } from '@bubbles-ui/icons/outline';
+import { AssetPlayer } from '../../common';
 import { LibraryCardEmbedStyles } from './LibraryCardEmbed.styles';
 import {
   LIBRARY_CARD_EMBED_DEFAULT_PROPS,
   LIBRARY_CARD_EMBED_PROP_TYPES,
 } from './LibraryCardEmbed.constants';
-import { ExpandDiagonalIcon, ExpandFullIcon, DownloadIcon } from '@bubbles-ui/icons/outline';
 
 const getDomain = (url) => {
   const domain = url.split('//')[1];
@@ -28,8 +28,8 @@ const getDomain = (url) => {
 
 const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...props }) => {
   const { ref: rootRef, width } = useElementSize();
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(['00:00', '00:00']);
   const [fullScreenMode, setFullScreenMode] = useState(false);
 
@@ -123,9 +123,9 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
     { name: 'LibraryCardEmbed' }
   );
   return (
-    <Stack ref={rootRef} className={classes.root} justifyContent="start" fullWidth>
-      {!showPlayer && (
-        <React.Fragment>
+    <Box ref={rootRef} className={classes.root}>
+      {!showPlayer ? (
+        <Stack className={classes.cardWrapper} justifyContent="start" fullWidth>
           <Box>
             {image ? (
               <ImageLoader src={image} width={172} height={156} radius={'2px 0px 0px 2px'} />
@@ -174,59 +174,11 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
               )}
             </Box>
           </Box>
-        </React.Fragment>
+        </Stack>
+      ) : (
+        <AssetPlayer asset={asset} playing={isPlaying} controlBar framed />
       )}
-      {showPlayer && (
-        <Box className={classes.playerWrapper}>
-          <AssetPlayer
-            asset={asset}
-            height={getMediaHeight()}
-            playing={isPlaying}
-            showPlayer={showPlayer}
-            fullScreen={fullScreenMode}
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-            onProgress={({ duration, totalDuration }) => setDuration([duration, totalDuration])}
-            className={classes.player}
-          />
-          <Box className={classes.controlRow}>
-            <Box className={classes.duration}>
-              {duration[0]}
-              <Text color="soft"> / </Text>
-              {duration[1]}
-            </Box>
-            <Box className={classes.playerControls}>
-              <IconButton
-                className={classes.expandIcon}
-                icon={<ExpandDiagonalIcon height={13} width={13} />}
-                rounded
-                onClick={() => setFullScreenMode(true)}
-              />
-              {isPlaying && (
-                <IconButton
-                  style={{ backgroundColor: COLORS.interactive01 }}
-                  icon={<ControlsPauseIcon height={13} width={13} style={{ color: 'white' }} />}
-                  rounded
-                  onClick={() => {
-                    setIsPlaying(false);
-                  }}
-                />
-              )}
-              {!isPlaying && (
-                <IconButton
-                  style={{ backgroundColor: COLORS.interactive01 }}
-                  icon={<ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />}
-                  rounded
-                  onClick={() => {
-                    setIsPlaying(true);
-                  }}
-                />
-              )}
-            </Box>
-          </Box>
-        </Box>
-      )}
-    </Stack>
+    </Box>
   );
 };
 

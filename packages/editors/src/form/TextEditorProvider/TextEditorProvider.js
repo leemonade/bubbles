@@ -14,7 +14,7 @@ export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
   libraryOnChange: PropTypes.func,
 };
 
-const TextEditorProvider = ({ editor, library, libraryOnChange, children }) => {
+const TextEditorProvider = ({ editor, library, libraryOnChange, children, readOnly }) => {
   const [linkModalOpened, setLinkModalOpened] = useState(false);
   const [link, setLink] = useState({ text: '', href: '', editing: false });
 
@@ -23,6 +23,7 @@ const TextEditorProvider = ({ editor, library, libraryOnChange, children }) => {
     library,
     libraryOnChange,
     link,
+    readOnly,
     linkModalOpened,
     setLinkModalOpened,
     editLink: (text, href) => {

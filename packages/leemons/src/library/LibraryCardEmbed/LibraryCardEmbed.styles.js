@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const LibraryCardEmbedStyles = createStyles(
   (theme, { showPlayer, fullScreenMode, color, variant, fileType }) => {
@@ -13,11 +7,13 @@ export const LibraryCardEmbedStyles = createStyles(
 
     return {
       root: {
-        borderRadius: showPlayer ? 8 : 4,
         backgroundColor: theme.colors.mainWhite,
-        border: `2px solid ${theme.colors.ui02}`,
         width: 'auto',
         minWidth: 420,
+      },
+      cardWrapper: {
+        borderRadius: 4,
+        border: `2px solid ${theme.colors.ui02}`,
       },
       imagePlaceholder: {
         width: 172,
@@ -60,40 +56,6 @@ export const LibraryCardEmbedStyles = createStyles(
         paddingBlock: pxToRem(8),
         display: 'flex',
         gap: 24,
-      },
-      playerWrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        height: '100%',
-      },
-      player: {
-        iframe: {
-          borderTopRightRadius: fullScreenMode ? 0 : 8,
-          borderTopLeftRadius: fullScreenMode ? 0 : 8,
-        },
-      },
-      playerControls: {
-        marginBlock: 8,
-        marginRight: 12,
-        alignSelf: 'end',
-        display: 'flex',
-        gap: 8,
-      },
-      controlRow: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      },
-      expandIcon: {
-        backgroundColor: 'transparent',
-        display: isMedia && !isVideo && 'none',
-      },
-      duration: {
-        marginBlock: 8,
-        marginLeft: 12,
-        color: theme.colors.text05,
-        fontWeight: 500,
       },
       bookmarkButton: {
         display: 'flex',

@@ -2,9 +2,9 @@ import React, { useContext, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
-import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button, CardExtension, LinkModal } from '../../form/';
 import Link from '@tiptap/extension-link';
+import { TextEditorContext } from '../../form/TextEditorProvider';
+import { Button, LinkModal } from '../../form/';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
   label: 'Link',
@@ -15,7 +15,7 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ label, ...props }) => {
-  const { editor, library, libraryOnChange, linkModalOpened, editLink, closeLinkModal } =
+  const { editor, library, readOnly, libraryOnChange, linkModalOpened, editLink, closeLinkModal } =
     useContext(TextEditorContext);
 
   if (!editor) return;
@@ -54,6 +54,8 @@ const LinkTool = ({ label, ...props }) => {
     const href = editor.getAttributes('link').href;
     editLink(text, href);
   };
+
+  if (readOnly) return null;
 
   return (
     <Popover

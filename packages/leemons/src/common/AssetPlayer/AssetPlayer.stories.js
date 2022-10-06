@@ -1,8 +1,14 @@
-import React from 'react';
-import { Box } from '@bubbles-ui/components';
+import React, { useState, useEffect } from 'react';
+import { Box, Paragraph } from '@bubbles-ui/components';
 import { AssetPlayer } from './AssetPlayer';
 import { ASSET_PLAYER_DEFAULT_PROPS } from './AssetPlayer.constants';
 import mdx from './AssetPlayer.mdx';
+import {
+  VIDEO_ASSET,
+  YOUTUBE_ASSET,
+  AUDIO_ASSET,
+  IMAGE_ASSET,
+} from '../../library/LibraryCard/mock/data';
 
 export default {
   title: 'leemons/Common/AssetPlayer',
@@ -17,7 +23,8 @@ export default {
     },
   },
   argTypes: {
-    fileType: { options: ['audio', 'video', 'image'], control: 'select' },
+    test_asset: { options: ['video', 'youtube', 'audio', 'image'], control: { type: 'select' } },
+    float: { options: ['none', 'left', 'right'], control: { type: 'select' } },
     onReady: { action: 'onReady' },
     onStart: { action: 'onStart' },
     onPlay: { action: 'onPlay' },
@@ -29,26 +36,42 @@ export default {
   },
 };
 
-const Template = ({ asset, fileType, ...props }) => {
-  asset.fileType = fileType;
-  return <AssetPlayer {...props} asset={asset} />;
+const Template = ({ test_asset, ...props }) => {
+  const [asset, setAsset] = useState(IMAGE_ASSET);
+
+  useEffect(() => {
+    switch (test_asset) {
+      case 'video':
+        setAsset(VIDEO_ASSET);
+        break;
+      case 'audio':
+        setAsset(AUDIO_ASSET);
+        break;
+      case 'youtube':
+        setAsset(YOUTUBE_ASSET);
+        break;
+      default:
+        setAsset(IMAGE_ASSET);
+    }
+  }, [test_asset]);
+
+  return (
+    <Box>
+      <Paragraph>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        <AssetPlayer {...props} asset={asset} />
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </Paragraph>
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...ASSET_PLAYER_DEFAULT_PROPS,
-  asset: {
-    id: '001',
-    name: 'Asset 001',
-    description: 'This is the Asset 001',
-    subtitle: 'This is the subtitle of the Asset 001',
-    color: '#FABADA',
-    cover:
-      'https://images.unsplash.com/photo-1570201420046-782349fc3059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY1MDg5NDMyNw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-    url: 'https://www.youtube.com/watch?v=XfR9iY5y94s&ab_channel=MenAtWorkVEVO',
-  },
-  fileType: 'video',
-  height: '50vh',
-  width: '100%',
+  test_asset: 'video',
 };

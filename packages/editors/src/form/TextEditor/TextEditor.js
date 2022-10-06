@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
-import { forEach, isFunction, isObject } from 'lodash';
+import { forEach, isFunction, isObject, isEqual } from 'lodash';
 import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
@@ -20,15 +20,26 @@ export const TEXT_EDITOR_PROP_TYPES = {
   library: PropTypes.element,
   onChange: PropTypes.func,
   editorClassname: PropTypes.string,
+  useJSON: PropTypes.bool,
 };
 
-const TextEditor = ({ content, library, children, onChange, editorClassname, placeholder }) => {
+const TextEditor = ({
+  content,
+  library,
+  children,
+  onChange,
+  editorClassname,
+  placeholder,
+  readOnly,
+  useJSON,
+}) => {
   const store = React.useRef({
     isFocus: false,
   });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
+    editable: !readOnly,
     extensions: [
       Document,
       Text,
@@ -45,23 +56,35 @@ const TextEditor = ({ content, library, children, onChange, editorClassname, pla
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    let html = editor.getHTML();
-    const match = html.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
-    if (!Boolean(match) || (isObject(match) && match[1] === '')) {
-      html = null;
-    }
-    store.current.html = html;
+    let newContent = useJSON ? editor.getJSON() : editor.getHTML();
 
-    if (isFunction(onChange) && store.current.html !== content) onChange(store.current.html);
+    if (!useJSON) {
+      const match = newContent.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
+      if (!Boolean(match) || (isObject(match) && match[1] === '')) {
+        newContent = null;
+      }
+    }
+
+    store.current.content = newContent;
+
+    if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
   };
 
   useEffect(() => {
     if (!editor) return;
-    if (content !== store.current.html) {
-      store.current.html = content;
+    if (!isEqual(content, store.current.content)) {
+      store.current.content = content;
       editor.commands.setContent(content || '');
     }
   }, [editor, content]);
+
+  useEffect(() => {
+    if (!editor) {
+      return undefined;
+    }
+
+    editor.setEditable(!readOnly);
+  }, [editor, readOnly]);
 
   function getPath(element, acc = []) {
     acc.push(element);
@@ -126,9 +149,9 @@ const TextEditor = ({ content, library, children, onChange, editorClassname, pla
         store.current.isFocus = true;
       }}
     >
-      <TextEditorProvider editor={editor} library={library}>
+      <TextEditorProvider editor={editor} library={library} readOnly={readOnly}>
         <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
-        <BubbleMenu />
+        {readOnly ? null : <BubbleMenu />}
         <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
       </TextEditorProvider>
     </Box>
