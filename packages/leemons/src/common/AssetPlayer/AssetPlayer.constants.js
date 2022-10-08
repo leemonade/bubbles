@@ -15,7 +15,6 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   progressInterval: 100,
   controlBar: true,
   framed: false,
-  float: 'none',
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -32,5 +31,4 @@ export const ASSET_PLAYER_PROP_TYPES = {
   progressInterval: PropTypes.number,
   controlBar: PropTypes.bool,
   framed: PropTypes.bool,
-  float: PropTypes.oneOf(['none', 'right', 'left']),
 };

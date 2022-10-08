@@ -30,10 +30,9 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
   const { ref: rootRef, width } = useElementSize();
   const [showPlayer, setShowPlayer] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(['00:00', '00:00']);
   const [fullScreenMode, setFullScreenMode] = useState(false);
 
-  const { title, description, image, color, fileType, metadata, url, icon } = asset;
+  const { title, description, image, cover, color, fileType, metadata, url, icon } = asset;
 
   const renderVariantButton = () => {
     const isMedia = variant === 'media';
@@ -127,8 +126,13 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
       {!showPlayer ? (
         <Stack className={classes.cardWrapper} justifyContent="start" fullWidth>
           <Box>
-            {image ? (
-              <ImageLoader src={image} width={172} height={156} radius={'2px 0px 0px 2px'} />
+            {image || cover ? (
+              <ImageLoader
+                src={image || cover}
+                width={172}
+                height={156}
+                radius={'2px 0px 0px 2px'}
+              />
             ) : (
               <Box className={classes.imagePlaceholder}>
                 <FileIcon

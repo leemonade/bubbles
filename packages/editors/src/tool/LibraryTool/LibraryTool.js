@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
+import { isEmpty } from 'lodash';
 import { Popover } from '@bubbles-ui/components';
-import Link from '@tiptap/extension-link';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button, CardExtension, LinkModal } from '../../form/';
+import { Button } from '../../form/';
+import { LibraryExtension } from './LibraryExtension';
+import { LibraryModal } from './LibraryModal';
+import { LibraryIcon } from './LibraryIcon';
 
 export const LIBRARY_TOOL_DEFAULT_PROPS = {
-  label: 'Link',
+  label: 'Library',
 };
 
 export const LIBRARY_TOOL_PROP_TYPES = {
@@ -15,40 +17,30 @@ export const LIBRARY_TOOL_PROP_TYPES = {
 };
 
 const LibraryTool = ({ label, ...props }) => {
-  const { editor, library, libraryOnChange } = useContext(TextEditorContext);
-  const [isOpened, setIsOpened] = useState(false);
+  const { editor, readOnly, libraryModalOpened, editLibrary, closeLibraryModal, libraryContent } =
+    useContext(TextEditorContext);
 
-  if (!editor) return;
-  const { selection } = editor.state;
-  const { from, to } = selection;
-  const selectedText = editor.state.doc.textBetween(from, to, ' ');
-
-  const onClickHandler = ({ text, link, card }) => {
-    if (card) {
-      editor?.chain().focus().setCard(card).run();
-      setIsOpened(false);
-      return;
+  const handleOnChange = (content) => {
+    // console.log('>>> LibraryTool > onSetContent:', content);
+    if (content.asset) {
+      // editor?.chain().focus().extendMarkRange('library').setContent(content).run();
+      editor.chain().focus().setLibrary(content).run();
     }
-    const numberOfCharacters = text.split('').length;
-    const cursorPosition = editor.commands.command(({ state }) => {
-      const anchor = state.selection.anchor;
-      const from = state.selection.ranges[0].$from.pos;
-      return anchor !== from ? from : anchor;
-    });
-    const range = { from: cursorPosition, to: cursorPosition + numberOfCharacters };
-    editor
-      .chain()
-      .insertContent(text)
-      .setTextSelection(range)
-      .setLink({ href: link })
-      .focus()
-      .run();
-    setIsOpened(false);
+
+    closeLibraryModal();
   };
+
+  const handleOnEdit = () => {
+    const content = editor.getAttributes('library');
+    // console.log('>>> LibraryTool > handleOnEdit:', content);
+    editLibrary(!isEmpty(content) ? content : libraryContent);
+  };
+
+  if (readOnly) return null;
 
   return (
     <Popover
-      opened={isOpened}
+      opened={libraryModalOpened}
       onClose={() => {}}
       width={360}
       position="bottom"
@@ -57,34 +49,28 @@ const LibraryTool = ({ label, ...props }) => {
         <Button
           {...props}
           label={label}
-          icon={<HyperlinkIcon height={16} width={16} />}
-          actived={isOpened || editor?.isActive('link')}
-          onClick={() => setIsOpened(!isOpened)}
+          icon={<LibraryIcon height={16} width={16} />}
+          actived={libraryModalOpened || editor?.isActive('library')}
+          onClick={handleOnEdit}
         ></Button>
       }
     >
-      <LinkModal
+      <LibraryModal
         labels={{
-          text: 'Text',
-          link: 'URL',
-          switch: 'Embed player',
-          cancel: 'Cancel',
-          add: 'Add link',
-          cardInput: 'Item from library',
-          selectCard: 'Select item',
+          width: 'Ancho',
+          display: 'Mostrar como',
+          align: 'Alineación',
+          cancel: 'Cancelar',
+          add: 'Añadir',
+          update: 'Actualizar',
         }}
-        placeholders={{ text: 'Introduce un texto', link: 'Introduce un link' }}
+        placeholders={{ width: 'Introduce un ancho', display: 'Seleccionar' }}
         errorMessages={{
-          text: 'Text is required',
-          link: 'Link is required',
-          validURL: 'Link is not valid',
+          width: 'Campo requerido',
+          display: 'Campo requerido',
         }}
-        useCase="library"
-        library={library}
-        libraryOnChange={libraryOnChange}
-        selectedText={selectedText}
-        onCancel={() => setIsOpened(false)}
-        onChange={onClickHandler}
+        onCancel={() => closeLibraryModal()}
+        onChange={handleOnChange}
       />
     </Popover>
   );
@@ -92,11 +78,6 @@ const LibraryTool = ({ label, ...props }) => {
 
 LibraryTool.defaultProps = LIBRARY_TOOL_DEFAULT_PROPS;
 LibraryTool.propTypes = LIBRARY_TOOL_PROP_TYPES;
-LibraryTool.extensions = [
-  Link.configure({
-    openOnClick: false,
-  }),
-  CardExtension,
-];
+LibraryTool.extensions = [LibraryExtension];
 
 export { LibraryTool };

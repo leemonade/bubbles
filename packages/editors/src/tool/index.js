@@ -9,7 +9,6 @@ export * from './ImageTool';
 export * from './IndentsTool';
 export * from './IndentTool';
 export * from './ItalicTool';
-export * from './LeemonsTool';
 export * from './LibraryTool';
 export * from './LinkTool';
 export * from './ListIndentTool';

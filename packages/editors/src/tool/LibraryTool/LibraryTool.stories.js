@@ -1,5 +1,9 @@
+import React, { useState, useEffect } from 'react';
+import { Button } from '@bubbles-ui/components';
+import { isEqual } from 'lodash';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { LibraryTool } from './LibraryTool';
+import { VIDEO_ASSET, IMAGE_ASSET } from './mock/data';
 import mdx from './LibraryTool.mdx';
 
 export default {
@@ -17,9 +21,35 @@ export default {
   argTypes: {},
 };
 
+const AssetPicker = ({ value = null, onChange = () => {} }) => {
+  const [asset, setAsset] = useState(value);
+
+  useEffect(() => {
+    if (!isEqual(value, asset)) {
+      setAsset(value);
+    }
+  }, [value]);
+
+  const onClick = () => {
+    // setAsset(VIDEO_ASSET);
+    onChange(IMAGE_ASSET);
+  };
+
+  const onRemove = () => {
+    // setAsset(null);
+    onChange(null);
+  };
+
+  return !asset ? (
+    <Button onClick={onClick}>Añadir</Button>
+  ) : (
+    <Button onClick={onRemove}>Borrar {asset.name}</Button>
+  );
+};
+
 const Template = ({ content, ...props }) => {
   return (
-    <TextEditor content={content}>
+    <TextEditor content={content} library={<AssetPicker />}>
       <LibraryTool {...props}></LibraryTool>
     </TextEditor>
   );

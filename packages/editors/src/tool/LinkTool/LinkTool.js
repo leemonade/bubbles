@@ -15,7 +15,7 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ label, ...props }) => {
-  const { editor, library, readOnly, libraryOnChange, linkModalOpened, editLink, closeLinkModal } =
+  const { editor, readOnly, linkModalOpened, editLink, closeLinkModal } =
     useContext(TextEditorContext);
 
   if (!editor) return;
@@ -88,9 +88,6 @@ const LinkTool = ({ label, ...props }) => {
           link: 'Link is required',
           validURL: 'Link is not valid',
         }}
-        useCase="link"
-        library={library}
-        libraryOnChange={libraryOnChange}
         selectedText={selectedText}
         onCancel={() => closeLinkModal()}
         onChange={onClickHandler}

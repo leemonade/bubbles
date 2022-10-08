@@ -33,7 +33,6 @@ const AssetPlayer = ({
   nativeControls,
   controlBar,
   progressInterval,
-  float,
   onReady,
   onStart,
   onPlay,
@@ -176,15 +175,7 @@ const AssetPlayer = ({
     { name: 'AssetPlayer' }
   );
   return (
-    <Box
-      className={classes.playerRoot}
-      style={{
-        float,
-        margin: float === 'none' ? 0 : 20,
-        marginLeft: ['left', 'none'].includes(float) ? 0 : 20,
-        marginRight: ['right', 'none'].includes(float) ? 0 : 20,
-      }}
-    >
+    <Box className={classes.playerRoot}>
       <Box ref={rootRef} className={classes.root}>
         {!media.isPlayable ? (
           <>
