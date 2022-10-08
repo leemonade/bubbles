@@ -8,7 +8,7 @@ import {
   ScriptsTool,
   ListIndentTool,
   LinkTool,
-  VideoTool,
+  LibraryTool,
 } from '../../tool/';
 import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
@@ -45,7 +45,7 @@ const Template = ({ onChange, ...props }) => {
       <HeadingsTool paragraph={false} />
       <ListIndentTool />
       <LinkTool />
-      <VideoTool />
+      <LibraryTool />
       <CodeQuoteTool />
       <TextAlignTool />
       <ScriptsTool />
@@ -57,54 +57,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   library: <Box>Library component</Box>,
-  // content:
-  //  '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
-  content: {
-    content: [
-      {
-        attrs: {
-          indent: 0,
-          level: 1,
-          textAlign: 'left',
-        },
-        content: [
-          {
-            text: 'Vá',
-            type: 'text',
-          },
-          {
-            marks: [
-              {
-                attrs: { color: '#FF00FF' },
-                type: 'textStyle',
-              },
-            ],
-            text: 'mono',
-            type: 'text',
-          },
-          {
-            text: 's',
-            type: 'text',
-          },
-        ],
-        type: 'heading',
-      },
-      {
-        attrs: {
-          indent: 0,
-          textAlign: 'left',
-        },
-        content: [
-          {
-            text: 'Esto es un link',
-            type: 'text',
-          },
-        ],
-        type: 'paragraph',
-      },
-    ],
-    type: 'doc',
-  },
-  useJSON: false,
+  content:
+    '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
   readOnly: false,
 };

@@ -1,5 +1,7 @@
 import { Node } from '@tiptap/core';
 import { ReactNodeViewRenderer, mergeAttributes } from '@tiptap/react';
+import { keys, uniq, isEmpty } from 'lodash';
+import { IMAGE_ASSET, VIDEO_ASSET, AUDIO_ASSET, URL_ASSET } from './mock/data';
 import { LibraryPlayer } from './LibraryPlayer';
 
 export const LibraryExtension = Node.create({
@@ -14,7 +16,12 @@ export const LibraryExtension = Node.create({
       asset: {
         default: {},
         parseHTML: (element) => JSON.parse(element.getAttribute('asset')),
-        renderHTML: (attributes) => ({ asset: JSON.stringify(attributes.asset) }),
+        // renderHTML: (attributes) => ({ asset: JSON.stringify(attributes.asset) }),
+        renderHTML: ({ asset: { canAccess, tags, metadata, ...asset } }) => ({
+          ...asset,
+          tags: JSON.stringify(tags || []),
+          metadata: JSON.stringify(metadata || []),
+        }),
       },
       width: {
         default: '100%',
@@ -32,6 +39,24 @@ export const LibraryExtension = Node.create({
     return [
       {
         tag: 'library',
+        getAttrs: (element) => {
+          const assetKeys = keys({ ...VIDEO_ASSET, ...AUDIO_ASSET, ...IMAGE_ASSET, ...URL_ASSET });
+          const asset = assetKeys.reduce((prev, curr) => {
+            const attr = element.getAttribute(curr);
+            if (attr) {
+              prev[curr] = attr;
+            }
+            return prev;
+          }, {});
+
+          if (!isEmpty(asset)) {
+            asset.tags = asset.tags ? JSON.parse(asset.tags) : [];
+            asset.metadata = asset.metadata ? JSON.parse(asset.metadata) : [];
+            element.setAttribute('asset', JSON.stringify(asset));
+          }
+
+          return true;
+        },
       },
     ];
   },
