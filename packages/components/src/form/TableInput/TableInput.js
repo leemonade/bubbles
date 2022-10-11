@@ -31,30 +31,23 @@ function deserializeData(data) {
 // COMPONENT
 
 const TableInput = ({
-                      data,
-                      form: formProp,
-                      error,
-                      unique,
-                      showHeaders,
-                      resetOnAdd,
-                      onChange = () => {
-                      },
-                      onChangeData = () => {
-                      },
-                      onBeforeRemove = () => {
-                      },
-                      onBeforeAdd = () => {
-                      },
-                      onAdd = () => {
-                      },
-                      onUpdate = () => {
-                      },
-                      onRemove = () => {
-                      },
-                      onSort = () => {
-                      },
-                      ...props
-                    }) => {
+  data,
+  form: formProp,
+  error,
+  unique,
+  showHeaders,
+  forceShowInputs,
+  resetOnAdd,
+  onChange = () => {},
+  onChangeData = () => {},
+  onBeforeRemove = () => {},
+  onBeforeAdd = () => {},
+  onAdd = () => {},
+  onUpdate = () => {},
+  onRemove = () => {},
+  onSort = () => {},
+  ...props
+}) => {
   const [tableData, setTableData] = useState([]);
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
@@ -123,8 +116,8 @@ const TableInput = ({
     const newData = update(tableData, {
       $splice: [
         [from, 1],
-        [to, 0, record]
-      ]
+        [to, 0, record],
+      ],
     });
     onSort({ from, to });
     handleOnChange(newData, { type: 'sort' });
@@ -144,6 +137,7 @@ const TableInput = ({
           onEdit={handleOnEdit}
           onSort={handleOnSort}
           showHeaders={showHeaders}
+          forceShowInputs={forceShowInputs}
           classes={classes}
         />
       </Box>
