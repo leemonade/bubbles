@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { BubbleMenuStyles } from './BubbleMenu.styles';
 import { IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/';
@@ -10,27 +10,49 @@ export const BUBBLEMENU_DEFAULT_PROPS = {};
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
-  const { editor } = useContext(TextEditorContext);
+  const { editor, editLink, linkModalOpened, editLibrary, libraryModalOpened } =
+    useContext(TextEditorContext);
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
       return true;
     }
-    if (editor.isActive('cardExtension')) {
+    if (editor.isActive('library') && !libraryModalOpened) {
       return true;
     }
-    if (editor.isActive('link')) {
+    if (editor.isActive('link') && !linkModalOpened) {
       return true;
     }
+
     return false;
   };
 
   const removeHandler = () => {
-    if (editor.isActive('cardExtension')) {
-      editor?.chain().focus().unsetCard().run();
+    if (editor.isActive('library')) {
+      editor?.chain().focus().unsetLibrary().run();
+      return;
     }
     if (editor.isActive('link')) {
       editor?.chain().focus().unsetLink().run();
+      return;
+    }
+  };
+
+  const editHandler = () => {
+    if (editor.isActive('link')) {
+      editor.chain().focus().extendMarkRange('link').run();
+      const { selection } = editor.state;
+      const { from, to } = selection;
+      const text = editor.state.doc.textBetween(from, to, ' ');
+      const href = editor.getAttributes('link').href;
+      editLink(text, href);
+      return;
+    }
+
+    if (editor.isActive('library')) {
+      const content = editor.getAttributes('library');
+      editLibrary(content);
+      return;
     }
   };
 
@@ -41,32 +63,51 @@ const BubbleMenu = ({ ...props }) => {
     ];
   };
 
+  const showSizeSelect = () => {
+    if (editor?.isActive('link')) {
+      return false;
+    }
+    if (editor?.isActive('library')) {
+      return false;
+    }
+    return true;
+  };
+
   const getOnChangeHandler = (value) => {};
 
   const { classes, cx } = BubbleMenuStyles({});
+
   return (
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
       tippyOptions={{ duration: 100, placement: 'bottom-start', zIndex: 1000 }}
     >
-      <Paper padding={1} shadow="level100" className={classes.root}>
-        <Stack spacing={2}>
-          <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
-          <Select
-            size="xs"
-            defaultValue="auto"
-            data={getData()}
-            zIndex={9999}
-            onChange={getOnChangeHandler}
-          />
-          <IconButton
-            size="xs"
-            icon={<DeleteBinIcon height={20} width={20} />}
-            onClick={removeHandler}
-          />
-        </Stack>
-      </Paper>
+      {!linkModalOpened && !libraryModalOpened ? (
+        <Paper padding={1} shadow="level100" className={classes.root}>
+          <Stack spacing={2}>
+            <IconButton
+              size="xs"
+              icon={<EditWriteIcon height={20} width={20} />}
+              onClick={editHandler}
+            />
+            {showSizeSelect() && (
+              <Select
+                size="xs"
+                defaultValue="auto"
+                data={getData()}
+                zIndex={9999}
+                onChange={getOnChangeHandler}
+              />
+            )}
+            <IconButton
+              size="xs"
+              icon={<DeleteBinIcon height={20} width={20} />}
+              onClick={removeHandler}
+            />
+          </Stack>
+        </Paper>
+      ) : null}
     </BubbleMenuTipTap>
   );
 };

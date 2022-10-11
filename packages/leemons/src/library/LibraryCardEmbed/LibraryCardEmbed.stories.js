@@ -40,7 +40,7 @@ Playground.args = {
       'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes…',
     color: COLORS.ui01,
     fileType: 'video',
-    image:
+    cover:
       'https://images.unsplash.com/photo-1646596504587-c3771cf62e81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NjkyNjM3OA&ixlib=rb-1.2.1&q=80&w=1080',
     url: 'https://www.youtube.com/watch?v=XfR9iY5y94s&ab_channel=MenAtWorkVEVO',
     icon: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',

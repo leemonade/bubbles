@@ -7,7 +7,8 @@ import {
   TextAlignTool,
   ScriptsTool,
   ListIndentTool,
-  LeemonsTool,
+  LinkTool,
+  LibraryTool,
 } from '../../tool/';
 import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
@@ -25,17 +26,26 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    onChange: { action: 'onChange' },
+  },
 };
 
-const Template = ({ ...props }) => {
+const Template = ({ onChange, ...props }) => {
   return (
-    <TextEditor {...props}>
+    <TextEditor
+      {...props}
+      onChange={(e) => {
+        console.log(e);
+        onChange(e);
+      }}
+    >
       <ColorTool />
       <TransformsTool />
       <HeadingsTool paragraph={false} />
       <ListIndentTool />
-      <LeemonsTool />
+      <LinkTool />
+      <LibraryTool />
       <CodeQuoteTool />
       <TextAlignTool />
       <ScriptsTool />
@@ -49,4 +59,5 @@ Playground.args = {
   library: <Box>Library component</Box>,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
+  readOnly: false,
 };

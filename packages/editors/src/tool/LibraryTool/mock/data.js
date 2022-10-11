@@ -1,4 +1,5 @@
 export const AUDIO_ASSET = {
+  id: '620bbb607129df59430f3329',
   color: '#DC5571',
   name: 'El ritmo de la guerra',
   fileType: 'audio',
@@ -57,6 +58,7 @@ export const VIDEO_ASSET = {
 };
 
 export const IMAGE_ASSET = {
+  id: '620bbb607129df59430f3329',
   color: '#DC5571',
   name: 'El ritmo de la guerra',
   fileType: 'image',
@@ -71,13 +73,14 @@ export const IMAGE_ASSET = {
 };
 
 export const URL_ASSET = {
+  id: '620bbb607129df59430f3329',
   color: '#c8d98c',
-  name: 'Leemons',
+  name: 'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
   fileType: 'bookmark',
   created: '2022-02-04T16:26:31.485Z',
   description:
     'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
-  tagline: 'Leemons, la plataforma de aprendizaje gratuita, potente, flexible y amigable.',
+  tagline: '',
   metadata: [],
   tags: ['Student', 'Learning'],
   icon: 'https://www.leemons.io/apple-touch-icon.png',
@@ -94,6 +97,7 @@ export const URL_ASSET = {
 };
 
 export const TASK_ASSET = {
+  id: '620bbb607129df59430f3329',
   color: '#c8d98c',
   name: 'Leemons (la plataforma de aprendizaje gratuita, potente, flexible y amigable), descubre para ti las nuevas fronteras del aprendizaje y la enseñanza, de la mano de expertos en pedagogía, profesores y neurocientíficos.',
   fileType: 'task',
@@ -117,6 +121,7 @@ export const TASK_ASSET = {
 };
 
 export const CURRICULUM_ASSET = {
+  id: '620bbb607129df59430f3329',
   name: 'SEK Santa Isabel - ESO',
   created: '2022-02-04T16:26:31.485Z',
   description: 'Párrafo descriptivo de lo que va el curriculum, que es opcional.',

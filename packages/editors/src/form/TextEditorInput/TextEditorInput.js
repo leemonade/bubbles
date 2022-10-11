@@ -14,6 +14,7 @@ import {
   ListIndentTool,
   TextAlignTool,
   ScriptsTool,
+  LinkTool,
 } from '../../tool';
 
 const TextEditorInput = ({
@@ -64,6 +65,7 @@ const TextEditorInput = ({
           {toolbars.list && <ListIndentTool />}
           {toolbars.align && <TextAlignTool />}
           {toolbars.formulation && <ScriptsTool />}
+          {toolbars.link && <LinkTool />}
           {children}
         </TextEditor>
       </Box>
