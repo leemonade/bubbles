@@ -30,9 +30,11 @@ const BubbleMenu = ({ ...props }) => {
   const removeHandler = () => {
     if (editor.isActive('library')) {
       editor?.chain().focus().unsetLibrary().run();
+      return;
     }
     if (editor.isActive('link')) {
       editor?.chain().focus().unsetLink().run();
+      return;
     }
   };
 
@@ -44,11 +46,13 @@ const BubbleMenu = ({ ...props }) => {
       const text = editor.state.doc.textBetween(from, to, ' ');
       const href = editor.getAttributes('link').href;
       editLink(text, href);
+      return;
     }
 
     if (editor.isActive('library')) {
       const content = editor.getAttributes('library');
       editLibrary(content);
+      return;
     }
   };
 

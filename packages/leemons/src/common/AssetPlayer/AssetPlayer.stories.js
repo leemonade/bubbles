@@ -8,6 +8,7 @@ import {
   YOUTUBE_ASSET,
   AUDIO_ASSET,
   IMAGE_ASSET,
+  URL_ASSET,
 } from '../../library/LibraryCard/mock/data';
 
 export default {
@@ -23,7 +24,10 @@ export default {
     },
   },
   argTypes: {
-    test_asset: { options: ['video', 'youtube', 'audio', 'image'], control: { type: 'select' } },
+    test_asset: {
+      options: ['video', 'youtube', 'audio', 'image', 'url'],
+      control: { type: 'select' },
+    },
     float: { options: ['none', 'left', 'right'], control: { type: 'select' } },
     onReady: { action: 'onReady' },
     onStart: { action: 'onStart' },
@@ -49,6 +53,9 @@ const Template = ({ test_asset, ...props }) => {
         break;
       case 'youtube':
         setAsset(YOUTUBE_ASSET);
+        break;
+      case 'url':
+        setAsset(URL_ASSET);
         break;
       default:
         setAsset(IMAGE_ASSET);

@@ -25,7 +25,6 @@ export const TEXT_EDITOR_PROP_TYPES = {
 
 const TextEditor = ({
   content,
-  library,
   children,
   onChange,
   editorClassname,
@@ -149,7 +148,7 @@ const TextEditor = ({
         store.current.isFocus = true;
       }}
     >
-      <TextEditorProvider editor={editor} library={library} readOnly={readOnly}>
+      <TextEditorProvider editor={editor} readOnly={readOnly}>
         <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
         {readOnly ? null : <BubbleMenu />}
         <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />

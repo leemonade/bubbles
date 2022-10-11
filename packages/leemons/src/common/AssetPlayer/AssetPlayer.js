@@ -1,7 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import { isEmpty, isFunction } from 'lodash';
-import { Box, ImageLoader, Text, FileIcon, COLORS, IconButton } from '@bubbles-ui/components';
+import { isFunction } from 'lodash';
+import {
+  Box,
+  ImageLoader,
+  Text,
+  FileIcon,
+  COLORS,
+  IconButton,
+  ModalZoom,
+  Stack,
+  TextClamp,
+} from '@bubbles-ui/components';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
@@ -58,6 +68,9 @@ const AssetPlayer = ({
       isPlayable: fileType === 'video' || fileType === 'audio',
       isVideo: fileType === 'video',
       isAudio: fileType === 'audio',
+      isImage: fileType === 'image',
+      isURL: ['bookmark', 'url', 'link'].includes(fileType),
+      isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
     [fileType]
   );
@@ -179,8 +192,41 @@ const AssetPlayer = ({
       <Box ref={rootRef} className={classes.root}>
         {!media.isPlayable ? (
           <>
-            {cover ? (
-              <ImageLoader height="auto" src={cover} alt={name} />
+            {media.isImage ? (
+              <ModalZoom>
+                <ImageLoader height="auto" src={cover} alt={name} />
+              </ModalZoom>
+            ) : media.isURL ? (
+              <a
+                href={asset.url}
+                target="_blank"
+                rel="noreferrer nofollow"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <ImageLoader height="auto" src={cover} alt={name} />
+                <Box style={{ padding: 8 }}>
+                  {!!asset.name && (
+                    <Box mb={5}>
+                      <Text role="productive" color="primary" strong>
+                        {asset.name}
+                      </Text>
+                    </Box>
+                  )}
+                  {!!asset.tagline && (
+                    <Box mb={5}>
+                      <TextClamp lines={2} maxLines={2}>
+                        <Text size="xs" role="productive">
+                          {asset.tagline}
+                        </Text>
+                      </TextClamp>
+                    </Box>
+                  )}
+
+                  <Text truncated size="xs" role="productive" color="soft">
+                    {asset.url}
+                  </Text>
+                </Box>
+              </a>
             ) : (
               <Box className={classes.fileIcon}>
                 <FileIcon fileType={fileType} size={64} color={COLORS.text06} />

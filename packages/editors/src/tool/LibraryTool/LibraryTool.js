@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Popover } from '@bubbles-ui/components';
-import { TextEditorContext } from '../../form/TextEditorProvider';
-import { Button } from '../../form/';
+import { Button, useTextEditor } from '../../form/';
 import { LibraryExtension } from './LibraryExtension';
 import { LibraryModal } from './LibraryModal';
 import { LibraryIcon } from './LibraryIcon';
@@ -18,7 +17,7 @@ export const LIBRARY_TOOL_PROP_TYPES = {
 
 const LibraryTool = ({ label, ...props }) => {
   const { editor, readOnly, libraryModalOpened, editLibrary, closeLibraryModal, libraryContent } =
-    useContext(TextEditorContext);
+    useTextEditor();
 
   const handleOnChange = (content) => {
     // console.log('>>> LibraryTool > onSetContent:', content);

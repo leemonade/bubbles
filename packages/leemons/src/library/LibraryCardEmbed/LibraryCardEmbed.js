@@ -13,7 +13,7 @@ import {
 } from '@bubbles-ui/components';
 import { capitalize, isEmpty, isFunction } from 'lodash';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
-import { ExpandDiagonalIcon, ExpandFullIcon, DownloadIcon } from '@bubbles-ui/icons/outline';
+import { DownloadIcon, OpenIcon, ExternalLinkIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayer } from '../../common';
 import { LibraryCardEmbedStyles } from './LibraryCardEmbed.styles';
 import {
@@ -36,7 +36,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
 
   const renderVariantButton = () => {
     const isMedia = variant === 'media';
-    const isBookmark = variant === 'bookmark';
+    const isBookmark = ['bookmark', 'ur'].includes(fileType) || variant === 'bookmark';
     const isVideo = fileType === 'video';
     const isAudio = fileType === 'audio';
 
@@ -63,7 +63,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
             isAudio || isVideo ? (
               <ControlsPlayIcon height={13} width={13} style={{ color: 'white' }} />
             ) : (
-              <DownloadDrawerIcon height={13} width={13} />
+              <DownloadIcon height={13} width={13} />
             )
           }
           rounded
@@ -79,7 +79,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
         <Box className={classes.bookmarkButton} onClick={() => window.open(url)}>
           <IconButton
             style={{ marginBlock: 4 }}
-            icon={<ExpandFullIcon height={13} width={13} />}
+            icon={<OpenIcon height={13} width={13} />}
             rounded
           />
           <Text>{labels.link}</Text>

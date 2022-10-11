@@ -1,9 +1,11 @@
 {
   // Change this to match your project
   "include": ["src/**/*.js"],
+  "exclude": ["src/**/mocks/**/*.js"],
   "compilerOptions": {
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
+    "lib": ["es2018", "dom"],
     "allowJs": true,
     // Generate d.ts files
     "declaration": true,

@@ -26,7 +26,6 @@ const TextEditorProvider = ({ editor, library, libraryLoadAsset, children, readO
 
   const value = {
     editor,
-    library,
     libraryLoadAsset,
     libraryContent,
     libraryModalOpened,

@@ -8,3 +8,4 @@ export * from './Popover';
 export * from './Drawer';
 export * from './Modal';
 export * from './DrawerPush';
+export * from './ModalZoom';
