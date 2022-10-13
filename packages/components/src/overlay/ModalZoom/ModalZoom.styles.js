@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const ModalZoomStyles = createStyles((theme, { open }) => {
+export const ModalZoomStyles = createStyles((theme, {}) => {
   return {
     modalWrapper: {
       backgroundColor: 'rgba(0,0,0,0.7)',
@@ -10,8 +10,6 @@ export const ModalZoomStyles = createStyles((theme, { open }) => {
       width: '100vw',
       height: '100vh',
       zIndex: 999,
-      opacity: open ? 1 : 0,
-      pointerEvents: open ? 'all' : 'none',
       transition: 'opacity 0.3s ease-in-out',
     },
     close: {
