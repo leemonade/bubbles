@@ -33,7 +33,6 @@ export const LibraryCardEmbedStyles = createStyles(
       },
       content: {
         height: 'auto',
-        width: '100%',
         display: 'flex',
         flexDirection: 'column',
       },

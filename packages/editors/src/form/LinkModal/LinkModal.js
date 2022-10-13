@@ -6,8 +6,7 @@ import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
 import { isFunction } from 'lodash';
 import { isValidURL } from '../../utils/';
-import { useContext } from 'react';
-import { TextEditorContext } from '../TextEditorProvider';
+import { useTextEditor } from '../TextEditorProvider';
 
 export const LINKMODAL_DEFAULT_PROPS = {
   labels: {
@@ -60,15 +59,15 @@ const LinkModal = ({
   useCase,
   ...props
 }) => {
-  const { link } = useContext(TextEditorContext);
-  const textValue = selectedText || link?.text || '';
+  const { currentTool } = useTextEditor();
+  const textValue = selectedText || currentTool?.data?.text || '';
 
   const {
     control,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { text: textValue, link: link?.href || '' } });
+  } = useForm({ defaultValues: { text: textValue, link: currentTool?.data?.href || '' } });
 
   const watchInputs = watch(['text', 'link']);
 
@@ -126,7 +125,7 @@ const LinkModal = ({
                 {labels.cancel}
               </Button>
               <Button size="xs" type="submit" disabled={submitCondition()}>
-                {link.editing ? labels.update : labels.add}
+                {currentTool.editing ? labels.update : labels.add}
               </Button>
             </Stack>
           </ContextContainer>

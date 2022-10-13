@@ -149,8 +149,12 @@ const TextEditor = ({
       }}
     >
       <TextEditorProvider editor={editor} readOnly={readOnly}>
-        <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
-        {readOnly ? null : <BubbleMenu />}
+        {readOnly ? null : (
+          <>
+            <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
+            <BubbleMenu />
+          </>
+        )}
         <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
       </TextEditorProvider>
     </Box>

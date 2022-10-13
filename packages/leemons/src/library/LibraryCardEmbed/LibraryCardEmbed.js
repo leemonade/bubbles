@@ -21,6 +21,8 @@ import {
   LIBRARY_CARD_EMBED_PROP_TYPES,
 } from './LibraryCardEmbed.constants';
 
+const COVER_WIDTH = 160;
+
 const getDomain = (url) => {
   const domain = url.split('//')[1];
   return (domain.split('/')[0] || '').replace('www.', '');
@@ -32,7 +34,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
   const [isPlaying, setIsPlaying] = useState(false);
   const [fullScreenMode, setFullScreenMode] = useState(false);
 
-  const { title, description, image, cover, color, fileType, metadata, url, icon } = asset;
+  const { title, name, description, image, cover, color, fileType, metadata, url, icon } = asset;
 
   const renderVariantButton = () => {
     const isMedia = variant === 'media';
@@ -125,12 +127,12 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
     <Box ref={rootRef} className={classes.root}>
       {!showPlayer ? (
         <Stack className={classes.cardWrapper} justifyContent="start" fullWidth>
-          <Box>
+          <Box style={{ width: image || cover ? COVER_WIDTH : 'auto' }}>
             {image || cover ? (
               <ImageLoader
                 src={image || cover}
-                width={172}
-                height={156}
+                width={COVER_WIDTH}
+                height={'100%'}
                 radius={'2px 0px 0px 2px'}
               />
             ) : (
@@ -145,12 +147,15 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
               </Box>
             )}
           </Box>
-          <Box className={classes.content}>
+          <Box
+            className={classes.content}
+            style={{ width: image || cover ? `calc(100% - ${COVER_WIDTH}px)` : '100%' }}
+          >
             <Box className={classes.color} />
             <Box className={classes.header}>
-              <Title order={5} className={classes.title}>
-                {title}
-              </Title>
+              <Text size="md" className={classes.title}>
+                {title || name}
+              </Text>
               {renderVariantButton()}
             </Box>
             <Box className={classes.description}>

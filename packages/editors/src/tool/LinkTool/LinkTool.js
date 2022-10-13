@@ -1,9 +1,9 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
 import Link from '@tiptap/extension-link';
-import { TextEditorContext } from '../../form/TextEditorProvider';
+import { useTextEditor } from '../../form/TextEditorProvider';
 import { Button, LinkModal } from '../../form/';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
@@ -15,8 +15,8 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ label, ...props }) => {
-  const { editor, readOnly, linkModalOpened, editLink, closeLinkModal } =
-    useContext(TextEditorContext);
+  const { editor, readOnly, toolModalOpen, currentTool, editToolData, closeToolModal } =
+    useTextEditor();
 
   if (!editor) return;
   const { selection } = editor.state;
@@ -41,7 +41,7 @@ const LinkTool = ({ label, ...props }) => {
         .setTextSelection({ from: range.to, to: range.to })
         .run();
 
-      closeLinkModal();
+      closeToolModal();
     },
     [editor]
   );
@@ -52,10 +52,13 @@ const LinkTool = ({ label, ...props }) => {
     const { from, to } = selection;
     const text = editor.state.doc.textBetween(from, to, ' ');
     const href = editor.getAttributes('link').href;
-    editLink(text, href);
+    editToolData('link', { text, href }, !!href);
   };
 
-  if (readOnly) return null;
+  const linkModalOpened = useMemo(
+    () => currentTool.type === 'link' && toolModalOpen,
+    [currentTool, toolModalOpen]
+  );
 
   return (
     <Popover
@@ -89,7 +92,7 @@ const LinkTool = ({ label, ...props }) => {
           validURL: 'Link is not valid',
         }}
         selectedText={selectedText}
-        onCancel={() => closeLinkModal()}
+        onCancel={() => closeToolModal()}
         onChange={onClickHandler}
       />
     </Popover>

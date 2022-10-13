@@ -205,18 +205,18 @@ const AssetPlayer = ({
               >
                 <ImageLoader height="auto" src={cover} alt={name} />
                 <Box style={{ padding: 8 }}>
-                  {!!asset.name && (
+                  {!!(asset.name || asset.title) && (
                     <Box mb={5}>
                       <Text role="productive" color="primary" strong>
-                        {asset.name}
+                        {asset.name || asset.title}
                       </Text>
                     </Box>
                   )}
-                  {!!asset.tagline && (
+                  {!!(asset.tagline || asset.description) && (
                     <Box mb={5}>
                       <TextClamp lines={2} maxLines={2}>
                         <Text size="xs" role="productive">
-                          {asset.tagline}
+                          {asset.tagline || asset.description}
                         </Text>
                       </TextClamp>
                     </Box>

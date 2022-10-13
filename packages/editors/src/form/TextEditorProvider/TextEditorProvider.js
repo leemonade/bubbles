@@ -3,51 +3,32 @@ import PropTypes from 'prop-types';
 import { Editor } from '@tiptap/react';
 import { isEmpty } from 'lodash';
 import { TextEditorContext } from './context';
-import { LIBRARY_PLAYER_DEFAULT_PROPS } from '../../tool/LibraryTool';
 
 export const TEXT_EDITOR_PROVIDER_DEFAULT_PROPS = {
-  library: <div></div>,
+  readOnly: false,
 };
 
 export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
-  edit: PropTypes.instanceOf(Editor),
-  library: PropTypes.element,
-  libraryLoadAsset: PropTypes.func,
+  editor: PropTypes.instanceOf(Editor),
+  readOnly: PropTypes.bool,
 };
 
-const TextEditorProvider = ({ editor, library, libraryLoadAsset, children, readOnly }) => {
-  const [linkModalOpened, setLinkModalOpened] = useState(false);
-  const [libraryModalOpened, setLibraryModalOpened] = useState(false);
-  const [link, setLink] = useState({ text: '', href: '', editing: false });
-  const [libraryContent, setLibraryContent] = useState({
-    ...LIBRARY_PLAYER_DEFAULT_PROPS.node.attrs,
-    editing: false,
-  });
+const TextEditorProvider = ({ editor, children, readOnly }) => {
+  const [toolModalOpen, setToolModalOpen] = useState(false);
+  const [currentTool, setCurrentTool] = useState({ type: null, data: {}, editing: false });
 
   const value = {
     editor,
-    libraryLoadAsset,
-    libraryContent,
-    libraryModalOpened,
-    link,
     readOnly,
-    linkModalOpened,
-    setLinkModalOpened,
-    editLink: (text, href) => {
-      setLink({ text, href, editing: href && !isEmpty(href) });
-      setLinkModalOpened(true);
+    currentTool,
+    toolModalOpen,
+    editToolData: (type, data, editing = true) => {
+      setCurrentTool({ type, data, editing });
+      setToolModalOpen(true);
     },
-    closeLinkModal: () => {
-      setLink({ text: '', href: '', editing: false });
-      setLinkModalOpened(false);
-    },
-    editLibrary: ({ asset, ...rest }) => {
-      setLibraryContent({ ...rest, asset, editing: asset && !isEmpty(asset) });
-      setLibraryModalOpened(true);
-    },
-    closeLibraryModal: () => {
-      setLibraryContent({ ...LIBRARY_PLAYER_DEFAULT_PROPS.node.attrs, editing: false });
-      setLibraryModalOpened(false);
+    closeToolModal: () => {
+      setCurrentTool({ type: null, data: {}, editing: false });
+      setToolModalOpen(false);
     },
   };
 

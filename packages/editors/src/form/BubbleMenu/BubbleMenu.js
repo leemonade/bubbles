@@ -10,17 +10,16 @@ export const BUBBLEMENU_DEFAULT_PROPS = {};
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
-  const { editor, editLink, linkModalOpened, editLibrary, libraryModalOpened } =
-    useContext(TextEditorContext);
+  const { editor, currentTool, toolModalOpen, editToolData } = useContext(TextEditorContext);
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
       return true;
     }
-    if (editor.isActive('library') && !libraryModalOpened) {
+    if (editor.isActive('library') && !toolModalOpen) {
       return true;
     }
-    if (editor.isActive('link') && !linkModalOpened) {
+    if (editor.isActive('link') && !toolModalOpen) {
       return true;
     }
 
@@ -45,13 +44,13 @@ const BubbleMenu = ({ ...props }) => {
       const { from, to } = selection;
       const text = editor.state.doc.textBetween(from, to, ' ');
       const href = editor.getAttributes('link').href;
-      editLink(text, href);
+      editToolData('link', { text, href });
       return;
     }
 
     if (editor.isActive('library')) {
       const content = editor.getAttributes('library');
-      editLibrary(content);
+      editToolData('library', content);
       return;
     }
   };
@@ -83,7 +82,7 @@ const BubbleMenu = ({ ...props }) => {
       shouldShow={shouldShowHandler}
       tippyOptions={{ duration: 100, placement: 'bottom-start', zIndex: 1000 }}
     >
-      {!linkModalOpened && !libraryModalOpened ? (
+      {!toolModalOpen ? (
         <Paper padding={1} shadow="level100" className={classes.root}>
           <Stack spacing={2}>
             <IconButton

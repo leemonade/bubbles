@@ -8,7 +8,6 @@ import {
   ScriptsTool,
   ListIndentTool,
   LinkTool,
-  LibraryTool,
 } from '../../tool/';
 import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
@@ -45,7 +44,6 @@ const Template = ({ onChange, ...props }) => {
       <HeadingsTool paragraph={false} />
       <ListIndentTool />
       <LinkTool />
-      <LibraryTool />
       <CodeQuoteTool />
       <TextAlignTool />
       <ScriptsTool />

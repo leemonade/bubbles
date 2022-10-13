@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const DEFAULT_TOOLBARS = {
+export const TEXT_EDITOR_DEFAULT_TOOLBARS = {
   style: true,
   align: true,
   list: true,
@@ -13,7 +13,7 @@ export const DEFAULT_TOOLBARS = {
 
 export const TEXT_EDITOR_INPUT_DEFAULT_PROPS = {
   placeholder: '',
-  toolbars: DEFAULT_TOOLBARS,
+  toolbars: TEXT_EDITOR_DEFAULT_TOOLBARS,
   label: '',
   description: '',
   help: '',
