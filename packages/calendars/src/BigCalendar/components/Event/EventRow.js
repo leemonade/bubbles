@@ -20,12 +20,13 @@ class EventRow extends React.Component {
     let lastEnd = 1;
 
     const row = segments.reduce((row, { event, left, right, span }, li) => {
+      const key = '_lvl_' + li;
+      const gap = left - lastEnd;
       if (isMonthView) {
-        const key = '_lvl_' + li;
-        const gap = left - lastEnd;
         const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
-        if (gap)
+        if (gap > 0) {
           row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
+        }
         let goodStart = DateTime.fromJSDate(
           event.start < slotMetrics.first ? slotMetrics.first : event.start
         );
@@ -40,16 +41,13 @@ class EventRow extends React.Component {
         span = diff.days + sum;
         lastEnd = right + (gap ? gap : 0) + 1;
         row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
-        return row;
       } else {
-        let key = '_lvl_' + li;
-        let gap = left - lastEnd;
         let content = EventRowMixin.renderEvent(this.props, event);
-        if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
+        if (gap > 0) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
         row.push(EventRowMixin.renderSpan(slots, span, key, content));
         lastEnd = right + 1;
-        return row;
       }
+      return row;
     }, []);
 
     return <Box className={cx(className, 'rbc-row', { 'rbc-event-row': isMonthView })}>{row}</Box>;
