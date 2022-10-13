@@ -13,45 +13,43 @@ import { TableInputRow } from './TableInputRow';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
-  onAdd: () => {
-  },
-  onRemove: () => {
-  },
+  onAdd: () => {},
+  onRemove: () => {},
   classes: {},
-  showHeaders: true
+  showHeaders: true,
 };
 export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   ...TABLE_INPUT_PROP_TYPES,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,
   classes: PropTypes.any,
-  showHeaders: PropTypes.bool
+  showHeaders: PropTypes.bool,
 };
 
 const TableInputDisplay = ({
-                             labels,
-                             columns,
-                             form,
-                             data,
-                             onAdd,
-                             onRemove,
-                             onSort,
-                             onEdit,
-                             sortable,
-                             forceSortable,
-                             editable,
-                             removable,
-                             disabled,
-                             disabledAddButton,
-                             showHeaders,
-                             classes,
-                             onChangeRow = () => {
-                             }
-                           }) => {
+  labels,
+  columns,
+  form,
+  data,
+  onAdd,
+  onRemove,
+  onSort,
+  onEdit,
+  sortable,
+  forceSortable,
+  editable,
+  removable,
+  disabled,
+  disabledAddButton,
+  showHeaders,
+  forceShowInputs,
+  classes,
+  onChangeRow = () => {},
+}) => {
   const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
-    data
+    data,
   });
 
   const {
@@ -59,7 +57,7 @@ const TableInputDisplay = ({
     handleSubmit,
     trigger,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = form;
 
   const formValues = watch();
@@ -87,7 +85,7 @@ const TableInputDisplay = ({
                 ...inputProps,
                 formValues,
                 error: errors[accessor],
-                form
+                form,
               })
             }
           />
@@ -115,89 +113,90 @@ const TableInputDisplay = ({
   return (
     <table
       {...getTableProps({
-        className: tableClasses.root
+        className: tableClasses.root,
       })}
     >
       <thead>
-      {showHeaders ? <>{headerGroups.map((headerGroup) => (
-        <tr {...headerGroup.getHeaderGroupProps({})}>
-          {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
-          {headerGroup.headers.map((column) => (
-            <th
-              {...column.getHeaderProps({
-                className: cx(tableClasses.th, column.className),
-                style: { ...column.style, paddingLeft: 0 }
-              })}
-            >
-              <Text size='xs' role='productive' color='primary' strong>
-                {column.render('Header')}
-              </Text>
-            </th>
+        {!!showHeaders &&
+          headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps({})}>
+              {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps({
+                    className: cx(tableClasses.th, column.className),
+                    style: { ...column.style, paddingLeft: 0 },
+                  })}
+                >
+                  <Text size="xs" role="productive" color="primary" strong>
+                    {column.render('Header')}
+                  </Text>
+                </th>
+              ))}
+              <th style={{ width: '1%' }}></th>
+            </tr>
           ))}
-          <th style={{ width: '1%' }}></th>
-        </tr>
-      ))}
-        <tr className={rows.length > 0 ? tableClasses.tr : ''}>
-          {(sortable && !disabled) || forceSortable ? <th></th> : null}
-          {columns.map((column, i) => (
-            <th
-              key={`in-${i}`}
-              className={cx(tableClasses.td, classes.inputCell)}
-              style={{ ...column.style, paddingLeft: 0 }}
-            >
-              {getColumnInput(column.accessor)}
-            </th>
-          ))}
-          <th
-            className={cx(tableClasses.td, classes.inputCell)}
-            style={{ paddingLeft: 0, paddingBottom: 4 }}
-          >
-            {!disabled && (
-              <Button
-                variant='light'
-                size='sm'
-                disabled={disabledAddButton}
-                leftIcon={<AddCircleIcon />}
-                onClick={handleOnAdd}
+
+        {(showHeaders || forceShowInputs) && (
+          <tr className={rows.length > 0 ? tableClasses.tr : ''}>
+            {(sortable && !disabled) || forceSortable ? <th></th> : null}
+            {columns.map((column, i) => (
+              <th
+                key={`in-${i}`}
+                className={cx(tableClasses.td, classes.inputCell)}
+                style={{ ...column.style, paddingLeft: 0 }}
               >
-                {labels.add}
-              </Button>
-            )}
-          </th>
-        </tr>
-      </> : null}
-
-
+                {getColumnInput(column.accessor)}
+              </th>
+            ))}
+            <th
+              className={cx(tableClasses.td, classes.inputCell)}
+              style={{ paddingLeft: 0, paddingBottom: 4 }}
+            >
+              {!disabled && (
+                <Button
+                  variant="light"
+                  size="sm"
+                  disabled={disabledAddButton}
+                  leftIcon={<AddCircleIcon />}
+                  onClick={handleOnAdd}
+                >
+                  {labels.add}
+                </Button>
+              )}
+            </th>
+          </tr>
+        )}
       </thead>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId='table-body'>
+        <Droppable droppableId="table-body">
           {(provided, snapshot) => (
             <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-              prepareRow(row);
-              return (
-                <TableInputRow
-                  {...row.getRowProps()}
-                  index={i}
-                  row={row}
-                  labels={labels}
-                  onRemove={onRemove}
-                  classes={classes}
-                  tableClasses={tableClasses}
-                  cx={cx}
-                  totalRows={rows.length}
-                  sortable={(sortable && !disabled) || forceSortable}
-                  editable={editable && !disabled}
-                  removable={removable && !disabled}
-                  disabled={disabled}
-                  editing={editing}
-                  onEditing={setEditing}
-                  onEdit={onEdit}
-                  onChangeRow={onChangeRow}
-                />
-              );
-            })}
-            {provided.placeholder}
+              {rows.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <TableInputRow
+                    {...row.getRowProps()}
+                    index={i}
+                    row={row}
+                    labels={labels}
+                    onRemove={onRemove}
+                    classes={classes}
+                    tableClasses={tableClasses}
+                    cx={cx}
+                    totalRows={rows.length}
+                    sortable={(sortable && !disabled) || forceSortable}
+                    editable={editable && !disabled}
+                    removable={removable && !disabled}
+                    disabled={disabled}
+                    editing={editing}
+                    onEditing={setEditing}
+                    onEdit={onEdit}
+                    onChangeRow={onChangeRow}
+                  />
+                );
+              })}
+              {provided.placeholder}
             </tbody>
           )}
         </Droppable>
