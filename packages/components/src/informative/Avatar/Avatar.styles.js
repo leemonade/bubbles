@@ -62,27 +62,21 @@ const getActivityStatus = (size) => {
 };
 
 export const AvatarStyles = createStyles((theme, { size, color, activityStatus }) => {
-  let placeholder = {};
-  if (size === 'xs') {
-    placeholder.fontSize = '11px';
-  }
   return {
     root: {
       borderRadius: '100%',
-      borderStyle: 'solid',
-      borderColor: theme.colors.ui01,
       boxSizing: 'content-box',
       ...getSizes(size || 'md', theme.spacing),
     },
-    avatarsolid: {
+    avatarBorder: {
+      borderStyle: 'solid',
       borderColor: `${color}`,
     },
     placeholder: {
       background: `${color}`,
       color: theme.colors.text07,
       svg: { height: '80%' },
-      fontSize: 'inherit',
-      ...placeholder,
+      fontSize: size === 'xs' && '11px',
     },
     avatarWrapper: {
       position: 'relative',

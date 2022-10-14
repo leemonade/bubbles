@@ -7,6 +7,7 @@ export const AVATAR_ACTIVITY_STATUS = ['online'];
 export const AVATAR_DEFAULT_PROPS = {
   size: 'sm',
   state: 'normal',
+  withBorder: false,
 };
 export const AVATAR_PROP_TYPES = {
   image: PropTypes.string,
@@ -18,4 +19,5 @@ export const AVATAR_PROP_TYPES = {
   fullName: PropTypes.string,
   icon: PropTypes.any,
   alt: PropTypes.string,
+  withBorder: PropTypes.string,
 };
