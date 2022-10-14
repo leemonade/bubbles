@@ -1,5 +1,6 @@
 import { createStyles } from '@mantine/styles';
 import { getInputStyle } from '../mixins/fieldStyles.mixins';
+import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => {
   const inputSizes = {
@@ -16,6 +17,9 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
       padding: 3,
       margin: -3,
       overflow: 'visible !important',
+    },
+    searchInput: {
+      ...getFontProductive(theme.fontSizes['2']),
     },
     input: {
       ...getInputStyle(theme),
