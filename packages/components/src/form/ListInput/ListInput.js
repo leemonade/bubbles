@@ -105,6 +105,16 @@ const ListInput = ({
     );
   }, [originalValue]);
 
+  useEffect(() => {
+    if (
+      !value.find((item) => item.__key === editingKey) &&
+      editingKey !== null &&
+      value.length > 0
+    ) {
+      setEditingKey(null);
+    }
+  }, [value]);
+
   return (
     <InputWrapper
       label={label}

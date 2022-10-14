@@ -138,10 +138,10 @@ function DefaultNormalArrayFieldTemplate(props) {
 
   switch (props.schema.frontConfig.blockData.type) {
     case 'list':
-      Element = ListField;
+      Element = props.registry.widgets.ListField || ListField;
       break;
     case 'group':
-      Element = GroupField;
+      Element = props.registry.widgets.GroupField || GroupField;
       break;
     default:
       Element = () => null;
@@ -307,7 +307,6 @@ class ArrayField extends Component {
         updatedKeyedFormData: true,
       },
       () => {
-        console.log(keyedToPlainFormData(newKeyedFormData));
         onChange(keyedToPlainFormData(newKeyedFormData));
       }
     );

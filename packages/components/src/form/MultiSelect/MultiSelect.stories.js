@@ -30,7 +30,7 @@ export default {
   },
 };
 
-const Template = ({ children, data, useValueComponent, ...props }) => {
+const Template = ({ children, data, useValueComponent, onChange, ...props }) => {
   const CustomValueComponent = forwardRef(({ label }, ref) => {
     return <UserDisplayItem name={label} />;
   });
@@ -41,7 +41,10 @@ const Template = ({ children, data, useValueComponent, ...props }) => {
     <MultiSelect
       {...props}
       value={value}
-      onChange={setValue}
+      onChange={(value) => {
+        setValue(value);
+        onChange(value);
+      }}
       data={[...data, ...state]}
       getCreateLabel={(query) => `+ Create ${query}`}
       onCreate={(q) => setState([...state, q])}
@@ -71,7 +74,6 @@ Playground.args = {
       value: 'Bender Bending Rodríguez',
       description: 'Fascinated with cooking',
     },
-
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
       label: 'Carol Miller',

@@ -20,6 +20,7 @@ export const LoginBgStyles = createStyles((theme, {}) => {
     },
     logo: {
       width: 135,
+      height: 'auto',
     },
     footer: {
       height: 35,

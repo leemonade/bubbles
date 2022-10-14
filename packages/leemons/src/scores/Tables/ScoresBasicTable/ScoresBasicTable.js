@@ -118,8 +118,7 @@ const ScoresBasicTable = ({
   };
 
   const getRightBodyContent = () => {
-    return value.map(({ id, activities: studentActivities, customScore }) => {
-      const studentAttendance = Math.trunc((studentActivities.length / activities.length) * 100);
+    return value.map(({ id, activities: studentActivities, customScore, allowCustomChange }) => {
       const avgScore = getAvgScore(studentActivities);
       return (
         <Box key={id} className={classes.contentRow}>
@@ -131,19 +130,17 @@ const ScoresBasicTable = ({
           </Box>
           {!hideCustom && (
             <Box className={classes.studentInfo}>
-              <Text color="primary" role="productive">
-                {customScore ? customScore.toFixed(2) : avgScore}
-              </Text>
+              <ScoreCell
+                value={isNaN(customScore) ? avgScore : customScore}
+                allowChange={allowCustomChange}
+                grades={grades}
+                row={id}
+                column={'customScore'}
+                onDataChange={onDataChange}
+                isCustom={true}
+              />
             </Box>
           )}
-          {/* <Box className={classes.studentInfo}>
-            <Badge
-              label={`${studentAttendance}%`}
-              severity={getSeverity(studentAttendance)}
-              closable={false}
-              radius="default"
-            />
-          </Box> */}
         </Box>
       );
     });

@@ -8,7 +8,7 @@ import {
   DatePicker,
   Popover,
   RadioGroup,
-  Stack
+  Stack,
 } from '@bubbles-ui/components';
 import { isFunction } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,39 +16,41 @@ import { CalendarNewEventModalStyles } from './CalendarNewEventModal.styles';
 import {
   CALENDAR_NEW_EVENT_MODAL_COLORS as MODAL_COLORS,
   CALENDAR_NEW_EVENT_MODAL_DEFAULT_PROPS,
-  CALENDAR_NEW_EVENT_MODAL_PROP_TYPES
+  CALENDAR_NEW_EVENT_MODAL_PROP_TYPES,
 } from './CalendarNewEventModal.constants';
 import { ColorPicker } from './';
 
 const CalendarNewEventModal = ({
-                                 locale,
-                                 opened,
-                                 target,
-                                 labels,
-                                 values,
-                                 placeholders,
-                                 errorMessages,
-                                 suggestions,
-                                 minDate,
-                                 maxDate,
-                                 onSubmit,
-                                 ...props
-                               }) => {
+  locale,
+  opened,
+  target,
+  labels,
+  values,
+  placeholders,
+  errorMessages,
+  suggestions,
+  minDate,
+  maxDate,
+  onSubmit,
+  ...props
+}) => {
   const defaultValues = {
     periodName: values.periodName || '',
     dayType: values.dayType || 'schoolDays',
     withoutOrdinaryDays: values.withoutOrdinaryDays || false,
     startDate: values.startDate || null,
     endDate: values.endDate || null,
-    color: values.color || ''
+    color: values.color || '',
   };
 
   const {
     watch,
     reset,
     control,
+    setValue,
+    getValues,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({ defaultValues });
 
   const isSchoolDay = watch('dayType') === 'schoolDays';
@@ -85,7 +87,7 @@ const CalendarNewEventModal = ({
     <Popover
       opened={opened}
       target={target}
-      position='bottom'
+      position="bottom"
       width={590}
       arrowSize={6}
       withArrow
@@ -97,9 +99,9 @@ const CalendarNewEventModal = ({
       <form onSubmit={handleSubmit(onSubmitHandler)} className={classes.root}>
         <Controller
           control={control}
-          name='periodName'
+          name="periodName"
           rules={{
-            required: errorMessages.periodName
+            required: errorMessages.periodName,
           }}
           render={({ field }) => (
             <Autocomplete
@@ -114,17 +116,17 @@ const CalendarNewEventModal = ({
         />
         <Controller
           control={control}
-          name='dayType'
+          name="dayType"
           rules={{
-            required: errorMessages.dayType
+            required: errorMessages.dayType,
           }}
           render={({ field }) => (
             <RadioGroup
               data={[
                 { value: 'schoolDays', label: labels.schoolDays },
-                { value: 'nonSchoolDays', label: labels.nonSchoolDays }
+                { value: 'nonSchoolDays', label: labels.nonSchoolDays },
               ]}
-              variant='boxed'
+              variant="boxed"
               error={errors.dayType}
               rounded
               fullWidth
@@ -137,7 +139,7 @@ const CalendarNewEventModal = ({
         {isSchoolDay && (
           <Controller
             control={control}
-            name='withoutOrdinaryDays'
+            name="withoutOrdinaryDays"
             render={({ field }) => (
               <Checkbox
                 label={labels.withoutOrdinaryDays}
@@ -151,9 +153,9 @@ const CalendarNewEventModal = ({
         <Stack spacing={4} fullWidth>
           <Controller
             control={control}
-            name='startDate'
+            name="startDate"
             rules={{
-              required: errorMessages.startDate
+              required: errorMessages.startDate,
             }}
             render={({ field }) => (
               <DatePicker
@@ -166,13 +168,20 @@ const CalendarNewEventModal = ({
                 minDate={minDate}
                 maxDate={_maxDate}
                 {...field}
+                onChange={(value) => {
+                  if (!value) {
+                    setValue('endDate', null);
+                  }
+                  if (!getValues('endDate')) setValue('endDate', value);
+                  field.onChange(value);
+                }}
                 style={{ flex: 1 }}
               />
             )}
           />
           <Controller
             control={control}
-            name='endDate'
+            name="endDate"
             render={({ field }) => (
               <DatePicker
                 locale={locale}
@@ -181,8 +190,11 @@ const CalendarNewEventModal = ({
                 error={errors.endDate}
                 minDate={_minDate}
                 maxDate={maxDate}
+                clearable={false}
+                disabled={!startDate}
                 headerStyle={{ marginTop: isSchoolDay ? 8 : 16 }}
                 {...field}
+                value={endDate || startDate}
                 style={{ flex: 1 }}
               />
             )}
@@ -191,11 +203,11 @@ const CalendarNewEventModal = ({
         {isSchoolDay && (
           <Controller
             control={control}
-            name='color'
+            name="color"
             rules={{
               required: errorMessages.color,
               validate: (v) =>
-                MODAL_COLORS.includes(v.toUpperCase()) ? true : errorMessages.invalidColor
+                MODAL_COLORS.includes(v.toUpperCase()) ? true : errorMessages.invalidColor,
             }}
             render={({ field }) => (
               <ColorInput
@@ -214,7 +226,7 @@ const CalendarNewEventModal = ({
           />
         )}
         <Box className={classes.buttonWrapper}>
-          <Button type='submit'>{labels.add}</Button>
+          <Button type="submit">{labels.add}</Button>
         </Box>
       </form>
     </Popover>

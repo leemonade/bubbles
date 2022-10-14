@@ -188,6 +188,7 @@ Playground.args = {
       image: 'https://areajugones.sport.es/wp-content/uploads/2021/05/the-office-2.jpg',
       activities: generateRandomActivities(),
       customScore: 8.73,
+      allowCustomChange: true,
     },
     {
       id: 's-02',
@@ -195,6 +196,7 @@ Playground.args = {
       surname: 'Schrute',
       image: 'https://pbs.twimg.com/profile_images/1434184964866723852/M5c8uqF7_400x400.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-03',
@@ -203,6 +205,7 @@ Playground.args = {
       image:
         'https://en.meming.world/images/en/thumb/6/6d/Jim_Halpert_Smiling_Through_Blinds.jpg/300px-Jim_Halpert_Smiling_Through_Blinds.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-04',
@@ -211,6 +214,7 @@ Playground.args = {
       image:
         'https://gcdn.lanetaneta.com/wp-content/uploads/2019/09/The-Office-10-veces-que-Pam-recibió-un-trato-mucho-780x405.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-05',
@@ -219,18 +223,21 @@ Playground.args = {
       image:
         'https://vader.news/__export/1616206384907/sites/gadgets/img/2021/03/19/ryan_howard.jpg_1962491361.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-06',
       name: 'Kelly',
       surname: 'Kapoor',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-07',
       name: 'Angela',
       surname: 'Martin',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-08',
@@ -238,6 +245,7 @@ Playground.args = {
       surname: 'Martinez',
       image: 'https://poptv.orange.es/wp-content/uploads/sites/3/2020/08/oscar-nuncc83ez.jpeg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-09',
@@ -245,6 +253,7 @@ Playground.args = {
       surname: 'Lapin',
       image: 'https://cinematicos.net/wp-content/uploads/l-intro-1624653656.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-10',
@@ -252,12 +261,14 @@ Playground.args = {
       surname: 'Hudson',
       image: 'https://www.cinepremiere.com.mx/wp-content/uploads/2020/07/stanley-the-office.jpg',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
     {
       id: 's-11',
       name: 'Meredith',
       surname: 'Palmer',
       activities: generateRandomActivities(),
+      allowCustomChange: true,
     },
   ],
   expandedData: {

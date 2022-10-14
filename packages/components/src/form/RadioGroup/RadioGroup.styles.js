@@ -37,9 +37,7 @@ export const RadioGroupStyles = createStyles(
         top: 4,
         left: 4,
         bottom: 0,
-        height: isColumn && activePosition.height,
-        // transform: isColumn && `translateY(${activePosition.translate}px) !important`,
-        // marginLeft: !isColumn && 4,
+        height: isColumn ? activePosition.height : 'auto',
         transitionTimingFunction: 'ease-out',
       },
       radio: {

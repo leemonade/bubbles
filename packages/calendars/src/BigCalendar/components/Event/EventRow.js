@@ -14,6 +14,7 @@ class EventRow extends React.Component {
       className,
       isMonthView,
       slotMetrics,
+      printMode,
     } = this.props;
 
     let lastEnd = 1;
@@ -21,9 +22,11 @@ class EventRow extends React.Component {
     const row = segments.reduce((row, { event, left, right, span }, li) => {
       const key = '_lvl_' + li;
       const gap = left - lastEnd;
-      const content = EventRowMixin.renderEvent(this.props, event, isMonthView);
-      if (gap) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
       if (isMonthView) {
+        const content = EventRowMixin.renderEvent(this.props, event, isMonthView, printMode);
+        if (gap > 0) {
+          row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`, '', isMonthView, event));
+        }
         let goodStart = DateTime.fromJSDate(
           event.start < slotMetrics.first ? slotMetrics.first : event.start
         );
@@ -36,9 +39,14 @@ class EventRow extends React.Component {
           sum = 0;
         }
         span = diff.days + sum;
+        lastEnd = right + (gap ? gap : 0) + 1;
+        row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
+      } else {
+        let content = EventRowMixin.renderEvent(this.props, event);
+        if (gap > 0) row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
+        row.push(EventRowMixin.renderSpan(slots, span, key, content));
+        lastEnd = right + 1;
       }
-      row.push(EventRowMixin.renderSpan(slots, span, key, content, isMonthView, event));
-      lastEnd = right + 1;
       return row;
     }, []);
 

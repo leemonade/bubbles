@@ -6,7 +6,14 @@ import {
 } from '../Library.constants';
 
 export const LIBRARYCARD_ROLES = ['owner', 'editor', 'commentor', 'viewer'];
-export const LIBRARYCARD_VARIANTS = ['media', 'task', 'assigment', 'bookmark', 'curriculum'];
+export const LIBRARYCARD_VARIANTS = [
+  'media',
+  'task',
+  'assigment',
+  'bookmark',
+  'curriculum',
+  'feedback',
+];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
   subsmission: PropTypes.number,

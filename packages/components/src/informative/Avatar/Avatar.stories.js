@@ -41,4 +41,5 @@ Playground.args = {
   fullName: 'Pepe el del pueblo',
   test_showIcon: false,
   test_showImage: true,
+  withBorder: false,
 };

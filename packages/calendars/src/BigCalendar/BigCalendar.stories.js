@@ -79,10 +79,11 @@ MonthRangeView.args = {
   defaultDate: EVENTS[0].start,
   monthRange: {
     startYear: 2022,
-    startMonth: 7,
-    endYear: 2022,
-    endMonth: 7,
+    startMonth: 8,
+    endYear: 2023,
+    endMonth: 2,
   },
+  printMode: false,
 };
 
 const EventCreationTemplate = (props) => {

@@ -30,6 +30,9 @@ export const SubjectHeaderStyles = createStyles((theme, { color, isFirst, isLast
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      img: {
+        filter: 'brightness(0) invert(1)',
+      },
     },
   };
 });

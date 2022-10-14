@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ContextContainer } from '@bubbles-ui/components';
+import { Box, ContextContainer, TabPanel, Tabs } from '@bubbles-ui/components';
 import * as types from '../../types';
 import AddButton from '../AddButton';
 import {
@@ -7,11 +7,12 @@ import {
   canExpand,
   getDefaultRegistry,
   orderProperties,
-  retrieveSchema,
+  retrieveSchema
 } from '../../utils';
 
 function DefaultObjectFieldTemplate(props) {
   const { TitleField, DescriptionField } = props;
+  let Tab = props.schema.asTabs ? Tabs : React.Fragment;
   return (
     <ContextContainer id={props.idSchema.$id}>
       {(props.uiSchema['ui:title'] || props.title) && (
@@ -29,10 +30,24 @@ function DefaultObjectFieldTemplate(props) {
           formContext={props.formContext}
         />
       )}
-      {props.properties.map((prop) => prop.content)}
+      <Tab {...(props.schema.tabProps || {})}>
+        {props.properties.map((prop, i) => {
+          if (props.schema.asTabs) {
+            return <TabPanel
+              key={prop.content.key}
+              label={prop.content.props.schema.tabTitle || prop.content.props.schema.title}
+            >
+              <Box sx={(theme) => ({ paddingTop: theme.spacing[4] })}>
+                {prop.content}
+              </Box>
+            </TabPanel>;
+          }
+          return prop.content;
+        })}
+      </Tab>
       {canExpand(props.schema, props.uiSchema, props.formData) && (
         <AddButton
-          className="object-property-expand"
+          className='object-property-expand'
           onClick={props.onAddClick(props.schema)}
           disabled={props.disabled || props.readonly}
         />
@@ -49,12 +64,12 @@ class ObjectField extends Component {
     idSchema: {},
     required: false,
     disabled: false,
-    readonly: false,
+    readonly: false
   };
 
   state = {
     wasPropertyKeyModified: false,
-    additionalProperties: {},
+    additionalProperties: {}
   };
 
   isRequired(name) {
@@ -78,10 +93,10 @@ class ObjectField extends Component {
       this.props.onChange(
         newFormData,
         errorSchema &&
-          this.props.errorSchema && {
-            ...this.props.errorSchema,
-            [name]: errorSchema,
-          }
+        this.props.errorSchema && {
+          ...this.props.errorSchema,
+          [name]: errorSchema
+        }
       );
     };
   };
@@ -125,10 +140,10 @@ class ObjectField extends Component {
       this.props.onChange(
         renamedObj,
         errorSchema &&
-          this.props.errorSchema && {
-            ...this.props.errorSchema,
-            [value]: errorSchema,
-          }
+        this.props.errorSchema && {
+          ...this.props.errorSchema,
+          [value]: errorSchema
+        }
       );
     };
   };
@@ -186,7 +201,7 @@ class ObjectField extends Component {
       idPrefix,
       onBlur,
       onFocus,
-      registry = getDefaultRegistry(),
+      registry = getDefaultRegistry()
     } = this.props;
 
     const { rootSchema, fields, formContext } = registry;
@@ -202,7 +217,7 @@ class ObjectField extends Component {
     } catch (err) {
       return (
         <div>
-          <p className="config-error" style={{ color: 'red' }}>
+          <p className='config-error' style={{ color: 'red' }}>
             Invalid {name || 'root'} object field configuration:
             <em>{err.message}</em>.
           </p>
@@ -256,7 +271,7 @@ class ObjectField extends Component {
           readonly,
           disabled,
           required,
-          hidden,
+          hidden
         };
       }),
       readonly,
@@ -267,7 +282,7 @@ class ObjectField extends Component {
       schema,
       formData,
       formContext,
-      registry,
+      registry
     };
     return <Template {...templateProps} onAddClick={this.handleAddClick} />;
   }

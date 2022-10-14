@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
-import lowlight from 'lowlight';
+import { lowlight } from 'lowlight/lib/core';
 import { Button } from '../../form/Button/Button';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';

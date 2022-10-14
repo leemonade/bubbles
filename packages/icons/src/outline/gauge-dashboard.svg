@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.5C8.99327 4.52272 6.11878 5.73903 4.00894 7.88131C1.89911 10.0236 0.726809 12.9163 0.749971 15.923V18C0.749971 18.8284 1.42154 19.5 2.24997 19.5H21.75C22.5784 19.5 23.25 18.8284 23.25 18V15.92C23.2965 9.66001 18.26 4.54732 12 4.5Z" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 19.5V18.75C9 17.0931 10.3431 15.75 12 15.75C13.6569 15.75 15 17.0931 15 18.75V19.5" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.25 9.00293L12 15.7529" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.875 15C4.66789 15 4.5 15.1679 4.5 15.375C4.5 15.5821 4.66789 15.75 4.875 15.75C5.08211 15.75 5.25 15.5821 5.25 15.375C5.25 15.1679 5.08211 15 4.875 15" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.375 11.2529C6.16789 11.2529 6 11.4208 6 11.6279C6 11.835 6.16789 12.0029 6.375 12.0029C6.58211 12.0029 6.75 11.835 6.75 11.6279C6.75 11.4208 6.58211 11.2529 6.375 11.2529" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19.125 15C18.9179 15 18.75 15.1679 18.75 15.375C18.75 15.5821 18.9179 15.75 19.125 15.75C19.3321 15.75 19.5 15.5821 19.5 15.375C19.5 15.1679 19.3321 15 19.125 15" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.625 11.2529C17.4179 11.2529 17.25 11.4208 17.25 11.6279C17.25 11.835 17.4179 12.0029 17.625 12.0029C17.8321 12.0029 18 11.835 18 11.6279C18 11.4208 17.8321 11.2529 17.625 11.2529" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.375 8.25293C9.16789 8.25293 9 8.42082 9 8.62793C9 8.83504 9.16789 9.00293 9.375 9.00293C9.58211 9.00293 9.75 8.83504 9.75 8.62793C9.75 8.42082 9.58211 8.25293 9.375 8.25293" stroke="#212B3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

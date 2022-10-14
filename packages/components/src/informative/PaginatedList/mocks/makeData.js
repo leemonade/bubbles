@@ -22,7 +22,6 @@ const newPerson = () => {
 };
 
 export function makeData(...lens) {
-  console.log('namor:', namor);
   const makeDataLevel = (depth = 0) => {
     const len = lens[depth];
     return range(len).map((d) => {

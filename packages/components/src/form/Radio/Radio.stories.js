@@ -3,7 +3,7 @@ import { Box, Space } from '@mantine/core';
 import { Radio } from './Radio';
 import mdx from './Radio.mdx';
 import { RADIO_HELP_POSITIONS, RADIO_VARIANTS } from './Radio';
-import { AcademicCapIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
   title: 'Atoms/Form/Radio',
@@ -31,7 +31,7 @@ const Template = ({ children, ...props }) => {
         {children} {0}
       </Radio>
       <Space></Space>
-      <Radio {...props} name="test">
+      <Radio {...props} name="test" helpPosition="right">
         {children} {1}
       </Radio>
       <Space></Space>
@@ -45,10 +45,11 @@ const Template = ({ children, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  checked: false,
   children: 'Radio button label',
   variant: 'default',
   disabled: false,
   help: 'Help text',
   helpPosition: 'right',
-  icon: <AcademicCapIcon height={32} width={32} />,
+  icon: <StarIcon height={32} width={32} />,
 };

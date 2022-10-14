@@ -26,10 +26,6 @@ export default {
     onSave: { action: 'save' },
   },
 };
-const A = (p) => {
-  console.log(p);
-  return <div>Gatitos</div>;
-};
 
 const Template = ({ ...props }) => {
   return (

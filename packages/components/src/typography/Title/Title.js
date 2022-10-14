@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { Title as MantineTitle } from '@mantine/core';
 import { TitleStyles } from './Title.styles';
 
-export const TITLE_COLORS = ['interactive', 'primary', 'secondary', 'tertiary', 'soft'];
+export const TITLE_COLORS = [
+  'interactive',
+  'primary',
+  'secondary',
+  'tertiary',
+  'quartiary',
+  'soft',
+];
 export const TITLE_TRANSFORMS = ['capitalize', 'uppercase', 'lowercase', 'none'];
 
 export const TITLE_DEFAULT_PROPS = {
   order: 1,
-  color: 'secondary',
+  color: 'primary',
   transform: 'none',
   highlighted: false,
 };

@@ -17,27 +17,42 @@ import DateContentRow from '../Date/DateContentRow';
 
 let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
   const range = { start, end };
-  const filteredEvents = events.filter((event) =>
-    localizer.inEventRange({
+  const filteredEvents = events.filter((event) => {
+    return localizer.inEventRange({
       event: { ...event },
       range: range,
-    })
-  );
-
-  /*
+    });
+  });
+  filteredEvents.sort((eventA, eventB) => {
+    const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
+    const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
+    return eventAzIndex - eventBzIndex;
+  });
   const finalEvents = filteredEvents.map((event) => {
-    // if (isLastWeek) {
-    //   if (event.end.getMonth() > end.getMonth())
-    //     return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
-    // }
-    // if (isFirstWeek) {
-    //   if (event.start.getDate() > 1) return { ...event, start: start };
-    // }
+    if (isLastWeek) {
+      if (event.end.getYear() > end.getYear() || event.end.getMonth() > end.getMonth())
+        return { ...event, end: end, realEnd: event.end };
+    }
+    if (isFirstWeek) {
+      if (event.start.getYear() < start.getYear() || event.start.getMonth() < start.getMonth())
+        return { ...event, start: start };
+    }
     return event;
   });
-   */
+  return finalEvents;
+};
 
-  return filteredEvents;
+let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
+  const filteredEvents = evts.filter((e) => inRange(e, start, end, accessors, localizer));
+  const finalEvents = filteredEvents.map((event) => {
+    const eStart = event.start;
+    const eEnd = event.end;
+    if (localizer.isSameDate(eStart, eEnd)) return event;
+    event.realEnd = eEnd;
+    event.end = new Date(new Date(eEnd).setHours(2, 0, 0));
+    return event;
+  });
+  return finalEvents;
 };
 
 class MonthView extends React.Component {
@@ -132,6 +147,7 @@ class MonthView extends React.Component {
       hideBgTitles,
       isMonthView,
       monthNumber,
+      printMode,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -159,7 +175,7 @@ class MonthView extends React.Component {
     // let's not mutate props
     const weeksEvents = isMonthView
       ? eventsForWeek([...events], startOfWeek, endOfWeeek, localizer, isFirstWeek, isLastWeek)
-      : [...events].filter((e) => inRange(e, startOfWeek, endOfWeeek, accessors, localizer));
+      : eventsForWeekNormal([...events], week[0], week[week.length - 1], accessors, localizer);
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 
@@ -194,6 +210,7 @@ class MonthView extends React.Component {
         showAllEvents={showAllEvents}
         isMonthView={isMonthView}
         monthNumber={monthNumber}
+        printMode={printMode}
       />
     );
   };
@@ -237,7 +254,7 @@ class MonthView extends React.Component {
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',
           position: 'relative',
-          color: dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
+          color: isMonthView && dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
         }}
       >
         {isMonthView && isWeekend && COLORS.ui02 ? (

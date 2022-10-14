@@ -45,8 +45,9 @@ export default [
 export default [
   {
     allDay: true,
-    start: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-07-31T22:00:00.000Z').toJSDate(),
+    title: 'Inicio de curso',
+    start: DateTime.fromISO('2022-08-01').toJSDate(),
+    end: DateTime.fromISO('2022-08-01').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,
@@ -61,8 +62,9 @@ export default [
   },
   {
     allDay: true,
-    start: DateTime.fromISO('2022-08-30T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-30T22:00:00.000Z').toJSDate(),
+    title: 'Fin de curso',
+    start: DateTime.fromISO('2022-08-31').toJSDate(),
+    end: DateTime.fromISO('2022-08-31').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,
@@ -77,9 +79,9 @@ export default [
   },
   {
     allDay: true,
-    title: 'rth',
-    start: DateTime.fromISO('2022-08-04T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-05T22:00:00.000Z').toJSDate(),
+    title: 'Semana de las matematicas',
+    start: DateTime.fromISO('2022-08-04').toJSDate(),
+    end: DateTime.fromISO('2022-08-05').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,
@@ -95,8 +97,8 @@ export default [
   {
     allDay: true,
     title: 'erg',
-    start: DateTime.fromISO('2022-08-09T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-12T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-13').toJSDate(),
+    end: DateTime.fromISO('2022-08-16').toJSDate(),
     originalEvent: {
       calendar: {
         bgColor: ['#E4DDF7', '#DBD4ED'],
@@ -113,8 +115,8 @@ export default [
   {
     allDay: true,
     title: 'wefwef',
-    start: DateTime.fromISO('2022-08-14T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-15T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-09').toJSDate(),
+    end: DateTime.fromISO('2022-08-12').toJSDate(),
     originalEvent: {
       calendar: {
         bgColor: ['#DEEDE4', '#D5E4DB'],
@@ -129,8 +131,8 @@ export default [
   },
   {
     allDay: true,
-    start: DateTime.fromISO('2022-08-02T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-02T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-02').toJSDate(),
+    end: DateTime.fromISO('2022-08-02').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,
@@ -145,8 +147,8 @@ export default [
   },
   {
     allDay: true,
-    start: DateTime.fromISO('2022-08-28T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-28T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-29').toJSDate(),
+    end: DateTime.fromISO('2022-08-29').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,
@@ -162,8 +164,8 @@ export default [
   {
     title: 'Evento de computación',
     allDay: true,
-    start: DateTime.fromISO('2022-08-09T22:00:00.000Z').toJSDate(),
-    end: DateTime.fromISO('2022-08-16T22:00:00.000Z').toJSDate(),
+    start: DateTime.fromISO('2022-08-09').toJSDate(),
+    end: DateTime.fromISO('2022-08-16').toJSDate(),
     originalEvent: {
       calendar: {
         desaturateColor: false,

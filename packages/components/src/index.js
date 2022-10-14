@@ -11,7 +11,8 @@ export {
   SegmentedControl,
   UnstyledButton,
   List,
-  useAccordionState
+  useAccordionState,
+  Collapse
 } from '@mantine/core';
 export {
   useId,

@@ -123,6 +123,7 @@ class DateContentRow extends React.Component {
       hideBgTitles,
       isMonthView,
       monthNumber,
+      printMode,
     } = this.props;
 
     const { showWeekends, cx } = components;
@@ -223,6 +224,7 @@ class DateContentRow extends React.Component {
                     monthNumber={monthNumber}
                     isMonthView={isMonthView}
                     range={range}
+                    printMode={printMode}
                     {...eventRowProps}
                   />
                 );

@@ -14,6 +14,16 @@ import { Box } from '@bubbles-ui/components';
 import TimeGridHeader from './TimeGridHeader';
 import DayColumn from '../DayView/DayColumn';
 
+let customInRange = (event, rangeStart, rangeEnd, localizer) => {
+  const eStart = event.start;
+  const eEnd = event.end;
+
+  const startsBeforeEnd = eStart <= rangeEnd;
+  const endsAfterStart = eEnd >= 0;
+
+  return startsBeforeEnd && endsAfterStart;
+};
+
 export default class TimeGrid extends Component {
   constructor(props) {
     super(props);
@@ -180,7 +190,9 @@ export default class TimeGrid extends Component {
       rangeBackgroundEvents = [];
 
     events.forEach((event) => {
-      if (inRange(event, start, end, accessors, localizer)) {
+      // Aqui se estaba usando esta función inRange(event, start, end, accessors, localizer)
+      // Pero por algún motivo no estaba determinando bien si el evento estaba dentro del rango o no
+      if (customInRange(event, start, end, localizer)) {
         let eStart = accessors.start(event),
           eEnd = accessors.end(event);
 

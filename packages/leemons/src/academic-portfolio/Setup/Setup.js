@@ -51,7 +51,6 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
   }, [values]);
 
   const handleOnNext = (formData) => {
-    console.log('se llama al onNext');
     if (active < data.length - 1) {
       setActive(active + 1);
       isFunction(onNext) && onNext(formData);

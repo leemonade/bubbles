@@ -2,6 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as types from '../../types';
 import IconButton from '../IconButton';
+import {
+  ADDITIONAL_PROPERTY_FLAG,
+  deepEquals,
+  getDefaultRegistry,
+  getDisplayLabel,
+  getSchemaType,
+  isSelect,
+  mergeObjects,
+  retrieveSchema,
+  toIdSchema
+} from '../../utils';
 
 const REQUIRED_FIELD_SYMBOL = '*';
 const COMPONENT_TYPES = {
@@ -11,7 +22,7 @@ const COMPONENT_TYPES = {
   number: 'NumberField',
   object: 'ObjectField',
   string: 'StringField',
-  null: 'NullField',
+  null: 'NullField'
 };
 
 function getFieldComponent(schema, uiSchema, idSchema, fields) {
@@ -34,16 +45,16 @@ function getFieldComponent(schema, uiSchema, idSchema, fields) {
   return componentName in fields
     ? fields[componentName]
     : () => {
-        const { UnsupportedField } = fields;
+      const { UnsupportedField } = fields;
 
-        return (
-          <UnsupportedField
-            schema={schema}
-            idSchema={idSchema}
-            reason={`Unknown field type ${schema.type}`}
-          />
-        );
-      };
+      return (
+        <UnsupportedField
+          schema={schema}
+          idSchema={idSchema}
+          reason={`Unknown field type ${schema.type}`}
+        />
+      );
+    };
 }
 
 function Label(props) {
@@ -53,9 +64,9 @@ function Label(props) {
   }
 
   return (
-    <label className="control-label" htmlFor={id}>
+    <label className='control-label' htmlFor={id}>
       {label}
-      {required && <span className="required">{REQUIRED_FIELD_SYMBOL}</span>}
+      {required && <span className='required'>{REQUIRED_FIELD_SYMBOL}</span>}
     </label>
   );
 }
@@ -64,8 +75,8 @@ function LabelInput(props) {
   const { id, label, onChange } = props;
   return (
     <input
-      className="form-control"
-      type="text"
+      className='form-control'
+      type='text'
       id={id}
       onBlur={(event) => onChange(event.target.value)}
       defaultValue={label}
@@ -80,13 +91,13 @@ function Help(props) {
   }
   if (typeof help === 'string') {
     return (
-      <p id={id} className="help-block">
+      <p id={id} className='help-block'>
         {help}
       </p>
     );
   }
   return (
-    <div id={id} className="help-block">
+    <div id={id} className='help-block'>
       {help}
     </div>
   );
@@ -100,12 +111,12 @@ function ErrorList(props) {
 
   return (
     <div>
-      <ul className="error-detail bs-callout bs-callout-info">
+      <ul className='error-detail bs-callout bs-callout-info'>
         {errors
           .filter((elem) => !!elem)
           .map((error, index) => {
             return (
-              <li className="text-danger" key={index}>
+              <li className='text-danger' key={index}>
                 {error}
               </li>
             );
@@ -118,7 +129,7 @@ function ErrorList(props) {
 function DefaultTemplate(props) {
   const { id, label, children, errors, help, description, hidden, required, displayLabel } = props;
   if (hidden) {
-    return <div className="hidden">{children}</div>;
+    return <div className='hidden'>{children}</div>;
   }
 
   return (
@@ -149,7 +160,7 @@ if (process.env.NODE_ENV !== 'production') {
     readonly: PropTypes.bool,
     displayLabel: PropTypes.bool,
     fields: PropTypes.object,
-    formContext: PropTypes.object,
+    formContext: PropTypes.object
   };
 }
 
@@ -157,7 +168,7 @@ DefaultTemplate.defaultProps = {
   hidden: false,
   readonly: false,
   required: false,
-  displayLabel: true,
+  displayLabel: true
 };
 
 function WrapIfAdditional(props) {
@@ -170,7 +181,7 @@ function WrapIfAdditional(props) {
     onDropPropertyClick,
     readonly,
     required,
-    schema,
+    schema
   } = props;
   const keyLabel = `${label} Key`; // i18n ?
   const additional = schema.hasOwnProperty(ADDITIONAL_PROPERTY_FLAG);
@@ -181,20 +192,20 @@ function WrapIfAdditional(props) {
 
   return (
     <div className={classNames}>
-      <div className="row">
-        <div className="col-xs-5 form-additional">
-          <div className="form-group">
+      <div className='row'>
+        <div className='col-xs-5 form-additional'>
+          <div className='form-group'>
             <Label label={keyLabel} required={required} id={`${id}-key`} />
             <LabelInput label={label} required={required} id={`${id}-key`} onChange={onKeyChange} />
           </div>
         </div>
-        <div className="form-additional form-group col-xs-5">{props.children}</div>
-        <div className="col-xs-2">
+        <div className='form-additional form-group col-xs-5'>{props.children}</div>
+        <div className='col-xs-2'>
           <IconButton
-            type="danger"
-            icon="remove"
-            className="array-item-remove btn-block"
-            tabIndex="-1"
+            type='danger'
+            icon='remove'
+            className='array-item-remove btn-block'
+            tabIndex='-1'
             style={{ border: '0' }}
             disabled={disabled || readonly}
             onClick={onDropPropertyClick(label)}
@@ -217,7 +228,7 @@ function SchemaFieldRender(props) {
     onDropPropertyClick,
     required,
     registry = getDefaultRegistry(),
-    wasPropertyKeyModified = false,
+    wasPropertyKeyModified = false
   } = props;
   const { rootSchema, fields, formContext } = registry;
   const FieldTemplate = uiSchema['ui:FieldTemplate'] || registry.FieldTemplate || DefaultTemplate;
@@ -274,7 +285,7 @@ function SchemaFieldRender(props) {
     'field',
     `field-${schema.type}`,
     errors && errors.length > 0 ? 'field-error has-error has-danger' : '',
-    uiSchema.classNames,
+    uiSchema.classNames
   ]
     .join(' ')
     .trim();
@@ -308,7 +319,7 @@ function SchemaFieldRender(props) {
     fields,
     schema,
     uiSchema,
-    registry,
+    registry
   };
 
   const _AnyOfField = registry.fields.AnyOfField;
@@ -380,7 +391,7 @@ SchemaField.defaultProps = {
   idSchema: {},
   disabled: false,
   readonly: false,
-  autofocus: false,
+  autofocus: false
 };
 
 if (process.env.NODE_ENV !== 'production') {
@@ -390,20 +401,9 @@ if (process.env.NODE_ENV !== 'production') {
     idSchema: PropTypes.object,
     formData: PropTypes.any,
     errorSchema: PropTypes.object,
-    registry: types.registry.isRequired,
+    registry: types.registry.isRequired
   };
 }
 
 export default SchemaField;
 
-import {
-  ADDITIONAL_PROPERTY_FLAG,
-  deepEquals,
-  getDefaultRegistry,
-  getDisplayLabel,
-  getSchemaType,
-  isSelect,
-  mergeObjects,
-  retrieveSchema,
-  toIdSchema,
-} from '../../utils';

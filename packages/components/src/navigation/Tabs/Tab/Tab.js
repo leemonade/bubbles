@@ -7,7 +7,7 @@ import { TabStyles } from './Tab.styles';
 export const Tab = forwardRef(
   ({ id, active, tab, renderWrapper, onClick, onFocus, ...props }, ref) => {
     const { key, label, leftIcon, rightIcon, disabled, notification, hasError, error, warning } =
-      tab || {};
+    tab || {};
 
     if (!key) {
       return null;
@@ -25,8 +25,8 @@ export const Tab = forwardRef(
     const node = (
       <button
         {...props}
-        role="tab"
-        type="button"
+        role='tab'
+        type='button'
         key={key}
         ref={ref}
         aria-selected={active}
@@ -45,7 +45,7 @@ export const Tab = forwardRef(
         <Box className={classes.tabInner}>
           {leftIcon && <Box className={cx(classes.tabIcon, classes.tabLeftIcon)}>{leftIcon}</Box>}
           {label && (
-            <Text component="span" className={classes.tabLabel}>
+            <Text component='span' className={classes.tabLabel}>
               {label}
             </Text>
           )}
@@ -73,5 +73,5 @@ Tab.propTypes = {
   onClick: PropTypes.func,
   onResize: PropTypes.func,
   renderWrapper: PropTypes.node,
-  onFocus: PropTypes.func,
+  onFocus: PropTypes.func
 };
