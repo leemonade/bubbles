@@ -26,7 +26,7 @@ const ModalZoom = ({ children }) => {
         {children}
       </Box>
       {open && (
-        <Portal>
+        <Portal zIndex={99999}>
           <Box className={classes.modalWrapper}>
             <Box
               className={classes.close}
