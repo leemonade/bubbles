@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import { colord } from 'colord';
-import { useId } from '@mantine/hooks';
+import { useClickOutside, useId } from '@mantine/hooks';
 import { ColorSwatch } from '../ColorPicker/ColorSwatch/ColorSwatch';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { Paragraph } from '../../typography';
@@ -129,6 +129,7 @@ const ColorInput = forwardRef(
     const uuid = useId();
     const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const closeRef = useClickOutside(() => setOpened(false));
     const { classes, cx, theme } = ColorInputStyles({ size }, { name: 'ColorInput' });
 
     useEffect(() => {
@@ -204,12 +205,11 @@ const ColorInput = forwardRef(
               />
             }
             width={colorPickerComponent ? undefined : 200}
-            position="bottom"
-            placement="start"
+            position="bottom-start"
             withArrow
-            trapFocus={false}
+            trapFocus
           >
-            <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
+            <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }} ref={closeRef}>
               {!colorPickerComponent ? (
                 <ColorPicker
                   color={inputValue}

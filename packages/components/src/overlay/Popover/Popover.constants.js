@@ -19,6 +19,7 @@ export const POPOVER_DEFAULT_PROPS = {
   padded: false,
   withArrow: false,
   withCloseButton: false,
+  offset: 10,
 };
 export const POPOVER_PROP_TYPES = {
   opened: PropTypes.bool,

@@ -177,6 +177,7 @@ const DatePicker = forwardRef(
               onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
               icon={<PluginCalendarIcon />}
               clearButtonLabel={clearButtonLabel}
+              withArrow
             />
             {withTime && !range && (
               <TimeInput

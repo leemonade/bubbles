@@ -49,7 +49,6 @@ const getFontSize = (size) => {
 };
 
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
-  console.log('fontSize', getFontSize(size));
   return {
     root: {
       flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
