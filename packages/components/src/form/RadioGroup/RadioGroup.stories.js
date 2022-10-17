@@ -37,17 +37,17 @@ Playground.args = {
   data: [
     {
       value: 'option1',
-      // label: 'Label for option 1',
-      icon: <StarIcon />,
+      label: 'Label for option 1',
+      // icon: <StarIcon />,
     },
     {
       value: 'option2',
-      // label: 'Label for option 2',
+      label: 'Label for option 2',
       icon: <StarIcon />,
     },
     {
       value: 'option3',
-      // label: 'Label for option 3',
+      label: 'Label for option 3',
       icon: <StarIcon />,
       help: 'Help text for option 3',
       helpPosition: 'bottom',

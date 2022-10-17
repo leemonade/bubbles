@@ -30,14 +30,14 @@ const Template = ({ children, ...props }) => {
       <Radio {...props} name="test">
         {children} {0}
       </Radio>
-      <Space></Space>
+      {/* <Space></Space>
       <Radio {...props} name="test" helpPosition="right">
         {children} {1}
       </Radio>
       <Space></Space>
       <Radio {...props} name="test">
         {children} {2}
-      </Radio>
+      </Radio> */}
     </>
   );
 };
