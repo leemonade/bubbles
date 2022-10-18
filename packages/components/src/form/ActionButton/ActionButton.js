@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { isNil, isString } from 'lodash';
 import { Button as MantineButton } from '@mantine/core';
+import { Button } from '../Button';
 import { ActionButtonStyles } from './ActionButton.styles';
 import { Tooltip } from '../../overlay';
 
