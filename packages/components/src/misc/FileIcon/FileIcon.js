@@ -10,9 +10,12 @@ import {
   MeetingCameraIcon,
   PluginCurriculumIcon,
   VolumeControlMediumIcon,
-  PluginFeedbackIcon,
 } from '@bubbles-ui/icons/solid/';
-import { FormImageAttachIcon, PluginKanbanIcon } from '@bubbles-ui/icons/outline/';
+import {
+  FormImageAttachIcon,
+  PluginKanbanIcon,
+  PluginFeedbackIcon,
+} from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
 
 export const FILE_ICON_DEFAULT_PROPS = {
