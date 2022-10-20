@@ -33,5 +33,8 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
       pointerEvents: rightEvents ? 'auto' : 'none',
       cursor: 'pointer',
     },
+    item: {
+      paddingBlock: 4,
+    },
   };
 });
