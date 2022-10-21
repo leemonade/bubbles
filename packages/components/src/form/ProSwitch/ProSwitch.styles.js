@@ -3,6 +3,9 @@ import { getFontExpressive } from '../../theme.mixins';
 
 export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
   return {
+    label: {
+      ...getFontExpressive(theme.fontSizes[1]),
+    },
     container: {
       position: 'relative',
     },
