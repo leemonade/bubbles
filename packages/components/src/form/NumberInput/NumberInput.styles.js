@@ -14,6 +14,9 @@ export const NumberInputStyles = createStyles((theme, { size }) => {
       svg: {
         display: 'none',
       },
+      '&:disabled:after': {
+        borderColor: 'transparent transparent #adb5bd transparent',
+      },
       '&:after': {
         content: '""',
         position: 'absolute',
@@ -32,6 +35,9 @@ export const NumberInputStyles = createStyles((theme, { size }) => {
       position: 'relative',
       svg: {
         display: 'none',
+      },
+      '&:disabled:after': {
+        borderColor: '#adb5bd transparent transparent transparent',
       },
       '&:after': {
         content: '""',
