@@ -6,5 +6,11 @@ export const PopoverStyles = createStyles((theme, { padded }) => {
       padding: padded ? theme.spacing[padded] : 0,
       boxShadow: theme.shadows.shadow03,
     },
+    closeButton: {
+      position: 'absolute',
+      top: 7,
+      right: 10,
+      zIndex: 2,
+    },
   };
 });
