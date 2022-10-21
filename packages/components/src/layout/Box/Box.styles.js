@@ -5,8 +5,6 @@ export const BoxStyles = createStyles((theme, { padding }) => {
     root: {
       boxSizing: 'border-box',
       padding: padding && theme.spacing[padding],
-      lineHeight: '16px',
-      fontFamily: 'Times New Roman',
     },
   };
 });

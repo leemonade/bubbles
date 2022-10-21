@@ -81,7 +81,6 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
                   src={subject.icon}
                 />
               ) : null}
-
               <Text role="productive" color="primary">
                 {subject.name}
               </Text>
