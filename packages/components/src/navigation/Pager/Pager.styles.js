@@ -60,18 +60,18 @@ export const PagerStyles = createStyles(
           height: withControls && !withEdges && pxToRem(22),
           width: withControls && !withEdges && pxToRem(22),
         },
-      },
-      active: {
-        fontWeight: !disabled && 700,
-        color: disabled ? theme.colors.text05 : theme.colors.text01,
-        backgroundColor: 'transparent',
-        border: disabled ? 'none' : `1px solid ${theme.colors.ui01}`,
-        borderRadius: '50%',
-        pointerEvents: 'none',
-      },
-      dots: {
-        color: theme.colors.text05,
-        // transform: `translateY(${pxToRem(4)})`,
+        '&[data-active]': {
+          fontWeight: !disabled && 700,
+          color: disabled ? theme.colors.text05 : theme.colors.text01,
+          backgroundColor: 'transparent',
+          border: disabled ? 'none' : `1px solid ${theme.colors.ui01}`,
+          borderRadius: '50%',
+          pointerEvents: 'none',
+        },
+        '&[data-dots]': {
+          color: theme.colors.text05,
+          // transform: `translateY(${pxToRem(4)})`,
+        },
       },
       container: {
         display: 'flex',
@@ -79,6 +79,7 @@ export const PagerStyles = createStyles(
       goto: {
         span: {
           ...getFontProductive(theme.fontSizes['2'], 500),
+          color: disabled ? theme.colors.text05 : theme.colors.text01,
         },
         input: {
           ...getFontProductive(theme.fontSizes['2'], 500),
