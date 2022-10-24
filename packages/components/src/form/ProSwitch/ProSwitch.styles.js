@@ -41,12 +41,13 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       borderColor: `${theme.colors.ui01}`,
       boxSizing: 'border-box',
       backgroundColor: 'transparent',
+      transition: `all 150ms ${theme.transitionTimingFunction}`,
       'input:checked + &': {
         backgroundColor: color,
         borderColor: color,
         '.mantine-Switch-thumb': {
           left: 'calc(100% - 11px - 2px)',
-          backgroundColor: 'white',
+          backgroundColor: 'transparent',
         },
       },
     },
@@ -54,7 +55,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       height: 9,
       width: 9,
       left: 5,
-      backgroundColor: color,
+      backgroundColor: 'transparent',
     },
   };
 });

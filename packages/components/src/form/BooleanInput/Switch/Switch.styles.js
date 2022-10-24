@@ -84,7 +84,7 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
       'input:checked + &': {
         border: 'none',
         backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
-        transition: `background-color 150ms ${theme.transitionTimingFunction}`,
+        transition: `all 150ms ${theme.transitionTimingFunction}`,
       },
     },
     thumb: {
