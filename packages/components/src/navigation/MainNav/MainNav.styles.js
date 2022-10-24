@@ -43,13 +43,15 @@ export const MainNavStyles = createStyles(
         width: pxToRem(itemWidth),
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingBottom: 10,
+      },
+      logoContainer: {
+        paddingBottom: 7,
+        margin: 'auto',
       },
       logo: {
         width: pxToRem(24),
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingBottom: 10,
       },
       navItems: {
         // height: 300,

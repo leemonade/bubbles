@@ -31,31 +31,31 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
     iconActive: {
       transform: 'translate(12px, -50%)!important',
     },
-    input: {
-      width: '32px',
-      minWidth: '32px',
-      height: '20px',
-      minHeight: '20px',
-      border: '1px solid',
-      borderColor: theme.colors.ui01,
+    track: {
+      minHeight: 20,
+      minWidth: 32,
+      height: 20,
+      width: 32,
       cursor: 'pointer',
+      border: '1px solid',
+      borderColor: `${theme.colors.ui01}`,
+      boxSizing: 'border-box',
       backgroundColor: 'transparent',
-      '&:checked': {
+      transition: `all 150ms ${theme.transitionTimingFunction}`,
+      'input:checked + &': {
         backgroundColor: color,
         borderColor: color,
+        '.mantine-Switch-thumb': {
+          left: 'calc(100% - 11px - 2px)',
+          backgroundColor: 'transparent',
+        },
       },
-      '&:before': {
-        width: '9px',
-        height: '9px',
-        border: 'none',
-        transform: 'translateX(5.5px)',
-        backgroundColor: color,
-        display: hasIcon ? 'none' : 'block',
-      },
-      '&:checked::before': {
-        transform: 'translateX(17.5px)',
-        backgroundColor: theme.colors.mainWhite,
-      },
+    },
+    thumb: {
+      height: 9,
+      width: 9,
+      left: 5,
+      backgroundColor: 'transparent',
     },
   };
 });

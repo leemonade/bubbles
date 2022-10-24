@@ -57,6 +57,9 @@ export const AutocompleteStyles = createStyles((theme, { multiple }) => {
       padding: 0,
       flexDirection: 'column',
     },
+    itemsWrapper: {
+      padding: 0,
+    },
     item: {
       ...getFontProductive(theme.fontSizes['2'], 400),
       paddingTop: pxToRem(12),
