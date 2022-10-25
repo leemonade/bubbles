@@ -43,7 +43,7 @@ export const MainNavItemStyles = createStyles(
       },
       tooltipArrow: {
         backgroundColor: theme.colors.interactive01,
-        transform: 'scale(2.5) rotate(45deg) !important',
+        transform: 'scale(2.5) rotate(45deg)',
       },
     };
   }

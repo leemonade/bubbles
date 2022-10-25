@@ -44,14 +44,14 @@ export const MainNavStyles = createStyles(
         marginLeft: 'auto',
         marginRight: 'auto',
       },
+      logoContainer: {
+        paddingBottom: 7,
+        margin: 'auto',
+      },
       logo: {
         width: pxToRem(24),
         marginLeft: 'auto',
         marginRight: 'auto',
-      },
-      logoContainer: {
-        margin: 'auto',
-        paddingBottom: 4,
       },
       navItems: {
         // height: 300,
