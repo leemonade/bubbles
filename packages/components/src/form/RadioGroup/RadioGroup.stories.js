@@ -38,7 +38,7 @@ Playground.args = {
     {
       value: 'option1',
       label: 'Label for option 1',
-      // icon: <StarIcon />,
+      icon: <StarIcon />,
     },
     {
       value: 'option2',

@@ -71,7 +71,7 @@ const LibraryCard = ({
             <FileIcon
               size={64}
               fileExtension={asset.fileExtension}
-              fileType={asset.fileType}
+              fileType={asset.fileType || variant}
               color={'#B9BEC4'}
               hideExtension
             />

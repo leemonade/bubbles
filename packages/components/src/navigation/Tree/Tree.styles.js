@@ -5,7 +5,7 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
   return {
     root: {
       position: 'relative',
-      display: 'flex',
+      display: 'flex'
     },
     tree: {
       overflow: 'hidden',
@@ -16,16 +16,16 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       margin: 0,
       ul: {
         margin: 0,
-        padding: 0,
+        padding: 0
       },
       li: {
         listStyle: 'none',
         margin: 0,
-        padding: 0,
-      },
+        padding: 0
+      }
     },
     treePlaceholderContainer: {
-      position: 'relative',
+      position: 'relative'
     },
     treeDraggingSource: {
       '& .mantine-Tree-treeNode': {
@@ -33,9 +33,9 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
         border: theme.colors.ui02,
 
         '& .mantine-Tree-treeNodeLines': {
-          border: theme.colors.ui02,
-        },
-      },
+          border: theme.colors.ui02
+        }
+      }
     },
     treeDropTarget: {},
     treeNodeLines: {
@@ -46,32 +46,32 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       borderBottomWidth: 1,
       borderLeftWidth: 1,
       width: pxToRem(12),
-      transform: 'translateX(-160%) translateY(-0.9rem)',
+      transform: 'translateX(-160%) translateY(-0.9rem)'
     },
     treeNodeLinesFirstItem: {
-      height: pxToRem(16),
+      height: pxToRem(16)
     },
     treeNodeLinesItems: {
-      height: pxToRem(32),
+      height: pxToRem(32)
     },
     treeNodeLinesAlone: {
-      borderBottomLeftRadius: pxToRem(4),
+      borderBottomLeftRadius: pxToRem(4)
     },
     treeNode: {
       position: 'relative',
       alignItems: 'center',
       display: 'grid',
       gridTemplateColumns: 'auto 1fr auto',
-      gridTemplateAreas: "'toggle content actions'",
+      gridTemplateAreas: '\'toggle content actions\'',
       height: pxToRem(32),
-      borderRadius: pxToRem(4),
+      borderRadius: pxToRem(4)
     },
     treeNodePlaceholder: {
       backgroundColor: theme.colors.interactive01,
       height: 1,
       position: 'absolute',
       right: 0,
-      transform: 'translateY(-100%)',
+      transform: 'translateY(-100%)'
     },
     nodeWithChildren: {
       background: theme.colors.mainWhite,
@@ -89,36 +89,36 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       },
     },
     nodeDefault: {
-      paddingRight: pxToRem(8),
+      paddingRight: pxToRem(8)
     },
     nodeDefaultHover: {
-      backgroundColor: theme.colors.ui03,
+      backgroundColor: theme.colors.ui03
     },
     nodeSelected: {
       paddingLeft: pxToRem(8),
       backgroundColor: theme.colors.interactive01v1,
-      border: `1px dashed ${theme.colors.interactive01}}`,
+      border: `1px dashed ${theme.colors.interactive01}}`
     },
     nodeButton: {
       opacity: 1,
       transitionProperty: 'all',
       transitionTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
       transitionDuration: '150ms',
-      transform: 'translateX(0)',
+      transform: 'translateX(0)'
     },
     nodeHiddenButton: {
       opacity: 0,
-      transform: 'translateX(-8px)',
+      transform: 'translateX(-8px)'
     },
     nodeShowButton: {
-      opacity: 1,
+      opacity: 1
     },
     nodeHidden: {
-      display: 'none',
+      display: 'none'
     },
     nodeDragPreviewRoot: {
       display: 'flex',
-      transform: 'translate(-16px, -16px)',
+      transform: 'translate(-16px, -16px)'
     },
     nodeDragPreview: {
       display: 'flex',
@@ -129,12 +129,12 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       borderRadius: pxToRem(4),
       border: `1px solid ${theme.colors.interactive01}`,
       background: theme.colors.mainWhite,
-      boxShadow: theme.shadows.shadow03,
+      boxShadow: theme.shadows.shadow03
     },
     nodeDragPreviewHandler: {
       paddingBottom: pxToRem(4),
       marginRight: pxToRem(8),
-      color: theme.colors.interactive01,
+      color: theme.colors.interactive01
     },
     nodeDragPreviewContent: {},
     nodePlaceholderRoot: {
@@ -144,7 +144,7 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       height: 1,
       transform: 'translateY(0px)',
       background: theme.colors.interactive01,
-      zIndex: 40,
+      zIndex: 40
     },
     nodePlaceholder: {
       position: 'absolute',
@@ -154,7 +154,7 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       width: 3,
       transform: 'translateY(-1px)',
       borderRadius: 9,
-      background: theme.colors.interactive01,
+      background: theme.colors.interactive01
     },
     toggle: {
       gridArea: 'toggle',
@@ -167,34 +167,34 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       transitionDuration: '150ms',
       transform: 'translateX(0)',
       height: pxToRem(24),
-      width: pxToRem(32),
+      width: pxToRem(32)
     },
     toggleOpened: {
-      transform: 'rotate(0deg)',
+      transform: 'rotate(0deg)'
     },
     toggleClosed: {
-      transform: 'rotate(-90deg)',
+      transform: 'rotate(-90deg)'
     },
     toggleIcon: {
-      color: theme.colors.text02,
+      color: theme.colors.text02
     },
     toggleIconHover: {
-      color: theme.colors.text01,
+      color: theme.colors.text01
     },
     dragHandler: {
       paddingBottom: pxToRem(4),
       marginRight: pxToRem(8),
       color: theme.colors.ui01,
-      cursor: 'drag',
+      cursor: 'drag'
     },
     dragHandlerHover: {
-      color: theme.colors.text05,
+      color: theme.colors.text05
     },
     buttonWrapper: {
       display: 'flex',
       flex: 1,
       paddingRight: pxToRem(4),
-      marginBottom: pxToRem(4),
+      marginBottom: pxToRem(4)
     },
     nodeTextDefault: {
       color: theme.colors.text02,
@@ -211,10 +211,10 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
     nodeContent: {
       gridArea: 'content',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     nodeActions: {
-      gridArea: 'actions',
-    },
+      gridArea: 'actions'
+    }
   };
 });
