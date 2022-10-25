@@ -258,15 +258,15 @@ export const ButtonStyles = createStyles(
         ...compactOverrides,
         width: fullWidth ? '100%' : 'auto',
         ...styles,
-        '&[data-loading]': {
-          border: 'transparent',
-          svg: {
-            stroke: currentVariant.color,
-          },
-        },
       },
       inner: {
         justifyContent: position === 'apart' ? 'space-between' : position,
+      },
+      loading: {
+        border: 'transparent',
+        svg: {
+          stroke: currentVariant.color,
+        },
       },
       rightIcon: {
         marginLeft: pxToRem(8),
