@@ -83,6 +83,8 @@ export const ActionButtonStyles = createStyles(
       root: {
         ...getFontExpressive(theme.fontSizes['1'], 400),
         ...getSizes(size || 'md', theme.spacing, iconOnly),
+      },
+      default: {
         border: '2px solid transparent',
         ...getVariant(variant, theme, color, active),
       },
@@ -97,7 +99,7 @@ export const ActionButtonStyles = createStyles(
         marginLeft: pxToRem(0),
       },
       label: {
-        height: '13px',
+        with: '100%',
       },
     };
   }

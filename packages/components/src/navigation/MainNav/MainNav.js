@@ -189,13 +189,12 @@ const MainNav = ({
       {/* MainNav */}
       <Box className={classes.navWrapper}>
         <Box className={classes.navContainer}>
-          <Box className={classes.logoContainer}>
-            {!isEmpty(logoUrl) ? (
-              <ImageLoader src={logoUrl} forceImage className={classes.logoUrl} height="auto" />
-            ) : (
-              <Logo isotype className={classes.logo} />
-            )}
-          </Box>
+          {!isEmpty(logoUrl) ? (
+            <ImageLoader src={logoUrl} forceImage className={classes.logoUrl} height="auto" />
+          ) : (
+            <Logo isotype className={classes.logo} />
+          )}
+
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
             {isArray(menuData) &&

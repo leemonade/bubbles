@@ -1,12 +1,12 @@
-import React from 'react';
-import { Group } from '@mantine/core';
-import { Tooltip } from './Tooltip';
+import React, { useEffect, useState } from 'react';
+import { Box, Group } from '@mantine/core';
 import {
+  Tooltip,
   TOOLTIP_COLORS,
   TOOLTIP_POSITION,
   TOOLTIP_PLACEMENT,
   TOOLTIP_SIZES,
-} from './Tooltip.constants';
+} from './Tooltip';
 import mdx from './Tooltip.mdx';
 import { Button } from '../../form/Button';
 import { ChevronRightIcon } from '@heroicons/react/outline';
@@ -27,12 +27,14 @@ export default {
     size: { options: TOOLTIP_SIZES, control: { type: 'select' } },
     color: { options: TOOLTIP_COLORS, control: { type: 'select' } },
     position: { options: TOOLTIP_POSITION, control: { type: 'select' } },
+    placement: { options: TOOLTIP_PLACEMENT, control: { type: 'select' } },
   },
 };
 
 const Template = ({ children, label, ...props }) => {
   label = label || (
     <>
+      {' '}
       Share <ChevronRightIcon style={{ height: '1.2rem' }} />
     </>
   );
@@ -47,7 +49,7 @@ const Template = ({ children, label, ...props }) => {
           height: '200px',
         }}
       >
-        <Tooltip {...props} label={label} opened>
+        <Tooltip {...props} label={label}>
           <Button variant="outline">{children}</Button>
         </Tooltip>
       </Group>
@@ -62,6 +64,7 @@ Playground.args = {
   color: 'primary',
   children: 'test',
   position: 'top',
+  placement: 'center',
   withArrow: true,
   label: '',
 };

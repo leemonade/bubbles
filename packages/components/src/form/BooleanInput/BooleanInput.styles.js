@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontProductive } from '../../theme.mixins';
 
 export const BooleanInputStyles = createStyles(
-  (theme, { help, helpPosition, variant, isChecked, isPro }) => {
+  (theme, { help, helpPosition, variant, isChecked }) => {
     const isRight = !!help & (helpPosition === 'right');
     const isBottom = !!help & (helpPosition === 'bottom');
     const isBoxed = variant === 'boxed';
@@ -18,14 +18,12 @@ export const BooleanInputStyles = createStyles(
             ? theme.colors.interactive04
             : theme.colors.interactive03
           : null,
-        border: !isPro && '1px solid transparent',
+        border: '1px solid transparent',
         borderColor: isBoxed && isChecked && theme.colors.interactive01d,
-        padding: !isPro
-          ? isBoxed
-            ? `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`
-            : `${pxToRem(6)} ${pxToRem(10)} ${pxToRem(6)} ${pxToRem(8)}`
-          : null,
-        zIndex: !isPro && isChecked && 1,
+        padding: isBoxed
+          ? `${pxToRem(12)} ${pxToRem(20)} ${pxToRem(12)} ${pxToRem(16)}`
+          : `${pxToRem(6)} ${pxToRem(10)} ${pxToRem(6)} ${pxToRem(8)}`,
+        zIndex: isChecked && 1,
       },
       wrapper: {},
       help: {

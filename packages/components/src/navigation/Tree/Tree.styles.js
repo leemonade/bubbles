@@ -77,8 +77,8 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       background: theme.colors.mainWhite,
       cursor: canSelectItems ? 'pointer' : 'default',
       '&:hover': {
-        backgroundColor: canSelectItems ? theme.colors.ui03 : theme.colors.mainWhite,
-      },
+        backgroundColor: canSelectItems ? theme.colors.ui03 : theme.colors.mainWhite
+      }
     },
     nodeNoChildren: {
       paddingLeft: pxToRem(8),
@@ -198,15 +198,15 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
     },
     nodeTextDefault: {
       color: theme.colors.text02,
-      lineHeight: '1.3em',
+      lineHeight: '1em'
     },
     nodeTextDefaultHover: {
       color: theme.colors.text01,
-      lineHeight: '1.3em',
+      lineHeight: '1em'
     },
     nodeTextSelected: {
       color: theme.colors.interactive01,
-      lineHeight: '1.3em',
+      lineHeight: '1em'
     },
     nodeContent: {
       gridArea: 'content',

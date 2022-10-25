@@ -18,7 +18,8 @@ export default {
   },
   argTypes: {
     position: { options: MENU_POSITIONS, type: 'select' },
-    offset: { control: 'number' },
+    placement: { options: MENU_PLACEMENT, type: 'select' },
+    gutter: { control: 'number' },
     withArrow: { control: 'boolean' },
   },
 };
@@ -36,7 +37,6 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...MENU_DEFAULT_PROPS,
   items: [
-    { children: 'Zone 1' },
     {
       icon: <StarIcon />,
       children: 'Item 1',
@@ -45,24 +45,12 @@ Playground.args = {
     {
       icon: <DeleteBinIcon />,
       children: 'Item 2',
-      onClick: () => alert('Item 2 clicked'),
+      onClick: () => alert('Item 1 clicked'),
     },
     {
       icon: <FlagIcon />,
       children: 'Item 3',
       onClick: () => alert('Item 3 clicked'),
-    },
-    { divider: true },
-    { children: 'Zone 2' },
-    {
-      icon: <DeleteBinIcon />,
-      children: 'Item 1',
-      onClick: () => alert('Item 1 clicked'),
-    },
-    {
-      icon: <FlagIcon />,
-      children: 'Item 2',
-      onClick: () => alert('Item 2 clicked'),
     },
   ],
 };

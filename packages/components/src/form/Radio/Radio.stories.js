@@ -26,9 +26,19 @@ export default {
 
 const Template = ({ children, ...props }) => {
   return (
-    <Radio {...props} name="test">
-      {children}
-    </Radio>
+    <>
+      <Radio {...props} name="test">
+        {children} {0}
+      </Radio>
+      <Space></Space>
+      <Radio {...props} name="test" helpPosition="right">
+        {children} {1}
+      </Radio>
+      <Space></Space>
+      <Radio {...props} name="test">
+        {children} {2}
+      </Radio>
+    </>
   );
 };
 

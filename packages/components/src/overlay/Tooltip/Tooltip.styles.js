@@ -7,18 +7,18 @@ const getSizes = (theme, size) => {
   return {
     xs: {
       fontSize: pxToRem(12),
-      height: pxToRem(spacing[5]),
+      height: pxToRem(spacing[4]),
       ...getPaddings(spacing[1], spacing[2]),
     },
 
     sm: {
       fontSize: pxToRem(theme.fontSizes['1']),
-      height: pxToRem(spacing[7]),
+      height: pxToRem(spacing[5]),
       ...getPaddings(spacing[1], spacing[3]),
     },
     md: {
       fontSize: pxToRem(theme.fontSizes['2']),
-      height: pxToRem(spacing[10]),
+      height: pxToRem(spacing[7]),
       ...getPaddings(spacing[2], spacing[4]),
     },
   }[size];
@@ -57,7 +57,7 @@ export const TooltipStyles = createStyles((theme, { color, size }) => {
     arrow: {
       ...getColor(theme, color),
     },
-    tooltip: {
+    body: {
       ...getFontExpressive(null, 400),
       ...getColor(theme, color),
       ...getSizes(theme, size),

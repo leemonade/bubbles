@@ -111,7 +111,6 @@ const Stepper = forwardRef(
             description={item.description}
             icon={active === index ? <ProgressIcon /> : <></>}
             completedIcon={<CheckIcon />}
-            className={index === data.length - 1 && classes.lastStep}
           >
             {React.cloneElement(item.content, {
               ...item.content.props,

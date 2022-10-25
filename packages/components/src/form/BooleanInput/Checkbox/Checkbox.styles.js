@@ -16,9 +16,6 @@ export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) 
       },
       borderRadius: 2,
     },
-    body: {
-      gap: 8,
-    },
     icon: {
       width: 14,
     },

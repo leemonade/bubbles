@@ -35,18 +35,15 @@ const ActivityAccordion = ({ children, compact, ...props }) => {
 
   return (
     <Accordion {...props} className={classes.root} classNames={classes} iconPosition="right">
-      {React.Children.map(children, (child, index) => {
+      {React.Children.map(children, (child) => {
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
-          <Accordion.Item value={panelProps.label || `Panel ${index}`}>
-            <Accordion.Control>
-              <AccordionLabel {...panelProps} compact={compact} classes={classes} />
-            </Accordion.Control>
-            <Accordion.Panel>
-              <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
-                {panelContent}
-              </Box>
-            </Accordion.Panel>
+          <Accordion.Item
+            label={<AccordionLabel {...panelProps} compact={compact} classes={classes} />}
+          >
+            <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
+              {panelContent}
+            </Box>
           </Accordion.Item>
         );
       })}

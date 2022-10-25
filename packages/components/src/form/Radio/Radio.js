@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Radio as MantineRadio } from '@mantine/core';
 import { RadioStyles } from './Radio.styles';
@@ -12,6 +12,10 @@ const Radio = forwardRef(
     { children, label, checked, variant, help, helpPosition, icon, size, useAria, ...props },
     ref
   ) => {
+    if (variant === 'icon') {
+      help = '';
+    }
+
     const { classes, cx } = RadioStyles(
       { checked, variant, help, helpPosition, icon, children, label },
       { name: 'Radio' }
@@ -25,13 +29,11 @@ const Radio = forwardRef(
         ref={ref}
         classNames={classes}
         label={
-          (variant === 'icon' && icon) || label || children || help ? (
-            <Box className={classes.container}>
-              {variant === 'icon' && icon && <Box className={classes.icon}>{icon}</Box>}
-              {(label || children) && <Box className={classes.title}>{label || children}</Box>}
-              {help && variant !== 'icon' && <Box className={classes.help}>{help}</Box>}
-            </Box>
-          ) : undefined
+          <Box className={classes.container}>
+            {variant === 'icon' && <Box className={classes.icon}>{icon}</Box>}
+            {(label || children) && <Box className={classes.title}>{label || children}</Box>}
+            {help !== '' && <Box className={classes.help}>{help}</Box>}
+          </Box>
         }
         role={useAria ? 'radio' : undefined}
       />

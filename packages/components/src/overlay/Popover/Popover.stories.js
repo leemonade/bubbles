@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '../../form';
-import { Popover } from './Popover';
-import { POPOVER_DEFAULT_PROPS, POPOVER_POSITIONS } from './Popover.constants';
+import { Popover, POPOVER_DEFAULT_PROPS } from './Popover';
 import mdx from './Popover.mdx';
 import { Text } from '../../typography';
 import { Box } from '../../layout';
@@ -19,23 +18,18 @@ export default {
     },
   },
   argTypes: {
-    position: { options: POPOVER_POSITIONS, control: { type: 'select' } },
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
   },
 };
 
-const Template = ({ children, opened: _opened, ...props }) => {
-  const [opened, setOpened] = React.useState(_opened);
-
-  useEffect(() => {
-    setOpened(_opened);
-  }, [_opened]);
-
+const Template = ({ children, ...props }) => {
+  const [opened, setOpened] = React.useState(false);
   return (
     <Popover
       opened={opened}
       target={<Button onClick={() => setOpened(!opened)}>Toggle popover</Button>}
+      position="bottom"
       {...props}
     >
       {children}
@@ -51,6 +45,5 @@ const Template = ({ children, opened: _opened, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  opened: false,
   ...POPOVER_DEFAULT_PROPS,
 };

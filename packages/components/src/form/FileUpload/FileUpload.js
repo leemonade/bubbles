@@ -95,15 +95,21 @@ const FileUpload = ({
           onDrop={onDropHandler}
           classNames={classes}
           openRef={openRef}
-          onReject={() => setError(true)}
         >
-          <Group className={classes.groupContainer}>
-            <Box className={classes.container}>
-              <Box className={classes.icon}>{icon}</Box>
-              <Text className={classes.title}>{title}</Text>
-              <Text className={classes.subtitle}>{subtitle}</Text>
-            </Box>
-          </Group>
+          {(status) => {
+            if (status.rejected) {
+              setError(true);
+            }
+            return (
+              <Group className={classes.groupContainer}>
+                <Box className={classes.container}>
+                  <Box className={classes.icon}>{icon}</Box>
+                  <Text className={classes.title}>{title}</Text>
+                  <Text className={classes.subtitle}>{subtitle}</Text>
+                </Box>
+              </Group>
+            );
+          }}
         </MantineDropzone>
       </InputWrapper>
       {showError && error && (

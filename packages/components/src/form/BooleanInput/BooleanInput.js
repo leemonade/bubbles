@@ -35,8 +35,6 @@ export const BOOLEAN_INPUT_PROP_TYPES = {
   help: PropTypes.string,
   /** Input boolean value*/
   checked: PropTypes.bool,
-  /** Controls if it is a ProSwitch or not */
-  isPro: PropTypes.bool,
   /** Controls the input size */
   size: PropTypes.oneOf(BOOLEAN_INPUT_SIZES),
   /** Controls if BooleanInput uses aria role */
@@ -58,7 +56,6 @@ export const BOOLEAN_INPUT_DEFAULT_PROPS = {
   help: '',
   error: '',
   useAria: true,
-  isPro: false,
 };
 
 const BooleanInput = forwardRef(
@@ -77,7 +74,6 @@ const BooleanInput = forwardRef(
       onChange,
       indeterminate,
       useAria,
-      isPro,
       ...props
     },
     ref
@@ -96,7 +92,7 @@ const BooleanInput = forwardRef(
     };
 
     const { classes, cx } = BooleanInputStyles(
-      { help, helpPosition, variant, isChecked, isPro },
+      { help, helpPosition, variant, isChecked },
       { name: 'BooleanInput' }
     );
 

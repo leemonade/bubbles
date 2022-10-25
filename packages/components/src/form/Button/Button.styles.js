@@ -22,30 +22,23 @@ const getSizes = (size, theme, paddingX, paddingY) => {
   }[size];
 };
 
-const getVariant = (variant, theme, color) => {
-  const commonLinkStyles = {
-    border: 'none',
-    backgroundColor: 'transparent',
-  };
-
+const getVariant = (variant, theme, color, disabled) => {
   const variants = {
     filled: {
       primary: {
-        backgroundColor: theme.colors.interactive01,
+        backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
         color: theme.colors.text07,
-        border: '2px solid transparent',
         '&:hover': {
-          backgroundColor: theme.colors.interactive01h,
+          backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01h,
         },
         '&:active': {
-          backgroundColor: theme.colors.interactive01,
-          borderColor: theme.colors.interactive01h,
+          backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
+          borderColor: disabled ? theme.colors.ui01 : theme.colors.interactive01h,
         },
       },
       secondary: {
         backgroundColor: theme.colors.interactive02,
         color: theme.colors.text07,
-        border: '2px solid transparent',
         '&:hover': {
           backgroundColor: theme.colors.interactive02h,
         },
@@ -57,7 +50,6 @@ const getVariant = (variant, theme, color) => {
       tertiary: {
         backgroundColor: theme.colors.interactive03,
         color: theme.colors.text02,
-        border: '2px solid transparent',
         '&:hover': {
           backgroundColor: theme.colors.interactive03h,
         },
@@ -69,7 +61,6 @@ const getVariant = (variant, theme, color) => {
       negative: {
         backgroundColor: 'transparent',
         color: theme.colors.text07,
-        border: '2px solid transparent',
         '&:hover': {
           opacity: '0.8',
         },
@@ -81,7 +72,6 @@ const getVariant = (variant, theme, color) => {
       fatic: {
         backgroundColor: theme.colors.fatic01v0,
         color: theme.colors.fatic01,
-        border: '2px solid transparent',
         '&:hover': {
           color: theme.colors.text07,
           backgroundColor: theme.colors.fatic01,
@@ -97,7 +87,6 @@ const getVariant = (variant, theme, color) => {
       primary: {
         borderColor: theme.colors.interactive01,
         color: theme.colors.interactive01,
-        borderWidth: 2,
         '&:hover': {
           borderColor: theme.colors.interactive01h,
           color: theme.colors.interactive01h,
@@ -106,7 +95,6 @@ const getVariant = (variant, theme, color) => {
       secondary: {
         borderColor: theme.colors.interactive02,
         color: theme.colors.interactive02,
-        borderWidth: 2,
         '&:hover': {
           borderColor: theme.colors.interactive02h,
           color: theme.colors.interactive02h,
@@ -115,7 +103,6 @@ const getVariant = (variant, theme, color) => {
       tertiary: {
         borderColor: theme.colors.interactive03,
         color: theme.colors.text02,
-        borderWidth: 2,
         '&:hover': {
           borderColor: theme.colors.interactive03h,
           color: theme.colors.text03,
@@ -124,7 +111,6 @@ const getVariant = (variant, theme, color) => {
       negative: {
         borderColor: theme.colors.text04,
         color: theme.colors.text02,
-        borderWidth: 2,
         '&:hover': {
           opacity: '0.8',
         },
@@ -137,7 +123,6 @@ const getVariant = (variant, theme, color) => {
       fatic: {
         borderColor: theme.colors.fatic01,
         color: theme.colors.fatic01,
-        borderWidth: 2,
         '&:hover': {
           opacity: '0.8',
         },
@@ -146,38 +131,26 @@ const getVariant = (variant, theme, color) => {
     link: {
       primary: {
         color: theme.colors.interactive01,
-        ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive01h,
-          textDecoration: 'none',
-          backgroundColor: 'transparent',
         },
       },
       secondary: {
         color: theme.colors.interactive02,
-        ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive02h,
-          textDecoration: 'none',
-          backgroundColor: 'transparent',
         },
       },
       tertiary: {
         color: theme.colors.text02,
-        ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.text03,
-          textDecoration: 'none',
-          backgroundColor: 'transparent',
         },
       },
       negative: {
         color: theme.colors.text07,
-        ...commonLinkStyles,
         '&:hover': {
           opacity: '0.8',
-          textDecoration: 'none',
-          backgroundColor: 'transparent',
         },
         '&:active': {
           color: theme.colors.text07,
@@ -185,18 +158,14 @@ const getVariant = (variant, theme, color) => {
       },
       fatic: {
         color: theme.colors.fatic01,
-        ...commonLinkStyles,
         '&:hover': {
           opacity: '0.8',
-          textDecoration: 'none',
-          backgroundColor: 'transparent',
         },
       },
     },
     light: {
       primary: {
         color: theme.colors.interactive01,
-        backgroundColor: 'transparent',
         '&:hover': {
           color: theme.colors.interactive01,
           backgroundColor: theme.colors.interactive01v1,
@@ -204,7 +173,6 @@ const getVariant = (variant, theme, color) => {
       },
       secondary: {
         color: theme.colors.interactive02,
-        backgroundColor: 'transparent',
         '&:hover': {
           color: theme.colors.interactive02h,
           backgroundColor: theme.colors.interactive03,
@@ -212,21 +180,19 @@ const getVariant = (variant, theme, color) => {
       },
       tertiary: {
         color: theme.colors.text02,
-        backgroundColor: 'transparent',
         '&:hover': {
           backgroundColor: theme.colors.interactive03h,
         },
       },
       negative: {
-        color: theme.colors.text07,
         backgroundColor: 'transparent',
+        color: theme.colors.text07,
         '&:hover': {
           opacity: '0.8',
         },
       },
       fatic: {
         color: theme.colors.fatic01,
-        backgroundColor: 'transparent',
         '&:hover': {
           backgroundColor: theme.colors.fatic01v0,
         },
@@ -237,15 +203,19 @@ const getVariant = (variant, theme, color) => {
 };
 
 export const ButtonStyles = createStyles(
-  (theme, { size, color, position, variant, compact, fullWidth, styles }) => {
+  (theme, { size, color, position, variant, compact, fullWidth, disabled, styles }) => {
     const currentVariant = getVariant(variant, theme, color);
 
     let compactOverrides = {};
 
     if (compact) {
       compactOverrides = {
+        // paddingTop: theme.spacing[2],
+        // paddingBottom: theme.spacing[2],
         paddingLeft: variant === 'link' ? 0 : theme.spacing[4],
         paddingRight: variant === 'link' ? 0 : theme.spacing[4],
+        // height: 'auto',
+        // minHeight: 38,
       };
     }
 
@@ -254,9 +224,9 @@ export const ButtonStyles = createStyles(
         padding: 0,
         ...getFontExpressive(null, 400),
         ...getSizes(size || 'md', theme, variant === 'link' ? 0.1 : null),
-        ...getVariant(variant, theme, color),
         ...compactOverrides,
         width: fullWidth ? '100%' : 'auto',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         ...styles,
       },
       inner: {
@@ -278,6 +248,32 @@ export const ButtonStyles = createStyles(
       },
       label: {
         width: !fullWidth && '100%',
+      },
+      filled: {
+        ...getVariant('filled', theme, color, disabled),
+        border: '2px solid transparent',
+        ...compactOverrides,
+      },
+      outline: {
+        ...getVariant('outline', theme, color, disabled),
+        borderWidth: 2,
+        ...compactOverrides,
+      },
+      default: {
+        ...getVariant('link', theme, color, disabled),
+        border: 'none',
+        backgroundColor: 'transparent',
+        ...compactOverrides,
+
+        '&:hover': {
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+      light: {
+        ...getVariant('light', theme, color, disabled),
+        backgroundColor: 'transparent',
+        paddingOverrides: compactOverrides,
       },
     };
   }

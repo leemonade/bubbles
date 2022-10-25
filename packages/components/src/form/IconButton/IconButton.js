@@ -20,6 +20,7 @@ export const ICON_BUTTON_DEFAULT_PROPS = {
 export const IconButton = forwardRef(
   (
     {
+      as,
       color: colorProp,
       size,
       variant: variantProp,
@@ -28,6 +29,7 @@ export const IconButton = forwardRef(
       icon,
       styles,
       className,
+      classNames,
       label,
       children,
       useAria,
@@ -42,17 +44,19 @@ export const IconButton = forwardRef(
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : ICON_BUTTON_DEFAULT_PROPS.variant;
-    const { classes, cx } = IconButtonStyles({ color, size, variant });
+    const { classes, cx } = IconButtonStyles({ color, size });
 
     return (
       <MantineActionIcon
         {...props}
         title={label}
         aria-label={label}
+        component={as}
         variant={variant}
         radius={radius}
         size={size}
-        className={classes.root}
+        classNames={classes}
+        className={className}
         ref={ref}
         role={useAria ? 'button' : undefined}
       >

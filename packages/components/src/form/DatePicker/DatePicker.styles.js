@@ -18,8 +18,5 @@ export const DatePickerStyles = createStyles((theme, { size, date, range }) => {
       textOverflow: 'ellipsis !important',
       paddingRight: checkDate() && 30,
     },
-    dropdown: {
-      padding: `16px 10px`,
-    },
   };
 });

@@ -13,19 +13,23 @@ export const RadioStyles = createStyles(
 
     return {
       root: {
+        ...getFontExpressive(theme.fontSizes['2']),
+      },
+      radioWrapper: {
         padding: 16,
-        display: isIcon && 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: isBottom && 'flex-start',
+        // backgroundColor: !isDefault && (checked ? 'white' : theme.colors.interactive03),
+        // border: !isDefault && (checked ? `1px solid ${theme.colors.ui01}` : `1px solid transparent`),
       },
-      labelWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-      },
-      label: {
-        // This is really the container used for label, icon and help
-        cursor: 'pointer',
-        paddingLeft: isIcon && 0,
+      radio: {
+        display: isIcon ? 'none' : null,
+        '&:checked': {
+          background: theme.colors.ui02,
+          border: `1px solid ${theme.colors.interactive01d}`,
+          '::before': {
+            backgroundColor: theme.colors.interactive01,
+          },
+        },
       },
       container: {
         display: 'flex',
@@ -38,34 +42,26 @@ export const RadioStyles = createStyles(
         color: isIcon ? (checked ? theme.colors.text01 : theme.colors.text02) : theme.colors.text01,
         lineHeight: pxToRem(17),
       },
+      icon: {
+        color: checked ? theme.colors.interactive01h : theme.colors.text05,
+        marginBottom: isIcon && hasLabel && 10,
+        display: isIcon && !hasIcon && 'none',
+      },
       help: {
         ...getFontProductive(theme.fontSizes[isBoxed ? '2' : '1'], isBoxed ? 500 : 400),
         lineHeight: isDefault ? pxToRem(16) : pxToRem(17),
         color: theme.colors.text02,
-        marginLeft: hasLabel && isRight ? pxToRem(theme.spacing[4]) : null,
-        marginTop: hasLabel && isBottom ? pxToRem(theme.spacing[1]) : null,
-      },
-      radio: {
-        height: 20,
-        width: 20,
-        '&:checked': {
-          backgroundColor: theme.colors.ui02,
-          border: `1px solid ${theme.colors.interactive01d}`,
-        },
-      },
-      icon: {
-        color: checked ? theme.colors.interactive01 : theme.colors.text05,
-        marginBottom: isIcon && hasLabel && 10,
-        display: isIcon && !hasIcon && 'none',
-        height: isIcon && 32,
-        width: isIcon && 32,
-        svg: {
-          width: isIcon && 32,
-          height: isIcon && 32,
-        },
+        marginLeft: isRight ? pxToRem(theme.spacing[4]) : null,
+        marginTop: isBottom ? pxToRem(theme.spacing[1]) : null,
       },
       inner: {
         display: isIcon && 'none',
+      },
+      label: {
+        alignItems: help !== '' && isBottom ? 'flex-start' : null,
+        justifyContent: isIcon ? 'center' : null,
+        userSelect: 'none',
+        marginLeft: isIcon && 0,
       },
     };
   }
