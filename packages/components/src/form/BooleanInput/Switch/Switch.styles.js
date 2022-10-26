@@ -51,7 +51,6 @@ const getFontSize = (size) => {
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
   return {
     root: {
-      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
       gap: 12,
       justifyContent: 'left',
     },
@@ -71,6 +70,7 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
       },
     },
     body: {
+      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
       gap: 12,
       '&:hover': {
         cursor: disabled ? 'not-allowed' : 'pointer',
