@@ -57,12 +57,7 @@ export const RadioStyles = createStyles(
         color: checked ? theme.colors.interactive01 : theme.colors.text05,
         marginBottom: isIcon && hasLabel && 10,
         display: isIcon && !hasIcon && 'none',
-        height: isIcon && 32,
-        width: isIcon && 32,
-        svg: {
-          width: isIcon && 32,
-          height: isIcon && 32,
-        },
+        lineHeight: 0,
       },
       inner: {
         display: isIcon && 'none',
