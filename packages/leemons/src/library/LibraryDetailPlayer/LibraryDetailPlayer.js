@@ -149,6 +149,7 @@ const LibraryDetailPlayer = ({
             <ImageLoader
               src={cover}
               height={height}
+              width="100%"
               forceImage
               fit={fileType === 'image' ? 'contain' : 'cover'}
             />
