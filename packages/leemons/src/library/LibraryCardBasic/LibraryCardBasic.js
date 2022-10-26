@@ -34,7 +34,7 @@ const LibraryCardBasic = ({ asset, height, blur, children, ...props }) => {
         <Box className={classes.childrenWrapper}>{children}</Box>
       </Box>
       {cover ? (
-        <ImageLoader src={cover} height={height} forceImage />
+        <ImageLoader src={cover} height={height} width="100%" forceImage />
       ) : (
         <Box className={classes.fileIcon}>
           {

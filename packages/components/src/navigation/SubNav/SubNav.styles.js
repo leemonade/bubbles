@@ -60,6 +60,9 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode, dra
       padding: 0,
       margin: 0,
     },
+    itemWrapper: {
+      width: '100%',
+    },
     navListItem: {
       padding: 0,
       margin: 0,

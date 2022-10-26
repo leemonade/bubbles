@@ -29,7 +29,6 @@ const getSizes = (size, theme) => {
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
   return {
     root: {
-      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
       gap: 12,
       justifyContent: 'left',
     },
@@ -40,7 +39,15 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
         cursor: disabled ? 'forbidden' : 'pointer',
       },
     },
-    input: {
+    body: {
+      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
+      gap: 12,
+      '&:hover': {
+        cursor: disabled ? 'not-allowed' : 'pointer',
+      },
+    },
+    input: { display: 'none' },
+    track: {
       ...getSizes(size, theme),
       border: 'none',
       backgroundColor: theme.colors.ui01,

@@ -228,15 +228,15 @@ export const ButtonStyles = createStyles(
         width: fullWidth ? '100%' : 'auto',
         cursor: disabled ? 'not-allowed' : 'pointer',
         ...styles,
+        '&[data-loading]': {
+          border: 'transparent',
+          svg: {
+            stroke: currentVariant.color,
+          },
+        },
       },
       inner: {
         justifyContent: position === 'apart' ? 'space-between' : position,
-      },
-      loading: {
-        border: 'transparent',
-        svg: {
-          stroke: currentVariant.color,
-        },
       },
       rightIcon: {
         marginLeft: pxToRem(8),

@@ -95,7 +95,13 @@ export const SubNav = forwardRef(
         {/* SubNav Items */}
         <SimpleBar className={classes.navBar}>
           <Box component="nav">
-            <List classNames={{ root: classes.navList, item: classes.navListItem }}>
+            <List
+              classNames={{
+                root: classes.navList,
+                item: classes.navListItem,
+                itemWrapper: classes.itemWrapper,
+              }}
+            >
               {subItems.map((subItem) => (
                 <List.Item key={subItem.id}>
                   <SubNavItem

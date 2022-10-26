@@ -7,12 +7,10 @@ export {
   Group,
   Transition,
   useMantineTheme as useTheme,
-  Popper,
   SegmentedControl,
   UnstyledButton,
   List,
-  useAccordionState,
-  Collapse
+  Collapse,
 } from '@mantine/core';
 export {
   useId,
@@ -25,7 +23,7 @@ export {
   useClickOutside,
   useHotkeys,
   useHover,
-  useWindowScroll
+  useWindowScroll,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
@@ -33,7 +31,7 @@ export {
   getFontProductive,
   pxToRem,
   getPaddings,
-  getHtmlStyles
+  getHtmlStyles,
 } from './theme.mixins';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';
