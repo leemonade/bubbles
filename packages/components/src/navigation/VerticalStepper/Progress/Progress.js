@@ -57,21 +57,21 @@ const Progress = ({
         return (
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar} />
-            <CheckIcon height={12} width={12} className={classes.completedIcon} />
+            <CheckIcon height={20} width={20} className={classes.completedIcon} />
           </Box>
         );
       case 'OK':
         return (
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar}></Box>
-            <CheckIcon height={12} width={12} className={classes.OKIcon} />
+            <CheckIcon height={20} width={20} className={classes.OKIcon} />
           </Box>
         );
       case 'KO':
         return (
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar}></Box>
-            <RemoveBoldIcon height={12} width={12} className={classes.KOIcon} />
+            <RemoveBoldIcon height={20} width={20} className={classes.KOIcon} />
           </Box>
         );
     }
