@@ -10,6 +10,7 @@ export const ImageLoader = ({
   alt,
   forceImage,
   height: heightProp,
+  width,
   withPlaceholder,
   radius,
   imageStyles,
@@ -28,6 +29,7 @@ export const ImageLoader = ({
     { radius, imageStyles, height },
     { name: 'ImageLoader' }
   );
+
   return isSvg ? (
     <InlineSvg src={src} {...props} />
   ) : (
@@ -36,7 +38,8 @@ export const ImageLoader = ({
       src={src}
       alt={alt}
       radius={radius}
-      height={height}
+      height={height || width}
+      width={width || height}
       withPlaceholder={withPlaceholder}
       classNames={{
         root: classes.root,

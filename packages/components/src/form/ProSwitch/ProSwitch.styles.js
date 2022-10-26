@@ -9,6 +9,9 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
     container: {
       position: 'relative',
     },
+    body: {
+      alignItems: 'center',
+    },
     icon: {
       position: 'absolute',
       top: '50%',
@@ -17,7 +20,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       width: '20px',
       height: '20px',
       borderRadius: '50%',
-      backgroundColor: color,
+      backgroundColor: color || '#3C72C2',
       zIndex: 1,
       pointerEvents: 'none',
       fontSize: '10px',
@@ -47,7 +50,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
         borderColor: color,
         '.mantine-Switch-thumb': {
           left: 'calc(100% - 11px - 2px)',
-          backgroundColor: 'transparent',
+          backgroundColor: hasIcon ? 'transparent' : '#FFF',
         },
       },
     },
@@ -55,7 +58,7 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       height: 9,
       width: 9,
       left: 5,
-      backgroundColor: 'transparent',
+      backgroundColor: hasIcon ? 'transparent' : color || '#3C72C2',
     },
   };
 });
