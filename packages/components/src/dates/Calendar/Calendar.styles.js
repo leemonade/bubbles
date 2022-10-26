@@ -28,14 +28,14 @@ export const CalendarStyles = createStyles((theme, {}) => {
       color: theme.colors.text01,
       width: 35,
       height: 35,
-
       '&:hover': {
         backgroundColor: theme.colors.interactive03h,
       },
-    },
-    selected: {
-      '&:not(:disabled)': {
-        backgroundColor: `${theme.colors.interactive01} !important`,
+      '&[data-selected]': {
+        backgroundColor: theme.colors.interactive01,
+      },
+      '&[data-outside]': {
+        color: '#ced4da',
       },
     },
     monthPickerControl: {

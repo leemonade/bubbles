@@ -25,6 +25,8 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       borderBottomRightRadius: BORDER_RADIUS,
       borderBottomLeftRadius: BORDER_RADIUS,
       wordBreak: 'normal',
+      padding: 0,
+      paddingTop: 0,
     },
     contentInner: {
       padding: 0,

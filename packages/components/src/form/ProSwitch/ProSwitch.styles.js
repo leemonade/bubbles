@@ -34,16 +34,18 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
     iconActive: {
       transform: 'translate(12px, -50%)!important',
     },
-    input: {
-      width: '32px',
-      minWidth: '32px',
-      height: '20px',
-      minHeight: '20px',
-      border: '1px solid',
-      borderColor: theme.colors.ui01,
+    track: {
+      minHeight: 20,
+      minWidth: 32,
+      height: 20,
+      width: 32,
       cursor: 'pointer',
+      border: '1px solid',
+      borderColor: `${theme.colors.ui01}`,
+      boxSizing: 'border-box',
       backgroundColor: 'transparent',
-      '&:checked': {
+      transition: `all 150ms ${theme.transitionTimingFunction}`,
+      'input:checked + &': {
         backgroundColor: color,
         borderColor: color,
         '.mantine-Switch-thumb': {

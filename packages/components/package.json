@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "@bubbles-ui/icons": "^1.0.27",
+    "@emotion/react": "^11.10.0",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",
     "@mantine/core": "5.5.5",

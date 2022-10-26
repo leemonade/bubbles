@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
-import { useUuid, useDidUpdate } from '@mantine/hooks';
+import { useId, useDidUpdate } from '@mantine/hooks';
 import { BOOLEAN_INPUT_VARIANTS } from '../BooleanInput';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
@@ -75,7 +75,7 @@ const CheckBoxGroup = ({
   useAria,
   ...props
 }) => {
-  const uuid = useUuid();
+  const uuid = useId();
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
   const { classes, cx } = CheckBoxGroupStyles(

@@ -83,20 +83,19 @@ const getVariant = (variant, theme, color) => {
         },
       },
     },
+    transparent: {},
   };
   return variants[variant][color];
 };
 
-export const IconButtonStyles = createStyles((theme, { size, color }) => {
+export const IconButtonStyles = createStyles((theme, { size, color, variant }) => {
   return {
     root: {
-      ...getSizes(size || 'md', theme.spacing),
       marginRight: pxToRem(0),
       marginLeft: pxToRem(0),
-    },
-    default: {
       border: '2px solid transparent',
-      ...getVariant('default', theme, color),
+      ...getSizes(size || 'md', theme.spacing),
+      ...getVariant(variant, theme, color),
     },
   };
 });
