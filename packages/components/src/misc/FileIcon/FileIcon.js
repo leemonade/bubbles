@@ -10,7 +10,6 @@ import {
   MeetingCameraIcon,
   PluginCurriculumIcon,
   VolumeControlMediumIcon,
-  PluginFeedbackIcon,
 } from '@bubbles-ui/icons/solid/';
 import {
   FormImageAttachIcon,
