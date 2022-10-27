@@ -13,7 +13,6 @@ import {
 } from '@bubbles-ui/icons/solid/';
 import {
   FormImageAttachIcon,
-  PluginKanbanIcon,
   PluginFeedbackIcon,
   PluginTestIcon,
 } from '@bubbles-ui/icons/outline/';
