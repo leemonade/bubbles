@@ -155,7 +155,7 @@ const PaginatedList = ({
             <Pager
               labels={labels}
               page={page}
-              totalPages={totalPages}
+              totalPages={Math.ceil(totalPages)}
               withSize={true}
               size={size}
               sizes={sizes}
