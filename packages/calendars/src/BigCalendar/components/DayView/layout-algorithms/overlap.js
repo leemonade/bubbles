@@ -125,11 +125,12 @@ function sortByRender(events) {
 }
 
 export default function getStyledEvents({
-  events,
-  minimumStartDifference,
-  slotMetrics,
-  accessors,
-}) {
+                                          events,
+                                          minimumStartDifference,
+                                          slotMetrics,
+                                          accessors
+                                        }) {
+
   // Create proxy events and order them so that we don't have
   // to fiddle with z-indexes.
   const proxies = events.map((event) => new Event(event, { slotMetrics, accessors }));
@@ -143,7 +144,7 @@ export default function getStyledEvents({
     const event = eventsInRenderOrder[i];
 
     // Check if this event can go into a container event.
-    const container = containerEvents.find(
+    let container = containerEvents.find(
       (c) => c.end > event.start || Math.abs(event.start - c.start) < minimumStartDifference
     );
 
@@ -184,7 +185,7 @@ export default function getStyledEvents({
       top: event.top,
       height: event.height,
       width: event.width,
-      xOffset: Math.max(0, event.xOffset),
-    },
+      xOffset: Math.max(0, event.xOffset)
+    }
   }));
 }

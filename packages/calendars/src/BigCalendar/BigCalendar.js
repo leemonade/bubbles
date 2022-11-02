@@ -35,12 +35,12 @@ export const BigCalendar = forwardRef(
       className,
       validRange,
       messages,
+      minimumStartDifference,
       monthRange,
       hooks,
       minHour,
       maxHour,
-      minWeekDay,
-      maxWeekDay,
+      weekDays,
       timeslots,
       timeslotHeight = 40,
       hideAllDayCells,
@@ -52,13 +52,20 @@ export const BigCalendar = forwardRef(
       showToolbarViewSwitcher = true,
       showWeekends: showWeekendsProp,
       printMode,
-      dateClick = () => {},
-      onSelectDay = () => {},
-      onRangeChange = () => {},
-      onSelectEvent = () => {},
-      eventClick = () => {},
-      backgroundEventClick = () => {},
-      addEventClick = () => {},
+      dateClick = () => {
+      },
+      onSelectDay = () => {
+      },
+      onRangeChange = () => {
+      },
+      onSelectEvent = () => {
+      },
+      eventClick = () => {
+      },
+      backgroundEventClick = () => {
+      },
+      addEventClick = () => {
+      },
       ...props
     },
     ref
@@ -96,7 +103,7 @@ export const BigCalendar = forwardRef(
         localizer: luxonLocalizer(DateTime, { firstDayOfWeek }),
         defaultDate: defaultDateProp,
         scrollToTime: DateTime.local().toJSDate(),
-        getNow: () => DateTime.local().toJSDate(),
+        getNow: () => DateTime.local().toJSDate()
       };
     }, [timezone]);
 
@@ -141,7 +148,7 @@ export const BigCalendar = forwardRef(
                   dateRange.end.getMinutes(),
                   dateRange.end.getSeconds()
                 )
-              ),
+              )
             });
             const dates = rule.all();
             forEach(dates, (date) => {
@@ -150,7 +157,7 @@ export const BigCalendar = forwardRef(
               acc.push({
                 ...ev,
                 start: date,
-                end: new Date(date.getTime() + diff),
+                end: new Date(date.getTime() + diff)
               });
             });
           } else {
@@ -187,14 +194,14 @@ export const BigCalendar = forwardRef(
         end.setHours(23, 59, 59);
         range = {
           start: range[0],
-          end: end,
+          end: end
         };
       } else if (isArray(range) && range.length === 1) {
         const end = new Date(range[0]);
         end.setHours(23, 59, 59);
         range = {
           start: range[0],
-          end,
+          end
         };
       } else if (isArray(range)) {
         range = null;
@@ -241,7 +248,7 @@ export const BigCalendar = forwardRef(
     const { classes, cx } = BigCalendarStyles({
       timeslotHeight,
       isMonthRange: currentView === MONTH_RANGE,
-      printMode,
+      printMode
     });
 
     return (
@@ -251,27 +258,27 @@ export const BigCalendar = forwardRef(
             eventWrapper: EventWrapper,
             toolbar: showToolbar
               ? (props) => (
-                  <ToolBar
-                    {...props}
-                    addEventClick={addEventClick}
-                    showWeekends={showWeekends}
-                    setShowWeekends={setShowWeekends}
-                    toolbarRightNode={toolbarRightNode}
-                    showToolbarAddButton={showToolbarAddButton}
-                    showToolbarToggleWeekend={showToolbarToggleWeekend}
-                    showToolbarViewSwitcher={showToolbarViewSwitcher}
-                  />
-                )
+                <ToolBar
+                  {...props}
+                  addEventClick={addEventClick}
+                  showWeekends={showWeekends}
+                  setShowWeekends={setShowWeekends}
+                  toolbarRightNode={toolbarRightNode}
+                  showToolbarAddButton={showToolbarAddButton}
+                  showToolbarToggleWeekend={showToolbarToggleWeekend}
+                  showToolbarViewSwitcher={showToolbarViewSwitcher}
+                />
+              )
               : false,
             cx,
             showWeekends,
             minHour,
             maxHour,
-            minWeekDay,
-            maxWeekDay,
+            weekDays,
             hideAllDayCells,
+            minimumStartDifference,
             forceBgColorToEvents,
-            firstDayOfWeek,
+            firstDayOfWeek
           }}
           toolbar={showToolbar}
           events={events}
@@ -283,8 +290,8 @@ export const BigCalendar = forwardRef(
           localizer={localizer}
           getNow={getNow}
           culture={locale}
-          endAccessor="end"
-          startAccessor="start"
+          endAccessor='end'
+          startAccessor='start'
           onSelectEvent={handleSelectEvent}
           onRangeChange={handleRangeChange}
           validRange={validRange}
@@ -314,8 +321,8 @@ BigCalendar.defaultProps = {
     showWeekends: 'View weekends',
     allDay: 'All day',
     init: 'Init',
-    end: 'End',
-  },
+    end: 'End'
+  }
 };
 
 BigCalendar.propTypes = {
@@ -335,11 +342,11 @@ BigCalendar.propTypes = {
     showWeekends: PropTypes.string,
     allDay: PropTypes.string,
     init: PropTypes.string,
-    end: PropTypes.string,
+    end: PropTypes.string
   }),
   validRange: PropTypes.shape({
     start: PropTypes.instanceOf(Date),
-    end: PropTypes.instanceOf(Date),
+    end: PropTypes.instanceOf(Date)
   }),
   hooks: PropTypes.func,
   showWeekends: PropTypes.bool,
@@ -349,5 +356,5 @@ BigCalendar.propTypes = {
   onSelectEvent: PropTypes.func,
   eventClick: PropTypes.func,
   backgroundEventClick: PropTypes.func,
-  addEventClick: PropTypes.func,
+  addEventClick: PropTypes.func
 };

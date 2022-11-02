@@ -11,7 +11,7 @@ class WeekView extends React.Component {
     days[days.length - 1].setHours(23, 59, 59);
     this.props.onRangeChange({
       start: days[0],
-      end: days[days.length - 1],
+      end: days[days.length - 1]
     });
   }
 
@@ -31,15 +31,15 @@ class WeekView extends React.Component {
     } = this.props;
     let range = WeekView.range(date, this.props);
 
-    const { showWeekends, minHour, maxHour, minWeekDay, maxWeekDay, firstDayOfWeek } =
+    const { showWeekends, minHour, maxHour, weekDays, firstDayOfWeek } =
       this.props.components;
 
-    if (_.isNumber(minWeekDay) && _.isNumber(maxWeekDay)) {
-      range = _.filter(range, (date, index) => {
-        return index >= minWeekDay && index <= maxWeekDay;
+    if (_.isArray(weekDays)) {
+      range = _.filter(range, (date) => {
+        return weekDays.includes(date.getDay());
       });
     }
-    if (!showWeekends && !_.isNumber(minWeekDay) && !_.isNumber(maxWeekDay)) {
+    if (!showWeekends && !_.isArray(weekDays)) {
       range = _.filter(range, (date) => {
         return date.getDay() !== 0 && date.getDay() !== 6;
       });
@@ -73,7 +73,7 @@ WeekView.propTypes = {
   localizer: PropTypes.any,
   min: PropTypes.instanceOf(Date),
   max: PropTypes.instanceOf(Date),
-  scrollToTime: PropTypes.instanceOf(Date),
+  scrollToTime: PropTypes.instanceOf(Date)
 };
 
 WeekView.defaultProps = TimeGrid.defaultProps;

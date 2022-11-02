@@ -45,60 +45,9 @@ export default [
 export default [
   {
     allDay: true,
-    title: 'Inicio de curso',
-    start: DateTime.fromISO('2022-08-01').toJSDate(),
-    end: DateTime.fromISO('2022-08-01').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: '#000000',
-        borderStyle: 'solid',
-        borderColor: '#000000',
-        rightArrow: true,
-        leftArrow: false,
-        zIndex: -2,
-      },
-    },
-  },
-  {
-    allDay: true,
-    title: 'Fin de curso',
-    start: DateTime.fromISO('2022-08-31').toJSDate(),
-    end: DateTime.fromISO('2022-08-31').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: '#000000',
-        borderStyle: 'solid',
-        borderColor: '#000000',
-        leftArrow: true,
-        rightArrow: false,
-        zIndex: -2,
-      },
-    },
-  },
-  {
-    allDay: true,
-    title: 'Semana de las matematicas',
-    start: DateTime.fromISO('2022-08-04').toJSDate(),
-    end: DateTime.fromISO('2022-08-05').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: ['#F6E1F3', '#ECD8E9'],
-        borderStyle: 'solid',
-        borderColor: '#000000',
-        rotate: -45,
-        oneDayStyle: true,
-        zIndex: -10,
-      },
-    },
-  },
-  {
-    allDay: true,
     title: 'erg',
-    start: DateTime.fromISO('2022-08-13').toJSDate(),
-    end: DateTime.fromISO('2022-08-16').toJSDate(),
+    start: DateTime.fromISO('2022-12-08').toJSDate(),
+    end: DateTime.fromISO('2022-12-08').toJSDate(),
     originalEvent: {
       calendar: {
         bgColor: ['#E4DDF7', '#DBD4ED'],
@@ -108,15 +57,15 @@ export default [
         rightArrow: false,
         rotate: 90,
         oneDayStyle: true,
-        zIndex: -8,
-      },
-    },
+        zIndex: -3
+      }
+    }
   },
   {
     allDay: true,
     title: 'wefwef',
-    start: DateTime.fromISO('2022-08-09').toJSDate(),
-    end: DateTime.fromISO('2022-08-12').toJSDate(),
+    start: DateTime.fromISO('2022-12-05').toJSDate(),
+    end: DateTime.fromISO('2022-12-08').toJSDate(),
     originalEvent: {
       calendar: {
         bgColor: ['#DEEDE4', '#D5E4DB'],
@@ -125,57 +74,8 @@ export default [
         leftArrow: false,
         rightArrow: false,
         oneDayStyle: true,
-        zIndex: -6,
-      },
-    },
-  },
-  {
-    allDay: true,
-    start: DateTime.fromISO('2022-08-02').toJSDate(),
-    end: DateTime.fromISO('2022-08-02').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: 'transparent',
-        borderStyle: 'solid',
-        borderColor: '#000000',
-        leftArrow: false,
-        rightArrow: true,
-        zIndex: -4,
-      },
-    },
-  },
-  {
-    allDay: true,
-    start: DateTime.fromISO('2022-08-29').toJSDate(),
-    end: DateTime.fromISO('2022-08-29').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: 'transparent',
-        borderStyle: 'solid',
-        borderColor: '#000000',
-        leftArrow: true,
-        rightArrow: false,
-        zIndex: -4,
-      },
-    },
-  },
-  {
-    title: 'Evento de computación',
-    allDay: true,
-    start: DateTime.fromISO('2022-08-09').toJSDate(),
-    end: DateTime.fromISO('2022-08-16').toJSDate(),
-    originalEvent: {
-      calendar: {
-        desaturateColor: false,
-        bgColor: '#F5F0DC',
-        borderStyle: 'dashed',
-        borderColor: '#000000',
-        leftArrow: false,
-        rightArrow: false,
-        zIndex: -12,
-      },
-    },
-  },
+        zIndex: -6
+      }
+    }
+  }
 ];
