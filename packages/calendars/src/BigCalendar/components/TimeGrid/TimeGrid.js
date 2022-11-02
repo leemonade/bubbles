@@ -114,7 +114,7 @@ export default class TimeGrid extends Component {
       start,
       end,
       action: slotInfo.action,
-      resourceId: slotInfo.resourceId,
+      resourceId: slotInfo.resourceId
     });
   };
 
@@ -173,7 +173,7 @@ export default class TimeGrid extends Component {
       max,
       showMultiDayTimes,
       longPressThreshold,
-      resizable,
+      resizable
     } = this.props;
 
     const { cx, noAllDayEvents } = components;
@@ -192,6 +192,7 @@ export default class TimeGrid extends Component {
     events.forEach((event) => {
       // Aqui se estaba usando esta función inRange(event, start, end, accessors, localizer)
       // Pero por algún motivo no estaba determinando bien si el evento estaba dentro del rango o no
+      end.setHours(23, 59, 59, 59);
       if (customInRange(event, start, end, localizer)) {
         let eStart = accessors.start(event),
           eEnd = accessors.end(event);
@@ -219,7 +220,7 @@ export default class TimeGrid extends Component {
     return (
       <Box
         className={cx('rbc-time-view', {
-          'rbc-time-view-resources': resources,
+          'rbc-time-view-resources': resources
           // 'hide-weekends': !showWeekends,
         })}
       >
@@ -247,7 +248,7 @@ export default class TimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
           resizable={resizable}
         />
-        <Box ref={this.contentRef} className="rbc-time-content" onScroll={this.handleScroll}>
+        <Box ref={this.contentRef} className='rbc-time-content' onScroll={this.handleScroll}>
           <TimeGutter
             date={start}
             ref={this.gutterRef}
@@ -258,7 +259,7 @@ export default class TimeGrid extends Component {
             getNow={this.props.getNow}
             timeslots={this.props.timeslots}
             components={components}
-            className="rbc-time-gutter"
+            className='rbc-time-gutter'
             getters={getters}
           />
           {this.renderEvents(range, rangeEvents, rangeBackgroundEvents, getNow())}
@@ -358,10 +359,10 @@ TimeGrid.propTypes = {
   onDrillDown: PropTypes.func,
   getDrilldownView: PropTypes.func.isRequired,
 
-  dayLayoutAlgorithm: DayLayoutAlgorithmPropType,
+  dayLayoutAlgorithm: DayLayoutAlgorithmPropType
 };
 
 TimeGrid.defaultProps = {
   step: 30,
-  timeslots: 2,
+  timeslots: 2
 };
