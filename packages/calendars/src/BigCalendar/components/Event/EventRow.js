@@ -75,9 +75,7 @@ class EventRow extends React.Component {
       }
       return row;
     }, []);
-
-    console.log('HOLAAAA');
-
+    
     return <Box className={cx(className, 'rbc-row', { 'rbc-event-row': isMonthView })}>{row}</Box>;
   }
 }

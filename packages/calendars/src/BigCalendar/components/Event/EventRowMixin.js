@@ -71,9 +71,6 @@ export default {
   renderSpan(slots, len, key, content = ' ', isMonthView, event, left) {
     let per = (Math.abs(len) / slots) * 100 + '%';
 
-    console.log(event);
-
-
     const rightArrow = isMonthView && event && event.originalEvent.calendar.rightArrow;
     const leftArrow = isMonthView && event && event.originalEvent.calendar.leftArrow;
 
