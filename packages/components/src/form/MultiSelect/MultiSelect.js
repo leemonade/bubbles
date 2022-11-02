@@ -5,7 +5,7 @@ import { MultiSelect as MantineMultiSelect } from '@mantine/core';
 import { ActionButton } from '../ActionButton';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { InputWrapper } from '../InputWrapper';
-import { useUuid } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { Badge } from '../../informative';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
@@ -54,7 +54,7 @@ const MultiSelect = forwardRef(
     ref
   ) => {
     const [show, setShow] = React.useState(true);
-    const uuid = useUuid();
+    const uuid = useId();
     const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp

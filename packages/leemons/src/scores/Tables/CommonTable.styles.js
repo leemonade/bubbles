@@ -114,7 +114,7 @@ export const CommonTableStyles = createStyles(
       },
       contentRow: {
         display: 'flex',
-        height: 49,
+        height: 47,
         boxSizing: 'border-box',
         borderBottom: '1px solid #F2F2F2',
       },
@@ -126,7 +126,7 @@ export const CommonTableStyles = createStyles(
       },
       separator: {
         width: 4,
-        height: 49,
+        height: '100%',
         backgroundColor: theme.colors.ui03,
         transform: 'translateX(-2px)',
       },

@@ -140,6 +140,10 @@ const Autocomplete = forwardRef(
             classNames={classes}
             error={!isEmpty(error)}
             aria-label={ariaLabel}
+            filter={(value = '', item) => {
+              if (!value) return true;
+              return item.value?.toLowerCase().trim().includes(value?.toLowerCase().trim());
+            }}
           />
         )}
       </Wrapper>

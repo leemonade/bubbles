@@ -4,7 +4,6 @@ import { pxToRem, getFontProductive } from '../../../theme.mixins';
 export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) => {
   return {
     root: {
-      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
       gap: 8,
       justifyContent: 'left',
     },
@@ -15,6 +14,10 @@ export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) 
         borderColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
       },
       borderRadius: 2,
+    },
+    body: {
+      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
+      gap: 8,
     },
     icon: {
       width: 14,

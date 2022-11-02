@@ -66,7 +66,6 @@ export const Button = forwardRef(
         variant,
         compact,
         fullWidth,
-        disabled,
         styles,
       },
       { name: 'Button' }

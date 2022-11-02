@@ -80,6 +80,7 @@ export const StepStyles = createStyles(
       labelContainer: {
         flex: 1,
         paddingRight: 26,
+        lineHeight: '16px',
       },
       activityStep: {
         display: 'flex',

@@ -10,5 +10,8 @@ export const PasswordInputStyles = createStyles((theme, { size }) => {
       ...getInputStyle(theme),
     },
     // rightSection: { ...getRightSection(theme) },
+    visibilityToggle: {
+      color: '#495057',
+    },
   };
 });

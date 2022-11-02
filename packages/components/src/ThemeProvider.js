@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
 
 export const BUBBLES_THEME = {
+  colorScheme: 'light',
   colors: {
     ...COLORS,
   },
@@ -18,7 +19,6 @@ export const BUBBLES_THEME = {
     xs: '3px',
     sm: '4px',
   },
-  breakpoints: {},
   shadows: { ...SHADOWS },
   // TODO HACER PROPIEDAD FILTERS
   headings: {
@@ -45,7 +45,9 @@ const ThemeProvider = ({ children, theme }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <MantineProvider theme={theme}>{children}</MantineProvider>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+        {children}
+      </MantineProvider>
     </>
   );
 };

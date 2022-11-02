@@ -10,9 +10,12 @@ import {
   MeetingCameraIcon,
   PluginCurriculumIcon,
   VolumeControlMediumIcon,
-  PluginFeedbackIcon,
 } from '@bubbles-ui/icons/solid/';
-import { FormImageAttachIcon, PluginKanbanIcon } from '@bubbles-ui/icons/outline/';
+import {
+  FormImageAttachIcon,
+  PluginFeedbackIcon,
+  PluginTestIcon,
+} from '@bubbles-ui/icons/outline/';
 import { FileItemDisplay } from '../../informative/';
 
 export const FILE_ICON_DEFAULT_PROPS = {
@@ -40,8 +43,8 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'task', value: <AssetTaskIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
-    { key: 'tests', value: <PluginKanbanIcon height={size} width={size} /> },
-    { key: 'questionBank', value: <PluginKanbanIcon height={size} width={size} /> },
+    { key: 'tests', value: <PluginTestIcon height={size} width={size} /> },
+    { key: 'questionBank', value: <PluginTestIcon height={size} width={size} /> },
     { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
   ];
 

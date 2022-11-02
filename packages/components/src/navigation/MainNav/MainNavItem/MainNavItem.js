@@ -5,6 +5,7 @@ import { Button, Tooltip } from '@mantine/core';
 import { useClickOutside } from '@mantine/hooks';
 import { MainNavItemStyles } from './MainNavItem.styles';
 import { ImageLoader } from './../../../misc';
+import { Box } from '../../../layout';
 
 const Wrapper = ({ useRouter, item, children }) => {
   if (item.url) {
@@ -58,28 +59,31 @@ export const MainNavItem = ({
       opened={isHovered}
       position="right"
       label={item.label}
+      classNames={{ tooltip: classes.tooltipBody, arrow: classes.tooltipArrow }}
       withArrow
-      classNames={{ body: classes.tooltipBody, arrow: classes.tooltipArrow }}
+      withinPortal
     >
-      <Wrapper useRouter={useRouter} item={item}>
-        <Button
-          ref={ref}
-          className={classes.root}
-          disabled={item.disabled}
-          aria-label={item.label}
-          onClick={handleClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <ImageLoader
-            className={cx(classes.icon)}
-            src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
-            alt={item.iconAlt}
-            strokeCurrent
-            ignoreFill={!active}
-          />
-        </Button>
-      </Wrapper>
+      <Box style={{ height: 54 }}>
+        <Wrapper useRouter={useRouter} item={item}>
+          <Button
+            ref={ref}
+            className={classes.root}
+            disabled={item.disabled}
+            aria-label={item.label}
+            onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <ImageLoader
+              className={cx(classes.icon)}
+              src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
+              alt={item.iconAlt}
+              strokeCurrent
+              ignoreFill={!active}
+            />
+          </Button>
+        </Wrapper>
+      </Box>
     </Tooltip>
   );
 };
