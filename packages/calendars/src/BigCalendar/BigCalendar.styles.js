@@ -54,9 +54,8 @@ const getMonthViewStyles = (theme, isMonthRange, printMode) => ({
     height: isMonthRange && '100%'
   },
   '.rbc-row-content > .rbc-row:first-child': {
-    position: 'relative',
-    zIndex: 99
-
+    // position: 'relative',
+    // zIndex: 99
   },
   '.rbc-row-content > .rbc-row:first-child .rbc-date-cell': {
     pointerEvents: isMonthRange ? 'none!important' : 'all!important'
