@@ -1,5 +1,4 @@
 const React = require("react");
-
 function SettingMenuHorizontalIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -11,5 +10,4 @@ function SettingMenuHorizontalIcon(props) {
     d: "M12 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM6 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM0 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0Z"
   }));
 }
-
 module.exports = SettingMenuHorizontalIcon;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function FileIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function FileIcon(props) {
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6"
   }));
 }
-
 export default FileIcon;

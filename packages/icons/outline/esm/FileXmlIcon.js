@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function FileXmlIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function FileXmlIcon(props) {
     d: "M20.251 8.254h-6a1.5 1.5 0 0 1-1.5-1.5v-6M6.751 15.754l3 7.5M9.751 15.754l-3 7.5M20.251 15.754v6a1.5 1.5 0 0 0 1.5 1.5h1.5M17.251 23.254v-7.5l-2.25 3.75-2.25-3.75v7.5"
   }));
 }
-
 export default FileXmlIcon;

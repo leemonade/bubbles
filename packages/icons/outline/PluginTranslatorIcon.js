@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginTranslatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -30,5 +29,4 @@ function PluginTranslatorIcon(props) {
     d: "m6.75 13.25-3 3v-4.5h-1.5a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5h10.5a1.5 1.5 0 0 1 1.5 1.5v3"
   }));
 }
-
 module.exports = PluginTranslatorIcon;

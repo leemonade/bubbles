@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function LayoutHeadlineIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function LayoutHeadlineIcon(props) {
     d: "M.75.747h22.5v4.5H.75v-4.5ZM.75 9.747h22.5v4.5H.75v-4.5ZM.75 18.747h22.5v4.5H.75v-4.5Z"
   }));
 }
-
 export default LayoutHeadlineIcon;

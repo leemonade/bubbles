@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function CheckSquareIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function CheckSquareIcon(props) {
     d: "M.75.749h22.5v22.5H.75V.749Z"
   }));
 }
-
 export default CheckSquareIcon;

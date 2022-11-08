@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function AppWindowModuleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function AppWindowModuleIcon(props) {
     d: "M15.76 11.253h4.5v4.5h-4.5v-4.5Z"
   }));
 }
-
 export default AppWindowModuleIcon;

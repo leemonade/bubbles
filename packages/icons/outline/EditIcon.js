@@ -1,5 +1,4 @@
 const React = require("react");
-
 function EditIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function EditIcon(props) {
     d: "M5.25 15h-3a1.5 1.5 0 0 0-1.5 1.5v3a1.5 1.5 0 0 0 1.5 1.5h19.5a1.5 1.5 0 0 0 1.5-1.5v-3a1.5 1.5 0 0 0-1.5-1.5h-3"
   }));
 }
-
 module.exports = EditIcon;

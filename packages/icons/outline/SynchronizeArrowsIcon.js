@@ -1,5 +1,4 @@
 const React = require("react");
-
 function SynchronizeArrowsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function SynchronizeArrowsIcon(props) {
     d: "m.75 11.497 3 3 3-3M23.25 13.747l-3-3-3 3"
   }));
 }
-
 module.exports = SynchronizeArrowsIcon;

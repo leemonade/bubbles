@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function SynchronizeArrowClockIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function SynchronizeArrowClockIcon(props) {
     d: "m.75 9.997 3 3 3-3M12.75 6.247v6.75H18"
   }));
 }
-
 export default SynchronizeArrowClockIcon;

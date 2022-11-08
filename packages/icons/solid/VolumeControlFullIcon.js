@@ -1,5 +1,4 @@
 const React = require("react");
-
 function VolumeControlFullIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -13,5 +12,4 @@ function VolumeControlFullIcon(props) {
     d: "M13.36 1.623a.667.667 0 0 0-.942.942 7.695 7.695 0 0 1 0 10.867.666.666 0 1 0 .943.943 9.029 9.029 0 0 0 0-12.752ZM10.094 5a.667.667 0 0 0-.944.942 2.92 2.92 0 0 1 0 4.12.668.668 0 1 0 .943.938 4.255 4.255 0 0 0 .001-6Z"
   }));
 }
-
 module.exports = VolumeControlFullIcon;
