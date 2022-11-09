@@ -49,6 +49,10 @@ export const MainNavStyles = createStyles(
         marginLeft: 'auto',
         marginRight: 'auto',
       },
+      logoContainer: {
+        margin: 'auto',
+        paddingBottom: 4,
+      },
       navItems: {
         // height: 300,
         flexGrow: 1,
