@@ -26,6 +26,7 @@ export const RadioGroupStyles = createStyles(
         justifyContent: isIcon && 'center',
         height: '100%',
         alignItems: (isDefault || isBoxed) && 'flex-start',
+        whiteSpace: 'unset',
       },
       active: {
         display: !value || isDefault ? 'none' : null,
