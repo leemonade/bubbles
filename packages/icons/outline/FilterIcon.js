@@ -1,4 +1,5 @@
 const React = require("react");
+
 function FilterIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function FilterIcon(props) {
     d: "M.5 4.534h23M2.95 9.786h18.1M8.647 20.291h6.706M5.399 15.038h13.202"
   }));
 }
+
 module.exports = FilterIcon;

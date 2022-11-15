@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function EmailPileIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function EmailPileIcon(props) {
     d: "m23 2.486-9.5 9-9.5-9M3.5 6.008h-2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2"
   }));
 }
+
 export default EmailPileIcon;

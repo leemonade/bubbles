@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function AlarmBellTimerIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function AlarmBellTimerIcon(props) {
     d: "M17.25 4.5v3.75h2.25M7.748 21.75a2.087 2.087 0 0 0 4.005 0"
   }));
 }
+
 export default AlarmBellTimerIcon;

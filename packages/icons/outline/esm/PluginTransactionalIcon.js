@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PluginTransactionalIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -29,4 +30,5 @@ function PluginTransactionalIcon(props) {
     d: "M5.25 8.746a1.5 1.5 0 0 1 1.5-1.5h7.5a1.5 1.5 0 0 1 1.5 1.5l-4.455 2.773a1.5 1.5 0 0 1-1.59 0L5.25 8.746Z"
   }));
 }
+
 export default PluginTransactionalIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function RemoveCircleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function RemoveCircleIcon(props) {
     d: "m15.182 8.818-6.364 6.363M8.818 8.818l6.364 6.363M.75 12a11.25 11.25 0 1 0 22.5 0 11.25 11.25 0 0 0-22.5 0v0Z"
   }));
 }
+
 module.exports = RemoveCircleIcon;

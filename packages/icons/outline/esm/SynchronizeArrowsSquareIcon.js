@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function SynchronizeArrowsSquareIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function SynchronizeArrowsSquareIcon(props) {
     d: "m14.25 15.997-3.75 3.75 3.75 3.75M9.75 8.497l3.75-3.75L9.75.997"
   }));
 }
+
 export default SynchronizeArrowsSquareIcon;

@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function ChevLeftIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function ChevLeftIcon(props) {
     d: "M14.917 18 9.2 12.283a.4.4 0 0 1 0-.566L14.917 6"
   }));
 }
+
 export default ChevLeftIcon;

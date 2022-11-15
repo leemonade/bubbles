@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginJourneyIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function PluginJourneyIcon(props) {
     d: "M7.25 5.748v1.5a1.5 1.5 0 0 0 1.5 1.5h4.5a1.5 1.5 0 0 1 1.5 1.5v1.5M17.75 16.248v3"
   }));
 }
+
 module.exports = PluginJourneyIcon;

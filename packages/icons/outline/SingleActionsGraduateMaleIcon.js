@@ -1,4 +1,5 @@
 const React = require("react");
+
 function SingleActionsGraduateMaleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function SingleActionsGraduateMaleIcon(props) {
     d: "M2 4a3.5 3.5 0 1 0 7 0 3.5 3.5 0 0 0-7 0v0ZM10.5 14a5 5 0 1 0-10 0v3.5H3l.5 6h4l.125-1.5"
   }));
 }
+
 module.exports = SingleActionsGraduateMaleIcon;

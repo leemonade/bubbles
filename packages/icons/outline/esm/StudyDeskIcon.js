@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function StudyDeskIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function StudyDeskIcon(props) {
     d: "M20 12.5h-4a2 2 0 0 1 4 0Z"
   }));
 }
+
 export default StudyDeskIcon;

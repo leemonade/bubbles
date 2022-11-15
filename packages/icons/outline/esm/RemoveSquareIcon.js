@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function RemoveSquareIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function RemoveSquareIcon(props) {
     d: "m15.182 8.818-6.364 6.363M8.818 8.818l6.364 6.363M.75.75h22.5v22.5H.75V.75Z"
   }));
 }
+
 export default RemoveSquareIcon;

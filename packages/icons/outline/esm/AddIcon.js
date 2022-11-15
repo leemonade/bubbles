@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function AddIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function AddIcon(props) {
     d: "M.75 12h22.5M12 .75v22.5"
   }));
 }
+
 export default AddIcon;

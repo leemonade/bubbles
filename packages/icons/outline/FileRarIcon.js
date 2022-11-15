@@ -1,4 +1,5 @@
 const React = require("react");
+
 function FileRarIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function FileRarIcon(props) {
     d: "M20.248 8.248h-6a1.5 1.5 0 0 1-1.5-1.5v-6"
   }));
 }
+
 module.exports = FileRarIcon;

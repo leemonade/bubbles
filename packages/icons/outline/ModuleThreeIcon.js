@@ -1,4 +1,5 @@
 const React = require("react");
+
 function ModuleThreeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function ModuleThreeIcon(props) {
     d: "M6.75 3.75V9L12 12l5.25-3V3.75M12 6.75V12M9.75 14.143 6 12 .75 15 6 18l3-1.714"
   }));
 }
+
 module.exports = ModuleThreeIcon;

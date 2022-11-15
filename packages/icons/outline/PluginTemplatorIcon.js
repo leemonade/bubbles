@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginTemplatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -29,4 +30,5 @@ function PluginTemplatorIcon(props) {
     d: "m8.043 23.2 14.354-8.29a1.957 1.957 0 0 0 .716-2.672L21.156 8.85a1.943 1.943 0 0 0-.5-.57"
   }));
 }
+
 module.exports = PluginTemplatorIcon;

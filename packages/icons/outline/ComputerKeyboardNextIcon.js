@@ -1,4 +1,5 @@
 const React = require("react");
+
 function ComputerKeyboardNextIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function ComputerKeyboardNextIcon(props) {
     d: "M10.8 8H1.2M6.8 12l4-4-4-4M15.6 4v8"
   }));
 }
+
 module.exports = ComputerKeyboardNextIcon;

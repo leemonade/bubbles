@@ -1,4 +1,5 @@
 const React = require("react");
+
 function FileAviIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function FileAviIcon(props) {
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6M11.25 23.25v-6a1.5 1.5 0 1 1 3 0v6M11.25 20.25h3M17.25 15.75v2.55c0 1.763.522 3.487 1.5 4.954a8.932 8.932 0 0 0 1.5-4.954v-2.55M23.25 23.25v-7.5"
   }));
 }
+
 module.exports = FileAviIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function SubtractIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function SubtractIcon(props) {
     d: "M.75 12.038h22.5"
   }));
 }
+
 module.exports = SubtractIcon;

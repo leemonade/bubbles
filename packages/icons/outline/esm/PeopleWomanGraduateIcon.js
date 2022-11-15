@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PeopleWomanGraduateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function PeopleWomanGraduateIcon(props) {
     d: "M5.707 12.53a5.61 5.61 0 0 1-2.073 3.67.5.5 0 0 0-.047.838c.83.646 1.862.976 2.913.931M18.293 12.53a5.609 5.609 0 0 0 2.073 3.67.5.5 0 0 1 .047.838 4.432 4.432 0 0 1-2.913.931"
   }));
 }
+
 export default PeopleWomanGraduateIcon;

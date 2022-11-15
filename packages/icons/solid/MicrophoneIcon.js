@@ -1,4 +1,5 @@
 const React = require("react");
+
 function MicrophoneIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -12,4 +13,5 @@ function MicrophoneIcon(props) {
     d: "M12.667 5.333A.667.667 0 0 0 12 6v1.667a4 4 0 0 1-8 0V6a.667.667 0 0 0-1.333 0v1.667a5.342 5.342 0 0 0 4.525 5.272.167.167 0 0 1 .141.165v2.23a.667.667 0 1 0 1.334 0v-2.23a.167.167 0 0 1 .141-.165 5.342 5.342 0 0 0 4.525-5.272V6a.666.666 0 0 0-.666-.667Z"
   }));
 }
+
 module.exports = MicrophoneIcon;

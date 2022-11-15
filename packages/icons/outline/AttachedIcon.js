@@ -1,4 +1,5 @@
 const React = require("react");
+
 function AttachedIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function AttachedIcon(props) {
     d: "m7.618 15.345 8.666-8.666a2.04 2.04 0 1 1 2.883 2.883L7.461 21.305a4.078 4.078 0 0 1-5.767-5.768L13.928 3.305a5.606 5.606 0 0 1 7.929 7.928L13.192 19.9"
   }));
 }
+
 module.exports = AttachedIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginIntegratorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function PluginIntegratorIcon(props) {
     d: "M9.245 2.51a.59.59 0 0 0-1.114 0L.881 15c-.307.528-.056.96.558.96h14.5c.614 0 .865-.432.558-.96L9.245 2.51Z"
   }));
 }
+
 module.exports = PluginIntegratorIcon;

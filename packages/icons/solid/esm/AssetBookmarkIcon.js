@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function AssetBookmarkIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 13 13",
@@ -14,4 +15,5 @@ function AssetBookmarkIcon(props) {
     d: "M7.556 4.861a.884.884 0 0 0-.61.242L4.622 7.366a.829.829 0 0 0-.03 1.177c.323.327.86.319 1.191 0L8.137 6.28c.33-.32.323-.82 0-1.147a.845.845 0 0 0-.58-.272Z"
   }));
 }
+
 export default AssetBookmarkIcon;

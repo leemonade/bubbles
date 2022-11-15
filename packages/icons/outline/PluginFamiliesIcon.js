@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginFamiliesIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function PluginFamiliesIcon(props) {
     d: "M16.656 23.75a4.5 4.5 0 0 0-7.793 0"
   }));
 }
+
 module.exports = PluginFamiliesIcon;

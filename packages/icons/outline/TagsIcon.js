@@ -1,4 +1,5 @@
 const React = require("react");
+
 function TagsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function TagsIcon(props) {
     d: "M4.885 6.384a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0Z"
   }));
 }
+
 module.exports = TagsIcon;

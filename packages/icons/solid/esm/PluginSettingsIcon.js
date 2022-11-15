@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PluginSettingsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -18,4 +19,5 @@ function PluginSettingsIcon(props) {
     clipRule: "evenodd"
   }));
 }
+
 export default PluginSettingsIcon;

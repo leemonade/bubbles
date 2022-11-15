@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function NavigationMenuLeftIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -12,4 +13,5 @@ function NavigationMenuLeftIcon(props) {
     d: "M2.25 18.003h19.5M2.25 12.003h14.5M2.25 6.003h19.5"
   }));
 }
+
 export default NavigationMenuLeftIcon;

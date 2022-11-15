@@ -1,4 +1,5 @@
 const React = require("react");
+
 function RemoveIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function RemoveIcon(props) {
     d: "m4.5 19.5 15-15M4.5 4.5l15 15"
   }));
 }
+
 module.exports = RemoveIcon;

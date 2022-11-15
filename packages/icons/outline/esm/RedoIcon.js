@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function RedoIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function RedoIcon(props) {
     d: "M12 23.248a11.25 11.25 0 1 1 10.6-15"
   }));
 }
+
 export default RedoIcon;

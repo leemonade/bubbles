@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function SchoolBuildingIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function SchoolBuildingIcon(props) {
     d: "M17.696 11.957a4.696 4.696 0 0 0-9.392 0V25h9.392V11.957Z"
   }));
 }
+
 export default SchoolBuildingIcon;

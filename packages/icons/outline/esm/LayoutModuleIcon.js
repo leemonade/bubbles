@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function LayoutModuleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function LayoutModuleIcon(props) {
     d: "M.75.747h9v9h-9v-9ZM.75 14.247h9v9h-9v-9ZM14.25.747h9v9h-9v-9ZM14.25 14.247h9v9h-9v-9Z"
   }));
 }
+
 export default LayoutModuleIcon;

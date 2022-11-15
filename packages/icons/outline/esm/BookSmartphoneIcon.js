@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function BookSmartphoneIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function BookSmartphoneIcon(props) {
     d: "M15.5 11.251s1.716-2.58 7.481-2.727a.51.51 0 0 1 .519.5v11a.5.5 0 0 1-.5.5c-5.783.141-7.5 2.728-7.5 2.728v-12s-1.716-2.58-7.481-2.727a.51.51 0 0 0-.519.5v11a.5.5 0 0 0 .5.5c5.783.141 7.5 2.728 7.5 2.728"
   }));
 }
+
 export default BookSmartphoneIcon;

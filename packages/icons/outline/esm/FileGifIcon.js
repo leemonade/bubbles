@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function FileGifIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function FileGifIcon(props) {
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6M20.25 23.25v-6a1.5 1.5 0 0 1 1.5-1.5h1.5M20.25 20.25h2.25M17.25 23.25v-7.5M13.5 20.25h.75v1.5a1.5 1.5 0 1 1-3 0v-4.5a1.5 1.5 0 0 1 1.5-1.5h1.5"
   }));
 }
+
 export default FileGifIcon;

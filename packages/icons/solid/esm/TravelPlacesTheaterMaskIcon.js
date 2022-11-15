@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function TravelPlacesTheaterMaskIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 24",
@@ -12,4 +13,5 @@ function TravelPlacesTheaterMaskIcon(props) {
     d: "M12 12.652a1.303 1.303 0 0 1-1.234-.909.445.445 0 0 0-.343-.326.463.463 0 0 0-.463.12 1.286 1.286 0 0 1-1.8-1.817 3.051 3.051 0 0 1 5.143 1.269 1.303 1.303 0 0 1-.857 1.611l-.446.052ZM18.857 14.366a1.303 1.303 0 0 1-1.234-.909.48.48 0 0 0-.789-.206 1.286 1.286 0 0 1-1.817 0 1.27 1.27 0 0 1 0-1.817 3.052 3.052 0 0 1 5.143 1.269 1.303 1.303 0 0 1-.857 1.611c-.145.04-.296.058-.446.052Z"
   }));
 }
+
 export default TravelPlacesTheaterMaskIcon;

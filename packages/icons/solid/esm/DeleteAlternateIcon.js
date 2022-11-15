@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function DeleteAlternateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -12,4 +13,5 @@ function DeleteAlternateIcon(props) {
     d: "M11.325 4.673a.85.85 0 0 0-1.2 0L8.007 6.791l-2.12-2.118a.851.851 0 0 0-1.204 1.204L6.8 7.995l-2.117 2.12a.852.852 0 0 0 1.203 1.203L8.003 9.2l2.118 2.119a.851.851 0 0 0 1.2-1.204L9.204 7.996l2.117-2.118a.852.852 0 0 0 .004-1.205Z"
   }));
 }
+
 export default DeleteAlternateIcon;

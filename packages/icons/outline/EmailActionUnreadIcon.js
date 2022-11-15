@@ -1,4 +1,5 @@
 const React = require("react");
+
 function EmailActionUnreadIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function EmailActionUnreadIcon(props) {
     d: "m22.161 5.3-8.144 6.264a3.308 3.308 0 0 1-4.034 0L1.839 5.3"
   }));
 }
+
 module.exports = EmailActionUnreadIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function UserTimeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function UserTimeIcon(props) {
     d: "M19.901 17.25H17.25v-2.652"
   }));
 }
+
 module.exports = UserTimeIcon;

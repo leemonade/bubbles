@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginNewsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -18,4 +19,5 @@ function PluginNewsIcon(props) {
     clipRule: "evenodd"
   }));
 }
+
 module.exports = PluginNewsIcon;

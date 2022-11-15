@@ -1,4 +1,5 @@
 const React = require("react");
+
 function MoveRightIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function MoveRightIcon(props) {
     d: "M18.75 11.998h-18M15 8.248l3.75 3.75-3.75 3.75M23.25.748v22.5"
   }));
 }
+
 module.exports = MoveRightIcon;

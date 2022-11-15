@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function ZoomInIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function ZoomInIcon(props) {
     d: "M18.875 9.811a9.063 9.063 0 1 1-18.127.002 9.063 9.063 0 0 1 18.127-.002ZM5.25 9.749h9M9.75 14.249v-9M16.221 16.219l7.029 7.03"
   }));
 }
+
 export default ZoomInIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function AddSquareIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function AddSquareIcon(props) {
     d: "M12 7.5v9M7.5 12h9M.75.75h22.5v22.5H.75V.75Z"
   }));
 }
+
 module.exports = AddSquareIcon;

@@ -1,4 +1,5 @@
 const React = require("react");
+
 function LayoutAgendaIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function LayoutAgendaIcon(props) {
     d: "M.75.747h22.5v9H.75v-9ZM.75 14.247h22.5v9H.75v-9Z"
   }));
 }
+
 module.exports = LayoutAgendaIcon;

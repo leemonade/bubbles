@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function BoardEducationIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function BoardEducationIcon(props) {
     d: "M12.5 18.412v3.154a.751.751 0 0 0 .471.7l3.25 1.2a.749.749 0 0 0 .558 0l3.25-1.2a.751.751 0 0 0 .471-.7v-3.154"
   }));
 }
+
 export default BoardEducationIcon;

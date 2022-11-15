@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function FilePngIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function FilePngIcon(props) {
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6M8.25 23.25v-7.5M8.25 15.75H9a2.25 2.25 0 0 1 0 4.5h-.75M14.25 23.25v-7.5l3 7.5v-7.5M22.5 20.25h.75v1.5a1.5 1.5 0 1 1-3 0v-4.5a1.5 1.5 0 0 1 1.5-1.5h1.5"
   }));
 }
+
 export default FilePngIcon;

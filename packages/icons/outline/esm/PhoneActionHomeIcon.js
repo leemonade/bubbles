@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PhoneActionHomeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -24,4 +25,5 @@ function PhoneActionHomeIcon(props) {
     d: "m9.75 5.26 4.518-3.953a2.249 2.249 0 0 1 2.964 0L21.75 5.26M17.25 11.25h-3v-3a1.5 1.5 0 1 1 3 0v3Z"
   }));
 }
+
 export default PhoneActionHomeIcon;

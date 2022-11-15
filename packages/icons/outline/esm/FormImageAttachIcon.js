@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function FormImageAttachIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function FormImageAttachIcon(props) {
     d: "M12.553 23.5H1.483a1 1 0 0 1-1-1v-21a1 1 0 0 1 1-1h13.293a1 1 0 0 1 .707.292L19.19 4.5a1 1 0 0 1 .293.707v1.29"
   }));
 }
+
 export default FormImageAttachIcon;

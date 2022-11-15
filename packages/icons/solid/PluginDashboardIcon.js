@@ -1,4 +1,5 @@
 const React = require("react");
+
 function PluginDashboardIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 25",
@@ -26,4 +27,5 @@ function PluginDashboardIcon(props) {
     d: "M14.472 23.756a.98.98 0 0 1-.976-.981V11.987a.977.977 0 0 1 .975-.981h7.8a.976.976 0 0 1 .975.98v10.776a.979.979 0 0 1-.974.98l-7.8.014Z"
   }));
 }
+
 module.exports = PluginDashboardIcon;

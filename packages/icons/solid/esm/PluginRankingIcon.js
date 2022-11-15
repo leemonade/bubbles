@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PluginRankingIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -12,4 +13,5 @@ function PluginRankingIcon(props) {
     clipRule: "evenodd"
   }));
 }
+
 export default PluginRankingIcon;

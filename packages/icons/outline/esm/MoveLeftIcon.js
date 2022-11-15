@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function MoveLeftIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -14,4 +15,5 @@ function MoveLeftIcon(props) {
     d: "M5.25 11.998h18M9 8.248l-3.75 3.75L9 15.748M.75.748v22.5"
   }));
 }
+
 export default MoveLeftIcon;

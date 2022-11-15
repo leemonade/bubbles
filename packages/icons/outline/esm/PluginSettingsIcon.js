@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function PluginSettingsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function PluginSettingsIcon(props) {
     d: "M8 12.501a4.5 4.5 0 1 0 9 0 4.5 4.5 0 0 0-9 0v0Z"
   }));
 }
+
 export default PluginSettingsIcon;

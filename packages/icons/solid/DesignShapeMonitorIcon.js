@@ -1,4 +1,5 @@
 const React = require("react");
+
 function DesignShapeMonitorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 24",
@@ -14,4 +15,5 @@ function DesignShapeMonitorIcon(props) {
     d: "M17 3.25h-6a1.22 1.22 0 0 0-1.25 1.22v.46a.75.75 0 0 0 1.5 0 .18.18 0 0 1 .18-.18h4.82a.5.5 0 0 1 .5.5v4.5a.5.5 0 0 1-.5.5H14.7a.75.75 0 1 0 0 1.5H17a1.22 1.22 0 0 0 1.22-1.22V4.47A1.22 1.22 0 0 0 17 3.25Z"
   }));
 }
+
 module.exports = DesignShapeMonitorIcon;

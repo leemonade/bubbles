@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function DuplicateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function DuplicateIcon(props) {
     d: "M15.5 4.5a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1"
   }));
 }
+
 export default DuplicateIcon;

@@ -1,4 +1,5 @@
 import * as React from "react";
+
 function SendMessageIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function SendMessageIcon(props) {
     d: "M11.481 20.245 8.376 23.35a.513.513 0 0 1-.876-.363v-5.2L23.5.5"
   }));
 }
+
 export default SendMessageIcon;

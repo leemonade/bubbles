@@ -1,4 +1,5 @@
 const React = require("react");
+
 function DoneCircleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -19,4 +20,5 @@ function DoneCircleIcon(props) {
     d: "M16.783 3.824A10.487 10.487 0 1 0 20.8 8.377"
   }));
 }
+
 module.exports = DoneCircleIcon;
