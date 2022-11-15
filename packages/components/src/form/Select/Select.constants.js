@@ -5,6 +5,7 @@ export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
 export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const SELECT_VARIANTS = ['default', 'filled', 'unstyled'];
+export const SELECT_DROPDOWN_POSITIONS = ['bottom', 'top', 'flip'];
 
 export const SELECT_DEFAULT_PROPS = {
   size: 'sm',
@@ -13,6 +14,8 @@ export const SELECT_DEFAULT_PROPS = {
   readOnly: false,
   variant: 'default',
   autoSelectOneOption: false,
+  dropdownPosition: SELECT_DROPDOWN_POSITIONS[0],
+  withinPortal: true,
 };
 export const SELECT_PROP_TYPES = {
   label: PropTypes.string,
@@ -23,6 +26,7 @@ export const SELECT_PROP_TYPES = {
   size: PropTypes.oneOf(SELECT_SIZES),
   variant: PropTypes.oneOf(SELECT_VARIANTS),
   orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
+  dropdownPosition: PropTypes.oneOf(SELECT_DROPDOWN_POSITIONS),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   itemComponent: PropTypes.node,
   searchable: PropTypes.bool,
