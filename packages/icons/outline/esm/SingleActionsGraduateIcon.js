@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function SingleActionsGraduateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function SingleActionsGraduateIcon(props) {
     d: "M12.712 18.4v3.15a.749.749 0 0 0 .472.7l3.25 1.2a.745.745 0 0 0 .557 0l3.25-1.2a.75.75 0 0 0 .471-.7V18.4M3.462 4.75a4.25 4.25 0 1 0 8.5 0 4.25 4.25 0 0 0-8.5 0v0ZM.712 17.5A7 7 0 0 1 13.074 13"
   }));
 }
-
 export default SingleActionsGraduateIcon;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ChevronLeftIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function ChevronLeftIcon(props) {
     d: "M16.25 23.25 5.53 12.53a.75.75 0 0 1 0-1.06L16.25.75"
   }));
 }
-
 export default ChevronLeftIcon;

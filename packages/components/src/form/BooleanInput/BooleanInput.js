@@ -96,7 +96,7 @@ const BooleanInput = forwardRef(
     };
 
     const { classes, cx } = BooleanInputStyles(
-      { help, helpPosition, variant, isChecked, isPro },
+      { help, helpPosition, variant, isChecked, isPro, display, size },
       { name: 'BooleanInput' }
     );
 

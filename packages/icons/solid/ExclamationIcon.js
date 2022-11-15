@@ -1,5 +1,4 @@
 const React = require("react");
-
 function ExclamationIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 15",
@@ -13,5 +12,4 @@ function ExclamationIcon(props) {
     r: 2
   }));
 }
-
 module.exports = ExclamationIcon;

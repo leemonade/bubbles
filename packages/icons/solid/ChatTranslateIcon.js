@@ -1,5 +1,4 @@
 const React = require("react");
-
 function ChatTranslateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 24",
@@ -15,5 +14,4 @@ function ChatTranslateIcon(props) {
     d: "M12.75 13a.25.25 0 0 0 .25-.25V1.5A1.5 1.5 0 0 0 11.5 0h-10A1.5 1.5 0 0 0 0 1.5v10A1.5 1.5 0 0 0 1.5 13h11.25ZM6 7.25a.25.25 0 0 0-.25.25v2a.75.75 0 1 1-1.5 0V5a2.25 2.25 0 1 1 4.5 0v4.5a.75.75 0 1 1-1.5 0v-2A.25.25 0 0 0 7 7.25H6Z"
   }));
 }
-
 module.exports = ChatTranslateIcon;

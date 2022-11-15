@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginRedactorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -23,5 +22,4 @@ function PluginRedactorIcon(props) {
     d: "M4.497 19.25H3.75a2.25 2.25 0 1 0 0 4.5H19.5m-8.671-7.21c-.878.877-4.242 1.06-4.242 1.06s.182-3.365 1.06-4.243a2.25 2.25 0 1 1 3.182 3.182v0Z"
   }));
 }
-
 export default PluginRedactorIcon;

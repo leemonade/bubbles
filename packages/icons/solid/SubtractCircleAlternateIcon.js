@@ -1,5 +1,4 @@
 const React = require("react");
-
 function SubtractCircleAlternateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -13,5 +12,4 @@ function SubtractCircleAlternateIcon(props) {
     d: "M4.182 7.167a.833.833 0 1 0 0 1.666h7.636a.833.833 0 0 0 0-1.666H4.182Z"
   }));
 }
-
 module.exports = SubtractCircleAlternateIcon;

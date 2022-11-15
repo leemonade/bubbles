@@ -44,6 +44,7 @@ const Select = forwardRef(
       variant,
       autoSelectOneOption,
       ariaLabel,
+      withinPortal,
       ...props
     },
     ref
@@ -115,6 +116,7 @@ const Select = forwardRef(
         onCreate={onCreate}
         defaultValue={defaultValue}
         name={name}
+        dropdownPosition={dropdownPosition}
         disabled={disabled || autoSelectOneOptionMode}
         searchable={searchable}
         onSearchChange={onSearchChange}
@@ -153,6 +155,7 @@ const Select = forwardRef(
             onDropdownOpen={onDropdownOpen}
             onDropdownClose={onDropdownClose}
             initiallyOpened={initiallyOpened}
+            dropdownPosition={dropdownPosition}
             getCreateLabel={getCreateLabel}
             nothingFound={nothingFound}
             placeholder={placeholder}
@@ -174,6 +177,7 @@ const Select = forwardRef(
             icon={icon}
             error={!isEmpty(error)}
             aria-label={ariaLabel}
+            withinPortal={withinPortal}
           />
         )}
       </InputWrapper>

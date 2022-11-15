@@ -37,6 +37,7 @@ export const RadioStyles = createStyles(
         marginTop: help !== '' && isBottom ? pxToRem(1.5) : null,
         color: isIcon ? (checked ? theme.colors.text01 : theme.colors.text02) : theme.colors.text01,
         lineHeight: pxToRem(17),
+        whiteSpace: 'nowrap',
       },
       help: {
         ...getFontProductive(theme.fontSizes[isBoxed ? '2' : '1'], isBoxed ? 500 : 400),
@@ -44,6 +45,7 @@ export const RadioStyles = createStyles(
         color: theme.colors.text02,
         marginLeft: hasLabel && isRight ? pxToRem(theme.spacing[4]) : null,
         marginTop: hasLabel && isBottom ? pxToRem(theme.spacing[1]) : null,
+        textAlign: 'left',
       },
       radio: {
         height: 20,

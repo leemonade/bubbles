@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginTransactionalIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 25",
@@ -25,5 +24,4 @@ function PluginTransactionalIcon(props) {
     clipRule: "evenodd"
   }));
 }
-
 export default PluginTransactionalIcon;

@@ -1,5 +1,4 @@
 const React = require("react");
-
 function CommonFileSearchIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function CommonFileSearchIcon(props) {
     d: "M10.514 15.75a5.25 5.25 0 1 0 10.5 0 5.25 5.25 0 0 0-10.5 0v0ZM23.25 23.25l-3.774-3.788"
   }));
 }
-
 module.exports = CommonFileSearchIcon;

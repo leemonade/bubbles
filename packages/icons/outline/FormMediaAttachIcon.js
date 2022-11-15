@@ -1,5 +1,4 @@
 const React = require("react");
-
 function FormMediaAttachIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -30,5 +29,4 @@ function FormMediaAttachIcon(props) {
     d: "M10.01 14.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
   }));
 }
-
 module.exports = FormMediaAttachIcon;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginFeedbackIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 25",
@@ -21,5 +20,4 @@ function PluginFeedbackIcon(props) {
     d: "M3 10.7h3.6v10.8H3V10.7Z"
   }));
 }
-
 export default PluginFeedbackIcon;

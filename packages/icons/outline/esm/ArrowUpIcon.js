@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ArrowUpIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function ArrowUpIcon(props) {
     d: "M12 23.25V.75M22.5 11.25 12 .75 1.5 11.25"
   }));
 }
-
 export default ArrowUpIcon;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function CheckCircleIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function CheckCircleIcon(props) {
     d: "M.75 11.999a11.25 11.25 0 1 0 22.5 0 11.25 11.25 0 0 0-22.5 0v0Z"
   }));
 }
-
 export default CheckCircleIcon;

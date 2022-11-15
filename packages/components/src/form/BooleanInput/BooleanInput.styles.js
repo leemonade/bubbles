@@ -2,10 +2,17 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontProductive } from '../../theme.mixins';
 
 export const BooleanInputStyles = createStyles(
-  (theme, { help, helpPosition, variant, isChecked, isPro }) => {
+  (theme, { help, helpPosition, variant, isChecked, isPro, display, size }) => {
     const isRight = !!help & (helpPosition === 'right');
     const isBottom = !!help & (helpPosition === 'bottom');
     const isBoxed = variant === 'boxed';
+    const isSwitch = display === 'switch';
+
+    const getHelpMargin = () => {
+      if (size === 'xs') return 42;
+      if (size === 'sm') return 44;
+      if (size === 'md') return 48;
+    };
 
     return {
       root: {
@@ -30,7 +37,7 @@ export const BooleanInputStyles = createStyles(
       wrapper: {},
       help: {
         cursor: 'pointer',
-        marginLeft: isRight ? theme.spacing[4] : theme.spacing[6],
+        marginLeft: isRight ? theme.spacing[4] : isSwitch ? getHelpMargin() : theme.spacing[6],
         marginTop: isBottom ? theme.spacing[1] : 2,
       },
     };
