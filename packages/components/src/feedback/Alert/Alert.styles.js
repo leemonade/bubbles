@@ -16,7 +16,7 @@ const getColor = (theme, severity) => {
       },
     },
     info: {
-      background: `${theme.colors.interactive01v0} !important`,
+      background: `${theme.colors.fatic04v0} !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: theme.colors.fatic04,
       },

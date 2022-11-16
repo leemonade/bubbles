@@ -120,8 +120,6 @@ const CalendarEventModal = (props) => {
   const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
 
-  console.log(hideCalendarField);
-
   React.useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (value.type === 'plugins.calendar.task') {

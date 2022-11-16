@@ -12,13 +12,15 @@ function AccordionLabel({ label, icon, rightSection, compact, classes }) {
   return (
     <Stack fullWidth alignItems="center">
       <Stack fullWidth justifyContent="start" alignItems="center" spacing={4}>
-        {icon
-          ? React.cloneElement(icon, {
-              width: compact ? 16 : 22,
-              height: compact ? 16 : 22,
-              className: classes.labelIcon,
-            })
-          : null}
+        <Box className={classes.iconWrapper}>
+          {icon
+            ? React.cloneElement(icon, {
+                width: compact ? 16 : 22,
+                height: compact ? 16 : 22,
+                className: classes.labelIcon,
+              })
+            : null}
+        </Box>
         <Text size="md" strong color="primary" role="productive" className={classes.label}>
           {label}
         </Text>
@@ -33,15 +35,18 @@ const ActivityAccordion = ({ children, compact, ...props }) => {
 
   return (
     <Accordion {...props} className={classes.root} classNames={classes} iconPosition="right">
-      {React.Children.map(children, (child) => {
+      {React.Children.map(children, (child, index) => {
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
-          <Accordion.Item
-            label={<AccordionLabel {...panelProps} compact={compact} classes={classes} />}
-          >
-            <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
-              {panelContent}
-            </Box>
+          <Accordion.Item value={panelProps.label || `Panel ${index}`}>
+            <Accordion.Control>
+              <AccordionLabel {...panelProps} compact={compact} classes={classes} />
+            </Accordion.Control>
+            <Accordion.Panel>
+              <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
+                {panelContent}
+              </Box>
+            </Accordion.Panel>
           </Accordion.Item>
         );
       })}

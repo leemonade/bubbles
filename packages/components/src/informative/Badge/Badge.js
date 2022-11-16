@@ -2,9 +2,9 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Badge as MantineBadge, Box } from '@mantine/core';
 import { BadgeStyles } from './Badge.styles';
-import { XIcon } from '@heroicons/react/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Avatar } from '../Avatar/Avatar';
+import { isFunction } from 'lodash';
 
 export const BADGE_SIZES = ['xs', 'md', 'lg'];
 export const BADGE_COLORS = ['solid', 'stroke'];
@@ -18,6 +18,7 @@ export const BADGE_DEFAULT_PROPS = {
   radius: 'rounded',
   closable: true,
   useAria: true,
+  labelStyles: {},
 };
 export const BADGE_PROP_TYPES = {
   label: PropTypes.node,
@@ -25,6 +26,7 @@ export const BADGE_PROP_TYPES = {
   radius: PropTypes.oneOf(BADGE_RADIUS),
   color: PropTypes.oneOf(BADGE_COLORS),
   severity: PropTypes.oneOf(BADGE_SEVERITIES),
+  labelStyles: PropTypes.object,
   image: PropTypes.string,
   alt: PropTypes.string,
   onClose: PropTypes.func,
@@ -43,10 +45,12 @@ const Badge = forwardRef(
       alt,
       color,
       severity,
+      labelStyles,
       onClose,
       closable,
       className,
       children,
+      onClick,
       useAria,
       ...props
     },
@@ -60,12 +64,16 @@ const Badge = forwardRef(
     }
 
     const { classes, cx } = BadgeStyles(
-      { size, color, image, radius, severity },
+      { size, color, image, radius, severity, hasOnClick: isFunction(onClick), labelStyles },
       { name: 'Badge' }
     );
 
+    const onClickHandler = () => {
+      isFunction(onClick) && onClick();
+    };
+
     return (
-      <Box className={cx(classes.container, className)}>
+      <Box className={cx(classes.container, className)} onClick={onClickHandler}>
         {image && <Avatar image={image} size={size === 'md' ? 'sm' : size} alt={alt} />}
         <MantineBadge
           rightSection={

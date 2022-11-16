@@ -11,6 +11,7 @@ import {
   SCORES_BASIC_TABLE_DEFAULT_PROPS,
   SCORES_BASIC_TABLE_PROP_TYPES,
 } from './ScoresBasicTable.constants';
+import { CommonTableStyles } from '../CommonTable.styles';
 
 const ScoresBasicTable = ({
   grades,
@@ -26,6 +27,7 @@ const ScoresBasicTable = ({
   onOpen,
   from,
   to,
+  hideCustom,
   ...props
 }) => {
   const { ref: tableRef } = useElementSize(null);
@@ -35,10 +37,12 @@ const ScoresBasicTable = ({
   const [overFlowLeft, setOverFlowLeft] = useState(false);
   const [overFlowRight, setOverFlowRight] = useState(false);
 
-  const { classes, cx } = ScoresBasicTableStyles(
-    { overFlowLeft, overFlowRight },
-    { name: 'ScoresBasicTable' }
+  const { classes: commonClasses } = CommonTableStyles(
+    { overFlowLeft, overFlowRight, hideCustom },
+    { name: 'CommonTable' }
   );
+  const { classes: basicClasses, cx } = ScoresBasicTableStyles({}, { name: 'ScoresBasicTable' });
+  const classes = { ...commonClasses, ...basicClasses };
 
   const onColumnExpandHandler = (columnId) => {
     isFunction(onColumnExpand) && onColumnExpand(columnId);
@@ -108,36 +112,35 @@ const ScoresBasicTable = ({
   };
 
   const getActivitiesPeriod = () => {
-    // const earliestDeadline = activities.reduce((acc, { deadline }) => {
-    //   return acc < deadline ? acc : deadline;
-    // }, activities[0].deadline);
-    // const latestDeadline = activities.reduce((acc, { deadline }) => {
-    //   return acc > deadline ? acc : deadline;
-    // }, activities[0].deadline);
     return `${new Date(from).toLocaleDateString(locale)} - ${new Date(to).toLocaleDateString(
       locale
     )}`;
   };
 
   const getRightBodyContent = () => {
-    return value.map(({ id, activities: studentActivities }) => {
-      const studentAttendance = Math.trunc((studentActivities.length / activities.length) * 100);
+    return value.map(({ id, activities: studentActivities, customScore, allowCustomChange }) => {
+      const avgScore = getAvgScore(studentActivities);
       return (
         <Box key={id} className={classes.contentRow}>
           <Box className={classes.separator} />
           <Box className={classes.studentInfo}>
             <Text color="primary" role="productive">
-              {getAvgScore(studentActivities)}
+              {avgScore}
             </Text>
           </Box>
-          {/* <Box className={classes.studentInfo}>
-            <Badge
-              label={`${studentAttendance}%`}
-              severity={getSeverity(studentAttendance)}
-              closable={false}
-              radius="default"
-            />
-          </Box> */}
+          {!hideCustom && (
+            <Box className={classes.studentInfo}>
+              <ScoreCell
+                value={isNaN(customScore) ? avgScore : customScore}
+                allowChange={allowCustomChange}
+                grades={grades}
+                row={id}
+                column={'customScore'}
+                onDataChange={onDataChange}
+                isCustom={true}
+              />
+            </Box>
+          )}
         </Box>
       );
     });
@@ -365,11 +368,13 @@ const ScoresBasicTable = ({
                 {labels.gradingTasks}
               </Text>
             </Box>
-            {/* <Box className={classes.columnHeader}>
-              <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
-                {labels.attendance}
-              </Text>
-            </Box> */}
+            {!hideCustom && (
+              <Box className={classes.columnHeader}>
+                <Text color="primary" role="productive" stronger transform="uppercase" size="xs">
+                  {labels.customScore}
+                </Text>
+              </Box>
+            )}
           </Box>
           <Box className={classes.rightBodyContent}>{getRightBodyContent()}</Box>
         </Box>

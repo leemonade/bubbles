@@ -34,6 +34,7 @@ const Template = ({ opened, ...props }) => {
     <Box style={{ display: 'flex', justifyContent: 'center' }}>
       <CalendarNewEventModal
         opened={_opened}
+        onClose={() => setOpened(false)}
         target={<Button onClick={() => setOpened(!_opened)}>Open modal</Button>}
         {...props}
       />
@@ -50,20 +51,24 @@ Playground.args = {
     schoolDays: 'School days',
     nonSchoolDays: 'Non school days',
     withoutOrdinaryDays: 'Without ordinary days',
-    periodRange: 'Period range',
+    startDate: 'Start date',
+    endDate: 'End date',
     color: 'Color',
     add: 'Add',
   },
   placeholders: {
     periodName: 'Final exams',
-    periodRange: 'Select a range',
+    startDate: 'Select a start date',
+    endDate: 'Select an end date',
     color: 'Select a color',
   },
   errorMessages: {
     periodName: 'Field required',
     dayType: 'Field required',
-    periodRange: 'Field required',
+    startDate: 'Field required',
+    endDate: 'Field required',
     color: 'Field required',
+    invalidColor: 'Invalid color',
   },
   suggestions: ['Semana de la ciencia', 'Día del león'],
 };

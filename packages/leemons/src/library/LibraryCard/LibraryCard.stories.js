@@ -136,6 +136,8 @@ Playground.args = {
     },
     avgTime: 933,
     avgAttempts: 3,
+    activityType: 'Tarea/Test',
+    grade: 8.5,
   },
   deadlineProps: {
     icon: <ArchiveIcon width={16} height={16} />,

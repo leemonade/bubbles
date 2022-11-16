@@ -169,7 +169,7 @@ const LibraryCardCover = ({
       </Box>
       {renderDeadline()}
       {cover ? (
-        <ImageLoader src={cover} height={height} forceImage />
+        <ImageLoader src={cover} height={height} width={'100%'} forceImage />
       ) : (
         <Box className={classes.fileIcon}>{icon}</Box>
       )}

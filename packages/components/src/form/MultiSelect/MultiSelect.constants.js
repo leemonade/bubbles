@@ -26,7 +26,10 @@ export const MULTI_SELECT_DEFAULT_PROPS = {
   clearable: '',
   readOnly: false,
   multiple: true,
+  autoSelectOneOption: false,
   useAria: true,
+  dropdownPosition: MULTI_SELECT_DROPDOWN_POSITIONS[0],
+  withinPortal: true,
 };
 
 export const MULTI_SELECT_PROP_TYPES = {
@@ -43,6 +46,7 @@ export const MULTI_SELECT_PROP_TYPES = {
   multiple: PropTypes.bool,
   maxSelectedValues: PropTypes.number,
   readOnly: PropTypes.bool,
+  autoSelectOneOption: PropTypes.bool,
   useAria: PropTypes.bool,
   ariaLabel: PropTypes.string,
 };

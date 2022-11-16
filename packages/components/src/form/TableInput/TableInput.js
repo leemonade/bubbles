@@ -12,19 +12,6 @@ import { TableInputStyles } from './TableInput.styles';
 // ----------------------------------------------------------------
 // HELP FUNCTIONS
 
-const getCircularReplacer = () => {
-  const seen = new WeakSet();
-  return (key, value) => {
-    if (typeof value === 'object' && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-};
-
 function serializeItem(value) {
   return { tableInputRowId: uuidv4(), ...value };
 }
@@ -44,30 +31,23 @@ function deserializeData(data) {
 // COMPONENT
 
 const TableInput = ({
-                      data,
-                      form: formProp,
-                      error,
-                      unique,
-                      showHeaders,
-                      resetOnAdd,
-                      onChange = () => {
-                      },
-                      onChangeData = () => {
-                      },
-                      onBeforeRemove = () => {
-                      },
-                      onBeforeAdd = () => {
-                      },
-                      onAdd = () => {
-                      },
-                      onUpdate = () => {
-                      },
-                      onRemove = () => {
-                      },
-                      onSort = () => {
-                      },
-                      ...props
-                    }) => {
+  data,
+  form: formProp,
+  error,
+  unique,
+  showHeaders,
+  forceShowInputs,
+  resetOnAdd,
+  onChange = () => {},
+  onChangeData = () => {},
+  onBeforeRemove = () => {},
+  onBeforeAdd = () => {},
+  onAdd = () => {},
+  onUpdate = () => {},
+  onRemove = () => {},
+  onSort = () => {},
+  ...props
+}) => {
   const [tableData, setTableData] = useState([]);
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
@@ -80,7 +60,7 @@ const TableInput = ({
   useEffect(() => {
     const newData = serializeData(data);
     setTableData(newData);
-  }, [JSON.stringify(data, getCircularReplacer())]);
+  }, [data]);
 
   // ··················
   // HANDLERS
@@ -101,12 +81,14 @@ const TableInput = ({
       const newData = update(tableData, { $push: [serializeItem(item)] });
       onAdd(serializeItem(item));
       handleOnChange(newData, { type: 'add' });
-
-      if (resetOnAdd) {
-        form.reset();
-      }
     }
   };
+
+  React.useEffect(() => {
+    if (form.formState.isSubmitSuccessful && resetOnAdd) {
+      form.reset();
+    }
+  }, [form.formState, form.reset]);
 
   const handleOnEdit = (newItem, index) => {
     const newData = [...tableData];
@@ -134,8 +116,8 @@ const TableInput = ({
     const newData = update(tableData, {
       $splice: [
         [from, 1],
-        [to, 0, record]
-      ]
+        [to, 0, record],
+      ],
     });
     onSort({ from, to });
     handleOnChange(newData, { type: 'sort' });
@@ -155,6 +137,7 @@ const TableInput = ({
           onEdit={handleOnEdit}
           onSort={handleOnSort}
           showHeaders={showHeaders}
+          forceShowInputs={forceShowInputs}
           classes={classes}
         />
       </Box>

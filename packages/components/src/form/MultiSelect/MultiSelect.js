@@ -1,11 +1,11 @@
-import React, { forwardRef, useMemo, useRef } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
 import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
 import { ActionButton } from '../ActionButton';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { InputWrapper } from '../InputWrapper';
-import { useUuid } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { Badge } from '../../informative';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
@@ -46,20 +46,25 @@ const MultiSelect = forwardRef(
       valueComponent,
       onChange,
       useAria,
+      disabled,
+      autoSelectOneOption,
       ariaLabel,
       ...props
     },
     ref
   ) => {
     const [show, setShow] = React.useState(true);
-    const uuid = useUuid();
+    const uuid = useId();
     const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
     const multiSelectRef = useRef();
+    const autoSelectOneOptionMode = autoSelectOneOption && props.data.length === 1;
     if (!multiple) maxSelectedValues = 2;
+
+    const isDisabled = disabled || autoSelectOneOptionMode;
 
     // ······················································
     // HANDLERS
@@ -91,6 +96,15 @@ const MultiSelect = forwardRef(
         }, 1);
       }
     }, [JSON.stringify(value)]);
+
+    // ······················································
+    // useEffects
+
+    useEffect(() => {
+      if (!autoSelectOneOptionMode) return;
+      if (props.data[0].value && props.data[0].value !== value?.[0])
+        handleChange([props.data[0].value]);
+    }, [autoSelectOneOption, props.data]);
 
     // ······················································
     // STYLES
@@ -137,6 +151,7 @@ const MultiSelect = forwardRef(
                 value={value}
                 autoComplete="off"
                 onChange={handleChange}
+                disabled={isDisabled}
                 maxSelectedValues={maxSelectedValues}
                 placeholder={placeholder}
                 searchable={searchable}
@@ -151,7 +166,7 @@ const MultiSelect = forwardRef(
                     : undefined
                 }
                 rightSection={
-                  isClearable && showClear ? (
+                  isClearable && showClear && !isDisabled ? (
                     <ActionButton
                       icon={<RemoveIcon />}
                       tooltip={clearable}

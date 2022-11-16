@@ -6,7 +6,6 @@ import { Box, Button, Col, Grid, SortableList, Text, TextInput } from '@bubbles-
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
 
 const OptionItem = ({ value, onChange }) => {
-  console.log(value);
   return (
     <Box
       sx={(theme) => ({

@@ -8,7 +8,7 @@ import {
   AVATAR_DEFAULT_PROPS,
   AVATAR_PROP_TYPES,
   AVATAR_SIZES,
-  AVATAR_STATE
+  AVATAR_STATE,
 } from './Avatar.constants';
 
 const Avatar = forwardRef(
@@ -23,6 +23,7 @@ const Avatar = forwardRef(
       state: stateProp,
       activityStatus,
       alt,
+      withBorder,
       ...props
     },
     ref
@@ -45,48 +46,32 @@ const Avatar = forwardRef(
     const renderState = () => {
       return {
         notifications: (
-          <Text componet='span' className={classes.avatarBadgeNumber}>
+          <Text componet="span" className={classes.avatarBadgeNumber}>
             2
           </Text>
         ),
-        alert: <Text componet='span' className={classes.avatarBadge} />,
+        alert: <Text componet="span" className={classes.avatarBadge} />,
         error: (
-          <Text componet='span' className={classes.avatarError}>
-            <ExclamationIcon />{' '}
+          <Text componet="span" className={classes.avatarError}>
+            <ExclamationIcon />
           </Text>
         ),
-        activity: <Box className={classes.avatarActivity}></Box>
+        activity: <Box className={classes.avatarActivity}></Box>,
       }[state];
     };
 
-    const { classes, cx } = AvatarStyles({ color, size, activityStatus });
-    return image ? (
+    const { classes, cx } = AvatarStyles({ color, size, activityStatus, withBorder });
+    return (
       <Box className={classes.avatarWrapper}>
         <MantineAvatar
           {...props}
           ref={ref}
+          size={size}
           src={image}
           classNames={classes}
-          className={cx(classes, classes.avatarsolid)}
+          className={cx(classes, withBorder && classes.avatarBorder)}
           color={color}
-          size={size}
           state={state}
-          alt={alt}
-        >
-          {icon ? icon : initials}
-        </MantineAvatar>
-        {renderState()}
-      </Box>
-    ) : (
-      <Box className={classes.avatarWrapper}>
-        <MantineAvatar
-          {...props}
-          ref={ref}
-          size={size}
-          state={state}
-          classNames={classes}
-          className={cx(classes, classes.avatarsolid)}
-          color={color}
           alt={alt}
         >
           {icon ? icon : initials}

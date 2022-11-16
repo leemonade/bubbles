@@ -46,6 +46,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   onSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
   useAria: PropTypes.bool,
+  headerStyles: PropTypes.object,
 };
 
 const PaginatedList = ({
@@ -70,6 +71,7 @@ const PaginatedList = ({
   onPageChange = () => {},
   style,
   useAria,
+  headerStyles,
   ...props
 }) => {
   const {
@@ -140,6 +142,7 @@ const PaginatedList = ({
                 onSelect,
                 selected,
                 useAria,
+                headerStyles,
               }}
             />
           ) : (
@@ -156,7 +159,8 @@ const PaginatedList = ({
               {...pagerProps}
               labels={labels}
               page={page}
-              totalPages={totalPages}
+              totalPages={Math.ceil(totalPages)}
+              withSize={true}
               size={size}
               sizes={sizes}
               onSizeChange={handleSizeChange}

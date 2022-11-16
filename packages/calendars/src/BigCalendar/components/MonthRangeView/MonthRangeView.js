@@ -9,7 +9,7 @@ const eventsForWeek = (evts, start, end, accessors, localizer) =>
   evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
 const MonthRangeView = ({ ...props }) => {
-  let { dateMonthRange, localizer, onRangeChange, events } = props;
+  let { dateMonthRange, localizer, onRangeChange, events, printMode } = props;
 
   const years = [];
   if (dateMonthRange) {
@@ -18,7 +18,7 @@ const MonthRangeView = ({ ...props }) => {
     }
   }
 
-  const { classes, cx } = MonthRangeViewStyles({});
+  const { classes, cx } = MonthRangeViewStyles({ printMode });
 
   useEffect(() => {
     onRangeChange({
@@ -49,7 +49,7 @@ const MonthRangeView = ({ ...props }) => {
                   {capitalize(localizer.format(date, 'monthHeaderFormat'))}
                 </Text>
               </Box>
-              <Box style={{ paddingBottom: '100%', position: 'relative' }}>
+              <Box style={{ paddingBottom: printMode ? '196px' : '100%', position: 'relative' }}>
                 <Box style={{ position: 'absolute', width: '100%', height: '100%' }}>
                   <MonthView
                     {...props}

@@ -42,6 +42,7 @@ const TableInputDisplay = ({
   disabled,
   disabledAddButton,
   showHeaders,
+  forceShowInputs,
   classes,
   onChangeRow = () => {},
 }) => {
@@ -116,7 +117,7 @@ const TableInputDisplay = ({
       })}
     >
       <thead>
-        {showHeaders &&
+        {!!showHeaders &&
           headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps({})}>
               {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
@@ -136,34 +137,36 @@ const TableInputDisplay = ({
             </tr>
           ))}
 
-        <tr className={rows.length > 0 ? tableClasses.tr : ''}>
-          {(sortable && !disabled) || forceSortable ? <th></th> : null}
-          {columns.map((column, i) => (
-            <th
-              key={`in-${i}`}
-              className={cx(tableClasses.td, classes.inputCell)}
-              style={{ ...column.style, paddingLeft: 0 }}
-            >
-              {getColumnInput(column.accessor)}
-            </th>
-          ))}
-          <th
-            className={cx(tableClasses.td, classes.inputCell)}
-            style={{ paddingLeft: 0, paddingBottom: 4 }}
-          >
-            {!disabled && (
-              <Button
-                variant="light"
-                size="sm"
-                disabled={disabledAddButton}
-                leftIcon={<AddCircleIcon />}
-                onClick={handleOnAdd}
+        {(showHeaders || forceShowInputs) && (
+          <tr className={rows.length > 0 ? tableClasses.tr : ''}>
+            {(sortable && !disabled) || forceSortable ? <th></th> : null}
+            {columns.map((column, i) => (
+              <th
+                key={`in-${i}`}
+                className={cx(tableClasses.td, classes.inputCell)}
+                style={{ ...column.style, paddingLeft: 0 }}
               >
-                {labels.add}
-              </Button>
-            )}
-          </th>
-        </tr>
+                {getColumnInput(column.accessor)}
+              </th>
+            ))}
+            <th
+              className={cx(tableClasses.td, classes.inputCell)}
+              style={{ paddingLeft: 0, paddingBottom: 4 }}
+            >
+              {!disabled && (
+                <Button
+                  variant="light"
+                  size="sm"
+                  disabled={disabledAddButton}
+                  leftIcon={<AddCircleIcon />}
+                  onClick={handleOnAdd}
+                >
+                  {labels.add}
+                </Button>
+              )}
+            </th>
+          </tr>
+        )}
       </thead>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="table-body">

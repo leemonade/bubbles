@@ -39,13 +39,13 @@ export const SwiperStyles = createStyles(
       },
       nextButton: {
         right: 0,
-        width: !isEnd ? 48 : 0,
+        width: isEnd ? 0 : 48,
         ...buttonCommonStyles,
         ...nextButtonStyles,
       },
       prevButton: {
         left: 0,
-        width: !isBeginning ? 48 : 0,
+        width: isBeginning ? 0 : 48,
         ...buttonCommonStyles,
         ...prevButtonStyles,
       },

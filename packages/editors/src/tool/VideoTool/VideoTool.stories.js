@@ -1,11 +1,11 @@
-import { LeemonsTool, LEEMONS_TOOL_DEFAULT_PROPS } from './LeemonsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
-import mdx from './LeemonsTool.mdx';
+import { VideoTool } from './VideoTool';
+import mdx from './VideoTool.mdx';
 
 export default {
-  title: 'Atom/Tool/LeemonsTool',
+  title: 'Atom/Tool/VideoTool',
   parameters: {
-    component: LeemonsTool,
+    component: VideoTool,
     docs: {
       page: mdx,
     },
@@ -20,7 +20,7 @@ export default {
 const Template = ({ content, ...props }) => {
   return (
     <TextEditor content={content}>
-      <LeemonsTool {...props} />
+      <VideoTool {...props}></VideoTool>
     </TextEditor>
   );
 };
@@ -28,7 +28,6 @@ const Template = ({ content, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  ...LEEMONS_TOOL_DEFAULT_PROPS,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',
 };

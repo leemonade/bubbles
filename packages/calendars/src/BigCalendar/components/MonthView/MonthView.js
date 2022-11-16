@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { capitalize, chunk } from 'lodash';
+import _, { capitalize, chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -11,37 +11,49 @@ import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
 import { Box, COLORS, Popper } from '@bubbles-ui/components';
+import { colord } from 'colord';
 
 import DateContentRow from '../Date/DateContentRow';
 
-/*
 let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
   const range = { start, end };
-  const filteredEvents = events.filter((event) =>
-    localizer.inEventRange({
+  const filteredEvents = events.filter((event) => {
+    return localizer.inEventRange({
       event: { ...event },
       range: range,
-    })
-  );
-
+    });
+  });
+  filteredEvents.sort((eventA, eventB) => {
+    const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
+    const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
+    return eventAzIndex - eventBzIndex;
+  });
   const finalEvents = filteredEvents.map((event) => {
     if (isLastWeek) {
-      if (event.end.getMonth() > end.getMonth())
-        return { ...event, end: new Date(end.getTime() + 1), realEnd: event.end };
+      if (event.end.getYear() > end.getYear() || event.end.getMonth() > end.getMonth())
+        return { ...event, end: end, realEnd: event.end };
     }
     if (isFirstWeek) {
-      if (event.start.getDate() > 1) return { ...event, start: start };
+      if (event.start.getYear() < start.getYear() || event.start.getMonth() < start.getMonth())
+        return { ...event, start: start };
     }
     return event;
   });
-
   return finalEvents;
 };
 
- */
-
-let eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
+let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
+  const filteredEvents = evts.filter((e) => inRange(e, start, end, accessors, localizer));
+  const finalEvents = filteredEvents.map((event) => {
+    const eStart = event.start;
+    const eEnd = event.end;
+    if (localizer.isSameDate(eStart, eEnd)) return event;
+    event.realEnd = eEnd;
+    event.end = new Date(new Date(eEnd).setHours(2, 0, 0));
+    return event;
+  });
+  return finalEvents;
+};
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -135,6 +147,7 @@ class MonthView extends React.Component {
       hideBgTitles,
       isMonthView,
       monthNumber,
+      printMode,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
@@ -160,25 +173,9 @@ class MonthView extends React.Component {
     const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
 
     // let's not mutate props
-    /*
-    const weeksEvents = eventsForWeek(
-      [...events],
-      startOfWeek,
-      endOfWeeek,
-      localizer,
-      isFirstWeek,
-      isLastWeek
-    );
-
-     */
-
-    const weeksEvents = eventsForWeek(
-      [...events],
-      week[0],
-      week[week.length - 1],
-      accessors,
-      localizer
-    );
+    const weeksEvents = isMonthView
+      ? eventsForWeek([...events], startOfWeek, endOfWeeek, localizer, isFirstWeek, isLastWeek)
+      : eventsForWeekNormal([...events], week[0], week[week.length - 1], accessors, localizer);
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 
@@ -213,18 +210,40 @@ class MonthView extends React.Component {
         showAllEvents={showAllEvents}
         isMonthView={isMonthView}
         monthNumber={monthNumber}
+        printMode={printMode}
       />
     );
   };
 
   readerDateHeading = ({ date, isWeekend, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer, isMonthView } = this.props;
+    let { date: currentDate, getDrilldownView, localizer, isMonthView, events } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
     let isCurrent = localizer.isSameDate(date, currentDate);
     let drilldownView = getDrilldownView(date);
     let label = localizer.format(date, 'dateFormat').replace(/^0/, '');
     let DateHeaderComponent = this.props.components.dateHeader || DateHeader;
     const { cx } = this.props.components;
+
+    let dateIsInRangeOfTextColor = false;
+    if (_.isArray(events) && events.length > 0) {
+      events.forEach((event) => {
+        if (dateIsInRangeOfTextColor) return;
+        const { originalEvent } = event;
+        const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+        const eventBgRGBColor = colord(
+          _.isArray(eventBgColor) ? eventBgColor[0] : eventBgColor
+        ).toRgb();
+        const brightness = Math.round(
+          (parseInt(eventBgRGBColor.r) * 299 +
+            parseInt(eventBgRGBColor.g) * 587 +
+            parseInt(eventBgRGBColor.b) * 114) /
+            1000
+        );
+        const eventTextColor = !(brightness > 125 || eventBgColor === 'transparent');
+        dateIsInRangeOfTextColor =
+          eventTextColor && localizer.inRange(date, event.start, event.end);
+      });
+    }
 
     return (
       <Box
@@ -234,9 +253,23 @@ class MonthView extends React.Component {
         style={{
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',
-          backgroundColor: isMonthView && isWeekend && COLORS.ui02,
+          position: 'relative',
+          color: isMonthView && dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
         }}
       >
+        {isMonthView && isWeekend && COLORS.ui02 ? (
+          <Box
+            style={{
+              backgroundColor: COLORS.ui02,
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: -99999,
+            }}
+          />
+        ) : null}
         <DateHeaderComponent
           label={label}
           date={date}

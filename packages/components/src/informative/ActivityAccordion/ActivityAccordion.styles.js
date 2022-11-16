@@ -24,6 +24,9 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       background: PANEL_COLORS.default,
       borderBottomRightRadius: BORDER_RADIUS,
       borderBottomLeftRadius: BORDER_RADIUS,
+      wordBreak: 'normal',
+      padding: 0,
+      paddingTop: 0,
     },
     contentInner: {
       padding: 0,
@@ -37,6 +40,10 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
     },
     contentSolid: {
       background: PANEL_COLORS.solid,
+    },
+    iconWrapper: {
+      width: compact ? 16 : 22,
+      height: compact ? 16 : 22,
     },
     labelIcon: {
       color: compact && theme.colors.text02,

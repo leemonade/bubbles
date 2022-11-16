@@ -23,10 +23,16 @@ export const FORM_WITH_THEME_PROP_TYPES = {};
 
 export const FORM_WITH_THEME_REGEX = {
   numbers: /^\d+$/,
-  phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
+  phone: /^.*$/ // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
 
-const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, context = {}) => {
+const FormWithTheme = (schema, ui, conditions, props = {}, {
+  t = () => {
+  }, translations = {},
+  fields = {},
+  widgets = {},
+  customValidateSchema
+} = {}, context = {}) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
 
@@ -40,6 +46,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, 
           StringField,
           ObjectField,
           SchemaField,
+          ...fields
         },
         widgets: {
           BaseInput,
@@ -50,17 +57,18 @@ const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, 
           CheckboxesWidget,
           toggle: ToggleWidget,
           wysiwyg: WysiwygWidget,
+          ...widgets
         },
-        validateSchema,
-        transformAjvErrors,
+        validateSchema: customValidateSchema || validateSchema,
+        transformAjvErrors
       }),
-    [validateSchema]
+    [validateSchema, customValidateSchema]
   );
 
   const customFormats = React.useMemo(
     () => ({
       numbers: FORM_WITH_THEME_REGEX.numbers,
-      phone: FORM_WITH_THEME_REGEX.phone,
+      phone: FORM_WITH_THEME_REGEX.phone
     }),
     []
   );
@@ -86,10 +94,10 @@ const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, 
         </FormContext.Provider>
       ) : null,
     [
-      JSON.stringify(schema),
-      JSON.stringify(ui),
+      schema,
+      ui,
       JSON.stringify(props),
-      JSON.stringify(translations),
+      JSON.stringify(translations)
     ]
   );
 
@@ -102,7 +110,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, 
           ref.current.formElement.dispatchEvent(
             new Event('submit', {
               cancelable: true,
-              bubbles: true,
+              bubbles: true
             })
           );
           setTimeout(() => {
@@ -116,9 +124,9 @@ const FormWithTheme = (schema, ui, conditions, props = {}, { t, translations }, 
       setValue: (key, value) =>
         ref.current.onChange({
           ...ref.current.state.formData,
-          [key]: value,
-        }),
-    },
+          [key]: value
+        })
+    }
   ];
 };
 

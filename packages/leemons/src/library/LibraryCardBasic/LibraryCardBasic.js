@@ -14,13 +14,13 @@ const LibraryCardBasic = ({ asset, height, blur, children, ...props }) => {
     { name: 'LibraryCardBasic' }
   );
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} {...props}>
       <Box className={classes.blurryBox}>
         <Box>
           <Box className={classes.color} />
         </Box>
         <Box className={classes.titleWrapper}>
-          <TextClamp lines={2}>
+          <TextClamp lines={3}>
             <Title order={3} className={classes.title}>
               {name}
             </Title>
@@ -34,7 +34,7 @@ const LibraryCardBasic = ({ asset, height, blur, children, ...props }) => {
         <Box className={classes.childrenWrapper}>{children}</Box>
       </Box>
       {cover ? (
-        <ImageLoader src={cover} height={height} forceImage />
+        <ImageLoader src={cover} height={height} width="100%" forceImage />
       ) : (
         <Box className={classes.fileIcon}>
           {

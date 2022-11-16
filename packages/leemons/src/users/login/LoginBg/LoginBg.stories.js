@@ -17,6 +17,8 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    accentColor: { control: { type: 'color' } },
+    logoUrl: { control: { type: 'text' } },
   },
 };
 

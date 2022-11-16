@@ -40,7 +40,6 @@ const Template = ({ children, ...props }) => {
           await actions.submit();
           const fErrors = actions.getErrors();
           const datasetValues = actions.getValues();
-          console.log(fErrors, datasetValues);
         }}
       >
         Send

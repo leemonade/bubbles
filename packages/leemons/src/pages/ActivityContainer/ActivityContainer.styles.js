@@ -17,7 +17,7 @@ export const ActivityContainerStyles = createStyles((theme, { isScrolled }) => {
       display: 'flex',
       position: 'fixed',
       minHeight: isScrolled ? 64 : 204,
-      height: isScrolled ? 64 : '25vh',
+      height: isScrolled ? 64 : 204,
       top: '0px',
       transition: 'height 0.3s ease-in-out',
       zIndex: 9,

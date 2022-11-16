@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles } from '@bubbles-ui/components';
 
 export const ActivityHeaderStyles = createStyles(
   (theme, { hovered, isExpandable, isExpanded, position }) => {

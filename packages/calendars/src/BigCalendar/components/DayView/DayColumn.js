@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import clsx from 'clsx';
+import _ from 'lodash';
 
 import Selection, { getBoundsForNode, isEvent } from 'react-big-calendar/lib/Selection';
 import * as TimeSlotUtils from 'react-big-calendar/lib/utils/TimeSlots';
@@ -112,7 +113,7 @@ class DayColumn extends React.Component {
       accessors,
       localizer,
       getters: { dayProp, ...getters },
-      components: { eventContainerWrapper: EventContainer, ...components },
+      components: { eventContainerWrapper: EventContainer, ...components }
     } = this.props;
 
     let { slotMetrics } = this;
@@ -158,20 +159,20 @@ class DayColumn extends React.Component {
           <div className={clsx('rbc-events-container', rtl && 'rtl')}>
             {this.renderEvents({
               events: this.props.backgroundEvents,
-              isBackgroundEvent: true,
+              isBackgroundEvent: true
             })}
             {this.renderEvents({ events: this.props.events })}
           </div>
         </EventContainer>
 
         {selecting && (
-          <div className="rbc-slot-selection" style={{ top, height }}>
+          <div className='rbc-slot-selection' style={{ top, height }}>
             <span>{localizer.format(selectDates, 'selectRangeFormat')}</span>
           </div>
         )}
         {isNow && this.intervalTriggered && (
           <div
-            className="rbc-current-time-indicator"
+            className='rbc-current-time-indicator'
             style={{ top: `${this.state.timeIndicatorPosition}%` }}
           />
         )}
@@ -190,7 +191,7 @@ class DayColumn extends React.Component {
       step,
       timeslots,
       dayLayoutAlgorithm,
-      resizable,
+      resizable
     } = this.props;
 
     const { slotMetrics } = this;
@@ -200,8 +201,8 @@ class DayColumn extends React.Component {
       events,
       accessors,
       slotMetrics,
-      minimumStartDifference: Math.ceil((step * timeslots) / 2),
-      dayLayoutAlgorithm,
+      minimumStartDifference: _.isNumber(components.minimumStartDifference) ? components.minimumStartDifference : Math.ceil((step * timeslots) / 2),
+      dayLayoutAlgorithm
     });
 
     return styledEvents.map(({ event, style }, idx) => {
@@ -249,7 +250,7 @@ class DayColumn extends React.Component {
     let node = findDOMNode(this);
     const { longPressThreshold, localizer } = this.props;
     let selector = (this._selector = new Selection(() => findDOMNode(this), {
-      longPressThreshold: longPressThreshold,
+      longPressThreshold: longPressThreshold
     }));
 
     let maybeSelect = (box) => {
@@ -300,7 +301,7 @@ class DayColumn extends React.Component {
         selecting: true,
 
         top: `${selectRange.top}%`,
-        height: `${selectRange.height}%`,
+        height: `${selectRange.height}%`
       };
     };
 
@@ -311,7 +312,7 @@ class DayColumn extends React.Component {
           startDate,
           endDate,
           action: actionType,
-          box,
+          box
         });
       }
       this.setState({ selecting: false });
@@ -366,7 +367,7 @@ class DayColumn extends React.Component {
       resourceId: this.props.resource,
       action,
       bounds,
-      box,
+      box
     });
   };
 
@@ -420,12 +421,12 @@ DayColumn.propTypes = {
   dragThroughEvents: PropTypes.bool,
   resource: PropTypes.any,
 
-  dayLayoutAlgorithm: DayLayoutAlgorithmPropType,
+  dayLayoutAlgorithm: DayLayoutAlgorithmPropType
 };
 
 DayColumn.defaultProps = {
   dragThroughEvents: true,
-  timeslots: 2,
+  timeslots: 2
 };
 
 export default DayColumn;

@@ -35,12 +35,12 @@ export const BigCalendar = forwardRef(
       className,
       validRange,
       messages,
+      minimumStartDifference,
       monthRange,
       hooks,
       minHour,
       maxHour,
-      minWeekDay,
-      maxWeekDay,
+      weekDays,
       timeslots,
       timeslotHeight = 40,
       hideAllDayCells,
@@ -51,6 +51,7 @@ export const BigCalendar = forwardRef(
       showToolbarToggleWeekend = true,
       showToolbarViewSwitcher = true,
       showWeekends: showWeekendsProp,
+      printMode,
       dateClick = () => {
       },
       onSelectDay = () => {
@@ -165,22 +166,22 @@ export const BigCalendar = forwardRef(
               DateTime.fromJSDate(dateRange.end)
             );
 
-            const e = Interval.fromDateTimes(DateTime.fromJSDate(ev.start), DateTime.fromJSDate(ev.end));
+            const e = Interval.fromDateTimes(
+              DateTime.fromJSDate(ev.start),
+              DateTime.fromJSDate(ev.end)
+            );
 
-            if (
-              range.e >= e.s && range.s <= e.e
-            ) {
+            if (range.e >= e.s && range.s <= e.e) {
               acc.push(ev);
             }
           }
         });
       }
       return acc;
-    }, [JSON.stringify(eventsProp), JSON.stringify(dateRange)]);
+    }, [eventsProp, JSON.stringify(dateRange)]);
 
     // ·················································
     // INTERACTION HANDLE
-
 
     const handleDayClick = ({ args: [date] }) => {
       onSelectDay(date);
@@ -246,10 +247,9 @@ export const BigCalendar = forwardRef(
 
     const { classes, cx } = BigCalendarStyles({
       timeslotHeight,
-      isMonthRange: currentView === MONTH_RANGE
+      isMonthRange: currentView === MONTH_RANGE,
+      printMode
     });
-
-    console.log(events);
 
     return (
       <Box className={cx(classes.root, className)} style={style}>
@@ -274,9 +274,9 @@ export const BigCalendar = forwardRef(
             showWeekends,
             minHour,
             maxHour,
-            minWeekDay,
-            maxWeekDay,
+            weekDays,
             hideAllDayCells,
+            minimumStartDifference,
             forceBgColorToEvents,
             firstDayOfWeek
           }}
@@ -297,6 +297,7 @@ export const BigCalendar = forwardRef(
           validRange={validRange}
           dateMonthRange={monthRange}
           views={availableViews}
+          printMode={printMode}
         />
       </Box>
     );

@@ -92,7 +92,7 @@ TextAlignTool.propTypes = TEXTALIGN_TOOL_PROP_TYPES;
 TextAlignTool.extensions = [
   Heading,
   TextAlign.configure({
-    types: ['heading', 'paragraph'],
+    types: ['heading', 'paragraph', 'library'],
   }),
 ];
 

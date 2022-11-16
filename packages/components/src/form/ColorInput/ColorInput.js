@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import { colord } from 'colord';
-import { useId } from '@mantine/hooks';
+import { useClickOutside, useId } from '@mantine/hooks';
 import { ColorSwatch } from '../ColorPicker/ColorSwatch/ColorSwatch';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { Paragraph } from '../../typography';
@@ -57,6 +57,8 @@ export const COLOR_INPUT_PROP_TYPES = {
   manual: PropTypes.bool,
   /** Controls if only shows light colors when using useHsl*/
   lightOnly: PropTypes.bool,
+  /** Custom color picker component */
+  colorPickerCompoennt: PropTypes.node,
   /** Controls if ColorInput uses aria role */
   useAria: PropTypes.bool,
 };
@@ -118,6 +120,7 @@ const ColorInput = forwardRef(
       ariaColorFormat,
       ariaColorValue,
       ariaHueValue,
+      colorPickerComponent,
       useAria,
       ...props
     },
@@ -126,6 +129,7 @@ const ColorInput = forwardRef(
     const uuid = useId();
     const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const closeRef = useClickOutside(() => setOpened(false));
     const { classes, cx, theme } = ColorInputStyles({ size }, { name: 'ColorInput' });
 
     useEffect(() => {
@@ -200,35 +204,42 @@ const ColorInput = forwardRef(
                 spellCheck={false}
               />
             }
-            width={200}
-            position="bottom"
-            placement="start"
+            width={colorPickerComponent ? undefined : 200}
+            position="bottom-start"
             withArrow
+            trapFocus
           >
-            <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }}>
-              <ColorPicker
-                color={inputValue}
-                format={format}
-                withSwatches={withSwatches}
-                compact={compact}
-                fullWidth
-                swatchesForGama={swatchesForGama}
-                swatchesPerRow={swatchesPerRow}
-                spacing={spacing}
-                useHsl={useHsl}
-                lightOnly={lightOnly}
-                saturation={saturation}
-                lightness={lightness}
-                manual={manual}
-                output="hex"
-                ariaSaturationLabel={ariaSaturationLabel}
-                ariaSliderLabel={ariaSliderLabel}
-                ariaColorFormat={ariaColorFormat}
-                ariaColorValue={ariaColorValue}
-                ariaHueValue={ariaHueValue}
-                onChange={setInputValue}
-                role={useAria ? 'input' : undefined}
-              />
+            <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }} ref={closeRef}>
+              {!colorPickerComponent ? (
+                <ColorPicker
+                  color={inputValue}
+                  format={format}
+                  withSwatches={withSwatches}
+                  compact={compact}
+                  fullWidth
+                  swatchesForGama={swatchesForGama}
+                  swatchesPerRow={swatchesPerRow}
+                  spacing={spacing}
+                  useHsl={useHsl}
+                  lightOnly={lightOnly}
+                  saturation={saturation}
+                  lightness={lightness}
+                  manual={manual}
+                  output="hex"
+                  ariaSaturationLabel={ariaSaturationLabel}
+                  ariaSliderLabel={ariaSliderLabel}
+                  ariaColorFormat={ariaColorFormat}
+                  ariaColorValue={ariaColorValue}
+                  ariaHueValue={ariaHueValue}
+                  onChange={setInputValue}
+                  role={useAria ? 'input' : undefined}
+                />
+              ) : (
+                React.createElement(colorPickerComponent, {
+                  inputValue: inputValue,
+                  onChange: setInputValue,
+                })
+              )}
             </Box>
           </Popover>
         )}

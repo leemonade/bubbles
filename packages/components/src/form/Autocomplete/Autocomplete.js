@@ -40,8 +40,8 @@ const Autocomplete = forwardRef(
     },
     ref
   ) => {
-    const [selectedValue, setSelectedValue] = useState(value.length > 1 ? value : null);
-    const [inputValue, setInputValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState(Array.isArray(value) ? value : null);
+    const [inputValue, setInputValue] = useState(value || '');
     const [debouncedValue] = useDebouncedValue(inputValue, waitToSearch);
     const uuid = useId();
 
@@ -54,6 +54,11 @@ const Autocomplete = forwardRef(
       onSearch(debouncedValue);
     }, [debouncedValue]);
 
+    useEffect(() => {
+      setSelectedValue(Array.isArray(value) ? value : null);
+      setInputValue(value);
+    }, [value]);
+
     // ················································································
     // HANDLERS
 
@@ -63,13 +68,14 @@ const Autocomplete = forwardRef(
     };
 
     const onChangeHandler = (e) => {
-      isFunction(onChange) && onChange(e);
       setInputValue(e);
+      isFunction(onChange) && onChange(e);
     };
 
     const deleteValues = () => {
       setSelectedValue(null);
       setInputValue('');
+      isFunction(onChange) && onChange('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -118,7 +124,7 @@ const Autocomplete = forwardRef(
             className={className}
             nothingFound={nothingFoundLabel}
             rightSection={
-              selectedValue && (
+              inputValue && (
                 <DeleteIcon
                   height={12}
                   width={12}
@@ -134,6 +140,10 @@ const Autocomplete = forwardRef(
             classNames={classes}
             error={!isEmpty(error)}
             aria-label={ariaLabel}
+            filter={(value = '', item) => {
+              if (!value) return true;
+              return item.value?.toLowerCase().trim().includes(value?.toLowerCase().trim());
+            }}
           />
         )}
       </Wrapper>

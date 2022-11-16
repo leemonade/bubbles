@@ -61,6 +61,7 @@ Playground.args = {
   searchable: false,
   creatable: false,
   readOnly: false,
+  autoSelectOneOption: false,
   clearable: 'Clear select field',
   error: 'Descriptive text for error ',
   value: 'Carol Miller',
@@ -72,7 +73,6 @@ Playground.args = {
       value: 'Bender Bending Rodríguez',
       description: 'Fascinated with cooking',
     },
-
     {
       image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
       label: 'Carol Miller',

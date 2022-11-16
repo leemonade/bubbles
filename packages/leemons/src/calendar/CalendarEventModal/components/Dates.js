@@ -80,6 +80,14 @@ const Dates = ({
                         label={config?.fromLabel || messages.fromLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        maxDate={form.getValues('endDate')}
+                        onChange={(value) => {
+                          if (!value) {
+                            form.setValue('endDate', null);
+                          }
+                          if (!form.getValues('endDate')) form.setValue('endDate', value);
+                          field.onChange(value);
+                        }}
                       />
                     )}
                   />
@@ -136,13 +144,16 @@ const Dates = ({
                         error={get(errors, 'endDate')}
                         size="xs"
                         withTime={disabled}
-                        disabled={disabled}
                         locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
                         readOnly={readOnly}
                         label={messages.toLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        clearable={false}
+                        disabled={disabled || !form.getValues('startDate')}
+                        minDate={form.getValues('startDate')}
+                        value={field.value || form.getValues('startDate')}
                       />
                     )}
                   />

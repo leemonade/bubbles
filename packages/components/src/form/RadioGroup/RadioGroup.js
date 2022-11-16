@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, map } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
-import { useUuid } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
 import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
 import {
@@ -72,7 +72,7 @@ const RadioGroup = forwardRef(
     const refs = useRef({});
     const wrapperRef = useRef();
     const hasError = useMemo(() => !isEmpty(error), [error]);
-    const uuid = useUuid();
+    const uuid = useId();
 
     React.useEffect(() => {
       setValue(props.value);
@@ -142,29 +142,27 @@ const RadioGroup = forwardRef(
             classNames={classes}
             defaultValue={defaultValue ? defaultValue : ' '}
             value={value}
-            data={map(data, ({ label, ...item }, index) => {
-              return {
-                value: item.value,
-                label: (
-                  <Radio
-                    {...item}
-                    disabled={item.disabled || props.disabled}
-                    ref={(node) => {
-                      refs.current[item.value] = node;
-                    }}
-                    size={size}
-                    key={index}
-                    className={classes.radio}
-                    variant={variant}
-                    checked={value === item.value}
-                    onChange={() => {}}
-                    useAria={useAria}
-                  >
-                    {label}
-                  </Radio>
-                ),
-              };
-            })}
+            data={map(data, ({ label, ...item }, index) => ({
+              value: item.value,
+              label: (
+                <Radio
+                  {...item}
+                  disabled={item.disabled || props.disabled}
+                  ref={(node) => {
+                    refs.current[item.value] = node;
+                  }}
+                  size={size}
+                  key={index}
+                  className={classes.radio}
+                  variant={variant}
+                  checked={value === item.value}
+                  onChange={() => {}}
+                  useAria={useAria}
+                >
+                  {label}
+                </Radio>
+              ),
+            }))}
           />
         </Box>
       </InputWrapper>

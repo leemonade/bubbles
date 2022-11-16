@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isNil } from 'lodash';
 import { colord } from 'colord';
-import { ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
+import { ColorPicker as MantineColorPicker, HueSlider } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
@@ -233,6 +233,7 @@ export const ColorPicker = forwardRef(
                   onChange={setHue}
                   size="sm"
                   aria-label={ariaSliderLabel}
+                  onChangeEnd={() => {}}
                 />
               </Box>
               {manual && (

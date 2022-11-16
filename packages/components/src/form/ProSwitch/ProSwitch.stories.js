@@ -16,13 +16,12 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    onChange: { action: 'Changed' },
   },
 };
 
-const Template = ({ children, useIcon, icon, ...props }) => {
-  return <ProSwitch {...props} icon={useIcon ? icon : undefined} />;
+const Template = ({ children, useIcon, icon, onChange, ...props }) => {
+  return <ProSwitch {...props} icon={useIcon ? icon : undefined} onChange={onChange} />;
 };
 
 export const Playground = Template.bind({});
@@ -32,4 +31,5 @@ Playground.args = {
   useIcon: true,
   icon: <EmailPileIcon />,
   ariaLabel: 'Email switch',
+  label: 'Switch label',
 };

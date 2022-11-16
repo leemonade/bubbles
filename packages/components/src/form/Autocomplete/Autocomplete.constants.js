@@ -20,7 +20,7 @@ export const AUTOCOMPLETE_DEFAULT_PROPS = {
     </Box>
   )),
   multiple: false,
-  value: [],
+  value: null,
   placeholder: '',
   ignoreWrapper: false,
   waitToSearch: 1000,

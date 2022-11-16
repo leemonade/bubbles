@@ -60,7 +60,7 @@ const SetupBasicData = ({
     abbreviation: '',
     color: '',
     credits: 0,
-    maxGroupAbbreviation: 0,
+    maxGroupAbbreviation: 2,
     maxGroupAbbreviationIsOnlyNumbers: false,
     creditSystem: false,
     oneStudentGroup: false,
@@ -140,15 +140,17 @@ const SetupBasicData = ({
             </ContextContainer>
 
             <Box>
-              <Controller
-                control={control}
-                name="image"
-                render={({ field }) => (
-                  <InputWrapper label={labels.image}>
-                    <ImagePicker {...field} />
-                  </InputWrapper>
-                )}
-              />
+              {ImagePicker && (
+                <Controller
+                  control={control}
+                  name="image"
+                  render={({ field }) => (
+                    <InputWrapper label={labels.image}>
+                      <ImagePicker {...field} />
+                    </InputWrapper>
+                  )}
+                />
+              )}
             </Box>
 
             <Box>
@@ -235,13 +237,13 @@ const SetupBasicData = ({
                   control={control}
                   rules={{
                     required: errorMessages.maxGroupAbbreviation?.required || 'Required Field',
-                    min: 0,
+                    min: 2,
                   }}
                   render={({ field }) => (
                     <ContextContainer direction="row" alignItems="center">
                       <NumberInput
-                        defaultValue={0}
-                        min={0}
+                        defaultValue={2}
+                        min={2}
                         label={labels.maxGroupAbbreviation}
                         help={helps.maxGroupAbbreviation}
                         required

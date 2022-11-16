@@ -68,7 +68,7 @@ const NumberInput = forwardRef(
         contentClassName={contentClassName}
       >
         {readOnly ? (
-          <Paragraph clean>{value || defaultValue || ''}</Paragraph>
+          <Paragraph clean>{props.value || props.defaultValue || ''}</Paragraph>
         ) : (
           <MantineNumberInput
             {...props}
