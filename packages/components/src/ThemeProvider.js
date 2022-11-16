@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
 import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
+import figmaTokens from '../../../tokens-compiled.json';
+import { isEmpty, isObject } from 'lodash';
 
 export const BUBBLES_THEME = {
   colorScheme: 'light',
@@ -25,6 +27,7 @@ export const BUBBLES_THEME = {
     fontFamily: "'Lexend', sans-serif",
   },
   primaryColor: 'bubbles',
+  other: figmaTokens,
 };
 
 const THEME_PROVIDER_PROP_TYPES = {
@@ -34,7 +37,32 @@ const THEME_PROVIDER_DEFAULT_PROPS = {
   theme: BUBBLES_THEME,
 };
 
+const parseTheme = (theme) => {
+  if (isEmpty(theme.other)) return theme;
+  recursiveParse(theme.other);
+  return theme;
+};
+
+const recursiveParse = (object) => {
+  if (!isObject(object)) return;
+  for (const property in object) {
+    if (object[property].value) {
+      object[property] = object[property].value;
+    } else {
+      recursiveParse(object[property]);
+    }
+  }
+};
+
 const ThemeProvider = ({ children, theme }) => {
+  const [parsedTheme, setParsedTheme] = useState(parseTheme(theme));
+
+  useEffect(() => {
+    if (JSON.stringify(theme) !== JSON.stringify(parsedTheme)) {
+      setParsedTheme(parseTheme(theme));
+    }
+  }, [JSON.stringify(theme)]);
+
   return (
     <>
       <Helmet>
@@ -45,7 +73,7 @@ const ThemeProvider = ({ children, theme }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={parsedTheme}>
         {children}
       </MantineProvider>
     </>
