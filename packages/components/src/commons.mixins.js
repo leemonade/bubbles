@@ -35,7 +35,7 @@ export function ModalDescription(theme) {
   return {
     textAling: 'center',
     color: theme.colors.text04,
-    ...getFontExpressive('Inter','0.79rem','400'), //fs02
+    ...getFontExpressive('Inter', '0.79rem', '400'), //fs02
   };
 }
 
@@ -71,47 +71,4 @@ export function buttonsGroup02(theme) {
     paddingLeft: theme.spacing['7'],
     justifyContent: 'space-between',
   };
-}
-
-  export function avatarBadgeNumber(theme) {
-    return {
-      background: theme.colors.interactive01,
-      color: theme.colors.text07,
-      position: 'absolute',
-      borderRadius: '100%',
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: theme.spacing[4],
-      height: theme.spacing[4],
-      ...getFontExpressive(10, 400, 'inter'),
-    };
-}
-    export function avatarBadge(theme) {
-    return {
-      background: theme.colors.interactive01,
-      color: theme.colors.text07,
-      position: 'absolute',
-      borderRadius: '100%',
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: theme.spacing[2],
-      height: theme.spacing[2],
-    };
-}
-    export function avatarError(theme) {
-    return {
-      background: theme.colors.fatic01,
-      color: theme.colors.text07,
-      position: 'absolute',
-      borderRadius: '100%',
-      textAlign: 'center',
-      width: theme.spacing[4],
-      height: theme.spacing[4],
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      svg: { width: '90%' },
-   };
 }

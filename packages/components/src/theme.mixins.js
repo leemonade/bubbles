@@ -50,6 +50,11 @@ export function getFocusStyles(theme) {
   };
 }
 
+export function getBoxShadowFromToken(token) {
+  const { x, y, blur, spread, color } = token;
+  return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color}` };
+}
+
 const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {

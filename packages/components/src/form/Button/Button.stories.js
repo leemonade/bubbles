@@ -1,11 +1,10 @@
 import React from 'react';
-import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
+import { AddIcon } from '@bubbles-ui/icons/outline';
 import {
   Button,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
   BUTTON_COLORS,
-  BUTTON_POSITIONS,
   BUTTON_DEFAULT_PROPS,
 } from './Button';
 import mdx from './Button.mdx';
@@ -27,7 +26,6 @@ export default {
     size: { options: BUTTON_SIZES, control: { type: 'select' } },
     color: { options: BUTTON_COLORS, control: { type: 'select' } },
     variant: { options: BUTTON_VARIANTS, control: { type: 'select' } },
-    position: { options: BUTTON_POSITIONS, control: { type: 'select' } },
   },
 };
 
@@ -54,8 +52,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   label: 'Button',
   ...BUTTON_DEFAULT_PROPS,
-  rightIcon: <ChevronRightIcon />,
-  leftIcon: <ChevronRightIcon />,
+  rightIcon: <AddIcon />,
+  leftIcon: <AddIcon />,
   test_showLeftIcon: false,
   test_showRightIcon: false,
 };
