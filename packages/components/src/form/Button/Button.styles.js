@@ -208,8 +208,9 @@ export const ButtonStyles = createStyles(
 
     return {
       root: {
-        border: '2px solid',
-        borderRadius: rounded ? '50px' : 4,
+        border: `${buttonTheme.border.width} solid`,
+        borderRadius: buttonTheme.border.radius.md,
+        // borderRadius: rounded ? '50px' : 4,
         width: fullWidth ? '100%' : 'auto',
         // transition: 'background-color 300ms ease-out, border-color 300ms ease-out',
         ...getSizes(size || 'md', theme),

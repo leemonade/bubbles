@@ -40,13 +40,6 @@ export function getErrorStyle(theme) {
   };
 }
 
-export function getDescriptionStyle(theme) {
-  return {
-    color: theme.colors.text04,
-    ...getFontProductive(theme.fontSizes['2']),
-  };
-}
-
 export function getLabelStyle(theme) {
   return {
     color: theme.colors.text01,
@@ -59,13 +52,6 @@ export function getHelpStyle(theme) {
   return {
     ...getFontProductive(theme.fontSizes['1'], 400),
     color: theme.colors.text04,
-  };
-}
-
-export function getRequiredStyle(theme) {
-  return {
-    color: theme.colors.text04,
-    ...getFontProductive(),
   };
 }
 

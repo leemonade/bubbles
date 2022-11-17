@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { getRequiredStyle } from '../mixins/fieldStyles.mixins';
 
 export const InputWrapperStyles = createStyles((theme, { size, orientation }) => {
   return {
@@ -15,9 +14,6 @@ export const InputWrapperStyles = createStyles((theme, { size, orientation }) =>
     content: {
       flex: 1,
       width: '100%',
-    },
-    required: {
-      ...getRequiredStyle(theme),
     },
   };
 });
