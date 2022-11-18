@@ -5,19 +5,18 @@ import { Image } from '@mantine/core';
 import { InlineSvg } from '../InlineSvg';
 import { ImageLoaderStyles } from './ImageLoader.styles';
 
-
 export const ImageLoader = ({
-                              src: srcProp,
-                              alt,
-                              forceImage,
-                              height: heightProp,
-                              width,
-                              withPlaceholder,
-                              radius,
-                              imageStyles,
-                              useAria,
-                              ...props
-                            }) => {
+  src: srcProp,
+  alt,
+  forceImage,
+  height: heightProp,
+  width,
+  withPlaceholder,
+  radius,
+  imageStyles,
+  useAria,
+  ...props
+}) => {
   const [src, setSrc] = useState(srcProp);
   const isSvg = !forceImage && isString(src) && !isEmpty(src) && src.toLowerCase().endsWith('.svg');
   const height = !src || !isSvg || withPlaceholder ? heightProp || 50 : undefined;
@@ -30,8 +29,6 @@ export const ImageLoader = ({
     { radius, imageStyles, height },
     { name: 'ImageLoader' }
   );
-
-  console.log('Hola');
 
   return isSvg ? (
     <InlineSvg src={src} {...props} />
@@ -47,7 +44,7 @@ export const ImageLoader = ({
       classNames={{
         root: classes.root,
         imageWrapper: classes.imageWrapper,
-        figure: classes.figure
+        figure: classes.figure,
       }}
       role={useAria ? 'image' : undefined}
     />
@@ -55,7 +52,7 @@ export const ImageLoader = ({
 };
 
 ImageLoader.defaultProps = {
-  forceImage: false
+  forceImage: false,
 };
 
 ImageLoader.propTypes = {
@@ -64,5 +61,5 @@ ImageLoader.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
-  radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
