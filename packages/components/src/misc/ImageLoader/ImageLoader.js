@@ -38,8 +38,8 @@ export const ImageLoader = ({
       src={src}
       alt={alt}
       radius={radius}
-      height={height || width || '100%'}
-      width={width || height || '100%'}
+      height={height || '100%'}
+      width={width || '100%'}
       withPlaceholder={withPlaceholder}
       classNames={{
         root: classes.root,
