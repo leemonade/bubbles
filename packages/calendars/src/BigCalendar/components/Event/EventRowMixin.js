@@ -20,12 +20,12 @@ export default {
 
     onSelect: PropTypes.func,
     onDoubleClick: PropTypes.func,
-    onKeyPress: PropTypes.func
+    onKeyPress: PropTypes.func,
   },
 
   defaultProps: {
     segments: [],
-    selected: {}
+    selected: {},
   },
 
   renderEvent(props, event, isMonthView, printMode) {
@@ -40,7 +40,7 @@ export default {
       localizer,
       slotMetrics,
       components,
-      resizable
+      resizable,
     } = props;
 
     let continuesPrior = slotMetrics.continuesPrior(event);
@@ -79,7 +79,7 @@ export default {
       flexBasis: per,
       maxWidth: per,
       display: (rightArrow || leftArrow) && 'flex',
-      flexDirection: leftArrow && 'row-reverse'
+      flexDirection: leftArrow && 'row-reverse',
     };
 
     if (left && isMonthView) {
@@ -87,18 +87,18 @@ export default {
       style.height = '100%';
       style.width = '100%';
       style.position = 'absolute';
-      style.zIndex = event.originalEvent.calendar.zIndex;
+      style.zIndex = 199 + event.originalEvent.calendar.zIndex;
     }
 
     return (
       <Box
         key={key}
-        className='rbc-row-segment'
+        className="rbc-row-segment"
         // IE10/11 need max-width. flex-basis doesn't respect box-sizing
         style={style}
       >
         {content}
       </Box>
     );
-  }
+  },
 };

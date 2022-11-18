@@ -1,15 +1,9 @@
 import React from 'react';
-import { Group } from '@mantine/core';
 import { Tooltip } from './Tooltip';
-import {
-  TOOLTIP_COLORS,
-  TOOLTIP_POSITION,
-  TOOLTIP_PLACEMENT,
-  TOOLTIP_SIZES,
-} from './Tooltip.constants';
+import { TOOLTIP_COLORS, TOOLTIP_POSITION, TOOLTIP_SIZES } from './Tooltip.constants';
 import mdx from './Tooltip.mdx';
 import { Button } from '../../form/Button';
-import { ChevronRightIcon } from '@heroicons/react/outline';
+import { Stack } from '../../layout';
 
 export default {
   title: 'Atoms/Overlay/Tooltip',
@@ -31,27 +25,12 @@ export default {
 };
 
 const Template = ({ children, label, ...props }) => {
-  label = label || (
-    <>
-      Share <ChevronRightIcon style={{ height: '1.2rem' }} />
-    </>
-  );
-
   return (
-    <>
-      <Group
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '200px',
-        }}
-      >
-        <Tooltip {...props} label={label} opened>
-          <Button variant="outline">{children}</Button>
-        </Tooltip>
-      </Group>
-    </>
+    <Stack justifyContent="center" alignItems="center" fullWidth style={{ height: '100px' }}>
+      <Tooltip {...props} label={label}>
+        <Button variant="outline">{children}</Button>
+      </Tooltip>
+    </Stack>
   );
 };
 
@@ -63,5 +42,5 @@ Playground.args = {
   children: 'test',
   position: 'top',
   withArrow: true,
-  label: '',
+  label: 'Tooltip label',
 };

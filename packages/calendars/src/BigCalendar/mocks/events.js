@@ -45,7 +45,7 @@ export default [
 export default [
   {
     allDay: true,
-    title: 'erg',
+    title: 'Event 1',
     start: DateTime.fromISO('2022-12-08').toJSDate(),
     end: DateTime.fromISO('2022-12-08').toJSDate(),
     originalEvent: {
@@ -57,13 +57,13 @@ export default [
         rightArrow: false,
         rotate: 90,
         oneDayStyle: true,
-        zIndex: -3
-      }
-    }
+        zIndex: -3,
+      },
+    },
   },
   {
     allDay: true,
-    title: 'wefwef',
+    title: 'Event 2',
     start: DateTime.fromISO('2022-12-05').toJSDate(),
     end: DateTime.fromISO('2022-12-08').toJSDate(),
     originalEvent: {
@@ -74,8 +74,8 @@ export default [
         leftArrow: false,
         rightArrow: false,
         oneDayStyle: true,
-        zIndex: -6
-      }
-    }
-  }
+        zIndex: -6,
+      },
+    },
+  },
 ];
