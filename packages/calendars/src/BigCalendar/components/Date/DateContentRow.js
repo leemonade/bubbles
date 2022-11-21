@@ -67,7 +67,7 @@ class DateContentRow extends React.Component {
       date,
       isWeekend,
       key: `header_${index}`,
-      className: cx('rbc-date-cell', { 'rbc-now': localizer.isSameDate(date, getNow()) })
+      className: cx('rbc-date-cell', { 'rbc-now': localizer.isSameDate(date, getNow()) }),
     });
   };
 
@@ -78,14 +78,14 @@ class DateContentRow extends React.Component {
       <Box className={className}>
         <Box className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}>
           {renderHeader && (
-            <Box className='rbc-row' ref={this.createHeadingRef}>
+            <Box className="rbc-row" ref={this.createHeadingRef}>
               {range.map(this.renderHeadingCell)}
             </Box>
           )}
-          <Box className='rbc-row' ref={this.createEventRef}>
-            <Box className='rbc-row-segment'>
-              <Box className='rbc-event'>
-                <Box className='rbc-event-content'>&nbsp;</Box>
+          <Box className="rbc-row" ref={this.createEventRef}>
+            <Box className="rbc-row-segment">
+              <Box className="rbc-event">
+                <Box className="rbc-event-content">&nbsp;</Box>
               </Box>
             </Box>
           </Box>
@@ -123,7 +123,7 @@ class DateContentRow extends React.Component {
       hideBgTitles,
       isMonthView,
       monthNumber,
-      printMode
+      printMode,
     } = this.props;
 
     const { showWeekends, cx } = components;
@@ -153,7 +153,7 @@ class DateContentRow extends React.Component {
     let metrics = this.slotMetrics({
       ...this.props,
       maxRows: isMonthView ? 20 : this.props.maxRows || undefined,
-      events: normalEvents
+      events: normalEvents,
     });
     let { levels, extra } = metrics;
 
@@ -172,7 +172,7 @@ class DateContentRow extends React.Component {
       resourceId,
       slotMetrics: metrics,
       resizable,
-      events
+      events,
     };
 
     /*
@@ -185,7 +185,7 @@ class DateContentRow extends React.Component {
      */
 
     return (
-      <Box className={className} style={{ background: !isMonthView && '#F7F8FA' }} role='rowgroup'>
+      <Box className={className} style={{ background: !isMonthView && '#F7F8FA' }} role="rowgroup">
         {/* BACKGROUND ················································· */}
         <BackgroundCells
           localizer={localizer}
@@ -210,12 +210,12 @@ class DateContentRow extends React.Component {
         {/* ROW CONTENT ················································· */}
         <Box
           className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}
-          style={{ pointerEvents: 'none' }}
-          role='row'
+          style={{ pointerEvents: isMonthView ? 'all' : 'none' }}
+          role="row"
         >
           {/* DATE NUMBER ······ */}
           {renderHeader ? (
-            <Box className='rbc-row' style={{ pointerEvents: 'none' }} ref={this.createHeadingRef}>
+            <Box className="rbc-row" style={{ pointerEvents: 'none' }} ref={this.createHeadingRef}>
               {range.map(this.renderHeadingCell)}
             </Box>
           ) : (
@@ -282,12 +282,12 @@ DateContentRow.propTypes = {
   getters: PropTypes.object.isRequired,
   localizer: PropTypes.object.isRequired,
   minRows: PropTypes.number.isRequired,
-  maxRows: PropTypes.number.isRequired
+  maxRows: PropTypes.number.isRequired,
 };
 
 DateContentRow.defaultProps = {
   minRows: 0,
-  maxRows: Infinity
+  maxRows: Infinity,
 };
 
 export default DateContentRow;

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Tooltip as MantineTooltip } from '@mantine/core';
 import { TooltipStyles } from './Tooltip.styles';
-import { Box } from '../../layout';
-import { Text } from '../../typography';
 import {
   TOOLTIP_DEFAULT_PROPS,
   TOOLTIP_PROP_TYPES,

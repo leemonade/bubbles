@@ -5,7 +5,7 @@ export const LoginBgStyles = createStyles((theme, {}) => {
     root: {
       position: 'relative',
       height: '100vh',
-      width: 'fit-content'
+      width: 'fit-content',
     },
     content: {
       position: 'absolute',
@@ -16,14 +16,14 @@ export const LoginBgStyles = createStyles((theme, {}) => {
       flexDirection: 'column',
       flex: 1,
       justifyContent: 'space-between',
-      ...getPaddings(theme.spacing['4'], theme.spacing['5'])
+      ...getPaddings(theme.spacing['4'], theme.spacing['5']),
     },
     logo: {
       width: '135px!important',
-      height: 'auto!important'
+      height: 'auto!important',
     },
     footer: {
-      height: 35
-    }
+      height: 35,
+    },
   };
 });
