@@ -21,7 +21,8 @@ export const TOOLTIP_DEFAULT_PROPS = {
   size: 'xs',
   color: 'primary',
   position: 'top',
-  withArrow: 'true',
+  withArrow: true,
+  withinPortal: true,
 };
 
 export const TOOLTIP_PROP_TYPES = {
@@ -33,4 +34,6 @@ export const TOOLTIP_PROP_TYPES = {
   position: PropTypes.oneOf(TOOLTIP_POSITION),
   /** Controls if has arrow or not */
   withArrow: PropTypes.bool,
+  /** Choose if render this element in a Portal */
+  withinPortal: PropTypes.bool,
 };

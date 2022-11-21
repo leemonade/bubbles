@@ -52,7 +52,8 @@
     "types": "run-s -cs types:clean types:generate types:fix",
     "types:clean": "rimraf types _types",
     "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
-    "types:fix": "mv _types types && rimraf _types types/**/mocks"
+    "types:fix": "mv _types types && rimraf _types types/**/mocks",
+    "compile-tokens": "sh scripts/compile-tokens.sh"
   },
   "dependencies": {
     "@bubbles-ui/icons": "1.1.0",

@@ -19,8 +19,8 @@ export const LoginBgStyles = createStyles((theme, {}) => {
       ...getPaddings(theme.spacing['4'], theme.spacing['5']),
     },
     logo: {
-      width: 135,
-      height: 'auto',
+      width: '135px!important',
+      height: 'auto!important',
     },
     footer: {
       height: 35,
