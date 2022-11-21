@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react';
 import { isEmpty, trim } from 'lodash';
-import { Avatar as MantineAvatar, Box, Text } from '@mantine/core';
-import { ExclamationIcon } from '@heroicons/react/solid';
-import { AvatarStyles } from './Avatar.styles';
+import { Avatar as MantineAvatar, Box, Indicator } from '@mantine/core';
+import { AvatarStyles, getIndicatorStyle } from './Avatar.styles';
 import { stringToHslColor } from '../../helpers';
 import {
   AVATAR_DEFAULT_PROPS,
@@ -23,7 +22,6 @@ const Avatar = forwardRef(
       state: stateProp,
       activityStatus,
       alt,
-      withBorder,
       ...props
     },
     ref
@@ -43,40 +41,27 @@ const Avatar = forwardRef(
       }
     }
 
-    const renderState = () => {
-      return {
-        notifications: (
-          <Text componet="span" className={classes.avatarBadgeNumber}>
-            2
-          </Text>
-        ),
-        alert: <Text componet="span" className={classes.avatarBadge} />,
-        error: (
-          <Text componet="span" className={classes.avatarError}>
-            <ExclamationIcon />
-          </Text>
-        ),
-        activity: <Box className={classes.avatarActivity}></Box>,
-      }[state];
-    };
+    const { classes, theme } = AvatarStyles({ color, size, state, activityStatus });
 
-    const { classes, cx } = AvatarStyles({ color, size, activityStatus, withBorder });
     return (
       <Box className={classes.avatarWrapper}>
-        <MantineAvatar
-          {...props}
-          ref={ref}
-          size={size}
-          src={image}
-          classNames={classes}
-          className={cx(classes, withBorder && classes.avatarBorder)}
-          color={color}
-          state={state}
-          alt={alt}
+        <Indicator
+          offset={2}
+          classNames={{ indicator: classes.indicatorRoot }}
+          {...getIndicatorStyle(theme, state)}
         >
-          {icon ? icon : initials}
-        </MantineAvatar>
-        {renderState()}
+          <MantineAvatar
+            {...props}
+            ref={ref}
+            src={image}
+            classNames={classes}
+            color={color}
+            alt={alt}
+          >
+            {initials}
+          </MantineAvatar>
+          {icon && <Box className={classes.iconWrapper}>{icon}</Box>}
+        </Indicator>
       </Box>
     );
   }

@@ -1,111 +1,98 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem } from '../../theme.mixins';
-import { avatarBadge, avatarBadgeNumber, avatarError } from '../../commons.mixins';
+import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 
-const getSizes = (size, spacing) => {
+const getSizes = (size, avatarSizes) => {
+  const avatarSize = avatarSizes[size];
   return {
-    xs: {
-      height: `calc(${spacing['1']}px * 6)`,
-      width: `calc(${spacing['1']}px * 6)`,
-      fontSize: pxToRem(12),
-      borderWidth: '1px',
-    },
-
-    sm: {
-      fontSize: pxToRem(14),
-      height: `calc(${spacing['1']}px * 9)`,
-      width: `calc(${spacing['1']}px * 9)`,
-      borderWidth: '1px',
-    },
-    md: {
-      fontSize: pxToRem(28),
-      height: `calc(${spacing['1']}px * 14)`,
-      width: `calc(${spacing['1']}px * 14)`,
-      borderWidth: '1px',
-    },
-    lg: {
-      fontSize: pxToRem(60),
-      height: `calc(${spacing['1']}px * 30)`,
-      width: `calc(${spacing['1']}px * 30)`,
-      borderWidth: '1px',
-    },
-  }[size];
+    height: avatarSize,
+    width: avatarSize,
+    minWidth: avatarSize,
+  };
 };
 
-const getActivityStatus = (size) => {
-  return {
-    xs: {
-      height: 8,
-      width: 8,
-      bottom: 0,
-      right: 0,
+export const getIndicatorStyle = (theme, state) => {
+  const indicatorStyle = {
+    normal: {
+      size: 0,
     },
-    sm: {
-      height: 10,
-      width: 10,
-      bottom: 0,
-      right: 0,
+    alert: { size: 8, color: theme.other.badge.background.color.primary.default },
+    error: {
+      size: 16,
+      color: theme.other.badge.background.color.phatic.default,
+      label: <AlertWarningTriangleIcon height={6} width={6} />,
     },
-    md: {
-      height: 14,
-      width: 14,
-      bottom: 0,
-      right: 0,
+    notifications: {
+      size: 16,
+      color: theme.other.badge.background.color.primary.default,
+      label: '2',
     },
-    lg: {
-      height: 28,
-      width: 28,
-      bottom: 4,
-      right: 4,
-    },
-  }[size];
+    activity: { size: 0 },
+  };
+  return indicatorStyle[state];
 };
 
-export const AvatarStyles = createStyles((theme, { size, color, activityStatus }) => {
+const getIconWrapperStyles = (size, theme, badgeTheme) => {
+  const svgStyles = {
+    position: 'absolute',
+    color: badgeTheme.content.color['default--reverse'],
+  };
+
+  const style = {
+    md: {
+      svg: {
+        height: theme.other.global.icon.size.xsm,
+        width: theme.other.global.icon.size.xsm,
+        ...svgStyles,
+      },
+      height: theme.other.global.icon.size.xsm,
+      width: theme.other.global.icon.size.xsm,
+      padding: badgeTheme.spacing.padding.sm,
+    },
+    lg: {
+      svg: {
+        height: theme.other.global.icon.size.sm,
+        width: theme.other.global.icon.size.sm,
+        ...svgStyles,
+      },
+      height: theme.other.global.icon.size.sm,
+      width: theme.other.global.icon.size.sm,
+      padding: badgeTheme.spacing.padding.md,
+    },
+  };
+  return style[size];
+};
+
+export const AvatarStyles = createStyles((theme, { size, color, state, activityStatus }) => {
+  const avatarTheme = theme.other.avatar;
+  const badgeTheme = theme.other.badge;
+
   return {
     root: {
-      borderRadius: '100%',
-      boxSizing: 'content-box',
-      ...getSizes(size || 'md', theme.spacing),
-    },
-    avatarBorder: {
-      borderStyle: 'solid',
-      borderColor: `${color}`,
+      borderRadius: avatarTheme.border.radius,
+      ...getSizes(size || 'md', avatarTheme.size),
     },
     placeholder: {
+      color: avatarTheme.content.color.default,
       background: `${color}`,
-      color: theme.colors.text07,
       svg: { height: '80%' },
-      fontSize: size === 'xs' && '11px',
+      ...avatarTheme.content.typo[size],
     },
     avatarWrapper: {
-      position: 'relative',
       display: 'inline-block',
     },
-    avatarBadgeNumber: {
-      ...avatarBadgeNumber(theme),
-      top: 0,
-      right: 0,
-      transform: 'translateY(2%)',
+    indicatorRoot: {
+      color: badgeTheme.content.color['default--reverse'],
+      ...badgeTheme.content.typo['sm--bold'],
     },
-    avatarBadge: {
-      ...avatarBadge(theme),
-      top: 0,
-      right: 0,
-      transform: 'translateY(2%)',
-    },
-    avatarError: {
-      ...avatarError(theme),
-      top: 0,
-      right: 0,
-      transform: 'translateY(2%)',
-    },
-    avatarActivity: {
+    iconWrapper: {
+      display: size === 'sm' && 'none',
+      boxSizing: 'content-box',
+      backgroundColor: badgeTheme.background.color.secondary.default,
+      borderRadius: badgeTheme.border.radius,
       position: 'absolute',
-      borderRadius: '50%',
-      border: `1px solid ${theme.colors.mainWhite}`,
-      backgroundColor: theme.colors.fatic02,
-      ...getActivityStatus(size, activityStatus),
+      ...getIconWrapperStyles(size, theme, badgeTheme),
+      bottom: 0,
+      right: 0,
     },
   };
 });
