@@ -31,8 +31,6 @@ export const ImageLoader = ({
     { name: 'ImageLoader' }
   );
 
-  console.log('Hola');
-
   return isSvg ? (
     <InlineSvg src={src} {...props} />
   ) : (
