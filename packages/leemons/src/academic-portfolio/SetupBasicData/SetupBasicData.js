@@ -52,7 +52,7 @@ const SetupBasicData = ({
 
   const options = {};
   if (sharedData && !sharedData.credits) {
-    options.useCreditSystem = true;
+    options.useCreditSystem = false;
   }
 
   const defaultValues = {
@@ -182,7 +182,19 @@ const SetupBasicData = ({
             </ContextContainer>
           ) : null}
 
-          <ContextContainer title={labels.credits}>
+          <ContextContainer title={labels.creditsTitle}>
+
+            <ContextContainer direction='row'>
+              <Controller
+                name='totalHours'
+                control={control}
+                render={({ field }) => (
+                  <NumberInput defaultValue={0} min={0} label={labels.totalHours} {...field} />
+                )}
+              />
+              <Box></Box>
+            </ContextContainer>
+
             <Controller
               name='useCreditSystem'
               control={control}
@@ -194,23 +206,13 @@ const SetupBasicData = ({
                     onChange(e);
                     setCreditSystem(!creditSystem);
                   }}
-                  checked={value || false}
+                  checked={value}
                   {...field}
                 />
               )}
             />
-            {!creditSystem && (
+            {creditSystem && (
               <>
-                <ContextContainer direction='row'>
-                  <Controller
-                    name='totalHours'
-                    control={control}
-                    render={({ field }) => (
-                      <NumberInput defaultValue={0} min={0} label={labels.totalHours} {...field} />
-                    )}
-                  />
-                  <Box></Box>
-                </ContextContainer>
                 <ContextContainer direction='row'>
                   <Controller
                     name='credits'
