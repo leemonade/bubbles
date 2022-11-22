@@ -93,6 +93,9 @@ export const AvatarStyles = createStyles((theme, { size, color, state, activityS
       ...getIconWrapperStyles(size, theme, badgeTheme),
       bottom: 0,
       right: 0,
+      img: {
+        filter: 'brightness(0) invert(1)',
+      },
     },
   };
 });
