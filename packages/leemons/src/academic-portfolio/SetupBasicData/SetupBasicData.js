@@ -290,7 +290,7 @@ const SetupBasicData = ({
             <Controller
               name='hideStudentsToStudents'
               control={control}
-              render={({ field: { onChange, value, ref, ...field } }) => (
+              render={({ field: { value, ref, ...field } }) => (
                 <Switch
                   label={labels.hideStudentsToStudents}
                   checked={value || false}
