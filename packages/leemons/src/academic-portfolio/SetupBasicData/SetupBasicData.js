@@ -68,6 +68,7 @@ const SetupBasicData = ({
     useOneStudentGroup: false,
     evaluationSystem: '',
     totalHours: 0,
+    hideStudentsToStudents: false,
     ...sharedData,
     ...options
   };
@@ -283,6 +284,20 @@ const SetupBasicData = ({
                 />
               </>
             )}
+          </ContextContainer>
+
+          <ContextContainer title={labels.privacy} spacing={4}>
+            <Controller
+              name='hideStudentsToStudents'
+              control={control}
+              render={({ field: { onChange, value, ref, ...field } }) => (
+                <Switch
+                  label={labels.hideStudentsToStudents}
+                  checked={value || false}
+                  {...field}
+                />
+              )}
+            />
           </ContextContainer>
 
           <Stack fullWidth justifyContent='end'>
