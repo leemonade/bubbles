@@ -41,7 +41,7 @@ const ScoreFronstage = ({
       <Average label={label} score={score} minGrade={minGrade} maxGrade={maxGrade} />
       <Box className={classes.valuesContainer}>
         {values.map((value) => (
-          <Item {...value} minGrade={minGrade} />
+          <Item {...value} key={value.id || value.title} minGrade={minGrade} />
         ))}
       </Box>
     </Box>

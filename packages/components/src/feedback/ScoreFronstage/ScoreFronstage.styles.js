@@ -3,7 +3,6 @@ import { createStyles } from '@mantine/styles';
 export const ScoreFronstageStyles = createStyles((theme, {}) => {
   const scoreTheme = theme.other.score;
   const paddingLg = scoreTheme.spacing.padding.lg;
-  console.log(scoreTheme);
   return {
     root: {
       borderRadius: scoreTheme.border.radiuss.lg,
