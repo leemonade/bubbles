@@ -2,21 +2,17 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { isNil, isString } from 'lodash';
 import { Button as MantineButton } from '@mantine/core';
-import { Button } from '../Button';
 import { ActionButtonStyles } from './ActionButton.styles';
 import { Tooltip } from '../../overlay';
 
-export const ACTION_BUTTON_SIZES = ['xs', 'sm'];
-export const ACTION_BUTTON_COLORS = ['positive', 'negative'];
-export const ACTION_BUTTON_VARIANTS = ['default', 'solid'];
+export const ACTION_BUTTON_SIZES = ['sm', 'md'];
+export const ACTION_BUTTON_COLORS = ['primary', 'negative', 'phatic'];
 
 export const ACTION_BUTTON_DEFAULT_PROPS = {
   color: ACTION_BUTTON_COLORS[0],
   size: ACTION_BUTTON_SIZES[1],
-  variant: ACTION_BUTTON_VARIANTS[0],
   label: '',
   rounded: false,
-  active: false,
   useAria: true,
 };
 export const ACTION_BUTTON_PROP_TYPES = {
@@ -24,12 +20,8 @@ export const ACTION_BUTTON_PROP_TYPES = {
   size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
   /** Control the color */
   color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
-  /** Controls the appearance */
-  variant: PropTypes.oneOf(ACTION_BUTTON_VARIANTS),
   /** Control the tooltip of the button */
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  /** Controls the active state of the button */
-  active: PropTypes.bool,
   /** Controls if ActionButton uses aria role */
   useAria: PropTypes.bool,
   /** Aria label for ActionButton */
@@ -84,14 +76,13 @@ export const ActionButton = forwardRef(
     const size = ACTION_BUTTON_SIZES.includes(sizeProp)
       ? sizeProp
       : ACTION_BUTTON_DEFAULT_PROPS.size;
-    const radius = rounded ? 'xl' : 'xs';
-    const { classes, cx } = ActionButtonStyles(
+    const radius = rounded ? 'rounded' : 'md';
+    const { classes } = ActionButtonStyles(
       {
         size,
         color,
-        variant,
         iconOnly: isNil(label) || (isString(label) && label === ''),
-        active,
+        radius,
       },
       { classNames, name: 'ActionButton' }
     );
@@ -110,7 +101,7 @@ export const ActionButton = forwardRef(
           classNames={classes}
           aria-label={tooltip || label || ariaLabel || undefined}
           // title={tooltip || ''}
-          radius={radius}
+          // radius={radius}
           style={style}
           ref={ref}
           role={useAria ? 'button' : undefined}
