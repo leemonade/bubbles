@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const INPUT_WRAPPER_SIZES = ['xs', 'sm'];
+export const INPUT_WRAPPER_SIZES = ['sm', 'md'];
 export const INPUT_WRAPPER_ORIENTATIONS = ['horizontal', 'vertical'];
 
 export const INPUT_WRAPPER_SHARED_PROPS = {
@@ -27,7 +27,7 @@ export const INPUT_WRAPPER_DEFAULT_PROPS = {
   error: '',
   help: '',
   orientation: 'vertical',
-  size: 'sm',
+  size: 'md',
   required: false,
   autoComplete: 'off',
 };

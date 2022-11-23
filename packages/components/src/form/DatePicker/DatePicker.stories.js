@@ -31,25 +31,20 @@ const Template = ({ value, onChange: onChangeAction, ...props }) => {
   const { control, reset } = useForm({ defaultValues });
 
   return (
-    <ContextContainer divided>
-      <Controller
-        name="date"
-        control={control}
-        render={({ field: { onChange, ...field } }) => (
-          <DatePicker
-            {...props}
-            {...field}
-            onChange={(e) => {
-              onChange(e);
-              onChangeAction(e);
-            }}
-          />
-        )}
-      />
-      <Box>
-        <Button onClick={() => reset({})}>Reset</Button>
-      </Box>
-    </ContextContainer>
+    <Controller
+      name="date"
+      control={control}
+      render={({ field: { onChange, ...field } }) => (
+        <DatePicker
+          {...props}
+          {...field}
+          onChange={(e) => {
+            onChange(e);
+            onChangeAction(e);
+          }}
+        />
+      )}
+    />
   );
 };
 

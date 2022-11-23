@@ -33,7 +33,7 @@ const InputWrapper = ({
   formValues,
   ...props
 }) => {
-  const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+  const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'md';
   const orientation = INPUT_WRAPPER_ORIENTATIONS.includes(orientationProp)
     ? orientationProp
     : 'vertical';
