@@ -17,11 +17,12 @@ export const TEXTAREA_COUNTERS = ['char', 'word'];
 export const TEXTAREA_DEFAULT_PROPS = {
   ...TEXT_INPUT_DEFAULT_PROPS,
   minRows: 2,
+  size: TEXTAREA_SIZES[1],
   autosize: true,
   showCounter: false,
   maxLength: false,
   counter: TEXTAREA_COUNTERS[0],
-  counterLabels: null
+  counterLabels: null,
 };
 
 export const TEXTAREA_PROP_TYPES = {
@@ -31,7 +32,7 @@ export const TEXTAREA_PROP_TYPES = {
   showCounter: PropTypes.bool,
   maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   counter: PropTypes.oneOf(TEXTAREA_COUNTERS),
-  counterLabels: PropTypes.object
+  counterLabels: PropTypes.object,
 };
 
 const Textarea = forwardRef(
@@ -54,8 +55,7 @@ const Textarea = forwardRef(
       counter,
       counterLabels,
       autoComplete,
-      onKeyPress = () => {
-      },
+      onKeyPress = () => {},
       ...props
     },
     ref

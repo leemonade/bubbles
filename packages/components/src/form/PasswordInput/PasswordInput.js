@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { PasswordInput as MantinePasswordInput } from '@mantine/core';
 import { isEmpty } from 'lodash';
@@ -36,6 +36,7 @@ const PasswordInput = forwardRef(
       size,
       label,
       help,
+      icon,
       description,
       placeholder,
       required,
@@ -45,8 +46,8 @@ const PasswordInput = forwardRef(
     ref
   ) => {
     const uuid = useId();
-
-    const { classes, cx } = PasswordInputStyles({ size });
+    const hasIcon = !!icon;
+    const { classes, cx } = PasswordInputStyles({ size, hasIcon });
 
     return (
       <InputWrapper
@@ -63,6 +64,7 @@ const PasswordInput = forwardRef(
           ref={ref}
           id={uuid}
           size={size}
+          icon={icon}
           placeholder={placeholder}
           classNames={classes}
           error={!isEmpty(error)}

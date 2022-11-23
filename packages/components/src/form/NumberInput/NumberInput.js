@@ -39,6 +39,7 @@ const NumberInput = forwardRef(
       description,
       help,
       readOnly,
+      icon,
       required,
       headerStyle,
       contentStyle,
@@ -50,7 +51,8 @@ const NumberInput = forwardRef(
     ref
   ) => {
     const uuid = useId();
-    const { classes, cx } = NumberInputStyles({ size });
+    const hasIcon = !!icon;
+    const { classes, cx } = NumberInputStyles({ size, hasIcon });
 
     return (
       <InputWrapper
@@ -73,6 +75,7 @@ const NumberInput = forwardRef(
           <MantineNumberInput
             {...props}
             ref={ref}
+            icon={icon}
             classNames={classes}
             error={!isEmpty(error)}
             aria-label={ariaLabel}

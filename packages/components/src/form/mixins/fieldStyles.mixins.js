@@ -2,6 +2,7 @@ import { getBoxShadowFromToken, getFontProductive } from '../../theme.mixins';
 
 export function getInputStyle(theme, globalTheme, disabled) {
   return {
+    height: 'unset',
     minHeight: 'unset',
     backgroundColor: theme.background.color.default,
     borderColor: theme.border.color.default,
