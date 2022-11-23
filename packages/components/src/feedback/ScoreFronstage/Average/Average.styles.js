@@ -41,7 +41,6 @@ export const AverageStyles = createStyles((theme, { score, minGrade }) => {
     },
     labelContainer: {
       ...scoreTheme.content.typo.md,
-      lineHeight: '20px',
       padding: scoreTheme.spacing.padding.lg,
       color: styles.fontColor,
       backgroundColor: styles.labelBackground,
@@ -50,7 +49,6 @@ export const AverageStyles = createStyles((theme, { score, minGrade }) => {
     },
     scoreContainer: {
       ...scoreTheme.content.typo.md,
-      lineHeight: '20px',
       padding: scoreTheme.spacing.padding.lg,
       boxSizing: 'content-box',
       height: '20px',
@@ -60,7 +58,6 @@ export const AverageStyles = createStyles((theme, { score, minGrade }) => {
     },
     score: {
       ...theme.other.global.content.typo.heading.md,
-      lineHeight: '20px',
     },
   };
 });

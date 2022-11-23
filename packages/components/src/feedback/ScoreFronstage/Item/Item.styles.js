@@ -29,17 +29,14 @@ export const ItemStyles = createStyles((theme, {}) => {
     title: {
       color: scoreTheme.content.color.default,
       ...scoreTheme.content.typo.md,
-      lineHeight: '20px',
     },
     date: {
       color: scoreTheme.content.color.muted,
       ...scoreTheme.content.typo.sm,
-      lineHeight: '16px',
     },
     percenatage: {
       color: scoreTheme.content.color.muted,
       ...scoreTheme.content.typo.sm,
-      lineHeight: '16px',
     },
   };
 });

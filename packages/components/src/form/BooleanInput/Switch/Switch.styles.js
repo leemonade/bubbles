@@ -61,8 +61,6 @@ const getFontSize = (size) => {
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
   const switchTheme = theme.other.toggle;
   const labelTheme = theme.other.label;
-  console.log(switchTheme);
-  console.log(theme.other.global.content.color.disabled);
   return {
     root: {
       justifyContent: 'left',

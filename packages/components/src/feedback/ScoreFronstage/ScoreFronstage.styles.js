@@ -5,7 +5,7 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
   const paddingLg = scoreTheme.spacing.padding.lg;
   return {
     root: {
-      borderRadius: scoreTheme.border.radiuss.lg,
+      borderRadius: scoreTheme.border.radius.lg,
       position: 'relative',
     },
     imageContainer: {
@@ -20,22 +20,20 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      borderTopRightRadius: scoreTheme.border.radiuss.lg,
-      borderTopLeftRadius: scoreTheme.border.radiuss.lg,
+      borderTopRightRadius: scoreTheme.border.radius.lg,
+      borderTopLeftRadius: scoreTheme.border.radius.lg,
     },
     title: {
       color: scoreTheme.content.color.default,
       ...scoreTheme.content.typo.lg,
-      lineHeight: '24px',
     },
     subtitle: {
       color: scoreTheme.content.color.muted,
       ...scoreTheme.content.typo.sm,
-      lineHeight: '16px',
     },
     valuesContainer: {
-      borderBottomRightRadius: scoreTheme.border.radiuss.lg,
-      borderBottomLeftRadius: scoreTheme.border.radiuss.lg,
+      borderBottomRightRadius: scoreTheme.border.radius.lg,
+      borderBottomLeftRadius: scoreTheme.border.radius.lg,
       overflow: 'hidden',
     },
   };
