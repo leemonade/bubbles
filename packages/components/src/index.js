@@ -24,7 +24,8 @@ export {
   useClickOutside,
   useHotkeys,
   useHover,
-  useWindowScroll
+  useWindowScroll,
+  useIdle
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
