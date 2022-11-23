@@ -214,7 +214,7 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         }
       }
@@ -669,7 +669,7 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         }
       },
@@ -946,7 +946,7 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         }
       }
@@ -1222,7 +1222,7 @@ export default {
     },
     "border": {
       "radius": {
-        "value": "50%",
+        "value": "99em",
         "type": "borderRadius"
       },
       "width": {
@@ -1404,7 +1404,7 @@ export default {
     },
     "border": {
       "radius": {
-        "value": "50%",
+        "value": "99em",
         "type": "borderRadius"
       }
     }
@@ -1502,7 +1502,7 @@ export default {
     },
     "border": {
       "radius": {
-        "value": "50%",
+        "value": "99em",
         "type": "borderRadius"
       },
       "color": {
@@ -1675,11 +1675,7 @@ export default {
     },
     "border": {
       "radius": {
-        "value": "999px",
-        "type": "borderRadius"
-      },
-      "md": {
-        "value": "4px",
+        "value": "99em",
         "type": "borderRadius"
       }
     }
@@ -1700,7 +1696,7 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         }
       },
@@ -1814,7 +1810,7 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         }
       }
@@ -2431,8 +2427,8 @@ export default {
           "value": {
             "fontFamily": "Inter",
             "fontWeight": 400,
-            "lineHeight": 16,
-            "fontSize": 12,
+            "lineHeight": "16px",
+            "fontSize": "12px",
             "textCase": "none"
           },
           "type": "typography"
@@ -2441,8 +2437,8 @@ export default {
           "value": {
             "fontFamily": "Inter",
             "fontWeight": 600,
-            "lineHeight": 20,
-            "fontSize": 14,
+            "lineHeight": "20px",
+            "fontSize": "14px",
             "textCase": "none"
           },
           "type": "typography"
@@ -2451,8 +2447,8 @@ export default {
           "value": {
             "fontFamily": "Inter",
             "fontWeight": 600,
-            "lineHeight": 24,
-            "fontSize": 16,
+            "lineHeight": "24px",
+            "fontSize": "16px",
             "textCase": "none"
           },
           "type": "typography"
@@ -2582,7 +2578,7 @@ export default {
         "value": "1px",
         "type": "borderWidth"
       },
-      "radiuss": {
+      "radius": {
         "md": {
           "value": "4px",
           "type": "borderRadius"
@@ -2814,7 +2810,7 @@ export default {
         }
       },
       "radius": {
-        "value": "50%",
+        "value": "99em",
         "type": "borderRadius"
       },
       "width": {
@@ -2975,6 +2971,100 @@ export default {
       "radius": {
         "value": "4px",
         "type": "borderRadius"
+      }
+    }
+  },
+  "chip": {
+    "content": {
+      "typo": {
+        "sm": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 400,
+            "lineHeight": "16px",
+            "fontSize": "12px"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 400,
+            "lineHeight": "24px",
+            "fontSize": "14px"
+          },
+          "type": "typography"
+        }
+      },
+      "color": {
+        "default": {
+          "value": "#454e5f",
+          "type": "color"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#e4e9f1",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#d3d5d9",
+          "type": "color"
+        },
+        "default--alt": {
+          "value": "transparent",
+          "type": "color"
+        },
+        "hover--alt": {
+          "value": "#f8f9fc",
+          "type": "color"
+        }
+      }
+    },
+    "border": {
+      "color": {
+        "default": {
+          "value": "#e4e9f1",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#b2b6bd",
+          "type": "color"
+        },
+        "default--alt": {
+          "value": "#b2b6bd",
+          "type": "color"
+        },
+        "hover--alt": {
+          "value": "#676e79",
+          "type": "color"
+        }
+      },
+      "width": {
+        "value": "1px",
+        "type": "borderWidth"
+      },
+      "radius": {
+        "value": "99em",
+        "type": "borderRadius"
+      }
+    },
+    "spacing": {
+      "padding": {
+        "horizontal": {
+          "sm": {
+            "value": "8px",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "sm": {
+            "value": "3px",
+            "type": "spacing"
+          }
+        }
       }
     }
   },
@@ -3613,11 +3703,11 @@ export default {
           "type": "borderRadius"
         },
         "rounded": {
-          "value": "50%",
+          "value": "99em",
           "type": "borderRadius"
         },
-        "circle--figma": {
-          "value": "999px",
+        "circle": {
+          "value": "50%",
           "type": "borderRadius"
         }
       },
