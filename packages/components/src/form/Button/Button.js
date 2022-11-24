@@ -44,6 +44,7 @@ export const Button = forwardRef(
       compact, //UNUSED
       gradient, //UNUSED
       radius, //UNUSED
+      ...props
     },
     ref
   ) => {
@@ -68,6 +69,7 @@ export const Button = forwardRef(
 
     return (
       <MantineButton
+        {...props}
         ref={ref}
         component={as}
         children={children}
