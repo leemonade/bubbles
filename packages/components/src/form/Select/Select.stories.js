@@ -50,7 +50,7 @@ const Template = ({ value: valueProp, useValueComponent, onChange, data, ...prop
 export const Playground = Template.bind({});
 
 Playground.args = {
-  size: 'sm',
+  size: 'md',
   orientation: 'vertical',
   label: 'Label for select',
   placeholder: 'Select one',

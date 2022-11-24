@@ -1,8 +1,8 @@
 import { createStyles } from '@mantine/styles';
-import { getInputStyle } from '../mixins/fieldStyles.mixins';
+import { getInputSizes, getInputStyle } from '../mixins/fieldStyles.mixins';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => {
+export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIcon }) => {
   const inputSizes = {
     xs: {
       minHeight: theme.spacing[7],
@@ -12,6 +12,7 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
     },
   }[size];
 
+  const inputTheme = theme.other.input;
   return {
     wrapper: {
       padding: 3,
@@ -22,7 +23,8 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
       ...getFontProductive(theme.fontSizes['2']),
     },
     input: {
-      ...getInputStyle(theme),
+      ...getInputStyle(inputTheme, theme.other.global),
+      // ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
       ...inputSizes,
       paddingTop: 1,
     },

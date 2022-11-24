@@ -37,6 +37,7 @@ const MultiSelect = forwardRef(
       dropdownPosition,
       placeholder,
       value,
+      icon,
       readOnly,
       error,
       clearable,
@@ -53,6 +54,7 @@ const MultiSelect = forwardRef(
     },
     ref
   ) => {
+    const hasIcon = !!icon;
     const [show, setShow] = React.useState(true);
     const uuid = useId();
     const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
@@ -110,7 +112,7 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear },
+      { size, rightEvents: isClearable && showClear, hasIcon },
       { name: 'MultiSelect' }
     );
 
@@ -156,6 +158,7 @@ const MultiSelect = forwardRef(
                 placeholder={placeholder}
                 searchable={searchable}
                 dropdownPosition={dropdownPosition}
+                icon={icon}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (
