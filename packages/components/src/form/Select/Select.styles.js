@@ -29,21 +29,8 @@ export const SelectStyles = createStyles((theme, { size, rightEvents, variant, h
       pointerEvents: rightEvents ? 'auto' : 'none',
       cursor: 'pointer',
     },
-    // item: {
-    //   paddingBlock: 4,
-    //   '&[data-selected]': {
-    //     backgroundColor: '#f1f7ff',
-    //     color: '#1a429f',
-    //     '&:hover': {
-    //       backgroundColor: '#f1f7ff',
-    //     },
-    //   },
-    //   '&[data-hovered]': {
-    //     backgroundColor: '#f1f3f5',
-    //   },
-    // },
-    // dropdown: {
-    //   transform: 'translateY(-4px)',
-    // },
+    itemsWrapper: {
+      padding: 0,
+    },
   };
 });

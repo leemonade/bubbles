@@ -45,5 +45,8 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
     item: {
       paddingBlock: 4,
     },
+    itemsWrapper: {
+      padding: 0,
+    },
   };
 });
