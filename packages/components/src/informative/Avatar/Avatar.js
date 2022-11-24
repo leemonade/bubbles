@@ -18,6 +18,7 @@ const Avatar = forwardRef(
       color,
       initials,
       fullName,
+      radius,
       size: sizeProp,
       state: stateProp,
       activityStatus,

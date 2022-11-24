@@ -213,9 +213,6 @@ const MainNav = ({
               ))}
           </SimpleBar>
           <Avatar
-            mx="auto"
-            mb={10}
-            radius="xl"
             image={session?.avatar}
             fullName={session ? getUserFullName(session) : undefined}
             onClick={onAvatarClick}

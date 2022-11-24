@@ -14,6 +14,7 @@ import {
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
+import { Dropdown, Item } from '../../overlay/Dropdown';
 
 const GetValueComponent = forwardRef(
   ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
@@ -44,6 +45,8 @@ const MultiSelect = forwardRef(
       searchable,
       multiple,
       maxSelectedValues,
+      dropdownComponent,
+      itemComponent,
       valueComponent,
       onChange,
       useAria,
@@ -57,7 +60,7 @@ const MultiSelect = forwardRef(
     const hasIcon = !!icon;
     const [show, setShow] = React.useState(true);
     const uuid = useId();
-    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'md';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
@@ -149,7 +152,7 @@ const MultiSelect = forwardRef(
             {show && (
               <MantineMultiSelect
                 ref={multiSelectRef}
-                size={size}
+                // size={size}
                 value={value}
                 autoComplete="off"
                 onChange={handleChange}
@@ -159,6 +162,8 @@ const MultiSelect = forwardRef(
                 searchable={searchable}
                 dropdownPosition={dropdownPosition}
                 icon={icon}
+                dropdownComponent={Dropdown}
+                itemComponent={itemComponent || Item}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (

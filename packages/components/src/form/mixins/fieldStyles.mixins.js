@@ -12,9 +12,14 @@ export function getInputStyle(theme, globalTheme, disabled) {
     ...theme.content.typo,
 
     '&:hover': {
-      backgroundColor: theme.background.color.hover,
+      backgroundColor: !disabled && theme.background.color.hover,
     },
     '&:focus-visible': {
+      ...getBoxShadowFromToken(globalTheme.focus.default),
+      borderColor: theme.border.color.default,
+      outline: 'none',
+    },
+    '&:focus-within': {
       ...getBoxShadowFromToken(globalTheme.focus.default),
       borderColor: theme.border.color.default,
       outline: 'none',

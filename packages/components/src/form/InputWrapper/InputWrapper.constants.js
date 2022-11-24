@@ -9,6 +9,7 @@ export const INPUT_WRAPPER_SHARED_PROPS = {
   help: PropTypes.string,
   required: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  disabled: PropTypes.bool,
 };
 
 export const INPUT_WRAPPER_PROP_TYPES = {
@@ -30,4 +31,5 @@ export const INPUT_WRAPPER_DEFAULT_PROPS = {
   size: 'md',
   required: false,
   autoComplete: 'off',
+  disabled: false,
 };

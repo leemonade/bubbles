@@ -26,6 +26,7 @@ export const PASSWORD_INPUT_DEFAULT_PROPS = {
   size: PASSWORD_INPUT_SIZES[1],
   orientation: PASSWORD_INPUT_ORIENTATIONS[0],
   required: false,
+  disabled: false,
 };
 
 const PasswordInput = forwardRef(
@@ -41,13 +42,14 @@ const PasswordInput = forwardRef(
       placeholder,
       required,
       ariaLabel,
+      disabled,
       ...props
     },
     ref
   ) => {
     const uuid = useId();
     const hasIcon = !!icon;
-    const { classes, cx } = PasswordInputStyles({ size, hasIcon });
+    const { classes, cx } = PasswordInputStyles({ size, hasIcon, disabled });
 
     return (
       <InputWrapper
@@ -63,12 +65,13 @@ const PasswordInput = forwardRef(
           {...props}
           ref={ref}
           id={uuid}
-          size={size}
+          // size={size}
           icon={icon}
           placeholder={placeholder}
           classNames={classes}
           error={!isEmpty(error)}
           aria-label={ariaLabel}
+          disabled={disabled}
         />
       </InputWrapper>
     );

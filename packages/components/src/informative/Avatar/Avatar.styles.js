@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStyles } from '@mantine/styles';
 import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 

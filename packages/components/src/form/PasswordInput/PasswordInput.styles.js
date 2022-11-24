@@ -1,15 +1,31 @@
 import { createStyles } from '@mantine/styles';
-import { getFocusStyles, getPaddings } from '../../theme.mixins';
+import { getBoxShadowFromToken, getFocusStyles, getPaddings } from '../../theme.mixins';
 import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const PasswordInputStyles = createStyles((theme, { size, hasIcon }) => {
+export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disabled }) => {
   const inputTheme = theme.other.input;
+  const inputSizes = getInputStyle(inputTheme, theme.other.global);
+  const inputStyles = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
   return {
     root: {},
-    input: {},
+    input: {
+      ...inputSizes,
+      ...inputStyles,
+      // padding: 0,
+    },
     innerInput: {
-      // ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
-      // ...getInputStyle(inputTheme, theme.other.global),
+      ...inputSizes,
+      ...inputStyles,
+      // This is done because in this case PasswordInput has a different structure than other inputs.
+      // So we have to apply styles and sizes to both "inputs" elements and override some properties.
+      position: 'relative',
+      border: 'none',
+      width: '100%',
+      lineHeight: 'unset',
+      height: 'unset',
+      padding: 0,
+      backgroundColor: 'inherit !important',
+      boxShadow: 'none !important',
     },
     // rightSection: { ...getRightSection(theme) },
     visibilityToggle: {

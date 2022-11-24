@@ -7,7 +7,6 @@ import {
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import mdx from './MultiSelect.mdx';
-import { Button } from '../Button';
 import { UserDisplayItem } from '../../informative';
 
 export default {
@@ -61,7 +60,7 @@ Playground.args = {
   ...MULTI_SELECT_DEFAULT_PROPS,
   useValueComponent: false,
   maxSelectedValues: 0,
-  label: 'Label for select',
+  label: 'Label for Multiselect',
   placeholder: 'Select one',
   description: 'Optional descriptive text for this select field ',
   required: true,
