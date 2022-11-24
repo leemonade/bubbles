@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const ItemStyles = createStyles((theme, {}) => {
+export const ItemStyles = createStyles((theme, { group }) => {
   const dropdownTheme = theme.other.dropdown;
   return {
     root: {
@@ -12,6 +12,9 @@ export const ItemStyles = createStyles((theme, {}) => {
       borderRadius: dropdownTheme.border.radius,
       backgroundColor: dropdownTheme.background.color.default,
       '&[data-hovered]': {
+        backgroundColor: dropdownTheme.background.color.hover,
+      },
+      '&:hover': {
         backgroundColor: dropdownTheme.background.color.hover,
       },
       '&:active': {
@@ -30,6 +33,18 @@ export const ItemStyles = createStyles((theme, {}) => {
     },
     check: {
       color: theme.other.global.content.color.positive.default,
+    },
+    group: {
+      padding: dropdownTheme.spacing.padding.md,
+      gap: dropdownTheme.spacing.gap,
+      color: dropdownTheme.content.color['default--alt'],
+      ...theme.other.global.content.typo.caption,
+      lineHeight: '16px',
+      display: 'flex',
+      alignItems: 'center',
+      '& [role="separator"]': {
+        flex: 1,
+      },
     },
   };
 });
