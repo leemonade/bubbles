@@ -1,11 +1,10 @@
 import React, { forwardRef } from 'react';
 import { ItemStyles } from './Item.styles';
 import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
-import { Box, Divider } from '../../../layout';
+import { Box } from '../../../layout';
 import { Text } from '../../../typography';
 import { Avatar } from '../../../informative';
 import { CheckIcon } from '@bubbles-ui/icons/solid';
-import { isString } from 'lodash';
 
 const Item = forwardRef(
   (
@@ -13,12 +12,6 @@ const Item = forwardRef(
     ref
   ) => {
     const { classes } = ItemStyles({ group }, { name: 'Item' });
-    if (group)
-      return (
-        <Box className={classes.group}>
-          {isString(group) ? group : label} <Divider />
-        </Box>
-      );
     return (
       <Box className={classes.root} ref={ref} {...props}>
         {image && <Avatar size="sm" image={image} />}

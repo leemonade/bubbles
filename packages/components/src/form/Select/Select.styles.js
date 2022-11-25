@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { getInputSizes, getInputStyle } from '../mixins/fieldStyles.mixins';
+import { getInputSizes, getInputStyle, getSelectDividerStyle } from '../mixins/fieldStyles.mixins';
 
 export const SelectStyles = createStyles((theme, { size, rightEvents, variant, hasIcon }) => {
   // const isUnstyled = variant === 'unstyled';
@@ -32,5 +32,6 @@ export const SelectStyles = createStyles((theme, { size, rightEvents, variant, h
     itemsWrapper: {
       padding: 0,
     },
+    ...getSelectDividerStyle(theme, theme.other.global),
   };
 });

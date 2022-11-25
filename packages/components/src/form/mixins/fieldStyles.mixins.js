@@ -56,6 +56,32 @@ export const getInputSizes = (size, padding, hasIcon) => {
   }[size];
 };
 
+export const getSelectDividerStyle = (theme, globalTheme) => {
+  const dropdownTheme = theme.other.dropdown;
+  return {
+    separator: {
+      padding: dropdownTheme.spacing.padding.md,
+      color: dropdownTheme.content.color['default--alt'],
+      display: 'flex',
+      alignItems: 'center',
+      '& [role="separator"]': {
+        flex: 1,
+      },
+    },
+    separatorLabel: {
+      ...globalTheme.content.typo.caption,
+      lineHeight: '16px',
+      color: dropdownTheme.content.color['default--alt'],
+      gap: dropdownTheme.spacing.gap,
+      marginTop: '0px !important',
+      '&:after': {
+        margin: 0,
+        borderColor: theme.other.divider.background.color.default,
+      },
+    },
+  };
+};
+
 export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,

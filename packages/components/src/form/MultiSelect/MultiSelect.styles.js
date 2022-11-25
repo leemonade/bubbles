@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { getInputSizes, getInputStyle } from '../mixins/fieldStyles.mixins';
+import { getInputSizes, getInputStyle, getSelectDividerStyle } from '../mixins/fieldStyles.mixins';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIcon }) => {
@@ -48,5 +48,6 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
     itemsWrapper: {
       padding: 0,
     },
+    ...getSelectDividerStyle(theme, theme.other.global),
   };
 });

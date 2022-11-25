@@ -69,6 +69,7 @@ const PageHeader = ({
           {icon && <Box className={classes.iconContainer}>{icon}</Box>}
           {!isEmpty(values.title) && <Title className={classes.title}>{values.title}</Title>}
         </Stack>
+        {/* <PluginScoresBasic /> */}
         <Box className={classes.buttonContainer}>
           {isNotEmpty(BUTTONS.CANCEL) && (
             <Button

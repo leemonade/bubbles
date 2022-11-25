@@ -58,6 +58,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...MULTI_SELECT_DEFAULT_PROPS,
+  size: MULTI_SELECT_SIZES[1],
   useValueComponent: false,
   maxSelectedValues: 0,
   label: 'Label for Multiselect',
@@ -78,18 +79,21 @@ Playground.args = {
       label: 'Carol Miller',
       value: 'Carol Miller',
       description: 'One of the richest people on Earth',
+      group: 'Group 1',
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
       label: 'Homer Simpson',
       value: 'Homer Simpson',
       description: 'Overweight, lazy, and often ignorant',
+      group: 'Group 1',
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
       label: 'Spongebob Squarepants',
       value: 'Spongebob Squarepants',
       description: 'Not just a sponge',
+      group: 'Group 1',
     },
   ],
 };

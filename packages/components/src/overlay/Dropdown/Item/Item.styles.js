@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
 export const ItemStyles = createStyles((theme, { group }) => {
   const dropdownTheme = theme.other.dropdown;
@@ -33,18 +32,6 @@ export const ItemStyles = createStyles((theme, { group }) => {
     },
     check: {
       color: theme.other.global.content.color.positive.default,
-    },
-    group: {
-      padding: dropdownTheme.spacing.padding.md,
-      gap: dropdownTheme.spacing.gap,
-      color: dropdownTheme.content.color['default--alt'],
-      ...theme.other.global.content.typo.caption,
-      lineHeight: '16px',
-      display: 'flex',
-      alignItems: 'center',
-      '& [role="separator"]': {
-        flex: 1,
-      },
     },
   };
 });
