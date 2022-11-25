@@ -46,6 +46,7 @@ export const AverageStyles = createStyles((theme, { score, minGrade }) => {
       backgroundColor: styles.labelBackground,
       textAlign: 'right',
       flex: 1,
+      whiteSpace: 'nowrap',
     },
     scoreContainer: {
       ...scoreTheme.content.typo.md,

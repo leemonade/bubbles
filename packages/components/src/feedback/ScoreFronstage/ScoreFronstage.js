@@ -31,7 +31,7 @@ const ScoreFronstage = ({
         <Avatar
           image={image}
           size="lg"
-          icon={<ImageLoader src={icon} height={'100%'} forceImage />}
+          icon={icon ? <ImageLoader src={icon} height={'100%'} forceImage /> : null}
         />
       </Box>
       <Box className={classes.header}>

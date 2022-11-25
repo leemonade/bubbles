@@ -13,6 +13,7 @@ export const ItemStyles = createStyles((theme, {}) => {
       },
       display: 'flex',
       gap: scoreTheme.spacing.gap,
+      cursor: 'pointer',
     },
     titleContainer: {
       padding: scoreTheme.spacing.gap,

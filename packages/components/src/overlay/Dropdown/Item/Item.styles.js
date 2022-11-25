@@ -19,6 +19,7 @@ export const ItemStyles = createStyles((theme, { group }) => {
       '&:active': {
         backgroundColor: dropdownTheme.background.color.down,
       },
+      cursor: 'pointer',
     },
     label: {
       ...dropdownTheme.content.typo,
