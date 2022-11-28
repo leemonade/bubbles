@@ -26,7 +26,7 @@ const ScoreFronstage = ({
   const { classes, cx } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} {...props}>
       <Box className={classes.imageContainer}>
         <Avatar
           image={image}

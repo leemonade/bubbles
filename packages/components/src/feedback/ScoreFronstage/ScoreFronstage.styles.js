@@ -7,6 +7,8 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
     root: {
       borderRadius: scoreTheme.border.radius.lg,
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
     },
     imageContainer: {
       position: 'absolute',
@@ -34,7 +36,7 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
     valuesContainer: {
       borderBottomRightRadius: scoreTheme.border.radius.lg,
       borderBottomLeftRadius: scoreTheme.border.radius.lg,
-      overflow: 'hidden',
+      overflowY: 'auto',
     },
   };
 });
