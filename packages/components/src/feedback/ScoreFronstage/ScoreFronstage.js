@@ -9,6 +9,7 @@ import { Average } from './Average';
 import { Item } from './Item';
 import { Avatar } from '../../informative';
 import { ImageLoader } from '../../misc';
+import { TextClamp } from '../../typography';
 
 const ScoreFronstage = ({
   title,
@@ -35,7 +36,9 @@ const ScoreFronstage = ({
         />
       </Box>
       <Box className={classes.header}>
-        <Box className={classes.title}>{title}</Box>
+        <TextClamp lines={1}>
+          <Box className={classes.title}>{title}</Box>
+        </TextClamp>
         <Box className={classes.subtitle}>{subtitle}</Box>
       </Box>
       <Average label={label} score={score} minGrade={minGrade} maxGrade={maxGrade} />

@@ -19,7 +19,7 @@ export const MULTI_SELECT_DEFAULT_PROPS = {
   required: false,
   error: '',
   orientation: 'vertical',
-  size: 'sm',
+  size: 'md',
   disabled: false,
   searchable: false,
   creatable: false,

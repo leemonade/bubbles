@@ -27,5 +27,4 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...AVERAGE_DEFAULT_PROPS,
   label: 'Average score',
-  score: 0,
 };

@@ -5,7 +5,7 @@ import { Box } from '../../../layout';
 import { isDate } from 'lodash';
 import { Badge } from '../Badge';
 
-const Item = ({ title, date, percentage, score, minGrade, locale, ...props }) => {
+const Item = ({ title, date, percentage, score, nonCalificable, minGrade, locale, ...props }) => {
   const { classes } = ItemStyles({}, { name: 'Item' });
 
   return (
@@ -16,7 +16,7 @@ const Item = ({ title, date, percentage, score, minGrade, locale, ...props }) =>
       </Box>
       <Box className={classes.scoreContainer}>
         <Box className={classes.percenatage}>{percentage}%</Box>
-        <Badge score={score} minGrade={minGrade} />
+        <Badge score={score} minGrade={minGrade} nonCalificable={nonCalificable} />
       </Box>
     </Box>
   );

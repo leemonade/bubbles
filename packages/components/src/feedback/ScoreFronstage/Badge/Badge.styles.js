@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getVariant } from '../Average/Average.styles';
 
-export const BadgeStyles = createStyles((theme, { score, minGrade }) => {
+export const BadgeStyles = createStyles((theme, { score, minGrade, nonCalificable }) => {
   const scoreTheme = theme.other.score;
   const badgeTheme = theme.other.badge;
 
@@ -14,13 +14,16 @@ export const BadgeStyles = createStyles((theme, { score, minGrade }) => {
       // borderRadius: badgeTheme.border.radius,
       borderRadius: '50px',
       borderWidth: badgeTheme.border.width,
+      borderStyle: 'solid',
       ...badgeTheme.content.typo['md--bold'],
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      color: scoreTheme.content.color.default,
-      borderColor: scoreTheme.border.color[variant].muted,
-      backgroundColor: scoreTheme.background.color[variant].muted,
+      color: nonCalificable ? scoreTheme.content.color.muted : scoreTheme.content.color.default,
+      borderColor: nonCalificable
+        ? scoreTheme.border.color.neutral.emphasis
+        : scoreTheme.border.color[variant].muted,
+      backgroundColor: nonCalificable ? '#FFF' : scoreTheme.background.color[variant].muted,
     },
   };
 });

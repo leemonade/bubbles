@@ -2,10 +2,10 @@ import { createStyles } from '@mantine/styles';
 import { isUndefined } from 'lodash';
 
 export const getVariant = (score, minGrade) => {
-  if (isUndefined(score)) return 'neutral';
-  if (score > minGrade) return 'positive';
-  if (score < minGrade) return 'negative';
-  if (score === minGrade) return 'attention';
+  if (score.number > minGrade) return 'positive';
+  if (score.number < minGrade) return 'negative';
+  if (score.number === minGrade) return 'attention';
+  return 'neutral';
 };
 
 const getBackgroundColor = (scoreTheme, score, minGrade) => {

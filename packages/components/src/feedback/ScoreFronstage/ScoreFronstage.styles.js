@@ -26,10 +26,12 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
       borderTopLeftRadius: scoreTheme.border.radius.lg,
     },
     title: {
+      textAlign: 'center',
       color: scoreTheme.content.color.default,
       ...scoreTheme.content.typo.lg,
     },
     subtitle: {
+      textAlign: 'center',
       color: scoreTheme.content.color.muted,
       ...scoreTheme.content.typo.sm,
     },

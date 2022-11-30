@@ -6,9 +6,9 @@ export const SCORE_FRONSTAGE_DEFAULT_PROPS = {
   image: '',
   icon: '',
   label: '',
-  score: 5,
-  minGrade: 5,
-  maxGrade: 10,
+  score: { number: 0, letter: '' },
+  minGrade: 0,
+  maxGrade: 0,
   values: [],
   locale: '',
 };
@@ -18,7 +18,7 @@ export const SCORE_FRONSTAGE_PROP_TYPES = {
   image: PropTypes.string,
   icon: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   label: PropTypes.string,
-  score: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  score: PropTypes.shape({ number: PropTypes.number, letter: PropTypes.string }),
   minGrade: PropTypes.number,
   maxGrade: PropTypes.number,
   values: PropTypes.arrayOf(
@@ -27,6 +27,7 @@ export const SCORE_FRONSTAGE_PROP_TYPES = {
       date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
       percentage: PropTypes.string,
       score: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      nonCalificable: PropTypes.bool,
     })
   ),
   locale: PropTypes.string,

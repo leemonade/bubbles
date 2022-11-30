@@ -28,8 +28,8 @@ export const ItemStyles = createStyles((theme, { group }) => {
     },
     iconWrapper: {
       color: dropdownTheme.content.color.default,
-      height: theme.other.global.icon.size.md,
-      width: theme.other.global.icon.size.md,
+      // minHeight: theme.other.global.icon.size.md,
+      // minWidth: theme.other.global.icon.size.md,
     },
     check: {
       color: theme.other.global.content.color.positive.default,
