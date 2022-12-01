@@ -1,49 +1,91 @@
-import { getPaddings, getFontProductive } from '../../theme.mixins';
+import { getBoxShadowFromToken, getFontProductive } from '../../theme.mixins';
 
-export function getInputStyle(theme, variant) {
+export function getInputStyle(theme, globalTheme, disabled) {
   return {
-    ...getFontProductive(null, 400),
-    color: theme.colors.text02,
-    // marginBottom: theme.spacing['1'],
-    background: variant === 'filled' ? theme.colors.ui03 : theme.colors.uiBackground04,
-    borderColor: variant === 'filled' ? theme.colors.ui03 : theme.colors.ui01,
+    height: 'unset',
+    minHeight: 'unset',
+    backgroundColor: theme.background.color.default,
+    borderColor: theme.border.color.default,
+    borderRadius: theme.border.radius.md,
+    borderWidth: theme.border.width,
+    color: theme.content.color.default,
+    ...theme.content.typo,
 
-    '&:disabled': {
-      cursor: 'not-allowed',
-      color: theme.colors.text06,
-      background: theme.colors.ui03,
+    '&:hover': {
+      backgroundColor: !disabled && theme.background.color.hover,
     },
-    '&:focus': {
-      borderColor: theme.colors.ui01,
-      boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
-      background: theme.colors.uiBackground04,
+    '&:focus-visible': {
+      ...getBoxShadowFromToken(globalTheme.focus.default),
+      borderColor: theme.border.color.default,
+      outline: 'none',
     },
     '&:focus-within': {
-      borderColor: theme.colors.ui01,
-      boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
+      ...getBoxShadowFromToken(globalTheme.focus.default),
+      borderColor: theme.border.color.default,
+      outline: 'none',
     },
-
+    '&:disabled': {
+      cursor: 'not-allowed',
+      backgroundColor: globalTheme.background.color.disabled,
+      borderColor: globalTheme.border.color.disabled.default,
+      color: globalTheme.content.color.disabled,
+    },
     '&::placeholder': {
-      opacity: 1,
-      color: theme.colors.text05,
+      color: `${theme.content.color.placeholder}!important`,
+    },
+    '&:disabled::placeholder': {
+      color: `${globalTheme.content.color.disabled}!important`,
     },
     '&[aria-invalid=true]': {
-      borderColor: theme.colors.fatic01,
+      color: !disabled && theme.content.color.default,
+      borderColor: !disabled && globalTheme.border.color.negative.default,
     },
   };
 }
+
+export const getInputSizes = (size, padding, hasIcon) => {
+  return {
+    sm: {
+      padding: `${padding.vertical.sm} ${padding.horizontal.md}`,
+      paddingLeft: hasIcon && `calc(24px + ${padding.horizontal.md}) !important`,
+    },
+    md: {
+      padding: `${padding.vertical.md} ${padding.horizontal.md}`,
+      paddingLeft: hasIcon && `calc(24px + ${padding.horizontal.md}) !important`,
+    },
+  }[size];
+};
+
+export const getSelectDividerStyle = (theme, globalTheme) => {
+  const dropdownTheme = theme.other.dropdown;
+  return {
+    separator: {
+      padding: dropdownTheme.spacing.padding.md,
+      color: dropdownTheme.content.color['default--alt'],
+      display: 'flex',
+      alignItems: 'center',
+      '& [role="separator"]': {
+        flex: 1,
+      },
+    },
+    separatorLabel: {
+      ...globalTheme.content.typo.caption,
+      lineHeight: '16px',
+      color: dropdownTheme.content.color['default--alt'],
+      gap: dropdownTheme.spacing.gap,
+      marginTop: '0px !important',
+      '&:after': {
+        margin: 0,
+        borderColor: theme.other.divider.background.color.default,
+      },
+    },
+  };
+};
 
 export function getErrorStyle(theme) {
   return {
     color: theme.colors.text01,
     ...getFontProductive(theme.fontSizes['1']),
-  };
-}
-
-export function getDescriptionStyle(theme) {
-  return {
-    color: theme.colors.text04,
-    ...getFontProductive(theme.fontSizes['2']),
   };
 }
 
@@ -62,33 +104,11 @@ export function getHelpStyle(theme) {
   };
 }
 
-export function getRequiredStyle(theme) {
-  return {
-    color: theme.colors.text04,
-    ...getFontProductive(),
-  };
-}
-
 export function getRightSection(theme) {
   return {
     color: theme.colors.text05,
   };
 }
-export const getInputSizes = (size, spacing, includeHeight = true) => {
-  return {
-    xs: {
-      height: includeHeight ? spacing['7'] : 'auto',
-      minHeight: !includeHeight ? spacing['7'] : 'auto',
-      ...getPaddings(spacing['1'], spacing['2']),
-    },
-
-    sm: {
-      height: includeHeight ? 38 : 'auto',
-      minHeight: !includeHeight ? 38 : 'auto',
-      ...getPaddings(spacing['2'], spacing['2']),
-    },
-  }[size];
-};
 
 export const getOrientation = (orientation, spacing) => {
   const layout = {

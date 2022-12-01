@@ -1,30 +1,39 @@
 import { createStyles } from '@mantine/styles';
-import { getInputStyle } from '../mixins/fieldStyles.mixins';
+import { getInputSizes, getInputStyle, getSelectDividerStyle } from '../mixins/fieldStyles.mixins';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => {
-  const inputSizes = {
-    xs: {
-      minHeight: theme.spacing[7],
-    },
-    sm: {
-      minHeight: 38,
-    },
-  }[size];
-
+export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIcon }) => {
+  const inputTheme = theme.other.input;
+  const inputSizes = getInputStyle(inputTheme, theme.other.global);
+  const inputStyles = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
   return {
     wrapper: {
-      padding: 3,
-      margin: -3,
       overflow: 'visible !important',
     },
-    searchInput: {
-      ...getFontProductive(theme.fontSizes['2']),
-    },
+    // This is done because in this case Multiselect has a different structure than other inputs.
+    // So we have to apply styles and sizes to both "inputs" elements and override some properties.
     input: {
-      ...getInputStyle(theme),
       ...inputSizes,
-      paddingTop: 1,
+      ...inputStyles,
+    },
+    searchInput: {
+      ...inputStyles,
+      ...inputSizes,
+      backgroundColor: 'inherit !important',
+      boxShadow: 'none !important',
+      margin: 0,
+      padding: 0,
+    },
+    values: {
+      ...inputSizes,
+      backgroundColor: 'inherit !important',
+      boxShadow: 'none !important',
+      margin: 0,
+      padding: 0,
+      gap: 4,
+    },
+    value: {
+      marginBlock: 1,
     },
     rightSection: {
       color: theme.colors.text02,
@@ -36,5 +45,9 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents }) => 
     item: {
       paddingBlock: 4,
     },
+    itemsWrapper: {
+      padding: 0,
+    },
+    ...getSelectDividerStyle(theme, theme.other.global),
   };
 });

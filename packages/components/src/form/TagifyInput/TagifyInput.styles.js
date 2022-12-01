@@ -14,6 +14,7 @@ export const TagifyInputStyles = createStyles((theme, { size }) => {
     sm: theme.fontSizes['2'],
     md: theme.fontSizes['3'],
   };
+  const inputTheme = theme.other.input;
   return {
     root: {
       marginBottom: theme.spacing['1'],
@@ -24,14 +25,15 @@ export const TagifyInputStyles = createStyles((theme, { size }) => {
         color: theme.colors.text02,
       },
       '& .tagify__input': {
-        ...getInputSizes(size || 'md', theme.spacing, false),
+        ...getInputSizes(size || 'md', inputTheme.spacing.padding, false),
+        ...getInputStyle(inputTheme, theme.other.global),
         borderRadius: 4,
         fontSize: fontSizes[size],
       },
 
       '&.tagify--focus': {
-        borderColor: theme.colors.ui01,
-        boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
+        // borderColor: theme.colors.ui01,
+        // boxShadow: `0 0 0 3px ${theme.colors.interactive03h}`,
       },
 
       '.tagify__tag > div::before': {
