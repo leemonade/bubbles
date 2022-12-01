@@ -23,6 +23,8 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
       boxShadow: 'none !important',
       margin: 0,
       padding: 0,
+      minWidth: 0,
+      maxWidth: 0,
     },
     values: {
       ...inputSizes,
@@ -33,6 +35,7 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
       gap: 4,
     },
     value: {
+      margin: 0,
       marginBlock: 1,
     },
     rightSection: {
