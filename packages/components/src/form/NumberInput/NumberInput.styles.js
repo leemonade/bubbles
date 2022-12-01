@@ -9,6 +9,7 @@ export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
       ...getInputStyle(inputTheme, theme.other.global),
+      paddingRight: 24,
     },
     icon: {
       width: 32,

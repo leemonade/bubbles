@@ -20,6 +20,7 @@ export const POPOVER_DEFAULT_PROPS = {
   withArrow: false,
   withCloseButton: false,
   offset: 10,
+  withinPortal: true,
 };
 export const POPOVER_PROP_TYPES = {
   opened: PropTypes.bool,
@@ -28,6 +29,7 @@ export const POPOVER_PROP_TYPES = {
   position: PropTypes.oneOf(POPOVER_POSITIONS),
   withArrow: PropTypes.bool,
   withCloseButton: PropTypes.bool,
+  withinPortal: PropTypes.bool,
   padded: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   onClose: PropTypes.func,
 };
