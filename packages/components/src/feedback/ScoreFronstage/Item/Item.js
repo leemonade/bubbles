@@ -2,14 +2,28 @@ import React from 'react';
 import { ItemStyles } from './Item.styles';
 import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
 import { Box } from '../../../layout';
-import { isDate } from 'lodash';
+import { isDate, isFunction } from 'lodash';
 import { Badge } from '../Badge';
 
-const Item = ({ title, date, percentage, score, nonCalificable, minGrade, locale, ...props }) => {
+const Item = ({
+  title,
+  date,
+  percentage,
+  score,
+  nonCalificable,
+  minGrade,
+  onClick,
+  locale,
+  ...props
+}) => {
   const { classes } = ItemStyles({}, { name: 'Item' });
 
+  const handleOnClick = () => {
+    isFunction(onClick) && onClick();
+  };
+
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onClick={handleOnClick}>
       <Box className={classes.titleContainer}>
         <Box className={classes.title}>{title}</Box>
         <Box className={classes.date}>{isDate(date) ? date.toLocaleDateString(locale) : date}</Box>

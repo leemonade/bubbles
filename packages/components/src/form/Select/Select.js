@@ -103,8 +103,6 @@ const Select = forwardRef(
       { name: 'Select' }
     );
 
-    Dropdown.props = { data };
-
     return valueComponent ? (
       <MultiSelect
         data={data}
