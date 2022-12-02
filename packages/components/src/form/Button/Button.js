@@ -2,7 +2,6 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
-import { Box } from '../../layout';
 
 export const BUTTON_SIZES = ['sm', 'md'];
 export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];

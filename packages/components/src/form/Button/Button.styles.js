@@ -192,6 +192,7 @@ const getVariant = (variant, theme, color) => {
     link: {
       primary: {
         color: theme.colors.interactive01,
+        paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive01h,
@@ -201,6 +202,7 @@ const getVariant = (variant, theme, color) => {
       },
       secondary: {
         color: theme.colors.interactive02,
+        paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive02h,
@@ -210,6 +212,7 @@ const getVariant = (variant, theme, color) => {
       },
       tertiary: {
         color: theme.colors.text02,
+        paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.text03,
@@ -219,6 +222,7 @@ const getVariant = (variant, theme, color) => {
       },
       negative: {
         color: theme.colors.text07,
+        paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
           opacity: '0.8',
@@ -229,8 +233,9 @@ const getVariant = (variant, theme, color) => {
           color: theme.colors.text07,
         },
       },
-      fatic: {
+      phatic: {
         color: theme.colors.fatic01,
+        paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
           opacity: '0.8',
@@ -243,6 +248,7 @@ const getVariant = (variant, theme, color) => {
       primary: {
         color: theme.colors.interactive01,
         backgroundColor: 'transparent',
+        ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive01,
           backgroundColor: theme.colors.interactive01v1,
@@ -251,6 +257,7 @@ const getVariant = (variant, theme, color) => {
       secondary: {
         color: theme.colors.interactive02,
         backgroundColor: 'transparent',
+        ...commonLinkStyles,
         '&:hover': {
           color: theme.colors.interactive02h,
           backgroundColor: theme.colors.interactive03,
@@ -259,6 +266,7 @@ const getVariant = (variant, theme, color) => {
       tertiary: {
         color: theme.colors.text02,
         backgroundColor: 'transparent',
+        ...commonLinkStyles,
         '&:hover': {
           backgroundColor: theme.colors.interactive03h,
         },
@@ -266,13 +274,15 @@ const getVariant = (variant, theme, color) => {
       negative: {
         color: theme.colors.text07,
         backgroundColor: 'transparent',
+        ...commonLinkStyles,
         '&:hover': {
           opacity: '0.8',
         },
       },
-      fatic: {
+      phatic: {
         color: theme.colors.fatic01,
         backgroundColor: 'transparent',
+        ...commonLinkStyles,
         '&:hover': {
           backgroundColor: theme.colors.fatic01v0,
         },
