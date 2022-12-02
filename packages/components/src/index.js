@@ -4,14 +4,14 @@ export { SimpleBar };
 
 export {
   Grid,
-  Col,
   Group,
   Transition,
   useMantineTheme as useTheme,
   SegmentedControl,
   UnstyledButton,
   List,
-  Collapse
+  Collapse,
+  Progress
 } from '@mantine/core';
 export {
   useId,
