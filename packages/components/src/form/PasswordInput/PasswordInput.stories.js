@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '../../layout';
 import {
   PasswordInput,
   PASSWORD_INPUT_SIZES,

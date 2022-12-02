@@ -50,7 +50,7 @@ const Template = ({ value: valueProp, useValueComponent, onChange, data, ...prop
 export const Playground = Template.bind({});
 
 Playground.args = {
-  size: 'sm',
+  size: 'md',
   orientation: 'vertical',
   label: 'Label for select',
   placeholder: 'Select one',
@@ -78,18 +78,21 @@ Playground.args = {
       label: 'Carol Miller',
       value: 'Carol Miller',
       description: 'One of the richest people on Earth',
+      group: 'Group 1',
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
       label: 'Homer Simpson',
       value: 'Homer Simpson',
       description: 'Overweight, lazy, and often ignorant',
+      group: 'Group 1',
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
       label: 'Spongebob Squarepants',
       value: 'Spongebob Squarepants',
       description: 'Not just a sponge',
+      group: 'Group 1',
     },
   ],
 };

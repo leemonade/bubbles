@@ -1,22 +1,20 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button as MantineButton } from '@mantine/core';
 import { ButtonStyles } from './Button.styles';
+import { Box } from '../../layout';
 
-export const BUTTON_SIZES = ['xs', 'sm', 'md'];
-export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
-export const BUTTON_COLORS = ['primary', 'secondary', 'tertiary', 'negative', 'fatic'];
-export const BUTTON_POSITIONS = ['center', 'right', 'left', 'apart'];
+export const BUTTON_SIZES = ['sm', 'md'];
+export const BUTTON_VARIANTS = ['filled', 'outline'];
+export const BUTTON_COLORS = ['primary', 'secondary', 'terciary', 'phatic'];
+export const BUTTON_ICON_POSITION = ['right', 'left'];
 
 export const BUTTON_DEFAULT_PROPS = {
-  color: 'primary',
-  size: 'md',
-  variant: 'filled',
-  position: 'center',
+  color: BUTTON_COLORS[0],
+  size: BUTTON_SIZES[1],
+  variant: BUTTON_VARIANTS[0],
   rounded: false,
-  iconOnly: false,
   loading: false,
-  compact: false,
   fullWidth: false,
   disabled: false,
   useAria: true,
@@ -25,67 +23,67 @@ export const BUTTON_DEFAULT_PROPS = {
 export const Button = forwardRef(
   (
     {
-      as,
+      children,
       color: colorProp,
-      size: sizeProp,
-      variant: variantProp,
-      position: positionProp,
-      rounded,
-      iconOnly,
+      disabled,
+      fullWidth,
       leftIcon,
       rightIcon,
-      sx,
+      loading,
+      size: sizeProp,
+      variant: variantProp,
+      rounded,
+      type,
+      uppercase,
+      loaderPosition,
+      loaderProps,
       styles,
-      className,
-      classNames,
-      compact,
-      fullWidth,
-      disabled,
+      as,
       useAria,
       ariaLabel,
+      compact, //UNUSED
+      gradient, //UNUSED
+      radius, //UNUSED
       ...props
     },
     ref
   ) => {
-    const radius = rounded ? 'xl' : 'xs';
     const color = BUTTON_COLORS.includes(colorProp) ? colorProp : BUTTON_DEFAULT_PROPS.color;
     const variant = BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : BUTTON_DEFAULT_PROPS.variant;
     const size = BUTTON_SIZES.includes(sizeProp) ? sizeProp : BUTTON_DEFAULT_PROPS.size;
-    const position = BUTTON_POSITIONS.includes(positionProp)
-      ? positionProp
-      : BUTTON_DEFAULT_PROPS.position;
 
-    const { classes, cx } = ButtonStyles(
+    const { classes } = ButtonStyles(
       {
-        size,
         color,
-        iconOnly,
-        position,
         variant,
-        compact,
+        size,
+        rounded,
         fullWidth,
+        disabled,
         styles,
       },
       { name: 'Button' }
     );
-    const mantineVariant = useMemo(() => (variant === 'link' ? 'default' : variant), [variant]);
 
     return (
       <MantineButton
         {...props}
         ref={ref}
         component={as}
-        variant={mantineVariant}
-        radius={radius}
+        children={children}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
-        size={size}
         classNames={classes}
         disabled={disabled}
-        role={useAria ? 'button' : undefined}
+        loading={loading}
+        uppercase={uppercase}
+        type={type}
+        loaderPosition={loaderPosition}
+        loaderProps={loaderProps}
         aria-label={ariaLabel}
+        role={useAria ? 'button' : undefined}
       />
     );
   }
@@ -94,22 +92,13 @@ export const Button = forwardRef(
 Button.defaultProps = BUTTON_DEFAULT_PROPS;
 
 Button.propTypes = {
-  /**
-    The xs value is for buttons inside tables or information list.
-    */
+  /** Controls the button size. */
   size: PropTypes.oneOf(BUTTON_SIZES),
-  /**
-    Main actions use de primary color, the secondary color is for empahis buttons.
-    */
+  /** Controls the button colors. */
   color: PropTypes.oneOf(BUTTON_COLORS),
-  /**
-    Main actions use de Default variation, the outline buttons is for  actions suggestion.
-    For secondary actions use the button Link variation.
-    */
+  /** Controls the button variants. */
   variant: PropTypes.oneOf(BUTTON_VARIANTS),
-  /**
-   Use rounded style with outline variation for  the  actions suggestion buttons
-    */
+  /** Controls the border radius */
   rounded: PropTypes.bool,
   /** Controls if is loading */
   loading: PropTypes.bool,
@@ -119,8 +108,6 @@ Button.propTypes = {
   rightIcon: PropTypes.node,
   /** Sets button width to 100% of parent element */
   fullWidth: PropTypes.bool,
-  /** Controls the position of the label inside the button */
-  position: PropTypes.oneOf(BUTTON_POSITIONS),
   /** Controls if the button is compact */
   compact: PropTypes.bool,
   /** Controls the disabled state */

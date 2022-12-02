@@ -1,6 +1,8 @@
 import SimpleBar from 'simplebar-react';
+import jsonTokens from '../tokens-compiled';
 
 export { SimpleBar };
+export { jsonTokens };
 
 export {
   Grid,

@@ -20,11 +20,12 @@ export default {
   },
 };
 
-const Template = ({ test_showRightSection, ...props }) => {
+const Template = ({ test_showRightSection, test_showIcon, ...props }) => {
   return (
     <Input
       {...props}
       placeholder="Placeholder"
+      icon={test_showIcon ? <DoneCircleIcon /> : null}
       rightSection={test_showRightSection ? <DoneCircleIcon /> : null}
     />
   );
@@ -36,4 +37,5 @@ Playground.args = {
   invalid: false,
   disabled: false,
   test_showRightSection: false,
+  test_showIcon: false,
 };
