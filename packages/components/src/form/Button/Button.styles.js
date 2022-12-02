@@ -12,6 +12,11 @@ const getSizes = (size, theme) => {
 const getVariant = (variant, theme, color) => {
   const buttonTheme = theme.other.button;
 
+  const commonLinkStyles = {
+    border: 'none',
+    backgroundColor: 'transparent',
+  };
+
   const variants = {
     filled: {
       primary: {
@@ -181,6 +186,95 @@ const getVariant = (variant, theme, color) => {
           backgroundColor: theme.other.global.background.color.transparent,
           borderColor: buttonTheme.border.color.phatic.down,
           color: buttonTheme.content.color.phatic.down,
+        },
+      },
+    },
+    link: {
+      primary: {
+        color: theme.colors.interactive01,
+        ...commonLinkStyles,
+        '&:hover': {
+          color: theme.colors.interactive01h,
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+      secondary: {
+        color: theme.colors.interactive02,
+        ...commonLinkStyles,
+        '&:hover': {
+          color: theme.colors.interactive02h,
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+      tertiary: {
+        color: theme.colors.text02,
+        ...commonLinkStyles,
+        '&:hover': {
+          color: theme.colors.text03,
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+      negative: {
+        color: theme.colors.text07,
+        ...commonLinkStyles,
+        '&:hover': {
+          opacity: '0.8',
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+        '&:active': {
+          color: theme.colors.text07,
+        },
+      },
+      fatic: {
+        color: theme.colors.fatic01,
+        ...commonLinkStyles,
+        '&:hover': {
+          opacity: '0.8',
+          textDecoration: 'none',
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    light: {
+      primary: {
+        color: theme.colors.interactive01,
+        backgroundColor: 'transparent',
+        '&:hover': {
+          color: theme.colors.interactive01,
+          backgroundColor: theme.colors.interactive01v1,
+        },
+      },
+      secondary: {
+        color: theme.colors.interactive02,
+        backgroundColor: 'transparent',
+        '&:hover': {
+          color: theme.colors.interactive02h,
+          backgroundColor: theme.colors.interactive03,
+        },
+      },
+      tertiary: {
+        color: theme.colors.text02,
+        backgroundColor: 'transparent',
+        '&:hover': {
+          backgroundColor: theme.colors.interactive03h,
+        },
+      },
+      negative: {
+        color: theme.colors.text07,
+        backgroundColor: 'transparent',
+        '&:hover': {
+          opacity: '0.8',
+        },
+      },
+      fatic: {
+        color: theme.colors.fatic01,
+        backgroundColor: 'transparent',
+        '&:hover': {
+          backgroundColor: theme.colors.fatic01v0,
         },
       },
     },

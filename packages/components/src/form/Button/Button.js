@@ -5,7 +5,7 @@ import { ButtonStyles } from './Button.styles';
 import { Box } from '../../layout';
 
 export const BUTTON_SIZES = ['sm', 'md'];
-export const BUTTON_VARIANTS = ['filled', 'outline'];
+export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'terciary', 'phatic'];
 export const BUTTON_ICON_POSITION = ['right', 'left'];
 
