@@ -6,6 +6,7 @@ export { jsonTokens };
 
 export {
   Grid,
+  Col,
   Group,
   Transition,
   useMantineTheme as useTheme,
