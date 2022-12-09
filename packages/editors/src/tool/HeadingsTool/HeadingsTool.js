@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useMemo, useContext, useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { ButtonGroup } from '../../form/ButtonGroup/ButtonGroup';
-import { TitleTool } from '../../tool/TitleTool/TitleTool';
-import { ParagraphTool } from '../../tool/ParagraphTool/ParagraphTool';
-import { mergeExtensions } from '../../utils/merge-extensions';
+import Heading from '@tiptap/extension-heading';
+import { Select, Box, Text, Title } from '@bubbles-ui/components';
+import { TextEditorContext } from '../../form/TextEditorProvider';
+import { HeadingsToolStyles } from './HeadingsTool.styles';
 
 export const HEADINGS_TOOL_DEFAULT_PROPS = {
-  title1: true,
-  title2: true,
-  title3: true,
-  paragraph: true,
   labels: {
     title1: 'Title 1',
     title2: 'Title 2',
@@ -19,10 +15,6 @@ export const HEADINGS_TOOL_DEFAULT_PROPS = {
 };
 
 export const HEADINGS_TOOL_PROP_TYPES = {
-  title1: PropTypes.bool,
-  title2: PropTypes.bool,
-  title3: PropTypes.bool,
-  paragraph: PropTypes.bool,
   labels: PropTypes.shape({
     title1: PropTypes.string,
     title2: PropTypes.string,
@@ -32,21 +24,78 @@ export const HEADINGS_TOOL_PROP_TYPES = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-const HeadingsTool = ({ title1, title2, title3, paragraph, labels, children }) => {
+const SelectItem = forwardRef(({ label, value, ...props }, ref) => {
   return (
-    <ButtonGroup>
-      {title1 && <TitleTool label={labels.title1} level={1} />}
-      {title2 && <TitleTool label={labels.title2} level={2} />}
-      {title3 && <TitleTool label={labels.title3} level={3} />}
-      {paragraph && <ParagraphTool label={labels.paragraph} />}
-      {children}
-    </ButtonGroup>
+    <Box ref={ref} {...props} style={{ paddingTop: 10, paddingBottom: 10 }}>
+      {Number(value) === 0 ? <p>{label}</p> : <Title order={Number(value)}>{label}</Title>}
+    </Box>
+  );
+});
+
+const HeadingsTool = ({ labels, children }) => {
+  const [level, setLevel] = useState(0);
+  const { editor } = useContext(TextEditorContext);
+
+  const VALUES = [
+    { label: labels.title1, value: 1 },
+    { label: labels.title2, value: 2 },
+    { label: labels.title3, value: 3 },
+    { label: labels.paragraph, value: 0 },
+  ];
+
+  const handleOnChange = (value) => {
+    setLevel(value);
+
+    if (Number(value) === 0) {
+      editor?.chain().focus().setParagraph().run();
+    } else {
+      editor
+        ?.chain()
+        .focus()
+        .toggleHeading({ level: Number(value) })
+        .run();
+    }
+  };
+
+  const handleOnSelection = ({ editor }) => {
+    let activeLevel = 0;
+    [1, 2, 3].every((level) => {
+      if (editor?.isActive('heading', { level: level })) {
+        activeLevel = level;
+        return false;
+      }
+      return true;
+    });
+    setLevel(activeLevel);
+  };
+
+  useEffect(() => {
+    if (editor) {
+      editor.on('selectionUpdate', handleOnSelection);
+    }
+
+    return () => {
+      if (editor) {
+        editor.off('selectionUpdate', handleOnSelection);
+      }
+    };
+  }, [editor]);
+
+  const { classes } = HeadingsToolStyles({}, 'HeadingsTool');
+
+  return (
+    <Box className={classes.root}>
+      <Text color="secondary" role="productive">
+        Formato
+      </Text>
+      <Select data={VALUES} value={level} onChange={handleOnChange} itemComponent={SelectItem} />
+    </Box>
   );
 };
 
 HeadingsTool.defaultProps = HEADINGS_TOOL_DEFAULT_PROPS;
 HeadingsTool.propTypes = HEADINGS_TOOL_PROP_TYPES;
 
-HeadingsTool.extensions = mergeExtensions(TitleTool);
+HeadingsTool.extensions = [Heading];
 
 export { HeadingsTool };
