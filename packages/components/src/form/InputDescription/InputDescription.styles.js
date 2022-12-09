@@ -1,10 +1,23 @@
 import { createStyles } from '@mantine/styles';
-import { getDescriptionStyle } from '../mixins/fieldStyles.mixins';
 
-export const InputDescriptionStyles = createStyles((theme, {}) => {
+export const InputDescriptionStyles = createStyles((theme, { withIcon }) => {
+  const labelTheme = theme.other.label;
   return {
-    root: {
-      ...getDescriptionStyle(theme),
+    container: {
+      display: 'flex',
+    },
+    description: {
+      marginLeft: withIcon && labelTheme.spacing.gap.sm,
+      color: labelTheme.content.color.subtle,
+      ...labelTheme.content.typo['02'],
+    },
+    descriptionIcon: {
+      height: theme.other.global.icon.size.lg,
+      width: theme.other.global.icon.size.lg,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: labelTheme.content.color.subtle,
     },
   };
 });

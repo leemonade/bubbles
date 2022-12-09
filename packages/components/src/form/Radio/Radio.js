@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Radio as MantineRadio } from '@mantine/core';
 import { RadioStyles } from './Radio.styles';

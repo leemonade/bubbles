@@ -13,7 +13,7 @@ export const RadioStyles = createStyles(
 
     return {
       root: {
-        padding: 16,
+        padding: 14,
         display: isIcon && 'flex',
         justifyContent: 'center',
         alignItems: 'center',

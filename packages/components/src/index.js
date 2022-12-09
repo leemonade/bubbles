@@ -1,6 +1,8 @@
 import SimpleBar from 'simplebar-react';
+import jsonTokens from '../tokens-compiled';
 
 export { SimpleBar };
+export { jsonTokens };
 
 export {
   Grid,
@@ -11,7 +13,8 @@ export {
   SegmentedControl,
   UnstyledButton,
   List,
-  Collapse
+  Collapse,
+  Progress
 } from '@mantine/core';
 export {
   useId,

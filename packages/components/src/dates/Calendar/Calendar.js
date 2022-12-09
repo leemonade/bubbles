@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Calendar as MantineCalendar, RangeCalendar } from '@mantine/dates';
 import { CalendarStyles } from './Calendar.styles';
 
-export const CALENDAR_SIZES = ['xs', 'sm'];
+// export const CALENDAR_SIZES = ['xs', 'sm'];
 export const CALENDAR_LEVELS = ['date', 'month', 'year'];
 export const CALENDAR_FIRST_DAYS = ['sunday', 'monday'];
 
 export const CALENDAR_DEFAULT_PROPS = {
   amountOfMonths: 1,
-  size: CALENDAR_SIZES[1],
+  // size: CALENDAR_SIZES[1],
   allowLevelChange: true,
   initialLevel: CALENDAR_LEVELS[0],
   firstDayOfWeek: CALENDAR_FIRST_DAYS[1],
@@ -42,7 +42,7 @@ export const CALENDAR_PROP_TYPES = {
   ]),
 
   /** Calendar size */
-  size: PropTypes.oneOf(CALENDAR_SIZES),
+  // size: PropTypes.oneOf(CALENDAR_SIZES),
 
   /** Allow to change level (date – month – year) */
   allowLevelChange: PropTypes.bool,
@@ -85,7 +85,7 @@ export const CALENDAR_PROP_TYPES = {
   maxDate: PropTypes.instanceOf(Date),
 };
 
-const Calendar = forwardRef(({ range, locale, ...props }, ref) => {
+const Calendar = forwardRef(({ range, size, locale, ...props }, ref) => {
   const [currentLocale, setCurrentLocale] = useState(locale);
   const { classes, cx } = CalendarStyles({});
   const Comp = range ? RangeCalendar : MantineCalendar;

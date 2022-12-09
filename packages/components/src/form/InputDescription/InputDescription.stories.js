@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { InputDescription } from './InputDescription';
+import { INPUT_DESCRIPTION_DEFAULT_PROPS } from './InputDescription.constants';
 import mdx from './InputDescription.mdx';
 
 export default {
@@ -28,5 +28,6 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...INPUT_DESCRIPTION_DEFAULT_PROPS,
   message: 'Description',
 };

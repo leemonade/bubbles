@@ -8,7 +8,7 @@ export const SELECT_VARIANTS = ['default', 'filled', 'unstyled'];
 export const SELECT_DROPDOWN_POSITIONS = ['bottom', 'top', 'flip'];
 
 export const SELECT_DEFAULT_PROPS = {
-  size: 'sm',
+  size: SELECT_SIZES[1],
   orientation: 'vertical',
   autoComplete: 'off',
   readOnly: false,

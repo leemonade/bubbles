@@ -70,7 +70,7 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   orientation: INPUT_WRAPPER_ORIENTATIONS[1],
   error: '',
   required: false,
-  size: 'sm',
+  size: 'md',
   useHsl: false,
   saturation: 50,
   lightness: 50,
@@ -191,11 +191,7 @@ const ColorInput = forwardRef(
                 autoComplete="off"
                 icon={
                   icon || (
-                    <ColorSwatch
-                      color={inputValue}
-                      onClick={() => setOpened(!opened)}
-                      size={theme.fn.size({ size, sizes: SWATCH_SIZES })}
-                    />
+                    <ColorSwatch color={inputValue} onClick={() => setOpened(!opened)} size={18} />
                   )
                 }
                 onFocus={handleInputFocus}

@@ -9,6 +9,7 @@ import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 import { Paragraph } from '../../typography';
 import { MultiSelect } from '../MultiSelect';
+import { Dropdown, Item } from '../../overlay/Dropdown';
 
 const Select = forwardRef(
   (
@@ -111,7 +112,8 @@ const Select = forwardRef(
         multiple={false}
         clearable={clearable}
         size={size}
-        itemComponent={itemComponent}
+        dropdownComponent={Dropdown}
+        itemComponent={itemComponent || Item}
         creatable={creatable}
         onCreate={onCreate}
         defaultValue={defaultValue}
@@ -144,7 +146,8 @@ const Select = forwardRef(
             onChange={handleChange}
             onBlur={onBlur}
             value={value}
-            itemComponent={itemComponent}
+            dropdownComponent={Dropdown}
+            itemComponent={itemComponent || Item}
             creatable={creatable}
             onCreate={onCreate}
             defaultValue={defaultValue}

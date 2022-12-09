@@ -1,104 +1,84 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
 
-const getSizes = (size, spacing, iconOnly) => {
+const getSizes = (size, padding) => {
   return {
-    xs: {
-      height: spacing['5'],
-      width: iconOnly ? spacing['5'] : 'auto',
-      padding: iconOnly ? 0 : `${spacing['1']}px ${spacing['1']}px`,
-      svg: { height: spacing['3'] },
-    },
-
-    sm: {
-      height: spacing['7'],
-      width: iconOnly ? spacing['7'] : 'auto',
-      padding: iconOnly ? 0 : `${spacing['2']}px ${spacing['2']}px`,
-      svg: { height: spacing['4'] },
-    },
-  }[size];
+    height: 'unset',
+    padding: padding[size],
+  };
 };
 
-const getVariant = (variant, theme, color, active) => {
+const getVariant = (color, theme) => {
   const variants = {
-    default: {
-      positive: {
-        backgroundColor: 'transparent',
-        color: active ? theme.colors.interactive01 : theme.colors.text02,
-        '&:hover': {
-          color: `${theme.colors.interactive01} !important`,
-          backgroundColor: theme.colors.interactive01v1,
-        },
-        '&:active': {
-          backgroundColor: theme.colors.interactive01v1,
-          borderColor: theme.colors.interactive03h,
-        },
+    primary: {
+      backgroundColor: theme.background.color.primary.default,
+      borderColor: theme.border.color.primary.default,
+      color: theme.content.color.primary.default,
+      '&:hover': {
+        backgroundColor: theme.background.color.primary.hover,
+        borderColor: theme.border.color.primary.hover,
+        color: theme.content.color.primary.hover,
       },
-      negative: {
-        backgroundColor: 'transparent',
-        color: active ? theme.colors.text07 : theme.colors.text06,
-        backgroundColor: active ? theme.colors.interactive02d : 'transparent',
-
-        '&:hover': {
-          color: `${theme.colors.text07} !important`,
-          backgroundColor: theme.colors.interactive02,
-        },
-        '&:active': {
-          backgroundColor: theme.colors.interactive02h,
-        },
+      '&:active': {
+        backgroundColor: theme.background.color.primary.down,
+        borderColor: theme.border.color.primary.down,
+        color: theme.content.color.primary.down,
       },
     },
-    solid: {
-      positive: {
-        backgroundColor: theme.colors.interactive01v1,
-        color: active ? theme.colors.interactive01 : theme.colors.text02,
-        '&:hover': {
-          backgroundColor: theme.colors.interactive01v1,
-          color: theme.colors.interactive01,
-        },
-        '&:active': {
-          backgroundColor: theme.colors.interactive01v1,
-          borderColor: theme.colors.interactive03h,
-        },
+    negative: {
+      backgroundColor: theme.background.color.primary.default,
+      borderColor: theme.border.color.primary.default,
+      color: theme.content.color.primary['default--reverse'],
+      '&:hover': {
+        backgroundColor: theme.background.color.primary['hover--reverse'],
+        borderColor: theme.border.color.primary['hover--reverse'],
+        color: theme.content.color.primary['hover--reverse'],
       },
-      negative: {
-        backgroundColor: theme.colors.uiBackground05,
-        color: theme.colors.text06,
-        '&:hover': {
-          color: theme.colors.text07,
-          backgroundColor: theme.colors.interactive02,
-        },
-        '&:active': {
-          backgroundColor: theme.colors.interactive02h,
-        },
+      '&:active': {
+        backgroundColor: theme.background.color.primary['down--reverse'],
+        borderColor: theme.border.color.primary['down--reverse'],
+        color: theme.content.color.primary['down--reverse'],
+      },
+    },
+    phatic: {
+      backgroundColor: theme.background.color.phatic.default,
+      borderColor: theme.border.color.phatic.default,
+      color: theme.content.color.phatic.default,
+      '&:hover': {
+        backgroundColor: theme.background.color.phatic.hover,
+        borderColor: theme.border.color.phatic.hover,
+        color: theme.content.color.phatic.hover,
+      },
+      '&:active': {
+        backgroundColor: theme.background.color.phatic.down,
+        borderColor: theme.border.color.phatic.down,
+        color: theme.content.color.phatic.down,
       },
     },
   };
-  return variants[variant][color];
+  return variants[color];
 };
 
-export const ActionButtonStyles = createStyles(
-  (theme, { size, color, variant, iconOnly, active }) => {
-    return {
-      root: {
-        ...getFontExpressive(theme.fontSizes['1'], 400),
-        ...getSizes(size || 'md', theme.spacing, iconOnly),
-        border: '2px solid transparent',
-        ...getVariant(variant, theme, color, active),
-      },
-      inner: { gap: iconOnly ? 0 : theme.spacing[2] },
-      rightIcon: {
-        marginLeft: pxToRem(0),
-        marginRight: pxToRem(0),
-        height: theme.spacing['2'],
-      },
-      leftIcon: {
-        marginRight: pxToRem(0),
-        marginLeft: pxToRem(0),
-      },
-      label: {
-        height: '13px',
-      },
-    };
-  }
-);
+export const ActionButtonStyles = createStyles((theme, { size, color, iconOnly, radius }) => {
+  const actionButtonTheme = theme.other.buttonAction;
+  const iconSize = size === 'md' ? 'lg' : 'md';
+  return {
+    root: {
+      border: `${actionButtonTheme.border.width} solid`,
+      borderRadius: actionButtonTheme.border.radius[radius],
+      ...actionButtonTheme.content.typo,
+      ...getSizes(size || 'md', actionButtonTheme.spacing.padding),
+      ...getVariant(color, actionButtonTheme),
+    },
+    inner: { gap: iconOnly ? 0 : actionButtonTheme.spacing.gap },
+    leftIcon: {
+      marginRight: pxToRem(0),
+      marginLeft: pxToRem(0),
+      height: theme.other.global.icon.size[iconSize],
+      width: theme.other.global.icon.size[iconSize],
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  };
+});
