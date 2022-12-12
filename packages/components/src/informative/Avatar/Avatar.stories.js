@@ -45,6 +45,7 @@ Playground.args = {
   alt: 'Avatar of a woman',
   icon: <StarIcon />,
   fullName: 'John Doe',
+  showIconAndImage: false,
   test_showIcon: false,
   test_showImage: true,
 };

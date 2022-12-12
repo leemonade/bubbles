@@ -33,6 +33,7 @@ const ScoreFronstage = ({
           image={image}
           size="lg"
           icon={icon ? <ImageLoader src={icon} height={'100%'} forceImage /> : null}
+          showIconAndImage
         />
       </Box>
       <Box className={classes.header}>

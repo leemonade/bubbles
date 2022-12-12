@@ -19,6 +19,7 @@ export const AVATAR_ACTIVITY_STATUS = ['online'];
 export const AVATAR_DEFAULT_PROPS = {
   size: 'md',
   state: 'normal',
+  showIconAndImage: false,
 };
 export const AVATAR_PROP_TYPES = {
   image: PropTypes.string,
@@ -27,6 +28,7 @@ export const AVATAR_PROP_TYPES = {
   activityStatus: PropTypes.oneOf(AVATAR_ACTIVITY_STATUS),
   color: PropTypes.string,
   initials: PropTypes.string,
+  showIconAndImage: PropTypes.bool,
   fullName: PropTypes.string,
   icon: PropTypes.any,
   alt: PropTypes.string,

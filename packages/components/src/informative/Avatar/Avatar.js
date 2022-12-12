@@ -22,6 +22,7 @@ const Avatar = forwardRef(
       size: sizeProp,
       state: stateProp,
       activityStatus,
+      showIconAndImage,
       alt,
       ...props
     },
@@ -59,9 +60,9 @@ const Avatar = forwardRef(
             color={color}
             alt={alt}
           >
-            {initials}
+            {!showIconAndImage && icon ? icon : initials}
           </MantineAvatar>
-          {icon && <Box className={classes.iconWrapper}>{icon}</Box>}
+          {showIconAndImage && icon && <Box className={classes.iconWrapper}>{icon}</Box>}
         </Indicator>
       </Box>
     );
