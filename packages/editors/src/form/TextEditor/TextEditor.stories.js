@@ -39,9 +39,9 @@ const Template = ({ onChange, ...props }) => {
         onChange(e);
       }}
     >
+      <HeadingsTool paragraph={false} />
       <ColorTool />
       <TransformsTool />
-      <HeadingsTool paragraph={false} />
       <ListIndentTool />
       <LinkTool />
       <CodeQuoteTool />

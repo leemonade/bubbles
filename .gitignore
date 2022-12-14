@@ -2,3 +2,4 @@ node_modules
 docs-build
 *.d.ts
 *.d.ts.map
+build-storybook.log
