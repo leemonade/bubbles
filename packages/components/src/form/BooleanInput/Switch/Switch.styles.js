@@ -7,23 +7,6 @@ const getSizes = (size, theme) => {
     minWidth: theme.size.width,
     height: `calc(${theme.size.inner} + ${theme.spacing.padding} + ${theme.spacing.padding})`,
   };
-  // return {
-  //   xs: {
-  //     height: 16,
-  //     width: 30,
-  //     minWidth: 30,
-  //   },
-  //   sm: {
-  //     height: 18,
-  //     width: 32,
-  //     minWidth: 32,
-  //   },
-  //   md: {
-  //     height: 20,
-  //     width: 36,
-  //     minWidth: 36,
-  //   },
-  // }[size];
 };
 
 const getThumbSizes = (size, theme) => {
@@ -32,30 +15,6 @@ const getThumbSizes = (size, theme) => {
     width: theme.size.inner,
     border: 'none',
   };
-  // return {
-  //   xs: {
-  //     width: 12,
-  //     height: 12,
-  //   },
-  //   sm: {
-  //     border: 'none',
-  //     width: 14,
-  //     height: 14,
-  //   },
-  //   md: {
-  //     border: 'none',
-  //     width: 16,
-  //     height: 16,
-  //   },
-  // }[size];
-};
-
-const getFontSize = (size) => {
-  return {
-    xs: '0',
-    sm: '1',
-    md: '2',
-  }[size];
 };
 
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
@@ -74,7 +33,6 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
       },
     },
     label: {
-      // ...getFontProductive(theme.fontSizes[getFontSize(size)], 500),
       color: labelTheme.content.color.default,
       ...labelTheme.content.typo['01'],
       paddingLeft: 0,

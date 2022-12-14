@@ -8,7 +8,7 @@ import {
   Drawer,
   ImageLoader,
   Text,
-  UserDisplayItem
+  UserDisplayItem,
 } from '@bubbles-ui/components';
 import {
   MeetingCameraIcon,
@@ -16,25 +16,24 @@ import {
   RedoIcon,
   SchoolTeacherMaleIcon,
   StopwatchIcon,
-  StyleThreePinTableIcon
+  StyleThreePinTableIcon,
 } from '@bubbles-ui/icons/outline';
 import {
   EVENT_DETAIL_PANEL_DEFAULT_PROPS,
-  EVENT_DETAIL_PANEL_PROP_TYPES
+  EVENT_DETAIL_PANEL_PROP_TYPES,
 } from './EventDetailPanel.constants';
 import { isFunction } from 'lodash';
 
 const EventDetailPanel = ({
-                            opened,
-                            event,
-                            labels,
-                            locale,
-                            onClose,
-                            onControl,
-                            onClickClassRoom = () => {
-                            },
-                            ...props
-                          }) => {
+  opened,
+  event,
+  labels,
+  locale,
+  onClose,
+  onControl,
+  onClickClassRoom = () => {},
+  ...props
+}) => {
   const handleOnClose = () => {
     isFunction(onClose) && onClose();
   };
@@ -45,18 +44,18 @@ const EventDetailPanel = ({
 
   const renderDateRange = () => {
     const dateString = `${event.dateRange[0].toLocaleDateString(locale, {
-      weekday: 'long'
+      weekday: 'long',
     })}, ${event.dateRange[0].toLocaleDateString(locale, {
-      day: 'numeric'
+      day: 'numeric',
     })} ${event.dateRange[0].toLocaleDateString(locale, {
       month: 'short',
-      year: 'numeric'
+      year: 'numeric',
     })} — ${event.dateRange[0].toLocaleTimeString(locale, {
       hour12: false,
-      timeStyle: 'short'
+      timeStyle: 'short',
     })} - ${event.dateRange[1].toLocaleTimeString(locale, { hour12: false, timeStyle: 'short' })}`;
 
-    return <Text role='productive'>{`${dateString}`}</Text>;
+    return <Text role="productive">{`${dateString}`}</Text>;
   };
 
   const { classes, cx } = EventDetailPanelStyles({}, { name: 'EventDetailPanel' });
@@ -74,11 +73,11 @@ const EventDetailPanel = ({
             </Box>
             <Box className={classes.sectionRow}>
               <RedoIcon height={16} width={16} className={classes.icon} />
-              <Text role='productive'>{period}</Text>
+              <Text role="productive">{period}</Text>
             </Box>
             <Box className={classes.sectionRow}>
               <PluginClassesIcon height={16} width={16} className={classes.icon} />
-              <Text role='productive' color='primary'>
+              <Text role="productive" color="primary">
                 {classGroup}
               </Text>
             </Box>
@@ -87,32 +86,32 @@ const EventDetailPanel = ({
                 <ImageLoader
                   className={classes.subjectIcon}
                   height={16}
-                  imageStyles={{ width: 16 }}
+                  width={16}
                   src={subject.icon}
                 />
               ) : null}
-              <Text role='productive' color='primary'>
+              <Text role="productive" color="primary">
                 {subject.name}
               </Text>
             </Box>
             <Box className={classes.sectionRow}>
               <SchoolTeacherMaleIcon height={16} width={16} className={classes.icon} />
               <UserDisplayItem
-                textRole='productive'
+                textRole="productive"
                 noBreak
-                size='xs'
+                size="xs"
                 name={teacher.name}
                 surnames={teacher.surnames}
                 avatar={teacher.image}
               />
-              <Text role='productive' size='xs' color='soft'>
+              <Text role="productive" size="xs" color="soft">
                 {labels.mainTeacher}
               </Text>
             </Box>
             <Button
               style={{ marginBlock: 8 }}
               fullWidth
-              position='center'
+              position="center"
               onClick={handleOnControl}
             >
               {labels.attendanceControl}
@@ -122,8 +121,11 @@ const EventDetailPanel = ({
             {classroom ? (
               <Box className={classes.sectionRow}>
                 <MeetingCameraIcon height={16} width={16} className={classes.icon} />
-                <Anchor style={{ textDecoration: 'none' }} onClick={onClickClassRoom}
-                        role='productive'>
+                <Anchor
+                  style={{ textDecoration: 'none' }}
+                  onClick={onClickClassRoom}
+                  role="productive"
+                >
                   {classroom}
                 </Anchor>
               </Box>
@@ -132,7 +134,7 @@ const EventDetailPanel = ({
             {location ? (
               <Box className={classes.sectionRow}>
                 <StyleThreePinTableIcon height={16} width={16} className={classes.icon} />
-                <Text role='productive' color='primary'>
+                <Text role="productive" color="primary">
                   {location}
                 </Text>
               </Box>

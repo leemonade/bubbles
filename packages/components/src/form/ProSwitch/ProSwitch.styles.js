@@ -45,12 +45,19 @@ export const ProSwitchStyles = createStyles((theme, { color, hasIcon }) => {
       boxSizing: 'border-box',
       backgroundColor: 'transparent',
       transition: `all 150ms ${theme.transitionTimingFunction}`,
+      '&:hover': {
+        backgroundColor: 'white',
+      },
       'input:checked + &': {
         backgroundColor: color,
         borderColor: color,
         '.mantine-Switch-thumb': {
           left: 'calc(100% - 11px - 2px)',
           backgroundColor: hasIcon ? 'transparent' : '#FFF',
+        },
+        '&:hover': {
+          backgroundColor: color,
+          borderColor: color,
         },
       },
     },

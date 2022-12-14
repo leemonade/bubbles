@@ -116,7 +116,7 @@ const TableInputDisplay = ({
         className: tableClasses.root,
       })}
     >
-      <thead>
+      <thead className={classes.tHead}>
         {!!showHeaders &&
           headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps({})}>
@@ -156,7 +156,6 @@ const TableInputDisplay = ({
               {!disabled && (
                 <Button
                   variant="light"
-                  size="sm"
                   disabled={disabledAddButton}
                   leftIcon={<AddCircleIcon />}
                   onClick={handleOnAdd}

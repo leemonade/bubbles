@@ -13,7 +13,7 @@ const getVariant = (variant, theme, color) => {
   const buttonTheme = theme.other.button;
 
   const commonLinkStyles = {
-    border: 'none',
+    borderColor: 'transparent',
     backgroundColor: 'transparent',
   };
 

@@ -31,6 +31,8 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles, size }) =>
       img: {
         filter: 'brightness(0) invert(1)',
       },
+      minWidth: 20,
+      minHeight: 20,
     },
     subtitle: {
       display: isSmall && 'none',

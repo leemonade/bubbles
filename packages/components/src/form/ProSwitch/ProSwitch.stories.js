@@ -32,4 +32,5 @@ Playground.args = {
   icon: <EmailPileIcon />,
   ariaLabel: 'Email switch',
   label: 'Switch label',
+  disabled: false,
 };
