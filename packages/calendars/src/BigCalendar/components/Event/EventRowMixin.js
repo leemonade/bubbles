@@ -125,7 +125,6 @@ export default {
         const start = new Date(props.accessors.start(event));
         const end = new Date(props.accessors.end(event));
         const isSameDay = sameDay(start, end);
-        console.log(start, end, isSameDay);
         if (!isSameDay) {
           const isStart = dayjs(new Date(props.slotMetrics.first)).isSame(start, 'week');
           const isEnd = dayjs(new Date(props.slotMetrics.first)).isSame(end, 'week');
@@ -150,11 +149,17 @@ export default {
                 if (sameDay(start, end)) break;
               }
               let gap2 = (Math.abs(i) / slots) * 100 + '%';
-              console.log(i);
               result.push(<Box style={{
                 WebkitFlexBasis: gap2,
                 flexBasis: gap2,
                 maxWidth: gap2,
+                display: 'flex'
+              }} />);
+            } else {
+              result.push(<Box style={{
+                WebkitFlexBasis: gap,
+                flexBasis: gap,
+                maxWidth: gap,
                 display: 'flex'
               }} />);
             }

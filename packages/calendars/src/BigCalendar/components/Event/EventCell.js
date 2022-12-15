@@ -353,6 +353,7 @@ function EventCell(thisprops) {
       eventIcon && _.isString(eventIcon) ? (
         <Box className={classes.icon}>
           <ImageLoader
+            width='12px'
             height='12px'
             imageStyles={{
               position: 'absolute',

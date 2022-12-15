@@ -70,9 +70,7 @@ export const ToolBar = ({
 
 
       <Group style={{ gap: 12 }}>
-        <Select label={messages.display} value={showType} onChange={(e) => {
-          console.log(e);
-        }} data={
+        <Select label={messages.display} value={showType} onChange={setShowType} data={
           [
             { label: messages.entirePeriod, value: 'full' },
             { label: messages.onlyInitAndEnd, value: 'startEnd' },
