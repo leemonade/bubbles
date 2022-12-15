@@ -8,6 +8,7 @@ import {
 } from './MultiSelect.constants';
 import mdx from './MultiSelect.mdx';
 import { UserDisplayItem } from '../../informative';
+import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
   title: 'Molecules/Form/MultiSelect',
@@ -29,7 +30,7 @@ export default {
   },
 };
 
-const Template = ({ children, data, useValueComponent, onChange, ...props }) => {
+const Template = ({ children, data, useValueComponent, onChange, showIcon, ...props }) => {
   const CustomValueComponent = forwardRef(({ label }, ref) => {
     return <UserDisplayItem name={label} />;
   });
@@ -48,9 +49,9 @@ const Template = ({ children, data, useValueComponent, onChange, ...props }) => 
       getCreateLabel={(query) => `+ Create ${query}`}
       onCreate={(q) => setState([...state, q])}
       valueComponent={useValueComponent ? CustomValueComponent : undefined}
-    >
-      {children}
-    </MultiSelect>
+      icon={showIcon ? <StarIcon /> : null}
+      skipFlex
+    />
   );
 };
 
@@ -58,6 +59,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...MULTI_SELECT_DEFAULT_PROPS,
+  showIcon: false,
   size: MULTI_SELECT_SIZES[1],
   useValueComponent: false,
   maxSelectedValues: 0,

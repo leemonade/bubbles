@@ -23,6 +23,12 @@ export const TableStyles = createStyles((theme, { headerStyles }) => {
       '& td, & th': {
         borderBottom: `1px solid rgba(0, 0, 0, 0.05)`,
       },
+      '&:after': {
+        content: '"@"',
+        display: 'block',
+        lineHeight: '16px',
+        textIndent: -99999,
+      },
     },
     trSelectable: {
       '& td, & th': {

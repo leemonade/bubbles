@@ -8,6 +8,7 @@ export function getInputStyle(theme, globalTheme, disabled) {
     borderColor: theme.border.color.default,
     borderRadius: theme.border.radius.md,
     borderWidth: theme.border.width,
+    borderStyle: 'solid',
     color: theme.content.color.default,
     ...theme.content.typo,
 

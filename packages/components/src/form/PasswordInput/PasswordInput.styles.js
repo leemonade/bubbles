@@ -4,8 +4,8 @@ import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldSt
 
 export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disabled }) => {
   const inputTheme = theme.other.input;
-  const inputSizes = getInputStyle(inputTheme, theme.other.global);
-  const inputStyles = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
+  const inputSizes = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
+  const inputStyles = getInputStyle(inputTheme, theme.other.global);
   return {
     root: {},
     input: {

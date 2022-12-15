@@ -1,11 +1,10 @@
 import { createStyles } from '@mantine/styles';
 import { getInputSizes, getInputStyle, getSelectDividerStyle } from '../mixins/fieldStyles.mixins';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIcon }) => {
   const inputTheme = theme.other.input;
-  const inputSizes = getInputStyle(inputTheme, theme.other.global);
-  const inputStyles = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
+  const inputSizes = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
+  const inputStyles = getInputStyle(inputTheme, theme.other.global);
   return {
     wrapper: {
       overflow: 'visible !important',
@@ -15,28 +14,36 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
     input: {
       ...inputSizes,
       ...inputStyles,
+      padding: 0,
+      paddingLeft: 0,
+      margin: 0,
+      backgroundColor: 'transparent',
     },
     searchInput: {
       ...inputStyles,
-      ...inputSizes,
-      backgroundColor: 'inherit !important',
-      boxShadow: 'none !important',
       margin: 0,
       padding: 0,
-      minWidth: 0,
-      maxWidth: 0,
+      lineHeight: '24px',
+      border: 'none',
+      backgroundColor: 'inherit !important',
+      boxShadow: 'none !important',
     },
     values: {
+      ...inputStyles,
       ...inputSizes,
+      paddingRight: 30,
       backgroundColor: 'inherit !important',
       boxShadow: 'none !important',
       margin: 0,
-      padding: 0,
       gap: 4,
+      border: 'none',
     },
     value: {
       margin: 0,
       marginBlock: 1,
+    },
+    withIcon: {
+      paddingLeft: 0,
     },
     rightSection: {
       color: theme.colors.text02,

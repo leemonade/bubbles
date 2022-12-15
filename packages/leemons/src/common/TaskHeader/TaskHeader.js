@@ -15,11 +15,9 @@ const TaskHeader = ({ title, subtitle, color, icon, size, styles, className, ...
       </TextClamp>
       {(icon || subtitle) && (
         <Box className={classes.subtitleWrapper}>
-          {icon && (
-            <Box className={classes.icon}>
-              <ImageLoader height="12px" width="12px" src={icon} forceImage />
-            </Box>
-          )}
+          <Box className={classes.icon}>
+            {icon && <ImageLoader height="12px" width="12px" src={icon} forceImage />}
+          </Box>
           {subtitle && (
             <Text className={classes.subtitle} color="primary">
               {subtitle}
