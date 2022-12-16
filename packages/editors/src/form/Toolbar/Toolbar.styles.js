@@ -7,9 +7,9 @@ export const ToolbarStyles = createStyles((theme) => {
     },
     toolbar: {
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'end',
       justifyContent: 'start',
-      gap: 16,
+      gap: 12,
     },
     toolbarTool: {
       flex: 1,

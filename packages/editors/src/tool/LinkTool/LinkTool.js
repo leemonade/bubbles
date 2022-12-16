@@ -65,7 +65,7 @@ const LinkTool = ({ label, ...props }) => {
       opened={linkModalOpened}
       onClose={() => {}}
       width={360}
-      position="bottom"
+      position="top"
       placement="start"
       target={
         <Button
@@ -74,7 +74,7 @@ const LinkTool = ({ label, ...props }) => {
           icon={<HyperlinkIcon height={16} width={16} />}
           actived={linkModalOpened || editor?.isActive('link')}
           onClick={handleOnClick}
-        ></Button>
+        />
       }
     >
       <LinkModal
