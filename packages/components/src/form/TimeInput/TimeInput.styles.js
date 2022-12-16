@@ -3,11 +3,16 @@ import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
 export const TimeInputStyles = createStyles((theme, { size }) => {
   const inputTheme = theme.other.input;
+  const inputStyle = getInputStyle(inputTheme, theme.other.global);
   return {
     root: {},
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding),
-      ...getInputStyle(inputTheme, theme.other.global),
+      ...inputStyle,
+    },
+    timeInput: {
+      lineHeight: inputStyle.lineHeight,
+      border: 'none',
     },
     controls: {
       height: '100%',
