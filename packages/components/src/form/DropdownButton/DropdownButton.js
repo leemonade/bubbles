@@ -24,12 +24,12 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
           onClick={() => setOpened(!opened)}
         />
       }
-      styles={{ boxShadow: 'none' }}
       width="target"
       closeOnEscape
       closeOnClickOutside
       onClose={() => setOpened(false)}
       trapFocus
+      styles={{ boxShadow: 'none', border: 'none' }}
     >
       <Dropdown>
         {data.map((item) => (
