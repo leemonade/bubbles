@@ -1,9 +1,10 @@
 import React, { useMemo, useContext, useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
-import { Select, Box, Text, Title } from '@bubbles-ui/components';
+import { Select, Box, Text } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { HeadingsToolStyles } from './HeadingsTool.styles';
+import { SelectItem } from './SelectItem';
 
 export const HEADINGS_TOOL_DEFAULT_PROPS = {
   labels: {
@@ -16,23 +17,15 @@ export const HEADINGS_TOOL_DEFAULT_PROPS = {
 
 export const HEADINGS_TOOL_PROP_TYPES = {
   labels: PropTypes.shape({
+    title: PropTypes.string,
     title1: PropTypes.string,
     title2: PropTypes.string,
     title3: PropTypes.string,
     paragraph: PropTypes.string,
   }),
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-const SelectItem = forwardRef(({ label, value, ...props }, ref) => {
-  return (
-    <Box ref={ref} {...props} style={{ paddingTop: 10, paddingBottom: 10 }}>
-      {Number(value) === 0 ? <p>{label}</p> : <Title order={Number(value)}>{label}</Title>}
-    </Box>
-  );
-});
-
-const HeadingsTool = ({ labels, children }) => {
+const HeadingsTool = ({ labels }) => {
   const [level, setLevel] = useState(0);
   const { editor } = useContext(TextEditorContext);
 
@@ -85,9 +78,11 @@ const HeadingsTool = ({ labels, children }) => {
 
   return (
     <Box className={classes.root}>
-      <Text color="secondary" role="productive">
-        Formato
-      </Text>
+      {labels.title && (
+        <Text color="secondary" role="productive">
+          {labels.title}
+        </Text>
+      )}
       <Select data={VALUES} value={level} onChange={handleOnChange} itemComponent={SelectItem} />
     </Box>
   );
