@@ -1,4 +1,5 @@
 export * from './InputDescription';
+export * from './DropdownButton';
 export * from './PasswordInput';
 export * from './CheckboxGroup';
 export * from './InputWrapper';
