@@ -293,11 +293,17 @@ const getVariant = (variant, theme, color) => {
 };
 
 export const ButtonStyles = createStyles(
-  (theme, { size, color, variant, fullWidth, styles, rounded, disabled }) => {
+  (theme, { size, color, variant, fullWidth, styles, rounded, textAlign, disabled }) => {
     const currentVariant = getVariant(variant, theme, color);
     const buttonTheme = theme.other.button;
     const iconStyles = {
       padding: 3,
+    };
+
+    const getTextAlign = () => {
+      if (textAlign === 'left') return 'start';
+      if (textAlign === 'right') return 'end';
+      return 'center';
     };
 
     let disabledOverrides = {};
@@ -346,6 +352,7 @@ export const ButtonStyles = createStyles(
       },
       inner: {
         height: 20,
+        justifyContent: getTextAlign(),
       },
       label: {
         ...buttonTheme.content.typo,

@@ -22,6 +22,7 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
           {...props}
           rightIcon={<ChevDownIcon height={18} width={18} />}
           onClick={() => setOpened(!opened)}
+          textAlign="left"
         />
       }
       width="target"

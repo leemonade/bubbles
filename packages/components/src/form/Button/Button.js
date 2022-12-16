@@ -6,8 +6,7 @@ import { ButtonStyles } from './Button.styles';
 export const BUTTON_SIZES = ['sm', 'md'];
 export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'terciary', 'phatic'];
-export const BUTTON_ICON_POSITION = ['right', 'left'];
-
+export const BUTTON_TEXT_ALIGN = ['left', 'center', 'right'];
 export const BUTTON_DEFAULT_PROPS = {
   color: BUTTON_COLORS[0],
   size: BUTTON_SIZES[1],
@@ -16,6 +15,7 @@ export const BUTTON_DEFAULT_PROPS = {
   loading: false,
   fullWidth: false,
   disabled: false,
+  textAlign: BUTTON_TEXT_ALIGN[1],
   useAria: true,
 };
 
@@ -40,6 +40,7 @@ export const Button = forwardRef(
       as,
       useAria,
       ariaLabel,
+      textAlign,
       compact, //UNUSED
       gradient, //UNUSED
       radius, //UNUSED
@@ -61,6 +62,7 @@ export const Button = forwardRef(
         rounded,
         fullWidth,
         disabled,
+        textAlign,
         styles,
       },
       { name: 'Button' }
