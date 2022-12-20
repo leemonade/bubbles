@@ -7,11 +7,9 @@ import _ from 'lodash';
 
 class WeekView extends React.Component {
   componentDidMount() {
-    const days = this.props.localizer.visibleDays(this.props.date, this.props.localizer);
-    days[days.length - 1].setHours(23, 59, 59);
     this.props.onRangeChange({
-      start: days[0],
-      end: days[days.length - 1]
+      start: this.props.localizer.startOf(this.props.date, 'week'),
+      end: this.props.localizer.endOf(this.props.date, 'week')
     });
   }
 
