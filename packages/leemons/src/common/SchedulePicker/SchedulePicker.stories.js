@@ -29,16 +29,13 @@ export default {
 
 const Template = ({ test_value, onChange, ...props }) => {
   const [value, setValue] = useState(test_value);
-  const [a, setA] = useState(false);
   return (
     <ContextContainer direction="row">
       <SchedulePicker
         {...props}
-        value={value}
-        readOnly={a}
+        // value={value}
         onChange={(val) => {
           setValue(val);
-          setA(true);
         }}
       />
     </ContextContainer>

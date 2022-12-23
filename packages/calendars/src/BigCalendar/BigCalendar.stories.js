@@ -39,7 +39,11 @@ const Template = (props) => {
       today: 'Hoy',
       previous: 'Anterior',
       next: 'siguiente',
-      showWeekends: 'Mostrar fines de semana'
+      showWeekends: 'Mostrar fines de semana',
+      display: 'Mostrar',
+      entirePeriod: 'Periodo completo',
+      onlyInitAndEnd: 'Solo mostrar inicio y final',
+      onlyEnd: 'Solo mostrar fecha límite'
     };
   }
   return <BigCalendar {...props} messages={messages} style={{ height: 'calc(100vh - 40px)' }} />;

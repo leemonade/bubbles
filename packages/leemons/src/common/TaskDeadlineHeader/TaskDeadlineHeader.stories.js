@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@bubbles-ui/components';
 import { TaskDeadlineHeader } from './TaskDeadlineHeader';
 import { TASK_DEADLINE_HEADER_DEFAULT_PROPS } from './TaskDeadlineHeader.constants';
 import mdx from './TaskDeadlineHeader.mdx';
@@ -30,11 +29,13 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...TASK_DEADLINE_HEADER_DEFAULT_PROPS,
+  isStarted: false,
   title: 'Los romanos',
   subtitle: 'Historia - G01',
   icon: 'https://static.thenounproject.com/png/447685-200.png',
   color: '#FABADA',
-  deadline: new Date('2022-05-20 18:00:00'),
+  startDate: new Date('2022-12-10 18:00:00'),
+  deadline: new Date('2022-12-20 18:00:00'),
   locale: 'es-ES',
   labels: {
     noDeadline: 'No deadline',
@@ -42,8 +43,13 @@ Playground.args = {
     deadlineExtraTime: 'Add extra time',
     closeTask: 'Close task',
     archiveTask: 'Archive task',
-    save: 'Save',
+    save: 'Update',
     cancel: 'Cancel',
+    period: 'Tipo de periodo',
+    startDate: 'Fecha de inicio',
+    startHour: 'Hora de inicio',
+    endDate: 'Fecha de fin',
+    endHour: 'Hora de fin',
   },
 };
 1;

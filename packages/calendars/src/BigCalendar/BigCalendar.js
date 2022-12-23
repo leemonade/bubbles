@@ -70,6 +70,7 @@ export const BigCalendar = forwardRef(
     },
     ref
   ) => {
+    const [showType, setShowType] = useState('full');
     const [showWeekends, setShowWeekends] = useState(showWeekendsProp);
     const [dateRange, setDateRange] = useState(null);
     const [date, setDate] = useState(new Date());
@@ -255,12 +256,15 @@ export const BigCalendar = forwardRef(
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar
           components={{
+            showType,
             eventWrapper: EventWrapper,
             toolbar: showToolbar
               ? (props) => (
                 <ToolBar
                   {...props}
                   addEventClick={addEventClick}
+                  showType={showType}
+                  setShowType={setShowType}
                   showWeekends={showWeekends}
                   setShowWeekends={setShowWeekends}
                   toolbarRightNode={toolbarRightNode}

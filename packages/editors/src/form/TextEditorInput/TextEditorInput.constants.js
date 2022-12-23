@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 export const TEXT_EDITOR_DEFAULT_TOOLBARS = {
   style: true,
+  heading: true,
   align: true,
   list: true,
   history: true,
-  heading: true,
   color: true,
   formulation: false,
   link: true,

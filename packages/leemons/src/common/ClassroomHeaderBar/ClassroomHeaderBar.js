@@ -20,7 +20,14 @@ function formatTime(time) {
   return time;
 }
 
-const ClassroomHeaderBar = ({ classRoom, labels, locale, firstDayOfWeek = 1, ...props }) => {
+const ClassroomHeaderBar = ({
+                              classRoom,
+                              labels,
+                              locale,
+                              onVirtualClassroomOpen = () => {
+                              }, firstDayOfWeek = 1,
+                              ...props
+                            }) => {
   const [schedulesOpen, setSchedulesOpen] = useState(false);
   const [weekDays, setWeekDays] = useState([]);
   const { schedule, address, virtual_classroom, teacher } = classRoom;
@@ -37,6 +44,7 @@ const ClassroomHeaderBar = ({ classRoom, labels, locale, firstDayOfWeek = 1, ...
   };
 
   const handleOpenVirtualClassroom = () => {
+    onVirtualClassroomOpen();
     window.open(virtual_classroom, '_blank');
   };
 

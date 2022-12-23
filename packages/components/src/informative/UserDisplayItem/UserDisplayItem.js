@@ -70,7 +70,7 @@ const UserDisplayItem = (properties) => {
     { name: 'UserDisplayItem' }
   );
 
-  const avatarSize = !size ? (variant === 'email' ? 'xs' : 'sm') : size;
+  const avatarSize = !size ? (variant === 'email' ? 'sm' : 'md') : size;
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);

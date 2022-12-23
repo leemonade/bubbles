@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { KanbanTaskCardStyles } from './KanbanTaskCard.styles';
+import dayjs from 'dayjs';
 import {
   Avatar,
   Box,
@@ -10,7 +11,7 @@ import {
   TextClamp
 } from '@bubbles-ui/components';
 import { filter, find } from 'lodash';
-import dayjs from 'dayjs';
+import { LibraryCardDeadline } from '../../library';
 
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
@@ -37,7 +38,13 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
   const calendar = find(config.calendars, { id: value.calendar });
   if (!calendar) return null;
 
-  const { classes, cx } = KanbanTaskCardStyles({ bgColor: value.bgColor || calendar.bgColor });
+  const {
+    classes,
+    cx
+  } = KanbanTaskCardStyles({
+    bgColor: value.disableDrag ? value.bgColor || calendar.bgColor : null,
+    hasDeadline: !!value.deadline
+  });
 
   const percentaje = useMemo(() => {
     if (value.data && value.data.subtask && value.data.subtask.length) {
@@ -77,6 +84,8 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     avatar.image = emptyPixel;
   }
 
+  const { image: a, ...avatarNoImage } = avatar;
+
   return (
     <Paper
       shadow='none'
@@ -87,27 +96,39 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
       <Box className={classes.topSection}>
         <Box className={classes.title}>{value.title}</Box>
 
-        {value.startDate ? (
-          <Box>
-            <Text size='xs'>{dayjs(value.startDate).format('DD/MM/YYYY HH:mm')}</Text>
+        {value.deadline ? <Box className={classes.line}></Box> : null}
+
+        {value.data && value.data.description ? (
+          <Box className={classes.description}>
+            <TextClamp lines={1} showTooltip>
+              <Text role='productive'>{value.data.description}</Text>
+            </TextClamp>
           </Box>
         ) : null}
+
+        {value.deadline ? <Box
+          sx={(theme) => ({ margin: `-0.5rem` })}><LibraryCardDeadline {...value.deadline} /></Box> : value.endDate ?
+          <Text size='xs'>{dayjs(value.endDate).format('DD/MM/YYYY HH:mm')}</Text>
+          : null}
+
       </Box>
       <Box className={classes.bottomSection}>
         <Box className={classes.bottomSectionBg} />
         <Box className={classes.bottomSectionContent}>
-          {value.data && value.data.description ? (
-            <Box className={classes.description}>
-              <TextClamp lines={1} showTooltip>
-                <Text role='productive'>{value.data.description}</Text>
-              </TextClamp>
-            </Box>
-          ) : null}
           <Box className={classes.avatar}>
-            <Avatar mx='auto' size='xs' {...avatar} />
+            <Box sx={(theme) => ({ display: 'inline-block', zIndex: 2, verticalAlign: 'middle' })}>
+              <Avatar mx='auto' size='xs' {...avatar} />
+            </Box>
+            {avatar.image && avatar.icon ? <Box
+              sx={(theme) => ({
+                display: 'inline-block',
+                marginLeft: -theme.spacing[2],
+                verticalAlign: 'middle'
+              })}><Avatar
+              mx='auto' size='xs' {...avatarNoImage} /></Box> : null}
             {value.calendarName ? (
               <Paragraph size='xs' sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
-                {value.calendarName}
+                {value.uniqClasses.length > 1 ? `(${value.uniqClasses.length})` : value.calendarName}
               </Paragraph>
             ) : null}
           </Box>

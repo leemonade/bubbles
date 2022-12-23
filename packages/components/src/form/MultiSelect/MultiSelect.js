@@ -14,6 +14,7 @@ import {
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import { Box } from '../../layout';
+import { Dropdown, Item } from '../../overlay/Dropdown';
 
 const GetValueComponent = forwardRef(
   ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
@@ -37,12 +38,15 @@ const MultiSelect = forwardRef(
       dropdownPosition,
       placeholder,
       value,
+      icon,
       readOnly,
       error,
       clearable,
       searchable,
       multiple,
       maxSelectedValues,
+      dropdownComponent,
+      itemComponent,
       valueComponent,
       onChange,
       useAria,
@@ -53,9 +57,10 @@ const MultiSelect = forwardRef(
     },
     ref
   ) => {
+    const hasIcon = !!icon;
     const [show, setShow] = React.useState(true);
     const uuid = useId();
-    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'md';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
@@ -110,7 +115,7 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear },
+      { size, rightEvents: isClearable && showClear, hasIcon },
       { name: 'MultiSelect' }
     );
 
@@ -147,7 +152,7 @@ const MultiSelect = forwardRef(
             {show && (
               <MantineMultiSelect
                 ref={multiSelectRef}
-                size={size}
+                // size={size}
                 value={value}
                 autoComplete="off"
                 onChange={handleChange}
@@ -156,6 +161,9 @@ const MultiSelect = forwardRef(
                 placeholder={placeholder}
                 searchable={searchable}
                 dropdownPosition={dropdownPosition}
+                icon={icon}
+                dropdownComponent={Dropdown}
+                itemComponent={itemComponent || Item}
                 valueComponent={
                   valueComponent
                     ? (componentInfo) => (

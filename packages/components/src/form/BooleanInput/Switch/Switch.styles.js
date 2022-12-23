@@ -3,55 +3,25 @@ import { getFontProductive } from '../../../theme.mixins';
 
 const getSizes = (size, theme) => {
   return {
-    xs: {
-      height: 16,
-      width: 30,
-      minWidth: 30,
-    },
-    sm: {
-      height: 18,
-      width: 32,
-      minWidth: 32,
-    },
-    md: {
-      height: 20,
-      width: 36,
-      minWidth: 36,
-    },
-  }[size];
+    width: theme.size.width,
+    minWidth: theme.size.width,
+    height: `calc(${theme.size.inner} + ${theme.spacing.padding} + ${theme.spacing.padding})`,
+  };
 };
 
 const getThumbSizes = (size, theme) => {
   return {
-    xs: {
-      width: 12,
-      height: 12,
-    },
-    sm: {
-      border: 'none',
-      width: 14,
-      height: 14,
-    },
-    md: {
-      border: 'none',
-      width: 16,
-      height: 16,
-    },
-  }[size];
-};
-
-const getFontSize = (size) => {
-  return {
-    xs: '0',
-    sm: '1',
-    md: '2',
-  }[size];
+    height: theme.size.inner,
+    width: theme.size.inner,
+    border: 'none',
+  };
 };
 
 export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
+  const switchTheme = theme.other.toggle;
+  const labelTheme = theme.other.label;
   return {
     root: {
-      gap: 12,
       justifyContent: 'left',
     },
     labelWrapper: {
@@ -63,7 +33,8 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
       },
     },
     label: {
-      ...getFontProductive(theme.fontSizes[getFontSize(size)], 500),
+      color: labelTheme.content.color.default,
+      ...labelTheme.content.typo['01'],
       paddingLeft: 0,
       '&:hover': {
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -71,24 +42,44 @@ export const SwitchStyles = createStyles((theme, { size, labelPosition, disabled
     },
     body: {
       flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
-      gap: 12,
+      gap: switchTheme.spacing.gap,
       '&:hover': {
         cursor: disabled ? 'not-allowed' : 'pointer',
       },
     },
     input: { display: 'none' },
     track: {
-      ...getSizes(size, theme),
+      ...getSizes(size, switchTheme),
+      cursor: 'pointer',
       border: 'none',
-      backgroundColor: theme.colors.ui01,
+      borderRadius: switchTheme.border.radius,
+      backgroundColor: switchTheme.background.color.unselected.default,
+      '&:hover': {
+        backgroundColor: switchTheme.background.color.unselected.hover,
+      },
       'input:checked + &': {
         border: 'none',
-        backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
+        borderRadius: switchTheme.border.radius,
+        backgroundColor: switchTheme.background.color.selected.default,
         transition: `all 150ms ${theme.transitionTimingFunction}`,
+        '&:hover': {
+          backgroundColor: switchTheme.background.color.selected.hover,
+        },
+      },
+      'input:disabled + &': {
+        backgroundColor: theme.other.global.background.color.disabled,
       },
     },
     thumb: {
-      ...getThumbSizes(size, theme),
+      ...getThumbSizes(size, switchTheme),
+      backgroundColor: switchTheme.content.color.default,
+      borderRadius: switchTheme.border.radius,
+      'input:checked + * > &': {
+        left: 'calc(100% - 16px - 2px)',
+      },
+      'input:disabled + * > &': {
+        backgroundColor: theme.other.global.content.color.disabled,
+      },
     },
   };
 });

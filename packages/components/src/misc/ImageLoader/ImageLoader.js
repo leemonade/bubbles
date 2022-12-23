@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isString, isEmpty } from 'lodash';
+import { isEmpty, isString } from 'lodash';
 import { Image } from '@mantine/core';
 import { InlineSvg } from '../InlineSvg';
 import { ImageLoaderStyles } from './ImageLoader.styles';
@@ -38,8 +38,8 @@ export const ImageLoader = ({
       src={src}
       alt={alt}
       radius={radius}
-      height={height || width || '100%'}
-      width={width || height || '100%'}
+      height={height || '100%'}
+      width={width || '100%'}
       withPlaceholder={withPlaceholder}
       classNames={{
         root: classes.root,

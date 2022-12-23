@@ -52,6 +52,7 @@ const TreeView = ({
                     initialOpen,
                     rootId,
                     className,
+                    openOnSelect = false,
                     canToggleItems = true,
                     canSelectItems = true,
                     ...props
@@ -134,6 +135,7 @@ const TreeView = ({
     if (canSelectItems) {
       if (onSelect) {
         onSelect(node, onToggle);
+        if (openOnSelect) openBranch(node.id, true, !allowMultipleOpen);
       } else {
         onToggle();
       }

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Avatar } from './Avatar';
-import { AVATAR_SIZES, AVATAR_STATE, AVATAR_ACTIVITY_STATUS } from './Avatar.constants';
+import {
+  AVATAR_SIZES,
+  AVATAR_STATE,
+  AVATAR_COLORS,
+  AVATAR_ACTIVITY_STATUS,
+} from './Avatar.constants';
 import { StarIcon } from '@heroicons/react/outline';
 import mdx from './Avatar.mdx';
 
@@ -19,6 +24,7 @@ export default {
   argTypes: {
     size: { options: AVATAR_SIZES, control: { type: 'select' } },
     state: { options: AVATAR_STATE, control: { type: 'select' } },
+    color: { options: AVATAR_COLORS, control: { type: 'select' } },
     activityStatus: { options: ['none', ...AVATAR_ACTIVITY_STATUS], control: { type: 'select' } },
   },
 };
@@ -38,8 +44,8 @@ Playground.args = {
     'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
   alt: 'Avatar of a woman',
   icon: <StarIcon />,
-  fullName: 'Pepe el del pueblo',
+  fullName: 'John Doe',
+  showIconAndImage: false,
   test_showIcon: false,
   test_showImage: true,
-  withBorder: false,
 };

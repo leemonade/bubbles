@@ -2,6 +2,19 @@ import { createStyles } from '@mantine/styles';
 import { getFontExpressive } from '../../theme.mixins';
 
 export const TitleStyles = createStyles((theme, { order, transform, color, highlighted }) => {
+  const globalContent = theme.other?.global?.content;
+  const fontStyles = [];
+
+  if (globalContent?.typo) {
+    fontStyles.push(
+      globalContent.typo.heading.xlg,
+      globalContent.typo.heading.lg,
+      globalContent.typo.heading.md,
+      globalContent.typo.heading.sm,
+      globalContent.typo.heading.xsm
+    );
+  }
+
   const COLORS = {
     primary: theme.colors.text01,
     secondary: theme.colors.text02,
@@ -23,10 +36,11 @@ export const TitleStyles = createStyles((theme, { order, transform, color, highl
 
   return {
     root: {
-      ...getFontExpressive(),
-      fontSize: theme.fontSizes[8 - order],
-      lineHeight: 1.2,
-      fontWeight: 600,
+      // ...getFontExpressive(),
+      // fontSize: fontSizes[order - 1],
+      // lineHeight: 1.2,
+      // fontWeight: 600,
+      ...(fontStyles[order - 1] ?? {}),
       textTransform: transform,
       color: COLORS[color] || theme.colors.text01,
       ...highlightProps,

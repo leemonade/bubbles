@@ -24,7 +24,7 @@ export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TAGIFY_DEFAULT_PROPS = {
   mixed: true,
-  size: 'sm',
+  size: TAGIFY_SIZES[1],
   orientation: 'vertical',
   required: true,
   autoFocus: false,

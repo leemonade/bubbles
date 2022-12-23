@@ -72,7 +72,7 @@ export const CommonTableStyles = createStyles(
         alignItems: 'flex-end',
       },
       studentsCells: {
-        padding: 1,
+        padding: 3,
         borderRight: '1px solid #F2F2F2',
         paddingLeft: 10,
         backgroundColor: theme.colors.mainWhite,

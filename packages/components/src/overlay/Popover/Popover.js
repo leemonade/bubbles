@@ -8,8 +8,8 @@ import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
 const Popover = forwardRef(
-  ({ padded, target, children, withCloseButton, onClose, ...props }, ref) => {
-    const { classes, cx } = PopoverStyles({ padded });
+  ({ padded, target, children, withCloseButton, onClose, styles, ...props }, ref) => {
+    const { classes } = PopoverStyles({ padded, styles });
 
     const onCloseHandler = () => {
       isFunction(onClose) && onClose();

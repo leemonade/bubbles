@@ -33,7 +33,7 @@ export const TEXT_INPUT_PROP_TYPES = {
 };
 
 export const TEXT_INPUT_DEFAULT_PROPS = {
-  size: 'sm',
+  size: TEXT_INPUT_SIZES[1],
   orientation: TEXT_INPUT_ORIENTATION[1],
   variant: TEXT_INPUT_VARIANTS[0],
   disabled: false,

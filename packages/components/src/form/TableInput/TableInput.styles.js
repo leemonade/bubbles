@@ -4,6 +4,14 @@ import { pxToRem } from '../../theme.mixins';
 export const TableInputStyles = createStyles((theme, { hasError }) => {
   return {
     root: {},
+    tHead: {
+      '&:after': {
+        content: '"@"',
+        display: 'block',
+        lineHeight: '16px',
+        textIndent: -99999,
+      },
+    },
     wrapper: {
       border: hasError && `1px solid ${theme.colors.fatic01}`,
       borderRadius: 4,

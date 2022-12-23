@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '../../layout';
 import { NumberInput, NUMBER_INPUT_DEFAULT_PROPS } from './NumberInput';
 import mdx from './NumberInput.mdx';
 

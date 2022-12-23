@@ -28,6 +28,7 @@ function eventCellStylesRoot(
 ) {
   const data = {
     position: 'relative',
+    padding: '0px!important',
     backgroundColor: `${
       isAllDay
         ? _.isArray(bgColor)
@@ -169,32 +170,92 @@ const eventCellStyles = createStyles(
       oneDay,
       rightArrow,
       leftArrow,
-      printMode
+      printMode, bgStartGradient, bgEndGradient
     }
   ) => {
+    const root = eventCellStylesRoot(
+      theme.colors,
+      {
+        zIndex,
+        desaturateColor,
+        rotate,
+        isAllDay,
+        bgColor,
+        borderStyle,
+        borderColor,
+        isMonthView,
+        oneDay,
+        rightArrow,
+        leftArrow,
+        printMode
+      },
+      true
+    );
+    const item = {
+      borderRadius: root.borderRadius,
+      backgroundColor: root.backgroundColor.replace('!important', ''),
+      padding: theme.spacing[1],
+      height: 34,
+      display: 'flex!important',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    };
+    root.border = 'none';
+    root.backgroundColor = 'transparent!important';
+    if (bgStartGradient) {
+      item.background = `linear-gradient(90deg, rgba(0,0,0,0) 0%, ${item.backgroundColor} 25%, ${item.backgroundColor} 100%)`;
+    }
+    if (bgEndGradient) {
+      item.background = `linear-gradient(90deg,${item.backgroundColor} 0%, ${item.backgroundColor} 75%, rgba(0,0,0,0) 100%)`;
+    }
+
     return {
-      root: eventCellStylesRoot(
-        theme.colors,
-        {
-          zIndex,
-          desaturateColor,
-          rotate,
-          isAllDay,
-          bgColor,
-          borderStyle,
-          borderColor,
-          isMonthView,
-          oneDay,
-          rightArrow,
-          leftArrow,
-          printMode
-        },
-        true
-      ),
+      root,
       icon: eventCellStylesIcon(theme.colors, { isAllDay, bgColor }, true),
-      item: {
-        display: 'flex!important',
-        alignItems: 'center'
+      item,
+      fRightArrow: {
+        width: 26,
+        height: 26,
+        borderRadius: '4px 4px 4px 4px',
+        backgroundColor: bgColor,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        marginRight: 14,
+        '&:after': {
+          borderRadius: '4px',
+          transform: 'rotate(45deg)',
+          left: '50%',
+          content: '""',
+          display: 'block',
+          position: 'absolute',
+          width: 20,
+          height: 20,
+          backgroundColor: bgColor
+        }
+      },
+      fLeftArrow: {
+        width: 26,
+        height: 26,
+        borderRadius: '4px 4px 4px 4px',
+        backgroundColor: bgColor,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        marginLeft: 14,
+        '&:after': {
+          borderRadius: '4px',
+          transform: 'rotate(45deg)',
+          right: '50%',
+          content: '""',
+          display: 'block',
+          position: 'absolute',
+          width: 20,
+          height: 20,
+          backgroundColor: bgColor
+        }
       },
       rightArrow: {
         ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode)
@@ -205,6 +266,12 @@ const eventCellStyles = createStyles(
     };
   }
 );
+
+export function sameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate();
+}
 
 function EventCell(thisprops) {
   let {
@@ -238,6 +305,9 @@ function EventCell(thisprops) {
   const end = accessors.end(event);
   const start = accessors.start(event);
   const allDay = accessors.allDay(event);
+  const isOnStartWeek = start >= slotStart && start <= slotEnd;
+  const isOnEndWeek = end >= slotStart && end <= slotEnd;
+  const isSameDay = sameDay(start, end);
 
   const showAsAllDay =
     isAllDay || allDay || localizer.diff(start, localizer.ceil(end, 'day'), 'day') > 1;
@@ -271,8 +341,11 @@ function EventCell(thisprops) {
     isMonthView,
     rightArrow,
     leftArrow,
-    printMode
+    printMode,
+    bgStartGradient: (event.showType === 'onlyEnd' || event.endSide) && !isSameDay,
+    bgEndGradient: event.startSide
   });
+
 
   const avatar = {
     image: eventImage || null,
@@ -280,6 +353,7 @@ function EventCell(thisprops) {
       eventIcon && _.isString(eventIcon) ? (
         <Box className={classes.icon}>
           <ImageLoader
+            width='12px'
             height='12px'
             imageStyles={{
               position: 'absolute',
@@ -304,45 +378,77 @@ function EventCell(thisprops) {
     avatar.image = emptyPixel;
   }
 
+  let lAvatar = null;
+  let rAvatar = null;
+
+  if (!isSameDay) {
+    if (isOnStartWeek && event.showType !== 'onlyEnd' && !event.endSide) {
+      lAvatar = <Box className={classes.fRightArrow}>
+        <Avatar style={{ zIndex: 2 }} mx='auto' size='xs' {...avatar} />
+      </Box>;
+    }
+    if (isOnEndWeek && !event.startSide) {
+      rAvatar = <Box className={classes.fLeftArrow}>
+        <Avatar style={{ zIndex: 2 }} mx='auto' size='xs' {...avatar} />
+      </Box>;
+    }
+  } else {
+    lAvatar = <Avatar mx='auto' size='xs' {...avatar} />;
+  }
+
   const content = (
     <Box
       style={{ pointerEvents: 'all' }}
       className={cx('rbc-event-content', classes.item)}
       title={tooltip || undefined}
     >
-      {Event ? (
-        <Event
-          event={event}
-          continuesPrior={continuesPrior}
-          continuesAfter={continuesAfter}
-          title={title}
-          isAllDay={allDay}
-          localizer={localizer}
-          slotStart={slotStart}
-          slotEnd={slotEnd}
-        />
-      ) : (
-        <>
-          {event.component ? (
-            event.component
-          ) : (
-            <>
-              {eventIcon && !_.isString(eventIcon) ? (
-                eventIcon
-              ) : (
-                <Avatar mx='auto' size='xs' {...avatar} />
-              )}
+      <Box sx={() => ({
+        display: 'flex', alignItems: 'center', whiteSpace: 'nowrap',
+        maxWidth: rAvatar ? 'calc(100% - 30px)' : '100%',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      })}>
+        {Event ? (
+          <Event
+            event={event}
+            continuesPrior={continuesPrior}
+            continuesAfter={continuesAfter}
+            title={title}
+            isAllDay={allDay}
+            localizer={localizer}
+            slotStart={slotStart}
+            slotEnd={slotEnd}
+          />
+        ) : (
+          <>
+            {event.component ? (
+              event.component
+            ) : (
+              <>
+                {eventIcon && !_.isString(eventIcon) ? (
+                  eventIcon
+                ) : lAvatar}
 
-              <span style={{ marginLeft: 4 }}>{title}</span>
-            </>
-          )}
-        </>
-      )}
+                <Box style={{
+                  marginLeft: 4,
+                  whiteSpace: 'nowrap',
+                  maxWidth: lAvatar ? 'calc(100% - 30px)' : '100%',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
+                }}>
+                  {title}
+                </Box>
+              </>
+            )}
+          </>
+        )}
+      </Box>
+      {rAvatar}
     </Box>
   );
 
   const oneDayStyle = isMonthView && originalEvent.calendar.oneDayStyle;
-  const withTooltip = isMonthView && title;
+  const withTooltip = !!(isMonthView && title);
 
   const eventElement = (
     <Box
@@ -378,17 +484,7 @@ function EventCell(thisprops) {
   );
 
   let finalContent = withTooltip ? (
-    <Tooltip
-      label={title}
-      style={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: leftArrow && 'row-reverse',
-        pointerEvents: 'all'
-      }}
-      color='secondary'
-      withinPortal
-    >
+    <Tooltip label={title} color='secondary'>
       {eventElement}
     </Tooltip>
   ) : (

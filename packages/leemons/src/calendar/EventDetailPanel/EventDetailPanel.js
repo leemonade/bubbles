@@ -24,7 +24,16 @@ import {
 } from './EventDetailPanel.constants';
 import { isFunction } from 'lodash';
 
-const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, ...props }) => {
+const EventDetailPanel = ({
+  opened,
+  event,
+  labels,
+  locale,
+  onClose,
+  onControl,
+  onClickClassRoom = () => {},
+  ...props
+}) => {
   const handleOnClose = () => {
     isFunction(onClose) && onClose();
   };
@@ -77,7 +86,7 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
                 <ImageLoader
                   className={classes.subjectIcon}
                   height={16}
-                  imageStyles={{ width: 16 }}
+                  width={16}
                   src={subject.icon}
                 />
               ) : null}
@@ -112,7 +121,11 @@ const EventDetailPanel = ({ opened, event, labels, locale, onClose, onControl, .
             {classroom ? (
               <Box className={classes.sectionRow}>
                 <MeetingCameraIcon height={16} width={16} className={classes.icon} />
-                <Anchor style={{ textDecoration: 'none' }} role="productive">
+                <Anchor
+                  style={{ textDecoration: 'none' }}
+                  onClick={onClickClassRoom}
+                  role="productive"
+                >
                   {classroom}
                 </Anchor>
               </Box>

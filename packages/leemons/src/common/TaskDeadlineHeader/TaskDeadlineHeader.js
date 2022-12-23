@@ -8,6 +8,7 @@ import {
 import { EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
 import { TaskHeader } from '../TaskHeader/TaskHeader';
+import { EditDeadline } from './EditDeadline';
 
 const TaskDeadlineHeader = ({
   labels,
@@ -15,6 +16,7 @@ const TaskDeadlineHeader = ({
   subtitle,
   icon,
   color,
+  startDate,
   deadline,
   locale,
   closed,
@@ -23,31 +25,55 @@ const TaskDeadlineHeader = ({
   disableArchive,
   hideClose,
   hideArchive,
+  onStartDateChange,
   onDeadlineChange,
   onCloseTask,
   onArchiveTask,
+  isStarted,
   styles,
   className,
   ...props
 }) => {
+  const [startDateValue, setStartDateValue] = useState(new Date(startDate));
   const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
   const [deadlineExpanded, setDeadlineExpanded] = useState(false);
-  let tempDeadlineValue = new Date(deadlineValue);
 
-  const saveDeadline = () => {
-    onDeadlineChangeHandler(tempDeadlineValue);
-    setDeadlineExpanded(false);
+  const onDateChange = (type, date) => {
+    if (type === 'start' && date) {
+      setStartDateValue(date);
+      return;
+    }
+    if (type === 'deadline' && date) {
+      setDeadlineValue(date);
+      return;
+    }
   };
 
-  const cancelDeadline = () => {
-    tempDeadlineValue = new Date(deadlineValue);
-    setDeadlineExpanded(false);
+  const onHourChange = (type, { hours, minutes }) => {
+    if (type === 'start') {
+      const newDate = startDateValue;
+      newDate.setHours(hours);
+      newDate.setMinutes(minutes);
+      setStartDateValue(newDate);
+      return;
+    }
+    if (type === 'deadline') {
+      const newDate = deadlineValue;
+      newDate.setHours(hours);
+      newDate.setMinutes(minutes);
+      setDeadlineValue(newDate);
+      return;
+    }
   };
 
-  const onDeadlineChangeHandler = (date) => {
-    if (!date) date = new Date(deadline);
-    setDeadlineValue(date);
-    isFunction(onDeadlineChange) && onDeadlineChange(date);
+  const saveDates = () => {
+    if (startDateValue.toISOString() !== new Date(startDate).toISOString()) {
+      isFunction(onStartDateChange) && onStartDateChange(startDateValue);
+    }
+    if (deadlineValue.toISOString() !== new Date(deadline).toISOString()) {
+      isFunction(onDeadlineChange) && onDeadlineChange(deadlineValue);
+    }
+    setDeadlineExpanded(false);
   };
 
   const onCloseTaskHandler = (value) => {
@@ -61,7 +87,7 @@ const TaskDeadlineHeader = ({
   const addDays = (days) => {
     const newDate = new Date(deadlineValue);
     newDate.setDate(newDate.getDate() + days);
-    onDeadlineChangeHandler(newDate);
+    isFunction(onDeadlineChange) && onDeadlineChange(newDate);
   };
 
   useEffect(() => {
@@ -72,48 +98,49 @@ const TaskDeadlineHeader = ({
     }
   }, [deadline]);
 
+  useEffect(() => {
+    if (startDate === null && startDateValue !== startDate) {
+      setStartDateValue(null);
+    } else if (startDateValue !== new Date(startDate)) {
+      setStartDateValue(new Date(startDate));
+    }
+  }, [startDate]);
+
   const { classes, cx } = TaskDeadlineHeaderStyles(
-    { color, deadlineExpanded, styles },
+    { color, styles },
     { name: 'TaskDeadlineHeader' }
   );
   return (
     <Box className={cx(classes.root, className)}>
       <TaskHeader title={title} subtitle={subtitle} icon={icon} color={color} />
       <Box className={classes.deadlineWrapper}>
-        {deadlineValue ? (
+        {deadline ? (
           <>
             <Box className={classes.deadline}>
-              {!deadlineExpanded ? (
-                <>
-                  <Text className={classes.textColor}>{labels.deadline}</Text>
-                  <Text className={classes.deadlineDate}>
-                    {deadlineValue?.toLocaleDateString(locale)}
-                  </Text>
-                  <EditWriteIcon
-                    className={classes.deadlineIcon}
-                    height={16}
-                    width={16}
-                    onClick={() => setDeadlineExpanded(true)}
-                  />
-                </>
-              ) : (
-                <>
-                  <DatePicker
-                    size="xs"
-                    locale={locale}
-                    withTime
-                    contentClassName={classes.datePicker}
-                    value={tempDeadlineValue}
-                    onChange={(date) => (tempDeadlineValue = date)}
-                  />
-                  <Button size="xs" compact onClick={saveDeadline}>
-                    {labels.save}
-                  </Button>
-                  <Button size="xs" compact onClick={cancelDeadline}>
-                    {labels.cancel}
-                  </Button>
-                </>
-              )}
+              <Text className={classes.textColor}>{labels.deadline}</Text>
+              <Text className={classes.deadlineDate}>{deadline?.toLocaleDateString(locale)}</Text>
+              <EditDeadline
+                opened={deadlineExpanded}
+                target={
+                  <Box>
+                    <EditWriteIcon
+                      className={classes.deadlineIcon}
+                      height={16}
+                      width={16}
+                      onClick={() => setDeadlineExpanded(!deadlineExpanded)}
+                    />
+                  </Box>
+                }
+                labels={labels}
+                startDate={startDateValue}
+                endDate={deadlineValue}
+                onDateChange={onDateChange}
+                onHourChange={onHourChange}
+                cancelSave={() => setDeadlineExpanded(false)}
+                saveDates={saveDates}
+                onClose={() => setDeadlineExpanded(false)}
+                isStarted={isStarted}
+              />
             </Box>
             <Box className={classes.deadlineExtraTime}>
               <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>

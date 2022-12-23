@@ -11,17 +11,17 @@ export const KanbanStyles = createStyles((theme, {}) => {
       padding: theme.spacing[2],
       backgroundColor: '#EDEFF5',
       gap: theme.spacing[2],
-      display: 'flex',
+      display: 'flex'
     },
     column: {
+      height: '100%',
       display: 'inline-flex',
       position: 'relative',
       width: '300px',
       minWidth: '300px',
-      padding: theme.spacing[2],
       flexDirection: 'column',
       backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: theme.spacing[1],
+      borderRadius: theme.spacing[1]
     },
     columnHeader: {
       paddingLeft: theme.spacing[4],
@@ -32,14 +32,17 @@ export const KanbanStyles = createStyles((theme, {}) => {
       ...getFontProductive(theme.fontSizes['2'], 500),
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'center'
+    },
+    scroll: {
+      padding: theme.spacing[2]
     },
     listDraggingOver: {
       backgroundColor: '#EDEFF5',
-      borderRadius: 4,
+      borderRadius: 4
     },
     list: {
-      minHeight: '100px',
+      minHeight: '100px'
     },
     iconBig: {
       position: 'absolute',
@@ -47,8 +50,8 @@ export const KanbanStyles = createStyles((theme, {}) => {
       left: 20,
       zIndex: 0,
       img: {
-        filter: 'brightness(0) invert(1)',
-      },
-    },
+        filter: 'brightness(0) invert(1)'
+      }
+    }
   };
 });

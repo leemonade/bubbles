@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.1.01",
+  "version": "1.1.1",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,10 +9,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leemonade/bubbles.git",
+    "url": "git+https://github.com/leemonade/bubbles.git",
     "directory": "packages/components"
   },
-  "bugs": "https://github.com/leemonade/bubbles/issues",
+  "bugs": {
+    "url": "https://github.com/leemonade/bubbles/issues"
+  },
   "files": [
     "lib/**/*",
     "es/**/*",
@@ -45,6 +47,7 @@
     "build-storybook": "run-s build:storybook:clean build:storybook",
     "build:storybook:clean": "rimraf ../../docs-build/components",
     "build:storybook": "cross-env NODE_ENV=production build-storybook -o ../../docs-build/components",
+    "build:storybook:raw": "build-storybook",
     "storybook": "run-s storybook:clean storybook:start",
     "storybook:clean": "rimraf node_modules/.cache/storybook",
     "storybook:start": "start-storybook -p 9000",
@@ -52,7 +55,9 @@
     "types": "run-s -cs types:clean types:generate types:fix",
     "types:clean": "rimraf types _types",
     "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
-    "types:fix": "mv _types types && rimraf _types types/**/mocks"
+    "types:fix": "mv _types types && rimraf _types types/**/mocks",
+    "compile-tokens": "sh scripts/compile-tokens.sh",
+    "chromatic": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw"
   },
   "dependencies": {
     "@bubbles-ui/icons": "1.1.0",
@@ -91,7 +96,8 @@
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "webpack": "*"
+    "webpack": "*",
+    "chromatic": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -129,5 +135,8 @@
   },
   "resolutions": {
     "@storybook/react/webpack": "^5"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/leemonade/bubbles#readme",
+  "_id": "@bubbles-ui/components@1.1.1"
 }
