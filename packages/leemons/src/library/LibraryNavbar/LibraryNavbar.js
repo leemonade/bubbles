@@ -1,25 +1,44 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { isFunction } from 'lodash';
 import {
   Box,
-  Stack,
-  FileUpload,
   Button,
-  Text,
-  Paper,
-  IconButton,
   Divider,
+  FileUpload,
+  IconButton,
+  Paper,
+  ScrollArea,
   SimpleBar,
+  Stack,
+  Text
 } from '@bubbles-ui/components';
-import { PluginLeebraryIcon, PluginKimIcon } from '@bubbles-ui/icons/solid';
-import { CloudUploadIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import { PluginKimIcon, PluginLeebraryIcon } from '@bubbles-ui/icons/solid';
+import {
+  BookPagesIcon,
+  CloudUploadIcon,
+  ManWomanIcon,
+  RemoveIcon
+} from '@bubbles-ui/icons/outline';
 import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
 import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './LibraryNavbar.constants';
 
-const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew, loading }) => {
+const LibraryNavbar = ({
+                         labels,
+                         categories,
+                         selectedCategory,
+                         subjects,
+                         showSharedsWithMe,
+                         onNavShared,
+                         onNav,
+                         onNavSubject,
+                         onFile,
+                         onNew,
+                         loading
+                       }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showUpload, setShowUpload] = useState(true);
+  const [showUpload, setShowUpload] = useState(false);
+  const [subjectsOpened, setSubjectsOpened] = useState(true);
 
   const onFileHandler = (e) => {
     isFunction(onFile) && onFile(e);
@@ -50,23 +69,87 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
 
   const renderNavbarItems = useCallback(
     (callback, onlyCreatable = false, ignoreSelected = false) => {
-      return categories
-        .filter((item) => (onlyCreatable ? item.creatable === true : true))
-        .map((category) => (
-          <NavbarItem
-            key={category.id}
-            icon={category.icon}
-            label={category.name}
-            loading={loading}
-            selected={
-              !ignoreSelected &&
-              (category.id === selectedCategory || category.key === selectedCategory)
-            }
-            onClick={() => callback(category)}
-          />
-        ));
+      const result = [
+        ...categories
+          .filter((item) => (onlyCreatable ? item.creatable === true : true))
+          .map((category) => (
+            <NavbarItem
+              key={category.id}
+              icon={category.icon}
+              label={category.name}
+              loading={loading}
+              selected={
+                !ignoreSelected &&
+                (category.id === selectedCategory || category.key === selectedCategory)
+              }
+              onClick={() => callback(category)}
+            />
+          ))
+      ];
+      if (showSharedsWithMe) {
+        result.push(<NavbarItem
+          key={'shared-with-me'}
+          icon={<ManWomanIcon />}
+          label={labels.sharedWithMe}
+          loading={loading}
+          selected={selectedCategory === 'shared-with-me'}
+          onClick={() => onNavShared('shared-with-me')}
+        />);
+      }
+      if (subjects && subjects.length) {
+        result.push(<NavbarItem
+          key={'student-subjects'}
+          icon={<BookPagesIcon />}
+          label={labels.subjects}
+          loading={loading}
+          selected={false}
+          canOpen
+          opened={subjectsOpened}
+          onClick={() => {
+            setSubjectsOpened(!subjectsOpened);
+          }}
+        >
+          <ScrollArea style={{ height: 300, maxWidth: '100%' }}>
+            {subjects.map((subject) => {
+              return <Box
+                onClick={() => onNavSubject(subject)}
+                sx={(theme) => ({
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: theme.spacing[2],
+                  alignItems: 'center',
+                  padding: `${theme.spacing[2]}px ${theme.spacing[4]}px`,
+                  cursor: 'pointer',
+                  backgroundColor: selectedCategory === subject.id && theme.colors.mainWhite,
+                  '&:hover': {
+                    backgroundColor: selectedCategory !== subject.id && theme.colors.interactive03
+                  }
+                })}
+              >
+                <Box
+                  sx={() => ({
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: 24,
+                    minHeight: 24,
+                    maxWidth: 24,
+                    maxHeight: 24,
+                    borderRadius: '50%',
+                    backgroundColor: subject?.color,
+                    backgroundImage: 'url(' + subject?.image + ')',
+                    backgroundSize: 'cover'
+                  })}
+                />
+                <Text>{subject.name}</Text>
+              </Box>;
+            })}
+          </ScrollArea>
+        </NavbarItem>);
+      }
+      return result;
     },
-    [categories, selectedCategory, loading]
+    [categories, selectedCategory, loading, subjectsOpened, subjects, showSharedsWithMe]
   );
 
   const { classes, cx } = LibraryNavbarStyles({ isExpanded }, { name: 'LibraryNavbar' });
@@ -113,7 +196,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
               {isExpanded && (
                 <Stack spacing={1} alignItems={'center'} fullWidth>
                   <Box style={{ flex: 1 }}>
-                    <Text transform="uppercase" className={classes.sectionTitle}>
+                    <Text transform='uppercase' className={classes.sectionTitle}>
                       {labels.createNewTitle}
                     </Text>
                   </Box>
@@ -130,7 +213,7 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
               skipFlex
             >
               {renderNavbarItems(onNewHandler, true, true)}
-              <Text transform="uppercase" className={classes.sectionTitle}>
+              <Text transform='uppercase' className={classes.sectionTitle}>
                 {labels.uploadTitle}
               </Text>
               {showUpload && (

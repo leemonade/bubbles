@@ -96,7 +96,8 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
       <Box className={classes.topSection}>
         <Box className={classes.title}>{value.title}</Box>
 
-        {value.deadline ? <Box className={classes.line}></Box> : null}
+        {value.deadline || value.endDate || value?.data?.description ?
+          <Box className={classes.line}></Box> : null}
 
         {value.data && value.data.description ? (
           <Box className={classes.description}>

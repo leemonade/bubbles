@@ -14,7 +14,8 @@ export {
   UnstyledButton,
   List,
   Collapse,
-  Progress
+  Progress,
+  ScrollArea
 } from '@mantine/core';
 export {
   useId,

@@ -191,22 +191,25 @@ const eventCellStyles = createStyles(
       },
       true
     );
-    const item = {
-      borderRadius: root.borderRadius,
-      backgroundColor: root.backgroundColor.replace('!important', ''),
-      padding: theme.spacing[1],
-      height: 34,
-      display: 'flex!important',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    };
-    root.border = 'none';
-    root.backgroundColor = 'transparent!important';
-    if (bgStartGradient) {
-      item.background = `linear-gradient(90deg, rgba(0,0,0,0) 0%, ${item.backgroundColor} 25%, ${item.backgroundColor} 100%)`;
-    }
-    if (bgEndGradient) {
-      item.background = `linear-gradient(90deg,${item.backgroundColor} 0%, ${item.backgroundColor} 75%, rgba(0,0,0,0) 100%)`;
+    let item = {};
+    if (!isMonthView) {
+      item = {
+        borderRadius: root.borderRadius,
+        backgroundColor: root.backgroundColor.replace('!important', ''),
+        padding: theme.spacing[1],
+        height: 34,
+        display: 'flex!important',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      };
+      root.border = 'none';
+      root.backgroundColor = 'transparent!important';
+      if (bgStartGradient) {
+        item.background = `linear-gradient(90deg, rgba(0,0,0,0) 0%, ${item.backgroundColor} 25%, ${item.backgroundColor} 100%)`;
+      }
+      if (bgEndGradient) {
+        item.background = `linear-gradient(90deg,${item.backgroundColor} 0%, ${item.backgroundColor} 75%, rgba(0,0,0,0) 100%)`;
+      }
     }
 
     return {

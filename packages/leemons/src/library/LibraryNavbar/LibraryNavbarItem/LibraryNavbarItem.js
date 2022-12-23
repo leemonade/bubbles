@@ -1,20 +1,32 @@
 import React, { useCallback } from 'react';
 import { isFunction } from 'lodash';
-import { Box, Text, ImageLoader } from '@bubbles-ui/components';
+import { Box, ImageLoader, Text } from '@bubbles-ui/components';
 import { LibraryNavbarItemStyles } from './LibraryNavbarItem.styles';
 import {
   LIBRARY_NAVBAR_ITEM_DEFAULT_PROPS,
-  LIBRARY_NAVBAR_ITEM_PROP_TYPES,
+  LIBRARY_NAVBAR_ITEM_PROP_TYPES
 } from './LibraryNavbarItem.constants';
+import { ChevUpIcon } from '@bubbles-ui/icons/outline';
 
-const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, loading, ...props }) => {
+const LibraryNavbarItem = ({
+                             icon,
+                             label,
+                             canOpen,
+                             opened,
+                             selected,
+                             disabled,
+                             onClick,
+                             loading,
+                             children,
+                             ...props
+                           }) => {
   const onClickHandler = (e) => {
     if (disabled || loading) return;
     isFunction(onClick) && onClick(e);
   };
 
   const { classes, cx } = LibraryNavbarItemStyles(
-    { selected, disabled, loading },
+    { selected, disabled, loading, opened },
     { name: 'LibraryNavbarItem' }
   );
 
@@ -27,10 +39,18 @@ const LibraryNavbarItem = ({ icon, label, selected, disabled, onClick, loading, 
   }, [icon, classes]);
 
   return (
-    <Box className={classes.root} onClick={onClickHandler}>
-      <Box className={classes.iconWrapper}>{renderIcon()}</Box>
-      <Text className={classes.label}>{label}</Text>
-    </Box>
+    <>
+      <Box className={classes.root} onClick={onClickHandler}>
+        <Box className={classes.item}>
+          <Box className={classes.iconWrapper}>{renderIcon()}</Box>
+          <Text className={classes.label}>{label}</Text>
+        </Box>
+        <Box className={classes.chev}>
+          {canOpen ? <ChevUpIcon /> : null}
+        </Box>
+      </Box>
+      {children && opened ? children : null}
+    </>
   );
 };
 
