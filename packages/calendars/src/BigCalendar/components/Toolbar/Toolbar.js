@@ -6,6 +6,7 @@ import {
   Button,
   Group,
   IconButton,
+  InputWrapper,
   Select,
   Switch,
   Text
@@ -70,12 +71,18 @@ export const ToolBar = ({
 
 
       <Group style={{ gap: 12 }}>
-        <Select label={messages.display} value={showType} onChange={setShowType} data={
-          [
-            { label: messages.entirePeriod, value: 'full' },
-            { label: messages.onlyInitAndEnd, value: 'startEnd' },
-            { label: messages.onlyEnd, value: 'onlyEnd' }]
-        } />
+        <Box sx={() => ({ display: 'flex', alignItems: 'center' })}>
+          <Box sx={(theme) => ({ paddingTop: theme.spacing[2], paddingRight: theme.spacing[2] })}>
+            <InputWrapper label={messages.display} />
+          </Box>
+          <Select value={showType}
+                  onChange={setShowType} data={
+            [
+              { label: messages.entirePeriod, value: 'full' },
+              { label: messages.onlyInitAndEnd, value: 'startEnd' },
+              { label: messages.onlyEnd, value: 'onlyEnd' }]
+          } />
+        </Box>
         {view !== RCBViews.DAY && showToolbarToggleWeekend ? (
           <Switch
             label={messages.showWeekends}

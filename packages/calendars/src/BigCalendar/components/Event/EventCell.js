@@ -334,7 +334,7 @@ function EventCell(thisprops) {
     zIndex: eventzIndex,
     desaturateColor: originalEvent.desaturateColor || originalEvent.calendar.desaturateColor,
     rotate: originalEvent.rotate || originalEvent.calendar.rotate,
-    isAllDay: event.allDay,
+    isAllDay: showAsAllDay, // event.allDay,
     bgColor: eventBgColor,
     borderStyle: originalEvent.borderStyle || originalEvent.calendar.borderStyle,
     borderColor: originalEvent.borderColor || originalEvent.calendar.borderColor,

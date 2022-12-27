@@ -50,8 +50,6 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
     titleMargin: value.deadline || value.endDate || value?.data?.description || (!isFromInstance && calendar.isUserCalendar)
   });
 
-  console.log(value, calendar);
-
   const percentaje = useMemo(() => {
     if (value.data && value.data.subtask && value.data.subtask.length) {
       const total = value.data.subtask.length;
@@ -90,8 +88,6 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
   }
 
   const { image: a, ...avatarNoImage } = avatar;
-
-  console.log(avatar);
 
   return (
     <Paper
