@@ -1,8 +1,12 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 export const DropdownButtonStyles = createStyles((theme, {}) => {
   return {
-    root: {},
+    icon: {
+      width: pxToRem(16),
+      margin: '0 auto'
+    }
+
   };
 });

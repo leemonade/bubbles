@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ControlsRecordIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -11,5 +10,4 @@ function ControlsRecordIcon(props) {
     d: "M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z"
   }));
 }
-
 export default ControlsRecordIcon;

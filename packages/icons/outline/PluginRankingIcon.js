@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginRankingIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PluginRankingIcon(props) {
     d: "M11.5 6.5h.5a.5.5 0 0 1 .5.5v3.5M11.5 10.5h2M8 10.5v11M17 14.5v7"
   }));
 }
-
 module.exports = PluginRankingIcon;

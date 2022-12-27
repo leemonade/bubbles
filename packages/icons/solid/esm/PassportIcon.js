@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PassportIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 24",
@@ -15,5 +14,4 @@ function PassportIcon(props) {
     d: "M15.19 15a.5.5 0 0 0-.5.47 14.598 14.598 0 0 1-.4 2.63.51.51 0 0 0 .21.54.5.5 0 0 0 .58 0 5.5 5.5 0 0 0 2-3 .501.501 0 0 0-.48-.63L15.19 15Z"
   }));
 }
-
 export default PassportIcon;

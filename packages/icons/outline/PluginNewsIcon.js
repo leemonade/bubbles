@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginNewsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PluginNewsIcon(props) {
     d: "M5 5.75h10.5v6H5v-6Z"
   }));
 }
-
 module.exports = PluginNewsIcon;

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function VolumeControlMediumIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -13,5 +12,4 @@ function VolumeControlMediumIcon(props) {
     d: "M11.257 5a.667.667 0 1 0-.944.94 2.92 2.92 0 0 1 0 4.119.667.667 0 1 0 .944.941 4.254 4.254 0 0 0 0-6Z"
   }));
 }
-
 export default VolumeControlMediumIcon;

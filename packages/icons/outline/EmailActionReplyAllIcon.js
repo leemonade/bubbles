@@ -1,5 +1,4 @@
 const React = require("react");
-
 function EmailActionReplyAllIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function EmailActionReplyAllIcon(props) {
     d: "m6.606 5.82-5.458 5.913a1.5 1.5 0 0 0 0 2.034l5.458 5.914"
   }));
 }
-
 module.exports = EmailActionReplyAllIcon;

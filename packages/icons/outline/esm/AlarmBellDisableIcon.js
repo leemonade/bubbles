@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function AlarmBellDisableIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function AlarmBellDisableIcon(props) {
     d: "M17.505 15.862a7.368 7.368 0 0 0 1.245 2.888h-18s1.5-2.329 1.5-8.25A7.5 7.5 0 0 1 9.75 3V.75"
   }));
 }
-
 export default AlarmBellDisableIcon;

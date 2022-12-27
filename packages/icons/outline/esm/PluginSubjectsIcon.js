@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginSubjectsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PluginSubjectsIcon(props) {
     d: "M12.5 23.257a6.035 6.035 0 0 1 1.636-3.448 8.228 8.228 0 0 1 4.364-2.463V1.743a.481.481 0 0 0-.228-.4.6.6 0 0 0-.494-.066 7.8 7.8 0 0 0-3.642 2.277A6.035 6.035 0 0 0 12.5 7"
   }));
 }
-
 export default PluginSubjectsIcon;

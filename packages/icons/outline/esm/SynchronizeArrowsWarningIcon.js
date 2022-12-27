@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function SynchronizeArrowsWarningIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function SynchronizeArrowsWarningIcon(props) {
     d: "m18.75 13.747 2.25-2.25 2.25 2.25M5.25 10.747 3 12.997l-2.25-2.25M12 6.997v6M12 16a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75"
   }));
 }
-
 export default SynchronizeArrowsWarningIcon;

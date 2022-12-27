@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginOkrIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -21,5 +20,4 @@ function PluginOkrIcon(props) {
     d: "M21.362 9.617a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5v0Z"
   }));
 }
-
 export default PluginOkrIcon;

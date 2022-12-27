@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginVirtualBlackboadIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function PluginVirtualBlackboadIcon(props) {
     d: "M12.5 17.75v6M12.5 17.75l-6 6M12.5 17.75l6 6M2 1.25h21v16.5H2V1.25ZM2 5.75h21"
   }));
 }
-
 module.exports = PluginVirtualBlackboadIcon;

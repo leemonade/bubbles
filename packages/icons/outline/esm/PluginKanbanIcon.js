@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginKanbanIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PluginKanbanIcon(props) {
     d: "M14.75 23.615V16.25a1.5 1.5 0 0 1 1.5-1.5h7.365M15.5 5.75l-5.309 7.078a1.5 1.5 0 0 1-2.211.208L5.75 11"
   }));
 }
-
 export default PluginKanbanIcon;

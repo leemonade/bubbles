@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function AssetAudioIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 11 11",
@@ -13,5 +12,4 @@ function AssetAudioIcon(props) {
     d: "M7.815 3.75a.5.5 0 1 0-.708.705 2.19 2.19 0 0 1 0 3.089.5.5 0 1 0 .708.706 3.19 3.19 0 0 0 0-4.5Z"
   }));
 }
-
 export default AssetAudioIcon;

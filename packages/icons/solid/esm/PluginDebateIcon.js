@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginDebateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 25",
@@ -21,5 +20,4 @@ function PluginDebateIcon(props) {
     d: "M20.77 3.25a1.5 1.5 0 0 0-1.5-1.5H4.175a1.5 1.5 0 0 0-1.5 1.5v6.517a1.5 1.5 0 0 0 1.506 1.5l6.042-.017 3.5 3v-3l5.54.017a1.5 1.5 0 0 0 1.507-1.5V3.25Z"
   }));
 }
-
 export default PluginDebateIcon;

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Divider,
+  DropdownButton,
   FileUpload,
   IconButton,
   Paper,
@@ -34,6 +35,7 @@ const LibraryNavbar = ({
                          onNavSubject,
                          onFile,
                          onNew,
+                         useNewCreateButton = true,
                          loading
                        }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -69,6 +71,21 @@ const LibraryNavbar = ({
 
   const renderNavbarItems = useCallback(
     (callback, onlyCreatable = false, ignoreSelected = false) => {
+
+      if (onlyCreatable && useNewCreateButton) {
+        return categories
+          .filter((item) => (item.creatable === true))
+          .map((category) => (
+            {
+              icon: category.icon,
+              label: category.name,
+              onClick: () => {
+                callback(category);
+              }
+            }
+          ));
+      }
+
       const result = [
         ...categories
           .filter((item) => (onlyCreatable ? item.creatable === true : true))
@@ -160,7 +177,13 @@ const LibraryNavbar = ({
         <Text className={classes.title}>{labels.title}</Text>
       </Box>
       <SimpleBar className={classes.navItems}>
+
         <Stack direction={'column'} fullWidth>
+          {useNewCreateButton ?
+            <Box sx={(theme) => ({ padding: theme.spacing[2] })}>
+              <DropdownButton sx={() => ({ width: '100%' })} children={labels.uploadTitle}
+                              data={renderNavbarItems(onNewHandler, true, true)} />
+            </Box> : null}
           <NavbarItem
             icon={<PluginKimIcon />}
             label={labels.quickAccess}
@@ -170,67 +193,71 @@ const LibraryNavbar = ({
           <Divider style={{ marginBlock: 8, marginInline: 10 }} />
           {renderNavbarItems(onNavHandler)}
         </Stack>
-        <Paper
-          className={classes.navbarBottom}
-          shadow={!isExpanded ? 'none' : 'level03'}
-          padding={0}
-        >
-          <Box className={classes.uploadButton}>
-            <Button
-              size={'sm'}
-              fullWidth
-              rightIcon={<CloudUploadIcon />}
-              onClick={() => setIsExpanded(true)}
-            >
-              {labels.uploadButton}
-            </Button>
-          </Box>
-          <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
-            <Stack
-              direction={'column'}
-              alignItems={'center'}
-              spacing={2}
-              className={classes.fileUploadWrapper}
-              skipFlex
-            >
-              {isExpanded && (
-                <Stack spacing={1} alignItems={'center'} fullWidth>
-                  <Box style={{ flex: 1 }}>
-                    <Text transform='uppercase' className={classes.sectionTitle}>
-                      {labels.createNewTitle}
-                    </Text>
+        {!useNewCreateButton ?
+          <Paper
+            className={classes.navbarBottom}
+            shadow={!isExpanded ? 'none' : 'level03'}
+            padding={0}
+          >
+            <Box className={classes.uploadButton}>
+              <Button
+                size={'sm'}
+                fullWidth
+                rightIcon={<CloudUploadIcon />}
+                onClick={() => setIsExpanded(true)}
+              >
+                {labels.uploadButton}
+              </Button>
+            </Box>
+
+            <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
+              <Stack
+                direction={'column'}
+                alignItems={'center'}
+                spacing={2}
+                className={classes.fileUploadWrapper}
+                skipFlex
+              >
+                {isExpanded && (
+                  <Stack spacing={1} alignItems={'center'} fullWidth>
+                    <Box style={{ flex: 1 }}>
+                      <Text transform='uppercase' className={classes.sectionTitle}>
+                        {labels.createNewTitle}
+                      </Text>
+                    </Box>
+                    <Box>
+                      <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
+                    </Box>
+                  </Stack>
+                )}
+              </Stack>
+
+              <Stack
+                direction={'column'}
+                alignItems={'start'}
+                className={classes.navbarTopList}
+                skipFlex
+              >
+                {renderNavbarItems(onNewHandler, true, true)}
+                <Text transform='uppercase' className={classes.sectionTitle}>
+                  {labels.uploadTitle}
+                </Text>
+                {showUpload && (
+                  <Box className={classes.fileUpload}>
+                    <FileUpload
+                      icon={<CloudUploadIcon height={32} width={32} />}
+                      title={labels.fileUploadTitle}
+                      subtitle={labels.fileUploadSubtitle}
+                      hideUploadButton
+                      single
+                      onChange={onFileHandler}
+                    />
                   </Box>
-                  <Box>
-                    <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
-                  </Box>
-                </Stack>
-              )}
+                )}
+              </Stack>
             </Stack>
-            <Stack
-              direction={'column'}
-              alignItems={'start'}
-              className={classes.navbarTopList}
-              skipFlex
-            >
-              {renderNavbarItems(onNewHandler, true, true)}
-              <Text transform='uppercase' className={classes.sectionTitle}>
-                {labels.uploadTitle}
-              </Text>
-              {showUpload && (
-                <Box className={classes.fileUpload}>
-                  <FileUpload
-                    icon={<CloudUploadIcon height={32} width={32} />}
-                    title={labels.fileUploadTitle}
-                    subtitle={labels.fileUploadSubtitle}
-                    hideUploadButton
-                    single
-                    onChange={onFileHandler}
-                  />
-                </Box>
-              )}
-            </Stack>
-          </Stack>
-        </Paper>
+          </Paper>
+          : null}
       </SimpleBar>
     </Box>
   );
