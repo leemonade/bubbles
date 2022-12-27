@@ -1,7 +1,7 @@
 import { createStyles, getFontProductive } from '@bubbles-ui/components';
 import { colord } from 'colord';
 
-export const KanbanTaskCardStyles = createStyles((theme, { bgColor, hasDeadline, progress }) => {
+export const KanbanTaskCardStyles = createStyles((theme, { bgColor, titleMargin, progress }) => {
   return {
     root: {
       ...getFontProductive(theme.fontSizes[1], 400),
@@ -17,7 +17,7 @@ export const KanbanTaskCardStyles = createStyles((theme, { bgColor, hasDeadline,
     title: {
       ...getFontProductive(theme.fontSizes[2], 500),
       color: theme.colors.text01,
-      marginBottom: hasDeadline ? theme.spacing[4] : 0
+      marginBottom: titleMargin ? theme.spacing[4] : 0
     },
     topSection: {
       padding: theme.spacing[4]

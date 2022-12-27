@@ -34,17 +34,23 @@ const ProgressBar = ({ value }) => {
   );
 };
 
-const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
+const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
   const calendar = find(config.calendars, { id: value.calendar });
   if (!calendar) return null;
+
+  const isFromInstance = !!value?.data?.instanceId;
+
+  const image = value.image;
 
   const {
     classes,
     cx
   } = KanbanTaskCardStyles({
     bgColor: value.disableDrag ? value.bgColor || calendar.bgColor : null,
-    hasDeadline: !!value.deadline
+    titleMargin: value.deadline || value.endDate || value?.data?.description || (!isFromInstance && calendar.isUserCalendar)
   });
+
+  console.log(value, calendar);
 
   const percentaje = useMemo(() => {
     if (value.data && value.data.subtask && value.data.subtask.length) {
@@ -55,7 +61,6 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
     return null;
   }, [value]);
 
-  const image = value.image;
 
   const avatar = {
     image: image || null,
@@ -86,6 +91,8 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
   const { image: a, ...avatarNoImage } = avatar;
 
+  console.log(avatar);
+
   return (
     <Paper
       shadow='none'
@@ -96,7 +103,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
       <Box className={classes.topSection}>
         <Box className={classes.title}>{value.title}</Box>
 
-        {value.deadline || value.endDate || value?.data?.description ?
+        {value.deadline || value.endDate || value?.data?.description || (!isFromInstance && calendar.isUserCalendar) ?
           <Box className={classes.line}></Box> : null}
 
         {value.data && value.data.description ? (
@@ -109,7 +116,8 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
 
         {value.deadline ? <Box
           sx={(theme) => ({ margin: `-0.5rem` })}><LibraryCardDeadline {...value.deadline} /></Box> : value.endDate ?
-          <Text size='xs'>{dayjs(value.endDate).format('DD/MM/YYYY HH:mm')}</Text>
+          <Text
+            size='xs'>{labels.delivery} {dayjs(value.endDate).format('DD/MM/YYYY HH:mm')}</Text>
           : null}
 
       </Box>
@@ -117,9 +125,11 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
         <Box className={classes.bottomSectionBg} />
         <Box className={classes.bottomSectionContent}>
           <Box className={classes.avatar}>
-            <Box sx={(theme) => ({ display: 'inline-block', zIndex: 2, verticalAlign: 'middle' })}>
+            {!isFromInstance || (isFromInstance && (!avatar.image || !avatar.icon)) ? <Box
+              sx={(theme) => ({ display: 'inline-block', zIndex: 2, verticalAlign: 'middle' })}>
               <Avatar mx='auto' size='xs' {...avatar} />
-            </Box>
+            </Box> : null}
+
             {avatar.image && avatar.icon ? <Box
               sx={(theme) => ({
                 display: 'inline-block',
@@ -129,7 +139,7 @@ const KanbanTaskCard = ({ value, config, onClick, ...props }) => {
               mx='auto' size='xs' {...avatarNoImage} /></Box> : null}
             {value.calendarName ? (
               <Paragraph size='xs' sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
-                {value.uniqClasses.length > 1 ? `(${value.uniqClasses.length})` : value.calendarName}
+                {value.uniqClasses.length > 1 && !isFromInstance ? `(${value.uniqClasses.length})` : value.calendarName}
               </Paragraph>
             ) : null}
           </Box>
