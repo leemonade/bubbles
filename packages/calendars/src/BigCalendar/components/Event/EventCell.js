@@ -407,6 +407,7 @@ function EventCell(thisprops) {
     >
       <Box sx={() => ({
         display: 'flex', alignItems: 'center', whiteSpace: 'nowrap',
+        width: '100%',
         maxWidth: rAvatar ? 'calc(100% - 30px)' : '100%',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
