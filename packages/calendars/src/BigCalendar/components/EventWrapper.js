@@ -7,7 +7,7 @@ import {
   getFontProductive,
   ImageLoader,
   Stack,
-  Text
+  Text,
 } from '@bubbles-ui/components';
 import { colord } from 'colord';
 
@@ -23,11 +23,11 @@ const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
     date: {
       ...getFontProductive('10px', '500'),
       color: theme.colors.text05,
-      marginTop: theme.spacing[1]
+      marginTop: theme.spacing[1],
     },
     texts: {
       marginTop: 0, // theme.spacing[1]
-      lineHeight: '1em'
+      lineHeight: '1em',
     },
     icon: {
       borderRadius: '50%',
@@ -40,9 +40,9 @@ const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
       justifyContent: 'center',
       verticalAlign: 'middle',
       img: {
-        filter: 'brightness(0) invert(1)'
-      }
-    }
+        filter: 'brightness(0) invert(1)',
+      },
+    },
   };
 });
 
@@ -66,9 +66,8 @@ export function EventWrapper(props) {
     onDoubleClick,
     isBackgroundEvent,
     onKeyPress,
-    components: { forceBgColorToEvents }
+    components: { forceBgColorToEvents },
   } = props;
-
 
   const { classes } = eventWrapperStyles({});
 
@@ -86,25 +85,25 @@ export function EventWrapper(props) {
 
   const eventStyle = isBackgroundEvent
     ? {
-      ...userProps.style,
-      top: stringifyPercent(top),
-      height: stringifyPercent(height),
-      minHeight: '35px',
-      // Adding 10px to take events container right margin into account
-      width: `calc(${width} + 10px)`,
-      [rtl ? 'right' : 'left']: stringifyPercent(Math.max(0, xOffset))
-    }
+        ...userProps.style,
+        top: stringifyPercent(top),
+        height: stringifyPercent(height),
+        minHeight: '35px',
+        // Adding 10px to take events container right margin into account
+        width: `calc(${width} + 10px)`,
+        [rtl ? 'right' : 'left']: stringifyPercent(Math.max(0, xOffset)),
+      }
     : {
-      ...userProps.style,
-      top: stringifyPercent(top),
-      width: stringifyPercent(width),
-      height: stringifyPercent(height),
-      backgroundColor: forceBgColorToEvents
-        ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-        : null,
-      minHeight: '35px',
-      [rtl ? 'right' : 'left']: stringifyPercent(xOffset)
-    };
+        ...userProps.style,
+        top: stringifyPercent(top),
+        width: stringifyPercent(width),
+        height: stringifyPercent(height),
+        backgroundColor: forceBgColorToEvents
+          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+          : null,
+        minHeight: '35px',
+        [rtl ? 'right' : 'left']: stringifyPercent(xOffset),
+      };
 
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
@@ -113,20 +112,21 @@ export function EventWrapper(props) {
     icon: eventIcon ? (
       <Box className={classes.icon}>
         <ImageLoader
-          height='12px'
+          height="12px"
+          width="12px"
           imageStyles={{
             position: 'absolute',
             left: '50%',
             top: '50%',
             width: 12,
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
           }}
           src={eventIcon}
           forceImage
         />
       </Box>
     ) : null,
-    color: bgColor
+    color: bgColor,
   };
 
   if (originalEvent.calendar.isUserCalendar) {
@@ -149,7 +149,7 @@ export function EventWrapper(props) {
         {
           'rbc-selected': selected,
           'rbc-event-continues-earlier': continuesPrior,
-          'rbc-event-continues-later': continuesAfter
+          'rbc-event-continues-later': continuesAfter,
         }
       )}
     >
@@ -158,11 +158,11 @@ export function EventWrapper(props) {
       ) : (
         <Stack spacing={1}>
           <Box>
-            <Avatar mx='auto' size='xs' {...avatar} />
+            <Avatar mx="auto" size="xs" {...avatar} />
           </Box>
           <Box className={classes.texts}>
             <Box>
-              <Text role='productive' color='primary' size='xs'>
+              <Text role="productive" color="primary" size="xs">
                 {title}
               </Text>
             </Box>

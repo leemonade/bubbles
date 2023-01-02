@@ -119,6 +119,7 @@ function Agenda({
           <Box style={icon}>
             <ImageLoader
               height="12px"
+              width="12px"
               imageStyles={{
                 position: 'absolute',
                 left: '50%',
