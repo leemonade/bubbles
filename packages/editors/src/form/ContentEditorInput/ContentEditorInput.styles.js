@@ -16,7 +16,7 @@ export const ContentEditorInputStyles = createStyles(
         paddingBlock: 32,
         paddingInline: 24,
         backgroundColor: theme.other.global.background.color.surface.subtle,
-        // backgroundColor: 'grey',
+        // backgroundColor: 'black',
         flex: 1,
         overflowY: 'auto',
       },
@@ -61,7 +61,7 @@ export const ContentEditorInputStyles = createStyles(
         justifyContent: 'space-between',
       },
       schema: {
-        paddingTop: 24,
+        paddingBlock: 24,
         paddingLeft: 32,
         paddingRight: 40,
         display: 'flex',
