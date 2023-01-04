@@ -19,7 +19,10 @@ export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
   library: PropTypes.element,
   onChange: PropTypes.func,
+  onSchemaChange: PropTypes.func,
   editorClassname: PropTypes.string,
+  toolbarClassname: PropTypes.string,
+  editorContainerClassname: PropTypes.string,
   useJSON: PropTypes.bool,
 };
 
@@ -27,7 +30,10 @@ const TextEditor = ({
   content,
   children,
   onChange,
+  onSchemaChange,
   editorClassname,
+  toolbarClassname,
+  editorContainerClassname,
   placeholder,
   readOnly,
   useJSON,
@@ -67,6 +73,7 @@ const TextEditor = ({
     store.current.content = newContent;
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
+    if (isFunction(onSchemaChange)) onSchemaChange(editor.getJSON());
   };
 
   useEffect(() => {
@@ -147,15 +154,20 @@ const TextEditor = ({
       onFocus={() => {
         store.current.isFocus = true;
       }}
+      style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
     >
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <>
-            <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
+            <Toolbar toolbarLabel={'Toolbar'} className={toolbarClassname}>
+              {children}
+            </Toolbar>
             <BubbleMenu />
           </>
         )}
-        <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+        <Box className={cx(classes.editorContainer, editorContainerClassname)}>
+          <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+        </Box>
       </TextEditorProvider>
     </Box>
   );

@@ -4,9 +4,15 @@ import { TEXT_EDITOR_DEFAULT_TOOLBARS } from '../TextEditorInput/TextEditorInput
 export const CONTENT_EDITOR_INPUT_DEFAULT_PROPS = {
   placeholder: '',
   toolbars: TEXT_EDITOR_DEFAULT_TOOLBARS,
+  labels: {
+    format: '',
+    schema: '',
+  },
   required: false,
   error: '',
   editorStyles: {},
+  openSchema: false,
+  useSchema: false,
 };
 export const CONTENT_EDITOR_INPUT_PROP_TYPES = {
   placeholder: PropTypes.string,
@@ -15,6 +21,10 @@ export const CONTENT_EDITOR_INPUT_PROP_TYPES = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,
   children: PropTypes.element,
+  labels: PropTypes.shape({
+    format: PropTypes.string,
+    schema: PropTypes.string,
+  }),
   toolbars: PropTypes.shape({
     heading: PropTypes.bool,
     color: PropTypes.bool,
@@ -25,4 +35,6 @@ export const CONTENT_EDITOR_INPUT_PROP_TYPES = {
   }),
   editorStyles: PropTypes.object,
   editorClassname: PropTypes.string,
+  openSchema: PropTypes.bool,
+  useSchema: PropTypes.bool,
 };

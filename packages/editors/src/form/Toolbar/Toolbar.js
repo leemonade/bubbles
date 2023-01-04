@@ -13,7 +13,7 @@ export const TOOLBAR_PROP_TYPES = {
   useAria: PropTypes.bool,
 };
 
-const Toolbar = ({ children, useAria, toolbarLabel, ...props }) => {
+const Toolbar = ({ children, useAria, toolbarLabel, className, ...props }) => {
   const { classes, cx } = ToolbarStyles({ name: 'Toolbar' });
   const toolbarRef = useRef();
   const originalChildren = Children.toArray(children).map((child) => (
@@ -55,15 +55,13 @@ const Toolbar = ({ children, useAria, toolbarLabel, ...props }) => {
   }, [maxWidth, childrenWidths]);
 
   return (
-    <Box className={classes.root}>
-      <Box ref={toolbarRef} className={classes.toolbar} {...props}>
-        {toolbarChilds}
-        {dropdownChilds.length > 0 && (
-          <Box className={classes.toolbarTool}>
-            <ToolbarTool tools={dropdownChilds} useAria={useAria} toolbarLabel={toolbarLabel} />
-          </Box>
-        )}
-      </Box>
+    <Box ref={toolbarRef} className={cx(classes.toolbar, className)} {...props}>
+      {toolbarChilds}
+      {dropdownChilds.length > 0 && (
+        <Box className={classes.toolbarTool}>
+          <ToolbarTool tools={dropdownChilds} useAria={useAria} toolbarLabel={toolbarLabel} />
+        </Box>
+      )}
     </Box>
   );
 };

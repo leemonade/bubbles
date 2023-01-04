@@ -13,6 +13,7 @@ export const HEADINGS_TOOL_DEFAULT_PROPS = {
     title3: 'Title 3',
     paragraph: 'Paragraph',
   },
+  label: '',
 };
 
 export const HEADINGS_TOOL_PROP_TYPES = {
@@ -23,9 +24,10 @@ export const HEADINGS_TOOL_PROP_TYPES = {
     title3: PropTypes.string,
     paragraph: PropTypes.string,
   }),
+  label: PropTypes.string,
 };
 
-const HeadingsTool = ({ labels }) => {
+const HeadingsTool = ({ labels, label }) => {
   const [level, setLevel] = useState(0);
   const { editor } = useContext(TextEditorContext);
 
@@ -83,7 +85,13 @@ const HeadingsTool = ({ labels }) => {
           {labels.title}
         </Text>
       )}
-      <Select data={VALUES} value={level} onChange={handleOnChange} itemComponent={SelectItem} />
+      <Select
+        label={label}
+        data={VALUES}
+        value={level}
+        onChange={handleOnChange}
+        itemComponent={SelectItem}
+      />
     </Box>
   );
 };

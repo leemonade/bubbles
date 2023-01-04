@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box } from '@bubbles-ui/components';
 import { ContentEditorInput } from './ContentEditorInput';
 import { CONTENT_EDITOR_INPUT_DEFAULT_PROPS } from './ContentEditorInput.constants';
 import { TEXT_EDITOR_DEFAULT_TOOLBARS } from '../TextEditorInput/TextEditorInput.constants';
@@ -30,14 +31,16 @@ const Template = ({ ...props }) => {
 `);
 
   return (
-    <ContentEditorInput
-      {...props}
-      value={value}
-      onChange={(v) => {
-        props.onChange(v);
-        setValue(v);
-      }}
-    />
+    <Box style={{ height: 'calc(100vh - 36px)' }}>
+      <ContentEditorInput
+        {...props}
+        value={value}
+        onChange={(v) => {
+          props.onChange(v);
+          setValue(v);
+        }}
+      />
+    </Box>
   );
 };
 
@@ -51,4 +54,8 @@ Playground.args = {
   error: 'Descriptive text for error ',
   useJSON: true,
   toolbars: { ...TEXT_EDITOR_DEFAULT_TOOLBARS },
+  labels: {
+    format: 'Formato',
+    schema: 'Esquema',
+  },
 };
