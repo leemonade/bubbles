@@ -9,7 +9,7 @@ import { AddIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../Box';
 import { Text, Title } from '../../typography';
 import { Stack } from '../Stack';
-import { isEmpty, isObject, isString, trim } from 'lodash';
+import { isEmpty, isFunction, isObject, isString, trim } from 'lodash';
 import { Button } from '../../form';
 
 const PageHeader = ({
