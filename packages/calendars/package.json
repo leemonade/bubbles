@@ -50,7 +50,7 @@
     "colord": "^2.9.2",
     "dom-helpers": "^5.2.1",
     "lodash": "^4.17.21",
-    "luxon": "^2.1.1",
+    "luxon": "^2.5.2",
     "memoize-one": "^6.0.0",
     "prop-types": "^15.7.2",
     "react-big-calendar": "^0.38.1",
