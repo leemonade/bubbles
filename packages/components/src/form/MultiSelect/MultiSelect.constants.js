@@ -28,7 +28,7 @@ export const MULTI_SELECT_DEFAULT_PROPS = {
   multiple: true,
   autoSelectOneOption: false,
   useAria: true,
-  dropdownPosition: MULTI_SELECT_DROPDOWN_POSITIONS[0],
+  dropdownPosition: MULTI_SELECT_DROPDOWN_POSITIONS[2],
   withinPortal: true,
 };
 
