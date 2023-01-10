@@ -1,11 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Box, Text, TextClamp } from '@bubbles-ui/components';
-import { ContentEditorInputStyles } from './ContentEditorInput.styles';
-import {
-  CONTENT_EDITOR_INPUT_DEFAULT_PROPS,
-  CONTENT_EDITOR_INPUT_PROP_TYPES,
-} from './ContentEditorInput.constants';
+import { ArrowRightIcon } from '@bubbles-ui/icons/outline';
 import { TextEditor } from '../TextEditor';
 import {
   ColorTool,
@@ -14,9 +10,13 @@ import {
   ListIndentTool,
   TextAlignTool,
   ScriptsTool,
+  LinkTool,
 } from '../../tool';
-import { ArrowRightIcon } from '@bubbles-ui/icons/outline';
-import { useEffect } from 'react';
+import { ContentEditorInputStyles } from './ContentEditorInput.styles';
+import {
+  CONTENT_EDITOR_INPUT_DEFAULT_PROPS,
+  CONTENT_EDITOR_INPUT_PROP_TYPES,
+} from './ContentEditorInput.constants';
 
 const ContentEditorInput = ({
   error,
@@ -105,6 +105,7 @@ const ContentEditorInput = ({
           {toolbars.align && <TextAlignTool />}
           {toolbars.list && <ListIndentTool />}
           {toolbars.formulation && <ScriptsTool />}
+          {toolbars.link && <LinkTool />}
 
           {children}
         </TextEditor>
