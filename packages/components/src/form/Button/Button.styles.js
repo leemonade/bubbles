@@ -303,6 +303,7 @@ export const ButtonStyles = createStyles(
     const getTextAlign = () => {
       if (textAlign === 'left') return 'start';
       if (textAlign === 'right') return 'end';
+      if (textAlign === 'appart') return 'space-between';
       return 'center';
     };
 

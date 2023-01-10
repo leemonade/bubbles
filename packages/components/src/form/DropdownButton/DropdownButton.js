@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DropdownButtonStyles } from './DropdownButton.styles';
 import {
   DROPDOWN_BUTTON_DEFAULT_PROPS,
-  DROPDOWN_BUTTON_PROP_TYPES
+  DROPDOWN_BUTTON_PROP_TYPES,
 } from './DropdownButton.constants';
 import { Button } from '../Button';
 import { ChevDownIcon } from '@bubbles-ui/icons/outline';
@@ -32,10 +32,10 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
           {...props}
           rightIcon={<ChevDownIcon height={18} width={18} />}
           onClick={() => setOpened(!opened)}
-          textAlign='left'
+          textAlign="appart"
         />
       }
-      width='target'
+      width="target"
       closeOnEscape
       closeOnClickOutside
       onClose={() => setOpened(false)}
