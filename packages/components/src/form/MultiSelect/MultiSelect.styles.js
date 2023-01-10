@@ -27,6 +27,7 @@ export const MultiSelectStyles = createStyles((theme, { size, rightEvents, hasIc
       border: 'none',
       backgroundColor: 'inherit !important',
       boxShadow: 'none !important',
+      minWidth: 'unset',
     },
     values: {
       ...inputStyles,
