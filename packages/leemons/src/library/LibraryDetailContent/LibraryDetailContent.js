@@ -1,14 +1,14 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import {
+  ActionButton,
   Badge,
   Box,
   ImageLoader,
   Paper,
   Stack,
   Text,
-  useClipboard,
-  ActionButton,
+  useClipboard
 } from '@bubbles-ui/components';
 import { DuplicateIcon } from '@bubbles-ui/icons/outline';
 import { getDomain, LibraryCardContent } from '../LibraryCardContent';
@@ -16,22 +16,24 @@ import { LibraryCardFooter } from '../LibraryCardFooter';
 import { LibraryDetailContentStyles } from './LibraryDetailContent.styles';
 import {
   LIBRARY_DETAIL_CONTENT_DEFAULT_PROPS,
-  LIBRARY_DETAIL_CONTENT_PROP_TYPES,
+  LIBRARY_DETAIL_CONTENT_PROP_TYPES
 } from './LibraryDetailContent.constants';
 
 const LibraryDetailContent = ({
-  description,
-  metadata,
-  tags,
-  url,
-  icon,
-  fileType,
-  fileExtension,
-  variant,
-  variantTitle,
-  onCopy = () => {},
-  ...props
-}) => {
+                                description,
+                                metadata,
+                                tags,
+                                url,
+                                icon,
+                                fileType,
+                                fileExtension,
+                                variant,
+                                variantIcon,
+                                variantTitle,
+                                onCopy = () => {
+                                },
+                                ...props
+                              }) => {
   const { classes, cx } = LibraryDetailContentStyles({}, { name: 'LibraryDetailContent' });
   const clipboard = useClipboard({ timeout: 2000 });
 
@@ -41,9 +43,10 @@ const LibraryDetailContent = ({
   };
 
   return (
-    <Stack direction="column" className={classes.root}>
+    <Stack direction='column' className={classes.root}>
       <LibraryCardContent description={description} truncated={false} />
       <LibraryCardFooter
+        variantIcon={variantIcon}
         variantTitle={variantTitle}
         variant={variant}
         fileType={fileType}
@@ -53,17 +56,17 @@ const LibraryDetailContent = ({
         <Box
           sx={(theme) => ({ padding: theme.spacing[2], backgroundColor: theme.colors.mainWhite })}
         >
-          <Paper bordered padding={2} radius="sm" shadow="none" fullWidth>
+          <Paper bordered padding={2} radius='sm' shadow='none' fullWidth>
             <Stack fullWidth spacing={2}>
               <Box skipFlex>
                 <ImageLoader src={icon} height={20} width={20} radius={4} />
               </Box>
               <Box>
-                <Stack direction="column" display="grid">
-                  <Text size="xs" strong>
+                <Stack direction='column' display='grid'>
+                  <Text size='xs' strong>
                     {getDomain(url)}
                   </Text>
-                  <Text size="xs" role="productive" truncated>
+                  <Text size='xs' role='productive' truncated>
                     {url}
                   </Text>
                 </Stack>
@@ -82,7 +85,7 @@ const LibraryDetailContent = ({
           </Paper>
         </Box>
       )}
-      <Stack direction="column" className={classes.lowerContent}>
+      <Stack direction='column' className={classes.lowerContent}>
         {!isEmpty(metadata) && <LibraryCardContent metadata={metadata} />}
         {tags?.length > 0 && (
           <Box className={classes.tags}>
@@ -91,7 +94,7 @@ const LibraryDetailContent = ({
                 <Box key={`${tag} ${index}`}>
                   <Badge
                     label={tag}
-                    size="md"
+                    size='md'
                     closable={false}
                     radius={'default'}
                     color={'stroke'}

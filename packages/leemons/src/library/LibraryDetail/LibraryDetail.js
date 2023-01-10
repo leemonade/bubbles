@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty, isFunction } from 'lodash';
-import { AvatarsGroup, FileIcon, Stack, Text, Box, ActionButton } from '@bubbles-ui/components';
+import { ActionButton, AvatarsGroup, Box, FileIcon, Stack, Text } from '@bubbles-ui/components';
 import { MoveRightIcon } from '@bubbles-ui/icons/outline';
 import { LibraryDetailContent } from '../LibraryDetailContent';
 import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
@@ -9,18 +9,19 @@ import { LibraryDetailStyles } from './LibraryDetail.styles';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
 const LibraryDetail = ({
-  asset,
-  variant,
-  variantTitle,
-  toolbar,
-  toolbarItems,
-  drawer,
-  open,
-  labels,
-  titleActionButton,
-  style,
-  ...events
-}) => {
+                         asset,
+                         variant,
+                         variantIcon,
+                         variantTitle,
+                         toolbar,
+                         toolbarItems,
+                         drawer,
+                         open,
+                         labels,
+                         titleActionButton,
+                         style,
+                         ...events
+                       }) => {
   const [showDrawer, setShowDrawer] = useState(open);
 
   useEffect(() => {
@@ -42,13 +43,13 @@ const LibraryDetail = ({
   return (
     <Box style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <Stack
-        direction="column"
+        direction='column'
         fullHeight
         className={cx(classes.root, classes.wrapper, { [classes.show]: showDrawer })}
         style={style}
       >
         <Stack
-          direction="column"
+          direction='column'
           fullHeight
           // className={cx(classes.wrapper, { [classes.show]: showDrawer })}
         >
@@ -81,21 +82,22 @@ const LibraryDetail = ({
           />
           <LibraryDetailContent
             {...asset}
+            variantIcon={variantIcon}
             variantTitle={variantTitle}
             variant={variant}
             labels={labels}
           />
           {!asset.public && !isEmpty(asset?.canAccess) && (
-            <Stack direction="column" spacing={2} padding={4}>
-              <Text role="productive" size="xs">
+            <Stack direction='column' spacing={2} padding={4}>
+              <Text role='productive' size='xs'>
                 {labels.sharedWith}
               </Text>
-              <AvatarsGroup size="xs" data={asset.canAccess} limit={3} />
+              <AvatarsGroup size='xs' data={asset.canAccess} limit={3} />
             </Stack>
           )}
           {asset.public && (
-            <Stack direction="column" spacing={2} padding={4}>
-              <Text role="productive" size="xs">
+            <Stack direction='column' spacing={2} padding={4}>
+              <Text role='productive' size='xs'>
                 {labels.sharedWithEverybody}
               </Text>
             </Stack>
@@ -109,7 +111,7 @@ const LibraryDetail = ({
             onClick={handleToggle}
             tooltip={!open ? toolbarItems.open || toolbarItems.toggle : toolbarItems.toggle}
             className={cx(classes.button, {
-              [classes.flip]: !showDrawer,
+              [classes.flip]: !showDrawer
             })}
           />
         </Box>
