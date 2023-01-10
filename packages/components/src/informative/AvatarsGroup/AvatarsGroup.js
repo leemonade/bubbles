@@ -5,17 +5,28 @@ import { Box } from '../../layout';
 import { Avatar } from '../Avatar/Avatar';
 import { AvatarsGroupStyles } from './AvatarsGroup.styles';
 import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './AvatarsGroup.constants';
+import { ImageLoader } from '../../misc';
 
-const AvatarsGroup = ({ data, size, limit, total, ...props }) => {
+const AvatarsGroup = ({ data, classesData, size, limit, total, ...props }) => {
   const { classes, cx, theme } = AvatarsGroupStyles({ size }, { name: 'AvatarsGroup' });
 
   const avatars = useMemo(() => {
-    if (!isEmpty(data) && isNumber(limit) && data.length > limit) {
-      return data.slice(0, limit);
+    const avatars = [];
+
+    if (!isEmpty(data)) {
+      avatars.push(...data.map(avatar => ({ ...avatar, type: 'avatar' })))
     }
 
-    return data;
-  }, [data, limit]);
+    if (!isEmpty(classesData)) {
+      avatars.push(...classesData.map(avatar => ({ ...avatar, type: 'icon' })))
+    }
+
+    if (!isEmpty(avatars) && isNumber(limit) && avatars.length > limit) {
+      return avatars.slice(0, limit);
+    }
+
+    return avatars;
+  }, [data, classesData, limit]);
 
   const overflow = useMemo(() => {
     const limitDiff = data.length - avatars.length;
@@ -26,15 +37,33 @@ const AvatarsGroup = ({ data, size, limit, total, ...props }) => {
   return (
     <>
       <Box {...props} className={classes.root}>
-        {avatars.map((item, index) => (
-          <Avatar
-            key={`k-${index}`}
-            fullName={item.fullName}
-            image={item.avatar}
-            size={size}
-            alt={`Avatar of ${item.fullName}`}
-          />
-        ))}
+        {avatars.map((item, index) => {
+          if (item.type === 'avatar') {
+            return (
+              <Avatar
+                key={`k-${index}`}
+                fullName={item.fullName}
+                image={item.avatar}
+                size={size}
+                alt={`Avatar of ${item.fullName}`}
+              />
+            )
+          }
+
+          if (item.type === 'icon') {
+            return (
+              <Avatar
+                key={`k-${index}`}
+                fullName={item.fullName}
+                image={item.avatar}
+                size={size}
+                styles={{ root: { backgroundColor: item.color, display: 'flex', justifyContent: 'center', alignItems: 'center' }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' } }}
+                alt={`Icon of ${item.fullName}`}
+              />
+
+            )
+          }
+        })}
         {overflow > 0 && (
           <Avatar
             size={size}

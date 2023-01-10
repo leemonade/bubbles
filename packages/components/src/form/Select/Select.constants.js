@@ -14,7 +14,7 @@ export const SELECT_DEFAULT_PROPS = {
   readOnly: false,
   variant: 'default',
   autoSelectOneOption: false,
-  dropdownPosition: SELECT_DROPDOWN_POSITIONS[0],
+  dropdownPosition: SELECT_DROPDOWN_POSITIONS[2],
   withinPortal: true,
 };
 export const SELECT_PROP_TYPES = {
