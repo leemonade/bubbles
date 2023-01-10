@@ -136,7 +136,7 @@ const TextEditor = ({
       editor.on('transaction', handleTransactions);
       return () => editor.off('transaction', handleTransactions);
     }
-  }, [editor]);
+  }, [editor, handleTransactions]);
 
   useEffect(() => {
     if (editor) {

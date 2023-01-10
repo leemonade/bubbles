@@ -19,10 +19,15 @@ export const PageHeaderStyles = createStyles((theme, { withDivider }) => {
     },
     titleContainer: {
       gap: global.spacing.gap.lg,
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
     },
-    buttonContainer: {
+    buttonWrapper: {
       display: 'flex',
       gap: global.spacing.gap.lg,
+      alignItems: 'center',
+      marginLeft: 16,
     },
     title: {
       color: global.content.color.text.emphasis,

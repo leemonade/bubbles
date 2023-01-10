@@ -14,7 +14,7 @@ export const Input = forwardRef(
       disabled,
       size: sizeProp = 'md',
       autoComplete = 'off',
-      className,
+      classNames = {},
       ...props
     },
     ref
@@ -33,7 +33,7 @@ export const Input = forwardRef(
         icon={icon}
         disabled={disabled}
         rightSection={rightSection}
-        classNames={classes}
+        classNames={{ ...classes, input: cx(classes.input, classNames.input) }}
         autoComplete={autoComplete}
       />
     );

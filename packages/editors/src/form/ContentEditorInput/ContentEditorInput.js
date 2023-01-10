@@ -63,7 +63,7 @@ const ContentEditorInput = ({
               />
             </Box>
             <Box className={classes.schema}>
-              {schema.map((element) => {
+              {schema.map((element, index) => {
                 const level = element.attrs.level;
 
                 //If it is a paragraph, there is no content or a title lower than h2 we do not print it.
@@ -75,7 +75,7 @@ const ContentEditorInput = ({
                   return;
 
                 return (
-                  <Box>
+                  <Box key={index}>
                     <TextClamp lines={1}>
                       <Box className={classes[`${level === 1 ? 'title' : 'subtitle'}`]}>
                         {element.content[0].text}

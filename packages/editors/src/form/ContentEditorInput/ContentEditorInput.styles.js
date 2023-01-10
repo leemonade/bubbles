@@ -19,6 +19,8 @@ export const ContentEditorInputStyles = createStyles(
         // backgroundColor: 'black',
         flex: 1,
         overflowY: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
       },
       editor: {
         ...editorStyles,
@@ -27,6 +29,7 @@ export const ContentEditorInputStyles = createStyles(
         margin: 0,
         paddingBlock: 32,
         paddingInline: 48,
+        width: '210mm',
         minHeight: '297mm',
       },
       toolbarRoot: {
@@ -42,7 +45,7 @@ export const ContentEditorInputStyles = createStyles(
         maxWidth: isSchemaOpened ? 300 : 40,
         flex: 1,
         position: 'relative',
-        transition: 'all 0.3s',
+        transition: 'all 0.2s',
       },
       schemaTranslate: {
         transform: !isSchemaOpened && 'translateX(calc(-100% + 40px))',
