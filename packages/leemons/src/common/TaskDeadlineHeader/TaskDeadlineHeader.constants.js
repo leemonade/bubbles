@@ -12,7 +12,7 @@ export const TASK_DEADLINE_HEADER_DEFAULT_PROPS = {
   title: '',
   subtitle: '',
   closed: false,
-  locale: 'en-GB',
+  locale: 'en',
 };
 export const TASK_DEADLINE_HEADER_PROP_TYPES = {
   labels: PropTypes.shape({

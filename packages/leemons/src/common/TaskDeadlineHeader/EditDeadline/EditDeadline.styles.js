@@ -24,5 +24,8 @@ export const EditDeadlineStyles = createStyles((theme, {}) => {
       display: 'flex',
       gap: 16,
     },
+    inputHeader: {
+      width: 240,
+    },
   };
 });

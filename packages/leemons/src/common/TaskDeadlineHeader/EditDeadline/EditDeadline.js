@@ -15,6 +15,7 @@ const EditDeadline = ({
   cancelSave,
   saveDates,
   isStarted,
+  locale,
   ...props
 }) => {
   const { classes, cx } = EditDeadlineStyles({}, { name: 'EditDeadline' });
@@ -30,7 +31,7 @@ const EditDeadline = ({
     <Popover opened={opened} target={target} offset={21} position={'bottom'} {...props}>
       <Box className={classes.root}>
         <Box className={classes.formWrapper}>
-          <Select label={labels.period} />
+          {/* <Select label={labels.period} /> */}
           <Box className={classes.inputRow}>
             <DatePicker
               size="sm"
@@ -39,6 +40,8 @@ const EditDeadline = ({
               onChange={(date) => onDateChange('start', date)}
               minDate={today}
               disabled={isStarted}
+              locale={locale}
+              contentClassName={classes.inputHeader}
             />
             <TimeInput
               size="sm"
@@ -47,6 +50,7 @@ const EditDeadline = ({
               value={startDate}
               onChange={(date) => onHourChange('start', getHoursAndMinutes(date))}
               disabled={isStarted}
+              locale={locale}
             />
           </Box>
           <Box className={classes.inputRow}>
@@ -56,6 +60,8 @@ const EditDeadline = ({
               value={endDate}
               onChange={(date) => onDateChange('deadline', date)}
               minDate={endDateMin}
+              locale={locale}
+              contentClassName={classes.inputHeader}
             />
             <TimeInput
               size="sm"
@@ -63,6 +69,7 @@ const EditDeadline = ({
               label={labels.endHour}
               value={endDate}
               onChange={(date) => onHourChange('deadline', getHoursAndMinutes(date))}
+              locale={locale}
             />
           </Box>
         </Box>

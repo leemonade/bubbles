@@ -16,6 +16,7 @@ export default {
     },
   },
   argTypes: {
+    locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
     onDeadlineChange: { action: 'onDeadlineChange' },
     onCloseTask: { action: 'onCloseTask' },
   },
@@ -36,7 +37,7 @@ Playground.args = {
   color: '#FABADA',
   startDate: new Date('2022-12-10 18:00:00'),
   deadline: new Date('2022-12-20 18:00:00'),
-  locale: 'es-ES',
+  locale: 'en',
   labels: {
     noDeadline: 'No deadline',
     deadline: 'Deadline',
