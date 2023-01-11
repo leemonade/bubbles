@@ -11,33 +11,33 @@ import {
   ScrollArea,
   SimpleBar,
   Stack,
-  Text
+  Text,
 } from '@bubbles-ui/components';
 import { PluginKimIcon, PluginLeebraryIcon } from '@bubbles-ui/icons/solid';
 import {
   BookPagesIcon,
   CloudUploadIcon,
   ManWomanIcon,
-  RemoveIcon
+  RemoveIcon,
 } from '@bubbles-ui/icons/outline';
 import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
 import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './LibraryNavbar.constants';
 
 const LibraryNavbar = ({
-                         labels,
-                         categories,
-                         selectedCategory,
-                         subjects,
-                         showSharedsWithMe,
-                         onNavShared,
-                         onNav,
-                         onNavSubject,
-                         onFile,
-                         onNew,
-                         useNewCreateButton = true,
-                         loading
-                       }) => {
+  labels,
+  categories,
+  selectedCategory,
+  subjects,
+  showSharedsWithMe,
+  onNavShared,
+  onNav,
+  onNavSubject,
+  onFile,
+  onNew,
+  useNewCreateButton = true,
+  loading,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [subjectsOpened, setSubjectsOpened] = useState(true);
@@ -71,19 +71,16 @@ const LibraryNavbar = ({
 
   const renderNavbarItems = useCallback(
     (callback, onlyCreatable = false, ignoreSelected = false) => {
-
       if (onlyCreatable && useNewCreateButton) {
         return categories
-          .filter((item) => (item.creatable === true))
-          .map((category) => (
-            {
-              icon: category.icon,
-              label: category.name,
-              onClick: () => {
-                callback(category);
-              }
-            }
-          ));
+          .filter((item) => item.creatable === true)
+          .map((category) => ({
+            icon: category.icon,
+            label: category.name,
+            onClick: () => {
+              callback(category);
+            },
+          }));
       }
 
       const result = [
@@ -101,68 +98,75 @@ const LibraryNavbar = ({
               }
               onClick={() => callback(category)}
             />
-          ))
+          )),
       ];
       if (showSharedsWithMe) {
-        result.push(<NavbarItem
-          key={'shared-with-me'}
-          icon={<ManWomanIcon />}
-          label={labels.sharedWithMe}
-          loading={loading}
-          selected={selectedCategory === 'shared-with-me'}
-          onClick={() => onNavShared('shared-with-me')}
-        />);
+        result.push(
+          <NavbarItem
+            key={'shared-with-me'}
+            icon={<ManWomanIcon />}
+            label={labels.sharedWithMe}
+            loading={loading}
+            selected={selectedCategory === 'shared-with-me'}
+            onClick={() => onNavShared('shared-with-me')}
+          />
+        );
       }
       if (subjects && subjects.length) {
-        result.push(<NavbarItem
-          key={'student-subjects'}
-          icon={<BookPagesIcon />}
-          label={labels.subjects}
-          loading={loading}
-          selected={false}
-          canOpen
-          opened={subjectsOpened}
-          onClick={() => {
-            setSubjectsOpened(!subjectsOpened);
-          }}
-        >
-          <ScrollArea style={{ height: 300, maxWidth: '100%' }}>
-            {subjects.map((subject) => {
-              return <Box
-                onClick={() => onNavSubject(subject)}
-                sx={(theme) => ({
-                  display: 'flex',
-                  flexDirection: 'row',
-                  gap: theme.spacing[2],
-                  alignItems: 'center',
-                  padding: `${theme.spacing[2]}px ${theme.spacing[4]}px`,
-                  cursor: 'pointer',
-                  backgroundColor: selectedCategory === subject.id && theme.colors.mainWhite,
-                  '&:hover': {
-                    backgroundColor: selectedCategory !== subject.id && theme.colors.interactive03
-                  }
-                })}
-              >
-                <Box
-                  sx={() => ({
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: 24,
-                    minHeight: 24,
-                    maxWidth: 24,
-                    maxHeight: 24,
-                    borderRadius: '50%',
-                    backgroundColor: subject?.color,
-                    backgroundImage: 'url(' + subject?.image + ')',
-                    backgroundSize: 'cover'
-                  })}
-                />
-                <Text>{subject.name}</Text>
-              </Box>;
-            })}
-          </ScrollArea>
-        </NavbarItem>);
+        result.push(
+          <NavbarItem
+            key={'student-subjects'}
+            icon={<BookPagesIcon />}
+            label={labels.subjects}
+            loading={loading}
+            selected={false}
+            canOpen
+            opened={subjectsOpened}
+            onClick={() => {
+              setSubjectsOpened(!subjectsOpened);
+            }}
+          >
+            <ScrollArea style={{ height: 300, maxWidth: '100%' }}>
+              {subjects.map((subject) => {
+                return (
+                  <Box
+                    onClick={() => onNavSubject(subject)}
+                    sx={(theme) => ({
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: theme.spacing[2],
+                      alignItems: 'center',
+                      padding: `${theme.spacing[2]}px ${theme.spacing[4]}px`,
+                      cursor: 'pointer',
+                      backgroundColor: selectedCategory === subject.id && theme.colors.mainWhite,
+                      '&:hover': {
+                        backgroundColor:
+                          selectedCategory !== subject.id && theme.colors.interactive03,
+                      },
+                    })}
+                  >
+                    <Box
+                      sx={() => ({
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: 24,
+                        minHeight: 24,
+                        maxWidth: 24,
+                        maxHeight: 24,
+                        borderRadius: '50%',
+                        backgroundColor: subject?.color,
+                        backgroundImage: 'url(' + subject?.image + ')',
+                        backgroundSize: 'cover',
+                      })}
+                    />
+                    <Text>{subject.name}</Text>
+                  </Box>
+                );
+              })}
+            </ScrollArea>
+          </NavbarItem>
+        );
       }
       return result;
     },
@@ -177,13 +181,16 @@ const LibraryNavbar = ({
         <Text className={classes.title}>{labels.title}</Text>
       </Box>
       <SimpleBar className={classes.navItems}>
-
         <Stack direction={'column'} fullWidth>
-          {useNewCreateButton ?
+          {useNewCreateButton ? (
             <Box sx={(theme) => ({ padding: theme.spacing[2] })}>
-              <DropdownButton sx={() => ({ width: '100%' })} children={labels.uploadTitle}
-                              data={renderNavbarItems(onNewHandler, true, true)} />
-            </Box> : null}
+              <DropdownButton
+                sx={() => ({ width: '100%' })}
+                children={labels.uploadButton}
+                data={renderNavbarItems(onNewHandler, true, true)}
+              />
+            </Box>
+          ) : null}
           <NavbarItem
             icon={<PluginKimIcon />}
             label={labels.quickAccess}
@@ -193,7 +200,7 @@ const LibraryNavbar = ({
           <Divider style={{ marginBlock: 8, marginInline: 10 }} />
           {renderNavbarItems(onNavHandler)}
         </Stack>
-        {!useNewCreateButton ?
+        {!useNewCreateButton ? (
           <Paper
             className={classes.navbarBottom}
             shadow={!isExpanded ? 'none' : 'level03'}
@@ -221,7 +228,7 @@ const LibraryNavbar = ({
                 {isExpanded && (
                   <Stack spacing={1} alignItems={'center'} fullWidth>
                     <Box style={{ flex: 1 }}>
-                      <Text transform='uppercase' className={classes.sectionTitle}>
+                      <Text transform="uppercase" className={classes.sectionTitle}>
                         {labels.createNewTitle}
                       </Text>
                     </Box>
@@ -239,7 +246,7 @@ const LibraryNavbar = ({
                 skipFlex
               >
                 {renderNavbarItems(onNewHandler, true, true)}
-                <Text transform='uppercase' className={classes.sectionTitle}>
+                <Text transform="uppercase" className={classes.sectionTitle}>
                   {labels.uploadTitle}
                 </Text>
                 {showUpload && (
@@ -257,7 +264,7 @@ const LibraryNavbar = ({
               </Stack>
             </Stack>
           </Paper>
-          : null}
+        ) : null}
       </SimpleBar>
     </Box>
   );
