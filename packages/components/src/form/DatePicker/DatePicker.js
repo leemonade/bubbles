@@ -126,7 +126,7 @@ const DatePicker = forwardRef(
     useEffect(() => {
       let mounted = true;
 
-      import(`dayjs/locale/${locale.toLowerCase()}`).then(() => {
+      import(`dayjs/locale/${locale.toLowerCase()}.js`).then(() => {
         if (mounted) {
           setCurrentLocale(locale.toLowerCase());
           render();
