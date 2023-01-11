@@ -101,12 +101,12 @@ const DatePicker = forwardRef(
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
     const compProps = range ? { amountOfMonths: 2 } : {};
-    const [r, setR] = useState();
+    const [ready, setReady] = useState(null);
     const [date, setDate] = useState(userValue);
     const { classes } = DatePickerStyles({ size, date, range });
 
     function render() {
-      setR(new Date().getTime());
+      setReady(new Date().getTime());
     }
 
     // EN: Notify the parent component when the date changes
@@ -126,7 +126,7 @@ const DatePicker = forwardRef(
     useEffect(() => {
       let mounted = true;
 
-      import(`dayjs/locale/${locale.toLowerCase()}.js`).then(() => {
+      import(`dayjs/locale/${locale.toLowerCase()}`).then(() => {
         if (mounted) {
           setCurrentLocale(locale.toLowerCase());
           render();
@@ -171,7 +171,7 @@ const DatePicker = forwardRef(
               uuid={uuid}
               ref={ref}
               size={size}
-              value={date}
+              value={ready ? date : null}
               classNames={{ ...classes, ...calendarClasses }}
               error={!isEmpty(error)}
               onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
