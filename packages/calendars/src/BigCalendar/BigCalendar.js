@@ -35,24 +35,42 @@ export const BigCalendar = forwardRef(
       className,
       validRange,
       messages,
+      minimumStartDifference,
       monthRange,
       hooks,
+      minHour,
+      maxHour,
+      weekDays,
+      timeslots,
+      timeslotHeight = 40,
+      hideAllDayCells,
       toolbarRightNode = null,
+      hideToolbar = false,
+      forceBgColorToEvents,
       showToolbarAddButton = true,
       showToolbarToggleWeekend = true,
       showToolbarViewSwitcher = true,
       showWeekends: showWeekendsProp,
-      dateClick = () => {},
-      onSelectDay = () => {},
-      onRangeChange = () => {},
-      onSelectEvent = () => {},
-      eventClick = () => {},
-      backgroundEventClick = () => {},
-      addEventClick = () => {},
+      printMode,
+      dateClick = () => {
+      },
+      onSelectDay = () => {
+      },
+      onRangeChange = () => {
+      },
+      onSelectEvent = () => {
+      },
+      eventClick = () => {
+      },
+      backgroundEventClick = () => {
+      },
+      addEventClick = () => {
+      },
       ...props
     },
     ref
   ) => {
+    const [showType, setShowType] = useState('full');
     const [showWeekends, setShowWeekends] = useState(showWeekendsProp);
     const [dateRange, setDateRange] = useState(null);
     const [date, setDate] = useState(new Date());
@@ -60,7 +78,7 @@ export const BigCalendar = forwardRef(
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
-    const { availableViews, showToolbar } = useMemo(() => {
+    let { availableViews, showToolbar } = useMemo(() => {
       let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
       let showToolbar = true;
 
@@ -71,16 +89,22 @@ export const BigCalendar = forwardRef(
       return { availableViews: views, showToolbar };
     }, [currentView]);
 
+    if (hideToolbar) {
+      showToolbar = false;
+    }
+
     // ·················································
     // TIMEZONE CONFIG
+
+    const firstDayOfWeek = 1;
 
     const { localizer, defaultDate, scrollToTime, getNow } = useMemo(() => {
       // Settings.defaultZone = timezone;
       return {
-        localizer: luxonLocalizer(DateTime, { firstDayOfWeek: 1 }),
+        localizer: luxonLocalizer(DateTime, { firstDayOfWeek }),
         defaultDate: defaultDateProp,
         scrollToTime: DateTime.local().toJSDate(),
-        getNow: () => DateTime.local().toJSDate(),
+        getNow: () => DateTime.local().toJSDate()
       };
     }, [timezone]);
 
@@ -125,7 +149,7 @@ export const BigCalendar = forwardRef(
                   dateRange.end.getMinutes(),
                   dateRange.end.getSeconds()
                 )
-              ),
+              )
             });
             const dates = rule.all();
             forEach(dates, (date) => {
@@ -134,25 +158,28 @@ export const BigCalendar = forwardRef(
               acc.push({
                 ...ev,
                 start: date,
-                end: new Date(date.getTime() + diff),
+                end: new Date(date.getTime() + diff)
               });
             });
           } else {
-            if (
-              Interval.fromDateTimes(
-                DateTime.fromJSDate(dateRange.start),
-                DateTime.fromJSDate(dateRange.end)
-              ).overlaps(
-                Interval.fromDateTimes(DateTime.fromJSDate(ev.start), DateTime.fromJSDate(ev.end))
-              )
-            ) {
+            const range = Interval.fromDateTimes(
+              DateTime.fromJSDate(dateRange.start),
+              DateTime.fromJSDate(dateRange.end)
+            );
+
+            const e = Interval.fromDateTimes(
+              DateTime.fromJSDate(ev.start),
+              DateTime.fromJSDate(ev.end)
+            );
+
+            if (range.e >= e.s && range.s <= e.e) {
               acc.push(ev);
             }
           }
         });
       }
       return acc;
-    }, [JSON.stringify(eventsProp), JSON.stringify(dateRange)]);
+    }, [eventsProp, JSON.stringify(dateRange)]);
 
     // ·················································
     // INTERACTION HANDLE
@@ -168,14 +195,14 @@ export const BigCalendar = forwardRef(
         end.setHours(23, 59, 59);
         range = {
           start: range[0],
-          end: end,
+          end: end
         };
       } else if (isArray(range) && range.length === 1) {
         const end = new Date(range[0]);
         end.setHours(23, 59, 59);
         range = {
           start: range[0],
-          end,
+          end
         };
       } else if (isArray(range)) {
         range = null;
@@ -219,32 +246,47 @@ export const BigCalendar = forwardRef(
     // ·················································
     // STYLES
 
-    const { classes, cx } = BigCalendarStyles({});
+    const { classes, cx } = BigCalendarStyles({
+      timeslotHeight,
+      isMonthRange: currentView === MONTH_RANGE,
+      printMode
+    });
 
     return (
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar
           components={{
+            showType,
             eventWrapper: EventWrapper,
             toolbar: showToolbar
               ? (props) => (
-                  <ToolBar
-                    {...props}
-                    addEventClick={addEventClick}
-                    showWeekends={showWeekends}
-                    setShowWeekends={setShowWeekends}
-                    toolbarRightNode={toolbarRightNode}
-                    showToolbarAddButton={showToolbarAddButton}
-                    showToolbarToggleWeekend={showToolbarToggleWeekend}
-                    showToolbarViewSwitcher={showToolbarViewSwitcher}
-                  />
-                )
+                <ToolBar
+                  {...props}
+                  addEventClick={addEventClick}
+                  showType={showType}
+                  setShowType={setShowType}
+                  showWeekends={showWeekends}
+                  setShowWeekends={setShowWeekends}
+                  toolbarRightNode={toolbarRightNode}
+                  showToolbarAddButton={showToolbarAddButton}
+                  showToolbarToggleWeekend={showToolbarToggleWeekend}
+                  showToolbarViewSwitcher={showToolbarViewSwitcher}
+                />
+              )
               : false,
             cx,
             showWeekends,
+            minHour,
+            maxHour,
+            weekDays,
+            hideAllDayCells,
+            minimumStartDifference,
+            forceBgColorToEvents,
+            firstDayOfWeek
           }}
           toolbar={showToolbar}
           events={events}
+          timeslots={timeslots}
           messages={messages}
           defaultView={currentView}
           defaultDate={defaultDate}
@@ -252,13 +294,14 @@ export const BigCalendar = forwardRef(
           localizer={localizer}
           getNow={getNow}
           culture={locale}
-          endAccessor="end"
-          startAccessor="start"
+          endAccessor='end'
+          startAccessor='start'
           onSelectEvent={handleSelectEvent}
           onRangeChange={handleRangeChange}
           validRange={validRange}
           dateMonthRange={monthRange}
           views={availableViews}
+          printMode={printMode}
         />
       </Box>
     );
@@ -282,8 +325,8 @@ BigCalendar.defaultProps = {
     showWeekends: 'View weekends',
     allDay: 'All day',
     init: 'Init',
-    end: 'End',
-  },
+    end: 'End'
+  }
 };
 
 BigCalendar.propTypes = {
@@ -303,11 +346,11 @@ BigCalendar.propTypes = {
     showWeekends: PropTypes.string,
     allDay: PropTypes.string,
     init: PropTypes.string,
-    end: PropTypes.string,
+    end: PropTypes.string
   }),
   validRange: PropTypes.shape({
     start: PropTypes.instanceOf(Date),
-    end: PropTypes.instanceOf(Date),
+    end: PropTypes.instanceOf(Date)
   }),
   hooks: PropTypes.func,
   showWeekends: PropTypes.bool,
@@ -317,5 +360,5 @@ BigCalendar.propTypes = {
   onSelectEvent: PropTypes.func,
   eventClick: PropTypes.func,
   backgroundEventClick: PropTypes.func,
-  addEventClick: PropTypes.func,
+  addEventClick: PropTypes.func
 };

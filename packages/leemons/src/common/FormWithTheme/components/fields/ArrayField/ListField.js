@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TextEditorInput } from '@bubbles-ui/editors';
-import { ListInput, ListItem } from '@bubbles-ui/components';
-import { Box } from '@bubbles-ui/components/src/layout/Box';
+import { Box, ListInput, ListItem } from '@bubbles-ui/components';
 import { map } from 'lodash';
+import { FormContext } from '../../../FormContext';
 
 const ItemValueRender = ({ item }) => {
   return <Box sx={() => ({ width: '100%' })} dangerouslySetInnerHTML={{ __html: item.value }} />;
@@ -22,6 +22,7 @@ const ListField = (props) => {
     title,
     onChange,
   } = props;
+  const { t } = useContext(FormContext);
 
   const help = options?.help;
 
@@ -57,6 +58,7 @@ const ListField = (props) => {
         readonly={readonly}
         disabled={disabled}
         canAdd={canAdd}
+        addButtonLabel={t('add')}
         value={map(formData, (item) => ({ value: item }))}
         listRender={(e) => <ListItem {...e} itemValueRender={ItemValueRender} />}
         error={rawErrors ? rawErrors[0] : null}

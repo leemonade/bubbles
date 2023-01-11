@@ -36,10 +36,10 @@ const Template = (props) => {
       >
         <Tabs>
           <TabPanel key="1" label="Family">
-            <Box></Box>
+            <Box>Family</Box>
           </TabPanel>
           <TabPanel key="2" label="Notes">
-            <Box></Box>
+            <Box>Notes</Box>
           </TabPanel>
         </Tabs>
       </DetailPanel>

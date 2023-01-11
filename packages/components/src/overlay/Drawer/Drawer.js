@@ -8,6 +8,7 @@ import { Box, Stack } from '../../layout';
 import { DrawerStyles } from './Drawer.styles';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
+export const DRAWERS_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'full'];
 
 export const DRAWER_DEFAULT_PROPS = {
   size: 'md',
@@ -41,10 +42,23 @@ export const DRAWER_PROP_TYPES = {
   close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   empty: PropTypes.bool,
   shadow: PropTypes.bool,
+  modalAriaLabel: PropTypes.string,
 };
 
-const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow, ...props }) => {
-  const { classes, cx } = DrawerStyles({ empty, shadow }, { name: 'Drawer' });
+const Drawer = ({
+  close,
+  onClose,
+  onBack,
+  children,
+  back,
+  header,
+  empty,
+  shadow,
+  modalAriaLabel,
+  contentPadding,
+  ...props
+}) => {
+  const { classes, cx } = DrawerStyles({ empty, shadow, contentPadding }, { name: 'Drawer' });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
@@ -56,24 +70,32 @@ const Drawer = ({ close, onClose, onBack, children, back, header, empty, shadow,
       shadow={false}
       withCloseButton={false}
       classNames={classes}
+      aria-label={modalAriaLabel}
     >
-      <Box className={classes.header}>
-        <Stack fullWidth justifyContent={justifyContent}>
-          {back && back !== '' ? (
-            <ActionButton icon={<ChevronLeftIcon />} label={back} onClick={onBack} tooltip={back} />
-          ) : null}
+      {(close || back) && (
+        <Box className={classes.header}>
+          <Stack fullWidth justifyContent={justifyContent}>
+            {back && back !== '' ? (
+              <ActionButton
+                icon={<ChevronLeftIcon />}
+                label={back}
+                onClick={onBack}
+                tooltip={back}
+              />
+            ) : null}
 
-          {header ? header : null}
+            {header ? header : null}
 
-          {close ? (
-            <ActionButton
-              icon={<RemoveIcon />}
-              onClick={onClose}
-              tooltip={isString(close) && trim(close) !== '' ? close : null}
-            />
-          ) : null}
-        </Stack>
-      </Box>
+            {close ? (
+              <ActionButton
+                icon={<RemoveIcon />}
+                onClick={onClose}
+                tooltip={isString(close) && trim(close) !== '' ? close : null}
+              />
+            ) : null}
+          </Stack>
+        </Box>
+      )}
       <Box className={classes.content}>{children}</Box>
     </MantineDrawer>
   );

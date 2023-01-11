@@ -2,11 +2,13 @@ import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Paragraph.stories.js';
 import { Paragraph } from './Paragraph.js';
 import { Box } from '@mantine/core';
+import { Anchor } from '../../navigation';
+import { LinkTo } from '@storybook/addon-links/react';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # Paragraph
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/typography/Paragraph)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/typography/Paragraph/Paragraph.js)
 
 ## Table of Contents
 
@@ -14,17 +16,34 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Paragraph align and clean](#paragraph-align-and-clean)
+- [Paragraph other props](#paragraph-other-props)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Paragraph is ...
+Paragraph is a component to render `p` elements.
 
 <ThemeProvider>
   <Paragraph>Paragraph</Paragraph>
 </ThemeProvider>
+
+## Paragraph align and clean
+
+You can align the text in Paragraph to `right`, `left` or `center`, and choose to delete all default margins with `clean`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <Paragraph>Paragraph aligned to left</Paragraph>
+    <Paragraph align="center">Paragraph aligned to center</Paragraph>
+    <Paragraph align="right">Paragraph aligned to right</Paragraph>
+  </Box>
+</ThemeProvider>
+
+## Paragraph other props
+
+Paragraph is a wrapper around Text, so it has all other props of Text.
 
 ## Component API
 
@@ -34,15 +53,7 @@ Paragraph is ...
 
 <Props of={Paragraph} />
 
-## References
-
-[MDN: ARIA Paragraph role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/paragraph_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Paragraph role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/paragraph/paragraph.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/typography/Paragraph.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/typography/Paragraph/Paragraph.mdx)

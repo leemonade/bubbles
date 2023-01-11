@@ -1,0 +1,71 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Button } from './Button.js';
+import { LadybugIcon } from '@bubbles-ui/icons/solid/';
+import { ThemeProvider } from '@bubbles-ui/components';
+import * as stories from './Button.stories.js';
+
+# Button
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/editors/src/form/Button/Button.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Actived state](#actived-state)
+- [Button positions](#button-positions)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Button are clickable elements that are used to trigger actions.
+Buttons need an `icon` and a `label` to give information about the action when hovering.
+
+<ThemeProvider>
+  <Button icon={<LadybugIcon />} label="Ladybug" />
+</ThemeProvider>
+
+## Actived state
+
+When you set the `actived` prop to true, it will show the actived state.
+
+<ThemeProvider>
+  <Button icon={<LadybugIcon />} label="Ladybug" actived />
+</ThemeProvider>
+
+## Button positions
+
+Button has different positions: `default`, `start`, `end` and `center`. It will show the `default` position when its alone,
+but if it's inside a `ButtonGroup` it will change depending of its position inside the group.
+
+<ThemeProvider>
+  <div style={{ display: 'flex', gap: 16 }}>
+    <Button icon={<LadybugIcon />} label="Ladybug" position="start" />
+    <Button icon={<LadybugIcon />} label="Ladybug" position="center" />
+    <Button icon={<LadybugIcon />} label="Ladybug" position="center" />
+    <Button icon={<LadybugIcon />} label="Ladybug" position="end" />
+  </div>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atom-form-button--playground" />
+</Preview>
+
+<Props of={Button} />
+
+## References
+
+[MDN: ARIA button role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/editors/src/form/Button/Button.mdx)

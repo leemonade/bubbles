@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # TimeInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/TimeInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/TimeInput/TimeInput.js)
 
 ## Table of Contents
 
@@ -20,29 +20,27 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-TimeInput is ...
+TimeInput is an input that allows the users to enter a time value
 
 <ThemeProvider>
-  <TimeInput>Time input</TimeInput>
+  <TimeInput value={new Date()}>Time input</TimeInput>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-time-input--playground" />
+  <Story id="molecules-form-timeinput--playground" />
 </Preview>
 
 <Props of={TimeInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/time-input_role>)
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/time-input/time-input.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/TimeInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/TimeInput/TimeInput.mdx)

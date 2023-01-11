@@ -16,7 +16,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=8393%3A94628',
     },
   },
   argTypes: {
@@ -27,7 +27,7 @@ export default {
   },
 };
 
-const Template = ({ acceptCustom, onChange, ...props }) => {
+const Template = ({ acceptCustom, onChange, grades, letterGrades, ...props }) => {
   const [value, setValue] = React.useState(props.value || { score: 0 });
 
   const onChangeHandler = (value) => {
@@ -38,6 +38,7 @@ const Template = ({ acceptCustom, onChange, ...props }) => {
   return (
     <ScoreInput
       {...props}
+      grades={props.showLetters ? letterGrades : grades}
       value={value}
       onChange={onChangeHandler}
       acceptCustom={acceptCustom !== 'none' ? acceptCustom : undefined}
@@ -54,28 +55,102 @@ Playground.args = {
   showLetters: false,
   acceptCustom: 'none',
   ...SCORE_INPUT_DEFAULT_PROPS,
+  letterGrades: [
+    {
+      score: 0,
+      letter: 'F',
+    },
+    {
+      score: 0.667,
+      letter: 'D-',
+    },
+    {
+      score: 1,
+      letter: 'D',
+    },
+    {
+      score: 1.333,
+      letter: 'D+',
+    },
+    {
+      score: 1.667,
+      letter: 'C-',
+    },
+    {
+      score: 2,
+      letter: 'C',
+    },
+    {
+      score: 2.333,
+      letter: 'C+',
+    },
+    {
+      score: 2.667,
+      letter: 'B-',
+    },
+    {
+      score: 3,
+      letter: 'B',
+    },
+    {
+      score: 3.333,
+      letter: 'B+',
+    },
+    {
+      score: 3.667,
+      letter: 'A-',
+    },
+    {
+      score: 4,
+      letter: 'A',
+    },
+  ],
   grades: [
-    { score: 0, letter: 'F' },
-    { score: 1, letter: 'E' },
-    { score: 2, letter: 'E+' },
-    { score: 3, letter: 'D' },
-    { score: 4, letter: 'D+' },
-    { score: 5, letter: 'C' },
-    { score: 6, letter: 'C+' },
-    { score: 7, letter: 'B' },
-    { score: 8, letter: 'B+' },
-    { score: 9, letter: 'A' },
-    { score: 10, letter: 'A+' },
-    { score: 11, letter: 'A+' },
-    { score: 12, letter: '-S' },
-    { score: 13, letter: 'S' },
-    { score: 14, letter: 'S+' },
-    { score: 15, letter: '-T' },
-    { score: 16, letter: 'T' },
-    { score: 17, letter: 'T+' },
-    { score: 18, letter: '-U' },
-    { score: 19, letter: 'U' },
-    { score: 20, letter: 'U+' },
+    {
+      score: 0,
+    },
+    {
+      score: 1,
+    },
+    {
+      score: 2,
+    },
+    {
+      score: 3,
+    },
+    {
+      score: 4,
+    },
+    {
+      score: 5,
+    },
+    {
+      score: 6,
+    },
+    {
+      score: 7,
+    },
+    {
+      score: 8,
+    },
+    {
+      score: 9,
+    },
+    {
+      score: 10,
+    },
+    {
+      score: 11,
+    },
+    {
+      score: 12,
+    },
+    {
+      score: 13,
+    },
+    {
+      score: 14,
+    },
   ],
   label: 'Score input',
   description: 'This is a score input',

@@ -1,12 +1,14 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Popover.stories.js';
 import { Popover } from './Popover.js';
-import { Box } from '@mantine/core';
+import { Text } from '../../typography';
+import { Box } from '../../layout';
+import { Button } from '../../form';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # Popover
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/overlay/Popover>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/Popover/Popover.js)
 
 ## Table of Contents
 
@@ -14,16 +16,150 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Popover positions](#popover-positions)
+- [Popover placement](#popover-placement)
+- [Popover other options](#popover-other-options)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Popover is ...
+Popover displays a popover section relative to given `target` element
 
 <ThemeProvider>
-  <Popover>Popover</Popover>
+  <Box style={{ marginBottom: 80 }}>
+    <Popover opened target={<Button>Target element</Button>} position="bottom">
+      <Box style={{ padding: 8 }}>
+        <Text color="primary" size="lg">
+          I'm a popover
+        </Text>
+      </Box>
+    </Popover>
+  </Box>
+</ThemeProvider>
+
+## Popover positions
+
+Popover has four different positions: `bottom`, `left`, `right`, `top`.
+
+<ThemeProvider>
+  <Box
+    style={{
+      marginBlock: 50,
+      marginInline: 130,
+      display: 'flex',
+      gap: 16,
+    }}
+  >
+    <Popover
+      opened
+      target={
+        <Button size="xs" compact>
+          Target element
+        </Button>
+      }
+      position="left"
+    >
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover
+      opened
+      target={
+        <Button size="xs" compact>
+          Target element
+        </Button>
+      }
+      position="bottom"
+    >
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover
+      opened
+      target={
+        <Button size="xs" compact>
+          Target element
+        </Button>
+      }
+      position="top"
+    >
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover
+      opened
+      target={
+        <Button size="xs" compact>
+          Target element
+        </Button>
+      }
+      position="right"
+    >
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+  </Box>
+</ThemeProvider>
+
+## Popover placement
+
+It also has different placements for the popover relative to the target element: `center`, `end`, `start`.
+
+<ThemeProvider>
+  <Box
+    style={{
+      marginBottom: 80,
+      display: 'flex',
+      gap: 16,
+    }}
+  >
+    <Popover opened target={<Button>Target element</Button>} position="bottom" placement="start">
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover opened target={<Button>Target element</Button>} position="bottom">
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover opened target={<Button>Target element</Button>} position="bottom" placement="end">
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+  </Box>
+</ThemeProvider>
+
+## Popover other options
+
+Popover also has the `withArrow` and `withCloseButton` props
+
+<ThemeProvider>
+  <Box
+    style={{
+      marginBottom: 80,
+      display: 'flex',
+      gap: 16,
+    }}
+  >
+    <Popover opened target={<Button>Target element</Button>} position="bottom" withArrow>
+      <Box style={{ padding: 8 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+    <Popover opened target={<Button>Target element</Button>} position="bottom" withCloseButton>
+      <Box style={{ padding: 8, paddingTop: 24 }}>
+        <Text color="primary">I'm a popover</Text>
+      </Box>
+    </Popover>
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -36,13 +172,11 @@ Popover is ...
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/popover_role>)
+[MDN: ARIA dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/popover/popover.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/overlay/Popover.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/Popover/Popover.mdx)

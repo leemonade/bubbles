@@ -11,7 +11,7 @@ export const SCRIPTS_TOOL_DEFAULT_PROPS = {
   subscript: true,
   labels: {
     superscript: 'Superscript',
-    subcript: 'Subscript',
+    subscript: 'Subscript',
   },
 };
 

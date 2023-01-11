@@ -26,7 +26,6 @@ export const LibraryCardBasicStyles = createStyles((theme, { height, blur, color
     },
     title: {
       fontWeight: 600,
-      lineHeight: pxToRem(20),
     },
     childrenWrapper: {
       flex: 1,

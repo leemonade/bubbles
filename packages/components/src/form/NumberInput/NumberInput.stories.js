@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '../../layout';
 import { NumberInput, NUMBER_INPUT_DEFAULT_PROPS } from './NumberInput';
 import mdx from './NumberInput.mdx';
 
@@ -33,4 +34,5 @@ Playground.args = {
   placeholder: 'Set a number',
   help: 'Help text for number input',
   error: 'Descriptive text for error ',
+  readOnly: false,
 };

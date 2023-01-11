@@ -1,13 +1,12 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const ColorSwatchStyles = createStyles((theme, { actived, plain }) => {
+export const ColorSwatchStyles = createStyles((theme, { pointerEvents, actived, plain }) => {
   return {
     root: {
       overflow: 'visible',
-      pointerEvents: 'none',
+      pointerEvents: pointerEvents ? pointerEvents : 'auto',
       '.mantine-ColorSwatch-overlay': {
-        pointerEvents: 'all',
+        pointerEvents: pointerEvents ? pointerEvents : 'auto',
         cursor: 'pointer',
       },
       '.mantine-ColorSwatch-shadowOverlay': {
@@ -18,6 +17,7 @@ export const ColorSwatchStyles = createStyles((theme, { actived, plain }) => {
           ? 'none'
           : 'rgb(0 0 0 / 10%) 0px 0px 0px 1px inset, rgb(0 0 0 / 0%) 0px 0px 4px inset;',
       },
+      cursor: 'pointer',
     },
   };
 });

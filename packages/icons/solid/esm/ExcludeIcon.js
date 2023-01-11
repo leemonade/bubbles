@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ExcludeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 24 24",
@@ -13,5 +12,4 @@ function ExcludeIcon(props) {
     clipRule: "evenodd"
   }));
 }
-
 export default ExcludeIcon;

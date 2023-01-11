@@ -1,9 +1,10 @@
 {
   "name": "@bubbles-ui/leemons",
-  "version": "1.0.36",
+  "version": "1.1.2",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
+  "types": "types/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
   "repository": {
@@ -15,7 +16,8 @@
   "files": [
     "lib/**/*",
     "es/**/*",
-    "umd/**/*"
+    "umd/**/*",
+    "types/**/*"
   ],
   "keywords": [
     "react",
@@ -30,12 +32,26 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
     "start": "yarn storybook",
-    "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9003",
-    "clean": "rimraf es lib umd esm cjs storybook-static build"
+    "build": "run-s -cs build:clean build:lib build:fix types",
+    "build-all": "run-s -cs build",
+    "build-all:no-types": "run-s build:no-types build-storybook",
+    "build:no-types": "run-s -cs build:clean build:lib build:fix",
+    "build:clean": "rimraf es lib umd esm cjs storybook-static build",
+    "build:lib": "node scripts/build.js",
+    "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-storybook": "run-s -cs build:storybook:clean build:storybook",
+    "build:storybook:clean": "rimraf ../../docs-build/leemons",
+    "build:storybook": "cross-env NODE_ENV=production build-storybook -o ../../docs-build/leemons",
+    "storybook": "run-s storybook:clean storybook:start",
+    "storybook:clean": "rimraf node_modules/.cache/storybook",
+    "storybook:start": "start-storybook -p 9003",
+    "types": "run-s -cs types:clean types:generate types:fix",
+    "types:clean": "rimraf types _types",
+    "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
+    "types:fix": "mv _types types && rimraf _types types/**/mocks"
   },
   "dependencies": {
     "@leemonade/rjsf-core": "^3.0.0",
@@ -52,13 +68,14 @@
     "react-table-sticky": "^1.1.3",
     "rjsf-conditionals": "^1.1.4",
     "rrule": "^2.6.8",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "framer-motion": "6.3.11"
   },
   "peerDependencies": {
-    "@bubbles-ui/calendars": "^1.0.2",
-    "@bubbles-ui/components": "^1.0.36",
-    "@bubbles-ui/editors": "^1.0.25",
-    "@bubbles-ui/icons": "^1.0.10",
+    "@bubbles-ui/calendars": "1.1.0",
+    "@bubbles-ui/components": "1.1.01",
+    "@bubbles-ui/editors": "1.1.0",
+    "@bubbles-ui/icons": "1.1.0",
     "dayjs": "^1.10.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

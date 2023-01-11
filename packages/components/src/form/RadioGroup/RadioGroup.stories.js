@@ -3,7 +3,7 @@ import { RadioGroup, RADIOGROUP_DEFAULT_PROPS, RADIOGROUP_DIRECTIONS } from './R
 import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES } from '../../form';
 import mdx from './RadioGroup.mdx';
 import { RADIO_VARIANTS } from '../Radio/Radio';
-import { AcademicCapIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
   title: 'Molecules/Form/RadioGroup',
@@ -37,16 +37,20 @@ Playground.args = {
   data: [
     {
       value: 'option1',
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 1',
+      icon: <StarIcon />,
     },
     {
       value: 'option2',
-
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 2',
+      icon: <StarIcon />,
     },
     {
       value: 'option3',
-      icon: <AcademicCapIcon height={16} width={16} />,
+      label: 'Label for option 3',
+      icon: <StarIcon />,
+      help: 'Help text for option 3',
+      helpPosition: 'bottom',
     },
   ],
 };

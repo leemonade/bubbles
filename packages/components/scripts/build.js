@@ -35,6 +35,6 @@ try {
     }
   );
 } catch (error) {
-  console.error('One of the commands failed:', error.stack); // eslint-disable-line no-console
+  console.error('One of the commands failed:', error.stack);
   process.exit(1);
 }

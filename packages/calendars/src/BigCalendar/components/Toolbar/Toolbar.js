@@ -1,41 +1,53 @@
 import React from 'react';
 import { capitalize } from 'lodash';
-import { ActionButton, Box, Button, Group, IconButton, Switch, Text } from '@bubbles-ui/components';
+import {
+  ActionButton,
+  Box,
+  Button,
+  Group,
+  IconButton,
+  InputWrapper,
+  Select,
+  Switch,
+  Text
+} from '@bubbles-ui/components';
 import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
 import {
   AddIcon as PlusIcon,
   ChevLeftIcon as ChevronLeftIcon,
-  ChevRightIcon as ChevronRightIcon,
+  ChevRightIcon as ChevronRightIcon
 } from '@bubbles-ui/icons/outline';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
 
 export const ToolBar = ({
-  localizer: { messages },
-  label,
-  view,
-  views,
-  onNavigate,
-  onView,
-  showWeekends,
-  setShowWeekends,
-  toolbarRightNode,
-  showToolbarAddButton,
-  showToolbarToggleWeekend,
-  showToolbarViewSwitcher,
-  addEventClick,
-  ...props
-}) => {
+                          localizer: { messages },
+                          label,
+                          view,
+                          views,
+                          onNavigate,
+                          onView,
+                          showType,
+                          setShowType,
+                          showWeekends,
+                          setShowWeekends,
+                          toolbarRightNode,
+                          showToolbarAddButton,
+                          showToolbarToggleWeekend,
+                          showToolbarViewSwitcher,
+                          addEventClick,
+                          ...props
+                        }) => {
   const { classes, cx } = ToolbarStyles({});
   return (
-    <Group position="apart" mb={10}>
+    <Group position='apart' mb={10}>
       <Group>
         <Group spacing={0}>
           <Box mr={10}>
             <Button
-              size="xs"
-              variant="outline"
-              color="tertiary"
+              size='xs'
+              variant='outline'
+              color='tertiary'
               onClick={() => onNavigate(navigate.TODAY)}
             >
               {messages.today}
@@ -53,15 +65,28 @@ export const ToolBar = ({
           />
         </Group>
         <Box>
-          <Text size="xl">{capitalize(label)}</Text>
+          <Text size='xl'>{capitalize(label)}</Text>
         </Box>
       </Group>
 
+
       <Group style={{ gap: 12 }}>
+        <Box sx={() => ({ display: 'flex', alignItems: 'center' })}>
+          <Box sx={(theme) => ({ paddingTop: theme.spacing[2], paddingRight: theme.spacing[2] })}>
+            <InputWrapper label={messages.display} />
+          </Box>
+          <Select value={showType}
+                  onChange={setShowType} data={
+            [
+              { label: messages.entirePeriod, value: 'full' },
+              { label: messages.onlyInitAndEnd, value: 'startEnd' },
+              { label: messages.onlyEnd, value: 'onlyEnd' }]
+          } />
+        </Box>
         {view !== RCBViews.DAY && showToolbarToggleWeekend ? (
           <Switch
             label={messages.showWeekends}
-            labelPosition="start"
+            labelPosition='end'
             checked={showWeekends}
             onChange={(event) =>
               typeof setShowWeekends === 'function' ? setShowWeekends(event) : null
@@ -79,7 +104,7 @@ export const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+          <IconButton color='primary' size='lg' rounded onClick={addEventClick}>
             <PlusIcon />
           </IconButton>
         ) : null}

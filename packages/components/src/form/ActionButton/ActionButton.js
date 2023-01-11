@@ -5,29 +5,38 @@ import { Button as MantineButton } from '@mantine/core';
 import { ActionButtonStyles } from './ActionButton.styles';
 import { Tooltip } from '../../overlay';
 
-export const ACTION_BUTTON_SIZES = ['xs', 'sm'];
-export const ACTION_BUTTON_COLORS = ['positive', 'negative'];
-export const ACTION_BUTTON_VARIANTS = ['default', 'solid'];
+export const ACTION_BUTTON_SIZES = ['sm', 'md'];
+export const ACTION_BUTTON_COLORS = ['primary', 'negative', 'phatic'];
 
 export const ACTION_BUTTON_DEFAULT_PROPS = {
   color: ACTION_BUTTON_COLORS[0],
   size: ACTION_BUTTON_SIZES[1],
-  variant: ACTION_BUTTON_VARIANTS[0],
   label: '',
   rounded: false,
-  active: false,
+  useAria: true,
 };
 export const ACTION_BUTTON_PROP_TYPES = {
+  /** Controls the size */
   size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
+  /** Control the color */
   color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
-  variant: PropTypes.oneOf(ACTION_BUTTON_VARIANTS),
+  /** Control the tooltip of the button */
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  active: PropTypes.bool,
+  /** Controls if ActionButton uses aria role */
+  useAria: PropTypes.bool,
+  /** Aria label for ActionButton */
+  ariaLabel: PropTypes.string,
 };
 
-const TooltipComponent = ({ children, tooltip }) => {
+const TooltipComponent = ({ children, tooltip, useAria }) => {
   return isString(tooltip) && tooltip !== '' ? (
-    <Tooltip position="bottom" label={tooltip} withArrow={false} color="secondary">
+    <Tooltip
+      position="bottom"
+      label={tooltip}
+      withArrow={false}
+      useAria={useAria}
+      color="secondary"
+    >
       {children}
     </Tooltip>
   ) : (
@@ -54,6 +63,8 @@ export const ActionButton = forwardRef(
       className,
       classNames,
       active,
+      useAria,
+      ariaLabel,
       children,
       ...props
     },
@@ -65,20 +76,19 @@ export const ActionButton = forwardRef(
     const size = ACTION_BUTTON_SIZES.includes(sizeProp)
       ? sizeProp
       : ACTION_BUTTON_DEFAULT_PROPS.size;
-    const radius = rounded ? 'xl' : 'xs';
-    const { classes, cx } = ActionButtonStyles(
+    const radius = rounded ? 'rounded' : 'md';
+    const { classes } = ActionButtonStyles(
       {
         size,
         color,
-        variant,
         iconOnly: isNil(label) || (isString(label) && label === ''),
-        active,
+        radius,
       },
       { classNames, name: 'ActionButton' }
     );
 
     return (
-      <TooltipComponent tooltip={tooltip}>
+      <TooltipComponent tooltip={tooltip} useAria={useAria}>
         <MantineButton
           {...props}
           component={as}
@@ -89,11 +99,12 @@ export const ActionButton = forwardRef(
           color={color}
           className={className}
           classNames={classes}
-          aria-label={tooltip || label || ''}
+          aria-label={tooltip || label || ariaLabel || undefined}
           // title={tooltip || ''}
-          radius={radius}
+          // radius={radius}
           style={style}
           ref={ref}
+          role={useAria ? 'button' : undefined}
         >
           {label}
           {children}

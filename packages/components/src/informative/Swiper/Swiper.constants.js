@@ -11,6 +11,9 @@ export const SWIPER_DEFAULT_PROPS = {
   prevButtonStyles: {},
   disableSelectedStyles: false,
   deselectable: true,
+  nextButtonAriaLabel: 'Next',
+  prevButtonAriaLabel: 'Previous',
+  useAria: true,
 };
 export const SWIPER_PROP_TYPES = {
   children: PropTypes.arrayOf(PropTypes.element),
@@ -25,4 +28,7 @@ export const SWIPER_PROP_TYPES = {
   buttonStyles: PropTypes.object,
   nextButtonStyles: PropTypes.object,
   prevButtonStyles: PropTypes.object,
+  nextButtonAriaLabel: PropTypes.string,
+  prevButtonAriaLabel: PropTypes.string,
+  useAria: PropTypes.bool,
 };

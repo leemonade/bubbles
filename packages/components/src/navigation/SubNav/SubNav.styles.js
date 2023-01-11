@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontExpressive, getPaddings } from '../../theme.mixins';
 
-export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) => {
+export const SubNavStyles = createStyles((theme, { width, pinned, lightMode, drawerColor }) => {
   return {
     root: {
       display: 'flex',
@@ -13,7 +13,7 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) =
       top: 0,
       left: 0,
       overflow: 'hidden',
-      backgroundColor: lightMode ? theme.colors.interactive03 : theme.colors.uiBackground03,
+      backgroundColor: lightMode ? theme.colors.interactive03 : drawerColor,
       transform: 'translateX(-100%)',
       transitionProperty: 'all',
       transitionTimingFunction: 'cubic-bezier(.51,.3,0,1)',
@@ -38,7 +38,8 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) =
       ...getFontExpressive(pxToRem(13)),
       textTransform: 'uppercase',
       letterSpacing: '0.09em',
-      color: lightMode ? theme.colors.text04 : theme.colors.text08,
+      color: lightMode ? theme.colors.text04 : theme.colors.text07,
+      opacity: lightMode ? 1 : 0.6,
       marginTop: pxToRem(theme.spacing['2']),
       width: '100%',
     },
@@ -58,6 +59,9 @@ export const SubNavStyles = createStyles((theme, { width, pinned, lightMode }) =
     navList: {
       padding: 0,
       margin: 0,
+    },
+    itemWrapper: {
+      width: '100%',
     },
     navListItem: {
       padding: 0,

@@ -20,10 +20,11 @@ export const AUTOCOMPLETE_DEFAULT_PROPS = {
     </Box>
   )),
   multiple: false,
-  value: [],
+  value: null,
   placeholder: '',
   ignoreWrapper: false,
   waitToSearch: 1000,
+  autoComplete: 'off',
 };
 
 export const AUTOCOMPLETE_PROP_TYPES = {
@@ -36,6 +37,7 @@ export const AUTOCOMPLETE_PROP_TYPES = {
     ),
   ]).isRequired,
   value: PropTypes.oneOfType([
+    PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(
       PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })

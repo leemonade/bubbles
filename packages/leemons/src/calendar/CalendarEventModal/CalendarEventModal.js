@@ -3,6 +3,7 @@ import { find, get, isArray, isFunction, isNil, keyBy, map } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import {
   ActionButton,
+  Badge,
   Box,
   Button,
   Col,
@@ -19,7 +20,6 @@ import { PluginCalendarIcon, UsersIcon } from '@bubbles-ui/icons/outline';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Dates } from './components/Dates';
 import { CalendarEventModalStyles } from './CalendarEventModal.styles';
-import { Badge } from '@bubbles-ui/components/src/informative/Badge';
 
 export const CALENDAR_EVENT_MODAL_DEFAULT_PROPS = {
   opened: false,
@@ -113,10 +113,11 @@ const CalendarEventModal = (props) => {
 
   const calendar = watch('calendar');
   const hideInCalendar = watch('data.hideInCalendar');
+  const hideCalendarField = watch('data.hideCalendarField');
   const type = watch('type');
   const taskColumn = watch('data.column');
   const eventTypesByValue = keyBy(selectData.eventTypes, 'value');
-  const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
+  // const onlyOneDate = eventTypesByValue[type]?.onlyOneDate;
   const config = eventTypesByValue[type]?.config;
 
   React.useEffect(() => {
@@ -133,6 +134,7 @@ const CalendarEventModal = (props) => {
           setValue('calendar', selectData.calendars[0]?.value);
         }
       }
+      /*
       if (onlyOneDate) {
         if (name === 'startDate') {
           setValue('endDate', value.startDate);
@@ -141,6 +143,7 @@ const CalendarEventModal = (props) => {
           setValue('endTime', value.startTime);
         }
       }
+       */
     });
     return () => subscription.unsubscribe();
   });
@@ -287,7 +290,7 @@ const CalendarEventModal = (props) => {
             readOnly={disabled}
             locale={locale}
             disabled={disabled}
-            onlyOneDate={onlyOneDate}
+            onlyOneDate={false}
             config={config}
           />
 
@@ -361,7 +364,7 @@ const CalendarEventModal = (props) => {
             }}
           />
 
-          {disabled ||
+          {(!hideCalendarField && disabled) ||
           ((isNew || (!isNew && isOwner)) &&
             (type !== 'plugins.calendar.task' ||
               (type === 'plugins.calendar.task' && !hideInCalendar))) ? (
@@ -384,7 +387,7 @@ const CalendarEventModal = (props) => {
                       }}
                       render={({ field }) => (
                         <Select
-                          size="xs"
+                          size="sm"
                           readOnly={disabled}
                           disabled={disabled}
                           label={disabled ? messages.calendarLabelDisabled : messages.calendarLabel}
@@ -393,6 +396,7 @@ const CalendarEventModal = (props) => {
                           required={!disabled}
                           error={get(errors, 'calendar')}
                           data={selectData.calendars}
+                          withinPortal={false}
                         />
                       )}
                     />

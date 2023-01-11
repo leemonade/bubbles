@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # FileIcon
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/misc/FileIcon>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/misc/FileIcon/FileIcon.js)
 
 ## Table of Contents
 
@@ -14,35 +14,53 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [FileIcon types](#fileicon-types)
+- [FileIcon color and size](#fileicon-color-and-size)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-FileIcon is ...
+FileIcon is a component to display a `label` and a icon of the provided `fileType`
 
 <ThemeProvider>
-  <FileIcon>File icon</FileIcon>
+  <FileIcon fileType="audio" label="Audio" />
+</ThemeProvider>
+
+## FileIcon types
+
+FileIcon accepts four different fileTypes: `audio`, `video`, `image`, `noicon`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 32 }}>
+    <FileIcon fileType="audio" label="Audio" />
+    <FileIcon fileType="video" label="Video" />
+    <FileIcon fileType="image" label="Image" />
+    <FileIcon fileType="noicon" label="No icon" />
+  </Box>
+</ThemeProvider>
+
+## FileIcon color and size
+
+You can change also change the color and size of the label and icon.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 32 }}>
+    <FileIcon fileType="audio" label="Audio" color="#FABADA" size={24} />
+    <FileIcon fileType="video" label="Video" color="#015267" size={32} />
+    <FileIcon fileType="image" label="Image" color="#ADEBEF" size={64} />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-misc-file-icon--playground" />
+  <Story id="atoms-misc-fileicon--playground" />
 </Preview>
 
 <Props of={FileIcon} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/file-icon_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/file-icon/file-icon.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/misc/FileIcon.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/misc/FileIcon/FileIcon.mdx)

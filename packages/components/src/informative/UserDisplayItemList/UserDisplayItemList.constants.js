@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 
 export const USER_DISPLAY_ITEM_LIST_DEFAULT_PROPS = {
   labels: {
-    showMore: '',
-    showLess: '',
+    showMore: 'Show more',
+    showLess: 'Show less',
   },
   limit: 3,
+  expanded: false,
   data: [],
+  notExpandable: false,
+  useAria: true,
 };
 export const USER_DISPLAY_ITEM_LIST_PROP_TYPES = {
   data: PropTypes.arrayOf(
@@ -21,4 +24,8 @@ export const USER_DISPLAY_ITEM_LIST_PROP_TYPES = {
     showMore: PropTypes.string,
     showLess: PropTypes.string,
   }),
+  expanded: PropTypes.bool,
+  onChange: PropTypes.func,
+  notExpandable: PropTypes.bool,
+  useAria: PropTypes.bool,
 };

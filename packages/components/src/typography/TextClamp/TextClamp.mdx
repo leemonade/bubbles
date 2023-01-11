@@ -1,12 +1,12 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './TextClamp.stories.js';
-import { TextClamp } from './TextClamp.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { TextClamp, Text } from '../../typography';
 
 # TextClamp
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/typography/TextClamp>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/typography/TextClamp/TextClamp.js)
 
 ## Table of Contents
 
@@ -14,35 +14,80 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [TextClamp options](#textclamp-options)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-TextClamp is ...
+TextClamp is a component that truncates text at a specific number of lines. With the `lines` props you can choose how many line you want to appear.
 
 <ThemeProvider>
-  <TextClamp>Text clamp</TextClamp>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <TextClamp>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac eros sed mi finibus
+        placerat id vitae neque. Vivamus volutpat lacus sed sodales hendrerit. Nullam et elit
+        elementum, mattis lectus sit amet, pretium neque. Donec bibendum tempor neque, et malesuada
+        ligula tincidunt nec.
+      </Text>
+    </TextClamp>
+    <TextClamp lines={4}>
+      <Text>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac eros sed mi finibus
+        placerat id vitae neque. Vivamus volutpat lacus sed sodales hendrerit. Nullam et elit
+        elementum, mattis lectus sit amet, pretium neque. Donec bibendum tempor neque, et malesuada
+        ligula tincidunt nec. Proin tincidunt eros non posuere semper. Quisque ac commodo massa.
+        Aenean fringilla leo a aliquam ornare. Nam id est lorem. Ut quis urna orci. Pellentesque
+        libero lorem, imperdiet eget purus a, vestibulum tristique nibh. Proin felis velit, interdum
+        et quam ac, volutpat fermentum risus. Integer nunc erat, sagittis ac lorem et, malesuada
+        mattis leo. Nam quis dui in magna feugiat vehicula a et orci.
+      </Text>
+    </TextClamp>
+  </Box>
+</ThemeProvider>
+
+## TextClamp options
+
+You can choose to not show a tooltip when hovering the text setting the `withTooltip` prop to false.
+
+<ThemeProvider>
+  <TextClamp withTooltip={false}>
+    <Text>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac eros sed mi finibus
+      placerat id vitae neque. Vivamus volutpat lacus sed sodales hendrerit. Nullam et elit
+      elementum, mattis lectus sit amet, pretium neque. Donec bibendum tempor neque, et malesuada
+      ligula tincidunt nec.
+    </Text>
+  </TextClamp>
+</ThemeProvider>
+
+You can also show a showMore/showLess button with the `withToggle` prop. You will need to also provide the `showMore` and `showLess` label props.
+
+<ThemeProvider>
+  <TextClamp withToggle>
+    <Text>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac eros sed mi finibus
+      placerat id vitae neque. Vivamus volutpat lacus sed sodales hendrerit. Nullam et elit
+      elementum, mattis lectus sit amet, pretium neque. Donec bibendum tempor neque, et malesuada
+      ligula tincidunt nec. Proin tincidunt eros non posuere semper. Quisque ac commodo massa.
+      Aenean fringilla leo a aliquam ornare. Nam id est lorem. Ut quis urna orci. Pellentesque
+      libero lorem, imperdiet eget purus a, vestibulum tristique nibh. Proin felis velit, interdum
+      et quam ac, volutpat fermentum risus. Integer nunc erat, sagittis ac lorem et, malesuada
+      mattis leo. Nam quis dui in magna feugiat vehicula a et orci.
+    </Text>
+  </TextClamp>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-typography-text-clamp--playground" />
+  <Story id="atoms-typography-textclamp--playground" />
 </Preview>
 
 <Props of={TextClamp} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/text-clamp_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/text-clamp/text-clamp.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/typography/TextClamp.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/typography/TextClamp/TextClamp.mdx)

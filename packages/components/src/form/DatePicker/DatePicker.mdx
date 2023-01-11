@@ -4,9 +4,9 @@ import { DatePicker } from './DatePicker.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# DatePicker
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/DatePicker>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/DatePicker/DatePicker.js)
 
 ## Table of Contents
 
@@ -20,29 +20,38 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-**name** is ...
+DatePicker is an input to capture a date or a date range from user.
 
 <ThemeProvider>
-  <DatePicker>Date picker</DatePicker>
+  <DatePicker />
+</ThemeProvider>
+
+## DatePicker with range and with time
+
+DatePicker also can show a range or a time with the `range` and `withTime` props respectively
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <DatePicker range />
+    <DatePicker withTime />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-date-picker--playground" />
+  <Story id="molecules-form-datepicker--playground" />
 </Preview>
 
 <Props of={DatePicker} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/date-picker_role>)
+[MDN: ARIA input role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/date-picker/date-picker.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/DatePicker.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/DatePicker/DatePicker.mdx)

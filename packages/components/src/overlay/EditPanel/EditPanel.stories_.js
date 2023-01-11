@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Group, Box, Divider } from '@mantine/core';
+import { Group, Divider } from '@mantine/core';
+import { Box } from '../../layout';
 import { Button, InputWrapper } from '../../form';
-import { Translator } from './../../leemons';
 import { EditPanel } from './EditPanel';
 import mdx from './EditPanel.mdx';
 
@@ -46,7 +46,6 @@ const Template = (props) => {
           ></InputWrapper>
         </Box>
         <Divider />
-        <Translator></Translator>
       </EditPanel>
     </>
   );

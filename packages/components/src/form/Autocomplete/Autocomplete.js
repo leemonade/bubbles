@@ -31,6 +31,8 @@ const Autocomplete = forwardRef(
       ignoreWrapper,
       waitToSearch,
       autoComplete,
+      ariaLabel,
+      className,
       onItemSubmit = () => {},
       onChange = () => {},
       onSearch = () => {},
@@ -38,8 +40,8 @@ const Autocomplete = forwardRef(
     },
     ref
   ) => {
-    const [selectedValue, setSelectedValue] = useState(value.length > 1 ? value : null);
-    const [inputValue, setInputValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState(Array.isArray(value) ? value : null);
+    const [inputValue, setInputValue] = useState(value || '');
     const [debouncedValue] = useDebouncedValue(inputValue, waitToSearch);
     const uuid = useId();
 
@@ -52,6 +54,11 @@ const Autocomplete = forwardRef(
       onSearch(debouncedValue);
     }, [debouncedValue]);
 
+    useEffect(() => {
+      setSelectedValue(Array.isArray(value) ? value : null);
+      setInputValue(value);
+    }, [value]);
+
     // ················································································
     // HANDLERS
 
@@ -61,13 +68,14 @@ const Autocomplete = forwardRef(
     };
 
     const onChangeHandler = (e) => {
-      isFunction(onChange) && onChange(e);
       setInputValue(e);
+      isFunction(onChange) && onChange(e);
     };
 
     const deleteValues = () => {
       setSelectedValue(null);
       setInputValue('');
+      isFunction(onChange) && onChange('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -81,7 +89,31 @@ const Autocomplete = forwardRef(
 
     return (
       <Wrapper {...wrapperProps}>
-        {!multiple ? (
+        {multiple ? (
+          <MantineMultiSelect
+            {...props}
+            id={id || uuid}
+            ref={ref}
+            classNames={classes}
+            className={className}
+            placeholder={placeholder}
+            data={data}
+            searchable={true}
+            value={selectedValue}
+            itemComponent={itemComponent}
+            valueComponent={valueComponent}
+            nothingFound={nothingFoundLabel}
+            rightSection={<></>}
+            rightSectionWidth={0}
+            autoComplete={autoComplete}
+            onChange={(e) => {
+              onItemSubmitHandler(e);
+              setInputValue(e);
+            }}
+            error={!isEmpty(error)}
+            aria-label={ariaLabel}
+          />
+        ) : (
           <MantineAutocomplete
             {...props}
             id={id || uuid}
@@ -89,9 +121,10 @@ const Autocomplete = forwardRef(
             placeholder={placeholder}
             itemComponent={itemComponent}
             onItemSubmit={onItemSubmitHandler}
+            className={className}
             nothingFound={nothingFoundLabel}
             rightSection={
-              selectedValue && (
+              inputValue && (
                 <DeleteIcon
                   height={12}
                   width={12}
@@ -106,27 +139,11 @@ const Autocomplete = forwardRef(
             autoComplete={autoComplete}
             classNames={classes}
             error={!isEmpty(error)}
-          />
-        ) : (
-          <MantineMultiSelect
-            {...props}
-            id={id || uuid}
-            ref={ref}
-            classNames={classes}
-            placeholder={placeholder}
-            data={data}
-            searchable={true}
-            value={selectedValue}
-            itemComponent={itemComponent}
-            valueComponent={valueComponent}
-            nothingFound={nothingFoundLabel}
-            rightSection={<></>}
-            rightSectionWidth={0}
-            onChange={(e) => {
-              onItemSubmitHandler(e);
-              setInputValue(e);
+            aria-label={ariaLabel}
+            filter={(value = '', item) => {
+              if (!value) return true;
+              return item.value?.toLowerCase().trim().includes(value?.toLowerCase().trim());
             }}
-            error={!isEmpty(error)}
           />
         )}
       </Wrapper>

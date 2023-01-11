@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isString, isEmpty } from 'lodash';
+import { isEmpty, isString } from 'lodash';
 import { Image } from '@mantine/core';
 import { InlineSvg } from '../InlineSvg';
 import { ImageLoaderStyles } from './ImageLoader.styles';
@@ -10,9 +10,11 @@ export const ImageLoader = ({
   alt,
   forceImage,
   height: heightProp,
+  width,
   withPlaceholder,
   radius,
   imageStyles,
+  useAria,
   ...props
 }) => {
   const [src, setSrc] = useState(srcProp);
@@ -23,7 +25,11 @@ export const ImageLoader = ({
     if (srcProp !== src) setSrc(srcProp);
   }, [srcProp]);
 
-  const { classes, cx } = ImageLoaderStyles({ radius, imageStyles }, { name: 'ImageLoader' });
+  const { classes, cx } = ImageLoaderStyles(
+    { radius, imageStyles, height },
+    { name: 'ImageLoader' }
+  );
+
   return isSvg ? (
     <InlineSvg src={src} {...props} />
   ) : (
@@ -31,9 +37,16 @@ export const ImageLoader = ({
       {...props}
       src={src}
       alt={alt}
-      height={height}
+      radius={radius}
+      height={height || '100%'}
+      width={width || '100%'}
       withPlaceholder={withPlaceholder}
-      classNames={{ root: classes.root }}
+      classNames={{
+        root: classes.root,
+        imageWrapper: classes.imageWrapper,
+        figure: classes.figure,
+      }}
+      role={useAria ? 'image' : undefined}
     />
   );
 };
@@ -45,6 +58,7 @@ ImageLoader.defaultProps = {
 ImageLoader.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
   radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

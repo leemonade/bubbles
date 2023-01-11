@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const RadioGroupStyles = createStyles(
-  (theme, { variant, value, direction, fullWidth, activePosition, hasError }) => {
+  (theme, { variant, value, direction, fullWidth, activePosition, hasError, rounded }) => {
     const isColumn = direction === 'column';
     const isDefault = variant == 'default';
     const isIcon = variant == 'icon';
@@ -13,7 +13,7 @@ export const RadioGroupStyles = createStyles(
         padding: 0,
         ...getFontExpressive(theme.fontSizes['2']),
         backgroundColor: isDefault ? 'transparent' : null,
-        borderRadius: 0,
+        borderRadius: rounded ? 4 : 0,
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: direction,
         border: hasError ? `1px solid ${theme.colors.fatic01}` : 'none',
@@ -26,6 +26,7 @@ export const RadioGroupStyles = createStyles(
         justifyContent: isIcon && 'center',
         height: '100%',
         alignItems: (isDefault || isBoxed) && 'flex-start',
+        whiteSpace: 'unset',
       },
       active: {
         display: !value || isDefault ? 'none' : null,
@@ -33,13 +34,11 @@ export const RadioGroupStyles = createStyles(
           value && !isDefault
             ? `inset 0 0 0 1px ${isIcon ? theme.colors.interactive01d : theme.colors.ui01}`
             : null,
-        borderRadius: '0px',
+        borderRadius: rounded ? 4 : 0,
         top: 4,
         left: 4,
         bottom: 0,
-        height: isColumn && activePosition.height,
-        // transform: isColumn && `translateY(${activePosition.translate}px) !important`,
-        // marginLeft: !isColumn && 4,
+        height: isColumn ? activePosition.height : 'auto',
         transitionTimingFunction: 'ease-out',
       },
       radio: {

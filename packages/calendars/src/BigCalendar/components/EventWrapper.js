@@ -9,10 +9,14 @@ import {
   Stack,
   Text,
 } from '@bubbles-ui/components';
+import { colord } from 'colord';
 
 function stringifyPercent(v) {
   return typeof v === 'string' ? v : v + '%';
 }
+
+const emptyPixel =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
   return {
@@ -62,6 +66,7 @@ export function EventWrapper(props) {
     onDoubleClick,
     isBackgroundEvent,
     onKeyPress,
+    components: { forceBgColorToEvents },
   } = props;
 
   const { classes } = eventWrapperStyles({});
@@ -74,6 +79,10 @@ export function EventWrapper(props) {
   let userProps = getters.eventProp(event, start, end, selected);
 
   let { height, top, width, xOffset } = style;
+
+  const originalEvent = event.originalEvent;
+  const bgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+
   const eventStyle = isBackgroundEvent
     ? {
         ...userProps.style,
@@ -89,11 +98,13 @@ export function EventWrapper(props) {
         top: stringifyPercent(top),
         width: stringifyPercent(width),
         height: stringifyPercent(height),
+        backgroundColor: forceBgColorToEvents
+          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+          : null,
         minHeight: '35px',
         [rtl ? 'right' : 'left']: stringifyPercent(xOffset),
       };
 
-  const originalEvent = event.originalEvent;
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
   const avatar = {
@@ -102,6 +113,7 @@ export function EventWrapper(props) {
       <Box className={classes.icon}>
         <ImageLoader
           height="12px"
+          width="12px"
           imageStyles={{
             position: 'absolute',
             left: '50%',
@@ -114,7 +126,7 @@ export function EventWrapper(props) {
         />
       </Box>
     ) : null,
-    color: originalEvent.bgColor || originalEvent.calendar.bgColor,
+    color: bgColor,
   };
 
   if (originalEvent.calendar.isUserCalendar) {
@@ -141,19 +153,23 @@ export function EventWrapper(props) {
         }
       )}
     >
-      <Stack spacing={1}>
-        <Box>
-          <Avatar mx="auto" size="xs" {...avatar} />
-        </Box>
-        <Box className={classes.texts}>
+      {event.component ? (
+        event.component
+      ) : (
+        <Stack spacing={1}>
           <Box>
-            <Text role="productive" color="primary" size="xs">
-              {title}
-            </Text>
+            <Avatar mx="auto" size="xs" {...avatar} />
           </Box>
-          <Box className={classes.date}>{label}</Box>
-        </Box>
-      </Stack>
+          <Box className={classes.texts}>
+            <Box>
+              <Text role="productive" color="primary" size="xs">
+                {title}
+              </Text>
+            </Box>
+            <Box className={classes.date}>{label}</Box>
+          </Box>
+        </Stack>
+      )}
     </Box>
   );
 }

@@ -1,5 +1,4 @@
 const React = require("react");
-
 function HyperlinkIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function HyperlinkIcon(props) {
     d: "M10.082 9.5A4.47 4.47 0 0 0 6.75 8h-1.5a4.5 4.5 0 0 0 0 9h1.5a4.474 4.474 0 0 0 3.332-1.5M13.918 9.5A4.468 4.468 0 0 1 17.25 8h1.5a4.5 4.5 0 0 1 0 9h-1.5a4.471 4.471 0 0 1-3.332-1.5M6.75 12.499h10.5"
   }));
 }
-
 module.exports = HyperlinkIcon;

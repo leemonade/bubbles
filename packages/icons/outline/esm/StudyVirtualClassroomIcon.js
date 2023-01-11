@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function StudyVirtualClassroomIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -25,5 +24,4 @@ function StudyVirtualClassroomIcon(props) {
     d: "M23.187 16.919a.732.732 0 0 1-.67 1.03h-9.534a.732.732 0 0 1-.67-1.03l1.037-2.27h8.8l1.037 2.27ZM10.65 15.183a.733.733 0 0 0-.733-.733H2.583a.733.733 0 0 0-.733.733v4.767h8.8M11.687 22.219a.732.732 0 0 1-.67 1.031H1.483a.734.734 0 0 1-.67-1.031L1.85 19.95h8.8l1.037 2.269Z"
   }));
 }
-
 export default StudyVirtualClassroomIcon;

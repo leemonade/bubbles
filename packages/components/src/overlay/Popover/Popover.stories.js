@@ -1,7 +1,10 @@
-import React from 'react';
-import { Box } from '@mantine/core';
-import { Popover, POPOVER_DEFAULT_PROPS } from './Popover';
+import React, { useEffect } from 'react';
+import { Button } from '../../form';
+import { Popover } from './Popover';
+import { POPOVER_DEFAULT_PROPS, POPOVER_POSITIONS } from './Popover.constants';
 import mdx from './Popover.mdx';
+import { Text } from '../../typography';
+import { Box } from '../../layout';
 
 export default {
   title: 'Atoms/Overlay/Popover',
@@ -16,19 +19,38 @@ export default {
     },
   },
   argTypes: {
+    position: { options: POPOVER_POSITIONS, control: { type: 'select' } },
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <Popover {...props}>{children}</Popover>;
+const Template = ({ children, opened: _opened, ...props }) => {
+  const [opened, setOpened] = React.useState(_opened);
+
+  useEffect(() => {
+    setOpened(_opened);
+  }, [_opened]);
+
+  return (
+    <Popover
+      opened={opened}
+      target={<Button onClick={() => setOpened(!opened)}>Toggle popover</Button>}
+      {...props}
+    >
+      {children}
+      <Box style={{ padding: 8 }}>
+        <Text color="primary" size="lg">
+          I'm a popover
+        </Text>
+      </Box>
+    </Popover>
+  );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  opened: false,
   ...POPOVER_DEFAULT_PROPS,
 };

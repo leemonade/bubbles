@@ -13,6 +13,10 @@ export const SCORE_INPUT_DEFAULT_PROPS = {
   value: {},
   decimalPrecision: 0,
   direction: 'ltr',
+  customLabel: 'Enter custom score value',
+  moveRightLabel: 'Move right',
+  moveLeftLabel: 'Move left',
+  useAria: true,
 };
 
 export const SCORE_INPUT_PROP_TYPES = {
@@ -40,4 +44,6 @@ export const SCORE_INPUT_PROP_TYPES = {
   decimalSeparator: PropTypes.oneOf(SCORE_INPUT_SEPARATORS),
   direction: PropTypes.oneOf(SCORE_INPUT_DIRECTION),
   onChange: PropTypes.func,
+  customLabel: PropTypes.string,
+  useAria: PropTypes.bool,
 };

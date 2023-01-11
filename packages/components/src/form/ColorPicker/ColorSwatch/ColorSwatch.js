@@ -12,19 +12,20 @@ export const ColorSwatch = forwardRef(
       actived,
       className,
       spacing = 2,
+      pointerEvents,
       plain,
       ...props
     },
     ref
   ) => {
-    const { classes, cx } = ColorSwatchStyles({ actived, plain });
+    const { classes, cx } = ColorSwatchStyles({ actived, pointerEvents, plain });
 
     return (
       <MantineColorSwatch
         ref={ref}
         {...props}
         color={color}
-        aria-label={color}
+        // aria-label={color}
         tabIndex={0}
         className={cx(className, classes.root)}
       />

@@ -1,16 +1,15 @@
-import React, { forwardRef, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
 import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
+import { SELECT_PROP_TYPES, SELECT_DEFAULT_PROPS } from './Select.constants';
 import { useId } from '@mantine/hooks';
-import { INPUT_WRAPPER_ORIENTATIONS, INPUT_WRAPPER_SIZES, InputWrapper } from '../InputWrapper';
+import { InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 import { Paragraph } from '../../typography';
-
-export const SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
+import { MultiSelect } from '../MultiSelect';
+import { Dropdown, Item } from '../../overlay/Dropdown';
 
 const Select = forwardRef(
   (
@@ -22,6 +21,7 @@ const Select = forwardRef(
       clearable,
       onChange,
       itemComponent,
+      valueComponent,
       onBlur,
       value: _value,
       defaultValue,
@@ -43,14 +43,18 @@ const Select = forwardRef(
       autoComplete,
       readOnly,
       variant,
+      autoSelectOneOption,
+      ariaLabel,
+      withinPortal,
       ...props
     },
     ref
   ) => {
-    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d.value.toString() }));
+    const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d?.value.toString() }));
     const value = isNil(_value) ? _value : _value.toString();
     const uuid = useId();
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
+    const autoSelectOneOptionMode = autoSelectOneOption && data.length === 1;
 
     // ······················································
     // HANDLERS
@@ -83,14 +87,52 @@ const Select = forwardRef(
     }, [data, value]);
 
     // ······················································
+    // useEffects
+
+    useEffect(() => {
+      if (!autoSelectOneOptionMode) return;
+      if (data[0].value && data[0].value !== value)
+        handleChange(valueComponent ? [data[0].value] : data[0].value);
+    }, [autoSelectOneOption, data]);
+
+    // ······················································
     // STYLES
 
     const { classes, cx } = SelectStyles(
-      { size, rightEvents: isClearable && showClear },
+      { size, rightEvents: isClearable && showClear, variant },
       { name: 'Select' }
     );
 
-    return (
+    return valueComponent ? (
+      <MultiSelect
+        data={data}
+        value={value ? [value] : undefined}
+        onChange={handleChange}
+        valueComponent={valueComponent}
+        multiple={false}
+        clearable={clearable}
+        size={size}
+        dropdownComponent={Dropdown}
+        itemComponent={itemComponent || Item}
+        creatable={creatable}
+        onCreate={onCreate}
+        defaultValue={defaultValue}
+        name={name}
+        dropdownPosition={dropdownPosition}
+        disabled={disabled || autoSelectOneOptionMode}
+        searchable={searchable}
+        onSearchChange={onSearchChange}
+        onDropdownOpen={onDropdownOpen}
+        onDropdownClose={onDropdownClose}
+        initiallyOpened={initiallyOpened}
+        getCreateLabel={getCreateLabel}
+        nothingFound={nothingFound}
+        placeholder={placeholder}
+        error={error}
+        ariaLabel={ariaLabel}
+        {...props}
+      ></MultiSelect>
+    ) : (
       <InputWrapper {...props} uuid={uuid} size={size} error={error}>
         {readOnly ? (
           <Paragraph clean>{dataValue}</Paragraph>
@@ -104,23 +146,25 @@ const Select = forwardRef(
             onChange={handleChange}
             onBlur={onBlur}
             value={value}
-            itemComponent={itemComponent}
+            dropdownComponent={Dropdown}
+            itemComponent={itemComponent || Item}
             creatable={creatable}
             onCreate={onCreate}
             defaultValue={defaultValue}
             name={name}
-            disabled={disabled}
+            disabled={disabled || autoSelectOneOptionMode}
             searchable={searchable}
             onSearchChange={onSearchChange}
             onDropdownOpen={onDropdownOpen}
             onDropdownClose={onDropdownClose}
             initiallyOpened={initiallyOpened}
+            dropdownPosition={dropdownPosition}
             getCreateLabel={getCreateLabel}
             nothingFound={nothingFound}
             placeholder={placeholder}
             variant={variant}
             rightSection={
-              isClearable && showClear ? (
+              isClearable && showClear && !autoSelectOneOptionMode ? (
                 <ActionButton
                   icon={<RemoveIcon />}
                   tooltip={clearable}
@@ -135,6 +179,8 @@ const Select = forwardRef(
             classNames={classes}
             icon={icon}
             error={!isEmpty(error)}
+            aria-label={ariaLabel}
+            withinPortal={withinPortal}
           />
         )}
       </InputWrapper>
@@ -142,32 +188,7 @@ const Select = forwardRef(
   }
 );
 
-Select.defaultProps = {
-  size: 'sm',
-  orientation: 'vertical',
-  autoComplete: 'off',
-  readOnly: false,
-  variant: 'default',
-};
-
-Select.propTypes = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
-  data: PropTypes.any,
-  required: PropTypes.bool,
-  size: PropTypes.oneOf(SELECT_SIZES),
-  orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  searchable: PropTypes.bool,
-  clearable: PropTypes.string,
-  nothingFound: PropTypes.any,
-  disabled: PropTypes.bool,
-  onDropdownOpen: PropTypes.func,
-  onDropdownClose: PropTypes.func,
-  style: PropTypes.object,
-  autoComplete: PropTypes.string,
-  readOnly: PropTypes.bool,
-};
+Select.defaultProps = SELECT_DEFAULT_PROPS;
+Select.propTypes = SELECT_PROP_TYPES;
 
 export { Select };

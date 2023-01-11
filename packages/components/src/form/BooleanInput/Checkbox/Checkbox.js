@@ -12,7 +12,7 @@ const CheckboxIcon = ({ indeterminate, className }) =>
     <CheckIcon className={className} />
   );
 
-const Checkbox = forwardRef(({ disabled, labelPosition, size, ...props }, ref) => {
+const Checkbox = forwardRef(({ disabled, labelPosition, size, useAria, ...props }, ref) => {
   const { classes, cx } = CheckboxStyles({ disabled, labelPosition }, { name: 'Checkbox' });
 
   return (
@@ -22,6 +22,7 @@ const Checkbox = forwardRef(({ disabled, labelPosition, size, ...props }, ref) =
       classNames={classes}
       icon={CheckboxIcon}
       disabled={disabled}
+      role={useAria ? 'checkbox' : undefined}
     />
   );
 });

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ModuleFourIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function ModuleFourIcon(props) {
     d: "M7.5 3v3c0 .828 2.015 1.5 4.5 1.5s4.5-.672 4.5-1.5V3"
   }));
 }
-
 export default ModuleFourIcon;

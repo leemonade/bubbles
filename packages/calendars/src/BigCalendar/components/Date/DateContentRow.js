@@ -58,12 +58,14 @@ class DateContentRow extends React.Component {
     return Math.max(Math.floor(eventSpace / eventHeight), 1);
   }
 
-  renderHeadingCell = (date, index) => {
+  renderHeadingCell = (date, index, range) => {
     let { renderHeader, getNow, localizer } = this.props;
     const { cx } = this.props.components;
+    const isWeekend = index >= range.length - 2;
 
     return renderHeader({
       date,
+      isWeekend,
       key: `header_${index}`,
       className: cx('rbc-date-cell', { 'rbc-now': localizer.isSameDate(date, getNow()) }),
     });
@@ -101,13 +103,10 @@ class DateContentRow extends React.Component {
       selected,
       selectable,
       renderForMeasure,
-
       accessors,
       getters,
       components,
-
       events,
-
       getNow,
       renderHeader,
       onSelect,
@@ -122,6 +121,9 @@ class DateContentRow extends React.Component {
       resizable,
       showAllEvents,
       hideBgTitles,
+      isMonthView,
+      monthNumber,
+      printMode,
     } = this.props;
 
     const { showWeekends, cx } = components;
@@ -148,7 +150,11 @@ class DateContentRow extends React.Component {
       }
     });
 
-    let metrics = this.slotMetrics({ ...this.props, events: normalEvents });
+    let metrics = this.slotMetrics({
+      ...this.props,
+      maxRows: isMonthView ? 20 : this.props.maxRows || undefined,
+      events: normalEvents,
+    });
     let { levels, extra } = metrics;
 
     let ScrollableWeekComponent = showAllEvents ? ScrollableWeekWrapper : NoopWrapper;
@@ -166,10 +172,20 @@ class DateContentRow extends React.Component {
       resourceId,
       slotMetrics: metrics,
       resizable,
+      events,
     };
 
+    /*
+    if (isMonthView) {
+      levels = _.flattenDeep(levels);
+      levels = _.map(levels, (level) => [level]);
+    }
+    console.log('levels', levels);
+
+     */
+
     return (
-      <Box className={className} style={{ background: '#F7F8FA' }} role="rowgroup">
+      <Box className={className} style={{ background: !isMonthView && '#F7F8FA' }} role="rowgroup">
         {/* BACKGROUND ················································· */}
         <BackgroundCells
           localizer={localizer}
@@ -194,7 +210,7 @@ class DateContentRow extends React.Component {
         {/* ROW CONTENT ················································· */}
         <Box
           className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: isMonthView ? 'all' : 'none' }}
           role="row"
         >
           {/* DATE NUMBER ······ */}
@@ -209,9 +225,19 @@ class DateContentRow extends React.Component {
           {/* EVENTS ··········· */}
           <ScrollableWeekComponent>
             <WeekWrapper isAllDay={isAllDay} {...eventRowProps}>
-              {levels.map((segs, idx) => (
-                <EventRow key={idx} segments={segs} {...eventRowProps} />
-              ))}
+              {levels.map((segs, idx) => {
+                return (
+                  <EventRow
+                    key={idx}
+                    segments={segs}
+                    monthNumber={monthNumber}
+                    isMonthView={isMonthView}
+                    range={range}
+                    printMode={printMode}
+                    {...eventRowProps}
+                  />
+                );
+              })}
               {!!extra.length && (
                 <EventEndingRow
                   segments={extra}
@@ -231,18 +257,15 @@ DateContentRow.propTypes = {
   date: PropTypes.instanceOf(Date),
   events: PropTypes.array.isRequired,
   range: PropTypes.array.isRequired,
-
   rtl: PropTypes.bool,
   resizable: PropTypes.bool,
   resourceId: PropTypes.any,
   renderForMeasure: PropTypes.bool,
   renderHeader: PropTypes.func,
-
   container: PropTypes.func,
   selected: PropTypes.object,
   selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),
   longPressThreshold: PropTypes.number,
-
   onShowMore: PropTypes.func,
   showAllEvents: PropTypes.bool,
   onSelectSlot: PropTypes.func,
@@ -252,15 +275,12 @@ DateContentRow.propTypes = {
   onDoubleClick: PropTypes.func,
   onKeyPress: PropTypes.func,
   dayPropGetter: PropTypes.func,
-
   getNow: PropTypes.func.isRequired,
   isAllDay: PropTypes.bool,
-
   accessors: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
   getters: PropTypes.object.isRequired,
   localizer: PropTypes.object.isRequired,
-
   minRows: PropTypes.number.isRequired,
   maxRows: PropTypes.number.isRequired,
 };

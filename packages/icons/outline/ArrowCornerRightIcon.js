@@ -1,5 +1,4 @@
 const React = require("react");
-
 function ArrowCornerRightIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function ArrowCornerRightIcon(props) {
     d: "m4 3.75 15.91 15.91M4.91 19.66h15v-15"
   }));
 }
-
 module.exports = ArrowCornerRightIcon;

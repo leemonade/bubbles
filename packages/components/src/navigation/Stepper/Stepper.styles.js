@@ -48,19 +48,9 @@ export const StepperStyles = createStyles(
 
     if (isVertical) {
       stepProps.flex = 0;
-      // stepProps.flexDirection = 'row';
       stepProps.width = '100%';
       stepProps.padding = `${pxToRem(12)} ${pxToRem(10)}`;
       stepProps.paddingLeft = isVertical ? pxToRem(24) : 0;
-
-      separatorProps.flex = 0;
-      separatorProps.marginTop = '-24px !important';
-      separatorProps.marginBottom = 0;
-      separatorProps.transform = 'translate(-14px, 14px)';
-      separatorProps.borderRight = `1px dashed ${theme.colors.ui01}`;
-      separatorProps.borderTopWidth = 0;
-
-      separatorActiveProps.borderColor = `${theme.colors.ui01} !important`;
 
       stepCompletedIcon.backgroundColor = `${theme.colors.fatic02} !important`;
       stepCompletedIcon.borderColor = `${theme.colors.fatic02} !important`;
@@ -78,12 +68,47 @@ export const StepperStyles = createStyles(
         width: parseWidth(navWidth, isVertical),
         backgroundColor: !isVertical && theme.colors.interactive03,
         borderRadius: !isVertical && '4px',
+        overflow: isVertical && 'hidden',
       },
       step: {
         ...stepProps,
         gap: isVertical ? 20 : 15,
-        padding: isVertical ? `${pxToRem(10)} ${pxToRem(10)}` : `${pxToRem(15)} ${pxToRem(10)}`,
+        padding: isVertical ? `10px 10px` : `${pxToRem(15)} ${pxToRem(10)}`,
         borderRadius: !isVertical && '3px',
+        marginTop: isVertical && 0,
+        alignItems: isVertical && 'center',
+        '&[data-progress]': {
+          backgroundColor: !isVertical && `#FFFFFF !important`,
+          margin: !isVertical && '2px !important',
+          '.mantine-Stepper-stepLabel': {
+            color: theme.colors.text01,
+          },
+        },
+        '&[data-completed]': {
+          backgroundColor: isVertical && theme.colors.interactive03,
+        },
+        overflow: 'visible',
+      },
+      lastStep: {
+        '.mantine-Stepper-stepWrapper': isVertical && {
+          '&:after': {
+            position: 'absolute',
+            backgroundColor: 'white',
+            content: '""',
+            right: 'calc(50% - 2px)',
+            top: '50%',
+            width: 4,
+            bottom: -100,
+            zIndex: 100,
+          },
+        },
+        '&[data-completed]': {
+          '.mantine-Stepper-stepWrapper': isVertical && {
+            '&:after': {
+              backgroundColor: isVertical && theme.colors.interactive03,
+            },
+          },
+        },
       },
       stepBody: {
         flex: 1,
@@ -92,17 +117,22 @@ export const StepperStyles = createStyles(
       separator: {
         ...separatorProps,
       },
+      verticalSeparator: {
+        ...separatorProps,
+        flex: 0,
+        marginBottom: 0,
+        borderRight: `1px dashed ${theme.colors.ui01}`,
+        borderLeft: 'none',
+        borderTopWidth: 0,
+        left: 9.5,
+        top: 0,
+      },
+      stepWrapper: {},
       separatorActive: {
         ...separatorActiveProps,
       },
-      stepCompleted: {
-        backgroundColor: isVertical && theme.colors.interactive03,
-        '.mantine-Stepper-stepIcon': {
-          ...stepCompletedIcon,
-          width: `20px !important`,
-          height: `20px !important`,
-          margin: '0px !important',
-        },
+      verticalSeparatorActive: {
+        borderColor: `${theme.colors.ui01} !important`,
       },
       stepLabel: {
         ...getFontExpressive(theme.fontSizes[2]),
@@ -110,17 +140,13 @@ export const StepperStyles = createStyles(
         textAlign: 'left',
       },
       stepIcon: {
-        backgroundColor: 'transparent !important',
+        backgroundColor: isVertical ? '#FFF' : 'transparent',
         borderColor: `${theme.colors.text08} !important`,
-        borderWidth: '1px !important',
+        borderWidth: '1px',
         fontSize: '0.8em',
-        margin: '4px !important',
-      },
-      stepProgress: {
-        backgroundColor: !isVertical && `#FFFFFF !important`,
-        margin: !isVertical && '2px !important',
-
-        '.mantine-Stepper-stepIcon': {
+        margin: '4px',
+        zIndex: 999,
+        '&[data-progress]': {
           color: theme.colors.interactive01,
           borderColor: `${theme.colors.interactive01} !important`,
           backgroundColor: '#FFFFFF !important',
@@ -129,8 +155,11 @@ export const StepperStyles = createStyles(
           height: `20px !important`,
           margin: '0px !important',
         },
-        '.mantine-Stepper-stepLabel': {
-          color: theme.colors.text01,
+        '&[data-completed]': {
+          ...stepCompletedIcon,
+          width: `20px !important`,
+          height: `20px !important`,
+          margin: '0px !important',
         },
       },
       stepCompletedIcon: {},

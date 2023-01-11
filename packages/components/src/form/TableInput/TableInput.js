@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import update from 'immutability-helper';
-import { isFunction, isEmpty, uniq } from 'lodash';
+import { isEmpty, isFunction } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { Box } from '../../layout/Box';
@@ -36,6 +36,7 @@ const TableInput = ({
   error,
   unique,
   showHeaders,
+  forceShowInputs,
   resetOnAdd,
   onChange = () => {},
   onChangeData = () => {},
@@ -80,12 +81,14 @@ const TableInput = ({
       const newData = update(tableData, { $push: [serializeItem(item)] });
       onAdd(serializeItem(item));
       handleOnChange(newData, { type: 'add' });
-
-      if (resetOnAdd) {
-        form.reset();
-      }
     }
   };
+
+  React.useEffect(() => {
+    if (form.formState.isSubmitSuccessful && resetOnAdd) {
+      form.reset();
+    }
+  }, [form.formState, form.reset]);
 
   const handleOnEdit = (newItem, index) => {
     const newData = [...tableData];
@@ -134,6 +137,7 @@ const TableInput = ({
           onEdit={handleOnEdit}
           onSort={handleOnSort}
           showHeaders={showHeaders}
+          forceShowInputs={forceShowInputs}
           classes={classes}
         />
       </Box>

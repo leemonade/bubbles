@@ -4,9 +4,9 @@ import { Table } from './Table.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# Table
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/Table>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Table/Table.js)
 
 ## Table of Contents
 
@@ -14,17 +14,103 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Table utilization](#table-utilization)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+Table is a component to display information in a table.
 
 <ThemeProvider>
-  <Table>Table</Table>
+  <Table
+    columns={[
+      {
+        Header: 'Name',
+        accessor: 'name',
+      },
+      {
+        Header: 'Description',
+        accessor: 'description',
+      },
+      {
+        Header: 'Actions',
+        accessor: 'actions',
+      },
+    ]}
+    data={[
+      {
+        name: 'Admin',
+        description:
+          'General managers for the system, has a wide range of permissions except for installing and uninstalling leemons',
+        actions: (
+          <Stack justifyContent="end" fullWidth>
+            <ActionButton tooltip="Open" icon={<ExpandDiagonalIcon />} />
+          </Stack>
+        ),
+      },
+      {
+        name: 'Manager',
+        description:
+          'Manages platform users for administrative purposes (logins, deletions, edits and notifications)',
+        actions: (
+          <Stack justifyContent="end" fullWidth>
+            <ActionButton tooltip="Open" icon={<ExpandDiagonalIcon />} />
+          </Stack>
+        ),
+      },
+    ]}
+  />
 </ThemeProvider>
+
+## Table utilization
+
+You must provide an array of `columns` with this shape:
+
+```js
+{
+  Header: "columnHeader",
+  accessor: "columnAccessor"
+}
+```
+
+And an array of `data`, with the keys of each object in the array matching the column accessors:
+
+```js
+[
+  { accessor1: 'Column 1, Cell 1', accessor2: 'Column 2, Cell 1' },
+  { accessor1: 'Column 1, Cell 2', accessor2: 'Column 2, Cell 2' },
+];
+```
+
+This example would show this output:
+
+<ThemeProvider>
+  <Table
+    columns={[
+      {
+        Header: 'Column 1',
+        accessor: 'column1',
+      },
+      {
+        Header: 'Column 2',
+        accessor: 'column2',
+      },
+    ]}
+    data={[
+      { column1: 'Column 1, Cell 1', column2: 'Column 2, Cell 1' },
+      { column1: 'Column 1, Cell 2', column2: 'Column 2, Cell 2' },
+    ]}
+  />
+</ThemeProvider>
+
+If you provide an object to the accessor with a `type = 'chechbox'` property and a `checked` property
+it will render a Checkbox cell. You can also provide a node to the accessor to render a custom cell.
+
+<Preview>
+  <Story id="atoms-informative-table--checkbox-cell" />
+</Preview>
 
 ## Component API
 
@@ -36,13 +122,13 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role>)
+[MDN: ARIA table role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/table/table.html>)
+[W3: ARIA table role example](https://www.w3.org/WAI/ARIA/apg/example-index/table/table.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/Table.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Table/Table.mdx)

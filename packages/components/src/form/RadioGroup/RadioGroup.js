@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, map } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
-import { useUuid } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
 import { Radio, RADIO_VARIANTS } from '../Radio/Radio';
 import {
@@ -11,6 +11,7 @@ import {
   INPUT_WRAPPER_SIZES,
   InputWrapper,
 } from '../InputWrapper';
+import { isFunction } from 'lodash';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
@@ -24,13 +25,16 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   direction: 'row',
   size: 'sm',
   variant: RADIO_VARIANTS[0],
+  rounded: false,
   defaultValue: '',
   value: '',
   fullWidth: false,
+  useAria: true,
 };
 export const RADIOGROUP_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
   variant: PropTypes.oneOf(RADIO_VARIANTS),
+  rounded: PropTypes.bool,
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   data: PropTypes.arrayOf(Object),
   defaultValue: PropTypes.string,
@@ -39,6 +43,7 @@ export const RADIOGROUP_PROP_TYPES = {
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.any,
+  useAria: PropTypes.bool,
 };
 
 const RadioGroup = forwardRef(
@@ -52,10 +57,12 @@ const RadioGroup = forwardRef(
       size,
       orientation,
       variant,
+      rounded,
       data,
       defaultValue,
       direction,
       fullWidth,
+      useAria,
       ...props
     },
     ref
@@ -65,14 +72,14 @@ const RadioGroup = forwardRef(
     const refs = useRef({});
     const wrapperRef = useRef();
     const hasError = useMemo(() => !isEmpty(error), [error]);
-    const uuid = useUuid();
+    const uuid = useId();
 
     React.useEffect(() => {
       setValue(props.value);
     }, [props.value]);
 
     const { classes, cx } = RadioGroupStyles(
-      { variant, value, direction, fullWidth, activePosition, hasError },
+      { variant, value, direction, fullWidth, activePosition, hasError, rounded },
       { name: 'RadioGroup' }
     );
 
@@ -90,7 +97,7 @@ const RadioGroup = forwardRef(
     const onChange = (value) => {
       const item = data.find((item) => item.value === value);
       if (!props.disabled && !item.disabled) {
-        props.onChange(value);
+        isFunction(props.onChange) && props.onChange(value);
         setValue(value);
       }
     };
@@ -104,7 +111,7 @@ const RadioGroup = forwardRef(
             const rect = element.getBoundingClientRect();
             setActivePosition({
               height: Math.floor(rect.height),
-              translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
+              // translate: rect.y - wrapperRef.current.getBoundingClientRect().y,
             });
           }
         }
@@ -125,7 +132,7 @@ const RadioGroup = forwardRef(
         error={error}
         required={required}
       >
-        <Box ref={wrapperRef}>
+        <Box ref={wrapperRef} role={useAria ? 'radiogroup' : undefined}>
           <MantineSegmentedControl
             {...props}
             ref={ref}
@@ -135,28 +142,27 @@ const RadioGroup = forwardRef(
             classNames={classes}
             defaultValue={defaultValue ? defaultValue : ' '}
             value={value}
-            data={map(data, ({ label, ...item }, index) => {
-              return {
-                value: item.value,
-                label: (
-                  <Radio
-                    {...item}
-                    disabled={item.disabled || props.disabled}
-                    ref={(node) => {
-                      refs.current[item.value] = node;
-                    }}
-                    size={size}
-                    key={index}
-                    className={classes.radio}
-                    variant={variant}
-                    checked={value === item.value}
-                    onChange={() => {}}
-                  >
-                    {label}
-                  </Radio>
-                ),
-              };
-            })}
+            data={map(data, ({ label, ...item }, index) => ({
+              value: item.value,
+              label: (
+                <Radio
+                  {...item}
+                  disabled={item.disabled || props.disabled}
+                  ref={(node) => {
+                    refs.current[item.value] = node;
+                  }}
+                  size={size}
+                  key={index}
+                  className={classes.radio}
+                  variant={variant}
+                  checked={value === item.value}
+                  onChange={() => {}}
+                  useAria={useAria}
+                >
+                  {label}
+                </Radio>
+              ),
+            }))}
           />
         </Box>
       </InputWrapper>

@@ -16,6 +16,7 @@ export default {
     },
   },
   argTypes: {
+    onChange: { action: 'onChange' },
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
     size: { options: INPUT_WRAPPER_SIZES, control: { type: 'select' } },

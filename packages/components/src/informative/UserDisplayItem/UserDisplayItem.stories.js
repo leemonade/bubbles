@@ -9,6 +9,7 @@ import {
   USER_DISPLAY_ITEM_VARIANTS,
   UserDisplayItem,
 } from './UserDisplayItem';
+import { AVATAR_STATE } from '../Avatar/Avatar.constants';
 import mdx from './UserDisplayItem.mdx';
 
 export default {
@@ -27,6 +28,7 @@ export default {
     variant: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_VARIANTS },
     layout: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_LAYOUT },
     size: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SIZES },
+    state: { control: { type: 'select' }, options: AVATAR_STATE },
     severity: { control: { type: 'select' }, options: USER_DISPLAY_ITEM_SEVERITIES },
     textRole: { control: { type: 'select' }, options: TEXT_ROLES },
     onChat: { action: 'onChat' },

@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { listLanguages } from 'lowlight/lib/core';
+import { lowlight } from 'lowlight/lib/core';
 import { Box, IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
 import { NodeViewContent, NodeViewWrapper } from '@tiptap/react';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
@@ -71,6 +71,7 @@ export const CodeBlockComponent = ({ ...props }) => {
   const parentNode = current?.parentNode;
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const shouldShowMenu = parentNode?.className.includes('has-focus');
+  const { listLanguages } = lowlight;
 
   const removeHandler = () => {
     editor?.chain().focus().toggleCodeBlock().run();

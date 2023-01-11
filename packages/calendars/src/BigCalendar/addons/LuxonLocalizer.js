@@ -331,6 +331,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     const endsAfterStart = sameMin
       ? gt(end, rangeStart, 'minutes')
       : gte(end, rangeStart, 'minutes');
+
     return startsBeforeEnd && endsAfterStart;
   }
 

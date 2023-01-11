@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginAlertsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -35,5 +34,4 @@ function PluginAlertsIcon(props) {
     d: "M12.5 5.432V3.5M17.686 4.766c.516.288.99.645 1.408 1.062a6.39 6.39 0 0 1 1.062 1.41M18.525 2A6.5 6.5 0 0 1 23 6.476"
   }));
 }
-
 export default PluginAlertsIcon;

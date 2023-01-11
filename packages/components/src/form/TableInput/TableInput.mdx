@@ -3,10 +3,11 @@ import * as stories from './TableInput.stories.js';
 import { TableInput } from './TableInput.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { TextInput } from '../../form';
 
 # TableInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/TableInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/TableInput/TableInput.js)
 
 ## Table of Contents
 
@@ -20,29 +21,66 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-TableInput is ...
+TableInput is a component that displays a table where you can input data with different types of inputs. You need to provide a `columns` array with this shape:
+
+```jsx
+{
+  Header: 'Header',
+  accessor: 'accessor'
+  input: {
+    node: <InputNode />
+    rules: {}
+  }
+  editable: true
+}
+```
 
 <ThemeProvider>
-  <TableInput>Table input</TableInput>
+  <TableInput
+    labels={{
+      add: 'Add',
+      remove: 'Remove',
+      edit: 'Edit',
+      accept: 'Accept',
+      cancel: 'Cancel',
+    }}
+    columns={[
+      {
+        Header: 'First name',
+        accessor: 'name',
+        input: {
+          node: <TextInput />,
+        },
+        editable: false,
+      },
+      {
+        Header: 'Surname',
+        accessor: 'surname',
+        input: {
+          node: <TextInput />,
+        },
+      },
+    ]}
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-form-table-input--playground" />
+  <Story id="organisms-form-tableinput--playground" />
 </Preview>
 
 <Props of={TableInput} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table-input_role>)
+[MDN: ARIA table role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/table-input/table-input.html>)
+[W3: ARIA table role example](https://www.w3.org/WAI/ARIA/apg/example-index/table/table.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/TableInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/TableInput/TableInput.mdx)

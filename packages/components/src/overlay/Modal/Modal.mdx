@@ -3,10 +3,11 @@ import * as stories from './Modal.stories.js';
 import { Modal } from './Modal.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { Text } from '../../typography';
 
 # Modal
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/overlay/Modal>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/Modal/Modal.js)
 
 ## Table of Contents
 
@@ -14,17 +15,36 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Modal sizes](#modal-sizes)
+- [Modal title](#modal-title)
+- [Close button](#close-button)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Modal is ...
+Modal is a component to display a modal. To explore all the props, go to the story.
+
+It is controlled with the `opened` prop.
 
 <ThemeProvider>
-  <Modal>Modal</Modal>
+  <Modal>
+    <Text>Im the content of a modal</Text>
+  </Modal>
 </ThemeProvider>
+
+## Modal sizes
+
+Modal has four different sizes: `xs`, `sm`, `md` and `large`
+
+## Modal title
+
+You can provide a `title` to Modal and center it with the `centerTitle` prop
+
+## Close button
+
+Also it accepts a `closeButton` prop that will display a close button.
 
 ## Component API
 
@@ -36,13 +56,11 @@ Modal is ...
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/modal_role>)
+[MDN: ARIA dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/modal/modal.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/overlay/Modal.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/Modal/Modal.mdx)

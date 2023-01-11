@@ -1,23 +1,18 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles } from '@bubbles-ui/components';
 
-export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded, styles }) => {
+export const TaskDeadlineHeaderStyles = createStyles((theme, { styles }) => {
+  const { global } = theme.other;
   return {
     root: {
       borderRadius: '16px 16px 0 0',
-      backgroundColor: theme.colors.mainWhite,
+      backgroundColor: global.background.color.surface.default,
       ...styles,
     },
     deadlineWrapper: {
       backgroundColor: theme.colors.ui02,
       display: 'flex',
       alignItems: 'center',
-      padding: '8px 16px',
+      padding: '8px 24px',
       fontWeight: 500,
       color: theme.colors.text04,
       label: { color: theme.colors.text04 },
@@ -31,8 +26,8 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded,
       display: 'flex',
       alignItems: 'center',
       backgroundColor: theme.colors.interactive03h,
-      padding: !deadlineExpanded ? 14 : 8,
-      gap: !deadlineExpanded ? 16 : 4,
+      padding: 14,
+      gap: 16,
       borderRadius: 4,
     },
     deadlineDate: {
@@ -50,16 +45,16 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { deadlineExpanded,
       minWidth: 240,
     },
     deadlineExtraTime: {
-      display: !deadlineExpanded ? 'flex' : 'none',
+      display: 'flex',
       alignItems: 'center',
       gap: 8,
-      visibility: deadlineExpanded ? 'hidden' : 'visible',
+      // visibility: deadlineExpanded ? 'hidden' : 'visible',
       flex: 1,
     },
     deadlineSwitch: {
       display: 'flex',
-      flexDirection: 'row-reverse',
-      flex: deadlineExpanded && 1,
+      flexDirection: 'row',
+      // flex: deadlineExpanded && 1,
     },
   };
 });

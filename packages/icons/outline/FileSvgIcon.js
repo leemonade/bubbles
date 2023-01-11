@@ -1,5 +1,4 @@
 const React = require("react");
-
 function FileSvgIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function FileSvgIcon(props) {
     d: "M20.25 8.25h-6a1.5 1.5 0 0 1-1.5-1.5v-6M14.25 15.75v2.55c0 1.763.522 3.487 1.5 4.954a8.932 8.932 0 0 0 1.5-4.954v-2.55M11.25 15.75h-1.5a1.5 1.5 0 0 0-1.5 1.5c0 2.25 3 2.25 3 4.5a1.5 1.5 0 0 1-1.5 1.5h-1.5M22.5 20.25h.75v1.5a1.5 1.5 0 1 1-3 0v-4.5a1.5 1.5 0 0 1 1.5-1.5h1.5"
   }));
 }
-
 module.exports = FileSvgIcon;

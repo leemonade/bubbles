@@ -50,6 +50,21 @@ export function getFocusStyles(theme) {
   };
 }
 
+export function getBoxShadowFromToken(tokens) {
+  if (Array.isArray(tokens)) {
+    const boxShadows = [];
+    tokens.forEach((token) => {
+      const { x, y, blur, spread, color } = token;
+      boxShadows.push(`${x}px ${y}px ${blur}px ${spread}px ${color}`);
+    });
+    const boxShadowString = boxShadows.join(',');
+    return { boxShadow: boxShadowString };
+  } else {
+    const { x, y, blur, spread, color } = tokens;
+    return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color}` };
+  }
+}
+
 const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {

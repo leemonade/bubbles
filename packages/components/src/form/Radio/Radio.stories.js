@@ -3,7 +3,7 @@ import { Box, Space } from '@mantine/core';
 import { Radio } from './Radio';
 import mdx from './Radio.mdx';
 import { RADIO_HELP_POSITIONS, RADIO_VARIANTS } from './Radio';
-import { AcademicCapIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
   title: 'Atoms/Form/Radio',
@@ -14,7 +14,7 @@ export default {
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3642%3A2657',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3642%3A26575',
     },
   },
   argTypes: {
@@ -26,29 +26,20 @@ export default {
 
 const Template = ({ children, ...props }) => {
   return (
-    <>
-      <Radio {...props} name="test">
-        {children} {0}
-      </Radio>
-      <Space></Space>
-      <Radio {...props} name="test">
-        {children} {1}
-      </Radio>
-      <Space></Space>
-      <Radio {...props} name="test">
-        {children} {2}
-      </Radio>
-    </>
+    <Radio {...props} name="test">
+      {children}
+    </Radio>
   );
 };
 
 export const Playground = Template.bind({});
 
 Playground.args = {
+  checked: false,
   children: 'Radio button label',
   variant: 'default',
   disabled: false,
   help: 'Help text',
   helpPosition: 'right',
-  icon: <AcademicCapIcon height={32} width={32} />,
+  icon: <StarIcon height={32} width={32} />,
 };

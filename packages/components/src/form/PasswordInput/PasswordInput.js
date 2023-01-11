@@ -1,4 +1,5 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { PasswordInput as MantinePasswordInput } from '@mantine/core';
 import { isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
@@ -15,6 +16,7 @@ export const PASSWORD_INPUT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const PASSWORD_INPUT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
+  ariaLabel: PropTypes.string,
 };
 export const PASSWORD_INPUT_DEFAULT_PROPS = {
   label: '',
@@ -24,6 +26,7 @@ export const PASSWORD_INPUT_DEFAULT_PROPS = {
   size: PASSWORD_INPUT_SIZES[1],
   orientation: PASSWORD_INPUT_ORIENTATIONS[0],
   required: false,
+  disabled: false,
 };
 
 const PasswordInput = forwardRef(
@@ -34,16 +37,19 @@ const PasswordInput = forwardRef(
       size,
       label,
       help,
+      icon,
       description,
       placeholder,
       required,
+      ariaLabel,
+      disabled,
       ...props
     },
     ref
   ) => {
     const uuid = useId();
-
-    const { classes, cx } = PasswordInputStyles({ size });
+    const hasIcon = !!icon;
+    const { classes, cx } = PasswordInputStyles({ size, hasIcon, disabled });
 
     return (
       <InputWrapper
@@ -59,10 +65,13 @@ const PasswordInput = forwardRef(
           {...props}
           ref={ref}
           id={uuid}
-          size={size}
+          // size={size}
+          icon={icon}
           placeholder={placeholder}
           classNames={classes}
           error={!isEmpty(error)}
+          aria-label={ariaLabel}
+          disabled={disabled}
         />
       </InputWrapper>
     );

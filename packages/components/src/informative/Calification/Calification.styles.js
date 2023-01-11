@@ -57,8 +57,8 @@ export const CalificationStyles = createStyles(
         ...colors[!inverted ? 1 : 0],
         span: {
           color: theme.colors.mainWhite,
-          fontWeight: isHorizontal && 500,
-          fontSize: isVertical && 48,
+          fontWeight: isHorizontal ? 500 : 600,
+          fontSize: isVertical && 30,
           ...verticalFont,
         },
       },

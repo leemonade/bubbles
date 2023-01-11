@@ -19,6 +19,7 @@ export default {
   argTypes: {
     onSubmit: { action: 'onSubmit' },
     onSave: { action: 'onSave' },
+    onChange: { action: 'onChange' },
   },
 };
 
@@ -47,6 +48,23 @@ Playground.args = {
       name: 'subject',
       placeholder: 'Select subject',
       data: ['Subject 1', 'Subject 2', 'Subject 3'],
+    },
+  ],
+  periods: [
+    {
+      name: 'First period',
+      startDate: new Date(2020, 0, 1),
+      endDate: new Date(2020, 0, 31),
+    },
+    {
+      name: 'Second period',
+      startDate: new Date(2020, 1, 1),
+      endDate: new Date(2020, 1, 28),
+    },
+    {
+      name: 'Third period',
+      startDate: new Date(2020, 2, 1),
+      endDate: new Date(2020, 2, 31),
     },
   ],
   value: {

@@ -13,7 +13,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=8215%3A104591',
     },
   },
   argTypes: {
@@ -23,7 +23,7 @@ export default {
 
 const Template = ({ ...props }) => {
   return (
-    <Box style={{ height: '80vh' }}>
+    <Box>
       <Calification {...props} />
     </Box>
   );
@@ -33,4 +33,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...CALIFICATION_DEFAULT_PROPS,
+  minimumGrade: 5,
+  grade: 5,
 };

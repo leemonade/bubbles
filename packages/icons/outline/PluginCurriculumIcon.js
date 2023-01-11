@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginCurriculumIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PluginCurriculumIcon(props) {
     d: "m11.75 11.749-3-2.249-3 2.25V2a.75.75 0 0 1 .75-.751H11a.75.75 0 0 1 .75.75v9.75ZM5.75 19.249h10.5M5.75 14.749h13.5M19.25 10.249h-4.5"
   }));
 }
-
 module.exports = PluginCurriculumIcon;

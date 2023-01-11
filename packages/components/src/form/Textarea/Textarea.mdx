@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Textarea
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/Textarea)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/Textarea/Textarea.js)
 
 ## Table of Contents
 
@@ -14,35 +14,63 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Counter](#counter)
+- [Min rows and max lenght](#min-rows-and-max-lenght)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Textarea is ...
+Textarea is a component that allows the user to input a large text
 
 <ThemeProvider>
-  <Textarea>Textarea</Textarea>
+  <Textarea showCounter>Textarea</Textarea>
+</ThemeProvider>
+
+## Counter
+
+You can show a character count with the `showCounter` prop and with the `counter` you can choose to count between `char` or `word`
+
+<ThemeProvider>
+  <Textarea value="This is a Textarea with showCounter and counting characters" showCounter />
+  <Box style={{ marginTop: 8 }}></Box>
+  <Textarea
+    value="This is a Textarea with showCounter and counting words"
+    showCounter
+    counter="word"
+  />
+</ThemeProvider>
+
+## Min rows and max lenght
+
+You can also change the amount of minimum rows that are shown and the max lenght of rows it will grow with `minRows` and `maxLenght`
+
+<ThemeProvider>
+  <Textarea
+    minRows={1}
+    maxLenght={1}
+    value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-textarea--playground" />
+  <Story id="molecules-form-textarea--playground" />
 </Preview>
 
 <Props of={Textarea} />
 
 ## References
 
-[MDN: ARIA Textarea role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textarea_role)
+[MDN: ARIA Textbox role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textbox_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Textarea role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/textarea/textarea.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/Textarea.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/Textarea/Textarea.mdx)

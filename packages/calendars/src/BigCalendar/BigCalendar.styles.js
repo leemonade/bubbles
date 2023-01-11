@@ -1,12 +1,13 @@
 import { createStyles, getFontProductive, getPaddings, pxToRem } from '@bubbles-ui/components';
 
-const getEventStyles = (theme) => ({
+const getEventStyles = (theme, isMonthRange) => ({
   '.rbc-event': {
     backgroundColor: theme.colors.interactive01,
     color: theme.colors.text07,
     borderRadius: 3,
     ...getPaddings(4, 4),
-
+    height: isMonthRange && '100%',
+    zIndex: isMonthRange && 99,
     '&.rbc-selected': {
       backgroundColor: theme.colors.interactive01h,
     },
@@ -18,6 +19,8 @@ const getEventStyles = (theme) => ({
   '.rbc-event-content': {
     ...getFontProductive(theme.fontSizes['1']),
     position: 'relative',
+    opacity: isMonthRange && '0',
+    height: isMonthRange && '100%',
   },
   '.rbc-event-label': {
     ...getFontProductive(theme.fontSizes['1']),
@@ -27,69 +30,108 @@ const getEventStyles = (theme) => ({
   },
 });
 
-const getMonthViewStyles = (theme) => ({
+const getMonthViewStyles = (theme, isMonthRange, printMode) => ({
   '.rbc-month-view': {
     // borderColor: theme.colors.ui04,
     border: 'none',
-    borderBottom: `1px solid ${theme.colors.ui04}`,
+    borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
   },
   '.rbc-month-row': {
-    border: `1px solid ${theme.colors.ui04}`,
+    border: !isMonthRange && `1px solid ${theme.colors.ui04}`,
     borderTop: 'none',
     borderBottom: 'none',
+    height: isMonthRange && (printMode ? 28 : 36),
+    maxHeight: isMonthRange && (printMode ? 28 : 36),
+    minHeight: isMonthRange && (printMode ? 28 : 36),
   },
   '.rbc-month-row + .rbc-month-row': {
     borderColor: theme.colors.ui04,
+    borderTop: isMonthRange && 'none',
+  },
+  '.rbc-row-content': {
+    height: isMonthRange && '100%',
+  },
+  '.rbc-row-content .rbc-row': {
+    height: isMonthRange && '100%',
+  },
+  '.rbc-row-content > .rbc-row:first-child': {
+    // position: 'relative',
+    // zIndex: 99
+  },
+  '.rbc-row-content > .rbc-row:first-child .rbc-date-cell': {
+    pointerEvents: isMonthRange ? 'none!important' : 'all!important',
+  },
+  '.rbc-event-row': {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   '.rbc-date-cell': {
     ...getFontProductive(theme.fontSizes['1']),
     color: theme.colors.text02,
     padding: 4,
-
+    height: isMonthRange && '100%',
+    display: isMonthRange && 'flex',
+    justifyContent: isMonthRange && 'center',
+    alignItems: isMonthRange && 'center',
     a: {
       ...getPaddings(0, 2),
+      fontSize: printMode && 12,
+      zIndex: 9999,
     },
   },
   '.rbc-day-bg + .rbc-day-bg': {
     borderColor: theme.colors.ui04,
+    borderLeft: isMonthRange && 'none',
   },
   'rbc-rtl .rbc-day-bg + .rbc-day-bg': {
     borderColor: theme.colors.ui04,
   },
+  '.rbc-date-cell.rbc-now': {
+    fontWeight: isMonthRange && 400,
+  },
   '.rbc-now a': {
-    backgroundColor: theme.colors.interactive02,
-    color: theme.colors.text07,
-    borderRadius: 3,
+    backgroundColor: !isMonthRange && theme.colors.interactive02,
+    color: !isMonthRange && theme.colors.text07,
+    borderRadius: !isMonthRange && 3,
   },
 });
 
-const getHeaderStyles = (theme) => ({
+const getHeaderStyles = (theme, isMonthRange, printMode) => ({
   '.rbc-header': {
-    ...getFontProductive(theme.fontSizes['2'], 500),
-    color: theme.colors.text05,
+    ...getFontProductive(theme.fontSizes[isMonthRange ? '1' : '2'], 500),
+    color: isMonthRange ? theme.colors.text06 : theme.colors.text02,
+    textTransform: 'capitalize',
     border: 'none',
-    borderBottom: `1px solid ${theme.colors.ui04}`,
-    textAlign: 'right',
+    borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
+    textAlign: isMonthRange ? 'center' : 'right',
     ...getPaddings(8, 5),
+    height: isMonthRange && (printMode ? 28 : 36),
+    paddingBottom: isMonthRange && printMode ? 0 : 8,
+    paddingTop: isMonthRange && printMode ? 5 : 8,
   },
   '.rbc-header + .rbc-header': {
     border: 'none',
-    borderBottom: `1px solid ${theme.colors.ui04}`,
+    borderBottom: !isMonthRange && `1px solid ${theme.colors.ui04}`,
+    height: isMonthRange && (printMode ? 28 : 36),
   },
   '.rbc-rtl .rbc-header + .rbc-header': {
     borderColor: theme.colors.ui04,
   },
 });
 
-const getRowStyles = (theme) => ({
+const getRowStyles = (theme, isMonthRange) => ({
   '.rbc-row-segment': {
-    padding: '0 4px 1px 4px',
+    padding: isMonthRange ? '0px' : '0 4px 1px 4px',
   },
 });
 
-const getTimeColumnStyles = (theme) => ({
+const getTimeColumnStyles = (theme, { timeslotHeight }) => ({
   '.rbc-timeslot-group': {
     borderColor: theme.colors.ui04,
+    minHeight: timeslotHeight + 'px',
   },
   '.rbc-day-slot': {
     '.rbc-events-container': {
@@ -339,37 +381,39 @@ const getAgendaStyles = (theme) => ({
   },
 });
 
-export const BigCalendarStyles = createStyles((theme, {}) => {
-  return {
-    root: {
-      '.rbc-off-range': {
-        color: theme.colors.text06,
+export const BigCalendarStyles = createStyles(
+  (theme, { timeslotHeight, isMonthRange, printMode }) => {
+    return {
+      root: {
+        '.rbc-off-range': {
+          color: theme.colors.text06,
+        },
+        '.rbc-off-range-bg': {
+          background: isMonthRange ? 'transparent' : theme.colors.ui03,
+        },
+        '.rbc-today': {
+          background: 'transparent',
+        },
+        // ·················································
+        // HEADER
+        ...getHeaderStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // ROW
+        ...getRowStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // EVENTS
+        ...getEventStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // MONTH VIEW
+        ...getMonthViewStyles(theme, isMonthRange, printMode),
+        // ·················································
+        // TIME GRID
+        ...getTimeColumnStyles(theme, { timeslotHeight }),
+        ...getTimeGridStyles(theme),
+        // ·················································
+        // AGENDA
+        ...getAgendaStyles(theme),
       },
-      '.rbc-off-range-bg': {
-        background: theme.colors.ui03,
-      },
-      '.rbc-today': {
-        background: 'transparent',
-      },
-      // ·················································
-      // HEADER
-      ...getHeaderStyles(theme),
-      // ·················································
-      // ROW
-      ...getRowStyles(theme),
-      // ·················································
-      // EVENTS
-      ...getEventStyles(theme),
-      // ·················································
-      // MONTH VIEW
-      ...getMonthViewStyles(theme),
-      // ·················································
-      // TIME GRID
-      ...getTimeColumnStyles(theme),
-      ...getTimeGridStyles(theme),
-      // ·················································
-      // AGENDA
-      ...getAgendaStyles(theme),
-    },
-  };
-});
+    };
+  }
+);

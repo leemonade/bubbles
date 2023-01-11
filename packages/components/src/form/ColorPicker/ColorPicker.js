@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isNil } from 'lodash';
 import { colord } from 'colord';
-import { ColorPicker as MantineColorPicker, HueSlider, Space } from '@mantine/core';
+import { ColorPicker as MantineColorPicker, HueSlider } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { Select } from '../Select';
 import { TextInput } from '../TextInput';
@@ -26,7 +26,13 @@ export const COLOR_PICKER_DEFAULT_PROPS = {
   saturation: 50,
   lightness: 50,
   manual: true,
+  lightOnly: false,
   autoComplete: 'off',
+  ariaSaturationLabel: 'Saturation',
+  ariaSliderLabel: 'Slider',
+  ariaColorFormat: 'Color format',
+  ariaColorValue: 'Color value',
+  ariaHueValue: 'HUE value',
 };
 
 export const ColorPicker = forwardRef(
@@ -42,9 +48,15 @@ export const ColorPicker = forwardRef(
       swatchesPerRow,
       spacing,
       useHsl,
+      lightOnly,
       saturation: saturationProp,
       lightness: lightnessProp,
       manual,
+      ariaSaturationLabel,
+      ariaSliderLabel,
+      ariaColorFormat,
+      ariaColorValue,
+      ariaHueValue,
       ...props
     },
     ref
@@ -168,14 +180,14 @@ export const ColorPicker = forwardRef(
                       key={i}
                       color={color}
                       onClick={() => !compact && setLightness(light)}
-                      autoComplete="false"
+                      autoComplete="off"
                       plain
                     />
                   );
                 })}
               </Box>
 
-              {!compact && (
+              {!compact && !lightOnly && (
                 <Box className={classes.swatches} style={{ margin: 0 }}>
                   {[...Array(4)].map((_, i) => {
                     const light = 40 - 10 * i;
@@ -186,7 +198,7 @@ export const ColorPicker = forwardRef(
                         key={i}
                         color={color}
                         onClick={() => setLightness(light)}
-                        autoComplete="false"
+                        autoComplete="off"
                         plain
                       />
                     );
@@ -206,7 +218,7 @@ export const ColorPicker = forwardRef(
                       color={color}
                       onClick={() => setHue(h)}
                       actived={hue === h}
-                      autoComplete="false"
+                      autoComplete="off"
                     />
                   );
                 })}
@@ -215,11 +227,24 @@ export const ColorPicker = forwardRef(
 
             <Stack className={classes.hue} spacing={3} alignItems="center">
               <Box style={{ flex: 1 }}>
-                <HueSlider autoComplete="false" value={hue} onChange={setHue} size="sm" />
+                <HueSlider
+                  autoComplete="off"
+                  value={hue}
+                  onChange={setHue}
+                  size="sm"
+                  aria-label={ariaSliderLabel}
+                  onChangeEnd={() => {}}
+                />
               </Box>
               {manual && (
                 <Box style={{ width: 75 }}>
-                  <NumberInput autoComplete="false" value={hue} onChange={setHue} size="xs" />
+                  <NumberInput
+                    autoComplete="off"
+                    value={hue}
+                    onChange={setHue}
+                    size="xs"
+                    ariaLabel={ariaHueValue}
+                  />
                 </Box>
               )}
             </Stack>
@@ -234,7 +259,9 @@ export const ColorPicker = forwardRef(
               fullWidth="true"
               swatches={withSwatches && swatches}
               onChange={setColor}
-              autoComplete="false"
+              autoComplete="off"
+              saturationLabel={ariaSaturationLabel}
+              hueLabel={ariaSliderLabel}
             />
             {manual && (
               <Box className={classes.manual}>
@@ -245,11 +272,17 @@ export const ColorPicker = forwardRef(
                       value={format}
                       onChange={setFormat}
                       className={classes.format}
-                      autoComplete="false"
+                      autoComplete="off"
+                      ariaLabel={ariaColorFormat}
                     />
                   </Box>
                   <Box>
-                    <TextInput autoComplete="false" value={value} onChange={setColor} />
+                    <TextInput
+                      autoComplete="off"
+                      value={value}
+                      onChange={setColor}
+                      ariaLabel={ariaColorValue}
+                    />
                   </Box>
                 </Stack>
               </Box>
@@ -275,5 +308,11 @@ ColorPicker.propTypes = {
   saturation: PropTypes.number,
   lightness: PropTypes.number,
   manual: PropTypes.bool,
+  lightOnly: PropTypes.bool,
   autoComplete: PropTypes.string,
+  ariaSaturationLabel: PropTypes.string,
+  ariaSliderLabel: PropTypes.string,
+  ariaColorFormat: PropTypes.string,
+  ariaColorValue: PropTypes.string,
+  ariaHueValue: PropTypes.string,
 };

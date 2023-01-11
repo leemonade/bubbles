@@ -24,7 +24,7 @@ export const TAGIFY_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
 
 export const TAGIFY_DEFAULT_PROPS = {
   mixed: true,
-  size: 'sm',
+  size: TAGIFY_SIZES[1],
   orientation: 'vertical',
   required: true,
   autoFocus: false,
@@ -34,6 +34,8 @@ export const TAGIFY_DEFAULT_PROPS = {
   error: '',
   help: '',
   settings: {},
+  withSuggestions: false,
+  amountOfDuplicates: 1,
 };
 
 const TagifyInput = forwardRef(
@@ -73,6 +75,8 @@ const TagifyInput = forwardRef(
       placeholder = '',
       defaultValue,
       showDropdown,
+      withSuggestions,
+      amountOfDuplicates,
       mixed,
       error,
       size,
@@ -122,6 +126,9 @@ const TagifyInput = forwardRef(
           placeholder={placeholder}
           defaultValue={defaultValue}
           showDropdown={showDropdown}
+          withSuggestions={withSuggestions}
+          amountOfDuplicates={amountOfDuplicates}
+          ariaLabel={props.label || ariaLabel}
         />
       </InputWrapper>
     );
@@ -147,6 +154,8 @@ TagifyInput.propTypes = {
   placeholder: PropTypes.string,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   showDropdown: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  withSuggestions: PropTypes.bool,
+  amountOfDuplicates: PropTypes.number,
   onInput: PropTypes.func,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,

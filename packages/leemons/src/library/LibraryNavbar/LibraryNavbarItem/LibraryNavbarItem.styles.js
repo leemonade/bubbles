@@ -1,19 +1,19 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, getFontExpressive, pxToRem } from '@bubbles-ui/components';
 
-export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled, loading }) => {
+export const LibraryNavbarItemStyles = createStyles((theme, {
+  selected,
+  disabled,
+  loading,
+  opened
+}) => {
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2'], 500),
       display: 'flex',
       alignItems: 'center',
-      gap: 12,
+
       cursor: 'pointer',
+      justifyContent: 'space-between',
       backgroundColor: selected && theme.colors.mainWhite,
       color: disabled ? theme.colors.text06 : selected && theme.colors.interactive01,
       padding: 16,
@@ -22,11 +22,19 @@ export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled
       borderRadius: 4,
       '&:hover': {
         cursor: disabled ? 'not-allowed' : loading ? 'progress' : 'pointer',
-        backgroundColor: !selected && !disabled && theme.colors.interactive03,
-      },
+        backgroundColor: !selected && !disabled && theme.colors.interactive03
+      }
+    },
+    item: {
+      display: 'flex',
+      gap: 12
+    },
+    chev: {
+      transition: '150ms',
+      transform: opened ? 'rotate(0deg)' : 'rotate(180deg)'
     },
     label: {
-      color: (selected || disabled) && 'inherit',
+      color: (selected || disabled) && 'inherit'
     },
     iconWrapper: {
       position: 'relative',
@@ -35,12 +43,12 @@ export const LibraryNavbarItemStyles = createStyles((theme, { selected, disabled
       color: disabled
         ? theme.colors.text06
         : selected
-        ? theme.colors.interactive01
-        : theme.colors.text02,
+          ? theme.colors.interactive01
+          : theme.colors.text02
     },
     icon: {
       width: pxToRem(16),
-      margin: '0 auto',
-    },
+      margin: '0 auto'
+    }
   };
 });

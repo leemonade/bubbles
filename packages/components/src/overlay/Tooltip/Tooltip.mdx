@@ -1,12 +1,12 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './Tooltip.stories.js';
 import { Tooltip } from './Tooltip.js';
-import { Button } from '@mantine/core';
+import { Button, Group } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # Tooltip
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/overlay/Tooltip)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/Tooltip/Tooltip.js)
 
 ## Table of Contents
 
@@ -23,13 +23,16 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-Tooltip is ...
+Tooltip renders a tooltip at a given element on mouse over.
 
 <ThemeProvider>
-  <Tooltip label={ 'Share' }>Tooltip</Tooltip>
+  <Tooltip label={'Share'} color="primary" style={{ padding: '10px' }}>
+    <Button variant="outline">Tooltip primary</Button>
+  </Tooltip>
 </ThemeProvider>
 
 ## Tooltip Color
+
 <ThemeProvider>
 <Group>
   <Tooltip label={ 'Share' }  color="primary" style={{ padding: '10px' }}>
@@ -47,107 +50,73 @@ Tooltip is ...
 </ThemeProvider>
 
 ## Tooltip Size
+
 <ThemeProvider>
-  <Tooltip label={ 'Share' }  color="primary" size="xs" style={{ padding: '10px' }}>
-    <Button variant="outline">
-      Tooltip xs
-    </Button>
+  <Tooltip label={'Share'} color="primary" size="xs" style={{ padding: '10px' }}>
+    <Button variant="outline">Tooltip xs</Button>
   </Tooltip>
-  <Tooltip label={ 'Share' }  color="primary" size="sm" style={{ padding: '10px' }}>
-    <Button variant="outline">
-      Tooltip sm
-    </Button>
+  <Tooltip label={'Share'} color="primary" size="sm" style={{ padding: '10px' }}>
+    <Button variant="outline">Tooltip sm</Button>
   </Tooltip>
 </ThemeProvider>
 
 ## Tooltip position and placement
+
 <ThemeProvider>
   <Group>
-    <Tooltip label={ 'Share' } style={{ padding: '10px' }} placement="start">
-      <Button variant="outline">
-        Top Start 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} placement="start">
+      <Button variant="outline">Top Start</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }}>
-      <Button variant="outline">
-        Top Center 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }}>
+      <Button variant="outline">Top Center</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} placement="end">
-      <Button variant="outline">
-        Top End 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} placement="end">
+      <Button variant="outline">Top End</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} withArrow={false}>
-      <Button variant="outline">
-        top false
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} withArrow={false}>
+      <Button variant="outline">top false</Button>
     </Tooltip>
   </Group>
   <Group>
-    <Tooltip label={ 'Share' } style={{ padding: '10px' }}  position="left" placement="start">
-      <Button variant="outline">
-        left Start 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="left" placement="start">
+      <Button variant="outline">left Start</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="left" >
-      <Button variant="outline">
-        left Center 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="left">
+      <Button variant="outline">left Center</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="left"  placement="end">
-      <Button variant="outline">
-        left End 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="left" placement="end">
+      <Button variant="outline">left End</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="left"  withArrow={false}>
-      <Button variant="outline">
-        left false
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="left" withArrow={false}>
+      <Button variant="outline">left false</Button>
     </Tooltip>
   </Group>
   <Group>
-    <Tooltip label={ 'Share' } style={{ padding: '10px' }}  position="right" placement="start">
-      <Button variant="outline">
-        right Start 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="right" placement="start">
+      <Button variant="outline">right Start</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="right" >
-      <Button variant="outline">
-        right Center 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="right">
+      <Button variant="outline">right Center</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="right"  placement="end">
-      <Button variant="outline">
-        right End 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="right" placement="end">
+      <Button variant="outline">right End</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }}position="right" withArrow={false}>
-      <Button variant="outline">
-        right false
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="right" withArrow={false}>
+      <Button variant="outline">right false</Button>
     </Tooltip>
   </Group>
   <Group>
-    <Tooltip label={ 'Share' } style={{ padding: '10px' }}  position="bottom" placement="start">
-      <Button variant="outline">
-        bottom Start 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="bottom" placement="start">
+      <Button variant="outline">bottom Start</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="bottom" >
-      <Button variant="outline">
-        bottom Center 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="bottom">
+      <Button variant="outline">bottom Center</Button>
     </Tooltip>
-    <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="bottom"  placement="end">
-      <Button variant="outline">
-        bottom End 
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="bottom" placement="end">
+      <Button variant="outline">bottom End</Button>
     </Tooltip>
-     <Tooltip label={ 'Share' } style={{ padding: '10px' }} position="bottom"  withArrow={false}>
-      <Button variant="outline">
-        bottom false
-      </Button>
+    <Tooltip label={'Share'} style={{ padding: '10px' }} position="bottom" withArrow={false}>
+      <Button variant="outline">bottom false</Button>
     </Tooltip>
   </Group>
 </ThemeProvider>
@@ -155,10 +124,10 @@ Tooltip is ...
 ## Component API
 
 <Preview>
-  <Story id="atoms-tooltip--playground" />
+  <Story id="atoms-overlay-tooltip--playground" />
 </Preview>
 
-<Props of={Tooltip}/>
+<Props of={Tooltip} />
 
 ## References
 
@@ -166,9 +135,7 @@ Tooltip is ...
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA Tooltip role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/tooltip/tooltip.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/overlay/Tooltip.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/Tooltip/Tooltip.mdx)

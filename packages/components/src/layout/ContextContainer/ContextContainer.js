@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { isString, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Box } from '../Box';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
-import { Title, Paragraph } from '../../typography';
+import { Paragraph, Title } from '../../typography';
 import { ContextContainerStyles } from './ContextContainer.styles';
 
 export const CONTEXT_CONTAINER_PADDED_TYPES = [true, false, 'vertical', 'horizontal'];
@@ -19,7 +19,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
@@ -36,6 +36,11 @@ const ContextContainer = ({
   spacing,
   direction,
   fullHeight,
+  style,
+  alignItems,
+  justifyContent,
+  wrap,
+  alignContent,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -71,6 +76,8 @@ const ContextContainer = ({
       fullWidth
       className={cx(classes.root, className)}
       fullHeight={fullHeight}
+      style={style}
+      {...props}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={2} noFlex fullWidth>
@@ -86,12 +93,25 @@ const ContextContainer = ({
           )}
           {hasDescription && (
             <Box>
-              <Paragraph className={classes.description}>{description}</Paragraph>
+              {typeof description === 'string' ? (
+                <Paragraph className={classes.description}>{description}</Paragraph>
+              ) : (
+                description
+              )}
             </Box>
           )}
         </Stack>
       )}
-      <Stack {...props} direction={direction} spacing={spacing} fullWidth fullHeight={fullHeight}>
+      <Stack
+        alignItems={alignItems}
+        justifyContent={justifyContent}
+        direction={direction}
+        spacing={spacing}
+        fullWidth
+        fullHeight={fullHeight}
+        wrap={wrap}
+        alignContent={alignContent}
+      >
         {childrenNodes}
       </Stack>
     </Stack>

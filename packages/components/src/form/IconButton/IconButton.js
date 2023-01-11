@@ -14,12 +14,12 @@ export const ICON_BUTTON_DEFAULT_PROPS = {
   rounded: false,
   variant: 'default',
   label: '',
+  useAria: true,
 };
 
 export const IconButton = forwardRef(
   (
     {
-      as,
       color: colorProp,
       size,
       variant: variantProp,
@@ -28,9 +28,9 @@ export const IconButton = forwardRef(
       icon,
       styles,
       className,
-      classNames,
       label,
       children,
+      useAria,
       ...props
     },
     ref
@@ -42,20 +42,19 @@ export const IconButton = forwardRef(
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : ICON_BUTTON_DEFAULT_PROPS.variant;
-    const { classes, cx } = IconButtonStyles({ color, size });
+    const { classes, cx } = IconButtonStyles({ color, size, variant });
 
     return (
       <MantineActionIcon
         {...props}
         title={label}
         aria-label={label}
-        component={as}
         variant={variant}
         radius={radius}
         size={size}
-        classNames={classes}
-        className={className}
+        className={classes.root}
         ref={ref}
+        role={useAria ? 'button' : undefined}
       >
         {!isNil(icon) ? icon : children}
       </MantineActionIcon>
@@ -66,11 +65,16 @@ export const IconButton = forwardRef(
 IconButton.defaultProps = ICON_BUTTON_DEFAULT_PROPS;
 
 IconButton.propTypes = {
+  /** Controls the size */
   size: PropTypes.oneOf(ICON_BUTTON_SIZES),
+  /** Controls the color */
   color: PropTypes.oneOf(ICON_BUTTON_COLORS),
+  /** Controls if its rounded */
   rounded: PropTypes.bool,
+  /** Controls the appearance */
   variant: PropTypes.oneOf(ICON_BUTTON_VARIANTS),
-  //iconOnly: PropTypes.bool,
-  // Adds icon before button label
+  /** Button label */
+  label: PropTypes.string,
+  /** Button icon */
   icon: PropTypes.node,
 };

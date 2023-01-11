@@ -1,41 +1,42 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { isNil, isEmpty } from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
+import { isEmpty, isNil } from 'lodash';
 import {
-  Box,
-  ImageLoader,
-  Title,
-  COLORS,
-  Menu,
-  IconButton,
-  TextClamp,
-  Text,
   Badge,
+  Box,
+  COLORS,
+  IconButton,
+  ImageLoader,
+  Menu,
+  Text,
+  TextClamp,
+  Title
 } from '@bubbles-ui/components';
-import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+import { BookmarksIcon, DeleteBinIcon, SettingMenuVerticalIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 import {
   LIBRARY_CARD_COVER_DEFAULT_PROPS,
-  LIBRARY_CARD_COVER_PROP_TYPES,
+  LIBRARY_CARD_COVER_PROP_TYPES
 } from './LibraryCardCover.constants';
 
 const LibraryCardCover = ({
-  name,
-  height,
-  cover,
-  color,
-  blur,
-  fileIcon,
-  deadlineProps,
-  parentHovered,
-  menuItems,
-  dashboard,
-  subject,
-  isNew,
-  role,
-  badge,
-  ...props
-}) => {
+                            name,
+                            height,
+                            cover,
+                            color,
+                            blur,
+                            fileIcon,
+                            deadlineProps,
+                            parentHovered,
+                            menuItems,
+                            dashboard,
+                            subject,
+                            isNew,
+                            role,
+                            badge,
+                            hideDashboardIcons,
+                            ...props
+                          }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { classes, cx } = LibraryCardCoverStyles(
     { color, height, blur, parentHovered, subjectColor: subject?.color },
@@ -75,19 +76,19 @@ const LibraryCardCover = ({
     const components = [];
     if (badge) {
       components.push(
-        <Box className={classes.badge}>
-          <Badge label={badge} color="stroke" radius="default" closable={false} />
+        <Box key={'1'} className={classes.badge}>
+          <Badge label={badge} color='stroke' radius='default' closable={false} />
         </Box>
       );
     }
     if (dashboard && subject) {
       components.push(
-        <Box className={classes.subject}>
+        <Box key={'2'} className={classes.subject}>
           <Box className={classes.subjectIcon}>
             <ImageLoader forceImage height={12} imageStyles={{ width: 12 }} src={subject.icon} />
           </Box>
           <TextClamp lines={1}>
-            <Text color="primary" role="productive" size="xs">
+            <Text color='primary' role='productive' size='xs'>
               {subject.name}
             </Text>
           </TextClamp>
@@ -118,7 +119,7 @@ const LibraryCardCover = ({
             onClose={() => setShowMenu(false)}
             items={menuItems.map((item) => ({
               ...item,
-              className: cx(classes.menuItem, item.className),
+              className: cx(classes.menuItem, item.className)
             }))}
             control={
               <IconButton
@@ -126,24 +127,24 @@ const LibraryCardCover = ({
                   <SettingMenuVerticalIcon width={16} height={16} className={classes.menuIcon} />
                 }
                 variant={'transparent'}
-                size="xs"
+                size='xs'
                 onClick={preventPropagation}
               />
             }
           />
         </Box>
       )}
-      {dashboard && (
+      {dashboard && !hideDashboardIcons && (
         <>
           <IconButton
             icon={<DeleteBinIcon width={16} height={16} className={classes.menuIcon} />}
             variant={'transparent'}
-            size="xs"
+            size='xs'
           />
           <IconButton
             icon={<BookmarksIcon width={16} height={16} className={classes.menuIcon} />}
             variant={'transparent'}
-            size="xs"
+            size='xs'
           />
         </>
       )}
@@ -168,7 +169,7 @@ const LibraryCardCover = ({
       </Box>
       {renderDeadline()}
       {cover ? (
-        <ImageLoader src={cover} height={height} forceImage />
+        <ImageLoader src={cover} height={height} width={'100%'} forceImage />
       ) : (
         <Box className={classes.fileIcon}>{icon}</Box>
       )}

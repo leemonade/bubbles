@@ -4,9 +4,9 @@ import * as stories from './HorizontalStepper.stories.js';
 import { HorizontalStepper } from './HorizontalStepper.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# HorizontalStepper
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/HorizontalStepper>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/HorizontalStepper/HorizontalStepper.js)
 
 ## Table of Contents
 
@@ -14,35 +14,53 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Allow step click](#allow-step-click)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+HorizontalStepper is a component to display a stepper in an horizontal layout. Control the current step with `currentStep`.
+To visualize steps you must provide a `data` array of objects with this shape:
+
+```js
+{
+  label: 'Step label',
+  status: 'Step status' (optional)
+}
+```
 
 <ThemeProvider>
-  <HorizontalStepper>Horizontal stepper</HorizontalStepper>
+  <HorizontalStepper data={[{ label: 'Step 1' }, { label: 'Step 2' }, { label: 'Step 3' }]} />
+</ThemeProvider>
+
+## Allow step click
+
+HorizontalStepper has a `allowStepClick` prop to allow the user to click a step and navigate the steps.
+
+<ThemeProvider>
+  <HorizontalStepper
+    allowStepClick
+    data={[{ label: 'Step 1' }, { label: 'Step 2' }, { label: 'Step 3' }]}
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-navigation-horizontal-stepper--playground" />
+  <Story id="organisms-navigation-horizontalstepper--playground" />
 </Preview>
 
 <Props of={HorizontalStepper} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/horizontal-stepper_role>)
+[MDN: ARIA navigation role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/horizontal-stepper/horizontal-stepper.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/HorizontalStepper.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/HorizontalStepper/HorizontalStepper.mdx)

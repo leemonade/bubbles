@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
 import { isEmpty, isNil } from 'lodash';
-import { Text } from '../../typography';
 import { Box } from '../../layout/Box';
 import { Stack } from '../../layout/Stack';
 import { InputError } from '../InputError';
-import { InputDescription } from '../InputDescription';
 import { InputHelp } from '../InputHelp';
 import { InputWrapperStyles } from './InputWrapper.styles';
 import {
@@ -13,6 +11,7 @@ import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SIZES,
 } from './InputWrapper.constants';
+import { InputLabel } from '../InputLabel';
 
 const InputWrapper = ({
   orientation: orientationProp,
@@ -20,6 +19,7 @@ const InputWrapper = ({
   uuid,
   label,
   description,
+  withDescriptionIcon,
   error,
   help,
   children,
@@ -33,7 +33,7 @@ const InputWrapper = ({
   formValues,
   ...props
 }) => {
-  const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+  const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'md';
   const orientation = INPUT_WRAPPER_ORIENTATIONS.includes(orientationProp)
     ? orientationProp
     : 'vertical';
@@ -44,22 +44,21 @@ const InputWrapper = ({
   const labelProps = !isNil(uuid) ? { htmlFor: uuid, id: `${uuid}-label` } : {};
 
   return (
-    <Box className={cx(classes.root, className)} style={style}>
+    <Box className={cx(classes.root, className)} style={style} {...props}>
       {/* Label & Description */}
       {hasHeader && (
         <Stack
           direction="column"
-          spacing={1}
           className={cx(classes.header, headerClassName)}
           style={headerStyle}
         >
-          {!isEmpty(label) && (
-            <Text as="label" color="primary" role="productive" strong {...labelProps}>
-              {label}
-              {required && <span className={classes.required}> *</span>}
-            </Text>
-          )}
-          {!isEmpty(description) && <InputDescription message={description} />}
+          <InputLabel
+            label={label}
+            required={required}
+            {...labelProps}
+            description={description}
+            withDescriptionIcon={withDescriptionIcon}
+          />
         </Stack>
       )}
 

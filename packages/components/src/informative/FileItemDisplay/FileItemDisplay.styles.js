@@ -46,7 +46,7 @@ const getExtensionPosition = (size) => {
 };
 
 export const FileItemDisplayStyles = createStyles(
-  (theme, { size, calculatedSize, colorStyle, iconStyle, url }) => {
+  (theme, { size, calculatedSize, color, iconStyle, url }) => {
     const linkStyles = url
       ? {
           textDecoration: 'underline',
@@ -54,19 +54,17 @@ export const FileItemDisplayStyles = createStyles(
           cursor: 'pointer',
         }
       : {};
-    //
+
     return {
       root: {
         display: 'inline-flex',
         alignItems: 'center',
-        color: theme.colors.text02,
-        position: 'relative',
-        ...colorStyle,
+        color: color || theme.colors.text02,
       },
       filename: {
         marginLeft: pxToRem(size / 1.5),
         fontSize: pxToRem(size),
-        ...colorStyle,
+        color: color || theme.colors.text02,
         ...linkStyles,
       },
       filetype: {
@@ -84,7 +82,7 @@ export const FileItemDisplayStyles = createStyles(
         lineHeight: 1,
         userSelect: 'none',
         ...getExtensionPosition(size),
-        ...colorStyle,
+        color: color || theme.colors.text02,
         ...iconStyle,
       },
     };

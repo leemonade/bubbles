@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginContentCreatorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -25,5 +24,4 @@ function PluginContentCreatorIcon(props) {
     d: "M11.5 10.5h5v6h-5v-6Z"
   }));
 }
-
 export default PluginContentCreatorIcon;

@@ -4,7 +4,7 @@ import { Box, Stack } from '../../../layout';
 import { Checkbox } from '../../../form';
 import { TableCellStyles } from './TableCell.styles';
 
-export const TableCell = ({ cell, form, onChangeCell }) => {
+export const TableCell = ({ cell, form, onChangeCell, useAria }) => {
   const onCheckedChange = (val) => {
     onChangeCell(cell, { ...cell, value: { ...cell.value, checked: val } });
   };
@@ -21,7 +21,7 @@ export const TableCell = ({ cell, form, onChangeCell }) => {
 
   if (isFunction(cell.column.valueRender)) {
     return (
-      <Box className={classes.root}>
+      <Box className={classes.root} role={useAria ? 'cell' : undefined}>
         {cell.column.valueRender(cell.value, cell.row.original, form)}
       </Box>
     );
@@ -31,12 +31,26 @@ export const TableCell = ({ cell, form, onChangeCell }) => {
     // Checkbox
     if (cell.value.type === 'checkbox') {
       return (
-        <Stack className={classes.root} justifyContent="center" alignItems="center">
-          <Checkbox checked={cell.value?.checked} onChange={onCheckedChange} />
+        <Stack
+          className={classes.root}
+          justifyContent="center"
+          alignItems="center"
+          role={useAria ? 'cell' : undefined}
+        >
+          <Checkbox
+            checked={cell.value?.checked}
+            onChange={onCheckedChange}
+            aria-label={`${cell.column.id} ${cell.row.id}`}
+            useAria={useAria}
+          />
         </Stack>
       );
     }
   }
   // Default
-  return <Box className={classes.root}>{cell.render('Cell')}</Box>;
+  return (
+    <Box className={classes.root} role={useAria ? 'cell' : undefined}>
+      {cell.render('Cell')}
+    </Box>
+  );
 };

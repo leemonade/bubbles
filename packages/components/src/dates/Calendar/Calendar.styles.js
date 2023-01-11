@@ -2,10 +2,36 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const CalendarStyles = createStyles((theme, {}) => {
+  const calendarTheme = theme.other.calendar;
+
+  const buttonStyles = {
+    padding: `${calendarTheme.spacing.padding.vertical} ${calendarTheme.spacing.padding.horizontal}`,
+    color: calendarTheme.content.color.calendarButton.default,
+    backgroundColor: calendarTheme.background.color.calendarButton.default,
+    borderRadius: calendarTheme.border.radius.md,
+    ...calendarTheme.content.typo.md,
+    '&:hover': {
+      backgroundColor: calendarTheme.background.color.calendarButton.hover,
+    },
+    '&:active': {
+      backgroundColor: calendarTheme.background.color.calendarButton.down,
+    },
+  };
+
+  const activeButtonStyles = {
+    color: calendarTheme.content.color.calendarButton['default--reverse'],
+    backgroundColor: calendarTheme.background.color.calendarButton['default--reverse'],
+    '&:hover': {
+      backgroundColor: calendarTheme.background.color.calendarButton['hover--reverse'],
+    },
+    '&:active': {
+      backgroundColor: calendarTheme.background.color.calendarButton['down--reverse'],
+    },
+  };
+
   return {
     calendarHeaderLevel: {
-      ...getFontProductive(),
-      color: theme.colors.text05,
+      ...buttonStyles,
     },
     calendarHeaderControl: {
       borderRadius: 9999,
@@ -19,58 +45,64 @@ export const CalendarStyles = createStyles((theme, {}) => {
         height: 20,
       },
     },
-    weekday: {
-      ...getFontProductive(12),
-    },
     day: {
-      ...getFontProductive(12),
-      borderRadius: 999,
-      color: theme.colors.text01,
-      width: 35,
-      height: 35,
-
+      ...calendarTheme.content.typo.sm,
+      backgroundColor: calendarTheme.background.color.weekday.default,
+      height: calendarTheme.size.md,
+      width: calendarTheme.size.md,
+      borderRadius: calendarTheme.border.radius.rounded,
+      color: calendarTheme.content.color.weekday.default,
       '&:hover': {
-        backgroundColor: theme.colors.interactive03h,
+        backgroundColor: calendarTheme.background.color.weekday.hover,
+        color: calendarTheme.content.color.weekday.hover,
+      },
+      '&[data-selected]': {
+        backgroundColor: calendarTheme.background.color.weekday.down,
+        color: calendarTheme.content.color.weekday.down,
+      },
+      '&[data-outside]': {
+        color: '#ced4da',
+      },
+      '&[data-weekend]': {
+        color: calendarTheme.content.color.weekday['default-weekend'],
+      },
+      '&[data-in-range]': {
+        backgroundColor: calendarTheme.background.color.range.hover,
+        color: calendarTheme.content.color.weekday.hover,
+      },
+      '&[data-first-in-range]': {
+        borderTopLeftRadius: calendarTheme.border.radius.rounded,
+        borderBottomLeftRadius: calendarTheme.border.radius.rounded,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        backgroundColor: calendarTheme.background.color.weekday.down,
+        color: calendarTheme.content.color.weekday.down,
+      },
+      '&[data-last-in-range]': {
+        borderTopRightRadius: calendarTheme.border.radius.rounded,
+        borderBottomRightRadius: calendarTheme.border.radius.rounded,
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        backgroundColor: calendarTheme.background.color.weekday.down,
+        color: calendarTheme.content.color.weekday.down,
       },
     },
-    selected: {
-      '&:not(:disabled)': {
-        backgroundColor: `${theme.colors.interactive01} !important`,
-      },
+    weekday: {
+      ...calendarTheme.content.typo.sm,
+      paddingBottom: calendarTheme.spacing.padding.horizontal,
+      color: calendarTheme.content.color.weekName.default,
     },
     monthPickerControl: {
-      ...getFontProductive(12),
+      ...buttonStyles,
     },
     monthPickerControlActive: {
-      backgroundColor: theme.colors.interactive01,
+      ...activeButtonStyles,
     },
     yearPickerControl: {
-      ...getFontProductive(12),
+      ...buttonStyles,
     },
     yearPickerControlActive: {
-      backgroundColor: theme.colors.interactive01,
-    },
-    inRange: {
-      '&:not(:disabled)': {
-        backgroundColor: `${theme.colors.interactive01v0} !important`,
-        color: `${theme.colors.interactive01} !important`,
-      },
-    },
-    firstInRange: {
-      '&:not(:disabled)': {
-        backgroundColor: `${theme.colors.interactive01} !important`,
-        borderTopLeftRadius: '999px !important',
-        borderBottomLeftRadius: '999px !important',
-        color: `${theme.colors.text07} !important`,
-      },
-    },
-    lastInRange: {
-      '&:not(:disabled)': {
-        backgroundColor: `${theme.colors.interactive01} !important`,
-        borderTopRightRadius: '999px !important',
-        borderBottomRightRadius: '999px !important',
-        color: `${theme.colors.text07} !important`,
-      },
+      ...activeButtonStyles,
     },
   };
 });

@@ -7,41 +7,58 @@ import {
 } from '@bubbles-ui/components';
 
 export const AssetPlayerStyles = createStyles(
-  (theme, { height, width, styles, showPlayer, seconds }) => {
-    const isHeightNum = /^\d+$/.test(height);
+  (theme, { width, styles, framed, fullScreenMode, mediaRatio }) => {
     const isWidthNum = /^\d+$/.test(width);
+
+    let framedProps = {};
+
+    if (framed) {
+      framedProps = {
+        borderRadius: 8,
+        border: `2px solid ${theme.colors.ui02}`,
+        overflow: 'hidden',
+      };
+    }
 
     return {
       root: {
-        height: isHeightNum ? pxToRem(height) : height,
-        width: isWidthNum ? pxToRem(width) : width,
         ...styles,
+      },
+      playerRoot: {
+        width: isWidthNum ? pxToRem(width) : width,
+        display: 'flex',
+        flexDirection: 'column',
+        ...framedProps,
       },
       playerWrapper: {
         position: 'relative',
-        height: '100%',
+        height: 0,
         width: '100%',
+        paddingBottom: `${mediaRatio * 100}%`, // 16/9 aspect ratio
+        overflow: 'hidden',
       },
       cover: {
         position: 'absolute',
         height: '100%',
         width: '100%',
-        zIndex: showPlayer ? -1 : 1,
+        zIndex: 1,
       },
-      // color: {
-      //   backgroundColor: color,
-      //   height: 8,
-      //   position: 'absolute',
-      //   zIndex: showPlayer ? -1 : 1,
-      //   bottom: 0,
-      //   width: '100%',
-      // },
       reactPlayer: {
         position: 'absolute',
         width: '100%',
         height: '100%',
+        background: '#000',
         zIndex: 0,
+        iframe: {
+          borderTopRightRadius: fullScreenMode ? 0 : framed ? 8 : 0,
+          borderTopLeftRadius: fullScreenMode ? 0 : framed ? 8 : 0,
+        },
       },
+      duration: {
+        color: theme.colors.mainWhite,
+        minWidth: pxToRem(46),
+      },
+      // PROGRESS BAR ···························································
       progressBarWrapper: {
         position: 'absolute',
         bottom: 16,
@@ -50,6 +67,7 @@ export const AssetPlayerStyles = createStyles(
         gap: 10,
         left: 8,
         right: 8,
+        zIndex: 2,
       },
       progressBar: {
         WebkitAppearance: 'none',
@@ -60,17 +78,13 @@ export const AssetPlayerStyles = createStyles(
         overflow: 'hidden',
         position: 'relative',
       },
-      duration: {
-        color: theme.colors.mainWhite,
-        minWidth: seconds < 3600 ? pxToRem(30) : pxToRem(46),
-      },
       progressBarValue: {
         height: '100%',
         backgroundColor: '#fff',
         transition: 'width 0.1s linear',
         position: 'relative',
       },
-      seekSlider: {
+      progressBarSeekSlider: {
         WebkitAppearance: 'none',
         MozAppearance: 'none',
         width: '100%',
@@ -104,6 +118,26 @@ export const AssetPlayerStyles = createStyles(
           cursor: 'pointer',
         },
       },
+      // CONTROLS BAR ···························································
+      controlBar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
+      controlBarControls: {
+        marginBlock: 8,
+        marginRight: 12,
+        alignSelf: 'end',
+        display: 'flex',
+        gap: 8,
+      },
+      controlBarDuration: {
+        marginBlock: 8,
+        marginLeft: 12,
+        color: theme.colors.text05,
+        fontWeight: 500,
+      },
+      // ICONS ··································································
       audioIcon: {
         position: 'absolute',
         bottom: 30,
@@ -118,6 +152,9 @@ export const AssetPlayerStyles = createStyles(
         backgroundColor: theme.colors.interactive03h,
         padding: pxToRem(16),
         borderRadius: '4px 2px 0 0',
+      },
+      expandIcon: {
+        backgroundColor: 'transparent',
       },
     };
   }

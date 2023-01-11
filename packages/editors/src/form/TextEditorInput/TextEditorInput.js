@@ -14,6 +14,7 @@ import {
   ListIndentTool,
   TextAlignTool,
   ScriptsTool,
+  LinkTool,
 } from '../../tool';
 
 const TextEditorInput = ({
@@ -53,16 +54,18 @@ const TextEditorInput = ({
       <Box className={classes.root}>
         <TextEditor
           {...props}
+          placeholder={placeholder}
           content={value}
           onChange={onChange}
           editorClassname={cx(classes.editor, editorClassname)}
         >
+          {toolbars.heading && <HeadingsTool />}
           {toolbars.color && <ColorTool />}
           {toolbars.style && <TransformsTool />}
-          {toolbars.heading && <HeadingsTool paragraph={false} />}
-          {toolbars.list && <ListIndentTool />}
           {toolbars.align && <TextAlignTool />}
+          {toolbars.list && <ListIndentTool />}
           {toolbars.formulation && <ScriptsTool />}
+          {toolbars.link && <LinkTool />}
           {children}
         </TextEditor>
       </Box>

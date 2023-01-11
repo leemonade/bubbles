@@ -34,39 +34,42 @@ const LibraryCardContent = ({
   url,
   truncated,
   fullHeight,
+  role,
   ...props
 }) => {
   const { classes, cx } = LibraryCardContentStyles({ fullHeight }, { name: 'LibraryCardContent' });
 
+  const getBadgeSeverity = (completedOrGrade) => {
+    const divider = role === 'teacher' ? 1 : 10;
+    const result = completedOrGrade / divider;
+    if (result <= 0.2) return 'error';
+    if (result <= 0.5) return 'warning';
+    if (result > 0.5) return 'success';
+  };
+
   const getBadge = useCallback(() => {
-    if (assigment.completed <= 0.2)
+    if (variant !== 'assigment' || !assigment) return;
+    if (role === 'teacher') {
       return (
         <Badge
-          label={`${assigment.completed * 100}%`}
-          severity={'error'}
+          label={`${Math.trunc(assigment.completed * 100)}%`}
+          severity={getBadgeSeverity(assigment.completed)}
           closable={false}
           radius={'default'}
         />
       );
-    if (assigment.completed <= 0.5)
+    }
+    if (role === 'student') {
       return (
         <Badge
-          label={`${assigment.completed * 100}%`}
-          severity={'warning'}
           closable={false}
+          severity={getBadgeSeverity(assigment.grade)}
           radius={'default'}
+          label={assigment.grade}
         />
       );
-    if (assigment.completed >= 0.6)
-      return (
-        <Badge
-          label={`${assigment.completed * 100}%`}
-          severity={'success'}
-          closable={false}
-          radius={'default'}
-        />
-      );
-  }, [assigment]);
+    }
+  }, [assigment, role, assigment?.completed]);
 
   const getVariant = () => {
     switch (variant) {
@@ -75,49 +78,94 @@ const LibraryCardContent = ({
           <Box className={classes.mainContainer}>
             {!isEmpty(assigment) ? (
               <Stack direction="column" spacing={1} fullWidth>
-                {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
-                  <Stack fullWidth>
-                    <Text size={'xs'} role="productive" className={classes.label}>
-                      {assigment.labels?.subject || 'Subject'}
-                    </Text>
-                    <Text size={'xs'} role="productive" weight={600}>
-                      {assigment.subject.name}
-                    </Text>
-                  </Stack>
+                {role === 'teacher' && (
+                  <>
+                    {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.subject || 'Subject'}
+                        </Text>
+                        <Text size={'xs'} role="productive" weight={600}>
+                          {assigment.subject.name}
+                        </Text>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.submission)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.submission || 'Submission'}
+                        </Text>
+                        <Box>
+                          {getBadge()}
+                          <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                            {`(${assigment.submission}/${assigment.total})`}
+                          </Text>
+                        </Box>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgTime)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.avgTime || 'Average Time'}
+                        </Text>
+                        <Text size={'xs'} role="productive">
+                          {getAverageTime(assigment.avgTime)}
+                        </Text>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgAttempts)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.avgAttempts || 'Average Attempts'}
+                        </Text>
+                        <Text size={'xs'} role="productive">
+                          {assigment.avgAttempts}
+                        </Text>
+                      </Stack>
+                    )}
+                  </>
                 )}
-                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.submission)) && (
-                  <Stack fullWidth>
-                    <Text size={'xs'} role="productive" className={classes.label}>
-                      {assigment.labels?.submission || 'Submission'}
-                    </Text>
-                    <Box>
-                      {getBadge()}
-                      <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
-                        {`(${assigment.submission}/${assigment.total})`}
-                      </Text>
-                    </Box>
-                  </Stack>
-                )}
-
-                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgTime)) && (
-                  <Stack fullWidth>
-                    <Text size={'xs'} role="productive" className={classes.label}>
-                      {assigment.labels?.avgTime || 'Average Time'}
-                    </Text>
-                    <Text size={'xs'} role="productive">
-                      {getAverageTime(assigment.avgTime)}
-                    </Text>
-                  </Stack>
-                )}
-                {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgAttempts)) && (
-                  <Stack fullWidth>
-                    <Text size={'xs'} role="productive" className={classes.label}>
-                      {assigment.labels?.avgAttempts || 'Average Attempts'}
-                    </Text>
-                    <Text size={'xs'} role="productive">
-                      {assigment.avgAttempts}
-                    </Text>
-                  </Stack>
+                {role === 'student' && (
+                  <>
+                    {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.subject || 'Subject'}
+                        </Text>
+                        <Text size={'xs'} role="productive" weight={600}>
+                          {assigment.subject.name}
+                        </Text>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.grade)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.grade || 'Grade'}
+                        </Text>
+                        <Box>{getBadge()}</Box>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.score)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.score || 'Score'}
+                        </Text>
+                        <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                          {`${assigment.submission}/${assigment.total}`}
+                        </Text>
+                      </Stack>
+                    )}
+                    {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.activityType)) && (
+                      <Stack fullWidth>
+                        <Text size={'xs'} role="productive" className={classes.label}>
+                          {assigment.labels?.activityType || 'Activity type'}
+                        </Text>
+                        <Text size={'xs'} role="productive">
+                          {assigment.activityType}
+                        </Text>
+                      </Stack>
+                    )}
+                  </>
                 )}
               </Stack>
             ) : (

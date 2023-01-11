@@ -1,14 +1,16 @@
 import { createStyles } from '@mantine/styles';
 
-export const ImageLoaderStyles = createStyles((theme, { radius, imageStyles = {}, display }) => {
+export const ImageLoaderStyles = createStyles((theme, { radius, imageStyles = {}, height }) => {
   return {
     root: {
-      // background: '#000',
+      height,
       ...imageStyles,
-      borderRadius: radius || 'inherit',
-      '& *': {
-        borderRadius: 'inherit',
-      },
+    },
+    imageWrapper: {
+      height,
+    },
+    figure: {
+      height,
     },
   };
 });

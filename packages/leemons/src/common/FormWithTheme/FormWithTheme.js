@@ -16,16 +16,23 @@ import ObjectField from './components/fields/ObjectField';
 import SchemaField from './components/fields/SchemaField';
 import { FormWithThemeStyles } from './FormWithTheme.styles';
 import WysiwygWidget from './components/widgets/WysiwygWidget';
+import { FormContext } from './FormContext';
 
 export const FORM_WITH_THEME_DEFAULT_PROPS = {};
 export const FORM_WITH_THEME_PROP_TYPES = {};
 
 export const FORM_WITH_THEME_REGEX = {
   numbers: /^\d+$/,
-  phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
+  phone: /^.*$/ // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
 
-const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
+const FormWithTheme = (schema, ui, conditions, props = {}, {
+  t = () => {
+  }, translations = {},
+  fields = {},
+  widgets = {},
+  customValidateSchema
+} = {}, context = {}) => {
   const { classes, cx } = FormWithThemeStyles({});
   const ref = useRef();
 
@@ -39,6 +46,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
           StringField,
           ObjectField,
           SchemaField,
+          ...fields
         },
         widgets: {
           BaseInput,
@@ -49,17 +57,18 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
           CheckboxesWidget,
           toggle: ToggleWidget,
           wysiwyg: WysiwygWidget,
+          ...widgets
         },
-        validateSchema,
-        transformAjvErrors,
+        validateSchema: customValidateSchema || validateSchema,
+        transformAjvErrors
       }),
-    [validateSchema]
+    [validateSchema, customValidateSchema]
   );
 
   const customFormats = React.useMemo(
     () => ({
       numbers: FORM_WITH_THEME_REGEX.numbers,
-      phone: FORM_WITH_THEME_REGEX.phone,
+      phone: FORM_WITH_THEME_REGEX.phone
     }),
     []
   );
@@ -67,22 +76,29 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
   const form = React.useMemo(
     () =>
       schema || ui ? (
-        <ThemeForm
-          {...props}
-          ref={(e) => {
-            ref.current = e;
-            if (props.ref) props.ref = e;
-          }}
-          showErrorList={false}
-          schema={schema}
-          uiSchema={ui}
-          transformErrors={(e) => transformErrors(e, t)}
-          customFormats={customFormats}
-        >
-          <></>
-        </ThemeForm>
+        <FormContext.Provider value={{ ...context, t }}>
+          <ThemeForm
+            {...props}
+            ref={(e) => {
+              ref.current = e;
+              if (props.ref) props.ref = e;
+            }}
+            showErrorList={false}
+            schema={schema}
+            uiSchema={ui}
+            transformErrors={(e) => transformErrors(e, t)}
+            customFormats={customFormats}
+          >
+            <></>
+          </ThemeForm>
+        </FormContext.Provider>
       ) : null,
-    [JSON.stringify(schema), JSON.stringify(ui), JSON.stringify(props)]
+    [
+      schema,
+      ui,
+      JSON.stringify(props),
+      JSON.stringify(translations)
+    ]
   );
 
   return [
@@ -94,7 +110,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
           ref.current.formElement.dispatchEvent(
             new Event('submit', {
               cancelable: true,
-              bubbles: true,
+              bubbles: true
             })
           );
           setTimeout(() => {
@@ -108,9 +124,9 @@ const FormWithTheme = (schema, ui, conditions, props = {}, t) => {
       setValue: (key, value) =>
         ref.current.onChange({
           ...ref.current.state.formData,
-          [key]: value,
-        }),
-    },
+          [key]: value
+        })
+    }
   ];
 };
 

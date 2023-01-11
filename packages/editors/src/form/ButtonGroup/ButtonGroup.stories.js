@@ -5,13 +5,14 @@ import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { BoldTool } from '../../tool/BoldTool/BoldTool';
 import { StrikeTool } from '../../tool/StrikeTool/StrikeTool';
 import { UnderlineTool } from '../../tool/UnderlineTool/UnderlineTool';
+import mdx from './ButtonGroup.mdx';
 
 export default {
   title: 'Atom/Form/ButtonGroup',
   parameters: {
     component: ButtonGroup,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

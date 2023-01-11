@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function BuildingIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function BuildingIcon(props) {
     d: "M20.5 3.8a1 1 0 0 0-.168-.555L18.8.945A1 1 0 0 0 17.965.5H6.035A1 1 0 0 0 5.2.945l-1.535 2.3A1 1 0 0 0 3.5 3.8v18.7a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1V3.8ZM3.547 3.5h16.906"
   }));
 }
-
 export default BuildingIcon;

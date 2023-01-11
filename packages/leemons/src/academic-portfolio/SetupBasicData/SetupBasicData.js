@@ -6,18 +6,20 @@ import {
   Box,
   Button,
   Checkbox,
+  ColorInput,
   ContextContainer,
+  InputWrapper,
   NumberInput,
   Paragraph,
   Stack,
   Switch,
-  TextInput,
+  TextInput
 } from '@bubbles-ui/components';
 import { ChevRightIcon } from '@bubbles-ui/icons/outline';
 import { SetupBasicDataStyles } from './SetupBasicData.styles';
 
 export const SETUP_BASIC_DATA_DEFAULT_PROPS = {
-  sharedData: {},
+  sharedData: {}
 };
 export const SETUP_BASIC_DATA_PROP_TYPES = {
   labels: PropTypes.object,
@@ -28,43 +30,47 @@ export const SETUP_BASIC_DATA_PROP_TYPES = {
   onNext: PropTypes.func,
   sharedData: PropTypes.any,
   setSharedData: PropTypes.func,
-  editable: PropTypes.bool,
+  editable: PropTypes.bool
 };
 
 const SetupBasicData = ({
-  labels,
-  descriptions,
-  placeholders,
-  helps,
-  errorMessages,
-  onNext,
-  evaluationSystemSelect,
-  onPrevious,
-  sharedData,
-  setSharedData,
-  editable,
-  ...props
-}) => {
+                          labels,
+                          descriptions,
+                          placeholders,
+                          helps,
+                          errorMessages,
+                          onNext,
+                          evaluationSystemSelect,
+                          onPrevious,
+                          sharedData,
+                          setSharedData,
+                          editable,
+                          ImagePicker,
+                          ...props
+                        }) => {
   const { classes, cx } = SetupBasicDataStyles({}, { name: 'APBasicData' });
 
   const options = {};
   if (sharedData && !sharedData.credits) {
-    options.useCreditSystem = true;
+    options.useCreditSystem = false;
   }
 
   const defaultValues = {
     name: '',
     abbreviation: '',
+    color: '',
     credits: 0,
-    maxGroupAbbreviation: 0,
+    maxGroupAbbreviation: 2,
     maxGroupAbbreviationIsOnlyNumbers: false,
     creditSystem: false,
     oneStudentGroup: false,
     useCreditSystem: false,
     useOneStudentGroup: false,
     evaluationSystem: '',
+    totalHours: 0,
+    hideStudentsToStudents: false,
     ...sharedData,
-    ...options,
+    ...options
   };
 
   const [creditSystem, setCreditSystem] = useState(defaultValues.useCreditSystem);
@@ -74,7 +80,7 @@ const SetupBasicData = ({
     reset,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({ defaultValues });
 
   useEffect(() => {
@@ -89,15 +95,15 @@ const SetupBasicData = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
+    <form onSubmit={handleSubmit(handleOnNext)} autoComplete='off'>
       <Box sx={(theme) => ({ marginTop: theme.spacing[4] })}>
         <ContextContainer {...props} divided>
           <ContextContainer title={labels.title}>
-            <ContextContainer direction="row" fullWidth>
+            <ContextContainer direction='row' fullWidth>
               <Box>
                 <Controller
                   control={control}
-                  name="name"
+                  name='name'
                   rules={{ required: errorMessages.name?.required || 'Required Field' }}
                   render={({ field }) => (
                     <TextInput
@@ -114,11 +120,11 @@ const SetupBasicData = ({
               <Box>
                 <Controller
                   control={control}
-                  name="abbreviation"
+                  name='abbreviation'
                   rules={{
                     required: errorMessages.abbreviation?.required || 'Required Field',
                     maxLength: 8,
-                    minLength: 1,
+                    minLength: 1
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -134,30 +140,64 @@ const SetupBasicData = ({
                 />
               </Box>
             </ContextContainer>
+
+            <Box>
+              {ImagePicker && (
+                <Controller
+                  control={control}
+                  name='image'
+                  render={({ field }) => (
+                    <InputWrapper label={labels.image}>
+                      <ImagePicker {...field} />
+                    </InputWrapper>
+                  )}
+                />
+              )}
+            </Box>
+
+            <Box>
+              <Controller
+                control={control}
+                name='color'
+                render={({ field }) => <ColorInput label={labels.color} {...field} />}
+              />
+            </Box>
           </ContextContainer>
           {evaluationSystemSelect ? (
             <ContextContainer title={labels.evaluationSystem}>
               <Controller
-                name="evaluationSystem"
+                name='evaluationSystem'
                 control={control}
                 rules={{
-                  required: errorMessages.evaluationSystem?.required || 'Required Field',
+                  required: errorMessages.evaluationSystem?.required || 'Required Field'
                 }}
                 render={({ field }) =>
                   React.cloneElement(evaluationSystemSelect, {
                     ...field,
                     error: errors.evaluationSystem,
                     required: true,
-                    disabled: !editable,
+                    disabled: !editable
                   })
                 }
               />
             </ContextContainer>
           ) : null}
 
-          <ContextContainer title={labels.credits}>
+          <ContextContainer title={labels.creditsTitle}>
+
+            <ContextContainer direction='row'>
+              <Controller
+                name='totalHours'
+                control={control}
+                render={({ field }) => (
+                  <NumberInput defaultValue={0} min={0} label={labels.totalHours} {...field} />
+                )}
+              />
+              <Box></Box>
+            </ContextContainer>
+
             <Controller
-              name="useCreditSystem"
+              name='useCreditSystem'
               control={control}
               render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
@@ -167,27 +207,29 @@ const SetupBasicData = ({
                     onChange(e);
                     setCreditSystem(!creditSystem);
                   }}
-                  checked={value || false}
+                  checked={value}
                   {...field}
                 />
               )}
             />
-            {!creditSystem && (
-              <ContextContainer direction="row">
-                <Controller
-                  name="credits"
-                  control={control}
-                  render={({ field }) => (
-                    <NumberInput defaultValue={0} min={0} label={labels.credits} {...field} />
-                  )}
-                />
-                <Box></Box>
-              </ContextContainer>
+            {creditSystem && (
+              <>
+                <ContextContainer direction='row'>
+                  <Controller
+                    name='credits'
+                    control={control}
+                    render={({ field }) => (
+                      <NumberInput defaultValue={0} min={0} label={labels.credits} {...field} />
+                    )}
+                  />
+                  <Box></Box>
+                </ContextContainer>
+              </>
             )}
           </ContextContainer>
           <ContextContainer title={labels.groupsIDAbbrev} spacing={4}>
             <Controller
-              name="useOneStudentGroup"
+              name='useOneStudentGroup'
               control={control}
               render={({ field: { onChange, value, ref, ...field } }) => (
                 <Switch
@@ -207,17 +249,17 @@ const SetupBasicData = ({
                 <Paragraph>{descriptions.maxGroupAbbreviation}</Paragraph>
 
                 <Controller
-                  name="maxGroupAbbreviation"
+                  name='maxGroupAbbreviation'
                   control={control}
                   rules={{
                     required: errorMessages.maxGroupAbbreviation?.required || 'Required Field',
-                    min: 0,
+                    min: 2
                   }}
                   render={({ field }) => (
-                    <ContextContainer direction="row" alignItems="center">
+                    <ContextContainer direction='row' alignItems='center'>
                       <NumberInput
-                        defaultValue={0}
-                        min={0}
+                        defaultValue={2}
+                        min={2}
                         label={labels.maxGroupAbbreviation}
                         help={helps.maxGroupAbbreviation}
                         required
@@ -225,7 +267,7 @@ const SetupBasicData = ({
                         {...field}
                       />
                       <Controller
-                        name="maxGroupAbbreviationIsOnlyNumbers"
+                        name='maxGroupAbbreviationIsOnlyNumbers'
                         control={control}
                         render={({ field: { onChange, value, ...field } }) => (
                           <Checkbox
@@ -244,8 +286,22 @@ const SetupBasicData = ({
             )}
           </ContextContainer>
 
-          <Stack fullWidth justifyContent="end">
-            <Button type="submit" rightIcon={<ChevRightIcon height={20} width={20} />}>
+          <ContextContainer title={labels.privacy} spacing={4}>
+            <Controller
+              name='hideStudentsToStudents'
+              control={control}
+              render={({ field: { value, ref, ...field } }) => (
+                <Switch
+                  label={labels.hideStudentsToStudents}
+                  checked={value || false}
+                  {...field}
+                />
+              )}
+            />
+          </ContextContainer>
+
+          <Stack fullWidth justifyContent='end'>
+            <Button type='submit' rightIcon={<ChevRightIcon height={20} width={20} />}>
               {labels.buttonNext}
             </Button>
           </Stack>

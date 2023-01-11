@@ -4,9 +4,9 @@ import { Calendar } from './Calendar.js';
 import { Box } from '../../layout/Box';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# Calendar
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/dates/Calendar)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/dates/Calendar/Calendar.js)
 
 ## Table of Contents
 
@@ -14,16 +14,42 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Amount of months](#amount-of-months)
+- [Allow level change](#allow-level-change)
+- [Initial level](#initial-level)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+Calendar is a component that displays a calendar.
 
 <ThemeProvider>
   <Calendar>Calendar</Calendar>
+</ThemeProvider>
+
+## Amount of months
+
+With the `amountOfMonths` prop you can change the amount of months that are rendered
+
+<ThemeProvider>
+  <Calendar amountOfMonths={4} />
+</ThemeProvider>
+
+## Allow level change
+
+You can lock the level (date - month - year) with the `allowLevelChange` prop
+
+<ThemeProvider>
+  <Calendar allowLevelChange={false} />
+</ThemeProvider>
+
+## Initial level
+
+You can change the initia level that is shown when Calendar is rendered to: `date`, `month` or `year`
+
+<ThemeProvider>
+  <Calendar initialLevel="year" />
 </ThemeProvider>
 
 ## Component API
@@ -33,16 +59,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 </Preview>
 
 <Props of={Calendar} />
-
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/calendar_role)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/calendar/calendar.html)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/dates/Calendar.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/dates/Calendar/Calendar.mdx)

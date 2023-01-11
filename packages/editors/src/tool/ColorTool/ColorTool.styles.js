@@ -13,9 +13,9 @@ export const ColorToolStyles = createStyles((theme, { color }) => {
       flexDirection: 'column',
     },
     leftIcon: {
-      transform: 'translateY(11px)',
+      transform: 'translateY(4px)',
       '& svg': {
-        height: 12,
+        height: 16,
       },
     },
     swatchBox: {

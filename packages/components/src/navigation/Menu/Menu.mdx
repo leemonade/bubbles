@@ -3,10 +3,11 @@ import * as stories from './Menu.stories.js';
 import { Menu } from './Menu.js';
 import { Box } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
+import { StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid/';
 
 # Menu
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/Menu)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/Menu/Menu.js)
 
 ## Table of Contents
 
@@ -14,16 +15,200 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Menu positions](#menu-positions)
+- [Menu arrow and placement](#menu-arrow-and-placement)
+- [Menu gutter](#menu-gutter)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Menu is ...
+Menu is a component to render a menu button with a list of secondary actions.
 
 <ThemeProvider>
-  <Menu>Menu</Menu>
+  <Menu
+    items={[
+      {
+        icon: <StarIcon />,
+        children: 'Item 1',
+        onClick: () => alert('Item 1 clicked'),
+      },
+      {
+        icon: <DeleteBinIcon />,
+        children: 'Item 2',
+        onClick: () => alert('Item 1 clicked'),
+      },
+      {
+        icon: <FlagIcon />,
+        children: 'Item 3',
+        onClick: () => alert('Item 3 clicked'),
+      },
+    ]}
+  />
+</ThemeProvider>
+
+## Menu positions
+
+Menu accepts four different positions: `bottom`, `top`, `left` and `right`.
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Menu
+      position="right"
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      position="top"
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      position="left"
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+  </Box>
+</ThemeProvider>
+
+## Menu arrow and placement
+
+You can also change the menu popover placement to three positions: `center`, `start`, `end`, and choose to display or not an arrow with `withArrow`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Menu
+      placement="start"
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      withArrow
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      placement="end"
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+  </Box>
+</ThemeProvider>
+
+## Menu gutter
+
+And control the distance between the popover menu and the menu button with `gutter`
+
+<ThemeProvider>
+  <Box style={{ display: 'flex', gap: 250 }}>
+    <Menu
+      position="right"
+      gutter={20}
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+    <Menu
+      position="right"
+      gutter={100}
+      items={[
+        {
+          icon: <StarIcon />,
+          children: 'Item 1',
+          onClick: () => alert('Item 1 clicked'),
+        },
+        {
+          icon: <DeleteBinIcon />,
+          children: 'Item 2',
+          onClick: () => alert('Item 1 clicked'),
+        },
+      ]}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -36,13 +221,13 @@ Menu is ...
 
 ## References
 
-[MDN: ARIA **Menu** role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role)
+[MDN: ARIA Menu role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA **Menu** role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/menu/menu.html)
+[W3: ARIA Menu role example](https://www.w3.org/WAI/ARIA/apg/example-index/menu-button/menu-button-links.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/Menu.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/Menu/Menu.mdx)

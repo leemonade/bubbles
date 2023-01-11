@@ -1,0 +1,76 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Box } from '@mantine/core';
+import * as stories from './ChatMessage.stories.js';
+import { ChatMessage } from './ChatMessage.js';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# ChatMessage
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/ChatMessage/ChatMessage.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [ChatMessage options](#chatmessage-options)
+- [Component API](#component-api)
+- [Feedback](#feedback)
+
+## Overview
+
+ChatMessage is a component used to display a message from an user.
+
+<ThemeProvider>
+  <ChatMessage
+    user={{
+      name: 'Marcelina',
+      surnames: 'Garcia Perez',
+      avatar:
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+    }}
+    message={{
+      type: 'text',
+      date: new Date(),
+      content:
+        '¡Enhorabuena! Has hecho un gran trabajo con el video de explicación de tu cuadro. Demuestras un conocimiento excelente no solo sobre la obra sino también sobre su contextos histórico, me gusta como la has enmarcado en el estilo pictórico del movimiento al que pertenece el artista así como la enumeración que haces de las características del movimiento y su relación son el momento en que fue creada.',
+    }}
+  />
+</ThemeProvider>
+
+## ChatMessage options
+
+ChatMessage has `isOwn` and `isOnline` props to display if the message is the receiver or the sender, and to display if the user is currently online.
+
+<ThemeProvider>
+  <ChatMessage
+    user={{
+      name: 'Marcelina',
+      surnames: 'Garcia Perez',
+      avatar:
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+    }}
+    message={{
+      type: 'text',
+      date: new Date(),
+      content:
+        '¡Enhorabuena! Has hecho un gran trabajo con el video de explicación de tu cuadro. Demuestras un conocimiento excelente no solo sobre la obra sino también sobre su contextos histórico, me gusta como la has enmarcado en el estilo pictórico del movimiento al que pertenece el artista así como la enumeración que haces de las características del movimiento y su relación son el momento en que fue creada.',
+    }}
+    isOwn
+    isOnline
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-informative-chatmessage--playground" />
+</Preview>
+
+<Props of={ChatMessage} />
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/ChatMessage/ChatMessage.mdx)

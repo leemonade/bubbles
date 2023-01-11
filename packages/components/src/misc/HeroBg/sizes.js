@@ -124,7 +124,7 @@ export const xMD = (className, style) => (
 
     <path
       d="M230.071 854.833H286.476C379.404 854.833 454.831 929.763 455.636 1022.5H230.071V854.833Z"
-      stroke="#FEFF8C"
+      stroke="accentColor"
       strokeWidth="3"
     />
     <path
@@ -133,7 +133,7 @@ export const xMD = (className, style) => (
     />
     <path
       d="M457.143 853.333H685.714C685.714 947.59 609.304 1024 515.048 1024H457.143V853.333Z"
-      fill="#FEFF8C"
+      fill="accentColor"
     />
   </svg>
 );

@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Title
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/typography/Title)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/typography/Title/Title.js)
 
 ## Table of Contents
 
@@ -14,16 +14,55 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Title orders](#title-orders)
+- [Title transform](#title-transform)
+- [Title colors](#title-colors)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Title is ...
+Title is a component to render title headings.
 
 <ThemeProvider>
   <Title>Title</Title>
+</ThemeProvider>
+
+## Title orders
+
+Title has six different orders/sizes: `1`, `2`, `3`, `4`, `5` and `6`
+
+<ThemeProvider>
+  <Title order={1}>Title 1</Title>
+  <Title order={2}>Title 2</Title>
+  <Title order={3}>Title 3</Title>
+  <Title order={4}>Title 4</Title>
+  <Title order={5}>Title 5</Title>
+  <Title order={6}>Title 6</Title>
+</ThemeProvider>
+
+## Title transform
+
+Like with Text, you can transform the title text to: `capitalize`, `uppercase`, `lowercase` or `none`
+
+<ThemeProvider>
+  <Title transform="capitalize">Capitalized title</Title>
+  <Title transform="uppercase">Uppercase title</Title>
+  <Title transform="lowercase">Lowercase title</Title>
+  <Title>Normal title</Title>
+</ThemeProvider>
+
+## Title colors
+
+You also have five different colors to choose: `interactive`, `primary`, `secondary`, `tertiary` and `soft`
+
+<ThemeProvider>
+  <Title color="interactive">Interactive</Title>
+  <Title color="primary">Primary</Title>
+  <Title color="secondary">Secondary</Title>
+  <Title color="tertiary">Tertiary</Title>
+  <Title color="soft">Soft</Title>
 </ThemeProvider>
 
 ## Component API
@@ -36,13 +75,11 @@ Title is ...
 
 ## References
 
-[MDN: ARIA Title role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/title_role)
+[MDN: ARIA Headings role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA Title role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/title/title.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/typography/Title.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/typography/Title/Title.mdx)

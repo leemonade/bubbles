@@ -1,13 +1,14 @@
 import React from 'react';
 import { HeadingsTool, HEADINGS_TOOL_DEFAULT_PROPS } from '../../tool/HeadingsTool/HeadingsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './HeadingsTool.mdx';
 
 export default {
   title: 'Atom/Tool/HeadingsTool',
   parameters: {
     component: HeadingsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

@@ -1,4 +1,4 @@
-import { createStyles, pxToRem, getFontExpressive } from '@bubbles-ui/components';
+import { createStyles, getFontExpressive, pxToRem } from '@bubbles-ui/components';
 
 export const LibraryCardCoverStyles = createStyles(
   (theme, { color, height, blur, parentHovered, subjectColor }) => {
@@ -77,10 +77,11 @@ export const LibraryCardCoverStyles = createStyles(
       subjectIcon: {
         backgroundColor: subjectColor,
         padding: 4,
+        minHeight: 20,
+        minWidth: 20,
         borderRadius: '50%',
         img: {
-          filter:
-            'invert(92%) sepia(71%) saturate(2%) hue-rotate(314deg) brightness(108%) contrast(101%)',
+          filter: 'brightness(0) invert(1)',
         },
       },
     };

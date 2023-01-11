@@ -1,12 +1,13 @@
 import { ListsTool } from './ListsTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './ListsTool.mdx';
 
 export default {
   title: 'Atom/Tool/ListsTool',
   parameters: {
     component: ListsTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

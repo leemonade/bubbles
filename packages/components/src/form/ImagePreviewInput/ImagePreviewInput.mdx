@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # ImagePreviewInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/ImagePreviewInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/ImagePreviewInput/ImagePreviewInput.js)
 
 ## Table of Contents
 
@@ -15,34 +15,25 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 - [Overview](#overview)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-ImagePreviewInput is ...
+ImagePreviewInput is a component that accepts only image files, when an image is selected it will change the state to a preview with a button to change the image.
 
 <ThemeProvider>
-  <ImagePreviewInput>Image preview input</ImagePreviewInput>
+  <ImagePreviewInput labels={{ uploadButton: 'Upload an image', changeImage: 'Change image' }} />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-image-preview-input--playground" />
+  <Story id="molecules-form-imagepreviewinput--playground" />
 </Preview>
 
 <Props of={ImagePreviewInput} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/image-preview-input_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/image-preview-input/image-preview-input.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/ImagePreviewInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/ImagePreviewInput/ImagePreviewInput.mdx)

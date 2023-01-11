@@ -31,6 +31,7 @@ const Alert = ({
   closeable,
   onClose,
   onAction,
+  useAria,
   ...props
 }) => {
   variant = ALERT_VARIANTS.includes(variant) ? variant : 'inline';
@@ -42,7 +43,12 @@ const Alert = ({
   const { classes, cx } = AlertStyles({ variant, severity }, { name: 'Alert' });
 
   return (
-    <MantineAlert {...props} icon={ALERT_ICONS[severity]()} classNames={classes}>
+    <MantineAlert
+      {...props}
+      icon={ALERT_ICONS[severity]()}
+      classNames={classes}
+      role={useAria ? 'alert' : undefined}
+    >
       <Box className={classes.wrapper}>
         <Box className={classes.variant}>
           {!isNil(title) && title !== '' && <Box className={classes.title}>{title}</Box>}
@@ -73,17 +79,26 @@ Alert.defaultProps = {
   variant: 'inline',
   severity: 'info',
   closeable: true,
+  useAria: true,
 };
 
 Alert.propTypes = {
+  /** Alert title */
   title: PropTypes.node,
+  /** Controls Alert severity (color) */
   severity: PropTypes.oneOf(ALERT_SEVERITIES),
-  icon: PropTypes.node,
+  /** Controls the Alert appearance */
   variant: PropTypes.string,
+  /** Controls if Alert is closable or not */
   closeable: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  /** Controls if Alert has an action and the text for the button */
   action: PropTypes.node,
+  /** Function executed by the action button */
   onAction: PropTypes.func,
+  /** Function executed when Alert closes */
   onClose: PropTypes.func,
+  /** Controls if Alert uses aria role */
+  useAria: PropTypes.bool,
 };
 
 export { Alert };

@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ControlsCameraOffIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -13,5 +12,4 @@ function ControlsCameraOffIcon(props) {
     d: "M11.382 10.44a.167.167 0 0 1-.049-.118V5.167a1 1 0 0 0-1-1H5.18a.166.166 0 0 1-.118-.049L1.138.196a.667.667 0 0 0-.943.942l14.667 14.667a.667.667 0 0 0 .943-.943l-4.423-4.422Z"
   }));
 }
-
 export default ControlsCameraOffIcon;

@@ -1,20 +1,41 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { Popover as MantinePopover } from '@mantine/core';
 import { PopoverStyles } from './Popover.styles';
+import { POPOVER_DEFAULT_PROPS, POPOVER_PROP_TYPES } from './Popover.constants';
+import { Box } from '../../layout';
+import { ActionButton } from '../../form';
+import { RemoveIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 
-export const POPOVER_DEFAULT_PROPS = {
-  padded: false,
-};
-export const POPOVER_PROP_TYPES = {
-  padded: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-};
+const Popover = forwardRef(
+  ({ padded, target, children, withArrow, withCloseButton, onClose, styles, ...props }, ref) => {
+    const { classes } = PopoverStyles({ padded, styles });
 
-const Popover = forwardRef(({ padded, ...props }, ref) => {
-  const { classes, cx } = PopoverStyles({ padded });
+    const onCloseHandler = () => {
+      isFunction(onClose) && onClose();
+    };
 
-  return <MantinePopover {...props} ref={ref} classNames={classes} />;
-});
+    return (
+      <MantinePopover
+        {...props}
+        ref={ref}
+        withArrow={withArrow}
+        onClose={onClose}
+        classNames={classes}
+      >
+        <MantinePopover.Target>{target}</MantinePopover.Target>
+        <MantinePopover.Dropdown>
+          {withCloseButton && (
+            <Box className={classes.closeButton}>
+              <ActionButton size="sm" icon={<RemoveIcon />} onClick={onCloseHandler} />
+            </Box>
+          )}
+          {children}
+        </MantinePopover.Dropdown>
+      </MantinePopover>
+    );
+  }
+);
 
 Popover.defaultProps = POPOVER_DEFAULT_PROPS;
 Popover.propTypes = POPOVER_PROP_TYPES;

@@ -22,9 +22,11 @@ export const LIST_INPUT_DEFAULT_PROPS = {
   addButtonLabel: 'Add',
   errorRequiredMessage: 'Required',
   hideAddButton: false,
+  useAria: true,
 };
 export const LIST_INPUT_PROP_TYPES = {
   hideAddButton: PropTypes.bool,
+  useAria: PropTypes.bool,
 };
 
 const ListInput = ({
@@ -45,6 +47,7 @@ const ListInput = ({
   hideAddButton,
   value: originalValue,
   onChange,
+  useAria,
 }) => {
   const { classes, cx } = ListInputStyles({});
 
@@ -102,6 +105,16 @@ const ListInput = ({
     );
   }, [originalValue]);
 
+  useEffect(() => {
+    if (
+      !value.find((item) => item.__key === editingKey) &&
+      editingKey !== null &&
+      value.length > 0
+    ) {
+      setEditingKey(null);
+    }
+  }, [value]);
+
   return (
     <InputWrapper
       label={label}
@@ -135,6 +148,7 @@ const ListInput = ({
               },
             });
           }}
+          useAria={useAria}
         />
       </Box>
       {canAdd && !readonly ? (

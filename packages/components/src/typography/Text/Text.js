@@ -26,6 +26,7 @@ export const TEXT_DEFAULT_PROPS = {
   strong: false,
   stronger: false,
   truncated: false,
+  highlighted: false,
 };
 
 export const Text = forwardRef(
@@ -42,6 +43,8 @@ export const Text = forwardRef(
       stronger,
       truncated,
       styles,
+      ariaRole,
+      highlighted,
       ...props
     },
     ref
@@ -64,6 +67,7 @@ export const Text = forwardRef(
       size,
       truncated,
       styles,
+      highlighted,
     });
 
     return (
@@ -73,6 +77,7 @@ export const Text = forwardRef(
         component={as}
         size={size}
         className={cx(classes.root, className)}
+        role={ariaRole}
       >
         {children}
       </MantineText>
@@ -91,4 +96,5 @@ Text.propTypes = {
   stronger: PropTypes.bool,
   truncated: PropTypes.bool,
   styles: PropTypes.object,
+  highlighted: PropTypes.bool,
 };

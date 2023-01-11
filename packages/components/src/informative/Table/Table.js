@@ -10,14 +10,26 @@ import { TableStyles } from './Table.styles';
 export const TABLE_DEFAULT_PROPS = {
   columns: [],
   data: [],
+  useAria: true,
+  headerStyles: {},
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
   data: PropTypes.arrayOf(PropTypes.any),
   onChangeData: PropTypes.func,
+  useAria: PropTypes.bool,
+  headerStyles: PropTypes.object,
 };
 
-const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData }) => {
+const Table = ({
+  columns,
+  data,
+  styleRow,
+  onClickRow = () => {},
+  onChangeData,
+  useAria,
+  headerStyles,
+}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -40,7 +52,7 @@ const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData })
     }
   };
 
-  const { classes, cx } = TableStyles({}, { name: 'Table' });
+  const { classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
 
   // Render the UI for your table
   return (
@@ -48,12 +60,13 @@ const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData })
       {...getTableProps({
         className: classes.root,
       })}
+      role={useAria ? 'table' : undefined}
     >
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr
             {...headerGroup.getHeaderGroupProps({
-              className: classes.tr,
+              className: cx(classes.tr, classes.trHeader),
             })}
           >
             {headerGroup.headers.map((column) => (
@@ -89,7 +102,7 @@ const Table = ({ columns, data, styleRow, onClickRow = () => {}, onChangeData })
                       className: classes.td,
                     })}
                   >
-                    <TableCell cell={cell} onChangeCell={onChangeCell} />
+                    <TableCell cell={cell} onChangeCell={onChangeCell} useAria={useAria} />
                   </td>
                 );
               })}

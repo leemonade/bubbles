@@ -38,4 +38,5 @@ export const SCORES_BAR_PROP_TYPES = {
   showBarPercentage: PropTypes.bool,
   styles: PropTypes.object,
   className: PropTypes.string,
+  graphAlt: PropTypes.string,
 };

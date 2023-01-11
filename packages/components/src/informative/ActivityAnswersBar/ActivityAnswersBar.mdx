@@ -3,10 +3,11 @@ import { Box } from '@mantine/core';
 import * as stories from './ActivityAnswersBar.stories.js';
 import { ActivityAnswersBar } from './ActivityAnswersBar.js';
 import { ThemeProvider } from './../../ThemeProvider';
+import { DATA, SELECTABLES } from './mock/data';
 
-# **name**
+# ActivityAnswersBar
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/ActivityAnswersBar>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/ActivityAnswersBar/ActivityAnswersBar.js)
 
 ## Table of Contents
 
@@ -14,35 +15,120 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Bar height](#bar-height)
+- [Data and selectables](#data-and-selectables)
+- [With legend](#with-legend)
+- [Bar icon](#bar-icon)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+ActivityAnswersBar is a component that renders a graphic of the scores of activities.
 
 <ThemeProvider>
-  <ActivityAnswersBar>Activity answers bar</ActivityAnswersBar>
+  <Box styles={{ height: 300 }}>
+    <ActivityAnswersBar
+      data={DATA}
+      selectables={SELECTABLES}
+      labels={{ OK: 'OK', KO: 'KO', null: 'null' }}
+    />
+  </Box>
+</ThemeProvider>
+
+## Bar height
+
+You can change the height of the bars with the `barHeight` prop
+
+<ThemeProvider>
+  <Box styles={{ height: 300 }}>
+    <ActivityAnswersBar
+      barHeight={40}
+      data={DATA}
+      withSelect={false}
+      withLegend={false}
+      selectables={SELECTABLES}
+      labels={{ OK: 'OK', KO: 'KO', null: 'null' }}
+    />
+  </Box>
+</ThemeProvider>
+
+## Data and selectables
+
+You must provide a `data` array of objects with a `status` property set to `OK`, `KO` or `null`. If you provide an array of selectables,
+the object must also have the properties matching the values of the `selectables` array, like this:
+
+```js
+{
+  id: '6',
+  category: 'Mates',
+  level: 'Principiante',
+  status: 'OK',
+},
+```
+
+You can also choose to hide the `Select` input.
+
+<ThemeProvider>
+  <Box styles={{ height: 300 }}>
+    <ActivityAnswersBar
+      data={DATA}
+      selectables={SELECTABLES}
+      withSelect={false}
+      labels={{ OK: 'OK', KO: 'KO', null: 'null' }}
+    />
+  </Box>
+</ThemeProvider>
+
+## With legend
+
+You can also hide the legend with the `withLegend` prop
+
+<ThemeProvider>
+  <Box styles={{ height: 300 }}>
+    <ActivityAnswersBar
+      data={DATA}
+      selectables={SELECTABLES}
+      withSelect={false}
+      withLegend={false}
+      labels={{ OK: 'OK', KO: 'KO', null: 'null' }}
+    />
+  </Box>
+</ThemeProvider>
+
+## Bar icon
+
+You can also hide the bar icon with the `showBarIcon` prop
+
+<ThemeProvider>
+  <Box styles={{ height: 300 }}>
+    <ActivityAnswersBar
+      data={DATA}
+      selectables={SELECTABLES}
+      showBarIcon={false}
+      withSelect={false}
+      withLegend={false}
+      labels={{ OK: 'OK', KO: 'KO', null: 'null' }}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-informative-activity-answers-bar--playground" />
+  <Story id="organisms-informative-activityanswersbar--playground" />
 </Preview>
 
 <Props of={ActivityAnswersBar} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/activity-answers-bar_role>)
+[MDN: ARIA Image role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/activity-answers-bar/activity-answers-bar.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/ActivityAnswersBar.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/ActivityAnswersBar/ActivityAnswersBar.mdx)

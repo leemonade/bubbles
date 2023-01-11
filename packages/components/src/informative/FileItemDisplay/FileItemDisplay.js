@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FileIcon } from '@bubbles-ui/icons/outline';
-import { Text } from '../../typography';
+import { Text, TextClamp } from '../../typography';
 import { Box } from '../../layout';
 import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 import { Link } from 'react-router-dom';
@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   showFileName: true,
   size: 16,
-  colorStyle: {},
-  iconStyle: {},
   url: '',
   useRouter: false,
+  filename: '',
+  color: '',
+  iconStyle: {},
 };
 export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   filename: PropTypes.string,
@@ -20,9 +21,8 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   description: PropTypes.string,
   metadata: PropTypes.object,
   showFileName: PropTypes.bool,
+  color: PropTypes.string,
   size: PropTypes.number,
-  colorStyle: PropTypes.object,
-  iconStyle: PropTypes.object,
   url: PropTypes.string,
   useRouter: PropTypes.bool,
 };
@@ -33,10 +33,10 @@ const FileItemDisplay = ({
   metadata,
   showFileName,
   size,
-  colorStyle,
-  iconStyle,
+  color,
   hideExtension,
   url,
+  iconStyle,
   useRouter,
   ...props
 }) => {
@@ -61,13 +61,16 @@ const FileItemDisplay = ({
     return filename;
   }, [filename, hideExtension, hasExtension]);
 
-  const { classes, cx } = FileItemDisplayStyles({
-    size,
-    calculatedSize,
-    colorStyle,
-    iconStyle,
-    url,
-  });
+  const { classes, cx } = FileItemDisplayStyles(
+    {
+      size,
+      calculatedSize,
+      color,
+      url,
+      iconStyle,
+    },
+    { name: 'FileItemDisplay' }
+  );
   const fileItemDisplay = (
     <Box className={classes.root} {...props}>
       <Box className={classes.iconWrapper}>
@@ -76,7 +79,7 @@ const FileItemDisplay = ({
         </Text>
         <FileIcon height={size} width={size} className={classes.icon} />
       </Box>
-      {showFileName && (
+      {showFileName && name && (
         <Text {...linkProps} className={classes.filename}>
           {name}
         </Text>

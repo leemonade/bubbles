@@ -1,17 +1,21 @@
 import SimpleBar from 'simplebar-react';
+import jsonTokens from '../tokens-compiled';
 
 export { SimpleBar };
+export { jsonTokens };
+
 export {
   Grid,
   Col,
   Group,
   Transition,
   useMantineTheme as useTheme,
-  Popper,
   SegmentedControl,
   UnstyledButton,
   List,
-  useAccordionState,
+  Collapse,
+  Progress,
+  ScrollArea
 } from '@mantine/core';
 export {
   useId,
@@ -23,6 +27,9 @@ export {
   useViewportSize,
   useClickOutside,
   useHotkeys,
+  useHover,
+  useWindowScroll,
+  useIdle
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
@@ -30,7 +37,7 @@ export {
   getFontProductive,
   pxToRem,
   getPaddings,
-  getHtmlStyles,
+  getHtmlStyles
 } from './theme.mixins';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';

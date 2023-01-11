@@ -20,6 +20,7 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   single: false,
   initialFiles: [],
   inputWrapperProps: {},
+  useAria: true,
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -40,6 +41,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
   accept: PropTypes.arrayOf(PropTypes.string),
+  useAria: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -57,6 +59,7 @@ const FileUpload = ({
   inputWrapperProps = {},
   initialFiles,
   accept,
+  useAria,
   ...props
 }) => {
   const openRef = useRef();
@@ -92,21 +95,15 @@ const FileUpload = ({
           onDrop={onDropHandler}
           classNames={classes}
           openRef={openRef}
+          onReject={() => setError(true)}
         >
-          {(status) => {
-            if (status.rejected) {
-              setError(true);
-            }
-            return (
-              <Group className={classes.groupContainer}>
-                <Box className={classes.container}>
-                  <Box className={classes.icon}>{icon}</Box>
-                  <Text className={classes.title}>{title}</Text>
-                  <Text className={classes.subtitle}>{subtitle}</Text>
-                </Box>
-              </Group>
-            );
-          }}
+          <Group className={classes.groupContainer}>
+            <Box className={classes.container}>
+              <Box className={classes.icon}>{icon}</Box>
+              <Text className={classes.title}>{title}</Text>
+              <Text className={classes.subtitle}>{subtitle}</Text>
+            </Box>
+          </Group>
         </MantineDropzone>
       </InputWrapper>
       {showError && error && (
@@ -122,6 +119,7 @@ const FileUpload = ({
               <SynchronizeArrowIcon /> <span style={{ marginLeft: 8 }}>Browse file again</span>
             </>
           }
+          useAria={useAria}
         >
           {errorMessage.message}
         </Alert>

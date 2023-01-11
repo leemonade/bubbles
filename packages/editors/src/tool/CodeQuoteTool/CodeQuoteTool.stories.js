@@ -1,12 +1,13 @@
 import { CodeQuoteTool, CODEQUOTE_TOOL_DEFAULT_PROPS } from './CodeQuoteTool';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
+import mdx from './CodeQuoteTool.mdx';
 
 export default {
   title: 'Atom/Tool/CodeQuoteTool',
   parameters: {
     component: CodeQuoteTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

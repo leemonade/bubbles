@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { navigate } from 'react-big-calendar/lib/utils/constants';
 
 import TimeGrid from '../TimeGrid/TimeGrid';
+import _ from 'lodash';
 
 class WeekView extends React.Component {
   componentDidMount() {
-    const days = this.props.localizer.visibleDays(this.props.date, this.props.localizer);
-    days[days.length - 1].setHours(23, 59, 59);
     this.props.onRangeChange({
-      start: days[0],
-      end: days[days.length - 1],
+      start: this.props.localizer.startOf(this.props.date, 'week'),
+      end: this.props.localizer.endOf(this.props.date, 'week')
     });
   }
 
@@ -30,13 +29,27 @@ class WeekView extends React.Component {
     } = this.props;
     let range = WeekView.range(date, this.props);
 
-    const { showWeekends } = this.props.components;
+    const { showWeekends, minHour, maxHour, weekDays, firstDayOfWeek } =
+      this.props.components;
 
-    if (!showWeekends) {
-      // week.pop();
-      // week.shift();
-      range.pop();
-      range.pop();
+    if (_.isArray(weekDays)) {
+      range = _.filter(range, (date) => {
+        return weekDays.includes(date.getDay());
+      });
+    }
+    if (!showWeekends && !_.isArray(weekDays)) {
+      range = _.filter(range, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
+    }
+
+    if (minHour) {
+      const mi = minHour.split(':');
+      min.setHours(parseInt(mi[0], 10), parseInt(mi[1], 10));
+    }
+    if (maxHour) {
+      const ma = maxHour.split(':');
+      max.setHours(parseInt(ma[0], 10), parseInt(ma[1], 10));
     }
 
     return (
@@ -58,7 +71,7 @@ WeekView.propTypes = {
   localizer: PropTypes.any,
   min: PropTypes.instanceOf(Date),
   max: PropTypes.instanceOf(Date),
-  scrollToTime: PropTypes.instanceOf(Date),
+  scrollToTime: PropTypes.instanceOf(Date)
 };
 
 WeekView.defaultProps = TimeGrid.defaultProps;

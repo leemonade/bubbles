@@ -40,6 +40,7 @@ export const DATE_PICKER_DEFAULT_PROPS = {
   withTime: false,
   autoComplete: 'off',
   readOnly: false,
+  clearButtonLabel: 'Clear',
 };
 export const DATE_PICKER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -59,6 +60,7 @@ export const DATE_PICKER_PROP_TYPES = {
   contentStyle: PropTypes.any,
   autoComplete: PropTypes.string,
   readOnly: PropTypes.bool,
+  clearButtonLabel: PropTypes.string,
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -87,22 +89,24 @@ const DatePicker = forwardRef(
       headerStyle,
       contentStyle,
       autoComplete,
+      clearButtonLabel,
       readOnly,
+      style,
       ...props
     },
     ref
   ) => {
     const uuid = useId();
     const [currentLocale, setCurrentLocale] = useState(locale);
-    const { classes } = DatePickerStyles({ size });
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
     const compProps = range ? { amountOfMonths: 2 } : {};
-    const [r, setR] = useState();
+    const [ready, setReady] = useState(null);
     const [date, setDate] = useState(userValue);
+    const { classes } = DatePickerStyles({ size, date, range });
 
     function render() {
-      setR(new Date().getTime());
+      setReady(new Date().getTime());
     }
 
     // EN: Notify the parent component when the date changes
@@ -122,7 +126,7 @@ const DatePicker = forwardRef(
     useEffect(() => {
       let mounted = true;
 
-      import(`dayjs/locale/${locale.toLowerCase()}.js`).then(() => {
+      import(`dayjs/locale/${locale.toLowerCase()}`).then(() => {
         if (mounted) {
           setCurrentLocale(locale.toLowerCase());
           render();
@@ -148,6 +152,7 @@ const DatePicker = forwardRef(
         contentClassName={contentClassName}
         headerStyle={headerStyle}
         contentStyle={contentStyle}
+        style={style}
       >
         {readOnly ? (
           <Paragraph clean>
@@ -166,11 +171,12 @@ const DatePicker = forwardRef(
               uuid={uuid}
               ref={ref}
               size={size}
-              value={date}
+              value={ready ? date : null}
               classNames={{ ...classes, ...calendarClasses }}
               error={!isEmpty(error)}
               onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
               icon={<PluginCalendarIcon />}
+              clearButtonLabel={clearButtonLabel}
             />
             {withTime && !range && (
               <TimeInput

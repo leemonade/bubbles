@@ -4,9 +4,9 @@ import * as stories from './VerticalStepper.stories.js';
 import { VerticalStepper } from './VerticalStepper.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# VerticalStepper
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/VerticalStepper>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/VerticalStepper/VerticalStepper.js)
 
 ## Table of Contents
 
@@ -14,35 +14,69 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [StepButton](#stepbutton)
+- [Completed and visited steps](#completed-and-visited-steps)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+VerticalStepper is a component to display a stepper in an vertical layout. Control the current step with `currentStep`.
+To visualize steps you must provide a `data` array of objects with this shape:
+
+```js
+{
+  label: 'Resumen',
+  badge: 'Badge' (optional),
+  status: 'OK' (optional),
+},
+```
+
+To add child steps to a step, provide a `childSteps` array with the same shape.
 
 <ThemeProvider>
-  <VerticalStepper>Vertical stepper</VerticalStepper>
+  <VerticalStepper data={[{ label: 'Step 1' }, { label: 'Step 2' }, { label: 'Step 3' }]} />
+</ThemeProvider>
+
+## StepButton
+
+If you add a `onClick` function in any step it will transform into a button step
+
+<ThemeProvider>
+  <VerticalStepper
+    data={[{ label: 'Step 1' }, { label: 'Step 2', onClick: () => {} }, { label: 'Step 3' }]}
+  />
+</ThemeProvider>
+
+## Completed and visited steps
+
+You can add a `completedSteps` or `visitedSteps` array to initialize the stepper with completed or visited steps.
+
+<ThemeProvider>
+  <VerticalStepper
+    completedSteps={[0, 1]}
+    visitedSteps={[0, 1]}
+    vis
+    data={[{ label: 'Step 1' }, { label: 'Step 2', onClick: () => {} }, { label: 'Step 3' }]}
+  />
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="organisms-navigation-vertical-stepper--playground" />
+  <Story id="organisms-navigation-verticalstepper--playground" />
 </Preview>
 
 <Props of={VerticalStepper} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/vertical-stepper_role>)
+[MDN: ARIA navigation role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/vertical-stepper/vertical-stepper.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/VerticalStepper.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/VerticalStepper/VerticalStepper.mdx)

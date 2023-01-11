@@ -1,5 +1,5 @@
 import React from 'react';
-import { AVATAR_SIZES } from '../Avatar/Avatar';
+import { AVATAR_SIZES } from '../Avatar/Avatar.constants';
 import { AvatarsGroup } from './AvatarsGroup';
 import { AVATARS_GROUP_DEFAULT_PROPS } from './AvatarsGroup.constants';
 import mdx from './AvatarsGroup.mdx';

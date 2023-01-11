@@ -7,9 +7,11 @@ import { TableItemRender } from './TableItemRender';
 
 const TABLE_VIEW_DEFAULT_PROPS = {
   itemRender: ({ ...props }) => <TableItemRender {...props} />,
+  headerStyles: {},
 };
 const TABLE_VIEW_PROP_TYPES = {
   itemRender: PropTypes.func,
+  headerStyles: PropTypes.object,
 };
 
 const TableView = ({
@@ -22,6 +24,8 @@ const TableView = ({
   onSelect,
   selectable,
   selected,
+  headerStyles,
+  useAria,
 }) => {
   const [currentItem, setCurrentItem] = useState(selected);
 
@@ -38,18 +42,22 @@ const TableView = ({
     }
   };
 
-  const { classes: tableClasses, cx: tableCx } = TableStyles({}, { name: 'TableView' });
+  const { classes: tableClasses, cx: tableCx } = TableStyles(
+    { headerStyles },
+    { name: 'TableView' }
+  );
   return (
     <table
       {...getTableProps({
         className: tableClasses.root,
       })}
+      role={useAria ? 'table' : undefined}
     >
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr
             {...headerGroup.getHeaderGroupProps({
-              className: tableClasses.tr,
+              className: tableCx(tableClasses.tr, tableClasses.trHeader),
             })}
           >
             {headerGroup.headers.map((column) => (

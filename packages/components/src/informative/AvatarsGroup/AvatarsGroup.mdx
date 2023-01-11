@@ -1,12 +1,12 @@
 import { Story, Props, Source, Preview } from '@storybook/addon-docs';
 import * as stories from './AvatarsGroup.stories.js';
 import { AvatarsGroup } from './AvatarsGroup.js';
-import { Box } from '@mantine/core';
+import { Group } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
 # AvatarsGroup
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/AvatarsGroup>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/AvatarsGroup/AvatarsGroup.js)
 
 ## Table of Contents
 
@@ -14,35 +14,66 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [AvatarsGroup sizes](#avatarsgroup-sizes)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-AvatarsGroup is ...
+AvatarsGroup is a component to display a group of avatars in a row. You can control the amount of avatars shown with the `limit` prop
 
 <ThemeProvider>
-  <AvatarsGroup>Avatars group</AvatarsGroup>
+  <AvatarsGroup
+    data={[
+      { fullName: 'John Doe' },
+      { fullName: 'Mary Jane' },
+      { fullName: 'Peter Parker' },
+      { fullName: 'Will Teacher' },
+      { fullName: 'Tony Stark' },
+    ]}
+  />
+  <Space></Space>
+  <AvatarsGroup
+    limit={5}
+    data={[
+      { fullName: 'John Doe' },
+      { fullName: 'Mary Jane' },
+      { fullName: 'Peter Parker' },
+      { fullName: 'Will Teacher' },
+      { fullName: 'Tony Stark' },
+    ]}
+  />
+</ThemeProvider>
+
+## AvatarsGroup sizes
+
+AvatarsGroup has four different sizes: `xs`, `sm`, `md` and `lg`.
+
+<ThemeProvider>
+  <Group style={{ gap: 48 }}>
+    <AvatarsGroup size="xs" data={[{ fullName: 'John Doe' }, { fullName: 'Mary Jane' }]} />
+    <AvatarsGroup data={[{ fullName: 'John Doe' }, { fullName: 'Mary Jane' }]} />
+    <AvatarsGroup size="md" data={[{ fullName: 'John Doe' }, { fullName: 'Mary Jane' }]} />
+    <AvatarsGroup size="lg" data={[{ fullName: 'John Doe' }, { fullName: 'Mary Jane' }]} />
+  </Group>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="atoms-informative-avatars-group--playground" />
+  <Story id="atoms-informative-avatarsgroup--playground" />
 </Preview>
 
 <Props of={AvatarsGroup} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/avatars-group_role>)
+[MDN: ARIA Img role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/avatars-group/avatars-group.html>)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/AvatarsGroup.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/AvatarsGroup/AvatarsGroup.mdx)

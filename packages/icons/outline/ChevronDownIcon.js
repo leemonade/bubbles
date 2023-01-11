@@ -1,5 +1,4 @@
 const React = require("react");
-
 function ChevronDownIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function ChevronDownIcon(props) {
     d: "M23.25 7.311 12.53 18.03a.75.75 0 0 1-1.06 0L.75 7.311"
   }));
 }
-
 module.exports = ChevronDownIcon;

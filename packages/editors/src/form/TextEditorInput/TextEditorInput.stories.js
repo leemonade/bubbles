@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextEditorInput } from './TextEditorInput';
-import { TEXT_EDITOR_INPUT_DEFAULT_PROPS } from './TextEditorInput.constants';
+import {
+  TEXT_EDITOR_INPUT_DEFAULT_PROPS,
+  TEXT_EDITOR_DEFAULT_TOOLBARS,
+} from './TextEditorInput.constants';
 import mdx from './TextEditorInput.mdx';
 
 export default {
-  title: 'Molecules/Form/TextEditorInput',
+  title: 'Organism/Form/TextEditorInput',
   parameters: {
     component: TextEditorInput,
     docs: {
@@ -21,7 +24,9 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  const [value, setValue] = useState('<p><strong>Hola Mundo</strong></p>');
+  const [value, setValue] = useState(
+    '<p style="margin-left: 0px!important;"><strong>Hola Mundo</strong></p>'
+  );
 
   return (
     <TextEditorInput
@@ -44,4 +49,6 @@ Playground.args = {
   placeholder: 'Placeholder',
   help: 'Help text for text editor',
   error: 'Descriptive text for error ',
+  useJSON: true,
+  toolbars: { ...TEXT_EDITOR_DEFAULT_TOOLBARS },
 };

@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # ColorInput
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/form/ColorInput>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/ColorInput/ColorInput.js)
 
 ## Table of Contents
 
@@ -14,35 +14,34 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Custom ColorPicker](#custom-colorpicker)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-ColorInput is ...
+ColorInput is an input to capture color data from user.
+
+ColorInput uses a ColorPicker, so go to ColorPicker documentation if you want to know more about ColorInput props.
+It also has the same props as InputWrapper.
 
 <ThemeProvider>
-  <ColorInput>Color input</ColorInput>
+  <ColorInput />
 </ThemeProvider>
+
+## Custom ColorPicker
+
+You can also use the `colorPickerComponent` prop to use your custom built ColorPicker component, this component will recieve an `onChange` function and the `inputValue`
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-form-color-input--playground" />
+  <Story id="molecules-form-colorinput--playground" />
 </Preview>
 
 <Props of={ColorInput} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/color-input_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/color-input/color-input.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/form/ColorInput.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/ColorInput/ColorInput.mdx)

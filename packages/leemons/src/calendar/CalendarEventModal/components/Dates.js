@@ -70,7 +70,7 @@ const Dates = ({
                     }}
                     render={({ field }) => (
                       <DatePicker
-                        size="xs"
+                        size="sm"
                         withTime={disabled}
                         readOnly={readOnly}
                         disabled={disabled}
@@ -80,6 +80,14 @@ const Dates = ({
                         label={config?.fromLabel || messages.fromLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        maxDate={form.getValues('endDate')}
+                        onChange={(value) => {
+                          if (!value) {
+                            form.setValue('endDate', null);
+                          }
+                          if (!form.getValues('endDate')) form.setValue('endDate', value);
+                          field.onChange(value);
+                        }}
                       />
                     )}
                   />
@@ -105,7 +113,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'startTime')}
-                            size="xs"
+                            size="sm"
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -134,15 +142,18 @@ const Dates = ({
                     render={({ field }) => (
                       <DatePicker
                         error={get(errors, 'endDate')}
-                        size="xs"
+                        size="sm"
                         withTime={disabled}
-                        disabled={disabled}
                         locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
                         readOnly={readOnly}
                         label={messages.toLabel}
                         required={dateRequired && !disabled}
                         {...field}
+                        clearable={false}
+                        disabled={disabled || !form.getValues('startDate')}
+                        minDate={form.getValues('startDate')}
+                        value={field.value || form.getValues('startDate')}
                       />
                     )}
                   />
@@ -168,7 +179,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'endTime')}
-                            size="xs"
+                            size="sm"
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -192,7 +203,7 @@ const Dates = ({
                 render={({ field }) => (
                   <Select
                     error={get(errors, 'repeat')}
-                    size="xs"
+                    size="sm"
                     disabled={disabled}
                     orientation={disabled ? 'horizontal' : 'vertical'}
                     readOnly={readOnly}

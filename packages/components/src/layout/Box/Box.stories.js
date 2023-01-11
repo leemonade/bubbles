@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, BOX_DEFAULT_PROPS } from './Box';
+import { Text } from '../../typography';
 import mdx from './Box.mdx';
 
 export default {
@@ -21,7 +22,17 @@ export default {
 };
 
 const Template = ({ children, ...props }) => {
-  return <Box {...props}>{children}</Box>;
+  return (
+    <Box
+      {...props}
+      sx={(theme) => ({
+        backgroundColor: theme.colors.interactive01h,
+        cursor: 'pointer',
+      })}
+    >
+      <Text color="primary">Box</Text>
+    </Box>
+  );
 };
 
 export const Playground = Template.bind({});
@@ -30,4 +41,5 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...BOX_DEFAULT_PROPS,
+  padding: 3,
 };

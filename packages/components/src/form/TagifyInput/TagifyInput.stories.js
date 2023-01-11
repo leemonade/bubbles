@@ -11,7 +11,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=5200%3A51116',
     },
   },
   argTypes: {
@@ -21,7 +21,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <TagifyInput {...props} onChange={(e) => console.log(e)} />;
+  return <TagifyInput {...props} />;
 };
 
 export const Playground = Template.bind({});
@@ -50,4 +50,5 @@ Playground.args = {
       { id: 105, value: '01, 02, ..', title: '01, 02, ..' },
     ],
   },
+  withSuggestions: true,
 };

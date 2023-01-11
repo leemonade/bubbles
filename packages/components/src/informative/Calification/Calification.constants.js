@@ -10,6 +10,8 @@ export const CALIFICATION_DEFAULT_PROPS = {
   inverted: false,
   styles: {},
   className: '',
+  showOnlyLabel: false,
+  decimalNumbers: 2,
 };
 export const CALIFICATION_PROP_TYPES = {
   label: PropTypes.string,
@@ -19,4 +21,6 @@ export const CALIFICATION_PROP_TYPES = {
   inverted: PropTypes.bool,
   styles: PropTypes.object,
   className: PropTypes.string,
+  showOnlyLabel: PropTypes.bool,
+  decimalNumber: PropTypes.number,
 };

@@ -1,13 +1,14 @@
 import React from 'react';
 import { TextEditor } from '../../form/TextEditor/TextEditor';
 import { ItalicTool } from './ItalicTool';
+import mdx from './ItalicTool.mdx';
 
 export default {
   title: 'Atom/Tool/ItalicTool',
   parameters: {
     component: ItalicTool,
     docs: {
-      // page: mdx,
+      page: mdx,
     },
     design: {
       type: 'figma',

@@ -14,7 +14,7 @@ export default {
     },
     design: {
       type: 'figma',
-      // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
+      url: 'https://www.figma.com/file/SjAiYd128sqDIzjPRsyRDe/%F0%9F%8D%8B-App-Opensource?node-id=1725%3A96556',
     },
   },
   argTypes: {},
@@ -84,5 +84,7 @@ Playground.args = {
     minimumGrade: 5,
     grade: 5.2,
     label: 'SB',
+    showOnlyLabel: false,
+    decimalNumbers: 2,
   },
 };

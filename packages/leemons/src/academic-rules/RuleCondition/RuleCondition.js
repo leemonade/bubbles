@@ -191,7 +191,6 @@ const RuleCondition = ({
     if (index === 1) {
       return (
         <Select
-          className={classes.input}
           data={LOGIC_OPERATORS || []}
           value={logicOperator.value}
           onChange={(e) => {
@@ -339,22 +338,22 @@ const RuleCondition = ({
           <Box className={classes.root}>
             <Box className={classes.logicOperator}>{getLogicOperatorSelect()}</Box>
             <Stack fullWidth spacing={1}>
-              <Box className={classes.sourceSelects} skipFlex>
-                <Select
-                  className={classes.input}
-                  data={sources || []}
-                  placeholder={placeholders.selectItem}
-                  value={sourceValue}
-                  onChange={(e) => {
-                    setSourceValue(e);
-                    setNewData(e, 'source');
-                    resetValues(true);
-                  }}
-                  disabled={!program}
-                />
+              {/* <Box className={classes.sourceSelects} skipFlex> */}
+              <Select
+                data={sources || []}
+                placeholder={placeholders.selectItem}
+                value={sourceValue}
+                onChange={(e) => {
+                  setSourceValue(e);
+                  setNewData(e, 'source');
+                  resetValues(true);
+                }}
+                disabled={!program}
+                skipFlex
+              />
+              {/* </Box> */}
+              {sourceValue && getSourceSelect(sourceValue)}
 
-                {sourceValue && getSourceSelect(sourceValue)}
-              </Box>
               <Select
                 data={filteredDataTypes || []}
                 placeholder={placeholders.selectDataType}
@@ -367,6 +366,7 @@ const RuleCondition = ({
                 disabled={
                   !sourceValue || (sourceValue !== 'program' && sourceIdsValue.length === 0)
                 }
+                skipFlex
               />
               {dataType !== 'enrolled' && (
                 <>

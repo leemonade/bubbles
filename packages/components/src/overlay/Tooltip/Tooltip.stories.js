@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Group } from '@mantine/core';
-import {
-  Tooltip,
-  TOOLTIP_COLORS,
-  TOOLTIP_POSITION,
-  TOOLTIP_PLACEMENT,
-  TOOLTIP_SIZES,
-} from './Tooltip';
+import React from 'react';
+import { Tooltip } from './Tooltip';
+import { TOOLTIP_COLORS, TOOLTIP_POSITION, TOOLTIP_SIZES } from './Tooltip.constants';
 import mdx from './Tooltip.mdx';
 import { Button } from '../../form/Button';
-import { ChevronRightIcon } from '@heroicons/react/outline';
+import { Stack } from '../../layout';
 
 export default {
   title: 'Atoms/Overlay/Tooltip',
@@ -27,33 +21,16 @@ export default {
     size: { options: TOOLTIP_SIZES, control: { type: 'select' } },
     color: { options: TOOLTIP_COLORS, control: { type: 'select' } },
     position: { options: TOOLTIP_POSITION, control: { type: 'select' } },
-    placement: { options: TOOLTIP_PLACEMENT, control: { type: 'select' } },
   },
 };
 
 const Template = ({ children, label, ...props }) => {
-  label = label || (
-    <>
-      {' '}
-      Share <ChevronRightIcon style={{ height: '1.2rem' }} />
-    </>
-  );
-
   return (
-    <>
-      <Group
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '200px',
-        }}
-      >
-        <Tooltip {...props} label={label}>
-          <Button variant="outline">{children}</Button>
-        </Tooltip>
-      </Group>
-    </>
+    <Stack justifyContent="center" alignItems="center" fullWidth style={{ height: '100px' }}>
+      <Tooltip {...props} label={label}>
+        <Button variant="outline">{children}</Button>
+      </Tooltip>
+    </Stack>
   );
 };
 
@@ -64,7 +41,6 @@ Playground.args = {
   color: 'primary',
   children: 'test',
   position: 'top',
-  placement: 'center',
   withArrow: true,
-  label: '',
+  label: 'Tooltip label',
 };

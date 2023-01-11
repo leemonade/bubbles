@@ -13,10 +13,10 @@ export const mock = [
         created_at: '2022-01-18T13:13:34.000Z',
         updated_at: '2022-01-18T13:13:34.000Z',
         deleted_at: null,
-        showEvents: true,
-      },
+        showEvents: true
+      }
     ],
-    sectionName: 'My calendars',
+    sectionName: 'My calendars'
   },
   {
     calendars: [
@@ -24,7 +24,7 @@ export const mock = [
         id: '66b10996-2065-4071-8064-19d887a6fcbc',
         key: 'plugins.mvp-template.calendar-test2',
         name: 'Matessssss',
-        icon: '/public/assets/svgs/family.svg',
+        icon: 'http://localhost:8080/api/leebrary/img/e9243637-661c-464b-b6db-fc043a3f780d@1.0.0',
         bgColor: '#ffe796',
         borderColor: '#ffe796',
         section: 'plugins.mvp-template.Testing',
@@ -32,7 +32,7 @@ export const mock = [
         created_at: '2022-01-18T13:13:35.000Z',
         updated_at: '2022-01-18T13:13:35.000Z',
         deleted_at: null,
-        showEvents: true,
+        showEvents: true
       },
       {
         id: 'a537e3a3-5f5b-4546-9cfe-ee5d7e7ae8fa',
@@ -46,9 +46,9 @@ export const mock = [
         created_at: '2022-01-18T13:13:34.000Z',
         updated_at: '2022-01-18T13:13:34.000Z',
         deleted_at: null,
-        showEvents: true,
-      },
+        showEvents: true
+      }
     ],
-    sectionName: 'Subject tasks',
-  },
+    sectionName: 'Subject tasks'
+  }
 ];

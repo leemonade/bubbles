@@ -4,9 +4,9 @@ import { Badge } from './Badge.js';
 import { Box, Group, Space } from '@mantine/core';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **Badge**
+# Badge
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/informative/Badge)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Badge/Badge.js)
 
 ## Table of Contents
 
@@ -14,21 +14,24 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Badge sizes](#badge-sizes)
+- [Badge colors](#badge-colors)
+- [Badge closable](#badge-closable)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**Badge** is ...
+Badge is a component to display some information about something.
 
 <ThemeProvider>
-  <Badge>Badge</Badge>
+  <Badge label="Badge" />
 </ThemeProvider>
 
 ## Badge sizes
 
-Badge has three different sizes, extra-small, medium and large. The large size can not have an avatar.
+Badge has three different sizes, `xs`, `md` and `lg`. The large size can not have an avatar.
 
 <ThemeProvider>
   <Group spacing="xl">
@@ -36,7 +39,7 @@ Badge has three different sizes, extra-small, medium and large. The large size c
     <Badge size="md">Medium badge</Badge>
     <Badge size="lg">Large badge</Badge>
   </Group>
-  <Space />
+  <Box style={{ marginTop: 16 }} />
   <Group spacing="xl">
     <Badge image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80">
       Small badge
@@ -53,7 +56,7 @@ Badge has three different sizes, extra-small, medium and large. The large size c
 
 ## Badge colors
 
-Badge has two different colors, named solid(grey) and stroke(white).
+Badge has two different colors, `solid` (grey) and `stroke` (white).
 
 <ThemeProvider>
   <Group spacing="xl">
@@ -61,7 +64,7 @@ Badge has two different colors, named solid(grey) and stroke(white).
     <Badge size="md">Medium badge</Badge>
     <Badge size="lg">Large badge</Badge>
   </Group>
-  <Space />
+  <Box style={{ marginTop: 16 }} />
   <Group spacing="xl">
     <Badge color="stroke">Small badge</Badge>
     <Badge color="stroke" size="md">
@@ -71,6 +74,14 @@ Badge has two different colors, named solid(grey) and stroke(white).
       Large badge
     </Badge>
   </Group>
+</ThemeProvider>
+
+## Badge closable
+
+Setting the `closable` prop, which is `true` by default to `false`, you can hide the close button.
+
+<ThemeProvider>
+  <Badge closable={false}>No close button</Badge>
 </ThemeProvider>
 
 ## Component API
@@ -83,13 +94,11 @@ Badge has two different colors, named solid(grey) and stroke(white).
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/badge_role)
+[MDN: ARIA Status role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/badge/badge.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/informative/Badge.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Badge/Badge.mdx)

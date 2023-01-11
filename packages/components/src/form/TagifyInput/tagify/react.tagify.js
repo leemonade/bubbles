@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { array, bool, func, object, oneOfType, string } from 'prop-types';
-
+import { array, bool, func, number, object, oneOfType, string } from 'prop-types';
+import { Box } from '../../../layout';
+import { Badge } from '../../../informative';
+import { isFunction } from 'lodash';
 import Tagify from './tagify';
 
 const noop = (_) => _;
@@ -25,46 +27,51 @@ function templatesToString(templates) {
 }
 
 const TagifyWrapper = ({
-  name,
-  value,
-  loading = false,
-  onInput = noop,
-  onAdd = noop,
-  onRemove = noop,
-  onEditInput = noop,
-  onEditBeforeUpdate = noop,
-  onEditUpdated = noop,
-  onEditStart = noop,
-  onEditKeydown = noop,
-  onInvalid = noop,
-  onClick = noop,
-  onKeydown = noop,
-  onFocus = noop,
-  onBlur = noop,
-  onChange = noop,
-  onDropdownShow = noop,
-  onDropdownHide = noop,
-  onDropdownSelect = noop,
-  onDropdownScroll = noop,
-  onDropdownNoMatch = noop,
-  onDropdownUpdated = noop,
-  readOnly,
-  disabled,
-  children,
-  settings = {},
-  InputMode = 'input',
-  autoFocus,
-  className,
-  whitelist,
-  tagifyRef,
-  placeholder = '',
-  defaultValue,
-  showDropdown,
-}) => {
+                         name,
+                         value,
+                         loading = false,
+                         onInput = noop,
+                         onAdd,
+                         onRemove,
+                         onEditInput = noop,
+                         onEditBeforeUpdate = noop,
+                         onEditUpdated = noop,
+                         onEditStart = noop,
+                         onEditKeydown = noop,
+                         onInvalid = noop,
+                         onClick = noop,
+                         onKeydown = noop,
+                         onFocus = noop,
+                         onBlur = noop,
+                         onChange = noop,
+                         onDropdownShow = noop,
+                         onDropdownHide = noop,
+                         onDropdownSelect = noop,
+                         onDropdownScroll = noop,
+                         onDropdownNoMatch = noop,
+                         onDropdownUpdated = noop,
+                         readOnly,
+                         disabled,
+                         children,
+                         settings = {},
+                         InputMode = 'input',
+                         autoFocus,
+                         className,
+                         whitelist,
+                         tagifyRef,
+                         placeholder = '',
+                         defaultValue,
+                         showDropdown,
+                         ariaLabel,
+                         withSuggestions,
+                         amountOfDuplicates
+                       }) => {
   const mountedRef = useRef();
   const inputElmRef = useRef();
   const tagify = useRef();
   const _value = defaultValue || value;
+  const [tagifyLoaded, setTagifyLoaded] = useState(false);
+  const [triggerRender, setTriggerRender] = useState({});
 
   const inputAttrs = useMemo(
     () => ({
@@ -75,7 +82,7 @@ const TagifyWrapper = ({
       readOnly,
       disabled,
       autoFocus,
-      placeholder,
+      placeholder
     }),
     []
   );
@@ -83,6 +90,47 @@ const TagifyWrapper = ({
   const setFocus = useCallback(() => {
     autoFocus && tagify.current && tagify.current.DOM.input.focus();
   }, [tagify]);
+
+  const onAddHandler = () => {
+    isFunction(onAdd) && onAdd();
+    setTriggerRender({ ...triggerRender });
+  };
+
+  const onRemoveHandler = () => {
+    isFunction(onAdd) && onRemove();
+    setTriggerRender({ ...triggerRender });
+  };
+
+  const addSuggestion = (suggestion) => {
+    if (tagify.current.isTagDuplicate(suggestion.value) >= amountOfDuplicates) return;
+
+    const suggestionValue = suggestion.value;
+    tagify.current.addMixTags([suggestion]);
+    const nodes = Array.from(tagify.current.DOM.input.childNodes);
+    let lastTagSuggestedIndex = 0;
+    nodes.forEach((node, index) => {
+      if (node && node?.__tagifyTagData?.value === suggestionValue)
+        lastTagSuggestedIndex = index + 1;
+    });
+    tagify.current.DOM.input.focus();
+    tagify.current.placeCaretAfterNode(nodes[lastTagSuggestedIndex]);
+    onAddHandler();
+  };
+
+  const renderSuggestions = () => {
+    const suggestions = settings.whitelist;
+    const filteredSuggestions = suggestions.filter(
+      (suggestion) => tagify.current?.isTagDuplicate(suggestion.value) < amountOfDuplicates
+    );
+    return filteredSuggestions.map((suggestion, index) => (
+      <Badge
+        key={`${index} ${suggestion.value}`}
+        label={suggestion.value}
+        closable={false}
+        onClick={() => addSuggestion(suggestion)}
+      />
+    ));
+  };
 
   useEffect(() => {
     templatesToString(settings.templates);
@@ -95,8 +143,8 @@ const TagifyWrapper = ({
     const t = new Tagify(inputElmRef.current, settings);
 
     t.on('input', onInput)
-      .on('add', onAdd)
-      .on('remove', onRemove)
+      .on('add', onAddHandler)
+      .on('remove', onRemoveHandler)
       .on('invalid', onInvalid)
       .on('keydown', onKeydown)
       .on('focus', onFocus)
@@ -116,6 +164,8 @@ const TagifyWrapper = ({
       .on('dropdown:scroll', onDropdownScroll)
       .on('dropdown:noMatch', onDropdownNoMatch)
       .on('dropdown:updated', onDropdownUpdated);
+
+    t.DOM.input.ariaLabel = ariaLabel;
 
     // Bridge Tagify instance with parent component
     if (tagifyRef) {
@@ -188,11 +238,20 @@ const TagifyWrapper = ({
     mountedRef.current = true;
   }, []);
 
+  useEffect(() => {
+    if (tagify.current && !tagifyLoaded) setTagifyLoaded(true);
+  }, [tagify.current]);
+
   return (
     // a wrapper must be used because Tagify will appened inside it it's component,
     // keeping the virtual-DOM out of the way
-    <div className="tags-input">
-      <InputMode {...inputAttrs} />
+    <div className='tags-input'>
+      <InputMode {...inputAttrs} aria-label={ariaLabel} />
+      {tagifyLoaded && settings?.whitelist?.length >= 1 && withSuggestions && (
+        <Box style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+          {renderSuggestions()}
+        </Box>
+      )}
     </div>
   );
 };
@@ -213,6 +272,8 @@ TagifyWrapper.propTypes = {
   placeholder: string,
   defaultValue: oneOfType([string, array]),
   showDropdown: oneOfType([string, bool]),
+  withSuggestions: bool,
+  amountOfDuplicates: number,
   onInput: func,
   onAdd: func,
   onRemove: func,
@@ -231,16 +292,15 @@ TagifyWrapper.propTypes = {
   onDropdownSelect: func,
   onDropdownScroll: func,
   onDropdownNoMatch: func,
-  onDropdownUpdated: func,
+  onDropdownUpdated: func
 };
 
 const Tags = React.memo(TagifyWrapper);
 Tags.displayName = 'Tags';
 
-export const MixedTags = ({ children, ...rest }) => (
-  <Tags InputMode="textarea" {...rest}>
+export const MixedTags = ({ children, ariaLabel, ...rest }) => (
+  <Tags InputMode='textarea' {...rest} ariaLabel={ariaLabel}>
     {children}
   </Tags>
 );
-
 export default Tags;

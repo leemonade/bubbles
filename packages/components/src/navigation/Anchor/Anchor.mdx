@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Anchor
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/navigation/Anchor)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/Anchor/Anchor.js)
 
 ## Table of Contents
 
@@ -14,35 +14,44 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [External link](#external-link)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Anchor is ...
+Anchor is a component to display links.
 
 <ThemeProvider>
   <Anchor>Anchor</Anchor>
 </ThemeProvider>
 
+## External link
+
+You can pass the `external` prop as true to display an icon indicating that the link is to an external source.
+
+<ThemeProvider>
+  <Anchor external>Anchor</Anchor>
+</ThemeProvider>
+
 ## Component API
 
 <Preview>
-  <Story id="atoms-navigation-anchor--playground" />
+  <Story id="molecules-navigation-breadcrumbs--playground" />
 </Preview>
 
 <Props of={Anchor} />
 
 ## References
 
-[MDN: ARIA Anchor role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/anchor_role)
+[MDN: ARIA Link role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA Anchor role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/anchor/anchor.html)
+[W3: ARIA Link role example](https://www.w3.org/WAI/ARIA/apg/example-index/link/link.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/navigation/Anchor.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/Anchor/Anchor.mdx)

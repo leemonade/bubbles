@@ -4,9 +4,9 @@ import * as stories from './HorizontalTimeline.stories.js';
 import { HorizontalTimeline } from './HorizontalTimeline.js';
 import { ThemeProvider } from './../../ThemeProvider';
 
-# **name**
+# HorizontalTimeline
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/HorizontalTimeline>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/HorizontalTimeline/HorizontalTimeline.js)
 
 ## Table of Contents
 
@@ -14,35 +14,81 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [HorizontalTimeline colors](#horizontaltimeline-colors)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+HorizontalTimeline is a component to render a timeline of events distributed based on the time between them.
 
 <ThemeProvider>
-  <HorizontalTimeline>Horizontal timeline</HorizontalTimeline>
+  <HorizontalTimeline
+    rootStyles={{ padding: 24 }}
+    locale="es-ES"
+    color="negative"
+    data={[
+      { label: 'Visualization', date: new Date('2022-05-01') },
+      { label: 'Start', date: new Date('2022-05-09') },
+      { label: 'Deadline', date: '2022-06-10T00:00:00.000Z' },
+      { label: 'Evaluation', date: new Date('2022-06-11') },
+      { label: 'Results', date: new Date('2022-06-15') },
+    ]}
+  />
+</ThemeProvider>
+
+The `data` prop must be an array of objects with this shape:
+
+```js
+{
+  label: 'Event label',
+  date: Date
+}
+```
+
+## HorizontalTimeline colors
+
+HorizontalTimeline has two colors: `positive` (white) and `negative` (black).
+
+<ThemeProvider>
+  <Box>
+    <HorizontalTimeline
+      rootStyles={{ padding: 24 }}
+      locale="es-ES"
+      color="negative"
+      data={[
+        { label: 'Visualization', date: new Date('2022-05-01') },
+        { label: 'Start', date: new Date('2022-05-09') },
+        { label: 'Deadline', date: '2022-06-10T00:00:00.000Z' },
+        { label: 'Evaluation', date: new Date('2022-06-11') },
+        { label: 'Results', date: new Date('2022-06-15') },
+      ]}
+    />
+  </Box>
+  <Box style={{ marginTop: 16, backgroundColor: '#AAA' }}>
+    <HorizontalTimeline
+      rootStyles={{ padding: 24 }}
+      locale="es-ES"
+      data={[
+        { label: 'Visualization', date: new Date('2022-05-01') },
+        { label: 'Start', date: new Date('2022-05-09') },
+        { label: 'Deadline', date: '2022-06-10T00:00:00.000Z' },
+        { label: 'Evaluation', date: new Date('2022-06-11') },
+        { label: 'Results', date: new Date('2022-06-15') },
+      ]}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-informative-horizontal-timeline--playground" />
+  <Story id="molecules-informative-horizontaltimeline--playground" />
 </Preview>
 
 <Props of={HorizontalTimeline} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/horizontal-timeline_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/horizontal-timeline/horizontal-timeline.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/HorizontalTimeline.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/HorizontalTimeline/HorizontalTimeline.mdx)

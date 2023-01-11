@@ -1,25 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Tooltip as MantineTooltip } from '@mantine/core';
 import { TooltipStyles } from './Tooltip.styles';
+import {
+  TOOLTIP_DEFAULT_PROPS,
+  TOOLTIP_PROP_TYPES,
+  TOOLTIP_SIZES,
+  TOOLTIP_COLORS,
+  TOOLTIP_POSITION,
+} from './Tooltip.constants';
 
-export const TOOLTIP_SIZES = ['xs', 'sm', 'md'];
-export const TOOLTIP_COLORS = ['primary', 'secondary'];
-export const TOOLTIP_POSITION = ['top', 'left', 'right', 'bottom'];
-export const TOOLTIP_PLACEMENT = ['start', 'center', 'end'];
-
-const Tooltip = ({
-  size = 'xs',
-  color = 'primary',
-  position = 'top',
-  placement = 'center',
-  withArrow = 'true',
-  ...props
-}) => {
+const Tooltip = ({ size, color, position, withArrow, useAria, withinPortal, ...props }) => {
   size = TOOLTIP_SIZES.includes(size) ? size : 'xs';
   color = TOOLTIP_COLORS.includes(color) ? color : 'primary';
   position = TOOLTIP_POSITION.includes(position) ? position : 'top';
-  placement = TOOLTIP_PLACEMENT.includes(placement) ? placement : 'center';
 
   const { classes, cx } = TooltipStyles({ size, color });
 
@@ -28,22 +21,16 @@ const Tooltip = ({
       {...props}
       classNames={classes}
       position={position}
-      placement={placement}
       size={size}
       arrowSize={4}
       withArrow={withArrow}
-      withinPortal={false}
-      // allowPointerEvents={false}
+      withinPortal={withinPortal}
+      role={useAria ? 'tooltip' : undefined}
     />
   );
 };
 
-Tooltip.propTypes = {
-  size: PropTypes.oneOf(TOOLTIP_SIZES),
-  color: PropTypes.oneOf(TOOLTIP_COLORS),
-  position: PropTypes.oneOf(TOOLTIP_POSITION),
-  placement: PropTypes.oneOf(TOOLTIP_PLACEMENT),
-  withArrow: PropTypes.bool,
-};
+Tooltip.propTypes = TOOLTIP_PROP_TYPES;
+Tooltip.defaultProps = TOOLTIP_DEFAULT_PROPS;
 
 export { Tooltip };

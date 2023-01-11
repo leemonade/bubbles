@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # Switch
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/Switch)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/Switch/Switch.js)
 
 ## Table of Contents
 
@@ -14,22 +14,65 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Switch sizes](#switch-sizes)
+- [Switch variants](#switch-variants)
+- [Help and label positions](#help-and-label-positions)
 - [Component API](#component-api)
 - [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-Switch is ...
+Switch is a component to capture boolean input from user
 
 <ThemeProvider>
-  <Switch>Switch</Switch>
+  <Switch label="Switch label" />
+</ThemeProvider>
+
+## Switch sizes
+
+Switch accepts three different sizes: `xs`, `sm`, `md`:
+
+<ThemeProvider>
+  <Switch label="Switch label" size="xs" />
+  <Switch label="Switch label" size="sm" />
+  <Switch label="Switch label" size="md" />
+</ThemeProvider>
+
+## Switch variants
+
+The Switch component has two variants: `default` and `boxed`. It also has a `disabled` state.
+
+<ThemeProvider>
+  <Switch label="Switch 1"></Switch>
+  <Space></Space>
+  <Switch label="Switch 2" variant="boxed"></Switch>
+  <Space></Space>
+  <Switch label="Switch 3" disabled></Switch>
+</ThemeProvider>
+
+## Help and label positions
+
+You can also place the help text to the right or bottom of the switch label.
+
+<ThemeProvider>
+  <Switch label="Switch 1" help="Right help"></Switch>
+  <Space></Space>
+  <Switch label="Switch 2" help="Bottom help" helpPosition="bottom"></Switch>
+</ThemeProvider>
+
+And you can place the label with the `labelPosition` prop to: `start` or `end`
+
+<ThemeProvider>
+  <Switch label="Switch 1"></Switch>
+  <Space></Space>
+  <Switch label="Switch 2" labelPosition="start"></Switch>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="form-switch--playground" />
+  <Story id="atoms-form-switch--playground" />
 </Preview>
 
 <Props of={Switch} />
@@ -40,9 +83,9 @@ Switch is ...
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
-[W3: ARIA Switch role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/switch/switch.html)
+[W3: ARIA Switch role example](https://www.w3.org/WAI/ARIA/apg/example-index/switch/switch-checkbox.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/Switch.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/Switch/Switch.mdx)

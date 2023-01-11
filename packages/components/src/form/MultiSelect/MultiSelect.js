@@ -1,51 +1,30 @@
-import React, { forwardRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
 import { MultiSelectStyles } from './MultiSelect.styles';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
 import { ActionButton } from '../ActionButton';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import {
-  INPUT_WRAPPER_ORIENTATIONS,
-  INPUT_WRAPPER_SHARED_PROPS,
-  INPUT_WRAPPER_SIZES,
-  InputWrapper,
-} from '../InputWrapper';
-import { useUuid } from '@mantine/hooks';
+import { InputWrapper } from '../InputWrapper';
+import { useId } from '@mantine/hooks';
 import { Badge } from '../../informative';
+import {
+  MULTI_SELECT_DEFAULT_PROPS,
+  MULTI_SELECT_ORIENTATIONS,
+  MULTI_SELECT_PROP_TYPES,
+  MULTI_SELECT_SIZES,
+} from './MultiSelect.constants';
+import { Box } from '../../layout';
+import { Dropdown, Item } from '../../overlay/Dropdown';
 
-export const MULTI_SELECT_SIZES = INPUT_WRAPPER_SIZES;
-export const MULTI_SELECT_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
-
-export const MULTI_SELECT_DEFAULT_PROPS = {
-  label: '',
-  description: '',
-  placeholder: '',
-  help: '',
-  required: false,
-  error: '',
-  orientation: 'vertical',
-  size: 'sm',
-  disabled: false,
-  searchable: false,
-  creatable: false,
-  clearable: '',
-  readOnly: false,
-};
-
-export const MULTI_SELECT_PROP_TYPES = {
-  ...INPUT_WRAPPER_SHARED_PROPS,
-  onChange: PropTypes.func,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  data: PropTypes.any,
-  size: PropTypes.oneOf(MULTI_SELECT_SIZES),
-  orientation: PropTypes.oneOf(MULTI_SELECT_ORIENTATIONS),
-  searchable: PropTypes.bool,
-  clearable: PropTypes.string,
-  creatable: PropTypes.bool,
-  readOnly: PropTypes.bool,
-};
+const GetValueComponent = forwardRef(
+  ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
+    return (
+      <Box ref={ref} {...others}>
+        <Component {...others} />
+      </Box>
+    );
+  }
+);
 
 const MultiSelect = forwardRef(
   (
@@ -57,51 +36,86 @@ const MultiSelect = forwardRef(
       size: sizeProp,
       orientation: orientationProp,
       dropdownPosition,
+      placeholder,
+      value,
+      icon,
       readOnly,
       error,
       clearable,
+      searchable,
+      multiple,
+      maxSelectedValues,
+      dropdownComponent,
+      itemComponent,
+      valueComponent,
       onChange,
+      useAria,
+      disabled,
+      autoSelectOneOption,
+      ariaLabel,
       ...props
     },
     ref
   ) => {
+    const hasIcon = !!icon;
     const [show, setShow] = React.useState(true);
-    const uuid = useUuid();
-    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'sm';
+    const uuid = useId();
+    const size = MULTI_SELECT_SIZES.includes(sizeProp) ? sizeProp : 'md';
     const orientation = MULTI_SELECT_ORIENTATIONS.includes(orientationProp)
       ? orientationProp
       : 'vertical';
     const isClearable = useMemo(() => isString(clearable) && clearable !== '', [clearable]);
+    const multiSelectRef = useRef();
+    const autoSelectOneOptionMode = autoSelectOneOption && props.data.length === 1;
+    if (!multiple) maxSelectedValues = 2;
+
+    const isDisabled = disabled || autoSelectOneOptionMode;
 
     // ······················································
     // HANDLERS
-    const showClear = isArray(props.value) && props.value.length;
+    const showClear = multiple ? isArray(value) && !!value.length : !!value;
 
     const handleChange = (ev) => {
+      if (!multiple && isFunction(onChange)) {
+        const selectedValue = ev?.pop();
+        onChange(selectedValue ? [selectedValue] : undefined);
+        multiSelectRef.current.blur();
+        multiSelectRef.current.focus();
+        return;
+      }
       if (isFunction(onChange)) {
         onChange(ev);
       }
     };
 
     const handleClear = () => {
-      handleChange([]);
+      handleChange(undefined);
     };
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
     React.useEffect(() => {
-      if (!props.value || !props.value.length) {
+      if (!value || !value.length) {
         setShow(false);
         setTimeout(() => {
           setShow(true);
         }, 1);
       }
-    }, [JSON.stringify(props.value)]);
+    }, [JSON.stringify(value)]);
+
+    // ······················································
+    // useEffects
+
+    useEffect(() => {
+      if (!autoSelectOneOptionMode) return;
+      if (props.data[0].value && props.data[0].value !== value?.[0])
+        handleChange([props.data[0].value]);
+    }, [autoSelectOneOption, props.data]);
 
     // ······················································
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear },
+      { size, rightEvents: isClearable && showClear, hasIcon },
       { name: 'MultiSelect' }
     );
 
@@ -118,12 +132,12 @@ const MultiSelect = forwardRef(
       >
         {readOnly ? (
           <>
-            {props.value
-              ? props.value.map((v) => {
+            {value
+              ? value.map((v) => {
                   const data = find(props.data, { value: v });
                   if (data) {
-                    if (props.valueComponent) {
-                      return <props.valueComponent {...data} />;
+                    if (valueComponent) {
+                      return <valueComponent {...data} />;
                     } else {
                       return <Badge label={data?.label} closable={false} />;
                     }
@@ -135,15 +149,32 @@ const MultiSelect = forwardRef(
           </>
         ) : (
           <>
-            {show ? (
+            {show && (
               <MantineMultiSelect
-                {...props}
-                ref={ref}
-                size={size}
+                ref={multiSelectRef}
+                // size={size}
+                value={value}
                 autoComplete="off"
                 onChange={handleChange}
+                disabled={isDisabled}
+                maxSelectedValues={maxSelectedValues}
+                placeholder={placeholder}
+                searchable={searchable}
+                dropdownPosition={dropdownPosition}
+                icon={icon}
+                dropdownComponent={Dropdown}
+                itemComponent={itemComponent || Item}
+                valueComponent={
+                  valueComponent
+                    ? (componentInfo) => (
+                        <GetValueComponent
+                          others={{ ...componentInfo, Component: valueComponent }}
+                        />
+                      )
+                    : undefined
+                }
                 rightSection={
-                  isClearable && showClear ? (
+                  isClearable && showClear && !isDisabled ? (
                     <ActionButton
                       icon={<RemoveIcon />}
                       tooltip={clearable}
@@ -154,10 +185,15 @@ const MultiSelect = forwardRef(
                     <ChevDownIcon className={classes.rightSection} />
                   )
                 }
+                clearButtonLabel={clearable}
+                zIndex={299}
                 error={!isEmpty(error)}
                 classNames={classes}
+                role={useAria ? 'textbox' : undefined}
+                aria-label={label || ariaLabel}
+                {...props}
               />
-            ) : null}
+            )}
           </>
         )}
       </InputWrapper>
@@ -165,23 +201,7 @@ const MultiSelect = forwardRef(
   }
 );
 
-MultiSelect.defaultProps = {
-  size: 'sm',
-  orientation: 'vertical',
-};
-
-MultiSelect.propTypes = {
-  label: PropTypes.string,
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
-  data: PropTypes.any,
-  required: PropTypes.bool,
-  size: PropTypes.oneOf(MULTI_SELECT_SIZES),
-  orientation: PropTypes.oneOf(MULTI_SELECT_ORIENTATIONS),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  searchable: PropTypes.bool,
-  clearable: PropTypes.string,
-  creatable: PropTypes.bool,
-};
+MultiSelect.defaultProps = MULTI_SELECT_DEFAULT_PROPS;
+MultiSelect.propTypes = MULTI_SELECT_PROP_TYPES;
 
 export { MultiSelect };

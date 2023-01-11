@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -10,6 +10,7 @@ import {
   Text,
 } from '@bubbles-ui/components';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
+import { forEach } from 'lodash';
 
 export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   messages: {
@@ -27,9 +28,15 @@ export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   pageOnChange: () => {},
   onClose: () => {},
   showPageControl: false,
+  mainColor: '#212B3D',
+  drawerColor: '#333F56',
+  lightMode: false,
 };
 export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {
   showPageControl: PropTypes.bool,
+  mainColor: PropTypes.string,
+  drawerColor: PropTypes.string,
+  lightMode: PropTypes.bool,
 };
 
 const CalendarSubNavFilters = ({
@@ -44,14 +51,50 @@ const CalendarSubNavFilters = ({
   centerValue,
   centerOnChange,
   showPageControl,
+  mainColor,
+  drawerColor,
+  lightMode,
   style,
 }) => {
-  const { classes, cx } = CalendarSubNavFiltersStyles({}, { name: 'SubnavFilters' });
+  const { classes, cx } = CalendarSubNavFiltersStyles(
+    { mainColor, lightMode },
+    { name: 'SubnavFilters' }
+  );
+
+  const [, setR] = useState();
+  const ref = useRef({});
 
   function _onChange(sectionIndex, calendarIndex, checked) {
     value[sectionIndex].calendars[calendarIndex].showEvents = checked;
     onChange(value);
   }
+
+  async function checkIcons() {
+    if (value) {
+      forEach(value, ({ calendars }) => {
+        forEach(calendars, (calendar) => {
+          if (calendar.icon) {
+            fetch(calendar.icon)
+              .then((response) => {
+                if (response.status >= 400) {
+                  throw new Error('Bad response from server');
+                }
+                ref.current[calendar.icon] = true;
+                setR(new Date().getTime() + Math.floor(Math.random() * 10000) + 1);
+              })
+              .catch((err) => {
+                ref.current[calendar.icon] = false;
+                setR(new Date().getTime() + Math.floor(Math.random() * 10000) + 1);
+              });
+          }
+        });
+      });
+    }
+  }
+
+  React.useEffect(() => {
+    checkIcons();
+  }, [JSON.stringify(value)]);
 
   return (
     <>
@@ -65,6 +108,8 @@ const CalendarSubNavFilters = ({
         open={true}
         messages={messages}
         onClose={onClose}
+        drawerColor={drawerColor}
+        lightMode={lightMode}
       >
         <Box
           sx={(theme) => ({
@@ -72,27 +117,32 @@ const CalendarSubNavFilters = ({
             paddingBottom: '80px',
           })}
         >
-          {showPageControl && (
+          {showPageControl ? (
             <SegmentedControl
               data={pages}
               value={pageValue}
               onChange={pageOnChange}
+              orientation={pages.length > 2 ? 'vertical' : 'horizontal'}
               classNames={{
-                root: classes.segmentRoot,
+                root: pages.length > 2 ? classes.segmentRoot2 : classes.segmentRoot,
                 label: classes.segmentLabel,
                 active: classes.segmentActive,
                 labelActive: classes.segmentLabelActive,
                 control: classes.segmentControl,
               }}
             />
-          )}
+          ) : null}
           {centers && centers.length > 1 ? (
             <Box
               sx={(theme) => ({
                 marginTop: theme.spacing[6],
               })}
             >
-              <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+              <Text
+                strong
+                size="xs"
+                sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+              >
                 {messages.centers}
               </Text>
               <Box
@@ -112,7 +162,11 @@ const CalendarSubNavFilters = ({
               key={`${sectionName}-${sectionIndex}`}
             >
               <Box>
-                <Text strong size="xs" sx={(theme) => ({ color: theme.colors.text08 })}>
+                <Text
+                  strong
+                  size="xs"
+                  sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+                >
                   {sectionName}
                 </Text>
               </Box>
@@ -137,7 +191,7 @@ const CalendarSubNavFilters = ({
                       color={calendar.bgColor}
                       checked={calendar.showEvents}
                       icon={
-                        calendar.icon ? (
+                        calendar.icon && ref.current[calendar.icon] ? (
                           <Box className={classes.icon}>
                             <ImageLoader
                               height="12px"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useClickOutside } from '@mantine/hooks';
-import { find, isArray, isFunction } from 'lodash';
+import { find, isArray, isFunction, isEmpty } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
@@ -9,11 +9,12 @@ import { MainNavStyles } from './MainNav.styles';
 import { MainNavItem } from './MainNavItem/MainNavItem';
 import { Avatar } from '../../informative';
 import { SubNav } from '../SubNav';
-import { Logo } from '../../misc';
+import { Logo, ImageLoader } from '../../misc';
 import { Box } from '../../layout';
 import { ActionButton } from '../../form';
 import { getActiveItem } from './helpers/getActiveItem';
 import { getUserFullName } from './helpers/getUserFullName';
+import { PALETTE } from '../../theme.constants';
 
 export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {
@@ -21,9 +22,18 @@ export const MAIN_NAV_DEFAULT_PROPS = {
   useRouter: false,
   pinned: false,
   lightMode: false,
+  mainColor: PALETTE.mainPrimary,
+  drawerColor: PALETTE.neutral90,
+  logoUrl: '',
 };
 export const MAIN_NAV_PROP_TYPES = {
+  hideSubNavOnClose: PropTypes.bool,
+  useRouter: PropTypes.bool,
+  pinned: PropTypes.bool,
   lightMode: PropTypes.bool,
+  mainColor: PropTypes.string,
+  drawerColor: PropTypes.string,
+  logoUrl: PropTypes.string,
 };
 
 const MainNav = ({
@@ -39,6 +49,9 @@ const MainNav = ({
   useRouter,
   session,
   lightMode,
+  mainColor,
+  drawerColor,
+  logoUrl,
   ...props
 }) => {
   const [activeItem, setActiveItem] = useState(null);
@@ -167,7 +180,7 @@ const MainNav = ({
   // STYLES
 
   const { classes, cx } = MainNavStyles(
-    { itemWidth: MAIN_NAV_WIDTH, subNavWidth, lightMode },
+    { itemWidth: MAIN_NAV_WIDTH, subNavWidth, lightMode, mainColor },
     { name: 'MainNav' }
   );
 
@@ -176,8 +189,13 @@ const MainNav = ({
       {/* MainNav */}
       <Box className={classes.navWrapper}>
         <Box className={classes.navContainer}>
-          <Logo isotype className={classes.logo} />
-
+          <Box className={classes.logoContainer}>
+            {!isEmpty(logoUrl) ? (
+              <ImageLoader src={logoUrl} forceImage className={classes.logoUrl} height="auto" />
+            ) : (
+              <Logo isotype className={classes.logo} />
+            )}
+          </Box>
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
             {isArray(menuData) &&
@@ -190,6 +208,7 @@ const MainNav = ({
                   onClick={() => handleItemClick(item)}
                   useRouter={useRouter}
                   lightMode={lightMode}
+                  drawerColor={drawerColor}
                 />
               ))}
           </SimpleBar>
@@ -221,6 +240,7 @@ const MainNav = ({
           className={classes.subNav}
           useRouter={useRouter}
           lightMode={lightMode}
+          drawerColor={drawerColor}
         />
       )}
 
@@ -231,8 +251,11 @@ const MainNav = ({
             icon={<ComputerKeyboardNextIcon />}
             tooltip="Open"
             variant="solid"
-            color={!lightMode && 'negative'}
-            style={{ borderRadius: '0 3px 3px 0' }}
+            color={lightMode ? 'positive' : 'negative'}
+            style={{
+              borderRadius: '0 3px 3px 0',
+              backgroundColor: lightMode ? PALETTE.interactive10 : mainColor,
+            }}
             onClick={openSubNav}
           />
         </Box>

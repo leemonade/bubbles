@@ -1,8 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
-import { Masonry, Stack } from '../../../layout';
+import { Stack } from '../../../layout';
 import { GridItemRender } from './GridItemRender';
+import { useElementSize } from '@mantine/hooks';
 
 const GRID_VIEW_DEFAULT_PROPS = {
   itemRender: ({ key, ...props }) => <GridItemRender key={key} {...props} />,
@@ -25,10 +26,11 @@ const GridView = ({
   selected,
   style,
   itemMinWidth,
+  useAria,
   ...props
 }) => {
   const [currentItem, setCurrentItem] = useState(selected);
-
+  const { ref, width } = useElementSize();
   useEffect(() => {
     if (selected?.id !== currentItem?.id) setCurrentItem(selected);
   }, [selected]);
@@ -43,8 +45,13 @@ const GridView = ({
   };
 
   const gridStyle = useMemo(() => {
+    let columns = 3;
+    if (width) {
+      // Calculamos el número de columnas que caben en la pantalla
+      columns = Math.floor(width / itemMinWidth);
+    }
     const colWidth =
-      rows.length < 3
+      rows.length < columns
         ? `minmax(${itemMinWidth}px, ${itemMinWidth}px)`
         : `minmax(${itemMinWidth}px, 1fr)`;
     return {
@@ -52,10 +59,10 @@ const GridView = ({
       display: 'grid',
       gridTemplateColumns: `repeat(auto-fit, ${colWidth})`,
     };
-  }, [itemMinWidth, style, rows]);
+  }, [itemMinWidth, style, rows, width]);
 
   return (
-    <Stack wrap="wrap" {...props} style={gridStyle}>
+    <Stack ref={ref} wrap="wrap" {...props} style={gridStyle} role={useAria ? 'grid' : undefined}>
       {itemRender &&
         rows.map((row, i) => {
           prepareRow(row);
@@ -65,6 +72,7 @@ const GridView = ({
             headers: headerGroups[0]?.headers,
             selected: row.original.id === currentItem?.id,
             onClick: () => handleOnSelect(row.original),
+            useAria,
           });
         })}
     </Stack>

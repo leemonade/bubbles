@@ -1,20 +1,32 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Menu as MantineMenu, MenuItem } from '@mantine/core';
+import { Menu as MantineMenu } from '@mantine/core';
 import { ActionButton } from '../../form';
 import { SettingMenuHorizontalIcon } from '@bubbles-ui/icons/solid';
 import { MenuStyles } from './Menu.styles';
 
-export const MENU_POSITIONS = ['bottom', 'top', 'left', 'right'];
-export const MENU_PLACEMENT = ['start', 'center', 'end'];
+export const MENU_POSITIONS = [
+  'bottom',
+  'top',
+  'left',
+  'right',
+  'bottom-start',
+  'bottom-end',
+  'top-start',
+  'top-end',
+  'left-start',
+  'left-end',
+  'right-start',
+  'right-end',
+];
 
 export const MENU_DEFAULT_PROPS = {
   items: [],
   position: 'bottom',
-  placement: 'center',
-  gutter: 0,
+  offset: 0,
   withArrow: false,
+  menuButtonLabel: 'Menu button',
 };
 export const MENU_PROP_TYPES = {
   items: PropTypes.arrayOf(
@@ -28,10 +40,10 @@ export const MENU_PROP_TYPES = {
     })
   ),
   position: PropTypes.oneOf(MENU_POSITIONS),
-  placement: PropTypes.oneOf(MENU_PLACEMENT),
-  gutter: PropTypes.number,
+  offset: PropTypes.number,
   withArrow: PropTypes.bool,
   control: PropTypes.node,
+  menuButtonLabel: PropTypes.string,
 };
 
 const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref) => {
@@ -43,11 +55,18 @@ const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref)
     return controlProp;
   }, [controlProp]);
 
+  const renderMenuItems = useCallback(() => {
+    return items.map((item, index) => {
+      if (item.divider) return <MantineMenu.Divider />;
+      if (!item.onClick) return <MantineMenu.Label {...item} key={index} />;
+      return <MantineMenu.Item {...item} key={index} />;
+    });
+  }, [items]);
+
   return (
-    <MantineMenu {...props} ref={ref} control={control} classNames={classes}>
-      {items.map((item, index) => (
-        <MenuItem {...item} key={index} />
-      ))}
+    <MantineMenu {...props} ref={ref} classNames={classes}>
+      <MantineMenu.Target>{control}</MantineMenu.Target>
+      <MantineMenu.Dropdown>{renderMenuItems()}</MantineMenu.Dropdown>
     </MantineMenu>
   );
 });

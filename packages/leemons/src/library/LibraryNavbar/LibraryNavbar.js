@@ -1,25 +1,46 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { isFunction } from 'lodash';
 import {
   Box,
-  Stack,
-  FileUpload,
   Button,
-  Text,
-  Paper,
-  IconButton,
   Divider,
+  DropdownButton,
+  FileUpload,
+  IconButton,
+  Paper,
+  ScrollArea,
   SimpleBar,
+  Stack,
+  Text,
 } from '@bubbles-ui/components';
-import { PluginLeebraryIcon, PluginKimIcon } from '@bubbles-ui/icons/solid';
-import { CloudUploadIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
+import { PluginKimIcon, PluginLeebraryIcon } from '@bubbles-ui/icons/solid';
+import {
+  BookPagesIcon,
+  CloudUploadIcon,
+  ManWomanIcon,
+  RemoveIcon,
+} from '@bubbles-ui/icons/outline';
 import { LibraryNavbarItem as NavbarItem } from './LibraryNavbarItem';
 import { LibraryNavbarStyles } from './LibraryNavbar.styles';
 import { LIBRARY_NAVBAR_DEFAULT_PROPS, LIBRARY_NAVBAR_PROP_TYPES } from './LibraryNavbar.constants';
 
-const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, onNew, loading }) => {
+const LibraryNavbar = ({
+  labels,
+  categories,
+  selectedCategory,
+  subjects,
+  showSharedsWithMe,
+  onNavShared,
+  onNav,
+  onNavSubject,
+  onFile,
+  onNew,
+  useNewCreateButton = true,
+  loading,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showUpload, setShowUpload] = useState(true);
+  const [showUpload, setShowUpload] = useState(false);
+  const [subjectsOpened, setSubjectsOpened] = useState(true);
 
   const onFileHandler = (e) => {
     isFunction(onFile) && onFile(e);
@@ -50,23 +71,106 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
 
   const renderNavbarItems = useCallback(
     (callback, onlyCreatable = false, ignoreSelected = false) => {
-      return categories
-        .filter((item) => (onlyCreatable ? item.creatable === true : true))
-        .map((category) => (
+      if (onlyCreatable && useNewCreateButton) {
+        return categories
+          .filter((item) => item.creatable === true)
+          .map((category) => ({
+            icon: category.icon,
+            label: category.name,
+            onClick: () => {
+              callback(category);
+            },
+          }));
+      }
+
+      const result = [
+        ...categories
+          .filter((item) => (onlyCreatable ? item.creatable === true : true))
+          .map((category) => (
+            <NavbarItem
+              key={category.id}
+              icon={category.icon}
+              label={category.name}
+              loading={loading}
+              selected={
+                !ignoreSelected &&
+                (category.id === selectedCategory || category.key === selectedCategory)
+              }
+              onClick={() => callback(category)}
+            />
+          )),
+      ];
+      if (showSharedsWithMe) {
+        result.push(
           <NavbarItem
-            key={category.id}
-            icon={category.icon}
-            label={category.name}
+            key={'shared-with-me'}
+            icon={<ManWomanIcon />}
+            label={labels.sharedWithMe}
             loading={loading}
-            selected={
-              !ignoreSelected &&
-              (category.id === selectedCategory || category.key === selectedCategory)
-            }
-            onClick={() => callback(category)}
+            selected={selectedCategory === 'shared-with-me'}
+            onClick={() => onNavShared('shared-with-me')}
           />
-        ));
+        );
+      }
+      if (subjects && subjects.length) {
+        result.push(
+          <NavbarItem
+            key={'student-subjects'}
+            icon={<BookPagesIcon />}
+            label={labels.subjects}
+            loading={loading}
+            selected={false}
+            canOpen
+            opened={subjectsOpened}
+            onClick={() => {
+              setSubjectsOpened(!subjectsOpened);
+            }}
+          >
+            <ScrollArea style={{ height: 300, maxWidth: '100%' }}>
+              {subjects.map((subject) => {
+                return (
+                  <Box
+                    onClick={() => onNavSubject(subject)}
+                    sx={(theme) => ({
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: theme.spacing[2],
+                      alignItems: 'center',
+                      padding: `${theme.spacing[2]}px ${theme.spacing[4]}px`,
+                      cursor: 'pointer',
+                      backgroundColor: selectedCategory === subject.id && theme.colors.mainWhite,
+                      '&:hover': {
+                        backgroundColor:
+                          selectedCategory !== subject.id && theme.colors.interactive03,
+                      },
+                    })}
+                  >
+                    <Box
+                      sx={() => ({
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: 24,
+                        minHeight: 24,
+                        maxWidth: 24,
+                        maxHeight: 24,
+                        borderRadius: '50%',
+                        backgroundColor: subject?.color,
+                        backgroundImage: 'url(' + subject?.image + ')',
+                        backgroundSize: 'cover',
+                      })}
+                    />
+                    <Text>{subject.name}</Text>
+                  </Box>
+                );
+              })}
+            </ScrollArea>
+          </NavbarItem>
+        );
+      }
+      return result;
     },
-    [categories, selectedCategory, loading]
+    [categories, selectedCategory, loading, subjectsOpened, subjects, showSharedsWithMe]
   );
 
   const { classes, cx } = LibraryNavbarStyles({ isExpanded }, { name: 'LibraryNavbar' });
@@ -78,6 +182,15 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
       </Box>
       <SimpleBar className={classes.navItems}>
         <Stack direction={'column'} fullWidth>
+          {useNewCreateButton ? (
+            <Box sx={(theme) => ({ padding: theme.spacing[2] })}>
+              <DropdownButton
+                sx={() => ({ width: '100%' })}
+                children={labels.uploadButton}
+                data={renderNavbarItems(onNewHandler, true, true)}
+              />
+            </Box>
+          ) : null}
           <NavbarItem
             icon={<PluginKimIcon />}
             label={labels.quickAccess}
@@ -87,67 +200,71 @@ const LibraryNavbar = ({ labels, categories, selectedCategory, onNav, onFile, on
           <Divider style={{ marginBlock: 8, marginInline: 10 }} />
           {renderNavbarItems(onNavHandler)}
         </Stack>
-        <Paper
-          className={classes.navbarBottom}
-          shadow={!isExpanded ? 'none' : 'level03'}
-          padding={0}
-        >
-          <Box className={classes.uploadButton}>
-            <Button
-              size={'sm'}
-              fullWidth
-              rightIcon={<CloudUploadIcon />}
-              onClick={() => setIsExpanded(true)}
-            >
-              {labels.uploadButton}
-            </Button>
-          </Box>
-          <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
-            <Stack
-              direction={'column'}
-              alignItems={'center'}
-              spacing={2}
-              className={classes.fileUploadWrapper}
-              skipFlex
-            >
-              {isExpanded && (
-                <Stack spacing={1} alignItems={'center'} fullWidth>
-                  <Box style={{ flex: 1 }}>
-                    <Text transform="uppercase" className={classes.sectionTitle}>
-                      {labels.createNewTitle}
-                    </Text>
+        {!useNewCreateButton ? (
+          <Paper
+            className={classes.navbarBottom}
+            shadow={!isExpanded ? 'none' : 'level03'}
+            padding={0}
+          >
+            <Box className={classes.uploadButton}>
+              <Button
+                size={'sm'}
+                fullWidth
+                rightIcon={<CloudUploadIcon />}
+                onClick={() => setIsExpanded(true)}
+              >
+                {labels.uploadButton}
+              </Button>
+            </Box>
+
+            <Stack direction={'column'} className={classes.navbarTopSubWrapper} fullWidth>
+              <Stack
+                direction={'column'}
+                alignItems={'center'}
+                spacing={2}
+                className={classes.fileUploadWrapper}
+                skipFlex
+              >
+                {isExpanded && (
+                  <Stack spacing={1} alignItems={'center'} fullWidth>
+                    <Box style={{ flex: 1 }}>
+                      <Text transform="uppercase" className={classes.sectionTitle}>
+                        {labels.createNewTitle}
+                      </Text>
+                    </Box>
+                    <Box>
+                      <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
+                    </Box>
+                  </Stack>
+                )}
+              </Stack>
+
+              <Stack
+                direction={'column'}
+                alignItems={'start'}
+                className={classes.navbarTopList}
+                skipFlex
+              >
+                {renderNavbarItems(onNewHandler, true, true)}
+                <Text transform="uppercase" className={classes.sectionTitle}>
+                  {labels.uploadTitle}
+                </Text>
+                {showUpload && (
+                  <Box className={classes.fileUpload}>
+                    <FileUpload
+                      icon={<CloudUploadIcon height={32} width={32} />}
+                      title={labels.fileUploadTitle}
+                      subtitle={labels.fileUploadSubtitle}
+                      hideUploadButton
+                      single
+                      onChange={onFileHandler}
+                    />
                   </Box>
-                  <Box>
-                    <IconButton icon={<RemoveIcon />} onClick={() => setIsExpanded(false)} />
-                  </Box>
-                </Stack>
-              )}
+                )}
+              </Stack>
             </Stack>
-            <Stack
-              direction={'column'}
-              alignItems={'start'}
-              className={classes.navbarTopList}
-              skipFlex
-            >
-              {renderNavbarItems(onNewHandler, true, true)}
-              <Text transform="uppercase" className={classes.sectionTitle}>
-                {labels.uploadTitle}
-              </Text>
-              {showUpload && (
-                <Box className={classes.fileUpload}>
-                  <FileUpload
-                    icon={<CloudUploadIcon height={32} width={32} />}
-                    title={labels.fileUploadTitle}
-                    subtitle={labels.fileUploadSubtitle}
-                    hideUploadButton
-                    single
-                    onChange={onFileHandler}
-                  />
-                </Box>
-              )}
-            </Stack>
-          </Stack>
-        </Paper>
+          </Paper>
+        ) : null}
       </SimpleBar>
     </Box>
   );

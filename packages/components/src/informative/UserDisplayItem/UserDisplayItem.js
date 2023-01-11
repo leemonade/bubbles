@@ -6,10 +6,10 @@ import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
 import { Text, TEXT_ROLES } from '../../typography';
-
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
+import { AVATAR_STATE } from '../Avatar/Avatar.constants';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -27,6 +27,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   name: PropTypes.string,
   surnames: PropTypes.string,
   avatar: PropTypes.string,
+  state: PropTypes.oneOf(AVATAR_STATE),
   rol: PropTypes.string,
   center: PropTypes.string,
   email: PropTypes.string,
@@ -44,6 +45,7 @@ const UserDisplayItem = (properties) => {
     name,
     surnames,
     avatar,
+    state,
     severity,
     rol,
     center,
@@ -68,7 +70,7 @@ const UserDisplayItem = (properties) => {
     { name: 'UserDisplayItem' }
   );
 
-  const avatarSize = !size ? (variant === 'email' ? 'xs' : 'sm') : size;
+  const avatarSize = !size ? (variant === 'email' ? 'sm' : 'md') : size;
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
@@ -95,10 +97,16 @@ const UserDisplayItem = (properties) => {
 
   return (
     <Box {...props} className={classes.root}>
-      <Avatar image={avatar} fullName={userFullName} size={avatarSize} />
+      <Avatar
+        image={avatar}
+        fullName={userFullName}
+        size={avatarSize}
+        state={state}
+        alt={`Avatar of ${userFullName}`}
+      />
       <Box
         className={classes.userInfo}
-        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 26 : 32}px)` }}
+        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
       >
         {variant === 'email' ? (
           <>

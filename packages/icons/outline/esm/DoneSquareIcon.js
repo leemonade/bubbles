@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function DoneSquareIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function DoneSquareIcon(props) {
     d: "M21.75 10.5v9.75a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3v-15a3 3 0 0 1 3-3H16.5"
   }));
 }
-
 export default DoneSquareIcon;

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import useCountDown from 'react-countdown-hook';
 import { AlarmClockIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../../layout';
@@ -9,7 +10,15 @@ import {
   ACTIVITY_COUNTDOWN_PROP_TYPES,
 } from './ActivityCountdown.constants';
 
-const ActivityCountdown = ({ finish, interval, rootStyles, rootClassname, ...props }) => {
+const ActivityCountdown = ({
+  finish,
+  interval,
+  withIcon,
+  rootStyles,
+  rootClassname,
+  useAria,
+  ...props
+}) => {
   const countDownMiliseconds = new Date(finish) - Date.now();
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(countDownMiliseconds, interval);
 
@@ -30,9 +39,9 @@ const ActivityCountdown = ({ finish, interval, rootStyles, rootClassname, ...pro
 
   const { classes, cx } = ActivityCountdownStyles({ rootStyles }, { name: 'ActivityCountdown' });
   return (
-    <Box className={cx(classes.root, rootClassname)}>
+    <Box className={cx(classes.root, rootClassname)} role={useAria ? 'timer' : undefined}>
       <Text className={classes.countdown}>{getCountdown(timeLeft)}</Text>
-      <AlarmClockIcon width={24} height={24} className={classes.clockIcon} />
+      {withIcon && <AlarmClockIcon width={24} height={24} className={classes.clockIcon} />}
     </Box>
   );
 };

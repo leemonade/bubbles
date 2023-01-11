@@ -25,6 +25,6 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...ACTIVITY_COUNTDOWN_DEFAULT_PROPS,
-  //adds to hours to current date
+  //adds two hours to current date
   finish: new Date(Date.now() + 7200000),
 };

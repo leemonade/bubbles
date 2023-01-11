@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/editors",
-  "version": "1.0.26",
+  "version": "1.1.2",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -30,12 +30,21 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build-publish": "yarn build && npm version patch && npm publish",
-    "build": "yarn clean && node scripts/build.js && rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-publish": "run-s build version:patch publish",
+    "version:patch": "npm version patch",
     "start": "yarn storybook",
-    "build-storybook": "yarn clean && cross-env NODE_ENV=production build-storybook",
-    "storybook": "rimraf node_modules/.cache/storybook && start-storybook -p 9001",
-    "clean": "rimraf es lib umd esm cjs storybook-static build"
+    "build": "run-s build:clean build:lib build:fix",
+    "build-all": "run-s build build-storybook",
+    "build-all:no-types": "run-s build-all",
+    "build:lib": "node scripts/build.js",
+    "build:clean": "rimraf es lib umd esm cjs storybook-static build",
+    "build:fix": "rimraf es/**/*.mdx lib/**/*.mdx",
+    "build-storybook": "run-s build:storybook:clean build:storybook",
+    "build:storybook:clean": "rimraf ../../docs-build/editors",
+    "build:storybook": "cross-env NODE_ENV=production build-storybook -o ../../docs-build/editors",
+    "storybook": "run-s storybook:clean storybook:start",
+    "storybook:clean": "rimraf node_modules/.cache/storybook",
+    "storybook:start": "start-storybook -p 9001"
   },
   "dependencies": {
     "@tiptap/extension-character-count": "^2.0.0-beta.25",
@@ -59,8 +68,8 @@
     "styled-icons": "^10.45.0"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.0.28",
-    "@bubbles-ui/icons": "^1.0.10",
+    "@bubbles-ui/components": "1.1.01",
+    "@bubbles-ui/icons": "1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "webpack": "*"

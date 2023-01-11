@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { chunk } from 'lodash';
+import _, { capitalize, chunk } from 'lodash';
 import { findDOMNode } from 'react-dom';
 import getPosition from 'dom-helpers/position';
 import * as animationFrame from 'dom-helpers/animationFrame';
@@ -10,12 +10,50 @@ import { inRange, sortEvents } from 'react-big-calendar/lib/utils/eventLevels';
 import Popup from 'react-big-calendar/lib/Popup';
 import Header from 'react-big-calendar/lib/Header';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
-import { Box, Popper } from '@bubbles-ui/components';
+import { Box, COLORS, Popper } from '@bubbles-ui/components';
+import { colord } from 'colord';
 
 import DateContentRow from '../Date/DateContentRow';
 
-let eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
+let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
+  const range = { start, end };
+  const filteredEvents = events.filter((event) => {
+    return localizer.inEventRange({
+      event: { ...event },
+      range: range,
+    });
+  });
+  filteredEvents.sort((eventA, eventB) => {
+    const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
+    const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
+    return eventAzIndex - eventBzIndex;
+  });
+  const finalEvents = filteredEvents.map((event) => {
+    if (isLastWeek) {
+      if (event.end.getYear() > end.getYear() || event.end.getMonth() > end.getMonth())
+        return { ...event, end: end, realEnd: event.end };
+    }
+    if (isFirstWeek) {
+      if (event.start.getYear() < start.getYear() || event.start.getMonth() < start.getMonth())
+        return { ...event, start: start };
+    }
+    return event;
+  });
+  return finalEvents;
+};
+
+let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
+  const filteredEvents = evts.filter((e) => inRange(e, start, end, accessors, localizer));
+  const finalEvents = filteredEvents.map((event) => {
+    const eStart = event.start;
+    const eEnd = event.end;
+    if (localizer.isSameDate(eStart, eEnd)) return event;
+    event.realEnd = eEnd;
+    event.end = new Date(new Date(eEnd).setHours(2, 0, 0));
+    return event;
+  });
+  return finalEvents;
+};
 
 class MonthView extends React.Component {
   constructor(...args) {
@@ -93,7 +131,7 @@ class MonthView extends React.Component {
     );
   }
 
-  renderWeek = (week, weekIdx) => {
+  renderWeek = (week, weekIdx, monthWeeks) => {
     let {
       events,
       components,
@@ -107,26 +145,37 @@ class MonthView extends React.Component {
       getters,
       showAllEvents,
       hideBgTitles,
+      isMonthView,
+      monthNumber,
+      printMode,
     } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
     const { showWeekends } = components;
 
     if (!showWeekends) {
-      // week.pop();
-      // week.shift();
-      week.pop();
-      week.pop();
+      week = _.filter(week, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
     }
 
+    const isFirstWeek = weekIdx === 0;
+    const isLastWeek = weekIdx === monthWeeks.length - 1;
+
+    let firstDayPosition = 0;
+    let lastDayPosition = 0;
+    if (isFirstWeek) firstDayPosition = week.findIndex((day) => day.getDate() === 1);
+    if (isLastWeek) {
+      const endOfMonth = localizer.endOf(week[0], 'months').getDate();
+      lastDayPosition = week.findIndex((day) => day.getDate() === endOfMonth);
+    }
+    const startOfWeek = isMonthView && isFirstWeek ? week[firstDayPosition] : week[0];
+    const endOfWeeek = isMonthView && isLastWeek ? week[lastDayPosition] : week[week.length - 1];
+
     // let's not mutate props
-    const weeksEvents = eventsForWeek(
-      [...events],
-      week[0],
-      week[week.length - 1],
-      accessors,
-      localizer
-    );
+    const weeksEvents = isMonthView
+      ? eventsForWeek([...events], startOfWeek, endOfWeeek, localizer, isFirstWeek, isLastWeek)
+      : eventsForWeekNormal([...events], week[0], week[week.length - 1], accessors, localizer);
 
     weeksEvents.sort((a, b) => sortEvents(a, b, accessors, localizer));
 
@@ -159,12 +208,15 @@ class MonthView extends React.Component {
         rtl={this.props.rtl}
         resizable={this.props.resizable}
         showAllEvents={showAllEvents}
+        isMonthView={isMonthView}
+        monthNumber={monthNumber}
+        printMode={printMode}
       />
     );
   };
 
-  readerDateHeading = ({ date, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer } = this.props;
+  readerDateHeading = ({ date, isWeekend, className, ...props }) => {
+    let { date: currentDate, getDrilldownView, localizer, isMonthView, events } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
     let isCurrent = localizer.isSameDate(date, currentDate);
     let drilldownView = getDrilldownView(date);
@@ -172,13 +224,52 @@ class MonthView extends React.Component {
     let DateHeaderComponent = this.props.components.dateHeader || DateHeader;
     const { cx } = this.props.components;
 
+    let dateIsInRangeOfTextColor = false;
+    if (_.isArray(events) && events.length > 0) {
+      events.forEach((event) => {
+        if (dateIsInRangeOfTextColor) return;
+        const { originalEvent } = event;
+        const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
+        const eventBgRGBColor = colord(
+          _.isArray(eventBgColor) ? eventBgColor[0] : eventBgColor
+        ).toRgb();
+        const brightness = Math.round(
+          (parseInt(eventBgRGBColor.r) * 299 +
+            parseInt(eventBgRGBColor.g) * 587 +
+            parseInt(eventBgRGBColor.b) * 114) /
+            1000
+        );
+        const eventTextColor = !(brightness > 125 || eventBgColor === 'transparent');
+        dateIsInRangeOfTextColor =
+          eventTextColor && localizer.inRange(date, event.start, event.end);
+      });
+    }
+
     return (
       <Box
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
         role="cell"
-        style={{ pointerEvents: 'all' }}
+        style={{
+          pointerEvents: 'all',
+          visibility: isMonthView && isOffRange && 'hidden',
+          position: 'relative',
+          color: isMonthView && dateIsInRangeOfTextColor && `${COLORS.mainWhite}`,
+        }}
       >
+        {isMonthView && isWeekend && COLORS.ui02 ? (
+          <Box
+            style={{
+              backgroundColor: COLORS.ui02,
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: -99999,
+            }}
+          />
+        ) : null}
         <DateHeaderComponent
           label={label}
           date={date}
@@ -191,29 +282,29 @@ class MonthView extends React.Component {
   };
 
   renderHeaders(row) {
-    const { localizer, components } = this.props;
+    const { localizer, components, isMonthView } = this.props;
     const HeaderComponent = components.header || Header;
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
-      // weekRow.pop();
-      // weekRow.shift();
-      weekRow.pop();
-      weekRow.pop();
+      weekRow = _.filter(weekRow, (date) => {
+        return date.getDay() !== 0 && date.getDay() !== 6;
+      });
     }
 
     const first = weekRow[0];
     const last = weekRow[weekRow.length - 1];
 
-    return localizer.range(first, last, 'day').map((day, idx) => (
-      <Box key={'header_' + idx} className="rbc-header">
-        <HeaderComponent
-          date={day}
-          localizer={localizer}
-          label={localizer.format(day, 'weekdayFormat')}
-        />
-      </Box>
-    ));
+    return localizer.range(first, last, 'day').map((day, idx) => {
+      const dayName = isMonthView
+        ? localizer.format(day, 'weekdayFormat')[0]
+        : localizer.format(day, 'weekdayFormat');
+      return (
+        <Box key={'header_' + idx} className="rbc-header">
+          <HeaderComponent date={day} localizer={localizer} label={capitalize(dayName)} />
+        </Box>
+      );
+    });
   }
 
   renderOverlay() {

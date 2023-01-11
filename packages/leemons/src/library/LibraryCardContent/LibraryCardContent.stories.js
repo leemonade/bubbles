@@ -4,6 +4,7 @@ import { LibraryCardContent } from './LibraryCardContent';
 import { LIBRARY_CARD_CONTENT_DEFAULT_PROPS } from './LibraryCardContent.constants';
 import { LIBRARYCARD_VARIANTS } from '../LibraryCard';
 import mdx from './LibraryCardContent.mdx';
+import { LIBRARYCARD_ASSIGMENT_ROLES } from '../Library.constants';
 
 export default {
   title: 'leemons/Library/LibraryCardContent',
@@ -19,6 +20,7 @@ export default {
   },
   argTypes: {
     variant: { control: { type: 'select' }, options: LIBRARYCARD_VARIANTS },
+    role: { control: { type: 'select' }, options: LIBRARYCARD_ASSIGMENT_ROLES },
     showDescription: { control: 'boolean' },
   },
 };
@@ -66,5 +68,7 @@ Playground.args = {
     },
     avgTime: 900,
     avgAttempts: 3,
+    activityType: 'Tarea/Test',
+    grade: 8.5,
   },
 };

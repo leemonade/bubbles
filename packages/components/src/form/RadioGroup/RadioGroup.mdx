@@ -7,7 +7,7 @@ import { AcademicCapIcon } from '@heroicons/react/outline';
 
 # RadioGroup
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/form/RadioGroup)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/RadioGroup/RadioGroup.js)
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ import { AcademicCapIcon } from '@heroicons/react/outline';
 
 ## Overview
 
-RadioGroup is ...
+RadioGroup is a component that groups Radio options.
 
 <ThemeProvider>
   <RadioGroup
@@ -56,175 +56,161 @@ RadioGroup is ...
 There are three diferent variants of RadioGroup that will affect the Radio inputs inside: default, boxed and icon.
 
 <ThemeProvider>
-  <RadioGroup
-    name="defaultRadioGroup"
-    data={[
-      {
-        value: 'option1',
-        label: 'Label for option 1',
-      },
-      {
-        value: 'option2',
-        label: 'Label for option 2',
-        help: 'Help text for option 2',
-        helpPosition: 'bottom',
-      },
-    ]}
-    onChange={(value) => {
-      return;
-    }}
-  />
-</ThemeProvider>
-<Space></Space>
-<ThemeProvider>
-  <RadioGroup
-    name="boxedRadioGroup"
-    variant="boxed"
-    data={[
-      {
-        value: 'option1',
-        label: 'Label for option 1',
-      },
-      {
-        value: 'option2',
-        label: 'Label for option 2',
-        help: 'Help text for option 2',
-        helpPosition: 'right',
-      },
-    ]}
-    onChange={(value) => {
-      return;
-    }}
-  />
-</ThemeProvider>
-<Space></Space>
-<ThemeProvider>
-  <RadioGroup
-    name="iconRadioGroup"
-    variant="icon"
-    data={[
-      {
-        value: 'option1',
-        label: 'Label for option 1',
-        icon: <AcademicCapIcon height={32} width={32} />,
-      },
-      {
-        value: 'option2',
-        label: 'Label for option 2',
-        icon: <AcademicCapIcon height={32} width={32} />,
-        help: 'Help text for option 2',
-        helpPosition: 'bottom',
-      },
-    ]}
-    onChange={(value) => {
-      return;
-    }}
-  />
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <RadioGroup
+      name="defaultRadioGroup"
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          help: 'Help text for option 2',
+          helpPosition: 'bottom',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+    <RadioGroup
+      name="boxedRadioGroup"
+      variant="boxed"
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          help: 'Help text for option 2',
+          helpPosition: 'right',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+    <RadioGroup
+      name="iconRadioGroup"
+      variant="icon"
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+          icon: <AcademicCapIcon height={32} width={32} />,
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          icon: <AcademicCapIcon height={32} width={32} />,
+          help: 'Help text for option 2',
+          helpPosition: 'bottom',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Orientation and full width
 
 This orientation of the component can also be changed to column or row.
 
-<Group>
-  <Box>
-    <ThemeProvider>
-      <RadioGroup
-        name="VBoxedRadioGroup"
-        variant="boxed"
-        direction="column"
-        data={[
-          {
-            value: 'option1',
-            label: 'Label for option 1',
-          },
-          {
-            value: 'option2',
-            label: 'Label for option 2',
-            help: 'Help text for option 2',
-            helpPosition: 'bottom',
-          },
-        ]}
-        onChange={(value) => {
-          return;
-        }}
-      />
-    </ThemeProvider>
-  </Box>
-  <Box>
-    <ThemeProvider>
-      <RadioGroup
-        name="VIconRadioGroup"
-        variant="icon"
-        direction="column"
-        data={[
-          {
-            value: 'option1',
-            label: 'Label for option 1',
-            icon: <AcademicCapIcon height={32} width={32} />,
-          },
-          {
-            value: 'option2',
-            label: 'Label for option 2',
-            icon: <AcademicCapIcon height={32} width={32} />,
-            help: 'Help text for option 2',
-            helpPosition: 'bottom',
-          },
-        ]}
-        onChange={(value) => {
-          return;
-        }}
-      />
-    </ThemeProvider>
-  </Box>
-</Group>
-<Space></Space>
 <ThemeProvider>
-  <RadioGroup
-    name="fWBoxedRadioGroup"
-    variant="boxed"
-    fullWidth
-    data={[
-      {
-        value: 'option1',
-        label: 'Label for option 1',
-      },
-      {
-        value: 'option2',
-        label: 'Label for option 2',
-        help: 'Help text for option 2',
-        helpPosition: 'right',
-      },
-    ]}
-    onChange={(value) => {
-      return;
-    }}
-  />
-</ThemeProvider>
-<Space></Space>
-<ThemeProvider>
-  <RadioGroup
-    name="fWIconRadioGroup"
-    variant="icon"
-    fullWidth
-    data={[
-      {
-        value: 'option1',
-        label: 'Label for option 1',
-        icon: <AcademicCapIcon height={32} width={32} />,
-      },
-      {
-        value: 'option2',
-        label: 'Label for option 2',
-        icon: <AcademicCapIcon height={32} width={32} />,
-        help: 'Help text for option 2',
-        helpPosition: 'bottom',
-      },
-    ]}
-    onChange={(value) => {
-      return;
-    }}
-  />
+  <Box style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+    <RadioGroup
+      name="VBoxedRadioGroup"
+      variant="boxed"
+      direction="column"
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          help: 'Help text for option 2',
+          helpPosition: 'bottom',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+    <RadioGroup
+      name="VIconRadioGroup"
+      variant="icon"
+      direction="column"
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+          icon: <AcademicCapIcon height={32} width={32} />,
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          icon: <AcademicCapIcon height={32} width={32} />,
+          help: 'Help text for option 2',
+          helpPosition: 'bottom',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+  </Box>
+  <Box style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <RadioGroup
+      name="fWBoxedRadioGroup"
+      variant="boxed"
+      fullWidth
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          help: 'Help text for option 2',
+          helpPosition: 'right',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+    <RadioGroup
+      name="fWIconRadioGroup"
+      variant="icon"
+      fullWidth
+      data={[
+        {
+          value: 'option1',
+          label: 'Label for option 1',
+          icon: <AcademicCapIcon height={32} width={32} />,
+        },
+        {
+          value: 'option2',
+          label: 'Label for option 2',
+          icon: <AcademicCapIcon height={32} width={32} />,
+          help: 'Help text for option 2',
+          helpPosition: 'bottom',
+        },
+      ]}
+      onChange={(value) => {
+        return;
+      }}
+    />
+  </Box>
 </ThemeProvider>
 
 ## Component API
@@ -237,7 +223,7 @@ This orientation of the component can also be changed to column or row.
 
 ## References
 
-[MDN: ARIA Radio group role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio-group_role)
+[MDN: ARIA Radio group role](https://developer.mozilla.org/en-US/docs/web/accessibility/aria/roles/radiogroup_role)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
 
@@ -246,4 +232,4 @@ This orientation of the component can also be changed to column or row.
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/form/RadioGroup.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/RadioGroup/RadioGroup.mdx)

@@ -3,10 +3,14 @@ import { Box } from '@mantine/core';
 import * as stories from './ActivityAccordion.stories.js';
 import { ActivityAccordion } from './ActivityAccordion.js';
 import { ThemeProvider } from './../../ThemeProvider';
+import { ActivityAccordionPanel } from './panel/ActivityAccordionPanel';
+import { Badge } from '../Badge';
+import { Paragraph } from '../../typography';
+import { AlarmBellCheckIcon, BoardEducationIcon } from '@bubbles-ui/icons/outline';
 
-# **name**
+# ActivityAccordion
 
-[Source code](<https://github.com/leemonade/bubbles/tree/main/packages/components/informative/ActivityAccordion>)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/ActivityAccordion/ActivityAccordion.js)
 
 ## Table of Contents
 
@@ -14,35 +18,147 @@ import { ThemeProvider } from './../../ThemeProvider';
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Overview](#overview)
+- [Multiple prop](#multiple-prop)
+- [ActivityAccordionPanel colors](#activityaccordionpanel-colors)
+- [ActivityAccordionPanel right section](#activityaccordionpanel-right-section)
 - [Component API](#component-api)
-- [References](#references)
 - [Feedback](#feedback)
 
 ## Overview
 
-**name** is ...
+ActivityAccordion is a component to render an accordion, you will need to encapsulate the content of the accordion in a `<ActivityAccordionPanel />`, like this:
+
+```jsx
+<ActivityAccordionPanel
+  label="Test 1"
+  color="solid"
+  icon={<AlarmBellCheckIcon />}
+  rightSection={<Badge label="35" size="md" color="stroke" closable={false} />}
+>
+  <Box p={20}>
+    <Paragraph>Lorem ipsum dolor sit amet ...</Paragraph>
+  </Box>
+</ActivityAccordionPanel>
+```
 
 <ThemeProvider>
-  <ActivityAccordion>Activity accordion</ActivityAccordion>
+  <ActivityAccordion>
+    <ActivityAccordionPanel label="Test 1" color="solid" icon={<AlarmBellCheckIcon />}>
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+  </ActivityAccordion>
+</ThemeProvider>
+
+## Multiple prop
+
+And you can change the `multiple` prop, which is `true` by default to `false`
+
+<ThemeProvider>
+  <ActivityAccordion multiple={false}>
+    <ActivityAccordionPanel label="Default color" icon={<AlarmBellCheckIcon />}>
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+    <ActivityAccordionPanel label="Solid color" icon={<AlarmBellCheckIcon />}>
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+  </ActivityAccordion>
+</ThemeProvider>
+
+## ActivityAccordionPanel colors
+
+You can change the colors of the ActivityAccordionPanel to `default` or `solid`
+
+<ThemeProvider>
+  <ActivityAccordion>
+    <ActivityAccordionPanel label="Default color" icon={<AlarmBellCheckIcon />}>
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+    <ActivityAccordionPanel label="Solid color" color="solid" icon={<AlarmBellCheckIcon />}>
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+  </ActivityAccordion>
+</ThemeProvider>
+
+## ActivityAccordionPanel right section
+
+ActivityAccordionPanel has a `rightSectionProp` to render whatever you want, for example a badge:
+
+<ThemeProvider>
+  <ActivityAccordion>
+    <ActivityAccordionPanel
+      label="Test 1"
+      color="solid"
+      icon={<AlarmBellCheckIcon />}
+      rightSection={<Badge label="35" size="md" color="stroke" closable={false} />}
+    >
+      <Box p={20}>
+        <Paragraph>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </Paragraph>
+      </Box>
+    </ActivityAccordionPanel>
+  </ActivityAccordion>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-informative-activity-accordion--playground" />
+  <Story id="molecules-informative-activityaccordion--playground" />
 </Preview>
 
 <Props of={ActivityAccordion} />
 
-## References
-
-[MDN: ARIA **name**(sentenceCase) role](<https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/activity-accordion_role>)
-
-[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](<https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/activity-accordion/activity-accordion.html>)
-
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](<https://github.com/leemonade/bubbles/edit/main/packages/components/informative/ActivityAccordion.mdx>)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/ActivityAccordion/ActivityAccordion.mdx)

@@ -44,6 +44,7 @@ export const COLORS = {
   fatic03v0: PALETTE.faticWarningLight,
   fatic04: PALETTE.faticInfo,
   fatic04v0: PALETTE.faticInfoLight,
+  fatic05: PALETTE.faticHighlight,
 
   bubbles: [
     '#f1f7ff',

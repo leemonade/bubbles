@@ -1,15 +1,20 @@
 import React, { Children, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Box } from '@bubbles-ui/components';
 import { ToolbarStyles } from './Toolbar.styles';
 import { useDimensions } from '../../utils/use-dimensions';
 import { ToolbarTool } from '../../tool/ToolbarTool/ToolbarTool';
 
-export const TOOLBAR_DEFAULT_PROPS = {};
+export const TOOLBAR_DEFAULT_PROPS = {
+  useAria: true,
+};
 
-export const TOOLBAR_PROP_TYPES = {};
+export const TOOLBAR_PROP_TYPES = {
+  useAria: PropTypes.bool,
+};
 
-const Toolbar = ({ children, ...props }) => {
-  const { classes, cx } = ToolbarStyles({});
+const Toolbar = ({ children, useAria, toolbarLabel, ...props }) => {
+  const { classes, cx } = ToolbarStyles({ name: 'Toolbar' });
   const toolbarRef = useRef();
   const originalChildren = Children.toArray(children).map((child) => (
     <Box key={child.key} ref={useRef()}>
@@ -55,7 +60,7 @@ const Toolbar = ({ children, ...props }) => {
         {toolbarChilds}
         {dropdownChilds.length > 0 && (
           <Box className={classes.toolbarTool}>
-            <ToolbarTool tools={dropdownChilds} />
+            <ToolbarTool tools={dropdownChilds} useAria={useAria} toolbarLabel={toolbarLabel} />
           </Box>
         )}
       </Box>

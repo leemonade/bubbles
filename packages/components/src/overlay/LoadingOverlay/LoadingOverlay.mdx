@@ -6,7 +6,7 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 # LoadingOverlay
 
-[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/overlay/LoadingOverlay)
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/LoadingOverlay/LoadingOverlay.js)
 
 ## Table of Contents
 
@@ -20,29 +20,42 @@ import { ThemeProvider } from './../../ThemeProvider';
 
 ## Overview
 
-LoadingOverlay is ...
+LoadingOverlay is a component that renders an overlay over the closest relative element, it takes 100% of the relative element width and height.
+
+You can control if its visible or not with the `visible` prop
 
 <ThemeProvider>
-  <LoadingOverlay />
+  <Box
+    style={{
+      height: 100,
+      width: 100,
+      position: 'relative',
+      border: '1px solid black',
+      padding: 16,
+    }}
+  >
+    Parent element
+    <LoadingOverlay visible />
+  </Box>
 </ThemeProvider>
 
 ## Component API
 
 <Preview>
-  <Story id="molecules-overlay-loading-overlay--playground" />
+  <Story id="molecules-overlay-loadingoverlay--playground" />
 </Preview>
 
 <Props of={LoadingOverlay} />
 
 ## References
 
-[MDN: ARIA **name**(sentenceCase) role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/loading-overlay_role)
+## References
+
+[MDN: ARIA progressbar role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role#best_practices)
 
 [W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
-
-[W3: ARIA **name**(sentenceCase) role example](https://www.w3.org/TR/2016/WD-wai-aria-practices-1.1-20160317/examples/loading-overlay/loading-overlay.html)
 
 ## Feedback
 
 Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
-[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/overlay/LoadingOverlay.mdx)
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/LoadingOverlay/LoadingOverlay.mdx)

@@ -21,6 +21,7 @@ const ScoresBar = ({
   showLeftLegend,
   showBarPercentage,
   styles,
+  graphAlt,
   className,
   ...props
 }) => {
@@ -104,6 +105,7 @@ const ScoresBar = ({
   return (
     <Box className={cx(classes.root, className)}>
       <ResponsiveBar
+        ariaLabel={graphAlt}
         data={getData()}
         minValue={0}
         maxValue={getMaxValue()}
