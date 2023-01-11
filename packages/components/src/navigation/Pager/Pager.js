@@ -209,6 +209,7 @@ const Pager = forwardRef(
                   value: val,
                 }))}
               ariaLabel={pagesSelectAriaLabel}
+              dropdownPosition="flip"
             />
           </Box>
         )}

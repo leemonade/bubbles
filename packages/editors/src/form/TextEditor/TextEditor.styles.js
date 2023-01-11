@@ -10,6 +10,7 @@ export const TextEditorStyles = createStyles((theme, {}) => {
       justifyContent: 'start',
       gap: 16,
     },
+    editorContainer: {},
     editor: {
       ...root,
       margin: theme.spacing[3],

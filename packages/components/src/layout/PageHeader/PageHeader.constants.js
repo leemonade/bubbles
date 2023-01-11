@@ -16,9 +16,11 @@ export const PAGE_HEADER_DEFAULT_PROPS = {
   required: { title: true, description: false },
   icon: undefined,
   buttons: { new: '', save: '', edit: '', cancel: '', duplicate: '' },
+  buttonsIcons: {},
   fullWidth: false,
   withDivider: false,
   loading: '',
+  isEditMode: false,
 };
 export const PAGE_HEADER_PROP_TYPES = {
   values: PropTypes.shape({ title: PropTypes.string, description: PropTypes.string }),
@@ -34,6 +36,13 @@ export const PAGE_HEADER_PROP_TYPES = {
     cancel: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     duplicate: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   }),
+  buttonsIcons: PropTypes.shape({
+    new: PropTypes.node,
+    save: PropTypes.node,
+    edit: PropTypes.node,
+    cancel: PropTypes.node,
+    duplicate: PropTypes.node,
+  }),
   loading: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   withDivider: PropTypes.bool,
   icon: PropTypes.node,
@@ -43,4 +52,5 @@ export const PAGE_HEADER_PROP_TYPES = {
   onButton: PropTypes.func,
   onCancel: PropTypes.func,
   onDuplicate: PropTypes.func,
+  isEditMode: PropTypes.bool,
 };

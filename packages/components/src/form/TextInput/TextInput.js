@@ -58,6 +58,7 @@ const TextInput = forwardRef(
       disabled,
       readOnly,
       className,
+      classNames,
       maxLength,
       icon,
       variant,
@@ -109,7 +110,7 @@ const TextInput = forwardRef(
             placeholder={placeholder}
             rightSection={rightSection}
             invalid={!isEmpty(error)}
-            className={className}
+            classNames={classNames}
             maxLength={maxLength}
             autoComplete={autoComplete}
             aria-label={ariaLabel}
