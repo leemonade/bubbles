@@ -195,11 +195,6 @@ const SetupCourses = ({
       const substageName = `substages.${currentSubstage}.name`;
       const substageAbbrev = `substages.${currentSubstage}.abbreviation`;
 
-      const val = getValues(substageAbbrev);
-      if (!val) {
-        setValue(substageAbbrev, defaultValue);
-      }
-
       substages.push(
         <ContextContainer key={substageKey} direction="row">
           <Controller
@@ -230,6 +225,7 @@ const SetupCourses = ({
                     : errorMessages.abbrevationOnlyNumbers || 'Only numbers allowed'),
               maxLength: maxSubstageAbbreviation,
             }}
+            defaultValue={defaultValue}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
                 label={labels.abbreviation}
