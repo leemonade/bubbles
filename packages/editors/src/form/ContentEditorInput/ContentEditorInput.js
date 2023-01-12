@@ -26,7 +26,8 @@ const ContentEditorInput = ({
   placeholder,
   toolbars,
   children,
-  labels,
+  toolLabels,
+  schemaLabel,
   openSchema,
   useSchema,
   editorStyles,
@@ -54,7 +55,7 @@ const ContentEditorInput = ({
         <Box className={classes.schemaContainer}>
           <Box className={classes.schemaTranslate}>
             <Box className={classes.schemaHeader}>
-              <Box className={classes.schemaLabel}>{labels.schema}</Box>
+              <Box className={classes.schemaLabel}>{schemaLabel}</Box>
               <ArrowRightIcon
                 className={classes.arrowIcon}
                 height={20}
@@ -99,13 +100,13 @@ const ContentEditorInput = ({
           toolbarClassname={classes.toolbarRoot}
           editorContainerClassname={classes.editorContainer}
         >
-          {toolbars.heading && <HeadingsTool label={labels.format} />}
-          {toolbars.color && <ColorTool />}
-          {toolbars.style && <TransformsTool />}
-          {toolbars.align && <TextAlignTool />}
-          {toolbars.list && <ListIndentTool />}
-          {toolbars.formulation && <ScriptsTool />}
-          {toolbars.link && <LinkTool />}
+          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
+          {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
+          {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
+          {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}
+          {toolbars.list && <ListIndentTool labels={toolLabels.listIndentTool} />}
+          {toolbars.formulation && <ScriptsTool labels={toolLabels.scriptsTool} />}
+          {toolbars.link && <LinkTool {...toolLabels.linkTool} />}
 
           {children}
         </TextEditor>

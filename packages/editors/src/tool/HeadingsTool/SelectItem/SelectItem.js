@@ -11,7 +11,7 @@ const SelectItem = forwardRef(
   ) => {
     const { classes } = SelectItemStyles({ group }, { name: 'SelectItem' });
     return (
-      <Box className={classes.root} ref={ref}>
+      <Box className={classes.root} ref={ref} {...props}>
         <Box className={classes.label}>
           {Number(value) === 0 ? (
             <Text role="productive" color="primary">

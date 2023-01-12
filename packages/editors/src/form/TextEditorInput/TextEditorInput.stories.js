@@ -5,6 +5,7 @@ import {
   TEXT_EDITOR_DEFAULT_TOOLBARS,
 } from './TextEditorInput.constants';
 import mdx from './TextEditorInput.mdx';
+import { labels } from '../TextEditor/mock/data';
 
 export default {
   title: 'Organism/Form/TextEditorInput',
@@ -51,4 +52,5 @@ Playground.args = {
   error: 'Descriptive text for error ',
   useJSON: true,
   toolbars: { ...TEXT_EDITOR_DEFAULT_TOOLBARS },
+  toolLabels: labels,
 };

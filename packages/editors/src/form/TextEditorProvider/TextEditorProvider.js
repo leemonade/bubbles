@@ -35,12 +35,12 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
       setCurrentTool({ type, data, editing, toolBubbleMenu });
     },
     closeToolModal: () => {
-      setCurrentTool({
+      setCurrentTool((prevCurrentTool) => ({
         type: null,
         data: {},
         editing: false,
-        toolBubbleMenu: currentTool.toolBubbleMenu,
-      });
+        toolBubbleMenu: prevCurrentTool.toolBubbleMenu,
+      }));
       setToolModalOpen(false);
     },
   };

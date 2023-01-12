@@ -28,7 +28,7 @@ export const SELECT_PROP_TYPES = {
   orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
   dropdownPosition: PropTypes.oneOf(SELECT_DROPDOWN_POSITIONS),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  itemComponent: PropTypes.node,
+  itemComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.object]),
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,

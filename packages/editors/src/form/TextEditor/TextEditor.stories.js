@@ -12,6 +12,7 @@ import {
 import { Box } from '@bubbles-ui/components';
 import { TextEditor } from './TextEditor';
 import mdx from './TextEditor.mdx';
+import { labels } from './mock/data';
 
 export default {
   title: 'Organism/Form/TextEditor',
@@ -39,14 +40,14 @@ const Template = ({ onChange, ...props }) => {
         onChange(e);
       }}
     >
-      <HeadingsTool paragraph={false} />
-      <ColorTool />
-      <TransformsTool />
-      <ListIndentTool />
-      <LinkTool />
-      <CodeQuoteTool />
-      <TextAlignTool />
-      <ScriptsTool />
+      <HeadingsTool paragraph={false} labels={labels.headingsTool} />
+      <ColorTool label={labels.colorTool} />
+      <TransformsTool labels={labels.transformsTool} />
+      <ListIndentTool labels={labels.listIndentTool} />
+      <LinkTool {...labels.linkTool} />
+      <CodeQuoteTool labels={labels.codequoteTool} />
+      <TextAlignTool labels={labels.textAlignTool} />
+      <ScriptsTool labels={labels.scriptsTool} />
     </TextEditor>
   );
 };
