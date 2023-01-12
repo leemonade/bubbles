@@ -96,7 +96,6 @@ const BubbleMenu = ({ ...props }) => {
                     size="sm"
                     defaultValue="auto"
                     data={getData()}
-                    zIndex={9999}
                     onChange={getOnChangeHandler}
                   />
                 )}
