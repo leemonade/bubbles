@@ -39,6 +39,7 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
         type: null,
         data: {},
         editing: false,
+        toolBubbleMenu: currentTool.toolBubbleMenu,
       });
       setToolModalOpen(false);
     },

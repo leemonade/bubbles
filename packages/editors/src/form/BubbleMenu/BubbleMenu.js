@@ -87,13 +87,13 @@ const BubbleMenu = ({ ...props }) => {
             <Paper padding={1} shadow="level100" className={classes.root}>
               <Stack spacing={2}>
                 <IconButton
-                  size="xs"
+                  size="sm"
                   icon={<EditWriteIcon height={20} width={20} />}
                   onClick={editHandler}
                 />
                 {showSizeSelect() && (
                   <Select
-                    size="xs"
+                    size="sm"
                     defaultValue="auto"
                     data={getData()}
                     zIndex={9999}
@@ -101,7 +101,7 @@ const BubbleMenu = ({ ...props }) => {
                   />
                 )}
                 <IconButton
-                  size="xs"
+                  size="sm"
                   icon={<DeleteBinIcon height={20} width={20} />}
                   onClick={removeHandler}
                 />

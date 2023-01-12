@@ -15,7 +15,7 @@ export {
   List,
   Collapse,
   Progress,
-  ScrollArea
+  ScrollArea,
 } from '@mantine/core';
 export {
   useId,
@@ -29,7 +29,7 @@ export {
   useHotkeys,
   useHover,
   useWindowScroll,
-  useIdle
+  useIdle,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
@@ -37,7 +37,8 @@ export {
   getFontProductive,
   pxToRem,
   getPaddings,
-  getHtmlStyles
+  getHtmlStyles,
+  getBoxShadowFromToken,
 } from './theme.mixins';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';

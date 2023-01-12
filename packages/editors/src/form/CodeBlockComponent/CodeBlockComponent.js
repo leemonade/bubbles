@@ -104,9 +104,9 @@ export const CodeBlockComponent = ({ ...props }) => {
           }}
         >
           <Stack spacing={2}>
-            <IconButton size="xs" icon={<EditWriteIcon height={20} width={20} />} />
+            <IconButton size="sm" icon={<EditWriteIcon height={20} width={20} />} />
             <Select
-              size="xs"
+              size="sm"
               defaultValue="auto"
               data={data}
               zIndex={9999}
@@ -121,7 +121,7 @@ export const CodeBlockComponent = ({ ...props }) => {
               onChange={onChangeHandler}
             />
             <IconButton
-              size="xs"
+              size="sm"
               icon={<DeleteBinIcon height={20} width={20} />}
               onClick={removeHandler}
             />
