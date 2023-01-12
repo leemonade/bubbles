@@ -43,8 +43,12 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
       styles={{ boxShadow: 'none', border: 'none' }}
     >
       <Dropdown>
-        {data.map((item) => (
-          <Item {...item} icon={renderIcon(item.icon)} />
+        {data.map((item, index) => (
+          <Item
+            key={item.id || `DropdownButton Item ${index}`}
+            {...item}
+            icon={renderIcon(item.icon)}
+          />
         ))}
       </Dropdown>
     </Popover>

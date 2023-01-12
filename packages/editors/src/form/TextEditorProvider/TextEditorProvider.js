@@ -15,7 +15,12 @@ export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
 
 const TextEditorProvider = ({ editor, children, readOnly }) => {
   const [toolModalOpen, setToolModalOpen] = useState(false);
-  const [currentTool, setCurrentTool] = useState({ type: null, data: {}, editing: false });
+  const [currentTool, setCurrentTool] = useState({
+    type: null,
+    data: {},
+    editing: false,
+    toolBubbleMenu: null,
+  });
 
   const value = {
     editor,
@@ -23,11 +28,19 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
     currentTool,
     toolModalOpen,
     editToolData: (type, data, editing = true) => {
-      setCurrentTool({ type, data, editing });
+      setCurrentTool({ type, data, editing, toolBubbleMenu: currentTool.toolBubbleMenu });
       setToolModalOpen(true);
     },
+    openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null) => {
+      setCurrentTool({ type, data, editing, toolBubbleMenu });
+    },
     closeToolModal: () => {
-      setCurrentTool({ type: null, data: {}, editing: false });
+      setCurrentTool({
+        type: null,
+        data: {},
+        editing: false,
+        toolBubbleMenu: currentTool.toolBubbleMenu,
+      });
       setToolModalOpen(false);
     },
   };

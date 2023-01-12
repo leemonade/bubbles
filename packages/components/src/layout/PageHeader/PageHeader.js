@@ -135,7 +135,7 @@ const PageHeader = ({
                       ? getErrorLabel('title', 'required', 'Required field')
                       : false,
                   }}
-                  render={({ field }) => (
+                  render={({ field: { ref, ...field } }) => (
                     <TitleTextInput
                       placeholder={getInputPlaceholder('title')}
                       error={errors?.title?.message}

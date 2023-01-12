@@ -35,7 +35,7 @@ const Template = ({ onChange, ...props }) => {
     <TextEditor
       {...props}
       onChange={(e) => {
-        console.log(e);
+        // console.log(e);
         onChange(e);
       }}
     >

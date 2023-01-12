@@ -80,33 +80,34 @@ const BubbleMenu = ({ ...props }) => {
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
-      tippyOptions={{ duration: 100, placement: 'bottom-start', zIndex: 1000 }}
+      tippyOptions={{ duration: 100, placement: 'bottom', zIndex: 1000 }}
     >
-      {!toolModalOpen ? (
-        <Paper padding={1} shadow="level100" className={classes.root}>
-          <Stack spacing={2}>
-            <IconButton
-              size="xs"
-              icon={<EditWriteIcon height={20} width={20} />}
-              onClick={editHandler}
-            />
-            {showSizeSelect() && (
-              <Select
-                size="xs"
-                defaultValue="auto"
-                data={getData()}
-                zIndex={9999}
-                onChange={getOnChangeHandler}
-              />
-            )}
-            <IconButton
-              size="xs"
-              icon={<DeleteBinIcon height={20} width={20} />}
-              onClick={removeHandler}
-            />
-          </Stack>
-        </Paper>
-      ) : null}
+      {!toolModalOpen
+        ? currentTool.toolBubbleMenu || (
+            <Paper padding={1} shadow="level100" className={classes.root}>
+              <Stack spacing={2}>
+                <IconButton
+                  size="sm"
+                  icon={<EditWriteIcon height={20} width={20} />}
+                  onClick={editHandler}
+                />
+                {showSizeSelect() && (
+                  <Select
+                    size="sm"
+                    defaultValue="auto"
+                    data={getData()}
+                    onChange={getOnChangeHandler}
+                  />
+                )}
+                <IconButton
+                  size="sm"
+                  icon={<DeleteBinIcon height={20} width={20} />}
+                  onClick={removeHandler}
+                />
+              </Stack>
+            </Paper>
+          )
+        : null}
     </BubbleMenuTipTap>
   );
 };
