@@ -184,6 +184,7 @@ export { default as SynchronizeArrowsSquareIcon } from './SynchronizeArrowsSquar
 export { default as SynchronizeArrowsWarningIcon } from './SynchronizeArrowsWarningIcon.js'
 export { default as SynchronizeArrowsIcon } from './SynchronizeArrowsIcon.js'
 export { default as TagsIcon } from './TagsIcon.js'
+export { default as TeammateIcon } from './TeammateIcon.js'
 export { default as TextFormatIcon } from './TextFormatIcon.js'
 export { default as TimeClockCircleIcon } from './TimeClockCircleIcon.js'
 export { default as TypeCursorInputIcon } from './TypeCursorInputIcon.js'

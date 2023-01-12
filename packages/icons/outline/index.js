@@ -184,6 +184,7 @@ module.exports.SynchronizeArrowsSquareIcon = require("./SynchronizeArrowsSquareI
 module.exports.SynchronizeArrowsWarningIcon = require("./SynchronizeArrowsWarningIcon.js")
 module.exports.SynchronizeArrowsIcon = require("./SynchronizeArrowsIcon.js")
 module.exports.TagsIcon = require("./TagsIcon.js")
+module.exports.TeammateIcon = require("./TeammateIcon.js")
 module.exports.TextFormatIcon = require("./TextFormatIcon.js")
 module.exports.TimeClockCircleIcon = require("./TimeClockCircleIcon.js")
 module.exports.TypeCursorInputIcon = require("./TypeCursorInputIcon.js")

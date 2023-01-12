@@ -4,7 +4,7 @@ import { Badge, Box, ImageLoader, Stack, Text, TextClamp } from '@bubbles-ui/com
 import { LibraryCardContentStyles } from './LibraryCardContent.styles';
 import {
   LIBRARY_CARD_CONTENT_DEFAULT_PROPS,
-  LIBRARY_CARD_CONTENT_PROP_TYPES,
+  LIBRARY_CARD_CONTENT_PROP_TYPES
 } from './LibraryCardContent.constants';
 
 const getAverageTime = (seconds) => {
@@ -23,20 +23,21 @@ const getDomain = (url) => {
 };
 
 const LibraryCardContent = ({
-  tagline,
-  description,
-  tags,
-  metadata,
-  locale,
-  variant,
-  assigment,
-  icon,
-  url,
-  truncated,
-  fullHeight,
-  role,
-  ...props
-}) => {
+                              tagline,
+                              description,
+                              tags,
+                              programName,
+                              metadata,
+                              locale,
+                              variant,
+                              assigment,
+                              icon,
+                              url,
+                              truncated,
+                              fullHeight,
+                              role,
+                              ...props
+                            }) => {
   const { classes, cx } = LibraryCardContentStyles({ fullHeight }, { name: 'LibraryCardContent' });
 
   const getBadgeSeverity = (completedOrGrade) => {
@@ -77,27 +78,27 @@ const LibraryCardContent = ({
         return (
           <Box className={classes.mainContainer}>
             {!isEmpty(assigment) ? (
-              <Stack direction="column" spacing={1} fullWidth>
+              <Stack direction='column' spacing={1} fullWidth>
                 {role === 'teacher' && (
                   <>
                     {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.subject || 'Subject'}
                         </Text>
-                        <Text size={'xs'} role="productive" weight={600}>
+                        <Text size={'xs'} role='productive' weight={600}>
                           {assigment.subject.name}
                         </Text>
                       </Stack>
                     )}
                     {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.submission)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.submission || 'Submission'}
                         </Text>
                         <Box>
                           {getBadge()}
-                          <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                          <Text size={'xs'} role='productive' style={{ marginLeft: 4 }}>
                             {`(${assigment.submission}/${assigment.total})`}
                           </Text>
                         </Box>
@@ -105,20 +106,20 @@ const LibraryCardContent = ({
                     )}
                     {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgTime)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.avgTime || 'Average Time'}
                         </Text>
-                        <Text size={'xs'} role="productive">
+                        <Text size={'xs'} role='productive'>
                           {getAverageTime(assigment.avgTime)}
                         </Text>
                       </Stack>
                     )}
                     {(isEmpty(assigment.labels) || !isEmpty(assigment.labels?.avgAttempts)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.avgAttempts || 'Average Attempts'}
                         </Text>
-                        <Text size={'xs'} role="productive">
+                        <Text size={'xs'} role='productive'>
                           {assigment.avgAttempts}
                         </Text>
                       </Stack>
@@ -129,17 +130,17 @@ const LibraryCardContent = ({
                   <>
                     {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.subject)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.subject || 'Subject'}
                         </Text>
-                        <Text size={'xs'} role="productive" weight={600}>
+                        <Text size={'xs'} role='productive' weight={600}>
                           {assigment.subject.name}
                         </Text>
                       </Stack>
                     )}
                     {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.grade)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.grade || 'Grade'}
                         </Text>
                         <Box>{getBadge()}</Box>
@@ -147,20 +148,20 @@ const LibraryCardContent = ({
                     )}
                     {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.score)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.score || 'Score'}
                         </Text>
-                        <Text size={'xs'} role="productive" style={{ marginLeft: 4 }}>
+                        <Text size={'xs'} role='productive' style={{ marginLeft: 4 }}>
                           {`${assigment.submission}/${assigment.total}`}
                         </Text>
                       </Stack>
                     )}
                     {(isEmpty(assigment?.labels) || !isEmpty(assigment.labels?.activityType)) && (
                       <Stack fullWidth>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {assigment.labels?.activityType || 'Activity type'}
                         </Text>
-                        <Text size={'xs'} role="productive">
+                        <Text size={'xs'} role='productive'>
                           {assigment.activityType}
                         </Text>
                       </Stack>
@@ -169,28 +170,28 @@ const LibraryCardContent = ({
                 )}
               </Stack>
             ) : (
-              <Stack direction="column" spacing={2} fullWidth>
+              <Stack direction='column' spacing={2} fullWidth>
                 {!isEmpty(tagline) && (
                   <TextClamp lines={truncated ? 2 : 10}>
-                    <Text role="productive" color="primary">
+                    <Text role='productive' color='primary'>
                       {tagline}
                     </Text>
                   </TextClamp>
                 )}
                 {!isEmpty(description) ? (
                   <TextClamp lines={truncated ? 3 : 20}>
-                    <Text size={'xs'} role="productive" className={classes.description}>
+                    <Text size={'xs'} role='productive' className={classes.description}>
                       {description}
                     </Text>
                   </TextClamp>
                 ) : (
-                  <Stack direction="column" spacing={1} fullWidth>
+                  <Stack direction='column' spacing={1} fullWidth>
                     {metadata.map(({ label, value }, index) => (
                       <Stack fullWidth key={`${label} ${value} ${index}`}>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {label}
                         </Text>
-                        <Text size={'xs'} role="productive" className={classes.value}>
+                        <Text size={'xs'} role='productive' className={classes.value}>
                           {value}
                         </Text>
                       </Stack>
@@ -205,35 +206,40 @@ const LibraryCardContent = ({
         return (
           <>
             <Box className={classes.mainContainer}>
-              <Stack direction="column" spacing={2} fullWidth>
+              <Stack direction='column' spacing={2} fullWidth>
                 {!isEmpty(tagline) && (
                   <TextClamp lines={truncated ? 2 : 10}>
-                    <Text role="productive" color="primary">
+                    <Text role='productive' color='primary'>
                       {tagline}
                     </Text>
                   </TextClamp>
                 )}
                 {!isEmpty(metadata) && (
                   <Box>
-                    <Text size={'xs'} role="productive" className={classes.label}>
+                    <Text size={'xs'} role='productive' className={classes.label}>
                       {metadata[0].value} - {metadata[1].value}
                     </Text>
                   </Box>
                 )}
                 {!isEmpty(description) && (
                   <TextClamp lines={truncated ? 3 : 20}>
-                    <Text size={'xs'} role="productive" className={classes.description}>
+                    <Text size={'xs'} role='productive' className={classes.description}>
                       {description}
                     </Text>
                   </TextClamp>
                 )}
               </Stack>
             </Box>
+            {programName ?
+              <Box className={classes.tagsContainer}>
+                <Badge label={programName} color={'stroke'} size='xs' closable={false}
+                       radius={'rounded'} />
+              </Box> : null}
             {tags?.length > 0 && (
               <Box className={classes.tagsContainer}>
                 {tags.map((tag, index) => (
                   <Box key={`${tag} ${index}`}>
-                    <Badge label={tag} size="xs" closable={false} radius={'default'} />
+                    <Badge label={tag} size='xs' closable={false} radius={'default'} />
                   </Box>
                 ))}
               </Box>
@@ -244,38 +250,38 @@ const LibraryCardContent = ({
         return (
           <>
             <Box className={classes.mainContainer}>
-              <Stack direction="column" spacing={2} fullWidth>
+              <Stack direction='column' spacing={2} fullWidth>
                 {variant === 'bookmark' && !isEmpty(url) && (
-                  <Stack spacing={2} alignItems="center">
+                  <Stack spacing={2} alignItems='center'>
                     {!isEmpty(icon) && (
                       <ImageLoader src={icon} width={20} height={20} radius={'4px'} />
                     )}
                     <Box>
-                      <Text size="xs">{getDomain(url)}</Text>
+                      <Text size='xs'>{getDomain(url)}</Text>
                     </Box>
                   </Stack>
                 )}
                 {!isEmpty(tagline) && (
                   <TextClamp lines={truncated ? 2 : 10}>
-                    <Text role="productive" color="primary">
+                    <Text role='productive' color='primary'>
                       {tagline}
                     </Text>
                   </TextClamp>
                 )}
                 {!isEmpty(description) ? (
                   <TextClamp lines={truncated ? 3 : 20}>
-                    <Text size={'xs'} role="productive" className={classes.description}>
+                    <Text size={'xs'} role='productive' className={classes.description}>
                       {description}
                     </Text>
                   </TextClamp>
                 ) : (
-                  <Stack direction="column" spacing={1} fullWidth>
+                  <Stack direction='column' spacing={1} fullWidth>
                     {metadata.map(({ label, value }, index) => (
                       <Stack fullWidth key={`${label} ${value} ${index}`}>
-                        <Text size={'xs'} role="productive" className={classes.label}>
+                        <Text size={'xs'} role='productive' className={classes.label}>
                           {label}
                         </Text>
-                        <Text size={'xs'} role="productive" className={classes.value}>
+                        <Text size={'xs'} role='productive' className={classes.value}>
                           {value}
                         </Text>
                       </Stack>
@@ -284,11 +290,16 @@ const LibraryCardContent = ({
                 )}
               </Stack>
             </Box>
+            {programName ?
+              <Box className={classes.tagsContainer}>
+                <Badge label={programName} color={'stroke'} size='xs' closable={false}
+                       radius={'rounded'} />
+              </Box> : null}
             {tags?.length > 0 && (
               <Box className={classes.tagsContainer}>
                 {tags.map((tag, index) => (
                   <Box key={`${tag} ${index}`}>
-                    <Badge label={tag} size="xs" closable={false} radius={'default'} />
+                    <Badge label={tag} size='xs' closable={false} radius={'default'} />
                   </Box>
                 ))}
               </Box>

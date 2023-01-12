@@ -9,17 +9,17 @@ export default {
   parameters: {
     component: AvatarsGroup,
     docs: {
-      page: mdx,
+      page: mdx
     },
     design: {
-      type: 'figma',
+      type: 'figma'
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
-    },
+    }
   },
   argTypes: {
     size: { options: AVATAR_SIZES, control: { type: 'select' } },
-    total: { control: { type: 'number' } },
-  },
+    total: { control: { type: 'number' } }
+  }
 };
 
 const Template = ({ ...props }) => {
@@ -30,11 +30,12 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...AVATARS_GROUP_DEFAULT_PROPS,
+  moreThanUsersAsMulti: 2,
   data: [
     { fullName: 'John Doe' },
     { fullName: 'Mary Jane' },
     { fullName: 'Peter Parker' },
     { fullName: 'Will Teacher' },
-    { fullName: 'Tony Stark' },
-  ],
+    { fullName: 'Tony Stark' }
+  ]
 };

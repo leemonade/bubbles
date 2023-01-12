@@ -40,6 +40,8 @@ const LibraryDetail = ({
     isFunction(events?.onToggle) && events.onToggle();
   };
 
+  console.log('asset 2', asset);
+
   return (
     <Box style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <Stack
@@ -92,7 +94,9 @@ const LibraryDetail = ({
               <Text role='productive' size='xs'>
                 {labels.sharedWith}
               </Text>
-              <AvatarsGroup size='xs' data={asset.canAccess} classesData={asset?.classesCanAccess}
+              <AvatarsGroup size='xs' data={asset.canAccess} numberFromClassesAndData
+                            moreThanUsersAsMulti={2}
+                            classesData={asset?.classesCanAccess}
                             limit={3} />
             </Stack>
           )}
