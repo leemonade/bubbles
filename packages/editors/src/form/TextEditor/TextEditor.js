@@ -114,6 +114,10 @@ const TextEditor = ({
     }
   }
 
+  function focusEditor() {
+    editor.chain().focus();
+  }
+
   useEffect(() => {
     document.addEventListener('click', updateIfOutside);
     return () => {
@@ -166,7 +170,11 @@ const TextEditor = ({
           </>
         )}
         <Box className={cx(classes.editorContainer, editorContainerClassname)}>
-          <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+          <EditorContent
+            editor={editor}
+            className={cx(classes.editor, editorClassname)}
+            onClick={focusEditor}
+          />
         </Box>
       </TextEditorProvider>
     </Box>
