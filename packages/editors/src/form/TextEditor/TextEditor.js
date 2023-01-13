@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
@@ -73,7 +73,21 @@ const TextEditor = ({
     store.current.content = newContent;
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
-    if (isFunction(onSchemaChange)) onSchemaChange(editor.getJSON());
+    if (isFunction(onSchemaChange)) onSchemaChange(getEditorJson());
+  };
+
+  const getEditorJson = () => {
+    const originalHTML = document.getElementsByClassName('ProseMirror')[0];
+    const htmlContent = originalHTML.getElementsByTagName('*');
+    const originalJSON = editor.getJSON();
+    const editorJSON = {
+      ...originalJSON,
+      content: originalJSON.content.map((element, index) => {
+        element.attrs = { ...element.attrs, index, html: htmlContent[index] };
+        return element;
+      }),
+    };
+    return editorJSON;
   };
 
   useEffect(() => {
