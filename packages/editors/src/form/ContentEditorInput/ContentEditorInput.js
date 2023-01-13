@@ -1,7 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
-import { Box, Text, TextClamp } from '@bubbles-ui/components';
-import { ArrowRightIcon } from '@bubbles-ui/icons/outline';
+import { Box } from '@bubbles-ui/components';
 import { TextEditor } from '../TextEditor';
 import {
   ColorTool,
@@ -17,6 +16,7 @@ import {
   CONTENT_EDITOR_INPUT_DEFAULT_PROPS,
   CONTENT_EDITOR_INPUT_PROP_TYPES,
 } from './ContentEditorInput.constants';
+import { Schema } from './Schema/Schema';
 
 const ContentEditorInput = ({
   error,
@@ -26,7 +26,8 @@ const ContentEditorInput = ({
   placeholder,
   toolbars,
   children,
-  labels,
+  toolLabels,
+  schemaLabel,
   openSchema,
   useSchema,
   editorStyles,
@@ -40,7 +41,7 @@ const ContentEditorInput = ({
   // STYLES
   const hasError = useMemo(() => !isEmpty(error), [error]);
   const { classes, cx } = ContentEditorInputStyles(
-    { isSchemaOpened, hasError, editorStyles },
+    { hasError, editorStyles },
     { name: 'ContentEditorInput' }
   );
 
@@ -51,42 +52,12 @@ const ContentEditorInput = ({
   return (
     <Box className={classes.root}>
       {useSchema && (
-        <Box className={classes.schemaContainer}>
-          <Box className={classes.schemaTranslate}>
-            <Box className={classes.schemaHeader}>
-              <Box className={classes.schemaLabel}>{labels.schema}</Box>
-              <ArrowRightIcon
-                className={classes.arrowIcon}
-                height={20}
-                width={20}
-                onClick={() => setIsSchemaOpened(!isSchemaOpened)}
-              />
-            </Box>
-            <Box className={classes.schema}>
-              {schema.map((element, index) => {
-                const level = element.attrs.level;
-
-                //If it is a paragraph, there is no content or a title lower than h2 we do not print it.
-                if (
-                  element.type === 'paragraph' ||
-                  !element.content ||
-                  (element.type === 'heading' && level > 2)
-                )
-                  return;
-
-                return (
-                  <Box key={index}>
-                    <TextClamp lines={1}>
-                      <Box className={classes[`${level === 1 ? 'title' : 'subtitle'}`]}>
-                        {element.content[0].text}
-                      </Box>
-                    </TextClamp>
-                  </Box>
-                );
-              })}
-            </Box>
-          </Box>
-        </Box>
+        <Schema
+          schema={schema}
+          schemaLabel={schemaLabel}
+          isSchemaOpened={isSchemaOpened}
+          setIsSchemaOpened={setIsSchemaOpened}
+        />
       )}
       <Box className={classes.textEditorContainer}>
         <TextEditor
@@ -99,13 +70,13 @@ const ContentEditorInput = ({
           toolbarClassname={classes.toolbarRoot}
           editorContainerClassname={classes.editorContainer}
         >
-          {toolbars.heading && <HeadingsTool label={labels.format} />}
-          {toolbars.color && <ColorTool />}
-          {toolbars.style && <TransformsTool />}
-          {toolbars.align && <TextAlignTool />}
-          {toolbars.list && <ListIndentTool />}
-          {toolbars.formulation && <ScriptsTool />}
-          {toolbars.link && <LinkTool />}
+          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
+          {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
+          {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
+          {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}
+          {toolbars.list && <ListIndentTool labels={toolLabels.listIndentTool} />}
+          {toolbars.formulation && <ScriptsTool labels={toolLabels.scriptsTool} />}
+          {toolbars.link && <LinkTool {...toolLabels.linkTool} />}
 
           {children}
         </TextEditor>

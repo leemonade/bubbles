@@ -80,10 +80,14 @@ const BubbleMenu = ({ ...props }) => {
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
-      tippyOptions={{ duration: 100, placement: 'bottom', zIndex: 1000 }}
+      tippyOptions={{ duration: 100, placement: 'bottom', zIndex: 10, maxWidth: 'none' }}
     >
       {!toolModalOpen
-        ? currentTool.toolBubbleMenu || (
+        ? (currentTool.toolBubbleMenu &&
+            React.cloneElement(currentTool.toolBubbleMenu, {
+              editHandler,
+              removeHandler,
+            })) || (
             <Paper padding={1} shadow="level100" className={classes.root}>
               <Stack spacing={2}>
                 <IconButton

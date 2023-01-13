@@ -20,6 +20,7 @@ import {
 const TextEditorInput = ({
   label,
   description,
+  toolLabels,
   help,
   error,
   required,
@@ -59,13 +60,13 @@ const TextEditorInput = ({
           onChange={onChange}
           editorClassname={cx(classes.editor, editorClassname)}
         >
-          {toolbars.heading && <HeadingsTool />}
-          {toolbars.color && <ColorTool />}
-          {toolbars.style && <TransformsTool />}
-          {toolbars.align && <TextAlignTool />}
-          {toolbars.list && <ListIndentTool />}
-          {toolbars.formulation && <ScriptsTool />}
-          {toolbars.link && <LinkTool />}
+          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
+          {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
+          {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
+          {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}
+          {toolbars.list && <ListIndentTool labels={toolLabels.listIndentTool} />}
+          {toolbars.formulation && <ScriptsTool labels={toolLabels.scriptsTool} />}
+          {toolbars.link && <LinkTool {...toolLabels.linkTool} />}
           {children}
         </TextEditor>
       </Box>

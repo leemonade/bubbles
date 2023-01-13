@@ -4,6 +4,7 @@ import { ContentEditorInput } from './ContentEditorInput';
 import { CONTENT_EDITOR_INPUT_DEFAULT_PROPS } from './ContentEditorInput.constants';
 import { TEXT_EDITOR_DEFAULT_TOOLBARS } from '../TextEditorInput/TextEditorInput.constants';
 import mdx from './ContentEditorInput.mdx';
+import { labels } from '../TextEditor/mock/data';
 
 export default {
   title: 'Organism/Form/ContentEditorInput',
@@ -54,8 +55,6 @@ Playground.args = {
   error: 'Descriptive text for error ',
   useJSON: true,
   toolbars: { ...TEXT_EDITOR_DEFAULT_TOOLBARS },
-  labels: {
-    format: 'Formato',
-    schema: 'Esquema',
-  },
+  toolLabels: labels,
+  schemaLabel: 'Esquema',
 };
