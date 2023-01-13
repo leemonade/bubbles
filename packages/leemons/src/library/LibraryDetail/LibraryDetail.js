@@ -40,8 +40,6 @@ const LibraryDetail = ({
     isFunction(events?.onToggle) && events.onToggle();
   };
 
-  console.log('asset 2', asset);
-
   return (
     <Box style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <Stack
