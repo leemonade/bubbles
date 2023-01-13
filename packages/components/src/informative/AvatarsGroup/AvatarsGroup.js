@@ -8,15 +8,15 @@ import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './Avatars
 import { HouseIcon, ModuleThreeIcon } from '@bubbles-ui/icons/outline';
 
 const AvatarsGroup = ({
-                        data,
-                        classesData,
-                        size,
-                        limit,
-                        total,
-                        moreThanUsersAsMulti,
-                        numberFromClassesAndData,
-                        ...props
-                      }) => {
+  data,
+  classesData,
+  size,
+  limit,
+  total,
+  moreThanUsersAsMulti,
+  numberFromClassesAndData,
+  ...props
+}) => {
   const { classes, cx, theme } = AvatarsGroupStyles({ size }, { name: 'AvatarsGroup' });
 
   const avatars = useMemo(() => {
@@ -37,13 +37,13 @@ const AvatarsGroup = ({
           }
         });
       } else {
-        avatars.push(...data.map(avatar => ({ ...avatar, type: 'avatar' })));
+        avatars.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));
       }
     }
 
     if (!isEmpty(classesData)) {
       if (classesData.length === 1) {
-        avatars.push(...classesData.map(avatar => ({ ...avatar, type: 'icon' })));
+        avatars.push(...classesData.map((avatar) => ({ ...avatar, type: 'icon' })));
       } else {
         avatars.push({ color: '#8E97A3', icon: <ModuleThreeIcon />, type: 'cus-icon' });
       }
@@ -70,19 +70,21 @@ const AvatarsGroup = ({
       if (data.length > 2) {
         n = data.length - 1;
       }
-      if (classesData.length > 1) {
+      if (classesData?.length > 1) {
         if (n) {
           n = null;
         } else {
-          n = classesData.length;
+          n = classesData?.length;
         }
       }
       if (n) {
-        n = <Box
-          sx={(theme) => ({ paddingLeft: theme.spacing[4], paddingTop: theme.spacing[1] })}><Text
-          role={'productive'}
-          color={'tertiary'}
-        >({n})</Text></Box>;
+        n = (
+          <Box sx={(theme) => ({ paddingLeft: theme.spacing[4], paddingTop: theme.spacing[1] })}>
+            <Text role={'productive'} color={'tertiary'}>
+              ({n})
+            </Text>
+          </Box>
+        );
       }
       return n;
     }
@@ -117,11 +119,11 @@ const AvatarsGroup = ({
                     backgroundColor: item.color,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center'
-                  }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }
+                    alignItems: 'center',
+                  },
+                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
                 }}
               />
-
             );
           }
 
@@ -137,12 +139,12 @@ const AvatarsGroup = ({
                     backgroundColor: item.color,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center'
-                  }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }
+                    alignItems: 'center',
+                  },
+                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
                 }}
                 alt={`Icon of ${item.fullName}`}
               />
-
             );
           }
         })}
