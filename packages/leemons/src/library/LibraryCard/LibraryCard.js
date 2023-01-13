@@ -37,8 +37,6 @@ const LibraryCard = ({
 
   const { classes, cx } = LibraryCardStyles({ shadow, fullHeight }, { name: 'LibraryCard' });
 
-  console.log('asset', asset);
-
   return (
     <Box
       className={cx(classes.root, props.className)}

@@ -11,13 +11,18 @@ const AvatarsGroup = ({
                         data,
                         classesData,
                         size,
+                        customAvatarMargin,
+                        zIndexInverted,
                         limit,
                         total,
                         moreThanUsersAsMulti,
                         numberFromClassesAndData,
                         ...props
                       }) => {
-  const { classes, cx, theme } = AvatarsGroupStyles({ size }, { name: 'AvatarsGroup' });
+  const { classes, cx, theme } = AvatarsGroupStyles({
+    size,
+    customAvatarMargin
+  }, { name: 'AvatarsGroup' });
 
   const avatars = useMemo(() => {
     const avatars = [];
@@ -70,7 +75,7 @@ const AvatarsGroup = ({
       if (data.length > 2) {
         n = data.length - 1;
       }
-      if (classesData.length > 1) {
+      if (classesData && classesData.length > 1) {
         if (n) {
           n = null;
         } else {
@@ -100,6 +105,11 @@ const AvatarsGroup = ({
                 fullName={item.fullName}
                 image={item.avatar}
                 size={size}
+                styles={{
+                  root: {
+                    zIndex: zIndexInverted ? 50 - index : index
+                  }
+                }}
                 alt={`Avatar of ${item.fullName}`}
               />
             );
@@ -116,6 +126,7 @@ const AvatarsGroup = ({
                   root: {
                     backgroundColor: item.color,
                     display: 'flex',
+                    zIndex: zIndexInverted ? 50 - index : index,
                     justifyContent: 'center',
                     alignItems: 'center'
                   }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }
@@ -136,6 +147,7 @@ const AvatarsGroup = ({
                   root: {
                     backgroundColor: item.color,
                     display: 'flex',
+                    zIndex: zIndexInverted ? 50 - index : index,
                     justifyContent: 'center',
                     alignItems: 'center'
                   }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }

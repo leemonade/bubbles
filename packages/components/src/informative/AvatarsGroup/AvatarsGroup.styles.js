@@ -1,39 +1,46 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 function getOverlap(theme, size) {
   return {
     xs: {
       marginLeft: pxToRem(-theme.spacing[3]),
-      transform: `translateX(${pxToRem(theme.spacing[3])})`,
+      transform: `translateX(${pxToRem(theme.spacing[3])})`
     },
     sm: {
       marginLeft: pxToRem(-theme.spacing[4]),
-      transform: `translateX(${pxToRem(theme.spacing[4])})`,
+      transform: `translateX(${pxToRem(theme.spacing[4])})`
     },
     md: {
       marginLeft: pxToRem(-theme.spacing[5]),
-      transform: `translateX(${pxToRem(theme.spacing[5])})`,
+      transform: `translateX(${pxToRem(theme.spacing[5])})`
     },
     lg: {
       marginLeft: pxToRem(-theme.spacing[6]),
-      transform: `translateX(${pxToRem(theme.spacing[6])})`,
-    },
+      transform: `translateX(${pxToRem(theme.spacing[6])})`
+    }
   }[size];
 }
 
-export const AvatarsGroupStyles = createStyles((theme, { size }) => {
+export const AvatarsGroupStyles = createStyles((theme, { size, customAvatarMargin }) => {
+  let overlap = getOverlap(theme, size);
+  if (customAvatarMargin) {
+    overlap = {
+      marginLeft: pxToRem(-customAvatarMargin),
+      transform: `translateX(${pxToRem(customAvatarMargin)})`
+    };
+  }
   return {
     root: {
       display: 'flex',
 
       '.mantine-Avatar-root': {
-        ...getOverlap(theme, size),
-        border: `1px solid ${theme.colors.ui03}`,
-      },
+        ...overlap,
+        border: `1px solid ${theme.colors.ui03}`
+      }
     },
     overflow: {
-      fontSize: '12px !important',
-    },
+      fontSize: '12px !important'
+    }
   };
 });

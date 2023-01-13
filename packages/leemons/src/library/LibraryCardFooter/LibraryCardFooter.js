@@ -83,7 +83,9 @@ const LibraryCardFooter = ({
           ) : <Box sx={(theme) => ({ paddingRight: theme.spacing[2] })}>
             <AvatarsGroup size='xs' data={canAccess} moreThanUsersAsMulti={2}
                           classesData={classesCanAccess}
+                          zIndexInverted
                           numberFromClassesAndData
+                          customAvatarMargin={4}
                           limit={3} />
           </Box>}
         </>

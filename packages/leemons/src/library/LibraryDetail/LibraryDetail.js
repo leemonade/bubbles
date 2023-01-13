@@ -96,6 +96,8 @@ const LibraryDetail = ({
               </Text>
               <AvatarsGroup size='xs' data={asset.canAccess} numberFromClassesAndData
                             moreThanUsersAsMulti={2}
+                            customAvatarMargin={4}
+                            zIndexInverted
                             classesData={asset?.classesCanAccess}
                             limit={3} />
             </Stack>
