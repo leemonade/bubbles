@@ -80,7 +80,7 @@ const MultiSelect = forwardRef(
         const selectedValue = ev?.pop();
         onChange(selectedValue ? [selectedValue] : undefined);
         multiSelectRef.current.blur();
-        multiSelectRef.current.focus();
+        // multiSelectRef.current.focus();
         return;
       }
       if (isFunction(onChange)) {
