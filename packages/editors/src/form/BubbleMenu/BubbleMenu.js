@@ -80,7 +80,13 @@ const BubbleMenu = ({ ...props }) => {
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
-      tippyOptions={{ duration: 100, placement: 'bottom', zIndex: 10, maxWidth: 'none' }}
+      tippyOptions={{
+        duration: 100,
+        placement: 'bottom',
+        zIndex: 10,
+        maxWidth: 'none',
+        ...currentTool.bubbleMenuOptions,
+      }}
     >
       {!toolModalOpen
         ? (currentTool.toolBubbleMenu &&
