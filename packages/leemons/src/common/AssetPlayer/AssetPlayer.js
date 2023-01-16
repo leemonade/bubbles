@@ -51,6 +51,7 @@ const AssetPlayer = ({
   onSeek,
   onEnded,
   onError,
+  readOnly,
   ...props
 }) => {
   const { name, cover, url, fileType, metadata } = asset;
@@ -193,7 +194,7 @@ const AssetPlayer = ({
         {!media.isPlayable ? (
           <>
             {media.isImage ? (
-              <ModalZoom>
+              <ModalZoom readOnly={readOnly}>
                 <ImageLoader height="auto" src={cover} alt={name} />
               </ModalZoom>
             ) : media.isURL ? (
