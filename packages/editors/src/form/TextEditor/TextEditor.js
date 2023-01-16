@@ -24,6 +24,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
   toolbarClassname: PropTypes.string,
   editorContainerClassname: PropTypes.string,
   useJSON: PropTypes.bool,
+  acceptedTags: PropTypes.arrayOf(PropTypes.string),
 };
 
 const TextEditor = ({
@@ -37,9 +38,11 @@ const TextEditor = ({
   placeholder,
   readOnly,
   useJSON,
+  acceptedTags = [],
 }) => {
   const store = React.useRef({
     isFocus: false,
+    acceptedTags: acceptedTags.join('|'),
   });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
@@ -64,7 +67,11 @@ const TextEditor = ({
     let newContent = useJSON ? editor.getJSON() : editor.getHTML();
 
     if (!useJSON) {
-      const match = newContent.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
+      const matchString = `<(?:h[1-6]|p${'|' + store.current.acceptedTags}).+>(.+?)<\/(?:h[1-6]|p${
+        '|' + store.current.acceptedTags
+      })>`;
+
+      const match = newContent.match(new RegExp(matchString));
       if (!Boolean(match) || (isObject(match) && match[1] === '')) {
         newContent = null;
       }

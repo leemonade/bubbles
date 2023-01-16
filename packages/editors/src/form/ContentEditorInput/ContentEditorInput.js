@@ -32,6 +32,7 @@ const ContentEditorInput = ({
   useSchema,
   editorStyles,
   editorClassname,
+  acceptedTags,
   ...props
 }) => {
   const [schema, setSchema] = useState([]);
@@ -69,6 +70,7 @@ const ContentEditorInput = ({
           editorClassname={cx(classes.editor, editorClassname)}
           toolbarClassname={classes.toolbarRoot}
           editorContainerClassname={classes.editorContainer}
+          acceptedTags={acceptedTags}
         >
           {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
           {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
