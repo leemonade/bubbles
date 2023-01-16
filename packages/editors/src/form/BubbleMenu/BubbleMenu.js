@@ -10,7 +10,8 @@ export const BUBBLEMENU_DEFAULT_PROPS = {};
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
-  const { editor, currentTool, toolModalOpen, editToolData } = useContext(TextEditorContext);
+  const { editor, currentTool, toolModalOpen, closeToolModal, editToolData } =
+    useContext(TextEditorContext);
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
@@ -29,10 +30,12 @@ const BubbleMenu = ({ ...props }) => {
   const removeHandler = () => {
     if (editor.isActive('library')) {
       editor?.chain().focus().unsetLibrary().run();
+      closeToolModal();
       return;
     }
     if (editor.isActive('link')) {
       editor?.chain().focus().unsetLink().run();
+      closeToolModal();
       return;
     }
   };
@@ -76,12 +79,15 @@ const BubbleMenu = ({ ...props }) => {
 
   const { classes, cx } = BubbleMenuStyles({});
 
+  console.log('BubbleMenu options', currentTool.bubbleMenuOptions);
+
   return (
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
       tippyOptions={{
-        duration: 100,
+        duration: 150,
+        delay: [50, 0],
         placement: 'bottom',
         zIndex: 10,
         maxWidth: 'none',

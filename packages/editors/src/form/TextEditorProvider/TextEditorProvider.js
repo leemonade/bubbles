@@ -29,27 +29,36 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
     currentTool,
     toolModalOpen,
     editToolData: (type, data, editing = true) => {
-      setCurrentTool({
+      setCurrentTool((prevTool) => ({
         type,
         data,
         editing,
-        toolBubbleMenu: currentTool.toolBubbleMenu,
-        bubbleMenuOptions: currentTool.bubbleMenuOptions,
-      });
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
+      }));
       setToolModalOpen(true);
+    },
+    closeToolModal: () => {
+      setCurrentTool((prevTool) => ({
+        type: null,
+        data: {},
+        editing: false,
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
+      }));
+      setToolModalOpen(false);
     },
     openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null, bubbleMenuOptions = {}) => {
       setCurrentTool({ type, data, editing, toolBubbleMenu, bubbleMenuOptions });
     },
-    closeToolModal: () => {
-      setCurrentTool((prevCurrentTool) => ({
+    closeBubbleMenu: () => {
+      setCurrentTool({
         type: null,
         data: {},
         editing: false,
-        toolBubbleMenu: prevCurrentTool.toolBubbleMenu,
-        bubbleMenuOptions: prevCurrentTool.bubbleMenuOptions,
-      }));
-      setToolModalOpen(false);
+        toolBubbleMenu: null,
+        bubbleMenuOptions: null,
+      });
     },
   };
 

@@ -86,6 +86,7 @@ const TextEditor = ({
 
   const getEditorJson = () => {
     const originalHTML = document.getElementsByClassName('ProseMirror')[0];
+    if (!originalHTML) return {};
     const htmlContent = originalHTML.getElementsByTagName('*');
     const originalJSON = editor.getJSON();
     const editorJSON = {
