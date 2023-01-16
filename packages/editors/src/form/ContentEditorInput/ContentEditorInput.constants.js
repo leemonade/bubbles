@@ -19,6 +19,7 @@ export const CONTENT_EDITOR_INPUT_PROP_TYPES = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,
   children: PropTypes.element,
+  acceptedTags: PropTypes.arrayOf(PropTypes.string),
   toolLabels: PropTypes.shape({
     format: PropTypes.string,
     schema: PropTypes.string,

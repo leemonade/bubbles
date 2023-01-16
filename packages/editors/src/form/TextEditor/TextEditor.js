@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
@@ -24,6 +24,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
   toolbarClassname: PropTypes.string,
   editorContainerClassname: PropTypes.string,
   useJSON: PropTypes.bool,
+  acceptedTags: PropTypes.arrayOf(PropTypes.string),
 };
 
 const TextEditor = ({
@@ -37,9 +38,11 @@ const TextEditor = ({
   placeholder,
   readOnly,
   useJSON,
+  acceptedTags = [],
 }) => {
   const store = React.useRef({
     isFocus: false,
+    acceptedTags: acceptedTags.join('|'),
   });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
@@ -61,19 +64,38 @@ const TextEditor = ({
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    let newContent = useJSON ? editor.getJSON() : editor.getHTML();
+    let newContent = editor.getHTML();
 
-    if (!useJSON) {
-      const match = newContent.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
-      if (!Boolean(match) || (isObject(match) && match[1] === '')) {
-        newContent = null;
-      }
-    }
+    // const matchString = `<(?:h[1-6]|p${'|' + store.current.acceptedTags}).+>(.*?)<\/(?:h[1-6]|p${
+    //   '|' + store.current.acceptedTags
+    // })>`;
+
+    // const match = newContent.match(new RegExp(matchString));
+    // // console.log('match', match, new RegExp(matchString));
+    // if (!Boolean(match) || (isObject(match) && match[1] === '')) {
+    //   newContent = null;
+    // }
 
     store.current.content = newContent;
 
+    // console.log('content', store.current.content);
+
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
-    if (isFunction(onSchemaChange)) onSchemaChange(editor.getJSON());
+    if (isFunction(onSchemaChange)) onSchemaChange(getEditorJson());
+  };
+
+  const getEditorJson = () => {
+    const originalHTML = document.getElementsByClassName('ProseMirror')[0];
+    const htmlContent = originalHTML.getElementsByTagName('*');
+    const originalJSON = editor.getJSON();
+    const editorJSON = {
+      ...originalJSON,
+      content: originalJSON.content.map((element, index) => {
+        element.attrs = { ...element.attrs, index, html: htmlContent[index] };
+        return element;
+      }),
+    };
+    return editorJSON;
   };
 
   useEffect(() => {
