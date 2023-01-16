@@ -64,20 +64,21 @@ const TextEditor = ({
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    let newContent = useJSON ? editor.getJSON() : editor.getHTML();
+    let newContent = editor.getHTML();
 
-    if (!useJSON) {
-      const matchString = `<(?:h[1-6]|p${'|' + store.current.acceptedTags}).+>(.+?)<\/(?:h[1-6]|p${
-        '|' + store.current.acceptedTags
-      })>`;
+    // const matchString = `<(?:h[1-6]|p${'|' + store.current.acceptedTags}).+>(.*?)<\/(?:h[1-6]|p${
+    //   '|' + store.current.acceptedTags
+    // })>`;
 
-      const match = newContent.match(new RegExp(matchString));
-      if (!Boolean(match) || (isObject(match) && match[1] === '')) {
-        newContent = null;
-      }
-    }
+    // const match = newContent.match(new RegExp(matchString));
+    // // console.log('match', match, new RegExp(matchString));
+    // if (!Boolean(match) || (isObject(match) && match[1] === '')) {
+    //   newContent = null;
+    // }
 
     store.current.content = newContent;
+
+    // console.log('content', store.current.content);
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
     if (isFunction(onSchemaChange)) onSchemaChange(getEditorJson());
