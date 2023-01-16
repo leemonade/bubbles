@@ -90,7 +90,7 @@ const LibraryDetail = ({
           {!asset.public && (!isEmpty(asset?.canAccess) || !isEmpty(asset?.classesCanAccess)) && (
             <Stack direction='column' spacing={2} padding={4}>
               <Text role='productive' size='xs'>
-                {labels.sharedWith}
+                {asset.isPrivate ? labels.privated : labels.sharedWith}
               </Text>
               <AvatarsGroup size='xs' data={asset.canAccess} numberFromClassesAndData
                             moreThanUsersAsMulti={2}
