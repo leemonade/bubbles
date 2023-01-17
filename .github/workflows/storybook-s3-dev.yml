@@ -2,7 +2,7 @@ name: Build and Deploy to S3
 on:
   push:
     branches:
-      - develop
+      - bb2-status
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,6 +23,6 @@ jobs:
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
+          aws_bucket: 'bb2-dev.leemons.io'
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
