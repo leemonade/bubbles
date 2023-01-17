@@ -10,7 +10,7 @@ import { Button } from '../../form';
 import { Paragraph } from '../../typography';
 
 export default {
-  title: 'Atoms/Layout/VerticalStepperContainer',
+  title: 'BB1/VerticalStepperContainer',
   parameters: {
     component: VerticalStepperContainer,
     docs: {

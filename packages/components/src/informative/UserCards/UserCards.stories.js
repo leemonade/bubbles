@@ -9,7 +9,7 @@ import {
 import mdx from './UserCards.mdx';
 
 export default {
-  title: 'Organisms/Informative/UserCards',
+  title: 'BB1/UserCards',
   parameters: {
     component: UserCards,
     docs: {

@@ -4,7 +4,7 @@ import { InputError } from './InputError';
 import mdx from './InputError.mdx';
 
 export default {
-  title: 'Atoms/Form/InputError',
+  title: 'BB1/InputError',
   parameters: {
     component: InputError,
     docs: {

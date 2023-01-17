@@ -4,7 +4,7 @@ import { Calendar, CALENDAR_DEFAULT_PROPS, CALENDAR_LEVELS, CALENDAR_FIRST_DAYS 
 import mdx from './Calendar.mdx';
 
 export default {
-  title: 'Molecules/Dates/Calendar',
+  title: 'BB2/Calendar',
   parameters: {
     component: Calendar,
     docs: {

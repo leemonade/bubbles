@@ -5,7 +5,7 @@ import mdx from './ActivityAnswersBar.mdx';
 import { DATA, SELECTABLES } from './mock/data';
 
 export default {
-  title: 'Organisms/Informative/ActivityAnswersBar',
+  title: 'BB1/ActivityAnswersBar',
   parameters: {
     component: ActivityAnswersBar,
     docs: {

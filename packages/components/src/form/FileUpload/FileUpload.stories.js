@@ -6,7 +6,7 @@ import { MIME_TYPES } from '@mantine/dropzone';
 import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 
 export default {
-  title: 'Molecules/Form/FileUpload',
+  title: 'BB1/FileUpload',
   parameters: {
     component: FileUpload,
     docs: {

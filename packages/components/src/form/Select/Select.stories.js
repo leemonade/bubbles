@@ -7,7 +7,7 @@ import { SELECT_ORIENTATIONS, SELECT_SIZES, SELECT_VARIANTS } from './Select.con
 import mdx from './Select.mdx';
 
 export default {
-  title: 'Molecules/Form/Select',
+  title: 'BB1/Select',
   parameters: {
     component: Select,
     docs: {

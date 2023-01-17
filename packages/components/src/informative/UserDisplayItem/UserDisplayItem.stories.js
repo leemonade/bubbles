@@ -13,7 +13,7 @@ import { AVATAR_STATE } from '../Avatar/Avatar.constants';
 import mdx from './UserDisplayItem.mdx';
 
 export default {
-  title: 'Molecules/Informative/UserDisplayItem',
+  title: 'BB1/UserDisplayItem',
   parameters: {
     component: UserDisplayItem,
     docs: {

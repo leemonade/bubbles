@@ -4,7 +4,7 @@ import { AutocompleteBadge, AUTOCOMPLETEBADGE_DEFAULT_PROPS } from './Autocomple
 import mdx from './AutocompleteBadge.mdx';
 
 export default {
-  title: 'Organisms/Form/AutocompleteBadge',
+  title: 'BB1/AutocompleteBadge',
   parameters: {
     component: AutocompleteBadge,
     docs: {

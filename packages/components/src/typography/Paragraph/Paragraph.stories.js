@@ -10,7 +10,7 @@ import {
 import mdx from './Paragraph.mdx';
 
 export default {
-  title: 'Atoms/Typography/Paragraph',
+  title: 'BB1/Paragraph',
   parameters: {
     component: Paragraph,
     docs: {

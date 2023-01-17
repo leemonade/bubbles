@@ -10,7 +10,7 @@ import { Stack } from '../Stack';
 import mdx from './ContextContainer.mdx';
 
 export default {
-  title: 'Atoms/Layout/ContextContainer',
+  title: 'BB1/ContextContainer',
   parameters: {
     component: ContextContainer,
     docs: {

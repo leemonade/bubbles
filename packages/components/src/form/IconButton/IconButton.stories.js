@@ -10,7 +10,7 @@ import {
 import mdx from './IconButton.mdx';
 
 export default {
-  title: 'Atoms/Form/IconButton',
+  title: 'BB1/IconButton',
   parameters: {
     component: IconButton,
     docs: {

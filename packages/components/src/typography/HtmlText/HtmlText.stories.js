@@ -5,7 +5,7 @@ import { HTML_TEXT_DEFAULT_PROPS } from './HtmlText.constants';
 import mdx from './HtmlText.mdx';
 
 export default {
-  title: 'Atoms/Typography/HtmlText',
+  title: 'BB1/HtmlText',
   parameters: {
     component: HtmlText,
     docs: {

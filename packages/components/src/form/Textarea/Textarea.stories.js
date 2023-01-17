@@ -9,7 +9,7 @@ import {
 import mdx from './Textarea.mdx';
 
 export default {
-  title: 'Molecules/Form/Textarea',
+  title: 'BB1/Textarea',
   parameters: {
     component: Textarea,
     docs: {

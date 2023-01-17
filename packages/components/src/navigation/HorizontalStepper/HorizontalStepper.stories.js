@@ -6,7 +6,7 @@ import { DATA } from './mock/data';
 import mdx from './HorizontalStepper.mdx';
 
 export default {
-  title: 'Organisms/Navigation/HorizontalStepper',
+  title: 'BB1/HorizontalStepper',
   parameters: {
     component: HorizontalStepper,
     docs: {

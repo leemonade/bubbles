@@ -5,7 +5,7 @@ import { StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid/';
 import { Stack } from '../../layout/Stack';
 
 export default {
-  title: 'Atoms/Navigation/Menu',
+  title: 'BB1/Menu',
   parameters: {
     component: Menu,
     docs: {

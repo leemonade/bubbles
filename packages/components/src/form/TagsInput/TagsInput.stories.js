@@ -4,7 +4,7 @@ import { TAGS_INPUT_DEFAULT_PROPS } from './TagsInput.constants';
 import mdx from './TagsInput.mdx';
 
 export default {
-  title: 'Organisms/Form/TagsInput',
+  title: 'BB1/TagsInput',
   parameters: {
     component: TagsInput,
     docs: {

@@ -4,7 +4,7 @@ import mdx from './SubNav.mdx';
 import { MENU_DATA } from '../MainNav/mocks/menu';
 
 export default {
-  title: 'Organisms/Navigation/SubNav',
+  title: 'BB1/SubNav',
   parameters: {
     component: SubNav,
     docs: {

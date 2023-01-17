@@ -9,7 +9,7 @@ import {
 import mdx from './ActionButton.mdx';
 
 export default {
-  title: 'Atoms/Form/ActionButton',
+  title: 'BB2/ActionButton',
   parameters: {
     component: ActionButton,
     docs: {

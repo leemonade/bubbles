@@ -7,7 +7,7 @@ import { ColorPicker, COLOR_PICKER_DEFAULT_PROPS, COLOR_PICKER_FORMATS } from '.
 import mdx from './ColorPicker.mdx';
 
 export default {
-  title: 'Molecules/Form/ColorPicker',
+  title: 'BB1/ColorPicker',
   parameters: {
     component: ColorPicker,
     docs: {

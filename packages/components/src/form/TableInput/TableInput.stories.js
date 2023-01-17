@@ -7,7 +7,7 @@ import { ContextContainer } from '../../layout/ContextContainer';
 import mdx from './TableInput.mdx';
 
 export default {
-  title: 'Organisms/Form/TableInput',
+  title: 'BB1/TableInput',
   parameters: {
     component: TableInput,
     docs: {

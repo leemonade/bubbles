@@ -3,7 +3,7 @@ import { Drawer, DRAWER_DEFAULT_PROPS } from './Drawer';
 import mdx from './Drawer.mdx';
 
 export default {
-  title: 'Molecules/Overlay/Drawer',
+  title: 'BB1/Drawer',
   parameters: {
     component: Drawer,
     docs: {

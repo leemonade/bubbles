@@ -6,7 +6,7 @@ import { RADIO_HELP_POSITIONS, RADIO_VARIANTS } from './Radio';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
-  title: 'Atoms/Form/Radio',
+  title: 'BB1/Radio',
   parameters: {
     component: Radio,
     docs: {

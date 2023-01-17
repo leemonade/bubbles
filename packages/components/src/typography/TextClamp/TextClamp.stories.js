@@ -6,7 +6,7 @@ import { TextClamp, TEXT_CLAMP_DEFAULT_PROPS } from './TextClamp';
 import mdx from './TextClamp.mdx';
 
 export default {
-  title: 'Atoms/Typography/TextClamp',
+  title: 'BB1/TextClamp',
   parameters: {
     component: TextClamp,
     docs: {

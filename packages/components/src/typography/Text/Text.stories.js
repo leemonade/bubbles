@@ -5,7 +5,7 @@ import { Text, TEXT_COLORS, TEXT_DEFAULT_PROPS, TEXT_SIZES, TEXT_TRANSFORMS } fr
 import mdx from './Text.mdx';
 
 export default {
-  title: 'Atoms/Typography/Text',
+  title: 'BB1/Text',
   parameters: {
     component: Text,
     docs: {

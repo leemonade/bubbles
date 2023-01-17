@@ -4,7 +4,7 @@ import { Pager, PAGER_DEFAULT_PROPS, PAGER_DIRECTIONS, PAGER_VARIANTS } from './
 import mdx from './Pager.mdx';
 
 export default {
-  title: 'Molecules/Navigation/Pager',
+  title: 'BB1/Pager',
   parameters: {
     component: Pager,
     docs: {

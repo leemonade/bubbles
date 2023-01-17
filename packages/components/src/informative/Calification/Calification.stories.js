@@ -5,7 +5,7 @@ import { CALIFICATION_DEFAULT_PROPS, CALIFICATION_ORIENTATIONS } from './Calific
 import mdx from './Calification.mdx';
 
 export default {
-  title: 'Atoms/Informative/Calification',
+  title: 'BB1/Calification',
   parameters: {
     component: Calification,
     docs: {

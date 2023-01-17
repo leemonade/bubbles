@@ -4,7 +4,7 @@ import { MODAL_ZOOM_DEFAULT_PROPS } from './ModalZoom.constants';
 import mdx from './ModalZoom.mdx';
 
 export default {
-  title: 'Atoms/Overlay/ModalZoom',
+  title: 'BB1/ModalZoom',
   parameters: {
     component: ModalZoom,
     docs: {

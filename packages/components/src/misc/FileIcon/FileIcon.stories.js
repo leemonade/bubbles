@@ -3,7 +3,7 @@ import { FileIcon, FILE_ICON_DEFAULT_PROPS, FileTypeIcon } from './FileIcon';
 import mdx from './FileIcon.mdx';
 
 export default {
-  title: 'Atoms/Misc/FileIcon',
+  title: 'BB1/FileIcon',
   parameters: {
     component: FileIcon,
     docs: {

@@ -9,7 +9,7 @@ import {
 } from '../BooleanInput';
 
 export default {
-  title: 'Atoms/Form/Checkbox',
+  title: 'BB1/Checkbox',
   parameters: {
     component: Checkbox,
     docs: {

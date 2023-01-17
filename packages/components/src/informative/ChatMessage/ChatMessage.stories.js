@@ -4,7 +4,7 @@ import { CHAT_MESSAGE_DEFAULT_PROPS } from './ChatMessage.constants';
 import mdx from './ChatMessage.mdx';
 
 export default {
-  title: 'Atoms/Informative/ChatMessage',
+  title: 'BB1/ChatMessage',
   parameters: {
     component: ChatMessage,
     docs: {

@@ -6,7 +6,7 @@ import { DATE_PICKER_DEFAULT_PROPS, DATE_PICKER_ORIENTATIONS, DatePicker } from 
 import mdx from './DatePicker.mdx';
 
 export default {
-  title: 'Molecules/Form/DatePicker',
+  title: 'BB1/DatePicker',
   parameters: {
     component: DatePicker,
     docs: {

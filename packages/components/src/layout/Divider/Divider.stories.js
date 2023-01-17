@@ -6,7 +6,7 @@ import { Divider, DIVIDER_DEFAULT_PROPS, DIVIDER_ORIENTATIONS } from './Divider'
 import mdx from './Divider.mdx';
 
 export default {
-  title: 'Atoms/Layout/Divider',
+  title: 'BB2/Divider',
   parameters: {
     component: Divider,
     docs: {

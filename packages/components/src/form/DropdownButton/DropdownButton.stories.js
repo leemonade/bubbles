@@ -5,7 +5,7 @@ import { DROPDOWN_BUTTON_DEFAULT_PROPS } from './DropdownButton.constants';
 import mdx from './DropdownButton.mdx';
 
 export default {
-  title: 'Atoms/Form/DropdownButton',
+  title: 'BB2/DropdownButton',
   parameters: {
     component: DropdownButton,
     docs: {

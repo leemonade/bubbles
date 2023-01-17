@@ -5,7 +5,7 @@ import mdx from './MainNav.mdx';
 import { MENU_DATA } from './mocks/menu';
 
 export default {
-  title: 'Organisms/Navigation/MainNav',
+  title: 'BB1/MainNav',
   parameters: {
     component: MainNav,
     docs: {

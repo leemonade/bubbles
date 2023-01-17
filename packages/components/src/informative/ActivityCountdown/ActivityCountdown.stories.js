@@ -4,7 +4,7 @@ import { ACTIVITY_COUNTDOWN_DEFAULT_PROPS } from './ActivityCountdown.constants'
 import mdx from './ActivityCountdown.mdx';
 
 export default {
-  title: 'Atoms/Informative/ActivityCountdown',
+  title: 'BB1/ActivityCountdown',
   parameters: {
     component: ActivityCountdown,
     docs: {

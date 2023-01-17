@@ -12,7 +12,7 @@ import { makeData } from './mocks/makeData';
 import mdx from './PaginatedList.mdx';
 
 export default {
-  title: 'Molecules/Informative/PaginatedList',
+  title: 'BB1/PaginatedList',
   parameters: {
     component: PaginatedList,
     docs: {

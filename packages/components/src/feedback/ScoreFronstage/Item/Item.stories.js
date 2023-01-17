@@ -4,7 +4,7 @@ import { ITEM_DEFAULT_PROPS } from './Item.constants';
 import mdx from './Item.mdx';
 
 export default {
-  title: 'Organisms/Feedback/ScoreFronstage/Item',
+  title: 'BB2/ScoreFronstage/Item',
   parameters: {
     component: Item,
     docs: {

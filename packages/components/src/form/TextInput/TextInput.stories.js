@@ -9,7 +9,7 @@ import {
 import mdx from './TextInput.mdx';
 
 export default {
-  title: 'Molecules/Form/TextInput',
+  title: 'BB1/TextInput',
   parameters: {
     component: TextInput,
     docs: {

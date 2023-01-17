@@ -4,7 +4,7 @@ import { Breadcrumbs, BREADCRUMBS_DEFAULT_PROPS } from './Breadcrumbs';
 import mdx from './Breadcrumbs.mdx';
 
 export default {
-  title: 'Molecules/Navigation/Breadcrumbs',
+  title: 'BB1/Breadcrumbs',
   parameters: {
     component: Breadcrumbs,
     docs: {

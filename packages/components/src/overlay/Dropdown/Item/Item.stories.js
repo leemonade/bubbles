@@ -5,7 +5,7 @@ import { ITEM_DEFAULT_PROPS } from './Item.constants';
 import mdx from './Item.mdx';
 
 export default {
-  title: 'Molecules/Overlay/Dropdown/Item',
+  title: 'BB2/Dropdown/Item',
   parameters: {
     component: Item,
     docs: {

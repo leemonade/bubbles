@@ -3,7 +3,7 @@ import { ImagePreviewInput, IMAGE_PREVIEW_INPUT_DEFAULT_PROPS } from './ImagePre
 import mdx from './ImagePreviewInput.mdx';
 
 export default {
-  title: 'Molecules/Form/ImagePreviewInput',
+  title: 'BB1/ImagePreviewInput',
   parameters: {
     component: ImagePreviewInput,
     docs: {

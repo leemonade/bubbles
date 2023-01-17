@@ -4,7 +4,7 @@ import mdx from './TimeInput.mdx';
 import { INPUT_WRAPPER_SIZES } from '../InputWrapper';
 
 export default {
-  title: 'Molecules/Form/TimeInput',
+  title: 'BB1/TimeInput',
   parameters: {
     component: TimeInput,
     docs: {

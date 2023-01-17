@@ -7,7 +7,7 @@ import { Text } from '../../typography';
 import { Box } from '../../layout';
 
 export default {
-  title: 'Atoms/Overlay/Popover',
+  title: 'BB1/Popover',
   parameters: {
     component: Popover,
     docs: {

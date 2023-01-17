@@ -4,7 +4,7 @@ import mdx from './LoadingOverlay.mdx';
 import { Paper } from '../../layout';
 
 export default {
-  title: 'Molecules/Overlay/LoadingOverlay',
+  title: 'BB1/LoadingOverlay',
   parameters: {
     component: LoadingOverlay,
     docs: {

@@ -5,7 +5,7 @@ import { Stepper, STEPPER_DEFAULT_PROPS, STEPPER_ORIENTATIONS } from './Stepper'
 import mdx from './Stepper.mdx';
 
 export default {
-  title: 'Organisms/Navigation/Stepper',
+  title: 'BB1/Stepper',
   parameters: {
     component: Stepper,
     docs: {

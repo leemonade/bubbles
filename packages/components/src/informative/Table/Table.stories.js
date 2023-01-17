@@ -6,7 +6,7 @@ import { Table, TABLE_DEFAULT_PROPS } from './Table';
 import mdx from './Table.mdx';
 
 export default {
-  title: 'Atoms/Informative/Table',
+  title: 'BB1/Table',
   parameters: {
     component: Table,
     docs: {

@@ -12,7 +12,7 @@ import {
 import mdx from './Stack.mdx';
 
 export default {
-  title: 'Atoms/Layout/Stack',
+  title: 'BB1/Stack',
   parameters: {
     component: Stack,
     docs: {

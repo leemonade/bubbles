@@ -4,7 +4,7 @@ import { Title, TITLE_DEFAULT_PROPS, TITLE_COLORS, TITLE_TRANSFORMS } from './Ti
 import mdx from './Title.mdx';
 
 export default {
-  title: 'Atoms/Typography/Title',
+  title: 'BB1/Title',
   parameters: {
     component: Title,
     docs: {

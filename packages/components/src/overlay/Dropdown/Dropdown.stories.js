@@ -6,7 +6,7 @@ import { DROPDOWN_DEFAULT_PROPS } from './Dropdown.constants';
 import mdx from './Dropdown.mdx';
 
 export default {
-  title: 'Molecules/Overlay/Dropdown',
+  title: 'BB2/Dropdown',
   parameters: {
     component: Dropdown,
     docs: {

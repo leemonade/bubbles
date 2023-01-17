@@ -4,7 +4,7 @@ import { NumberInput, NUMBER_INPUT_DEFAULT_PROPS } from './NumberInput';
 import mdx from './NumberInput.mdx';
 
 export default {
-  title: 'Molecules/Form/NumberInput',
+  title: 'BB1/NumberInput',
   parameters: {
     component: NumberInput,
     docs: {

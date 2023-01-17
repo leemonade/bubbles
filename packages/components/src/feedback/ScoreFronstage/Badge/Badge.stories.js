@@ -4,7 +4,7 @@ import { BADGE_DEFAULT_PROPS } from './Badge.constants';
 import mdx from './Badge.mdx';
 
 export default {
-  title: 'Organisms/Feedback/ScoreFronstage/Badge',
+  title: 'BB2/ScoreFronstage/Badge',
   parameters: {
     component: Badge,
     docs: {

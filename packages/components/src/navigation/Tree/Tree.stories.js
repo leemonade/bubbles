@@ -7,7 +7,7 @@ import { TREE_DATA_1, TREE_DATA_2, TREE_DATA_3 } from './mocks/treeData';
 import { Switch } from '../../form';
 
 export default {
-  title: 'Molecules/Navigation/Tree',
+  title: 'BB1/Tree',
   parameters: {
     component: Tree,
     docs: {

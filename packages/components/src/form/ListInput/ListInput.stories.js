@@ -3,7 +3,7 @@ import { LIST_INPUT_DEFAULT_PROPS, ListInput } from './ListInput';
 import mdx from './ListInput.mdx';
 
 export default {
-  title: 'Molecules/Form/ListInput',
+  title: 'BB1/ListInput',
   parameters: {
     component: ListInput,
     docs: {

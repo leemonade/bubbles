@@ -6,7 +6,7 @@ import { Button } from '../../form/Button';
 import { Stack } from '../../layout';
 
 export default {
-  title: 'Atoms/Overlay/Tooltip',
+  title: 'BB1/Tooltip',
   parameters: {
     component: Tooltip,
     docs: {

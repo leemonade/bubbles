@@ -8,7 +8,7 @@ import { Tabs } from './Tabs';
 import mdx from './Tabs.mdx';
 
 export default {
-  title: 'Organisms/Navigation/Tabs',
+  title: 'BB1/Tabs',
   parameters: {
     component: Tabs,
     docs: {

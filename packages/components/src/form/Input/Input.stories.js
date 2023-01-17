@@ -4,7 +4,7 @@ import { Input, INPUT_SIZES } from './Input';
 import mdx from './Input.mdx';
 
 export default {
-  title: 'Atoms/Form/Input',
+  title: 'BB2/Input',
   parameters: {
     component: Input,
     docs: {

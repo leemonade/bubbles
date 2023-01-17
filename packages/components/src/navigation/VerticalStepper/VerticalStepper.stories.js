@@ -5,7 +5,7 @@ import { DATA } from './mock/data';
 import mdx from './VerticalStepper.mdx';
 
 export default {
-  title: 'Organisms/Navigation/VerticalStepper',
+  title: 'BB1/VerticalStepper',
   parameters: {
     component: VerticalStepper,
     docs: {

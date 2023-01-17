@@ -8,7 +8,7 @@ import {
 import mdx from './ScoreInput.mdx';
 
 export default {
-  title: 'Molecules/Form/ScoreInput',
+  title: 'BB1/ScoreInput',
   parameters: {
     component: ScoreInput,
     docs: {

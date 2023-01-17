@@ -4,7 +4,7 @@ import { InputHelp } from './InputHelp';
 import mdx from './InputHelp.mdx';
 
 export default {
-  title: 'Atoms/Form/InputHelp',
+  title: 'BB1/InputHelp',
   parameters: {
     component: InputHelp,
     docs: {

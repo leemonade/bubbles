@@ -6,7 +6,7 @@ import { INPUT_WRAPPER_SIZES, INPUT_WRAPPER_ORIENTATIONS } from '../InputWrapper
 import mdx from './CheckBoxGroup.mdx';
 
 export default {
-  title: 'Molecules/Form/CheckBoxGroup',
+  title: 'BB1/CheckBoxGroup',
   parameters: {
     component: CheckBoxGroup,
     docs: {

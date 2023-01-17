@@ -4,7 +4,7 @@ import { Text } from '../../typography';
 import mdx from './Box.mdx';
 
 export default {
-  title: 'Atoms/Layout/Box',
+  title: 'BB1/Box',
   parameters: {
     component: Box,
     docs: {

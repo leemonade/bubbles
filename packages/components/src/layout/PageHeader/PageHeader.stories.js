@@ -5,7 +5,7 @@ import { PAGE_HEADER_DEFAULT_PROPS } from './PageHeader.constants';
 import mdx from './PageHeader.mdx';
 
 export default {
-  title: 'Molecules/Layout/PageHeader',
+  title: 'BB2/PageHeader',
   parameters: {
     component: PageHeader,
     docs: {

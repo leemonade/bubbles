@@ -3,7 +3,7 @@ import { Alert, ALERT_SEVERITIES, ALERT_VARIANTS } from './Alert';
 import mdx from './Alert.mdx';
 
 export default {
-  title: 'Atoms/Feedback/Alert',
+  title: 'BB1/Alert',
   parameters: {
     component: Alert,
     docs: {

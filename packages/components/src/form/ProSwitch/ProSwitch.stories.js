@@ -4,7 +4,7 @@ import { EmailPileIcon } from '@bubbles-ui/icons/outline';
 import mdx from './ProSwitch.mdx';
 
 export default {
-  title: 'Molecules/Form/ProSwitch',
+  title: 'BB1/ProSwitch',
   parameters: {
     component: ProSwitch,
     docs: {

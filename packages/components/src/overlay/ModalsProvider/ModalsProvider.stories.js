@@ -7,7 +7,7 @@ import { MODALS_PROVIDER_DEFAULT_PROPS } from './ModalsProvider.constants';
 import mdx from './ModalsProvider.mdx';
 
 export default {
-  title: 'Molecules/Overlay/ModalsProvider',
+  title: 'BB1/ModalsProvider',
   parameters: {
     component: ModalsProvider,
     docs: {

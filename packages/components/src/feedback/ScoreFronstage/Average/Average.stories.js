@@ -4,7 +4,7 @@ import { AVERAGE_DEFAULT_PROPS } from './Average.constants';
 import mdx from './Average.mdx';
 
 export default {
-  title: 'Organisms/Feedback/ScoreFronstage/Average',
+  title: 'BB2/ScoreFronstage/Average',
   parameters: {
     component: Average,
     docs: {

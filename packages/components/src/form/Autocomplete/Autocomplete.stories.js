@@ -9,7 +9,7 @@ import mdx from './Autocomplete.mdx';
 import { UserDisplayItem } from '../../informative/UserDisplayItem';
 
 export default {
-  title: 'Molecules/Form/Autocomplete',
+  title: 'BB1/Autocomplete',
   parameters: {
     component: Autocomplete,
     docs: {

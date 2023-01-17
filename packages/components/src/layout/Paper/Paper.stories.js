@@ -5,7 +5,7 @@ import mdx from './Paper.mdx';
 import { Text } from '../../typography/Text';
 
 export default {
-  title: 'Atoms/Layout/Paper',
+  title: 'BB1/Paper',
   parameters: {
     component: Paper,
     docs: {

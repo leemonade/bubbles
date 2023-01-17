@@ -9,7 +9,7 @@ import {
 import mdx from './PasswordInput.mdx';
 
 export default {
-  title: 'Molecules/Form/PasswordInput',
+  title: 'BB1/PasswordInput',
   parameters: {
     component: PasswordInput,
     docs: {

@@ -6,7 +6,7 @@ import { SCORE_FEEDBACK_DEFAULT_PROPS } from './ScoreFeedback.constants';
 import mdx from './ScoreFeedback.mdx';
 
 export default {
-  title: 'Molecules/Feedback/ScoreFeedback',
+  title: 'BB1/ScoreFeedback',
   parameters: {
     component: ScoreFeedback,
     docs: {

@@ -5,7 +5,7 @@ import { Masonry, MASONRY_DEFAULT_PROPS } from './Masonry';
 import mdx from './Masonry.mdx';
 
 export default {
-  title: 'Atoms/Layout/Masonry',
+  title: 'BB1/Masonry',
   parameters: {
     component: Masonry,
     docs: {

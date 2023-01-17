@@ -3,7 +3,7 @@ import { TAGIFY_DEFAULT_PROPS, TAGIFY_SIZES, TagifyInput } from './TagifyInput';
 import mdx from './TagifyInput.mdx';
 
 export default {
-  title: 'Molecules/Form/TagifyInput',
+  title: 'BB1/TagifyInput',
   parameters: {
     component: TagifyInput,
     docs: {

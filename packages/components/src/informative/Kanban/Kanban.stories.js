@@ -5,7 +5,7 @@ import { mock } from './mock/mock';
 import { mockCard } from './mock/mockCard';
 
 export default {
-  title: 'Organisms/Informative/Kanban',
+  title: 'BB1/Kanban',
   parameters: {
     component: Kanban,
     docs: {

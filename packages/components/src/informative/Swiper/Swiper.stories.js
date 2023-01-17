@@ -5,7 +5,7 @@ import { childrens } from './mock/data';
 import { SWIPER_DEFAULT_PROPS, SWIPER_VARIANTS } from './Swiper.constants';
 
 export default {
-  title: 'Molecules/Informative/Swiper',
+  title: 'BB1/Swiper',
   parameters: {
     component: Swiper,
     docs: {

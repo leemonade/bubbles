@@ -11,7 +11,7 @@ import { UserDisplayItem } from '../../informative';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
-  title: 'Molecules/Form/MultiSelect',
+  title: 'BB1/MultiSelect',
   parameters: {
     component: MultiSelect,
     docs: {

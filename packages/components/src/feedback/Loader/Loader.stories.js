@@ -5,7 +5,7 @@ import { CONTEXT_CONTAINER_PADDED_TYPES } from '../../layout';
 import mdx from './Loader.mdx';
 
 export default {
-  title: 'Atoms/Feedback/Loader',
+  title: 'BB1/Loader',
   parameters: {
     component: Loader,
     docs: {

@@ -11,7 +11,7 @@ import {
 import mdx from './Badge.mdx';
 
 export default {
-  title: 'Molecules/Informative/Badge',
+  title: 'BB1/Badge',
   parameters: {
     component: Badge,
     docs: {

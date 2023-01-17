@@ -4,7 +4,7 @@ import { INPUT_DESCRIPTION_DEFAULT_PROPS } from './InputDescription.constants';
 import mdx from './InputDescription.mdx';
 
 export default {
-  title: 'Atoms/Form/InputDescription',
+  title: 'BB2/InputDescription',
   parameters: {
     component: InputDescription,
     docs: {

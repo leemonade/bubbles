@@ -3,7 +3,7 @@ import { InlineSvg } from './InlineSvg';
 import mdx from './InlineSvg.mdx';
 
 export default {
-  title: 'Atoms/Misc/InlineSvg',
+  title: 'BB1/InlineSvg',
   parameters: {
     component: InlineSvg,
     docs: {

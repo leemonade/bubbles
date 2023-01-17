@@ -10,7 +10,7 @@ import {
 import mdx from './Switch.mdx';
 
 export default {
-  title: 'Atoms/Form/Switch',
+  title: 'BB2/Switch',
   parameters: {
     component: Switch,
     docs: {

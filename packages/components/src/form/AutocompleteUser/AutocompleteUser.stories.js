@@ -4,7 +4,7 @@ import { AutocompleteUser, AUTOCOMPLETEUSER_DEFAULT_PROPS } from './Autocomplete
 import mdx from './AutocompleteUser.mdx';
 
 export default {
-  title: 'Organisms/Form/AutocompleteUser',
+  title: 'BB1/AutocompleteUser',
   parameters: {
     component: AutocompleteUser,
     docs: {

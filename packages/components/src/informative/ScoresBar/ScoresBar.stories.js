@@ -6,7 +6,7 @@ import { FULL_SCORES, GRADES } from './mock/data';
 import mdx from './ScoresBar.mdx';
 
 export default {
-  title: 'Organisms/Informative/ScoresBar',
+  title: 'BB1/ScoresBar',
   parameters: {
     component: ScoresBar,
     docs: {

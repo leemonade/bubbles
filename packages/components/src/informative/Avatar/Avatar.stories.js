@@ -10,7 +10,7 @@ import { StarIcon } from '@heroicons/react/outline';
 import mdx from './Avatar.mdx';
 
 export default {
-  title: 'Atoms/Informative/Avatar',
+  title: 'BB2/Avatar',
   parameters: {
     component: Avatar,
     docs: {

@@ -4,7 +4,7 @@ import { FileItemDisplay, FILE_ITEM_DISPLAY_DEFAULT_PROPS } from './FileItemDisp
 import mdx from './FileItemDisplay.mdx';
 
 export default {
-  title: 'Atoms/Informative/FileItemDisplay',
+  title: 'BB1/FileItemDisplay',
   parameters: {
     component: FileItemDisplay,
     docs: {

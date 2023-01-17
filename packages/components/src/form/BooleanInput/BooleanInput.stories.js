@@ -12,7 +12,7 @@ import {
 import mdx from './BooleanInput.mdx';
 
 export default {
-  title: 'Molecules/Form/BooleanInput',
+  title: 'BB1/BooleanInput',
   parameters: {
     component: BooleanInput,
     docs: {

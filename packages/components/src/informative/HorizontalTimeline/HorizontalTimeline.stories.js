@@ -7,7 +7,7 @@ import {
 import mdx from './HorizontalTimeline.mdx';
 
 export default {
-  title: 'Molecules/Informative/HorizontalTimeline',
+  title: 'BB1/HorizontalTimeline',
   parameters: {
     component: HorizontalTimeline,
     docs: {

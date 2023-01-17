@@ -8,7 +8,7 @@ import { BookLaptopIcon, MoveLeftIcon, MoveRightIcon } from '@bubbles-ui/icons/o
 import mdx from './DrawerPush.mdx';
 
 export default {
-  title: 'Atoms/Overlay/DrawerPush',
+  title: 'BB1/DrawerPush',
   parameters: {
     component: DrawerPush,
     docs: {

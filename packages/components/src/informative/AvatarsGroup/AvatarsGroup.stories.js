@@ -5,21 +5,21 @@ import { AVATARS_GROUP_DEFAULT_PROPS } from './AvatarsGroup.constants';
 import mdx from './AvatarsGroup.mdx';
 
 export default {
-  title: 'Atoms/Informative/AvatarsGroup',
+  title: 'BB1/AvatarsGroup',
   parameters: {
     component: AvatarsGroup,
     docs: {
-      page: mdx
+      page: mdx,
     },
     design: {
-      type: 'figma'
+      type: 'figma',
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
-    }
+    },
   },
   argTypes: {
     size: { options: AVATAR_SIZES, control: { type: 'select' } },
-    total: { control: { type: 'number' } }
-  }
+    total: { control: { type: 'number' } },
+  },
 };
 
 const Template = ({ ...props }) => {
@@ -36,6 +36,6 @@ Playground.args = {
     { fullName: 'Mary Jane' },
     { fullName: 'Peter Parker' },
     { fullName: 'Will Teacher' },
-    { fullName: 'Tony Stark' }
-  ]
+    { fullName: 'Tony Stark' },
+  ],
 };

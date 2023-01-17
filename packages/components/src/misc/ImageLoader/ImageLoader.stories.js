@@ -3,7 +3,7 @@ import { ImageLoader } from './ImageLoader';
 import mdx from './ImageLoader.mdx';
 
 export default {
-  title: 'Atoms/Misc/ImageLoader',
+  title: 'BB1/ImageLoader',
   parameters: {
     component: ImageLoader,
     docs: {

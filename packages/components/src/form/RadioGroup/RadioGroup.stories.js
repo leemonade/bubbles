@@ -6,7 +6,7 @@ import { RADIO_VARIANTS } from '../Radio/Radio';
 import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
-  title: 'Molecules/Form/RadioGroup',
+  title: 'BB1/RadioGroup',
   parameters: {
     component: RadioGroup,
     docs: {

@@ -3,7 +3,7 @@ import { SORTABLE_LIST_DEFAULT_PROPS, SortableList } from './SortableList';
 import mdx from './SortableList.mdx';
 
 export default {
-  title: 'Molecules/Informative/SortableList',
+  title: 'BB1/SortableList',
   parameters: {
     component: SortableList,
     docs: {

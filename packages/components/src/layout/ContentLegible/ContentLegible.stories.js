@@ -4,7 +4,7 @@ import { ContentLegible, CONTENT_LEGIBLE_DEFAULT_PROPS } from './ContentLegible'
 import mdx from './ContentLegible.mdx';
 
 export default {
-  title: 'Atoms/Layout/ContentLegible',
+  title: 'BB1/ContentLegible',
   parameters: {
     component: ContentLegible,
     docs: {

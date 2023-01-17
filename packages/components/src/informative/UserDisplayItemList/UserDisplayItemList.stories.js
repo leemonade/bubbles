@@ -5,7 +5,7 @@ import { USER_DISPLAY_ITEM_LIST_DEFAULT_PROPS } from './UserDisplayItemList.cons
 import mdx from './UserDisplayItemList.mdx';
 
 export default {
-  title: 'Molecules/Informative/UserDisplayItemList',
+  title: 'BB1/UserDisplayItemList',
   parameters: {
     component: UserDisplayItemList,
     docs: {

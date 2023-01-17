@@ -4,7 +4,7 @@ import { HeroBg, HERO_BG_DEFAULT_PROPS, HERO_BG_SIZES, HERO_BG_COLORS } from './
 import mdx from './HeroBg.mdx';
 
 export default {
-  title: 'Atoms/Misc/HeroBg',
+  title: 'BB1/HeroBg',
   parameters: {
     component: HeroBg,
     docs: {

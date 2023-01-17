@@ -4,7 +4,7 @@ import { INPUT_LABEL_DEFAULT_PROPS } from './InputLabel.constants';
 import mdx from './InputLabel.mdx';
 
 export default {
-  title: 'Atoms/Form/InputLabel',
+  title: 'BB2/InputLabel',
   parameters: {
     component: InputLabel,
     docs: {

@@ -10,7 +10,7 @@ import { TEXT_INPUT_VARIANTS } from '../TextInput';
 import mdx from './SearchInput.mdx';
 
 export default {
-  title: 'Molecules/Form/SearchInput',
+  title: 'BB1/SearchInput',
   parameters: {
     component: SearchInput,
     docs: {

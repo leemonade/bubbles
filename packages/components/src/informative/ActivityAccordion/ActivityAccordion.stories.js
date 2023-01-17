@@ -9,7 +9,7 @@ import { Paragraph } from '../../typography';
 import mdx from './ActivityAccordion.mdx';
 
 export default {
-  title: 'Molecules/Informative/ActivityAccordion',
+  title: 'BB1/ActivityAccordion',
   parameters: {
     component: ActivityAccordion,
     docs: {

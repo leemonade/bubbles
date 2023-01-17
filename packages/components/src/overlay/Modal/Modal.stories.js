@@ -7,7 +7,7 @@ import mdx from './Modal.mdx';
 import { Paragraph } from '../../typography';
 
 export default {
-  title: 'Molecules/Overlay/Modal',
+  title: 'BB1/Modal',
   parameters: {
     component: Modal,
     docs: {

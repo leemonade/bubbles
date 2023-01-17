@@ -6,7 +6,7 @@ import { Button } from '../../form';
 import mdx from './DetailPanel.mdx';
 
 export default {
-  title: 'Organisms/Overlay/Panels/Details',
+  title: 'BB1/Panels/Details',
   parameters: {
     component: DetailPanel,
     docs: {

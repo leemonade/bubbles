@@ -6,7 +6,7 @@ import { isFunction } from 'lodash';
 import mdx from './ColorInput.mdx';
 
 export default {
-  title: 'Molecules/Form/ColorInput',
+  title: 'BB1/ColorInput',
   parameters: {
     component: ColorInput,
     docs: {

@@ -4,7 +4,7 @@ import { PageContainer, PAGE_CONTAINER_DEFAULT_PROPS } from './PageContainer';
 import mdx from './PageContainer.mdx';
 
 export default {
-  title: 'Atoms/Layout/PageContainer',
+  title: 'BB1/PageContainer',
   parameters: {
     component: PageContainer,
     docs: {

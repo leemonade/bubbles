@@ -5,7 +5,7 @@ import { SCORE_FRONSTAGE_DEFAULT_PROPS } from './ScoreFronstage.constants';
 import mdx from './ScoreFronstage.mdx';
 
 export default {
-  title: 'Organisms/Feedback/ScoreFronstage',
+  title: 'BB2/ScoreFronstage',
   parameters: {
     component: ScoreFronstage,
     docs: {
