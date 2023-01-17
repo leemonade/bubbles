@@ -49,7 +49,9 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
       setToolModalOpen(false);
     },
     openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null, bubbleMenuOptions = {}) => {
-      setCurrentTool({ type, data, editing, toolBubbleMenu, bubbleMenuOptions });
+      setTimeout(() => {
+        setCurrentTool({ type, data, editing, toolBubbleMenu, bubbleMenuOptions });
+      }, [170]);
     },
     closeBubbleMenu: () => {
       setCurrentTool({
