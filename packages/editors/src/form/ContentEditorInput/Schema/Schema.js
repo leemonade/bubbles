@@ -57,19 +57,11 @@ export const Schema = ({ schema, schemaLabel, isSchemaOpened, setIsSchemaOpened 
                 onClick={() => scrollElementIntoView(element.attrs.html)}
                 className={classes.schemaElement}
               >
-                {isLibrary ? (
-                  <Box style={{ overflow: 'hidden', paddingLeft: 10 }}>
-                    <FileItemDisplay size={18} filename={schemaElementName} />
+                <TextClamp lines={1}>
+                  <Box className={classes[`${element.attrs?.level === 1 ? 'title' : 'subtitle'}`]}>
+                    {schemaElementName}
                   </Box>
-                ) : (
-                  <TextClamp lines={1}>
-                    <Box
-                      className={classes[`${element.attrs?.level === 1 ? 'title' : 'subtitle'}`]}
-                    >
-                      {schemaElementName}
-                    </Box>
-                  </TextClamp>
-                )}
+                </TextClamp>
               </Box>
             );
           })}
