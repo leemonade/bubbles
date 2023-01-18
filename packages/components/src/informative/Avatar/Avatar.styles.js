@@ -69,7 +69,7 @@ export const AvatarStyles = createStyles((theme, { size, color, state, activityS
 
   return {
     root: {
-      borderRadius: avatarTheme.border.radius,
+      borderRadius: avatarTheme.border.radius.circle,
       ...getSizes(size || 'md', avatarTheme.size),
     },
     placeholder: {
