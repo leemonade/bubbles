@@ -52,7 +52,7 @@ export default {
             "type": "color"
           },
           "default--reverse": {
-            "value": "#7e8795",
+            "value": "#155ac1",
             "type": "color"
           }
         },
@@ -1559,6 +1559,10 @@ export default {
   },
   "avatar": {
     "size": {
+      "xsm": {
+        "value": "16px",
+        "type": "sizing"
+      },
       "sm": {
         "value": "24px",
         "type": "sizing"
@@ -1669,8 +1673,14 @@ export default {
     },
     "border": {
       "radius": {
-        "value": "99em",
-        "type": "borderRadius"
+        "circle": {
+          "value": "50%",
+          "type": "borderRadius"
+        },
+        "md": {
+          "value": "4px",
+          "type": "borderRadius"
+        }
       }
     }
   },
@@ -1848,6 +1858,10 @@ export default {
           },
           "down": {
             "value": "#307ae8",
+            "type": "color"
+          },
+          "default--alt": {
+            "value": "#b1cdf6",
             "type": "color"
           }
         },
@@ -2110,7 +2124,7 @@ export default {
     "background": {
       "color": {
         "default": {
-          "value": "#c2cad6",
+          "value": "#eaeef6",
           "type": "color"
         }
       }
@@ -2409,6 +2423,10 @@ export default {
           "type": "color"
         },
         "down": {
+          "value": "#eaeef6",
+          "type": "color"
+        },
+        "active": {
           "value": "#eaeef6",
           "type": "color"
         }
@@ -2895,8 +2913,14 @@ export default {
     },
     "spacing": {
       "gap": {
-        "value": "8px",
-        "type": "spacing"
+        "lg": {
+          "value": "16px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "8px",
+          "type": "spacing"
+        }
       }
     }
   },
@@ -2915,6 +2939,10 @@ export default {
         "default": {
           "value": "#ffffff",
           "type": "color"
+        },
+        "default-reverse": {
+          "value": "#495465",
+          "type": "color"
         }
       }
     },
@@ -2927,19 +2955,39 @@ export default {
         "default--alt": {
           "value": "#307ae8",
           "type": "color"
+        },
+        "default-reverse": {
+          "value": "#ffffff",
+          "type": "color"
         }
       }
     },
     "spacing": {
       "padding": {
         "vertical": {
-          "value": "4px",
-          "type": "spacing"
+          "sm": {
+            "value": "4px",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "12px",
+            "type": "spacing"
+          }
         },
         "horizontal": {
-          "value": "8px",
-          "type": "spacing"
+          "sm": {
+            "value": "8px",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "12px",
+            "type": "spacing"
+          }
         }
+      },
+      "gap": {
+        "value": "16px",
+        "type": "spacing"
       }
     },
     "border": {
@@ -3116,6 +3164,10 @@ export default {
         },
         "hover--alt": {
           "value": "#495465",
+          "type": "color"
+        },
+        "empty": {
+          "value": "transparent",
           "type": "color"
         }
       },
@@ -3374,6 +3426,254 @@ export default {
       "md": {
         "value": "20px",
         "type": "sizing"
+      }
+    }
+  },
+  "accordion": {
+    "content": {
+      "typo": {
+        "md": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 500,
+            "lineHeight": "24px",
+            "fontSize": "16px"
+          },
+          "type": "typography"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 400,
+            "lineHeight": "20px",
+            "fontSize": "14px"
+          },
+          "type": "typography"
+        }
+      },
+      "color": {
+        "default": {
+          "value": "#495465",
+          "type": "color"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#ffffff",
+          "type": "color"
+        },
+        "default--alt": {
+          "value": "#f7f9fc",
+          "type": "color"
+        }
+      }
+    },
+    "border": {
+      "color": {
+        "default": {
+          "value": "#eaeef6",
+          "type": "color"
+        }
+      },
+      "width": {
+        "value": "1px",
+        "type": "borderWidth"
+      },
+      "radius": {
+        "value": "8px",
+        "type": "borderRadius"
+      }
+    },
+    "spacing": {
+      "padding": {
+        "md": {
+          "value": "16px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "24px",
+          "type": "spacing"
+        }
+      },
+      "gap": {
+        "value": "16px",
+        "type": "spacing"
+      }
+    }
+  },
+  "table": {
+    "content": {
+      "typo": {
+        "md": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 400,
+            "lineHeight": 20,
+            "fontSize": 14
+          },
+          "type": "typography"
+        },
+        "md--bold": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 500,
+            "lineHeight": 20,
+            "fontSize": 14
+          },
+          "type": "typography"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "Inter",
+            "fontWeight": 400,
+            "lineHeight": 16,
+            "fontSize": 12
+          },
+          "type": "typography"
+        }
+      },
+      "color": {
+        "default": {
+          "value": "#495465",
+          "type": "color"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#ffffff",
+          "type": "color"
+        }
+      }
+    },
+    "border": {
+      "color": {
+        "default": {
+          "value": "#eaeef6",
+          "type": "color"
+        },
+        "emphasis": {
+          "value": "#7e8795",
+          "type": "color"
+        }
+      },
+      "width": {
+        "value": "2px",
+        "type": "borderWidth"
+      },
+      "radius": {
+        "value": "4px",
+        "type": "borderRadius"
+      }
+    },
+    "spacing": {
+      "padding": {
+        "sm": {
+          "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "8px",
+          "type": "spacing"
+        }
+      },
+      "gaps": {
+        "sm": {
+          "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "8px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "16px",
+          "type": "spacing"
+        }
+      }
+    }
+  },
+  "timeline": {
+    "content": {
+      "color": {
+        "default": {
+          "value": "#495465",
+          "type": "color"
+        }
+      },
+      "typo": {
+        "value": {
+          "fontFamily": "Inter",
+          "fontWeight": 500,
+          "lineHeight": "20px",
+          "fontSize": "14px"
+        },
+        "type": "typography"
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#495465",
+          "type": "color"
+        }
+      }
+    },
+    "spacing": {
+      "gap": {
+        "value": "4px",
+        "type": "spacing"
+      },
+      "padding": {
+        "value": "24px",
+        "type": "spacing"
+      }
+    }
+  },
+  "swiper": {
+    "size": {
+      "md": {
+        "value": "48px",
+        "type": "sizing"
+      }
+    },
+    "content": {
+      "color": {
+        "default": {
+          "value": "#7e8795",
+          "type": "color"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#eaeef6",
+          "type": "color"
+        },
+        "hover": {
+          "value": "#d9e1ed",
+          "type": "color"
+        }
+      }
+    },
+    "spacing": {
+      "gap": {
+        "value": "16px",
+        "type": "spacing"
+      },
+      "padding": {
+        "value": "48px",
+        "type": "spacing"
+      }
+    },
+    "border": {
+      "radius": {
+        "value": "2px",
+        "type": "borderRadius"
       }
     }
   },
