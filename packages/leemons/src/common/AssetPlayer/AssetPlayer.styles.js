@@ -1,7 +1,7 @@
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const AssetPlayerStyles = createStyles(
-  (theme, { width, media, styles, framed, mediaRatio, showPlayer }) => {
+  (theme, { width, media, styles, framed, mediaRatio, showPlayer, canPlay }) => {
     const isWidthNum = /^\d+$/.test(width);
 
     let framedProps = {};
@@ -25,7 +25,7 @@ export const AssetPlayerStyles = createStyles(
       },
       coverWrapper: {
         position: 'absolute',
-        cursor: 'pointer',
+        cursor: canPlay && 'pointer',
         top: 0,
         bottom: 0,
         left: 0,
@@ -43,6 +43,7 @@ export const AssetPlayerStyles = createStyles(
         alignItems: 'center',
         opacity: showPlayer ? 0 : 1,
         transition: 'opacity 200ms',
+        display: !canPlay && 'none',
       },
       playIcon: {
         color: 'white',

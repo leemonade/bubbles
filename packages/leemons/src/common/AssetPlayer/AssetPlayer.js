@@ -143,6 +143,7 @@ const AssetPlayer = ({
   };
 
   const handleInitPlay = () => {
+    if (!canPlay) return;
     setShowPlayer(true);
     setIsPlaying(true);
   };
@@ -191,10 +192,11 @@ const AssetPlayer = ({
       media,
       height,
       styles,
-      framed: framed,
+      canPlay,
       mediaRatio,
       showPlayer,
       fullScreenMode,
+      framed: framed,
     },
     { name: 'AssetPlayer' }
   );
@@ -271,7 +273,11 @@ const AssetPlayer = ({
               href={asset.url}
               target="_blank"
               rel="noreferrer nofollow"
-              style={{ textDecoration: 'none', color: 'inherit' }}
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                pointerEvents: !canPlay && 'none',
+              }}
             >
               <ImageLoader height="auto" src={cover} alt={name} />
               {!hideURLInfo && (
