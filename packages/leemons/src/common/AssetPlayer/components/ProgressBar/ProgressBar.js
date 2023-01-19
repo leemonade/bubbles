@@ -26,11 +26,6 @@ const ProgressBar = ({
   setFullScreenMode,
   handleSeekMouseDown,
 }) => {
-  const isFullScreen = window.innerHeight === screen.height;
-
-  // ··································································
-  // METHODS
-
   // ··································································
   // HANDLERS
 
@@ -45,11 +40,6 @@ const ProgressBar = ({
   const handleFullscreenChange = () => {
     setFullScreenMode(!fullScreenMode);
   };
-
-  // ··································································
-  // EFFECTS
-
-  useEffect(() => setFullScreenMode(isFullScreen), [isFullScreen]);
 
   // ··································································
   // COMPONENT
@@ -104,7 +94,7 @@ const ProgressBar = ({
           style={{ flex: 1, justifyContent: 'right', marginRight: 2 }}
           onClick={handleFullscreenChange}
         >
-          {isFullScreen ? (
+          {fullScreenMode ? (
             <ShrinkIcon height={20} width={20} className={classes.whiteIcon} />
           ) : (
             <ExpandFullIcon height={20} width={20} className={classes.whiteIcon} />

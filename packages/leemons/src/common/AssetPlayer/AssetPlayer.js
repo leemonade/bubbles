@@ -13,6 +13,7 @@ import {
 import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
 import { ProgressBar } from './components/ProgressBar';
+import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -62,6 +63,8 @@ const AssetPlayer = ({
   const [isPlaying, setIsPlaying] = useState(playing);
   const [fullScreenMode, setFullScreenMode] = useState(fullScreen);
   const [mediaVolume, setMediaVolume] = useState(volume || 1);
+
+  // console.log(rootRef.current);
 
   const media = useMemo(
     () => ({
@@ -163,6 +166,18 @@ const AssetPlayer = ({
     }
   }, [fullScreenMode]);
 
+  useEffect(() => {
+    if (!rootRef.current) return;
+    rootRef.current.addEventListener('fullscreenchange', () => {
+      const isFullScreen = window.innerHeight === screen.height;
+      setFullScreenMode(isFullScreen);
+    });
+    return () => {
+      rootRef.current.removeEventListener('fullscreenchange');
+    };
+  }, [rootRef]);
+
+  // useEffect(() => setFullScreenMode(isFullScreen), [isFullScreen]);
   useEffect(() => setFullScreenMode(fullScreen), [fullScreen]);
   useEffect(() => setIsPlaying(playing), [playing]);
   useEffect(() => setMediaVolume(volume), [volume]);
