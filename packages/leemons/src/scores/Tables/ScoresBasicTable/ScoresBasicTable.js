@@ -162,7 +162,12 @@ const ScoresBasicTable = ({
       Cell: ({ value }) => {
         return (
           <Box className={classes.studentsCells}>
-            <UserDisplayItem name={value.name} surnames={value.surname} avatar={value.image} />
+            <UserDisplayItem
+              name={value.name}
+              surnames={value.surname}
+              avatar={value.image}
+              noBreak
+            />
           </Box>
         );
       },

@@ -5,7 +5,7 @@ import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
 import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
-import { Text, TEXT_ROLES } from '../../typography';
+import { Text, TextClamp, TEXT_ROLES } from '../../typography';
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
@@ -126,10 +126,12 @@ const UserDisplayItem = (properties) => {
               {role}
               {variant === 'rol' ? Icon : null}
             </Text>
-            <Text color={textColor} className={classes.name} role={textRole}>
-              {fullName}
-              {variant !== 'rol' ? Icon : null}
-            </Text>
+            <TextClamp lines={noBreak ? 1 : 1000}>
+              <Text color={textColor} className={classes.name} role={textRole}>
+                {fullName}
+                {variant !== 'rol' ? Icon : null}
+              </Text>
+            </TextClamp>
             {!isEmpty(surnames) && (
               <Text color={textColor} className={classes.surnames} role={textRole}>
                 {surnames}
