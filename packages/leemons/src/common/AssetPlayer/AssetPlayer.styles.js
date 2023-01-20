@@ -38,12 +38,11 @@ export const AssetPlayerStyles = createStyles(
         width: '100%',
         zIndex: 1000,
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))',
-        display: 'flex',
+        display: canPlay ? 'flex' : 'none',
         justifyContent: 'center',
         alignItems: 'center',
         opacity: showPlayer ? 0 : 1,
         transition: 'opacity 200ms',
-        display: !canPlay && 'none',
       },
       playIcon: {
         color: 'white',
