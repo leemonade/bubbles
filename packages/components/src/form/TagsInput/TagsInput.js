@@ -8,9 +8,13 @@ import { Autocomplete, Button } from '../../form';
 import { InputWrapper } from '../InputWrapper';
 import { TagsInputStyles } from './TagsInput.styles';
 import { TAGS_INPUT_DEFAULT_PROPS, TAGS_INPUT_PROP_TYPES } from './TagsInput.constants';
+import { ImageLoader } from '../../misc';
 
-const OptionRenderer = forwardRef(({ label, value, ...props }, ref) => {
+const OptionRenderer = forwardRef(({ label, value, icon, ...props }, ref) => {
   return <Box sx={theme => ({ display: 'flex', alignItems: 'center', gap: theme.other.global.spacing.gap.sm })} ref={ref} {...props}>
+    {!!icon && (
+      <ImageLoader width={12} height={12} src={icon} />
+    )}
     {value}
   </Box>
 });
@@ -57,6 +61,7 @@ const TagsInput = forwardRef(
           suggestionsByValue[suggestion.value] = {
             value: suggestion.label,
             id: suggestion.value,
+            icon: suggestion.icon,
             original: suggestion
           }
         }
@@ -161,6 +166,7 @@ const TagsInput = forwardRef(
             {tags.map((tag, index) => (
               <Badge
                 label={parsedSuggestions[tag]?.value ?? tag}
+                image={parsedSuggestions[tag]?.icon}
                 key={`${tag}${index}`}
                 color={'stroke'}
                 radius={'rounded'}

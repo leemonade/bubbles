@@ -9,7 +9,7 @@ import {
 import { useId } from '@mantine/hooks';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
+import { PluginCalendarIcon, TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
 import {
@@ -76,6 +76,7 @@ const DatePicker = forwardRef(
       description,
       orientation,
       size,
+      disabled,
       error,
       required,
       help,
@@ -162,10 +163,11 @@ const DatePicker = forwardRef(
                 .format(withTime && !range ? 'LL LT' : 'LL')}
           </Paragraph>
         ) : (
-          <Stack spacing={1} fullWidth>
+          <Stack spacing={5} fullWidth>
             <Comp
               {...props}
               {...compProps}
+              disabled={disabled}
               autoComplete={autoComplete}
               locale={currentLocale}
               uuid={uuid}
@@ -180,11 +182,13 @@ const DatePicker = forwardRef(
             />
             {withTime && !range && (
               <TimeInput
+                disabled={disabled}
                 onChange={(v) => updateTime(v, date, setDate)}
                 value={userValue || date}
                 size={size}
                 error={!isEmpty(error)}
                 skipFlex
+                icon={<TimeClockCircleIcon />}
                 autoComplete={autoComplete}
               />
             )}
