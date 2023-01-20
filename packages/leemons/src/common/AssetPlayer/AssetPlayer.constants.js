@@ -16,6 +16,7 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   controlBar: true,
   framed: false,
   canPlay: true,
+  hideURLInfo: false,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -32,4 +33,6 @@ export const ASSET_PLAYER_PROP_TYPES = {
   progressInterval: PropTypes.number,
   controlBar: PropTypes.bool,
   framed: PropTypes.bool,
+  canPlay: PropTypes.bool,
+  hideURLInfo: PropTypes.bool,
 };

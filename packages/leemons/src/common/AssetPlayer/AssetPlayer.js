@@ -50,6 +50,7 @@ const AssetPlayer = ({
   onEnded,
   onError,
   canPlay,
+  hideURLInfo,
   ...props
 }) => {
   const { name, cover, url, fileType, metadata } = asset;
@@ -142,6 +143,7 @@ const AssetPlayer = ({
   };
 
   const handleInitPlay = () => {
+    if (!canPlay) return;
     setShowPlayer(true);
     setIsPlaying(true);
   };
@@ -173,11 +175,10 @@ const AssetPlayer = ({
       setFullScreenMode(isFullScreen);
     });
     return () => {
-      rootRef.current.removeEventListener('fullscreenchange');
+      if (rootRef.current) rootRef.current.removeEventListener('fullscreenchange');
     };
   }, [rootRef]);
 
-  // useEffect(() => setFullScreenMode(isFullScreen), [isFullScreen]);
   useEffect(() => setFullScreenMode(fullScreen), [fullScreen]);
   useEffect(() => setIsPlaying(playing), [playing]);
   useEffect(() => setMediaVolume(volume), [volume]);
@@ -191,10 +192,11 @@ const AssetPlayer = ({
       media,
       height,
       styles,
-      framed: framed || media.isURL,
+      canPlay,
       mediaRatio,
       showPlayer,
       fullScreenMode,
+      framed: framed,
     },
     { name: 'AssetPlayer' }
   );
@@ -254,7 +256,7 @@ const AssetPlayer = ({
           {(!showPlayer || media.isAudio) && (
             <Box className={classes.coverWrapper} onClick={handleInitPlay}>
               <Box className={classes.coverShadow}>
-                <ControlsPlayIcon height={48} width={48} className={classes.playIcon} />
+                <ControlsPlayIcon height={32} width={32} className={classes.playIcon} />
               </Box>
               {cover && <ImageLoader height="100%" src={cover} alt={name} />}
             </Box>
@@ -271,31 +273,37 @@ const AssetPlayer = ({
               href={asset.url}
               target="_blank"
               rel="noreferrer nofollow"
-              style={{ textDecoration: 'none', color: 'inherit' }}
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                pointerEvents: !canPlay && 'none',
+              }}
             >
               <ImageLoader height="auto" src={cover} alt={name} />
-              <Box style={{ padding: 8 }}>
-                {!!(asset.name || asset.title) && (
-                  <Box mb={5}>
-                    <Text role="productive" color="primary" strong>
-                      {asset.name || asset.title}
-                    </Text>
-                  </Box>
-                )}
-                {!!(asset.tagline || asset.description) && (
-                  <Box mb={5}>
-                    <TextClamp lines={2} maxLines={2}>
-                      <Text size="xs" role="productive">
-                        {asset.tagline || asset.description}
+              {!hideURLInfo && (
+                <Box style={{ padding: 8 }}>
+                  {!!(asset.name || asset.title) && (
+                    <Box mb={5}>
+                      <Text role="productive" color="primary" strong>
+                        {asset.name || asset.title}
                       </Text>
-                    </TextClamp>
-                  </Box>
-                )}
+                    </Box>
+                  )}
+                  {!!(asset.tagline || asset.description) && (
+                    <Box mb={5}>
+                      <TextClamp lines={2} maxLines={2}>
+                        <Text size="xs" role="productive">
+                          {asset.tagline || asset.description}
+                        </Text>
+                      </TextClamp>
+                    </Box>
+                  )}
 
-                <Text truncated size="xs" role="productive" color="soft">
-                  {asset.url}
-                </Text>
-              </Box>
+                  <Text truncated size="xs" role="productive" color="soft">
+                    {asset.url}
+                  </Text>
+                </Box>
+              )}
             </a>
           ) : (
             <Box className={classes.fileIcon}>

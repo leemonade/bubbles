@@ -64,6 +64,9 @@ export const TextEditorStyles = createStyles((theme, {}) => {
         '.hljs-emphasis': { fontStyle: 'italic' },
         '.hljs-strong': { fontWeight: 700 },
       },
+      'a span': {
+        color: 'inherit !important',
+      },
     },
   };
 });
