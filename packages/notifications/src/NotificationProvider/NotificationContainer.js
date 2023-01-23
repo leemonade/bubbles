@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Notification } from '../Notification';
 import { getAutoClose } from './helpers';
 
-const NotificationContainer = ({ className, sx, notification, autoClose, onHide }) => {
+const NotificationContainer = ({ className, sx, notification, autoClose, onHide, type }) => {
   const autoCloseTimeout = getAutoClose(autoClose, notification);
   const hideTimeout = useRef();
 
@@ -35,10 +35,12 @@ const NotificationContainer = ({ className, sx, notification, autoClose, onHide 
   return (
     <Notification
       sx={sx}
+      type={type}
       className={className}
       title={notification.title}
       onClose={handleHide}
       severity={notification.severity}
+      avatar={notification.avatar}
       loading={notification.loading}
       disallowClose={notification.disallowClose}
       onMouseEnter={cancelDelayedHide}

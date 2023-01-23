@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { useQueue, randomId } from '@mantine/hooks';
-import { NotificationsContext } from '../context';
+import { NotificationsContext, ChatContext, CONTEXT_TYPES } from '../context';
 
-export function useNotifications() {
-  const context = useContext(NotificationsContext);
+export function useNotifications(type = CONTEXT_TYPES.DEFAULT) {
+  const context = useContext(type === CONTEXT_TYPES.DEFAULT ? NotificationsContext : ChatContext);
 
   if (!context) {
     throw new Error('NotificationsProvider was not found in tree');
