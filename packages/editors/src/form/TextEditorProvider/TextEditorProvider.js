@@ -20,6 +20,7 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
     data: {},
     editing: false,
     toolBubbleMenu: null,
+    bubbleMenuOptions: {},
   });
 
   const value = {
@@ -28,20 +29,38 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
     currentTool,
     toolModalOpen,
     editToolData: (type, data, editing = true) => {
-      setCurrentTool({ type, data, editing, toolBubbleMenu: currentTool.toolBubbleMenu });
+      setCurrentTool((prevTool) => ({
+        type,
+        data,
+        editing,
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
+      }));
       setToolModalOpen(true);
     },
-    openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null) => {
-      setCurrentTool({ type, data, editing, toolBubbleMenu });
-    },
     closeToolModal: () => {
-      setCurrentTool((prevCurrentTool) => ({
+      setCurrentTool((prevTool) => ({
         type: null,
         data: {},
         editing: false,
-        toolBubbleMenu: prevCurrentTool.toolBubbleMenu,
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
       }));
       setToolModalOpen(false);
+    },
+    openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null, bubbleMenuOptions = {}) => {
+      setTimeout(() => {
+        setCurrentTool({ type, data, editing, toolBubbleMenu, bubbleMenuOptions });
+      }, [170]);
+    },
+    closeBubbleMenu: () => {
+      setCurrentTool({
+        type: null,
+        data: {},
+        editing: false,
+        toolBubbleMenu: null,
+        bubbleMenuOptions: null,
+      });
     },
   };
 

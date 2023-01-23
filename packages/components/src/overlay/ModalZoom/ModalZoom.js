@@ -6,7 +6,7 @@ import { Box } from '../../layout';
 import { ModalZoomStyles } from './ModalZoom.styles';
 import { MODAL_ZOOM_DEFAULT_PROPS, MODAL_ZOOM_PROP_TYPES } from './ModalZoom.constants';
 
-const ModalZoom = ({ children, canPlay }) => {
+const ModalZoom = ({ children, canPlay, style }) => {
   const [open, setOpen] = useState(false);
   const center = useRef(null);
 
@@ -15,7 +15,7 @@ const ModalZoom = ({ children, canPlay }) => {
   return (
     <>
       <Box
-        style={{ cursor: canPlay && 'pointer' }}
+        style={{ cursor: canPlay && 'pointer', ...style }}
         onClick={() => {
           if (!canPlay) return;
           if (center.current) {

@@ -23,8 +23,13 @@ export const TEXT_EDITOR_PROP_TYPES = {
   editorClassname: PropTypes.string,
   toolbarClassname: PropTypes.string,
   editorContainerClassname: PropTypes.string,
-  useJSON: PropTypes.bool,
-  acceptedTags: PropTypes.arrayOf(PropTypes.string),
+  useSchema: PropTypes.bool,
+  acceptedTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      updateWithoutContent: PropTypes.bool,
+    })
+  ),
 };
 
 const TextEditor = ({
@@ -37,7 +42,7 @@ const TextEditor = ({
   editorContainerClassname,
   placeholder,
   readOnly,
-  useJSON,
+  useSchema,
   acceptedTags = [],
 }) => {
   const store = React.useRef({
@@ -64,30 +69,37 @@ const TextEditor = ({
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    let newContent = editor.getHTML();
+    const defaultTags = ['paragraph', 'heading'];
+    const jsonContent = editor.getJSON();
+    let shouldUpdate = false;
+    for (const element of jsonContent.content) {
+      if (!element) break;
+      if (defaultTags.includes(element.type) && element.content) {
+        shouldUpdate = true;
+        break;
+      }
+      const currentCustomTag = acceptedTags.find((tag) => tag.type === element.type);
+      if (currentCustomTag && (currentCustomTag.updateWithoutContent || element.content)) {
+        shouldUpdate = true;
+        break;
+      }
+    }
+    if (!shouldUpdate) return null;
 
-    // const matchString = `<(?:h[1-6]|p${'|' + store.current.acceptedTags}).+>(.*?)<\/(?:h[1-6]|p${
-    //   '|' + store.current.acceptedTags
-    // })>`;
-
-    // const match = newContent.match(new RegExp(matchString));
-    // // console.log('match', match, new RegExp(matchString));
-    // if (!Boolean(match) || (isObject(match) && match[1] === '')) {
-    //   newContent = null;
-    // }
-
-    store.current.content = newContent;
-
-    // console.log('content', store.current.content);
+    store.current.content = editor.getHTML();
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
-    if (isFunction(onSchemaChange)) onSchemaChange(getEditorJson());
+    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
   };
 
   const getEditorJson = () => {
     const originalHTML = document.getElementsByClassName('ProseMirror')[0];
-    const htmlContent = originalHTML.getElementsByTagName('*');
+    if (!originalHTML) return {};
+    const htmlContent = [...originalHTML.getElementsByTagName('*')].filter(
+      (element) => element.tagName !== 'BR'
+    );
     const originalJSON = editor.getJSON();
+
     const editorJSON = {
       ...originalJSON,
       content: originalJSON.content.map((element, index) => {

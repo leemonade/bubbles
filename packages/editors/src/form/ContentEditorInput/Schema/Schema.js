@@ -40,19 +40,16 @@ export const Schema = ({ schema, schemaLabel, isSchemaOpened, setIsSchemaOpened 
         </Box>
         <Box className={classes.schema}>
           {schema.map((element, index) => {
-            const acceptedElements = ['library', 'heading'];
-            const isLibrary = element.type === 'library';
+            const acceptedElements = ['heading'];
+
             // If the element is not a heading level 1 or 2, is not an accepted element or it has no content return false.
             if (
-              !acceptedElements.includes(element.type) ||
-              (element.type === 'heading' && element.attrs?.level > 2) ||
-              !element.content
+              (element.type === 'heading' && (element.attrs.level > 2 || !element.content)) ||
+              !acceptedElements.includes(element.type)
             )
-              return false;
+              return undefined;
 
-            const schemaElementName = isLibrary
-              ? `${element.attrs.asset.name}.${element.attrs.asset.fileExtension}`.toLowerCase()
-              : element.content[0].text;
+            const schemaElementName = element.content[0].text;
 
             return (
               <Box
@@ -60,19 +57,11 @@ export const Schema = ({ schema, schemaLabel, isSchemaOpened, setIsSchemaOpened 
                 onClick={() => scrollElementIntoView(element.attrs.html)}
                 className={classes.schemaElement}
               >
-                {isLibrary ? (
-                  <Box style={{ overflow: 'hidden', paddingLeft: 10 }}>
-                    <FileItemDisplay size={18} filename={schemaElementName} />
+                <TextClamp lines={1}>
+                  <Box className={classes[`${element.attrs?.level === 1 ? 'title' : 'subtitle'}`]}>
+                    {schemaElementName}
                   </Box>
-                ) : (
-                  <TextClamp lines={1}>
-                    <Box
-                      className={classes[`${element.attrs?.level === 1 ? 'title' : 'subtitle'}`]}
-                    >
-                      {schemaElementName}
-                    </Box>
-                  </TextClamp>
-                )}
+                </TextClamp>
               </Box>
             );
           })}

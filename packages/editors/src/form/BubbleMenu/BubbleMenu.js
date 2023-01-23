@@ -1,16 +1,21 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { BubbleMenuStyles } from './BubbleMenu.styles';
-import { IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
+import { IconButton, Paper, Stack } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 export const BUBBLEMENU_DEFAULT_PROPS = {};
 
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
-  const { editor, currentTool, toolModalOpen, editToolData } = useContext(TextEditorContext);
+  const { editor, currentTool, toolModalOpen, closeToolModal, editToolData } =
+    useContext(TextEditorContext);
+
+  const tippyInstance = useRef();
 
   const shouldShowHandler = ({ editor }) => {
     if (editor.isActive('image')) {
@@ -22,17 +27,18 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('link') && !toolModalOpen) {
       return true;
     }
-
     return false;
   };
 
   const removeHandler = () => {
     if (editor.isActive('library')) {
       editor?.chain().focus().unsetLibrary().run();
+      closeToolModal();
       return;
     }
     if (editor.isActive('link')) {
       editor?.chain().focus().unsetLink().run();
+      closeToolModal();
       return;
     }
   };
@@ -55,32 +61,32 @@ const BubbleMenu = ({ ...props }) => {
     }
   };
 
-  const getData = () => {
-    return [
-      { value: 'card', label: 'Show as card' },
-      { value: 'fullwidth', label: 'Full width' },
-    ];
-  };
-
-  const showSizeSelect = () => {
-    if (editor?.isActive('link')) {
-      return false;
-    }
-    if (editor?.isActive('library')) {
-      return false;
-    }
-    return true;
-  };
-
-  const getOnChangeHandler = (value) => {};
-
   const { classes, cx } = BubbleMenuStyles({});
+
+  const tippyProps = {
+    duration: [150, 0],
+    placement: 'bottom',
+    zIndex: 10,
+    maxWidth: 'none',
+    offset: [0, 10],
+    ...currentTool.bubbleMenuOptions,
+  };
+
+  useEffect(() => {
+    if (!tippyInstance.current) return;
+    tippyInstance.current.setProps(tippyProps);
+  }, [tippyProps]);
 
   return (
     <BubbleMenuTipTap
       editor={editor}
       shouldShow={shouldShowHandler}
-      tippyOptions={{ duration: 100, placement: 'bottom', zIndex: 10, maxWidth: 'none' }}
+      tippyOptions={{
+        ...tippyProps,
+        onCreate: (instance) => {
+          tippyInstance.current = instance;
+        },
+      }}
     >
       {!toolModalOpen
         ? (currentTool.toolBubbleMenu &&
@@ -95,14 +101,6 @@ const BubbleMenu = ({ ...props }) => {
                   icon={<EditWriteIcon height={20} width={20} />}
                   onClick={editHandler}
                 />
-                {showSizeSelect() && (
-                  <Select
-                    size="sm"
-                    defaultValue="auto"
-                    data={getData()}
-                    onChange={getOnChangeHandler}
-                  />
-                )}
                 <IconButton
                   size="sm"
                   icon={<DeleteBinIcon height={20} width={20} />}
