@@ -17,9 +17,9 @@ export const AssetPlayerStyles = createStyles(
     return {
       root: {
         position: 'relative',
-        height: !media.isURL && 0,
+        height: !media.isURL && !media.isImage && 0,
         width: isWidthNum ? pxToRem(width) : width,
-        paddingBottom: !media.isURL && `${mediaRatio * 100}%`, // 16/9 aspect ratio
+        paddingBottom: !media.isURL && !media.isImage && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,
         ...framedProps,
       },
