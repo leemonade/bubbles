@@ -1,23 +1,38 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { getFontExpressive } from '../../theme.mixins';
 
-export const ChatMessageStyles = createStyles((theme, { isOwn }) => {
+export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmin }) => {
+
+  let backgroundColor = theme.other.global.background.color.surface.default;
+  let borderColor = theme.other.global.border.color.line.muted;
+  if (isAdmin) borderColor = theme.other.global.border.color.line.emphasis;
+  if (isTeacher) borderColor = theme.other.global.border.color.primary.default;
+  if (isOwn) {
+    borderColor = theme.other.global.background.color.surface.muted;
+    backgroundColor = theme.other.global.background.color.surface.muted;
+  }
+
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+      ...getFontExpressive(theme.fontSizes['2'])
+    },
+    message: {
+      color: theme.other.global.content.color.text.muted,
+      ...theme.other.input.content.typo
     },
     messageBox: {
-      marginTop: 4,
+      marginTop: theme.spacing[2],
       borderRadius: 4,
-      backgroundColor: `${isOwn ? theme.colors.interactive01v1 : theme.colors.mainWhite}`,
-      padding: `10px 12px 16px 12px`,
-      border: `1px solid ${isOwn ? theme.colors.interactive01v0 : theme.colors.ui01}`,
-      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-      lineHeight: '23px',
+      backgroundColor: `${backgroundColor}`,
+      padding: theme.spacing[2],
+      paddingBottom: theme.spacing[1],
+      border: `2px solid ${borderColor}`
     },
     messageDate: {
       display: 'block',
       textAlign: 'right',
-    },
+      color: theme.other.global.content.color.text.subtle,
+      ...theme.other.input.content.typo
+    }
   };
 });

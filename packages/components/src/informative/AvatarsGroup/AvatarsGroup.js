@@ -5,7 +5,7 @@ import { Box } from '../../layout';
 import { Avatar } from '../Avatar/Avatar';
 import { AvatarsGroupStyles } from './AvatarsGroup.styles';
 import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './AvatarsGroup.constants';
-import { HouseIcon, ModuleThreeIcon } from '@bubbles-ui/icons/outline';
+import { ModuleThreeIcon, TeammateIcon } from '@bubbles-ui/icons/outline';
 
 const AvatarsGroup = ({
                         data,
@@ -35,7 +35,7 @@ const AvatarsGroup = ({
       if (moreThanUsersAsMulti) {
         forEach(data, (avatar, index) => {
           if (index + 1 >= moreThanUsersAsMulti && index + 1 < data.length) {
-            avatars.push({ color: '#696969', icon: <HouseIcon />, type: 'cus-icon' });
+            avatars.push({ color: '#696969', icon: <TeammateIcon />, type: 'cus-icon' });
             return false;
           } else {
             avatars.push({ ...avatar, type: 'avatar' });
