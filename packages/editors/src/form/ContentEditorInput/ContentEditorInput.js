@@ -71,6 +71,7 @@ const ContentEditorInput = ({
           toolbarClassname={classes.toolbarRoot}
           editorContainerClassname={classes.editorContainer}
           acceptedTags={acceptedTags}
+          useSchema
         >
           {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
           {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
