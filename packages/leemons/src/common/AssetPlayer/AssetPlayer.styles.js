@@ -1,7 +1,7 @@
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const AssetPlayerStyles = createStyles(
-  (theme, { width, media, styles, framed, mediaRatio, showPlayer, canPlay }) => {
+  (theme, { width, media, styles, framed, mediaRatio, showPlayer, canPlay, useAudioCard }) => {
     const isWidthNum = /^\d+$/.test(width);
 
     let framedProps = {};
@@ -14,12 +14,17 @@ export const AssetPlayerStyles = createStyles(
       };
     }
 
+    const useMediaRatio = !media.isURL && !media.isImage && !(media.isAudio && useAudioCard);
+
     return {
+      rootWrapper: {
+        width: isWidthNum ? pxToRem(width) : width,
+      },
       root: {
         position: 'relative',
-        height: !media.isURL && !media.isImage && 0,
-        width: isWidthNum ? pxToRem(width) : width,
-        paddingBottom: !media.isURL && !media.isImage && `${mediaRatio * 100}%`, // 16/9 aspect ratio
+        height: useMediaRatio && 0,
+        width: '100%',
+        paddingBottom: useMediaRatio && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,
         ...framedProps,
       },
