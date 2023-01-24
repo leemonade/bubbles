@@ -17,6 +17,7 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   framed: false,
   canPlay: true,
   hideURLInfo: false,
+  useAudioCard: false,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -35,4 +36,5 @@ export const ASSET_PLAYER_PROP_TYPES = {
   framed: PropTypes.bool,
   canPlay: PropTypes.bool,
   hideURLInfo: PropTypes.bool,
+  useAudioCard: PropTypes.bool,
 };

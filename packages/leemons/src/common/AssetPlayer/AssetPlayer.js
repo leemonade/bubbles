@@ -14,6 +14,7 @@ import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
 import { ProgressBar } from './components/ProgressBar';
 import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
+import { AudioCardPlayer } from './components/AudioCardPlayer';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -51,9 +52,10 @@ const AssetPlayer = ({
   onError,
   canPlay,
   hideURLInfo,
+  useAudioCard,
   ...props
 }) => {
-  const { name, cover, url, fileType, metadata } = asset;
+  const { name, description, cover, url, fileType, metadata } = asset;
   const playerRef = useRef(null);
   const rootRef = useRef(null);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -64,8 +66,6 @@ const AssetPlayer = ({
   const [isPlaying, setIsPlaying] = useState(playing);
   const [fullScreenMode, setFullScreenMode] = useState(fullScreen);
   const [mediaVolume, setMediaVolume] = useState(volume || 1);
-
-  // console.log(rootRef.current);
 
   const media = useMemo(
     () => ({
@@ -123,6 +123,10 @@ const AssetPlayer = ({
     }
     setPlayedPercentage(played * 100);
     if (!seeking) setSeekValue(played);
+    onEventHandler(onProgress, {
+      duration: getDuration(),
+      totalDuration: getTotalDuration(),
+    });
   };
 
   const handleSeekChange = (e) => {
@@ -195,123 +199,155 @@ const AssetPlayer = ({
       canPlay,
       mediaRatio,
       showPlayer,
+      useAudioCard,
       fullScreenMode,
       framed: framed,
     },
     { name: 'AssetPlayer' }
   );
   return (
-    <Box className={classes.root} ref={rootRef}>
-      {media.isPlayable ? (
-        <Box className={classes.playerWrapper}>
-          {!nativeControls && showPlayer && (
-            <ProgressBar
+    <Box className={classes.rootWrapper}>
+      <Box className={classes.root} ref={rootRef}>
+        {media.isPlayable ? (
+          media.isAudio && useAudioCard ? (
+            <AudioCardPlayer
               {...{
+                url,
+                loop,
+                cover,
+                muted,
+                onPlay,
+                onReady,
+                onStart,
+                onPause,
+                onEnded,
+                onError,
                 seconds,
-                playerRef,
                 seekValue,
                 isPlaying,
+                playerRef,
+                title: name,
                 mediaVolume,
                 getDuration,
                 setIsPlaying,
-                fullScreenMode,
-                setMediaVolume,
+                onEventHandler,
+                nativeControls,
+                handleOnProgress,
+                progressInterval,
                 getTotalDuration,
                 playedPercentage,
                 handleSeekChange,
                 handleSeekMouseUp,
-                setFullScreenMode,
                 handleSeekMouseDown,
+                subtitle: description,
               }}
             />
-          )}
-          {showPlayer && (
-            <ReactPlayer
-              url={url}
-              width="100%"
-              height="100%"
-              progressInterval={progressInterval}
-              muted={muted}
-              volume={mediaVolume}
-              loop={loop}
-              controls={nativeControls}
-              playing={isPlaying}
-              className={cx(classes.reactPlayer, className)}
-              ref={playerRef}
-              onProgress={({ played, playedSeconds }) => {
-                handleOnProgress(played, playedSeconds);
-                onEventHandler(onProgress, {
-                  duration: getDuration(),
-                  totalDuration: getTotalDuration(),
-                });
-              }}
-              onReady={(eventInfo) => onEventHandler(onReady, eventInfo)}
-              onStart={(eventInfo) => onEventHandler(onStart, eventInfo)}
-              onPlay={(eventInfo) => onEventHandler(onPlay, eventInfo)}
-              onPause={(eventInfo) => onEventHandler(onPause, eventInfo)}
-              onEnded={(eventInfo) => onEventHandler(onEnded, eventInfo)}
-              onError={(eventInfo) => onEventHandler(onError, eventInfo)}
-            />
-          )}
-          {(!showPlayer || media.isAudio) && (
-            <Box className={classes.coverWrapper} onClick={handleInitPlay}>
-              <Box className={classes.coverShadow}>
-                <ControlsPlayIcon height={32} width={32} className={classes.playIcon} />
-              </Box>
-              {cover && <ImageLoader height="100%" src={cover} alt={name} />}
-            </Box>
-          )}
-        </Box>
-      ) : (
-        <>
-          {media.isImage ? (
-            <ModalZoom canPlay={canPlay}>
-              <ImageLoader height="100%" src={cover} alt={name} />
-            </ModalZoom>
-          ) : media.isURL ? (
-            <a
-              href={asset.url}
-              target="_blank"
-              rel="noreferrer nofollow"
-              style={{
-                textDecoration: 'none',
-                color: 'inherit',
-                pointerEvents: !canPlay && 'none',
-              }}
-            >
-              <ImageLoader height="auto" src={cover} alt={name} />
-              {!hideURLInfo && (
-                <Box style={{ padding: 8 }}>
-                  {!!(asset.name || asset.title) && (
-                    <Box mb={5}>
-                      <Text role="productive" color="primary" strong>
-                        {asset.name || asset.title}
-                      </Text>
-                    </Box>
-                  )}
-                  {!!(asset.tagline || asset.description) && (
-                    <Box mb={5}>
-                      <TextClamp lines={2} maxLines={2}>
-                        <Text size="xs" role="productive">
-                          {asset.tagline || asset.description}
-                        </Text>
-                      </TextClamp>
-                    </Box>
-                  )}
-
-                  <Text truncated size="xs" role="productive" color="soft">
-                    {asset.url}
-                  </Text>
+          ) : (
+            <Box className={classes.playerWrapper}>
+              {!nativeControls && showPlayer && (
+                <ProgressBar
+                  {...{
+                    seekValue,
+                    isPlaying,
+                    mediaVolume,
+                    getDuration,
+                    setIsPlaying,
+                    fullScreenMode,
+                    setMediaVolume,
+                    getTotalDuration,
+                    playedPercentage,
+                    handleSeekChange,
+                    handleSeekMouseUp,
+                    setFullScreenMode,
+                    handleSeekMouseDown,
+                  }}
+                />
+              )}
+              {showPlayer && (
+                <ReactPlayer
+                  url={url}
+                  width="100%"
+                  height="100%"
+                  progressInterval={progressInterval}
+                  muted={muted}
+                  volume={mediaVolume}
+                  loop={loop}
+                  controls={nativeControls}
+                  playing={isPlaying}
+                  className={cx(classes.reactPlayer, className)}
+                  ref={playerRef}
+                  onProgress={({ played, playedSeconds }) => {
+                    handleOnProgress(played, playedSeconds);
+                  }}
+                  onReady={(eventInfo) => onEventHandler(onReady, eventInfo)}
+                  onStart={(eventInfo) => onEventHandler(onStart, eventInfo)}
+                  onPlay={(eventInfo) => onEventHandler(onPlay, eventInfo)}
+                  onPause={(eventInfo) => onEventHandler(onPause, eventInfo)}
+                  onEnded={(eventInfo) => onEventHandler(onEnded, eventInfo)}
+                  onError={(eventInfo) => onEventHandler(onError, eventInfo)}
+                />
+              )}
+              {(!showPlayer || media.isAudio) && (
+                <Box className={classes.coverWrapper} onClick={handleInitPlay}>
+                  <Box className={classes.coverShadow}>
+                    <ControlsPlayIcon height={32} width={32} className={classes.playIcon} />
+                  </Box>
+                  {cover && <ImageLoader height="100%" src={cover} alt={name} />}
                 </Box>
               )}
-            </a>
-          ) : (
-            <Box className={classes.fileIcon}>
-              <FileIcon fileType={fileType} size={64} color={COLORS.text06} />
             </Box>
-          )}
-        </>
-      )}
+          )
+        ) : (
+          <>
+            {media.isImage ? (
+              <ModalZoom canPlay={canPlay}>
+                <ImageLoader height="100%" src={cover} alt={name} />
+              </ModalZoom>
+            ) : media.isURL ? (
+              <a
+                href={asset.url}
+                target="_blank"
+                rel="noreferrer nofollow"
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  pointerEvents: !canPlay && 'none',
+                }}
+              >
+                <ImageLoader height="auto" src={cover} alt={name} />
+                {!hideURLInfo && (
+                  <Box style={{ padding: 8 }}>
+                    {!!(asset.name || asset.title) && (
+                      <Box mb={5}>
+                        <Text role="productive" color="primary" strong>
+                          {asset.name || asset.title}
+                        </Text>
+                      </Box>
+                    )}
+                    {!!(asset.tagline || asset.description) && (
+                      <Box mb={5}>
+                        <TextClamp lines={2} maxLines={2}>
+                          <Text size="xs" role="productive">
+                            {asset.tagline || asset.description}
+                          </Text>
+                        </TextClamp>
+                      </Box>
+                    )}
+
+                    <Text truncated size="xs" role="productive" color="soft">
+                      {asset.url}
+                    </Text>
+                  </Box>
+                )}
+              </a>
+            ) : (
+              <Box className={classes.fileIcon}>
+                <FileIcon fileType={fileType} size={64} color={COLORS.text06} />
+              </Box>
+            )}
+          </>
+        )}
+      </Box>
     </Box>
   );
 };
