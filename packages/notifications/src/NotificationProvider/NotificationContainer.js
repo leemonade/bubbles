@@ -41,6 +41,7 @@ const NotificationContainer = ({ className, sx, notification, autoClose, onHide,
       onClose={handleHide}
       severity={notification.severity}
       avatar={notification.avatar}
+      leftSide={notification.leftSide}
       loading={notification.loading}
       disallowClose={notification.disallowClose}
       onMouseEnter={cancelDelayedHide}

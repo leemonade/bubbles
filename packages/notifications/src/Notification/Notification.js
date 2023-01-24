@@ -2,12 +2,12 @@ import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Notification as MantineNotification } from '@mantine/core';
-import { Box, Text, ALERT_SEVERITIES, Avatar } from '@bubbles-ui/components';
+import { ALERT_SEVERITIES, Avatar, Box, Text } from '@bubbles-ui/components';
 import {
-  CheckIcon,
-  AlertWarningTriangleIcon,
   AlertInformationCircleIcon,
+  AlertWarningTriangleIcon,
   BlockIcon,
+  CheckIcon
 } from '@bubbles-ui/icons/solid';
 import { NotificationStyles } from './Notification.styles';
 import { CONTEXT_TYPES } from '../NotificationProvider/context';
@@ -18,7 +18,7 @@ export const NOTIFICATION_DEFAULT_PROPS = {
   disallowClose: false,
   icon: null,
   type: CONTEXT_TYPES.DEFAULT,
-  avatar: '',
+  avatar: ''
 };
 
 export const NOTIFICATION_PROP_TYPES = {
@@ -50,19 +50,22 @@ export const NOTIFICATION_PROP_TYPES = {
   type: PropTypes.string,
 
   /** Notification avatar */
-  avatar: PropTypes.string,
+  avatar: PropTypes.string
 };
 
 const SEVERITY_ICONS = {
   info: AlertInformationCircleIcon,
   success: CheckIcon,
   error: BlockIcon,
-  warning: AlertWarningTriangleIcon,
+  warning: AlertWarningTriangleIcon
 };
 
 const Notification = forwardRef(
-  ({ children, message, severity, icon: iconProp, type, avatar, ...props }, ref) => {
+  ({ children, message, leftSide, severity, icon: iconProp, type, avatar, ...props }, ref) => {
     const icon = useMemo(() => {
+      if (leftSide) {
+        return <></>;
+      }
       if (!isEmpty(avatar)) {
         return <></>;
       }
@@ -80,6 +83,8 @@ const Notification = forwardRef(
 
     return (
       <MantineNotification {...props} ref={ref} classNames={classes} icon={icon}>
+        {leftSide ?
+          <Box style={{ position: 'absolute', left: 15, top: 15 }}>{leftSide}</Box> : null}
         {!isEmpty(avatar) && (
           <Box style={{ position: 'absolute', left: 15, top: 15 }}>
             <Avatar image={avatar} />
@@ -87,7 +92,7 @@ const Notification = forwardRef(
         )}
         {!isEmpty(message) && (
           <Box>
-            <Text role="productive" size="xs" className={classes.message}>
+            <Text role='productive' size='xs' className={classes.message}>
               {message}
             </Text>
           </Box>

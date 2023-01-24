@@ -1,16 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
-import { useId, useDidUpdate } from '@mantine/hooks';
+import { useDidUpdate, useId } from '@mantine/hooks';
 import { BOOLEAN_INPUT_VARIANTS } from '../BooleanInput';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
 import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
 import {
-  InputWrapper,
+  INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
-  INPUT_WRAPPER_ORIENTATIONS,
+  InputWrapper
 } from '../InputWrapper';
 
 export const CHECKBOX_GROUP_DEFAULT_PROPS = {
@@ -24,7 +24,7 @@ export const CHECKBOX_GROUP_DEFAULT_PROPS = {
   size: 'sm',
   variant: 'default',
   fullWidth: false,
-  useAria: true,
+  useAria: true
 };
 
 export const CHECKBOX_GROUP_PROP_TYPES = {
@@ -40,7 +40,7 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
       helpPosition: PropTypes.string,
       disabled: PropTypes.bool,
       indeterminate: PropTypes.bool,
-      checked: PropTypes.bool,
+      checked: PropTypes.bool
     })
   ),
   /** Controls the input direction */
@@ -54,27 +54,27 @@ export const CHECKBOX_GROUP_PROP_TYPES = {
   /** Function called when value changes */
   onChange: PropTypes.func,
   /** Controls if CheckBoxGroup uses aria role */
-  useAria: PropTypes.bool,
+  useAria: PropTypes.bool
 };
 
 const CheckBoxGroup = ({
-  label,
-  description,
-  help,
-  required,
-  error,
-  size,
-  orientation,
-  data,
-  variant,
-  direction,
-  fullWidth,
-  onChange,
-  headerStyle,
-  contentStyle,
-  useAria,
-  ...props
-}) => {
+                         label,
+                         description,
+                         help,
+                         required,
+                         error,
+                         size,
+                         orientation,
+                         data,
+                         variant,
+                         direction,
+                         fullWidth,
+                         onChange,
+                         headerStyle,
+                         contentStyle,
+                         useAria,
+                         ...props
+                       }) => {
   const uuid = useId();
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
@@ -98,7 +98,9 @@ const CheckBoxGroup = ({
 
   useDidUpdate(() => {
     const values = data.map(({ value }) => value);
-    selectedValues
+    const _selectedValues = data.filter(({ checked }) => checked).map(({ value }) => value);
+    setSelectedValues(_selectedValues);
+    _selectedValues
       .filter((v) => !values.includes(v))
       .forEach((v) => {
         handleOnChange(v);
