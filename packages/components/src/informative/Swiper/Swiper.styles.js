@@ -40,12 +40,14 @@ export const SwiperStyles = createStyles(
       nextButton: {
         right: 0,
         width: isEnd ? 0 : 48,
+        userSelect: 'none',
         ...buttonCommonStyles,
         ...nextButtonStyles,
       },
       prevButton: {
         left: 0,
         width: isBeginning ? 0 : 48,
+        userSelect: 'none',
         ...buttonCommonStyles,
         ...prevButtonStyles,
       },

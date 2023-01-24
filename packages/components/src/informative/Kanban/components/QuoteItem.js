@@ -8,8 +8,6 @@ const QuoteItem = ({ value, provided, isDragging, isGroupedOver, itemRender: Ite
   }
   return (
     <Box
-      isDragging={isDragging}
-      isGroupedOver={isGroupedOver}
       ref={provided.innerRef}
       {...props}
       {...provided.dragHandleProps}

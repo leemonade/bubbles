@@ -54,11 +54,11 @@ const getMonthViewStyles = (theme, isMonthRange, printMode) => ({
   '.rbc-row-content .rbc-row': {
     height: isMonthRange && '100%',
   },
-  '.rbc-row-content > .rbc-row:first-child': {
+  '.rbc-row-content > .rbc-row:first-of-type': {
     // position: 'relative',
     // zIndex: 99
   },
-  '.rbc-row-content > .rbc-row:first-child .rbc-date-cell': {
+  '.rbc-row-content > .rbc-row:first-of-type .rbc-date-cell': {
     pointerEvents: isMonthRange ? 'none!important' : 'all!important',
   },
   '.rbc-event-row': {
@@ -284,9 +284,9 @@ const getAgendaStyles = (theme) => ({
 
       'tbody > tr': {
         border: '0px',
-        '&:first-child': {
+        '&:first-of-type': {
           td: {
-            '&:first-child': {
+            '&:first-of-type': {
               '.rbc-agenda-td-data': {
                 borderRadius: '4px 0 0 0',
               },
@@ -334,7 +334,7 @@ const getAgendaStyles = (theme) => ({
               borderRight: '1px solid',
             },
           },
-          '&:first-child': {
+          '&:first-of-type': {
             '&.rbc-agenda-date-cell': {
               '.rbc-agenda-td-data': {
                 borderTop: '1px solid',
@@ -354,7 +354,7 @@ const getAgendaStyles = (theme) => ({
           },
         },
       },
-      'tbody > tr:first-child': {},
+      'tbody > tr:first-of-type': {},
       'tbody > tr:last-child': {
         td: {
           borderBottom: '1px solid',
@@ -365,7 +365,7 @@ const getAgendaStyles = (theme) => ({
         border: '0px',
         paddingLeft: theme.spacing[4],
         paddingBottom: theme.spacing[2],
-        '&:first-child': {
+        '&:first-of-type': {
           paddingLeft: 0,
         },
       },
