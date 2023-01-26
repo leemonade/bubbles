@@ -16,6 +16,7 @@ import { ProgressBar } from './components/ProgressBar';
 import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
+import { DownloadIcon } from '@bubbles-ui/icons/outline';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -56,6 +57,7 @@ const AssetPlayer = ({
   useAudioCard,
   pdfLabels,
   useSchema,
+  viewPDF,
   ...props
 }) => {
   const { name, description, cover, url, fileType, fileExtension, metadata } = asset;
@@ -119,6 +121,10 @@ const AssetPlayer = ({
 
   // ··································································
   // HANDLERS
+
+  const openPdfHandler = () => {
+    window.open(url, '_blank', 'noreferrer');
+  };
 
   const handleOnProgress = (played, playedSeconds) => {
     const elapsedSeconds = Math.floor(playedSeconds);
@@ -200,6 +206,7 @@ const AssetPlayer = ({
       media,
       height,
       styles,
+      viewPDF,
       canPlay,
       mediaRatio,
       showPlayer,
@@ -346,7 +353,16 @@ const AssetPlayer = ({
                 )}
               </a>
             )}
-            {media.isPDF && <PDFPlayer pdf={url} labels={pdfLabels} useSchema={useSchema} />}
+            {media.isPDF ? (
+              viewPDF ? (
+                <PDFPlayer pdf={url} labels={pdfLabels} useSchema={useSchema} />
+              ) : (
+                <Box className={classes.pdfCover}>
+                  <ImageLoader height="auto" src={cover} alt={name} />
+                  <DownloadIcon className={classes.pdfDownloadIcon} onClick={openPdfHandler} />
+                </Box>
+              )
+            ) : null}
             {!media.isImage && !media.isURL && !media.isPDF && (
               <Box className={classes.fileIcon}>
                 <FileIcon fileType={fileType} size={64} color={COLORS.text06} />

@@ -93,7 +93,7 @@ const LibraryDetail = ({
                 {asset.isPrivate ? labels.privated : labels.sharedWith}
               </Text>
               <AvatarsGroup
-                size="xs"
+                size="sm"
                 data={asset.canAccess}
                 numberFromClassesAndData
                 moreThanUsersAsMulti={2}

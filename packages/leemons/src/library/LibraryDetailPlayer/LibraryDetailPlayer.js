@@ -33,7 +33,7 @@ const LibraryDetailPlayer = ({
   const { classes, cx } = LibraryDetailPlayerStyles({ color }, { name: 'LibraryDetailPlayer' });
   return (
     <Box className={classes.root}>
-      <AssetPlayer height={height} asset={asset} hideURLInfo />
+      <AssetPlayer height={height} asset={asset} hideURLInfo viewPDF={false} />
       <Box className={classes.color} />
       <Box className={classes.titleRow}>
         <TextClamp lines={6}>

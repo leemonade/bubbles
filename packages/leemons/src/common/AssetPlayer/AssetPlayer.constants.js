@@ -24,6 +24,7 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
     schemaLabel: '',
   },
   useSchema: true,
+  viewPDF: true,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -49,4 +50,5 @@ export const ASSET_PLAYER_PROP_TYPES = {
     schemaLabel: PropTypes.string,
   }),
   useSchema: PropTypes.bool,
+  viewPDF: PropTypes.bool,
 };
