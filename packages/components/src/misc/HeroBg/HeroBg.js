@@ -16,6 +16,8 @@ export const HERO_BG_DEFAULT_PROPS = {
   decay: 1,
   speed: 500,
   accentColor: '#FEFF8C',
+  containerColor: '#FFFFFF',
+  fillColor: 'none',
 };
 export const HERO_BG_PROP_TYPES = {
   className: PropTypes.string,
@@ -26,6 +28,8 @@ export const HERO_BG_PROP_TYPES = {
   speed: PropTypes.number,
   solid: PropTypes.bool,
   accentColor: PropTypes.string,
+  containerColor: PropTypes.string,
+  fillColor: PropTypes.string,
 };
 
 const HeroBg = ({
@@ -38,6 +42,8 @@ const HeroBg = ({
   speed,
   solid,
   accentColor: accentColorProp,
+  containerColor,
+  fillColor,
 }) => {
   const color = HERO_BG_COLORS.includes(colorProp) ? colorProp : HERO_BG_DEFAULT_PROPS.color;
   const size = HERO_BG_SIZES.includes(sizeProp) ? sizeProp : HERO_BG_DEFAULT_PROPS.size;
@@ -55,9 +61,17 @@ const HeroBg = ({
     return newColor;
   }, [accentColorProp]);
 
-  useEffect(() => console.log('Bubbles >> HeroBg >> accentColor:', accentColor), [accentColor]);
+  /*
+  useEffect(
+    () => console.log('Bubbles >> HeroBg >> containerColor:', containerColor),
+    [containerColor]
+  );
+  */
 
-  useEffect(() => initAnimation(), [style, sizeProp, colorProp, className, animate, accentColor]);
+  useEffect(
+    () => initAnimation(),
+    [style, sizeProp, colorProp, className, animate, accentColor, containerColor, fillColor]
+  );
 
   const { classes, cx } = HeroBgStyles({ color, size });
 
@@ -74,7 +88,7 @@ const HeroBg = ({
 
   const doAnimation = (firstTime) => {
     const sizeNodeFunc = SIZES[size];
-    const nodeElement = sizeNodeFunc(cx(classes.root, className), style);
+    const nodeElement = sizeNodeFunc(cx(classes.root, className), style, fillColor);
     const nodes = getSVGNodes(currentType || nodeElement);
     let yValues = [];
     nodes.forEach(
@@ -134,6 +148,20 @@ const HeroBg = ({
 
         if (currentNode.props.stroke === 'accentColor') {
           nodeProps.stroke = accentColor;
+        }
+
+        currentNodes[i] = React.cloneElement(currentNode, nodeProps);
+      } else if (
+        currentNode.props.fill === 'containerColor' ||
+        currentNode.props.stroke === 'containerColor'
+      ) {
+        const nodeProps = {};
+        if (currentNode.props.fill === 'containerColor') {
+          nodeProps.fill = containerColor;
+        }
+
+        if (currentNode.props.stroke === 'containerColor') {
+          nodeProps.stroke = containerColor;
         }
 
         currentNodes[i] = React.cloneElement(currentNode, nodeProps);

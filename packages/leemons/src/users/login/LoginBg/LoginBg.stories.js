@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@bubbles-ui/components';
 import { LoginBg, LOGIN_BG_DEFAULT_PROPS } from './LoginBg';
 import mdx from './LoginBg.mdx';
 
@@ -17,13 +18,14 @@ export default {
   argTypes: {
     // myBooleanProp: { control: { type: 'boolean' } },
     // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
+    containerColor: { control: { type: 'color' } },
     accentColor: { control: { type: 'color' } },
     logoUrl: { control: { type: 'text' } },
   },
 };
 
 const Template = ({ ...props }) => {
-  return <LoginBg {...props} />;
+  return <LoginBg {...props} animate={false} />;
 };
 
 export const Playground = Template.bind({});

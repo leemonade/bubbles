@@ -7,6 +7,8 @@ import { LoginBgStyles } from './LoginBg.styles';
 export const LOGIN_BG_DEFAULT_PROPS = {
   backgroundColor: '#F0F5FC',
   foregroundColor: '#FFFFFF',
+  containerColor: '#FFFFFF',
+  fillColor: 'none',
   dobleQuoted: true,
   accentColor: null,
   logoUrl: '',
@@ -16,9 +18,11 @@ export const LOGIN_BG_PROP_TYPES = {
   author: PropTypes.string,
   backgroundColor: PropTypes.string,
   foregroundColor: PropTypes.string,
+  containerColor: PropTypes.string,
   dobleQuoted: PropTypes.bool,
   accentColor: PropTypes.string,
   logoUrl: PropTypes.string,
+  fillColor: PropTypes.string,
 };
 
 const LoginBg = ({
@@ -26,6 +30,8 @@ const LoginBg = ({
   author,
   backgroundColor,
   foregroundColor,
+  containerColor,
+  fillColor,
   dobleQuoted,
   accentColor,
   logoUrl,
@@ -33,14 +39,22 @@ const LoginBg = ({
 }) => {
   const { classes, cx } = LoginBgStyles({});
 
-  useEffect(() => console.log('Bubbles >> LoginBg >> accentColor:', accentColor), [accentColor]);
+  /*
+  useEffect(
+    () => console.log('Bubbles >> LoginBg >> containerColor:', containerColor),
+    [containerColor]
+  );
+  */
 
   return (
     <Box className={classes.root}>
       <HeroBg
+        {...props}
         size="x-md"
         style={{ backgroundColor, color: foregroundColor }}
         accentColor={!isEmpty(accentColor) ? accentColor : undefined}
+        containerColor={!isEmpty(containerColor) ? containerColor : undefined}
+        fillColor={!isEmpty(fillColor) ? fillColor : undefined}
       />
       <Box className={classes.content}>
         {!isEmpty(logoUrl) ? (
