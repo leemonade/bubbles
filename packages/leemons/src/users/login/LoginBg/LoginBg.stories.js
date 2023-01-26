@@ -21,6 +21,7 @@ export default {
     containerColor: { control: { type: 'color' } },
     accentColor: { control: { type: 'color' } },
     logoUrl: { control: { type: 'text' } },
+    quoteColor: { control: { type: 'color' } },
   },
 };
 

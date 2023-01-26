@@ -18,6 +18,7 @@ export const HERO_BG_DEFAULT_PROPS = {
   accentColor: '#FEFF8C',
   containerColor: '#FFFFFF',
   fillColor: 'none',
+  limitSaturation: true,
 };
 export const HERO_BG_PROP_TYPES = {
   className: PropTypes.string,
@@ -30,6 +31,7 @@ export const HERO_BG_PROP_TYPES = {
   accentColor: PropTypes.string,
   containerColor: PropTypes.string,
   fillColor: PropTypes.string,
+  limitSaturation: PropTypes.bool,
 };
 
 const HeroBg = ({
@@ -44,6 +46,7 @@ const HeroBg = ({
   accentColor: accentColorProp,
   containerColor,
   fillColor,
+  limitSaturation,
 }) => {
   const color = HERO_BG_COLORS.includes(colorProp) ? colorProp : HERO_BG_DEFAULT_PROPS.color;
   const size = HERO_BG_SIZES.includes(sizeProp) ? sizeProp : HERO_BG_DEFAULT_PROPS.size;
@@ -51,7 +54,7 @@ const HeroBg = ({
   const animationRef = useRef(0);
 
   const accentColor = useMemo(() => {
-    if (accentColorProp === HERO_BG_DEFAULT_PROPS.accentColor) {
+    if (accentColorProp === HERO_BG_DEFAULT_PROPS.accentColor || !limitSaturation) {
       return accentColorProp;
     }
 

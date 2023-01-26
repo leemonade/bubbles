@@ -23,6 +23,7 @@ export const LOGIN_BG_PROP_TYPES = {
   accentColor: PropTypes.string,
   logoUrl: PropTypes.string,
   fillColor: PropTypes.string,
+  quoteColor: PropTypes.string,
 };
 
 const LoginBg = ({
@@ -35,6 +36,7 @@ const LoginBg = ({
   dobleQuoted,
   accentColor,
   logoUrl,
+  quoteColor,
   ...props
 }) => {
   const { classes, cx } = LoginBgStyles({});
@@ -64,7 +66,11 @@ const LoginBg = ({
         )}
 
         <Stack direction="column" spacing={2}>
-          <Paragraph size="xl" color="secondary">
+          <Paragraph
+            size="xl"
+            color="secondary"
+            style={{ color: !!quoteColor ? quoteColor : undefined }}
+          >
             {dobleQuoted ? `"${quote}"` : quote}
           </Paragraph>
           <Text size="md">{author}</Text>

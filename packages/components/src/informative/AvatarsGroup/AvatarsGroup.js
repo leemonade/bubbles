@@ -8,21 +8,24 @@ import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './Avatars
 import { ModuleThreeIcon, TeammateIcon } from '@bubbles-ui/icons/outline';
 
 const AvatarsGroup = ({
-                        data,
-                        classesData,
-                        size,
-                        customAvatarMargin,
-                        zIndexInverted,
-                        limit,
-                        total,
-                        moreThanUsersAsMulti,
-                        numberFromClassesAndData,
-                        ...props
-                      }) => {
-  const { classes, cx, theme } = AvatarsGroupStyles({
-    size,
-    customAvatarMargin
-  }, { name: 'AvatarsGroup' });
+  data,
+  classesData,
+  size,
+  customAvatarMargin,
+  zIndexInverted,
+  limit,
+  total,
+  moreThanUsersAsMulti,
+  numberFromClassesAndData,
+  ...props
+}) => {
+  const { classes, cx, theme } = AvatarsGroupStyles(
+    {
+      size,
+      customAvatarMargin,
+    },
+    { name: 'AvatarsGroup' }
+  );
 
   const avatars = useMemo(() => {
     const avatars = [];
@@ -42,13 +45,13 @@ const AvatarsGroup = ({
           }
         });
       } else {
-        avatars.push(...data.map(avatar => ({ ...avatar, type: 'avatar' })));
+        avatars.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));
       }
     }
 
     if (!isEmpty(classesData)) {
       if (classesData.length === 1) {
-        avatars.push(...classesData.map(avatar => ({ ...avatar, type: 'icon' })));
+        avatars.push(...classesData.map((avatar) => ({ ...avatar, type: 'icon' })));
       } else {
         avatars.push({ color: '#8E97A3', icon: <ModuleThreeIcon />, type: 'cus-icon' });
       }
@@ -83,11 +86,13 @@ const AvatarsGroup = ({
         }
       }
       if (n) {
-        n = <Box
-          sx={(theme) => ({ paddingLeft: theme.spacing[4], paddingTop: theme.spacing[1] })}><Text
-          role={'productive'}
-          color={'tertiary'}
-        >({n})</Text></Box>;
+        n = (
+          <Box sx={(theme) => ({ paddingLeft: theme.spacing[4], paddingTop: theme.spacing[1] })}>
+            <Text role={'productive'} color={'tertiary'}>
+              ({n})
+            </Text>
+          </Box>
+        );
       }
       return n;
     }
@@ -107,8 +112,8 @@ const AvatarsGroup = ({
                 size={size}
                 styles={{
                   root: {
-                    zIndex: zIndexInverted ? 50 - index : index
-                  }
+                    zIndex: zIndexInverted ? 50 - index : index,
+                  },
                 }}
                 alt={`Avatar of ${item.fullName}`}
               />
@@ -128,11 +133,11 @@ const AvatarsGroup = ({
                     display: 'flex',
                     zIndex: zIndexInverted ? 50 - index : index,
                     justifyContent: 'center',
-                    alignItems: 'center'
-                  }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }
+                    alignItems: 'center',
+                  },
+                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
                 }}
               />
-
             );
           }
 
@@ -149,12 +154,12 @@ const AvatarsGroup = ({
                     display: 'flex',
                     zIndex: zIndexInverted ? 50 - index : index,
                     justifyContent: 'center',
-                    alignItems: 'center'
-                  }, image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' }
+                    alignItems: 'center',
+                  },
+                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
                 }}
                 alt={`Icon of ${item.fullName}`}
               />
-
             );
           }
         })}

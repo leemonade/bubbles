@@ -17,7 +17,7 @@ export const MainNavItemStyles = createStyles(
         '&:hover': {
           backgroundColor: theme.colors.interactive01,
           '.mantine-Button-label > div': {
-            color: `${theme.colors.text07} !important`,
+            color: `${theme.other.button.content.color.primary['default--reverse']} !important`,
           },
         },
       },
@@ -39,6 +39,7 @@ export const MainNavItemStyles = createStyles(
         borderRadius: '2px',
         ...getFontExpressive(),
         ...getPaddings(0, theme.spacing['4']),
+        color: theme.other.button.content.color.primary['default--reverse'],
         boxShadow: theme.shadows.shadow03,
       },
       tooltipArrow: {
