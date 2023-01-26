@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
 import Link from '@tiptap/extension-link';
 import { useTextEditor } from '../../form/TextEditorProvider';
 import { Button, LinkModal } from '../../form/';
+import { LinkBubbleMenu } from './LinkBubbleMenu/LinkBubbleMenu';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
   labels: {
@@ -48,13 +49,29 @@ export const LINK_TOOL_PROP_TYPES = {
 };
 
 const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
-  const { editor, readOnly, toolModalOpen, currentTool, editToolData, closeToolModal } =
-    useTextEditor();
+  const {
+    editor,
+    toolModalOpen,
+    currentTool,
+    openBubbleMenu,
+    closeBubbleMenu,
+    editToolData,
+    closeToolModal,
+  } = useTextEditor();
 
   if (!editor) return;
   const { selection } = editor.state;
   const { from, to } = selection;
   const selectedText = editor.state.doc.textBetween(from, to, ' ');
+
+  const getLinkAttributes = (editor) => {
+    editor.chain().focus().extendMarkRange('link').run();
+    const { selection } = editor.state;
+    const { from, to } = selection;
+    const text = editor.state.doc.textBetween(from, to, ' ');
+    const href = editor.getAttributes('link').href;
+    return { text, href };
+  };
 
   const onClickHandler = useCallback(
     ({ text, link }) => {
@@ -80,18 +97,29 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
   );
 
   const handleOnClick = () => {
-    editor.chain().focus().extendMarkRange('link').run();
-    const { selection } = editor.state;
-    const { from, to } = selection;
-    const text = editor.state.doc.textBetween(from, to, ' ');
-    const href = editor.getAttributes('link').href;
-    editToolData('link', { text, href }, !!href);
+    const { text, href } = getLinkAttributes(editor);
+    editToolData('link', { text, href }, !!href, <LinkBubbleMenu editor={editor} />);
   };
 
   const linkModalOpened = useMemo(
     () => currentTool.type === 'link' && toolModalOpen,
     [currentTool, toolModalOpen]
   );
+
+  useEffect(() => {
+    if (editor.isActive('link')) {
+      const { text, href } = getLinkAttributes(editor);
+      openBubbleMenu(
+        'link',
+        { text, href },
+        !!href,
+        <LinkBubbleMenu editor={editor} getLinkAttributes={getLinkAttributes} />
+      );
+    } else {
+      closeBubbleMenu();
+      closeToolModal();
+    }
+  }, [editor.isActive('link')]);
 
   return (
     <Popover
