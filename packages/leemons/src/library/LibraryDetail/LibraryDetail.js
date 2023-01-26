@@ -9,19 +9,19 @@ import { LibraryDetailStyles } from './LibraryDetail.styles';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
 const LibraryDetail = ({
-                         asset,
-                         variant,
-                         variantIcon,
-                         variantTitle,
-                         toolbar,
-                         toolbarItems,
-                         drawer,
-                         open,
-                         labels,
-                         titleActionButton,
-                         style,
-                         ...events
-                       }) => {
+  asset,
+  variant,
+  variantIcon,
+  variantTitle,
+  toolbar,
+  toolbarItems,
+  drawer,
+  open,
+  labels,
+  titleActionButton,
+  style,
+  ...events
+}) => {
   const [showDrawer, setShowDrawer] = useState(open);
 
   useEffect(() => {
@@ -43,13 +43,13 @@ const LibraryDetail = ({
   return (
     <Box style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <Stack
-        direction='column'
+        direction="column"
         fullHeight
         className={cx(classes.root, classes.wrapper, { [classes.show]: showDrawer })}
         style={style}
       >
         <Stack
-          direction='column'
+          direction="column"
           fullHeight
           // className={cx(classes.wrapper, { [classes.show]: showDrawer })}
         >
@@ -66,7 +66,7 @@ const LibraryDetail = ({
           )}
 
           <LibraryDetailPlayer
-            {...asset}
+            {...{ ...asset, fileExtension }}
             labels={labels}
             variant={variant}
             variantTitle={variantTitle}
@@ -88,21 +88,25 @@ const LibraryDetail = ({
             labels={labels}
           />
           {!asset.public && (!isEmpty(asset?.canAccess) || !isEmpty(asset?.classesCanAccess)) && (
-            <Stack direction='column' spacing={2} padding={4}>
-              <Text role='productive' size='xs'>
+            <Stack direction="column" spacing={2} padding={4}>
+              <Text role="productive" size="xs">
                 {asset.isPrivate ? labels.privated : labels.sharedWith}
               </Text>
-              <AvatarsGroup size='xs' data={asset.canAccess} numberFromClassesAndData
-                            moreThanUsersAsMulti={2}
-                            customAvatarMargin={4}
-                            zIndexInverted
-                            classesData={asset?.classesCanAccess}
-                            limit={3} />
+              <AvatarsGroup
+                size="xs"
+                data={asset.canAccess}
+                numberFromClassesAndData
+                moreThanUsersAsMulti={2}
+                customAvatarMargin={4}
+                zIndexInverted
+                classesData={asset?.classesCanAccess}
+                limit={3}
+              />
             </Stack>
           )}
           {asset.public && (
-            <Stack direction='column' spacing={2} padding={4}>
-              <Text role='productive' size='xs'>
+            <Stack direction="column" spacing={2} padding={4}>
+              <Text role="productive" size="xs">
                 {labels.sharedWithEverybody}
               </Text>
             </Stack>
@@ -116,7 +120,7 @@ const LibraryDetail = ({
             onClick={handleToggle}
             tooltip={!open ? toolbarItems.open || toolbarItems.toggle : toolbarItems.toggle}
             className={cx(classes.button, {
-              [classes.flip]: !showDrawer
+              [classes.flip]: !showDrawer,
             })}
           />
         </Box>

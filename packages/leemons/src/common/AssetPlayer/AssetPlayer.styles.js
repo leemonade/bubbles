@@ -20,10 +20,11 @@ export const AssetPlayerStyles = createStyles(
     return {
       rootWrapper: {
         width: isWidthNum ? pxToRem(width) : width,
+        height: media.isPDF && '100%',
       },
       root: {
         position: 'relative',
-        height: useMediaRatio && 0,
+        height: media.isPDF ? '100%' : useMediaRatio && 0,
         width: '100%',
         paddingBottom: useMediaRatio && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,

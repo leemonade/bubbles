@@ -1,46 +1,60 @@
 import React, { useState } from 'react';
-import { Box } from '@bubbles-ui/components';
+import { Box, RadioGroup } from '@bubbles-ui/components';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
 import { PDF_PLAYER_DEFAULT_PROPS, PDF_PLAYER_PROP_TYPES } from './PDFPlayer.constants';
 import { PDFPlayerStyles } from './PDFPlayer.styles';
 import { ArrowRightIcon, ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import { StarIcon } from '@bubbles-ui/icons/solid';
 
-const PDFPlayer = ({ pdf, labels, useThumbnails, className }) => {
+const PDFPlayer = ({ pdf, labels, useSchema, className }) => {
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [isThumbnailOpen, setIsThumbnailOpen] = useState(false);
+  const [isThumbnailOpen, setIsThumbnailOpen] = useState(true);
+  const [thumbnailMode, setThumbnailMode] = useState('thumbnail');
+  const [isCurrentPageRendered, setIsCurrentPageRendered] = useState(false);
 
   const changePage = (page) => {
     setActivePage(page);
+    setIsCurrentPageRendered(false);
   };
 
   const pageBackward = () => {
     if (activePage === 1) return;
     setActivePage((prev) => prev - 1);
+    setIsCurrentPageRendered(false);
   };
 
   const pageForward = () => {
     if (activePage === totalPages) return;
     setActivePage((prev) => prev + 1);
+    setIsCurrentPageRendered(false);
+  };
+
+  const modeChangeHandler = (mode) => {
+    setThumbnailMode(mode);
   };
 
   const onLoadSuccessHandler = ({ numPages }) => {
     setTotalPages(numPages);
   };
 
-  const { classes, cx } = PDFPlayerStyles({ isThumbnailOpen }, { name: 'PDFPlayer' });
+  const { classes, cx } = PDFPlayerStyles(
+    { isThumbnailOpen, isCurrentPageRendered, thumbnailMode },
+    { name: 'PDFPlayer' }
+  );
   return (
     <Document
       file={pdf}
       onLoadSuccess={onLoadSuccessHandler}
       className={cx(classes.document, className)}
     >
-      {useThumbnails && (
+      {useSchema && (
         <Box className={classes.thumbnailContainer}>
           <Box className={classes.thumbnailTranslate}>
             <Box className={classes.thumbnailHeader}>
+              <Box className={classes.schemaLabel}>{labels.schemaLabel}</Box>
               <ArrowRightIcon
                 className={classes.arrowIcon}
                 height={20}
@@ -48,22 +62,38 @@ const PDFPlayer = ({ pdf, labels, useThumbnails, className }) => {
                 onClick={() => setIsThumbnailOpen(!isThumbnailOpen)}
               />
             </Box>
+            <Box className={classes.modeWrapper}>
+              <RadioGroup
+                value={thumbnailMode}
+                data={[
+                  { icon: <StarIcon />, value: 'thumbnail' },
+                  { icon: <StarIcon />, value: 'schema' },
+                ]}
+                variant="icon"
+                onChange={modeChangeHandler}
+              />
+            </Box>
             <Box className={classes.thumbnails}>
               {Array.from(new Array(totalPages), (el, index) => {
                 const currentPage = index + 1;
                 return (
                   <Box key={`page_${currentPage}`} className={classes.thumbnailWrapper}>
-                    <Page
-                      pageNumber={currentPage}
-                      renderAnnotationLayer={false}
-                      renderTextLayer={false}
-                      width={90}
-                      className={cx(classes.thumbnailPage, {
-                        [classes.activeThumbnail]: currentPage === activePage,
-                      })}
-                      onClick={() => changePage(currentPage)}
-                    />
-                    <Box className={classes.pageLabel}>{`${labels.pageLabel} ${currentPage}`}</Box>
+                    {thumbnailMode === 'thumbnail' && (
+                      <Page
+                        pageNumber={currentPage}
+                        renderAnnotationLayer={false}
+                        renderTextLayer={false}
+                        width={90}
+                        className={cx(classes.thumbnailPage, {
+                          [classes.activeThumbnail]: currentPage === activePage,
+                        })}
+                        onClick={() => changePage(currentPage)}
+                      />
+                    )}
+                    <Box
+                      className={classes.pageLabel}
+                      onClick={thumbnailMode !== 'thumbnail' ? () => changePage(currentPage) : null}
+                    >{`${labels.pageLabel} ${currentPage}`}</Box>
                   </Box>
                 );
               })}
@@ -74,9 +104,8 @@ const PDFPlayer = ({ pdf, labels, useThumbnails, className }) => {
       <Box className={classes.activePageContainer}>
         <Page
           pageNumber={activePage}
-          renderAnnotationLayer={false}
-          renderTextLayer={false}
           className={classes.activePage}
+          onRenderSuccess={() => setIsCurrentPageRendered(true)}
         />
         <Box className={classes.paginator}>
           <ChevLeftIcon

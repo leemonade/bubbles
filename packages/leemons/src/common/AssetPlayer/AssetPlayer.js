@@ -55,10 +55,10 @@ const AssetPlayer = ({
   hideURLInfo,
   useAudioCard,
   pdfLabels,
-  useThumbnails,
+  useSchema,
   ...props
 }) => {
-  const { name, description, cover, url, fileType, metadata } = asset;
+  const { name, description, cover, url, fileType, fileExtension, metadata } = asset;
   const playerRef = useRef(null);
   const rootRef = useRef(null);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -76,7 +76,7 @@ const AssetPlayer = ({
       isVideo: fileType === 'video',
       isAudio: fileType === 'audio',
       isImage: fileType === 'image',
-      isPDF: fileType === 'pdf',
+      isPDF: fileExtension === 'pdf',
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
@@ -346,9 +346,7 @@ const AssetPlayer = ({
                 )}
               </a>
             )}
-            {media.isPDF && (
-              <PDFPlayer pdf={url} labels={pdfLabels} useThumbnails={useThumbnails} />
-            )}
+            {media.isPDF && <PDFPlayer pdf={url} labels={pdfLabels} useSchema={useSchema} />}
             {!media.isImage && !media.isURL && !media.isPDF && (
               <Box className={classes.fileIcon}>
                 <FileIcon fileType={fileType} size={64} color={COLORS.text06} />

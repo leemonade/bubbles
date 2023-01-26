@@ -17,6 +17,7 @@ const LibraryDetailPlayer = ({
   variant,
   fileIcon,
   fileType,
+  fileExtension,
   titleActionButton,
   ...props
 }) => {
@@ -25,6 +26,7 @@ const LibraryDetailPlayer = ({
     cover,
     fileIcon,
     fileType,
+    fileExtension,
     url,
   };
 

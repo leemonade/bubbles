@@ -67,7 +67,7 @@ const Template = ({ test_asset, ...props }) => {
   }, [test_asset]);
 
   return (
-    <Box>
+    <Box style={{ height: 'calc(100vh - 36px)' }}>
       <AssetPlayer {...props} asset={asset} />
     </Box>
   );
@@ -81,5 +81,6 @@ Playground.args = {
   pdfLabels: {
     pageLabel: 'Página',
     paginatorLabel: 'de',
+    schemaLabel: 'Esquema',
   },
 };

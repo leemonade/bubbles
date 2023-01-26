@@ -141,7 +141,7 @@ export const PDF_ASSET = {
   id: '620bbb607129df59430f3329',
   color: '#FABADA',
   name: 'Google sites',
-  fileType: 'pdf',
+  fileExtension: 'pdf',
   description:
     'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes we do. But what is the role of the neurons in the brain?',
   tags: ['Google', 'Search'],

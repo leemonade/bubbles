@@ -21,8 +21,9 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   pdfLabels: {
     pageLabel: '',
     paginatorLabel: '',
+    schemaLabel: '',
   },
-  useThumbnails: false,
+  useSchema: true,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -45,6 +46,7 @@ export const ASSET_PLAYER_PROP_TYPES = {
   pdfLabels: PropTypes.shape({
     pageLabel: PropTypes.string,
     paginatorLabel: PropTypes.string,
+    schemaLabel: PropTypes.string,
   }),
-  useThumbnails: PropTypes.bool,
+  useSchema: PropTypes.bool,
 };

@@ -5,12 +5,12 @@ export const PDF_PLAYER_DEFAULT_PROPS = {
     pageLabel: '',
     paginatorLabel: '',
   },
-  useThumbnails: false,
+  useSchema: true,
 };
 export const PDF_PLAYER_PROP_TYPES = {
   labels: PropTypes.shape({
     pageLabel: PropTypes.string,
     paginatorLabel: PropTypes.string,
   }),
-  useThumbnails: PropTypes.bool,
+  useSchema: PropTypes.bool,
 };
