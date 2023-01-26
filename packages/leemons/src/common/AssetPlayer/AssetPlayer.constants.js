@@ -18,6 +18,11 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   canPlay: true,
   hideURLInfo: false,
   useAudioCard: false,
+  pdfLabels: {
+    pageLabel: '',
+    paginatorLabel: '',
+  },
+  useThumbnails: false,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -37,4 +42,9 @@ export const ASSET_PLAYER_PROP_TYPES = {
   canPlay: PropTypes.bool,
   hideURLInfo: PropTypes.bool,
   useAudioCard: PropTypes.bool,
+  pdfLabels: PropTypes.shape({
+    pageLabel: PropTypes.string,
+    paginatorLabel: PropTypes.string,
+  }),
+  useThumbnails: PropTypes.bool,
 };

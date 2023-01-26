@@ -9,6 +9,7 @@ import {
   AUDIO_ASSET,
   IMAGE_ASSET,
   URL_ASSET,
+  PDF_ASSET,
 } from '../../library/LibraryCard/mock/data';
 
 export default {
@@ -25,7 +26,7 @@ export default {
   },
   argTypes: {
     test_asset: {
-      options: ['video', 'youtube', 'audio', 'image', 'url'],
+      options: ['video', 'youtube', 'audio', 'image', 'url', 'pdf'],
       control: { type: 'select' },
     },
     float: { options: ['none', 'left', 'right'], control: { type: 'select' } },
@@ -57,6 +58,9 @@ const Template = ({ test_asset, ...props }) => {
       case 'url':
         setAsset(URL_ASSET);
         break;
+      case 'pdf':
+        setAsset(PDF_ASSET);
+        break;
       default:
         setAsset(IMAGE_ASSET);
     }
@@ -64,7 +68,7 @@ const Template = ({ test_asset, ...props }) => {
 
   return (
     <Box>
-<AssetPlayer {...props} asset={asset} />
+      <AssetPlayer {...props} asset={asset} />
     </Box>
   );
 };
@@ -74,4 +78,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...ASSET_PLAYER_DEFAULT_PROPS,
   test_asset: 'video',
+  pdfLabels: {
+    pageLabel: 'Página',
+    paginatorLabel: 'de',
+  },
 };

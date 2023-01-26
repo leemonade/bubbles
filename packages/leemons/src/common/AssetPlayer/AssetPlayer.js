@@ -15,6 +15,7 @@ import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlay
 import { ProgressBar } from './components/ProgressBar';
 import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
+import { PDFPlayer } from './components/PDFPlayer';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -53,6 +54,8 @@ const AssetPlayer = ({
   canPlay,
   hideURLInfo,
   useAudioCard,
+  pdfLabels,
+  useThumbnails,
   ...props
 }) => {
   const { name, description, cover, url, fileType, metadata } = asset;
@@ -73,6 +76,7 @@ const AssetPlayer = ({
       isVideo: fileType === 'video',
       isAudio: fileType === 'audio',
       isImage: fileType === 'image',
+      isPDF: fileType === 'pdf',
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
@@ -299,11 +303,12 @@ const AssetPlayer = ({
           )
         ) : (
           <>
-            {media.isImage ? (
+            {media.isImage && (
               <ModalZoom canPlay={canPlay}>
                 <ImageLoader height="100%" src={cover} alt={name} />
               </ModalZoom>
-            ) : media.isURL ? (
+            )}
+            {media.isURL && (
               <a
                 href={asset.url}
                 target="_blank"
@@ -340,7 +345,11 @@ const AssetPlayer = ({
                   </Box>
                 )}
               </a>
-            ) : (
+            )}
+            {media.isPDF && (
+              <PDFPlayer pdf={url} labels={pdfLabels} useThumbnails={useThumbnails} />
+            )}
+            {!media.isImage && !media.isURL && !media.isPDF && (
               <Box className={classes.fileIcon}>
                 <FileIcon fileType={fileType} size={64} color={COLORS.text06} />
               </Box>

@@ -14,7 +14,8 @@ export const AssetPlayerStyles = createStyles(
       };
     }
 
-    const useMediaRatio = !media.isURL && !media.isImage && !(media.isAudio && useAudioCard);
+    const useMediaRatio =
+      !media.isURL && !media.isImage && !media.isPDF && !(media.isAudio && useAudioCard);
 
     return {
       rootWrapper: {
@@ -36,6 +37,7 @@ export const AssetPlayerStyles = createStyles(
         left: 0,
         right: 0,
         pointerEvents: showPlayer && 'none',
+        userSelect: 'none',
       },
       coverShadow: {
         position: 'absolute',
