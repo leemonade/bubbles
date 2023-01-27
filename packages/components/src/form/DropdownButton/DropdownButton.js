@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { DropdownButtonStyles } from './DropdownButton.styles';
 import {
   DROPDOWN_BUTTON_DEFAULT_PROPS,
@@ -9,11 +9,17 @@ import { ChevDownIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '../../overlay';
 import { Dropdown, Item } from '../../overlay/Dropdown';
 import { ImageLoader } from '../../misc';
+import { isFunction } from 'lodash';
 
 const DropdownButton = ({ itemComponent, data, ...props }) => {
   const [opened, setOpened] = useState(false);
 
-  const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
+  const handleOnOption = (onOption) => {
+    return () => {
+      isFunction(onOption) && onOption();
+      setOpened(false);
+    };
+  };
 
   function renderIcon(icon) {
     if (!icon) return;
@@ -23,6 +29,14 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
     return icon;
   }
 
+  const handledData = useMemo(() => {
+    return data.map((item) => {
+      const handledOnClick = handleOnOption(item.onClick);
+      return { ...item, onClick: handledOnClick };
+    });
+  }, [data]);
+
+  const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
   return (
     <Popover
       opened={opened}
@@ -43,7 +57,7 @@ const DropdownButton = ({ itemComponent, data, ...props }) => {
       styles={{ boxShadow: 'none', border: 'none' }}
     >
       <Dropdown>
-        {data.map((item, index) => (
+        {handledData.map((item, index) => (
           <Item
             key={item.id || `DropdownButton Item ${index}`}
             {...item}

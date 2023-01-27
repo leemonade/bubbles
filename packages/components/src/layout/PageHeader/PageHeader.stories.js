@@ -34,7 +34,12 @@ Playground.args = {
   },
   buttons: {
     duplicate: 'Guardar borrador',
-    new: 'Publicar',
+    dropdown: 'Dropdown',
   },
+  onDropdown: [
+    { label: 'Opción 1', onClick: () => console.log('opción 1') },
+    { label: 'Opción 2', onClick: () => console.log('opción 2') },
+    { label: 'Opción 3', onClick: () => console.log('opción 3') },
+  ],
   icon: <PluginAssignmentsIcon />,
 };
