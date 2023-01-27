@@ -59,7 +59,9 @@ export const PDFPlayerStyles = createStyles(
         justifyContent: 'flex-end',
         alignItems: 'center',
         padding: 16,
+        paddingRight: isThumbnailOpen ? 16 : 52,
         borderBottom: `1px solid ${borderColor}`,
+        transition: 'padding 0.2s',
       },
       thumbnailWrapper: {
         display: 'flex',
