@@ -56,9 +56,9 @@ export const PDFPlayerStyles = createStyles(
       },
       modeWrapper: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingBlock: 16,
+        padding: 16,
         borderBottom: `1px solid ${borderColor}`,
       },
       thumbnailWrapper: {
@@ -72,7 +72,7 @@ export const PDFPlayerStyles = createStyles(
         cursor: 'pointer',
       },
       pageLabel: {
-        ...globalTheme.content.typoMobile.caption,
+        ...globalTheme.content.typo.body.md,
         color: globalTheme.content.color.text.default,
         lineHeight: '16px',
         cursor: thumbnailMode !== 'thumbnail' && 'pointer',
