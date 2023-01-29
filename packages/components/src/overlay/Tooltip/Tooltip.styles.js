@@ -28,7 +28,7 @@ const getColor = (theme, color) => {
   return {
     primary: {
       backgroundColor: theme.colors.interactive01h,
-      color: 'red', // theme.other.button.content.color.primary['default--reverse'],
+      color: theme.other.button.content.color.primary['default--reverse'],
       '&:hover': {
         backgroundColor: theme.colors.interactive01h,
       },
@@ -61,7 +61,6 @@ export const TooltipStyles = createStyles((theme, { color, size }) => {
       ...getFontExpressive(null, 400),
       ...getColor(theme, color),
       ...getSizes(theme, size),
-      color: 'red',
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
