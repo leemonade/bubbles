@@ -15,7 +15,7 @@ export const PARAGRAPH_DEFAULT_PROPS = {
 };
 
 const Paragraph = forwardRef(
-  ({ children, style, align, className, classNames, color: colorProp, clean, ...props }, ref) => {
+  ({ children, align, className, classNames, color: colorProp, clean, ...props }, ref) => {
     const color = PARAGRAPH_COLORS.includes(colorProp) ? colorProp : PARAGRAPH_DEFAULT_PROPS.color;
     const { classes, cx } = ParagraphStyles({ align, clean });
 

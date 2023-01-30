@@ -25,7 +25,7 @@ export const KANBAN_PROP_TYPES = {
   isCombineEnabled: PropTypes.bool,
   onChange: PropTypes.func,
   icon: PropTypes.node,
-  itemRender: PropTypes.node,
+  itemRender: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
 const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props }) => {

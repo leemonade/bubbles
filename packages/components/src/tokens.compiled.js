@@ -16,7 +16,7 @@ export default {
             "type": "color"
           },
           "default--reverse": {
-            "value": "#ffffff",
+            "value": "#000",
             "type": "color"
           }
         },

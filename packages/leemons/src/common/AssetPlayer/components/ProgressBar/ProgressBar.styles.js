@@ -78,6 +78,7 @@ export const ProgressBarStyles = createStyles((theme, {}) => {
     iconWrapper: {
       display: 'flex',
       alignItems: 'center',
+      userSelect: 'none',
     },
     whiteIcon: {
       color: 'white',

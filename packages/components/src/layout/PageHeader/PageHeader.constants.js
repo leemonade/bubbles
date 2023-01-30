@@ -6,6 +6,7 @@ export const PAGE_HEADER_BUTTONS = {
   SAVE: 'save',
   CANCEL: 'cancel',
   DUPLICATE: 'duplicate',
+  DROPDOWN: 'dropdown',
 };
 
 export const PAGE_HEADER_DEFAULT_PROPS = {

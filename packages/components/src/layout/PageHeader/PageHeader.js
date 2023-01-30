@@ -9,8 +9,8 @@ import { AddIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../Box';
 import { Text, Title } from '../../typography';
 import { Stack } from '../Stack';
-import { capitalize, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
-import { Button, TextInput } from '../../form';
+import { capitalize, isArray, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
+import { Button, DropdownButton } from '../../form';
 import { ContentLegible } from '../ContentLegible';
 import { Controller, useForm } from 'react-hook-form';
 import { TitleTextInput } from './components/TitleTextInput/TitleTextInput';
@@ -33,6 +33,7 @@ const PageHeader = ({
   onCancel,
   onButton,
   onDuplicate,
+  onDropdown,
   isEditMode,
   fullWidth,
   ...props
@@ -203,6 +204,16 @@ const PageHeader = ({
               >
                 {buttonLabel(BUTTONS.NEW)}
               </Button>
+            )}
+            {isNotEmpty(BUTTONS.DROPDOWN) && (
+              <DropdownButton
+                type="button"
+                loading={checkLoading(BUTTONS.DROPDOWN)}
+                leftIcon={buttonsIcons.dropdown}
+                data={onDropdown}
+              >
+                {buttonLabel(BUTTONS.DROPDOWN)}
+              </DropdownButton>
             )}
           </Box>
         </Stack>

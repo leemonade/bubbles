@@ -8,7 +8,7 @@ import {
   Paper,
   Paragraph,
   Text,
-  TextClamp
+  TextClamp,
 } from '@bubbles-ui/components';
 import { filter, find } from 'lodash';
 import { LibraryCardDeadline } from '../../library';
@@ -17,8 +17,7 @@ const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 export const KANBAN_TASK_CARD_DEFAULT_PROPS = {
-  onClick: () => {
-  }
+  onClick: () => {},
 };
 export const KANBAN_TASK_CARD_PROP_TYPES = {};
 
@@ -42,12 +41,13 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
 
   const image = value.image;
 
-  const {
-    classes,
-    cx
-  } = KanbanTaskCardStyles({
+  const { classes, cx } = KanbanTaskCardStyles({
     bgColor: value.disableDrag ? value.bgColor || calendar.bgColor : null,
-    titleMargin: value.deadline || value.endDate || value?.data?.description || (!isFromInstance && calendar.isUserCalendar)
+    titleMargin:
+      value.deadline ||
+      value.endDate ||
+      value?.data?.description ||
+      (!isFromInstance && calendar.isUserCalendar),
   });
 
   const percentaje = useMemo(() => {
@@ -59,26 +59,25 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
     return null;
   }, [value]);
 
-
   const avatar = {
     image: image || null,
     icon: value.icon ? (
       <Box className={classes.icon}>
         <ImageLoader
-          height='14px'
+          height="14px"
           imageStyles={{
             width: 14,
             position: 'absolute',
             left: '50%',
             top: '50%',
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
           }}
           src={value.icon}
           forceImage
         />
       </Box>
     ) : null,
-    color: value.bgColor
+    color: value.bgColor,
   };
 
   if (calendar.isUserCalendar) {
@@ -91,7 +90,7 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
 
   return (
     <Paper
-      shadow='none'
+      shadow="none"
       className={classes.root}
       style={{ cursor: value.disableDrag ? 'pointer' : 'grab' }}
       onClick={() => onClick(value)}
@@ -99,43 +98,59 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
       <Box className={classes.topSection}>
         <Box className={classes.title}>{value.title}</Box>
 
-        {value.deadline || value.endDate || value?.data?.description || (!isFromInstance && calendar.isUserCalendar) ?
-          <Box className={classes.line}></Box> : null}
+        {value.deadline ||
+        value.endDate ||
+        value?.data?.description ||
+        (!isFromInstance && calendar.isUserCalendar) ? (
+          <Box className={classes.line}></Box>
+        ) : null}
 
         {value.data && value.data.description ? (
           <Box className={classes.description}>
             <TextClamp lines={1} showTooltip>
-              <Text role='productive'>{value.data.description}</Text>
+              <Text role="productive">{value.data.description}</Text>
             </TextClamp>
           </Box>
         ) : null}
 
-        {value.deadline ? <Box
-          sx={(theme) => ({ margin: `-0.5rem` })}><LibraryCardDeadline {...value.deadline} /></Box> : value.endDate ?
-          <Text
-            size='xs'>{labels.delivery} {dayjs(value.endDate).format('DD/MM/YYYY HH:mm')}</Text>
-          : null}
-
+        {value.deadline ? (
+          <Box sx={(theme) => ({ margin: `-0.5rem` })}>
+            <LibraryCardDeadline {...value.deadline} />
+          </Box>
+        ) : value.endDate ? (
+          <Text size="xs">
+            {labels.delivery} {dayjs(value.endDate).format('DD/MM/YYYY HH:mm')}
+          </Text>
+        ) : null}
       </Box>
       <Box className={classes.bottomSection}>
         <Box className={classes.bottomSectionBg} />
         <Box className={classes.bottomSectionContent}>
           <Box className={classes.avatar}>
-            {!isFromInstance || (isFromInstance && (!avatar.image || !avatar.icon)) ? <Box
-              sx={(theme) => ({ display: 'inline-block', zIndex: 2, verticalAlign: 'middle' })}>
-              <Avatar mx='auto' size='xs' {...avatar} />
-            </Box> : null}
+            {!isFromInstance || (isFromInstance && (!avatar.image || !avatar.icon)) ? (
+              <Box
+                sx={(theme) => ({ display: 'inline-block', zIndex: 2, verticalAlign: 'middle' })}
+              >
+                <Avatar mx="auto" size="sm" {...avatar} />
+              </Box>
+            ) : null}
 
-            {avatar.image && avatar.icon ? <Box
-              sx={(theme) => ({
-                display: 'inline-block',
-                marginLeft: -theme.spacing[2],
-                verticalAlign: 'middle'
-              })}><Avatar
-              mx='auto' size='xs' {...avatarNoImage} /></Box> : null}
+            {avatar.image && avatar.icon ? (
+              <Box
+                sx={(theme) => ({
+                  display: 'inline-block',
+                  marginLeft: -theme.spacing[2],
+                  verticalAlign: 'middle',
+                })}
+              >
+                <Avatar mx="auto" size="sm" {...avatarNoImage} />
+              </Box>
+            ) : null}
             {value.calendarName ? (
-              <Paragraph size='xs' sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
-                {value.uniqClasses.length > 1 && !isFromInstance ? `(${value.uniqClasses.length})` : value.calendarName}
+              <Paragraph size="xs" sx={(theme) => ({ marginLeft: theme.spacing[2], marginTop: 0 })}>
+                {value.uniqClasses.length > 1 && !isFromInstance
+                  ? `(${value.uniqClasses.length})`
+                  : value.calendarName}
               </Paragraph>
             ) : null}
           </Box>

@@ -1,5 +1,5 @@
 import SimpleBar from 'simplebar-react';
-import jsonTokens from '../tokens-compiled';
+import jsonTokens from './tokens.compiled';
 
 export { SimpleBar };
 export { jsonTokens };

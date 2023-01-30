@@ -7,18 +7,25 @@ import { LoginBgStyles } from './LoginBg.styles';
 export const LOGIN_BG_DEFAULT_PROPS = {
   backgroundColor: '#F0F5FC',
   foregroundColor: '#FFFFFF',
+  containerColor: '#FFFFFF',
+  fillColor: 'none',
   dobleQuoted: true,
   accentColor: null,
   logoUrl: '',
+  logoWidth: 140,
 };
 export const LOGIN_BG_PROP_TYPES = {
   quote: PropTypes.string,
   author: PropTypes.string,
   backgroundColor: PropTypes.string,
   foregroundColor: PropTypes.string,
+  containerColor: PropTypes.string,
   dobleQuoted: PropTypes.bool,
   accentColor: PropTypes.string,
   logoUrl: PropTypes.string,
+  fillColor: PropTypes.string,
+  quoteColor: PropTypes.string,
+  logoWidth: PropTypes.number,
 };
 
 const LoginBg = ({
@@ -26,21 +33,33 @@ const LoginBg = ({
   author,
   backgroundColor,
   foregroundColor,
+  containerColor,
+  fillColor,
   dobleQuoted,
   accentColor,
   logoUrl,
+  logoWidth,
+  quoteColor,
   ...props
 }) => {
-  const { classes, cx } = LoginBgStyles({});
+  const { classes, cx } = LoginBgStyles({ logoWidth });
 
-  useEffect(() => console.log('Bubbles >> LoginBg >> accentColor:', accentColor), [accentColor]);
+  /*
+  useEffect(
+    () => console.log('Bubbles >> LoginBg >> containerColor:', containerColor),
+    [containerColor]
+  );
+  */
 
   return (
     <Box className={classes.root}>
       <HeroBg
+        {...props}
         size="x-md"
         style={{ backgroundColor, color: foregroundColor }}
         accentColor={!isEmpty(accentColor) ? accentColor : undefined}
+        containerColor={!isEmpty(containerColor) ? containerColor : undefined}
+        fillColor={!isEmpty(fillColor) ? fillColor : undefined}
       />
       <Box className={classes.content}>
         {!isEmpty(logoUrl) ? (
@@ -50,7 +69,11 @@ const LoginBg = ({
         )}
 
         <Stack direction="column" spacing={2}>
-          <Paragraph size="xl" color="secondary">
+          <Paragraph
+            size="xl"
+            color="secondary"
+            style={{ color: !!quoteColor ? quoteColor : undefined }}
+          >
             {dobleQuoted ? `"${quote}"` : quote}
           </Paragraph>
           <Text size="md">{author}</Text>

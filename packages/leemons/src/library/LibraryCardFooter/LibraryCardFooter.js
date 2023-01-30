@@ -4,25 +4,25 @@ import { AvatarsGroup, Box, Button, FileIcon, Text } from '@bubbles-ui/component
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 import {
   LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
-  LIBRARY_CARD_FOOTER_PROP_TYPES
+  LIBRARY_CARD_FOOTER_PROP_TYPES,
 } from './LibraryCardFooter.constants';
 
 const LibraryCardFooter = ({
-                             fileType,
-                             fileExtension,
-                             created,
-                             canAccess,
-                             classesCanAccess,
-                             action,
-                             onAction,
-                             locale,
-                             className,
-                             style,
-                             variant,
-                             variantTitle,
-                             variantIcon,
-                             ...props
-                           }) => {
+  fileType,
+  fileExtension,
+  created,
+  canAccess,
+  classesCanAccess,
+  action,
+  onAction,
+  locale,
+  className,
+  style,
+  variant,
+  variantTitle,
+  variantIcon,
+  ...props
+}) => {
   const { classes, cx } = LibraryCardFooterStyles(
     { action, size: 12, color: '#636D7D' },
     { name: 'LibraryCardFooter' }
@@ -77,17 +77,23 @@ const LibraryCardFooter = ({
           {component}
 
           {created ? (
-            <Text role='productive' className={classes.date}>
+            <Text role="productive" className={classes.date}>
               {formatDate()}
             </Text>
-          ) : <Box sx={(theme) => ({ paddingRight: theme.spacing[2] })}>
-            <AvatarsGroup size='xs' data={canAccess} moreThanUsersAsMulti={2}
-                          classesData={classesCanAccess}
-                          zIndexInverted
-                          numberFromClassesAndData
-                          customAvatarMargin={4}
-                          limit={3} />
-          </Box>}
+          ) : (
+            <Box sx={(theme) => ({ paddingRight: theme.spacing[2] })}>
+              <AvatarsGroup
+                size="sm"
+                data={canAccess}
+                moreThanUsersAsMulti={2}
+                classesData={classesCanAccess}
+                zIndexInverted
+                numberFromClassesAndData
+                customAvatarMargin={4}
+                limit={3}
+              />
+            </Box>
+          )}
         </>
       )}
     </Box>

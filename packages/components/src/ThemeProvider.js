@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
 import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
-import figmaTokens from '../tokens-compiled';
+import figmaTokens from './tokens.compiled';
 import { isEmpty, isObject } from 'lodash';
 
 export const BUBBLES_THEME = {

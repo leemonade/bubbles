@@ -1,7 +1,10 @@
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const AssetPlayerStyles = createStyles(
-  (theme, { width, media, styles, framed, mediaRatio, showPlayer, canPlay, useAudioCard }) => {
+  (
+    theme,
+    { width, media, styles, framed, viewPDF, mediaRatio, showPlayer, canPlay, useAudioCard }
+  ) => {
     const isWidthNum = /^\d+$/.test(width);
 
     let framedProps = {};
@@ -14,15 +17,17 @@ export const AssetPlayerStyles = createStyles(
       };
     }
 
-    const useMediaRatio = !media.isURL && !media.isImage && !(media.isAudio && useAudioCard);
+    const useMediaRatio =
+      !media.isURL && !media.isImage && !media.isPDF && !(media.isAudio && useAudioCard);
 
     return {
       rootWrapper: {
         width: isWidthNum ? pxToRem(width) : width,
+        height: media.isPDF && viewPDF && '100%',
       },
       root: {
         position: 'relative',
-        height: useMediaRatio && 0,
+        height: media.isPDF && viewPDF ? '100%' : useMediaRatio && 0,
         width: '100%',
         paddingBottom: useMediaRatio && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,
@@ -36,6 +41,7 @@ export const AssetPlayerStyles = createStyles(
         left: 0,
         right: 0,
         pointerEvents: showPlayer && 'none',
+        userSelect: 'none',
       },
       coverShadow: {
         position: 'absolute',
@@ -48,6 +54,22 @@ export const AssetPlayerStyles = createStyles(
         alignItems: 'center',
         opacity: showPlayer ? 0 : 1,
         transition: 'opacity 200ms',
+      },
+      pdfCover: {
+        background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(.jpg)',
+        position: 'relative',
+      },
+      pdfDownloadIcon: {
+        position: 'absolute',
+        height: 24,
+        width: 24,
+        bottom: 10,
+        right: 16,
+        color: theme.other.global.content.color.icon['default--reverse'],
+        cursor: 'pointer',
+        '&:active': {
+          transform: 'translateY(2px)',
+        },
       },
       playIcon: {
         color: 'white',
