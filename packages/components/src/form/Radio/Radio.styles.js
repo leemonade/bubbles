@@ -10,6 +10,7 @@ export const RadioStyles = createStyles(
     const isRight = helpPosition === 'right';
     const hasIcon = !!icon;
     const hasLabel = !!children || !!label;
+    const radioTheme = theme.other.radio;
 
     return {
       root: {
@@ -51,12 +52,12 @@ export const RadioStyles = createStyles(
         height: 20,
         width: 20,
         '&:checked': {
-          backgroundColor: theme.colors.ui02,
-          border: `1px solid ${theme.colors.interactive01d}`,
+          backgroundColor: radioTheme.background.color.selected,
+          border: `1px solid ${radioTheme.border.color.selected}`,
         },
       },
       icon: {
-        color: checked ? theme.colors.interactive01 : theme.colors.text05,
+        color: checked ? radioTheme.content.color.selected : theme.colors.text05,
         marginBottom: isIcon && hasLabel && 10,
         display: isIcon && !hasIcon && 'none',
         lineHeight: 0,

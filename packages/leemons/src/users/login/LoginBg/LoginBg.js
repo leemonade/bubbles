@@ -12,6 +12,7 @@ export const LOGIN_BG_DEFAULT_PROPS = {
   dobleQuoted: true,
   accentColor: null,
   logoUrl: '',
+  logoWidth: 140,
 };
 export const LOGIN_BG_PROP_TYPES = {
   quote: PropTypes.string,
@@ -24,6 +25,7 @@ export const LOGIN_BG_PROP_TYPES = {
   logoUrl: PropTypes.string,
   fillColor: PropTypes.string,
   quoteColor: PropTypes.string,
+  logoWidth: PropTypes.number,
 };
 
 const LoginBg = ({
@@ -36,10 +38,11 @@ const LoginBg = ({
   dobleQuoted,
   accentColor,
   logoUrl,
+  logoWidth,
   quoteColor,
   ...props
 }) => {
-  const { classes, cx } = LoginBgStyles({});
+  const { classes, cx } = LoginBgStyles({ logoWidth });
 
   /*
   useEffect(

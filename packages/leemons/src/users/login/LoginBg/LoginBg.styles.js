@@ -1,6 +1,6 @@
 import { createStyles, getPaddings } from '@bubbles-ui/components';
 
-export const LoginBgStyles = createStyles((theme, {}) => {
+export const LoginBgStyles = createStyles((theme, { logoWidth = 160 }) => {
   return {
     root: {
       position: 'relative',
@@ -19,7 +19,7 @@ export const LoginBgStyles = createStyles((theme, {}) => {
       ...getPaddings(theme.spacing['4'], theme.spacing['5']),
     },
     logo: {
-      width: '160px!important',
+      width: `${logoWidth}px!important`,
       height: 'auto!important',
     },
     footer: {
