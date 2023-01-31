@@ -16,7 +16,7 @@ export default {
             "type": "color"
           },
           "default--reverse": {
-            "value": "#000",
+            "value": "#ffffff",
             "type": "color"
           }
         },
@@ -3367,11 +3367,7 @@ export default {
       },
       "color": {
         "default": {
-          "value": "#495465",
-          "type": "color"
-        },
-        "active": {
-          "value": "#307ae8",
+          "value": "#7e8795",
           "type": "color"
         },
         "completed": {
@@ -3382,22 +3378,20 @@ export default {
     },
     "spacing": {
       "gap": {
-        "value": "16px",
+        "value": "4px",
         "type": "spacing"
       },
       "padding": {
-        "value": "16px",
-        "type": "spacing"
+        "md": {
+          "value": "16px",
+          "type": "spacing"
+        }
       }
     },
     "background": {
       "color": {
-        "default": {
-          "value": "#eaeef6",
-          "type": "color"
-        },
         "active": {
-          "value": "#ffffff",
+          "value": "#307ae8",
           "type": "color"
         }
       }
@@ -3407,10 +3401,18 @@ export default {
         "default": {
           "value": "#c2cad6",
           "type": "color"
+        },
+        "active": {
+          "value": "#307ae8",
+          "type": "color"
+        },
+        "completed": {
+          "value": "#5cbc6a",
+          "type": "color"
         }
       },
       "radius": {
-        "value": "4px",
+        "value": "50%",
         "type": "borderRadius"
       },
       "width": {
