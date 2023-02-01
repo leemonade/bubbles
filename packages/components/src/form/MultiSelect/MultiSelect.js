@@ -115,7 +115,7 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear, hasIcon },
+      { size, multiple, rightEvents: isClearable && showClear, hasIcon },
       { name: 'MultiSelect' }
     );
 
