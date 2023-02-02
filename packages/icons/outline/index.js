@@ -40,6 +40,7 @@ module.exports.ComputerKeyboardNextIcon = require("./ComputerKeyboardNextIcon.js
 module.exports.ComputerKeyboardPreviousIcon = require("./ComputerKeyboardPreviousIcon.js")
 module.exports.ComputerKeyboardReturnIcon = require("./ComputerKeyboardReturnIcon.js")
 module.exports.ComputerKeyboardIcon = require("./ComputerKeyboardIcon.js")
+module.exports.ComunicaIcon = require("./ComunicaIcon.js")
 module.exports.CursorIcon = require("./CursorIcon.js")
 module.exports.DataFileBarsQuestionIcon = require("./DataFileBarsQuestionIcon.js")
 module.exports.DeleteBinIcon = require("./DeleteBinIcon.js")

@@ -263,9 +263,11 @@ const SetupCourses = ({
     isFunction(onNext) && onNext(data);
   };
 
-  if (maxNumberOfCourses === 1 && !onlyOneCourse) {
-    setValue('onlyOneCourse', true);
-  }
+  useEffect(() => {
+    if (maxNumberOfCourses === 1 && !onlyOneCourse) {
+      setValue('onlyOneCourse', true);
+    }
+  }, [maxNumberOfCourses, onlyOneCourse]);
 
   const tableConfig = React.useMemo(
     () => ({
@@ -560,7 +562,7 @@ const SetupCourses = ({
                         </ContextContainer>
                       )}
                     />
-                    {substagesFrequencyValue && getSubstages()}
+                    {substagesFrequencyValue ? getSubstages() : null}
                   </>
                 ) : null}
               </ContextContainer>
