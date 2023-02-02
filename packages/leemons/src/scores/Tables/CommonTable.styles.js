@@ -22,7 +22,7 @@ export const CommonTableStyles = createStyles(
           height: 6,
         },
         '::-webkit-scrollbar-track': {
-          marginLeft: 200,
+          marginLeft: 220,
           marginRight: 300,
           backgroundColor: theme.colors.ui02,
         },
@@ -48,7 +48,7 @@ export const CommonTableStyles = createStyles(
       },
       shadowBox: {
         zIndex: 4,
-        width: 198,
+        width: 218,
         position: 'absolute',
         left: 0,
         top: 0,

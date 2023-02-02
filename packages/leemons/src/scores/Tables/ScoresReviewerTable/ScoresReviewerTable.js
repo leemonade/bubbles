@@ -144,7 +144,7 @@ const ScoresReviewerTable = ({
     const columns = [];
     columns.push({
       accessor: 'student',
-      width: 200,
+      width: 220,
       sticky: 'left',
       Header: (
         <Box className={classes.students}>
