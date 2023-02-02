@@ -85,6 +85,7 @@ const HeadingsTool = ({ labels }) => {
         value={level}
         onChange={handleOnChange}
         itemComponent={SelectItem}
+        style={{ minWidth: 170 }}
       />
     </Box>
   );

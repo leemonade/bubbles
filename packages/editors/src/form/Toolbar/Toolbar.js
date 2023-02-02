@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useRef, useState } from 'react';
+import React, { Children, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@bubbles-ui/components';
 import { ToolbarStyles } from './Toolbar.styles';
@@ -25,6 +25,16 @@ const Toolbar = ({ children, useAria, toolbarLabel, className, ...props }) => {
   const [toolbarChilds, setToolbarChilds] = useState([]);
   const [dropdownChilds, setDropdownChilds] = useState([]);
   const { width: maxWidth } = useDimensions(toolbarRef);
+  const prevMaxWidth = useRef(maxWidth);
+  const allChildrenWidth = useMemo(
+    () =>
+      childrenWidths.reduce(
+        (prev, current, index) =>
+          prev + (current || 0) + (index === childrenWidths.length - 1 ? 0 : 12),
+        0
+      ),
+    [childrenWidths]
+  );
 
   useEffect(() => {
     if (maxWidth === 0) return;
@@ -37,19 +47,27 @@ const Toolbar = ({ children, useAria, toolbarLabel, className, ...props }) => {
 
   useEffect(() => {
     if (maxWidth === 0) return;
+    const isAscending = prevMaxWidth.current < maxWidth;
     let currentWidth = dropdownChilds.length > 0 ? 40 : 0;
     let newToolbarChilds = [];
     let newDropdownChilds = [];
     originalChildren.forEach((child, index, array) => {
-      const nextWidth =
-        currentWidth + childrenWidths[index] + (index === array.length - 1 ? 0 : 16);
+      const padding =
+        (index === array.length - 1 && dropdownChilds.length <= 0) ||
+        (isAscending && maxWidth > allChildrenWidth)
+          ? 0
+          : 12;
+      const childWidth = childrenWidths[index] || 0;
+      const nextWidth = currentWidth + childWidth + padding;
       if (nextWidth > maxWidth) {
         newDropdownChilds.push(child);
       } else {
         newToolbarChilds.push(child);
         currentWidth = nextWidth;
+        prevMaxWidth.current = maxWidth;
       }
     });
+
     setDropdownChilds([...newDropdownChilds]);
     setToolbarChilds([...newToolbarChilds]);
   }, [maxWidth, childrenWidths]);
