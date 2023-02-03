@@ -10,9 +10,10 @@ import {
   LinkTool,
 } from '../../tool/';
 import { Box } from '@bubbles-ui/components';
-import { TextEditor } from './TextEditor';
+import { TextEditor, TEXT_EDITOR_DEFAULT_PROPS } from './TextEditor';
 import mdx from './TextEditor.mdx';
 import { labels } from './mock/data';
+import { TOOLBAR_POSITIONS } from '../Toolbar';
 
 export default {
   title: 'Organism/Form/TextEditor',
@@ -28,6 +29,7 @@ export default {
   },
   argTypes: {
     onChange: { action: 'onChange' },
+    toolbarPosition: { options: TOOLBAR_POSITIONS, control: { type: 'select' } },
   },
 };
 
@@ -55,6 +57,7 @@ const Template = ({ onChange, ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
+  ...TEXT_EDITOR_DEFAULT_PROPS,
   library: <Box>Library component</Box>,
   content:
     '<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>',

@@ -11,9 +11,13 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
-import { Toolbar } from '../Toolbar';
+import { Toolbar, TOOLBAR_POSITIONS } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
+
+export const TEXT_EDITOR_DEFAULT_PROPS = {
+  toolbarPosition: TOOLBAR_POSITIONS[0],
+};
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
@@ -30,6 +34,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
       updateWithoutContent: PropTypes.bool,
     })
   ),
+  toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
 };
 
 const TextEditor = ({
@@ -44,6 +49,7 @@ const TextEditor = ({
   readOnly,
   useSchema,
   acceptedTags = [],
+  toolbarPosition,
 }) => {
   const store = React.useRef({
     isFocus: false,
@@ -197,7 +203,11 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <>
-            <Toolbar toolbarLabel={'Toolbar'} className={toolbarClassname}>
+            <Toolbar
+              toolbarLabel={'Toolbar'}
+              className={toolbarClassname}
+              toolbarPosition={toolbarPosition}
+            >
               {children}
             </Toolbar>
             <BubbleMenu />
@@ -216,5 +226,6 @@ const TextEditor = ({
 };
 
 TextEditor.propTypes = TEXT_EDITOR_PROP_TYPES;
+TextEditor.defaultProps = TEXT_EDITOR_DEFAULT_PROPS;
 
 export { TextEditor };
