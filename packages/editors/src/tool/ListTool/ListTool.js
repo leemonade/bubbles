@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
-import ListItem from '@tiptap/extension-list-item';
+// import ListItem from '@tiptap/extension-list-item';
+import { ListItemCustom } from './extension';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { EditorListBulletsIcon, EditorListNumbersIcon } from '@bubbles-ui/icons/solid';
 import { Button } from '../../form/Button/Button';
@@ -54,7 +55,7 @@ ListTool.extensions = [
   OrderedList.configure({
     itemTypeName: 'listItem',
   }),
-  ListItem,
+  ListItemCustom,
 ];
 
 export { ListTool };

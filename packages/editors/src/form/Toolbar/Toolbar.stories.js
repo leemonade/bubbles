@@ -1,4 +1,4 @@
-import { Toolbar, TOOLBAR_DEFAULT_PROPS } from './Toolbar';
+import { Toolbar, TOOLBAR_DEFAULT_PROPS, TOOLBAR_POSITIONS } from './Toolbar';
 import { TextEditor } from '../TextEditor/TextEditor';
 import { ColorTool } from '../../tool/ColorTool/ColorTool';
 import { TransformsTool } from '../../tool/TransformsTool/TransformsTool';
@@ -17,7 +17,9 @@ export default {
       // url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
     },
   },
-  argTypes: {},
+  argTypes: {
+    toolbarPosition: { options: TOOLBAR_POSITIONS, control: { type: 'select' } },
+  },
 };
 
 const Template = ({ content, ...props }) => {

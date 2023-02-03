@@ -5,16 +5,20 @@ import { ToolbarStyles } from './Toolbar.styles';
 import { useDimensions } from '../../utils/use-dimensions';
 import { ToolbarTool } from '../../tool/ToolbarTool/ToolbarTool';
 
+export const TOOLBAR_POSITIONS = ['left', 'center', 'right'];
+
 export const TOOLBAR_DEFAULT_PROPS = {
   useAria: true,
+  toolbarPosition: TOOLBAR_POSITIONS[0],
 };
 
 export const TOOLBAR_PROP_TYPES = {
   useAria: PropTypes.bool,
+  toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
 };
 
-const Toolbar = ({ children, useAria, toolbarLabel, className, ...props }) => {
-  const { classes, cx } = ToolbarStyles({ name: 'Toolbar' });
+const Toolbar = ({ children, useAria, toolbarLabel, toolbarPosition, className, ...props }) => {
+  const { classes, cx } = ToolbarStyles({ toolbarPosition }, { name: 'Toolbar' });
   const toolbarRef = useRef();
   const originalChildren = Children.toArray(children).map((child) => (
     <Box key={child.key} ref={useRef()}>
