@@ -1,13 +1,13 @@
 import { createStyles } from '@mantine/styles';
 
-export const ContentWrapperStyles = createStyles((theme, {}) => {
+export const ContentWrapperStyles = createStyles((theme, { contentPadding }) => {
   const globalTheme = theme.other.global;
   return {
     root: {
       display: 'flex',
       flexDirection: 'column',
+      width: '100%',
       gap: 24,
-      backgroundColor: globalTheme.background.color.surface.subtle,
       paddingLeft: 48,
       paddingRight: 36,
       paddingBottom: 52,
@@ -21,6 +21,7 @@ export const ContentWrapperStyles = createStyles((theme, {}) => {
       backgroundColor: globalTheme.background.color.surface.default,
       flex: 1,
       borderRadius: 4,
+      padding: contentPadding || 0
     },
   };
 });

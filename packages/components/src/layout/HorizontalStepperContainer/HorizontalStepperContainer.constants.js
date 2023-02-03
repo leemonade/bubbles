@@ -15,15 +15,17 @@ export function parseWidth(value) {
 }
 
 export const HORIZONTAL_STEPPER_CONTAINER_DEFAULT_PROPS = {
-  disableContentPadding: false,
   stickyAt: 0,
-  legible: true,
   allowStepClick: false,
+  contentPadding: 0,
+  fullHeight: false,
 };
+
 export const HORIZONTAL_STEPPER_CONTAINER_PROP_TYPES = {
   padding: PropTypes.number,
   allowStepClick: PropTypes.bool,
-  disableContentPadding: PropTypes.bool,
+  fullHeight: PropTypes.bool,
+  contentPadding: PropTypes.number,
   stickyAt: PropTypes.number,
-  legible: PropTypes.bool,
+  Header: PropTypes.element
 };
