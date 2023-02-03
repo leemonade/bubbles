@@ -11,6 +11,7 @@ export const ContentWrapperStyles = createStyles((theme, { contentPadding }) => 
       paddingLeft: 48,
       paddingRight: 36,
       paddingBottom: 52,
+      zIndex: 0
     },
     header: {
       paddingTop: 24,
