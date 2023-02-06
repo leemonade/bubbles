@@ -45,12 +45,19 @@ const Template = ({ data, currentStep, ...props }) => {
   };
 
   return (
-    <Box sx={{
-      position: 'absolute',
-      top: 0,
-      left: 0
-    }}>
-      <HorizontalStepperContainer {...props} data={data} currentStep={activeStep}>
+    <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+      }}
+    >
+      <HorizontalStepperContainer
+        {...props}
+        data={data}
+        currentStep={activeStep}
+        onStepClick={setActiveStep}
+      >
         {
           [...Array(data.length)].map((_, i) => (
             <Box key={`step-${i}`}>
@@ -89,12 +96,16 @@ const Template = ({ data, currentStep, ...props }) => {
 export const Playground = Template.bind({});
 
 const Header = () => {
-  return <PageHeader values={{
-    title: "Layout header"
-  }}
-    icon={<PluginLearningPathsIcon />}
-    fullWidth />
-}
+  return (
+    <PageHeader
+      values={{
+        title: 'Layout header',
+      }}
+      icon={<PluginLearningPathsIcon />}
+      fullWidth
+    />
+  );
+};
 
 Playground.args = {
   ...HORIZONTAL_STEPPER_CONTAINER_DEFAULT_PROPS,
