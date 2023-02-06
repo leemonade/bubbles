@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Popover, Select, DatePicker, TimeInput, Button } from '@bubbles-ui/components';
 import { EditDeadlineStyles } from './EditDeadline.styles';
 import { EDIT_DEADLINE_DEFAULT_PROPS, EDIT_DEADLINE_PROP_TYPES } from './EditDeadline.constants';
@@ -15,10 +15,12 @@ const EditDeadline = ({
   cancelSave,
   saveDates,
   isStarted,
+  isClosedPeriod,
   locale,
   ...props
 }) => {
-  const { classes, cx } = EditDeadlineStyles({}, { name: 'EditDeadline' });
+  const [periodValue, setPeriodValue] = useState(isClosedPeriod ? 'closedPeriod' : 'liveSession');
+  const isClosedPeriodSelected = useMemo(() => periodValue === 'closedPeriod', [periodValue]);
 
   const getHoursAndMinutes = (date) => {
     return { hours: date.getHours(), minutes: date.getMinutes() };
@@ -27,11 +29,25 @@ const EditDeadline = ({
   const today = new Date();
   const endDateMin = isStarted ? (today > startDate ? today : startDate) : startDate;
 
+  useEffect(() => {
+    const newValue = isClosedPeriod ? 'closedPeriod' : 'liveSession';
+    if (newValue !== periodValue) setPeriodValue(newValue);
+  }, [isClosedPeriod]);
+
+  const { classes, cx } = EditDeadlineStyles({}, { name: 'EditDeadline' });
   return (
     <Popover opened={opened} target={target} offset={21} position={'bottom'} {...props}>
       <Box className={classes.root}>
         <Box className={classes.formWrapper}>
-          {/* <Select label={labels.period} /> */}
+          <Select
+            data={[
+              { label: labels.closedPeriod, value: 'closedPeriod' },
+              { label: labels.liveSession, value: 'liveSession' },
+            ]}
+            label={isClosedPeriodSelected ? labels.period : labels.liveSessionDate}
+            value={periodValue}
+            onChange={setPeriodValue}
+          />
           <Box className={classes.inputRow}>
             <DatePicker
               size="sm"
@@ -41,28 +57,43 @@ const EditDeadline = ({
               minDate={today}
               disabled={isStarted}
               locale={locale}
-              contentClassName={classes.inputHeader}
+              contentClassName={isClosedPeriodSelected ? classes.inputHeader : ''}
             />
-            <TimeInput
-              size="sm"
-              icon={<TimeClockCircleIcon />}
-              label={labels.startHour}
-              value={startDate}
-              onChange={(date) => onHourChange('start', getHoursAndMinutes(date))}
-              disabled={isStarted}
-              locale={locale}
-            />
+            {isClosedPeriodSelected && (
+              <TimeInput
+                size="sm"
+                icon={<TimeClockCircleIcon />}
+                label={labels.startHour}
+                value={startDate}
+                onChange={(date) => onHourChange('start', getHoursAndMinutes(date))}
+                disabled={isStarted}
+                locale={locale}
+              />
+            )}
           </Box>
           <Box className={classes.inputRow}>
-            <DatePicker
-              size="sm"
-              label={labels.endDate}
-              value={endDate}
-              onChange={(date) => onDateChange('deadline', date)}
-              minDate={endDateMin}
-              locale={locale}
-              contentClassName={classes.inputHeader}
-            />
+            {isClosedPeriodSelected && (
+              <DatePicker
+                size="sm"
+                label={labels.endDate}
+                value={endDate}
+                onChange={(date) => onDateChange('deadline', date)}
+                minDate={endDateMin}
+                locale={locale}
+                contentClassName={classes.inputHeader}
+              />
+            )}
+            {!isClosedPeriodSelected && (
+              <TimeInput
+                size="sm"
+                icon={<TimeClockCircleIcon />}
+                label={labels.startHour}
+                value={startDate}
+                onChange={(date) => onHourChange('start', getHoursAndMinutes(date))}
+                disabled={isStarted}
+                locale={locale}
+              />
+            )}
             <TimeInput
               size="sm"
               icon={<TimeClockCircleIcon />}

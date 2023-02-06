@@ -30,6 +30,7 @@ const TaskDeadlineHeader = ({
   onCloseTask,
   onArchiveTask,
   isStarted,
+  isClosedPeriod,
   styles,
   className,
   ...props
@@ -140,6 +141,7 @@ const TaskDeadlineHeader = ({
                 saveDates={saveDates}
                 onClose={() => setDeadlineExpanded(false)}
                 isStarted={isStarted}
+                isClosedPeriod={isClosedPeriod}
                 locale={locale}
               />
             </Box>
