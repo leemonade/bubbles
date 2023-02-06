@@ -17,9 +17,9 @@ const HorizontalStepper = ({
   data,
   ...props
 }) => {
-  const { ref: rootRef } = useElementSize();
+  // const { ref: rootRef } = useElementSize();
   const [currentStep, setCurrentStep] = useState(_currentStep);
-  const { width: stepWidth } = rootRef?.current?.firstChild.getBoundingClientRect() || 0;
+  // const { width: stepWidth } = rootRef?.current?.firstChild.getBoundingClientRect() || 0;
 
   const onStepClickHandler = (stepIndex) => {
     if (!allowStepClick) return;
@@ -31,17 +31,8 @@ const HorizontalStepper = ({
     const steps = data.map(({ label, status }, index) => {
       const isStart = index === 0;
       const isEnd = index === data.length - 1;
-      const isCurrentOrPrev = index <= currentStep;
       const isCurrent = index === currentStep;
       const isPrev = index < currentStep;
-
-      const getLineClasses = (isLeft) => {
-        const classesArray = [isLeft ? classes.leftSide : classes.rightSide];
-        if (isCurrentOrPrev) classesArray.push(classes.isCurrentOrPrev);
-        if (isLeft && isCurrent) classesArray.push(classes.isPrev);
-        if (isPrev) classesArray.push(classes.isPrev);
-        return classesArray;
-      };
 
       return (
         <Box
@@ -49,17 +40,21 @@ const HorizontalStepper = ({
           className={classes.step}
           onClick={() => onStepClickHandler(index)}
         >
-          <Box className={cx(classes.stepDot, isCurrent || isPrev ? classes.currentDot : '')}></Box>
+          <Box
+            className={cx(
+              classes.stepDot,
+              { [classes.currentDot]: isCurrent },
+              { [classes.prevDot]: isPrev }
+            )}
+          ></Box>
           <CheckIcon
             className={classes.checkIcon}
-            style={{ opacity: isPrev && 1, transform: isPrev && 'translateY(3px)' }}
+            style={{ opacity: isPrev && 1, transform: isPrev && 'translateY(5px)' }}
           />
-          {!isStart && <Box className={cx(...getLineClasses(true))} />}
-          {!isEnd && <Box className={cx(...getLineClasses(false))} />}
+          {!isStart && <Box className={classes.leftSide} />}
+          {!isEnd && <Box className={classes.rightSide} />}
           <TextClamp lines={2}>
-            <Text className={cx(classes.label, isCurrent ? classes.currentLabel : '')}>
-              {label}
-            </Text>
+            <Text className={classes.label}>{label}</Text>
           </TextClamp>
         </Box>
       );
@@ -73,13 +68,20 @@ const HorizontalStepper = ({
   }, [_currentStep]);
 
   const { classes, cx } = HorizontalStepperStyles(
-    { allowStepClick, currentStep, stepWidth, dataLength: data.length },
+    {
+      allowStepClick,
+      // currentStep,
+      // stepWidth
+    },
     { name: 'HorizontalStepper' }
   );
   return (
-    <Box className={classes.root} ref={rootRef}>
+    <Box
+      className={classes.root}
+      // ref={rootRef}
+    >
       {renderSteps()}
-      <Box className={classes.selectedStep} />
+      {/* <Box className={classes.selectedStep} /> */}
     </Box>
   );
 };
