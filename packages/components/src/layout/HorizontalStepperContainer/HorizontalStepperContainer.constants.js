@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import { isNaN } from 'lodash';
 
-export function parseWidth(value) {
-  const result = parseInt(value);
+// export function parseWidth(value) {
+//   const result = parseInt(value);
 
-  if (
-    isNaN(result) &&
-    ([('vh', 'vw', 'em', 'em')].includes(value.slice(-2)) || ['%'].includes(value.slice(-1)))
-  ) {
-    return value;
-  }
+//   if (
+//     isNaN(result) &&
+//     ([('vh', 'vw', 'em', 'em')].includes(value.slice(-2)) || ['%'].includes(value.slice(-1)))
+//   ) {
+//     return value;
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 export const HORIZONTAL_STEPPER_CONTAINER_DEFAULT_PROPS = {
   stickyAt: 0,
@@ -27,5 +27,5 @@ export const HORIZONTAL_STEPPER_CONTAINER_PROP_TYPES = {
   fullHeight: PropTypes.bool,
   contentPadding: PropTypes.number,
   stickyAt: PropTypes.number,
-  Header: PropTypes.element
+  Header: PropTypes.element,
 };
