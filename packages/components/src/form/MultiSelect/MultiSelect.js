@@ -53,6 +53,7 @@ const MultiSelect = forwardRef(
       disabled,
       autoSelectOneOption,
       ariaLabel,
+      style,
       ...props
     },
     ref
@@ -129,6 +130,7 @@ const MultiSelect = forwardRef(
         size={size}
         error={error}
         orientation={orientation}
+        style={style}
       >
         {readOnly ? (
           <>

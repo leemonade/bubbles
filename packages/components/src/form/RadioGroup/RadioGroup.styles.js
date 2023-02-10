@@ -4,16 +4,17 @@ import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../.
 export const RadioGroupStyles = createStyles(
   (theme, { variant, value, direction, fullWidth, activePosition, hasError, rounded }) => {
     const isColumn = direction === 'column';
-    const isDefault = variant == 'default';
+    const isDefault = variant == 'default' || variant === 'image';
     const isIcon = variant == 'icon';
     const isBoxed = variant === 'boxed';
+    const isImage = variant === 'image';
 
     return {
       root: {
         padding: 0,
         ...getFontExpressive(theme.fontSizes['2']),
         backgroundColor: isDefault ? 'transparent' : null,
-        borderRadius: rounded ? 4 : 0,
+        borderRadius: rounded && !isImage ? 4 : 0,
         display: fullWidth ? 'flex' : 'inline-flex',
         flexDirection: direction,
         border: hasError ? `1px solid ${theme.colors.fatic01}` : 'none',
@@ -27,6 +28,7 @@ export const RadioGroupStyles = createStyles(
         height: '100%',
         alignItems: (isDefault || isBoxed) && 'flex-start',
         whiteSpace: 'unset',
+        borderRadius: isImage && 0,
       },
       active: {
         display: !value || isDefault ? 'none' : null,
@@ -34,7 +36,7 @@ export const RadioGroupStyles = createStyles(
           value && !isDefault
             ? `inset 0 0 0 1px ${isIcon ? theme.colors.interactive01d : theme.colors.ui01}`
             : null,
-        borderRadius: rounded ? 4 : 0,
+        borderRadius: rounded && !isImage ? 4 : 0,
         top: 4,
         left: 4,
         bottom: 0,

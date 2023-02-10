@@ -39,11 +39,15 @@ Playground.args = {
       value: 'option1',
       label: 'Label for option 1',
       icon: <StarIcon />,
+      image:
+        'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
     },
     {
       value: 'option2',
       label: 'Label for option 2',
       icon: <StarIcon />,
+      image:
+        'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
     },
     {
       value: 'option3',
@@ -51,6 +55,8 @@ Playground.args = {
       icon: <StarIcon />,
       help: 'Help text for option 3',
       helpPosition: 'bottom',
+      image:
+        'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
     },
   ],
 };

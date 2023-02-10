@@ -2,39 +2,72 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Radio as MantineRadio } from '@mantine/core';
 import { RadioStyles } from './Radio.styles';
+import { ImageLoader } from '../../misc';
+import { isFunction } from 'lodash';
 
 export const RADIO_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 export const RADIO_HELP_POSITIONS = ['right', 'bottom'];
-export const RADIO_VARIANTS = ['default', 'boxed', 'icon'];
+export const RADIO_VARIANTS = ['default', 'boxed', 'icon', 'image'];
 
 const Radio = forwardRef(
   (
-    { children, label, checked, variant, help, helpPosition, icon, size, useAria, ...props },
+    {
+      children,
+      label,
+      checked,
+      variant,
+      help,
+      helpPosition,
+      icon,
+      image,
+      imageHeight,
+      size,
+      useAria,
+      onChange,
+      ...props
+    },
     ref
   ) => {
     const { classes, cx } = RadioStyles(
-      { checked, variant, help, helpPosition, icon, children, label },
+      { checked, variant, help, helpPosition, icon, image, children, label },
       { name: 'Radio' }
     );
 
+    const handleOnChange = () => {
+      if (isFunction(onChange)) onChange(!checked);
+    };
+
     return (
-      <MantineRadio
-        {...props}
-        size={size}
-        checked={checked}
-        ref={ref}
-        classNames={classes}
-        label={
-          (variant === 'icon' && icon) || label || children || help ? (
-            <Box className={classes.container}>
-              {variant === 'icon' && icon && <Box className={classes.icon}>{icon}</Box>}
-              {(label || children) && <Box className={classes.title}>{label || children}</Box>}
-              {help && variant !== 'icon' && <Box className={classes.help}>{help}</Box>}
-            </Box>
-          ) : undefined
-        }
-        role={useAria ? 'radio' : undefined}
-      />
+      <Box className={classes.imageWrapper} onClick={handleOnChange}>
+        {variant === 'image' && image && (
+          <Box className={classes.image}>
+            {typeof image === 'string' ? <ImageLoader src={image} height={imageHeight} /> : image}
+          </Box>
+        )}
+        <MantineRadio
+          {...props}
+          size={size}
+          checked={checked}
+          ref={ref}
+          classNames={classes}
+          onChange={onChange}
+          label={
+            (variant === 'icon' && icon) ||
+            (variant === 'image' && image) ||
+            label ||
+            children ||
+            help ? (
+              <Box className={classes.container}>
+                {variant === 'icon' && icon && <Box className={classes.icon}>{icon}</Box>}
+
+                {(label || children) && <Box className={classes.title}>{label || children}</Box>}
+                {help && variant !== 'icon' && <Box className={classes.help}>{help}</Box>}
+              </Box>
+            ) : undefined
+          }
+          role={useAria ? 'radio' : undefined}
+        />
+      </Box>
     );
   }
 );
@@ -45,6 +78,7 @@ Radio.defaultProps = {
   help: '',
   helpPosition: RADIO_HELP_POSITIONS[0],
   useAria: true,
+  imageHeight: 100,
 };
 
 Radio.propTypes = {

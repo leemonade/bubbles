@@ -2,22 +2,31 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const RadioStyles = createStyles(
-  (theme, { variant, help, helpPosition, checked, icon, children, label }) => {
+  (theme, { variant, help, helpPosition, checked, icon, image, children, label }) => {
     const isIcon = variant === 'icon';
     const isDefault = variant === 'default';
+    const isImage = variant === 'image';
     const isBoxed = variant === 'boxed';
     const isBottom = helpPosition === 'bottom';
     const isRight = helpPosition === 'right';
     const hasIcon = !!icon;
+    const hasImage = !!image;
     const hasLabel = !!children || !!label;
     const radioTheme = theme.other.radio;
 
     return {
+      imageWrapper: {
+        display: isImage && 'flex',
+        alignItems: isImage && 'center',
+        gap: isImage && 16,
+        cursor: isImage && 'pointer',
+      },
       root: {
         padding: 14,
         display: isIcon && 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: isIcon && 'center',
+        alignItems: isIcon && 'center',
+        pointerEvents: 'none',
       },
       labelWrapper: {
         display: 'flex',
@@ -31,7 +40,7 @@ export const RadioStyles = createStyles(
       container: {
         display: 'flex',
         flexDirection: isBottom || isIcon ? 'column' : null,
-        alignItems: isIcon ? 'center' : 'baseline',
+        alignItems: isIcon || isImage ? 'center' : 'baseline',
       },
       title: {
         ...getFontProductive(theme.fontSizes['2'], 500),
@@ -55,11 +64,12 @@ export const RadioStyles = createStyles(
           backgroundColor: radioTheme.background.color.selected,
           border: `1px solid ${radioTheme.border.color.selected}`,
         },
+        cursor: 'pointer',
       },
       icon: {
         color: checked ? radioTheme.content.color.selected : theme.colors.text05,
         marginBottom: isIcon && hasLabel && 10,
-        display: isIcon && !hasIcon && 'none',
+        display: ((isIcon && !hasIcon) || (isImage && !hasImage)) && 'none',
         lineHeight: 0,
       },
       inner: {
