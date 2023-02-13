@@ -41,7 +41,11 @@ const Radio = forwardRef(
       <Box className={classes.imageWrapper} onClick={handleOnChange}>
         {variant === 'image' && image && (
           <Box className={classes.image}>
-            {typeof image === 'string' ? <ImageLoader src={image} height={imageHeight} /> : image}
+            {typeof image === 'string' ? (
+              <ImageLoader forceImage src={image} height={imageHeight} />
+            ) : (
+              image
+            )}
           </Box>
         )}
         <MantineRadio

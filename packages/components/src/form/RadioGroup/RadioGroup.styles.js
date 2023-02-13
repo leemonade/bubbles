@@ -19,6 +19,7 @@ export const RadioGroupStyles = createStyles(
         flexDirection: direction,
         border: hasError ? `1px solid ${theme.colors.fatic01}` : 'none',
         paddingRight: isIcon && 1,
+        gap: isImage && 28,
       },
       label: {
         padding: 0,
