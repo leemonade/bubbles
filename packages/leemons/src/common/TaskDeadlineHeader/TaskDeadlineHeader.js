@@ -31,21 +31,20 @@ const TaskDeadlineHeader = ({
   onCloseTask,
   onArchiveTask,
   isStarted,
-  isClosedPeriod,
   styles,
   className,
   ...props
 }) => {
-  const [startDateValue, setStartDateValue] = useState(new Date(startDate));
-  const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
+  const [startDateValue, setStartDateValue] = useState(startDate ? new Date(startDate) : null);
+  const [deadlineValue, setDeadlineValue] = useState(deadline ? new Date(deadline) : null);
   const [deadlineExpanded, setDeadlineExpanded] = useState(false);
 
   const onDateChange = (type, date) => {
-    if (type === 'start' && date) {
+    if (type === 'start') {
       setStartDateValue(date);
       return;
     }
-    if (type === 'deadline' && date) {
+    if (type === 'deadline') {
       setDeadlineValue(date);
       return;
     }
@@ -69,11 +68,11 @@ const TaskDeadlineHeader = ({
   };
 
   const saveDates = () => {
-    if (startDateValue.toISOString() !== new Date(startDate).toISOString()) {
-      isFunction(onStartDateChange) && onStartDateChange(startDateValue);
+    if (startDateValue?.toISOString() !== new Date(startDate).toISOString()) {
+      isFunction(onStartDateChange) && onStartDateChange(startDateValue ? startDateValue : null);
     }
-    if (deadlineValue.toISOString() !== new Date(deadline).toISOString()) {
-      isFunction(onDeadlineChange) && onDeadlineChange(deadlineValue);
+    if (deadlineValue?.toISOString() !== new Date(deadline).toISOString()) {
+      isFunction(onDeadlineChange) && onDeadlineChange(deadlineValue ? deadlineValue : null);
     }
     setDeadlineExpanded(false);
   };
@@ -136,13 +135,14 @@ const TaskDeadlineHeader = ({
                 labels={labels}
                 startDate={startDateValue}
                 endDate={deadlineValue}
+                originalStart={startDate}
+                originalEnd={deadline}
                 onDateChange={onDateChange}
                 onHourChange={onHourChange}
                 cancelSave={() => setDeadlineExpanded(false)}
                 saveDates={saveDates}
                 onClose={() => setDeadlineExpanded(false)}
                 isStarted={isStarted}
-                isClosedPeriod={isClosedPeriod}
                 locale={locale}
               />
             </Box>
@@ -159,6 +159,31 @@ const TaskDeadlineHeader = ({
         ) : (
           <Box className={classes.deadline}>
             <Text>{labels?.noDeadline}</Text>
+            <EditDeadline
+              opened={deadlineExpanded}
+              target={
+                <Box>
+                  <EditWriteIcon
+                    className={classes.deadlineIcon}
+                    height={16}
+                    width={16}
+                    onClick={() => setDeadlineExpanded(!deadlineExpanded)}
+                  />
+                </Box>
+              }
+              labels={labels}
+              startDate={startDateValue}
+              endDate={deadlineValue}
+              originalStart={startDate}
+              originalEnd={deadline}
+              onDateChange={onDateChange}
+              onHourChange={onHourChange}
+              cancelSave={() => setDeadlineExpanded(false)}
+              saveDates={saveDates}
+              onClose={() => setDeadlineExpanded(false)}
+              isStarted={isStarted}
+              locale={locale}
+            />
           </Box>
         )}
 

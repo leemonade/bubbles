@@ -36,7 +36,7 @@ Playground.args = {
   icon: 'https://static.thenounproject.com/png/447685-200.png',
   color: '#FABADA',
   startDate: new Date('2022-12-10 18:00:00'),
-  deadline: new Date('2022-12-20 18:00:00'),
+  deadline: new Date('2022-12-10 22:00:00'),
   locale: 'en',
   labels: {
     noDeadline: 'No deadline',
@@ -53,6 +53,7 @@ Playground.args = {
     endHour: 'Hora de fin',
     closedPeriod: 'Periodo cerrado',
     liveSession: 'Session en directo',
+    openPeriod: 'Periodo abierto',
     liveSessionDate: 'Fecha',
   },
 };
