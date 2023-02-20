@@ -9,6 +9,7 @@ import { EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
 import { TaskHeader } from '../TaskHeader/TaskHeader';
 import { EditDeadline } from './EditDeadline';
+import * as dayjs from 'dayjs';
 
 const TaskDeadlineHeader = ({
   labels,
@@ -92,20 +93,20 @@ const TaskDeadlineHeader = ({
   };
 
   useEffect(() => {
-    if (deadline === null && deadlineValue !== deadline) {
+    if (deadline === null && !dayjs(deadlineValue).isSame(deadline)) {
       setDeadlineValue(null);
-    } else if (deadlineValue !== new Date(deadline)) {
+    } else if (!dayjs(deadlineValue).isSame(deadline)) {
       setDeadlineValue(new Date(deadline));
     }
-  }, [deadline]);
+  }, [new Date(deadline).toISOString()]);
 
   useEffect(() => {
-    if (startDate === null && startDateValue !== startDate) {
+    if (startDate === null && !dayjs(startDateValue).isSame(startDate)) {
       setStartDateValue(null);
-    } else if (startDateValue !== new Date(startDate)) {
+    } else if (!dayjs(startDateValue).isSame(startDate)) {
       setStartDateValue(new Date(startDate));
     }
-  }, [startDate]);
+  }, [new Date(startDate).toISOString()]);
 
   const { classes, cx } = TaskDeadlineHeaderStyles(
     { color, styles },
