@@ -6,5 +6,13 @@
         "**/CVS": false,
         "**/.DS_Store": false,
         "**/Thumbs.db": false,
-    }
+    },
+    "[javascript]": {
+        "editor.codeActionsOnSave": {
+        "source.organizeImports": false,
+        "source.fixAll": true,
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }

@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
-import { KanbanTaskCardStyles } from './KanbanTaskCard.styles';
-import dayjs from 'dayjs';
+import React from 'react';
+
 import {
   Avatar,
   Box,
@@ -10,8 +9,11 @@ import {
   Text,
   TextClamp,
 } from '@bubbles-ui/components';
+import dayjs from 'dayjs';
 import { filter, find } from 'lodash';
+import { useMemo } from 'react';
 import { LibraryCardDeadline } from '../../library';
+import { KanbanTaskCardStyles } from './KanbanTaskCard.styles';
 
 const emptyPixel =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
@@ -82,11 +84,16 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
 
   if (calendar.isUserCalendar) {
     avatar.fullName = calendar.fullName;
+    avatar._icon = avatar.icon;
+    avatar.icon = null;
   } else if (!avatar.image && !avatar.icon) {
     avatar.image = emptyPixel;
   }
 
   const { image: a, ...avatarNoImage } = avatar;
+  if (!avatarNoImage.icon) {
+    avatarNoImage.icon = avatarNoImage._icon;
+  }
 
   return (
     <Paper
@@ -135,7 +142,7 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
               </Box>
             ) : null}
 
-            {avatar.image && avatar.icon ? (
+            {avatar.image && avatarNoImage.icon ? (
               <Box
                 sx={(theme) => ({
                   display: 'inline-block',
