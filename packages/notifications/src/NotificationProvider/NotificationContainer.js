@@ -48,7 +48,7 @@ const NotificationContainer = ({ className, sx, notification, autoClose, onHide,
       disallowClose={notification.disallowClose}
       onMouseEnter={cancelDelayedHide}
       onMouseLeave={handleDelayedHide}
-      onClick={notification.onClick || empty}
+      onClick={(e) => (notification.onClick ? notification.onClick(e, notification) : empty)}
     >
       {notification.message}
     </Notification>
