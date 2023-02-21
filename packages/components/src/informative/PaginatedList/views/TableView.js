@@ -87,7 +87,7 @@ const TableView = ({
               className: tableCx({
                 [tableClasses.tr]: i < rows.length - 1,
                 [tableClasses.trSelectable]: selectable,
-                [tableClasses.trActive]: selected,
+                [tableClasses.trActive]: selectable && selected,
               }),
               selected,
               onClick: () => handleOnSelect(row.original),
