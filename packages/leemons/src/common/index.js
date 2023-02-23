@@ -8,3 +8,4 @@ export * from './AssetPlayer';
 export * from './TaskDeadline';
 export * from './ClassroomHeaderBar';
 export * from './UserDetailModal';
+export * from './EditActivityBar';

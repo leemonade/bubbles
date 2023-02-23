@@ -50,6 +50,7 @@ Playground.args = {
       label: 'Titulo muy largo del item numero 2',
       description: 'Descripcion de item 2',
       icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Globe_icon_2.svg',
+      showIcon: true,
       image:
         'https://images.unsplash.com/photo-1631931413024-38ed4229d10d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1586&q=80',
     },

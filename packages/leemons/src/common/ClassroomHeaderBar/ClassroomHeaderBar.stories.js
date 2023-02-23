@@ -15,6 +15,7 @@ export default {
     },
   },
   argTypes: {
+    onChat: { action: 'onChat' },
     locale: { options: ['en', 'es', 'fr'], control: { type: 'select' } },
   },
 };
@@ -30,8 +31,11 @@ Playground.args = {
   locale: 'en',
   labels: {
     virtualClassroom: 'Clase virtual',
+    schedule: 'Horario',
+    calendar: 'Calendario del curso',
   },
   classRoom: {
+    calendar: {},
     schedule: [
       {
         id: '28bfe616-6bd4-4b07-b2ca-edc3303b9cb7',
