@@ -24,8 +24,6 @@ const ClassroomHeaderBar = ({
     isFunction(onChat) && onChat();
   };
 
-  console.log(onChat, showChat);
-
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
