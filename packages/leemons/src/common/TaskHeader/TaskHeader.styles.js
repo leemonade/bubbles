@@ -39,5 +39,34 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles }) => {
         filter: 'brightness(0) invert(1)',
       },
     },
+    itemRow: {
+      display: 'flex',
+      gap: 24,
+      marginTop: 4,
+    },
+    item: {
+      display: 'flex',
+      gap: 8,
+      alignItems: 'center',
+    },
+    itemName: {
+      ...globalTheme.content.typo.body.lg,
+      color: globalTheme.content.color.text['default--reverse'],
+    },
+    activityContent: {
+      display: 'flex',
+      gap: 12,
+      alignItems: 'center',
+      marginTop: 12,
+    },
+    activityTypeIcon: {
+      img: {
+        filter: 'brightness(0) invert(1)',
+      },
+    },
+    content: {
+      ...globalTheme.content.typo.body.md,
+      color: globalTheme.content.color.text['default--reverse'],
+    },
   };
 });

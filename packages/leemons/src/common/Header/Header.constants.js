@@ -12,6 +12,7 @@ export const HEADER_DEFAULT_PROPS = {
   showClassbar: false,
   showDropdown: false,
   showActivity: false,
+  showTimeline: false,
 };
 export const HEADER_PROP_TYPES = {
   image: PropTypes.string,
@@ -20,8 +21,10 @@ export const HEADER_PROP_TYPES = {
   classRoom: PropTypes.shape(CLASSROOM_HEADER_BAR_PROP_TYPES),
   dropdown: PropTypes.shape(HEADER_DROPDOWN_PROP_TYPES),
   activity: PropTypes.shape({}),
+  timeline: PropTypes.shape({}),
   editActivity: PropTypes.bool,
   showClassbar: PropTypes.bool,
   showDropdown: PropTypes.bool,
   showActivity: PropTypes.bool,
+  showTimeline: PropTypes.bool,
 };

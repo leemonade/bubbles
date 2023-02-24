@@ -36,7 +36,6 @@ Playground.args = {
   back: 'Volver',
   activity: {
     title: 'Los romanos',
-    subtitle: 'Historia - G01',
     isStarted: false,
     startDate: new Date('2022-12-10 18:00:00'),
     deadline: new Date('2022-12-10 22:00:00'),
@@ -61,6 +60,38 @@ Playground.args = {
       addOneDay: '+1d',
       addSevenDays: '+7d',
     },
+    icon: 'https://static.thenounproject.com/png/447685-200.png',
+    color: '#FABADA',
+    items: [
+      {
+        name: 'Historia - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: '#FABADA',
+      },
+      {
+        name: 'Geografia - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: 'green',
+      },
+      {
+        name: 'Matematicas - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: 'red',
+      },
+    ],
+    activityType: {
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      type: 'Tarea',
+    },
+    activityEvaluation: 'Puntuable',
+    activityDates: {
+      startLabel: 'Desde',
+      endLabel: 'Hasta',
+      hourLabel: 'Hora',
+      startDate: new Date(),
+      endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+    },
+    alertDays: 30,
   },
   classRoom: {
     labels: {
@@ -368,6 +399,18 @@ Playground.args = {
     ],
     value: {
       id: '',
+    },
+  },
+  timeline: {
+    data: [
+      { label: 'Visualization', date: new Date('2022-05-01') },
+      { label: 'Start', date: new Date('2022-05-09') },
+      { label: 'Deadline', date: '2022-06-10T00:00:00.000Z' },
+      { label: 'Evaluation', date: new Date('2022-06-11') },
+      { label: 'Results', date: new Date('2022-06-15') },
+    ],
+    rootStyles: {
+      padding: 24,
     },
   },
 };

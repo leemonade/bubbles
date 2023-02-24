@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionButton, Box } from '@bubbles-ui/components';
+import { ActionButton, Box, HorizontalTimeline } from '@bubbles-ui/components';
 import { HeaderStyles } from './Header.styles';
 import { HEADER_DEFAULT_PROPS, HEADER_PROP_TYPES } from './Header.constants';
 import { HeaderDropdown } from '../HeaderDropdown';
@@ -17,18 +17,28 @@ const Header = ({
   onBack,
   activity,
   dropdown,
+  timeline,
   classRoom,
   editActivity,
   showClassbar,
   showDropdown,
   showActivity,
+  showTimeline,
   ...props
 }) => {
   const handleOnBack = () => {
     isFunction(onBack) && onBack();
   };
 
-  const { classes, cx } = HeaderStyles({ size, hasBack: back && onBack }, { name: 'Header' });
+  const { classes, cx } = HeaderStyles(
+    {
+      size,
+      hasBack: back && onBack,
+      editActivity,
+      withTimeline: !isEmpty(timeline) && showTimeline,
+    },
+    { name: 'Header' }
+  );
   return (
     <Box className={classes.root}>
       <Box className={classes.header}>
@@ -55,9 +65,12 @@ const Header = ({
           </Box>
         )}
         {!isEmpty(activity) && showActivity && (
-          <Box className={classes.dropdownContainer}>
-            <TaskHeader {...activity} />
+          <Box className={classes.activityContainer}>
+            <TaskHeader {...activity} size={size} />
           </Box>
+        )}
+        {!isEmpty(timeline) && showTimeline && (
+          <HorizontalTimeline {...timeline} rootClassname={classes.timeline} />
         )}
       </Box>
       <Box className={classes.lowerBar}>

@@ -5,6 +5,8 @@ export const TASK_HEADER_SIZES = ['sm', 'md'];
 export const TASK_HEADER_DEFAULT_PROPS = {
   title: '',
   styles: {},
+  items: [],
+  locale: 'en',
 };
 export const TASK_HEADER_PROP_TYPES = {
   title: PropTypes.string,
@@ -22,6 +24,7 @@ export const TASK_HEADER_PROP_TYPES = {
     startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.date]),
     endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.date]),
   }),
+  locale: PropTypes.string,
   styles: PropTypes.object,
   className: PropTypes.string,
 };
