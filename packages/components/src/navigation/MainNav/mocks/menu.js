@@ -236,9 +236,8 @@ export const MENU_DATA = [
     fixed: 0,
     iconName: null,
     activeIconName: null,
-    iconSvg: 'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/menu_icon_1aa5c2e10a.svg',
-    activeIconSvg:
-      'https://s3.eu-west-1.amazonaws.com/global-assets.leemons.io/menu_icon_1aa5c2e10a.svg',
+    iconSvg: '/icons/aws-iot.svg',
+    activeIconSvg: '/icons/aws-iot_active.svg',
     iconAlt: null,
     url: null,
     window: 'SELF',

@@ -13,48 +13,47 @@ import {
   Textarea,
   TextInput,
   Title,
-  useResizeObserver
+  useResizeObserver,
 } from '@bubbles-ui/components';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { AdminPageHeaderStyles } from './AdminPageHeader.styles';
 import {
   ADMIN_PAGE_HEADER_BUTTONS as BUTTONS,
   ADMIN_PAGE_HEADER_DEFAULT_PROPS,
-  ADMIN_PAGE_HEADER_PROP_TYPES
+  ADMIN_PAGE_HEADER_PROP_TYPES,
 } from './AdminPageHeader.constants';
 
 const AdminPageHeader = ({
-                           className,
-                           breadcrumbs,
-                           labels,
-                           placeholders,
-                           errors: errorLabels,
-                           values,
-                           buttons,
-                           loading,
-                           icon,
-                           editMode,
-                           onNew,
-                           onEdit,
-                           onSave,
-                           onCancel,
-                           onButton,
-                           onDuplicate,
-                           separator,
-                           useRouter,
-                           required,
-                           variant,
-                           fullWidth,
-                           baseRef,
-                           descriptionRef,
-                           onResize = () => {
-                           }
-                         }) => {
+  className,
+  breadcrumbs,
+  labels,
+  placeholders,
+  errors: errorLabels,
+  values,
+  buttons,
+  loading,
+  icon,
+  editMode,
+  onNew,
+  onEdit,
+  onSave,
+  onCancel,
+  onButton,
+  onDuplicate,
+  separator,
+  useRouter,
+  required,
+  variant,
+  fullWidth,
+  baseRef,
+  descriptionRef,
+  onResize = () => {},
+}) => {
   const {
     control,
     setValue,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   const isTeacher = useMemo(() => variant === 'teacher', [variant]);
@@ -135,13 +134,13 @@ const AdminPageHeader = ({
 
   return (
     <Box ref={baseRef}>
-      <form onSubmit={handleSubmit(onSave)} autoComplete='off'>
+      <form onSubmit={handleSubmit(onSave)} autoComplete="off">
         <Box ref={containerRef} className={cx(classes.root, className)}>
           <Box
             ref={childRef}
             style={{
               width: containerRect.width,
-              top: containerRect.top
+              top: containerRect.top,
               // left: containerRect.left,
             }}
             className={classes.headerContainer}
@@ -153,10 +152,12 @@ const AdminPageHeader = ({
                   <Breadcrumbs items={breadcrumbs} useRouter={useRouter} />
                 </Box>
               )}
-
               {/* Header & Buttons */}
-              <Stack spacing={4} alignItems={editMode ? 'end' : 'center'}
-                     className={classes.header}>
+              <Stack
+                spacing={4}
+                alignItems={editMode ? 'end' : 'center'}
+                className={classes.header}
+              >
                 {/* Icon */}
                 {icon && <Box className={classes.icon}>{icon}</Box>}
                 {/* Header */}
@@ -172,13 +173,13 @@ const AdminPageHeader = ({
                 {editMode && (
                   <ContentLegible>
                     <Controller
-                      name='title'
+                      name="title"
                       control={control}
                       defaultValue={values?.title || ''}
                       rules={{
                         required: required.title
                           ? getErrorLabel('title', 'required', 'Required field')
-                          : false
+                          : false,
                       }}
                       render={({ field }) => (
                         <TextInput
@@ -194,11 +195,11 @@ const AdminPageHeader = ({
                 )}
                 {/* Buttons */}
                 {buttons && (
-                  <Stack spacing={2} justifyContent='end' className={classes.actions}>
+                  <Stack spacing={2} justifyContent="end" className={classes.actions}>
                     {isNotEmpty(BUTTONS.CANCEL) && (
                       <Button
-                        variant='light'
-                        type='button'
+                        variant="light"
+                        type="button"
                         loading={checkLoading(BUTTONS.CANCEL)}
                         onClick={(e) => onPressButton(onCancel, e)}
                       >
@@ -207,8 +208,8 @@ const AdminPageHeader = ({
                     )}
                     {isNotEmpty(BUTTONS.DUPLICATE) && (
                       <Button
-                        variant='outline'
-                        type='button'
+                        variant="outline"
+                        type="button"
                         loading={checkLoading(BUTTONS.DUPLICATE)}
                         onClick={(e) => onPressButton(onDuplicate, e)}
                       >
@@ -217,7 +218,7 @@ const AdminPageHeader = ({
                     )}
                     {isNotEmpty(BUTTONS.EDIT) && (
                       <Button
-                        type='button'
+                        type="button"
                         loading={checkLoading(BUTTONS.EDIT)}
                         onClick={(e) => onPressButton(onEdit, e)}
                       >
@@ -225,14 +226,14 @@ const AdminPageHeader = ({
                       </Button>
                     )}
                     {isNotEmpty(BUTTONS.SAVE) && (
-                      <Button type='submit' loading={checkLoading(BUTTONS.SAVE)}>
+                      <Button type="submit" loading={checkLoading(BUTTONS.SAVE)}>
                         {buttonLabel(BUTTONS.SAVE)}
                       </Button>
                     )}
 
                     {isNotEmpty(BUTTONS.NEW) && (
                       <Button
-                        type='button'
+                        type="button"
                         loading={checkLoading(BUTTONS.NEW)}
                         onClick={(e) => onPressButton(onNew, e)}
                         leftIcon={<AddIcon />}
@@ -267,13 +268,13 @@ const AdminPageHeader = ({
                 {editMode && (
                   <ContentLegible>
                     <Controller
-                      name='description'
+                      name="description"
                       control={control}
                       defaultValue={values?.description || ''}
                       rules={{
                         required: required.description
                           ? getErrorLabel('description', 'required', 'Required field')
-                          : false
+                          : false,
                       }}
                       render={({ field }) => (
                         <Textarea
@@ -292,7 +293,6 @@ const AdminPageHeader = ({
           ) : (
             <PageContainer style={{ marginTop: childRect.height }} fullWidth={fullWidth} />
           )}
-
         </Box>
       </form>
     </Box>
