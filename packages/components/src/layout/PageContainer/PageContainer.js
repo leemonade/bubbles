@@ -16,7 +16,6 @@ const PageContainer = ({ children, className, fullWidth, ...props }) => {
   return (
     <Box {...props} className={cx(classes.root, className)}>
       {children}
-      Hola PageContainer
     </Box>
   );
 };

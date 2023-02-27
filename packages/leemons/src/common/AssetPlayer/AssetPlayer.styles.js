@@ -47,7 +47,7 @@ export const AssetPlayerStyles = createStyles(
         position: 'absolute',
         height: '100%',
         width: '100%',
-        zIndex: 1000,
+        zIndex: 1,
         background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))',
         display: canPlay ? 'flex' : 'none',
         justifyContent: 'center',

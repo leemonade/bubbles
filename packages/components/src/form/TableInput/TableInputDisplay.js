@@ -47,6 +47,7 @@ const TableInputDisplay = ({
   onChangeRow = () => {},
 }) => {
   const [editing, setEditing] = useState(false);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,

@@ -11,7 +11,6 @@ const ContentLegible = ({ children, navWidth }) => {
       })}
     >
       {children}
-      Holaaaaaaa
     </Box>
   );
 };
