@@ -30,7 +30,36 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...TASK_HEADER_DEFAULT_PROPS,
   title: 'Los romanos',
-  subtitle: 'Historia - G01',
   icon: 'https://static.thenounproject.com/png/447685-200.png',
   color: '#FABADA',
+  items: [
+    {
+      name: 'Historia - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: '#FABADA',
+    },
+    {
+      name: 'Geografia - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: 'green',
+    },
+    {
+      name: 'Matematicas - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: 'red',
+    },
+  ],
+  activityType: {
+    icon: 'https://static.thenounproject.com/png/447685-200.png',
+    type: 'Tarea',
+  },
+  activityEvaluation: 'Puntuable',
+  activityDates: {
+    startLabel: 'Desde',
+    endLabel: 'Hasta',
+    hourLabel: 'Hora',
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+  },
+  alertDays: 29,
 };

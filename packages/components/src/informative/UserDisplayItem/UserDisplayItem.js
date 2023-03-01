@@ -56,6 +56,7 @@ const UserDisplayItem = (properties) => {
     size,
     noBreak,
     textRole,
+    fullNameClassname,
     ...props
   } = properties;
 
@@ -106,7 +107,7 @@ const UserDisplayItem = (properties) => {
       />
       <Box
         className={classes.userInfo}
-        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
+        // style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
       >
         {variant === 'email' ? (
           <>
@@ -127,7 +128,11 @@ const UserDisplayItem = (properties) => {
               {variant === 'rol' ? Icon : null}
             </Text>
             <TextClamp lines={noBreak ? 1 : 1000}>
-              <Text color={textColor} className={classes.name} role={textRole}>
+              <Text
+                color={textColor}
+                className={cx(classes.name, fullNameClassname)}
+                role={textRole}
+              >
                 {fullName}
                 {variant !== 'rol' ? Icon : null}
               </Text>

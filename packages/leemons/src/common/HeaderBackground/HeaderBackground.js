@@ -18,6 +18,7 @@ const HeaderBackground = ({
   blur,
   backgroundPosition,
   styles,
+  rootClassname,
   ...props
 }) => {
   const { classes, cx } = HeaderBackgroundStyles(
@@ -26,11 +27,11 @@ const HeaderBackground = ({
   );
 
   return (
-    <Box className={classes.root}>
+    <Box className={cx(classes.root, rootClassname)}>
       {!image && <Box className={classes.color} />}
       <Box
         className={classes.image}
-        style={{ backgroundImage: !image && `url(${backgroundImage})` }}
+        // style={{ backgroundImage: !image && `url(${backgroundImage})` }}
       />
       {withGradient && <Box className={classes.gradient} />}
       {withOverlay && <Box className={classes.overlay} />}

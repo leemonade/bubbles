@@ -32,6 +32,8 @@ const NotificationContainer = ({ className, sx, notification, autoClose, onHide,
     return cancelDelayedHide;
   }, [autoClose, notification.autoClose]);
 
+  function empty() {}
+
   return (
     <Notification
       sx={sx}
@@ -46,6 +48,7 @@ const NotificationContainer = ({ className, sx, notification, autoClose, onHide,
       disallowClose={notification.disallowClose}
       onMouseEnter={cancelDelayedHide}
       onMouseLeave={handleDelayedHide}
+      onClick={(e) => (notification.onClick ? notification.onClick(e, notification) : empty)}
     >
       {notification.message}
     </Notification>

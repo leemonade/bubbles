@@ -162,6 +162,12 @@ const AssetPlayer = ({
     setIsPlaying(true);
   };
 
+  const toggleOnSpaceBar = (event) => {
+    if (event.code === 'Space') {
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   // ··································································
   // EFFECTS
 
@@ -196,6 +202,13 @@ const AssetPlayer = ({
   useEffect(() => setFullScreenMode(fullScreen), [fullScreen]);
   useEffect(() => setIsPlaying(playing), [playing]);
   useEffect(() => setMediaVolume(volume), [volume]);
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', toggleOnSpaceBar);
+    return () => {
+      document.body.removeEventListener('keydown', toggleOnSpaceBar);
+    };
+  }, [isPlaying]);
 
   // ··································································
   // COMPONENT

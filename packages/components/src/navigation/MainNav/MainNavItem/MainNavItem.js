@@ -54,6 +54,9 @@ export const MainNavItem = ({
     setTimeout(() => setIsHovered(false), 3000);
   };
 
+  const handleSvgProps =
+    !item?.activeIconSvg || (!!item?.activeIconSvg && item?.activeIconSvg === item?.iconSvg);
+
   return (
     <Tooltip
       opened={isHovered}
@@ -79,7 +82,7 @@ export const MainNavItem = ({
               src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
               alt={item.iconAlt}
               strokeCurrent
-              ignoreFill={!active}
+              ignoreFill={!active && handleSvgProps}
             />
           </Button>
         </Wrapper>

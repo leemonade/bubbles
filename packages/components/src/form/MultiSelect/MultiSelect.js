@@ -20,7 +20,7 @@ const GetValueComponent = forwardRef(
   ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
     return (
       <Box ref={ref} {...others}>
-        <Component {...others} />
+        <Component {...others} onRemove={onRemove} />
       </Box>
     );
   }
