@@ -66,5 +66,10 @@ export const TableStyles = createStyles((theme, { headerStyles }) => {
       verticalAlign: 'middle',
       // display: 'inline-flex',
     },
+    sortIcon: {
+      color: theme.colors.ui01,
+      cursor: 'grab',
+      paddingTop: theme.spacing[2],
+    },
   };
 });
