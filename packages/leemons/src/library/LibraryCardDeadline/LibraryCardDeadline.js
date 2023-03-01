@@ -23,13 +23,13 @@ const LibraryCardDeadline = ({
 }) => {
   const formattedDate =
     deadline instanceof Date
-      ? `${labels.deadline ? labels.deadline + ' ' : ''}${deadline.toLocaleDateString(
+      ? `${labels.deadline ? ': ' : ''}${deadline.toLocaleDateString(
           locale
         )} - ${deadline.toLocaleTimeString(locale, {
           hour: '2-digit',
           minute: '2-digit',
         })}`
-      : labels?.deadline;
+      : '';
   let remainingDays = 0;
 
   const renderTitle = () => {
@@ -66,7 +66,12 @@ const LibraryCardDeadline = ({
       )}
       <Box className={classes.info}>
         <Box className={classes.title}>{isNew ? labels.new : title}</Box>
-        {formattedDate && <Box className={classes.deadline}>{formattedDate}</Box>}
+        {formattedDate && (
+          <Box className={classes.deadline}>
+            {labels?.deadline ? labels?.deadline : ''}
+            {formattedDate}
+          </Box>
+        )}
       </Box>
     </Box>
   );
