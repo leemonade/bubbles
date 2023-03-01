@@ -5,7 +5,8 @@ export const HeaderWrapperStyles = createStyles((theme, { stickyAt }) => {
     root: {
       position: 'sticky',
       top: stickyAt,
-      zIndex: 1
+      zIndex: 1,
+      background: theme.white
     },
   };
 });

@@ -1,8 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
 export const HorizontalStepperStyles = createStyles(
-  (theme, { allowStepClick, currentStep, stepWidth }) => {
+  (theme, { }) => {
     const stepperTheme = theme.other.stepper;
     // const translateDistance = `${currentStep * stepWidth}px`;
 
@@ -21,9 +20,11 @@ export const HorizontalStepperStyles = createStyles(
         paddingTop: 16,
         paddingBottom: 18,
         position: 'relative',
-        cursor: allowStepClick && 'pointer',
         zIndex: 2,
         overflow: 'hidden',
+      },
+      clickableStep: {
+        cursor: 'pointer'
       },
       // selectedStep: {
       //   position: 'absolute',
