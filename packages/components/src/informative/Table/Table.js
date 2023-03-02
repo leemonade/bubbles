@@ -6,7 +6,7 @@ import update from 'immutability-helper';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../typography';
-import { Box } from "../../layout";
+import { Box } from '../../layout';
 import { TableCell } from './TableCell/TableCell';
 import { TableStyles } from './Table.styles';
 
@@ -30,7 +30,7 @@ const Table = ({
   columns,
   data,
   styleRow,
-  onClickRow = () => { },
+  onClickRow = () => {},
   onChangeData,
   useAria,
   headerStyles,
@@ -71,9 +71,8 @@ const Table = ({
       ],
     });
 
-
-    onChangeData({ newData })
-  }
+    onChangeData({ newData });
+  };
 
   const { classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
 
@@ -120,8 +119,8 @@ const Table = ({
                 prepareRow(row);
                 return (
                   <Draggable
-                    draggableId={`row-draggable-${i}`}
-                    key={row.original.tableInputRowId}
+                    draggableId={row?.original?.id || `row-draggable-${i}`}
+                    key={row?.original?.id || `row-draggable-${i}`}
                     index={row.index}
                     isDragDisabled={!sortable}
                   >
@@ -136,14 +135,16 @@ const Table = ({
                         style={defaultsDeep(draggableProvided.draggableProps.style, styleRow)}
                         ref={draggableProvided.innerRef}
                       >
-                        {!!sortable && (<td>
-                          <Box
-                            className={classes.sortIcon}
-                            style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
-                          >
-                            <SortDragIcon />
-                          </Box>
-                        </td>)}
+                        {!!sortable && (
+                          <td>
+                            <Box
+                              className={classes.sortIcon}
+                              style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
+                            >
+                              <SortDragIcon />
+                            </Box>
+                          </td>
+                        )}
                         {row.cells.map((cell, index) => {
                           return (
                             <td
@@ -151,7 +152,11 @@ const Table = ({
                                 className: classes.td,
                               })}
                             >
-                              <TableCell cell={cell} onChangeCell={onChangeCell} useAria={useAria} />
+                              <TableCell
+                                cell={cell}
+                                onChangeCell={onChangeCell}
+                                useAria={useAria}
+                              />
                             </td>
                           );
                         })}
