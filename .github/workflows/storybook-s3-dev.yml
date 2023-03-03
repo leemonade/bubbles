@@ -37,6 +37,8 @@ jobs:
         
       - name: NPM Publish 🚀
         run: yarn changeset publish --tag dev
+        env:
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN}}
 
       - name: Check for modified files
         id: git-check
