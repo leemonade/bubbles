@@ -5121,7 +5121,7 @@ export default {
         "type": "sizing"
       },
       "1000": {
-        "value": 64,
+        "value": 80,
         "type": "sizing"
       },
       "static": {
