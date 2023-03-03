@@ -32,11 +32,30 @@ jobs:
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
 
-      - name: Version bump and Publish 🚀
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: yarn changeset publish --tag dev
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
+    
+      - name: Version Bump 🔧
+        run: yarn changeset version
+
+      - name: NPM Publish 🚀
+        run: yarn changeset publish --tag dev
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git status | grep "nothing to commit"; then echo "false"; else echo "true"; fi)
+
+      - name: Git push 🚀
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add .
+          git commit -m 'chore: version bump'
+          git push origin develop
