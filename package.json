@@ -1,6 +1,5 @@
 {
   "name": "@leemonade/bubbles",
-  "private": true,
   "version": "1.1.53-dev",
   "main": "index.js",
   "license": "MIT",
@@ -33,7 +32,8 @@
     "build-all": "node ./scripts/build.js --all --nomadge",
     "build-all:no-types": "node ./scripts/build.js --all --nomadge --notypes",
     "linkAll": "node ./scripts/link.js",
-    "madge:circular": "madge --circular"
+    "madge:circular": "madge --circular",
+    "publish:all": "node ./scripts/publishAll.js --tag ${1}"
   },
   "dependencies": {
     "react": "^17.0.1",
