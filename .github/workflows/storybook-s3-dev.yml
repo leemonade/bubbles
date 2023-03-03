@@ -6,9 +6,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -19,6 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install 🔧
         run: yarn install --frozen-lockfile
@@ -35,23 +33,15 @@ jobs:
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
 
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            registry=https://registry.npmjs.org/
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
-
       - name: Version Bump 🔧
         run: yarn changeset version
 
       - name: NPM Publish 🚀
         run: yarn changeset publish --tag dev
         env:
-          NPM_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_CONFIG_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Check for modified files
         id: git-check
