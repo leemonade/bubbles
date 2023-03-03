@@ -60,7 +60,7 @@ async function main() {
       const startTime = Date.now();
 
       try {
-        await execa('npm', ['version', type], { cwd: item.path });
+        await execa('npm', ['version', type, '--force'], { cwd: item.path });
 
         logger.info(
           `Package ${chalk.cyan(item.packageJson.name)} bumped in ${chalk.green(
