@@ -31,11 +31,9 @@ jobs:
         with: 
           workspace: "./packages" # Required
           versionFrom: "."
-          tag_name: "^dev"
-          tag_message: "v%s"
-          create_tag: "true"
+          create_tag: "false"
           commit_pattern: "^chore: Release (\\S+)"
-          publish_args: "--non-interactive --dry-run"
+          publish_args: "--tag dev --non-interactive --dry-run"
         env: # More info about the environment variables in the README
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
