@@ -1,6 +1,6 @@
 {
   "name": "@leemonade/bubbles",
-  "version": "1.2.0",
+  "version": "1.1.54-dev",
   "main": "index.js",
   "license": "MIT",
   "workspaces": [
@@ -35,7 +35,7 @@
     "madge:circular": "madge --circular",
     "publish:all": "node ./scripts/publishAll.js --tag ${1}",
     "version:bump": "node ./scripts/versionBump.js --type ${1}",
-    "version:patch": "npm run version:bump --type minor"
+    "version:patch": "npm run version:bump --type patch"
   },
   "dependencies": {
     "react": "^17.0.1",
