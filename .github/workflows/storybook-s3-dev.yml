@@ -18,7 +18,7 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build 🔧
         run: yarn build-all:no-types
-      - name: Deploy 🚀
+      - name: Deploy to S3 🚀
         uses: shallwefootball/s3-upload-action@master
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
@@ -26,3 +26,16 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
+      - name: Publish to NPM if version has been updated 🚀
+        uses: wtrocki/npm-publish-monorepo-action@2.0.0
+        with: 
+          workspace: "./packages" # Required
+          versionFrom: "."
+          tag_name: "^dev"
+          tag_message: "v%s"
+          create_tag: "true"
+          commit_pattern: "^chore: Release (\\S+)"
+          publish_args: "--non-interactive --dry-run"
+        env: # More info about the environment variables in the README
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
