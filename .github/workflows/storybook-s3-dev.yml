@@ -27,7 +27,7 @@ jobs:
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
       - name: Publish to NPM if version has been updated 🚀
-        uses: wtrocki/npm-publish-monorepo-action@2.0.0
+        uses: wtrocki/npm-publish-action-monorepo@2.0.0
         with: 
           workspace: "./packages" # Required
           versionFrom: "."
