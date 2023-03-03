@@ -10,14 +10,19 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
-      - uses: actions/setup-node@v3
+          fetch-depth: '0'
+          
+      - name: Setup Node 🔧
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
+          
       - name: Install 🔧
         run: yarn install --frozen-lockfile
+        
       - name: Build 🔧
         run: yarn build-all:no-types
+        
       - name: Deploy to S3 🚀
         uses: shallwefootball/s3-upload-action@master
         with:
@@ -26,14 +31,23 @@ jobs:
           aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
           source_dir: 'docs-build' # The folder the action should deploy.
           destination_dir: ''
-      - name: Publish to NPM if version has been updated 🚀
-        uses: wtrocki/npm-publish-action-monorepo@2.0.0
-        with: 
-          workspace: "./packages" # Required
-          versionFrom: "."
-          create_tag: "false"
-          commit_pattern: "^chore: Release (\\S+)"
-          publish_args: "--tag dev --non-interactive --dry-run"
-        env: # More info about the environment variables in the README
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
+    
+      - name: Version Bump 🔧
+        run: yarn changeset version
+        
+      - name: NPM Publish 🚀
+        run: yarn changeset publish --tag dev
+
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git status | grep "nothing to commit"; then echo "false"; else echo "true"; fi)
+    
+      - name: Git push 🚀
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add .
+          git commit -m 'chore: version bump'
+          git push origin develop
