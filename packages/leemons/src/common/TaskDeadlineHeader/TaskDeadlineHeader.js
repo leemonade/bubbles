@@ -13,9 +13,6 @@ import * as dayjs from 'dayjs';
 
 const TaskDeadlineHeader = ({
   labels,
-  title,
-  subtitle,
-  icon,
   color,
   startDate,
   deadline,
@@ -33,7 +30,7 @@ const TaskDeadlineHeader = ({
   isStarted,
   styles,
   className,
-  ...props
+  ...headerProps
 }) => {
   const [startDateValue, setStartDateValue] = useState(startDate ? new Date(startDate) : null);
   const [deadlineValue, setDeadlineValue] = useState(deadline ? new Date(deadline) : null);
@@ -113,7 +110,9 @@ const TaskDeadlineHeader = ({
   );
   return (
     <Box className={cx(classes.root, className)}>
-      <TaskHeader title={title} subtitle={subtitle} icon={icon} color={color} />
+      <Box className={classes.taskHeaderWrapper}>
+        <TaskHeader {...headerProps} color={color} size="md" />
+      </Box>
       <Box className={classes.deadlineWrapper}>
         {deadline ? (
           <>

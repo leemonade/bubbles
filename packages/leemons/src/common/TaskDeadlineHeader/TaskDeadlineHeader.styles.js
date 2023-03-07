@@ -4,15 +4,22 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { styles }) => {
   const { global } = theme.other;
   return {
     root: {
-      borderRadius: '16px 16px 0 0',
-      backgroundColor: global.background.color.surface.default,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
       ...styles,
+    },
+    taskHeaderWrapper: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      marginLeft: 30,
     },
     deadlineWrapper: {
       backgroundColor: theme.colors.ui02,
       display: 'flex',
       alignItems: 'center',
-      padding: '8px 24px',
+      padding: '8px',
       fontWeight: 500,
       color: theme.colors.text04,
       label: { color: theme.colors.text04 },
@@ -26,7 +33,7 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { styles }) => {
       display: 'flex',
       alignItems: 'center',
       backgroundColor: theme.colors.interactive03h,
-      padding: 14,
+      padding: 8,
       gap: 16,
       borderRadius: 4,
     },

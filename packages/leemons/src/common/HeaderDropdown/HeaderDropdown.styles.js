@@ -4,6 +4,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
   const { height, top } = headerRef?.current?.getBoundingClientRect() || { height: 0, top: 0 };
   const headerHeight = height + top || 0;
   const globalTheme = theme.other.global;
+
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -16,7 +17,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
     },
     dropDown: {
       position: 'absolute',
-      top: '100%',
+      top: 80,
       right: 0,
       left: 0,
       backgroundColor: theme.colors.mainWhite,
@@ -27,6 +28,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       zIndex: 200,
       pointerEvents: isOpened ? 'all' : 'none',
       paddingBottom: 20,
+      width: 'max(400px, 100%)',
     },
     itemList: {
       paddingInline: 22,
@@ -41,18 +43,21 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       padding: 16,
     },
     dropDownIcon: {
-      color: theme.colors.text01,
+      // color: theme.colors.text01,
+      color: globalTheme.content.color.text['default--reverse'], // actionButtonTheme.content.color.primary.default,
       marginLeft: 16,
+      alignSelf: 'baseline',
+      marginTop: 8,
     },
     valueComponent: {
       flex: 1,
       display: 'flex',
-      gap: 24,
+      gap: 21,
       alignItems: 'center',
     },
     itemComponent: {
       display: 'flex',
-      gap: 24,
+      gap: 21,
       alignItems: 'center',
       cursor: 'pointer',
       paddingTop: 4,
@@ -83,7 +88,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
     content: {
       display: 'flex',
       flexDirection: 'column',
-      gap: 12,
+      gap: 4,
     },
     valueItemContent: {
       display: 'flex',
@@ -94,7 +99,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       color: globalTheme.content.color.text['default--reverse'],
     },
     description: {
-      ...globalTheme.content.typo.heading['lg--bold'],
+      ...globalTheme.content.typo.body['lg--bold'],
       color: globalTheme.content.color.text['default--reverse'],
     },
   };

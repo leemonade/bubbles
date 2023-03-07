@@ -38,7 +38,7 @@ export const HeaderBackgroundStyles = createStyles(
         width: '100%',
         zIndex: 3,
         background:
-          'linear-gradient(90deg, rgba(41, 49, 61, 0.8) 0%, rgba(41, 49, 61, 0) 100%), linear-gradient(0deg, rgba(41, 49, 61, 0.1), rgba(41, 49, 61, 0.1))',
+          'linear-gradient(90deg, rgba(41, 49, 61, 0.8) 50%, rgba(41, 49, 61, 0) 80%), linear-gradient(0deg, rgba(41, 49, 61, 0.1), rgba(41, 49, 61, 0.1))',
       },
       overlay: {
         position: 'absolute',

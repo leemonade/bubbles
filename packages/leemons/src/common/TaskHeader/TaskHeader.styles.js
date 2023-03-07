@@ -50,14 +50,14 @@ export const TaskHeaderStyles = createStyles((theme, { color, styles }) => {
       alignItems: 'center',
     },
     itemName: {
-      ...globalTheme.content.typo.body.lg,
+      ...globalTheme.content.typo.body['lg--bold'],
       color: globalTheme.content.color.text['default--reverse'],
     },
     activityContent: {
       display: 'flex',
       gap: 12,
       alignItems: 'center',
-      marginTop: 12,
+      marginTop: 6,
     },
     activityTypeIcon: {
       img: {

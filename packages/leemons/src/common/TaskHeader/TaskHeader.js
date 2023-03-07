@@ -18,6 +18,7 @@ const TaskHeader = ({
   className,
   locale,
   size,
+  subtitle,
   ...props
 }) => {
   const showAlert =
@@ -50,6 +51,7 @@ const TaskHeader = ({
   };
 
   const { classes, cx } = TaskHeaderStyles({ color, styles }, { name: 'TaskHeader' });
+
   return (
     <Box className={cx(classes.root, className)}>
       {size === 'md' && (
@@ -66,7 +68,7 @@ const TaskHeader = ({
         <TextClamp lines={1}>
           <Text className={classes.title}>{title}</Text>
         </TextClamp>
-        {items.length > 0 && (
+        {size === 'md' && items.length > 0 && (
           <Box className={classes.itemRow}>
             {items.map((item) => (
               <Box className={classes.item}>
@@ -78,64 +80,66 @@ const TaskHeader = ({
             ))}
           </Box>
         )}
-        <Box className={classes.activityContent}>
-          {!isEmpty(activityType) && (
-            <Box style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-              <ImageLoader
-                forceImage
-                src={activityType.icon}
-                height={16}
-                width={16}
-                className={classes.activityTypeIcon}
-              />
-              <Box className={classes.content}>{activityType.type}</Box>
-              <Divider orientation={'vertical'} />
-            </Box>
-          )}
-          {activityEvaluation && <Box className={classes.content}>{activityEvaluation}</Box>}
-          {activityEvaluation && <Divider orientation={'vertical'} />}
-          {!isEmpty(activityDates) && (
-            <Box style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-              <Box style={{ display: 'flex', gap: 4 }}>
-                <Box className={classes.content}>{`${activityDates.startLabel}:`}</Box>
-                <Box className={classes.content}>
-                  {activityDates.startDate.toLocaleDateString(locale)}
-                </Box>
-              </Box>
-              <Box style={{ display: 'flex', gap: 4 }}>
-                <Box className={classes.content}>{`${activityDates.hourLabel}:`}</Box>
-                <Box className={classes.content}>
-                  {activityDates.startDate.toLocaleTimeString(locale, {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </Box>
-              </Box>
-              <Box style={{ display: 'flex', gap: 4 }}>
-                <Box className={classes.content}>{`${activityDates.endLabel}:`}</Box>
-                <Box className={classes.content}>
-                  {activityDates.endDate.toLocaleDateString(locale)}
-                </Box>
-              </Box>
-              <Box style={{ display: 'flex', gap: 4 }}>
-                <Box className={classes.content}>{`${activityDates.hourLabel}:`}</Box>
-                <Box className={classes.content}>
-                  {activityDates.endDate.toLocaleTimeString(locale, {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </Box>
-              </Box>
-              {showAlert && (
-                <Badge
-                  severity={'error'}
-                  closable={false}
-                  label={getDeadlineText(activityDates.endDate, locale)}
+        {size === 'md' && (
+          <Box className={classes.activityContent}>
+            {!isEmpty(activityType) && (
+              <Box style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                <ImageLoader
+                  forceImage
+                  src={activityType.icon}
+                  height={16}
+                  width={16}
+                  className={classes.activityTypeIcon}
                 />
-              )}
-            </Box>
-          )}
-        </Box>
+                <Box className={classes.content}>{activityType.type}</Box>
+                <Divider orientation={'vertical'} />
+              </Box>
+            )}
+            {activityEvaluation && <Box className={classes.content}>{activityEvaluation}</Box>}
+            {activityEvaluation && <Divider orientation={'vertical'} />}
+            {!isEmpty(activityDates) && (
+              <Box style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                <Box style={{ display: 'flex', gap: 4 }}>
+                  <Box className={classes.content}>{`${activityDates.startLabel}:`}</Box>
+                  <Box className={classes.content}>
+                    {activityDates.startDate.toLocaleDateString(locale)}
+                  </Box>
+                </Box>
+                <Box style={{ display: 'flex', gap: 4 }}>
+                  <Box className={classes.content}>{`${activityDates.hourLabel}:`}</Box>
+                  <Box className={classes.content}>
+                    {activityDates.startDate.toLocaleTimeString(locale, {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </Box>
+                </Box>
+                <Box style={{ display: 'flex', gap: 4 }}>
+                  <Box className={classes.content}>{`${activityDates.endLabel}:`}</Box>
+                  <Box className={classes.content}>
+                    {activityDates.endDate.toLocaleDateString(locale)}
+                  </Box>
+                </Box>
+                <Box style={{ display: 'flex', gap: 4 }}>
+                  <Box className={classes.content}>{`${activityDates.hourLabel}:`}</Box>
+                  <Box className={classes.content}>
+                    {activityDates.endDate.toLocaleTimeString(locale, {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </Box>
+                </Box>
+                {showAlert && (
+                  <Badge
+                    severity={'error'}
+                    closable={false}
+                    label={getDeadlineText(activityDates.endDate, locale)}
+                  />
+                )}
+              </Box>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );

@@ -29,11 +29,40 @@ Playground.args = {
   ...ACTIVITY_CONTAINER_DEFAULT_PROPS,
   header: {
     title: 'La historia detrás del cuadro que tiene más de dos lineas',
-    subtitle: 'Geografía e historia - 3002',
     icon: 'https://icon-library.com/images/white-globe-icon/white-globe-icon-24.jpg',
     color: '#4F96FF',
     image:
       'https://images.unsplash.com/photo-1651874221995-23c71b639f74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY1Mzk4NTc1NA&ixlib=rb-1.2.1&q=80&w=1080',
+    items: [
+      {
+        name: 'Historia - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: '#FABADA',
+      },
+      {
+        name: 'Geografia - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: 'green',
+      },
+      {
+        name: 'Matematicas - G01',
+        icon: 'https://static.thenounproject.com/png/447685-200.png',
+        color: 'red',
+      },
+    ],
+    activityType: {
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      type: 'Tarea',
+    },
+    activityEvaluation: 'Puntuable',
+    activityDates: {
+      startLabel: 'Desde',
+      endLabel: 'Hasta',
+      hourLabel: 'Hora',
+      startDate: new Date(),
+      endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+    },
+    alertDays: 29,
   },
   deadline: {
     label: 'Entrega',
