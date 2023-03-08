@@ -33,7 +33,7 @@ Playground.args = {
     color: '#4F96FF',
     image:
       'https://images.unsplash.com/photo-1651874221995-23c71b639f74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY1Mzk4NTc1NA&ixlib=rb-1.2.1&q=80&w=1080',
-    items: [
+    subjects: [
       {
         name: 'Historia - G01',
         icon: 'https://static.thenounproject.com/png/447685-200.png',

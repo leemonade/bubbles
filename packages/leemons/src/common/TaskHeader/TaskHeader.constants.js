@@ -5,7 +5,7 @@ export const TASK_HEADER_SIZES = ['sm', 'md'];
 export const TASK_HEADER_DEFAULT_PROPS = {
   title: '',
   styles: {},
-  items: [],
+  subjects: [],
   locale: 'en',
 };
 export const TASK_HEADER_PROP_TYPES = {
@@ -28,4 +28,5 @@ export const TASK_HEADER_PROP_TYPES = {
   locale: PropTypes.string,
   styles: PropTypes.object,
   className: PropTypes.string,
+  subjects: PropTypes.arrayOf(PropTypes.object),
 };

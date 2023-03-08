@@ -9,7 +9,7 @@ const TaskHeader = ({
   color,
   image,
   icon,
-  items,
+  subjects: items,
   activityType,
   activityEvaluation,
   activityDates,
