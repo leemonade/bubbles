@@ -16,6 +16,7 @@ export {
   Collapse,
   Progress,
   ScrollArea,
+  HoverCard,
 } from '@mantine/core';
 export {
   useId,

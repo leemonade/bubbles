@@ -15,7 +15,7 @@ const ActivityContainer = ({
   collapseOnScroll,
   ...props
 }) => {
-  const { title, subtitle, icon, color, image } = header;
+  const { image, ...headerProps } = header;
   const [isScrolled, setIsScrolled] = useState(collapsed);
   const [rootRef, rootRect] = useResizeObserver();
   const [headerRef, headerRect] = useResizeObserver();
@@ -36,22 +36,26 @@ const ActivityContainer = ({
         className={classes.header}
         style={{ width: rootRect.width, top: rootRect.top }}
       >
-        <HeaderBackground image={image} backgroundPosition={'center'} />
-        <TaskHeader
-          title={title}
-          subtitle={subtitle}
-          icon={icon}
-          color={color}
-          size={isScrolled ? 'sm' : 'md'}
-          className={classes.taskHeader}
+        <HeaderBackground
+          image={image}
+          withGradient
+          backgroundPosition={'center'}
+          styles={{ position: 'absolute', zIndex: 1 }}
         />
-        {deadline && deadline.deadline ? (
-          <TaskDeadline
-            {...deadline}
+        <Box className={classes.taskHeaderWrapper}>
+          <TaskHeader
+            {...headerProps}
             size={isScrolled ? 'sm' : 'md'}
-            className={classes.deadline}
+            className={classes.taskHeader}
           />
-        ) : null}
+          {deadline && deadline.deadline ? (
+            <TaskDeadline
+              {...deadline}
+              size={isScrolled ? 'sm' : 'md'}
+              className={classes.deadline}
+            />
+          ) : null}
+        </Box>
       </Box>
       <Box style={{ marginTop: headerRect.height }}>
         {React.cloneElement(children, { marginTop: headerRect.height })}

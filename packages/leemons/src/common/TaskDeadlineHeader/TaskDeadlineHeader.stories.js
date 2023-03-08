@@ -1,7 +1,9 @@
 import React from 'react';
+import { Box, createStyles } from '@bubbles-ui/components';
 import { TaskDeadlineHeader } from './TaskDeadlineHeader';
 import { TASK_DEADLINE_HEADER_DEFAULT_PROPS } from './TaskDeadlineHeader.constants';
 import mdx from './TaskDeadlineHeader.mdx';
+import { HeaderBackground } from '../HeaderBackground';
 
 export default {
   title: 'leemons/Common/TaskDeadlineHeader',
@@ -57,4 +59,59 @@ Playground.args = {
     liveSessionDate: 'Fecha',
   },
 };
-1;
+
+// --------------------------------------------------------------------------------------------
+
+const Styles = createStyles((theme) => ({
+  header: {
+    position: 'relative',
+    height: 220,
+  },
+  taskHeaderContainer: {
+    position: 'relative',
+    height: '100%',
+    zIndex: 1,
+  },
+}));
+
+const WithBackgroundTemplate = ({ ...props }) => {
+  const { classes: styles } = Styles();
+
+  return (
+    <Box className={styles.header}>
+      <HeaderBackground
+        image={
+          'https://images.unsplash.com/photo-1650120060263-61dc78365ef3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80'
+        }
+        withGradient
+        styles={{ position: 'absolute', zIndex: 1 }}
+      />
+      <Box className={styles.taskHeaderContainer}>
+        <TaskDeadlineHeader {...props} />
+      </Box>
+    </Box>
+  );
+};
+
+export const WithBackground = WithBackgroundTemplate.bind({});
+
+WithBackground.args = {
+  ...Playground.args,
+  items: [
+    {
+      name: 'Historia - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: '#FABADA',
+    },
+    {
+      name: 'Geografia - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: 'green',
+    },
+    {
+      name: 'Matematicas - G01',
+      icon: 'https://static.thenounproject.com/png/447685-200.png',
+      color: 'red',
+    },
+  ],
+};

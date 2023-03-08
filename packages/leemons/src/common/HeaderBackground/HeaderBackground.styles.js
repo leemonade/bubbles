@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const HeaderBackgroundStyles = createStyles(
   (theme, { image, color, height, width, withBlur, blur, backgroundPosition, styles }) => {
@@ -42,8 +36,9 @@ export const HeaderBackgroundStyles = createStyles(
         position: 'absolute',
         height: '100%',
         width: '100%',
-        background: 'linear-gradient(93.4deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 33.78%)',
         zIndex: 3,
+        background:
+          'linear-gradient(90deg, rgba(41, 49, 61, 0.8) 50%, rgba(41, 49, 61, 0) 80%), linear-gradient(0deg, rgba(41, 49, 61, 0.1), rgba(41, 49, 61, 0.1))',
       },
       overlay: {
         position: 'absolute',

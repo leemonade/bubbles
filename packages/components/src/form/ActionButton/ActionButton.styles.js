@@ -7,7 +7,7 @@ const getActiveStyles = (theme, color) => {
     primary: {
       backgroundColor: theme.background.color.primary.hover,
       borderColor: theme.border.color.primary.hover,
-      color: theme.content.color.primary.hover,
+      color: `${theme.content.color.primary.hover} !important`,
     },
     negative: {
       backgroundColor: theme.background.color.primary['hover--reverse'],
@@ -58,7 +58,7 @@ const getVariant = (color, theme) => {
       '&:active': {
         backgroundColor: theme.background.color.primary['down--reverse'],
         borderColor: theme.border.color.primary['down--reverse'],
-        color: theme.content.color.primary['down--reverse'],
+        color: `${theme.content.color.primary['down--reverse']}`,
       },
     },
     phatic: {

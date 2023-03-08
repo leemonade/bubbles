@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Button, Switch, DatePicker } from '@bubbles-ui/components';
-import { TaskDeadlineHeaderStyles } from './TaskDeadlineHeader.styles';
+import { EditActivityBarStyles } from './EditActivityBar.styles';
 import {
-  TASK_DEADLINE_HEADER_DEFAULT_PROPS,
-  TASK_DEADLINE_HEADER_PROP_TYPES,
-} from './TaskDeadlineHeader.constants';
+  EDIT_ACTIVITY_BAR_DEFAULT_PROPS,
+  EDIT_ACTIVITY_BAR_PROP_TYPES,
+} from './EditActivityBar.constants';
 import { EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
-import { TaskHeader } from '../TaskHeader/TaskHeader';
 import { EditDeadline } from './EditDeadline';
 import * as dayjs from 'dayjs';
 
-const TaskDeadlineHeader = ({
+const EditActivityBar = ({
   labels,
-  color,
   startDate,
   deadline,
   locale,
@@ -30,7 +28,7 @@ const TaskDeadlineHeader = ({
   isStarted,
   styles,
   className,
-  ...headerProps
+  ...props
 }) => {
   const [startDateValue, setStartDateValue] = useState(startDate ? new Date(startDate) : null);
   const [deadlineValue, setDeadlineValue] = useState(deadline ? new Date(deadline) : null);
@@ -104,85 +102,54 @@ const TaskDeadlineHeader = ({
     }
   }, [new Date(startDate).toISOString()]);
 
-  const { classes, cx } = TaskDeadlineHeaderStyles(
-    { color, styles },
-    { name: 'TaskDeadlineHeader' }
-  );
+  const { classes, cx } = EditActivityBarStyles({ styles }, { name: 'TaskDeadlineHeader' });
   return (
     <Box className={cx(classes.root, className)}>
-      <Box className={classes.taskHeaderWrapper}>
-        <TaskHeader {...headerProps} color={color} size="md" />
-      </Box>
       <Box className={classes.deadlineWrapper}>
-        {deadline ? (
-          <>
-            <Box className={classes.deadline}>
-              <Text className={classes.textColor}>{labels.deadline}</Text>
-              <Text className={classes.deadlineDate}>{deadline?.toLocaleDateString(locale)}</Text>
-              <EditDeadline
-                opened={deadlineExpanded}
-                target={
-                  <Box>
-                    <EditWriteIcon
-                      className={classes.deadlineIcon}
-                      height={16}
-                      width={16}
-                      onClick={() => setDeadlineExpanded(!deadlineExpanded)}
-                    />
-                  </Box>
-                }
-                labels={labels}
-                startDate={startDateValue}
-                endDate={deadlineValue}
-                originalStart={startDate}
-                originalEnd={deadline}
-                onDateChange={onDateChange}
-                onHourChange={onHourChange}
-                cancelSave={() => setDeadlineExpanded(false)}
-                saveDates={saveDates}
-                onClose={() => setDeadlineExpanded(false)}
-                isStarted={isStarted}
-                locale={locale}
-              />
-            </Box>
-            <Box className={classes.deadlineExtraTime}>
-              <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>
-              <Button variant="outline" size="sm" onClick={() => addDays(1)}>
-                +1d
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => addDays(7)}>
-                +7d
-              </Button>
-            </Box>
-          </>
-        ) : (
-          <Box className={classes.deadline}>
+        <Box className={classes.deadline}>
+          {deadline ? (
+            <Text className={classes.label}>{labels.deadline}</Text>
+          ) : (
             <Text>{labels?.noDeadline}</Text>
-            <EditDeadline
-              opened={deadlineExpanded}
-              target={
-                <Box>
-                  <EditWriteIcon
-                    className={classes.deadlineIcon}
-                    height={16}
-                    width={16}
-                    onClick={() => setDeadlineExpanded(!deadlineExpanded)}
-                  />
-                </Box>
-              }
-              labels={labels}
-              startDate={startDateValue}
-              endDate={deadlineValue}
-              originalStart={startDate}
-              originalEnd={deadline}
-              onDateChange={onDateChange}
-              onHourChange={onHourChange}
-              cancelSave={() => setDeadlineExpanded(false)}
-              saveDates={saveDates}
-              onClose={() => setDeadlineExpanded(false)}
-              isStarted={isStarted}
-              locale={locale}
-            />
+          )}
+          {deadline && (
+            <Text className={classes.deadlineDate}>{deadline?.toLocaleDateString(locale)}</Text>
+          )}
+          <EditDeadline
+            opened={deadlineExpanded}
+            target={
+              <Box style={{ height: 20, width: 20 }}>
+                <EditWriteIcon
+                  className={classes.deadlineIcon}
+                  height={20}
+                  width={20}
+                  onClick={() => setDeadlineExpanded(!deadlineExpanded)}
+                />
+              </Box>
+            }
+            labels={labels}
+            startDate={startDateValue}
+            endDate={deadlineValue}
+            originalStart={startDate}
+            originalEnd={deadline}
+            onDateChange={onDateChange}
+            onHourChange={onHourChange}
+            cancelSave={() => setDeadlineExpanded(false)}
+            saveDates={saveDates}
+            onClose={() => setDeadlineExpanded(false)}
+            isStarted={isStarted}
+            locale={locale}
+          />
+        </Box>
+        {deadline && (
+          <Box className={classes.deadlineExtraTime}>
+            <Text className={classes.label}>{labels.deadlineExtraTime}</Text>
+            <Button variant="outline" size="sm" onClick={() => addDays(1)}>
+              {labels.addOneDay}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => addDays(7)}>
+              {labels.addSevenDays}
+            </Button>
           </Box>
         )}
 
@@ -212,7 +179,7 @@ const TaskDeadlineHeader = ({
   );
 };
 
-TaskDeadlineHeader.defaultProps = TASK_DEADLINE_HEADER_DEFAULT_PROPS;
-TaskDeadlineHeader.propTypes = TASK_DEADLINE_HEADER_PROP_TYPES;
+EditActivityBar.defaultProps = EDIT_ACTIVITY_BAR_DEFAULT_PROPS;
+EditActivityBar.propTypes = EDIT_ACTIVITY_BAR_PROP_TYPES;
 
-export { TaskDeadlineHeader };
+export { EditActivityBar };

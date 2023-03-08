@@ -1,49 +1,40 @@
 import { createStyles } from '@bubbles-ui/components';
 
-export const TaskDeadlineHeaderStyles = createStyles((theme, { styles }) => {
+export const EditActivityBarStyles = createStyles((theme, { styles }) => {
   const { global } = theme.other;
   return {
     root: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
+      backgroundColor: global.background.color.surface.subtle,
+      height: 56,
       ...styles,
-    },
-    taskHeaderWrapper: {
-      display: 'flex',
-      flex: 1,
-      alignItems: 'center',
-      marginLeft: 30,
+      paddingInline: 48,
     },
     deadlineWrapper: {
-      backgroundColor: theme.colors.ui02,
+      height: '100%',
       display: 'flex',
       alignItems: 'center',
-      padding: '8px',
       fontWeight: 500,
       color: theme.colors.text04,
       label: { color: theme.colors.text04 },
       gap: 24,
     },
-    textColor: {
-      color: theme.colors.text04,
-      // whiteSpace: 'nowrap',
+    label: {
+      ...global.content.typo.body['sm--bold'],
+      color: global.content.color.text.default,
     },
     deadline: {
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: theme.colors.interactive03h,
-      padding: 8,
       gap: 16,
-      borderRadius: 4,
     },
     deadlineDate: {
-      color: theme.colors.text01,
+      ...global.content.typo.body.sm,
+      color: global.content.color.text.muted,
     },
     deadlineIcon: {
       cursor: 'pointer',
       padding: 2,
-      color: theme.colors.text01,
+      color: theme.other.buttonAction.content.color.primary.default,
       ':active': {
         transform: 'translateY(2px)',
       },
@@ -55,13 +46,11 @@ export const TaskDeadlineHeaderStyles = createStyles((theme, { styles }) => {
       display: 'flex',
       alignItems: 'center',
       gap: 8,
-      // visibility: deadlineExpanded ? 'hidden' : 'visible',
       flex: 1,
     },
     deadlineSwitch: {
       display: 'flex',
       flexDirection: 'row',
-      // flex: deadlineExpanded && 1,
     },
   };
 });
