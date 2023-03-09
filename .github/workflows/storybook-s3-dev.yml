@@ -6,33 +6,36 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'
+        # with:
+        #  fetch-depth: '0'
 
       - name: Setup Node 🔧
         uses: actions/setup-node@v3
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install 🔧
-        run: yarn install --frozen-lockfile
+        working-directory: ./packages/calendars
+        run: npm ci
 
-      - name: Build 🔧
-        run: yarn build-all:no-types
+      - name: Publish 🔧
+        working-directory: ./packages/calendars
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Deploy to S3 🚀
-        uses: shallwefootball/s3-upload-action@master
-        with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
-          source_dir: 'docs-build' # The folder the action should deploy.
-          destination_dir: ''
+  # - name: Build 🔧
+  #   run: yarn build-all:no-types
+
+  # - name: Deploy to S3 🚀
+  #   uses: shallwefootball/s3-upload-action@master
+  #   with:
+  #     aws_key_id: ${{ secrets.AWS_KEY_ID }}
+  #     aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+  #     aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
+  #     source_dir: 'docs-build' # The folder the action should deploy.
+  #     destination_dir: ''
