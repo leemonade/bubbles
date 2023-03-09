@@ -1,5 +1,11 @@
 # @bubbles-ui/icons
 
+## 1.1.55
+
+### Patch Changes
+
+- Bubbles changeset
+
 ## 1.1.54
 
 ### Patch Changes
