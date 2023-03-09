@@ -1,5 +1,12 @@
 # @bubbles-ui/icons
 
+## 1.1.58
+
+### Patch Changes
+
+- Publish version
+- 4c928b4d: dd
+
 ## 1.1.56
 
 ### Patch Changes
