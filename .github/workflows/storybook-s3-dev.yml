@@ -7,22 +7,22 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: 🛎️ Checkout
         uses: actions/checkout@v3
-        # with:
-        #  fetch-depth: '0'
+        with:
+          fetch-depth: '0'
 
-      - name: Setup Node 🔧
+      - name: 🔧 Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install 🔧
+      - name: 🔧 Yarn Install
         working-directory: ./packages/calendars
         run: yarn install --frozen-lockfile
 
-      - name: Create changeset file 🔧
+      - name: 🔧 Create changeset file
         working-directory: ./.changeset
         run: |
           cat << EOF > "changes.md"
@@ -38,26 +38,67 @@ jobs:
           Publish version
           EOF
 
-      - name: Version bump 🔧
+      - name: 🔧 Version bump
         run: yarn changeset version
 
-      - name: Build 🔧
+      - name: 🔧 Build
         run: yarn build-all:no-types
 
-      - name: Publish calendar 🔧
+      - name: 🚀 Publish calendar
         working-directory: ./packages/calendars
         run: npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  # - name: Build 🔧
-  #   run: yarn build-all:no-types
+      - name: 🚀 Publish components
+        working-directory: ./packages/components
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  # - name: Deploy to S3 🚀
-  #   uses: shallwefootball/s3-upload-action@master
-  #   with:
-  #     aws_key_id: ${{ secrets.AWS_KEY_ID }}
-  #     aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-  #     aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
-  #     source_dir: 'docs-build' # The folder the action should deploy.
-  #     destination_dir: ''
+      - name: 🚀 Publish editors
+        working-directory: ./packages/editors
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 🚀 Publish icons
+        working-directory: ./packages/icons
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 🚀 Publish leemons
+        working-directory: ./packages/leemons
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 🚀 Publish notifications
+        working-directory: ./packages/notifications
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 🚀 Deploy to S3
+        uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET_DEV }}
+          source_dir: 'docs-build' # The folder the action should deploy.
+          destination_dir: ''
+
+      - name: 🔧 Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git status | grep "nothing to commit"; then echo "false"; else echo "true"; fi)
+
+      - name: 🚀 Git push
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add .
+          git commit -m 'chore: version bump'
+          git push origin develop
