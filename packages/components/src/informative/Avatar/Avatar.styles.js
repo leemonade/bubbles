@@ -63,40 +63,42 @@ const getIconWrapperStyles = (size, theme, badgeTheme) => {
   return style[size];
 };
 
-export const AvatarStyles = createStyles((theme, { size, color, state, activityStatus }) => {
-  const avatarTheme = theme.other.avatar;
-  const badgeTheme = theme.other.badge;
+export const AvatarStyles = createStyles(
+  (theme, { size, radius, color, state, activityStatus }) => {
+    const avatarTheme = theme.other.avatar;
+    const badgeTheme = theme.other.badge;
 
-  return {
-    root: {
-      borderRadius: avatarTheme.border.radius.circle,
-      ...getSizes(size || 'md', avatarTheme.size),
-    },
-    placeholder: {
-      color: avatarTheme.content.color.default,
-      background: `${color}`,
-      svg: { height: '80%' },
-      ...avatarTheme.content.typo[size],
-    },
-    avatarWrapper: {
-      display: 'inline-block',
-    },
-    indicatorRoot: {
-      color: badgeTheme.content.color['default--reverse'],
-      ...badgeTheme.content.typo['sm--bold'],
-    },
-    iconWrapper: {
-      display: size === 'sm' && 'none',
-      boxSizing: 'content-box',
-      backgroundColor: badgeTheme.background.color.secondary.default,
-      borderRadius: badgeTheme.border.radius,
-      position: 'absolute',
-      ...getIconWrapperStyles(size, theme, badgeTheme),
-      bottom: 0,
-      right: 0,
-      img: {
-        filter: 'brightness(0) invert(1)',
+    return {
+      root: {
+        borderRadius: radius ? avatarTheme.border.radius.circle : 0,
+        ...getSizes(size || 'md', avatarTheme.size),
       },
-    },
-  };
-});
+      placeholder: {
+        color: avatarTheme.content.color.default,
+        background: `${color}`,
+        svg: { height: '80%' },
+        ...avatarTheme.content.typo[size],
+      },
+      avatarWrapper: {
+        display: 'inline-block',
+      },
+      indicatorRoot: {
+        color: badgeTheme.content.color['default--reverse'],
+        ...badgeTheme.content.typo['sm--bold'],
+      },
+      iconWrapper: {
+        display: size === 'sm' && 'none',
+        boxSizing: 'content-box',
+        backgroundColor: badgeTheme.background.color.secondary.default,
+        borderRadius: radius ? badgeTheme.border.radius : 0,
+        position: 'absolute',
+        ...getIconWrapperStyles(size, theme, badgeTheme),
+        bottom: 0,
+        right: 0,
+        img: {
+          filter: 'brightness(0) invert(1)',
+        },
+      },
+    };
+  }
+);
