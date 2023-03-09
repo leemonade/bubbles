@@ -1,5 +1,13 @@
 # @bubbles-ui/components
 
+## 1.1.56
+
+### Patch Changes
+
+- Updated Avatar an minor fixes
+- Updated dependencies
+  - @bubbles-ui/icons@1.1.56
+
 ## 1.1.55
 
 ### Patch Changes
