@@ -22,9 +22,21 @@ jobs:
         working-directory: ./packages/calendars
         run: yarn install --frozen-lockfile
 
-      - name: Patch 🔧
-        working-directory: ./packages/calendars
-        run: npm version patch
+      - name: Create changeset file 🔧
+        working-directory: ./.changeset
+        run: |
+          cat << EOF > "changes.md"
+          ---
+          '@bubbles-ui/notifications': patch
+          '@bubbles-ui/components': patch
+          '@bubbles-ui/calendars': patch
+          '@bubbles-ui/editors': patch
+          '@bubbles-ui/leemons': patch
+          '@bubbles-ui/icons': patch
+          ---
+
+          Publish version
+          EOF
 
       - name: Build 🔧
         working-directory: ./packages/calendars
