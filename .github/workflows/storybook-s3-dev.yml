@@ -6,6 +6,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -14,6 +16,8 @@ jobs:
 
       - name: Setup Node 🔧
         uses: actions/setup-node@v3
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
