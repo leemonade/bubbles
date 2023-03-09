@@ -38,11 +38,13 @@ jobs:
           Publish version
           EOF
 
-      - name: Build 🔧
-        working-directory: ./packages/calendars
-        run: yarn build
+      - name: Version bump 🔧
+        run: yarn changeset version
 
-      - name: Publish 🔧
+      - name: Build 🔧
+        run: yarn build-all:no-types
+
+      - name: Publish calendar 🔧
         working-directory: ./packages/calendars
         run: npm publish --tag dev
         env:
