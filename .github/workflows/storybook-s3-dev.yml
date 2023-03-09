@@ -20,7 +20,11 @@ jobs:
 
       - name: Install 🔧
         working-directory: ./packages/calendars
-        run: yarn install --frozen-lockfile
+        run: npm install
+
+      - name: Build 🔧
+        working-directory: ./packages/calendars
+        run: yarn build
 
       - name: Publish 🔧
         working-directory: ./packages/calendars
