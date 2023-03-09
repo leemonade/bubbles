@@ -35,7 +35,7 @@ jobs:
           '@bubbles-ui/icons': patch
           ---
 
-          Publish version
+          Versions bump
           EOF
 
       - name: 🔧 Version bump
@@ -44,46 +44,10 @@ jobs:
       - name: 🔧 Build
         run: yarn build-all:no-types
 
-      - name: 🚀 Publish calendar
+      - name: 🚀 Publish to NPM
         run: yarn changeset publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish calendar
-      # working-directory: ./packages/calendars
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish components
-      #  working-directory: ./packages/components
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish editors
-      #  working-directory: ./packages/editors
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish icons
-      #  working-directory: ./packages/icons
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish leemons
-      #  working-directory: ./packages/leemons
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      #- name: 🚀 Publish notifications
-      #  working-directory: ./packages/notifications
-      #  run: npm publish --tag dev
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 🚀 Deploy to S3
         uses: shallwefootball/s3-upload-action@master
