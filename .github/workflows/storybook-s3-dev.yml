@@ -20,7 +20,7 @@ jobs:
 
       - name: Install 🔧
         working-directory: ./packages/calendars
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: Build 🔧
         working-directory: ./packages/calendars
@@ -28,7 +28,7 @@ jobs:
 
       - name: Publish 🔧
         working-directory: ./packages/calendars
-        run: npm publish
+        run: npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
