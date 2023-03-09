@@ -22,6 +22,10 @@ jobs:
         working-directory: ./packages/calendars
         run: yarn install --frozen-lockfile
 
+      - name: Patch 🔧
+        working-directory: ./packages/calendars
+        run: npm version patch
+
       - name: Build 🔧
         working-directory: ./packages/calendars
         run: yarn build
