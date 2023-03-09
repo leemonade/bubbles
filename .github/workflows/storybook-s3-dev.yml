@@ -19,7 +19,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install 🔧
-        run: yarn install --frozen-lockfile
+        working-directory: ./packages/calendars
+        run: npm install
 
       - name: Build 🔧
         working-directory: ./packages/calendars
