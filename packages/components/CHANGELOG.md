@@ -1,5 +1,15 @@
 # @bubbles-ui/components
 
+## 1.1.58
+
+### Patch Changes
+
+- Publish version
+- 4c928b4d: dd
+- Updated dependencies
+- Updated dependencies [4c928b4d]
+  - @bubbles-ui/icons@1.1.58
+
 ## 1.1.56
 
 ### Patch Changes
