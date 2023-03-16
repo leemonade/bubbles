@@ -38,6 +38,8 @@ const TableInput = ({
   showHeaders,
   forceShowInputs,
   resetOnAdd,
+  rowExpandeds,
+  rowStyles,
   onChange = () => {},
   onChangeData = () => {},
   onBeforeRemove = () => {},
@@ -45,7 +47,9 @@ const TableInput = ({
   onAdd = () => {},
   onUpdate = () => {},
   onRemove = () => {},
+  onItemAdd = () => {},
   onSort = () => {},
+  renderRowSubComponent = () => {},
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
@@ -123,7 +127,7 @@ const TableInput = ({
     handleOnChange(newData, { type: 'sort' });
   };
 
-  const { classes, cx } = TableInputStyles({ hasError }, { name: 'TableInput' });
+  const { classes, cx } = TableInputStyles({ hasError, rowStyles }, { name: 'TableInput' });
 
   return (
     <Box>
@@ -131,14 +135,18 @@ const TableInput = ({
         <TableInputDisplay
           {...props}
           form={form}
+          rowStyles={rowStyles}
           data={tableData}
           onAdd={handleOnAdd}
           onRemove={handleOnRemove}
+          onItemAdd={onItemAdd}
           onEdit={handleOnEdit}
           onSort={handleOnSort}
+          rowExpandeds={rowExpandeds}
           showHeaders={showHeaders}
           forceShowInputs={forceShowInputs}
           classes={classes}
+          renderRowSubComponent={renderRowSubComponent}
         />
       </Box>
       {hasError && <InputError message={error} />}

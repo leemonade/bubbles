@@ -33,13 +33,16 @@ const Table = ({
   onClickRow = () => {},
   onChangeData,
   useAria,
+  rowExpandeds,
+  renderRowSubComponent,
   headerStyles,
   sortable,
 }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
+    useTable({
+      columns,
+      data,
+    });
 
   const onChangeCell = (oldCell, newCell) => {
     const newData = update(data, {
@@ -125,42 +128,51 @@ const Table = ({
                     isDragDisabled={!sortable}
                   >
                     {(draggableProvided, snapshot) => (
-                      <tr
-                        {...row.getRowProps({
-                          className: cx({ [classes.tr]: i < rows.length - 1 }),
-                        })}
-                        onClick={() => onClickRow(row)}
-                        {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
-                        style={defaultsDeep(draggableProvided.draggableProps.style, styleRow)}
-                        ref={draggableProvided.innerRef}
-                      >
-                        {!!sortable && (
-                          <td>
-                            <Box
-                              className={classes.sortIcon}
-                              style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
-                            >
-                              <SortDragIcon />
-                            </Box>
-                          </td>
-                        )}
-                        {row.cells.map((cell, index) => {
-                          return (
-                            <td
-                              {...cell.getCellProps({
-                                className: classes.td,
-                              })}
-                            >
-                              <TableCell
-                                cell={cell}
-                                onChangeCell={onChangeCell}
-                                useAria={useAria}
-                              />
+                      <>
+                        <tr
+                          {...row.getRowProps({
+                            className: cx({ [classes.tr]: i < rows.length - 1 }),
+                          })}
+                          onClick={() => onClickRow(row)}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                          style={defaultsDeep(draggableProvided.draggableProps.style, styleRow)}
+                          ref={draggableProvided.innerRef}
+                        >
+                          {!!sortable && (
+                            <td>
+                              <Box
+                                className={classes.sortIcon}
+                                style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
+                              >
+                                <SortDragIcon />
+                              </Box>
                             </td>
-                          );
-                        })}
-                      </tr>
+                          )}
+                          {row.cells.map((cell, index) => {
+                            return (
+                              <td
+                                {...cell.getCellProps({
+                                  className: classes.td,
+                                })}
+                              >
+                                <TableCell
+                                  cell={cell}
+                                  onChangeCell={onChangeCell}
+                                  useAria={useAria}
+                                />
+                              </td>
+                            );
+                          })}
+                        </tr>
+                        {rowExpandeds?.includes(row.id) ? (
+                          <tr>
+                            <td colSpan={visibleColumns.length}>
+                              {renderRowSubComponent({ row })}
+                            </td>
+                          </tr>
+                        ) : null}
+                      </>
                     )}
                   </Draggable>
                 );

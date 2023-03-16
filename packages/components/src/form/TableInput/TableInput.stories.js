@@ -40,6 +40,7 @@ const PERIOD_TYPES = [
 
 Playground.args = {
   ...TABLE_INPUT_DEFAULT_PROPS,
+  addable: true,
   columns: [
     {
       Header: 'Period name',
@@ -77,6 +78,7 @@ Playground.args = {
       amount: 2,
       type: 'semester',
       editable: false,
+      addable: false,
     },
     {
       id: 2,
