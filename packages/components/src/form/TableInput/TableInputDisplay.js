@@ -46,7 +46,7 @@ const TableInputDisplay = ({
   disabledAddButton,
   showHeaders,
   forceShowInputs,
-  rowExpandeds,
+  rowsExpanded,
   rowStyles,
   classes,
   onChangeRow = () => {},
@@ -194,7 +194,7 @@ const TableInputDisplay = ({
                     cx={cx}
                     totalRows={rows.length}
                     visibleColumns={visibleColumns}
-                    rowExpandeds={rowExpandeds}
+                    rowsExpanded={rowsExpanded}
                     sortable={(sortable && !disabled) || forceSortable}
                     editable={editable && !disabled}
                     addable={addable && !disabled}

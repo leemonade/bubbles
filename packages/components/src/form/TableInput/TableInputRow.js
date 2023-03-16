@@ -24,7 +24,7 @@ const TableInputRow = ({
   addable,
   removable,
   disabled,
-  rowExpandeds,
+  rowsExpanded,
   editing: _editing,
   onEditing,
   onEdit,
@@ -189,7 +189,7 @@ const TableInputRow = ({
                 )}
               </td>
             </tr>
-            {rowExpandeds?.includes(row.id) ? (
+            {rowsExpanded?.includes(row.id) ? (
               <tr>
                 <td colSpan={visibleColumns.length + 1 + (sortable ? 1 : 0)}>
                   {renderRowSubComponent({ row })}

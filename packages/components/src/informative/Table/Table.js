@@ -33,7 +33,7 @@ const Table = ({
   onClickRow = () => {},
   onChangeData,
   useAria,
-  rowExpandeds,
+  rowsExpanded,
   renderRowSubComponent,
   headerStyles,
   sortable,
@@ -165,7 +165,7 @@ const Table = ({
                             );
                           })}
                         </tr>
-                        {rowExpandeds?.includes(row.id) ? (
+                        {rowsExpanded?.includes(row.id) ? (
                           <tr>
                             <td colSpan={visibleColumns.length}>
                               {renderRowSubComponent({ row })}

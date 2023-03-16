@@ -38,7 +38,7 @@ const TableInput = ({
   showHeaders,
   forceShowInputs,
   resetOnAdd,
-  rowExpandeds,
+  rowsExpanded,
   rowStyles,
   onChange = () => {},
   onChangeData = () => {},
@@ -142,7 +142,7 @@ const TableInput = ({
           onItemAdd={onItemAdd}
           onEdit={handleOnEdit}
           onSort={handleOnSort}
-          rowExpandeds={rowExpandeds}
+          rowsExpanded={rowsExpanded}
           showHeaders={showHeaders}
           forceShowInputs={forceShowInputs}
           classes={classes}
