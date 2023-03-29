@@ -9,6 +9,7 @@ import { Text } from '../../typography';
 import { Box } from '../../layout';
 import { TableCell } from './TableCell/TableCell';
 import { TableStyles } from './Table.styles';
+import { useSticky as useStickyPlugin } from 'react-table-sticky';
 
 export const TABLE_DEFAULT_PROPS = {
   columns: [],
@@ -37,12 +38,21 @@ const Table = ({
   renderRowSubComponent,
   headerStyles,
   sortable,
+  useSticky,
+  styleTable,
 }) => {
+  const plugins = [];
+  if (useSticky) {
+    plugins.push(useStickyPlugin);
+  }
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
-    useTable({
-      columns,
-      data,
-    });
+    useTable(
+      {
+        columns,
+        data,
+      },
+      ...plugins
+    );
 
   const onChangeCell = (oldCell, newCell) => {
     const newData = update(data, {
@@ -85,6 +95,7 @@ const Table = ({
       {...getTableProps({
         className: classes.root,
       })}
+      style={styleTable}
       role={useAria ? 'table' : undefined}
     >
       <thead>
@@ -154,6 +165,7 @@ const Table = ({
                               <td
                                 {...cell.getCellProps({
                                   className: classes.td,
+                                  style: cell.column.tdStyle,
                                 })}
                               >
                                 <TableCell

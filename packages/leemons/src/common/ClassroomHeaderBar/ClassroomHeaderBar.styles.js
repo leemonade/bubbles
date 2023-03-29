@@ -8,8 +8,14 @@ export const ClassroomHeaderBarStyles = createStyles((theme, {}) => {
       paddingInline: 48,
       display: 'flex',
       alignItems: 'center',
-      gap: 32,
+      justifyContent: 'space-between',
       height: 56,
+    },
+    root2: {
+      gap: 32,
+      display: 'flex',
+      alignItems: 'center',
+      paddingInline: 48,
     },
     pinIcon: {
       minHeight: 14,
