@@ -7,7 +7,7 @@ const ContentLegible = ({ children, navWidth }) => {
       sx={(theme) => ({
         padding: theme.spacing[5],
         paddingLeft: 0,
-        maxWidth: theme.breakpoints.lg - navWidth,
+        maxWidth: theme.breakpoints.xl - navWidth,
       })}
     >
       {children}

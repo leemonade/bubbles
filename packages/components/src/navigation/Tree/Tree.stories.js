@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mantine/core';
 import { cloneDeep } from 'lodash';
+import { Box } from '../../layout';
+import { Button } from '../../form';
 import { Tree, useTree } from './Tree';
 import mdx from './Tree.mdx';
 import { TREE_DATA_1, TREE_DATA_2, TREE_DATA_3 } from './mocks/treeData';
-import { Switch } from '../../form';
 
 export default {
   title: 'Molecules/Navigation/Tree',
@@ -29,25 +29,13 @@ export default {
 const Template = ({ test_data, ...props }) => {
   const [showTree, setShowTree] = useState(true);
   const treeProps = useTree();
-  useEffect(() => treeProps.setTreeData(cloneDeep(test_data)), []);
-  /*
   useEffect(() => {
-    const newTreeData = cloneDeep(test_data);
-    newTreeData[0].text = `${newTreeData[0].text} ${Math.floor(Math.random() * 1000)}`;
-    treeProps.setTreeData(newTreeData);
-  }, [showTree]);
-  */
+    treeProps.setTreeData(cloneDeep(test_data))
+  }, []);
 
   return (
-    <Box>
-      {/*
-      <Switch
-        label="Show Tree"
-        checked={showTree}
-        onChange={(ev) => setShowTree(ev.currentTarget.checked)}
-      />
-      */}
-      <Box mt={10}>{showTree && <Tree {...props} {...treeProps} />}</Box>
+    <Box style={{ maxWidth: 300}}>
+      <Box mt={10}>{showTree && <Tree {...treeProps} {...props} />}</Box>
     </Box>
   );
 };
@@ -56,16 +44,27 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   rootId: 0,
-  initialOpen: [],
   allowDragParents: false,
   test_data: TREE_DATA_1,
 };
 
-export const InitialOpen = Template.bind({});
+const InitialOpenTemplate = ({ test_data, ...props }) => {
+  const treeProps = useTree();
+  useEffect(() => {
+    treeProps.setTreeData(cloneDeep(test_data))
+    // treeProps.setInitialOpen(['ID2']);
+  }, []);
+  return (
+    <Box style={{ maxWidth: 300}}>
+      <Button onClick={() => treeProps.setInitialOpen(['ID2'])}>Initial Open Nodes</Button>
+      <Box mt={10}><Tree {...treeProps} {...props} /></Box>
+    </Box>
+  );
+};
+export const InitialOpen = InitialOpenTemplate.bind({});
 
 InitialOpen.args = {
   rootId: 0,
-  initialOpen: ['ID2'],
   allowDragParents: false,
   test_data: TREE_DATA_1,
 };
@@ -77,4 +76,27 @@ InitialSelected.args = {
   initialSelected: ['ID-TEMP'],
   allowDragParents: false,
   test_data: TREE_DATA_2,
+};
+
+const OpenBranchTemplate = ({ test_data, ...props }) => {
+  const treeProps = useTree();
+  useEffect(() => {
+    treeProps.setTreeData(cloneDeep(test_data))
+    // treeProps.setInitialOpen(['ID2']);
+  }, []);
+  return (
+    <Box style={{ maxWidth: 300}}>
+      <Button onClick={() => treeProps.setOpenNode('ID1')}>Open Node</Button>
+      <Button onClick={() => treeProps.setOpenAll(true)}>Open All</Button>
+      <Box mt={10}><Tree {...treeProps} {...props} /></Box>
+    </Box>
+  );
+};
+export const OpenBranch = OpenBranchTemplate.bind({});
+
+OpenBranch.args = {
+  rootId: 0,
+  allowDragParents: false,
+  allowMultipleOpen: true,
+  test_data: TREE_DATA_1,
 };

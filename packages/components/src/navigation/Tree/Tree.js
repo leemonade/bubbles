@@ -13,7 +13,11 @@ const TreeContext = createContext();
 const useTree = () => {
   const [treeData, setTreeData] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
-  return { treeData, setTreeData, selectedNode, setSelectedNode };
+  const [initialOpen, setInitialOpen] = useState(null);
+  const [initialSelected, setInitialSelected] = useState(null);
+  const [openNode, setOpenNode] = useState(null);
+  const [openAll, setOpenAll] = useState(null);
+  return { treeData, setTreeData, selectedNode, setSelectedNode, initialOpen, setInitialOpen, initialSelected, setInitialSelected, openNode, setOpenNode, openAll, setOpenAll };
 };
 
 const Tree = ({
@@ -21,6 +25,12 @@ const Tree = ({
                 setTreeData,
                 selectedNode,
                 setSelectedNode,
+                initialOpen,
+                setInitialOpen,
+                initialSelected,
+                setInitialSelected,
+                openNode, setOpenNode,
+                openAll, setOpenAll,
                 onSelect,
                 onAdd,
                 onDelete,
@@ -28,11 +38,23 @@ const Tree = ({
               }) => {
   const [data, setData] = useState([]);
   const [currentNode, setCurrentNode] = useState(null);
+  const [openNodes, setOpenNodes] = useState(null);
+  const [selectedNodes, setSelectedNodes] = useState(null);
+  const [openBranch, setOpenBranch] = useState(null);
+  const [openTree, setOpenTree] = useState(null);
   const state = {
-    selectedNode: selectedNode || currentNode,
-    setSelectedNode: setSelectedNode || setCurrentNode,
-    treeData: treeData || data,
-    setTreeData: setTreeData || setData,
+    selectedNode: selectedNode ?? currentNode,
+    setSelectedNode: setSelectedNode ?? setCurrentNode,
+    treeData: treeData ?? data,
+    setTreeData: setTreeData ?? setData,
+    initialOpen: initialOpen ?? openNodes,
+    setInitialOpen: setInitialOpen ?? setOpenNodes,
+    initialSelected: initialSelected ?? selectedNodes,
+    setInitialSelected: setInitialSelected ?? setSelectedNodes,
+    openNode: openNode ?? openBranch,
+    setOpenNode: setOpenNode ?? setOpenBranch,
+    openAll: openAll ?? openTree,
+    setOpenAll: setOpenAll ?? setOpenTree,
     onDelete,
     onAdd,
     onSelect
@@ -48,8 +70,6 @@ const TreeView = ({
                     allowDropOutside,
                     allowMultipleOpen,
                     allowDragParents,
-                    initialSelected,
-                    initialOpen,
                     rootId,
                     className,
                     openOnSelect = false,
@@ -59,7 +79,7 @@ const TreeView = ({
                   }) => {
   const [initialized, setInitialized] = useState(false);
   const currentNode = useRef(null);
-  const { treeData, setTreeData, selectedNode, setSelectedNode, onAdd, onDelete, onSelect } =
+  const { treeData, setTreeData, selectedNode, setSelectedNode, initialOpen, initialSelected, openNode, setOpenNode, openAll, setOpenAll, onAdd, onDelete, onSelect } =
     useContext(TreeContext);
 
   const treeRef = useRef(null);
@@ -84,12 +104,31 @@ const TreeView = ({
   );
 
   useEffect(() => {
+    if(openNode) {
+      openBranch(openNode, true)
+      setOpenNode(null);
+    }
+  }, [openNode]);
+
+  useEffect(() => {
+    if(treeRef.current) {
+      if(openAll === false) {
+        treeRef.current.closeAll();
+      } else if(openAll === true) {
+        console.log('Open all tree nodes');
+        treeRef.current.open(treeData.map(({id}) => id), true);
+      }
+      setOpenAll(null);
+    }
+  }, [openAll]);
+
+  useEffect(() => {
     // Open the branch when a node is selected (through code)
     if (selectedNode?.id) {
-      openBranch(selectedNode.id, selectedNode.inclusive || false, selectedNode.replace || false);
+      openBranch(selectedNode.id, selectedNode.inclusive ?? false, selectedNode.replace ?? false);
     } else if (selectedNode?.fold) {
       // Fold into the specified branch when deselect (through code)
-      openBranch(selectedNode.fold, selectedNode.inclusive || false, selectedNode.replace || true);
+      openBranch(selectedNode.fold, selectedNode.inclusive ?? false, selectedNode.replace ?? true);
     } else {
       openBranch(selectedNode, false, false);
     }
