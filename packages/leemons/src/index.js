@@ -12,6 +12,7 @@ export * from './admin';
 export * from './users';
 export * from 'colord';
 export * from './library';
+import ajv from 'ajv';
 import { v4 as uuidv4 } from 'uuid';
 
-export { uuidv4 };
+export { uuidv4, ajv };

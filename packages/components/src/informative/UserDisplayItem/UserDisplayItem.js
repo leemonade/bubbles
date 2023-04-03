@@ -33,7 +33,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   email: PropTypes.string,
   variant: PropTypes.oneOf(USER_DISPLAY_ITEM_VARIANTS),
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
-  size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
+  size: PropTypes.string, // PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
   severity: PropTypes.oneOf(USER_DISPLAY_ITEM_SEVERITIES),
   textRole: PropTypes.oneOf(TEXT_ROLES),
   onChat: PropTypes.func,

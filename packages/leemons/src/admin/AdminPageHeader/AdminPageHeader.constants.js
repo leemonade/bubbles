@@ -7,6 +7,7 @@ const BUTTONS = {
   SAVE: 'save',
   CANCEL: 'cancel',
   DUPLICATE: 'duplicate',
+  IMPORT: 'import',
 };
 
 export const ADMIN_PAGE_HEADER_BUTTONS = BUTTONS;
@@ -54,5 +55,6 @@ export const ADMIN_PAGE_HEADER_PROP_TYPES = {
   onCancel: PropTypes.func,
   onDuplicate: PropTypes.func,
   onResize: PropTypes.func,
+  onImport: PropTypes.func,
   fullWidth: PropTypes.bool,
 };

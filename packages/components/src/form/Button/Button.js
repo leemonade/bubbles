@@ -94,7 +94,7 @@ Button.defaultProps = BUTTON_DEFAULT_PROPS;
 
 Button.propTypes = {
   /** Controls the button size. */
-  size: PropTypes.oneOf(BUTTON_SIZES),
+  size: PropTypes.string, // PropTypes.oneOf(BUTTON_SIZES),
   /** Controls the button colors. */
   color: PropTypes.oneOf(BUTTON_COLORS),
   /** Controls the button variants. */

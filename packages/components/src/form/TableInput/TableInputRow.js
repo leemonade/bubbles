@@ -52,12 +52,19 @@ const TableInputRow = ({
     if (editing && cell.column.editable !== false) {
       const { column, row } = cell;
       const fieldName = `${row.original.tableInputRowId}.${column.id}`;
-      let { node, rules, ...inputProps } = column.input;
+      let node = null;
+      let rules = [];
+      let inputProps = {};
 
       if (!column.input) {
         node = <TextInput />;
         rules = [];
         inputProps = {};
+      } else {
+        node = column.input.node;
+        rules = column.input.rules;
+        let { node: _, rules: __, ..._inputProps } = column.input;
+        inputProps = _inputProps;
       }
 
       return (
