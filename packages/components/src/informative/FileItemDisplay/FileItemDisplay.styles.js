@@ -57,14 +57,18 @@ export const FileItemDisplayStyles = createStyles(
 
     return {
       root: {
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
+        flexGrow: 1,
+        overflow: 'hidden',
+        gap: pxToRem(size / 1.5),
         color: color || theme.colors.text02,
       },
       filename: {
-        marginLeft: pxToRem(size / 1.5),
         fontSize: pxToRem(size),
         color: color || theme.colors.text02,
+        flexGrow: 1,
+        wordWrap: 'break-word',
         ...linkStyles,
       },
       filetype: {

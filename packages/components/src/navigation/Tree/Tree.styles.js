@@ -49,9 +49,11 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       transform: 'translateX(-160%) translateY(-0.9rem)'
     },
     treeNodeLinesFirstItem: {
+      // height: 'fit-content',
       height: pxToRem(16)
     },
     treeNodeLinesItems: {
+      // height: 'fit-content',
       height: pxToRem(32)
     },
     treeNodeLinesAlone: {
@@ -63,7 +65,8 @@ export const TreeStyles = createStyles((theme, { canSelectItems }) => {
       display: 'grid',
       gridTemplateColumns: 'auto 1fr auto',
       gridTemplateAreas: '\'toggle content actions\'',
-      height: pxToRem(32),
+      height: 'fit-content',
+      minHeight: pxToRem(32),
       borderRadius: pxToRem(4)
     },
     treeNodePlaceholder: {

@@ -83,11 +83,11 @@ const FileItemDisplay = ({
         <FileIcon height={size} width={size} className={classes.icon} />
       </Box>
       {showFileName && name && (
-        <TextClamp lines={noBreak ? 1 : 100}>
-          <Text {...linkProps} className={classes.filename}>
-            {name}
-          </Text>
-        </TextClamp>
+          <TextClamp lines={noBreak ? 1 : 100}>
+            <Text {...linkProps} className={classes.filename}>
+              {name}
+            </Text>
+          </TextClamp>
       )}
     </Box>
   );
