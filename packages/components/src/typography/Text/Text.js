@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Text as MantineText } from '@mantine/core';
+import { isString } from 'lodash';
+import { Text as MantineText, Highlight } from '@mantine/core';
 import { TextStyles } from './Text.styles';
 
 export const TEXT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
@@ -45,6 +46,7 @@ export const Text = forwardRef(
       styles,
       ariaRole,
       highlighted,
+      highlight,
       ...props
     },
     ref
@@ -70,9 +72,12 @@ export const Text = forwardRef(
       highlighted,
     });
 
+    const Comp = isString(highlight) ? Highlight : MantineText
+
     return (
-      <MantineText
+      <Comp
         {...props}
+        highlight={highlight}
         ref={ref}
         component={as}
         size={size}
@@ -80,7 +85,7 @@ export const Text = forwardRef(
         role={ariaRole}
       >
         {children}
-      </MantineText>
+      </Comp>
     );
   }
 );
@@ -97,4 +102,5 @@ Text.propTypes = {
   truncated: PropTypes.bool,
   styles: PropTypes.object,
   highlighted: PropTypes.bool,
+  highlight: PropTypes.string,
 };

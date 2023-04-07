@@ -1,6 +1,7 @@
 export * from './HorizontalStepper';
 export * from './VerticalStepper';
 export * from './Breadcrumbs';
+export * from './Spotlight';
 export * from './MainNav';
 export * from './Stepper';
 export * from './SubNav';

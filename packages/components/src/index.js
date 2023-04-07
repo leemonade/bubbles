@@ -1,8 +1,7 @@
 import SimpleBar from 'simplebar-react';
 import jsonTokens from './tokens.compiled';
 
-export { SimpleBar };
-export { jsonTokens };
+export { SimpleBar, jsonTokens };
 
 export {
   Grid,
@@ -18,6 +17,7 @@ export {
   ScrollArea,
   HoverCard,
 } from '@mantine/core';
+export * from '@mantine/spotlight';
 export {
   useId,
   useScrollIntoView,
