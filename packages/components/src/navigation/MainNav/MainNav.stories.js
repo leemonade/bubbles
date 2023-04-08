@@ -3,6 +3,7 @@ import { Box } from '@mantine/core';
 import { MainNav, MAIN_NAV_DEFAULT_PROPS } from './MainNav';
 import mdx from './MainNav.mdx';
 import { MENU_DATA } from './mocks/menu';
+import { Spotlight } from '../../navigation';
 
 export default {
   title: 'Organisms/Navigation/MainNav',
@@ -27,7 +28,9 @@ export default {
 const Template = ({ ...props }) => {
   return (
     <Box style={{ margin: '-15px', width: 52 }}>
-      <MainNav {...props} />
+      <Spotlight data={props.menuData}>
+        <MainNav {...props} />
+      </Spotlight>
     </Box>
   );
 };
