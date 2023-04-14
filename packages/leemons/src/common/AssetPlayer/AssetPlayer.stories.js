@@ -10,6 +10,7 @@ import {
   IMAGE_ASSET,
   URL_ASSET,
   PDF_ASSET,
+  AFRAME_ASSET,
 } from '../../library/LibraryCard/mock/data';
 
 export default {
@@ -26,7 +27,7 @@ export default {
   },
   argTypes: {
     test_asset: {
-      options: ['video', 'youtube', 'audio', 'image', 'url', 'pdf'],
+      options: ['video', 'youtube', 'audio', 'image', 'url', 'pdf', '3d'],
       control: { type: 'select' },
     },
     float: { options: ['none', 'left', 'right'], control: { type: 'select' } },
@@ -60,6 +61,9 @@ const Template = ({ test_asset, ...props }) => {
         break;
       case 'pdf':
         setAsset(PDF_ASSET);
+        break;
+      case '3d':
+        setAsset(AFRAME_ASSET);
         break;
       default:
         setAsset(IMAGE_ASSET);

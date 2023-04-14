@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { isFunction } from 'lodash';
+import { Helmet } from 'react-helmet';
 import {
   Box,
   ImageLoader,
@@ -17,6 +18,7 @@ import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
 import { DownloadIcon } from '@bubbles-ui/icons/outline';
+import { Aframe } from './components/Aframe';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -61,6 +63,7 @@ const AssetPlayer = ({
   ...props
 }) => {
   const { name, description, cover, url, fileType, fileExtension, metadata } = asset;
+  const [a, reload] = useState();
   const playerRef = useRef(null);
   const rootRef = useRef(null);
   const [showPlayer, setShowPlayer] = useState(false);
@@ -79,6 +82,7 @@ const AssetPlayer = ({
       isAudio: fileType === 'audio',
       isImage: fileType === 'image',
       isPDF: fileExtension === 'pdf',
+      isAFrame3D: ['gltf', 'obj'].includes(fileExtension?.toLowerCase()),
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
@@ -328,6 +332,7 @@ const AssetPlayer = ({
                 <ImageLoader height="100%" src={cover} alt={name} />
               </ModalZoom>
             )}
+            {media.isAFrame3D && <Aframe asset={asset} />}
             {media.isURL && (
               <a
                 href={asset.url}
@@ -376,7 +381,7 @@ const AssetPlayer = ({
                 </Box>
               )
             ) : null}
-            {!media.isImage && !media.isURL && !media.isPDF && (
+            {!media.isImage && !media.isURL && !media.isPDF && !media.isAFrame3D && (
               <Box className={classes.fileIcon}>
                 <FileIcon fileType={fileType} size={64} color={COLORS.text06} />
               </Box>

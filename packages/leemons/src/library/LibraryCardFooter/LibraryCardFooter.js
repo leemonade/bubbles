@@ -48,7 +48,9 @@ const LibraryCardFooter = ({
       </Button>
     );
   } else if (variantIcon) {
-    const label = capitalize(fileType || variantTitle || variant);
+    const label =
+      (fileType || variantTitle || variant).charAt(0).toUpperCase() +
+      (fileType || variantTitle || variant).slice(1);
     component = (
       <Box className={classes.FileIconRoot}>
         {variantIcon}
@@ -62,7 +64,10 @@ const LibraryCardFooter = ({
         fileType={fileType || variant}
         fileExtension={fileExtension}
         color={'#636D7D'}
-        label={capitalize(fileType || variantTitle || variant)}
+        label={
+          (fileType || variantTitle || variant).charAt(0).toUpperCase() +
+          (fileType || variantTitle || variant).slice(1)
+        }
         hideExtension
       />
     );
