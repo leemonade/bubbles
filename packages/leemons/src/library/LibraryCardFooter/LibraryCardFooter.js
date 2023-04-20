@@ -49,8 +49,8 @@ const LibraryCardFooter = ({
     );
   } else if (variantIcon) {
     const label =
-      (fileType || variantTitle || variant).charAt(0).toUpperCase() +
-      (fileType || variantTitle || variant).slice(1);
+      (fileType || variantTitle || variant)?.charAt(0)?.toUpperCase() +
+      (fileType || variantTitle || variant)?.slice(1);
     component = (
       <Box className={classes.FileIconRoot}>
         {variantIcon}
