@@ -22,7 +22,6 @@ export {
   useId,
   useScrollIntoView,
   useElementSize,
-  useResizeObserver,
   useDebouncedValue,
   useClipboard,
   useViewportSize,

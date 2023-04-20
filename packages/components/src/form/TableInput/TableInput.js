@@ -75,7 +75,23 @@ const TableInput = ({
     if (isFunction(onChange)) onChange(deserializeData(newData), event);
   };
 
+  const parseItem = (item) => {
+    const result = {};
+    _.forEach(props.columns, ({ accessor }) => {
+      result[accessor] = item[accessor];
+    });
+    return result;
+  };
+
   const handleOnAdd = async (item) => {
+    if (unique) {
+      const values = _.map(tableData, (d) => {
+        return JSON.stringify(parseItem(d));
+      });
+      if (values.includes(JSON.stringify(parseItem(item)))) {
+        return;
+      }
+    }
     let canAdd = true;
     if (isFunction(onBeforeAdd)) {
       const result = await onBeforeAdd(item);
