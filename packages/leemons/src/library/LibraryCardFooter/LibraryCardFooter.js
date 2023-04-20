@@ -65,8 +65,8 @@ const LibraryCardFooter = ({
         fileExtension={fileExtension}
         color={'#636D7D'}
         label={
-          (fileType || variantTitle || variant).charAt(0).toUpperCase() +
-          (fileType || variantTitle || variant).slice(1)
+          (fileType || variantTitle || variant)?.charAt(0)?.toUpperCase() +
+          (fileType || variantTitle || variant)?.slice(1)
         }
         hideExtension
       />
