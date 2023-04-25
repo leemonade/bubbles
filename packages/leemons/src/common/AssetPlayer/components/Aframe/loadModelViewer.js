@@ -1,4 +1,4 @@
-export function loadModelViewer() {
+export function loadModelViewer(asset) {
   if (!window.AFRAME.components['model-viewer']) {
     AFRAME.registerComponent('model-viewer', {
       schema: {
@@ -7,7 +7,7 @@ export function loadModelViewer() {
         uploadUIEnabled: { default: true },
       },
       init: function () {
-        var el = this.el;
+        let el = this.el;
 
         el.setAttribute('renderer', { colorManagement: true });
         el.setAttribute('cursor', { rayOrigin: 'mouse', fuse: false });
@@ -40,10 +40,6 @@ export function loadModelViewer() {
         this.initEntities();
         this.initBackground();
 
-        if (this.data.uploadUIEnabled) {
-          this.initUploadInput();
-        }
-
         // Disable context menu on canvas when pressing mouse right button;
         this.el.sceneEl.canvas.oncontextmenu = function (evt) {
           evt.preventDefault();
@@ -74,73 +70,6 @@ export function loadModelViewer() {
         this.modelEl.addEventListener('model-loaded', this.onModelLoaded);
       },
 
-      initUploadInput: function () {
-        var uploadContainerEl = (this.uploadContainerEl = document.createElement('div'));
-        var inputEl = (this.inputEl = document.createElement('input'));
-        var submitButtonEl = (this.submitButtonEl = document.createElement('button'));
-        var style = document.createElement('style');
-        var css =
-          '.a-upload-model  {box-sizing: border-box; display: none; height: 34px; padding: 0; width: 70%;' +
-          'bottom: 20px; left: 15%; right: 15%; position: absolute; color: white;' +
-          'font-size: 12px; line-height: 12px; border: none;' +
-          'border-radius: 5px}' +
-          '.a-upload-model.hidden {display: none}' +
-          '.a-upload-model-button {cursor: pointer; padding: 0px 2px 0 2px; font-weight: bold; color: #666; border: 3px solid #666; box-sizing: border-box; vertical-align: middle; width: 25%; max-width: 110px; border-radius: 10px; height: 34px; background-color: white; margin: 0;}' +
-          '.a-upload-model-button:hover {border-color: #ef2d5e; color: #ef2d5e}' +
-          '.a-upload-model-input {color: #666; vertical-align: middle; padding: 0px 10px 0 10px; text-transform: uppercase; border: 0; width: 75%; height: 100%; border-radius: 10px; margin-right: 10px}' +
-          '@media only screen and (max-width: 800px) {' +
-          '.a-upload-model {margin: auto;}' +
-          '.a-upload-model-input {width: 70%;}}' +
-          '@media only screen and (max-width: 700px) {' +
-          '.a-upload-model {display: none}}';
-        var inputDefaultValue = (this.inputDefaultValue = 'Copy URL to glTF or glb model');
-
-        if (AFRAME.utils.device.checkARSupport()) {
-          css +=
-            '@media only screen and (max-width: 800px) {' + '.a-upload-model-input {width: 60%;}}';
-        }
-
-        uploadContainerEl.classList.add('a-upload-model');
-        if (style.styleSheet) {
-          style.styleSheet.cssText = css;
-        } else {
-          style.appendChild(document.createTextNode(css));
-        }
-        document.getElementsByTagName('head')[0].appendChild(style);
-
-        submitButtonEl.classList.add('a-upload-model-button');
-        submitButtonEl.innerHTML = 'OPEN MODEL';
-        submitButtonEl.addEventListener('click', this.submitURLButtonClicked);
-
-        inputEl.classList.add('a-upload-model-input');
-        inputEl.onfocus = function () {
-          if (this.value !== inputDefaultValue) {
-            return;
-          }
-          this.value = '';
-        };
-        inputEl.onblur = function () {
-          if (this.value) {
-            return;
-          }
-          this.value = inputDefaultValue;
-        };
-
-        this.el.sceneEl.addEventListener('infomessageopened', function () {
-          uploadContainerEl.classList.add('hidden');
-        });
-        this.el.sceneEl.addEventListener('infomessageclosed', function () {
-          uploadContainerEl.classList.remove('hidden');
-        });
-
-        inputEl.value = inputDefaultValue;
-
-        uploadContainerEl.appendChild(inputEl);
-        uploadContainerEl.appendChild(submitButtonEl);
-
-        this.el.sceneEl.appendChild(uploadContainerEl);
-      },
-
       update: function () {
         if (!this.data.gltfModel) {
           return;
@@ -149,7 +78,7 @@ export function loadModelViewer() {
       },
 
       submitURLButtonClicked: function (evt) {
-        var modelURL = this.inputEl.value;
+        let modelURL = this.inputEl.value;
         if (modelURL === this.inputDefaultValue) {
           return;
         }
@@ -157,10 +86,10 @@ export function loadModelViewer() {
       },
 
       initCameraRig: function () {
-        var cameraRigEl = (this.cameraRigEl = document.createElement('a-entity'));
-        var cameraEl = (this.cameraEl = document.createElement('a-entity'));
-        var rightHandEl = (this.rightHandEl = document.createElement('a-entity'));
-        var leftHandEl = (this.leftHandEl = document.createElement('a-entity'));
+        let cameraRigEl = (this.cameraRigEl = document.createElement('a-entity'));
+        let cameraEl = (this.cameraEl = document.createElement('a-entity'));
+        let rightHandEl = (this.rightHandEl = document.createElement('a-entity'));
+        let leftHandEl = (this.leftHandEl = document.createElement('a-entity'));
 
         cameraEl.setAttribute('camera', { fov: 60 });
         cameraEl.setAttribute('look-controls', {
@@ -187,12 +116,12 @@ export function loadModelViewer() {
       },
 
       initBackground: function () {
-        var backgroundEl = (this.backgroundEl = document.querySelector('a-entity'));
+        let backgroundEl = (this.backgroundEl = document.querySelector('a-entity'));
         backgroundEl.setAttribute('geometry', { primitive: 'sphere', radius: 65 });
         backgroundEl.setAttribute('material', {
           shader: 'background-gradient',
-          colorTop: '#37383c',
-          colorBottom: '#757575',
+          colorTop: asset?.providerData?.background?.fromColor,
+          colorBottom: asset?.providerData?.background?.toColor,
           side: 'back',
         });
         backgroundEl.setAttribute('hide-on-enter-ar', '');
@@ -200,25 +129,25 @@ export function loadModelViewer() {
 
       initEntities: function () {
         // Container for our entities to keep the scene clean and tidy.
-        var containerEl = (this.containerEl = document.createElement('a-entity'));
+        let containerEl = (this.containerEl = document.createElement('a-entity'));
         // Plane used as a hit target for laser controls when in VR mode
-        var laserHitPanelEl = (this.laserHitPanelEl = document.createElement('a-entity'));
+        let laserHitPanelEl = (this.laserHitPanelEl = document.createElement('a-entity'));
         // Models are often not centered on the 0,0,0.
         // We will center the model and rotate a pivot.
-        var modelPivotEl = (this.modelPivotEl = document.createElement('a-entity'));
+        let modelPivotEl = (this.modelPivotEl = document.createElement('a-entity'));
         // This is our glTF model entity.
-        var modelEl = (this.modelEl = document.createElement('a-entity'));
+        let modelEl = (this.modelEl = document.createElement('a-entity'));
         // Shadow blurb for 2D and VR modes. Scaled to match the size of the model.
-        var shadowEl = (this.shadowEl = document.createElement('a-entity'));
+        let shadowEl = (this.shadowEl = document.createElement('a-entity'));
         // Real time shadow only used in AR mode.
-        var arShadowEl = (this.arShadowEl = document.createElement('a-entity'));
+        let arShadowEl = (this.arShadowEl = document.createElement('a-entity'));
         // The title / legend displayed above the model.
-        var titleEl = (this.titleEl = document.createElement('a-entity'));
+        let titleEl = (this.titleEl = document.createElement('a-entity'));
         // Reticle model used to position the model in AR mode.
-        var reticleEl = (this.reticleEl = document.createElement('a-entity'));
+        let reticleEl = (this.reticleEl = document.createElement('a-entity'));
         // Scene ligthing.
-        var lightEl = (this.lightEl = document.createElement('a-entity'));
-        var sceneLightEl = (this.sceneLightEl = document.createElement('a-entity'));
+        let lightEl = (this.lightEl = document.createElement('a-entity'));
+        let sceneLightEl = (this.sceneLightEl = document.createElement('a-entity'));
 
         sceneLightEl.setAttribute('light', {
           type: 'hemisphere',
@@ -296,8 +225,8 @@ export function loadModelViewer() {
       },
 
       onThumbstickMoved: function (evt) {
-        var modelPivotEl = this.modelPivotEl;
-        var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
+        let modelPivotEl = this.modelPivotEl;
+        let modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
         modelScale -= evt.detail.y / 20;
         modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
         modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
@@ -305,8 +234,8 @@ export function loadModelViewer() {
       },
 
       onMouseWheel: function (evt) {
-        var modelPivotEl = this.modelPivotEl;
-        var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
+        let modelPivotEl = this.modelPivotEl;
+        let modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
         modelScale -= evt.deltaY / 100;
         modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
         // Clamp scale.
@@ -315,8 +244,8 @@ export function loadModelViewer() {
       },
 
       onMouseDownLaserHitPanel: function (evt) {
-        var cursorEl = evt.detail.cursorEl;
-        var intersection = cursorEl.components.raycaster.getIntersection(this.laserHitPanelEl);
+        let cursorEl = evt.detail.cursorEl;
+        let intersection = cursorEl.components.raycaster.getIntersection(this.laserHitPanelEl);
         if (!intersection) {
           return;
         }
@@ -327,7 +256,7 @@ export function loadModelViewer() {
       },
 
       onMouseUpLaserHitPanel: function (evt) {
-        var cursorEl = evt.detail.cursorEl;
+        let cursorEl = evt.detail.cursorEl;
         if (cursorEl === this.leftHandEl) {
           this.leftHandPressed = false;
         }
@@ -349,11 +278,11 @@ export function loadModelViewer() {
       },
 
       tick: function () {
-        var modelPivotEl = this.modelPivotEl;
-        var intersection;
-        var intersectionPosition;
-        var laserHitPanelEl = this.laserHitPanelEl;
-        var activeHandEl = this.activeHandEl;
+        let modelPivotEl = this.modelPivotEl;
+        let intersection;
+        let intersectionPosition;
+        let laserHitPanelEl = this.laserHitPanelEl;
+        let activeHandEl = this.activeHandEl;
         if (!this.el.sceneEl.is('vr-mode')) {
           return;
         }
@@ -378,7 +307,7 @@ export function loadModelViewer() {
       },
 
       onEnterVR: function () {
-        var cameraRigEl = this.cameraRigEl;
+        let cameraRigEl = this.cameraRigEl;
 
         this.cameraRigPosition = cameraRigEl.object3D.position.clone();
         this.cameraRigRotation = cameraRigEl.object3D.rotation.clone();
@@ -392,7 +321,7 @@ export function loadModelViewer() {
       },
 
       onExitVR: function () {
-        var cameraRigEl = this.cameraRigEl;
+        let cameraRigEl = this.cameraRigEl;
 
         cameraRigEl.object3D.position.copy(this.cameraRigPosition);
         cameraRigEl.object3D.rotation.copy(this.cameraRigRotation);
@@ -410,9 +339,9 @@ export function loadModelViewer() {
       },
 
       onSingleTouchMove: function (evt) {
-        var dX;
-        var dY;
-        var modelPivotEl = this.modelPivotEl;
+        let dX;
+        let dY;
+        let modelPivotEl = this.modelPivotEl;
         this.oldClientX = this.oldClientX || evt.touches[0].clientX;
         this.oldClientY = this.oldClientY || evt.touches[0].clientY;
 
@@ -433,13 +362,13 @@ export function loadModelViewer() {
       },
 
       onPinchMove: function (evt) {
-        var dX = evt.touches[0].clientX - evt.touches[1].clientX;
-        var dY = evt.touches[0].clientY - evt.touches[1].clientY;
-        var modelPivotEl = this.modelPivotEl;
-        var distance = Math.sqrt(dX * dX + dY * dY);
-        var oldDistance = this.oldDistance || distance;
-        var distanceDifference = oldDistance - distance;
-        var modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
+        let dX = evt.touches[0].clientX - evt.touches[1].clientX;
+        let dY = evt.touches[0].clientY - evt.touches[1].clientY;
+        let modelPivotEl = this.modelPivotEl;
+        let distance = Math.sqrt(dX * dX + dY * dY);
+        let oldDistance = this.oldDistance || distance;
+        let distanceDifference = oldDistance - distance;
+        let modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
 
         modelScale -= distanceDifference / 500;
         modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
@@ -476,9 +405,9 @@ export function loadModelViewer() {
       },
 
       dragModel: function (evt) {
-        var dX;
-        var dY;
-        var modelPivotEl = this.modelPivotEl;
+        let dX;
+        let dY;
+        let modelPivotEl = this.modelPivotEl;
         if (!this.oldClientX) {
           return;
         }
@@ -491,9 +420,9 @@ export function loadModelViewer() {
       },
 
       rotateModel: function (evt) {
-        var dX;
-        var dY;
-        var modelPivotEl = this.modelPivotEl;
+        let dX;
+        let dY;
+        let modelPivotEl = this.modelPivotEl;
         if (!this.oldClientX) {
           return;
         }
@@ -514,17 +443,19 @@ export function loadModelViewer() {
 
       onModelLoaded: function () {
         this.centerAndScaleModel();
+        // Triggers window onResize to fix the canvas dimensions
+        window.dispatchEvent(new Event('resize'));
       },
 
       centerAndScaleModel: function () {
-        var box;
-        var size;
-        var center;
-        var scale;
-        var modelEl = this.modelEl;
-        var shadowEl = this.shadowEl;
-        var titleEl = this.titleEl;
-        var gltfObject = modelEl.getObject3D('mesh');
+        let box;
+        let size;
+        let center;
+        let scale;
+        let modelEl = this.modelEl;
+        let shadowEl = this.shadowEl;
+        let titleEl = this.titleEl;
+        let gltfObject = modelEl.getObject3D('mesh');
 
         // Reset position and scales.
         modelEl.object3D.position.set(0, 0, 0);
@@ -565,9 +496,9 @@ export function loadModelViewer() {
         modelEl.object3D.position.z = -center.z;
 
         // When in mobile landscape we want to bring the model a bit closer.
-        if (AFRAME.utils.device.isLandscape()) {
-          this.cameraRigEl.object3D.position.z -= 1;
-        }
+        // if (AFRAME.utils.device.isLandscape()) {
+        this.cameraRigEl.object3D.position.z -= 1;
+        // }
       },
 
       onMouseDown: function (evt) {

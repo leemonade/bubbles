@@ -44,6 +44,8 @@ export const MultiSelectStyles = createStyles((theme, { size, multiple, rightEve
       margin: 0,
       height: 24,
       maxHeight: 24,
+      display: 'flex',
+      alignItems: 'center',
     },
     withIcon: {
       paddingLeft: 0,

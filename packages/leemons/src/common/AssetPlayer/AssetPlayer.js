@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { isFunction } from 'lodash';
-import { Helmet } from 'react-helmet';
 import {
   Box,
   ImageLoader,
@@ -82,7 +81,7 @@ const AssetPlayer = ({
       isAudio: fileType === 'audio',
       isImage: fileType === 'image',
       isPDF: fileExtension === 'pdf',
-      isAFrame3D: ['gltf', 'obj'].includes(fileExtension?.toLowerCase()),
+      isAFrame3D: ['gltf', 'glb', 'obj'].includes(fileExtension?.toLowerCase()),
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
