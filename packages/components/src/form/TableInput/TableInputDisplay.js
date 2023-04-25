@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { find, isFunction } from 'lodash';
 import { useTable, useExpanded } from 'react-table';
 import { Controller } from 'react-hook-form';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
 import { Button } from '../Button';
 import { TableInputRow } from './TableInputRow';
+import { ActionButton } from '../ActionButton';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
@@ -161,14 +162,11 @@ const TableInputDisplay = ({
               style={{ paddingLeft: 0, paddingBottom: 4 }}
             >
               {!disabled && (
-                <Button
-                  variant="light"
+                <ActionButton
                   disabled={disabledAddButton}
-                  leftIcon={<AddCircleIcon />}
                   onClick={handleOnAdd}
-                >
-                  {labels.add}
-                </Button>
+                  icon={<AddIcon />}
+                />
               )}
             </th>
           </tr>

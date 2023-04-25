@@ -3,6 +3,7 @@ import { Paragraph } from '../../typography';
 import { Button } from '../../form';
 import { ModalsProvider } from './ModalsProvider';
 import { useModals } from './hook/useModals';
+import { modals } from '@mantine/modals';
 import { MODALS_PROVIDER_DEFAULT_PROPS } from './ModalsProvider.constants';
 import mdx from './ModalsProvider.mdx';
 
@@ -27,7 +28,7 @@ export default {
 function Demo() {
   const modals = useModals();
 
-  const openDeleteModal = () =>
+  const openConfirmModal = () =>
     modals.openConfirmModal({
       title: 'Delete your profile',
       children: (
@@ -42,7 +43,28 @@ function Demo() {
       onConfirm: () => console.log('Confirmed'),
     });
 
-  return <Button onClick={openDeleteModal}>Delete account</Button>;
+  const openModal = () =>
+    modals.openModal({
+      title: 'Delete your profile',
+      children: (
+        <Paragraph>
+          Are you sure you want to delete your profile? This action is destructive and you will have
+          to contact support to restore your data.
+        </Paragraph>
+      ),
+      size: 740,
+      labels: { confirm: 'Delete account', cancel: "No don't delete it" },
+      confirmProps: { color: 'fatic' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => console.log('Confirmed'),
+    });
+
+  return (
+    <>
+      <Button onClick={openConfirmModal}>Open confirm modal</Button>
+      <Button onClick={openModal}>Open modal</Button>
+    </>
+  );
 }
 
 const Template = ({ ...props }) => {
