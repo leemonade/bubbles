@@ -6,6 +6,10 @@ import { SPOTLIGHT_DEFAULT_PROPS, SPOTLIGHT_PROP_TYPES } from './Spotlight.const
 import { SpotlightStyles } from './Spotlight.styles';
 import { SpotlightAction } from './SpotlightAction';
 
+const normalize = (value) => {
+  return value.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+};
+
 const Spotlight = ({ children, data, useRouter, ...props }) => {
   const { classes, cx } = SpotlightStyles({}, { name: 'Spotlight' });
 
@@ -49,6 +53,15 @@ const Spotlight = ({ children, data, useRouter, ...props }) => {
       classNames={classes}
       searchIcon={<SearchIcon width={{ height: 18 }} />}
       actionComponent={SpotlightAction}
+      filter={(query, actions) =>
+        actions.filter(
+          (action) =>
+            normalize(action.title.toLowerCase()).includes(normalize(query.toLowerCase())) ||
+            normalize((action.description ?? '').toLowerCase()).includes(
+              normalize(query.toLowerCase())
+            )
+        )
+      }
     >
       {children}
     </SpotlightProvider>
