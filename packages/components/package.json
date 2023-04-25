@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.1.69",
+  "version": "1.1.71",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -60,7 +60,7 @@
     "chromatic": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw"
   },
   "dependencies": {
-    "@bubbles-ui/icons": "^1.1.69",
+    "@bubbles-ui/icons": "^1.1.71",
     "@emotion/react": "^11.10.0",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",
