@@ -5,16 +5,17 @@ export function Aframe({ asset }) {
   const [loaded, setLoaded] = React.useState(false);
 
   async function load() {
-    await loadAframe();
+    await loadAframe(null, asset);
     setLoaded(true);
   }
 
   React.useEffect(() => {
-    load();
-  }, []);
+    if (!loaded && typeof asset?.id === 'string' && asset?.id?.length > 0) {
+      load();
+    }
+  }, [loaded, asset]);
 
   if (!loaded) return null;
-
   return (
     <a-scene
       embedded
@@ -29,15 +30,9 @@ export function Aframe({ asset }) {
           response-type="arraybuffer"
           crossorigin="anonymous"
         ></a-asset-item>
-
-        <a-asset-item
-          id="reticle"
-          src="https://cdn.aframe.io/examples/ar/models/reticle/reticle.gltf"
-          response-type="arraybuffer"
-          crossorigin="anonymous"
-        ></a-asset-item>
         <img
           id="shadow"
+          crossOrigin="anonymous"
           src="https://cdn.glitch.com/20600112-c04b-492c-8190-8a5ccc06f37d%2Fshadow.png?v=1606338852399"
         ></img>
       </a-assets>

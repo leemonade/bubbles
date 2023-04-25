@@ -1,4 +1,9 @@
 import React, { forwardRef, useState } from 'react';
+import { StarIcon } from '@bubbles-ui/icons/solid';
+import { RemoveIcon } from '@bubbles-ui/icons/outline';
+import { Stack, Box } from '../../layout';
+import { UserDisplayItem } from '../../informative';
+import { ActionButton } from '../../form';
 import { MultiSelect } from './MultiSelect';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
@@ -7,8 +12,6 @@ import {
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
 import mdx from './MultiSelect.mdx';
-import { UserDisplayItem } from '../../informative';
-import { StarIcon } from '@bubbles-ui/icons/solid';
 
 export default {
   title: 'Molecules/Form/MultiSelect',
@@ -31,8 +34,18 @@ export default {
 };
 
 const Template = ({ children, data, useValueComponent, onChange, showIcon, ...props }) => {
-  const CustomValueComponent = forwardRef(({ label }, ref) => {
-    return <UserDisplayItem name={label} />;
+  const CustomValueComponent = forwardRef(({ label, onRemove }, ref) => {
+    // return <UserDisplayItem name={label} size="xs" />;
+    return (
+      <Stack sx={(theme) => ({ paddingRight: theme.spacing[1] })}>
+        <UserDisplayItem name={label} size="xs" />
+        {onRemove ? (
+          <Box>
+            <ActionButton icon={<RemoveIcon />} onClick={() => onRemove(value)} />
+          </Box>
+        ) : null}
+      </Stack>
+    );
   });
 
   const [state, setState] = useState([]);

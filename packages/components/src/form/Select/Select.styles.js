@@ -18,6 +18,7 @@ export const SelectStyles = createStyles((theme, { size, rightEvents, variant, h
       color: theme.colors.text02,
       pointerEvents: rightEvents ? 'auto' : 'none',
       cursor: 'pointer',
+      paddingRight: 4,
     },
     itemsWrapper: {
       padding: 0,

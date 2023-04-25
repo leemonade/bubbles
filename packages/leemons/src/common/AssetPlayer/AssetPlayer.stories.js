@@ -70,11 +70,7 @@ const Template = ({ test_asset, ...props }) => {
     }
   }, [test_asset]);
 
-  return (
-    <Box style={{ height: 'calc(100vh - 36px)' }}>
-      <AssetPlayer {...props} asset={asset} />
-    </Box>
-  );
+  return <AssetPlayer {...props} asset={asset} />;
 };
 
 export const Playground = Template.bind({});

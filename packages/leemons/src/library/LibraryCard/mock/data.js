@@ -159,5 +159,12 @@ export const AFRAME_ASSET = {
   tags: ['Google', 'Search'],
   cover:
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
-  url: 'https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf',
+  // url: '/3d/scene.gltf',
+  url: '/3d/painted_vessel.glb',
+  providerData: {
+    background: {
+      fromColor: '#336699',
+      toColor: '#6699FF',
+    },
+  },
 };

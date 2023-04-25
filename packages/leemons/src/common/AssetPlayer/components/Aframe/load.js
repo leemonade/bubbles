@@ -19,30 +19,29 @@ export function addHeaderScript(url) {
   }
 }
 
-function logic(resolve) {
-  addHeaderScript('https://aframe.io/releases/1.2.0/aframe.min.js');
+function logic(resolve, asset) {
   if (window.AFRAME) {
     addHeaderScript('https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js');
 
     if (!window.AFRAME.components['checkpoint-controls']) {
-      setTimeout(() => loadAframe(resolve), 100);
+      setTimeout(() => loadAframe(resolve, asset), 100);
     } else {
-      console.log(window.AFRAME);
       loadARShadows();
       loadBackgroundGradient();
       loadARHitTest();
       loadHideOnEnterAR();
-      loadModelViewer();
+      loadModelViewer(asset);
       resolve();
     }
   } else {
-    setTimeout(() => loadAframe(resolve), 100);
+    addHeaderScript('https://aframe.io/releases/1.2.0/aframe.min.js');
+    setTimeout(() => loadAframe(resolve, asset), 100);
   }
 }
 
-export async function loadAframe(resolve) {
-  if (resolve) logic(resolve);
+export async function loadAframe(resolve, asset) {
+  if (!!resolve) logic(resolve, asset);
   return new Promise((resolve) => {
-    logic(resolve);
+    logic(resolve, asset);
   });
 }
