@@ -9,7 +9,7 @@ import {
   INPUT_WRAPPER_SIZES,
   InputWrapper,
   Popover,
-  useId
+  useId,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
 import { ScheduleForm } from './ScheduleForm/';
@@ -24,7 +24,7 @@ export const SCHEDULE_PICKER_DEFAULT_PROPS = {
   errorMessages: {},
   required: false,
   readOnly: false,
-  disabled: false
+  disabled: false,
 };
 export const SCHEDULE_PICKER_PROP_TYPES = {
   labels: PropTypes.object,
@@ -43,7 +43,7 @@ export const SCHEDULE_PICKER_PROP_TYPES = {
   locale: PropTypes.string,
   value: PropTypes.object,
   readOnly: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 const SchedulePicker = forwardRef(
@@ -125,9 +125,9 @@ const SchedulePicker = forwardRef(
               schedule.days.map((day) => (
                 <Badge
                   key={day.dayWeek}
-                  label={`${find(localeWeekdays, { value: { index: day.dayWeek } }).label} - ${day.start} ${labels.divider} ${
-                    day.end
-                  }`}
+                  label={`${find(localeWeekdays, { value: { index: day.dayWeek } }).label} - ${
+                    day.start
+                  } ${labels.divider} ${day.end}`}
                   closable={false}
                   onClick={() => setOpenForm(true)}
                   onClose={() => {
@@ -135,7 +135,7 @@ const SchedulePicker = forwardRef(
                       ...schedule,
                       days: schedule.days.filter((item) => {
                         return item.dayWeek !== day.dayWeek;
-                      })
+                      }),
                     });
                   }}
                 />
@@ -172,7 +172,7 @@ const SchedulePicker = forwardRef(
                                 ...schedule,
                                 days: schedule.days.filter((item) => {
                                   return item.dayWeek !== day.dayWeek;
-                                })
+                                }),
                               });
                             }}
                           />
