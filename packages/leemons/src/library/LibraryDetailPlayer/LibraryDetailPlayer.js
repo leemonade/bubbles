@@ -17,6 +17,7 @@ const LibraryDetailPlayer = ({
   variant,
   fileIcon,
   fileType,
+  providerData,
   fileExtension,
   titleActionButton,
   ...props
@@ -28,12 +29,13 @@ const LibraryDetailPlayer = ({
     fileType,
     fileExtension,
     url,
+    providerData,
   };
 
   const { classes, cx } = LibraryDetailPlayerStyles({ color }, { name: 'LibraryDetailPlayer' });
   return (
     <Box className={classes.root}>
-      <AssetPlayer height={height} asset={asset} hideURLInfo viewPDF={false} />
+      <AssetPlayer height={height} asset={asset} hideURLInfo viewPDF={false} compact />
       <Box className={classes.color} />
       <Box className={classes.titleRow}>
         <TextClamp lines={6}>

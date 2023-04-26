@@ -25,6 +25,7 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   },
   useSchema: true,
   viewPDF: true,
+  compact: false,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -51,4 +52,5 @@ export const ASSET_PLAYER_PROP_TYPES = {
   }),
   useSchema: PropTypes.bool,
   viewPDF: PropTypes.bool,
+  compact: PropTypes.bool,
 };

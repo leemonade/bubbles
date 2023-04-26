@@ -1,4 +1,6 @@
 export function loadModelViewer(asset) {
+  console.log('loadModelViewer:', asset);
+
   if (!window.AFRAME.components['model-viewer']) {
     AFRAME.registerComponent('model-viewer', {
       schema: {
@@ -116,14 +118,16 @@ export function loadModelViewer(asset) {
       },
 
       initBackground: function () {
+        const materialProps = {
+          shader: 'background-gradient',
+          colorTop: asset?.providerData?.bgFromColor,
+          colorBottom: asset?.providerData?.bgToColor,
+          side: 'back',
+        };
+        console.log('materialProps:', materialProps);
         let backgroundEl = (this.backgroundEl = document.querySelector('a-entity'));
         backgroundEl.setAttribute('geometry', { primitive: 'sphere', radius: 65 });
-        backgroundEl.setAttribute('material', {
-          shader: 'background-gradient',
-          colorTop: asset?.providerData?.background?.fromColor,
-          colorBottom: asset?.providerData?.background?.toColor,
-          side: 'back',
-        });
+        backgroundEl.setAttribute('material', materialProps);
         backgroundEl.setAttribute('hide-on-enter-ar', '');
       },
 

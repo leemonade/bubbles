@@ -153,7 +153,7 @@ export const PDF_ASSET = {
 export const AFRAME_ASSET = {
   id: '620bbb607129df59430f3329',
   name: '3d test',
-  fileExtension: 'gltf',
+  fileExtension: 'glb',
   description:
     'We’ve always been told that the brain contains billions of neurons, which, of course, have an essential role in all the processes we do. But what is the role of the neurons in the brain?',
   tags: ['Google', 'Search'],
@@ -162,9 +162,7 @@ export const AFRAME_ASSET = {
   // url: '/3d/scene.gltf',
   url: '/3d/painted_vessel.glb',
   providerData: {
-    background: {
-      fromColor: '#336699',
-      toColor: '#6699FF',
-    },
+    bgFromColor: '#336699',
+    bgToColor: '#6699FF',
   },
 };

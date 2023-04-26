@@ -115,7 +115,7 @@ const TreeView = ({
       if(openAll === false) {
         treeRef.current.closeAll();
       } else if(openAll === true) {
-        console.log('Open all tree nodes');
+        // console.log('Open all tree nodes');
         treeRef.current.open(treeData.map(({id}) => id), true);
       }
       setOpenAll(null);

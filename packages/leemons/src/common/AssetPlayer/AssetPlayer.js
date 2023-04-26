@@ -59,6 +59,7 @@ const AssetPlayer = ({
   pdfLabels,
   useSchema,
   viewPDF,
+  compact,
   ...props
 }) => {
   const { name, description, cover, url, fileType, fileExtension, metadata } = asset;
@@ -331,7 +332,7 @@ const AssetPlayer = ({
                 <ImageLoader height="100%" src={cover} alt={name} />
               </ModalZoom>
             )}
-            {media.isAFrame3D && <Aframe asset={asset} />}
+            {media.isAFrame3D && <Aframe asset={asset} compact={compact} />}
             {media.isURL && (
               <a
                 href={asset.url}

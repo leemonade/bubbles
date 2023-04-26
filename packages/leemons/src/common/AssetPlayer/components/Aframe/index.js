@@ -1,7 +1,7 @@
 import React from 'react';
 import { loadAframe } from './load';
 
-export function Aframe({ asset }) {
+export function Aframe({ asset, compact }) {
   const [loaded, setLoaded] = React.useState(false);
 
   async function load() {
@@ -10,7 +10,7 @@ export function Aframe({ asset }) {
   }
 
   React.useEffect(() => {
-    if (!loaded && typeof asset?.id === 'string' && asset?.id?.length > 0) {
+    if (!loaded && typeof asset?.name === 'string' && asset?.name?.length > 0) {
       load();
     }
   }, [loaded, asset]);
@@ -21,7 +21,8 @@ export function Aframe({ asset }) {
       embedded
       style={{ position: 'absolute' }}
       renderer="colorManagement: true;"
-      model-viewer={`gltfModel: #3ditem; title: ${asset.name}`}
+      model-viewer={`gltfModel: #3ditem; title: ${compact ? '' : asset.name}`}
+      vr-mode-ui={`enabled: ${compact ? false : true}`}
     >
       <a-assets>
         <a-asset-item

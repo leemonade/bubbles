@@ -14,7 +14,6 @@ const Spotlight = ({ children, data, useRouter, ...props }) => {
   const { classes, cx } = SpotlightStyles({}, { name: 'Spotlight' });
 
   const actions = React.useMemo(() => {
-    console.log(data);
     if (isArray(data) && !isEmpty(data)) {
       const actionData = [];
 
