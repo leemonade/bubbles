@@ -146,7 +146,6 @@ const ScheduleForm = ({
     } else {
       if (!validateSchedule()) return;
 
-      console.log('onchange', schedule);
       isFunction(onChange) && onChange(schedule);
       setOpenForm(false);
     }
@@ -179,10 +178,8 @@ const ScheduleForm = ({
   }, [selectedDays, oneDayOnlyValue, startDate, endDate, useCustomDates]);
 
   useEffect(() => {
-    console.log('savedSchedule', savedSchedule);
     setSelectedDays(
       savedSchedule.days.map((day) => {
-        console.log(day.dayWeek, firstDayOfWeek, (day.dayWeek + firstDayOfWeek) % 6);
         return {
           id: day.id,
           start: new Date(`01/01/1970 ${day.start}`),
