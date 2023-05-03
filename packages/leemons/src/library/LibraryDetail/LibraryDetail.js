@@ -20,6 +20,7 @@ const LibraryDetail = ({
   labels,
   titleActionButton,
   style,
+  excludeMetadatas,
   ...events
 }) => {
   const [showDrawer, setShowDrawer] = useState(open);
@@ -82,6 +83,7 @@ const LibraryDetail = ({
           />
           <LibraryDetailContent
             {...asset}
+            excludeMetadatas={excludeMetadatas}
             variantIcon={variantIcon}
             variantTitle={variantTitle}
             variant={variant}

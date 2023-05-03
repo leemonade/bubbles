@@ -161,8 +161,9 @@ export const AFRAME_ASSET = {
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
   // url: '/3d/scene.gltf',
   url: '/3d/painted_vessel.glb',
-  providerData: {
-    bgFromColor: '#336699',
-    bgToColor: '#6699FF',
-  },
+  metadata: [
+    { label: 'Size', value: '1.2Mb' },
+    { label: 'Bgfromcolor', value: '#336699' },
+    { label: 'Bgtocolor', value: '#6699FF' },
+  ],
 };

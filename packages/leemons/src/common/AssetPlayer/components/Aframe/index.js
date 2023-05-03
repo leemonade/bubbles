@@ -2,26 +2,37 @@ import React from 'react';
 import { loadAframe } from './load';
 
 export function Aframe({ asset, compact }) {
-  const [loaded, setLoaded] = React.useState(false);
+  const [state, setState] = React.useState({ loaded: false, bgFromColor: null, bgToColor: null });
 
   async function load() {
-    await loadAframe(null, asset);
-    setLoaded(true);
+    console.log('loading');
+    await loadAframe();
+    const bgFromColor = asset.metadata.find((m) => m.label.toLowerCase() === 'bgfromcolor')?.value;
+    const bgToColor = asset.metadata.find((m) => m.label.toLowerCase() === 'bgtocolor')?.value;
+    console.log('loaded');
+    console.log('bgFromColor:', bgFromColor);
+    console.log('bgToColor:', bgToColor);
+    setState({ ...state, bgFromColor, bgToColor, loaded: true });
   }
 
   React.useEffect(() => {
-    if (!loaded && typeof asset?.name === 'string' && asset?.name?.length > 0) {
+    console.log('state:', state);
+    console.log('asset:', asset);
+    if (!state.loaded && typeof asset?.name === 'string' && asset?.name?.length > 0) {
       load();
     }
-  }, [loaded, asset]);
+  }, [state, asset]);
 
-  if (!loaded) return null;
+  if (!state.loaded) return null;
+
   return (
     <a-scene
       embedded
       style={{ position: 'absolute' }}
       renderer="colorManagement: true;"
-      model-viewer={`gltfModel: #3ditem; title: ${compact ? '' : asset.name}`}
+      model-viewer={`gltfModel: #3ditem; title: ${compact ? '' : asset.name}; bgFromColor: ${
+        state.bgFromColor
+      }; bgToColor: ${state.bgToColor}; compact: ${compact}`}
       vr-mode-ui={`enabled: ${compact ? false : true}`}
     >
       <a-assets>

@@ -1,12 +1,13 @@
-export function loadModelViewer(asset) {
-  console.log('loadModelViewer:', asset);
-
+export function loadModelViewer() {
   if (!window.AFRAME.components['model-viewer']) {
     AFRAME.registerComponent('model-viewer', {
       schema: {
         gltfModel: { default: '' },
         title: { default: '' },
+        compact: { default: false },
         uploadUIEnabled: { default: true },
+        bgFromColor: { default: '#37383c' },
+        bgToColor: { default: '#757575' },
       },
       init: function () {
         let el = this.el;
@@ -30,6 +31,7 @@ export function loadModelViewer(asset) {
 
         this.onThumbstickMoved = this.onThumbstickMoved.bind(this);
 
+        this.onVR = false;
         this.onEnterVR = this.onEnterVR.bind(this);
         this.onExitVR = this.onExitVR.bind(this);
 
@@ -72,11 +74,16 @@ export function loadModelViewer(asset) {
         this.modelEl.addEventListener('model-loaded', this.onModelLoaded);
       },
 
-      update: function () {
-        if (!this.data.gltfModel) {
-          return;
+      update: function (oldData) {
+        if (this.data.gltfModel !== oldData.gltfModel) {
+          this.modelEl.setAttribute('gltf-model', this.data.gltfModel);
         }
-        this.modelEl.setAttribute('gltf-model', this.data.gltfModel);
+        if (this.data.bgFromColor || this.data.bgToColor) {
+          this.setBackgroundMaterial();
+        }
+        if (this.data.title !== oldData.title) {
+          this.titleEl.setAttribute('text', `value: ${this.data.title}; width: 6`);
+        }
       },
 
       submitURLButtonClicked: function (evt) {
@@ -118,17 +125,20 @@ export function loadModelViewer(asset) {
       },
 
       initBackground: function () {
-        const materialProps = {
-          shader: 'background-gradient',
-          colorTop: asset?.providerData?.bgFromColor,
-          colorBottom: asset?.providerData?.bgToColor,
-          side: 'back',
-        };
-        console.log('materialProps:', materialProps);
         let backgroundEl = (this.backgroundEl = document.querySelector('a-entity'));
         backgroundEl.setAttribute('geometry', { primitive: 'sphere', radius: 65 });
-        backgroundEl.setAttribute('material', materialProps);
         backgroundEl.setAttribute('hide-on-enter-ar', '');
+        this.setBackgroundMaterial();
+      },
+
+      setBackgroundMaterial: function () {
+        const materialProps = {
+          shader: 'background-gradient',
+          colorTop: this.data.bgFromColor,
+          colorBottom: this.data.bgToColor,
+          side: 'back',
+        };
+        this.backgroundEl.setAttribute('material', materialProps);
       },
 
       initEntities: function () {
@@ -200,7 +210,7 @@ export function loadModelViewer(asset) {
         modelPivotEl.appendChild(arShadowEl);
 
         titleEl.id = 'title';
-        titleEl.setAttribute('text', 'value: ' + this.data.title + '; width: 6');
+        titleEl.setAttribute('text', `value: ${this.data.title}; width: 6`);
         titleEl.setAttribute('hide-on-enter-ar', '');
         titleEl.setAttribute('visible', 'false');
 
@@ -238,13 +248,17 @@ export function loadModelViewer(asset) {
       },
 
       onMouseWheel: function (evt) {
-        let modelPivotEl = this.modelPivotEl;
-        let modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
-        modelScale -= evt.deltaY / 100;
-        modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
-        // Clamp scale.
-        modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
-        this.modelScale = modelScale;
+        if (this.data.compact) return;
+
+        if (this.onVR) {
+          let modelPivotEl = this.modelPivotEl;
+          let modelScale = this.modelScale || modelPivotEl.object3D.scale.x;
+          modelScale -= evt.deltaY / 100;
+          modelScale = Math.min(Math.max(0.8, modelScale), 2.0);
+          // Clamp scale.
+          modelPivotEl.object3D.scale.set(modelScale, modelScale, modelScale);
+          this.modelScale = modelScale;
+        }
       },
 
       onMouseDownLaserHitPanel: function (evt) {
@@ -311,6 +325,7 @@ export function loadModelViewer(asset) {
       },
 
       onEnterVR: function () {
+        this.onVR = true;
         let cameraRigEl = this.cameraRigEl;
 
         this.cameraRigPosition = cameraRigEl.object3D.position.clone();
@@ -325,6 +340,7 @@ export function loadModelViewer(asset) {
       },
 
       onExitVR: function () {
+        this.onVR = false;
         let cameraRigEl = this.cameraRigEl;
 
         cameraRigEl.object3D.position.copy(this.cameraRigPosition);

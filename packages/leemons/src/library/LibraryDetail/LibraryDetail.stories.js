@@ -41,7 +41,13 @@ const Template = ({ children, asset, ...props }) => {
   return (
     <Box style={{ display: 'flex', gap: 30, height: 'calc(100vh - 32px)' }}>
       <Box style={{ position: 'relative', width: 360 }}>
-        <LibraryDetail {...props} asset={AFRAME_ASSET} variant="3d" style={{ width: 360 }}>
+        <LibraryDetail
+          {...props}
+          asset={AFRAME_ASSET}
+          variant="3d"
+          style={{ width: 360 }}
+          excludeMetadatas={['bgFromColor', 'bgToColor']}
+        >
           {children}
         </LibraryDetail>
       </Box>

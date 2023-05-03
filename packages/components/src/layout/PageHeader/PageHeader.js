@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
+import { capitalize, isArray, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
+import { Controller, useForm } from 'react-hook-form';
+import { AddIcon, ChevronLeftIcon } from '@bubbles-ui/icons/outline';
 import { PageHeaderStyles } from './PageHeader.styles';
 import {
   PAGE_HEADER_DEFAULT_PROPS,
   PAGE_HEADER_PROP_TYPES,
   PAGE_HEADER_BUTTONS as BUTTONS,
 } from './PageHeader.constants';
-import { AddIcon } from '@bubbles-ui/icons/outline';
 import { Box } from '../Box';
 import { Text, Title } from '../../typography';
 import { Stack } from '../Stack';
-import { capitalize, isArray, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
-import { Button, DropdownButton } from '../../form';
+import { Button, DropdownButton, ActionButton } from '../../form';
 import { ContentLegible } from '../ContentLegible';
-import { Controller, useForm } from 'react-hook-form';
 import { TitleTextInput } from './components/TitleTextInput/TitleTextInput';
 
 const PageHeader = ({
@@ -34,8 +34,10 @@ const PageHeader = ({
   onButton,
   onDuplicate,
   onDropdown,
+  onBack,
   isEditMode,
   fullWidth,
+  showBackButton,
   ...props
 }) => {
   const {
@@ -113,11 +115,23 @@ const PageHeader = ({
   // ····································································
   // STYLES
 
-  const { classes, cx } = PageHeaderStyles({ withDivider }, { name: 'PageHeader' });
+  const { classes, cx } = PageHeaderStyles({ withDivider, showBackButton }, { name: 'PageHeader' });
 
   return (
     <form onSubmit={handleSubmit(onSave)} autoComplete="off">
       <Stack className={classes.root} direction="column" fullWidth={fullWidth}>
+        {showBackButton && (
+          <Box className={classes.backButton}>
+            <Stack fullWidth justifyContent="start">
+              <ActionButton
+                icon={<ChevronLeftIcon />}
+                label={values.back}
+                tooltip={values.back}
+                onClick={onBack}
+              />
+            </Stack>
+          </Box>
+        )}
         <Stack className={classes.header} justifyContent="space-between">
           <Stack className={classes.titleContainer}>
             {icon && <Box className={classes.iconContainer}>{icon}</Box>}

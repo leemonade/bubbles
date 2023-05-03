@@ -9,4 +9,5 @@ export const LIBRARY_DETAIL_CONTENT_PROP_TYPES = {
   description: PropTypes.string,
   metadata: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.any, value: PropTypes.any })),
   tags: PropTypes.arrayOf(PropTypes.string),
+  excludeMetadatas: PropTypes.arrayOf(PropTypes.string),
 };

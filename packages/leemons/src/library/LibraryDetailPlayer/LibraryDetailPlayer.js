@@ -15,9 +15,9 @@ const LibraryDetailPlayer = ({
   url,
   color,
   variant,
+  metadata,
   fileIcon,
   fileType,
-  providerData,
   fileExtension,
   titleActionButton,
   ...props
@@ -28,8 +28,8 @@ const LibraryDetailPlayer = ({
     fileIcon,
     fileType,
     fileExtension,
+    metadata,
     url,
-    providerData,
   };
 
   const { classes, cx } = LibraryDetailPlayerStyles({ color }, { name: 'LibraryDetailPlayer' });

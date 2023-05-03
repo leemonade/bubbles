@@ -1,11 +1,12 @@
 import { createStyles } from '@mantine/styles';
 
-export const PageHeaderStyles = createStyles((theme, { withDivider }) => {
+export const PageHeaderStyles = createStyles((theme, { withDivider, showBackButton }) => {
   const { global } = theme.other;
   return {
     root: {
       backgroundColor: global.background.color.surface.default,
-      paddingBlock: global.spacing.padding['xlg'],
+      paddingTop: showBackButton ? global.spacing.padding['md'] : global.spacing.padding['xlg'],
+      paddingBottom: global.spacing.padding['xlg'],
       paddingInline: global.spacing.padding['3xlg'],
       borderBottom: `${global.border.width.sm} solid ${
         withDivider ? global.border.color.line.muted : 'transparent'
@@ -37,6 +38,9 @@ export const PageHeaderStyles = createStyles((theme, { withDivider }) => {
       color: global.content.color.text.default,
       ...global.content.typo.body.xlg,
       maxWidth: '80ch',
+    },
+    backButton: {
+      marginLeft: -10,
     },
   };
 });
