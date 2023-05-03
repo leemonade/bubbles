@@ -5,19 +5,15 @@ export function Aframe({ asset, compact }) {
   const [state, setState] = React.useState({ loaded: false, bgFromColor: null, bgToColor: null });
 
   async function load() {
-    console.log('loading');
     await loadAframe();
-    const bgFromColor = asset.metadata.find((m) => m.label.toLowerCase() === 'bgfromcolor')?.value;
-    const bgToColor = asset.metadata.find((m) => m.label.toLowerCase() === 'bgtocolor')?.value;
-    console.log('loaded');
-    console.log('bgFromColor:', bgFromColor);
-    console.log('bgToColor:', bgToColor);
+    const bgFromColor =
+      asset.metadata?.find((m) => m.label.toLowerCase() === 'bgfromcolor')?.value || '#37383c';
+    const bgToColor =
+      asset.metadata?.find((m) => m.label.toLowerCase() === 'bgtocolor')?.value || '#757575';
     setState({ ...state, bgFromColor, bgToColor, loaded: true });
   }
 
   React.useEffect(() => {
-    console.log('state:', state);
-    console.log('asset:', asset);
     if (!state.loaded && typeof asset?.name === 'string' && asset?.name?.length > 0) {
       load();
     }
