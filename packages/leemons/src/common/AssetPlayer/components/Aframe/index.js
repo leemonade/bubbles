@@ -25,7 +25,7 @@ export function Aframe({ asset, compact }) {
     } else if (isValid) {
       updateState();
     }
-  }, [state, asset]);
+  }, [asset]);
 
   if (!state.loaded) return null;
 
