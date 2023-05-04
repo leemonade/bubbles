@@ -5,7 +5,7 @@ import {
   AssetBookmarkIcon,
   AssetPathIcon,
   AssetTaskIcon,
-  PluginCurriculumIcon
+  PluginCurriculumIcon,
 } from '@bubbles-ui/icons/solid';
 import { LibraryCardCover } from '../LibraryCardCover';
 import { LibraryCardContent } from '../LibraryCardContent';
@@ -14,25 +14,26 @@ import { LibraryCardStyles } from './LibraryCard.styles';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARY_CARD_PROP_TYPES } from './LibraryCard.constants';
 
 const LibraryCard = ({
-                       asset,
-                       assigment,
-                       variant,
-                       variantTitle,
-                       variantIcon,
-                       deadlineProps,
-                       action,
-                       onAction,
-                       locale,
-                       menuItems,
-                       dashboard,
-                       isNew,
-                       role,
-                       badge,
-                       shadow,
-                       subject,
-                       fullHeight,
-                       ...props
-                     }) => {
+  asset,
+  assigment,
+  variant,
+  variantTitle,
+  variantIcon,
+  deadlineProps,
+  action,
+  onAction,
+  locale,
+  menuItems,
+  dashboard,
+  isNew,
+  role,
+  badge,
+  shadow,
+  subject,
+  fullHeight,
+  excludeMetadatas,
+  ...props
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { classes, cx } = LibraryCardStyles({ shadow, fullHeight }, { name: 'LibraryCard' });
@@ -66,7 +67,7 @@ const LibraryCard = ({
               <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
                 <PluginCurriculumIcon />
               </Box>
-            )
+            ),
           }[variant] || (
             <FileIcon
               size={64}
@@ -90,6 +91,9 @@ const LibraryCard = ({
       />
       <LibraryCardContent
         {...asset}
+        metadata={(Array.isArray(asset.metadata) ? asset.metadata : []).filter(
+          (item) => !excludeMetadatas.map((e) => e.toLowerCase()).includes(item.label.toLowerCase())
+        )}
         locale={locale}
         variant={variant}
         assigment={assigment}

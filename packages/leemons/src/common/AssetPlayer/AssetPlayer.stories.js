@@ -64,15 +64,18 @@ const Template = ({ test_asset, ...props }) => {
         break;
       case '3d':
         setAsset(AFRAME_ASSET);
-        /*
+
         setTimeout(() => {
           setAsset({
             ...AFRAME_ASSET,
             name: 'Holaaa',
-            providerData: { ...AFRAME_ASSET.providerData, bgFromColor: '#FABADA' },
+            metadata: [
+              { label: 'bgFromColor', value: '#FABADA' },
+              { label: 'bgToColor', value: '#BADADA' },
+            ],
           });
         }, 3000);
-        */
+
         break;
       default:
         setAsset(IMAGE_ASSET);
