@@ -49,8 +49,8 @@ const LibraryCardFooter = ({
     );
   } else if (variantIcon) {
     const label =
-      (fileType || variantTitle || variant)?.charAt(0)?.toUpperCase() +
-      (fileType || variantTitle || variant)?.slice(1);
+      (variantTitle ?? fileType ?? variant)?.charAt(0)?.toUpperCase() +
+      (variantTitle ?? fileType ?? variant)?.slice(1);
     component = (
       <Box className={classes.FileIconRoot}>
         {variantIcon}
@@ -65,8 +65,8 @@ const LibraryCardFooter = ({
         fileExtension={fileExtension}
         color={'#636D7D'}
         label={
-          (fileType || variantTitle || variant)?.charAt(0)?.toUpperCase() +
-          (fileType || variantTitle || variant)?.slice(1)
+          (variantTitle ?? fileType ?? variant)?.charAt(0)?.toUpperCase() +
+          (variantTitle ?? fileType ?? variant)?.slice(1)
         }
         hideExtension
       />
@@ -105,7 +105,6 @@ const LibraryCardFooter = ({
   );
 };
 
-LibraryCardFooter.defaultProps = LIBRARY_CARD_FOOTER_DEFAULT_PROPS;
 LibraryCardFooter.propTypes = LIBRARY_CARD_FOOTER_PROP_TYPES;
 
 export { LibraryCardFooter };

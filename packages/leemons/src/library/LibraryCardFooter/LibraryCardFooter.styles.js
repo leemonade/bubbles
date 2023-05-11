@@ -29,6 +29,7 @@ export const LibraryCardFooterStyles = createStyles((theme, { action, color, siz
     FileIconLabel: {
       marginLeft: pxToRem(size / 1.5),
       fontSize: pxToRem(size),
+      lineHeight: '1em',
       color: color,
     },
   };
