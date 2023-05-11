@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Paper } from '@bubbles-ui/components';
+import { Box, Stack, Paper, ImageLoader } from '@bubbles-ui/components';
 import { ArchiveIcon, StarIcon, DeleteBinIcon, FlagIcon } from '@bubbles-ui/icons/solid';
 import { LibraryCard } from './LibraryCard';
 import { LIBRARY_CARD_DEFAULT_PROPS, LIBRARYCARD_VARIANTS } from './LibraryCard.constants';
@@ -59,13 +59,18 @@ const Template = ({
             ? CURRICULUM_ASSET
             : isBookmark
             ? { ...URL_ASSET, ...assetToRender }
-            : { ...asset, ...assetToRender }
+            : { ...asset, ...assetToRender, cover: null }
         }
         deadlineProps={isCurriculum ? null : deadlineProps}
         assigment={!isCurriculum && showAssigment ? assigment : null}
-        variant={variant}
+        variant="document"
         action={showAction ? action : undefined}
         subject={showSubject ? subject : undefined}
+        variantIcon={
+          <Box style={{ position: 'relative', width: 14, height: 14 }}>
+            <ImageLoader src={`/img/library/tasks.svg`} width={14} height={14} />
+          </Box>
+        }
       />
     </Paper>
 

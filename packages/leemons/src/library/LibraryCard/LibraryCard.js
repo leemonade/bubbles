@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { isNil } from 'lodash';
 import { Box, FileIcon } from '@bubbles-ui/components';
 import {
@@ -37,6 +37,18 @@ const LibraryCard = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const { classes, cx } = LibraryCardStyles({ shadow, fullHeight }, { name: 'LibraryCard' });
+  const variantIconComponent = useMemo(() => {
+    if (!variantIcon) return null;
+    return React.cloneElement(variantIcon, {
+      style: {
+        position: 'relative',
+        fontSize: 64,
+        width: 55,
+        height: 55,
+        color: '#B9BEC4',
+      },
+    });
+  }, [variantIcon]);
 
   return (
     <Box
@@ -68,7 +80,8 @@ const LibraryCard = ({
                 <PluginCurriculumIcon />
               </Box>
             ),
-          }[variant] || (
+          }[variant] ||
+          variantIconComponent || (
             <FileIcon
               size={64}
               fileExtension={asset.fileExtension}
