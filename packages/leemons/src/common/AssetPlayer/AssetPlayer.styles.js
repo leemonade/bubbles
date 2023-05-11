@@ -89,6 +89,7 @@ export const AssetPlayerStyles = createStyles(
         height: '100%',
         width: '100%',
         display: 'flex',
+        position: 'absolute',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         backgroundColor: theme.colors.interactive03h,

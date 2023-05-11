@@ -18,6 +18,7 @@ import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
 import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { Aframe } from './components/Aframe';
+import { isNil } from 'lodash';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -62,7 +63,23 @@ const AssetPlayer = ({
   compact,
   ...props
 }) => {
-  const { name, description, cover, url, fileType, fileExtension, metadata } = asset;
+  const {
+    name,
+    description,
+    cover,
+    url: _url,
+    fileType: _fileType,
+    fileExtension,
+    metadata,
+  } = asset;
+  let url = _url;
+  let fileType = _fileType;
+  if (!url && cover) {
+    url = cover;
+    if (!fileType) {
+      fileType = 'image';
+    }
+  }
   const [a, reload] = useState();
   const playerRef = useRef(null);
   const rootRef = useRef(null);
@@ -213,6 +230,16 @@ const AssetPlayer = ({
       document.body.removeEventListener('keydown', toggleOnSpaceBar);
     };
   }, [isPlaying]);
+
+  const icon = useMemo(
+    () =>
+      !isNil(asset.fileIcon)
+        ? React.cloneElement(asset.fileIcon, {
+            iconStyle: { backgroundColor: COLORS.interactive03h },
+          })
+        : null,
+    [asset.fileIcon]
+  );
 
   // ··································································
   // COMPONENT
@@ -382,9 +409,7 @@ const AssetPlayer = ({
               )
             ) : null}
             {!media.isImage && !media.isURL && !media.isPDF && !media.isAFrame3D && (
-              <Box className={classes.fileIcon}>
-                <FileIcon fileType={fileType} size={64} color={COLORS.text06} />
-              </Box>
+              <Box className={classes.fileIcon}>{icon}</Box>
             )}
           </>
         )}

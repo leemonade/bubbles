@@ -6,6 +6,12 @@ import { LibraryDetailContent } from '../LibraryDetailContent';
 import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
 import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
 import { LibraryDetailStyles } from './LibraryDetail.styles';
+import {
+  AssetBookmarkIcon,
+  AssetPathIcon,
+  AssetTaskIcon,
+  PluginCurriculumIcon,
+} from '@bubbles-ui/icons/solid';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
 const LibraryDetail = ({
@@ -73,12 +79,36 @@ const LibraryDetail = ({
             variantTitle={variantTitle}
             titleActionButton={titleActionButton}
             fileIcon={
-              <FileIcon
-                fileType={fileType}
-                fileExtension={fileExtension}
-                size={64}
-                color={'#B9BEC4'}
-              />
+              {
+                bookmark: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetBookmarkIcon />
+                  </Box>
+                ),
+                path: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetPathIcon />
+                  </Box>
+                ),
+                task: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetTaskIcon />
+                  </Box>
+                ),
+                curriculum: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <PluginCurriculumIcon />
+                  </Box>
+                ),
+              }[variant] || (
+                <FileIcon
+                  size={64}
+                  fileExtension={asset.fileExtension}
+                  fileType={asset.fileType || variant}
+                  color={'#B9BEC4'}
+                  hideExtension
+                />
+              )
             }
           />
           <LibraryDetailContent
