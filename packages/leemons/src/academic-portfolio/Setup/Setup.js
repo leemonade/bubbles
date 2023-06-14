@@ -35,7 +35,7 @@ const Setup = ({ labels, data, values, editable, onNext, onPrev, onSave, ...prop
   useEffect(() => {
     if (callOnSave) {
       const toSend = { ...sharedData };
-      if (toSend.useCreditSystem) {
+      if (!toSend.useCreditSystem) {
         toSend.credits = null;
         delete toSend.useCreditSystem;
       }
