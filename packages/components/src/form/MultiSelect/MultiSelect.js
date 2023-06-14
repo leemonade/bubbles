@@ -47,7 +47,7 @@ const MultiSelect = forwardRef(
       maxSelectedValues,
       dropdownComponent,
       itemComponent,
-      valueComponent,
+      valueComponent: ValueComponent,
       onChange,
       useAria,
       disabled,
@@ -138,8 +138,8 @@ const MultiSelect = forwardRef(
               ? value.map((v) => {
                   const data = find(props.data, { value: v });
                   if (data) {
-                    if (valueComponent) {
-                      return <valueComponent {...data} />;
+                    if (ValueComponent) {
+                      return <ValueComponent {...data} />;
                     } else {
                       return <Badge label={data?.label} closable={false} />;
                     }
@@ -167,10 +167,10 @@ const MultiSelect = forwardRef(
                 dropdownComponent={Dropdown}
                 itemComponent={itemComponent || Item}
                 valueComponent={
-                  valueComponent
+                  ValueComponent
                     ? (componentInfo) => (
                         <GetValueComponent
-                          others={{ ...componentInfo, Component: valueComponent }}
+                          others={{ ...componentInfo, Component: ValueComponent }}
                         />
                       )
                     : undefined
