@@ -387,19 +387,21 @@ const SetupCourses = ({
                   />
                 )}
               />
-              <Controller
-                name="courseCredits"
-                control={control}
-                render={({ field }) => (
-                  <NumberInput
-                    label={labels.courseCredits}
-                    // defaultValue={0}
-                    min={0}
-                    disabled={!editable}
-                    {...field}
-                  />
-                )}
-              />
+              {defaultValues.credits ? (
+                <Controller
+                  name="courseCredits"
+                  control={control}
+                  render={({ field }) => (
+                    <NumberInput
+                      label={labels.courseCredits}
+                      // defaultValue={0}
+                      min={0}
+                      disabled={!editable}
+                      {...field}
+                    />
+                  )}
+                />
+              ) : null}
             </ContextContainer>
           )}
         </ContextContainer>
