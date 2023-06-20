@@ -120,7 +120,7 @@ const KanbanTaskCard = ({ value, config, onClick, labels, ...props }) => {
           </Box>
         ) : null}
 
-        {value.deadline ? (
+        {value.deadline && isFromInstance ? (
           <Box sx={(theme) => ({ margin: `-0.5rem` })}>
             <LibraryCardDeadline {...value.deadline} />
           </Box>
