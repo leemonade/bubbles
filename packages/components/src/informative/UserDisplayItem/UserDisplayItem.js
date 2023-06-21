@@ -76,7 +76,7 @@ const UserDisplayItem = (properties) => {
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
   const fullName = useMemo(
-    () => (['rol', 'inline'].includes(variant) ? `${name}${surnames ? ` ${surnames}` : ''}` : name),
+    () => (['rol', 'inline'].includes(variant) ? `${surnames ? `${surnames}` : ''} ${name}` : name),
     [name, surnames, variant]
   );
 
@@ -127,6 +127,11 @@ const UserDisplayItem = (properties) => {
               {role}
               {variant === 'rol' ? Icon : null}
             </Text>
+            {!isEmpty(surnames) && (
+              <Text color={textColor} className={classes.surnames} role={textRole}>
+                {surnames}
+              </Text>
+            )}
             <TextClamp lines={noBreak ? 1 : 1000}>
               <Text
                 color={textColor}
@@ -137,11 +142,6 @@ const UserDisplayItem = (properties) => {
                 {variant !== 'rol' ? Icon : null}
               </Text>
             </TextClamp>
-            {!isEmpty(surnames) && (
-              <Text color={textColor} className={classes.surnames} role={textRole}>
-                {surnames}
-              </Text>
-            )}
           </>
         )}
       </Box>
