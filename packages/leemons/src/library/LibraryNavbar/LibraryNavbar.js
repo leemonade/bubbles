@@ -100,18 +100,7 @@ const LibraryNavbar = ({
             />
           )),
       ];
-      if (showSharedsWithMe) {
-        result.push(
-          <NavbarItem
-            key={'shared-with-me'}
-            icon={<ManWomanIcon />}
-            label={labels.sharedWithMe}
-            loading={loading}
-            selected={selectedCategory === 'shared-with-me'}
-            onClick={() => onNavShared('shared-with-me')}
-          />
-        );
-      }
+
       if (subjects && subjects.length) {
         result.push(
           <NavbarItem
@@ -197,6 +186,17 @@ const LibraryNavbar = ({
             onClick={() => onNavHandler(null)}
             selected={quickAccessSelected}
           />
+          {showSharedsWithMe ? (
+            <NavbarItem
+              key={'shared-with-me'}
+              icon={<ManWomanIcon />}
+              label={labels.sharedWithMe}
+              loading={loading}
+              selected={selectedCategory === 'shared-with-me'}
+              onClick={() => onNavShared('shared-with-me')}
+            />
+          ) : null}
+
           <Divider style={{ marginBlock: 8, marginInline: 10 }} />
           {renderNavbarItems(onNavHandler)}
         </Stack>
