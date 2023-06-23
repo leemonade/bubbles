@@ -16,15 +16,21 @@ const ActivityContainer = ({
   ...props
 }) => {
   const { image, ...headerProps } = header;
+  const [headerHeight, setHeaderHeight] = useState(204);
   const [isScrolled, setIsScrolled] = useState(collapsed);
   const [rootRef, rootRect] = useResizeObserver();
   const [headerRef, headerRect] = useResizeObserver();
 
   React.useEffect(() => setIsScrolled(collapsed), [collapsed]);
+  React.useEffect(() => {
+    if (headerRect.height > headerHeight) {
+      setHeaderHeight(headerRect.height);
+    }
+  }, [headerRect.height]);
 
   const handleScroll = (e) => {
     const { scrollTop } = e.target;
-    const isCurrentlyScrolled = scrollTop > 0;
+    const isCurrentlyScrolled = scrollTop > 40;
     if (!collapsed) if (isCurrentlyScrolled !== isScrolled) setIsScrolled(isCurrentlyScrolled);
   };
 
@@ -57,8 +63,8 @@ const ActivityContainer = ({
           ) : null}
         </Box>
       </Box>
-      <Box style={{ marginTop: headerRect.height }}>
-        {React.cloneElement(children, { marginTop: headerRect.height })}
+      <Box style={{ marginTop: headerHeight }}>
+        {React.cloneElement(children, { marginTop: headerHeight })}
       </Box>
     </Box>
   );
