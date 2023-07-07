@@ -4,6 +4,7 @@ import { isFunction } from 'lodash';
 import { Stack } from '../../../layout';
 import { GridItemRender } from './GridItemRender';
 import { useElementSize } from '@mantine/hooks';
+import { TableStyles } from '../../Table';
 
 const GRID_VIEW_DEFAULT_PROPS = {
   itemRender: ({ key, ...props }) => <GridItemRender key={key} {...props} />,
@@ -27,6 +28,7 @@ const GridView = ({
   style,
   itemMinWidth,
   useAria,
+  onStyleRow,
   ...props
 }) => {
   const [currentItem, setCurrentItem] = useState(selected);
@@ -61,6 +63,8 @@ const GridView = ({
     };
   }, [itemMinWidth, style, rows, width]);
 
+  const { theme } = TableStyles();
+
   return (
     <Stack ref={ref} wrap="wrap" {...props} style={gridStyle} role={useAria ? 'grid' : undefined}>
       {itemRender &&
@@ -69,6 +73,7 @@ const GridView = ({
           return itemRender({
             key: `mitem-${i}`,
             item: row,
+            style: onStyleRow({ row, theme }),
             headers: headerGroups[0]?.headers,
             selected: row.original.id === currentItem?.id,
             onClick: () => handleOnSelect(row.original),

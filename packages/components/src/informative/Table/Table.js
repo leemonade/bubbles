@@ -31,6 +31,7 @@ const Table = ({
   columns,
   data,
   styleRow,
+  onStyleRow = () => {},
   onClickRow = () => {},
   onChangeData,
   useAria,
@@ -87,7 +88,7 @@ const Table = ({
     onChangeData({ newData });
   };
 
-  const { classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
+  const { theme, classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
 
   // Render the UI for your table
   return (
@@ -147,7 +148,10 @@ const Table = ({
                           onClick={() => onClickRow(row)}
                           {...draggableProvided.draggableProps}
                           {...draggableProvided.dragHandleProps}
-                          style={defaultsDeep(draggableProvided.draggableProps.style, styleRow)}
+                          style={defaultsDeep(
+                            draggableProvided.draggableProps.style,
+                            defaultsDeep(styleRow, onStyleRow({ row, theme }))
+                          )}
                           ref={draggableProvided.innerRef}
                         >
                           {!!sortable && (

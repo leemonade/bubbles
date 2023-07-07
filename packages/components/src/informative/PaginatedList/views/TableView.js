@@ -26,6 +26,7 @@ const TableView = ({
   selected,
   headerStyles,
   useAria,
+  onStyleRow,
 }) => {
   const [currentItem, setCurrentItem] = useState(selected);
 
@@ -42,10 +43,11 @@ const TableView = ({
     }
   };
 
-  const { classes: tableClasses, cx: tableCx } = TableStyles(
-    { headerStyles },
-    { name: 'TableView' }
-  );
+  const {
+    theme,
+    classes: tableClasses,
+    cx: tableCx,
+  } = TableStyles({ headerStyles }, { name: 'TableView' });
   return (
     <table
       {...getTableProps({
@@ -89,6 +91,7 @@ const TableView = ({
                 [tableClasses.trSelectable]: selectable,
                 [tableClasses.trActive]: selectable && selected,
               }),
+              style: onStyleRow({ row, theme }),
               selected,
               onClick: () => handleOnSelect(row.original),
             })
