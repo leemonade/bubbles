@@ -101,7 +101,7 @@ const LoginProfileSelector = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ContextContainer title={labels.title} description={labels.description} {...props}>
-        {profiles?.length && profiles.length > 1 ? (
+        {profiles?.length ? (
           <Controller
             name="profile"
             control={control}
@@ -145,11 +145,6 @@ const LoginProfileSelector = ({
                 placeholder={labels.centerPlaceholder}
                 error={errors.center}
                 onChange={(e) => {
-                  const profiles = getCenterProfiles(e);
-                  if (profiles.length < 2) {
-                    setValue('profile', profiles[0].value);
-                  }
-                  setProfiles(profiles);
                   onChange(e);
                 }}
                 value={value}
