@@ -46,6 +46,8 @@ const LoginProfileSelector = ({
   const [profileCenters, setProfileCenters] = React.useState([]);
   const { classes, cx } = LoginProfileSelectorStyles({}, { name: 'LoginProfileSelector' });
 
+  const profiles = getProfiles();
+
   function getProfiles() {
     const profiles = [];
     _.forEach(centers, (center) => {
@@ -67,12 +69,12 @@ const LoginProfileSelector = ({
   let defaultValues = {};
   if (_defaultValues) {
     defaultValues = _defaultValues;
-    if (!profileCenters) {
+    if (!profileCenters || !profileCenters.length) {
       setProfileCenters(getProfileCenters(defaultValues.profile));
     }
-  } else if (centers.length === 1) {
-    defaultValues.profile = centers[0].profiles[0].id;
-    if (!profileCenters) {
+  } else if (profiles.length === 1) {
+    defaultValues.profile = profiles[0].id;
+    if (!profileCenters || !profileCenters.length) {
       setProfileCenters(getProfileCenters(defaultValues.profile));
     }
   }
@@ -84,8 +86,6 @@ const LoginProfileSelector = ({
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
-
-  const profiles = getProfiles();
 
   const profilesData = React.useMemo(() => {
     return profiles.map((profile) => {
@@ -101,7 +101,7 @@ const LoginProfileSelector = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ContextContainer title={labels.title} description={labels.description} {...props}>
-        {profiles?.length ? (
+        {profiles?.length && profiles.length > 1 ? (
           <Controller
             name="profile"
             control={control}
