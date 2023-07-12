@@ -3859,6 +3859,72 @@ export default {
       }
     }
   },
+  "menuLibrary": {
+    "content": {
+      "color": {
+        "main": {
+          "default": {
+            "value": "#495465",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#495465",
+            "type": "color"
+          },
+          "active": {
+            "value": "#307ae8",
+            "type": "color"
+          }
+        },
+        "sub": {
+          "default": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "active": {
+            "value": "#ffffff",
+            "type": "color"
+          }
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "main": {
+          "default": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#f7f9fc",
+            "type": "color"
+          },
+          "active": {
+            "value": "#e8f0fc",
+            "type": "color"
+          }
+        },
+        "sub": {
+          "default": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "active": {
+            "value": "#ffffff",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
   "global": {
     "shadow": {
       "100": {
