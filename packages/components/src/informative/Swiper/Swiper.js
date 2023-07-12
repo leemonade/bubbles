@@ -29,7 +29,7 @@ const Swiper = ({
   ...props
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
+  const [isEnd, setIsEnd] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const onSelectIndexHandler = (index) => {
@@ -87,6 +87,10 @@ const Swiper = ({
         navigation={{
           nextEl: classes.nextButton,
           prevEl: classes.prevButton,
+        }}
+        onSwiper={(swiper) => {
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
         }}
         onSlideChangeTransitionEnd={(swiper) => {
           setIsBeginning(swiper.isBeginning);
