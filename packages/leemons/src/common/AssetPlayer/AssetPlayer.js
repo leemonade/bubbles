@@ -211,8 +211,8 @@ const AssetPlayer = ({
 
   useEffect(() => {
     if (!rootRef.current) return;
-    rootRef.current.addEventListener('fullscreenchange', () => {
-      const isFullScreen = window.innerHeight === screen.height;
+    rootRef.current.addEventListener('fullscreenchange', (e) => {
+      const isFullScreen = !!document.fullscreenElement;
       setFullScreenMode(isFullScreen);
     });
     return () => {
