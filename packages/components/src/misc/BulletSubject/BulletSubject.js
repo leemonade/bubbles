@@ -4,7 +4,7 @@ import { BulletSubjectStyles } from './BulletSubject.styles';
 import { BULLET_SUBJECT_DEFAULT_PROPS, BULLET_SUBJECT_PROP_TYPES } from './BulletSubject.constants';
 import { ImageLoader } from '../ImageLoader';
 
-const BulletSubject = ({ color, icon, size }) => {
+const BulletSubject = ({ color, icon, size, altText }) => {
   const { classes } = BulletSubjectStyles({ size });
   const iconToShow = !!icon ? icon : null;
   const handleSize = size === 'lg' ? 16 : 12;
@@ -17,7 +17,7 @@ const BulletSubject = ({ color, icon, size }) => {
           height={handleSize}
           imageStyles={handleSize}
           src={iconToShow}
-          alt="subject icon"
+          alt={altText}
         />
       )}
     </Box>
