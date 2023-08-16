@@ -9,8 +9,6 @@ const BulletSubject = ({ color, icon, size }) => {
   const iconToShow = !!icon ? icon : null;
   const handleSize = size === 'lg' ? 16 : 12;
 
-  console.log(iconToShow);
-
   return (
     <Box className={classes.bubble} style={{ backgroundColor: color }}>
       {iconToShow && (

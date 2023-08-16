@@ -26,7 +26,6 @@ const getIconSize = (theme, size) => {
 };
 
 export const BulletSubjectStyles = createStyles((theme, { size }) => {
-  console.log(theme.other);
   const bubbleSize = getBubbleSize(theme, size);
   const iconSize = getIconSize(theme, size);
   return {
