@@ -144,7 +144,7 @@ const ScoresReviewerTable = ({
     const columns = [];
     columns.push({
       accessor: 'student',
-      width: 200,
+      width: 220,
       sticky: 'left',
       Header: (
         <Box className={classes.students}>
@@ -156,7 +156,12 @@ const ScoresReviewerTable = ({
       Cell: ({ value }) => {
         return (
           <Box className={classes.studentsCells}>
-            <UserDisplayItem name={value.name} surnames={value.surname} avatar={value.image} />
+            <UserDisplayItem
+              name={value.name}
+              surnames={value.surname}
+              avatar={value.image}
+              noBreak
+            />
           </Box>
         );
       },

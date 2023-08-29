@@ -1,13 +1,12 @@
-export function getPositionStyles([vertical, horizontal], containerWidth, spacing, leftOffset) {
+export function getPositionStyles([vertical, horizontal], containerWidth, spacing, xOffset) {
   const styles = {};
 
   vertical === 'top' && (styles.top = spacing);
   vertical === 'bottom' && (styles.bottom = spacing);
 
-  horizontal === 'left' && (styles.left = spacing + leftOffset);
-  horizontal === 'right' && (styles.right = spacing);
-  horizontal === 'center' &&
-    (styles.left = `calc(50% - ${containerWidth / 2}px + ${leftOffset}px)`);
+  horizontal === 'left' && (styles.left = spacing + xOffset);
+  horizontal === 'right' && (styles.right = spacing + xOffset);
+  horizontal === 'center' && (styles.left = `calc(50% - ${containerWidth / 2}px + ${xOffset}px)`);
 
   return styles;
 }

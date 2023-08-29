@@ -30,35 +30,30 @@ export const SEARCH_INPUT_PROP_TYPES = {
   ariaLabel: PropTypes.string,
 };
 
-const SearchInput = ({
-  wait,
-  minChars,
-  value: valueProp,
-  onChange = () => {},
-  ariaLabel,
-  ...props
-}) => {
-  const [value, setValue] = useState(valueProp);
-  const [debounced] = useDebouncedValue(value, wait);
+const SearchInput = React.forwardRef(
+  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }) => {
+    const [value, setValue] = useState(valueProp);
+    const [debounced] = useDebouncedValue(value, wait);
 
-  useEffect(() => {
-    if (trim(value) !== trim(valueProp)) setValue(valueProp);
-  }, [valueProp]);
+    useEffect(() => {
+      if (trim(value) !== trim(valueProp)) setValue(valueProp);
+    }, [valueProp]);
 
-  useEffect(() => {
-    onChange(debounced);
-  }, [debounced]);
+    useEffect(() => {
+      onChange(debounced);
+    }, [debounced]);
 
-  return (
-    <TextInput
-      {...props}
-      value={value}
-      onChange={(e) => setValue(e)}
-      icon={<SearchIcon />}
-      ariaLabel={ariaLabel}
-    />
-  );
-};
+    return (
+      <TextInput
+        {...props}
+        value={value}
+        onChange={(e) => setValue(e)}
+        icon={<SearchIcon />}
+        ariaLabel={ariaLabel}
+      />
+    );
+  }
+);
 
 SearchInput.defaultProps = SEARCH_INPUT_DEFAULT_PROPS;
 SearchInput.propTypes = SEARCH_INPUT_PROP_TYPES;

@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PhonebookIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function PhonebookIcon(props) {
     d: "m11.748 13.68 2.411-2.38a1.5 1.5 0 0 1 2.121 0l.531.53a1.5 1.5 0 0 1 0 2.122l-.46.46a1.5 1.5 0 0 1-1.425.4l-.872-.218a9.478 9.478 0 0 1-6.9-6.9l-.214-.87A1.5 1.5 0 0 1 7.335 5.4l.46-.46a1.5 1.5 0 0 1 2.121 0l.531.53a1.5 1.5 0 0 1 0 2.12l-2.386 2.4"
   }));
 }
-
 module.exports = PhonebookIcon;

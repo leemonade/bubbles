@@ -8,11 +8,13 @@ export const TASK_DEADLINE_HEADER_DEFAULT_PROPS = {
     closeTask: '',
     save: '',
     cancel: '',
+    closedPeriod: '',
+    liveSession: '',
   },
   title: '',
   subtitle: '',
   closed: false,
-  locale: 'en-GB',
+  locale: 'en',
 };
 export const TASK_DEADLINE_HEADER_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -21,6 +23,8 @@ export const TASK_DEADLINE_HEADER_PROP_TYPES = {
     closeTask: PropTypes.string,
     save: PropTypes.string,
     cancel: PropTypes.string,
+    closedPeriod: PropTypes.string,
+    liveSession: PropTypes.string,
   }),
   title: PropTypes.string,
   subtitle: PropTypes.string,
@@ -37,4 +41,5 @@ export const TASK_DEADLINE_HEADER_PROP_TYPES = {
   onDeadlineChange: PropTypes.func,
   onCloseTask: PropTypes.func,
   onArchiveTask: PropTypes.func,
+  isClosedPeriod: PropTypes.bool,
 };

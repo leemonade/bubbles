@@ -9,6 +9,8 @@ import {
   AUDIO_ASSET,
   IMAGE_ASSET,
   URL_ASSET,
+  PDF_ASSET,
+  AFRAME_ASSET,
 } from '../../library/LibraryCard/mock/data';
 
 export default {
@@ -25,7 +27,7 @@ export default {
   },
   argTypes: {
     test_asset: {
-      options: ['video', 'youtube', 'audio', 'image', 'url'],
+      options: ['video', 'youtube', 'audio', 'image', 'url', 'pdf', '3d'],
       control: { type: 'select' },
     },
     float: { options: ['none', 'left', 'right'], control: { type: 'select' } },
@@ -57,23 +59,30 @@ const Template = ({ test_asset, ...props }) => {
       case 'url':
         setAsset(URL_ASSET);
         break;
+      case 'pdf':
+        setAsset(PDF_ASSET);
+        break;
+      case '3d':
+        setAsset(AFRAME_ASSET);
+
+        setTimeout(() => {
+          setAsset({
+            ...AFRAME_ASSET,
+            name: 'Holaaa',
+            metadata: [
+              { label: 'bgFromColor', value: '#FABADA' },
+              { label: 'bgToColor', value: '#BADADA' },
+            ],
+          });
+        }, 3000);
+
+        break;
       default:
         setAsset(IMAGE_ASSET);
     }
   }, [test_asset]);
 
-  return (
-    <Box>
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        <AssetPlayer {...props} asset={asset} />
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </Paragraph>
-    </Box>
-  );
+  return <AssetPlayer {...props} asset={asset} />;
 };
 
 export const Playground = Template.bind({});
@@ -81,4 +90,9 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...ASSET_PLAYER_DEFAULT_PROPS,
   test_asset: 'video',
+  pdfLabels: {
+    pageLabel: 'Página',
+    paginatorLabel: 'de',
+    schemaLabel: 'Esquema',
+  },
 };

@@ -13,6 +13,7 @@ export const LIBRARYCARD_VARIANTS = [
   'bookmark',
   'curriculum',
   'feedback',
+  '3d',
 ];
 export const LIBRARYCARD_ASSIGMENT = {
   completed: PropTypes.number,
@@ -60,11 +61,12 @@ export const LIBRARY_CARD_DEFAULT_PROPS = {
   shadow: true,
   locale: 'en-GB',
   fullHeight: false,
+  excludeMetadatas: [],
 };
 export const LIBRARY_CARD_PROP_TYPES = {
   asset: ASSET_PROPS,
   assigment: PropTypes.shape(LIBRARYCARD_ASSIGMENT),
-  variant: PropTypes.oneOf(LIBRARYCARD_VARIANTS),
+  variant: PropTypes.string, // PropTypes.oneOf(LIBRARYCARD_VARIANTS),
   deadlineProps: PropTypes.shape(LIBRARY_CARD_DEADLINE_PROP_TYPES),
   subject: SUBJECT_PROPS,
   action: PropTypes.string,
@@ -79,4 +81,5 @@ export const LIBRARY_CARD_PROP_TYPES = {
   variantIcon: PropTypes.any,
   variantTitle: PropTypes.string,
   fullHeight: PropTypes.bool,
+  excludeMetadatas: PropTypes.arrayOf(PropTypes.string),
 };

@@ -1,5 +1,4 @@
 const React = require("react");
-
 function FileTxtIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function FileTxtIcon(props) {
     d: "M20.247 8.248h-6a1.5 1.5 0 0 1-1.5-1.5v-6M21.747 23.248v-7.5M20.247 15.748h3M9.747 23.248v-7.5M8.247 15.748h3M14.247 15.748l3 7.5M17.247 15.748l-3 7.5"
   }));
 }
-
 module.exports = FileTxtIcon;

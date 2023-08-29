@@ -3,7 +3,7 @@ import { Box } from '../../layout';
 import { get, isFunction } from 'lodash';
 import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Controller, useForm } from 'react-hook-form';
-import { SortDragIcon } from '@bubbles-ui/icons/outline';
+import { SortDragIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { Draggable } from 'react-beautiful-dnd';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
 import { ActionButton, TextInput } from '../../form';
@@ -12,18 +12,23 @@ const TableInputRow = ({
   labels,
   row,
   index,
+  onItemAdd,
   onRemove,
   classes,
   tableClasses,
+  visibleColumns,
   cx,
   totalRows,
   sortable,
   editable,
+  addable,
   removable,
   disabled,
+  rowsExpanded,
   editing: _editing,
   onEditing,
   onEdit,
+  renderRowSubComponent = () => {},
   onChangeRow = () => {},
 }) => {
   const [editing, setEditing] = useState(false);
@@ -47,12 +52,19 @@ const TableInputRow = ({
     if (editing && cell.column.editable !== false) {
       const { column, row } = cell;
       const fieldName = `${row.original.tableInputRowId}.${column.id}`;
-      let { node, rules, ...inputProps } = column.input;
+      let node = null;
+      let rules = [];
+      let inputProps = {};
 
       if (!column.input) {
         node = <TextInput />;
         rules = [];
         inputProps = {};
+      } else {
+        node = column.input.node;
+        rules = column.input.rules;
+        let { node: _, rules: __, ..._inputProps } = column.input;
+        inputProps = _inputProps;
       }
 
       return (
@@ -109,72 +121,92 @@ const TableInputRow = ({
     >
       {(provided, snapshot) => {
         return (
-          <tr
-            {...row.getRowProps({
-              className: cx(classes.row, {
-                [tableClasses.tr]: index < totalRows - 1,
-                [classes.rowDragging]: snapshot.isDragging,
-              }),
-            })}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-          >
-            {sortable && (
-              <td>
-                <Box
-                  className={classes.sortIcon}
-                  style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
-                >
-                  <SortDragIcon />
-                </Box>
-              </td>
-            )}
-            {row.cells.map((cell) => (
-              <td
-                {...cell.getCellProps({
-                  className: tableClasses.td,
-                })}
-              >
-                {getColumCellValue(cell)}
-              </td>
-            ))}
-            <td className={cx(tableClasses.td, classes.actionCell)}>
-              {editing ? (
-                <>
-                  <ActionButton
-                    icon={<CheckIcon />}
-                    tooltip={labels.accept || 'Accept'}
-                    onClick={handleOnEdit}
-                  />
-                  <ActionButton
-                    icon={<DeleteIcon />}
-                    tooltip={labels.cancel || 'Cancel'}
-                    onClick={cancelEditing}
-                  />
-                </>
-              ) : (
-                row.original.editable !== false && (
-                  <>
-                    {editable && (
-                      <ActionButton
-                        icon={<EditWriteIcon />}
-                        tooltip={labels.edit || 'Edit'}
-                        onClick={initEditing}
-                      />
-                    )}
-                    {removable && (
-                      <ActionButton
-                        icon={<DeleteBinIcon />}
-                        tooltip={labels.remove || 'Remove'}
-                        onClick={() => onRemove(index)}
-                      />
-                    )}
-                  </>
-                )
+          <>
+            <tr
+              {...row.getRowProps({
+                className: cx(classes.row, {
+                  [tableClasses.tr]: index < totalRows - 1,
+                  [classes.rowDragging]: snapshot.isDragging,
+                }),
+              })}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+            >
+              {sortable && (
+                <td>
+                  <Box
+                    className={classes.sortIcon}
+                    style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
+                  >
+                    <SortDragIcon />
+                  </Box>
+                </td>
               )}
-            </td>
-          </tr>
+              {row.cells.map((cell) => (
+                <td
+                  style={cell.column.cellTdStyle}
+                  {...cell.getCellProps({
+                    className: tableClasses.td,
+                  })}
+                >
+                  {getColumCellValue(cell)}
+                </td>
+              ))}
+              <td
+                style={{ textAlign: 'right' }}
+                className={cx(tableClasses.td, classes.actionCell)}
+              >
+                {editing ? (
+                  <>
+                    <ActionButton
+                      icon={<CheckIcon />}
+                      tooltip={labels.accept || 'Accept'}
+                      onClick={handleOnEdit}
+                    />
+                    <ActionButton
+                      icon={<DeleteIcon />}
+                      tooltip={labels.cancel || 'Cancel'}
+                      onClick={cancelEditing}
+                    />
+                  </>
+                ) : (
+                  row.original.editable !== false && (
+                    <>
+                      {addable && (
+                        <ActionButton
+                          icon={<AddCircleIcon />}
+                          tooltip={labels.add || 'Add'}
+                          onClick={() => onItemAdd(row)}
+                        />
+                      )}
+                      {editable && (
+                        <ActionButton
+                          icon={<EditWriteIcon />}
+                          tooltip={labels.edit || 'Edit'}
+                          onClick={initEditing}
+                        />
+                      )}
+                      {removable && (
+                        <ActionButton
+                          icon={<DeleteBinIcon />}
+                          tooltip={labels.remove || 'Remove'}
+                          onClick={() => onRemove(index)}
+                        />
+                      )}
+                    </>
+                  )
+                )}
+              </td>
+            </tr>
+            {rowsExpanded?.includes(row.id) ? (
+              <tr>
+                <td colSpan={visibleColumns.length + 1 + (sortable ? 1 : 0)}>
+                  {renderRowSubComponent({ row })}
+                </td>
+              </tr>
+            ) : null}
+          </>
         );
       }}
     </Draggable>

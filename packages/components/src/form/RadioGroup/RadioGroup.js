@@ -28,6 +28,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   rounded: false,
   defaultValue: '',
   value: '',
+  imageHeight: 100,
   fullWidth: false,
   useAria: true,
 };
@@ -43,6 +44,7 @@ export const RADIOGROUP_PROP_TYPES = {
   fullWidth: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.any,
+  imageHeight: PropTypes.number,
   useAria: PropTypes.bool,
 };
 
@@ -61,6 +63,7 @@ const RadioGroup = forwardRef(
       data,
       defaultValue,
       direction,
+      imageHeight,
       fullWidth,
       useAria,
       ...props
@@ -157,6 +160,7 @@ const RadioGroup = forwardRef(
                   variant={variant}
                   checked={value === item.value}
                   onChange={() => {}}
+                  imageHeight={imageHeight}
                   useAria={useAria}
                 >
                   {label}

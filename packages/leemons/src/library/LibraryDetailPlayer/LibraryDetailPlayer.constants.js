@@ -13,4 +13,5 @@ export const LIBRARY_DETAIL_PLAYER_PROP_TYPES = {
   variant: PropTypes.oneOf(LIBRARY_DETAIL_VARIANTS),
   fileIcon: PropTypes.element,
   fileType: PropTypes.string,
+  metadata: PropTypes.any,
 };

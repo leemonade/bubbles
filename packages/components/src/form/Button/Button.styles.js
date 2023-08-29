@@ -191,31 +191,31 @@ const getVariant = (variant, theme, color) => {
     },
     link: {
       primary: {
-        color: theme.colors.interactive01,
+        color: buttonTheme.content.color.primary.default,
         paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
-          color: theme.colors.interactive01h,
+          color: buttonTheme.content.color.primary.default,
           textDecoration: 'none',
           backgroundColor: 'transparent',
         },
       },
       secondary: {
-        color: theme.colors.interactive02,
+        color: buttonTheme.content.color.secondary.default,
         paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
-          color: theme.colors.interactive02h,
+          color: buttonTheme.content.color.secondary.default,
           textDecoration: 'none',
           backgroundColor: 'transparent',
         },
       },
       tertiary: {
-        color: theme.colors.text02,
+        color: buttonTheme.content.color.terciary.default,
         paddingInline: 0,
         ...commonLinkStyles,
         '&:hover': {
-          color: theme.colors.text03,
+          color: buttonTheme.content.color.terciary.default,
           textDecoration: 'none',
           backgroundColor: 'transparent',
         },
@@ -246,12 +246,12 @@ const getVariant = (variant, theme, color) => {
     },
     light: {
       primary: {
-        color: theme.colors.interactive01,
+        color: buttonTheme.content.color.terciary['default--reverse'],
         backgroundColor: 'transparent',
         ...commonLinkStyles,
         '&:hover': {
-          color: theme.colors.interactive01,
-          backgroundColor: theme.colors.interactive01v1,
+          color: buttonTheme.content.color.terciary['default--reverse'],
+          backgroundColor: buttonTheme.background.color.terciary.default,
         },
       },
       secondary: {
@@ -303,6 +303,7 @@ export const ButtonStyles = createStyles(
     const getTextAlign = () => {
       if (textAlign === 'left') return 'start';
       if (textAlign === 'right') return 'end';
+      if (textAlign === 'appart') return 'space-between';
       return 'center';
     };
 

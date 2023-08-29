@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
+import { defaultsDeep, isFunction } from 'lodash';
 import { useTable } from 'react-table';
 import update from 'immutability-helper';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../typography';
+import { Box } from '../../layout';
 import { TableCell } from './TableCell/TableCell';
 import { TableStyles } from './Table.styles';
+import { useSticky as useStickyPlugin } from 'react-table-sticky';
 
 export const TABLE_DEFAULT_PROPS = {
   columns: [],
   data: [],
   useAria: true,
   headerStyles: {},
+  sortable: false,
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -19,21 +24,36 @@ export const TABLE_PROP_TYPES = {
   onChangeData: PropTypes.func,
   useAria: PropTypes.bool,
   headerStyles: PropTypes.object,
+  sortable: PropTypes.bool,
 };
 
 const Table = ({
   columns,
   data,
   styleRow,
+  onStyleRow = () => {},
   onClickRow = () => {},
   onChangeData,
   useAria,
+  rowsExpanded,
+  renderRowSubComponent,
   headerStyles,
+  sortable,
+  useSticky,
+  styleTable,
 }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  });
+  const plugins = [];
+  if (useSticky) {
+    plugins.push(useStickyPlugin);
+  }
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      ...plugins
+    );
 
   const onChangeCell = (oldCell, newCell) => {
     const newData = update(data, {
@@ -52,7 +72,23 @@ const Table = ({
     }
   };
 
-  const { classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
+  const onDragEnd = ({ source, destination }) => {
+    if (!destination) return;
+
+    const from = source.index;
+    const to = destination.index;
+    const record = data[from];
+    const newData = update(data, {
+      $splice: [
+        [from, 1],
+        [to, 0, record],
+      ],
+    });
+
+    onChangeData({ newData });
+  };
+
+  const { theme, classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
 
   // Render the UI for your table
   return (
@@ -60,6 +96,7 @@ const Table = ({
       {...getTableProps({
         className: classes.root,
       })}
+      style={styleTable}
       role={useAria ? 'table' : undefined}
     >
       <thead>
@@ -69,6 +106,7 @@ const Table = ({
               className: cx(classes.tr, classes.trHeader),
             })}
           >
+            {!!sortable && <th style={{ width: 20 }} />}
             {headerGroup.headers.map((column) => (
               <th
                 {...column.getHeaderProps({
@@ -84,32 +122,82 @@ const Table = ({
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr
-              {...row.getRowProps({
-                className: cx({ [classes.tr]: i < rows.length - 1 }),
-              })}
-              style={styleRow}
-              onClick={() => onClickRow(row)}
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="table-droppable">
+          {(droppableProvided) => (
+            <tbody
+              {...getTableBodyProps()}
+              ref={droppableProvided.innerRef}
+              {...droppableProvided.droppableProps}
             >
-              {row.cells.map((cell, index) => {
+              {rows.map((row, i) => {
+                prepareRow(row);
                 return (
-                  <td
-                    {...cell.getCellProps({
-                      className: classes.td,
-                    })}
+                  <Draggable
+                    draggableId={row?.original?.id || `row-draggable-${i}`}
+                    key={row?.original?.id || `row-draggable-${i}`}
+                    index={row.index}
+                    isDragDisabled={!sortable}
                   >
-                    <TableCell cell={cell} onChangeCell={onChangeCell} useAria={useAria} />
-                  </td>
+                    {(draggableProvided, snapshot) => (
+                      <>
+                        <tr
+                          {...row.getRowProps({
+                            className: cx({ [classes.tr]: i < rows.length - 1 }),
+                          })}
+                          onClick={() => onClickRow(row)}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                          style={defaultsDeep(
+                            draggableProvided.draggableProps.style,
+                            defaultsDeep(styleRow, onStyleRow({ row, theme }))
+                          )}
+                          ref={draggableProvided.innerRef}
+                        >
+                          {!!sortable && (
+                            <td>
+                              <Box
+                                className={classes.sortIcon}
+                                style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
+                              >
+                                <SortDragIcon />
+                              </Box>
+                            </td>
+                          )}
+                          {row.cells.map((cell, index) => {
+                            return (
+                              <td
+                                {...cell.getCellProps({
+                                  className: classes.td,
+                                  style: cell.column.tdStyle,
+                                })}
+                              >
+                                <TableCell
+                                  cell={cell}
+                                  onChangeCell={onChangeCell}
+                                  useAria={useAria}
+                                />
+                              </td>
+                            );
+                          })}
+                        </tr>
+                        {rowsExpanded?.includes(row.id) ? (
+                          <tr>
+                            <td colSpan={visibleColumns.length}>
+                              {renderRowSubComponent({ row })}
+                            </td>
+                          </tr>
+                        ) : null}
+                      </>
+                    )}
+                  </Draggable>
                 );
               })}
-            </tr>
-          );
-        })}
-      </tbody>
+              {droppableProvided.placeholder}
+            </tbody>
+          )}
+        </Droppable>
+      </DragDropContext>
     </table>
   );
 };

@@ -14,7 +14,7 @@ export const SELECT_DEFAULT_PROPS = {
   readOnly: false,
   variant: 'default',
   autoSelectOneOption: false,
-  dropdownPosition: SELECT_DROPDOWN_POSITIONS[0],
+  dropdownPosition: SELECT_DROPDOWN_POSITIONS[2],
   withinPortal: true,
 };
 export const SELECT_PROP_TYPES = {
@@ -28,7 +28,7 @@ export const SELECT_PROP_TYPES = {
   orientation: PropTypes.oneOf(SELECT_ORIENTATIONS),
   dropdownPosition: PropTypes.oneOf(SELECT_DROPDOWN_POSITIONS),
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  itemComponent: PropTypes.node,
+  itemComponent: PropTypes.any,
   searchable: PropTypes.bool,
   clearable: PropTypes.string,
   nothingFound: PropTypes.any,

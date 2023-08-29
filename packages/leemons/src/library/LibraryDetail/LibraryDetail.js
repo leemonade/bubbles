@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { isEmpty, isFunction } from 'lodash';
-import { AvatarsGroup, FileIcon, Stack, Text, Box, ActionButton } from '@bubbles-ui/components';
+import { ActionButton, AvatarsGroup, Box, FileIcon, Stack, Text } from '@bubbles-ui/components';
 import { MoveRightIcon } from '@bubbles-ui/icons/outline';
 import { LibraryDetailContent } from '../LibraryDetailContent';
 import { LibraryDetailToolbar } from '../LibraryDetailToolbar';
 import { LibraryDetailPlayer } from '../LibraryDetailPlayer';
 import { LibraryDetailStyles } from './LibraryDetail.styles';
+import {
+  AssetBookmarkIcon,
+  AssetPathIcon,
+  AssetTaskIcon,
+  PluginCurriculumIcon,
+} from '@bubbles-ui/icons/solid';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_PROP_TYPES } from './LibraryDetail.constants';
 
 const LibraryDetail = ({
   asset,
   variant,
+  variantIcon,
   variantTitle,
   toolbar,
   toolbarItems,
@@ -19,6 +26,7 @@ const LibraryDetail = ({
   labels,
   titleActionButton,
   style,
+  excludeMetadatas,
   ...events
 }) => {
   const [showDrawer, setShowDrawer] = useState(open);
@@ -65,32 +73,67 @@ const LibraryDetail = ({
           )}
 
           <LibraryDetailPlayer
-            {...asset}
+            {...{ ...asset, fileExtension }}
             labels={labels}
             variant={variant}
             variantTitle={variantTitle}
             titleActionButton={titleActionButton}
             fileIcon={
-              <FileIcon
-                fileType={fileType}
-                fileExtension={fileExtension}
-                size={64}
-                color={'#B9BEC4'}
-              />
+              {
+                bookmark: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetBookmarkIcon />
+                  </Box>
+                ),
+                path: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetPathIcon />
+                  </Box>
+                ),
+                task: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <AssetTaskIcon />
+                  </Box>
+                ),
+                curriculum: (
+                  <Box style={{ fontSize: 64, lineHeight: 1, color: '#B9BEC4' }}>
+                    <PluginCurriculumIcon />
+                  </Box>
+                ),
+              }[variant] || (
+                <FileIcon
+                  size={64}
+                  fileExtension={asset.fileExtension}
+                  fileType={asset.fileType || variant}
+                  color={'#B9BEC4'}
+                  hideExtension
+                />
+              )
             }
           />
           <LibraryDetailContent
             {...asset}
+            excludeMetadatas={excludeMetadatas}
+            variantIcon={variantIcon}
             variantTitle={variantTitle}
             variant={variant}
             labels={labels}
           />
-          {!asset.public && !isEmpty(asset?.canAccess) && (
+          {!asset.public && (!isEmpty(asset?.canAccess) || !isEmpty(asset?.classesCanAccess)) && (
             <Stack direction="column" spacing={2} padding={4}>
               <Text role="productive" size="xs">
-                {labels.sharedWith}
+                {asset.isPrivate ? labels.privated : labels.sharedWith}
               </Text>
-              <AvatarsGroup size="xs" data={asset.canAccess} limit={3} />
+              <AvatarsGroup
+                size="sm"
+                data={asset.canAccess}
+                numberFromClassesAndData
+                moreThanUsersAsMulti={2}
+                customAvatarMargin={4}
+                zIndexInverted
+                classesData={asset?.classesCanAccess}
+                limit={3}
+              />
             </Stack>
           )}
           {asset.public && (

@@ -1,15 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { find, isFunction } from 'lodash';
-import { useTable } from 'react-table';
+import { useTable, useExpanded } from 'react-table';
 import { Controller } from 'react-hook-form';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
 import { Button } from '../Button';
 import { TableInputRow } from './TableInputRow';
+import { ActionButton } from '../ActionButton';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
@@ -22,6 +23,7 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   ...TABLE_INPUT_PROP_TYPES,
   onAdd: PropTypes.func,
   onRemove: PropTypes.func,
+  onItemAdd: PropTypes.func,
   classes: PropTypes.any,
   showHeaders: PropTypes.bool,
 };
@@ -33,24 +35,30 @@ const TableInputDisplay = ({
   data,
   onAdd,
   onRemove,
+  onItemAdd,
   onSort,
   onEdit,
   sortable,
   forceSortable,
   editable,
+  addable,
   removable,
   disabled,
   disabledAddButton,
   showHeaders,
   forceShowInputs,
+  rowsExpanded,
+  rowStyles,
   classes,
   onChangeRow = () => {},
+  renderRowSubComponent = () => {},
 }) => {
   const [editing, setEditing] = useState(false);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns,
-    data,
-  });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
+    useTable({
+      columns,
+      data,
+    });
 
   const {
     control,
@@ -133,12 +141,12 @@ const TableInputDisplay = ({
                   </Text>
                 </th>
               ))}
-              <th style={{ width: '1%' }}></th>
+              {!disabled ? <th style={{ width: '1%' }}></th> : null}
             </tr>
           ))}
 
         {(showHeaders || forceShowInputs) && (
-          <tr className={rows.length > 0 ? tableClasses.tr : ''}>
+          <tr style={rowStyles} className={rows.length > 0 ? tableClasses.tr : ''}>
             {(sortable && !disabled) || forceSortable ? <th></th> : null}
             {columns.map((column, i) => (
               <th
@@ -154,14 +162,11 @@ const TableInputDisplay = ({
               style={{ paddingLeft: 0, paddingBottom: 4 }}
             >
               {!disabled && (
-                <Button
-                  variant="light"
+                <ActionButton
                   disabled={disabledAddButton}
-                  leftIcon={<AddCircleIcon />}
                   onClick={handleOnAdd}
-                >
-                  {labels.add}
-                </Button>
+                  icon={<AddIcon />}
+                />
               )}
             </th>
           </tr>
@@ -173,6 +178,7 @@ const TableInputDisplay = ({
             <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
               {rows.map((row, i) => {
                 prepareRow(row);
+
                 return (
                   <TableInputRow
                     {...row.getRowProps()}
@@ -180,18 +186,23 @@ const TableInputDisplay = ({
                     row={row}
                     labels={labels}
                     onRemove={onRemove}
+                    onItemAdd={onItemAdd}
                     classes={classes}
                     tableClasses={tableClasses}
                     cx={cx}
                     totalRows={rows.length}
+                    visibleColumns={visibleColumns}
+                    rowsExpanded={rowsExpanded}
                     sortable={(sortable && !disabled) || forceSortable}
                     editable={editable && !disabled}
+                    addable={addable && !disabled}
                     removable={removable && !disabled}
                     disabled={disabled}
                     editing={editing}
                     onEditing={setEditing}
                     onEdit={onEdit}
                     onChangeRow={onChangeRow}
+                    renderRowSubComponent={renderRowSubComponent}
                   />
                 );
               })}

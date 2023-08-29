@@ -186,7 +186,7 @@ const SetupCourses = ({
     return substageAbbr;
   };
 
-  const getSubstages = useCallback(() => {
+  function getSubstages() {
     const substages = [];
     for (let currentSubstage = 0; currentSubstage < numberOfSubstages; currentSubstage++) {
       const defaultValue = getSubstageAbbr(currentSubstage + 1);
@@ -194,11 +194,6 @@ const SetupCourses = ({
       const substageKey = `substages.${currentSubstage}`;
       const substageName = `substages.${currentSubstage}.name`;
       const substageAbbrev = `substages.${currentSubstage}.abbreviation`;
-
-      const val = getValues(substageAbbrev);
-      if (!val) {
-        setValue(substageAbbrev, defaultValue);
-      }
 
       substages.push(
         <ContextContainer key={substageKey} direction="row">
@@ -222,16 +217,27 @@ const SetupCourses = ({
             name={substageAbbrev}
             control={control}
             rules={{
-              validate:
-                abbrevationOnlyNumbers &&
-                ((value) =>
-                  value.match(/^\d+$/)
-                    ? true
-                    : errorMessages.abbrevationOnlyNumbers || 'Only numbers allowed'),
-              maxLength: maxSubstageAbbreviation,
+              validate: (value) => {
+                if (abbrevationOnlyNumbers) {
+                  if (!/^\d+$/.test(value)) {
+                    return errorMessages.abbrevationOnlyNumbers || 'Only numbers allowed';
+                  }
+                }
+
+                if (value.length > maxSubstageAbbreviation) {
+                  return errorMessages.maximunSubstageAbbreviation
+                    ? errorMessages.maximunSubstageAbbreviation.replace(
+                        '{n}',
+                        maxSubstageAbbreviation
+                      )
+                    : 'Maximum ' + maxSubstageAbbreviation + ' characters';
+                }
+              },
             }}
+            defaultValue={defaultValue}
             render={({ field: { onChange, value, ...field }, fieldState }) => (
               <TextInput
+                {...field}
                 label={labels.abbreviation}
                 value={value}
                 onChange={onChange}
@@ -240,7 +246,6 @@ const SetupCourses = ({
                 }
                 required
                 disabled={!editable}
-                {...field}
               />
             )}
           />
@@ -248,7 +253,7 @@ const SetupCourses = ({
       );
     }
     return substages;
-  }, [numberOfSubstages, abbrevationOnlyNumbers, substagesFrequencyValue]);
+  }
 
   const handleOnNext = (e) => {
     const data = { ...sharedData, ...e };
@@ -267,9 +272,11 @@ const SetupCourses = ({
     isFunction(onNext) && onNext(data);
   };
 
-  if (maxNumberOfCourses === 1 && !onlyOneCourse) {
-    setValue('onlyOneCourse', true);
-  }
+  useEffect(() => {
+    if (maxNumberOfCourses === 1 && !onlyOneCourse) {
+      setValue('onlyOneCourse', true);
+    }
+  }, [maxNumberOfCourses, onlyOneCourse]);
 
   const tableConfig = React.useMemo(
     () => ({
@@ -380,19 +387,21 @@ const SetupCourses = ({
                   />
                 )}
               />
-              <Controller
-                name="courseCredits"
-                control={control}
-                render={({ field }) => (
-                  <NumberInput
-                    label={labels.courseCredits}
-                    // defaultValue={0}
-                    min={0}
-                    disabled={!editable}
-                    {...field}
-                  />
-                )}
-              />
+              {defaultValues.credits ? (
+                <Controller
+                  name="courseCredits"
+                  control={control}
+                  render={({ field }) => (
+                    <NumberInput
+                      label={labels.courseCredits}
+                      // defaultValue={0}
+                      min={0}
+                      disabled={!editable}
+                      {...field}
+                    />
+                  )}
+                />
+              ) : null}
             </ContextContainer>
           )}
         </ContextContainer>
@@ -531,16 +540,17 @@ const SetupCourses = ({
                       render={({ field: { onChange, value, ...field } }) => (
                         <ContextContainer direction="row" alignItems="end">
                           <NumberInput
+                            {...field}
                             defaultValue={2}
                             min={2}
                             label={labels.maxSubstageAbbreviation}
                             onChange={(e) => {
+                              console.log(e);
                               onChange(e);
                               setMaxSubstageAbbreviation(e);
                             }}
                             value={value}
                             disabled={!editable}
-                            {...field}
                           />
 
                           <Controller
@@ -564,7 +574,7 @@ const SetupCourses = ({
                         </ContextContainer>
                       )}
                     />
-                    {substagesFrequencyValue && getSubstages()}
+                    {substagesFrequencyValue ? getSubstages() : null}
                   </>
                 ) : null}
               </ContextContainer>

@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { isFunction } from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { Box } from '../../layout';
-import { TextClamp, Text } from '../../typography';
-import { HorizontalStepperStyles } from './HorizontalStepper.styles';
+import { Text, TextClamp } from '../../typography';
 import {
   HORIZONTAL_STEPPER_DEFAULT_PROPS,
   HORIZONTAL_STEPPER_PROP_TYPES,
 } from './HorizontalStepper.constants';
-import { useElementSize } from '@mantine/hooks';
-import { isFunction } from 'lodash';
-import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { HorizontalStepperStyles } from './HorizontalStepper.styles';
 
 const HorizontalStepper = ({
   currentStep: _currentStep,
   onStepClick,
   allowStepClick,
+  allowVisitedStepClick,
+  visitedSteps: visitedStepsProp,
   data,
   ...props
 }) => {
-  const { ref: rootRef } = useElementSize();
   const [currentStep, setCurrentStep] = useState(_currentStep);
-  const { width: stepWidth } = rootRef?.current?.firstChild.getBoundingClientRect() || 0;
+  const [visitedSteps, setVisitedSteps] = useState(Object.fromEntries([currentStep, ...(visitedStepsProp ?? [])]?.map(key => [key, true])));
 
   const onStepClickHandler = (stepIndex) => {
-    if (!allowStepClick) return;
+    const stepIsAlreadyVisited = !!visitedSteps[stepIndex];
+
+    if (!(allowStepClick || (allowVisitedStepClick && stepIsAlreadyVisited))) return;
+
     setCurrentStep(stepIndex);
+    setVisitedSteps(steps => ({ ...steps, [stepIndex]: true }));
     isFunction(onStepClick) && onStepClick(stepIndex);
   };
 
@@ -31,35 +35,31 @@ const HorizontalStepper = ({
     const steps = data.map(({ label, status }, index) => {
       const isStart = index === 0;
       const isEnd = index === data.length - 1;
-      const isCurrentOrPrev = index <= currentStep;
       const isCurrent = index === currentStep;
       const isPrev = index < currentStep;
-
-      const getLineClasses = (isLeft) => {
-        const classesArray = [isLeft ? classes.leftSide : classes.rightSide];
-        if (isCurrentOrPrev) classesArray.push(classes.isCurrentOrPrev);
-        if (isLeft && isCurrent) classesArray.push(classes.isPrev);
-        if (isPrev) classesArray.push(classes.isPrev);
-        return classesArray;
-      };
+      const isClickable = (allowStepClick || (allowVisitedStepClick && !!visitedSteps[index]));
 
       return (
         <Box
           key={`step-${index}`}
-          className={classes.step}
+          className={cx(classes.step, { [classes.clickableStep]: isClickable })}
           onClick={() => onStepClickHandler(index)}
         >
-          <Box className={cx(classes.stepDot, isCurrent || isPrev ? classes.currentDot : '')}></Box>
+          <Box
+            className={cx(
+              classes.stepDot,
+              { [classes.currentDot]: isCurrent },
+              { [classes.prevDot]: isPrev }
+            )}
+          ></Box>
           <CheckIcon
             className={classes.checkIcon}
-            style={{ opacity: isPrev && 1, transform: isPrev && 'translateY(3px)' }}
+            style={{ opacity: isPrev && 1, transform: isPrev && 'translateY(5px)' }}
           />
-          {!isStart && <Box className={cx(...getLineClasses(true))} />}
-          {!isEnd && <Box className={cx(...getLineClasses(false))} />}
+          {!isStart && <Box className={classes.leftSide} />}
+          {!isEnd && <Box className={classes.rightSide} />}
           <TextClamp lines={2}>
-            <Text className={cx(classes.label, isCurrent ? classes.currentLabel : '')}>
-              {label}
-            </Text>
+            <Text className={classes.label}>{label}</Text>
           </TextClamp>
         </Box>
       );
@@ -70,16 +70,19 @@ const HorizontalStepper = ({
   useEffect(() => {
     if (currentStep === _currentStep) return;
     setCurrentStep(_currentStep);
+    setVisitedSteps(steps => ({ ...steps, [_currentStep]: true }));
+
   }, [_currentStep]);
 
   const { classes, cx } = HorizontalStepperStyles(
-    { allowStepClick, currentStep, stepWidth, dataLength: data.length },
+    {},
     { name: 'HorizontalStepper' }
   );
   return (
-    <Box className={classes.root} ref={rootRef}>
+    <Box
+      className={classes.root}
+    >
       {renderSteps()}
-      <Box className={classes.selectedStep} />
     </Box>
   );
 };

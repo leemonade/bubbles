@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const lg = (className, style) => (
+export const lg = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="1601"
     height="882"
     viewBox="0 0 1601 882"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     {/* Y = 0 */}
@@ -43,10 +43,10 @@ export const lg = (className, style) => (
     <rect x="1143" y="588" width="229" height="147" fill="currentColor" />
 
     {/* Y = 735 */}
-    <rect y="735" width="229" height="147" fill="white" />
+    <rect y="735" width="229" height="147" fill="containerColor" />
     <rect x="457" y="735" width="229" height="147" fill="currentColor" />
-    <rect x="1143" y="735" width="231" height="148" fill="white" />
-    <rect x="1372" y="735" width="231" height="148" fill="white" />
+    <rect x="1143" y="735" width="231" height="148" fill="containerColor" />
+    <rect x="1372" y="735" width="231" height="148" fill="containerColor" />
 
     <path
       fillRule="evenodd"
@@ -82,14 +82,14 @@ export const lg = (className, style) => (
   </svg>
 );
 
-export const xMD = (className, style) => (
+export const xMD = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="687"
     height="1024"
     viewBox="0 0 687 1024"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     {/* Y = 0 */}
@@ -113,13 +113,13 @@ export const xMD = (className, style) => (
 
     {/* Y = 853 */}
     <rect y="853" width="229" height="171" fill="currentColor" />
-    <rect x="229" y="853" width="230" height="171" fill="white" />
-    <rect x="458" y="853" width="231" height="173" fill="white" />
+    <rect x="229" y="853" width="230" height="171" fill="containerColor" />
+    <rect x="458" y="853" width="231" height="173" fill="containerColor" />
 
     <path
       transform="translate(458 0)"
       d="M 0 0 L 0 0 C 0 96.543 78.624 171 171 171 L 0 171 Z"
-      fill="white"
+      fill="containerColor"
     />
 
     <path
@@ -138,14 +138,14 @@ export const xMD = (className, style) => (
   </svg>
 );
 
-export const xSM = (className, style) => (
+export const xSM = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="458"
     height="1024"
     viewBox="0 0 458 1024"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     {/* Y = 0 */}
@@ -164,10 +164,10 @@ export const xSM = (className, style) => (
     <rect x="229" y="683" width="229" height="171" fill="currentColor" />
 
     {/* Y = 853 */}
-    <rect y="853" width="230" height="171" fill="white" />
-    <rect x="229" y="853" width="231" height="173" fill="white" />
+    <rect y="853" width="230" height="171" fill="containerColor" />
+    <rect x="229" y="853" width="231" height="173" fill="containerColor" />
 
-    <path d="M 0 0 L 0 0 C 0 96.543 78.624 171 171 171 L 0 171 Z" fill="white" />
+    <path d="M 0 0 L 0 0 C 0 96.543 78.624 171 171 171 L 0 171 Z" fill="containerColor" />
 
     <path
       transform="translate(-458 0)"
@@ -190,14 +190,14 @@ export const xSM = (className, style) => (
   </svg>
 );
 
-export const ySM = (className, style) => (
+export const ySM = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="1600"
     height="310"
     viewBox="0 0 1600 310"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     {/* Y = 0 */}
@@ -224,14 +224,14 @@ export const ySM = (className, style) => (
   </svg>
 );
 
-export const yXS = (className, style) => (
+export const yXS = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="1600"
     height="155"
     viewBox="0 0 1600 155"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect x="266" width="269" height="155" fill="currentColor" />
@@ -257,14 +257,14 @@ export const yXS = (className, style) => (
   </svg>
 );
 
-export const xLG = (className, style) => (
+export const xLG = (className, style, fillColor = 'none') => (
   <svg
     style={style}
     className={className}
     width="1372"
     height="441"
     viewBox="0 0 1372 441"
-    fill="none"
+    fill={fillColor}
     xmlns="http://www.w3.org/2000/svg"
   >
     {/* Y = 0 */}
@@ -281,20 +281,20 @@ export const xLG = (className, style) => (
     <rect x="457" y="147" width="229" height="147" fill="currentColor" />
     <rect x="686" y="147" width="229" height="147" fill="currentColor" />
     <rect x="915" y="147" width="229" height="147" fill="currentColor" />
-    <rect x="1144" y="147" width="229" height="148" fill="white" />
+    <rect x="1144" y="147" width="229" height="148" fill="containerColor" />
 
     {/* Y = 294 */}
     <rect y="294" width="229" height="147" fill="currentColor" />
     <rect x="228" y="294" width="229" height="147" fill="currentColor" />
     <rect x="457" y="294" width="229" height="147" fill="currentColor" />
     <rect x="686" y="294" width="229" height="147" fill="currentColor" />
-    <rect x="915" y="294" width="229" height="147" fill="white" />
-    <rect x="1143" y="294" width="230" height="147" fill="white" />
+    <rect x="915" y="294" width="229" height="147" fill="containerColor" />
+    <rect x="1143" y="294" width="230" height="147" fill="containerColor" />
 
     <path
       d="M955 378 L955 378 C963 414 993 441 1028 441 C1064 441 1094 414 1102 378 L1102 378 H955Z"
       fill="#F7F8FA"
     />
-    <path d="M1371 0H1144 C1144 81 1209 148 1290 148H1371V0Z" fill="white" />
+    <path d="M1371 0H1144 C1144 81 1209 148 1290 148H1371V0Z" fill="containerColor" />
   </svg>
 );

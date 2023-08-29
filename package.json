@@ -5,8 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "repository": {
     "type": "git",
@@ -33,9 +32,11 @@
     "build-all": "node ./scripts/build.js --all --nomadge",
     "build-all:no-types": "node ./scripts/build.js --all --nomadge --notypes",
     "linkAll": "node ./scripts/link.js",
-    "madge:circular": "madge --circular"
+    "madge:circular": "madge --circular",
+    "release:dev": "yarn changeset version && yarn changeset publish --tag dev"
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

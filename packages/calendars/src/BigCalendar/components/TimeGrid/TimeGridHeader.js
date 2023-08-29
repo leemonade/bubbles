@@ -60,7 +60,7 @@ class TimeGridHeader extends React.Component {
     });
   }
 
-  readerDateHeading = ({ date, className, ...props }) => {
+  readerDateHeading = ({ date, className, isWeekend, ...props }) => {
     let { date: currentDate, getDrilldownView, localizer } = this.props;
     let isOffRange = localizer.neq(date, currentDate, 'month');
     let isCurrent = localizer.isSameDate(date, currentDate);

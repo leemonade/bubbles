@@ -14,6 +14,7 @@ export const ACTION_BUTTON_DEFAULT_PROPS = {
   label: '',
   rounded: false,
   useAria: true,
+  active: false,
 };
 export const ACTION_BUTTON_PROP_TYPES = {
   /** Controls the size */
@@ -26,6 +27,8 @@ export const ACTION_BUTTON_PROP_TYPES = {
   useAria: PropTypes.bool,
   /** Aria label for ActionButton */
   ariaLabel: PropTypes.string,
+  /** Controls the visual state of the Button */
+  active: PropTypes.bool,
 };
 
 const TooltipComponent = ({ children, tooltip, useAria }) => {
@@ -83,6 +86,7 @@ export const ActionButton = forwardRef(
         color,
         iconOnly: isNil(label) || (isString(label) && label === ''),
         radius,
+        active,
       },
       { classNames, name: 'ActionButton' }
     );

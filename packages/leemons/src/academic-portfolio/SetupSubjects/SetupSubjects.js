@@ -87,7 +87,7 @@ const SetupSubjects = ({
     const numberOfCourses = sharedData?.maxNumberOfCourses;
 
     for (let currentNumber = 1; currentNumber <= numberOfCourses; currentNumber++) {
-      const firstNumber = subjectsFirstDigit === firstDigitOptions[0]?.value ? currentNumber : '';
+      const firstNumber = subjectsFirstDigit !== 'none' ? currentNumber : '';
       subjectsID.push(
         <Box key={`k-${currentNumber}`} className={classes.subjectID}>
           <Text size="md">{`${firstNumber}${'0'.repeat(
@@ -120,74 +120,82 @@ const SetupSubjects = ({
   return (
     <form onSubmit={handleSubmit(handleOnNext)} autoComplete="off">
       <ContextContainer {...props} divided>
-        {!!haveSubstagesPerCourse && (
-          <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
-            <Controller
-              name="allSubjectsSameDuration"
-              control={control}
-              render={({ field: { onChange, value, ref, ...field } }) => (
-                <Switch
-                  label={labels.allSubjectsSameDuration}
-                  help={helps.allSubjectsSameDuration}
-                  onChange={(e) => {
-                    setAllSubjectsSameDuration(!allSubjectsSameDuration);
-                    onChange(e);
-                  }}
-                  checked={value || false}
-                  disabled={!editable}
-                  {...field}
+        {false ? (
+          <>
+            {!!haveSubstagesPerCourse && (
+              <ContextContainer title={labels.title} subtitle={labels.standardDuration}>
+                <Controller
+                  name="allSubjectsSameDuration"
+                  control={control}
+                  render={({ field: { onChange, value, ref, ...field } }) => (
+                    <Switch
+                      label={labels.allSubjectsSameDuration}
+                      help={helps.allSubjectsSameDuration}
+                      onChange={(e) => {
+                        setAllSubjectsSameDuration(!allSubjectsSameDuration);
+                        onChange(e);
+                      }}
+                      checked={value || false}
+                      disabled={!editable}
+                      {...field}
+                    />
+                  )}
                 />
-              )}
-            />
-            {!allSubjectsSameDuration && (
-              <TableInput
-                sortable={false}
-                disabled={!editable}
-                columns={[
-                  {
-                    Header: labels.periodName,
-                    accessor: 'name',
-                    input: {
-                      node: <TextInput />,
-                      rules: { required: errorMessages?.periodName?.required || 'Required field' },
-                    },
-                  },
-                  {
-                    Header: labels.numOfPeriods,
-                    accessor: 'number',
-                    input: {
-                      node: <NumberInput />,
-                      rules: {
-                        required: errorMessages?.numOfPeriods?.required || 'Required field',
+                {!allSubjectsSameDuration && (
+                  <TableInput
+                    sortable={false}
+                    disabled={!editable}
+                    columns={[
+                      {
+                        Header: labels.periodName,
+                        accessor: 'name',
+                        input: {
+                          node: <TextInput />,
+                          rules: {
+                            required: errorMessages?.periodName?.required || 'Required field',
+                          },
+                        },
                       },
-                    },
-                  },
-                  {
-                    Header: labels.substagesFrequency,
-                    accessor: 'frequency',
-                    input: {
-                      node: <Select />,
-                      rules: {
-                        required: errorMessages?.substagesFrequency?.required || 'Required field',
+                      {
+                        Header: labels.numOfPeriods,
+                        accessor: 'number',
+                        input: {
+                          node: <NumberInput />,
+                          rules: {
+                            required: errorMessages?.numOfPeriods?.required || 'Required field',
+                          },
+                        },
                       },
-                      data: frequencyOptions,
-                    },
-                    valueRender: (value) => {
-                      const item = find(frequencyOptions, { value });
-                      return item ? item.label : value;
-                    },
-                  },
-                ]}
-                data={customSubstages}
-                labels={{
-                  add: labels.buttonAdd,
-                  remove: labels.buttonRemove,
-                }}
-                onChangeData={(val) => setCustomSubstages(val)}
-              />
+                      {
+                        Header: labels.substagesFrequency,
+                        accessor: 'frequency',
+                        input: {
+                          node: <Select />,
+                          rules: {
+                            required:
+                              errorMessages?.substagesFrequency?.required || 'Required field',
+                          },
+                          data: frequencyOptions,
+                        },
+                        valueRender: (value) => {
+                          const item = find(frequencyOptions, { value });
+                          return item ? item.label : value;
+                        },
+                      },
+                    ]}
+                    data={customSubstages}
+                    labels={{
+                      add: labels.buttonAdd,
+                      remove: labels.buttonRemove,
+                    }}
+                    onChangeData={(val) => setCustomSubstages(val)}
+                  />
+                )}
+              </ContextContainer>
             )}
-          </ContextContainer>
-        )}
+          </>
+        ) : null}
+
         <ContextContainer title={labels.knowledgeAreas}>
           <Controller
             name="haveKnowledge"
@@ -254,6 +262,7 @@ const SetupSubjects = ({
                   }}
                   disabled={!editable}
                   {...field}
+                  value={subjectsFirstDigit}
                 />
               )}
             />

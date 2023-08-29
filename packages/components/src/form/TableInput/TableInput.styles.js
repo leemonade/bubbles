@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../theme.mixins';
 
-export const TableInputStyles = createStyles((theme, { hasError }) => {
+export const TableInputStyles = createStyles((theme, { hasError, rowStyles }) => {
   return {
     root: {},
     tHead: {
@@ -28,6 +28,7 @@ export const TableInputStyles = createStyles((theme, { hasError }) => {
     },
     row: {
       backgroundColor: theme.colors.uiBackground01,
+      ...rowStyles,
     },
     rowDragging: {
       display: 'table',

@@ -1,55 +1,48 @@
-import {
-  createStyles,
-  pxToRem,
-  getPaddings,
-  getFontExpressive,
-  getFontProductive,
-} from '@bubbles-ui/components';
+import { createStyles } from '@bubbles-ui/components';
 
 export const ClassroomHeaderBarStyles = createStyles((theme, {}) => {
+  const globalTheme = theme.other.global;
   return {
     root: {
-      backgroundColor: theme.colors.interactive03,
-      paddingInline: 16,
-      paddingBlock: 10,
+      backgroundColor: globalTheme.background.color.surface.subtle,
+      paddingInline: 48,
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
+      justifyContent: 'space-between',
+      height: 56,
     },
-    classroomInfoBox: {
-      padding: 8,
+    root2: {
+      gap: 32,
       display: 'flex',
       alignItems: 'center',
-      gap: 8,
-      fontWeight: 500,
-      color: theme.colors.interactive01,
-      backgroundColor: theme.colors.mainWhite,
-      borderRadius: 4,
-      height: 32,
+      paddingInline: 48,
     },
     pinIcon: {
       minHeight: 14,
       minWidth: 14,
     },
-    scheduleBox: {
-      padding: 8,
-      display: 'flex',
-      alignItems: 'center',
-      gap: 16,
-      borderRadius: 4,
-      backgroundColor: theme.colors.interactive03h,
-      svg: {
-        color: theme.colors.text05,
-      },
-      height: 32,
-      cursor: 'pointer',
-      userSelect: 'none',
-    },
     scheduleContainer: {
       display: 'flex',
       flexDirection: 'column',
       gap: 8,
-      padding: 16,
+      padding: 4,
+    },
+    infoWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 18,
+      userSelect: 'none',
+      svg: {
+        color: theme.other.buttonIcon.content.color.terciary['default--reverse'],
+      },
+      paddingLeft: 12,
+    },
+    clickable: {
+      cursor: 'pointer',
+    },
+    label: {
+      ...globalTheme.content.typo.body['md--bold'],
+      color: globalTheme.content.color.text.default,
     },
   };
 });

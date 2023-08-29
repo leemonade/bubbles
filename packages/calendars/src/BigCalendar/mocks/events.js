@@ -45,8 +45,8 @@ export default [
 export default [{
   'title': 'Evaluación inicial matemáticas',
   'allDay': false,
-  'start': DateTime.fromISO('2022-09-21T10:20:00.000Z').toJSDate(),
-  'end': DateTime.fromISO('2022-09-24T11:15:00.000Z').toJSDate(),
+  'start': DateTime.fromISO('2022-09-14T10:20:00.000Z').toJSDate(),
+  'end': DateTime.fromISO('2022-09-17T11:15:00.000Z').toJSDate(),
   'originalEvent': {
     'id': '9ff890dd-f135-4dfa-be06-6e3d68058f52',
     'title': 'Evaluación inicial matemáticas',
@@ -325,8 +325,8 @@ export default [{
 }, {
   'title': 'Proyecto: La historia detrás del cuadro',
   'allDay': true,
-  'start': DateTime.fromISO('2022-09-19T00:00:00.000Z').toJSDate(),
-  'end': DateTime.fromISO('2022-09-23T00:00:00.000Z').toJSDate(),
+  'start': DateTime.fromISO('2022-09-05T00:00:00.000Z').toJSDate(),
+  'end': DateTime.fromISO('2022-09-09T00:00:00.000Z').toJSDate(),
   'originalEvent': {
     'id': 'a4487fe3-144c-42cc-911a-914c3636ca1c',
     'title': 'Proyecto: La historia detrás del cuadro',

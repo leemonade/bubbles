@@ -26,6 +26,7 @@ export const LIBRARY_DETAIL_DEFAULT_PROPS = {
     sharedViewAll: 'View all',
     sharedWithEverybody: 'Shared with everybody',
   },
+  excludeMetadatas: [],
 };
 export const LIBRARY_DETAIL_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -43,4 +44,5 @@ export const LIBRARY_DETAIL_PROP_TYPES = {
   toolbar: PropTypes.bool,
   open: PropTypes.bool,
   labels: PropTypes.any,
+  excludeMetadatas: PropTypes.arrayOf(PropTypes.string),
 };

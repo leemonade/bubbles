@@ -18,7 +18,7 @@ export const SubNavItemStyles = createStyles((theme, { active, disabled, hasErro
       opacity: disabled ? 0.6 : 1,
       '&:hover': {
         backgroundColor: !disabled && theme.colors.interactive01,
-        color: !disabled && `${theme.colors.text07} !important`,
+        color: !disabled && `${theme.other.button.content.color.primary['default--reverse']} !important`,
       },
     },
     editMode: {

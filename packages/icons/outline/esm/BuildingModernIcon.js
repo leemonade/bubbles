@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function BuildingModernIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function BuildingModernIcon(props) {
     d: "m16.443 7.476-7.819.001L16.5 11.5l-8 4 8 4-7.8 3.9"
   }));
 }
-
 export default BuildingModernIcon;

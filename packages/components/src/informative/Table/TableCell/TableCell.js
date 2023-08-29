@@ -21,7 +21,11 @@ export const TableCell = ({ cell, form, onChangeCell, useAria }) => {
 
   if (isFunction(cell.column.valueRender)) {
     return (
-      <Box className={classes.root} role={useAria ? 'cell' : undefined}>
+      <Box
+        className={classes.root}
+        style={cell.column.cellStyle}
+        role={useAria ? 'cell' : undefined}
+      >
         {cell.column.valueRender(cell.value, cell.row.original, form)}
       </Box>
     );
@@ -47,9 +51,10 @@ export const TableCell = ({ cell, form, onChangeCell, useAria }) => {
       );
     }
   }
+
   // Default
   return (
-    <Box className={classes.root} role={useAria ? 'cell' : undefined}>
+    <Box className={classes.root} style={cell.column.cellStyle} role={useAria ? 'cell' : undefined}>
       {cell.render('Cell')}
     </Box>
   );

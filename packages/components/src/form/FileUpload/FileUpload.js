@@ -80,6 +80,18 @@ const FileUpload = ({
     setFiles(newFiles);
   };
 
+  const removeFiles = () => {
+    if (files && files.length > 0) {
+      setFiles([]);
+    }
+  };
+
+  React.useEffect(() => {
+    if (!initialFiles || (initialFiles && initialFiles.length === 0)) {
+      removeFiles();
+    }
+  }, [initialFiles]);
+
   const { classes, cx } = FileUploadStyles(
     { disabled, single, files, hasError },
     { name: 'FileUpload' }

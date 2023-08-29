@@ -1,17 +1,17 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { isNil, isEmpty } from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
+import { isEmpty, isNil } from 'lodash';
 import {
-  Box,
-  ImageLoader,
-  Title,
-  COLORS,
-  Menu,
-  IconButton,
-  TextClamp,
-  Text,
   Badge,
+  Box,
+  COLORS,
+  IconButton,
+  ImageLoader,
+  Menu,
+  Text,
+  TextClamp,
+  Title,
 } from '@bubbles-ui/components';
-import { SettingMenuVerticalIcon, BookmarksIcon, DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+import { BookmarksIcon, DeleteBinIcon, SettingMenuVerticalIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
 import { LibraryCardCoverStyles } from './LibraryCardCover.styles';
 import {
@@ -76,14 +76,14 @@ const LibraryCardCover = ({
     const components = [];
     if (badge) {
       components.push(
-        <Box className={classes.badge}>
+        <Box key={'1'} className={classes.badge}>
           <Badge label={badge} color="stroke" radius="default" closable={false} />
         </Box>
       );
     }
     if (dashboard && subject) {
       components.push(
-        <Box className={classes.subject}>
+        <Box key={'2'} className={classes.subject}>
           <Box className={classes.subjectIcon}>
             <ImageLoader forceImage height={12} imageStyles={{ width: 12 }} src={subject.icon} />
           </Box>
@@ -121,6 +121,8 @@ const LibraryCardCover = ({
               ...item,
               className: cx(classes.menuItem, item.className),
             }))}
+            position="bottom-start"
+            withinPortal={true}
             control={
               <IconButton
                 icon={

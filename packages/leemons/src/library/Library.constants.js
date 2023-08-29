@@ -18,7 +18,7 @@ export const LIBRARY_CARD_DEADLINE_PROP_TYPES = {
   labels: PropTypes.shape({
     title: PropTypes.string,
     new: PropTypes.string,
-    deadline: PropTypes.string,
+    deadline: PropTypes.any,
   }),
   icon: PropTypes.oneOfType([
     PropTypes.element,

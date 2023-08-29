@@ -26,6 +26,7 @@ const LibraryCardContent = ({
   tagline,
   description,
   tags,
+  programName,
   metadata,
   locale,
   variant,
@@ -185,7 +186,7 @@ const LibraryCardContent = ({
                   </TextClamp>
                 ) : (
                   <Stack direction="column" spacing={1} fullWidth>
-                    {metadata.map(({ label, value }, index) => (
+                    {metadata?.map(({ label, value }, index) => (
                       <Stack fullWidth key={`${label} ${value} ${index}`}>
                         <Text size={'xs'} role="productive" className={classes.label}>
                           {label}
@@ -229,6 +230,17 @@ const LibraryCardContent = ({
                 )}
               </Stack>
             </Box>
+            {programName ? (
+              <Box className={classes.tagsContainer}>
+                <Badge
+                  label={programName}
+                  color={'stroke'}
+                  size="xs"
+                  closable={false}
+                  radius={'rounded'}
+                />
+              </Box>
+            ) : null}
             {tags?.length > 0 && (
               <Box className={classes.tagsContainer}>
                 {tags.map((tag, index) => (
@@ -270,7 +282,7 @@ const LibraryCardContent = ({
                   </TextClamp>
                 ) : (
                   <Stack direction="column" spacing={1} fullWidth>
-                    {metadata.map(({ label, value }, index) => (
+                    {metadata?.map(({ label, value }, index) => (
                       <Stack fullWidth key={`${label} ${value} ${index}`}>
                         <Text size={'xs'} role="productive" className={classes.label}>
                           {label}
@@ -284,6 +296,17 @@ const LibraryCardContent = ({
                 )}
               </Stack>
             </Box>
+            {programName ? (
+              <Box className={classes.tagsContainer}>
+                <Badge
+                  label={programName}
+                  color={'stroke'}
+                  size="xs"
+                  closable={false}
+                  radius={'rounded'}
+                />
+              </Box>
+            ) : null}
             {tags?.length > 0 && (
               <Box className={classes.tagsContainer}>
                 {tags.map((tag, index) => (

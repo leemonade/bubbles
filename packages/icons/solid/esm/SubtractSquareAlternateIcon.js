@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function SubtractSquareAlternateIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 16 16",
@@ -13,5 +12,4 @@ function SubtractSquareAlternateIcon(props) {
     d: "M4.182 8.833h7.636a.833.833 0 1 0 0-1.666H4.182a.833.833 0 1 0 0 1.666Z"
   }));
 }
-
 export default SubtractSquareAlternateIcon;

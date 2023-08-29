@@ -1,3 +1,4 @@
+export * from "./HorizontalStepperContainer"
 export * from './VerticalStepperContainer';
 export * from './ContextContainer';
 export * from './ContentLegible';

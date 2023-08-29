@@ -17,9 +17,9 @@ const Column = ({ value, index, isScrollable, isCombineEnabled, itemRender, icon
           {index === 0 && icon ? (
             <Box className={classes.iconBig}>
               <ImageLoader
-                height='150'
+                height="150"
                 imageStyles={{
-                  width: 150
+                  width: 150,
                 }}
                 src={icon}
                 forceImage
@@ -27,17 +27,17 @@ const Column = ({ value, index, isScrollable, isCombineEnabled, itemRender, icon
             </Box>
           ) : null}
           <Box className={classes.columnHeader}>
-            <Box isDragging={snapshot.isDragging} {...provided.dragHandleProps}>
-              <Text role='productive' strong>
+            <Box {...provided.dragHandleProps}>
+              <Text role="productive" strong>
                 {value.title}
               </Text>
             </Box>
-            <Text color='primary'>{value.cards.length}</Text>
+            <Text color="primary">{value.cards.length}</Text>
           </Box>
           <ScrollArea className={classes.scroll} style={{ width: '100%', height: '100%' }}>
             <QuoteList
               listId={value.id}
-              listType='QUOTE'
+              listType="QUOTE"
               value={value.cards}
               internalScroll={isScrollable}
               isCombineEnabled={Boolean(isCombineEnabled)}

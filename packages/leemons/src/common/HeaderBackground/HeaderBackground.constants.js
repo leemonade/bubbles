@@ -13,6 +13,7 @@ export const HEADER_BACKGROUND_DEFAULT_PROPS = {
   blur: 2,
   styles: {},
   backgroundPosition: 'unset',
+  rootClassname: '',
 };
 export const HEADER_BACKGROUND_PROP_TYPES = {
   image: PropTypes.string,
@@ -24,4 +25,5 @@ export const HEADER_BACKGROUND_PROP_TYPES = {
   blur: PropTypes.number,
   styles: PropTypes.object,
   withOverlay: PropTypes.bool,
+  rootClassname: PropTypes.string,
 };

@@ -10,6 +10,7 @@ export const TextEditorStyles = createStyles((theme, {}) => {
       justifyContent: 'start',
       gap: 16,
     },
+    editorContainer: {},
     editor: {
       ...root,
       margin: theme.spacing[3],
@@ -62,6 +63,9 @@ export const TextEditorStyles = createStyles((theme, {}) => {
         '.hljs-keyword, .hljs-selector-tag': { color: '#70cff8' },
         '.hljs-emphasis': { fontStyle: 'italic' },
         '.hljs-strong': { fontWeight: 700 },
+      },
+      'a span': {
+        color: 'inherit !important',
       },
     },
   };

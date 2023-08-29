@@ -3,7 +3,14 @@ import { Box, Stack } from '@bubbles-ui/components';
 import { LibraryDetail } from './LibraryDetail';
 import { LIBRARY_DETAIL_DEFAULT_PROPS, LIBRARY_DETAIL_VARIANTS } from './LibraryDetail.constants';
 import mdx from './LibraryDetail.mdx';
-import { VIDEO_ASSET, AUDIO_ASSET, IMAGE_ASSET, URL_ASSET } from '../LibraryCard/mock/data';
+import {
+  VIDEO_ASSET,
+  AUDIO_ASSET,
+  IMAGE_ASSET,
+  URL_ASSET,
+  PDF_ASSET,
+  AFRAME_ASSET,
+} from '../LibraryCard/mock/data';
 
 export default {
   title: 'leemons/Library/LibraryDetail',
@@ -34,12 +41,24 @@ const Template = ({ children, asset, ...props }) => {
   return (
     <Box style={{ display: 'flex', gap: 30, height: 'calc(100vh - 32px)' }}>
       <Box style={{ position: 'relative', width: 360 }}>
+        <LibraryDetail
+          {...props}
+          asset={AFRAME_ASSET}
+          variant="3d"
+          style={{ width: 360 }}
+          excludeMetadatas={['bgFromColor', 'bgToColor']}
+        >
+          {children}
+        </LibraryDetail>
+      </Box>
+      {/* 
+      <Box style={{ position: 'relative', width: 360 }}>
         <LibraryDetail {...props} asset={asset} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
       <Box style={{ position: 'relative', width: 360 }}>
-        <LibraryDetail {...props} asset={AUDIO_ASSET} style={{ width: 360 }}>
+        <LibraryDetail {...props} asset={PDF_ASSET} style={{ width: 360 }}>
           {children}
         </LibraryDetail>
       </Box>
@@ -55,6 +74,7 @@ const Template = ({ children, asset, ...props }) => {
           {children}
         </LibraryDetail>
       </Box>
+      */}
     </Box>
   );
 };

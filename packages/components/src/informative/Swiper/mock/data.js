@@ -9,13 +9,4 @@ export const childrens = [
   <Paper fullWidth>
     <Text>Hello world</Text>
   </Paper>,
-  <Paper fullWidth>
-    <Text>Hello world</Text>
-  </Paper>,
-  <Paper fullWidth>
-    <Text>Hello world</Text>
-  </Paper>,
-  <Paper fullWidth>
-    <Text>Hello world</Text>
-  </Paper>,
 ];

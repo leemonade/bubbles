@@ -1,5 +1,4 @@
 const React = require("react");
-
 function TypeCursorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function TypeCursorIcon(props) {
     d: "M12 18.748v-13.5M7.5 23.248a4.5 4.5 0 0 0 4.5-4.5 4.5 4.5 0 0 0 4.5 4.5M7.5.748a4.5 4.5 0 0 1 4.5 4.5 4.5 4.5 0 0 1 4.5-4.5"
   }));
 }
-
 module.exports = TypeCursorIcon;

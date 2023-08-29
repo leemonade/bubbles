@@ -1,12 +1,21 @@
 import React from 'react';
 import { Box } from '../../layout';
-import { Text } from '../../typography';
 import { UserDisplayItem } from '../UserDisplayItem';
 import { ChatMessageStyles } from './ChatMessage.styles';
 import { CHAT_MESSAGE_DEFAULT_PROPS, CHAT_MESSAGE_PROP_TYPES } from './ChatMessage.constants';
 
-const ChatMessage = ({ message, user, isOwn, isOnline, locale, showUser = true, ...props }) => {
-  const { classes, cx } = ChatMessageStyles({ isOwn }, { name: 'ChatMessage' });
+const ChatMessage = ({
+                       message,
+                       user,
+                       isOwn,
+                       isOnline,
+                       locale,
+                       showUser = true,
+                       isTeacher,
+                       isAdmin,
+                       ...props
+                     }) => {
+  const { classes, cx } = ChatMessageStyles({ isOwn, isTeacher, isAdmin }, { name: 'ChatMessage' });
   return (
     <Box className={classes.root}>
       {showUser ? <UserDisplayItem
@@ -18,13 +27,13 @@ const ChatMessage = ({ message, user, isOwn, isOnline, locale, showUser = true, 
 
       <Box className={classes.messageBox}>
         {message?.type === 'text' && (
-          <Text role='productive' color='primary' size='md'>
+          <Box className={classes.message}>
             {message?.content}
-          </Text>
+          </Box>
         )}
-        <Text className={classes.messageDate}>
+        <Box className={classes.messageDate}>
           {message?.date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}
-        </Text>
+        </Box>
       </Box>
     </Box>
   );

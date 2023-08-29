@@ -61,7 +61,7 @@ export const StepperStyles = createStyles(
         display: 'flex',
         flexDirection: isVertical ? 'row' : 'column',
         position: 'relative',
-        maxWidth: usePageContainer && theme.breakpoints['lg'],
+        maxWidth: usePageContainer && theme.breakpoints['xl'],
       },
       steps: {
         ...stepsProps,

@@ -14,7 +14,7 @@ export const INPUT_WRAPPER_SHARED_PROPS = {
 
 export const INPUT_WRAPPER_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
+  size: PropTypes.string,
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   headerClassName: PropTypes.string,
   contentClassName: PropTypes.string,

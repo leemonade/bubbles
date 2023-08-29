@@ -8,6 +8,7 @@ import { SelectItem } from './SelectItem';
 
 export const HEADINGS_TOOL_DEFAULT_PROPS = {
   labels: {
+    label: 'Format',
     title1: 'Title 1',
     title2: 'Title 2',
     title3: 'Title 3',
@@ -17,7 +18,7 @@ export const HEADINGS_TOOL_DEFAULT_PROPS = {
 
 export const HEADINGS_TOOL_PROP_TYPES = {
   labels: PropTypes.shape({
-    title: PropTypes.string,
+    label: PropTypes.string,
     title1: PropTypes.string,
     title2: PropTypes.string,
     title3: PropTypes.string,
@@ -78,12 +79,14 @@ const HeadingsTool = ({ labels }) => {
 
   return (
     <Box className={classes.root}>
-      {labels.title && (
-        <Text color="secondary" role="productive">
-          {labels.title}
-        </Text>
-      )}
-      <Select data={VALUES} value={level} onChange={handleOnChange} itemComponent={SelectItem} />
+      <Select
+        label={labels.label}
+        data={VALUES}
+        value={level}
+        onChange={handleOnChange}
+        itemComponent={SelectItem}
+        style={{ minWidth: 170 }}
+      />
     </Box>
   );
 };

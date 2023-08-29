@@ -9,12 +9,10 @@ import { EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
 import { TaskHeader } from '../TaskHeader/TaskHeader';
 import { EditDeadline } from './EditDeadline';
+import * as dayjs from 'dayjs';
 
 const TaskDeadlineHeader = ({
   labels,
-  title,
-  subtitle,
-  icon,
   color,
   startDate,
   deadline,
@@ -32,18 +30,18 @@ const TaskDeadlineHeader = ({
   isStarted,
   styles,
   className,
-  ...props
+  ...headerProps
 }) => {
-  const [startDateValue, setStartDateValue] = useState(new Date(startDate));
-  const [deadlineValue, setDeadlineValue] = useState(new Date(deadline));
+  const [startDateValue, setStartDateValue] = useState(startDate ? new Date(startDate) : null);
+  const [deadlineValue, setDeadlineValue] = useState(deadline ? new Date(deadline) : null);
   const [deadlineExpanded, setDeadlineExpanded] = useState(false);
 
   const onDateChange = (type, date) => {
-    if (type === 'start' && date) {
+    if (type === 'start') {
       setStartDateValue(date);
       return;
     }
-    if (type === 'deadline' && date) {
+    if (type === 'deadline') {
       setDeadlineValue(date);
       return;
     }
@@ -67,11 +65,11 @@ const TaskDeadlineHeader = ({
   };
 
   const saveDates = () => {
-    if (startDateValue.toISOString() !== new Date(startDate).toISOString()) {
-      isFunction(onStartDateChange) && onStartDateChange(startDateValue);
+    if (startDateValue?.toISOString() !== new Date(startDate).toISOString()) {
+      isFunction(onStartDateChange) && onStartDateChange(startDateValue ? startDateValue : null);
     }
-    if (deadlineValue.toISOString() !== new Date(deadline).toISOString()) {
-      isFunction(onDeadlineChange) && onDeadlineChange(deadlineValue);
+    if (deadlineValue?.toISOString() !== new Date(deadline).toISOString()) {
+      isFunction(onDeadlineChange) && onDeadlineChange(deadlineValue ? deadlineValue : null);
     }
     setDeadlineExpanded(false);
   };
@@ -91,20 +89,20 @@ const TaskDeadlineHeader = ({
   };
 
   useEffect(() => {
-    if (deadline === null && deadlineValue !== deadline) {
+    if (deadline === null && !dayjs(deadlineValue).isSame(deadline)) {
       setDeadlineValue(null);
-    } else if (deadlineValue !== new Date(deadline)) {
+    } else if (!dayjs(deadlineValue).isSame(deadline)) {
       setDeadlineValue(new Date(deadline));
     }
-  }, [deadline]);
+  }, [new Date(deadline).toISOString()]);
 
   useEffect(() => {
-    if (startDate === null && startDateValue !== startDate) {
+    if (startDate === null && !dayjs(startDateValue).isSame(startDate)) {
       setStartDateValue(null);
-    } else if (startDateValue !== new Date(startDate)) {
+    } else if (!dayjs(startDateValue).isSame(startDate)) {
       setStartDateValue(new Date(startDate));
     }
-  }, [startDate]);
+  }, [new Date(startDate).toISOString()]);
 
   const { classes, cx } = TaskDeadlineHeaderStyles(
     { color, styles },
@@ -112,7 +110,9 @@ const TaskDeadlineHeader = ({
   );
   return (
     <Box className={cx(classes.root, className)}>
-      <TaskHeader title={title} subtitle={subtitle} icon={icon} color={color} />
+      <Box className={classes.taskHeaderWrapper}>
+        <TaskHeader {...headerProps} color={color} size="md" />
+      </Box>
       <Box className={classes.deadlineWrapper}>
         {deadline ? (
           <>
@@ -134,32 +134,23 @@ const TaskDeadlineHeader = ({
                 labels={labels}
                 startDate={startDateValue}
                 endDate={deadlineValue}
+                originalStart={startDate}
+                originalEnd={deadline}
                 onDateChange={onDateChange}
                 onHourChange={onHourChange}
                 cancelSave={() => setDeadlineExpanded(false)}
                 saveDates={saveDates}
                 onClose={() => setDeadlineExpanded(false)}
                 isStarted={isStarted}
+                locale={locale}
               />
             </Box>
             <Box className={classes.deadlineExtraTime}>
               <Text className={classes.textColor}>{labels.deadlineExtraTime}</Text>
-              <Button
-                variant="outline"
-                color="negative"
-                size="xs"
-                compact
-                onClick={() => addDays(1)}
-              >
+              <Button variant="outline" size="sm" onClick={() => addDays(1)}>
                 +1d
               </Button>
-              <Button
-                variant="outline"
-                color="negative"
-                size="xs"
-                compact
-                onClick={() => addDays(7)}
-              >
+              <Button variant="outline" size="sm" onClick={() => addDays(7)}>
                 +7d
               </Button>
             </Box>
@@ -167,6 +158,31 @@ const TaskDeadlineHeader = ({
         ) : (
           <Box className={classes.deadline}>
             <Text>{labels?.noDeadline}</Text>
+            <EditDeadline
+              opened={deadlineExpanded}
+              target={
+                <Box>
+                  <EditWriteIcon
+                    className={classes.deadlineIcon}
+                    height={16}
+                    width={16}
+                    onClick={() => setDeadlineExpanded(!deadlineExpanded)}
+                  />
+                </Box>
+              }
+              labels={labels}
+              startDate={startDateValue}
+              endDate={deadlineValue}
+              originalStart={startDate}
+              originalEnd={deadline}
+              onDateChange={onDateChange}
+              onHourChange={onHourChange}
+              cancelSave={() => setDeadlineExpanded(false)}
+              saveDates={saveDates}
+              onClose={() => setDeadlineExpanded(false)}
+              isStarted={isStarted}
+              locale={locale}
+            />
           </Box>
         )}
 

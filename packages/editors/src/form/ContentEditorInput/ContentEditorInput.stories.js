@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Box } from '@bubbles-ui/components';
 import { ContentEditorInput } from './ContentEditorInput';
 import { CONTENT_EDITOR_INPUT_DEFAULT_PROPS } from './ContentEditorInput.constants';
 import { TEXT_EDITOR_DEFAULT_TOOLBARS } from '../TextEditorInput/TextEditorInput.constants';
 import mdx from './ContentEditorInput.mdx';
+import { labels } from '../TextEditor/mock/data';
 
 export default {
   title: 'Organism/Form/ContentEditorInput',
@@ -30,14 +32,16 @@ const Template = ({ ...props }) => {
 `);
 
   return (
-    <ContentEditorInput
-      {...props}
-      value={value}
-      onChange={(v) => {
-        props.onChange(v);
-        setValue(v);
-      }}
-    />
+    <Box style={{ height: 'calc(100vh - 36px)' }}>
+      <ContentEditorInput
+        {...props}
+        value={value}
+        onChange={(v) => {
+          props.onChange(v);
+          setValue(v);
+        }}
+      />
+    </Box>
   );
 };
 
@@ -51,4 +55,6 @@ Playground.args = {
   error: 'Descriptive text for error ',
   useJSON: true,
   toolbars: { ...TEXT_EDITOR_DEFAULT_TOOLBARS },
+  toolLabels: labels,
+  schemaLabel: 'Esquema',
 };

@@ -64,31 +64,35 @@ const HeaderDropdown = ({
           className={classes.itemComponent}
           onClick={() => onChangeHandler(item)}
         >
-          {!isNil(item?.image) && !isEmpty(item?.image) ? (
-            <Box className={classes.itemImage}>
-              <ImageLoader height={40} width={40} radius="50%" src={item?.image} />
-              {!isNil(item?.icon) && !isEmpty(item?.icon) ? (
-                <Box className={classes.itemComponentIcon} style={{ backgroundColor: item?.color }}>
-                  <ImageLoader
-                    forceImage
-                    height={16}
-                    imageStyles={{ width: 16 }}
-                    src={item?.icon}
-                  />
-                </Box>
-              ) : null}
+          {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon ? (
+            <ImageLoader height={56} width={56} radius="50%" src={item?.image} />
+          ) : null}
+          {!isNil(item?.icon) &&
+          !isEmpty(item?.icon) &&
+          !isNil(item?.color) &&
+          !isEmpty(item?.color) &&
+          item?.showIcon ? (
+            <Box className={classes.itemIcon} style={{ backgroundColor: item?.color }}>
+              <ImageLoader forceImage height={24} width={24} src={item?.icon} />
             </Box>
           ) : null}
-          <TextClamp lines={1} maxLines={1}>
-            <Text className={classes.itemComponentLabel} color="primary" strong>
-              {item?.label}
-            </Text>
-          </TextClamp>
-          <TextClamp lines={1} maxLines={1}>
-            <Text className={classes.itemComponentDescription} role="productive" size="xs" stronger>
-              {item?.description}
-            </Text>
-          </TextClamp>
+          <Box className={classes.valueItemContent}>
+            <TextClamp lines={1} maxLines={1}>
+              <Text className={classes.itemComponentLabel} color="primary" strong>
+                {item?.label}
+              </Text>
+            </TextClamp>
+            <TextClamp lines={1} maxLines={1}>
+              <Text
+                className={classes.itemComponentDescription}
+                role="productive"
+                size="xs"
+                stronger
+              >
+                {item?.description}
+              </Text>
+            </TextClamp>
+          </Box>
         </Box>
       )
     );
@@ -106,36 +110,25 @@ const HeaderDropdown = ({
           React.cloneElement(valueComponent, [...selectedItem])
         ) : (
           <Box className={classes.valueComponent}>
-            {!isNil(selectedItem?.image) && !isEmpty(selectedItem?.image) ? (
-              <Box className={classes.itemImage}>
-                <ImageLoader height={80} width={80} radius="50%" src={selectedItem?.image} />
-                {!isNil(selectedItem?.icon) &&
-                !isEmpty(selectedItem?.icon) &&
-                !isNil(selectedItem?.color) &&
-                !isEmpty(selectedItem?.color) ? (
-                  <Box
-                    className={classes.itemIcon}
-                    style={{ backgroundColor: selectedItem?.color }}
-                  >
-                    <ImageLoader
-                      forceImage
-                      height={16}
-                      imageStyles={{ width: 16 }}
-                      src={selectedItem?.icon}
-                    />
-                  </Box>
-                ) : null}
+            {!isNil(selectedItem?.image) &&
+            !isEmpty(selectedItem?.image) &&
+            !selectedItem?.showIcon ? (
+              <ImageLoader height={56} width={56} radius="50%" src={selectedItem?.image} />
+            ) : null}
+            {!isNil(selectedItem?.icon) &&
+            !isEmpty(selectedItem?.icon) &&
+            !isNil(selectedItem?.color) &&
+            !isEmpty(selectedItem?.color) &&
+            selectedItem?.showIcon ? (
+              <Box className={classes.itemIcon} style={{ backgroundColor: selectedItem?.color }}>
+                <ImageLoader forceImage height={24} width={24} src={selectedItem?.icon} />
               </Box>
             ) : null}
             <Box className={classes.content}>
               <TextClamp lines={1} maxLines={1}>
-                <Text color="primary" size="lg" strong>
-                  {selectedItem?.label}
-                </Text>
+                <Text className={classes.title}>{selectedItem?.label}</Text>
               </TextClamp>
-              <Text role="productive" size="md" stronger>
-                {selectedItem?.description}
-              </Text>
+              <Text className={classes.description}>{selectedItem?.description}</Text>
             </Box>
           </Box>
         )}
@@ -150,6 +143,8 @@ const HeaderDropdown = ({
               )
             }
             onClick={() => setIsOpened(!isOpened)}
+            color="primary"
+            active={isOpened}
           />
         )}
       </Box>

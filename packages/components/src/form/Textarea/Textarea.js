@@ -82,9 +82,9 @@ const Textarea = forwardRef(
 
       if (value && !isEmpty(value)) {
         if (counter === 'word') {
-          count = value.match(/\S+/g).length;
+          count = value.match(/\S+/g)?.length ?? 0;
         } else {
-          count = value.length;
+          count = value?.length ?? 0;
         }
       }
 

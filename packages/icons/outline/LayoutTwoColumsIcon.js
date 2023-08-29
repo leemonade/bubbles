@@ -1,5 +1,4 @@
 const React = require("react");
-
 function LayoutTwoColumsIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function LayoutTwoColumsIcon(props) {
     d: "M1.5 1.497h21v21h-21v-21ZM12 1.497v21"
   }));
 }
-
 module.exports = LayoutTwoColumsIcon;

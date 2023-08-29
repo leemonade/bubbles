@@ -69,6 +69,7 @@ const PaginatedList = ({
   onSelect = () => {},
   onSizeChange = () => {},
   onPageChange = () => {},
+  onStyleRow = () => {},
   style,
   useAria,
   headerStyles,
@@ -143,12 +144,22 @@ const PaginatedList = ({
                 selected,
                 useAria,
                 headerStyles,
+                onStyleRow,
               }}
             />
           ) : (
             <GridView
               {...props}
-              {...{ headerGroups, prepareRow, rows, selectable, selected, onSelect, useAria }}
+              {...{
+                headerGroups,
+                prepareRow,
+                rows,
+                selectable,
+                selected,
+                onSelect,
+                useAria,
+                onStyleRow,
+              }}
             />
           )}
         </Paper>

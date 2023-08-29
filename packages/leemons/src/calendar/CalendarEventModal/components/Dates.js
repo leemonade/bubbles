@@ -70,7 +70,7 @@ const Dates = ({
                     }}
                     render={({ field }) => (
                       <DatePicker
-                        size="xs"
+                        size="sm"
                         withTime={disabled}
                         readOnly={readOnly}
                         disabled={disabled}
@@ -113,7 +113,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'startTime')}
-                            size="xs"
+                            size="sm"
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -142,7 +142,7 @@ const Dates = ({
                     render={({ field }) => (
                       <DatePicker
                         error={get(errors, 'endDate')}
-                        size="xs"
+                        size="sm"
                         withTime={disabled}
                         locale={locale || navigator.language}
                         orientation={disabled ? 'horizontal' : 'vertical'}
@@ -179,7 +179,7 @@ const Dates = ({
                             readOnly={readOnly}
                             disabled={disabled}
                             error={get(errors, 'endTime')}
-                            size="xs"
+                            size="sm"
                             required={dateRequired && !disabled}
                             {...field}
                             value={field.value || new Date()}
@@ -203,7 +203,7 @@ const Dates = ({
                 render={({ field }) => (
                   <Select
                     error={get(errors, 'repeat')}
-                    size="xs"
+                    size="sm"
                     disabled={disabled}
                     orientation={disabled ? 'horizontal' : 'vertical'}
                     readOnly={readOnly}

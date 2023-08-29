@@ -31,8 +31,6 @@ const TaskDoing = ({ ...props }) => {
     styles: {
       ...mock.taskHeader.styles,
       right: isFirstStep && '50%',
-      borderRadius: isFirstStep ? '16px 16px 0 0' : 0,
-      backgroundColor: isFirstStep ? COLORS.mainWhite : COLORS.interactive03,
     },
   };
 

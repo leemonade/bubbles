@@ -3,6 +3,7 @@ import { createStyles, getFontExpressive } from '@bubbles-ui/components';
 export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }) => {
   const { height, top } = headerRef?.current?.getBoundingClientRect() || { height: 0, top: 0 };
   const headerHeight = height + top || 0;
+  const globalTheme = theme.other.global;
 
   return {
     root: {
@@ -11,16 +12,12 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       position: 'relative',
     },
     header: {
-      backgroundColor: theme.colors.mainWhite,
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
-      padding: '24px 24px 24px 26px',
       display: 'flex',
       alignItems: 'center',
     },
     dropDown: {
       position: 'absolute',
-      top: '100%',
+      top: 80,
       right: 0,
       left: 0,
       backgroundColor: theme.colors.mainWhite,
@@ -31,6 +28,7 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       zIndex: 200,
       pointerEvents: isOpened ? 'all' : 'none',
       paddingBottom: 20,
+      width: 'max(400px, 100%)',
     },
     itemList: {
       paddingInline: 22,
@@ -39,24 +37,27 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       flexDirection: 'column',
       overflowY: 'auto',
       overflowX: 'hidden',
-      maxHeight: `calc(100vh - ${headerHeight + 71 + 24}px)`,
+      maxHeight: isOpened ? `calc(100vh - ${headerHeight + 71 + 24}px)` : 0,
     },
     searchInput: {
       padding: 16,
     },
     dropDownIcon: {
-      color: theme.colors.text01,
+      // color: theme.colors.text01,
+      color: globalTheme.content.color.text['default--reverse'], // actionButtonTheme.content.color.primary.default,
       marginLeft: 16,
+      alignSelf: 'baseline',
+      marginTop: 8,
     },
     valueComponent: {
       flex: 1,
       display: 'flex',
-      gap: 24,
+      gap: 21,
       alignItems: 'center',
     },
     itemComponent: {
       display: 'flex',
-      gap: 24,
+      gap: 21,
       alignItems: 'center',
       cursor: 'pointer',
       paddingTop: 4,
@@ -66,45 +67,40 @@ export const HeaderDropdownStyles = createStyles((theme, { isOpened, headerRef }
       },
     },
     itemComponentLabel: {
-      flex: 1,
+      ...globalTheme.content.typo.body['lg--bold'],
+      color: globalTheme.content.color.text.emphasis,
     },
     itemComponentDescription: {
-      width: '35%',
-      textAlign: 'right',
-      marginRight: 20,
-    },
-
-    itemComponentIcon: {
-      border: '2px solid',
-      borderColor: theme.colors.uiBackground01,
-      position: 'absolute',
-      padding: 4,
-      borderRadius: '50%',
-      top: 10,
-      right: -10,
-      img: {
-        filter: 'brightness(0) invert(1)',
-      },
-    },
-    itemImage: {
-      position: 'relative',
+      ...globalTheme.content.typo.body.sm,
+      color: globalTheme.content.color.text.muted,
     },
     itemIcon: {
-      border: '2px solid',
-      borderColor: theme.colors.uiBackground01,
-      position: 'absolute',
-      padding: 8,
       borderRadius: '50%',
-      bottom: 0,
-      right: -14,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       img: {
         filter: 'brightness(0) invert(1)',
       },
+      height: 56,
+      width: 56,
     },
     content: {
       display: 'flex',
       flexDirection: 'column',
-      gap: 8,
+      gap: 4,
+    },
+    valueItemContent: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    title: {
+      ...globalTheme.content.typo.heading.xlg,
+      color: globalTheme.content.color.text['default--reverse'],
+    },
+    description: {
+      ...globalTheme.content.typo.body['lg--bold'],
+      color: globalTheme.content.color.text['default--reverse'],
     },
   };
 });

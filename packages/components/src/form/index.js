@@ -3,6 +3,7 @@ export * from './DropdownButton';
 export * from './PasswordInput';
 export * from './CheckboxGroup';
 export * from './InputWrapper';
+export * from './InputLabel';
 export * from './ActionButton';
 export * from './BooleanInput';
 export * from './TagifyInput';

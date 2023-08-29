@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-export const ITEM_DEFAULT_PROPS = {};
-export const ITEM_PROP_TYPES = {
+export const SELECT_ITEM_DEFAULT_PROPS = {};
+export const SELECT_ITEM_PROP_TYPES = {
   label: PropTypes.string,
   image: PropTypes.string,
   icon: PropTypes.node,

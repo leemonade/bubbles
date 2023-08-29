@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
@@ -11,29 +11,49 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
-import { Toolbar } from '../Toolbar';
+import { Toolbar, TOOLBAR_POSITIONS } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
+
+export const TEXT_EDITOR_DEFAULT_PROPS = {
+  toolbarPosition: TOOLBAR_POSITIONS[0],
+};
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
   library: PropTypes.element,
   onChange: PropTypes.func,
+  onSchemaChange: PropTypes.func,
   editorClassname: PropTypes.string,
-  useJSON: PropTypes.bool,
+  toolbarClassname: PropTypes.string,
+  editorContainerClassname: PropTypes.string,
+  useSchema: PropTypes.bool,
+  acceptedTags: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      updateWithoutContent: PropTypes.bool,
+    })
+  ),
+  toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
 };
 
 const TextEditor = ({
   content,
   children,
   onChange,
+  onSchemaChange,
   editorClassname,
+  toolbarClassname,
+  editorContainerClassname,
   placeholder,
   readOnly,
-  useJSON,
+  useSchema,
+  acceptedTags = [],
+  toolbarPosition,
 }) => {
   const store = React.useRef({
     isFocus: false,
+    acceptedTags: acceptedTags.join('|'),
   });
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
@@ -55,18 +75,45 @@ const TextEditor = ({
   const contentChange = React.useRef(null);
 
   const onUpdate = () => {
-    let newContent = useJSON ? editor.getJSON() : editor.getHTML();
-
-    if (!useJSON) {
-      const match = newContent.match(/<(?:h[1-6]|p).+>(.+?)<\/(?:h[1-6]|p)>/);
-      if (!Boolean(match) || (isObject(match) && match[1] === '')) {
-        newContent = null;
+    const defaultTags = ['paragraph', 'heading'];
+    const jsonContent = editor.getJSON();
+    let shouldUpdate = false;
+    for (const element of jsonContent.content) {
+      if (!element) break;
+      if (defaultTags.includes(element.type) && element.content) {
+        shouldUpdate = true;
+        break;
+      }
+      const currentCustomTag = acceptedTags.find((tag) => tag.type === element.type);
+      if (currentCustomTag && (currentCustomTag.updateWithoutContent || element.content)) {
+        shouldUpdate = true;
+        break;
       }
     }
+    if (!shouldUpdate) return null;
 
-    store.current.content = newContent;
+    store.current.content = editor.getHTML();
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
+    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
+  };
+
+  const getEditorJson = () => {
+    const originalHTML = document.getElementsByClassName('ProseMirror')[0];
+    if (!originalHTML) return {};
+    const htmlContent = [...originalHTML.getElementsByTagName('*')].filter(
+      (element) => element.tagName !== 'BR'
+    );
+    const originalJSON = editor.getJSON();
+
+    const editorJSON = {
+      ...originalJSON,
+      content: originalJSON.content.map((element, index) => {
+        element.attrs = { ...element.attrs, index, html: htmlContent[index] };
+        return element;
+      }),
+    };
+    return editorJSON;
   };
 
   useEffect(() => {
@@ -107,6 +154,10 @@ const TextEditor = ({
     }
   }
 
+  function focusEditor() {
+    editor.chain().focus();
+  }
+
   useEffect(() => {
     document.addEventListener('click', updateIfOutside);
     return () => {
@@ -129,7 +180,7 @@ const TextEditor = ({
       editor.on('transaction', handleTransactions);
       return () => editor.off('transaction', handleTransactions);
     }
-  }, [editor]);
+  }, [editor, handleTransactions]);
 
   useEffect(() => {
     if (editor) {
@@ -147,20 +198,37 @@ const TextEditor = ({
       onFocus={() => {
         store.current.isFocus = true;
       }}
+      style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
     >
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
-          <>
-            <Toolbar toolbarLabel={'Toolbar'}>{children}</Toolbar>
+          <Box style={{ zIndex: 1 }}>
+            <Toolbar
+              toolbarLabel={'Toolbar'}
+              className={toolbarClassname}
+              toolbarPosition={toolbarPosition}
+            >
+              {children}
+            </Toolbar>
             <BubbleMenu />
-          </>
+          </Box>
         )}
-        <EditorContent editor={editor} className={cx(classes.editor, editorClassname)} />
+        <Box
+          className={cx(classes.editorContainer, editorContainerClassname)}
+          style={{ zIndex: 0 }}
+        >
+          <EditorContent
+            editor={editor}
+            className={cx(classes.editor, editorClassname)}
+            onClick={focusEditor}
+          />
+        </Box>
       </TextEditorProvider>
     </Box>
   );
 };
 
 TextEditor.propTypes = TEXT_EDITOR_PROP_TYPES;
+TextEditor.defaultProps = TEXT_EDITOR_DEFAULT_PROPS;
 
 export { TextEditor };

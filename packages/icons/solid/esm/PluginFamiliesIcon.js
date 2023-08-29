@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function PluginFamiliesIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -27,5 +26,4 @@ function PluginFamiliesIcon(props) {
     d: "M16.656 23.75a4.5 4.5 0 0 0-7.793 0"
   }));
 }
-
 export default PluginFamiliesIcon;

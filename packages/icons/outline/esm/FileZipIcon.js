@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function FileZipIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -25,5 +24,4 @@ function FileZipIcon(props) {
     d: "M20.249 8.248h-6a1.5 1.5 0 0 1-1.5-1.5v-6"
   }));
 }
-
 export default FileZipIcon;

@@ -6,7 +6,7 @@ import { ButtonStyles } from './Button.styles';
 export const BUTTON_SIZES = ['sm', 'md'];
 export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
 export const BUTTON_COLORS = ['primary', 'secondary', 'terciary', 'phatic'];
-export const BUTTON_TEXT_ALIGN = ['left', 'center', 'right'];
+export const BUTTON_TEXT_ALIGN = ['left', 'center', 'right', 'appart'];
 export const BUTTON_DEFAULT_PROPS = {
   color: BUTTON_COLORS[0],
   size: BUTTON_SIZES[1],
@@ -94,11 +94,13 @@ Button.defaultProps = BUTTON_DEFAULT_PROPS;
 
 Button.propTypes = {
   /** Controls the button size. */
-  size: PropTypes.oneOf(BUTTON_SIZES),
+  size: PropTypes.string, // PropTypes.oneOf(BUTTON_SIZES),
   /** Controls the button colors. */
   color: PropTypes.oneOf(BUTTON_COLORS),
   /** Controls the button variants. */
   variant: PropTypes.oneOf(BUTTON_VARIANTS),
+  /** Controls the space and position between elements inside the button */
+  textAlign: PropTypes.oneOf(BUTTON_TEXT_ALIGN),
   /** Controls the border radius */
   rounded: PropTypes.bool,
   /** Controls if is loading */

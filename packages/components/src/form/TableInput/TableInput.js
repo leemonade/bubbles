@@ -38,6 +38,8 @@ const TableInput = ({
   showHeaders,
   forceShowInputs,
   resetOnAdd,
+  rowsExpanded,
+  rowStyles,
   onChange = () => {},
   onChangeData = () => {},
   onBeforeRemove = () => {},
@@ -45,7 +47,9 @@ const TableInput = ({
   onAdd = () => {},
   onUpdate = () => {},
   onRemove = () => {},
+  onItemAdd = () => {},
   onSort = () => {},
+  renderRowSubComponent = () => {},
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
@@ -71,7 +75,23 @@ const TableInput = ({
     if (isFunction(onChange)) onChange(deserializeData(newData), event);
   };
 
+  const parseItem = (item) => {
+    const result = {};
+    _.forEach(props.columns, ({ accessor }) => {
+      result[accessor] = item[accessor];
+    });
+    return result;
+  };
+
   const handleOnAdd = async (item) => {
+    if (unique) {
+      const values = _.map(tableData, (d) => {
+        return JSON.stringify(parseItem(d));
+      });
+      if (values.includes(JSON.stringify(parseItem(item)))) {
+        return;
+      }
+    }
     let canAdd = true;
     if (isFunction(onBeforeAdd)) {
       const result = await onBeforeAdd(item);
@@ -123,7 +143,7 @@ const TableInput = ({
     handleOnChange(newData, { type: 'sort' });
   };
 
-  const { classes, cx } = TableInputStyles({ hasError }, { name: 'TableInput' });
+  const { classes, cx } = TableInputStyles({ hasError, rowStyles }, { name: 'TableInput' });
 
   return (
     <Box>
@@ -131,14 +151,18 @@ const TableInput = ({
         <TableInputDisplay
           {...props}
           form={form}
+          rowStyles={rowStyles}
           data={tableData}
           onAdd={handleOnAdd}
           onRemove={handleOnRemove}
+          onItemAdd={onItemAdd}
           onEdit={handleOnEdit}
           onSort={handleOnSort}
+          rowsExpanded={rowsExpanded}
           showHeaders={showHeaders}
           forceShowInputs={forceShowInputs}
           classes={classes}
+          renderRowSubComponent={renderRowSubComponent}
         />
       </Box>
       {hasError && <InputError message={error} />}

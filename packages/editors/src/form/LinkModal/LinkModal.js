@@ -121,10 +121,10 @@ const LinkModal = ({
               )}
             />
             <Stack fullWidth justifyContent="space-between" className={classes.buttonRow}>
-              <Button size="xs" variant="light" onClick={onCancelHandler}>
+              <Button size="sm" variant="light" onClick={onCancelHandler}>
                 {labels.cancel}
               </Button>
-              <Button size="xs" type="submit" disabled={submitCondition()}>
+              <Button size="sm" type="submit" disabled={submitCondition()}>
                 {currentTool.editing ? labels.update : labels.add}
               </Button>
             </Stack>

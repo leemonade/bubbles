@@ -1,6 +1,6 @@
 import React from 'react';
 import { capitalize, isFunction } from 'lodash';
-import { Box, Button, FileIcon, FileIconStyles, Text } from '@bubbles-ui/components';
+import { AvatarsGroup, Box, Button, FileIcon, Text } from '@bubbles-ui/components';
 import { LibraryCardFooterStyles } from './LibraryCardFooter.styles';
 import {
   LIBRARY_CARD_FOOTER_DEFAULT_PROPS,
@@ -11,6 +11,8 @@ const LibraryCardFooter = ({
   fileType,
   fileExtension,
   created,
+  canAccess,
+  classesCanAccess,
   action,
   onAction,
   locale,
@@ -46,7 +48,9 @@ const LibraryCardFooter = ({
       </Button>
     );
   } else if (variantIcon) {
-    const label = capitalize(fileType || variantTitle || variant);
+    const label =
+      (variantTitle ?? fileType ?? variant)?.charAt(0)?.toUpperCase() +
+      (variantTitle ?? fileType ?? variant)?.slice(1);
     component = (
       <Box className={classes.FileIconRoot}>
         {variantIcon}
@@ -60,7 +64,10 @@ const LibraryCardFooter = ({
         fileType={fileType || variant}
         fileExtension={fileExtension}
         color={'#636D7D'}
-        label={capitalize(fileType || variantTitle || variant)}
+        label={
+          (variantTitle ?? fileType ?? variant)?.charAt(0)?.toUpperCase() +
+          (variantTitle ?? fileType ?? variant)?.slice(1)
+        }
         hideExtension
       />
     );
@@ -73,10 +80,24 @@ const LibraryCardFooter = ({
       ) : (
         <>
           {component}
-          {created && (
+
+          {created ? (
             <Text role="productive" className={classes.date}>
               {formatDate()}
             </Text>
+          ) : (
+            <Box sx={(theme) => ({ paddingRight: theme.spacing[2] })}>
+              <AvatarsGroup
+                size="sm"
+                data={canAccess}
+                moreThanUsersAsMulti={2}
+                classesData={classesCanAccess}
+                zIndexInverted
+                numberFromClassesAndData
+                customAvatarMargin={4}
+                limit={3}
+              />
+            </Box>
           )}
         </>
       )}
@@ -84,7 +105,6 @@ const LibraryCardFooter = ({
   );
 };
 
-LibraryCardFooter.defaultProps = LIBRARY_CARD_FOOTER_DEFAULT_PROPS;
 LibraryCardFooter.propTypes = LIBRARY_CARD_FOOTER_PROP_TYPES;
 
 export { LibraryCardFooter };

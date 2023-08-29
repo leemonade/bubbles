@@ -83,18 +83,27 @@ const ContextContainer = ({
         <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
             <Box>
-              <Title order={3}>{title}</Title>
+              {typeof title === 'string' ? 
+                (<Title order={3} dangerouslySetInnerHTML={{ __html: title }} />)
+                : (subtitle)
+              }
             </Box>
           )}
           {hasSubtitle && (
             <Box>
-              <Title order={5}>{subtitle}</Title>
+              {typeof subtitle === 'string' ? 
+                (<Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />)
+                : (subtitle)
+              }
             </Box>
           )}
           {hasDescription && (
             <Box>
               {typeof description === 'string' ? (
-                <Paragraph className={classes.description}>{description}</Paragraph>
+                <Paragraph
+                  className={classes.description}
+                  dangerouslySetInnerHTML={{ __html: description }}
+                />
               ) : (
                 description
               )}

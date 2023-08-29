@@ -14,6 +14,7 @@ export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   filename: '',
   color: '',
   iconStyle: {},
+  noBreak: false,
 };
 export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   filename: PropTypes.string,
@@ -25,6 +26,7 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   size: PropTypes.number,
   url: PropTypes.string,
   useRouter: PropTypes.bool,
+  noBreak: PropTypes.bool,
 };
 
 const FileItemDisplay = ({
@@ -38,6 +40,7 @@ const FileItemDisplay = ({
   url,
   iconStyle,
   useRouter,
+  noBreak,
   ...props
 }) => {
   const calculatedSize = size / 3;
@@ -75,14 +78,16 @@ const FileItemDisplay = ({
     <Box className={classes.root} {...props}>
       <Box className={classes.iconWrapper}>
         <Text strong className={classes.iconFiletype}>
-          {fileExtension}
+          {fileExtension || 'FILE'}
         </Text>
         <FileIcon height={size} width={size} className={classes.icon} />
       </Box>
       {showFileName && name && (
-        <Text {...linkProps} className={classes.filename}>
-          {name}
-        </Text>
+          <TextClamp lines={noBreak ? 1 : 100}>
+            <Text {...linkProps} className={classes.filename}>
+              {name}
+            </Text>
+          </TextClamp>
       )}
     </Box>
   );

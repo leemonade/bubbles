@@ -88,6 +88,10 @@ const Swiper = ({
           nextEl: classes.nextButton,
           prevEl: classes.prevButton,
         }}
+        onSwiper={(swiper) => {
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
         onSlideChangeTransitionEnd={(swiper) => {
           setIsBeginning(swiper.isBeginning);
           setIsEnd(swiper.isEnd);

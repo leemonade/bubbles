@@ -66,7 +66,7 @@ const Card = ({
               {title}
             </Title>
             <IconButton
-              size="xs"
+              size="sm"
               style={{ backgroundColor: 'transparent' }}
               icon={<ExpandDiagonalIcon height={24} width={24} />}
             />

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Stack, Button } from '@bubbles-ui/components';
+import { Stack, Button, Title } from '@bubbles-ui/components';
 import { NotificationProvider, NOTIFICATION_PROVIDER_DEFAULT_PROPS } from './NotificationProvider';
+import { CONTEXT_TYPES } from './context';
 import { useNotifications } from './hooks';
 import mdx from './NotificationProvider.mdx';
 
@@ -22,11 +23,12 @@ export default {
   },
 };
 
-function NotificationsDemo() {
-  const notifications = useNotifications();
+function NotificationsDemo({ type }) {
+  const notifications = useNotifications(type);
 
   return (
-    <Stack direction="column" spacing={5}>
+    <Stack direction="column" spacing={5} ml={10}>
+      <Title>{type}</Title>
       <Button
         variant="outline"
         onClick={() =>
@@ -37,6 +39,20 @@ function NotificationsDemo() {
         }
       >
         Show default notification
+      </Button>
+
+      <Button
+        variant="outline"
+        onClick={() =>
+          notifications.showNotification({
+            title: 'You did great',
+            message: 'Data was saved',
+            avatar:
+              'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80',
+          })
+        }
+      >
+        Show notification with avatar
       </Button>
 
       <Button
@@ -123,14 +139,32 @@ function NotificationsDemo() {
 const Template = ({ ...props }) => {
   return (
     <NotificationProvider {...props}>
-      <NotificationsDemo />
+      <NotificationsDemo type={props.type} />
+    </NotificationProvider>
+  );
+};
+
+const ChatTemplate = ({ ...props }) => {
+  return (
+    <NotificationProvider {...props}>
+      <NotificationsDemo type={props.type} />
+      <NotificationProvider {...props} type={CONTEXT_TYPES.CHAT}>
+        <NotificationsDemo type={CONTEXT_TYPES.CHAT} />
+      </NotificationProvider>
     </NotificationProvider>
   );
 };
 
 export const Playground = Template.bind({});
+export const WithChat = ChatTemplate.bind({});
 
 Playground.args = {
+  // myBooleanProp: false,
+  // mySelectProp: 'Hello'
+  ...NOTIFICATION_PROVIDER_DEFAULT_PROPS,
+};
+
+WithChat.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...NOTIFICATION_PROVIDER_DEFAULT_PROPS,

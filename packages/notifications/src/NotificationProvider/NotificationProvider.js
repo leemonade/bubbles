@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Transition, TransitionGroup } from 'react-transition-group';
 import { Portal, getDefaultZIndex, Box } from '@mantine/core';
 import { useReducedMotion } from '@mantine/hooks';
-import { NotificationsContext } from './context';
+import { NotificationsContext, ChatContext, CONTEXT_TYPES } from './context';
 import { getPositionStyles, getNotificationStateStyles } from './helpers';
 import { useNotificationsState } from './hooks';
 import { NotificationContainer } from './NotificationContainer';
@@ -28,8 +28,14 @@ const NOTIFICATION_PROVIDER_PROP_TYPES = {
   /** Notifications container z-index */
   zIndex: PropTypes.number,
 
-  /** Notification position offset */
+  /** Notification position left offset */
   leftOffset: PropTypes.number,
+
+  /** Notification position X offset */
+  xOffset: PropTypes.number,
+
+  /** Notification type */
+  type: PropTypes.string,
 };
 export const NOTIFICATION_PROVIDER_DEFAULT_PROPS = {
   autoClose: 4000,
@@ -39,6 +45,8 @@ export const NOTIFICATION_PROVIDER_DEFAULT_PROPS = {
   limit: 5,
   zIndex: 999,
   leftOffset: 0,
+  xOffset: 0,
+  type: CONTEXT_TYPES.DEFAULT,
 };
 
 const NotificationProvider = ({
@@ -53,6 +61,8 @@ const NotificationProvider = ({
   style,
   children,
   leftOffset,
+  xOffset,
+  type,
   ...props
 }) => {
   const {
@@ -66,9 +76,20 @@ const NotificationProvider = ({
   } = useNotificationsState({ limit });
   const reduceMotion = useReducedMotion();
   const duration = reduceMotion ? 1 : transitionDuration;
-  const { classes, cx, theme } = NotificationProviderStyles({}, { name: 'NotificationProvider' });
-  const positioning = 'bottom-left'.split('-');
-  const zIndex = Math.min(zIndexProp, getDefaultZIndex('overlay'));
+  const { classes, cx, theme } = NotificationProviderStyles(
+    {},
+    { name: `NotificationProvider_${type}` }
+  );
+
+  let positioning = 'bottom-left'.split('-');
+  let zIndex = Math.min(zIndexProp, getDefaultZIndex('overlay'));
+  let Provider = NotificationsContext.Provider;
+
+  if (type === CONTEXT_TYPES.CHAT) {
+    positioning = 'bottom-right'.split('-');
+    zIndex += 1;
+    Provider = ChatContext.Provider;
+  }
 
   const items = notifications.map((notification) => (
     <Transition
@@ -84,6 +105,7 @@ const NotificationProvider = ({
           onHide={hideNotification}
           className={classes.notification}
           autoClose={autoClose}
+          type={type}
           sx={{
             ...getNotificationStateStyles({
               state,
@@ -98,7 +120,7 @@ const NotificationProvider = ({
   ));
 
   return (
-    <NotificationsContext.Provider
+    <Provider
       value={{
         notifications,
         queue,
@@ -116,14 +138,19 @@ const NotificationProvider = ({
           style={style}
           sx={{
             maxWidth: containerWidth,
-            ...getPositionStyles(positioning, containerWidth, theme.spacing.md, leftOffset),
+            ...getPositionStyles(
+              positioning,
+              containerWidth,
+              theme.spacing.md,
+              Math.max(leftOffset, xOffset)
+            ),
           }}
         >
           <TransitionGroup>{items}</TransitionGroup>
         </Box>
       </Portal>
       {children}
-    </NotificationsContext.Provider>
+    </Provider>
   );
 };
 

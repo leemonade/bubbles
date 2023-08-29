@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function ViewOffIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function ViewOffIcon(props) {
     d: "M8.25 12.75A3.749 3.749 0 0 1 12 9M15.75 12.749A3.75 3.75 0 0 1 12 16.5"
   }));
 }
-
 export default ViewOffIcon;

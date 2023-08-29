@@ -15,7 +15,13 @@ export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
 
 const TextEditorProvider = ({ editor, children, readOnly }) => {
   const [toolModalOpen, setToolModalOpen] = useState(false);
-  const [currentTool, setCurrentTool] = useState({ type: null, data: {}, editing: false });
+  const [currentTool, setCurrentTool] = useState({
+    type: null,
+    data: {},
+    editing: false,
+    toolBubbleMenu: null,
+    bubbleMenuOptions: {},
+  });
 
   const value = {
     editor,
@@ -23,12 +29,38 @@ const TextEditorProvider = ({ editor, children, readOnly }) => {
     currentTool,
     toolModalOpen,
     editToolData: (type, data, editing = true) => {
-      setCurrentTool({ type, data, editing });
+      setCurrentTool((prevTool) => ({
+        type,
+        data,
+        editing,
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
+      }));
       setToolModalOpen(true);
     },
     closeToolModal: () => {
-      setCurrentTool({ type: null, data: {}, editing: false });
+      setCurrentTool((prevTool) => ({
+        type: null,
+        data: {},
+        editing: false,
+        toolBubbleMenu: prevTool.toolBubbleMenu,
+        bubbleMenuOptions: prevTool.bubbleMenuOptions,
+      }));
       setToolModalOpen(false);
+    },
+    openBubbleMenu: (type, data, editing = true, toolBubbleMenu = null, bubbleMenuOptions = {}) => {
+      setTimeout(() => {
+        setCurrentTool({ type, data, editing, toolBubbleMenu, bubbleMenuOptions });
+      }, [170]);
+    },
+    closeBubbleMenu: () => {
+      setCurrentTool({
+        type: null,
+        data: {},
+        editing: false,
+        toolBubbleMenu: null,
+        bubbleMenuOptions: null,
+      });
     },
   };
 

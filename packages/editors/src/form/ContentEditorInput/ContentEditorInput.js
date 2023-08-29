@@ -1,12 +1,6 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Box } from '@bubbles-ui/components';
-import { ContentEditorInputStyles } from './ContentEditorInput.styles';
-import {
-  CONTENT_EDITOR_INPUT_DEFAULT_PROPS,
-  CONTENT_EDITOR_INPUT_PROP_TYPES,
-} from './ContentEditorInput.constants';
 import { TextEditor } from '../TextEditor';
 import {
   ColorTool,
@@ -17,6 +11,12 @@ import {
   ScriptsTool,
   LinkTool,
 } from '../../tool';
+import { ContentEditorInputStyles } from './ContentEditorInput.styles';
+import {
+  CONTENT_EDITOR_INPUT_DEFAULT_PROPS,
+  CONTENT_EDITOR_INPUT_PROP_TYPES,
+} from './ContentEditorInput.constants';
+import { Schema } from './Schema/Schema';
 
 const ContentEditorInput = ({
   error,
@@ -26,10 +26,18 @@ const ContentEditorInput = ({
   placeholder,
   toolbars,
   children,
+  toolLabels,
+  schemaLabel,
+  openSchema,
+  useSchema,
   editorStyles,
   editorClassname,
+  acceptedTags,
   ...props
 }) => {
+  const [schema, setSchema] = useState([]);
+  const [isSchemaOpened, setIsSchemaOpened] = useState(openSchema);
+
   // ··································································
   // STYLES
   const hasError = useMemo(() => !isEmpty(error), [error]);
@@ -38,24 +46,45 @@ const ContentEditorInput = ({
     { name: 'ContentEditorInput' }
   );
 
+  useEffect(() => {
+    if (openSchema !== isSchemaOpened) setIsSchemaOpened(openSchema);
+  }, [openSchema]);
+
   return (
     <Box className={classes.root}>
-      <TextEditor
-        {...props}
-        placeholder={placeholder}
-        content={value}
-        onChange={onChange}
-        editorClassname={cx(classes.editor, editorClassname)}
-      >
-        {toolbars.heading && <HeadingsTool />}
-        {toolbars.color && <ColorTool />}
-        {toolbars.style && <TransformsTool />}
-        {toolbars.align && <TextAlignTool />}
-        {toolbars.list && <ListIndentTool />}
-        {toolbars.formulation && <ScriptsTool />}
+      {useSchema && (
+        <Schema
+          schema={schema}
+          schemaLabel={schemaLabel}
+          isSchemaOpened={isSchemaOpened}
+          setIsSchemaOpened={setIsSchemaOpened}
+        />
+      )}
+      <Box className={classes.textEditorContainer}>
+        <TextEditor
+          {...props}
+          placeholder={placeholder}
+          content={value}
+          onChange={onChange}
+          onSchemaChange={(json) => setSchema(json.content)}
+          editorClassname={cx(classes.editor, editorClassname)}
+          toolbarClassname={classes.toolbarRoot}
+          editorContainerClassname={classes.editorContainer}
+          acceptedTags={acceptedTags}
+          useSchema
+          toolbarPosition={'center'}
+        >
+          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
+          {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
+          {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
+          {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}
+          {toolbars.list && <ListIndentTool labels={toolLabels.listIndentTool} />}
+          {toolbars.formulation && <ScriptsTool labels={toolLabels.scriptsTool} />}
+          {toolbars.link && <LinkTool {...toolLabels.linkTool} />}
 
-        {children}
-      </TextEditor>
+          {children}
+        </TextEditor>
+      </Box>
     </Box>
   );
 };

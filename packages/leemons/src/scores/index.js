@@ -1,3 +1,4 @@
+export * from './Tables/CommonTable.styles';
 export * from './Tables/ScoresBasicTable';
 export * from './Tables/ScoresReviewerTable';
 export * from './ScoresPeriodForm';

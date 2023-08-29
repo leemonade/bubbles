@@ -1,5 +1,4 @@
 const React = require("react");
-
 function CursorIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function CursorIcon(props) {
     d: "m1.816 2.8 8.428 19.072a.75.75 0 0 0 1.411-.112l1.884-7.158a1.5 1.5 0 0 1 1.068-1.07l7.158-1.883a.75.75 0 0 0 .113-1.411L2.806 1.814a.75.75 0 0 0-.99.986v0Z"
   }));
 }
-
 module.exports = CursorIcon;

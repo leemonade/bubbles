@@ -5,7 +5,6 @@ import {
   ACTION_BUTTON_SIZES,
   ACTION_BUTTON_COLORS,
   ACTION_BUTTON_DEFAULT_PROPS,
-  ACTION_BUTTON_VARIANTS,
 } from './ActionButton';
 import mdx from './ActionButton.mdx';
 
@@ -24,7 +23,6 @@ export default {
   argTypes: {
     size: { options: ACTION_BUTTON_SIZES, control: { type: 'select' } },
     color: { options: ACTION_BUTTON_COLORS, control: { type: 'select' } },
-    variant: { options: ACTION_BUTTON_VARIANTS, control: { type: 'select' } },
   },
 };
 

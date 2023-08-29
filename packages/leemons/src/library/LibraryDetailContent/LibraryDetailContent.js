@@ -1,6 +1,7 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 import {
+  ActionButton,
   Badge,
   Box,
   ImageLoader,
@@ -8,7 +9,6 @@ import {
   Stack,
   Text,
   useClipboard,
-  ActionButton,
 } from '@bubbles-ui/components';
 import { DuplicateIcon } from '@bubbles-ui/icons/outline';
 import { getDomain, LibraryCardContent } from '../LibraryCardContent';
@@ -28,7 +28,9 @@ const LibraryDetailContent = ({
   fileType,
   fileExtension,
   variant,
+  variantIcon,
   variantTitle,
+  excludeMetadatas,
   onCopy = () => {},
   ...props
 }) => {
@@ -44,6 +46,7 @@ const LibraryDetailContent = ({
     <Stack direction="column" className={classes.root}>
       <LibraryCardContent description={description} truncated={false} />
       <LibraryCardFooter
+        variantIcon={variantIcon}
         variantTitle={variantTitle}
         variant={variant}
         fileType={fileType}
@@ -83,7 +86,14 @@ const LibraryDetailContent = ({
         </Box>
       )}
       <Stack direction="column" className={classes.lowerContent}>
-        {!isEmpty(metadata) && <LibraryCardContent metadata={metadata} />}
+        {!isEmpty(metadata) && (
+          <LibraryCardContent
+            metadata={metadata.filter(
+              (item) =>
+                !excludeMetadatas.map((e) => e.toLowerCase()).includes(item.label.toLowerCase())
+            )}
+          />
+        )}
         {tags?.length > 0 && (
           <Box className={classes.tags}>
             <Box className={classes.tagsContainer}>

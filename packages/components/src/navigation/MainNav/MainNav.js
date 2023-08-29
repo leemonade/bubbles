@@ -4,7 +4,7 @@ import { useClickOutside } from '@mantine/hooks';
 import { find, isArray, isFunction, isEmpty } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
-import { ComputerKeyboardNextIcon } from '@bubbles-ui/icons/outline';
+import { ComputerKeyboardNextIcon, SearchIcon } from '@bubbles-ui/icons/outline';
 import { MainNavStyles } from './MainNav.styles';
 import { MainNavItem } from './MainNavItem/MainNavItem';
 import { Avatar } from '../../informative';
@@ -15,6 +15,7 @@ import { ActionButton } from '../../form';
 import { getActiveItem } from './helpers/getActiveItem';
 import { getUserFullName } from './helpers/getUserFullName';
 import { PALETTE } from '../../theme.constants';
+import { openSpotlight } from '../../navigation';
 
 export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {
@@ -25,6 +26,8 @@ export const MAIN_NAV_DEFAULT_PROPS = {
   mainColor: PALETTE.mainPrimary,
   drawerColor: PALETTE.neutral90,
   logoUrl: '',
+  useSpotlight: false,
+  spotlightTooltip: 'Search',
 };
 export const MAIN_NAV_PROP_TYPES = {
   hideSubNavOnClose: PropTypes.bool,
@@ -34,6 +37,8 @@ export const MAIN_NAV_PROP_TYPES = {
   mainColor: PropTypes.string,
   drawerColor: PropTypes.string,
   logoUrl: PropTypes.string,
+  useSpotlight: PropTypes.bool,
+  spotlightTooltip: PropTypes.string,
 };
 
 const MainNav = ({
@@ -52,6 +57,8 @@ const MainNav = ({
   mainColor,
   drawerColor,
   logoUrl,
+  useSpotlight,
+  spotlightTooltip,
   ...props
 }) => {
   const [activeItem, setActiveItem] = useState(null);
@@ -198,6 +205,16 @@ const MainNav = ({
           </Box>
           {/* Menu items */}
           <SimpleBar className={classes.navItems}>
+            {useSpotlight && (
+              <MainNavItem
+                key="spotlight"
+                item={{ label: spotlightTooltip, icon: <SearchIcon /> }}
+                itemWidth={MAIN_NAV_WIDTH}
+                onClick={() => openSpotlight()}
+                lightMode={lightMode}
+                drawerColor={drawerColor}
+              />
+            )}
             {isArray(menuData) &&
               menuData.map((item) => (
                 <MainNavItem

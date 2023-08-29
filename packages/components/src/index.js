@@ -1,8 +1,7 @@
 import SimpleBar from 'simplebar-react';
-import jsonTokens from '../tokens-compiled';
+import jsonTokens from './tokens.compiled';
 
-export { SimpleBar };
-export { jsonTokens };
+export { SimpleBar, jsonTokens };
 
 export {
   Grid,
@@ -14,13 +13,15 @@ export {
   UnstyledButton,
   List,
   Collapse,
-  Progress
+  Progress,
+  ScrollArea,
+  HoverCard,
 } from '@mantine/core';
+export * from '@mantine/spotlight';
 export {
   useId,
   useScrollIntoView,
   useElementSize,
-  useResizeObserver,
   useDebouncedValue,
   useClipboard,
   useViewportSize,
@@ -28,7 +29,7 @@ export {
   useHotkeys,
   useHover,
   useWindowScroll,
-  useIdle
+  useIdle,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
@@ -36,7 +37,8 @@ export {
   getFontProductive,
   pxToRem,
   getPaddings,
-  getHtmlStyles
+  getHtmlStyles,
+  getBoxShadowFromToken,
 } from './theme.mixins';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';

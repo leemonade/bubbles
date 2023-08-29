@@ -5,6 +5,8 @@ import { Box } from '../../../layout';
 import { Text } from '../../../typography';
 import { Avatar } from '../../../informative';
 import { CheckIcon } from '@bubbles-ui/icons/solid';
+import { isString } from 'lodash';
+import { ImageLoader } from '../../../misc';
 
 const Item = forwardRef(
   (
@@ -15,7 +17,11 @@ const Item = forwardRef(
     return (
       <Box className={classes.root} ref={ref} {...props}>
         {image && <Avatar size="sm" image={image} />}
-        {!image && icon && <Box className={classes.iconWrapper}>{icon}</Box>}
+        {!image && icon && (
+          <Box className={classes.iconWrapper}>
+            {isString(icon) ? <ImageLoader src={icon} height={16} width={16} /> : icon}
+          </Box>
+        )}
         <Text className={classes.label}>{label}</Text>
         {dataSelected && <CheckIcon className={classes.check} />}
       </Box>

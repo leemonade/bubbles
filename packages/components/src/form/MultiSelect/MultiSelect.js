@@ -20,7 +20,7 @@ const GetValueComponent = forwardRef(
   ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
     return (
       <Box ref={ref} {...others}>
-        <Component {...others} />
+        <Component {...others} onRemove={onRemove} />
       </Box>
     );
   }
@@ -47,12 +47,13 @@ const MultiSelect = forwardRef(
       maxSelectedValues,
       dropdownComponent,
       itemComponent,
-      valueComponent,
+      valueComponent: ValueComponent,
       onChange,
       useAria,
       disabled,
       autoSelectOneOption,
       ariaLabel,
+      style,
       ...props
     },
     ref
@@ -80,7 +81,7 @@ const MultiSelect = forwardRef(
         const selectedValue = ev?.pop();
         onChange(selectedValue ? [selectedValue] : undefined);
         multiSelectRef.current.blur();
-        multiSelectRef.current.focus();
+        // multiSelectRef.current.focus();
         return;
       }
       if (isFunction(onChange)) {
@@ -115,7 +116,7 @@ const MultiSelect = forwardRef(
     // STYLES
 
     const { classes, cx } = MultiSelectStyles(
-      { size, rightEvents: isClearable && showClear, hasIcon },
+      { size, multiple, rightEvents: isClearable && showClear, hasIcon },
       { name: 'MultiSelect' }
     );
 
@@ -129,6 +130,7 @@ const MultiSelect = forwardRef(
         size={size}
         error={error}
         orientation={orientation}
+        style={style}
       >
         {readOnly ? (
           <>
@@ -136,8 +138,8 @@ const MultiSelect = forwardRef(
               ? value.map((v) => {
                   const data = find(props.data, { value: v });
                   if (data) {
-                    if (valueComponent) {
-                      return <valueComponent {...data} />;
+                    if (ValueComponent) {
+                      return <ValueComponent {...data} />;
                     } else {
                       return <Badge label={data?.label} closable={false} />;
                     }
@@ -165,10 +167,10 @@ const MultiSelect = forwardRef(
                 dropdownComponent={Dropdown}
                 itemComponent={itemComponent || Item}
                 valueComponent={
-                  valueComponent
+                  ValueComponent
                     ? (componentInfo) => (
                         <GetValueComponent
-                          others={{ ...componentInfo, Component: valueComponent }}
+                          others={{ ...componentInfo, Component: ValueComponent }}
                         />
                       )
                     : undefined

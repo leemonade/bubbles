@@ -8,7 +8,7 @@ import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
 const Popover = forwardRef(
-  ({ padded, target, children, withCloseButton, onClose, styles, ...props }, ref) => {
+  ({ padded, target, children, withArrow, withCloseButton, onClose, styles, ...props }, ref) => {
     const { classes } = PopoverStyles({ padded, styles });
 
     const onCloseHandler = () => {
@@ -16,12 +16,18 @@ const Popover = forwardRef(
     };
 
     return (
-      <MantinePopover {...props} ref={ref} onClose={onClose} classNames={classes}>
+      <MantinePopover
+        {...props}
+        ref={ref}
+        withArrow={withArrow}
+        onClose={onClose}
+        classNames={classes}
+      >
         <MantinePopover.Target>{target}</MantinePopover.Target>
         <MantinePopover.Dropdown>
           {withCloseButton && (
             <Box className={classes.closeButton}>
-              <ActionButton size="xs" icon={<RemoveIcon />} onClick={onCloseHandler} />
+              <ActionButton size="sm" icon={<RemoveIcon />} onClick={onCloseHandler} />
             </Box>
           )}
           {children}

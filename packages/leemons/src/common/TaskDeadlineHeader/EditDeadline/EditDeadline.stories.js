@@ -42,5 +42,8 @@ Playground.args = {
     startHour: 'Hora de inicio',
     endDate: 'Fecha de fin',
     endHour: 'Hora de fin',
+    closedPeriod: 'Periodo cerrado',
+    liveSession: 'Sesión en directo',
+    openPeriod: 'Periodo abierto',
   },
 };

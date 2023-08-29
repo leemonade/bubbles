@@ -12,8 +12,9 @@ export const LibraryNavbarStyles = createStyles((theme, { isExpanded }) => {
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: theme.colors.ui03,
+      backgroundColor: theme.other.core.color.white,
       paddingBottom: theme.spacing[3],
+      borderRight: '1px solid ' + theme.other.core.color.neutral[100],
     },
     header: {
       gap: 4,

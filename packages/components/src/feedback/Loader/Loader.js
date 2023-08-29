@@ -26,7 +26,6 @@ export const LOADER_PROP_TYPES = {
 };
 
 const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
-  const { classes, cx } = LoaderStyles({});
   const direction = useMemo(() => (labelPosition === 'right' ? 'row' : 'column'), [labelPosition]);
 
   return (
@@ -39,7 +38,7 @@ const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
       aria-label={useAria ? 'BubblesLoader' : undefined}
       {...props}
     >
-      <MantineLoader classNames={classes} />
+      <MantineLoader />
       {isString(label) && <Text>{label}</Text>}
     </ContextContainer>
   );

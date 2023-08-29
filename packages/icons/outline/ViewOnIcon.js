@@ -1,5 +1,4 @@
 const React = require("react");
-
 function ViewOnIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function ViewOnIcon(props) {
     d: "M15.75 12a3.75 3.75 0 1 1-7.499-.002A3.75 3.75 0 0 1 15.75 12Z"
   }));
 }
-
 module.exports = ViewOnIcon;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Space } from '@mantine/core';
 import { Radio } from './Radio';
 import mdx from './Radio.mdx';
@@ -24,9 +24,20 @@ export default {
   },
 };
 
-const Template = ({ children, ...props }) => {
+const Template = ({ children, checked: _checked, onChange: _onChange, ...props }) => {
+  const [checked, setChecked] = useState(false);
+
+  const handleOnChange = (value) => {
+    _onChange(value);
+    setChecked(value);
+  };
+
+  useEffect(() => {
+    handleOnChange(_checked);
+  }, [_checked]);
+
   return (
-    <Radio {...props} name="test">
+    <Radio {...props} checked={checked} onChange={handleOnChange} name="test">
       {children}
     </Radio>
   );
@@ -42,4 +53,7 @@ Playground.args = {
   help: 'Help text',
   helpPosition: 'right',
   icon: <StarIcon height={32} width={32} />,
+  image:
+    'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
+  imageHeight: 100,
 };

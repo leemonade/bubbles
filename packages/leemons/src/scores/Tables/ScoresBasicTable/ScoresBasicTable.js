@@ -150,7 +150,7 @@ const ScoresBasicTable = ({
     const columns = [];
     columns.push({
       accessor: 'student',
-      width: 200,
+      width: 220,
       sticky: 'left',
       Header: (
         <Box className={classes.students}>
@@ -162,7 +162,12 @@ const ScoresBasicTable = ({
       Cell: ({ value }) => {
         return (
           <Box className={classes.studentsCells}>
-            <UserDisplayItem name={value.name} surnames={value.surname} avatar={value.image} />
+            <UserDisplayItem
+              name={value.name}
+              surnames={value.surname}
+              avatar={value.image}
+              noBreak
+            />
           </Box>
         );
       },
@@ -171,7 +176,7 @@ const ScoresBasicTable = ({
       const completionPercentage = getCompletionPercentage(activity.id);
       columns.push({
         accessor: activity.id,
-        width: 148,
+        width: 130,
         Header: () => (
           <ActivityHeader
             {...activity}

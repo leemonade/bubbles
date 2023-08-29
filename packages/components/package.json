@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.1.2",
+  "version": "1.1.108",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -37,7 +37,7 @@
     "build-publish": "run-s build version:patch publish",
     "version:patch": "npm version patch",
     "start": "yarn storybook",
-    "build": "run-s -cs build:clean build:lib build:fix types",
+    "build": "run-s -cs compile-tokens build:clean build:lib build:fix types",
     "build-all": "run-s build build-storybook",
     "build-all:no-types": "run-s build:no-types build-storybook",
     "build:no-types": "run-s -cs build:clean build:lib build:fix",
@@ -60,7 +60,7 @@
     "chromatic": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw"
   },
   "dependencies": {
-    "@bubbles-ui/icons": "1.1.0",
+    "@bubbles-ui/icons": "^1.1.108",
     "@emotion/react": "^11.10.0",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",
@@ -69,6 +69,7 @@
     "@mantine/dropzone": "5.5.5",
     "@mantine/hooks": "5.5.5",
     "@mantine/modals": "5.5.5",
+    "@mantine/spotlight": "5.5.5",
     "@nivo/bar": "^0.79.1",
     "@nivo/core": "^0.79.0",
     "@yaireo/tagify": "^4.9.4",

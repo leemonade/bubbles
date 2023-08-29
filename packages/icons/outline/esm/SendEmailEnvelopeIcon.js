@@ -1,5 +1,4 @@
 import * as React from "react";
-
 function SendEmailEnvelopeIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -20,5 +19,4 @@ function SendEmailEnvelopeIcon(props) {
     d: "m7.427 6.212 5.117 5.51a2 2 0 0 0 2.613.278l8.095-5.666M.5 7h4M.5 10h3M.5 13h2"
   }));
 }
-
 export default SendEmailEnvelopeIcon;

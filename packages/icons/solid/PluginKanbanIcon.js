@@ -1,5 +1,4 @@
 const React = require("react");
-
 function PluginKanbanIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     viewBox: "0 0 25 25",
@@ -13,5 +12,4 @@ function PluginKanbanIcon(props) {
     clipRule: "evenodd"
   }));
 }
-
 module.exports = PluginKanbanIcon;

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings } from '../../theme.mixins';
 
-export const TableStyles = createStyles((theme, { headerStyles }) => {
+export const TableStyles = createStyles((theme, { headerStyles = {} } = {}) => {
   const reset = {
     margin: 0,
     padding: 0,
@@ -65,6 +65,11 @@ export const TableStyles = createStyles((theme, { headerStyles }) => {
       ...reset,
       verticalAlign: 'middle',
       // display: 'inline-flex',
+    },
+    sortIcon: {
+      color: theme.colors.ui01,
+      cursor: 'grab',
+      paddingTop: theme.spacing[2],
     },
   };
 });

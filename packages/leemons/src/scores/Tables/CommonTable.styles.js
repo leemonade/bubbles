@@ -22,7 +22,7 @@ export const CommonTableStyles = createStyles(
           height: 6,
         },
         '::-webkit-scrollbar-track': {
-          marginLeft: 200,
+          marginLeft: 220,
           marginRight: 300,
           backgroundColor: theme.colors.ui02,
         },
@@ -48,7 +48,7 @@ export const CommonTableStyles = createStyles(
       },
       shadowBox: {
         zIndex: 4,
-        width: 198,
+        width: 218,
         position: 'absolute',
         left: 0,
         top: 0,
@@ -57,6 +57,7 @@ export const CommonTableStyles = createStyles(
           overFlowLeft &&
           '16px 0px 16px rgba(35, 43, 60, 0.05), 50px 0px 30px rgba(51, 63, 86, 0.03)',
         transition: 'box-shadow 0.2s ease-in-out',
+        pointerEvents: 'none',
       },
       bodyCell: {
         '&:first-of-type': {
@@ -76,6 +77,7 @@ export const CommonTableStyles = createStyles(
         borderRight: '1px solid #F2F2F2',
         paddingLeft: 10,
         backgroundColor: theme.colors.mainWhite,
+        zIndex: 100,
       },
       rightBody: {
         position: 'sticky',

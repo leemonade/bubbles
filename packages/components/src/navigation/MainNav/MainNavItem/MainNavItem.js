@@ -54,6 +54,9 @@ export const MainNavItem = ({
     setTimeout(() => setIsHovered(false), 3000);
   };
 
+  const handleSvgProps =
+    !item?.activeIconSvg || (!!item?.activeIconSvg && item?.activeIconSvg === item?.iconSvg);
+
   return (
     <Tooltip
       opened={isHovered}
@@ -74,13 +77,17 @@ export const MainNavItem = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <ImageLoader
-              className={cx(classes.icon)}
-              src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
-              alt={item.iconAlt}
-              strokeCurrent
-              ignoreFill={!active}
-            />
+            {!!item.icon ? (
+              React.cloneElement(item.icon, { className: cx(classes.icon) })
+            ) : (
+              <ImageLoader
+                className={cx(classes.icon)}
+                src={active && item.activeIconSvg ? item.activeIconSvg : item.iconSvg}
+                alt={item.iconAlt}
+                strokeCurrent
+                ignoreFill={!active && handleSvgProps}
+              />
+            )}
           </Button>
         </Wrapper>
       </Box>

@@ -11,7 +11,7 @@ import {
   Select,
 } from '@bubbles-ui/components';
 import { LoginProfileSelectorStyles } from './LoginProfileSelector.styles';
-import { find } from 'lodash';
+import _ from 'lodash';
 
 export const LOGIN_PROFILE_SELECTOR_DEFAULT_PROPS = {
   labels: { title: '', description: '', help: '', remember: '', login: '' },
@@ -43,77 +43,64 @@ const LoginProfileSelector = ({
   defaultValues: _defaultValues,
   ...props
 }) => {
-  const [profiles, setProfiles] = React.useState(null);
+  const [profileCenters, setProfileCenters] = React.useState([]);
   const { classes, cx } = LoginProfileSelectorStyles({}, { name: 'LoginProfileSelector' });
 
-  const centersData = React.useMemo(() => {
-    return centers.map((center) => {
-      return {
-        value: center.id,
-        label: center.name,
-      };
-    });
-  }, [centers]);
+  const profiles = getProfiles();
 
-  function getCenterProfiles(centerId) {
-    const center = find(centers, { id: centerId });
-    return center.profiles.map((profile) => ({
-      value: profile.id,
-      label: profile.name,
+  function getProfiles() {
+    const profiles = [];
+    _.forEach(centers, (center) => {
+      profiles.push(...center.profiles);
+    });
+    return _.uniqBy(profiles, 'id');
+  }
+
+  function getProfileCenters(profileId) {
+    const _centers = _.filter(centers, (center) => {
+      return !!_.find(center.profiles, { id: profileId });
+    });
+    return _centers.map((center) => ({
+      value: center.id,
+      label: center.name,
     }));
   }
 
   let defaultValues = {};
   if (_defaultValues) {
     defaultValues = _defaultValues;
-    if (!profiles) {
-      setProfiles(getCenterProfiles(defaultValues.center));
+    if (!profileCenters || !profileCenters.length) {
+      setProfileCenters(getProfileCenters(defaultValues.profile));
     }
-  } else if (centers.length === 1) {
-    defaultValues.center = centers[0].id;
-    if (!profiles) {
-      setProfiles(getCenterProfiles(defaultValues.center));
+  } else if (profiles.length === 1) {
+    defaultValues.profile = profiles[0].id;
+    if (!profileCenters || !profileCenters.length) {
+      setProfileCenters(getProfileCenters(defaultValues.profile));
     }
   }
 
   const {
     control,
+    watch,
     setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues });
 
+  const profilesData = React.useMemo(() => {
+    return profiles.map((profile) => {
+      return {
+        value: profile.id,
+        label: profile.name,
+      };
+    });
+  }, [profiles]);
+
+  const selectedProfile = _.find(profiles, { id: watch('profile') });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ContextContainer title={labels.title} description={labels.description} {...props}>
-        {centers.length > 1 ? (
-          <Controller
-            name="center"
-            control={control}
-            rules={{
-              required: errorMessages.center?.required,
-            }}
-            render={({ field: { onChange, value, onBlur } }) => (
-              <Select
-                data={centersData}
-                required
-                placeholder={labels.centerPlaceholder}
-                error={errors.center}
-                onChange={(e) => {
-                  const profiles = getCenterProfiles(e);
-                  if (profiles.length < 2) {
-                    setValue('profile', profiles[0].value);
-                  }
-                  setProfiles(profiles);
-                  onChange(e);
-                }}
-                value={value}
-                onBlur={onBlur}
-              />
-            )}
-          />
-        ) : null}
-
         {profiles?.length && profiles.length > 1 ? (
           <Controller
             name="profile"
@@ -125,11 +112,41 @@ const LoginProfileSelector = ({
               <RadioGroup
                 className={classes.radioGroup}
                 variant="icon"
-                data={profiles}
+                data={profilesData}
                 fullWidth
                 required
                 error={errors.profile}
-                onChange={onChange}
+                onChange={(e) => {
+                  const _centers = getProfileCenters(e);
+                  if (_centers.length < 2) {
+                    setValue('center', _centers[0].value);
+                  }
+                  setProfileCenters(_centers);
+                  onChange(e);
+                }}
+                value={value}
+                onBlur={onBlur}
+              />
+            )}
+          />
+        ) : null}
+
+        {profileCenters.length > 1 && selectedProfile && selectedProfile.sysName !== 'admin' ? (
+          <Controller
+            name="center"
+            control={control}
+            rules={{
+              required: errorMessages.center?.required,
+            }}
+            render={({ field: { onChange, value, onBlur } }) => (
+              <Select
+                data={profileCenters}
+                required
+                placeholder={labels.centerPlaceholder}
+                error={errors.center}
+                onChange={(e) => {
+                  onChange(e);
+                }}
                 value={value}
                 onBlur={onBlur}
               />

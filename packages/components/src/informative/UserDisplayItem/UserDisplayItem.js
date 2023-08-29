@@ -5,7 +5,7 @@ import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
 import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
 import { Box } from '../../layout';
 import { Avatar } from '../Avatar/';
-import { Text, TEXT_ROLES } from '../../typography';
+import { Text, TextClamp, TEXT_ROLES } from '../../typography';
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
@@ -33,7 +33,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   email: PropTypes.string,
   variant: PropTypes.oneOf(USER_DISPLAY_ITEM_VARIANTS),
   layout: PropTypes.oneOf(USER_DISPLAY_ITEM_LAYOUT),
-  size: PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
+  size: PropTypes.string, // PropTypes.oneOf(USER_DISPLAY_ITEM_SIZES),
   severity: PropTypes.oneOf(USER_DISPLAY_ITEM_SEVERITIES),
   textRole: PropTypes.oneOf(TEXT_ROLES),
   onChat: PropTypes.func,
@@ -56,6 +56,7 @@ const UserDisplayItem = (properties) => {
     size,
     noBreak,
     textRole,
+    fullNameClassname,
     ...props
   } = properties;
 
@@ -75,7 +76,7 @@ const UserDisplayItem = (properties) => {
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
   const fullName = useMemo(
-    () => (['rol', 'inline'].includes(variant) ? `${name}${surnames ? ` ${surnames}` : ''}` : name),
+    () => (['rol', 'inline'].includes(variant) ? `${surnames ? `${surnames}` : ''} ${name}` : name),
     [name, surnames, variant]
   );
 
@@ -106,7 +107,7 @@ const UserDisplayItem = (properties) => {
       />
       <Box
         className={classes.userInfo}
-        style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
+        // style={{ width: `calc(100% - 0.5rem - ${avatarSize === 'xs' ? 24 : 36}px)` }}
       >
         {variant === 'email' ? (
           <>
@@ -126,15 +127,21 @@ const UserDisplayItem = (properties) => {
               {role}
               {variant === 'rol' ? Icon : null}
             </Text>
-            <Text color={textColor} className={classes.name} role={textRole}>
-              {fullName}
-              {variant !== 'rol' ? Icon : null}
-            </Text>
             {!isEmpty(surnames) && (
               <Text color={textColor} className={classes.surnames} role={textRole}>
                 {surnames}
               </Text>
             )}
+            <TextClamp lines={noBreak ? 1 : 1000}>
+              <Text
+                color={textColor}
+                className={cx(classes.name, fullNameClassname)}
+                role={textRole}
+              >
+                {fullName}
+                {variant !== 'rol' ? Icon : null}
+              </Text>
+            </TextClamp>
           </>
         )}
       </Box>

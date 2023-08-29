@@ -1,5 +1,4 @@
 const React = require("react");
-
 function DownloadIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
@@ -15,5 +14,4 @@ function DownloadIcon(props) {
     d: "M12.001 3.75v12M7.501 11.25l4.5 4.5 4.5-4.5M23.251 15.75v1.5a3 3 0 0 1-3 3h-16.5a3 3 0 0 1-3-3v-1.5"
   }));
 }
-
 module.exports = DownloadIcon;

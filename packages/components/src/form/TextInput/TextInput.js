@@ -13,7 +13,7 @@ export const TEXT_INPUT_VARIANTS = ['default', 'filled'];
 export const TEXT_INPUT_PROP_TYPES = {
   name: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
-  size: PropTypes.oneOf(TEXT_INPUT_SIZES),
+  size: PropTypes.string, // PropTypes.oneOf(TEXT_INPUT_SIZES),
   variant: PropTypes.oneOf(TEXT_INPUT_VARIANTS),
   orientation: PropTypes.oneOf(TEXT_INPUT_ORIENTATION),
   placeholder: PropTypes.string,
@@ -58,6 +58,7 @@ const TextInput = forwardRef(
       disabled,
       readOnly,
       className,
+      classNames,
       maxLength,
       icon,
       variant,
@@ -109,7 +110,7 @@ const TextInput = forwardRef(
             placeholder={placeholder}
             rightSection={rightSection}
             invalid={!isEmpty(error)}
-            className={className}
+            classNames={classNames}
             maxLength={maxLength}
             autoComplete={autoComplete}
             aria-label={ariaLabel}

@@ -2,20 +2,23 @@ import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Notification as MantineNotification } from '@mantine/core';
-import { Box, Text, ALERT_SEVERITIES } from '@bubbles-ui/components';
+import { ALERT_SEVERITIES, Avatar, Box, Text } from '@bubbles-ui/components';
 import {
-  CheckIcon,
-  AlertWarningTriangleIcon,
   AlertInformationCircleIcon,
+  AlertWarningTriangleIcon,
   BlockIcon,
+  CheckIcon
 } from '@bubbles-ui/icons/solid';
 import { NotificationStyles } from './Notification.styles';
+import { CONTEXT_TYPES } from '../NotificationProvider/context';
 
 export const NOTIFICATION_DEFAULT_PROPS = {
   severity: 'none',
   loading: false,
   disallowClose: false,
   icon: null,
+  type: CONTEXT_TYPES.DEFAULT,
+  avatar: ''
 };
 
 export const NOTIFICATION_PROP_TYPES = {
@@ -42,35 +45,54 @@ export const NOTIFICATION_PROP_TYPES = {
 
   /** Removes close button */
   disallowClose: PropTypes.bool,
+
+  /** Notification type */
+  type: PropTypes.string,
+
+  /** Notification avatar */
+  avatar: PropTypes.string
 };
 
 const SEVERITY_ICONS = {
   info: AlertInformationCircleIcon,
   success: CheckIcon,
   error: BlockIcon,
-  warning: AlertWarningTriangleIcon,
+  warning: AlertWarningTriangleIcon
 };
 
 const Notification = forwardRef(
-  ({ children, message, severity, icon: iconProp, ...props }, ref) => {
+  ({ children, message, leftSide, severity, icon: iconProp, type, avatar, ...props }, ref) => {
     const icon = useMemo(() => {
+      if (leftSide) {
+        return <></>;
+      }
+      if (!isEmpty(avatar)) {
+        return <></>;
+      }
       if (!isEmpty(severity) && severity !== 'none') {
         const IconComp = SEVERITY_ICONS[severity];
         return <IconComp />;
       }
       return iconProp;
-    }, [severity, iconProp]);
+    }, [severity, iconProp, avatar]);
 
     const { classes, cx } = NotificationStyles(
-      { hasIcon: !isEmpty(icon), severity },
-      { name: 'Notification' }
+      { hasIcon: !isEmpty(icon), severity, type },
+      { name: `Notification_${type}` }
     );
 
     return (
       <MantineNotification {...props} ref={ref} classNames={classes} icon={icon}>
+        {leftSide ?
+          <Box style={{ position: 'absolute', left: 15, top: 15 }}>{leftSide}</Box> : null}
+        {!isEmpty(avatar) && (
+          <Box style={{ position: 'absolute', left: 15, top: 15 }}>
+            <Avatar image={avatar} />
+          </Box>
+        )}
         {!isEmpty(message) && (
           <Box>
-            <Text role="productive" size="xs" className={classes.message}>
+            <Text role='productive' size='xs' className={classes.message}>
               {message}
             </Text>
           </Box>
