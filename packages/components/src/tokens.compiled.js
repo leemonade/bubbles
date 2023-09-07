@@ -1575,6 +1575,10 @@ export default {
         "value": "32px",
         "type": "sizing"
       },
+      "xmd": {
+        "value": "48px",
+        "type": "sizing"
+      },
       "lg": {
         "value": "56px",
         "type": "sizing"
