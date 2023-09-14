@@ -22,9 +22,6 @@ export default {
       options: [...BULLET_SUBJECT_SIZES],
       control: { type: 'radio' },
     },
-    // color: {
-    //   control: { type: 'color' },
-    // },
   },
 };
 
@@ -35,7 +32,5 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...BULLET_SUBJECT_DEFAULT_PROPS,
 };

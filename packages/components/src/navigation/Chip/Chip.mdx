@@ -1,0 +1,51 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './Chip.stories.js';
+import { Chip } from './Chip.js';
+import { Group, Box, Anchor, Text } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# Chip
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/navigation/Chip/Chip.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Back label](#back-label)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+The Chip component is an element used for displaying small pieces of information or interactive elements. It can represent items such as tags, labels, or clickable buttons with compact visual representations.
+
+<ThemeProvider>
+  <Box style={{ padding: 16 }}>
+    <Chip> NEW </Chip>
+  </Box>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-navigation-chip--playground" />
+</Preview>
+
+<Props of={Chip} />
+
+## References
+
+[MDN: ARIA Link role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+[W3: ARIA Link role example](https://www.w3.org/WAI/ARIA/apg/example-index/link/link.html)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/navigation/Breadcrumbs/Breadcrumbs.mdx)
