@@ -2,9 +2,13 @@ import { createStyles } from '@mantine/styles';
 
 const getSizes = (size, theme) => {
   const chipPadding = theme.other.badge.spacing.padding;
+  if (size === 'menu') {
+    return {
+      padding: `2px 8px`,
+    };
+  }
   return {
-    height: 'unset',
-    padding: `${chipPadding[size]}`,
+    padding: `${chipPadding[size] / 2}px ${chipPadding[size]}px`,
   };
 };
 
@@ -37,6 +41,7 @@ const getVariant = (variant, theme, color) => {
 
 export const ChipStyles = createStyles((theme, { size, variant, color, disabled }) => {
   const chipTheme = theme.other.badge;
+  const sizeMenu = size === 'menu';
   console.log(theme.other);
   const textColor = {
     filled: {
@@ -59,20 +64,26 @@ export const ChipStyles = createStyles((theme, { size, variant, color, disabled 
   }
   return {
     root: {
-      ...getSizes(size || 'md', theme),
       '&[data-disabled]': {
         ...disabledOverrides,
         '& > div': {},
       },
     },
     label: {
+      ...getSizes(size || 'md', theme),
       ...getVariant(variant, theme, color),
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      width: 'fit-content',
       '& > span': {
         color: textColor[variant][color],
+        // ...chipTheme.content.typo[size],
+        fontSize: sizeMenu && '8px',
       },
     },
     checkIcon: {
-      color: '#FFF',
+      color: textColor[variant][color],
     },
   };
 });

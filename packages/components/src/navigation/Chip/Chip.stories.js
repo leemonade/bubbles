@@ -1,7 +1,6 @@
 import React from 'react';
 import { Chip, CHIP_DEFAULT_PROPS } from './Chip';
 import mdx from './Chip.mdx';
-import { Text } from '../../typography';
 
 export default {
   title: 'Molecules/Navigation/Chip',
@@ -12,7 +11,7 @@ export default {
     },
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3621%3A23005',
+      // url: 'https://www.figma.com/file/c3MWm2gVHU4JfYlVfr5VvB/%F0%9F%8D%8B%F0%9F%92%A7-Bubbles-SD-v2?node-id=3621%3A23005',
     },
   },
   argTypes: {
@@ -23,7 +22,7 @@ export default {
     },
     size: {
       control: { type: 'select' },
-      options: ['xs', 'sm', 'md'],
+      options: ['menu', 'xs', 'sm', 'md'],
     },
     variant: {
       control: { type: 'select' },
@@ -32,13 +31,17 @@ export default {
     children: {
       control: { type: 'text' },
     },
-
+    defaultChecked: {
+      control: { type: 'boolean' },
+      options: [true, false],
+    },
     ...CHIP_DEFAULT_PROPS,
   },
 };
 
 const Template = ({ ...props }) => {
-  return <Chip {...props} />;
+  const [isChecked, setIsChecked] = React.useState(false);
+  return <Chip {...props} onChange={() => setIsChecked(!isChecked)} checked={isChecked} />;
 };
 export const Playground = Template.bind({});
 

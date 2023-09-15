@@ -29,6 +29,25 @@ The Chip component is an element used for displaying small pieces of information
   </Box>
 </ThemeProvider>
 
+The Chip can be outlined too
+
+<ThemeProvider>
+  <Box style={{ padding: 16 }}>
+    <Chip variant="outlined"> NEW </Chip>
+  </Box>
+</ThemeProvider>
+
+This component had a internal state and a onChange function to control his check state:
+
+<ThemeProvider>
+  <Box style={{ padding: 16 }}>
+    <Chip variant="outlined" checked={true}>
+      {' '}
+      NEW{' '}
+    </Chip>
+  </Box>
+</ThemeProvider>
+
 ## Component API
 
 <Preview>

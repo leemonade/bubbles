@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chip as MantineChip } from '@mantine/core';
 import { ChipStyles } from './Chip.styles';
 import {
@@ -14,11 +14,9 @@ import { Text } from '../../typography';
 
 const Chip = ({
   checked,
-  defaultChecked,
   children,
   color: colorProp,
-  // defaultChecked,
-  id,
+  defaultChecked,
   onChange,
   radius: radiusProp,
   size: sizeProp,
@@ -27,17 +25,17 @@ const Chip = ({
   disabled,
   ...props
 }) => {
-  const [isChecked, setIsChecked] = useState(() => (defaultChecked ? true : checked));
+  const [isChecked, setIsChecked] = useState(checked);
+  useEffect(() => {
+    defaultChecked && setIsChecked(true);
+  }, [isChecked]);
+
   const color = CHIP_COLORS.includes(colorProp) ? colorProp : CHIP_COLORS[0];
   const radius = CHIP_RADIUS.includes(radiusProp) ? radiusProp : CHIP_DEFAULT_PROPS[2];
   const size = CHIP_SIZES.includes(sizeProp) ? sizeProp : CHIP_SIZES[1];
   const type = CHIP_TYPE.includes(typeProp) ? typeProp : CHIP_TYPE[0];
   const variant = CHIP_VARIANTS.includes(variantProp) ? variantProp : CHIP_VARIANTS[0];
-  const textColor = {
-    primary: '#FFF',
-    secondary: '#FFF',
-  };
-  const { classes, sx } = ChipStyles({ size, variant, color, disabled });
+  const { classes } = ChipStyles({ size, variant, color, disabled });
   return (
     <MantineChip
       {...props}
@@ -48,12 +46,11 @@ const Chip = ({
       variant={'outlined'}
       checked={isChecked}
       classNames={classes}
-      onChange={() => {
-        props.defaultChecked && setIsChecked(true);
-        onChange(!isChecked);
+      onClick={() => {
+        setIsChecked(!isChecked);
       }}
     >
-      <Text size={size} sx={{ color: textColor[color] }} transform="uppercase">
+      <Text size={size} transform="uppercase">
         {children}
       </Text>
     </MantineChip>
