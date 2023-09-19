@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { trim } from 'lodash';
 import { useDebouncedValue } from '@mantine/hooks';
@@ -30,8 +30,8 @@ export const SEARCH_INPUT_PROP_TYPES = {
   ariaLabel: PropTypes.string,
 };
 
-const SearchInput = React.forwardRef(
-  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }) => {
+const SearchInput = forwardRef(
+  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }, ref) => {
     const [value, setValue] = useState(valueProp);
     const [debounced] = useDebouncedValue(value, wait);
 
@@ -50,6 +50,7 @@ const SearchInput = React.forwardRef(
         onChange={(e) => setValue(e)}
         icon={<SearchIcon />}
         ariaLabel={ariaLabel}
+        ref={ref}
       />
     );
   }
