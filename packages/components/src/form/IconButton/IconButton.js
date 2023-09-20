@@ -5,7 +5,7 @@ import { ActionIcon as MantineActionIcon } from '@mantine/core';
 import { IconButtonStyles } from './IconButton.styles';
 
 export const ICON_BUTTON_SIZES = ['xs', 'sm', 'md', 'lg'];
-export const ICON_BUTTON_VARIANTS = ['default', 'transparent'];
+export const ICON_BUTTON_VARIANTS = ['default', 'transparent', 'menuButton'];
 export const ICON_BUTTON_COLORS = ['positive', 'negative', 'primary'];
 
 export const ICON_BUTTON_DEFAULT_PROPS = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '../../layout';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
 import {
   IconButton,
@@ -31,9 +32,11 @@ export default {
 
 const Template = ({ ...props }) => {
   return (
-    <IconButton {...props}>
-      <ChevronRightIcon />
-    </IconButton>
+    <Box style={{ backgroundColor: '#2b2b2b', width: 200, height: 200 }}>
+      <IconButton {...props}>
+        <ChevronRightIcon />
+      </IconButton>
+    </Box>
   );
 };
 

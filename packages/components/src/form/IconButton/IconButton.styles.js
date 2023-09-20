@@ -84,6 +84,23 @@ const getVariant = (variant, theme, color) => {
       },
     },
     transparent: {},
+    menuButton: {
+      width: 30,
+      positive: {
+        backgroundColor: 'transparent',
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
+        },
+        '&:active': {
+          backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
+          borderColor: theme.colors.interactive01,
+        },
+        '&:focus': {
+          backgroundColor: 'rgba(255, 255, 255, 0.15) !important',
+          borderColor: '#fff',
+        },
+      },
+    },
   };
   return variants[variant][color];
 };
