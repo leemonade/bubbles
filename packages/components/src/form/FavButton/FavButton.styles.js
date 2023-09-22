@@ -2,7 +2,6 @@ import { createStyles } from '@mantine/styles';
 import { getFontExpressive } from '../../theme.mixins';
 
 export const FavButtonStyles = createStyles((theme, { isActive, isParentHovered }) => {
-  console.log('theme', theme);
   const leemonsStyles = theme.other;
   return {
     root: {
