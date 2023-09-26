@@ -6,7 +6,7 @@ import { LoveItIcon } from '@bubbles-ui/icons/outline';
 
 const FavButton = ({ isActive, isParentHovered }) => {
   const [active, setActive] = useState(isActive);
-  const { classes, cx } = FavButtonStyles({ isActive, isParentHovered }, { name: 'FavButton' });
+  const { classes } = FavButtonStyles({ isActive, isParentHovered }, { name: 'FavButton' });
 
   const handleIsActive = () => {
     setActive(!active);

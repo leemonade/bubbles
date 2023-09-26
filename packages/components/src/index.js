@@ -17,6 +17,7 @@ export {
   ScrollArea,
   HoverCard,
   Skeleton,
+  keyframes,
 } from '@mantine/core';
 export * from '@mantine/spotlight';
 export {

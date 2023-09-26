@@ -1,8 +1,8 @@
 import { createStyles } from '@mantine/styles';
-import { getFontExpressive } from '../../theme.mixins';
 
 export const FavButtonStyles = createStyles((theme, { isActive, isParentHovered }) => {
   const leemonsStyles = theme.other;
+  const isIconActive = isActive ? 'rgba(255,255,255, 0.5)' : theme.colors.fatic01;
   return {
     root: {
       padding: 5,
@@ -13,8 +13,10 @@ export const FavButtonStyles = createStyles((theme, { isActive, isParentHovered 
       justifyContent: 'center',
     },
     loveIcon: {
+      position: 'relative',
+      zIndex: 1,
       paddingTop: 1,
-      stroke: theme.colors.fatic01,
+      stroke: isParentHovered ? theme.colors.fatic01 : isIconActive,
       fill: isActive ? theme.colors.fatic01 : 'transparent',
     },
   };
