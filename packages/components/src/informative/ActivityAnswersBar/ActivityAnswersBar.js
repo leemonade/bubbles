@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { ResponsiveBar } from '@nivo/bar';
+import { groupBy } from 'lodash';
 import { Box } from '../../layout';
 import { Select } from '../../form';
-import { COLORS } from '../../';
-import { ResponsiveBar } from '@nivo/bar';
+import { COLORS } from '../..';
 import { ActivityAnswersBarStyles } from './ActivityAnswersBar.styles';
 import {
   ACTIVITY_ANSWERS_BAR_DEFAULT_PROPS,
   ACTIVITY_ANSWERS_BAR_PROP_TYPES,
 } from './ActivityAnswersBar.constants';
-import { groupBy } from 'lodash';
 import { CustomBar } from './CustomBar';
 import { getFontProductive } from '../../theme.mixins';
 import { CustomLegend } from './CustomLegend';
@@ -49,14 +49,12 @@ const ActivityAnswersBar = ({
 
   useEffect(() => {
     const groupedData = groupBy(data, selectedGroup);
-    const newData = Object.keys(groupedData).map((key) => {
-      return {
-        [selectedGroup]: key,
-        OK: groupedData[key].filter((item) => item.status === 'OK').length,
-        KO: groupedData[key].filter((item) => item.status === 'KO').length,
-        null: groupedData[key].filter((item) => item.status === null).length,
-      };
-    });
+    const newData = Object.keys(groupedData).map((key) => ({
+      [selectedGroup]: key,
+      OK: groupedData[key].filter((item) => item.status === 'OK').length,
+      KO: groupedData[key].filter((item) => item.status === 'KO').length,
+      null: groupedData[key].filter((item) => item.status === null).length,
+    }));
     const longestKeyCharacters = Math.max(...Object.keys(groupedData).map((key) => key.length));
     setLongestKeyCharacters(longestKeyCharacters);
     setRenderedData(newData);

@@ -41,9 +41,9 @@ export const Button = forwardRef(
       useAria,
       ariaLabel,
       textAlign,
-      compact, //UNUSED
-      gradient, //UNUSED
-      radius, //UNUSED
+      compact, // UNUSED
+      gradient, // UNUSED
+      radius, // UNUSED
       ...props
     },
     ref
