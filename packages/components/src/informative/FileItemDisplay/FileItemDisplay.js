@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FileIcon } from '@bubbles-ui/icons/outline';
-import { Text, TextClamp } from '../../typography';
-import { Box } from '../../layout';
-import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 import { Link } from 'react-router-dom';
+import { Text, TextClamp } from '../../typography';
+import { Box } from '../../layout/Box';
+import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   showFileName: true,
@@ -27,6 +27,7 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   url: PropTypes.string,
   useRouter: PropTypes.bool,
   noBreak: PropTypes.bool,
+  iconStyle: PropTypes.object,
 };
 
 const FileItemDisplay = ({
@@ -64,7 +65,7 @@ const FileItemDisplay = ({
     return filename;
   }, [filename, hideExtension, hasExtension]);
 
-  const { classes, cx } = FileItemDisplayStyles(
+  const { classes } = FileItemDisplayStyles(
     {
       size,
       calculatedSize,
@@ -72,7 +73,7 @@ const FileItemDisplay = ({
       url,
       iconStyle,
     },
-    { name: 'FileItemDisplay' }
+    { name: 'FileItemDisplay' },
   );
   const fileItemDisplay = (
     <Box className={classes.root} {...props}>
@@ -83,11 +84,11 @@ const FileItemDisplay = ({
         <FileIcon height={size} width={size} className={classes.icon} />
       </Box>
       {showFileName && name && (
-          <TextClamp lines={noBreak ? 1 : 100}>
-            <Text {...linkProps} className={classes.filename}>
-              {name}
-            </Text>
-          </TextClamp>
+        <TextClamp lines={noBreak ? 1 : 100}>
+          <Text {...linkProps} className={classes.filename}>
+            {name}
+          </Text>
+        </TextClamp>
       )}
     </Box>
   );

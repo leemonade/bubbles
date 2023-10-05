@@ -15,13 +15,11 @@ export default {
     },
   },
   argTypes: {
-    fileType: { options: ['audio', 'video', 'image', 'noicon'], control: 'select' },
+    fileType: { options: ['audio', 'video', 'image', 'bookmark', 'noicon'], control: 'select' },
   },
 };
 
-const Template = ({ children, ...props }) => {
-  return <FileIcon {...props}>{children}</FileIcon>;
-};
+const Template = ({ children, ...props }) => <FileIcon {...props}>{children}</FileIcon>;
 
 export const Playground = Template.bind({});
 

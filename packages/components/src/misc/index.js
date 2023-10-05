@@ -3,4 +3,8 @@ export * from './InlineSvg';
 export * from './HeroBg';
 export * from './Logo';
 export * from './FileIcon';
+export * from './FileIcon/AssetAudioIcon';
+export * from './FileIcon/AssetImageIcon';
+export * from './FileIcon/AssetBookmarkIcon';
+export * from './FileIcon/AssetVideoIcon';
 export * from './BulletSubject';

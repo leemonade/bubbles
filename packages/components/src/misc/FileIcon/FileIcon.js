@@ -40,15 +40,15 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
   const { classes } = FileIconStyles({ size, color });
 
   const FileTypeIcon = [
-    { key: 'video', value: <AssetVideoIcon height={size} width={size} /> },
-    { key: 'audio', value: <AssetAudioIcon height={size} width={size} /> },
-    { key: 'image', value: <AssetImageIcon height={size} width={size} /> },
-    { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} /> },
+    { key: 'video', value: <AssetVideoIcon height={size} width={size} color={color} /> },
+    { key: 'audio', value: <AssetAudioIcon height={size} width={size} color={color} /> },
+    { key: 'image', value: <AssetImageIcon height={size} width={size} color={color} /> },
+    { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} color={color} /> },
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
     { key: 'tests', value: <PluginTestIcon height={size} width={size} /> },
     { key: 'questionBank', value: <PluginTestIcon height={size} width={size} /> },
-    { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
+    // { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
