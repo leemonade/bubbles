@@ -23,6 +23,8 @@ import { DatePickerStyles } from './DatePicker.styles';
 import { updateDate, updateTime } from './helpers';
 import { Paragraph } from '../../typography';
 
+console.log('entra aqui');
+
 dayjs.extend(localizedFormat);
 
 export const DATE_PICKER_SIZES = INPUT_WRAPPER_SIZES;
@@ -95,7 +97,7 @@ const DatePicker = forwardRef(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
     const [currentLocale, setCurrentLocale] = useState(locale);
@@ -104,6 +106,7 @@ const DatePicker = forwardRef(
     const compProps = range ? { amountOfMonths: 2 } : {};
     const [ready, setReady] = useState(null);
     const [date, setDate] = useState(userValue);
+    console.log(userValue);
     const { classes } = DatePickerStyles({ size, date, range });
 
     function render() {
@@ -196,7 +199,7 @@ const DatePicker = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
 DatePicker.defaultProps = DATE_PICKER_DEFAULT_PROPS;

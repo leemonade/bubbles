@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
@@ -14,7 +15,7 @@ import { Box } from '@bubbles-ui/components';
 import TimeGridHeader from './TimeGridHeader';
 import DayColumn from '../DayView/DayColumn';
 
-let customInRange = (event, rangeStart, rangeEnd, localizer) => {
+const customInRange = (event, rangeStart, rangeEnd, localizer) => {
   const eStart = event.start;
   const eEnd = event.end;
 
@@ -78,7 +79,7 @@ export default class TimeGrid extends Component {
     }
 
     this.applyScroll();
-    //this.checkOverflow()
+    // this.checkOverflow()
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -97,7 +98,7 @@ export default class TimeGrid extends Component {
   };
 
   handleSelectAlldayEvent = (...args) => {
-    //cancel any pending selections so only the event click goes through.
+    // cancel any pending selections so only the event click goes through.
     this.clearSelection();
     notify(this.props.onSelectEvent, args);
   };
@@ -114,12 +115,12 @@ export default class TimeGrid extends Component {
       start,
       end,
       action: slotInfo.action,
-      resourceId: slotInfo.resourceId
+      resourceId: slotInfo.resourceId,
     });
   };
 
   renderEvents(range, events, backgroundEvents, now) {
-    let { min, max, components, accessors, localizer, dayLayoutAlgorithm } = this.props;
+    const { min, max, components, accessors, localizer, dayLayoutAlgorithm } = this.props;
 
     const resources = this.memoizedResources(this.props.resources, accessors);
     const groupedEvents = resources.groupEvents(events);
@@ -127,12 +128,12 @@ export default class TimeGrid extends Component {
 
     return resources.map(([id, resource], i) =>
       range.map((date, jj) => {
-        let daysEvents = (groupedEvents.get(id) || []).filter((event) =>
-          localizer.inRange(date, accessors.start(event), accessors.end(event), 'day')
+        const daysEvents = (groupedEvents.get(id) || []).filter((event) =>
+          localizer.inRange(date, accessors.start(event), accessors.end(event), 'day'),
         );
 
-        let daysBackgroundEvents = (groupedBackgroundEvents.get(id) || []).filter((event) =>
-          localizer.inRange(date, accessors.start(event), accessors.end(event), 'day')
+        const daysBackgroundEvents = (groupedBackgroundEvents.get(id) || []).filter((event) =>
+          localizer.inRange(date, accessors.start(event), accessors.end(event), 'day'),
         );
 
         return (
@@ -144,14 +145,14 @@ export default class TimeGrid extends Component {
             resource={resource && id}
             components={components}
             isNow={localizer.isSameDate(date, now)}
-            key={i + '-' + jj}
+            key={`${i}-${jj}`}
             date={date}
             events={daysEvents}
             backgroundEvents={daysBackgroundEvents}
             dayLayoutAlgorithm={dayLayoutAlgorithm}
           />
         );
-      })
+      }),
     );
   }
 
@@ -173,29 +174,29 @@ export default class TimeGrid extends Component {
       max,
       showMultiDayTimes,
       longPressThreshold,
-      resizable
+      resizable,
     } = this.props;
 
     const { cx, noAllDayEvents } = components;
 
     width = width || this.state.gutterWidth;
 
-    let start = range[0],
-      end = range[range.length - 1];
+    const start = range[0];
+    const end = range[range.length - 1];
 
     this.slots = range.length;
 
-    let allDayEvents = [],
-      rangeEvents = [],
-      rangeBackgroundEvents = [];
+    const allDayEvents = [];
+    const rangeEvents = [];
+    const rangeBackgroundEvents = [];
 
     events.forEach((event) => {
       // Aqui se estaba usando esta función inRange(event, start, end, accessors, localizer)
       // Pero por algún motivo no estaba determinando bien si el evento estaba dentro del rango o no
       end.setHours(23, 59, 59, 59);
       if (customInRange(event, start, end, localizer)) {
-        let eStart = accessors.start(event),
-          eEnd = accessors.end(event);
+        const eStart = accessors.start(event);
+        const eEnd = accessors.end(event);
 
         if (
           accessors.allDay(event) ||
@@ -220,7 +221,7 @@ export default class TimeGrid extends Component {
     return (
       <Box
         className={cx('rbc-time-view', {
-          'rbc-time-view-resources': resources
+          'rbc-time-view-resources': resources,
           // 'hide-weekends': !showWeekends,
         })}
       >
@@ -248,7 +249,7 @@ export default class TimeGrid extends Component {
           getDrilldownView={this.props.getDrilldownView}
           resizable={resizable}
         />
-        <Box ref={this.contentRef} className='rbc-time-content' onScroll={this.handleScroll}>
+        <Box ref={this.contentRef} className="rbc-time-content" onScroll={this.handleScroll}>
           <TimeGutter
             date={start}
             ref={this.gutterRef}
@@ -259,7 +260,7 @@ export default class TimeGrid extends Component {
             getNow={this.props.getNow}
             timeslots={this.props.timeslots}
             components={components}
-            className='rbc-time-gutter'
+            className="rbc-time-gutter"
             getters={getters}
           />
           {this.renderEvents(range, rangeEvents, rangeBackgroundEvents, getNow())}
@@ -308,7 +309,7 @@ export default class TimeGrid extends Component {
     if (this._updatingOverflow) return;
 
     const content = this.contentRef.current;
-    let isOverflowing = content.scrollHeight > content.clientHeight;
+    const isOverflowing = content.scrollHeight > content.clientHeight;
 
     if (this.state.isOverflowing !== isOverflowing) {
       this._updatingOverflow = true;
@@ -359,10 +360,10 @@ TimeGrid.propTypes = {
   onDrillDown: PropTypes.func,
   getDrilldownView: PropTypes.func.isRequired,
 
-  dayLayoutAlgorithm: DayLayoutAlgorithmPropType
+  dayLayoutAlgorithm: DayLayoutAlgorithmPropType,
 };
 
 TimeGrid.defaultProps = {
   step: 30,
-  timeslots: 2
+  timeslots: 2,
 };

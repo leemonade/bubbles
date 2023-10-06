@@ -1,3 +1,4 @@
+/* eslint-disable */
 import overlap from './overlap';
 
 function getMaxIdxDFS(node, maxIdx, visited) {
@@ -24,7 +25,7 @@ export default function ({ events, minimumStartDifference, slotMetrics, accessor
     a = a.style;
     b = b.style;
     if (a.top !== b.top) return a.top > b.top ? 1 : -1;
-    else return a.top + a.height < b.top + b.height ? 1 : -1;
+    return a.top + a.height < b.top + b.height ? 1 : -1;
   });
 
   for (let i = 0; i < styledEvents.length; ++i) {
@@ -85,7 +86,7 @@ export default function ({ events, minimumStartDifference, slotMetrics, accessor
     // stretch to maximum
     let maxIdx = 0;
     for (let j = 0; j < e.friends.length; ++j) {
-      const idx = e.friends[j].idx;
+      const { idx } = e.friends[j];
       maxIdx = maxIdx > idx ? maxIdx : idx;
     }
     if (maxIdx <= e.idx) e.size = 100 - e.idx * e.size;

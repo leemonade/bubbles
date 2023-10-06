@@ -1,86 +1,46 @@
 import React from 'react';
 import clsx from 'clsx';
-import {
-  Avatar,
-  Box,
-  createStyles,
-  getFontProductive,
-  ImageLoader,
-  Stack,
-  Text,
-} from '@bubbles-ui/components';
+import { Avatar, Box, ImageLoader, Stack, Text } from '@bubbles-ui/components';
 import { colord } from 'colord';
+import { eventWrapperStyles } from './EventWrapper.styles';
+import { emptyPixel, stringifyPercent, EVENTWRAPPER_PROPTYPES } from './EventWrapper.constants';
 
-function stringifyPercent(v) {
-  return typeof v === 'string' ? v : v + '%';
-}
-
-const emptyPixel =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
-const eventWrapperStyles = createStyles((theme, { isAllDay, bgColor }) => {
-  return {
-    date: {
-      ...getFontProductive('10px', '500'),
-      color: theme.colors.text05,
-      marginTop: theme.spacing[1],
-    },
-    texts: {
-      marginTop: 0, // theme.spacing[1]
-      lineHeight: '1em',
-    },
-    icon: {
-      borderRadius: '50%',
-      color: `${theme.colors.text07}!important`,
-      backgroundColor: `${bgColor}!important`,
-      minWidth: '20px',
-      minHeight: '20px',
-      position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
-      verticalAlign: 'middle',
-      img: {
-        filter: 'brightness(0) invert(1)',
-      },
-    },
-  };
-});
-
-export function EventWrapper(props) {
-  if (props.type === 'date') {
-    return props.children;
+const EventWrapper = ({
+  style,
+  className,
+  event,
+  accessors,
+  rtl,
+  type,
+  children,
+  selected,
+  label,
+  continuesPrior,
+  continuesAfter,
+  getters,
+  onClick,
+  onDoubleClick,
+  isBackgroundEvent,
+  onKeyPress,
+  components: { forceBgColorToEvents },
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+}) => {
+  if (type === 'date') {
+    return children;
   }
-
-  const {
-    style,
-    className,
-    event,
-    accessors,
-    rtl,
-    selected,
-    label,
-    continuesPrior,
-    continuesAfter,
-    getters,
-    onClick,
-    onDoubleClick,
-    isBackgroundEvent,
-    onKeyPress,
-    components: { forceBgColorToEvents },
-  } = props;
 
   const { classes } = eventWrapperStyles({});
 
-  let title = accessors.title(event);
-  let tooltip = accessors.tooltip(event);
-  let end = accessors.end(event);
-  let start = accessors.start(event);
+  const title = accessors.title(event);
+  const tooltip = accessors.tooltip(event);
+  const end = accessors.end(event);
+  const start = accessors.start(event);
 
-  let userProps = getters.eventProp(event, start, end, selected);
+  const userProps = getters.eventProp(event, start, end, selected);
 
-  let { height, top, width, xOffset } = style;
+  const { height, top, width, xOffset } = style;
 
-  const originalEvent = event.originalEvent;
+  const { originalEvent } = event;
   const bgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
 
   const eventStyle = isBackgroundEvent
@@ -141,7 +101,7 @@ export function EventWrapper(props) {
       onDoubleClick={onDoubleClick}
       style={eventStyle}
       onKeyPress={onKeyPress}
-      title={tooltip ? (typeof label === 'string' ? label + ': ' : '') + tooltip : undefined}
+      title={tooltip ? (typeof label === 'string' ? `${label}: ` : '') + tooltip : undefined}
       className={clsx(
         isBackgroundEvent ? 'rbc-background-event' : 'rbc-event',
         className,
@@ -150,7 +110,7 @@ export function EventWrapper(props) {
           'rbc-selected': selected,
           'rbc-event-continues-earlier': continuesPrior,
           'rbc-event-continues-later': continuesAfter,
-        }
+        },
       )}
     >
       {event.component ? (
@@ -172,4 +132,9 @@ export function EventWrapper(props) {
       )}
     </Box>
   );
-}
+};
+
+EventWrapper.propTypes = EVENTWRAPPER_PROPTYPES;
+
+export default EventWrapper;
+export { EventWrapper };

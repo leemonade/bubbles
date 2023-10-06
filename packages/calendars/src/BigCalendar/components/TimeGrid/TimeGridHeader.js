@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { capitalize } from 'lodash';
 import scrollbarSize from 'dom-helpers/scrollbarSize';
 import Header from 'react-big-calendar/lib/Header';
@@ -7,7 +6,7 @@ import ResourceHeader from 'react-big-calendar/lib/ResourceHeader';
 import { notify } from 'react-big-calendar/lib/utils/helpers';
 import DateHeader from 'react-big-calendar/lib/DateHeader';
 import { Box } from '@bubbles-ui/components';
-
+import { TIMEGRIDHEADER_PROPTYPES } from './TimeGridHeader.constants';
 import DateContentRow from '../Date/DateContentRow';
 
 class TimeGridHeader extends React.Component {
@@ -17,7 +16,7 @@ class TimeGridHeader extends React.Component {
   };
 
   renderHeaderCells(range) {
-    let {
+    const {
       localizer,
       getDrilldownView,
       getNow,
@@ -28,17 +27,17 @@ class TimeGridHeader extends React.Component {
     const today = getNow();
 
     return range.map((date, i) => {
-      let drilldownView = getDrilldownView(date);
+      const drilldownView = getDrilldownView(date);
       let label = localizer.format(
         date,
-        range.length === 1 ? 'weekdayFullFormat' : 'weekdayFormat'
+        range.length === 1 ? 'weekdayFullFormat' : 'weekdayFormat',
       );
 
       label = range.length === 1 ? capitalize(label) : label;
 
       const { className, style } = dayProp(date);
 
-      let header = <HeaderComponent date={date} label={label} localizer={localizer} />;
+      const header = <HeaderComponent date={date} label={label} localizer={localizer} />;
 
       return (
         <Box
@@ -61,12 +60,12 @@ class TimeGridHeader extends React.Component {
   }
 
   readerDateHeading = ({ date, className, isWeekend, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer } = this.props;
-    let isOffRange = localizer.neq(date, currentDate, 'month');
-    let isCurrent = localizer.isSameDate(date, currentDate);
-    let drilldownView = getDrilldownView(date);
-    let label = localizer.format(date, 'dateFormat').replace(/^0/, '');
-    let DateHeaderComponent = this.props.components.dateHeader || DateHeader;
+    const { date: currentDate, getDrilldownView, localizer } = this.props;
+    const isOffRange = localizer.neq(date, currentDate, 'month');
+    const isCurrent = localizer.isSameDate(date, currentDate);
+    const drilldownView = getDrilldownView(date);
+    const label = localizer.format(date, 'dateFormat').replace(/^0/, '');
+    const DateHeaderComponent = this.props.components.dateHeader || DateHeader;
     const { cx } = this.props.components;
 
     return (
@@ -86,8 +85,9 @@ class TimeGridHeader extends React.Component {
       </Box>
     );
   };
+
   renderRow = (resource) => {
-    let {
+    const {
       events,
       rtl,
       selectable,
@@ -101,7 +101,7 @@ class TimeGridHeader extends React.Component {
     } = this.props;
 
     const resourceId = accessors.resourceId(resource);
-    let eventsToDisplay = resource
+    const eventsToDisplay = resource
       ? events.filter((event) => accessors.resource(event) === resourceId)
       : events;
 
@@ -132,7 +132,7 @@ class TimeGridHeader extends React.Component {
   };
 
   render() {
-    let {
+    const {
       width,
       rtl,
       resources,
@@ -155,7 +155,7 @@ class TimeGridHeader extends React.Component {
       resizable,
     } = this.props;
 
-    let style = {};
+    const style = {};
     if (isOverflowing) {
       style[rtl ? 'marginLeft' : 'marginRight'] = `${scrollbarSize()}px`;
     }
@@ -228,33 +228,6 @@ class TimeGridHeader extends React.Component {
   }
 }
 
-TimeGridHeader.propTypes = {
-  range: PropTypes.array.isRequired,
-  events: PropTypes.array.isRequired,
-  resources: PropTypes.object,
-  getNow: PropTypes.func.isRequired,
-  isOverflowing: PropTypes.bool,
-
-  rtl: PropTypes.bool,
-  resizable: PropTypes.bool,
-  width: PropTypes.number,
-
-  localizer: PropTypes.object.isRequired,
-  accessors: PropTypes.object.isRequired,
-  components: PropTypes.object.isRequired,
-  getters: PropTypes.object.isRequired,
-
-  selected: PropTypes.object,
-  selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),
-  longPressThreshold: PropTypes.number,
-
-  onSelectSlot: PropTypes.func,
-  onSelectEvent: PropTypes.func,
-  onDoubleClickEvent: PropTypes.func,
-  onKeyPressEvent: PropTypes.func,
-  onDrillDown: PropTypes.func,
-  getDrilldownView: PropTypes.func.isRequired,
-  scrollRef: PropTypes.any,
-};
+TimeGridHeader.propTypes = TIMEGRIDHEADER_PROPTYPES;
 
 export default TimeGridHeader;

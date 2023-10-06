@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
@@ -48,7 +49,7 @@ class BackgroundCells extends React.Component {
   }
 
   render() {
-    let {
+    const {
       range,
       getNow,
       getters,
@@ -60,8 +61,8 @@ class BackgroundCells extends React.Component {
       hideBgTitles,
     } = this.props;
 
-    let { selecting, startIdx, endIdx } = this.state;
-    let current = getNow();
+    const { selecting, startIdx, endIdx } = this.state;
+    const current = getNow();
 
     const getDaysBetweenDates = function (startDate, endDate) {
       let now = DateTime.fromJSDate(startDate);
@@ -77,8 +78,8 @@ class BackgroundCells extends React.Component {
     const eventsByDay = {};
 
     _.forEach(events, (event) => {
-      let end = accessors.end(event);
-      let start = accessors.start(event);
+      const end = accessors.end(event);
+      const start = accessors.start(event);
       const days = getDaysBetweenDates(start, end);
       _.forEach(days, (day) => {
         if (!_.isArray(eventsByDay[day])) eventsByDay[day] = [];
@@ -89,7 +90,7 @@ class BackgroundCells extends React.Component {
     return (
       <Box className="rbc-row-bg">
         {range.map((date, index) => {
-          let selected = selecting && index >= startIdx && index <= endIdx;
+          const selected = selecting && index >= startIdx && index <= endIdx;
           let { className, style } = getters.dayProp(date);
 
           if (!_.isObject(style)) {
@@ -135,18 +136,18 @@ class BackgroundCells extends React.Component {
   }
 
   _selectable() {
-    let node = findDOMNode(this);
-    let selector = (this._selector = new Selection(this.props.container, {
+    const node = findDOMNode(this);
+    const selector = (this._selector = new Selection(this.props.container, {
       longPressThreshold: this.props.longPressThreshold,
     }));
 
-    let selectorClicksHandler = (point, actionType) => {
+    const selectorClicksHandler = (point, actionType) => {
       if (!isEvent(findDOMNode(this), point)) {
-        let rowBox = getBoundsForNode(node);
-        let { range, rtl } = this.props;
+        const rowBox = getBoundsForNode(node);
+        const { range, rtl } = this.props;
 
         if (pointInBox(rowBox, point)) {
-          let currentCell = getSlotAtX(rowBox, point.x, rtl, range.length);
+          const currentCell = getSlotAtX(rowBox, point.x, rtl, range.length);
 
           this._selectSlot({
             startIdx: currentCell,
@@ -162,7 +163,7 @@ class BackgroundCells extends React.Component {
     };
 
     selector.on('selecting', (box) => {
-      let { range, rtl } = this.props;
+      const { range, rtl } = this.props;
 
       let startIdx = -1;
       let endIdx = -1;
@@ -172,7 +173,7 @@ class BackgroundCells extends React.Component {
         this._initial = { x: box.x, y: box.y };
       }
       if (selector.isSelected(node)) {
-        let nodeBox = getBoundsForNode(node);
+        const nodeBox = getBoundsForNode(node);
         ({ startIdx, endIdx } = dateCellSelection(this._initial, nodeBox, box, range.length, rtl));
       }
 

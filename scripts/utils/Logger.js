@@ -8,7 +8,8 @@ class Logger {
   }
 
   log(message, breaks = 1) {
-    process.stdout.write(`${chalk.cyan(`[${this.name}]`)} ${message}${'\n'.repeat(breaks)}`);
+    const thisNameArray = `[${this.name}]`;
+    process.stdout.write(`${chalk.cyan(thisNameArray)} ${message}${'\n'.repeat(breaks)}`);
   }
 
   info(message, breaks = 1) {

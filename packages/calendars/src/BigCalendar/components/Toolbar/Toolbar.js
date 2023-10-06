@@ -19,8 +19,9 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
+import { TOOLBAR_PROPTYPES } from './Toolbar.constants';
 
-export const ToolBar = ({
+const ToolBar = ({
   localizer: { messages },
   label,
   view,
@@ -36,9 +37,8 @@ export const ToolBar = ({
   showToolbarToggleWeekend,
   showToolbarViewSwitcher,
   addEventClick,
-  ...props
 }) => {
-  const { classes, cx } = ToolbarStyles({});
+  const { classes } = ToolbarStyles({});
   return (
     <Group position="apart" mb={10}>
       <Group>
@@ -114,3 +114,8 @@ export const ToolBar = ({
     </Group>
   );
 };
+
+ToolBar.propTypes = TOOLBAR_PROPTYPES;
+
+export default ToolBar;
+export { ToolBar };
