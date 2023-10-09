@@ -1,14 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  ColorInput,
-  DatePicker,
-  DateRangePicker,
-  Select,
-  TextInput,
-} from '@bubbles-ui/components';
+import { Box, Button, ColorInput, DatePicker, Select, TextInput } from '@bubbles-ui/components';
 import { BigCalendar } from './BigCalendar';
 import { BIGCALENDAR_VIEWS } from './BigCalendar.constants';
 import mdx from './BigCalendar.mdx';

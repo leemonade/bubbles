@@ -60,7 +60,7 @@ const BigCalendar = forwardRef(
       eventClick = () => {},
       addEventClick = () => {},
     },
-    ref,
+    ref
   ) => {
     const [showType, setShowType] = useState('full');
     const [showWeekends, setShowWeekends] = useState(showWeekendsProp);
@@ -68,17 +68,29 @@ const BigCalendar = forwardRef(
     const [hooksCreated, setHooksCreated] = useState(false);
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
-
-    let { availableViews, showToolbar } = useMemo(() => {
-      let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
-      showToolbar = true;
-
+    const availableViews = useMemo(() => {
       if (currentView === MONTH_RANGE) {
-        views = { monthRange: MonthRangeView };
-        showToolbar = false;
+        return { monthRange: MonthRangeView };
       }
-      return { availableViews: views, showToolbar };
+      return { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
     }, [currentView]);
+
+    const showToolbar = useMemo(() => {
+      if (currentView === MONTH_RANGE) {
+        return false;
+      }
+    }, [currentView]);
+
+    // let { availableViews, showToolbar } = useMemo(() => {
+    //   let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
+    //   showToolbar = true;
+
+    //   if (currentView === MONTH_RANGE) {
+    //     views = { monthRange: MonthRangeView };
+    //     showToolbar = false;
+    //   }
+    //   return { availableViews: views, showToolbar };
+    // }, [currentView]);
 
     if (hideToolbar) {
       showToolbar = false;
@@ -94,7 +106,7 @@ const BigCalendar = forwardRef(
         scrollToTime: DateTime.local().toJSDate(),
         getNow: () => DateTime.local().toJSDate(),
       }),
-      [timezone],
+      [timezone]
     );
 
     // ·················································
@@ -106,7 +118,7 @@ const BigCalendar = forwardRef(
         forEach(eventsProp, (ev) => {
           if (ev.rrule) {
             const diff = DateTime.fromJSDate(ev.end).diff(
-              DateTime.fromJSDate(ev.start),
+              DateTime.fromJSDate(ev.start)
             ).milliseconds;
 
             const rule = new RRule({
@@ -118,8 +130,8 @@ const BigCalendar = forwardRef(
                   dateRange.start.getDate(),
                   dateRange.start.getHours(),
                   dateRange.start.getMinutes(),
-                  dateRange.start.getSeconds(),
-                ),
+                  dateRange.start.getSeconds()
+                )
               ),
               until: new Date(
                 Date.UTC(
@@ -128,8 +140,8 @@ const BigCalendar = forwardRef(
                   dateRange.end.getDate(),
                   dateRange.end.getHours(),
                   dateRange.end.getMinutes(),
-                  dateRange.end.getSeconds(),
-                ),
+                  dateRange.end.getSeconds()
+                )
               ),
             });
             const dates = rule.all();
@@ -145,12 +157,12 @@ const BigCalendar = forwardRef(
           } else {
             const range = Interval.fromDateTimes(
               DateTime.fromJSDate(dateRange.start),
-              DateTime.fromJSDate(dateRange.end),
+              DateTime.fromJSDate(dateRange.end)
             );
 
             const e = Interval.fromDateTimes(
               DateTime.fromJSDate(ev.start),
-              DateTime.fromJSDate(ev.end),
+              DateTime.fromJSDate(ev.end)
             );
 
             if (range.e >= e.s && range.s <= e.e) {
@@ -256,7 +268,7 @@ const BigCalendar = forwardRef(
                     showToolbarViewSwitcher={showToolbarViewSwitcher}
                   />
                 )
-              : false,
+              : null,
             cx,
             showWeekends,
             minHour,
@@ -288,7 +300,7 @@ const BigCalendar = forwardRef(
         />
       </Box>
     );
-  },
+  }
 );
 
 BigCalendar.propTypes = BIG_CALENDAR_PROP_TYPES;
