@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import BigCalendar from './BigCalendar';
 import { BIG_CALENDAR_DEFAULT_PROPS } from './BigCalendar.constants';
+import { ThemeProvider } from '@bubbles-ui/components';
 
 const messages = {
   month: 'Mensual',
@@ -21,7 +22,11 @@ const messages = {
 const props = { ...BIG_CALENDAR_DEFAULT_PROPS, messages };
 // Prueba renderizar el componente sin errores
 test('renders BigCalendar component without errors', () => {
-  render(<BigCalendar {...props} />);
+  render(
+    <ThemeProvider>
+      <BigCalendar {...props} />
+    </ThemeProvider>
+  );
   // Añade aquí las aserciones que desees, por ejemplo:
   // Expect algún elemento del componente en pantalla
 });

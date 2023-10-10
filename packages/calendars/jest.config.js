@@ -1,14 +1,15 @@
 module.exports = {
   collectCoverage: false,
-  verbose: true,
+  // verbose: true,
+  roots: ['./src'],
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '.*\\.min\\.css$': 'identity-obj-proxy',
     uuid: require.resolve('uuid'),
-    '^swiper/css$': '<rootDir>/___mock___/cssStyleMock.js',
   },
   transform: { '^.+\\.(js|jsx)$': 'babel-jest' },
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],

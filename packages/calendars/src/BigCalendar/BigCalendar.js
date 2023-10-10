@@ -68,18 +68,6 @@ const BigCalendar = forwardRef(
     const [hooksCreated, setHooksCreated] = useState(false);
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
-    const availableViews = useMemo(() => {
-      if (currentView === MONTH_RANGE) {
-        return { monthRange: MonthRangeView };
-      }
-      return { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
-    }, [currentView]);
-
-    const showToolbar = useMemo(() => {
-      if (currentView === MONTH_RANGE) {
-        return false;
-      }
-    }, [currentView]);
 
     // let { availableViews, showToolbar } = useMemo(() => {
     //   let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
@@ -91,6 +79,17 @@ const BigCalendar = forwardRef(
     //   }
     //   return { availableViews: views, showToolbar };
     // }, [currentView]);
+
+    let availableViews;
+    let showToolbar;
+
+    if (currentView === MONTH_RANGE) {
+      availableViews = { monthRange: MonthRangeView };
+      showToolbar = false;
+    } else {
+      availableViews = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
+      showToolbar = true;
+    }
 
     if (hideToolbar) {
       showToolbar = false;
@@ -268,7 +267,7 @@ const BigCalendar = forwardRef(
                     showToolbarViewSwitcher={showToolbarViewSwitcher}
                   />
                 )
-              : null,
+              : false,
             cx,
             showWeekends,
             minHour,
@@ -303,7 +302,6 @@ const BigCalendar = forwardRef(
   }
 );
 
-BigCalendar.propTypes = BIG_CALENDAR_PROP_TYPES;
 BigCalendar.defaultProps = BIG_CALENDAR_DEFAULT_PROPS;
 
 export default BigCalendar;

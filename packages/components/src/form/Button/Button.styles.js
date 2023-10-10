@@ -11,20 +11,18 @@ const getSizes = (size, theme) => {
 
 const getVariant = (variant, theme, color) => {
   const buttonTheme = theme.other.button;
-
   const commonLinkStyles = {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
   };
-
   const variants = {
     filled: {
       primary: {
-        backgroundColor: buttonTheme.background.color.primary.default,
-        borderColor: buttonTheme.border.color.primary.default,
-        color: buttonTheme.content.color.primary['default--reverse'],
+        backgroundColor: buttonTheme?.background?.color?.primary?.default,
+        borderColor: buttonTheme?.border?.color?.primary?.default,
+        color: buttonTheme?.content?.color?.primary['default--reverse'],
         '&:focus-visible': {
-          ...getBoxShadowFromToken(theme.other.global.focus.default),
+          ...getBoxShadowFromToken(theme.other.global?.focus?.default),
           backgroundColor: buttonTheme.background.color.primary.hover,
           borderColor: buttonTheme.border.color.primary.hover,
           outline: 'none',
