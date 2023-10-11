@@ -30,7 +30,7 @@ class TimeGridHeader extends React.Component {
       const drilldownView = getDrilldownView(date);
       let label = localizer.format(
         date,
-        range.length === 1 ? 'weekdayFullFormat' : 'weekdayFormat',
+        range.length === 1 ? 'weekdayFullFormat' : 'weekdayFormat'
       );
 
       label = range.length === 1 ? capitalize(label) : label;
@@ -72,7 +72,7 @@ class TimeGridHeader extends React.Component {
       <Box
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
-        role="cell"
+        role="presentation"
         style={{ pointerEvents: 'all' }}
       >
         <DateHeaderComponent

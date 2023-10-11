@@ -54,11 +54,13 @@ const ToolBar = ({
             </Button>
           </Box>
           <ActionButton
+            data-testid="chevron-left"
             onClick={() => onNavigate(navigate.PREVIOUS)}
             tooltip={messages.previous}
             icon={<ChevronLeftIcon className={classes.navIcon} />}
           />
           <ActionButton
+            data-testid="chevron-right"
             onClick={() => onNavigate(navigate.NEXT)}
             tooltip={messages.next}
             icon={<ChevronRightIcon className={classes.navIcon} />}
@@ -76,6 +78,8 @@ const ToolBar = ({
           </Box>
           <Select
             value={showType}
+            ariaLabelledby="display"
+            ariaLabel="display"
             onChange={setShowType}
             data={[
               { label: messages.entirePeriod, value: 'full' },
@@ -105,7 +109,14 @@ const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+          <IconButton
+            color="primary"
+            size="lg"
+            rounded
+            onClick={addEventClick}
+            data-testid="add-event"
+            aria-label="add-event"
+          >
             <PlusIcon />
           </IconButton>
         ) : null}

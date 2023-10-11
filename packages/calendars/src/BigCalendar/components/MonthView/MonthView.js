@@ -22,7 +22,7 @@ const eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek) =
     localizer.inEventRange({
       event: { ...event },
       range,
-    }),
+    })
   );
   filteredEvents.sort((eventA, eventB) => {
     const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
@@ -96,7 +96,7 @@ class MonthView extends React.Component {
           });
         }
       }),
-      false,
+      false
     );
   }
 
@@ -119,7 +119,7 @@ class MonthView extends React.Component {
 
     return (
       <Box style={style} className={'rbc-month-view'} role="table" aria-label="Month View">
-        <Box className="rbc-row rbc-month-header" role="row">
+        <Box className="rbc-row rbc-month-header" role="presentation">
           {this.renderHeaders(weeks[0])}
         </Box>
         {weeks.map(this.renderWeek)}
@@ -226,13 +226,13 @@ class MonthView extends React.Component {
         const { originalEvent } = event;
         const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
         const eventBgRGBColor = colord(
-          _.isArray(eventBgColor) ? eventBgColor[0] : eventBgColor,
+          _.isArray(eventBgColor) ? eventBgColor[0] : eventBgColor
         ).toRgb();
         const brightness = Math.round(
           (parseInt(eventBgRGBColor.r) * 299 +
             parseInt(eventBgRGBColor.g) * 587 +
             parseInt(eventBgRGBColor.b) * 114) /
-            1000,
+            1000
         );
         const eventTextColor = !(brightness > 125 || eventBgColor === 'transparent');
         dateIsInRangeOfTextColor =
@@ -244,7 +244,7 @@ class MonthView extends React.Component {
       <Box
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
-        role="cell"
+        role="presentation"
         style={{
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',

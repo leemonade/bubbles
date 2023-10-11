@@ -19,9 +19,9 @@ import { EventWrapper } from './components/EventWrapper';
 import Agenda from './components/AgentView/AgentView';
 import {
   MONTH_RANGE,
-  BIG_CALENDAR_PROP_TYPES,
   BIG_CALENDAR_DEFAULT_PROPS,
   firstDayOfWeek,
+  BIG_CALENDAR_PROP_TYPES,
 } from './BigCalendar.constants';
 
 const BigCalendar = forwardRef(
@@ -303,6 +303,7 @@ const BigCalendar = forwardRef(
 );
 
 BigCalendar.defaultProps = BIG_CALENDAR_DEFAULT_PROPS;
+BigCalendar.propTypes = BIG_CALENDAR_PROP_TYPES;
 
 export default BigCalendar;
 export { BigCalendar };

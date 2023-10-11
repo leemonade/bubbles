@@ -1,5 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable sonarjs/cognitive-complexity */
+import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
@@ -11,14 +10,15 @@ import { inRange } from 'react-big-calendar/lib/utils/eventLevels';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
 import { Avatar, Box, COLORS, ImageLoader, Text } from '@bubbles-ui/components';
 import { colord } from 'colord';
-import { omit } from 'lodash';
 import { eventCellStylesIcon, eventCellStylesRoot } from '../Event/EventCell';
-import { AGENDA_DEFAULT_PROPS, AGENDA_PROP_TYPES, emptyPixel } from './AgentView.constants';
+import { omit } from 'lodash';
+import { emptyPixel } from '../EventWrapper.constants';
 
-const customInRange = (event, day) => {
+let customInRange = (event, day, localizer) => {
   const eStart = event.start;
   const eEnd = event.end;
-  return day >= eStart && day <= eEnd;
+  const dayIsRange = day >= eStart && day <= eEnd;
+  return dayIsRange;
 };
 
 function Agenda({
@@ -49,7 +49,11 @@ function Agenda({
     });
   }, []);
 
-  const renderDay = (day, eventsData, dayKey) => {
+  useEffect(() => {
+    _adjustHeader();
+  });
+
+  const renderDay = (day, events, dayKey) => {
     const { event: Event, date: AgendaDate } = components;
 
     // Se estaba utilizando esta funcion pero por algun motivo no determinaba bien que el final del evento tambien
@@ -58,23 +62,23 @@ function Agenda({
     // events = events.filter((e) =>
     //   inRange(e, localizer.startOf(day, 'day'), localizer.endOf(day, 'day'), accessors, localizer)
     // );
-    const eventsFiltered = eventsData.filter((e) => customInRange(e, day));
+    events = events.filter((e) => customInRange(e, day, localizer));
 
-    return eventsFiltered.map((event, idx) => {
-      const title = accessors.title(event);
-      const end = accessors.end(event);
-      const start = accessors.start(event);
+    return events.map((event, idx) => {
+      let title = accessors.title(event);
+      let end = accessors.end(event);
+      let start = accessors.start(event);
 
       const userProps = getters.eventProp(event, start, end, isSelected(event, selected));
 
-      const dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
+      let dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
       const dates = {};
       if (idx === 0) {
         dates.day = localizer.format(day, 'dd');
         dates.dayOfWeek = localizer.format(day, 'ccc');
         dates.month = localizer.format(day, 'LLL');
       }
-      const first =
+      let first =
         idx === 0 ? (
           <td rowSpan={events.length} className="rbc-agenda-date-cell">
             <Box className="rbc-agenda-td-data">
@@ -103,7 +107,7 @@ function Agenda({
         bgColor: event.originalEvent.bgColor || event.originalEvent.calendar.bgColor,
       };
 
-      const root = eventCellStylesRoot(COLORS, styleData);
+      let root = eventCellStylesRoot(COLORS, styleData);
       let icon = eventCellStylesIcon(COLORS, styleData);
       icon = omit(icon, 'img');
 
@@ -114,6 +118,7 @@ function Agenda({
             <ImageLoader
               height="12px"
               width="12px"
+              alt="event icon"
               imageStyles={{
                 position: 'absolute',
                 left: '50%',
@@ -137,7 +142,7 @@ function Agenda({
       }
 
       return (
-        <tr key={`${dayKey}_${idx}`} className={userProps.className} style={userProps.style}>
+        <tr key={dayKey + '_' + idx} className={userProps.className} style={userProps.style}>
           {first}
           <td className="rbc-agenda-time-cell">
             <Box className="rbc-agenda-td-data">{timeRangeLabel(day, event)}</Box>
@@ -161,7 +166,7 @@ function Agenda({
                     paddingBottom: '6px',
                   }}
                 >
-                  <Avatar mx="auto" size="xs" {...avatar} />
+                  <Avatar mx="auto" size="sm" {...avatar} />
                   <Text color="primary" role="productive" strong style={{ marginLeft: 4 }}>
                     {title}
                   </Text>
@@ -175,12 +180,12 @@ function Agenda({
   };
 
   const timeRangeLabel = (day, event) => {
-    let labelClass = '';
-    const TimeComponent = components.time;
-    let label = localizer.messages.allDay;
+    let labelClass = '',
+      TimeComponent = components.time,
+      label = localizer.messages.allDay;
 
-    const end = accessors.end(event);
-    const start = accessors.start(event);
+    let end = accessors.end(event);
+    let start = accessors.start(event);
 
     if (!accessors.allDay(event)) {
       if (localizer.eq(start, end)) {
@@ -234,55 +239,51 @@ function Agenda({
   const _adjustHeader = () => {
     if (!tbodyRef.current) return;
 
-    const header = headerRef.current;
-    const firstRow = tbodyRef.current.firstChild;
+    let header = headerRef.current;
+    let firstRow = tbodyRef.current.firstChild;
 
     if (!firstRow) return;
 
-    const isOverflowing = contentRef.current.scrollHeight > contentRef.current.clientHeight;
+    let isOverflowing = contentRef.current.scrollHeight > contentRef.current.clientHeight;
 
     let _widths = [];
-    const widths = _widths;
+    let widths = _widths;
 
     _widths = [getWidth(firstRow.children[0]), getWidth(firstRow.children[1])];
 
     if (widths[0] !== _widths[0] || widths[1] !== _widths[1]) {
-      dateColRef.current.style.width = `${_widths[0]}px`;
-      timeColRef.current.style.width = `${_widths[1]}px`;
+      dateColRef.current.style.width = _widths[0] + 'px';
+      timeColRef.current.style.width = _widths[1] + 'px';
     }
 
     if (isOverflowing) {
       addClass(header, 'rbc-header-overflowing');
-      header.style.marginRight = `${scrollbarSize()}px`;
+      header.style.marginRight = scrollbarSize() + 'px';
     } else {
       removeClass(header, 'rbc-header-overflowing');
     }
   };
 
-  useEffect(() => {
-    _adjustHeader();
-  });
+  let { messages } = localizer;
+  let end = localizer.add(date, length, 'day');
 
-  const { messages } = localizer;
-  const end = localizer.add(date, length, 'day');
+  let range = localizer.range(date, end, 'day');
 
-  const range = localizer.range(date, end, 'day');
-
-  const eventsFiltered = events
-    .filter((event) =>
-      inRange(
-        event,
-        localizer.startOf(date, 'day'),
-        localizer.endOf(end, 'day'),
-        accessors,
-        localizer,
-      ),
+  events = events.filter((event) =>
+    inRange(
+      event,
+      localizer.startOf(date, 'day'),
+      localizer.endOf(end, 'day'),
+      accessors,
+      localizer
     )
-    .sort((a, b) => +accessors.start(a) - +accessors.start(b));
+  );
+
+  events.sort((a, b) => +accessors.start(a) - +accessors.start(b));
 
   return (
     <div className="rbc-agenda-view">
-      {eventsFiltered.length !== 0 ? (
+      {events.length !== 0 ? (
         <React.Fragment>
           <table ref={headerRef} className="rbc-agenda-table">
             <thead>
@@ -311,11 +312,10 @@ function Agenda({
 }
 
 Agenda.propTypes = AGENDA_PROP_TYPES;
-
 Agenda.defaultProps = AGENDA_DEFAULT_PROPS;
 
 Agenda.range = (start, { length = Agenda.defaultProps.length, localizer }) => {
-  const end = localizer.add(start, length, 'day');
+  let end = localizer.add(start, length, 'day');
   return { start, end };
 };
 
@@ -333,7 +333,7 @@ Agenda.navigate = (date, action, { length = Agenda.defaultProps.length, localize
 };
 
 Agenda.title = (start, { length = Agenda.defaultProps.length, localizer }) => {
-  const end = localizer.add(start, length, 'day');
+  let end = localizer.add(start, length, 'day');
   return localizer.format({ start, end }, 'agendaHeaderFormat');
 };
 

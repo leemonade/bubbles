@@ -74,6 +74,7 @@ const EventWrapper = ({
         <ImageLoader
           height="12px"
           width="12px"
+          alt="event icon"
           imageStyles={{
             position: 'absolute',
             left: '50%',
@@ -110,7 +111,7 @@ const EventWrapper = ({
           'rbc-selected': selected,
           'rbc-event-continues-earlier': continuesPrior,
           'rbc-event-continues-later': continuesAfter,
-        },
+        }
       )}
     >
       {event.component ? (
@@ -118,7 +119,7 @@ const EventWrapper = ({
       ) : (
         <Stack spacing={1}>
           <Box>
-            <Avatar mx="auto" size="xs" {...avatar} />
+            <Avatar mx="auto" size="sm" {...avatar} />
           </Box>
           <Box className={classes.texts}>
             <Box>

@@ -212,7 +212,7 @@ class DateContentRow extends React.Component {
         <Box
           className={cx('rbc-row-content', { 'rbc-row-content-scrollable': showAllEvents })}
           style={{ pointerEvents: isMonthView ? 'all' : 'none' }}
-          role="row"
+          role="presentation"
         >
           {/* DATE NUMBER ······ */}
           {renderHeader ? (

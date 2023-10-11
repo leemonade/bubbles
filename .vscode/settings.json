@@ -15,4 +15,8 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "sonarlint.connectedMode.project": {
+        "connectionId": "leemons",
+        "projectKey": "leemonade_bubbles"
+    },
 }

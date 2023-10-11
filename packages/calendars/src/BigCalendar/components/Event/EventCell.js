@@ -25,7 +25,7 @@ function eventCellStylesRoot(
     leftArrow,
     printMode,
   },
-  imp,
+  imp
 ) {
   const data = {
     position: 'relative',
@@ -174,7 +174,7 @@ const eventCellStyles = createStyles(
       printMode,
       bgStartGradient,
       bgEndGradient,
-    },
+    }
   ) => {
     const root = eventCellStylesRoot(
       theme.colors,
@@ -192,7 +192,7 @@ const eventCellStyles = createStyles(
         leftArrow,
         printMode,
       },
-      true,
+      true
     );
     let item = {};
     if (!isMonthView) {
@@ -270,7 +270,7 @@ const eventCellStyles = createStyles(
         ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
     };
-  },
+  }
 );
 
 export function sameDay(d1, d2) {
@@ -361,6 +361,7 @@ function EventCell(thisprops) {
         <Box className={classes.icon}>
           <ImageLoader
             width="12px"
+            alt="event icon"
             height="12px"
             imageStyles={{
               position: 'absolute',
@@ -392,19 +393,19 @@ function EventCell(thisprops) {
     if (isOnStartWeek && event.showType !== 'onlyEnd' && !event.endSide) {
       lAvatar = (
         <Box className={classes.fRightArrow}>
-          <Avatar style={{ zIndex: 2 }} mx="auto" size="xs" {...avatar} />
+          <Avatar style={{ zIndex: 2 }} mx="auto" size="sm" {...avatar} />
         </Box>
       );
     }
     if (isOnEndWeek && !event.startSide) {
       rAvatar = (
         <Box className={classes.fLeftArrow}>
-          <Avatar style={{ zIndex: 2 }} mx="auto" size="xs" {...avatar} />
+          <Avatar style={{ zIndex: 2 }} mx="auto" size="sm" {...avatar} />
         </Box>
       );
     }
   } else {
-    lAvatar = <Avatar mx="auto" size="xs" {...avatar} />;
+    lAvatar = <Avatar mx="auto" size="sm" {...avatar} />;
   }
 
   const content = (
