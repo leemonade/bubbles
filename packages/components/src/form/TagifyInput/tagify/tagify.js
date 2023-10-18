@@ -1,9 +1,13 @@
+/* eslint-disable */
 /**
  * Tagify (v 4.3.1) - tags input component
  * By Yair Even-Or
  * Don't sell this code. (c)
  * https://github.com/yairEO/tagify
  */
+
+// eslint-disable-next-line import/no-mutable-exports
+let Tagify;
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
@@ -12,13 +16,11 @@
     ? define(factory)
     : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self),
       (global.Tagify = factory()));
-})(this, function () {
-  'use strict';
-
+})(this, () => {
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
-        value: value,
+        value,
         enumerable: true,
         configurable: true,
         writable: true,
@@ -31,14 +33,12 @@
   }
 
   function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
+    const keys = Object.keys(object);
 
     if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
+      let symbols = Object.getOwnPropertySymbols(object);
       if (enumerableOnly)
-        symbols = symbols.filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-        });
+        symbols = symbols.filter((sym) => Object.getOwnPropertyDescriptor(object, sym).enumerable);
       keys.push.apply(keys, symbols);
     }
 
@@ -46,17 +46,17 @@
   }
 
   function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
+    for (let i = 1; i < arguments.length; i++) {
+      const source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
+        ownKeys(Object(source), true).forEach((key) => {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
         Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
       } else {
-        ownKeys(Object(source)).forEach(function (key) {
+        ownKeys(Object(source)).forEach((key) => {
           Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
       }
@@ -67,8 +67,8 @@
 
   const sameStr = (s1, s2, caseSensitive, trim) => {
     // cast to String
-    s1 = '' + s1;
-    s2 = '' + s2;
+    s1 = `${s1}`;
+    s2 = `${s2}`;
 
     if (trim) {
       s1 = s1.trim();
@@ -82,8 +82,8 @@
     collection && Array.isArray(collection) && collection.map((v) => omit(v, unwantedProps));
 
   function omit(obj, props) {
-    var newObj = {},
-      p;
+    const newObj = {};
+    let p;
 
     for (p in obj) if (props.indexOf(p) < 0) newObj[p] = obj[p];
 
@@ -91,8 +91,8 @@
   }
 
   function decode(s) {
-    var el = document.createElement('div');
-    return s.replace(/\&#?[0-9a-z]+;/gi, function (enc) {
+    const el = document.createElement('div');
+    return s.replace(/\&#?[0-9a-z]+;/gi, (enc) => {
       el.innerHTML = enc;
       return el.innerText;
     });
@@ -106,8 +106,8 @@
    */
 
   function parseHTML(s) {
-    var parser = new DOMParser(),
-      node = parser.parseFromString(s.trim(), 'text/html');
+    const parser = new DOMParser();
+    const node = parser.parseFromString(s.trim(), 'text/html');
     return node.body.firstElementChild;
   }
 
@@ -118,13 +118,13 @@
 
   function minify(s) {
     return s
-      ? s.replace(/\>[\r\n ]+\</g, '><').replace(/(<.*?>)|\s+/g, (m, $1) => ($1 ? $1 : ' ')) // https://stackoverflow.com/a/44841484/104380
+      ? s.replace(/\>[\r\n ]+\</g, '><').replace(/(<.*?>)|\s+/g, (m, $1) => $1 || ' ') // https://stackoverflow.com/a/44841484/104380
       : '';
   }
 
   function removeTextChildNodes(elm) {
-    var iter = document.createNodeIterator(elm, NodeFilter.SHOW_TEXT, null, false),
-      textnode; // print all text nodes
+    const iter = document.createNodeIterator(elm, NodeFilter.SHOW_TEXT, null, false);
+    let textnode; // print all text nodes
 
     while ((textnode = iter.nextNode())) {
       if (!textnode.textContent.trim()) textnode.parentNode.removeChild(textnode);
@@ -134,7 +134,7 @@
   function getfirstTextNode(elm, action) {
     action = action || 'previous';
 
-    while ((elm = elm[action + 'Sibling'])) if (elm.nodeType == 3) return elm;
+    while ((elm = elm[`${action}Sibling`])) if (elm.nodeType == 3) return elm;
   }
 
   /**
@@ -156,7 +156,7 @@
    */
 
   function isObject(obj) {
-    var type = Object.prototype.toString.call(obj).split(' ')[1].slice(0, -1);
+    const type = Object.prototype.toString.call(obj).split(' ')[1].slice(0, -1);
     return (
       obj === Object(obj) &&
       type != 'Array' &&
@@ -178,10 +178,10 @@
 
     function copy(a, b) {
       // copy o2 to o
-      for (var key in b)
+      for (const key in b)
         if (b.hasOwnProperty(key)) {
           if (isObject(b[key])) {
-            if (!isObject(a[key])) a[key] = Object.assign({}, b[key]);
+            if (!isObject(a[key])) a[key] = { ...b[key] };
             else copy(a[key], b[key]);
             continue;
           }
@@ -218,8 +218,8 @@
    */
 
   function getNodeHeight(node) {
-    var height,
-      clone = node.cloneNode(true);
+    let height;
+    const clone = node.cloneNode(true);
     clone.style.cssText = 'position:fixed; top:-9999px; opacity:0';
     document.body.appendChild(clone);
     height = clone.clientHeight;
@@ -227,7 +227,7 @@
     return height;
   }
 
-  var isChromeAndroidBrowser = () => /(?=.*chrome)(?=.*android)/i.test(navigator.userAgent);
+  const isChromeAndroidBrowser = () => /(?=.*chrome)(?=.*android)/i.test(navigator.userAgent);
 
   function getUID() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
@@ -238,14 +238,14 @@
   function initDropdown() {
     this.dropdown = {};
 
-    for (let p in this._dropdown)
+    for (const p in this._dropdown)
       this.dropdown[p] =
         typeof this._dropdown[p] === 'function' ? this._dropdown[p].bind(this) : this._dropdown[p];
 
     if (this.settings.dropdown.enabled >= 0) this.dropdown.init();
   }
 
-  var _dropdown = {
+  const _dropdown = {
     init() {
       this.DOM.dropdown = this.parseTemplate('dropdown', [this.settings]);
       this.DOM.dropdown.content = this.DOM.dropdown.querySelector(
@@ -258,13 +258,13 @@
      * @param {String} value [optional, filter the whitelist by this value]
      */
     show(value) {
-      var _s = this.settings,
-        firstListItem,
-        firstListItemValue,
-        allowNewTags = _s.mode == 'mix' && !_s.enforceWhitelist,
-        noWhitelist = !_s.whitelist || !_s.whitelist.length,
-        noMatchListItem,
-        isManual = _s.dropdown.position == 'manual'; // if text still exists in the input, and `show` method has no argument, then the input's text should be used
+      const _s = this.settings;
+      let firstListItem;
+      let firstListItemValue;
+      const allowNewTags = _s.mode == 'mix' && !_s.enforceWhitelist;
+      const noWhitelist = !_s.whitelist || !_s.whitelist.length;
+      let noMatchListItem;
+      const isManual = _s.dropdown.position == 'manual'; // if text still exists in the input, and `show` method has no argument, then the input's text should be used
 
       value = value === undefined ? this.state.inputText : value; // ⚠️ Do not render suggestions list  if:
       // 1. there's no whitelist (can happen while async loading) AND new tags arn't allowed
@@ -305,23 +305,21 @@
             this.suggestedListItems.unshift({
               value,
             });
-        } else {
-          if (value && allowNewTags && !this.state.editing.scope) {
-            this.suggestedListItems = [
-              {
-                value,
-              },
-            ];
-          } // hide suggestions list if no suggestion matched
-          else {
-            this.input.autocomplete.suggest.call(this);
-            this.dropdown.hide();
-            return;
-          }
+        } else if (value && allowNewTags && !this.state.editing.scope) {
+          this.suggestedListItems = [
+            {
+              value,
+            },
+          ];
+        } // hide suggestions list if no suggestion matched
+        else {
+          this.input.autocomplete.suggest.call(this);
+          this.dropdown.hide();
+          return;
         }
 
         firstListItem = this.suggestedListItems[0];
-        firstListItemValue = '' + (isObject(firstListItem) ? firstListItem.value : firstListItem);
+        firstListItemValue = `${isObject(firstListItem) ? firstListItem.value : firstListItem}`;
 
         if (_s.autoComplete && firstListItemValue) {
           // only fill the sugegstion if the value of the first list item STARTS with the input value (regardless of "fuzzysearch" setting)
@@ -362,10 +360,10 @@
     },
 
     hide(force) {
-      var _this$DOM = this.DOM,
-        scope = _this$DOM.scope,
-        dropdown = _this$DOM.dropdown,
-        isManual = this.settings.dropdown.position == 'manual' && !force; // if there's no dropdown, this means the dropdown events aren't binded
+      const _this$DOM = this.DOM;
+      const { scope } = _this$DOM;
+      const { dropdown } = _this$DOM;
+      const isManual = this.settings.dropdown.position == 'manual' && !force; // if there's no dropdown, this means the dropdown events aren't binded
 
       if (!dropdown || !document.body.contains(dropdown) || isManual) return;
       window.removeEventListener('resize', this.dropdown.position);
@@ -401,8 +399,8 @@
     render() {
       // let the element render in the DOM first, to accurately measure it.
       // this.DOM.dropdown.style.cssText = "left:-9999px; top:-9999px;";
-      var ddHeight = getNodeHeight(this.DOM.dropdown),
-        _s = this.settings;
+      const ddHeight = getNodeHeight(this.DOM.dropdown);
+      const _s = this.settings;
       this.DOM.scope.setAttribute('aria-expanded', true); // if the dropdown has yet to be appended to the DOM,
       // append the dropdown to the body element & handle events
 
@@ -424,7 +422,7 @@
      */
     fill(HTMLContent) {
       HTMLContent =
-        typeof HTMLContent == 'string'
+        typeof HTMLContent === 'string'
           ? HTMLContent
           : this.dropdown.createListHTML(HTMLContent || this.suggestedListItems);
       this.DOM.dropdown.content.innerHTML = minify(HTMLContent);
@@ -443,25 +441,28 @@
     },
 
     position(ddHeight) {
-      var _sd = this.settings.dropdown;
+      const _sd = this.settings.dropdown;
       if (_sd.position == 'manual') return;
-      var rect,
-        top,
-        bottom,
-        left,
-        width,
-        parentsPositions,
-        ddElm = this.DOM.dropdown,
-        placeAbove = _sd.placeAbove,
-        viewportHeight = document.documentElement.clientHeight,
-        viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
-        positionTo = viewportWidth > 480 ? _sd.position : 'all',
-        ddTarget = this.DOM[positionTo == 'input' ? 'input' : 'scope'];
+      let rect;
+      let top;
+      let bottom;
+      let left;
+      let width;
+      let parentsPositions;
+      const ddElm = this.DOM.dropdown;
+      let { placeAbove } = _sd;
+      const viewportHeight = document.documentElement.clientHeight;
+      const viewportWidth = Math.max(
+        document.documentElement.clientWidth || 0,
+        window.innerWidth || 0
+      );
+      const positionTo = viewportWidth > 480 ? _sd.position : 'all';
+      const ddTarget = this.DOM[positionTo == 'input' ? 'input' : 'scope'];
       ddHeight = ddHeight || ddElm.clientHeight;
 
       function getParentsPositions(p) {
-        var left = 0,
-          top = 0;
+        let left = 0;
+        let top = 0;
 
         while (p) {
           left += p.offsetLeft || 0;
@@ -489,22 +490,16 @@
         top = rect.top - parentsPositions.top;
         bottom = rect.bottom - 1 - parentsPositions.top;
         left = rect.left - parentsPositions.left;
-        width = rect.width + 'px';
+        width = `${rect.width}px`;
       }
 
       top = Math.floor(top);
       bottom = Math.ceil(bottom);
       placeAbove = placeAbove === undefined ? viewportHeight - rect.bottom < ddHeight : placeAbove; // flip vertically if there is no space for the dropdown below the input
 
-      ddElm.style.cssText =
-        'left:' +
-        (left + window.pageXOffset) +
-        'px; width:' +
-        width +
-        ';' +
-        (placeAbove
-          ? 'top: ' + (top + window.pageYOffset) + 'px'
-          : 'top: ' + (bottom + window.pageYOffset) + 'px');
+      ddElm.style.cssText = `left:${left + window.pageXOffset}px; width:${width};${
+        placeAbove ? `top: ${top + window.pageYOffset}px` : `top: ${bottom + window.pageYOffset}px`
+      }`;
       ddElm.setAttribute('placement', placeAbove ? 'top' : 'bottom');
       ddElm.setAttribute('position', positionTo);
     },
@@ -517,17 +512,17 @@
        */
       binding(bindUnbind = true) {
         // references to the ".bind()" methods must be saved so they could be unbinded later
-        var _CB = this.dropdown.events.callbacks,
-          // callback-refs
-          _CBR = (this.listeners.dropdown = this.listeners.dropdown || {
-            position: this.dropdown.position.bind(this),
-            onKeyDown: _CB.onKeyDown.bind(this),
-            onMouseOver: _CB.onMouseOver.bind(this),
-            onMouseLeave: _CB.onMouseLeave.bind(this),
-            onClick: _CB.onClick.bind(this),
-            onScroll: _CB.onScroll.bind(this),
-          }),
-          action = bindUnbind ? 'addEventListener' : 'removeEventListener';
+        const _CB = this.dropdown.events.callbacks;
+        // callback-refs
+        const _CBR = (this.listeners.dropdown = this.listeners.dropdown || {
+          position: this.dropdown.position.bind(this),
+          onKeyDown: _CB.onKeyDown.bind(this),
+          onMouseOver: _CB.onMouseOver.bind(this),
+          onMouseLeave: _CB.onMouseLeave.bind(this),
+          onClick: _CB.onClick.bind(this),
+          onScroll: _CB.onScroll.bind(this),
+        });
+        const action = bindUnbind ? 'addEventListener' : 'removeEventListener';
 
         if (this.settings.dropdown.position != 'manual') {
           window[action]('resize', _CBR.position);
@@ -543,10 +538,10 @@
       callbacks: {
         onKeyDown(e) {
           // get the "active" element, and if there was none (yet) active, use first child
-          var selectedElm = this.DOM.dropdown.querySelector(
-              this.settings.classNames.dropdownItemActiveSelector
-            ),
-            selectedElmData = this.dropdown.getSuggestionDataByNode(selectedElm);
+          let selectedElm = this.DOM.dropdown.querySelector(
+            this.settings.classNames.dropdownItemActiveSelector
+          );
+          let selectedElmData = this.dropdown.getSuggestionDataByNode(selectedElm);
 
           switch (e.key) {
             case 'ArrowDown':
@@ -556,11 +551,11 @@
             case 'Up': {
               // >IE11
               e.preventDefault();
-              var dropdownItems;
+              let dropdownItems;
               if (selectedElm)
                 selectedElm =
                   selectedElm[
-                    (e.key == 'ArrowUp' || e.key == 'Up' ? 'previous' : 'next') + 'ElementSibling'
+                    `${e.key == 'ArrowUp' || e.key == 'Up' ? 'previous' : 'next'}ElementSibling`
                   ]; // if no element was found, loop
 
               if (!selectedElm) {
@@ -593,7 +588,7 @@
               ) {
                 e.preventDefault(); // prevents blur so the autocomplete suggestion will not become a tag
 
-                var value = this.dropdown.getMappedValue(selectedElmData);
+                const value = this.dropdown.getMappedValue(selectedElmData);
                 this.input.autocomplete.set.call(this, value);
                 return false;
               }
@@ -620,7 +615,7 @@
 
             case 'Backspace': {
               if (this.settings.mode == 'mix' || this.state.editing.scope) return;
-              let value = this.state.inputText.trim();
+              const value = this.state.inputText.trim();
 
               if (value == '' || value.charCodeAt(0) == 8203) {
                 if (this.settings.backspace === true) this.removeTags();
@@ -631,7 +626,7 @@
         },
 
         onMouseOver(e) {
-          var ddItem = e.target.closest(this.settings.classNames.dropdownItemSelector); // event delegation check
+          const ddItem = e.target.closest(this.settings.classNames.dropdownItemSelector); // event delegation check
 
           ddItem && this.dropdown.highlightOption(ddItem);
         },
@@ -649,8 +644,8 @@
           )
             return; // allow only mouse left-clicks
 
-          var selectedElm = e.target.closest(this.settings.classNames.dropdownItemSelector),
-            selectedElmData = this.dropdown.getSuggestionDataByNode(selectedElm); // temporary set the "actions" state to indicate to the main "blur" event it shouldn't run
+          const selectedElm = e.target.closest(this.settings.classNames.dropdownItemSelector);
+          const selectedElmData = this.dropdown.getSuggestionDataByNode(selectedElm); // temporary set the "actions" state to indicate to the main "blur" event it shouldn't run
 
           this.state.actions.selectOption = true;
           setTimeout(() => (this.state.actions.selectOption = false), 50);
@@ -668,8 +663,8 @@
         },
 
         onScroll(e) {
-          var elm = e.target,
-            pos = (elm.scrollTop / (elm.scrollHeight - elm.parentNode.clientHeight)) * 100;
+          const elm = e.target;
+          const pos = (elm.scrollTop / (elm.scrollHeight - elm.parentNode.clientHeight)) * 100;
           this.trigger('dropdown:scroll', {
             percentage: Math.round(pos),
           });
@@ -678,7 +673,7 @@
     },
 
     getSuggestionDataByNode(tagElm) {
-      var idx = tagElm ? +tagElm.getAttribute('tagifySuggestionIdx') : -1;
+      const idx = tagElm ? +tagElm.getAttribute('tagifySuggestionIdx') : -1;
       return this.suggestedListItems[idx] || null;
     },
 
@@ -688,8 +683,8 @@
      * @param {Boolean} adjustScroll   when navigation with keyboard arrows (up/down), aut-scroll to always show the highlighted element
      */
     highlightOption(elm, adjustScroll) {
-      var className = this.settings.classNames.dropdownItemActive,
-        itemData; // focus casues a bug in Firefox with the placeholder been shown on the input element
+      const className = this.settings.classNames.dropdownItemActive;
+      let itemData; // focus casues a bug in Firefox with the placeholder been shown on the input element
       // if( this.settings.dropdown.position != 'manual' )
       //     elm.focus();
 
@@ -725,9 +720,9 @@
      * @param {Object} elm  DOM node to select
      */
     selectOption(elm) {
-      var _this$settings$dropdo = this.settings.dropdown,
-        clearOnSelect = _this$settings$dropdo.clearOnSelect,
-        closeOnSelect = _this$settings$dropdo.closeOnSelect;
+      const _this$settings$dropdo = this.settings.dropdown;
+      const { clearOnSelect } = _this$settings$dropdo;
+      const { closeOnSelect } = _this$settings$dropdo;
 
       if (!elm) {
         this.addTags(this.state.inputText, true);
@@ -736,8 +731,8 @@
       } // if in edit-mode, do not continue but instead replace the tag's text.
       // the scenario is that "addTags" was called from a dropdown suggested option selected while editing
 
-      var tagifySuggestionIdx = elm.getAttribute('tagifySuggestionIdx'),
-        tagData = this.suggestedListItems[+tagifySuggestionIdx];
+      const tagifySuggestionIdx = elm.getAttribute('tagifySuggestionIdx');
+      const tagData = this.suggestedListItems[+tagifySuggestionIdx];
       this.trigger('dropdown:select', {
         data: tagData,
         elm,
@@ -791,23 +786,23 @@
      * @return {Array} list of filtered whitelist items according to the settings provided and current value
      */
     filterListItems(value, options) {
-      var _s = this.settings,
-        _sd = _s.dropdown,
-        options = options || {},
-        value =
-          _s.mode == 'select' && this.value.length && this.value[0][_s.tagTextProp] == value
-            ? '' // do not filter if the tag, which is already selecetd in "select" mode, is the same as the typed text
-            : value,
-        list = [],
-        whitelist = _s.whitelist,
-        suggestionsCount = _sd.maxItems || Infinity,
-        searchKeys = _sd.searchKeys,
-        whitelistItem,
-        valueIsInWhitelist,
-        searchBy,
-        isDuplicate,
-        niddle,
-        i = 0;
+      const _s = this.settings;
+      const _sd = _s.dropdown;
+      var options = options || {};
+      var value =
+        _s.mode == 'select' && this.value.length && this.value[0][_s.tagTextProp] == value
+          ? '' // do not filter if the tag, which is already selecetd in "select" mode, is the same as the typed text
+          : value;
+      const list = [];
+      const { whitelist } = _s;
+      let suggestionsCount = _sd.maxItems || Infinity;
+      const { searchKeys } = _sd;
+      let whitelistItem;
+      let valueIsInWhitelist;
+      let searchBy;
+      let isDuplicate;
+      let niddle;
+      let i = 0;
 
       if (!value || !searchKeys.length) {
         return (
@@ -818,7 +813,7 @@
           .slice(0, suggestionsCount); // respect "maxItems" dropdown setting
       }
 
-      niddle = _sd.caseSensitive ? '' + value : ('' + value).toLowerCase();
+      niddle = _sd.caseSensitive ? `${value}` : `${value}`.toLowerCase();
 
       function stringHasAll(s, query) {
         return query
@@ -833,14 +828,16 @@
             ? whitelist[i]
             : {
                 value: whitelist[i],
-              }; //normalize value as an Object
+              }; // normalize value as an Object
 
-        let itemWithoutSearchKeys = !Object.keys(whitelistItem).some((k) => searchKeys.includes(k)),
-          _searchKeys = itemWithoutSearchKeys ? ['value'] : searchKeys;
+        const itemWithoutSearchKeys = !Object.keys(whitelistItem).some((k) =>
+          searchKeys.includes(k)
+        );
+        const _searchKeys = itemWithoutSearchKeys ? ['value'] : searchKeys;
 
         if (_sd.fuzzySearch && !options.exact) {
           searchBy = _searchKeys
-            .reduce((values, k) => values + ' ' + (whitelistItem[k] || ''), '')
+            .reduce((values, k) => `${values} ${whitelistItem[k] || ''}`, '')
             .toLowerCase();
 
           if (_sd.accentedSearch) {
@@ -851,7 +848,7 @@
           valueIsInWhitelist = stringHasAll(searchBy, niddle);
         } else {
           valueIsInWhitelist = _searchKeys.some((k) => {
-            var v = '' + (whitelistItem[k] || ''); // if key exists, cast to type String
+            let v = `${whitelistItem[k] || ''}`; // if key exists, cast to type String
 
             if (_sd.accentedSearch) {
               v = unaccent(v);
@@ -880,13 +877,12 @@
      * @returns
      */
     getMappedValue(tagData) {
-      var mapValueTo = this.settings.dropdown.mapValueTo,
-        value = mapValueTo
-          ? typeof mapValueTo == 'function'
-            ? mapValueTo(tagData)
-            : tagData[mapValueTo] || tagData.value
-          : tagData.value;
-      return value;
+      const { mapValueTo } = this.settings.dropdown;
+      return mapValueTo
+        ? typeof mapValueTo === 'function'
+          ? mapValueTo(tagData)
+          : tagData[mapValueTo] || tagData.value
+        : tagData.value;
     },
 
     /**
@@ -897,13 +893,13 @@
     createListHTML(optionsArr) {
       return extend([], optionsArr)
         .map((suggestion, idx) => {
-          if (typeof suggestion == 'string' || typeof suggestion == 'number')
+          if (typeof suggestion === 'string' || typeof suggestion === 'number')
             suggestion = {
               value: suggestion,
             };
-          var value = this.dropdown.getMappedValue(suggestion);
-          suggestion.value = value && typeof value == 'string' ? escapeHTML(value) : value;
-          var tagHTMLString = this.settings.templates.dropdownItem.call(this, suggestion); // make sure the sugestion index is present as attribute, to match the data when one is selected
+          const value = this.dropdown.getMappedValue(suggestion);
+          suggestion.value = value && typeof value === 'string' ? escapeHTML(value) : value;
+          let tagHTMLString = this.settings.templates.dropdownItem.call(this, suggestion); // make sure the sugestion index is present as attribute, to match the data when one is selected
 
           tagHTMLString = tagHTMLString
             .replace(/\s*tagifySuggestionIdx=(["'])(.*?)\1/gim, '') // remove the "tagifySuggestionIdx" attribute if for some reason was there
@@ -915,7 +911,7 @@
     },
   };
 
-  var DEFAULTS = {
+  const DEFAULTS = {
     delimiters: ',',
     // [RegEx] split tags by any of these delimiters ("null" to cancel) Example: ",| |."
     pattern: null,
@@ -1022,7 +1018,7 @@
     },
   };
 
-  var templates = {
+  const templates = {
     /**
      *
      * @param {DOM Object} input     Original input DOm element
@@ -1030,7 +1026,7 @@
      */
     wrapper(input, _s) {
       return `<tags class='${_s.classNames.namespace} ${
-        _s.mode ? `${_s.classNames[_s.mode + 'Mode']}` : ''
+        _s.mode ? `${_s.classNames[`${_s.mode}Mode`]}` : ''
       } ${input.className}'
                     ${_s.readonly ? 'readonly' : ''}
                     ${_s.required ? 'required' : ''}
@@ -1041,7 +1037,7 @@
                 class='${_s.classNames.input}'
                 role='textbox'
                 aria-autocomplete='both'
-                aria-multiline='${_s.mode == 'mix' ? true : false}'></span>
+                aria-multiline='${_s.mode == 'mix'}'></span>
         </tags>`;
     },
 
@@ -1064,9 +1060,9 @@
     },
 
     dropdown(settings) {
-      var _sd = settings.dropdown,
-        isManual = _sd.position == 'manual',
-        className = `${settings.classNames.dropdown}`;
+      const _sd = settings.dropdown;
+      const isManual = _sd.position == 'manual';
+      const className = `${settings.classNames.dropdown}`;
       return `<div class='${isManual ? '' : className} ${
         _sd.classname
       }' role='listbox' aria-labelledby='dropdown'>
@@ -1086,11 +1082,11 @@
 
   function EventDispatcher(instance) {
     // Create a DOM EventTarget object
-    var target = document.createTextNode('');
+    const target = document.createTextNode('');
 
     function addRemove(op, events, cb) {
       if (cb)
-        events.split(/\s+/g).forEach((name) => target[op + 'EventListener'].call(target, name, cb));
+        events.split(/\s+/g).forEach((name) => target[`${op}EventListener`].call(target, name, cb));
     } // Pass EventTarget interface calls to DOM EventTarget object
 
     return {
@@ -1100,12 +1096,12 @@
       },
 
       on(events, cb) {
-        if (cb && typeof cb == 'function') addRemove('add', events, cb);
+        if (cb && typeof cb === 'function') addRemove('add', events, cb);
         return this;
       },
 
       trigger(eventName, data, opts) {
-        var e;
+        let e;
         opts = opts || {
           cloneData: true,
         };
@@ -1117,7 +1113,7 @@
           jQuery(instance.DOM.originalInput).triggerHandler(eventName, [data]);
         } else {
           try {
-            var eventData =
+            let eventData =
               typeof data === 'object'
                 ? data
                 : {
@@ -1127,7 +1123,7 @@
             eventData.tagify = this; // TODO: move the below to the "extend" function
 
             if (data instanceof Object)
-              for (var prop in data)
+              for (const prop in data)
                 if (data[prop] instanceof HTMLElement) eventData[prop] = data[prop];
             e = new CustomEvent(eventName, {
               detail: eventData,
@@ -1142,15 +1138,15 @@
     };
   }
 
-  var deleteBackspaceTimeout;
+  let deleteBackspaceTimeout;
 
   function triggerChangeEvent() {
     if (this.settings.mixMode.integrated) return;
-    var inputElm = this.DOM.originalInput,
-      changed = this.state.lastOriginalValueReported !== inputElm.value,
-      event = new CustomEvent('change', {
-        bubbles: true,
-      }); // must use "CustomEvent" and not "Event" to support IE
+    const inputElm = this.DOM.originalInput;
+    const changed = this.state.lastOriginalValueReported !== inputElm.value;
+    const event = new CustomEvent('change', {
+      bubbles: true,
+    }); // must use "CustomEvent" and not "Event" to support IE
 
     if (!changed) return; // must apply this BEFORE triggering the simulated event
 
@@ -1165,7 +1161,7 @@
     inputElm.value = this.state.lastOriginalValueReported;
   }
 
-  var events = {
+  const events = {
     // bind custom events which were passed in the settings
     customBinding() {
       this.customEventsList.forEach((name) => {
@@ -1174,9 +1170,9 @@
     },
 
     binding(bindUnbind = true) {
-      var _CB = this.events.callbacks,
-        _CBR,
-        action = bindUnbind ? 'addEventListener' : 'removeEventListener'; // do not allow the main events to be bound more than once
+      const _CB = this.events.callbacks;
+      let _CBR;
+      const action = bindUnbind ? 'addEventListener' : 'removeEventListener'; // do not allow the main events to be bound more than once
 
       if (this.state.mainEvents && bindUnbind) return; // set the binding state of the main events, so they will not be bound more than once
 
@@ -1203,7 +1199,7 @@
         paste: ['input', _CB.onPaste.bind(this)],
       };
 
-      for (var eventName in _CBR) {
+      for (const eventName in _CBR) {
         // make sure the focus/blur event is always regesitered (and never more than once)
         if (eventName == 'blur' && !bindUnbind) continue;
 
@@ -1216,22 +1212,22 @@
      */
     callbacks: {
       onFocusBlur(e) {
-        var text = e.target ? this.trim(e.target.textContent) : '',
-          // a string
-          _s = this.settings,
-          type = e.type,
-          ddEnabled = _s.dropdown.enabled >= 0,
-          eventData = {
-            relatedTarget: e.relatedTarget,
-          },
-          isTargetSelectOption =
-            this.state.actions.selectOption && (ddEnabled || !_s.dropdown.closeOnSelect),
-          isTargetAddNewBtn = this.state.actions.addNew && ddEnabled,
-          isRelatedTargetX =
-            e.relatedTarget &&
-            e.relatedTarget.classList.contains(_s.classNames.tag) &&
-            this.DOM.scope.contains(e.relatedTarget),
-          shouldAddTags;
+        let text = e.target ? this.trim(e.target.textContent) : '';
+        // a string
+        const _s = this.settings;
+        const { type } = e;
+        const ddEnabled = _s.dropdown.enabled >= 0;
+        const eventData = {
+          relatedTarget: e.relatedTarget,
+        };
+        const isTargetSelectOption =
+          this.state.actions.selectOption && (ddEnabled || !_s.dropdown.closeOnSelect);
+        const isTargetAddNewBtn = this.state.actions.addNew && ddEnabled;
+        const isRelatedTargetX =
+          e.relatedTarget &&
+          e.relatedTarget.classList.contains(_s.classNames.tag) &&
+          this.DOM.scope.contains(e.relatedTarget);
+        let shouldAddTags;
 
         if (type == 'blur') {
           if (e.relatedTarget === this.DOM.scope) {
@@ -1272,7 +1268,8 @@
           }
 
           return;
-        } else if (type == 'blur') {
+        }
+        if (type == 'blur') {
           this.trigger('blur', eventData);
           this.loading(false); // when clicking the X button of a selected tag, it is unwanted it will be added back
           // again in a few more lines of code (shouldAddTags && addTags)
@@ -1292,10 +1289,10 @@
       },
 
       onWindowKeyDown(e) {
-        var focusedElm = document.activeElement,
-          isTag = focusedElm.classList.contains(this.settings.classNames.tag),
-          isBelong = isTag && this.DOM.scope.contains(document.activeElement),
-          nextTag;
+        const focusedElm = document.activeElement;
+        const isTag = focusedElm.classList.contains(this.settings.classNames.tag);
+        const isBelong = isTag && this.DOM.scope.contains(document.activeElement);
+        let nextTag;
         if (!isBelong) return;
         nextTag = focusedElm.nextElementSibling;
 
@@ -1303,7 +1300,7 @@
           // remove tag if has focus
           case 'Backspace': {
             this.removeTags(focusedElm);
-            (nextTag ? nextTag : this.DOM.input).focus();
+            (nextTag || this.DOM.input).focus();
             break;
           }
           // edit tag if has focus
@@ -1316,7 +1313,7 @@
       },
 
       onKeydown(e) {
-        var s = this.trim(e.target.textContent);
+        const s = this.trim(e.target.textContent);
         this.trigger('keydown', {
           originalEvent: this.cloneEvent(e),
         });
@@ -1337,18 +1334,18 @@
             case 'Delete':
             case 'Backspace': {
               if (this.state.editing) return;
-              var sel = document.getSelection(),
-                deleteKeyTagDetected =
-                  e.key == 'Delete' && sel.anchorOffset == (sel.anchorNode.length || 0),
-                isCaretAfterTag =
-                  sel.anchorNode.nodeType == 1 ||
-                  (!sel.anchorOffset && sel.anchorNode.previousElementSibling),
-                lastInputValue = decode(this.DOM.input.innerHTML),
-                lastTagElems = this.getTagElms(),
-                //  isCaretInsideTag = sel.anchorNode.parentNode('.' + this.settings.classNames.tag),
-                tagBeforeCaret,
-                tagElmToBeDeleted,
-                firstTextNodeBeforeTag;
+              const sel = document.getSelection();
+              const deleteKeyTagDetected =
+                e.key == 'Delete' && sel.anchorOffset == (sel.anchorNode.length || 0);
+              const isCaretAfterTag =
+                sel.anchorNode.nodeType == 1 ||
+                (!sel.anchorOffset && sel.anchorNode.previousElementSibling);
+              const lastInputValue = decode(this.DOM.input.innerHTML);
+              const lastTagElems = this.getTagElms();
+              //  isCaretInsideTag = sel.anchorNode.parentNode('.' + this.settings.classNames.tag),
+              let tagBeforeCaret;
+              let tagElmToBeDeleted;
+              let firstTextNodeBeforeTag;
 
               if (this.settings.backspace == 'edit' && isCaretAfterTag) {
                 tagBeforeCaret =
@@ -1425,9 +1422,9 @@
               // to know exactly which tag was deleted. This is the easiest way of knowing besides using MutationObserver
 
               deleteBackspaceTimeout = setTimeout(() => {
-                var sel = document.getSelection(),
-                  currentValue = decode(this.DOM.input.innerHTML),
-                  prevElm = sel.anchorNode.previousElementSibling; // fixes #384, where the first and only tag will not get removed with backspace
+                const sel = document.getSelection();
+                const currentValue = decode(this.DOM.input.innerHTML);
+                const prevElm = sel.anchorNode.previousElementSibling; // fixes #384, where the first and only tag will not get removed with backspace
 
                 if (
                   !isChromeAndroidBrowser() &&
@@ -1451,15 +1448,14 @@
 
                 this.value = [].map
                   .call(lastTagElems, (node, nodeIdx) => {
-                    var tagData = this.tagData(node); // since readonly cannot be removed (it's technically resurrected if removed somehow)
+                    const tagData = this.tagData(node); // since readonly cannot be removed (it's technically resurrected if removed somehow)
 
                     if (node.parentNode || tagData.readonly) return tagData;
-                    else
-                      this.trigger('remove', {
-                        tag: node,
-                        index: nodeIdx,
-                        data: tagData,
-                      });
+                    this.trigger('remove', {
+                      tag: node,
+                      index: nodeIdx,
+                      data: tagData,
+                    });
                   })
                   .filter((n) => n); // remove empty items in the mapped array
               }, 20); // Firefox needs this higher duration for some reason or things get buggy when deleting text from the end
@@ -1499,18 +1495,17 @@
             break;
 
           case 'ArrowRight': {
-            let tagData = this.state.inputSuggestion || this.state.ddItemData;
+            const tagData = this.state.inputSuggestion || this.state.ddItemData;
 
             if (tagData && this.settings.autoComplete.rightKey) {
               this.addTags([tagData], true);
-              return;
             }
 
             break;
           }
 
           case 'Tab': {
-            let selectMode = this.settings.mode == 'select';
+            const selectMode = this.settings.mode == 'select';
             if (s && !selectMode) e.preventDefault();
             else return true;
           }
@@ -1531,12 +1526,12 @@
 
       onInput(e) {
         if (this.settings.mode == 'mix') return this.events.callbacks.onMixTagsInput.call(this, e);
-        var value = this.input.normalize.call(this),
-          showSuggestions = value.length >= this.settings.dropdown.enabled,
-          eventData = {
-            value,
-            inputElm: this.DOM.input,
-          };
+        const value = this.input.normalize.call(this);
+        const showSuggestions = value.length >= this.settings.dropdown.enabled;
+        const eventData = {
+          value,
+          inputElm: this.DOM.input,
+        };
         eventData.isValid = this.validateTag({
           value,
         }); // for IE; since IE doesn't have an "input" event so "keyDown" is used instead to trigger the "onInput" callback,
@@ -1559,21 +1554,21 @@
       },
 
       onMixTagsInput(e) {
-        var range,
-          rangeText,
-          match,
-          matchedPatternCount,
-          tag,
-          showSuggestions,
-          selection,
-          _s = this.settings,
-          lastTagsCount = this.value.length,
-          matchFlaggedTag,
-          matchDelimiters,
-          tagsElems = this.getTagElms(),
-          fragment = document.createDocumentFragment(),
-          range = window.getSelection().getRangeAt(0),
-          remainingTagsValues = [].map.call(tagsElems, (node) => this.tagData(node).value); // Android Chrome "keydown" event argument does not report the correct "key".
+        var range;
+        let rangeText;
+        let match;
+        let matchedPatternCount;
+        let tag;
+        let showSuggestions;
+        let selection;
+        const _s = this.settings;
+        const lastTagsCount = this.value.length;
+        let matchFlaggedTag;
+        let matchDelimiters;
+        const tagsElems = this.getTagElms();
+        const fragment = document.createDocumentFragment();
+        var range = window.getSelection().getRangeAt(0);
+        const remainingTagsValues = [].map.call(tagsElems, (node) => this.tagData(node).value); // Android Chrome "keydown" event argument does not report the correct "key".
         // this workaround is needed to manually call "onKeydown" method with a synthesized event object
 
         if (e.inputType == 'deleteContentBackward' && isChromeAndroidBrowser()) {
@@ -1685,25 +1680,27 @@
       },
 
       onInputIE(e) {
-        var _this = this; // for the "e.target.textContent" to be changed, the browser requires a small delay
+        const _this = this; // for the "e.target.textContent" to be changed, the browser requires a small delay
 
-        setTimeout(function () {
+        setTimeout(() => {
           _this.events.callbacks.onInput.call(_this, e);
         });
       },
 
       onClickScope(e) {
-        var _s = this.settings,
-          tagElm = e.target.closest('.' + _s.classNames.tag),
-          timeDiffFocus = +new Date() - this.state.hasFocus;
+        const _s = this.settings;
+        const tagElm = e.target.closest(`.${_s.classNames.tag}`);
+        const timeDiffFocus = +new Date() - this.state.hasFocus;
 
         if (e.target == this.DOM.scope) {
           if (!this.state.hasFocus) this.DOM.input.focus();
           return;
-        } else if (e.target.classList.contains(_s.classNames.tagX)) {
+        }
+        if (e.target.classList.contains(_s.classNames.tagX)) {
           this.removeTags(e.target.parentNode);
           return;
-        } else if (tagElm) {
+        }
+        if (tagElm) {
           this.trigger('click', {
             tag: tagElm,
             index: this.getNodeIndex(tagElm),
@@ -1714,7 +1711,7 @@
             this.events.callbacks.onDoubleClickScope.call(this, e);
           return;
         } // when clicking on the input itself
-        else if (e.target == this.DOM.input) {
+        if (e.target == this.DOM.input) {
           if (_s.mode == 'mix') {
             // firefox won't show caret if last element is a tag (and not a textNode),
             // so an empty textnode should be added
@@ -1733,7 +1730,8 @@
 
       // special proccess is needed for pasted content in order to "clean" it
       onPaste(e) {
-        var clipboardData, pastedText;
+        let clipboardData;
+        let pastedText;
         e.preventDefault();
         if (this.settings.readonly) return; // Get pasted data via clipboard API
 
@@ -1761,14 +1759,14 @@
       },
 
       onEditTagInput(editableElm, e) {
-        var tagElm = editableElm.closest('.' + this.settings.classNames.tag),
-          tagElmIdx = this.getNodeIndex(tagElm),
-          tagData = this.tagData(tagElm),
-          value = this.input.normalize.call(this, editableElm),
-          hasChanged = tagElm.innerHTML != tagElm.__tagifyTagData.__originalHTML,
-          isValid = this.validateTag({
-            [this.settings.tagTextProp]: value,
-          }); // the value could have been invalid in the first-place so make sure to re-validate it (via "addEmptyTag" method)
+        const tagElm = editableElm.closest(`.${this.settings.classNames.tag}`);
+        const tagElmIdx = this.getNodeIndex(tagElm);
+        const tagData = this.tagData(tagElm);
+        const value = this.input.normalize.call(this, editableElm);
+        const hasChanged = tagElm.innerHTML != tagElm.__tagifyTagData.__originalHTML;
+        let isValid = this.validateTag({
+          [this.settings.tagTextProp]: value,
+        }); // the value could have been invalid in the first-place so make sure to re-validate it (via "addEmptyTag" method)
         // if the value is same as before-editing and the tag was valid before as well, ignore the  current "isValid" result, which is false-positive
 
         if (!hasChanged && editableElm.originalIsValid === true) isValid = true;
@@ -1808,17 +1806,17 @@
 
         if (!this.DOM.scope.contains(editableElm)) return;
 
-        var _s = this.settings,
-          tagElm = editableElm.closest('.' + _s.classNames.tag),
-          textValue = this.input.normalize.call(this, editableElm),
-          originalData = this.tagData(tagElm).__originalData,
-          // pre-edit data
-          hasChanged = tagElm.innerHTML != tagElm.__tagifyTagData.__originalHTML,
-          isValid = this.validateTag({
-            [_s.tagTextProp]: textValue,
-          }),
-          hasMaxTags,
-          newTagData; //  this.DOM.input.focus()
+        const _s = this.settings;
+        const tagElm = editableElm.closest(`.${_s.classNames.tag}`);
+        const textValue = this.input.normalize.call(this, editableElm);
+        const originalData = this.tagData(tagElm).__originalData;
+        // pre-edit data
+        const hasChanged = tagElm.innerHTML != tagElm.__tagifyTagData.__originalHTML;
+        let isValid = this.validateTag({
+          [_s.tagTextProp]: textValue,
+        });
+        let hasMaxTags;
+        let newTagData; //  this.DOM.input.focus()
 
         if (!textValue) {
           this.onEditTagDone(tagElm);
@@ -1890,10 +1888,10 @@
       },
 
       onDoubleClickScope(e) {
-        var tagElm = e.target.closest('.' + this.settings.classNames.tag),
-          _s = this.settings,
-          isEditingTag,
-          isReadyOnlyTag;
+        const tagElm = e.target.closest(`.${this.settings.classNames.tag}`);
+        const _s = this.settings;
+        let isEditingTag;
+        let isReadyOnlyTag;
         if (!tagElm) return;
         isEditingTag = tagElm.classList.contains(this.settings.classNames.tagEditing);
         isReadyOnlyTag = tagElm.hasAttribute('readonly');
@@ -1996,7 +1994,7 @@
 
     // internal-uasge props
     trim(text) {
-      return this.settings.trim && text && typeof text == 'string' ? text.trim() : text;
+      return this.settings.trim && text && typeof text === 'string' ? text.trim() : text;
     },
 
     // expose this handy utility function
@@ -2019,24 +2017,24 @@
     applySettings(input, settings) {
       DEFAULTS.templates = this.templates;
 
-      var _s = (this.settings = extend({}, DEFAULTS, settings));
+      const _s = (this.settings = extend({}, DEFAULTS, settings));
 
       _s.readonly = input.hasAttribute('readonly') || input.hasAttribute('disabled'); // if "readonly" do not include an "input" element inside the Tags component
 
       _s.placeholder = input.getAttribute('placeholder') || _s.placeholder || '';
       _s.required = input.hasAttribute('required');
 
-      for (let name in _s.classNames)
-        Object.defineProperty(_s.classNames, name + 'Selector', {
+      for (const name in _s.classNames)
+        Object.defineProperty(_s.classNames, `${name}Selector`, {
           get() {
-            return '.' + this[name].split(' ').join('.');
+            return `.${this[name].split(' ').join('.')}`;
           },
         });
 
       if (this.isIE) _s.autoComplete = false; // IE goes crazy if this isn't false
 
       ['whitelist', 'blacklist'].forEach((name) => {
-        var attrVal = input.getAttribute('data-' + name);
+        let attrVal = input.getAttribute(`data-${name}`);
 
         if (attrVal) {
           attrVal = attrVal.split(_s.delimiters);
@@ -2083,11 +2081,11 @@
      * @param {Object} data [Tag data]
      */
     getAttributes(data) {
-      var attrs = this.getCustomAttributes(data),
-        s = '',
-        k;
+      const attrs = this.getCustomAttributes(data);
+      let s = '';
+      let k;
 
-      for (k in attrs) s += ' ' + k + (data[k] !== undefined ? `="${data[k]}"` : '');
+      for (k in attrs) s += ` ${k}${data[k] !== undefined ? `="${data[k]}"` : ''}`;
 
       return s;
     },
@@ -2099,9 +2097,9 @@
       // only items which are objects have properties which can be used as attributes
       if (!isObject(data)) return '';
 
-      var output = {},
-        propName,
-        k;
+      const output = {};
+      let propName;
+      let k;
 
       for (propName in data) {
         if (
@@ -2116,9 +2114,9 @@
     },
 
     setStateSelection() {
-      var selection = window.getSelection(); // save last selection place to be able to inject anything from outside to that specific place
+      const selection = window.getSelection(); // save last selection place to be able to inject anything from outside to that specific place
 
-      var sel = {
+      const sel = {
         anchorOffset: selection.anchorOffset,
         anchorNode: selection.anchorNode,
         range: selection.getRangeAt && selection.rangeCount && selection.getRangeAt(0),
@@ -2140,7 +2138,8 @@
         const r = sel.getRangeAt(0);
         const node = r.startContainer;
         const offset = r.startOffset;
-        let rect, r2;
+        let rect;
+        let r2;
 
         if (offset > 0) {
           r2 = document.createRange();
@@ -2168,22 +2167,22 @@
      * The result is saved on the instance in "this.CSSVars"
      */
     getCSSVars() {
-      var compStyle = getComputedStyle(this.DOM.scope, null);
+      const compStyle = getComputedStyle(this.DOM.scope, null);
 
-      const getProp = (name) => compStyle.getPropertyValue('--' + name);
+      const getProp = (name) => compStyle.getPropertyValue(`--${name}`);
 
       function seprateUnitFromValue(a) {
         if (!a) return {};
         a = a.trim().split(' ')[0];
-        var unit = a
-            .split(/\d+/g)
-            .filter((n) => n)
-            .pop()
-            .trim(),
-          value = +a
-            .split(unit)
-            .filter((n) => n)[0]
-            .trim();
+        const unit = a
+          .split(/\d+/g)
+          .filter((n) => n)
+          .pop()
+          .trim();
+        const value = +a
+          .split(unit)
+          .filter((n) => n)[0]
+          .trim();
         return {
           value,
           unit,
@@ -2202,7 +2201,7 @@
      * @param  {Object} input [DOM element which would be "transformed" into "Tags"]
      */
     build(input) {
-      var DOM = this.DOM;
+      const { DOM } = this;
 
       if (this.settings.mixMode.integrated) {
         DOM.originalInput = null;
@@ -2229,8 +2228,8 @@
      * if the original input had any values, add them as tags
      */
     loadOriginalValues(value) {
-      var lastChild,
-        _s = this.settings;
+      let lastChild;
+      const _s = this.settings;
       if (value === undefined)
         value = _s.mixMode.integrated ? this.DOM.input.textContent : this.DOM.originalInput.value;
       this.removeAllTags({
@@ -2261,9 +2260,9 @@
     },
 
     cloneEvent(e) {
-      var clonedEvent = {};
+      const clonedEvent = {};
 
-      for (var v in e) clonedEvent[v] = e[v];
+      for (const v in e) clonedEvent[v] = e[v];
 
       return clonedEvent;
     },
@@ -2297,7 +2296,7 @@
      * @param {Boolean} force
      */
     toggleClass(className, force) {
-      if (typeof className == 'string') this.DOM.scope.classList.toggle(className, force);
+      if (typeof className === 'string') this.DOM.scope.classList.toggle(className, force);
     },
 
     toggleFocusClass(force) {
@@ -2308,14 +2307,14 @@
     events,
 
     fixFirefoxLastTagNoCaret() {
-      return; // seems to be fixed in newer version of FF, so retiring below code (for now)
+      // seems to be fixed in newer version of FF, so retiring below code (for now)
     },
 
     placeCaretAfterNode(node) {
       if (!node || !node.parentNode) return;
-      var nextSibling = node.nextSibling,
-        sel = window.getSelection(),
-        range = sel.getRangeAt(0);
+      const { nextSibling } = node;
+      const sel = window.getSelection();
+      const range = sel.getRangeAt(0);
 
       if (sel.rangeCount) {
         range.setStartBefore(nextSibling || node);
@@ -2328,7 +2327,7 @@
     insertAfterTag(tagElm, newNode) {
       newNode = newNode || this.settings.mixMode.insertAfterTag;
       if (!tagElm || !tagElm.parentNode || !newNode) return;
-      newNode = typeof newNode == 'string' ? document.createTextNode(newNode) : newNode;
+      newNode = typeof newNode === 'string' ? document.createTextNode(newNode) : newNode;
       tagElm.parentNode.insertBefore(newNode, tagElm.nextSibling);
       return newNode;
     },
@@ -2341,21 +2340,21 @@
       tagElm = tagElm || this.getLastTag();
       opts = opts || {};
       this.dropdown.hide();
-      var _s = this.settings;
+      const _s = this.settings;
 
       function getEditableElm() {
         return tagElm.querySelector(_s.classNames.tagTextSelector);
       }
 
-      var editableElm = getEditableElm(),
-        tagIdx = this.getNodeIndex(tagElm),
-        tagData = this.tagData(tagElm),
-        _CB = this.events.callbacks,
-        that = this,
-        isValid = true,
-        delayed_onEditTagBlur = function () {
-          setTimeout(() => _CB.onEditTagBlur.call(that, getEditableElm()));
-        };
+      const editableElm = getEditableElm();
+      const tagIdx = this.getNodeIndex(tagElm);
+      const tagData = this.tagData(tagElm);
+      const _CB = this.events.callbacks;
+      const that = this;
+      let isValid = true;
+      const delayed_onEditTagBlur = function () {
+        setTimeout(() => _CB.onEditTagBlur.call(that, getEditableElm()));
+      };
 
       if (!editableElm) {
         console.warn('Cannot find element in Tag template: .', _s.classNames.tagTextSelector);
@@ -2394,8 +2393,8 @@
      * @returns true if valid, a string (reason) if not
      */
     editTagToggleValidity(tagElm, tagData) {
-      var tagData = tagData || this.tagData(tagElm),
-        isValid;
+      var tagData = tagData || this.tagData(tagElm);
+      let isValid;
 
       if (!tagData) {
         console.warn('tag has no data: ', tagElm, tagData);
@@ -2408,7 +2407,7 @@
         this.removeTagsFromValue(tagElm);
       }
 
-      this.update(); //this.validateTag(tagData);
+      this.update(); // this.validateTag(tagData);
 
       tagElm.classList.toggle(this.settings.classNames.tagNotAllowed, !isValid);
       return tagData.__isValid;
@@ -2417,7 +2416,7 @@
     onEditTagDone(tagElm, tagData) {
       tagElm = tagElm || this.state.editing.scope;
       tagData = tagData || {};
-      var eventData = {
+      const eventData = {
         tag: tagElm,
         index: this.getNodeIndex(tagElm),
         previousData: this.tagData(tagElm),
@@ -2452,7 +2451,7 @@
 
       if (tagData.__isValid && tagData.__isValid != true)
         extend(tagData, this.getInvalidTagAttrs(tagData, tagData.__isValid));
-      var newTagElm = this.createTagElem(tagData); // update DOM
+      const newTagElm = this.createTagElem(tagData); // update DOM
 
       tagElm.parentNode.replaceChild(newTagElm, tagElm);
       this.updateValueByDOMTags();
@@ -2476,15 +2475,15 @@
      * @param {Object}  node  DOM node to place the caret at
      */
     setRangeAtStartEnd(start, node) {
-      start = typeof start == 'number' ? start : !!start;
+      start = typeof start === 'number' ? start : !!start;
       node = node || this.DOM.input;
       node = node.lastChild || node;
-      var sel = document.getSelection();
+      const sel = document.getSelection();
 
       try {
         if (sel.rangeCount >= 1) {
           ['Start', 'End'].forEach((pos) =>
-            sel.getRangeAt(0)['set' + pos](node, start ? start : node.length)
+            sel.getRangeAt(0)[`set${pos}`](node, start || node.length)
           );
         }
       } catch (err) {
@@ -2500,7 +2499,7 @@
     injectAtCaret(injectedNode, range) {
       range = range || this.state.selection.range;
       if (!range) return;
-      if (typeof injectedNode == 'string') injectedNode = document.createTextNode(injectedNode);
+      if (typeof injectedNode === 'string') injectedNode = document.createTextNode(injectedNode);
       range.deleteContents();
       range.insertNode(injectedNode);
       this.setRangeAtStartEnd(false, injectedNode);
@@ -2517,9 +2516,9 @@
      */
     input: {
       set(s = '', updateDOM = true) {
-        var hideDropdown = this.settings.dropdown.closeOnSelect;
+        const hideDropdown = this.settings.dropdown.closeOnSelect;
         this.state.inputText = s;
-        if (updateDOM) this.DOM.input.innerHTML = escapeHTML('' + s);
+        if (updateDOM) this.DOM.input.innerHTML = escapeHTML(`${s}`);
         if (!s && hideDropdown) this.dropdown.hide.bind(this);
         this.input.autocomplete.suggest.call(this);
         this.input.validate.call(this);
@@ -2529,7 +2528,7 @@
        * Marks the tagify's input as "invalid" if the value did not pass "validateTag()"
        */
       validate() {
-        var isValid =
+        const isValid =
           !this.state.inputText ||
           this.validateTag({
             value: this.state.inputText,
@@ -2540,9 +2539,9 @@
 
       // remove any child DOM elements that aren't of type TEXT (like <br>)
       normalize(node) {
-        var clone = node || this.DOM.input,
-          //.cloneNode(true),
-          v = []; // when a text was pasted in FF, the "this.DOM.input" element will have <br> but no newline symbols (\n), and this will
+        const clone = node || this.DOM.input;
+        // .cloneNode(true),
+        let v = []; // when a text was pasted in FF, the "this.DOM.input" element will have <br> but no newline symbols (\n), and this will
         // result in tags not being properly created if one wishes to create a separate tag per newline.
 
         clone.childNodes.forEach((n) => n.nodeType == 3 && v.push(n.nodeValue));
@@ -2568,13 +2567,15 @@
         suggest(data) {
           if (!this.settings.autoComplete.enabled) return;
           data = data || {};
-          if (typeof data == 'string')
+          if (typeof data === 'string')
             data = {
               value: data,
             };
-          var suggestedText = data.value ? '' + data.value : '',
-            suggestionStart = suggestedText.substr(0, this.state.inputText.length).toLowerCase(),
-            suggestionTrimmed = suggestedText.substring(this.state.inputText.length);
+          const suggestedText = data.value ? `${data.value}` : '';
+          const suggestionStart = suggestedText
+            .substr(0, this.state.inputText.length)
+            .toLowerCase();
+          const suggestionTrimmed = suggestedText.substring(this.state.inputText.length);
 
           if (
             !suggestedText ||
@@ -2594,8 +2595,8 @@
          * @param {String} s [text]
          */
         set(s) {
-          var dataSuggest = this.DOM.input.getAttribute('data-suggest'),
-            suggestion = s || (dataSuggest ? this.state.inputText + dataSuggest : null);
+          const dataSuggest = this.DOM.input.getAttribute('data-suggest');
+          const suggestion = s || (dataSuggest ? this.state.inputText + dataSuggest : null);
 
           if (suggestion) {
             if (this.settings.mode == 'mix') {
@@ -2625,13 +2626,13 @@
     },
 
     getNodeIndex(node) {
-      var index = 0;
+      let index = 0;
       if (node) while ((node = node.previousElementSibling)) index++;
       return index;
     },
 
     getTagElms(...classess) {
-      var classname = '.' + [...this.settings.classNames.tag.split(' '), ...classess].join('.');
+      const classname = `.${[...this.settings.classNames.tag.split(' '), ...classess].join('.')}`;
       return [].slice.call(this.DOM.scope.querySelectorAll(classname)); // convert nodeList to Array - https://stackoverflow.com/a/3199627/104380
     },
 
@@ -2639,7 +2640,7 @@
      * gets the last non-readonly, not-in-the-proccess-of-removal tag
      */
     getLastTag() {
-      var lastTag = this.DOM.scope.querySelectorAll(
+      const lastTag = this.DOM.scope.querySelectorAll(
         `${this.settings.classNames.tagSelector}:not(.${this.settings.classNames.tagHide}):not([readonly])`
       );
       return lastTag[lastTag.length - 1];
@@ -2667,13 +2668,13 @@
      * @return {Boolean}
      */
     isTagDuplicate(value, caseSensitive) {
-      var duplications,
-        _s = this.settings; // duplications are irrelevant for this scenario
+      let duplications;
+      const _s = this.settings; // duplications are irrelevant for this scenario
 
       if (_s.mode == 'select') return false;
       duplications = this.value.reduce(
         (acc, item) =>
-          sameStr(this.trim('' + value), item.value, caseSensitive || _s.dropdown.caseSensitive)
+          sameStr(this.trim(`${value}`), item.value, caseSensitive || _s.dropdown.caseSensitive)
             ? acc + 1
             : acc,
         0
@@ -2682,7 +2683,7 @@
     },
 
     getTagIndexByValue(value) {
-      var indices = [];
+      const indices = [];
       this.getTagElms().forEach((tagElm, i) => {
         if (sameStr(this.trim(tagElm.textContent), value, this.settings.dropdown.caseSensitive))
           indices.push(i);
@@ -2691,7 +2692,7 @@
     },
 
     getTagElmByValue(value) {
-      var tagIdx = this.getTagIndexByValue(value)[0];
+      const tagIdx = this.getTagIndexByValue(value)[0];
       return this.getTagElms()[tagIdx];
     },
 
@@ -2713,7 +2714,7 @@
      */
     isTagBlacklisted(v) {
       v = this.trim(v.toLowerCase());
-      return this.settings.blacklist.filter((x) => ('' + x).toLowerCase() == v).length;
+      return this.settings.blacklist.filter((x) => `${x}`.toLowerCase() == v).length;
     },
 
     /**
@@ -2735,17 +2736,17 @@
      * @param {String} value [text to match by]
      */
     getWhitelistItem(value, prop, whitelist) {
-      var result,
-        prop = prop || 'value',
-        _s = this.settings,
-        whitelist = whitelist || _s.whitelist;
+      let result;
+      var prop = prop || 'value';
+      const _s = this.settings;
+      var whitelist = whitelist || _s.whitelist;
       whitelist.some((_wi) => {
-        var _wiv = typeof _wi == 'string' ? _wi : _wi[prop] || _wi.value,
-          isSameStr = sameStr(_wiv, value, _s.dropdown.caseSensitive, _s.trim);
+        const _wiv = typeof _wi === 'string' ? _wi : _wi[prop] || _wi.value;
+        const isSameStr = sameStr(_wiv, value, _s.dropdown.caseSensitive, _s.trim);
 
         if (isSameStr) {
           result =
-            typeof _wi == 'string'
+            typeof _wi === 'string'
               ? {
                   value: _wi,
                 }
@@ -2770,12 +2771,12 @@
      * @return {Boolean/String}  ["true" if validation has passed, String for a fail]
      */
     validateTag(tagData) {
-      var _s = this.settings,
-        // when validating a tag in edit-mode, need to take "tagTextProp" into consideration
-        prop = 'value' in tagData ? 'value' : _s.tagTextProp,
-        v = this.trim(tagData[prop] + ''); // check for definitive empty value
+      const _s = this.settings;
+      // when validating a tag in edit-mode, need to take "tagTextProp" into consideration
+      const prop = 'value' in tagData ? 'value' : _s.tagTextProp;
+      const v = this.trim(`${tagData[prop]}`); // check for definitive empty value
 
-      if (!(tagData[prop] + '').trim()) return this.TEXTS.empty; // check if pattern should be used and if so, use it to test the value
+      if (!`${tagData[prop]}`.trim()) return this.TEXTS.empty; // check if pattern should be used and if so, use it to test the value
 
       if (_s.pattern && _s.pattern instanceof RegExp && !_s.pattern.test(v))
         return this.TEXTS.pattern; // if duplicates are not allowed and there is a duplicate
@@ -2800,11 +2801,11 @@
     },
 
     setReadonly(isReadonly) {
-      var _s = this.settings;
+      const _s = this.settings;
       document.activeElement.blur(); // exists possible edit-mode
 
       _s.readonly = isReadonly;
-      this.DOM.scope[(isReadonly ? 'set' : 'remove') + 'Attribute']('readonly', true);
+      this.DOM.scope[`${isReadonly ? 'set' : 'remove'}Attribute`]('readonly', true);
 
       if (_s.mode == 'mix') {
         this.DOM.input.contentEditable = !isReadonly;
@@ -2817,27 +2818,27 @@
      * @return {Array} [Array of Objects]
      */
     normalizeTags(tagsItems) {
-      var _this$settings = this.settings,
-        whitelist = _this$settings.whitelist,
-        delimiters = _this$settings.delimiters,
-        mode = _this$settings.mode,
-        tagTextProp = _this$settings.tagTextProp;
+      const _this$settings = this.settings;
+      const { whitelist } = _this$settings;
+      const { delimiters } = _this$settings;
+      const { mode } = _this$settings;
+      const { tagTextProp } = _this$settings;
       _this$settings.enforceWhitelist;
-      var whitelistMatches = [],
-        whitelistWithProps = whitelist ? whitelist[0] instanceof Object : false,
-        isArray = tagsItems instanceof Array,
-        mapStringToCollection = (s) =>
-          (s + '')
-            .split(delimiters)
-            .filter((n) => n)
-            .map((v) => ({
-              [tagTextProp]: this.trim(v),
-              value: this.trim(v),
-            }));
+      const whitelistMatches = [];
+      const whitelistWithProps = whitelist ? whitelist[0] instanceof Object : false;
+      const isArray = tagsItems instanceof Array;
+      const mapStringToCollection = (s) =>
+        `${s}`
+          .split(delimiters)
+          .filter((n) => n)
+          .map((v) => ({
+            [tagTextProp]: this.trim(v),
+            value: this.trim(v),
+          }));
 
-      if (typeof tagsItems == 'number') tagsItems = tagsItems.toString(); // if the argument is a "simple" String, ex: "aaa, bbb, ccc"
+      if (typeof tagsItems === 'number') tagsItems = tagsItems.toString(); // if the argument is a "simple" String, ex: "aaa, bbb, ccc"
 
-      if (typeof tagsItems == 'string') {
+      if (typeof tagsItems === 'string') {
         if (!tagsItems.trim()) return []; // go over each tag and add it (if there were multiple ones)
 
         tagsItems = mapStringToCollection(tagsItems);
@@ -2856,17 +2857,17 @@
 
       if (whitelistWithProps) {
         tagsItems.forEach((item) => {
-          var whitelistMatchesValues = whitelistMatches.map((a) => a.value); // if suggestions are shown, they are already filtered, so it's easier to use them,
+          const whitelistMatchesValues = whitelistMatches.map((a) => a.value); // if suggestions are shown, they are already filtered, so it's easier to use them,
           // because the whitelist might also include items which have already been added
 
-          var filteredList = this.dropdown.filterListItems
+          const filteredList = this.dropdown.filterListItems
             .call(this, item[tagTextProp], {
               exact: true,
             }) // also filter out items which have already been matches in previous iterations
             .filter((filteredItem) => !whitelistMatchesValues.includes(filteredItem.value)); // get the best match out of list of possible matches.
           // if there was a single item in the filtered list, use that one
 
-          var matchObj =
+          const matchObj =
             filteredList.length > 1
               ? this.getWhitelistItem(item[tagTextProp], tagTextProp, filteredList)
               : filteredList[0];
@@ -2891,23 +2892,23 @@
      * @param {String} s
      */
     parseMixTags(s) {
-      var _this$settings2 = this.settings,
-        mixTagsInterpolator = _this$settings2.mixTagsInterpolator,
-        duplicates = _this$settings2.duplicates,
-        transformTag = _this$settings2.transformTag,
-        enforceWhitelist = _this$settings2.enforceWhitelist,
-        maxTags = _this$settings2.maxTags,
-        tagTextProp = _this$settings2.tagTextProp,
-        tagsDataSet = [];
+      const _this$settings2 = this.settings;
+      const { mixTagsInterpolator } = _this$settings2;
+      const { duplicates } = _this$settings2;
+      const { transformTag } = _this$settings2;
+      const { enforceWhitelist } = _this$settings2;
+      const { maxTags } = _this$settings2;
+      const { tagTextProp } = _this$settings2;
+      const tagsDataSet = [];
       s = s
         .split(mixTagsInterpolator[0])
         .map((s1, i) => {
-          var s2 = s1.split(mixTagsInterpolator[1]),
-            preInterpolated = s2[0],
-            maxTagsReached = tagsDataSet.length == maxTags,
-            textProp,
-            tagData,
-            tagElm;
+          const s2 = s1.split(mixTagsInterpolator[1]);
+          const preInterpolated = s2[0];
+          const maxTagsReached = tagsDataSet.length == maxTags;
+          let textProp;
+          let tagData;
+          let tagElm;
 
           try {
             // skip numbers and go straight to the "catch" statement
@@ -2932,7 +2933,7 @@
             tagElm = this.createTagElem(tagData);
             tagsDataSet.push(tagData);
             tagElm.classList.add(this.settings.classNames.tagNoAnimation);
-            s2[0] = tagElm.outerHTML; //+ "&#8288;"  // put a zero-space at the end so the caret won't jump back to the start (when the last input's child element is a tag)
+            s2[0] = tagElm.outerHTML; // + "&#8288;"  // put a zero-space at the end so the caret won't jump back to the start (when the last input's child element is a tag)
 
             this.value.push(tagData);
           } else if (s1) return i ? mixTagsInterpolator[0] + s1 : s1;
@@ -2957,11 +2958,11 @@
     replaceTextWithNode(newWrapperNode, strToReplace) {
       if (!this.state.tag && !strToReplace) return;
       strToReplace = strToReplace || this.state.tag.prefix + this.state.tag.value;
-      var idx,
-        nodeToReplace,
-        selection = window.getSelection(),
-        nodeAtCaret = selection.anchorNode,
-        firstSplitOffset = this.state.tag.delimiters ? this.state.tag.delimiters.length : 0; // STEP 1: ex. replace #ba with the tag "bart" where "|" is where the caret is:
+      let idx;
+      let nodeToReplace;
+      const selection = window.getSelection();
+      const nodeAtCaret = selection.anchorNode;
+      const firstSplitOffset = this.state.tag.delimiters ? this.state.tag.delimiters.length : 0; // STEP 1: ex. replace #ba with the tag "bart" where "|" is where the caret is:
       // CURRENT STATE: "foo #ba #ba| #ba"
       // split the text node at the index of the caret
 
@@ -3005,13 +3006,13 @@
      * add an empty "tag" element in an editable state
      */
     addEmptyTag(initialData) {
-      var tagData = extend(
-          {
-            value: '',
-          },
-          initialData || {}
-        ),
-        tagElm = this.createTagElem(tagData);
+      const tagData = extend(
+        {
+          value: '',
+        },
+        initialData || {}
+      );
+      const tagElm = this.createTagElem(tagData);
       this.tagData(tagElm, tagData); // add the tag to the component's DOM
 
       this.appendTag(tagElm);
@@ -3028,9 +3029,9 @@
      * @return {Array} Array of DOM elements (tags)
      */
     addTags(tagsItems, clearInput, skipInvalid = this.settings.skipInvalid) {
-      var tagElems = [],
-        _s = this.settings,
-        frag = document.createDocumentFragment();
+      const tagElems = [];
+      const _s = this.settings;
+      const frag = document.createDocumentFragment();
 
       if (!tagsItems || tagsItems.length == 0) {
         // is mode is "select" clean all tagsargument of
@@ -3047,13 +3048,11 @@
       if (_s.mode == 'select') clearInput = false;
       this.DOM.input.removeAttribute('style');
       tagsItems.forEach((tagData) => {
-        var tagElm,
-          tagElmParams = {},
-          originalData = Object.assign({}, tagData, {
-            value: tagData.value + '',
-          }); // shallow-clone tagData so later modifications will not apply to the source
+        let tagElm;
+        const tagElmParams = {};
+        const originalData = { ...tagData, value: `${tagData.value}` }; // shallow-clone tagData so later modifications will not apply to the source
 
-        tagData = Object.assign({}, originalData);
+        tagData = { ...originalData };
         tagData.__isValid = this.hasMaxTags() || this.validateTag(tagData);
 
         _s.transformTag.call(this, tagData);
@@ -3068,7 +3067,7 @@
           if (tagData.__isValid == this.TEXTS.duplicate)
             // mark, for a brief moment, the tag (this this one) which THIS CURRENT tag is a duplcate of
             this.flashTag(this.getTagElmByValue(tagData.value));
-        } /////////////////////////////////////////////////////
+        } /// //////////////////////////////////////////////////
 
         if (tagData.readonly) tagElmParams['aria-readonly'] = true; // Create tag HTML element
 
@@ -3125,17 +3124,17 @@
         return;
       }
 
-      if (typeof tagsData == 'string')
+      if (typeof tagsData === 'string')
         tagsData = [
           {
             value: tagsData,
           },
         ];
-      var selection = !!this.state.selection,
-        // must be cast, not to use the reference which is changing
-        frag = document.createDocumentFragment();
+      let selection = !!this.state.selection;
+      // must be cast, not to use the reference which is changing
+      const frag = document.createDocumentFragment();
       tagsData.forEach((tagData) => {
-        var tagElm = this.createTagElem(tagData);
+        const tagElm = this.createTagElem(tagData);
         frag.appendChild(tagElm);
         this.insertAfterTag(tagElm);
       }); // if "selection" exists, assumes intention of inecting the new tag at the last
@@ -3161,9 +3160,9 @@
      * @param {String/Array} tagsItem   [A string (single or multiple values with a delimiter), or an Array of Objects or just Array of Strings]
      */
     prefixedTextToTag(tagsItem) {
-      var _s = this.settings,
-        tagElm,
-        createdFromDelimiters = this.state.tag?.delimiters;
+      const _s = this.settings;
+      let tagElm;
+      const createdFromDelimiters = this.state.tag?.delimiters;
 
       _s.transformTag.call(this, tagsItem);
 
@@ -3184,7 +3183,7 @@
       this.update();
 
       if (!createdFromDelimiters) {
-        var elm = this.insertAfterTag(tagElm) || tagElm;
+        const elm = this.insertAfterTag(tagElm) || tagElm;
         this.placeCaretAfterNode(elm);
       }
 
@@ -3208,8 +3207,8 @@
      * appened (validated) tag to the component's DOM scope
      */
     appendTag(tagElm) {
-      var DOM = this.DOM,
-        insertBeforeNode = DOM.scope.lastElementChild;
+      const { DOM } = this;
+      const insertBeforeNode = DOM.scope.lastElementChild;
       if (insertBeforeNode === DOM.input) DOM.scope.insertBefore(tagElm, insertBeforeNode);
       else DOM.scope.appendChild(tagElm);
     },
@@ -3222,17 +3221,17 @@
      */
     createTagElem(tagData, extraData) {
       tagData.__tagId = getUID();
-      var tagElm,
-        templateData = extend(
-          {},
-          tagData,
-          _objectSpread2(
-            {
-              value: escapeHTML(tagData.value + ''),
-            },
-            extraData
-          )
-        ); // if( this.settings.readonly )
+      let tagElm;
+      const templateData = extend(
+        {},
+        tagData,
+        _objectSpread2(
+          {
+            value: escapeHTML(`${tagData.value}`),
+          },
+          extraData
+        )
+      ); // if( this.settings.readonly )
       //     tagData.readonly = true
 
       tagElm = this.parseTemplate('tag', [templateData, this]); // crucial for proper caret placement when deleting content. if textNodes are allowed as children of
@@ -3250,11 +3249,11 @@
      * called after a tag was edited or removed
      */
     reCheckInvalidTags() {
-      var _s = this.settings;
+      const _s = this.settings;
       this.getTagElms(_s.classNames.tagNotAllowed).forEach((tagElm, i) => {
-        var tagData = this.tagData(tagElm),
-          hasMaxTags = this.hasMaxTags(),
-          tagValidation = this.validateTag(tagData); // if the tag has become valid
+        let tagData = this.tagData(tagElm);
+        const hasMaxTags = this.hasMaxTags();
+        const tagValidation = this.validateTag(tagData); // if the tag has become valid
 
         if (tagValidation === true && !hasMaxTags) {
           tagData = tagData.__preInvalidData
@@ -3277,7 +3276,7 @@
      * TODO: Allow multiple tags to be removed at-once
      */
     removeTags(tagElms, silent, tranDuration) {
-      var tagsToRemove;
+      let tagsToRemove;
       tagElms =
         tagElms && tagElms instanceof HTMLElement
           ? [tagElms]
@@ -3292,7 +3291,7 @@
       // 4. return a collection of Objects
 
       tagsToRemove = tagElms.reduce((elms, tagElm) => {
-        if (tagElm && typeof tagElm == 'string') tagElm = this.getTagElmByValue(tagElm);
+        if (tagElm && typeof tagElm === 'string') tagElm = this.getTagElmByValue(tagElm);
         if (tagElm && this.tagData(tagElm))
           // make sure it's a tag and not some other node
           // because the DOM node might be removed by async animation, the state will be updated while
@@ -3308,7 +3307,7 @@
         return elms;
       }, []);
       tranDuration =
-        typeof tranDuration == 'number' ? tranDuration : this.CSSVars.tagHideTransition;
+        typeof tranDuration === 'number' ? tranDuration : this.CSSVars.tagHideTransition;
 
       if (this.settings.mode == 'select') {
         tranDuration = 0;
@@ -3351,7 +3350,7 @@
           }
 
           function animation(tag) {
-            tag.node.style.width = parseFloat(window.getComputedStyle(tag.node).width) + 'px';
+            tag.node.style.width = `${parseFloat(window.getComputedStyle(tag.node).width)}px`;
             document.body.clientTop; // force repaint for the width to take affect before the "hide" class below
 
             tag.node.classList.add(this.settings.classNames.tagHide); // manual timeout (hack, since transitionend cannot be used because of hover)
@@ -3382,8 +3381,8 @@
       tags = Array.isArray(tags) ? tags : [tags];
       tags.forEach((tag) => {
         // remove "__removed" so the comparison in "getTagIdx" could work
-        var tagData = this.tagData(tag),
-          tagIdx = this.getTagIdx(tagData);
+        const tagData = this.tagData(tag);
+        const tagIdx = this.getTagIdx(tagData);
         delete tagData.__removed;
         if (tagIdx > -1) this.value.splice(tagIdx, 1);
       });
@@ -3402,13 +3401,13 @@
     },
 
     postUpdate() {
-      var classNames = this.settings.classNames,
-        hasValue =
-          this.settings.mode == 'mix'
-            ? this.settings.mixMode.integrated
-              ? this.DOM.input.textContent
-              : this.DOM.originalInput.value
-            : this.value.length;
+      const { classNames } = this.settings;
+      const hasValue =
+        this.settings.mode == 'mix'
+          ? this.settings.mixMode.integrated
+            ? this.DOM.input.textContent
+            : this.DOM.originalInput.value
+          : this.value.length;
       this.toggleClass(classNames.hasMaxTags, this.value.length >= this.settings.maxTags);
       this.toggleClass(classNames.hasNoTags, !this.value.length);
       this.toggleClass(classNames.empty, !hasValue);
@@ -3419,7 +3418,7 @@
      * see - https://stackoverflow.com/q/50957841/104380
      */
     update(args) {
-      var inputElm = this.DOM.originalInput;
+      const inputElm = this.DOM.originalInput;
       if (!this.settings.mixMode.integrated) inputElm.value = this.getInputValue();
       this.postUpdate();
       if (!(args || {}).withoutChangeEvent && this.state.loadedOriginalValues)
@@ -3427,7 +3426,7 @@
     },
 
     getInputValue() {
-      var value = this.getCleanValue();
+      const value = this.getCleanValue();
       return this.settings.mode == 'mix'
         ? this.getMixedTagsAsString(value)
         : value.length
@@ -3445,20 +3444,19 @@
     },
 
     getMixedTagsAsString() {
-      var result = '',
-        that = this,
-        _interpolator = this.settings.mixTagsInterpolator;
+      let result = '';
+      const that = this;
+      const _interpolator = this.settings.mixTagsInterpolator;
 
       function iterateChildren(rootNode) {
         rootNode.childNodes.forEach((node) => {
           if (node.nodeType == 1) {
             if (node.classList.contains(that.settings.classNames.tag) && that.tagData(node)) {
               if (that.tagData(node).__removed) return;
-              else
-                result +=
-                  _interpolator[0] +
-                  JSON.stringify(omit(that.tagData(node), that.dataProps)) +
-                  _interpolator[1];
+              result +=
+                _interpolator[0] +
+                JSON.stringify(omit(that.tagData(node), that.dataProps)) +
+                _interpolator[1];
               return;
             }
 

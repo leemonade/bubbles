@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { trim } from 'lodash';
@@ -20,7 +21,7 @@ export const SEARCH_INPUT_DEFAULT_PROPS = {
 };
 export const SEARCH_INPUT_PROP_TYPES = {
   ...TEXT_INPUT_PROP_TYPES,
-  /** The debounce wait in milliseconds*/
+  /** The debounce wait in milliseconds */
   wait: PropTypes.number,
   /** The value of the input */
   value: PropTypes.string,
@@ -31,7 +32,7 @@ export const SEARCH_INPUT_PROP_TYPES = {
 };
 
 const SearchInput = React.forwardRef(
-  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }) => {
+  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }, ref) => {
     const [value, setValue] = useState(valueProp);
     const [debounced] = useDebouncedValue(value, wait);
 
@@ -46,6 +47,7 @@ const SearchInput = React.forwardRef(
     return (
       <TextInput
         {...props}
+        ref={ref}
         value={value}
         onChange={(e) => setValue(e)}
         icon={<SearchIcon />}
@@ -57,5 +59,6 @@ const SearchInput = React.forwardRef(
 
 SearchInput.defaultProps = SEARCH_INPUT_DEFAULT_PROPS;
 SearchInput.propTypes = SEARCH_INPUT_PROP_TYPES;
+SearchInput.displayName = 'SearchInput';
 
 export { SearchInput };

@@ -4,7 +4,8 @@ import { isEmpty } from 'lodash';
 import { Box } from '../Box';
 import { Stack } from '../Stack';
 import { Divider } from '../Divider';
-import { Paragraph, Title } from '../../typography';
+import { Paragraph } from '../../typography/Paragraph';
+import { Title } from '../../typography/Title';
 import { ContextContainerStyles } from './ContextContainer.styles';
 
 export const CONTEXT_CONTAINER_PADDED_TYPES = [true, false, 'vertical', 'horizontal'];
@@ -23,6 +24,16 @@ export const CONTEXT_CONTAINER_PROP_TYPES = {
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  direction: PropTypes.oneOf(['row', 'column']),
+  fullHeight: PropTypes.bool,
+  style: PropTypes.object,
+  alignItems: PropTypes.string,
+  justifyContent: PropTypes.string,
+  wrap: PropTypes.bool,
+  alignContent: PropTypes.string,
 };
 
 const ContextContainer = ({
@@ -83,18 +94,20 @@ const ContextContainer = ({
         <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
             <Box>
-              {typeof title === 'string' ? 
-                (<Title order={3} dangerouslySetInnerHTML={{ __html: title }} />)
-                : (subtitle)
-              }
+              {typeof title === 'string' ? (
+                <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
+              ) : (
+                subtitle
+              )}
             </Box>
           )}
           {hasSubtitle && (
             <Box>
-              {typeof subtitle === 'string' ? 
-                (<Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />)
-                : (subtitle)
-              }
+              {typeof subtitle === 'string' ? (
+                <Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />
+              ) : (
+                subtitle
+              )}
             </Box>
           )}
           {hasDescription && (

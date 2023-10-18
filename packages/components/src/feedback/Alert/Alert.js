@@ -1,5 +1,5 @@
+/* eslint-disable import/no-cycle */
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { isNil, isString } from 'lodash';
 import { Alert as MantineAlert, Box } from '@mantine/core';
 import {
@@ -10,10 +10,14 @@ import {
 } from '@bubbles-ui/icons/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { AlertStyles } from './Alert.styles';
-import { Button, ActionButton } from '../../form';
-
-export const ALERT_SEVERITIES = ['info', 'success', 'warning', 'error'];
-export const ALERT_VARIANTS = ['inline', 'block'];
+import { ActionButton } from '../../form/ActionButton';
+import { Button } from '../../form/Button';
+import {
+  ALERT_DEFAULT_PROPS,
+  ALERT_PROP_TYPES,
+  ALERT_SEVERITIES,
+  ALERT_VARIANTS,
+} from './Alert.constants';
 
 const ALERT_ICONS = {
   info: AlertInformationCircleIcon,
@@ -34,18 +38,18 @@ const Alert = ({
   useAria,
   ...props
 }) => {
-  variant = ALERT_VARIANTS.includes(variant) ? variant : 'inline';
-  severity = ALERT_SEVERITIES.includes(severity) ? severity : 'info';
+  const variantCheked = ALERT_VARIANTS.includes(variant) ? variant : 'inline';
+  const severityChecked = ALERT_SEVERITIES.includes(severity) ? severity : 'info';
   const isCloseable = useMemo(
     () => closeable && !isNil(closeable) && closeable !== '',
     [closeable]
   );
-  const { classes, cx } = AlertStyles({ variant, severity }, { name: 'Alert' });
+  const { classes } = AlertStyles({ variantCheked, severityChecked }, { name: 'Alert' });
 
   return (
     <MantineAlert
       {...props}
-      icon={ALERT_ICONS[severity]()}
+      icon={ALERT_ICONS[severityChecked]()}
       classNames={classes}
       role={useAria ? 'alert' : undefined}
     >
@@ -75,30 +79,10 @@ const Alert = ({
   );
 };
 
-Alert.defaultProps = {
-  variant: 'inline',
-  severity: 'info',
-  closeable: true,
-  useAria: true,
-};
+Alert.defaultProps = ALERT_DEFAULT_PROPS;
+Alert.propTypes = ALERT_PROP_TYPES;
+Alert.displayName = 'Alert';
 
-Alert.propTypes = {
-  /** Alert title */
-  title: PropTypes.node,
-  /** Controls Alert severity (color) */
-  severity: PropTypes.oneOf(ALERT_SEVERITIES),
-  /** Controls the Alert appearance */
-  variant: PropTypes.string,
-  /** Controls if Alert is closable or not */
-  closeable: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  /** Controls if Alert has an action and the text for the button */
-  action: PropTypes.node,
-  /** Function executed by the action button */
-  onAction: PropTypes.func,
-  /** Function executed when Alert closes */
-  onClose: PropTypes.func,
-  /** Controls if Alert uses aria role */
-  useAria: PropTypes.bool,
-};
+export default Alert;
 
 export { Alert };

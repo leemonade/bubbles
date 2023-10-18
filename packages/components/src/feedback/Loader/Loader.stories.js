@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { Loader, LOADER_DEFAULT_PROPS } from './Loader';
 import { CONTEXT_CONTAINER_PADDED_TYPES } from '../../layout';
 import mdx from './Loader.mdx';
@@ -22,9 +21,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Loader {...props} />;
-};
+const Template = ({ ...props }) => <Loader {...props} />;
 
 export const Playground = Template.bind({});
 

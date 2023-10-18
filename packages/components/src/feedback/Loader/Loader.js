@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
-import { Loader as MantineLoader, Box } from '@mantine/core';
-import { ContextContainer, CONTEXT_CONTAINER_PROP_TYPES } from '../../layout';
-import { Text } from '../../typography';
-import { LoaderStyles } from './Loader.styles';
+import { Loader as MantineLoader } from '@mantine/core';
+import { ContextContainer, CONTEXT_CONTAINER_PROP_TYPES } from '../../layout/ContextContainer';
+import { Text } from '../../typography/Text';
 
 export const LOADER_LABEL_POSITIONS = ['right', 'bottom'];
 
