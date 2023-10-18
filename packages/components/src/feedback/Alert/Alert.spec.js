@@ -4,6 +4,10 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from '../../ThemeProvider';
 import { Alert } from './Alert';
 
+const { axe, toHaveNoViolations } = require('jest-axe');
+
+expect.extend(toHaveNoViolations);
+
 describe('Calendar', () => {
   it('should render correctly', () => {
     render(
@@ -39,5 +43,17 @@ describe('Calendar', () => {
     // if click on close button, onClose should be called:
     await userEvent.click(closeButton);
     expect(onCloseMock).toHaveBeenCalled();
+  });
+});
+
+describe('axe', () => {
+  it('should not have any violations', async () => {
+    const { container } = render(
+      <ThemeProvider>
+        <Alert />
+      </ThemeProvider>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
