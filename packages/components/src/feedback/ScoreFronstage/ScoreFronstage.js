@@ -1,11 +1,12 @@
+/* eslint-disable import/no-cycle */
 import React from 'react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { ScoreFronstageStyles } from './ScoreFronstage.styles';
 import {
   SCORE_FRONSTAGE_DEFAULT_PROPS,
   SCORE_FRONSTAGE_PROP_TYPES,
 } from './ScoreFronstage.constants';
-import { Average } from './Average';
+import { Average } from './Average/Average';
 import { Item } from './Item';
 import { Avatar } from '../../informative';
 import { ImageLoader } from '../../misc';
@@ -24,7 +25,7 @@ const ScoreFronstage = ({
   locale,
   ...props
 }) => {
-  const { classes, cx } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
+  const { classes } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
 
   return (
     <Box className={classes.root} {...props}>
@@ -54,5 +55,7 @@ const ScoreFronstage = ({
 
 ScoreFronstage.defaultProps = SCORE_FRONSTAGE_DEFAULT_PROPS;
 ScoreFronstage.propTypes = SCORE_FRONSTAGE_PROP_TYPES;
+ScoreFronstage.displayName = 'ScoreFronstage';
 
+export default ScoreFronstage;
 export { ScoreFronstage };

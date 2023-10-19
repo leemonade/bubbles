@@ -1,6 +1,7 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
 
-export const ScoreFronstageStyles = createStyles((theme, {}) => {
+export const ScoreFronstageStyles = createStyles((theme) => {
   const scoreTheme = theme.other.score;
   const paddingLg = scoreTheme.spacing.padding.lg;
   return {

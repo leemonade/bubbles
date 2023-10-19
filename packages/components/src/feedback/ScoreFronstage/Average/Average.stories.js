@@ -18,9 +18,7 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
-  return <Average {...props} />;
-};
+const Template = ({ ...props }) => <Average {...props} />;
 
 export const Playground = Template.bind({});
 

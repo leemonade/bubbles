@@ -18,9 +18,7 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
-  return <Badge {...props} />;
-};
+const Template = ({ ...props }) => <Badge {...props} />;
 
 export const Playground = Template.bind({});
 

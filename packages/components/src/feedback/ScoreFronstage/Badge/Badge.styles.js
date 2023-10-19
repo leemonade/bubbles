@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
 import { getVariant } from '../Average/Average.styles';
 

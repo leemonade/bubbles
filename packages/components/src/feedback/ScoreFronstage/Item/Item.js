@@ -1,8 +1,8 @@
 import React from 'react';
+import { isDate, isFunction } from 'lodash';
 import { ItemStyles } from './Item.styles';
 import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
-import { Box } from '../../../layout';
-import { isDate, isFunction } from 'lodash';
+import { Box } from '../../../layout/Box';
 import { Badge } from '../Badge';
 
 const Item = ({
@@ -19,11 +19,11 @@ const Item = ({
   const { classes } = ItemStyles({}, { name: 'Item' });
 
   const handleOnClick = () => {
-    isFunction(onClick) && onClick();
+    if (isFunction(onClick)) onClick();
   };
 
   return (
-    <Box className={classes.root} onClick={handleOnClick}>
+    <Box className={classes.root} onClick={handleOnClick} {...props}>
       <Box className={classes.titleContainer}>
         <Box className={classes.title}>{title}</Box>
         <Box className={classes.date}>{isDate(date) ? date.toLocaleDateString(locale) : date}</Box>
@@ -38,5 +38,7 @@ const Item = ({
 
 Item.defaultProps = ITEM_DEFAULT_PROPS;
 Item.propTypes = ITEM_PROP_TYPES;
+Item.displayName = 'Item';
 
+export default Item;
 export { Item };

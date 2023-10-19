@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mantine/core';
 import { ScoreFronstage } from './ScoreFronstage';
 import { SCORE_FRONSTAGE_DEFAULT_PROPS } from './ScoreFronstage.constants';
 import mdx from './ScoreFronstage.mdx';
@@ -19,9 +18,7 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
-  return <ScoreFronstage {...props} />;
-};
+const Template = ({ ...props }) => <ScoreFronstage {...props} />;
 
 export const Playground = Template.bind({});
 
