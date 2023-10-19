@@ -56,7 +56,8 @@
     "types:clean": "rimraf types _types",
     "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
     "types:fix": "mv _types types && rimraf _types types/**/mocks",
-    "compile-tokens": "sh scripts/compile-tokens.sh",
+    "merge-tokens": "node scripts/merge-tokens.js",
+    "compile-tokens": "yarn merge-tokens; sh scripts/compile-tokens.sh",
     "chromatic": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw"
   },
   "dependencies": {
