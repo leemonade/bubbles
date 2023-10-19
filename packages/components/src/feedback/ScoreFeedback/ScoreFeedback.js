@@ -1,6 +1,7 @@
+/* eslint-disable import/no-cycle */
 import React from 'react';
-import { Box } from '../../layout';
-import { Calification } from '../../informative';
+import { Box } from '../../layout/Box';
+import { Calification } from '../../informative/Calification';
 import { ScoreFeedbackStyles } from './ScoreFeedback.styles';
 import { SCORE_FEEDBACK_DEFAULT_PROPS, SCORE_FEEDBACK_PROP_TYPES } from './ScoreFeedback.constants';
 
@@ -9,9 +10,10 @@ const ScoreFeedback = ({ calification, children, styles, className, useAria, ...
 
   return (
     // Role is left empty, it should be 'comment' but the role is proposed for WAI-ARIA 1.3, which is still being drafted.
-    <Box className={cx(classes.root, className)} role={useAria ? '' : ''}>
+    <Box className={cx(classes.root, className)} role={useAria ? 'contentinfo' : ''}>
       <Calification
         {...calification}
+        {...props}
         inverted={true}
         orientation="vertical"
         styles={{
@@ -34,5 +36,7 @@ const ScoreFeedback = ({ calification, children, styles, className, useAria, ...
 
 ScoreFeedback.defaultProps = SCORE_FEEDBACK_DEFAULT_PROPS;
 ScoreFeedback.propTypes = SCORE_FEEDBACK_PROP_TYPES;
+ScoreFeedback.displayName = 'ScoreFeedback';
 
+export default ScoreFeedback;
 export { ScoreFeedback };

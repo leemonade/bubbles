@@ -1,28 +1,9 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { isString } from 'lodash';
 import { Loader as MantineLoader } from '@mantine/core';
-import { ContextContainer, CONTEXT_CONTAINER_PROP_TYPES } from '../../layout/ContextContainer';
+import { ContextContainer } from '../../layout/ContextContainer';
 import { Text } from '../../typography/Text';
-
-export const LOADER_LABEL_POSITIONS = ['right', 'bottom'];
-
-export const LOADER_DEFAULT_PROPS = {
-  padded: false,
-  label: '',
-  labelPosition: LOADER_LABEL_POSITIONS[0],
-  useAria: true,
-};
-export const LOADER_PROP_TYPES = {
-  /** Controls the amount of padding */
-  padded: CONTEXT_CONTAINER_PROP_TYPES.padded,
-  /** Controls if there is text */
-  label: PropTypes.string,
-  /** Controls the label position */
-  labelPosition: PropTypes.oneOf(LOADER_LABEL_POSITIONS),
-  /** Controls if Loader uses aria role */
-  useAria: PropTypes.bool,
-};
+import { LOADER_DEFAULT_PROPS, LOADER_PROP_TYPES } from './Loader.constants';
 
 const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
   const direction = useMemo(() => (labelPosition === 'right' ? 'row' : 'column'), [labelPosition]);
@@ -45,5 +26,7 @@ const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
 
 Loader.defaultProps = LOADER_DEFAULT_PROPS;
 Loader.propTypes = LOADER_PROP_TYPES;
+Loader.displayName = 'Loader';
 
+export default Loader;
 export { Loader };

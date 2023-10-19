@@ -31,7 +31,7 @@ describe('Calendar', () => {
           {'this is the children'}
         </Alert>
       </ThemeProvider>
-    ).debug(undefined, 100000);
+    );
 
     // renders title:
     expect(screen.getByText('This is the title')).toBeInTheDocument();
