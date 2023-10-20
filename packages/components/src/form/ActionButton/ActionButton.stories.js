@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
+import { ActionButton } from './ActionButton';
 import {
-  ActionButton,
   ACTION_BUTTON_SIZES,
   ACTION_BUTTON_COLORS,
   ACTION_BUTTON_DEFAULT_PROPS,
-} from './ActionButton';
+} from './ActionButton.constants';
 import mdx from './ActionButton.mdx';
 
 export default {
@@ -23,25 +24,25 @@ export default {
   argTypes: {
     size: { options: ACTION_BUTTON_SIZES, control: { type: 'select' } },
     color: { options: ACTION_BUTTON_COLORS, control: { type: 'select' } },
+    label: { control: { type: 'text' } },
   },
 };
 
-const Template = ({ test_showLeftIcon, test_showRightIcon, ...props }) => {
-  return (
-    <ActionButton
-      {...props}
-      rightIcon={test_showRightIcon ? <ChevronRightIcon /> : null}
-      icon={test_showLeftIcon ? <ExpandDiagonalIcon /> : null}
-      {...props}
-    />
-  );
-};
+const Template = ({ testShowLeftIcon, testShowRightIcon, ...props }) => (
+  <ActionButton
+    {...props}
+    rightIcon={testShowRightIcon ? <ChevronRightIcon /> : null}
+    icon={testShowLeftIcon ? <ExpandDiagonalIcon /> : null}
+    {...props}
+  />
+);
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...ACTION_BUTTON_DEFAULT_PROPS,
   tooltip: 'Expand',
-  test_showLeftIcon: true,
-  test_showRightIcon: false,
+  testShowLeftIcon: true,
+  testShowRightIcon: false,
+  label: 'ActionButton',
 };
