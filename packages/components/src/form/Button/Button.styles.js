@@ -11,6 +11,16 @@ const getSizes = (size, theme) => {
   }
 };
 
+const getPaddingIfIcon = (hasLeftIcon, hasRightIcon, theme) => {
+  if (!hasLeftIcon && !hasRightIcon) return;
+  const buttonPadding = theme.other.button.spacing.padding;
+  const iconLeftPadding = hasLeftIcon ? buttonPadding.horizontal.xs : buttonPadding.horizontal.sm;
+  const iconRightPadding = hasRightIcon ? buttonPadding.horizontal.xs : buttonPadding.horizontal.sm;
+  return {
+    padding: `${buttonPadding.vertical.md} ${iconRightPadding} ${buttonPadding.vertical.md} ${iconLeftPadding}`,
+  };
+};
+
 const getVariant = (variant, theme, color) => {
   const buttonTheme = theme.other.button;
 
@@ -306,7 +316,21 @@ const getVariant = (variant, theme, color) => {
 };
 
 export const ButtonStyles = createStyles(
-  (theme, { size, color, variant, fullWidth, styles, rounded, textAlign, disabled }) => {
+  (
+    theme,
+    {
+      size,
+      color,
+      variant,
+      fullWidth,
+      styles,
+      rounded,
+      textAlign,
+      disabled,
+      hasLeftIcon,
+      hasRightIcon,
+    }
+  ) => {
     const currentVariant = getVariant(variant, theme, color);
     const buttonTheme = theme.other.button;
     const iconStyles = {
@@ -325,7 +349,6 @@ export const ButtonStyles = createStyles(
       disabledOverrides = {
         backgroundColor:
           variant === 'filled' ? theme.other.global.background.color.disabled : 'transparent',
-        borderColor: theme.other.global.background.color.disabled,
         color: theme.other.global.content.color.disabled,
       };
     }
@@ -340,6 +363,7 @@ export const ButtonStyles = createStyles(
         ...getSizes(size || 'md', theme),
         ...getVariant(variant, theme, color),
         ...styles,
+        ...getPaddingIfIcon(hasLeftIcon, hasRightIcon, theme),
         '&[data-loading]': {
           // borderColor: 'transparent',
           svg: {
