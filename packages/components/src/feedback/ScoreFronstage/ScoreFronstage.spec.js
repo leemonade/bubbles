@@ -13,8 +13,9 @@ const scoreFronstageFixture = {
   image: 'https://via.placeholder.com/100x100',
   icon: 'https://via.placeholder.com/100x100',
   label: 'This is the label',
-  score: 0,
+  score: { number: 11 },
   minGrade: 0,
+  maxGrade: 10,
   values: [
     {
       title: 'Title 1',
@@ -44,7 +45,7 @@ describe('ScoreFronstage', () => {
       <ThemeProvider>
         <ScoreFronstage {...scoreFronstageFixture} />
       </ThemeProvider>
-    ).debug(undefined, 100000);
+    );
 
     expect(screen.getByText(scoreFronstageFixture.title)).toBeInTheDocument();
     expect(screen.getByText(scoreFronstageFixture.subtitle)).toBeInTheDocument();

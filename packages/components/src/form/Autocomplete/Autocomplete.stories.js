@@ -1,3 +1,7 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
+/* eslint-disable sonarjs/no-duplicate-string */
 import React, { forwardRef } from 'react';
 import { Autocomplete } from './Autocomplete';
 import { AUTOCOMPLETE_DEFAULT_PROPS } from './Autocomplete.constants';
@@ -29,9 +33,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Autocomplete {...props} />;
-};
+const Template = ({ ...props }) => <Autocomplete {...props} />;
 
 export const Playground = Template.bind({});
 

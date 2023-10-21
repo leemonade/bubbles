@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/components",
-  "version": "1.2.17",
+  "version": "1.2.13",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -56,12 +56,14 @@
     "types:clean": "rimraf types _types",
     "types:generate": "tsc-silent --project ./tsconfig.json --suppress @ --compiler \"../../node_modules/typescript/lib/typescript.js\"",
     "types:fix": "mv _types types && rimraf _types types/**/mocks",
+    "compile-tokens": "sh scripts/compile-tokens.sh",
     "merge-tokens": "node scripts/merge-tokens.js",
-    "compile-tokens": "yarn merge-tokens; sh scripts/compile-tokens.sh",
-    "chromatic": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw"
+    "vscode:uninstall": "npx chromatic --project-token=7b10302a7b6b --build-script-name=build:storybook:raw",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
-    "@bubbles-ui/icons": "^1.2.17",
+    "@bubbles-ui/icons": "^1.2.13",
     "@emotion/react": "^11.10.0",
     "@heroicons/react": "^1.0.5",
     "@leemonade/react-dnd-treeview": "^1.5.44",

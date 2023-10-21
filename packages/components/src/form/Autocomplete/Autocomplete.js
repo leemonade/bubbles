@@ -6,7 +6,8 @@ import {
 import { DeleteIcon } from '@bubbles-ui/icons/solid';
 import { isEmpty, isFunction } from 'lodash';
 import { useDebouncedValue, useId } from '@mantine/hooks';
-import { InputWrapper } from '../InputWrapper';
+// eslint-disable-next-line import/no-cycle
+import { InputWrapper } from '../InputWrapper/InputWrapper';
 import { AutocompleteStyles } from './Autocomplete.styles';
 import { AUTOCOMPLETE_DEFAULT_PROPS, AUTOCOMPLETE_PROP_TYPES } from './Autocomplete.constants';
 
@@ -39,6 +40,7 @@ const Autocomplete = forwardRef(
       ...props
     },
     ref
+    // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const [selectedValue, setSelectedValue] = useState(Array.isArray(value) ? value : null);
     const [inputValue, setInputValue] = useState(value || '');
@@ -63,19 +65,19 @@ const Autocomplete = forwardRef(
     // HANDLERS
 
     const onItemSubmitHandler = (e) => {
-      isFunction(onItemSubmit) && onItemSubmit(e);
+      if (isFunction(onItemSubmit)) onItemSubmit(e);
       setSelectedValue(e);
     };
 
     const onChangeHandler = (e) => {
       setInputValue(e);
-      isFunction(onChange) && onChange(e);
+      if (isFunction(onChange)) onChange(e);
     };
 
     const deleteValues = () => {
       setSelectedValue(null);
       setInputValue('');
-      isFunction(onChange) && onChange('');
+      if (isFunction(onChange)) onChange('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -85,7 +87,7 @@ const Autocomplete = forwardRef(
     // ················································································
     // STYLES
 
-    const { classes, cx } = AutocompleteStyles({ multiple }, { name: 'Autocomplete' });
+    const { classes } = AutocompleteStyles({ multiple }, { name: 'Autocomplete' });
 
     return (
       <Wrapper {...wrapperProps}>
@@ -140,9 +142,10 @@ const Autocomplete = forwardRef(
             classNames={classes}
             error={!isEmpty(error)}
             aria-label={ariaLabel}
-            filter={(value = '', item) => {
-              if (!value) return true;
-              return item.value?.toLowerCase().trim().includes(value?.toLowerCase().trim());
+            // eslint-disable-next-line default-param-last
+            filter={(val = '', item) => {
+              if (!val) return true;
+              return item.val?.toLowerCase().trim().includes(val?.toLowerCase().trim());
             }}
           />
         )}
@@ -153,5 +156,7 @@ const Autocomplete = forwardRef(
 
 Autocomplete.defaultProps = AUTOCOMPLETE_DEFAULT_PROPS;
 Autocomplete.propTypes = AUTOCOMPLETE_PROP_TYPES;
+Autocomplete.displayName = 'Autocomplete';
 
+export default Autocomplete;
 export { Autocomplete };
