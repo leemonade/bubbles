@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { getBoxShadowFromToken } from './../../theme.mixins';
+import { getBoxShadowFromToken, getFocusDefaultBorder } from './../../theme.mixins';
 
 const getSizes = (size, theme) => {
   const buttonPadding = theme.other.button.spacing.padding;
@@ -18,7 +18,7 @@ const getVariant = (variant, theme, color) => {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
   };
-  const buttonTypo = buttonTheme.content.default;
+  const buttonTypoDefault = buttonTheme.content.default;
   const buttonTypoHover = buttonTheme.content.hover;
 
   const variants = {
@@ -27,22 +27,28 @@ const getVariant = (variant, theme, color) => {
         backgroundColor: buttonTheme.background.color.primary.default,
         border: 'none',
         color: buttonTheme.content.color.primary.default,
-        // ...buttonTypo,
+        ...buttonTypoDefault,
         '&:focus-visible': {
-          ...getBoxShadowFromToken(theme.other.global.focus.default),
           backgroundColor: buttonTheme.background.color.primary.hover,
-          borderColor: buttonTheme.border.color.primary.hover,
+          ...getFocusDefaultBorder(theme),
           outline: 'none',
+          '& > div > span': {
+            ...buttonTypoHover,
+          },
         },
         '&:hover': {
           backgroundColor: buttonTheme.background.color.primary.hover,
           ...getBoxShadowFromToken(buttonTheme.shadow.hover),
-          fontWeight: '700 !important',
-          ...buttonTypoHover,
+          '& > div > span': {
+            ...buttonTypoHover,
+          },
         },
         '&:active': {
-          backgroundColor: buttonTheme.background.color.primary.down,
-          borderColor: buttonTheme.border.color.primary.down,
+          backgroundColor: buttonTheme.background.color.primary.pressed,
+          boxShadow: 'none',
+          '& > div > span': {
+            ...buttonTypoDefault,
+          },
         },
       },
       secondary: {

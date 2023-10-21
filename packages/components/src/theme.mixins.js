@@ -5,6 +5,13 @@ function round25(x) {
   return parseFloat(intPart + '.' + String(Math.round(parseInt(floatPart) / 25) * 25));
 }
 
+export const getFocusDefaultBorder = (theme) => {
+  const focusDefaultBorder = theme.other.global.focus['default-border'];
+  return {
+    border: `${focusDefaultBorder.width} ${focusDefaultBorder.style} ${focusDefaultBorder.color}`,
+  };
+};
+
 export function pxToRem(val, rounded25) {
   const PX_TO_REM = 0.063;
   const rem = Math.floor(val * PX_TO_REM * 100) / 100;
