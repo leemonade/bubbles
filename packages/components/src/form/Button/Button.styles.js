@@ -3,10 +3,12 @@ import { getBoxShadowFromToken } from './../../theme.mixins';
 
 const getSizes = (size, theme) => {
   const buttonPadding = theme.other.button.spacing.padding;
-  return {
-    height: 'unset',
-    padding: `${buttonPadding.vertical[size]} ${buttonPadding.horizontal[size]}`,
-  };
+  if (size === 'md') {
+    return {
+      height: 'unset',
+      padding: `${buttonPadding.vertical[size]} ${buttonPadding.horizontal.sm}`,
+    };
+  }
 };
 
 const getVariant = (variant, theme, color) => {
@@ -16,13 +18,16 @@ const getVariant = (variant, theme, color) => {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
   };
+  const buttonTypo = buttonTheme.content.default;
+  const buttonTypoHover = buttonTheme.content.hover;
 
   const variants = {
     filled: {
       primary: {
         backgroundColor: buttonTheme.background.color.primary.default,
-        borderColor: buttonTheme.border.color.primary.default,
-        color: buttonTheme.content.color.primary['default--reverse'],
+        border: 'none',
+        color: buttonTheme.content.color.primary.default,
+        // ...buttonTypo,
         '&:focus-visible': {
           ...getBoxShadowFromToken(theme.other.global.focus.default),
           backgroundColor: buttonTheme.background.color.primary.hover,
@@ -31,7 +36,9 @@ const getVariant = (variant, theme, color) => {
         },
         '&:hover': {
           backgroundColor: buttonTheme.background.color.primary.hover,
-          borderColor: buttonTheme.border.color.primary.hover,
+          ...getBoxShadowFromToken(buttonTheme.shadow.hover),
+          fontWeight: '700 !important',
+          ...buttonTypoHover,
         },
         '&:active': {
           backgroundColor: buttonTheme.background.color.primary.down,

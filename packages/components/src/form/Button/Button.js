@@ -53,6 +53,8 @@ export const Button = forwardRef(
       ? variantProp
       : BUTTON_DEFAULT_PROPS.variant;
     const size = BUTTON_SIZES.includes(sizeProp) ? sizeProp : BUTTON_DEFAULT_PROPS.size;
+    const hasLeftIcon = !!leftIcon;
+    const hasRightIcon = !!rightIcon;
 
     const { classes } = ButtonStyles(
       {
@@ -64,6 +66,8 @@ export const Button = forwardRef(
         disabled,
         textAlign,
         styles,
+        hasLeftIcon,
+        hasRightIcon,
       },
       { name: 'Button' }
     );
