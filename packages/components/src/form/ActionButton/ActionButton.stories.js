@@ -26,12 +26,12 @@ export default {
   },
 };
 
-const Template = ({ test_showLeftIcon, test_showRightIcon, ...props }) => {
+const Template = ({ testShowLeftIcon, testShowRightIcon, ...props }) => {
   return (
     <ActionButton
       {...props}
-      rightIcon={test_showRightIcon ? <ChevronRightIcon /> : null}
-      icon={test_showLeftIcon ? <ExpandDiagonalIcon /> : null}
+      rightIcon={testShowRightIcon ? <ChevronRightIcon /> : null}
+      icon={testShowLeftIcon ? <ExpandDiagonalIcon /> : null}
       {...props}
     />
   );
@@ -42,6 +42,6 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...ACTION_BUTTON_DEFAULT_PROPS,
   tooltip: 'Expand',
-  test_showLeftIcon: true,
-  test_showRightIcon: false,
+  testShowLeftIcon: true,
+  testShowRightIcon: false,
 };
