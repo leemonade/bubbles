@@ -67,8 +67,9 @@ export function getBoxShadowFromToken(tokens) {
     const boxShadowString = boxShadows.join(',');
     return { boxShadow: boxShadowString };
   } else {
-    const { x, y, blur, spread, color } = tokens;
-    return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color}` };
+    const { x, y, blur, spread, color, type } = tokens;
+    const typeInset = type === 'innerShadow' ? 'inset' : '';
+    return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color} ${typeInset}` };
   }
 }
 

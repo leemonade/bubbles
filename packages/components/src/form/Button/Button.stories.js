@@ -1,12 +1,12 @@
 import React from 'react';
 import { AddIcon } from '@bubbles-ui/icons/outline';
+import { Button } from './Button';
 import {
-  Button,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
   BUTTON_COLORS,
   BUTTON_DEFAULT_PROPS,
-} from './Button';
+} from './Button.constants';
 import mdx from './Button.mdx';
 
 export default {
