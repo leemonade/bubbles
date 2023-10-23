@@ -1,11 +1,11 @@
 import React from 'react';
 import { ChevronRightIcon, ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
+import { ActionButton } from './ActionButton';
 import {
-  ActionButton,
   ACTION_BUTTON_SIZES,
   ACTION_BUTTON_COLORS,
   ACTION_BUTTON_DEFAULT_PROPS,
-} from './ActionButton';
+} from './ActionButton.constants';
 import mdx from './ActionButton.mdx';
 
 export default {
