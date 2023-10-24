@@ -1,5 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable consistent-return */
 import { createStyles } from '@mantine/styles';
-import { getBoxShadowFromToken, getFocusDefaultBorder } from './../../theme.mixins';
+import { getBoxShadowFromToken, getFocusDefaultBorder } from '../../theme.mixins';
 
 const getSizes = (size, theme) => {
   const buttonPadding = theme.other.button.spacing.padding;
@@ -142,18 +144,7 @@ const getVariant = (variant, theme, color) => {
 export const ButtonStyles = createStyles(
   (
     theme,
-    {
-      size,
-      color,
-      variant,
-      fullWidth,
-      styles,
-      rounded,
-      textAlign,
-      disabled,
-      hasLeftIcon,
-      hasRightIcon,
-    }
+    { size, color, variant, fullWidth, styles, textAlign, disabled, hasLeftIcon, hasRightIcon }
   ) => {
     const currentVariant = getVariant(variant, theme, color);
     const buttonTheme = theme.other.button;

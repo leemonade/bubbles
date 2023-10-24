@@ -1,8 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFocusDefaultBorder, getBoxShadowFromToken } from './../../theme.mixins';
+import { pxToRem, getBoxShadowFromToken } from '../../theme.mixins';
 
-const getSizes = (size, spacing) => {
-  return {
+const getSizes = (size, spacing) =>
+  ({
     xs: {
       fontSize: pxToRem(14),
       width: spacing['7'],
@@ -28,8 +29,7 @@ const getSizes = (size, spacing) => {
       height: spacing['10'],
       svg: { height: spacing['5'] },
     },
-  }[size];
-};
+  }[size]);
 
 const getVariant = (variant, theme, color) => {
   const buttonIconTheme = theme.other.buttonIcon;
@@ -91,14 +91,12 @@ const getVariant = (variant, theme, color) => {
   return variants[variant][color];
 };
 
-export const IconButtonStyles = createStyles((theme, { size, color, variant }) => {
-  return {
-    root: {
-      marginRight: pxToRem(0),
-      marginLeft: pxToRem(0),
-      border: '2px solid transparent',
-      ...getSizes(size || 'md', theme.spacing),
-      ...getVariant(variant, theme, color),
-    },
-  };
-});
+export const IconButtonStyles = createStyles((theme, { size, color, variant }) => ({
+  root: {
+    marginRight: pxToRem(0),
+    marginLeft: pxToRem(0),
+    border: '2px solid transparent',
+    ...getSizes(size || 'md', theme.spacing),
+    ...getVariant(variant, theme, color),
+  },
+}));

@@ -9,7 +9,7 @@ import {
   ICON_BUTTON_PROP_TYPES,
 } from './IconButton.constants';
 
-export const IconButton = forwardRef(
+const IconButton = forwardRef(
   (
     {
       color: colorProp,
@@ -34,7 +34,7 @@ export const IconButton = forwardRef(
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : ICON_BUTTON_DEFAULT_PROPS.variant;
-    const { classes, cx } = IconButtonStyles({ color, size, variant });
+    const { classes } = IconButtonStyles({ color, size, variant });
 
     return (
       <MantineActionIcon
@@ -55,5 +55,8 @@ export const IconButton = forwardRef(
 );
 
 IconButton.defaultProps = ICON_BUTTON_DEFAULT_PROPS;
-
 IconButton.propTypes = ICON_BUTTON_PROP_TYPES;
+IconButton.displayName = 'IconButton';
+
+export { IconButton };
+export default IconButton;

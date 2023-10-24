@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { forwardRef } from 'react';
 import { isNil, isString } from 'lodash';
 import { Button as MantineButton } from '@mantine/core';
 import { ActionButtonStyles } from './ActionButton.styles';
-import { Tooltip } from '../../overlay';
+import { Tooltip } from '../../overlay/Tooltip';
 import {
   ACTION_BUTTON_SIZES,
   ACTION_BUTTON_COLORS,
@@ -10,8 +11,8 @@ import {
   ACTION_BUTTON_PROP_TYPES,
 } from './ActionButton.constants';
 
-const TooltipComponent = ({ children, tooltip, useAria }) => {
-  return isString(tooltip) && tooltip !== '' ? (
+const TooltipComponent = ({ children, tooltip, useAria }) =>
+  isString(tooltip) && tooltip !== '' ? (
     <Tooltip
       position="bottom"
       label={tooltip}
@@ -24,9 +25,8 @@ const TooltipComponent = ({ children, tooltip, useAria }) => {
   ) : (
     <>{children}</>
   );
-};
 
-export const ActionButton = forwardRef(
+const ActionButton = forwardRef(
   (
     {
       as,
@@ -99,3 +99,7 @@ export const ActionButton = forwardRef(
 
 ActionButton.defaultProps = ACTION_BUTTON_DEFAULT_PROPS;
 ActionButton.propTypes = ACTION_BUTTON_PROP_TYPES;
+ActionButton.displayName = 'ActionButton';
+
+export { ActionButton };
+export default ActionButton;

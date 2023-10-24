@@ -9,7 +9,7 @@ import {
   BUTTON_PROP_TYPES,
 } from './Button.constants';
 
-export const Button = forwardRef(
+const Button = forwardRef(
   (
     {
       children,
@@ -31,9 +31,9 @@ export const Button = forwardRef(
       useAria,
       ariaLabel,
       textAlign,
-      compact, //UNUSED
-      gradient, //UNUSED
-      radius, //UNUSED
+      compact, // UNUSED
+      gradient, // UNUSED
+      radius, // UNUSED
       ...props
     },
     ref
@@ -67,6 +67,7 @@ export const Button = forwardRef(
         {...props}
         ref={ref}
         component={as}
+        // eslint-disable-next-line react/no-children-prop
         children={children}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
@@ -85,5 +86,8 @@ export const Button = forwardRef(
 );
 
 Button.defaultProps = BUTTON_DEFAULT_PROPS;
-
 Button.propTypes = BUTTON_PROP_TYPES;
+Button.displayName = 'Button';
+
+export { Button };
+export default Button;

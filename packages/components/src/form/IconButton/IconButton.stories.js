@@ -29,13 +29,11 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return (
-    <IconButton {...props}>
-      <ChevronRightIcon />
-    </IconButton>
-  );
-};
+const Template = ({ ...props }) => (
+  <IconButton {...props}>
+    <ChevronRightIcon />
+  </IconButton>
+);
 
 export const Playground = Template.bind({});
 
