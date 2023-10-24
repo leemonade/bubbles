@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive } from './../../theme.mixins';
+import { pxToRem, getFocusDefaultBorder, getBoxShadowFromToken } from './../../theme.mixins';
 
 const getSizes = (size, spacing) => {
   return {
@@ -32,6 +32,7 @@ const getSizes = (size, spacing) => {
 };
 
 const getVariant = (variant, theme, color) => {
+  const buttonIconTheme = theme.other.buttonIcon;
   const variants = {
     default: {
       positive: {
@@ -72,14 +73,16 @@ const getVariant = (variant, theme, color) => {
         },
       },
       primary: {
-        backgroundColor: theme.colors.interactive01,
-        color: theme.colors.text07,
+        backgroundColor: buttonIconTheme.background.color.primary.default,
+        color: buttonIconTheme.content.color.primary.default,
         '&:hover': {
-          backgroundColor: theme.colors.interactive01h,
+          ...getBoxShadowFromToken(buttonIconTheme.shadow.hover),
+          backgroundColor: buttonIconTheme.background.color.primary.default,
+          border: 'none',
         },
         '&:active': {
-          backgroundColor: theme.colors.interactive01,
-          borderColor: theme.colors.interactive01h,
+          backgroundColor: buttonIconTheme.background.color.primary.pressed,
+          boxShadow: 'none',
         },
       },
     },

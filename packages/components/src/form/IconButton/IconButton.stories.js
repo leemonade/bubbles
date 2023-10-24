@@ -1,12 +1,12 @@
 import React from 'react';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
+import { IconButton } from './IconButton';
 import {
-  IconButton,
   ICON_BUTTON_SIZES,
   ICON_BUTTON_COLORS,
   ICON_BUTTON_VARIANTS,
   ICON_BUTTON_DEFAULT_PROPS,
-} from './IconButton';
+} from './IconButton.constants';
 import mdx from './IconButton.mdx';
 
 export default {
