@@ -1,35 +1,21 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-import { AutocompleteBadgeStyles } from './AutocompleteBadge.styles';
 import { Autocomplete } from '../Autocomplete';
 import { Badge } from '../../informative/Badge';
 import { UserDisplayItem } from '../../informative/UserDisplayItem';
-import { INPUT_WRAPPER_SIZES } from '../InputWrapper';
-
-export const AUTOCOMPLETEBADGE_DEFAULT_PROPS = {};
-export const AUTOCOMPLETEBADGE_PROP_TYPES = {
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.arrayOf(
-      PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string })
-    ),
-  ]).isRequired,
-  itemPadding: PropTypes.number,
-  nothingFoundLabel: PropTypes.string,
-  size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  onItemSubmit: PropTypes.func,
-};
+import {
+  AUTOCOMPLETEBADGE_DEFAULT_PROPS,
+  AUTOCOMPLETEBADGE_PROP_TYPES,
+} from './AutocompleteBadge.constants';
+import { AutocompleteBadgeStyles } from './AutocompleteBadge.styles';
 
 const AutocompleteBadge = ({ itemPadding, ...props }) => {
-  const { classes, cx } = AutocompleteBadgeStyles({});
-
   const itemComponent = forwardRef(({ avatar, children, label, name, value, ...others }, ref) => (
     <div ref={ref} {...others} style={{ padding: itemPadding }}>
       <UserDisplayItem
         avatar={avatar}
+        // eslint-disable-next-line react/no-children-prop
         children={children}
         label={label}
         name={name}
@@ -38,7 +24,15 @@ const AutocompleteBadge = ({ itemPadding, ...props }) => {
     </div>
   ));
   const valueComponent = forwardRef(({ avatar, onRemove, ...others }, ref) => (
-    <Badge {...others} radius={'rounded'} size={'xs'} image={avatar} onClose={onRemove} />
+    <Badge
+      {...others}
+      radius={'rounded'}
+      size={'sm'}
+      image={avatar}
+      onClose={onRemove}
+      ref={ref}
+      style={{ paddingLeft: 24 }}
+    />
   ));
 
   return (
@@ -51,8 +45,10 @@ const AutocompleteBadge = ({ itemPadding, ...props }) => {
   );
 };
 
+AutocompleteBadge.defaultProps = AUTOCOMPLETEBADGE_DEFAULT_PROPS;
 AutocompleteBadgeStyles.defaultProps = AUTOCOMPLETEBADGE_DEFAULT_PROPS;
-
 AutocompleteBadge.propTypes = AUTOCOMPLETEBADGE_PROP_TYPES;
+AutocompleteBadge.displayName = 'AutocompleteBadge';
 
 export { AutocompleteBadge };
+export default AutocompleteBadge;

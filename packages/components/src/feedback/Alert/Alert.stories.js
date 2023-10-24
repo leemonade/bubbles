@@ -1,5 +1,6 @@
 import React from 'react';
-import { Alert, ALERT_SEVERITIES, ALERT_VARIANTS } from './Alert';
+import { Alert } from './Alert';
+import { ALERT_SEVERITIES, ALERT_VARIANTS } from './Alert.constants';
 import mdx from './Alert.mdx';
 
 export default {
@@ -22,9 +23,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <Alert {...props} />;
-};
+const Template = ({ ...props }) => <Alert {...props} />;
 
 export const Playground = Template.bind({});
 

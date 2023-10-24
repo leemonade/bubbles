@@ -1,6 +1,7 @@
-import React, { forwardRef } from 'react';
-import { Box } from '@mantine/core';
-import { AutocompleteBadge, AUTOCOMPLETEBADGE_DEFAULT_PROPS } from './AutocompleteBadge';
+/* eslint-disable sonarjs/no-duplicate-string */
+import React from 'react';
+import { AutocompleteBadge } from './AutocompleteBadge';
+import { AUTOCOMPLETEBADGE_DEFAULT_PROPS } from './AutocompleteBadge.constants';
 import mdx from './AutocompleteBadge.mdx';
 
 export default {
@@ -18,9 +19,10 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ children, ...props }) => {
-  return <AutocompleteBadge {...props}>{children}</AutocompleteBadge>;
-};
+// eslint-disable-next-line react/prop-types
+const Template = ({ children, ...props }) => (
+  <AutocompleteBadge {...props}>{children}</AutocompleteBadge>
+);
 
 export const Playground = Template.bind({});
 
