@@ -100,21 +100,4 @@ describe('Autocomplete interaction', () => {
     expect(await onChangeMock).toHaveBeenCalled();
     expect(await onChangeMock).toHaveBeenCalled();
   });
-  it('if user type something, then can push cancel button and clear input', async () => {
-    const onChangeMock = jest.fn();
-    const onSearchMock = jest.fn();
-    render(
-      <ThemeProvider>
-        <Autocomplete {...autoCompletePropsMock} onChange={onChangeMock} onSearch={onSearchMock} />
-      </ThemeProvider>
-    );
-    await userEvent.click(screen.getByPlaceholderText('Search for a student'));
-    await userEvent.type(screen.getByPlaceholderText('Search for a student'), 'A');
-    // expect(await screen.getByText('Ana Alonso')).toBeInTheDocument();
-    // render(
-    //   <ThemeProvider>
-    //     <Autocomplete {...autoCompletePropsMock} onChange={onChangeMock} onSearch={onSearchMock} />
-    //   </ThemeProvider>
-    // ).debug(undefined, 100000);
-  });
 });
