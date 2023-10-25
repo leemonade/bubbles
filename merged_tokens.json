@@ -1145,7 +1145,7 @@
               "value": {
                 "fontFamily": "{core.font.family.main}",
                 "fontWeight": "{core.font.weight.regular}",
-                "lineHeight": "{core.font.lineHeight.300}px",
+                "lineHeight": "{core.font.lineHeight.200}",
                 "fontSize": "{core.font.size.75}px"
               },
               "type": "typography"
@@ -1154,7 +1154,7 @@
               "value": {
                 "fontFamily": "{core.font.family.main}",
                 "fontWeight": "{core.font.weight.medium}",
-                "lineHeight": "{core.font.lineHeight.300}px",
+                "lineHeight": "{core.font.lineHeight.200}",
                 "fontSize": "{core.font.size.75}px"
               },
               "type": "typography"
@@ -1163,7 +1163,7 @@
               "value": {
                 "fontFamily": "{core.font.family.main}",
                 "fontWeight": "{core.font.weight.semiBold}",
-                "lineHeight": "{core.font.lineHeight.300}px",
+                "lineHeight": "{core.font.lineHeight.200}",
                 "fontSize": "{core.font.size.75}px"
               },
               "type": "typography"
@@ -1502,6 +1502,12 @@
               "value": "{core.color.info.100}",
               "type": "color"
             }
+          },
+          "tertiary": {
+            "default": {
+              "value": "{core.color.tertiary.100}",
+              "type": "color"
+            }
           }
         }
       },
@@ -1700,6 +1706,12 @@
             },
             "subtle": {
               "value": "{core.color.info.100}",
+              "type": "color"
+            }
+          },
+          "tertiary": {
+            "default": {
+              "value": "{core.color.tertiary.100}",
               "type": "color"
             }
           }
@@ -2076,6 +2088,10 @@
               "value": "{global.background.color.primary.default}",
               "type": "color"
             },
+            "selected": {
+              "value": "{global.background.color.primary.muted}",
+              "type": "color"
+            },
             "pressed": {
               "value": "{global.background.color.primary.emphasis}",
               "type": "color"
@@ -2113,7 +2129,7 @@
               "type": "color"
             },
             "pressed": {
-              "value": "{global.background.color.primary.muted}",
+              "value": "{global.background.color.primary.emphasis}",
               "type": "color"
             }
           },
@@ -2894,12 +2910,12 @@
       },
       "spacing": {
         "padding": {
-          "md": {
-            "value": "{global.spacing.padding.1xsm}",
-            "type": "spacing"
-          },
           "sm": {
             "value": "{global.spacing.padding.2xsm}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{global.spacing.padding.1xsm}",
             "type": "spacing"
           }
         }
@@ -3325,6 +3341,14 @@
       },
       "content": {
         "color": {
+          "text": {
+            "value": "{global.content.color.text.default}",
+            "type": "color"
+          },
+          "selected": {
+            "value": "{global.content.color.tertiary.default}",
+            "type": "color"
+          },
           "default": {
             "value": "{global.content.color.transparent}",
             "type": "color"
@@ -3335,10 +3359,6 @@
           },
           "hover": {
             "value": "{global.content.color.text.muted}",
-            "type": "color"
-          },
-          "selected": {
-            "value": "{global.content.color.primary.default}",
             "type": "color"
           }
         }
@@ -3378,11 +3398,11 @@
             "type": "color"
           },
           "hover": {
-            "value": "{global.border.color.primary.muted}",
+            "value": "{global.border.color.tertiary.default}",
             "type": "color"
           },
           "selected": {
-            "value": "{global.border.color.primary.default}",
+            "value": "{global.border.color.tertiary.default}",
             "type": "color"
           }
         }
@@ -3400,6 +3420,27 @@
           "lg": {
             "value": "{global.spacing.padding.lg}",
             "type": "spacing"
+          }
+        }
+      },
+      "shadow": {
+        "hover": {
+          "value": {
+            "x": "0",
+            "y": "0",
+            "blur": "2",
+            "spread": "0",
+            "color": "rgba({core.color.tertiary.100}, 0.80)",
+            "type": "dropShadow"
+          },
+          "type": "boxShadow"
+        }
+      },
+      "label": {
+        "content": {
+          "typo": {
+            "value": "{global.content.typo.body.sm}",
+            "type": "typography"
           }
         }
       }
@@ -4356,10 +4397,6 @@
       },
       "border": {
         "color": {
-          "default": {
-            "value": "{global.border.color.transparent}",
-            "type": "color"
-          },
           "hover": {
             "value": "{global.border.color.line.subtle}",
             "type": "color"
@@ -4368,8 +4405,12 @@
             "value": "{global.border.color.primary.default}",
             "type": "color"
           },
-          "down-copy": {
+          "content": {
             "value": "{global.border.color.line.subtle}",
+            "type": "color"
+          },
+          "default": {
+            "value": "{global.border.color.transparent}",
             "type": "color"
           },
           "down": {
@@ -4402,6 +4443,10 @@
           },
           "hover": {
             "value": "{global.background.color.primary.subtle}",
+            "type": "color"
+          },
+          "selected": {
+            "value": "{global.background.color.transparent}",
             "type": "color"
           },
           "down": {
@@ -6387,6 +6432,10 @@
           }
         },
         "gap": {
+          "sm": {
+            "value": "{global.spacing.gap.sm}",
+            "type": "spacing"
+          },
           "md": {
             "value": "{global.spacing.gap.md}",
             "type": "spacing"

@@ -17,6 +17,7 @@ export const BUTTON_DEFAULT_PROPS = {
   disabled: false,
   textAlign: BUTTON_TEXT_ALIGN[0],
   useAria: true,
+  isSelected: false,
 };
 
 export const BUTTON_PROP_TYPES = {
@@ -46,4 +47,6 @@ export const BUTTON_PROP_TYPES = {
   useAria: PropTypes.bool,
   /** Aria label for button */
   ariaLabel: PropTypes.string,
+  /** Controls if Button is selected */
+  isSelected: PropTypes.bool,
 };

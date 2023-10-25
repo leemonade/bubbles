@@ -81,7 +81,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -90,7 +90,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 500,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -114,6 +114,10 @@ export default {
           },
           "hover": {
             "value": "#B4E600",
+            "type": "color"
+          },
+          "selected": {
+            "value": "#E2FF7A",
             "type": "color"
           },
           "pressed": {
@@ -153,7 +157,7 @@ export default {
             "type": "color"
           },
           "pressed": {
-            "value": "#E2FF7A",
+            "value": "#98C200",
             "type": "color"
           }
         },
@@ -934,12 +938,12 @@ export default {
     },
     "spacing": {
       "padding": {
-        "md": {
-          "value": "6px",
-          "type": "spacing"
-        },
         "sm": {
           "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "6px",
           "type": "spacing"
         }
       }
@@ -1155,7 +1159,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -1287,7 +1291,7 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 600,
-            "lineHeight": "24px",
+            "lineHeight": 20,
             "fontSize": "14px"
           },
           "type": "typography"
@@ -1296,7 +1300,7 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 400,
-            "lineHeight": "24px",
+            "lineHeight": 20,
             "fontSize": "14px"
           },
           "type": "typography"
@@ -1376,6 +1380,14 @@ export default {
     },
     "content": {
       "color": {
+        "text": {
+          "value": "#4D5358",
+          "type": "color"
+        },
+        "selected": {
+          "value": "#2F463F",
+          "type": "color"
+        },
         "default": {
           "value": "transparent",
           "type": "color"
@@ -1386,10 +1398,6 @@ export default {
         },
         "hover": {
           "value": "#878D96",
-          "type": "color"
-        },
-        "selected": {
-          "value": "#B4E600",
           "type": "color"
         }
       }
@@ -1429,11 +1437,11 @@ export default {
           "type": "color"
         },
         "hover": {
-          "value": "#E2FF7A",
+          "value": "#2F463F",
           "type": "color"
         },
         "selected": {
-          "value": "#B4E600",
+          "value": "#2F463F",
           "type": "color"
         }
       }
@@ -1451,6 +1459,32 @@ export default {
         "lg": {
           "value": "24px",
           "type": "spacing"
+        }
+      }
+    },
+    "shadow": {
+      "hover": {
+        "value": {
+          "x": 0,
+          "y": 0,
+          "blur": 2,
+          "spread": 0,
+          "color": "#2f463fcc",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow"
+      }
+    },
+    "label": {
+      "content": {
+        "typo": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 400,
+            "lineHeight": 20,
+            "fontSize": "14px"
+          },
+          "type": "typography"
         }
       }
     }
@@ -2284,7 +2318,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 600,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -2431,10 +2465,6 @@ export default {
     },
     "border": {
       "color": {
-        "default": {
-          "value": "transparent",
-          "type": "color"
-        },
         "hover": {
           "value": "#DDE1E6",
           "type": "color"
@@ -2443,8 +2473,12 @@ export default {
           "value": "#B4E600",
           "type": "color"
         },
-        "down-copy": {
+        "content": {
           "value": "#DDE1E6",
+          "type": "color"
+        },
+        "default": {
+          "value": "transparent",
           "type": "color"
         },
         "down": {
@@ -2477,6 +2511,10 @@ export default {
         },
         "hover": {
           "value": "#F1FFBD",
+          "type": "color"
+        },
+        "selected": {
+          "value": "transparent",
           "type": "color"
         },
         "down": {
@@ -3712,7 +3750,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -3721,7 +3759,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 500,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -4156,7 +4194,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 600,
-          "lineHeight": "24px",
+          "lineHeight": 20,
           "fontSize": "14px"
         },
         "type": "typography"
@@ -4513,6 +4551,10 @@ export default {
         }
       },
       "gap": {
+        "sm": {
+          "value": "4px",
+          "type": "spacing"
+        },
         "md": {
           "value": "8px",
           "type": "spacing"
@@ -5053,7 +5095,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 400,
-              "lineHeight": "24px",
+              "lineHeight": 20,
               "fontSize": "14px"
             },
             "type": "typography"
@@ -5062,7 +5104,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 500,
-              "lineHeight": "24px",
+              "lineHeight": 20,
               "fontSize": "14px"
             },
             "type": "typography"
@@ -5071,7 +5113,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 600,
-              "lineHeight": "24px",
+              "lineHeight": 20,
               "fontSize": "14px"
             },
             "type": "typography"
@@ -5410,6 +5452,12 @@ export default {
             "value": "#E8F0FC",
             "type": "color"
           }
+        },
+        "tertiary": {
+          "default": {
+            "value": "#2F463F",
+            "type": "color"
+          }
         }
       }
     },
@@ -5609,6 +5657,12 @@ export default {
           },
           "subtle": {
             "value": "#E8F0FC",
+            "type": "color"
+          }
+        },
+        "tertiary": {
+          "default": {
+            "value": "#2F463F",
             "type": "color"
           }
         }

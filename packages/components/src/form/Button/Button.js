@@ -31,6 +31,7 @@ const Button = forwardRef(
       useAria,
       ariaLabel,
       textAlign,
+      isSelected,
       compact, // UNUSED
       gradient, // UNUSED
       radius, // UNUSED
@@ -58,6 +59,7 @@ const Button = forwardRef(
         styles,
         hasLeftIcon,
         hasRightIcon,
+        isSelected,
       },
       { name: 'Button' }
     );

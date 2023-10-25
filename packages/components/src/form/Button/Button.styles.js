@@ -11,6 +11,15 @@ const getSizes = (size, theme) => {
   };
 };
 
+const getIsSelected = (isSelected, theme) => {
+  if (!isSelected) return;
+  const buttonStyles = theme.other.button;
+  return {
+    backgroundColor: buttonStyles.background.color.primary.selected,
+    borderRadius: `${buttonStyles.border.radius.md} ${buttonStyles.border.radius.md} 0 0 !important`,
+  };
+};
+
 const getPaddingIfIcon = (hasLeftIcon, hasRightIcon, theme) => {
   if (!hasLeftIcon && !hasRightIcon) return;
   const buttonPadding = theme.other.button.spacing.padding;
@@ -144,7 +153,18 @@ const getVariant = (variant, theme, color) => {
 export const ButtonStyles = createStyles(
   (
     theme,
-    { size, color, variant, fullWidth, styles, textAlign, disabled, hasLeftIcon, hasRightIcon }
+    {
+      size,
+      color,
+      variant,
+      fullWidth,
+      styles,
+      textAlign,
+      disabled,
+      hasLeftIcon,
+      hasRightIcon,
+      isSelected,
+    }
   ) => {
     const currentVariant = getVariant(variant, theme, color);
     const buttonTheme = theme.other.button;
@@ -182,6 +202,7 @@ export const ButtonStyles = createStyles(
         ...getVariant(variant, theme, color),
         ...styles,
         ...getPaddingIfIcon(hasLeftIcon, hasRightIcon, theme),
+        ...getIsSelected(isSelected, theme),
         '&[data-loading]': {
           // borderColor: 'transparent',
           svg: {

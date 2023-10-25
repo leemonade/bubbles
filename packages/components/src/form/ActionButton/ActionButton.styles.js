@@ -1,5 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFocusDefaultBorder } from './../../theme.mixins';
+import { pxToRem, getFocusDefaultBorder } from '../../theme.mixins';
 
 // These are really the styles when it is hovered, but they are applied when `active` prop is `true`
 const getActiveStyles = (theme, color) => {
@@ -12,12 +13,10 @@ const getActiveStyles = (theme, color) => {
   };
   return activeStyles[color];
 };
-const getSizes = (size, padding) => {
-  return {
-    height: 'unset',
-    padding: padding[size],
-  };
-};
+const getSizes = (size, padding) => ({
+  height: 'unset',
+  padding: padding[size],
+});
 
 const getVariant = (color, theme) => {
   const buttonActionTheme = theme.other.buttonAction;
@@ -46,7 +45,6 @@ export const ActionButtonStyles = createStyles(
   (theme, { size, color, iconOnly, radius, active }) => {
     const actionButtonTheme = theme.other.buttonAction;
     const iconSize = size === 'md' ? 'lg' : 'md';
-    console.log(theme);
 
     const isActive = active ? getActiveStyles(actionButtonTheme, color) : {};
 
