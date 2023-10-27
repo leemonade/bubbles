@@ -89,7 +89,7 @@ export const AvatarStyles = createStyles(
       iconWrapper: {
         display: size === 'sm' && 'none',
         boxSizing: 'content-box',
-        backgroundColor: badgeTheme.background.color.secondary.default,
+        backgroundColor: badgeTheme.background.color.primary.default,
         borderRadius: radius ? badgeTheme.border.radius : 0,
         position: 'absolute',
         ...getIconWrapperStyles(size, theme, badgeTheme),
