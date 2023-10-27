@@ -1,38 +1,18 @@
+/* eslint-disable react/prop-types */
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { isNil, isString } from 'lodash';
 import { Button as MantineButton } from '@mantine/core';
 import { ActionButtonStyles } from './ActionButton.styles';
-import { Tooltip } from '../../overlay';
+import { Tooltip } from '../../overlay/Tooltip';
+import {
+  ACTION_BUTTON_SIZES,
+  ACTION_BUTTON_COLORS,
+  ACTION_BUTTON_DEFAULT_PROPS,
+  ACTION_BUTTON_PROP_TYPES,
+} from './ActionButton.constants';
 
-export const ACTION_BUTTON_SIZES = ['sm', 'md'];
-export const ACTION_BUTTON_COLORS = ['primary', 'negative', 'phatic'];
-
-export const ACTION_BUTTON_DEFAULT_PROPS = {
-  color: ACTION_BUTTON_COLORS[0],
-  size: ACTION_BUTTON_SIZES[1],
-  label: '',
-  rounded: false,
-  useAria: true,
-  active: false,
-};
-export const ACTION_BUTTON_PROP_TYPES = {
-  /** Controls the size */
-  size: PropTypes.oneOf(ACTION_BUTTON_SIZES),
-  /** Control the color */
-  color: PropTypes.oneOf(ACTION_BUTTON_COLORS),
-  /** Control the tooltip of the button */
-  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  /** Controls if ActionButton uses aria role */
-  useAria: PropTypes.bool,
-  /** Aria label for ActionButton */
-  ariaLabel: PropTypes.string,
-  /** Controls the visual state of the Button */
-  active: PropTypes.bool,
-};
-
-const TooltipComponent = ({ children, tooltip, useAria }) => {
-  return isString(tooltip) && tooltip !== '' ? (
+const TooltipComponent = ({ children, tooltip, useAria }) =>
+  isString(tooltip) && tooltip !== '' ? (
     <Tooltip
       position="bottom"
       label={tooltip}
@@ -45,9 +25,8 @@ const TooltipComponent = ({ children, tooltip, useAria }) => {
   ) : (
     <>{children}</>
   );
-};
 
-export const ActionButton = forwardRef(
+const ActionButton = forwardRef(
   (
     {
       as,
@@ -120,3 +99,7 @@ export const ActionButton = forwardRef(
 
 ActionButton.defaultProps = ACTION_BUTTON_DEFAULT_PROPS;
 ActionButton.propTypes = ACTION_BUTTON_PROP_TYPES;
+ActionButton.displayName = 'ActionButton';
+
+export { ActionButton };
+export default ActionButton;
