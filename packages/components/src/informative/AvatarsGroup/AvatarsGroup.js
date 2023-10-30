@@ -87,10 +87,8 @@ const AvatarsGroup = ({
       }
       if (n) {
         n = (
-          <Box sx={(theme) => ({ paddingLeft: theme.spacing[5], paddingTop: theme.spacing[1] })}>
-            <Text size="xs" sx={{ color: '#878D96' }}>
-              {n <= 99 ? `(${n})` : '+99'}
-            </Text>
+          <Box>
+            <Text className={classes.numberUsers}>{n <= 99 ? `(${n})` : '+99'}</Text>
           </Box>
         );
       }
