@@ -21,3 +21,12 @@ d
 4packages/components/src/informative/Avatar/Avatar.js,e/2/e21869cab1b16ee98c8654bb09ad4a057d4e7b85
 Z
 *packages/components/src/tokens.compiled.js,e/7/e7f6beccf061b19b9f88278c2ce5c1227c086978
+6
+.nvmrc,c/9/c9a818aaf6a7acd6b861ec3d00d9c1e0902fd12f
+]
+-packages/components/src/form/Select/Select.js,8/7/873e242133c1aa93fb71de4660284688f2dd6f72
+@
+scripts/build.js,7/5/7551c3af2c5c9c5d3509090c14f14ee49b73591c
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
