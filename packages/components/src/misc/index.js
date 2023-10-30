@@ -7,4 +7,4 @@ export * from './FileIcon/AssetAudioIcon';
 export * from './FileIcon/AssetImageIcon';
 export * from './FileIcon/AssetBookmarkIcon';
 export * from './FileIcon/AssetVideoIcon';
-export * from './BulletSubject';
+export * from './AvatarSubject';
