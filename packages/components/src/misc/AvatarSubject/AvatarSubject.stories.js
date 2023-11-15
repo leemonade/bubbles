@@ -23,9 +23,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <AvatarSubject {...props} />;
-};
+const Template = ({ ...props }) => <AvatarSubject {...props} />;
 
 export const Playground = Template.bind({});
 

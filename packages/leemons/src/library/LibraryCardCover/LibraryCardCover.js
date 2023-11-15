@@ -10,7 +10,7 @@ import {
   Text,
   TextClamp,
   Title,
-  BulletSubject,
+  AvatarSubject,
 } from '@bubbles-ui/components';
 import { BookmarksIcon, DeleteBinIcon, SettingMenuVerticalIcon } from '@bubbles-ui/icons/solid/';
 import { LibraryCardDeadline } from '../LibraryCardDeadline';
@@ -85,7 +85,7 @@ const LibraryCardCover = ({
     if (dashboard && subject) {
       components.push(
         <Box key={'2'} className={classes.subject}>
-          <BulletSubject
+          <AvatarSubject
             color={subject.color}
             icon={subject.icon}
             size="sm"

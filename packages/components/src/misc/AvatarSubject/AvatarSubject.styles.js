@@ -1,8 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
 import { getFontExpressive } from '../../theme.mixins';
 
-const getBubbleSize = (theme, size) => {
-  return {
+const getBubbleSize = (theme, size) =>
+  ({
     xs: {
       minWidth: theme.spacing['2'],
       maxWidth: theme.spacing['2'],
@@ -33,21 +34,18 @@ const getBubbleSize = (theme, size) => {
       minHeight: theme.spacing['11'],
       maxHeight: theme.spacing['11'],
     },
-  }[size];
-};
+  })[size];
 
-const getIconSize = (theme, size) => {
-  return {
+const getIconSize = (theme, size) =>
+  ({
     xs: { height: '0px' },
     sm: { height: theme.spacing['3'] },
     md: { height: theme.spacing['4'] },
     lg: { height: theme.spacing['5'] },
     xlg: { height: theme.spacing['8'] },
-  }[size];
-};
+  })[size];
 
 export const AvatarSubjectStyles = createStyles((theme, { size }) => {
-  console.log(theme);
   const bubbleSize = getBubbleSize(theme, size);
   const iconSize = getIconSize(theme, size);
   return {

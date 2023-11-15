@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { findIndex, forEach, isEmpty, isNumber } from 'lodash';
+import { ModuleThreeIcon, TeammateIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../typography/Text';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar/Avatar';
 import { AvatarsGroupStyles } from './AvatarsGroup.styles';
 import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './AvatarsGroup.constants';
-import { ModuleThreeIcon, TeammateIcon } from '@bubbles-ui/icons/outline';
 
 const AvatarsGroup = ({
   data,
@@ -28,40 +28,37 @@ const AvatarsGroup = ({
   );
 
   const avatars = useMemo(() => {
-    const avatars = [];
+    const avatarsArray = [];
 
     if (!isEmpty(data)) {
-      const index = findIndex(data, ({ permissions }) => {
-        return permissions?.includes('owner');
-      });
+      const index = findIndex(data, ({ permissions }) => permissions?.includes('owner'));
       data.unshift(data.splice(index, 1)[0]);
       if (moreThanUsersAsMulti) {
-        forEach(data, (avatar, index) => {
-          if (index + 1 >= moreThanUsersAsMulti && index + 1 < data.length) {
-            avatars.push({ color: '#696969', icon: <TeammateIcon />, type: 'cus-icon' });
+        forEach(data, (avatar, i) => {
+          if (i + 1 >= moreThanUsersAsMulti && i + 1 < data.length) {
+            avatarsArray.push({ color: '#696969', icon: <TeammateIcon />, type: 'cus-icon' });
             return false;
-          } else {
-            avatars.push({ ...avatar, type: 'avatar' });
           }
+          avatarsArray.push({ ...avatar, type: 'avatar' });
         });
       } else {
-        avatars.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));
+        avatarsArray.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));
       }
     }
 
     if (!isEmpty(classesData)) {
       if (classesData.length === 1) {
-        avatars.push(...classesData.map((avatar) => ({ ...avatar, type: 'icon' })));
+        avatarsArray.push(...classesData.map((avatar) => ({ ...avatar, type: 'icon' })));
       } else {
-        avatars.push({ color: '#8E97A3', icon: <ModuleThreeIcon />, type: 'cus-icon' });
+        avatarsArray.push({ color: '#8E97A3', icon: <ModuleThreeIcon />, type: 'cus-icon' });
       }
     }
 
-    if (!isEmpty(avatars) && isNumber(limit) && avatars.length > limit) {
-      return avatars.slice(0, limit);
+    if (!isEmpty(avatarsArray) && isNumber(limit) && avatarsArray.length > limit) {
+      return avatarsArray.slice(0, limit);
     }
 
-    return avatars;
+    return avatarsArray;
   }, [data, classesData, limit, moreThanUsersAsMulti]);
 
   const overflow = useMemo(() => {
@@ -160,6 +157,7 @@ const AvatarsGroup = ({
               />
             );
           }
+          return null;
         })}
         {overflow > 0 && (
           <Avatar
@@ -184,3 +182,4 @@ AvatarsGroup.defaultProps = AVATARS_GROUP_DEFAULT_PROPS;
 AvatarsGroup.propTypes = AVATARS_GROUP_PROP_TYPES;
 
 export { AvatarsGroup };
+export default AvatarsGroup;

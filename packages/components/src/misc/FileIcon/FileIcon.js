@@ -46,8 +46,8 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} color={color} /> },
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
-    { key: 'tests', value: <PluginTestIcon height={size} width={size} /> },
-    { key: 'questionBank', value: <PluginTestIcon height={size} width={size} /> },
+    // { key: 'tests', value: <PluginTestIcon height={size} width={size} /> },
+    // { key: 'questionBank', value: <PluginTestIcon height={size} width={size} /> },
     // { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
   ];
 
@@ -64,7 +64,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
         <FileItemDisplay
           {...props}
           filename={`${label || ''}${fileExtension ? `.${fileExtension}` : ''}`}
-          size={size}
+          size={18}
           showFileName={!!label}
           color={color}
           iconStyle={iconStyle}

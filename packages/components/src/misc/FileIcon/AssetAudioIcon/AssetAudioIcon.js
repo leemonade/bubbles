@@ -26,4 +26,5 @@ AssetAudioIcon.defaultProps = ASSET_AUDIO_ICON_DEFAULT_PROPS;
 AssetAudioIcon.propTypes = ASSET_AUDIO_ICON_PROP_TYPES;
 
 AssetAudioIcon.displayName = 'AssetAudioIcon';
+export default AssetAudioIcon;
 export { AssetAudioIcon };
