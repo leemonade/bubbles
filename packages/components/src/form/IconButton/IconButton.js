@@ -1,23 +1,15 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { ActionIcon as MantineActionIcon } from '@mantine/core';
 import { IconButtonStyles } from './IconButton.styles';
+import {
+  ICON_BUTTON_COLORS,
+  ICON_BUTTON_DEFAULT_PROPS,
+  ICON_BUTTON_VARIANTS,
+  ICON_BUTTON_PROP_TYPES,
+} from './IconButton.constants';
 
-export const ICON_BUTTON_SIZES = ['xs', 'sm', 'md', 'lg'];
-export const ICON_BUTTON_VARIANTS = ['default', 'transparent', 'menuButton'];
-export const ICON_BUTTON_COLORS = ['positive', 'negative', 'primary'];
-
-export const ICON_BUTTON_DEFAULT_PROPS = {
-  size: 'sm',
-  color: 'positive',
-  rounded: false,
-  variant: 'default',
-  label: '',
-  useAria: true,
-};
-
-export const IconButton = forwardRef(
+const IconButton = forwardRef(
   (
     {
       color: colorProp,
@@ -33,7 +25,7 @@ export const IconButton = forwardRef(
       useAria,
       ...props
     },
-    ref
+    ref,
   ) => {
     const radius = rounded ? 'xl' : 'xs';
     const color = ICON_BUTTON_COLORS.includes(colorProp)
@@ -42,7 +34,7 @@ export const IconButton = forwardRef(
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : ICON_BUTTON_DEFAULT_PROPS.variant;
-    const { classes, cx } = IconButtonStyles({ color, size, variant });
+    const { classes } = IconButtonStyles({ color, size, variant });
 
     return (
       <MantineActionIcon
@@ -59,22 +51,12 @@ export const IconButton = forwardRef(
         {!isNil(icon) ? icon : children}
       </MantineActionIcon>
     );
-  }
+  },
 );
 
 IconButton.defaultProps = ICON_BUTTON_DEFAULT_PROPS;
+IconButton.propTypes = ICON_BUTTON_PROP_TYPES;
+IconButton.displayName = 'IconButton';
 
-IconButton.propTypes = {
-  /** Controls the size */
-  size: PropTypes.oneOf(ICON_BUTTON_SIZES),
-  /** Controls the color */
-  color: PropTypes.oneOf(ICON_BUTTON_COLORS),
-  /** Controls if its rounded */
-  rounded: PropTypes.bool,
-  /** Controls the appearance */
-  variant: PropTypes.oneOf(ICON_BUTTON_VARIANTS),
-  /** Button label */
-  label: PropTypes.string,
-  /** Button icon */
-  icon: PropTypes.node,
-};
+export { IconButton };
+export default IconButton;

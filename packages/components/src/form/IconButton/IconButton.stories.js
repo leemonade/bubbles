@@ -1,13 +1,13 @@
 import React from 'react';
-import { Box } from '../../layout';
 import { ChevronRightIcon } from '@bubbles-ui/icons/outline';
+import { Box } from '../../layout';
+import { IconButton } from './IconButton';
 import {
-  IconButton,
   ICON_BUTTON_SIZES,
   ICON_BUTTON_COLORS,
   ICON_BUTTON_VARIANTS,
   ICON_BUTTON_DEFAULT_PROPS,
-} from './IconButton';
+} from './IconButton.constants';
 import mdx from './IconButton.mdx';
 
 export default {
@@ -30,15 +30,11 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return (
-    <Box style={{ backgroundColor: '#2b2b2b', width: 200, height: 200 }}>
-      <IconButton {...props}>
-        <ChevronRightIcon />
-      </IconButton>
-    </Box>
-  );
-};
+const Template = ({ ...props }) => (
+  <IconButton {...props}>
+    <ChevronRightIcon />
+  </IconButton>
+);
 
 export const Playground = Template.bind({});
 
