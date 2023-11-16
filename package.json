@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.15",
+    "@babel/plugin-transform-export-namespace-from": "^7.23.3",
     "better-spawn": "^1.0.4",
     "chalk": "^4.1.1",
     "chromatic": "^6.11.4",

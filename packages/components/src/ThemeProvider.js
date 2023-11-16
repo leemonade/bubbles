@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MantineProvider } from '@mantine/core';
 import { Helmet } from 'react-helmet';
+import { isEmpty, isObject } from 'lodash';
 import { COLORS, FONT_SIZES, SPACING, SHADOWS } from './theme.tokens';
 import figmaTokens from './tokens.compiled';
-import { isEmpty, isObject } from 'lodash';
 
 export const BUBBLES_THEME = {
   colorScheme: 'light',
@@ -67,9 +67,9 @@ const ThemeProvider = ({ children, theme }) => {
     <>
       <Helmet>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link
-          href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100;300;400;500;600&display=swap"
+          href="https://fonts.bunny.net/css?family=albert-sans:100,300,400,500,600"
           rel="stylesheet"
         />
       </Helmet>

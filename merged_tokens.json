@@ -6663,6 +6663,10 @@
   },
   "$themes": [],
   "$metadata": {
-    "tokenSetOrder": ["core", "global", "component"]
+    "tokenSetOrder": [
+      "core",
+      "global",
+      "component"
+    ]
   }
 }
