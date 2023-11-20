@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import _, { capitalize, chunk } from 'lodash';
@@ -15,36 +16,35 @@ import { colord } from 'colord';
 
 import DateContentRow from '../Date/DateContentRow';
 
-let eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek, week) => {
+const eventsForWeek = (events, start, end, localizer, isFirstWeek, isLastWeek) => {
   const range = { start, end };
-  const filteredEvents = events.filter((event) => {
-    return localizer.inEventRange({
+  const filteredEvents = events.filter((event) =>
+    localizer.inEventRange({
       event: { ...event },
-      range: range,
-    });
-  });
+      range,
+    })
+  );
   filteredEvents.sort((eventA, eventB) => {
     const eventAzIndex = eventA.originalEvent.zIndex || eventA.originalEvent.calendar.zIndex;
     const eventBzIndex = eventB.originalEvent.zIndex || eventB.originalEvent.calendar.zIndex;
     return eventAzIndex - eventBzIndex;
   });
-  const finalEvents = filteredEvents.map((event) => {
+  return filteredEvents.map((event) => {
     if (isLastWeek) {
       if (event.end.getYear() > end.getYear() || event.end.getMonth() > end.getMonth())
-        return { ...event, end: end, realEnd: event.end };
+        return { ...event, end, realEnd: event.end };
     }
     if (isFirstWeek) {
       if (event.start.getYear() < start.getYear() || event.start.getMonth() < start.getMonth())
-        return { ...event, start: start };
+        return { ...event, start };
     }
     return event;
   });
-  return finalEvents;
 };
 
-let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
+const eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
   const filteredEvents = evts.filter((e) => inRange(e, start, end, accessors, localizer));
-  const finalEvents = filteredEvents.map((event) => {
+  return filteredEvents.map((event) => {
     const eStart = event.start;
     const eEnd = event.end;
     if (localizer.isSameDate(eStart, eEnd)) return event;
@@ -52,7 +52,6 @@ let eventsForWeekNormal = (evts, start, end, accessors, localizer) => {
     event.end = new Date(new Date(eEnd).setHours(2, 0, 0));
     return event;
   });
-  return finalEvents;
 };
 
 class MonthView extends React.Component {
@@ -109,20 +108,18 @@ class MonthView extends React.Component {
     window.removeEventListener('resize', this._resizeListener, false);
   }
 
-  getContainer = () => {
-    return findDOMNode(this);
-  };
+  getContainer = () => findDOMNode(this);
 
   render() {
-    let { date, localizer, style, components } = this.props;
-    let month = localizer.visibleDays(date, localizer);
-    let weeks = chunk(month, 7);
+    const { date, localizer, style } = this.props;
+    const month = localizer.visibleDays(date, localizer);
+    const weeks = chunk(month, 7);
 
     this._weekCount = weeks.length;
 
     return (
       <Box style={style} className={'rbc-month-view'} role="table" aria-label="Month View">
-        <Box className="rbc-row rbc-month-header" role="row">
+        <Box className="rbc-row rbc-month-header" role="presentation">
           {this.renderHeaders(weeks[0])}
         </Box>
         {weeks.map(this.renderWeek)}
@@ -132,7 +129,7 @@ class MonthView extends React.Component {
   }
 
   renderWeek = (week, weekIdx, monthWeeks) => {
-    let {
+    const {
       events,
       components,
       selectable,
@@ -154,9 +151,7 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
 
     if (!showWeekends) {
-      week = _.filter(week, (date) => {
-        return date.getDay() !== 0 && date.getDay() !== 6;
-      });
+      week = _.filter(week, (date) => date.getDay() !== 0 && date.getDay() !== 6);
     }
 
     const isFirstWeek = weekIdx === 0;
@@ -216,12 +211,12 @@ class MonthView extends React.Component {
   };
 
   readerDateHeading = ({ date, isWeekend, className, ...props }) => {
-    let { date: currentDate, getDrilldownView, localizer, isMonthView, events } = this.props;
-    let isOffRange = localizer.neq(date, currentDate, 'month');
-    let isCurrent = localizer.isSameDate(date, currentDate);
-    let drilldownView = getDrilldownView(date);
-    let label = localizer.format(date, 'dateFormat').replace(/^0/, '');
-    let DateHeaderComponent = this.props.components.dateHeader || DateHeader;
+    const { date: currentDate, getDrilldownView, localizer, isMonthView, events } = this.props;
+    const isOffRange = localizer.neq(date, currentDate, 'month');
+    const isCurrent = localizer.isSameDate(date, currentDate);
+    const drilldownView = getDrilldownView(date);
+    const label = localizer.format(date, 'dateFormat').replace(/^0/, '');
+    const DateHeaderComponent = this.props.components.dateHeader || DateHeader;
     const { cx } = this.props.components;
 
     let dateIsInRangeOfTextColor = false;
@@ -249,7 +244,7 @@ class MonthView extends React.Component {
       <Box
         {...props}
         className={cx(className, { 'rbc-off-range': isOffRange, 'rbc-current': isCurrent })}
-        role="cell"
+        role="presentation"
         style={{
           pointerEvents: 'all',
           visibility: isMonthView && isOffRange && 'hidden',
@@ -287,9 +282,7 @@ class MonthView extends React.Component {
     const { showWeekends } = components;
     let weekRow = [...row];
     if (!showWeekends) {
-      weekRow = _.filter(weekRow, (date) => {
-        return date.getDay() !== 0 && date.getDay() !== 6;
-      });
+      weekRow = _.filter(weekRow, (date) => date.getDay() !== 0 && date.getDay() !== 6);
     }
 
     const first = weekRow[0];
@@ -300,7 +293,7 @@ class MonthView extends React.Component {
         ? localizer.format(day, 'weekdayFormat')[0]
         : localizer.format(day, 'weekdayFormat');
       return (
-        <Box key={'header_' + idx} className="rbc-header">
+        <Box key={`header_${idx}`} className="rbc-header">
           <HeaderComponent date={day} localizer={localizer} label={capitalize(dayName)} />
         </Box>
       );
@@ -308,8 +301,8 @@ class MonthView extends React.Component {
   }
 
   renderOverlay() {
-    let overlay = (this.state && this.state.overlay) || {};
-    let { accessors, localizer, components, getters, selected, popupOffset } = this.props;
+    const overlay = (this.state && this.state.overlay) || {};
+    const { accessors, localizer, components, getters, selected, popupOffset } = this.props;
 
     return (
       <Popper
@@ -381,11 +374,11 @@ class MonthView extends React.Component {
 
   handleShowMore = (events, date, cell, slot, target) => {
     const { popup, onDrillDown, onShowMore, getDrilldownView, doShowMoreDrillDown } = this.props;
-    //cancel any pending selections so only the event click goes through.
+    // cancel any pending selections so only the event click goes through.
     this.clearSelection();
 
     if (popup) {
-      let position = getPosition(cell, findDOMNode(this));
+      const position = getPosition(cell, findDOMNode(this));
 
       this.setState({
         overlay: { date, events, position, target },
@@ -404,7 +397,7 @@ class MonthView extends React.Component {
   };
 
   selectDates(slotInfo) {
-    let slots = this._pendingSelection.slice();
+    const slots = this._pendingSelection.slice();
 
     this._pendingSelection = [];
 
@@ -478,8 +471,8 @@ MonthView.propTypes = {
 };
 
 MonthView.range = (date, { localizer }) => {
-  let start = localizer.firstVisibleDay(date, localizer);
-  let end = localizer.lastVisibleDay(date, localizer);
+  const start = localizer.firstVisibleDay(date, localizer);
+  const end = localizer.lastVisibleDay(date, localizer);
   return { start, end };
 };
 

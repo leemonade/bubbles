@@ -1,12 +1,13 @@
+/* eslint-disable */
 import React from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
 import { Box } from '@bubbles-ui/components';
-
 import EventCell, { sameDay } from './EventCell';
 
-/* eslint-disable react/prop-types */
+const rowReverse = 'row-reverse';
+
 export default {
   propTypes: {
     slotMetrics: PropTypes.object.isRequired,
@@ -21,16 +22,16 @@ export default {
 
     onSelect: PropTypes.func,
     onDoubleClick: PropTypes.func,
-    onKeyPress: PropTypes.func
+    onKeyPress: PropTypes.func,
   },
 
   defaultProps: {
     segments: [],
-    selected: {}
+    selected: {},
   },
 
   renderEvent(props, event, isMonthView, printMode) {
-    let {
+    const {
       selected,
       isAllDay: _,
       accessors,
@@ -41,11 +42,11 @@ export default {
       localizer,
       slotMetrics,
       components,
-      resizable
+      resizable,
     } = props;
 
-    let continuesPrior = slotMetrics.continuesPrior(event);
-    let continuesAfter = slotMetrics.continuesAfter(event);
+    const continuesPrior = slotMetrics.continuesPrior(event);
+    const continuesAfter = slotMetrics.continuesAfter(event);
 
     return (
       <>
@@ -72,7 +73,7 @@ export default {
   },
 
   renderSpan(slots, len, key, content = ' ', isMonthView, { showType, props, event } = {}, left) {
-    let per = (Math.abs(len) / slots) * 100 + '%';
+    const per = `${(Math.abs(len) / slots) * 100}%`;
 
     const rightArrow = isMonthView && event && event.originalEvent.calendar.rightArrow;
     const leftArrow = isMonthView && event && event.originalEvent.calendar.leftArrow;
@@ -82,7 +83,7 @@ export default {
       flexBasis: per,
       maxWidth: per,
       display: (rightArrow || leftArrow) && 'flex',
-      flexDirection: leftArrow && 'row-reverse'
+      flexDirection: leftArrow && rowReverse,
     };
 
     if (left && isMonthView) {
@@ -94,31 +95,35 @@ export default {
     }
 
     if (event && props) {
-      let gap = (Math.abs(len - 1) / slots) * 100 + '%';
-      let oneSlot = (Math.abs(1) / slots) * 100 + '%';
+      const gap = `${(Math.abs(len - 1) / slots) * 100}%`;
+      const oneSlot = `${(Math.abs(1) / slots) * 100}%`;
       if (showType === 'onlyEnd') {
         if (dayjs(props.slotMetrics.first).isSame(props.accessors.end(event), 'week')) {
-
           return [
-            <Box style={{
-              WebkitFlexBasis: gap,
-              flexBasis: gap,
-              maxWidth: gap,
-              display: 'flex'
-            }} />,
-            <Box style={{
-              WebkitFlexBasis: oneSlot,
-              flexBasis: oneSlot,
-              maxWidth: oneSlot,
-              display: (rightArrow || leftArrow) && 'flex',
-              flexDirection: leftArrow && 'row-reverse'
-            }}>
+            <Box
+              key={'flexBasisGap'}
+              style={{
+                WebkitFlexBasis: gap,
+                flexBasis: gap,
+                maxWidth: gap,
+                display: 'flex',
+              }}
+            />,
+            <Box
+              key={'flexBasisOneSlot'}
+              style={{
+                WebkitFlexBasis: oneSlot,
+                flexBasis: oneSlot,
+                maxWidth: oneSlot,
+                display: (rightArrow || leftArrow) && 'flex',
+                flexDirection: leftArrow && rowReverse,
+              }}
+            >
               {this.renderEvent(props, { ...event, showType })}
-            </Box>
+            </Box>,
           ];
-        } else {
-          return null;
         }
+        return null;
       }
 
       if (showType === 'startEnd') {
@@ -130,15 +135,19 @@ export default {
           const isEnd = dayjs(new Date(props.slotMetrics.first)).isSame(end, 'week');
           const result = [];
           if (isStart) {
-            result.push(<Box style={{
-              WebkitFlexBasis: oneSlot,
-              flexBasis: oneSlot,
-              maxWidth: oneSlot,
-              display: (rightArrow || leftArrow) && 'flex',
-              flexDirection: leftArrow && 'row-reverse'
-            }}>
-              {this.renderEvent(props, { ...event, showType, startSide: true })}
-            </Box>);
+            result.push(
+              <Box
+                style={{
+                  WebkitFlexBasis: oneSlot,
+                  flexBasis: oneSlot,
+                  maxWidth: oneSlot,
+                  display: (rightArrow || leftArrow) && 'flex',
+                  flexDirection: leftArrow && rowReverse,
+                }}
+              >
+                {this.renderEvent(props, { ...event, showType, startSide: true })}
+              </Box>,
+            );
           }
           if (isEnd) {
             if (isStart) {
@@ -148,54 +157,67 @@ export default {
                 start.setHours(start.getHours() + 24);
                 if (sameDay(start, end)) break;
               }
-              let gap2 = (Math.abs(i) / slots) * 100 + '%';
-              result.push(<Box style={{
-                WebkitFlexBasis: gap2,
-                flexBasis: gap2,
-                maxWidth: gap2,
-                display: 'flex'
-              }} />);
+              const gap2 = `${(Math.abs(i) / slots) * 100}%`;
+              result.push(
+                <Box
+                  style={{
+                    WebkitFlexBasis: gap2,
+                    flexBasis: gap2,
+                    maxWidth: gap2,
+                    display: 'flex',
+                  }}
+                />,
+              );
             } else {
-              result.push(<Box style={{
-                WebkitFlexBasis: gap,
-                flexBasis: gap,
-                maxWidth: gap,
-                display: 'flex'
-              }} />);
+              result.push(
+                <Box
+                  style={{
+                    WebkitFlexBasis: gap,
+                    flexBasis: gap,
+                    maxWidth: gap,
+                    display: 'flex',
+                  }}
+                />,
+              );
             }
-            result.push(<Box style={{
-              WebkitFlexBasis: oneSlot,
-              flexBasis: oneSlot,
-              maxWidth: oneSlot,
-              display: (rightArrow || leftArrow) && 'flex',
-              flexDirection: leftArrow && 'row-reverse'
-            }}>
-              {this.renderEvent(props, { ...event, showType, endSide: true })}
-            </Box>);
+            result.push(
+              <Box
+                style={{
+                  WebkitFlexBasis: oneSlot,
+                  flexBasis: oneSlot,
+                  maxWidth: oneSlot,
+                  display: (rightArrow || leftArrow) && 'flex',
+                  flexDirection: leftArrow && rowReverse,
+                }}
+              >
+                {this.renderEvent(props, { ...event, showType, endSide: true })}
+              </Box>,
+            );
           }
           return result;
-        } else {
-          return <Box
+        }
+        return (
+          <Box
             key={key}
-            className='rbc-row-segment'
+            className="rbc-row-segment"
             // IE10/11 need max-width. flex-basis doesn't respect box-sizing
             style={style}
           >
             {content}
-          </Box>;
-        }
+          </Box>
+        );
       }
     }
 
     return (
       <Box
         key={key}
-        className='rbc-row-segment'
+        className="rbc-row-segment"
         // IE10/11 need max-width. flex-basis doesn't respect box-sizing
         style={style}
       >
         {content}
       </Box>
     );
-  }
+  },
 };
