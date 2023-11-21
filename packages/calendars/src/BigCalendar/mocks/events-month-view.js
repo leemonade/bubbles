@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+
 export default {
   events: [
     {

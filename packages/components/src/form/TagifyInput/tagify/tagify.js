@@ -4,7 +4,7 @@
  * Don't sell this code. (c)
  * https://github.com/yairEO/tagify
  */
-
+var Tagify;
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined'
     ? (module.exports = factory())

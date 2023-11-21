@@ -19,8 +19,9 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
+import { TOOLBAR_PROPTYPES } from './Toolbar.constants';
 
-export const ToolBar = ({
+const ToolBar = ({
   localizer: { messages },
   label,
   view,
@@ -36,9 +37,8 @@ export const ToolBar = ({
   showToolbarToggleWeekend,
   showToolbarViewSwitcher,
   addEventClick,
-  ...props
 }) => {
-  const { classes, cx } = ToolbarStyles({});
+  const { classes } = ToolbarStyles({});
   return (
     <Group position="apart" mb={10}>
       <Group>
@@ -54,11 +54,13 @@ export const ToolBar = ({
             </Button>
           </Box>
           <ActionButton
+            data-testid="chevron-left"
             onClick={() => onNavigate(navigate.PREVIOUS)}
             tooltip={messages.previous}
             icon={<ChevronLeftIcon className={classes.navIcon} />}
           />
           <ActionButton
+            data-testid="chevron-right"
             onClick={() => onNavigate(navigate.NEXT)}
             tooltip={messages.next}
             icon={<ChevronRightIcon className={classes.navIcon} />}
@@ -76,6 +78,8 @@ export const ToolBar = ({
           </Box>
           <Select
             value={showType}
+            ariaLabelledby="display"
+            ariaLabel="display"
             onChange={setShowType}
             data={[
               { label: messages.entirePeriod, value: 'full' },
@@ -105,7 +109,14 @@ export const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
+          <IconButton
+            color="primary"
+            size="lg"
+            rounded
+            onClick={addEventClick}
+            data-testid="add-event"
+            aria-label="add-event"
+          >
             <PlusIcon />
           </IconButton>
         ) : null}
@@ -114,3 +125,8 @@ export const ToolBar = ({
     </Group>
   );
 };
+
+ToolBar.propTypes = TOOLBAR_PROPTYPES;
+
+export default ToolBar;
+export { ToolBar };

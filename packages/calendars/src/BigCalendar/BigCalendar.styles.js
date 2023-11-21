@@ -1,3 +1,5 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable sonarjs/cognitive-complexity */
 import { createStyles, getFontProductive, getPaddings, pxToRem } from '@bubbles-ui/components';
 
 const getEventStyles = (theme, isMonthRange) => ({
@@ -122,7 +124,7 @@ const getHeaderStyles = (theme, isMonthRange, printMode) => ({
   },
 });
 
-const getRowStyles = (theme, isMonthRange) => ({
+const getRowStyles = (isMonthRange) => ({
   '.rbc-row-segment': {
     padding: isMonthRange ? '0px' : '0 4px 1px 4px',
   },
@@ -131,7 +133,7 @@ const getRowStyles = (theme, isMonthRange) => ({
 const getTimeColumnStyles = (theme, { timeslotHeight }) => ({
   '.rbc-timeslot-group': {
     borderColor: theme.colors.ui04,
-    minHeight: timeslotHeight + 'px',
+    minHeight: `${timeslotHeight}px`,
   },
   '.rbc-day-slot': {
     '.rbc-events-container': {
@@ -316,7 +318,7 @@ const getAgendaStyles = (theme) => ({
             marginLeft: theme.spacing[2],
           },
           '.rbc-agenda-td-data': {
-            borderColor: theme.colors.ui01 + '!important',
+            borderColor: `${theme.colors.ui01}!important`,
             paddingTop: theme.spacing[2],
             paddingBottom: theme.spacing[2],
             paddingLeft: theme.spacing[4],
@@ -358,7 +360,7 @@ const getAgendaStyles = (theme) => ({
       'tbody > tr:last-child': {
         td: {
           borderBottom: '1px solid',
-          borderColor: theme.colors.ui01 + '!important',
+          borderColor: `${theme.colors.ui01}!important`,
         },
       },
       'thead > tr > th': {
@@ -382,38 +384,36 @@ const getAgendaStyles = (theme) => ({
 });
 
 export const BigCalendarStyles = createStyles(
-  (theme, { timeslotHeight, isMonthRange, printMode }) => {
-    return {
-      root: {
-        '.rbc-off-range': {
-          color: theme.colors.text06,
-        },
-        '.rbc-off-range-bg': {
-          background: isMonthRange ? 'transparent' : theme.colors.ui03,
-        },
-        '.rbc-today': {
-          background: 'transparent',
-        },
-        // ·················································
-        // HEADER
-        ...getHeaderStyles(theme, isMonthRange, printMode),
-        // ·················································
-        // ROW
-        ...getRowStyles(theme, isMonthRange, printMode),
-        // ·················································
-        // EVENTS
-        ...getEventStyles(theme, isMonthRange, printMode),
-        // ·················································
-        // MONTH VIEW
-        ...getMonthViewStyles(theme, isMonthRange, printMode),
-        // ·················································
-        // TIME GRID
-        ...getTimeColumnStyles(theme, { timeslotHeight }),
-        ...getTimeGridStyles(theme),
-        // ·················································
-        // AGENDA
-        ...getAgendaStyles(theme),
+  (theme, { timeslotHeight, isMonthRange, printMode }) => ({
+    root: {
+      '.rbc-off-range': {
+        color: theme.colors.text06,
       },
-    };
-  }
+      '.rbc-off-range-bg': {
+        background: isMonthRange ? 'transparent' : theme.colors.ui03,
+      },
+      '.rbc-today': {
+        background: 'transparent',
+      },
+      // ·················································
+      // HEADER
+      ...getHeaderStyles(theme, isMonthRange, printMode),
+      // ·················································
+      // ROW
+      ...getRowStyles(isMonthRange),
+      // ·················································
+      // EVENTS
+      ...getEventStyles(theme, isMonthRange),
+      // ·················································
+      // MONTH VIEW
+      ...getMonthViewStyles(theme, isMonthRange, printMode),
+      // ·················································
+      // TIME GRID
+      ...getTimeColumnStyles(theme, { timeslotHeight }),
+      ...getTimeGridStyles(theme),
+      // ·················································
+      // AGENDA
+      ...getAgendaStyles(theme),
+    },
+  }),
 );

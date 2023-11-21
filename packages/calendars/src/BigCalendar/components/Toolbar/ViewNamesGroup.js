@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { SegmentedControl } from '@bubbles-ui/components';
+import { VIEWNAMESGROUP_PROPTYPES } from './ViewNamesGroup.constants';
 
-export const ViewNamesGroup = ({ messages, views, current, onChange, classes }) => {
+const ViewNamesGroup = ({ messages, views, current, onChange, classes }) => {
   const [value, setValue] = useState(current);
   const [data, setData] = useState([]);
 
@@ -38,3 +39,8 @@ export const ViewNamesGroup = ({ messages, views, current, onChange, classes }) 
   }
   return null;
 };
+
+ViewNamesGroup.propTypes = VIEWNAMESGROUP_PROPTYPES;
+
+export default ViewNamesGroup;
+export { ViewNamesGroup };
