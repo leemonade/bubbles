@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { VerticalStepperContainer } from './VerticalStepperContainer';
 import { VERTICAL_STEPPER_CONTAINER_DEFAULT_PROPS } from './VerticalStepperContainer.constants';
 import mdx from './VerticalStepperContainer.mdx';
@@ -24,12 +25,12 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ data, currentStep, ...props }) => {
+const Template = ({ data = [], currentStep, ...props }) => {
   const [activeStep, setActiveStep] = useState(currentStep || 0);
 
   const randomContent = useMemo(
-    () => [...Array(data.length)].map((_, i) => Math.floor(Math.random() * 10)),
-    [data]
+    () => [...Array(data.length)].map(() => Math.floor(Math.random() * 10)),
+    [data],
   );
 
   const handleNext = () => {
@@ -50,7 +51,7 @@ const Template = ({ data, currentStep, ...props }) => {
             <Box key={`step-${i}`}>
               <ContextContainer title={`Step ${i + 1}`}>
                 <Box>
-                  {[...Array(randomContent[i])].map((_, j) => (
+                  {[...Array(randomContent[i])].map((__, j) => (
                     <Paragraph key={`p-${j}`}>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -78,6 +79,11 @@ const Template = ({ data, currentStep, ...props }) => {
       </VerticalStepperContainer>
     </Box>
   );
+};
+
+Template.propTypes = {
+  data: PropTypes.array,
+  currentStep: PropTypes.number,
 };
 
 export const Playground = Template.bind({});

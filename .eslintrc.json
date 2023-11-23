@@ -42,6 +42,8 @@
         "usePrettierrc": true
       }
     ],
-    "import/no-names-as-default": "off"
+    "import/no-names-as-default": "off",
+    "import/prefer-default-export": "warn",
+    "no-param-reassign": "off"
   }
 }
