@@ -31,4 +31,6 @@ export const SWIPER_PROP_TYPES = {
   nextButtonAriaLabel: PropTypes.string,
   prevButtonAriaLabel: PropTypes.string,
   useAria: PropTypes.bool,
+  spaceBetween: PropTypes.number,
+  watchOverflow: PropTypes.bool,
 };

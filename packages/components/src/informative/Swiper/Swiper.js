@@ -1,17 +1,19 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-cycle */
 import React, { useState } from 'react';
 import { isFunction } from 'lodash';
 import { Navigation } from 'swiper';
 import { Swiper as SwiperComp, SwiperSlide } from 'swiper/react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { SwiperStyles } from './Swiper.styles';
-import { NextElement, PrevElement } from './NavigationElements';
+import { NextElement } from './NavigationElements/NextElement';
+import { PrevElement } from './NavigationElements/PrevElement';
 import { SWIPER_DEFAULT_PROPS, SWIPER_PROP_TYPES } from './Swiper.constants';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
 const Swiper = ({
   children,
-  variant,
   breakAt,
   selectable,
   deselectable,
@@ -26,12 +28,12 @@ const Swiper = ({
   prevButtonAriaLabel,
   useAria,
   className,
-  ...props
+  spaceBetween,
+  watchOverflow,
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(null);
-
   const onSelectIndexHandler = (index) => {
     let shouldUpdate = false;
     let newIndex;
@@ -45,12 +47,19 @@ const Swiper = ({
 
     if (shouldUpdate) {
       setSelectedIndex(newIndex);
-      isFunction(onSelectIndex) && onSelectIndex(newIndex);
+      if (isFunction(onSelectIndex)) {
+        onSelectIndex(newIndex);
+      }
     }
   };
 
-  const getSwiperSlides = () => {
-    return children.map((child, index) => {
+  const { classes, cx } = SwiperStyles(
+    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
+    { name: 'Swiper' },
+  );
+
+  const getSwiperSlides = () =>
+    children.map((child, index) => {
       const isSelected = selectedIndex === index;
       return (
         <SwiperSlide key={`slide${index}`}>
@@ -58,7 +67,7 @@ const Swiper = ({
             <Box
               className={cx(
                 classes.selectWrapper,
-                isSelected && !disableSelectedStyles ? classes.selectedSlide : ''
+                isSelected && !disableSelectedStyles ? classes.selectedSlide : '',
               )}
               onClick={() => onSelectIndexHandler(index)}
             >
@@ -70,12 +79,7 @@ const Swiper = ({
         </SwiperSlide>
       );
     });
-  };
 
-  const { classes, cx } = SwiperStyles(
-    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
-    { name: 'Swiper' }
-  );
   return (
     <Box className={cx(classes.root, className)} style={styles}>
       <SwiperComp
@@ -84,6 +88,8 @@ const Swiper = ({
         shortSwipes={false}
         longSwipesMs={100}
         longSwipesRatio={0.3}
+        spaceBetween={spaceBetween}
+        watchOverflow={watchOverflow}
         navigation={{
           nextEl: classes.nextButton,
           prevEl: classes.prevButton,
@@ -125,3 +131,4 @@ Swiper.defaultProps = SWIPER_DEFAULT_PROPS;
 Swiper.propTypes = SWIPER_PROP_TYPES;
 
 export { Swiper };
+export default Swiper;
