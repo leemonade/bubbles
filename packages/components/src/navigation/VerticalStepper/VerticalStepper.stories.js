@@ -19,15 +19,15 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
-  return <VerticalStepper {...props} />;
-};
+const Template = ({ ...props }) => <VerticalStepper {...props} />;
 
 export const Playground = Template.bind({});
 
 Playground.args = {
   ...VERTICAL_STEPPER_DEFAULT_PROPS,
   data: DATA,
+  currentStep: 6,
+  completedSteps: [0, 1, 2, 3, 4, 5],
   calificationProps: {
     label: 'Por los pelos',
     grade: 5,

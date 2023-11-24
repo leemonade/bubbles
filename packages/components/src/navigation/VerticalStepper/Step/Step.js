@@ -1,14 +1,14 @@
 import React from 'react';
-import { Box } from '../../../layout/';
-import { Text } from '../../../typography';
-import { Badge } from '../../../informative';
-import { Button } from '../../../form';
-import { Progress } from '../';
-import { StepStyles } from './Step.styles';
 import { RatingStarIcon as RatingStarIconSolid } from '@bubbles-ui/icons/solid';
 import { RatingStarIcon as RatingStarIconOutline } from '@bubbles-ui/icons/outline';
-import { STEP_DEFAULT_PROPS, STEP_PROP_TYPES } from './Step.constants';
 import { isFunction } from 'lodash';
+import { Box } from '../../../layout/Box';
+import { Text } from '../../../typography';
+import { Badge } from '../../../informative/Badge';
+import { Button } from '../../../form/Button';
+import { Progress } from '../Progress/Progress';
+import { StepStyles } from './Step.styles';
+import { STEP_DEFAULT_PROPS, STEP_PROP_TYPES } from './Step.constants';
 
 const Step = ({
   label,
@@ -24,15 +24,32 @@ const Step = ({
   isVisited,
   showChild,
   childRange,
-  ...props
 }) => {
   const isButton = !!onClick;
   const isText = !!text;
   const isActivity = !!completion;
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
 
+  const { classes } = StepStyles(
+    {
+      isButton,
+      isText,
+      isActive,
+      isActivity,
+      isChild,
+      showChild,
+      childRange,
+      isVisited,
+      isCompleted,
+      isChildActive,
+    },
+    { name: 'Step' },
+  );
+
   const onClickHandler = () => {
-    isFunction(onClick) && onClick();
+    if (isFunction(onClick)) {
+      onClick();
+    }
   };
 
   const renderVariant = () => {
@@ -105,21 +122,6 @@ const Step = ({
     return classes.defaultVariant;
   };
 
-  const { classes, cx } = StepStyles(
-    {
-      isButton,
-      isText,
-      isActive,
-      isActivity,
-      isChild,
-      showChild,
-      childRange,
-      isVisited,
-      isCompleted,
-      isChildActive,
-    },
-    { name: 'Step' }
-  );
   return (
     <Box className={getVariantClassName()}>
       {!isChild && <Box className={classes.isVisitedBackground} />}

@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { AddIcon } from '@bubbles-ui/icons/outline';
+import { Button } from './Button';
 import {
-  Button,
   BUTTON_SIZES,
   BUTTON_VARIANTS,
   BUTTON_COLORS,
   BUTTON_DEFAULT_PROPS,
-} from './Button';
+} from './Button.constants';
 import mdx from './Button.mdx';
 
 export default {
@@ -33,12 +34,12 @@ const Template = ({
   label,
   rightIcon,
   leftIcon,
-  test_showLeftIcon,
-  test_showRightIcon,
+  testShowLeftIcon,
+  testShowRightIcon,
   ...props
 }) => {
-  const buttonLeftIcon = test_showLeftIcon ? leftIcon : undefined;
-  const buttonRightIcon = test_showRightIcon ? rightIcon : undefined;
+  const buttonLeftIcon = testShowLeftIcon ? leftIcon : undefined;
+  const buttonRightIcon = testShowRightIcon ? rightIcon : undefined;
 
   return (
     <Button {...props} rightIcon={buttonRightIcon} leftIcon={buttonLeftIcon}>
@@ -54,6 +55,6 @@ Playground.args = {
   ...BUTTON_DEFAULT_PROPS,
   rightIcon: <AddIcon />,
   leftIcon: <AddIcon />,
-  test_showLeftIcon: false,
-  test_showRightIcon: false,
+  testShowLeftIcon: false,
+  testShowRightIcon: false,
 };

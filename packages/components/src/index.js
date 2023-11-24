@@ -16,6 +16,8 @@ export {
   Progress,
   ScrollArea,
   HoverCard,
+  Skeleton,
+  keyframes,
   Navbar,
 } from '@mantine/core';
 export * from '@mantine/spotlight';

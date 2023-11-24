@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Clamp from 'react-multiline-clamp';
-import { Button } from '../../form';
+import { Button } from '../../form/Button';
 
 export const TEXT_CLAMP_DEFAULT_PROPS = {
   lines: 2,
@@ -32,30 +32,28 @@ const TextClamp = ({
   showLess,
   onShowMore,
   ...props
-}) => {
-  return (
-    <Clamp
-      {...props}
-      lines={lines}
-      maxLines={maxLines}
-      withTooltip={withTooltip}
-      withToggle={withToggle}
-      showMoreElement={({ toggle }) => (
-        <Button size="xs" compact variant="link" onClick={toggle}>
-          {showMore}
-        </Button>
-      )}
-      showLessElement={({ toggle }) => (
-        <Button size="xs" compact variant="link" onClick={toggle}>
-          {showLess}
-        </Button>
-      )}
-      onShowMore={onShowMore}
-    >
-      {React.cloneElement(children, { style: { hyphens: 'auto' } })}
-    </Clamp>
-  );
-};
+}) => (
+  <Clamp
+    {...props}
+    lines={lines}
+    maxLines={maxLines}
+    withTooltip={withTooltip}
+    withToggle={withToggle}
+    showMoreElement={({ toggle }) => (
+      <Button size="xs" compact variant="link" onClick={toggle}>
+        {showMore}
+      </Button>
+    )}
+    showLessElement={({ toggle }) => (
+      <Button size="xs" compact variant="link" onClick={toggle}>
+        {showLess}
+      </Button>
+    )}
+    onShowMore={onShowMore}
+  >
+    {React.cloneElement(children, { style: { hyphens: 'auto' } })}
+  </Clamp>
+);
 
 TextClamp.defaultProps = TEXT_CLAMP_DEFAULT_PROPS;
 TextClamp.propTypes = TEXT_CLAMP_PROP_TYPES;

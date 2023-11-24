@@ -1,11 +1,11 @@
-/*eslint no-unused-vars: "off"*/
-
+/* eslint no-unused-vars: "off" */
+/* eslint-disable */
 import overlap from './layout-algorithms/overlap';
 import noOverlap from './layout-algorithms/no-overlap';
 
 const DefaultAlgorithms = {
-  overlap: overlap,
-  'no-overlap': noOverlap
+  overlap,
+  'no-overlap': noOverlap,
 };
 
 function isFunction(a) {
@@ -14,13 +14,9 @@ function isFunction(a) {
 
 //
 export function getStyledEvents({
-                                  events,
-                                  minimumStartDifference,
-                                  slotMetrics,
-                                  accessors,
-                                  dayLayoutAlgorithm // one of DefaultAlgorithms keys
-                                  // or custom function
-                                }) {
+  dayLayoutAlgorithm, // one of DefaultAlgorithms keys
+  // or custom function
+}) {
   let algorithm = dayLayoutAlgorithm;
 
   if (dayLayoutAlgorithm in DefaultAlgorithms) algorithm = DefaultAlgorithms[dayLayoutAlgorithm];

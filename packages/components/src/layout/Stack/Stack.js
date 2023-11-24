@@ -54,7 +54,7 @@ const Stack = forwardRef(
       display,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { classes, cx } = StackStyles(
       {
@@ -68,7 +68,7 @@ const Stack = forwardRef(
         fullHeight,
         spacing,
       },
-      { name: 'Stack' }
+      { name: 'Stack' },
     );
 
     const childrenWithProps = useMemo(
@@ -97,19 +97,19 @@ const Stack = forwardRef(
             const newStyle = { ...style, ...flexProps };
             if (child.type === React.Fragment) {
               return <child.type {...rest} key={child.key} ref={child.ref} />;
-            } else {
-              return <child.type {...rest} key={child.key} ref={child.ref} style={newStyle} />;
             }
+            return <child.type {...rest} key={child.key} ref={child.ref} style={newStyle} />;
 
             // return React.cloneElement(child, { style, noFlex: undefined, skipFlex: undefined });
-          } else if (child?.props && child?.type) {
+          }
+          if (child?.props && child?.type) {
             const { noFlex, skipFlex, ...rest } = child.props;
             return <child.type {...rest} key={child.key} ref={child.ref} />;
           }
 
           return child;
         }),
-      [children]
+      [children],
     );
 
     return (
@@ -117,9 +117,10 @@ const Stack = forwardRef(
         {childrenWithProps}
       </Box>
     );
-  }
+  },
 );
 
+Stack.displayName = 'Stack';
 Stack.defaultProps = STACK_DEFAULT_PROPS;
 
 Stack.propTypes = {
@@ -133,6 +134,7 @@ Stack.propTypes = {
   fullHeight: PropTypes.bool,
   spacing: PropTypes.number,
   display: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export { Stack };

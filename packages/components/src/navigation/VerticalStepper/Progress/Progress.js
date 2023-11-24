@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box } from '../../../layout';
-import { ProgressStyles } from './Progress.styles';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
 import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
+import { Box } from '../../../layout/Box';
+import { ProgressStyles } from './Progress.styles';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
 const Progress = ({
@@ -18,7 +18,7 @@ const Progress = ({
 }) => {
   const { classes, cx } = ProgressStyles(
     { position, isButton, isActivity, isText, isCurrent, isVisited, state },
-    { name: 'Progress' }
+    { name: 'Progress' },
   );
 
   const renderState = () => {
@@ -74,7 +74,10 @@ const Progress = ({
             <RemoveBoldIcon height={20} width={20} className={classes.KOIcon} />
           </Box>
         );
+      default:
+        break;
     }
+    return null;
   };
 
   return <Box className={classes.root}>{renderState()}</Box>;

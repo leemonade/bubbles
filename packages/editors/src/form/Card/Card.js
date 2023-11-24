@@ -14,8 +14,8 @@ import {
 import { ExpandDiagonalIcon } from '@bubbles-ui/icons/outline';
 import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { NodeViewWrapper } from '@tiptap/react';
-import { CardStyles } from './Card.styles';
 import { capitalize } from 'lodash';
+import { CardStyles } from './Card.styles';
 
 export const CARD_DEFAULT_PROPS = {
   node: {
@@ -46,7 +46,7 @@ const Card = ({
     attrs: { title, description, image, color, fileType },
   },
 }) => {
-  const { classes, cx } = CardStyles({ color }, { name: 'CardExtension' });
+  const { classes } = CardStyles({ color }, { name: 'CardExtension' });
   return (
     <NodeViewWrapper className="card-extension">
       <Stack className={classes.root} justifyContent="start" fullWidth>
