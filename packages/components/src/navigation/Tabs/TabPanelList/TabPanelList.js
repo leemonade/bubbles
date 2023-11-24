@@ -33,17 +33,17 @@ export const TabPanelList = ({
             : null
         }
       >
-        {tabs.map(({ node, key }) => {
-          return React.cloneElement(node, {
+        {tabs.map(({ node, key }) =>
+          React.cloneElement(node, {
             key,
             tabKey: key,
             id,
-            animated: animated,
+            animated,
             active: key === activeKey,
-            destroyInactiveTabPanel: destroyInactiveTabPanel,
-            forceRender: forceRender,
-          });
-        })}
+            destroyInactiveTabPanel,
+            forceRender,
+          }),
+        )}
       </Box>
     </Box>
   );

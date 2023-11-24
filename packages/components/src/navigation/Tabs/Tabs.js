@@ -27,29 +27,28 @@ function parseTabList(children, acc = []) {
         key,
         node: child,
       });
-    } else {
-      if (child?.props?.children && child?.type?.displayName !== 'Tabs') {
-        parseTabList(child.props.children, acc);
-      }
+    } else if (child?.props?.children && child?.type?.displayName !== 'Tabs') {
+      parseTabList(child.props.children, acc);
     }
   });
   return acc;
 }
 
-const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children }) => {
-  return usePageLayout ? (
+const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children }) =>
+  usePageLayout ? (
     <Box className={className}>
       <PageContainer fullWidth={fullWidth}>{children}</PageContainer>
     </Box>
   ) : (
     <Box
       className={className}
-      sx={(theme) => ({ padding: usePaddedLayout && `0 ${theme.spacing[7]}px` })}
+      sx={(theme) => ({
+        padding: usePaddedLayout && `0 ${theme.spacing[7]}px`,
+      })}
     >
       {children}
     </Box>
   );
-};
 
 export const Tabs = forwardRef(
   (
@@ -74,9 +73,10 @@ export const Tabs = forwardRef(
       usePaddedLayout,
       panelColor,
       forceRender,
+      centerGrow,
       tabPanelListStyle,
     },
-    ref
+    ref,
   ) => {
     const tabs = parseTabList(children);
     const rtl = direction === 'rtl';
@@ -88,7 +88,7 @@ export const Tabs = forwardRef(
       defaultValue: defaultActiveKey,
     });
     const [activeIndex, setActiveIndex] = useState(() =>
-      tabs.findIndex((tab) => tab.key === mergedActiveKey)
+      tabs.findIndex((tab) => tab.key === mergedActiveKey),
     );
 
     // Reset active key if not exist anymore
@@ -144,9 +144,8 @@ export const Tabs = forwardRef(
 
     const { classes, cx } = TabsStyles(
       { direction, position, panelColor, fullHeight },
-      { name: 'Tabs' }
+      { name: 'Tabs' },
     );
-
     return (
       <TabContext.Provider value={{ tabs }}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
@@ -156,7 +155,7 @@ export const Tabs = forwardRef(
             fullWidth={fullWidth}
             className={classNames?.navList}
           >
-            <TabNavList {...tabNavBarProps} />
+            <TabNavList {...tabNavBarProps} centerGrow={centerGrow} />
           </Wrapper>
           <Wrapper
             usePageLayout={usePageLayout}
@@ -175,7 +174,7 @@ export const Tabs = forwardRef(
         </Box>
       </TabContext.Provider>
     );
-  }
+  },
 );
 
 Tabs.displayName = 'Tabs';
@@ -186,6 +185,7 @@ Tabs.defaultProps = {
   fullHeight: false,
   fullWidth: false,
   panelColor: 'default',
+  centerGrow: false,
 };
 
 Tabs.propTypes = {
@@ -205,4 +205,5 @@ Tabs.propTypes = {
   fullHeight: PropTypes.bool,
   fullWidth: PropTypes.bool,
   forceRender: PropTypes.bool,
+  centerGrow: PropTypes.bool,
 };

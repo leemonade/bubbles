@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { InformationCircleIcon, StarIcon } from '@heroicons/react/solid';
 import { Group, NumberInput } from '@mantine/core';
-import { Box, Paper } from './../../layout';
-import { Paragraph } from './../../typography';
+import { Box, Paper } from '../../layout';
+import { Paragraph } from '../../typography';
 import { TabPanel } from './TabPanelList/TabPanel';
 import { Tabs } from './Tabs';
 import mdx from './Tabs.mdx';
@@ -27,7 +27,7 @@ const Template = ({ position, disabled, ...props }) => {
   return (
     <Group noWrap>
       <Box style={{ width: '80%' }}>
-        <Tabs position={position} forceRender>
+        <Tabs position={position} forceRender centerGrow={props.centerGrow}>
           <Box>
             <Box>
               {[...Array(numberOfTabs).keys()].map((i) => (
@@ -47,7 +47,7 @@ const Template = ({ position, disabled, ...props }) => {
                   <Paragraph>Content of {i}</Paragraph>
 
                   <Box style={{ width: '80%' }}>
-                    <Tabs position={position} forceRender>
+                    <Tabs position={position} forceRender centerGrow={props.centerGrow}>
                       <Box>
                         <Box>
                           {[...Array(numberOfTabs).keys()].map((i) => (
@@ -97,40 +97,40 @@ export const Playground = Template.bind({});
 Playground.args = {
   position: 'left',
   disabled: false,
+  centerGrow: true,
 };
 
-const SimpleTemplate = ({ position, disabled, ...props }) => {
-  return (
-    <Box style={{ height: '100vh', margin: -15 }}>
-      <Paper style={{ width: 400 }} fullHeight>
-        <Tabs {...props} fullHeight>
-          <TabPanel label="First">
-            <Box>
-              {[...Array(5).keys()].map((i) => (
-                <Paragraph key={`p${i}`}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum.
-                </Paragraph>
-              ))}
-            </Box>
-          </TabPanel>
-          <TabPanel label="Second" disabled>
-            <Box>
-              <Paragraph>Content of Second tab</Paragraph>
-            </Box>
-          </TabPanel>
-        </Tabs>
-      </Paper>
-    </Box>
-  );
-};
+const SimpleTemplate = ({ position, disabled, ...props }) => (
+  <Box style={{ height: '100vh', margin: -15 }}>
+    <Paper style={{ width: 400 }} fullHeight>
+      <Tabs {...props} fullHeight>
+        <TabPanel label="First">
+          <Box>
+            {[...Array(5).keys()].map((i) => (
+              <Paragraph key={`p${i}`}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </Paragraph>
+            ))}
+          </Box>
+        </TabPanel>
+        <TabPanel label="Second" disabled>
+          <Box>
+            <Paragraph>Content of Second tab</Paragraph>
+          </Box>
+        </TabPanel>
+      </Tabs>
+    </Paper>
+  </Box>
+);
 
 export const SimpleTab = SimpleTemplate.bind({});
 SimpleTab.args = {
   usePageLayout: true,
   panelColor: 'solid',
+  centerGrow: true,
 };
