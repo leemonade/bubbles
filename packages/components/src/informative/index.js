@@ -18,3 +18,4 @@ export * from './ActivityAnswersBar';
 export * from './UserCards';
 export * from './UserDisplayItemList';
 export * from './ChatMessage';
+export * from './ProgressColorBar';

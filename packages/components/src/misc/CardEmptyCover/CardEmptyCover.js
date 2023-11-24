@@ -15,20 +15,18 @@ import {
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
   const pairColumnRef = useRef(null);
-
   const { canvasImage } = useHTMLToCanvas(pairColumnRef);
-
   const FileTypeIcon = [
     { key: 'video', value: <AssetVideoIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'audio', value: <AssetAudioIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'image', value: <AssetImageIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'bookmark', value: <AssetBookmarkIcon height={24} width={24} color={'#878D96'} /> },
+    { key: 'task', value: <AssetBookmarkIcon height={24} width={24} color={'#878D96'} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
 
   const iconToShow = fileIcon?.value || icon;
-
   const { classes } = CardEmptyCoverStyles();
 
   const pairCol = (
