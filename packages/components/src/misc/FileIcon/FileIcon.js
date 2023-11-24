@@ -8,11 +8,6 @@ import {
   PluginCurriculumIcon,
   // VolumeControlMediumIcon,
 } from '@bubbles-ui/icons/solid/';
-import {
-  // FormImageAttachIcon,
-  PluginFeedbackIcon,
-  PluginTestIcon,
-} from '@bubbles-ui/icons/outline/';
 import { FileIconStyles } from './FileIcon.styles';
 import { Box } from '../../layout/Box';
 import { Text } from '../../typography/Text';
