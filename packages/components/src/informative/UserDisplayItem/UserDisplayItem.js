@@ -10,6 +10,7 @@ import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 import { COLORS } from '../../theme.tokens';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
 import { AVATAR_STATE } from '../Avatar/Avatar.constants';
+import { Highlight } from '@mantine/core';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -55,6 +56,7 @@ const UserDisplayItem = (properties) => {
     onChat,
     size,
     noBreak,
+    highlight,
     textRole,
     fullNameClassname,
     ...props
@@ -118,17 +120,17 @@ const UserDisplayItem = (properties) => {
               onClick={onChat}
             />
             <a className={classes.email} href={`mailto:${email}`}>
-              {email}
+              <Highlight highlight={highlight}>{email}</Highlight>
             </a>
           </>
         ) : (
           <>
-            <Text className={classes.rol}>
-              {role}
+            <Text  className={classes.rol}>
+              <Highlight highlight={highlight}>{role}</Highlight>
               {variant === 'rol' ? Icon : null}
             </Text>
             {!isEmpty(surnames) && (
-              <Text color={textColor} className={classes.surnames} role={textRole}>
+              <Text highlight={highlight} color={textColor} className={classes.surnames} role={textRole}>
                 {surnames}
               </Text>
             )}
@@ -138,7 +140,7 @@ const UserDisplayItem = (properties) => {
                 className={cx(classes.name, fullNameClassname)}
                 role={textRole}
               >
-                {fullName}
+                <Highlight highlight={highlight}>{fullName}</Highlight>
                 {variant !== 'rol' ? Icon : null}
               </Text>
             </TextClamp>

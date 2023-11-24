@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getFontExpressive } from '../../theme.mixins';
 
-export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmin }) => {
+export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmin, selected }) => {
 
   let backgroundColor = theme.other.global.background.color.surface.default;
   let borderColor = theme.other.global.border.color.line.muted;
@@ -14,7 +14,9 @@ export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmi
 
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2'])
+      ...getFontExpressive(theme.fontSizes['2']),
+      padding: theme.spacing[2],
+      background: selected ? theme.other.global.background.color.primary.default : 'transparent',
     },
     message: {
       color: theme.other.global.content.color.text.muted,

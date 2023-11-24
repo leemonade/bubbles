@@ -3,6 +3,7 @@ import { Box } from '../../layout';
 import { UserDisplayItem } from '../UserDisplayItem';
 import { ChatMessageStyles } from './ChatMessage.styles';
 import { CHAT_MESSAGE_DEFAULT_PROPS, CHAT_MESSAGE_PROP_TYPES } from './ChatMessage.constants';
+import { Highlight } from '@mantine/core';
 
 const ChatMessage = ({
                        message,
@@ -10,12 +11,14 @@ const ChatMessage = ({
                        isOwn,
                        isOnline,
                        locale,
+                        selected,
+                       highlight,
                        showUser = true,
                        isTeacher,
                        isAdmin,
                        ...props
                      }) => {
-  const { classes, cx } = ChatMessageStyles({ isOwn, isTeacher, isAdmin }, { name: 'ChatMessage' });
+  const { classes, cx } = ChatMessageStyles({ isOwn, isTeacher, isAdmin, selected }, { name: 'ChatMessage' });
   return (
     <Box className={classes.root}>
       {showUser ? <UserDisplayItem
@@ -28,7 +31,14 @@ const ChatMessage = ({
       <Box className={classes.messageBox}>
         {message?.type === 'text' && (
           <Box className={classes.message}>
-            {message?.content}
+            <Highlight highlight={highlight}>
+              {message?.content}
+            </Highlight>
+          </Box>
+        )}
+        {message?.type === 'img' && (
+          <Box className={classes.message}>
+            <img style={{width: '100%'}} src={message?.content}/>
           </Box>
         )}
         <Box className={classes.messageDate}>

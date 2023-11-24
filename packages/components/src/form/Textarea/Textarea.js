@@ -56,6 +56,7 @@ const Textarea = forwardRef(
       counterLabels,
       autoComplete,
       onKeyPress = () => {},
+      rightSection,
       ...props
     },
     ref
@@ -139,6 +140,7 @@ const Textarea = forwardRef(
               minRows={minRows}
               onKeyPress={onKeyPress}
               placeholder={placeholder}
+              rightSection={rightSection}
               name={name}
               disabled={disabled}
               onBlur={onBlur}

@@ -6,24 +6,54 @@ export default {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "hover": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "down": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#ffffff",
+            "type": "color"
           }
         },
         "secondary": {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "hover": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "down": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#ffffff",
+            "type": "color"
           }
         },
         "ghost": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          }
+        },
+        "terciary": {
           "default": {
             "value": "#F1FFBD",
             "type": "color"
           },
           "hover": {
-            "value": "#F1FFBD",
+            "value": "#E2FF7A",
             "type": "color"
           },
-          "pressed": {
+          "down": {
             "value": "#E2FF7A",
             "type": "color"
           },
@@ -51,7 +81,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -60,7 +90,16 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 500,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
+          "fontSize": "14px"
+        },
+        "type": "typography"
+      },
+      "typo": {
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 400,
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -77,34 +116,52 @@ export default {
             "value": "#B4E600",
             "type": "color"
           },
+          "selected": {
+            "value": "#E2FF7A",
+            "type": "color"
+          },
           "pressed": {
             "value": "#98C200",
             "type": "color"
           },
-          "focus": {
+          "down": {
             "value": "#B4E600",
             "type": "color"
           }
         },
         "secondary": {
           "default": {
-            "value": "transparent",
+            "value": "#ffffff",
             "type": "color"
           },
           "hover": {
-            "value": "transparent",
-            "type": "color"
-          },
-          "press": {
             "value": "#ffffff",
             "type": "color"
           },
-          "focus": {
+          "pressed": {
             "value": "#ffffff",
+            "type": "color"
+          },
+          "down": {
+            "value": "#0C1F22",
             "type": "color"
           }
         },
         "ghost": {
+          "default": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "pressed": {
+            "value": "#98C200",
+            "type": "color"
+          }
+        },
+        "terciary": {
           "default": {
             "value": "#F8F9FB",
             "type": "color"
@@ -136,20 +193,6 @@ export default {
     },
     "border": {
       "color": {
-        "primary": {
-          "default": {
-            "value": "#B4E600",
-            "type": "color"
-          },
-          "hover": {
-            "value": "#98C200",
-            "type": "color"
-          },
-          "down": {
-            "value": "#98C200",
-            "type": "color"
-          }
-        },
         "secondary": {
           "default": {
             "value": "#0C1F22",
@@ -163,8 +206,22 @@ export default {
             "value": "#4A6000",
             "type": "color"
           },
-          "focus": {
-            "value": "#0C1F22",
+          "down": {
+            "value": "#343A3F",
+            "type": "color"
+          }
+        },
+        "primary": {
+          "default": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "down": {
+            "value": "#98C200",
             "type": "color"
           }
         },
@@ -229,16 +286,16 @@ export default {
           }
         },
         "horizontal": {
-          "md": {
-            "value": "24px",
-            "type": "spacing"
-          },
           "sm": {
             "value": "16px",
             "type": "spacing"
           },
           "xs": {
             "value": "8px",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "24px",
             "type": "spacing"
           }
         }
@@ -271,6 +328,12 @@ export default {
         },
         "type": "boxShadow"
       }
+    },
+    "textDecoration": {
+      "underLine": {
+        "value": "underline",
+        "type": "textDecoration"
+      }
     }
   },
   "buttonText": {
@@ -296,9 +359,8 @@ export default {
             "type": "color"
           },
           "hover": {
-            "value": "{global.content.color.secondary.emphasis}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#343A3F",
+            "type": "color"
           },
           "down": {
             "value": "#0C1F22",
@@ -353,6 +415,15 @@ export default {
           "textDecoration": "underline"
         },
         "type": "typography"
+      },
+      "typo": {
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 400,
+          "lineHeight": "20px",
+          "fontSize": "14px"
+        },
+        "type": "typography"
       }
     },
     "background": {
@@ -377,9 +448,8 @@ export default {
             "type": "color"
           },
           "hover": {
-            "value": "{global.background.color.secondary.subtle}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#F8F9FB",
+            "type": "color"
           },
           "down": {
             "value": "transparent",
@@ -438,14 +508,12 @@ export default {
             "type": "color"
           },
           "hover": {
-            "value": "{global.border.color.secondary.subtle}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#F8F9FB",
+            "type": "color"
           },
           "down": {
-            "value": "{global.border.color.secondary.subtle}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#F8F9FB",
+            "type": "color"
           }
         },
         "terciary": {
@@ -528,11 +596,77 @@ export default {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "hover": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "down": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#ffffff",
+            "type": "color"
           }
         },
         "ghost": {
           "default": {
             "value": "#0C1F22",
+            "type": "color"
+          }
+        },
+        "secondary": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "down": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#ffffff",
+            "type": "color"
+          }
+        },
+        "terciary": {
+          "default": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "down": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#878D96",
+            "type": "color"
+          }
+        },
+        "phatic": {
+          "default": {
+            "value": "#d13b3b",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "down": {
+            "value": "#d13b3b",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#b52a2a",
             "type": "color"
           }
         }
@@ -560,6 +694,22 @@ export default {
           "focus": {
             "value": "#B4E600",
             "type": "color"
+          },
+          "down": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "transparent",
+            "type": "color"
           }
         },
         "ghost": {
@@ -583,6 +733,84 @@ export default {
             "value": "#F1FFBD",
             "type": "color"
           }
+        },
+        "secondary": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "down": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#F8F9FB",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "transparent",
+            "type": "color"
+          }
+        },
+        "terciary": {
+          "default": {
+            "value": "#F8F9FB",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#F2F4F8",
+            "type": "color"
+          },
+          "down": {
+            "value": "#F8F9FB",
+            "type": "color"
+          },
+          "default-reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover-reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "down-reverse": {
+            "value": "transparent",
+            "type": "color"
+          }
+        },
+        "phatic": {
+          "default": {
+            "value": "#f7dede",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#d13b3b",
+            "type": "color"
+          },
+          "down": {
+            "value": "#f7dede",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#f0bebe",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "transparent",
+            "type": "color"
+          }
         }
       }
     },
@@ -591,21 +819,131 @@ export default {
         "md": {
           "value": "4px",
           "type": "borderRadius"
+        },
+        "rounded": {
+          "value": "99em",
+          "type": "borderRadius"
         }
       },
       "width": {
         "value": "2px",
         "type": "borderWidth"
+      },
+      "color": {
+        "primary": {
+          "default": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "down": {
+            "value": "#98C200",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          }
+        },
+        "secondary": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "down": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "default-reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover-reverse": {
+            "value": "#F8F9FB",
+            "type": "color"
+          },
+          "down-reverse": {
+            "value": "#F8F9FB",
+            "type": "color"
+          }
+        },
+        "terciary": {
+          "default": {
+            "value": "#DDE1E6",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#C1C7CD",
+            "type": "color"
+          },
+          "down": {
+            "value": "#C1C7CD",
+            "type": "color"
+          },
+          "default-reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "#F1FFBD",
+            "type": "color"
+          }
+        },
+        "phatic": {
+          "default": {
+            "value": "#f7dede",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#d13b3b",
+            "type": "color"
+          },
+          "down": {
+            "value": "#d13b3b",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#f0bebe",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "#f7dede",
+            "type": "color"
+          }
+        }
       }
     },
     "spacing": {
       "padding": {
-        "md": {
-          "value": "6px",
-          "type": "spacing"
-        },
         "sm": {
           "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "6px",
           "type": "spacing"
         }
       }
@@ -634,6 +972,22 @@ export default {
           },
           "hover": {
             "value": "#0C1F22",
+            "type": "color"
+          },
+          "down": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "default--reverse": {
+            "value": "#C1C7CD",
+            "type": "color"
+          },
+          "hover--reverse": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "down--reverse": {
+            "value": "#ffffff",
             "type": "color"
           }
         },
@@ -682,12 +1036,15 @@ export default {
             "type": "color"
           },
           "down--reverse": {
-            "value": "{global.background.color.secondary.muted}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#878D96",
+            "type": "color"
           },
           "hover--reverse-transparent": {
             "value": "#ffffff26",
+            "type": "color"
+          },
+          "down": {
+            "value": "#F1FFBD",
             "type": "color"
           }
         },
@@ -727,9 +1084,8 @@ export default {
             "type": "color"
           },
           "down--reverse": {
-            "value": "{global.border.color.secondary.muted}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#878D96",
+            "type": "color"
           }
         },
         "phatic": {
@@ -803,7 +1159,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -935,7 +1291,7 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 600,
-            "lineHeight": "24px",
+            "lineHeight": "20px",
             "fontSize": "14px"
           },
           "type": "typography"
@@ -944,7 +1300,7 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 400,
-            "lineHeight": "24px",
+            "lineHeight": "20px",
             "fontSize": "14px"
           },
           "type": "typography"
@@ -979,6 +1335,10 @@ export default {
         "phatic--attention": {
           "value": "#f39c12",
           "type": "color"
+        },
+        "phatic": {
+          "value": "#d13b3b",
+          "type": "color"
         }
       },
       "typo-": {
@@ -987,6 +1347,15 @@ export default {
           "fontWeight": 400,
           "lineHeight": "20px",
           "fontSize": "12px"
+        },
+        "type": "typography"
+      },
+      "typo": {
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 500,
+          "fontSize": "10px",
+          "lineHeight": "14px"
         },
         "type": "typography"
       }
@@ -1011,6 +1380,14 @@ export default {
     },
     "content": {
       "color": {
+        "text": {
+          "value": "#4D5358",
+          "type": "color"
+        },
+        "selected": {
+          "value": "#2F463F",
+          "type": "color"
+        },
         "default": {
           "value": "transparent",
           "type": "color"
@@ -1021,10 +1398,6 @@ export default {
         },
         "hover": {
           "value": "#878D96",
-          "type": "color"
-        },
-        "selected": {
-          "value": "#B4E600",
           "type": "color"
         }
       }
@@ -1064,11 +1437,11 @@ export default {
           "type": "color"
         },
         "hover": {
-          "value": "#E2FF7A",
+          "value": "#2F463F",
           "type": "color"
         },
         "selected": {
-          "value": "#B4E600",
+          "value": "#2F463F",
           "type": "color"
         }
       }
@@ -1086,6 +1459,32 @@ export default {
         "lg": {
           "value": "24px",
           "type": "spacing"
+        }
+      }
+    },
+    "shadow": {
+      "hover": {
+        "value": {
+          "x": 0,
+          "y": 0,
+          "blur": 2,
+          "spread": 0,
+          "color": "#2f463fcc",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow"
+      }
+    },
+    "label": {
+      "content": {
+        "typo": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 400,
+            "lineHeight": "20px",
+            "fontSize": "14px"
+          },
+          "type": "typography"
         }
       }
     }
@@ -1310,6 +1709,14 @@ export default {
             "value": "#DDE1E6",
             "type": "color"
           },
+          "white": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "grey": {
+            "value": "#F2F4F8",
+            "type": "color"
+          },
           "default--reverse": {
             "value": "#ffffff",
             "type": "color"
@@ -1336,6 +1743,12 @@ export default {
             "value": "#307AE8",
             "type": "color"
           }
+        },
+        "secondary": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          }
         }
       }
     },
@@ -1355,6 +1768,14 @@ export default {
         },
         "default": {
           "value": "#DDE1E6",
+          "type": "color"
+        },
+        "white": {
+          "value": "#878D96",
+          "type": "color"
+        },
+        "grey": {
+          "value": "#C1C7CD",
           "type": "color"
         },
         "hover": {
@@ -1401,6 +1822,10 @@ export default {
         },
         "lg": {
           "value": "12px",
+          "type": "spacing"
+        },
+        "sm": {
+          "value": "4px",
           "type": "spacing"
         }
       }
@@ -1789,9 +2214,8 @@ export default {
     "border": {
       "color": {
         "enabled": {
-          "value": "{global.border.color.secondary.subtle}",
-          "type": "color",
-          "failedToResolve": true
+          "value": "#F8F9FB",
+          "type": "color"
         }
       },
       "width": {
@@ -1910,7 +2334,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 600,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -1955,6 +2379,18 @@ export default {
         "default": {
           "value": "#0C1F22",
           "type": "color"
+        },
+        "hover": {
+          "value": "#98C200",
+          "type": "color"
+        },
+        "down": {
+          "value": "#E2FF7A",
+          "type": "color"
+        },
+        "default--reverse": {
+          "value": "#F1FFBD",
+          "type": "color"
         }
       }
     },
@@ -1982,6 +2418,10 @@ export default {
         },
         "pressed": {
           "value": "#E2FF7A",
+          "type": "color"
+        },
+        "down": {
+          "value": "#F1FFBD",
           "type": "color"
         }
       }
@@ -2011,18 +2451,9 @@ export default {
   },
   "tab": {
     "content": {
-      "typo": {
-        "value": {
-          "fontFamily": "Albert Sans",
-          "fontWeight": 400,
-          "lineHeight": "20px",
-          "fontSize": "14px"
-        },
-        "type": "typography"
-      },
       "color": {
         "default": {
-          "value": "#4D5358",
+          "value": "#0C1F22",
           "type": "color"
         },
         "hover": {
@@ -2033,16 +2464,37 @@ export default {
           "value": "#B4E600",
           "type": "color"
         }
+      },
+      "typo": {
+        "sm": {
+          "value": "{global.content.typo.body.sm}",
+          "type": "typography"
+        },
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 400,
+          "lineHeight": "20px",
+          "fontSize": "14px"
+        },
+        "type": "typography"
       }
     },
     "border": {
       "color": {
-        "default": {
-          "value": "transparent",
+        "hover": {
+          "value": "#DDE1E6",
           "type": "color"
         },
-        "hover": {
-          "value": "#E2FF7A",
+        "selected": {
+          "value": "#B4E600",
+          "type": "color"
+        },
+        "content": {
+          "value": "#DDE1E6",
+          "type": "color"
+        },
+        "default": {
+          "value": "transparent",
           "type": "color"
         },
         "down": {
@@ -2050,13 +2502,21 @@ export default {
           "type": "color"
         }
       },
-      "width": {
-        "value": "4px",
-        "type": "borderWidth"
-      },
       "radius": {
         "value": "2px",
         "type": "borderRadius"
+      },
+      "width": {
+        "sm": {
+          "value": "{global.border.width.sm}",
+          "type": "borderWidth"
+        },
+        "md": {
+          "value": "{global.border.width.md}",
+          "type": "borderWidth"
+        },
+        "value": "4px",
+        "type": "borderWidth"
       }
     },
     "background": {
@@ -2066,7 +2526,11 @@ export default {
           "type": "color"
         },
         "hover": {
-          "value": "#F8F9FB",
+          "value": "#F1FFBD",
+          "type": "color"
+        },
+        "selected": {
+          "value": "transparent",
           "type": "color"
         },
         "down": {
@@ -2083,6 +2547,18 @@ export default {
       "gap": {
         "value": "8px",
         "type": "spacing"
+      },
+      "vertical": {
+        "md": {
+          "value": "16px",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "xsm": {
+          "value": "8px",
+          "type": "spacing"
+        }
       }
     }
   },
@@ -2271,7 +2747,7 @@ export default {
     "content": {
       "color": {
         "default": {
-          "value": "#4D5358",
+          "value": "#0C1F22",
           "type": "color"
         },
         "default--alt": {
@@ -2283,6 +2759,15 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
+          "lineHeight": "24px",
+          "fontSize": "14px"
+        },
+        "type": "typography"
+      },
+      "typo--medium": {
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 500,
           "lineHeight": "24px",
           "fontSize": "14px"
         },
@@ -2301,6 +2786,14 @@ export default {
         }
       },
       "gap": {
+        "1xsm": {
+          "value": "{global.spacing.gap.1xsm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{global.spacing.gap.md}",
+          "type": "spacing"
+        },
         "value": "8px",
         "type": "spacing"
       }
@@ -2312,11 +2805,11 @@ export default {
           "type": "color"
         },
         "hover": {
-          "value": "#F8F9FB",
+          "value": "#F1FFBD",
           "type": "color"
         },
         "down": {
-          "value": "#F2F4F8",
+          "value": "#E2FF7A",
           "type": "color"
         },
         "active": {
@@ -2339,6 +2832,21 @@ export default {
           "value": "#C1C7CD",
           "type": "color"
         }
+      }
+    },
+    "shadow": {
+      "default": {
+        "value": [
+          {
+            "color": "#21272a14",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 10,
+            "blur": 36,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
       }
     }
   },
@@ -2709,9 +3217,8 @@ export default {
           "type": "color"
         },
         "default--alt": {
-          "value": "{global.content.color.secondary.emphasis}",
-          "type": "color",
-          "failedToResolve": true
+          "value": "#343A3F",
+          "type": "color"
         }
       }
     }
@@ -3126,8 +3633,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 500,
-            "fontSize": 10,
-            "lineHeight": 14
+            "fontSize": "10px",
+            "lineHeight": "14px"
           },
           "type": "typography"
         },
@@ -3205,6 +3712,10 @@ export default {
         "xlgm": {
           "value": "52px",
           "type": "spacing"
+        },
+        "lg": {
+          "value": "24px",
+          "type": "spacing"
         }
       },
       "gap": {
@@ -3226,6 +3737,28 @@ export default {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "hover": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "active": {
+            "value": "#ffffff",
+            "type": "color"
+          }
+        },
+        "sub": {
+          "default": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#ffffff",
+            "type": "color"
+          },
+          "active": {
+            "value": "#ffffff",
+            "type": "color"
           }
         }
       },
@@ -3233,7 +3766,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -3242,10 +3775,21 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 500,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
+      },
+      "typo": {
+        "md": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 500,
+            "fontSize": "14px",
+            "lineHeight": "20px"
+          },
+          "type": "typography"
+        }
       }
     },
     "background": {
@@ -3261,6 +3805,20 @@ export default {
           },
           "active": {
             "value": "#E2FF7A",
+            "type": "color"
+          }
+        },
+        "sub": {
+          "default": {
+            "value": "#0C1F22",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "active": {
+            "value": "#B4E600",
             "type": "color"
           }
         }
@@ -3373,6 +3931,10 @@ export default {
         "completed": {
           "value": "#343A3F",
           "type": "color"
+        },
+        "default": {
+          "value": "#878D96",
+          "type": "color"
         }
       }
     },
@@ -3388,6 +3950,10 @@ export default {
       "padding": {
         "xsm": {
           "value": "8px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "16px",
           "type": "spacing"
         }
       }
@@ -3644,7 +4210,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 600,
-          "lineHeight": "24px",
+          "lineHeight": "20px",
           "fontSize": "14px"
         },
         "type": "typography"
@@ -4001,18 +4567,36 @@ export default {
         }
       },
       "gap": {
-        "value": "16px",
-        "type": "spacing"
+        "sm": {
+          "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "8px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "16px",
+          "type": "spacing"
+        },
+        "xlg": {
+          "value": "24px",
+          "type": "spacing"
+        }
       }
     },
     "content": {
       "color": {
         "emphasis": {
-          "value": "#343A3F",
+          "value": "#2F463F",
           "type": "color"
         },
         "default": {
           "value": "#4D5358",
+          "type": "color"
+        },
+        "subje": {
+          "value": "#343A3F",
           "type": "color"
         },
         "muted": {
@@ -4029,8 +4613,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 500,
-            "lineHeight": 20,
-            "fontSize": 18
+            "lineHeight": "24px",
+            "fontSize": "18px"
           },
           "type": "typography"
         },
@@ -4047,8 +4631,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 400,
-            "lineHeight": 16,
-            "fontSize": 12
+            "lineHeight": "16px",
+            "fontSize": "12px"
           },
           "type": "typography"
         }
@@ -4059,13 +4643,21 @@ export default {
         "default": {
           "value": "#ffffff",
           "type": "color"
+        },
+        "cover": {
+          "value": "#F2F4F8",
+          "type": "color"
         }
       }
     },
     "border": {
       "color": {
-        "subtle": {
+        "defaut": {
           "value": "#878D96",
+          "type": "color"
+        },
+        "subtle": {
+          "value": "#DDE1E6",
           "type": "color"
         }
       },
@@ -4186,19 +4778,226 @@ export default {
           }
         }
       }
+    }
+  },
+  "cardAssignments": {
+    "spacing": {
+      "padding": {
+        "horizontal": {
+          "xsm": {
+            "value": "8px",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "12px",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "16px",
+            "type": "spacing"
+          },
+          "2xsm": {
+            "value": "4px",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "xsm": {
+            "value": "8px",
+            "type": "spacing"
+          },
+          "sm": {
+            "value": "12px",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "16px",
+            "type": "spacing"
+          },
+          "2xsm": {
+            "value": "4px",
+            "type": "spacing"
+          }
+        }
+      },
+      "gap": {
+        "sm": {
+          "value": "4px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "8px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "16px",
+          "type": "spacing"
+        },
+        "xlg": {
+          "value": "24px",
+          "type": "spacing"
+        }
+      }
+    },
+    "content": {
+      "color": {
+        "emphasis": {
+          "value": "#2F463F",
+          "type": "color"
+        },
+        "default": {
+          "value": "#4D5358",
+          "type": "color"
+        },
+        "subje": {
+          "value": "#343A3F",
+          "type": "color"
+        },
+        "muted": {
+          "value": "#878D96",
+          "type": "color"
+        },
+        "icon": {
+          "value": "#878D96",
+          "type": "color"
+        }
+      },
+      "typo": {
+        "lg": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 500,
+            "lineHeight": "24px",
+            "fontSize": "18px"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 400,
+            "lineHeight": 20,
+            "fontSize": 14
+          },
+          "type": "typography"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "Albert Sans",
+            "fontWeight": 400,
+            "lineHeight": "16px",
+            "fontSize": "12px"
+          },
+          "type": "typography"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#ffffff",
+          "type": "color"
+        }
+      }
     },
     "border": {
       "color": {
-        "primary": {
-          "hover": {
-            "value": "#ffffff",
+        "subtle": {
+          "value": "#DDE1E6",
+          "type": "color"
+        }
+      },
+      "radius": {
+        "sm": {
+          "value": "2px",
+          "type": "borderRadius"
+        },
+        "circle": {
+          "value": "50%",
+          "type": "borderRadius"
+        }
+      },
+      "width": {
+        "sm": {
+          "value": "1px",
+          "type": "borderWidth"
+        },
+        "lg": {
+          "value": "4px",
+          "type": "borderWidth"
+        }
+      }
+    },
+    "shadow": {
+      "hover": {
+        "value": [
+          {
+            "color": "#21272a14",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 10,
+            "blur": 36,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
+      }
+    }
+  },
+  "progress": {
+    "content": {
+      "color": {
+        "text": {
+          "value": "#4D5358",
+          "type": "color"
+        },
+        "phatic": {
+          "positive": {
+            "value": "#5cbc6a",
+            "type": "color"
+          },
+          "attention": {
+            "value": "#f39c12",
+            "type": "color"
+          },
+          "negative": {
+            "value": "#d13b3b",
             "type": "color"
           }
         }
       },
-      "sm": {
-        "value": "1px",
-        "type": "borderWidth"
+      "typo": {
+        "value": {
+          "fontFamily": "Albert Sans",
+          "fontWeight": 400,
+          "lineHeight": "16px",
+          "fontSize": "12px"
+        },
+        "type": "typography"
+      }
+    },
+    "background": {
+      "color": {
+        "primary": {
+          "default": {
+            "value": "#DDE1E6",
+            "type": "color"
+          }
+        }
+      }
+    },
+    "spacing": {
+      "gap": {
+        "value": "8px",
+        "type": "spacing"
+      }
+    },
+    "border": {
+      "radius": {
+        "rounded": {
+          "value": "99em",
+          "type": "borderRadius"
+        }
       }
     }
   },
@@ -4291,6 +5090,18 @@ export default {
         "secondary": {
           "default": {
             "value": "#0C1F22",
+            "type": "color"
+          },
+          "emphasis": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#878D96",
+            "type": "color"
+          },
+          "subtle": {
+            "value": "#F2F4F8",
             "type": "color"
           }
         },
@@ -4521,7 +5332,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 400,
-              "lineHeight": "24px",
+              "lineHeight": "20px",
               "fontSize": "14px"
             },
             "type": "typography"
@@ -4530,7 +5341,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 500,
-              "lineHeight": "24px",
+              "lineHeight": "20px",
               "fontSize": "14px"
             },
             "type": "typography"
@@ -4539,7 +5350,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 600,
-              "lineHeight": "24px",
+              "lineHeight": "20px",
               "fontSize": "14px"
             },
             "type": "typography"
@@ -4548,7 +5359,7 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 400,
-              "lineHeight": "20px",
+              "lineHeight": "16px",
               "fontSize": "12px"
             },
             "type": "typography"
@@ -4557,8 +5368,35 @@ export default {
             "value": {
               "fontFamily": "Albert Sans",
               "fontWeight": 600,
-              "lineHeight": "20px",
+              "lineHeight": "16px",
               "fontSize": "12px"
+            },
+            "type": "typography"
+          },
+          "lg--bold": {
+            "value": {
+              "fontFamily": "Albert Sans",
+              "fontWeight": 500,
+              "lineHeight": "24px",
+              "fontSize": "18px"
+            },
+            "type": "typography"
+          },
+          "md--bold": {
+            "value": {
+              "fontFamily": "Albert Sans",
+              "fontWeight": 500,
+              "lineHeight": "24px",
+              "fontSize": "16px"
+            },
+            "type": "typography"
+          },
+          "sm--bold": {
+            "value": {
+              "fontFamily": "Albert Sans",
+              "fontWeight": 500,
+              "lineHeight": "20px",
+              "fontSize": "14px"
             },
             "type": "typography"
           }
@@ -4567,8 +5405,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 500,
-            "fontSize": 10,
-            "lineHeight": 14
+            "fontSize": "10px",
+            "lineHeight": "14px"
           },
           "type": "typography"
         }
@@ -4681,8 +5519,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 400,
-            "lineHeight": 16,
-            "fontSize": 12
+            "lineHeight": "16px",
+            "fontSize": "12px"
           },
           "type": "typography"
         }
@@ -4738,11 +5576,31 @@ export default {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "emphasis": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#878D96",
+            "type": "color"
+          },
+          "subtle": {
+            "value": "#F8F9FB",
+            "type": "color"
           }
         },
         "accent": {
           "default": {
             "value": "#FF5470",
+            "type": "color"
+          },
+          "emphasis": {
+            "value": "#ebeb00",
+            "type": "color"
+          },
+          "subtle": {
+            "value": "#ffffe0",
             "type": "color"
           }
         },
@@ -4829,6 +5687,12 @@ export default {
           },
           "subtle": {
             "value": "#E8F0FC",
+            "type": "color"
+          }
+        },
+        "tertiary": {
+          "default": {
+            "value": "#2F463F",
             "type": "color"
           }
         }
@@ -4920,6 +5784,18 @@ export default {
           "default": {
             "value": "#0C1F22",
             "type": "color"
+          },
+          "emphasis": {
+            "value": "#343A3F",
+            "type": "color"
+          },
+          "muted": {
+            "value": "#878D96",
+            "type": "color"
+          },
+          "subtle": {
+            "value": "#F8F9FB",
+            "type": "color"
           }
         },
         "negative": {
@@ -4968,9 +5844,8 @@ export default {
             "type": "color"
           },
           "muted": {
-            "value": "{core.color.neutral.75}",
-            "type": "color",
-            "failedToResolve": true
+            "value": "#f0f4f9",
+            "type": "color"
           }
         },
         "overlay": {
@@ -5019,6 +5894,12 @@ export default {
           },
           "subtle": {
             "value": "#E8F0FC",
+            "type": "color"
+          }
+        },
+        "tertiary": {
+          "default": {
+            "value": "#2F463F",
             "type": "color"
           }
         }
@@ -5101,6 +5982,10 @@ export default {
           "type": "spacing"
         },
         "xlg": {
+          "value": "24px",
+          "type": "spacing"
+        },
+        "xxlg": {
           "value": "32px",
           "type": "spacing"
         }
@@ -5194,6 +6079,92 @@ export default {
         },
         "type": "boxShadow"
       }
+    },
+    "shadow": {
+      "100": {
+        "value": [
+          {
+            "color": "#dde1e614",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 2,
+            "blur": 0,
+            "spread": 0
+          },
+          {
+            "color": "#1a202b14",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 10,
+            "blur": 36,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "200": {
+        "value": [
+          {
+            "color": "#dde1e629",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 2,
+            "blur": 0,
+            "spread": 0
+          },
+          {
+            "color": "#1a202b1f",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 10,
+            "blur": 36,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "300": {
+        "value": [
+          {
+            "color": "#dde1e63d",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 2,
+            "blur": 0,
+            "spread": 0
+          },
+          {
+            "color": "#1a202b29",
+            "type": "dropShadow",
+            "x": 0,
+            "y": 10,
+            "blur": 36,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "400": {
+        "value": [
+          {
+            "color": "#dde1e614",
+            "type": "dropShadow",
+            "x": -100,
+            "y": 0,
+            "blur": 60,
+            "spread": 0
+          },
+          {
+            "color": "#1a202b0d",
+            "type": "dropShadow",
+            "x": -32,
+            "y": 0,
+            "blur": 32,
+            "spread": 0
+          }
+        ],
+        "type": "boxShadow"
+      }
     }
   },
   "core": {
@@ -5209,6 +6180,10 @@ export default {
       "neutral": {
         "50": {
           "value": "#F8F9FB",
+          "type": "color"
+        },
+        "75": {
+          "value": "#f0f4f9",
           "type": "color"
         },
         "100": {
@@ -5267,6 +6242,22 @@ export default {
         },
         "500": {
           "value": "#4A6000",
+          "type": "color"
+        },
+        "600": {
+          "value": "#1760cf",
+          "type": "color"
+        },
+        "700": {
+          "value": "#134faa",
+          "type": "color"
+        },
+        "800": {
+          "value": "#10428e",
+          "type": "color"
+        },
+        "900": {
+          "value": "#0d3877",
           "type": "color"
         }
       },
@@ -5437,6 +6428,74 @@ export default {
       "accent": {
         "100": {
           "value": "#FF5470",
+          "type": "color"
+        },
+        "200": {
+          "value": "hsla(60,100%,102%,1)",
+          "type": "color"
+        },
+        "300": {
+          "value": "#ffffe0",
+          "type": "color"
+        },
+        "400": {
+          "value": "#ffffb8",
+          "type": "color"
+        },
+        "500": {
+          "value": "#ffff8f",
+          "type": "color"
+        },
+        "600": {
+          "value": "#ffff66",
+          "type": "color"
+        },
+        "700": {
+          "value": "#ffff3d",
+          "type": "color"
+        },
+        "800": {
+          "value": "#ffff14",
+          "type": "color"
+        },
+        "900": {
+          "value": "#ebeb00",
+          "type": "color"
+        }
+      },
+      "customPrimary": {
+        "hue": {
+          "value": 216,
+          "type": "color"
+        },
+        "saturation": {
+          "value": 80,
+          "type": "color"
+        },
+        "lightness": {
+          "value": 55,
+          "type": "color"
+        },
+        "hsla": {
+          "value": "#307ae8",
+          "type": "color"
+        }
+      },
+      "customAccent": {
+        "hue": {
+          "value": 60,
+          "type": "color"
+        },
+        "saturation": {
+          "value": 100,
+          "type": "color"
+        },
+        "lightness": {
+          "value": 78,
+          "type": "color"
+        },
+        "hsla": {
+          "value": "#ffff8f",
           "type": "color"
         }
       }
@@ -5648,6 +6707,14 @@ export default {
         "semiBold": {
           "value": 600,
           "type": "fontWeights"
+        },
+        "light": {
+          "value": 300,
+          "type": "fontWeights"
+        },
+        "bold": {
+          "value": 600,
+          "type": "fontWeights"
         }
       },
       "lineHeight": {
@@ -5800,56 +6867,46 @@ export default {
           },
           "up": {
             "1": {
-              "value": "roundTo({core.color.customPrimary.lightness} * 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 67,
+              "type": "other"
             },
             "2": {
-              "value": "roundTo(roundTo({core.color.customPrimary.lightness} * 1.21) * 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 81,
+              "type": "other"
             },
             "3": {
-              "value": "roundTo(roundTo(roundTo({core.color.customPrimary.lightness} * 1.21) * 1.21) * 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 98,
+              "type": "other"
             },
             "4": {
-              "value": "roundTo(roundTo(roundTo(roundTo({core.color.customPrimary.lightness} * 1.21) * 1.21) * 1.21) * 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 119,
+              "type": "other"
             },
             "5": {
-              "value": "roundTo(roundTo(roundTo(roundTo(roundTo({core.color.customPrimary.lightness} * 1.21) * 1.21) * 1.21) * 1.21) * 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 144,
+              "type": "other"
             }
           },
           "down": {
             "1": {
-              "value": "roundTo({core.color.customPrimary.lightness} / 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 45,
+              "type": "other"
             },
             "2": {
-              "value": "roundTo(roundTo({core.color.customPrimary.lightness} / 1.21) / 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 37,
+              "type": "other"
             },
             "3": {
-              "value": "roundTo(roundTo(roundTo({core.color.customPrimary.lightness} / 1.21) / 1.21) / 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 31,
+              "type": "other"
             },
             "4": {
-              "value": "roundTo(roundTo(roundTo(roundTo({core.color.customPrimary.lightness} / 1.21) / 1.21) / 1.21) / 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 26,
+              "type": "other"
             },
             "5": {
-              "value": "roundTo( roundTo(roundTo(roundTo(roundTo({core.color.customPrimary.lightness} / 1.21) / 1.21) / 1.21) / 1.21) / 1.21)",
-              "type": "other",
-              "failedToResolve": true
+              "value": 21,
+              "type": "other"
             }
           }
         }
@@ -5862,49 +6919,49 @@ export default {
           },
           "up": {
             "1": {
-              "value": "{core.color.customAccent.lightness} + 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 86,
+              "type": "other"
             },
             "2": {
-              "value": "{core.color.customAccent.lightness} + 8 + 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 94,
+              "type": "other"
             },
             "3": {
-              "value": "{core.color.customAccent.lightness} + 8 + 8 + 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 102,
+              "type": "other"
             },
             "4": {
-              "value": "{core.color.customAccent.lightness} + 8 + 8 + 8 + 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 110,
+              "type": "other"
             }
           },
           "down": {
             "1": {
-              "value": "{core.color.customAccent.lightness} - 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 70,
+              "type": "other"
             },
             "2": {
-              "value": "{core.color.customAccent.lightness} - 8 - 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 62,
+              "type": "other"
             },
             "3": {
-              "value": "{core.color.customAccent.lightness} - 8 - 8 - 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 54,
+              "type": "other"
             },
             "4": {
-              "value": "{core.color.customAccent.lightness} - 8 - 8 - 8 - 8",
-              "type": "other",
-              "failedToResolve": true
+              "value": 46,
+              "type": "other"
             }
           }
         }
+      },
+      "colorDebug": {
+        "value": "#9747FF",
+        "type": "color"
+      },
+      "debugColorContainer": {
+        "value": "#ebdcff",
+        "type": "color"
       }
     },
     "font": {
