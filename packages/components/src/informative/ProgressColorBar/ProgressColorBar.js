@@ -20,12 +20,13 @@ const ProgressColorBar = ({
   labelRight,
 }) => {
   const { classes } = ProgressColorBarStyles();
+
   return (
     <Box>
       {labelLeft && labelRight && (
         <Box className={classes.topLabelsContainer}>
-          <Text>{labelLeft}</Text>
-          <Text>{labelRight}</Text>
+          <Text className={classes.labels}>{labelLeft}</Text>
+          <Text className={classes.labels}>{labelRight}</Text>
         </Box>
       )}
       <MantineProgress
