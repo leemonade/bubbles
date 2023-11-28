@@ -312,7 +312,6 @@ export const TabNavList = forwardRef(
     const { classes, cx } = TabNavListStyles({ animated: animated.inkBar }, { name: 'TabNavList' });
     const nextTabCode = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
     const previousTabCode = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
-    console.log('centerGrow en TabNavList', centerGrow);
     const handleKeyDown = (event) => {
       if (event.nativeEvent.code === nextTabCode) {
         event.preventDefault();
