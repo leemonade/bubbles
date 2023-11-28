@@ -52,3 +52,23 @@ b
 2packages/components/src/overlay/Popover/Popover.js,2/9/29770eaf36e8ec06aa05c7020bb0fc10ffd22edb
 n
 >packages/components/src/informative/ChatMessage/ChatMessage.js,3/3/330088854447605ac7a103cb4dc1076c44ed6b14
+v
+Fpackages/components/src/informative/UserDisplayItem/UserDisplayItem.js,5/7/573d7b17542f75351c0e249ab93359dc5f33508d
+`
+0packages/components/src/overlay/Drawer/Drawer.js,2/6/26fb71f397e5b9daa9acb99cfd205c800f6a4165
+_
+/packages/components/src/navigation/Tabs/Tabs.js,2/1/211a60de33ba4d877b02012f6a5f1f4b9925d9a4
+_
+/packages/components/lib/navigation/Tabs/Tabs.js,6/b/6b8d1e7bce63557e77aa68761dcbcf28b76852c0
+b
+2packages/icons/src/solid/setting-menu-vertical.svg,6/0/60b344a7dc351ffdedfe29421c854dfe2b04a3de
+_
+/packages/components/src/navigation/Menu/Menu.js,a/b/abbd7b3db4b04fa535644d97df09aa89429e9421
+`
+0packages/components/src/navigation/Menu/Menu.mdx,d/f/dff48d484d680c30707b7708c0a091a3d95eba52
+g
+7packages/components/src/navigation/Menu/Menu.stories.js,a/4/a496c9602d873584dd35e31949fb2f1b13fcc74a
+P
+ packages/components/src/index.js,7/d/7deb43166b0f5546bd343d08eae4d9aded2d1403
+u
+Epackages/components/src/navigation/MainNav/helpers/getUserFullName.js,b/e/be36e2f0978eff9d850394cd3ad71d2be97d3a9e
