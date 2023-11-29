@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
@@ -21,7 +22,6 @@ export const TEXT_EDITOR_DEFAULT_PROPS = {
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
-  library: PropTypes.element,
   onChange: PropTypes.func,
   onSchemaChange: PropTypes.func,
   editorClassname: PropTypes.string,
@@ -38,6 +38,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   children: PropTypes.node,
+  toolbarPortal: PropTypes.any,
 };
 
 const TextEditor = ({
@@ -53,6 +54,7 @@ const TextEditor = ({
   useSchema,
   acceptedTags = [],
   toolbarPosition,
+  toolbarPortal,
 }) => {
   const store = React.useRef({
     isFocus: false,
@@ -183,7 +185,7 @@ const TextEditor = ({
       editor.on('transaction', handleTransactions);
       return () => editor.off('transaction', handleTransactions);
     }
-    return null;
+    return () => {};
   }, [editor, handleTransactions]);
 
   useEffect(() => {
@@ -196,6 +198,32 @@ const TextEditor = ({
     }
   }, [placeholder]);
 
+  const ToolbarComponent = React.useMemo(
+    () =>
+      toolbarPortal
+        ? () =>
+            createPortal(
+              <Toolbar
+                toolbarLabel={'Toolbar'}
+                className={toolbarClassname}
+                toolbarPosition={toolbarPosition}
+              >
+                {children}
+              </Toolbar>,
+              toolbarPortal,
+            )
+        : () => (
+            <Toolbar
+              toolbarLabel={'Toolbar'}
+              className={toolbarClassname}
+              toolbarPosition={toolbarPosition}
+            >
+              {children}
+            </Toolbar>
+          ),
+    [toolbarPortal],
+  );
+
   return (
     <Box
       ref={ref}
@@ -207,13 +235,7 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <Box style={{ zIndex: 1 }}>
-            <Toolbar
-              toolbarLabel={'Toolbar'}
-              className={toolbarClassname}
-              toolbarPosition={toolbarPosition}
-            >
-              {children}
-            </Toolbar>
+            <ToolbarComponent />
             <BubbleMenu />
           </Box>
         )}
