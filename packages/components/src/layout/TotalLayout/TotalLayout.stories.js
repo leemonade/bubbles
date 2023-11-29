@@ -1,12 +1,15 @@
 import React from 'react';
-import { Box } from '../Box';
+import { useForm, FormProvider, useFormContext, Controller } from 'react-hook-form';
+import { Box } from '@mantine/core';
+import { PluginAssignmentsIcon } from '@bubbles-ui/icons/solid';
 import { ContextContainer } from '../ContextContainer';
-import { Button } from '../../form/Button';
-import { DropdownButton } from '../../form/DropdownButton';
-import { TotalLayout } from './TotalLayout';
+import { TotalLayout, useTotalLayout } from './TotalLayout';
+import { TotalLayoutHeader } from './TotalLayoutHeader';
+import { TotalLayoutStepContainer as StepContainer } from './TotalLayoutStepContainer';
+import { Button, DropdownButton, InputWrapper, Switch, TextInput, Textarea } from '../../form';
 import { TOTAL_LAYOUT_DEFAULT_PROPS } from './TotalLayout.constants';
-import mdx from './TotalLayout.mdx';
 import { Stack } from '../Stack';
+import mdx from './TotalLayout.mdx';
 
 export default {
   title: 'Molecules/Layout/TotalLayout',
@@ -26,119 +29,203 @@ export default {
   },
 };
 
-const Step = ({ name }) => (
-  <ContextContainer padded title={name}>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </ContextContainer>
-);
+// * Los steps deben usar useFormContext() hook o recibir la forma con props
+const BasicDataForm = () => {
+  const {
+    watch,
+    formState: { errors },
+  } = useFormContext();
+  const formValues = watch();
+  // que cada step añada su validation scheema
+  // que cada step valide su parte de la forma seleccionando su validation scheema
 
-const Header = () => <Box>Header</Box>;
-const Footer = ({
-  showStepper,
-  totalSteps,
-  activeStep,
-  onBack,
-  onNext,
-  onSave,
-  onFinishActions,
-}) => (
-  <Stack justifyContent="center" fullWidth style={{ backgroundColor: '#D9D9D9' }}>
-    <Box style={{ width: 928, backgroundColor: 'white' }}>
-      <Stack fullWidth style={{ height: 72, padding: '16px 24px' }}>
-        {activeStep > 0 && (
-          <Box noFlex>
-            <Button variant="outline" onClick={onBack}>
-              Anterior
-            </Button>
-          </Box>
-        )}
-        <div></div>
-        <Stack direction="row" spacing={2} noFlex>
-          <Button variant="link" onClick={onSave}>
-            Guardar borrador
-          </Button>
-          {activeStep < totalSteps - 1 ? (
-            <Button onClick={onNext}>Siguiente</Button>
-          ) : (
-            <DropdownButton data={onFinishActions}>Finalizar</DropdownButton>
-          )}
-        </Stack>
-      </Stack>
-    </Box>
-  </Stack>
-);
-
-const Body = ({ showStepper, children, ...props }) => (
-  <Stack justifyContent="center" fullWidth fullHeight style={{ backgroundColor: '#D9D9D9' }}>
-    {showStepper && <Box style={{ width: 192, backgroundColor: 'blue' }}>Soy un Stepper</Box>}
-    <Box style={{ width: 928, backgroundColor: 'red' }}>{children}</Box>
-  </Stack>
-);
-
-const Template = ({ ...props }) => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const Steps = React.useMemo(() =>
-    [...Array(4)].map((_, i) => <Step key={i} name={`Step ${i}`} />, []),
+  return (
+    <StepContainer stepName={'Basic Data'}>
+      <form>
+        <ContextContainer spacing={10}>
+          <ContextContainer title="Presentación" subtitle="Imagen destacada" spacing={4}>
+            <Stack direction="row" spacing={3}>
+              <Button variant={'link'} onClick={() => console.log('Showing library drawer')} noFlex>
+                Buscar en la biblioteca
+              </Button>
+              <Button variant={'link'} onClick={() => console.log('Subiendo imagen')} noFlex>
+                Subir Imagen
+              </Button>
+            </Stack>
+            <Controller
+              name="title"
+              rules={{ required: 'Field required' }}
+              render={({ field }) => <TextInput label={'Título'} error={errors.title} {...field} />}
+            />
+            <Controller
+              name="description"
+              // control={form.control}
+              render={({ field }) => <Textarea label={'Descripción'} {...field} />}
+            />
+          </ContextContainer>
+          <ContextContainer title="Programas y Asignaturas" spacing={4}>
+            <Controller
+              name="program"
+              // control={form.control} NOT NEEDED when using FormProvider
+              render={({ field }) => (
+                <InputWrapper label={'Programa'}>
+                  <DropdownButton
+                    style={{ width: '30%' }}
+                    variant="outline"
+                    data={[
+                      {
+                        label: 'Program 1',
+                        onClick: () => console.log('Item 1 clicked', formValues),
+                      },
+                      {
+                        label: 'Program 2',
+                        onClick: () => console.log('Program 2 clicked', formValues),
+                      },
+                    ]}
+                    {...field}
+                  >
+                    Seleccionar Programa
+                  </DropdownButton>
+                </InputWrapper>
+              )}
+            />
+          </ContextContainer>
+          <ContextContainer title="Otros" spacing={4}>
+            <Controller
+              name="tags"
+              // control={form.control}
+              render={({ field }) => <TextInput label={'Etiquetas'} {...field} />}
+            />
+            <Controller
+              name="color"
+              // control={form.control}
+              render={({ field }) => <Textarea label={'Color'} {...field} />}
+            />
+          </ContextContainer>
+        </ContextContainer>
+      </form>
+    </StepContainer>
   );
-  const totalSteps = Steps.length;
+};
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-    window.scrollTo(0, 0, { behavior: 'smooth' });
+const ContentsForm = () => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  return (
+    <StepContainer stepName={'Contenidos'}>
+      <form>
+        <ContextContainer spacing={10}>
+          <ContextContainer title="Enunciado" subtitle="Imagen de apoyo" spacing={4}>
+            <Stack direction="row" spacing={3}>
+              <Button
+                variant={'link'}
+                onClick={() => console.log('Buscando imagen en biblioteca')}
+                noFlex
+              >
+                Buscar en la biblioteca
+              </Button>
+              <Button variant={'link'} onClick={() => console.log('Subiendo imagen')} noFlex>
+                Subir Imagen
+              </Button>
+            </Stack>
+            <Controller
+              name="instructions"
+              rules={{ required: 'Field required' }}
+              render={({ field }) => (
+                <Textarea label={'Texto del enunciado'} error={errors.instructions} {...field} />
+              )}
+            />
+            <Switch label="Añadir desarrollo" />
+          </ContextContainer>
+          <ContextContainer title="Entregables" spacing={4}>
+            <Controller
+              name="deliverables"
+              render={({ field }) => (
+                <Switch
+                  label="Esta tarea requiere de la entrega de algún tipo de archivo, documento o enlace"
+                  {...field}
+                />
+              )}
+            />
+          </ContextContainer>
+        </ContextContainer>
+      </form>
+    </StepContainer>
+  );
+};
+
+//* La página es la responsable de crear el FormProvider y envolver al total layout
+const Template = () => {
+  const totalLayoutProps = useTotalLayout();
+
+  // * Prepare Steps
+  const stepsInfo = [
+    {
+      label: 'Basic Data',
+      badge: null,
+      status: null,
+      fields: ['title', 'description', 'program', 'tags', 'color'], // All step fields
+      validationSchema: {},
+      stepComponent: null, // ? El elemento aquí. Too much?
+    },
+    {
+      label: 'Content',
+      badge: null,
+      status: null,
+      fields: ['instructions', 'deliverables'],
+      validationSchema: {},
+      stepComponent: null, // ? El elemento aquí. Too much?
+    },
+  ];
+
+  const formMethods = useForm();
+  const formValues = formMethods.watch();
+
+  // * Prepare Steps
+  const Steps = React.useMemo(
+    () => [<BasicDataForm key={'basicDataForm'} />, <ContentsForm key={'contenidosForm'} />],
+    [formMethods],
+  );
+
+  // * Prepare Header
+  const buildHeader = () => (
+    <TotalLayoutHeader
+      title={'Nueva Tarea'}
+      icon={<PluginAssignmentsIcon />}
+      formTitlePlaceholder={'Título de la tarea'}
+    />
+  );
+
+  // * TotalLayout validates the form on every step and for every action
+  const handleOnSave = async () => {
+    console.log('Form values to SAVE as draft', formValues);
   };
 
-  const handlePrev = () => {
-    setActiveStep(activeStep - 1);
-    window.scrollTo(0, 0, { behavior: 'smooth' });
+  const handlePublish = async (assign) => {
+    console.log('Form values to PUBLISH:', formValues);
+    if (assign) console.log('...and ASSIGN!');
+  };
+
+  const handlePreview = async () => {
+    console.log('Form values to PREVIEW:', formValues);
   };
 
   return (
-    <Box style={{ height: '100vh', margin: -16 }}>
-      <Stack style={{ backgroundColor: 'red' }} fullWidth fullHeight direction="column">
-        {/* Header */}
-        <Box style={{ backgroundColor: 'blue' }} noFlex>
-          <Header />
-        </Box>
-        {/* Body */}
-        <Box style={{ backgroundColor: 'white', overflow: 'auto' }}>
-          <Stack
-            justifyContent="center"
-            fullWidth
-            fullHeight
-            style={{ backgroundColor: '#D9D9D9' }}
-          >
-            {/* Stepper */}
-            <Box style={{ width: 192, backgroundColor: 'blue' }}>Soy un Stepper</Box>
-            {/* Content */}
-            <Box style={{ width: 928, backgroundColor: 'red' }}>
-              <Stack direction="column" fullHeight>
-                {/* Steps */}
-                <Stack fullHeight>{Steps[activeStep]}</Stack>
-                <Box style={{ backgroundColor: 'white' }} noFlex>
-                  {/* Footer */}
-                  <Footer
-                    totalSteps={totalSteps}
-                    activeStep={activeStep}
-                    onBack={handlePrev}
-                    onNext={handleNext}
-                    onSave={() => console.log('OnSave clicked')}
-                    onFinishActions={[
-                      { label: 'Item 1', onClick: () => console.log('Item 1 clicked') },
-                      { label: 'Item 2', onClick: () => console.log('Item 2 clicked') },
-                      { label: 'Item 3', onClick: () => console.log('Item 3 clicked') },
-                    ]}
-                  />
-                </Box>
-              </Stack>
-            </Box>
-          </Stack>
-        </Box>
-      </Stack>
-    </Box>
+    <FormProvider {...formMethods}>
+      <Box style={{ margin: '-16px' }}>
+        <TotalLayout
+          {...totalLayoutProps}
+          Header={() => buildHeader()}
+          showStepper
+          stepsInfo={stepsInfo}
+          Steps={Steps}
+          onSave={handleOnSave}
+          onPublish={handlePublish}
+          onPreview={handlePreview}
+        />
+      </Box>
+    </FormProvider>
   );
 };
 
