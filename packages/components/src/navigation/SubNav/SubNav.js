@@ -4,9 +4,9 @@ import SimpleBar from 'simplebar-react';
 import { isNil } from 'lodash';
 import { List } from '@mantine/core';
 import { ComputerKeyboardPreviousIcon, PluginKimIcon } from '@bubbles-ui/icons/outline';
-import { Box, Stack } from '../../layout';
-import { ActionButton } from './../../form';
-import { MAIN_NAV_WIDTH } from '../MainNav/MainNav';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
+import { ActionButton } from '../../form/ActionButton';
 import { SubNavItem } from './SubNavItem/SubNavItem';
 import { SubNavStyles } from './SubNav.styles';
 import { PALETTE } from '../../theme.constants';
@@ -28,6 +28,18 @@ export const SUB_NAV_PROP_TYPES = {
   messages: PropTypes.any,
   lightMode: PropTypes.bool,
   drawerColor: PropTypes.string,
+  width: PropTypes.number,
+  item: PropTypes.object,
+  subItems: PropTypes.array,
+  activeItem: PropTypes.object,
+  onClose: PropTypes.func,
+  onPin: PropTypes.func,
+  onItemClick: PropTypes.func,
+  children: PropTypes.node,
+  hideHeaderActions: PropTypes.bool,
+  style: PropTypes.any,
+  className: PropTypes.string,
+  itemWidth: PropTypes.number,
 };
 
 export const SubNav = forwardRef(
@@ -40,7 +52,6 @@ export const SubNav = forwardRef(
       item,
       subItems,
       activeItem,
-      customItems,
       onClose,
       onPin,
       onItemClick,
@@ -51,13 +62,13 @@ export const SubNav = forwardRef(
       style,
       lightMode,
       drawerColor,
-      ...props
+      itemWidth,
     },
-    ref
+    ref,
   ) => {
     const { classes, cx } = SubNavStyles(
-      { itemWidth: MAIN_NAV_WIDTH, width, pinned, lightMode, drawerColor },
-      { name: 'SubNav' }
+      { itemWidth, width, pinned, lightMode, drawerColor },
+      { name: 'SubNav' },
     );
 
     return !isNil(item) ? (
@@ -114,13 +125,14 @@ export const SubNav = forwardRef(
                 </List.Item>
               ))}
             </List>
-            {children ? children : null}
+            {children || null}
           </Box>
         </SimpleBar>
       </Box>
     ) : null;
-  }
+  },
 );
 
+SubNav.displayName = 'SubNav';
 SubNav.defaultTypes = SUB_NAV_DEFAULT_PROPS;
 SubNav.propTypes = SUB_NAV_PROP_TYPES;

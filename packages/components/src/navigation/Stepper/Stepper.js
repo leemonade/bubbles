@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { Stepper as MantineStepper } from '@mantine/core';
 import { CheckIcon } from '@bubbles-ui/icons/solid';
-import { PageContainer } from '../../layout';
 import { StepperStyles } from './Stepper.styles';
 
 export const STEPPER_ORIENTATIONS = ['horizontal', 'vertical'];
-
 export const STEPPER_DEFAULT_PROPS = {
   active: 0,
   orientation: 'horizontal',
@@ -20,7 +18,7 @@ export const STEPPER_PROP_TYPES = {
       label: PropTypes.string,
       description: PropTypes.string,
       content: PropTypes.node,
-    })
+    }),
   ),
   orientation: PropTypes.oneOf(STEPPER_ORIENTATIONS),
   active: PropTypes.number,
@@ -29,6 +27,11 @@ export const STEPPER_PROP_TYPES = {
   navWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   stickyAt: PropTypes.number,
   usePageContainer: PropTypes.bool,
+  sharedData: PropTypes.object,
+  setSharedData: PropTypes.func,
+  editable: PropTypes.bool,
+  buttonLabel: PropTypes.string,
+  title: PropTypes.string,
 };
 
 function ProgressIcon() {
@@ -37,16 +40,16 @@ function ProgressIcon() {
       <path
         d="M10.3722 10V6.875"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M10.3722 10L14.278 13.9067"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -70,13 +73,13 @@ const Stepper = forwardRef(
       usePageContainer,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [active, setActive] = useState(activeProp);
     const isVertical = useMemo(() => orientation === 'vertical', [orientation]);
-    const { classes, cx } = StepperStyles(
+    const { classes } = StepperStyles(
       { isVertical, navWidth, stickyAt, usePageContainer },
-      { name: 'Stepper' }
+      { name: 'Stepper' },
     );
 
     useEffect(() => {
@@ -87,11 +90,11 @@ const Stepper = forwardRef(
 
     const handleNextStep = (page) => {
       setActive(page);
-      isFunction(onNext) && onNext(page);
+      if (isFunction(onNext)) onNext(page);
     };
     const handlePrevStep = (page) => {
       setActive(page);
-      isFunction(onPrev) && onPrev(page);
+      if (isFunction(onPrev)) onPrev(page);
     };
 
     return (
@@ -125,9 +128,10 @@ const Stepper = forwardRef(
         ))}
       </MantineStepper>
     );
-  }
+  },
 );
 
+Stepper.displayName = 'Stepper';
 Stepper.defaultProps = STEPPER_DEFAULT_PROPS;
 Stepper.propTypes = STEPPER_PROP_TYPES;
 

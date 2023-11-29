@@ -1,5 +1,5 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isNil } from 'lodash';
 import { Box } from '../../layout/Box';
@@ -50,7 +50,15 @@ const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, childre
     </Box>
   );
 
-export const Tabs = forwardRef(
+Wrapper.propTypes = {
+  usePageLayout: PropTypes.bool,
+  usePaddedLayout: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+const Tabs = forwardRef(
   (
     {
       id,
@@ -146,8 +154,11 @@ export const Tabs = forwardRef(
       { direction, position, panelColor, fullHeight },
       { name: 'Tabs' },
     );
+
+    const value = useMemo(() => ({ tabs }), [tabs]);
+
     return (
-      <TabContext.Provider value={{ tabs }}>
+      <TabContext.Provider value={value}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
           <Wrapper
             usePageLayout={usePageLayout}
@@ -168,8 +179,9 @@ export const Tabs = forwardRef(
               tabPanelListStyle={tabPanelListStyle}
               forceRender={forceRender}
               destroyInactiveTabPanel={destroyInactiveTabPanel}
-              children={children}
-            />
+            >
+              {children}
+            </TabPanelList>
           </Wrapper>
         </Box>
       </TabContext.Provider>
@@ -206,4 +218,12 @@ Tabs.propTypes = {
   fullWidth: PropTypes.bool,
   forceRender: PropTypes.bool,
   centerGrow: PropTypes.bool,
+  children: PropTypes.node,
+  classNames: PropTypes.any,
+  styles: PropTypes.any,
+  tabPanelListStyle: PropTypes.any,
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  className: PropTypes.string,
 };
+
+export { Tabs };

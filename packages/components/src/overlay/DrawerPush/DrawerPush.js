@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { DrawerPushStyles } from './DrawerPush.styles';
 import { DRAWER_PUSH_DEFAULT_PROPS, DRAWER_PUSH_PROP_TYPES } from './DrawerPush.constants';
 
@@ -13,11 +13,10 @@ const DrawerPush = ({
   fixed,
   useAria,
   modalAriaLabel,
-  ...props
 }) => {
   const { classes, cx } = DrawerPushStyles(
     { opened, size, style, direction },
-    { name: 'DrawerPush' }
+    { name: 'DrawerPush' },
   );
 
   return (

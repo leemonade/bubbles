@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box } from '../../layout';
-import { ChatMessageStyles } from './ChatMessage.styles';
-import { CHAT_MESSAGE_DEFAULT_PROPS, CHAT_MESSAGE_PROP_TYPES } from './ChatMessage.constants';
 import { Highlight } from '@mantine/core';
+import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar';
 import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
+import { ChatMessageStyles } from './ChatMessage.styles';
+import { CHAT_MESSAGE_DEFAULT_PROPS, CHAT_MESSAGE_PROP_TYPES } from './ChatMessage.constants';
 
 const ChatMessage = ({
   message,
@@ -18,9 +18,8 @@ const ChatMessage = ({
   showUserName = true,
   isTeacher,
   isAdmin,
-  ...props
 }) => {
-  const { classes, cx } = ChatMessageStyles(
+  const { classes } = ChatMessageStyles(
     { isOwn, isTeacher, isAdmin, selected },
     { name: 'ChatMessage' },
   );

@@ -2,8 +2,9 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as MantinePagination } from '@mantine/core';
 import { isEmpty } from 'lodash';
-import { Box, Stack } from '../../layout';
-import { Select } from '../../form';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
+import { Select } from '../../form/Select';
 import { PagerStyles } from './Pager.styles';
 
 export const PAGER_DIRECTIONS = ['column', 'row'];
@@ -48,6 +49,7 @@ export const PAGER_PROP_TYPES = {
   withEdges: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  onSizeChange: PropTypes.func,
   sizes: PropTypes.array,
   goToAriaLabel: PropTypes.string,
   pagesSelectAriaLabel: PropTypes.string,
@@ -56,6 +58,7 @@ export const PAGER_PROP_TYPES = {
   prevAriaLabel: PropTypes.string,
   firstAriaLabel: PropTypes.string,
   lastAriaLabel: PropTypes.string,
+  labels: PropTypes.any,
 };
 
 const Pager = forwardRef(
@@ -86,7 +89,7 @@ const Pager = forwardRef(
       lastAriaLabel,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [goToPage, setGoToPage] = useState(Math.max(pageProp, 1));
     const [page, setPage] = useState(pageProp);
@@ -113,7 +116,7 @@ const Pager = forwardRef(
     // HANDLERS
 
     const handleGoToPage = (e) => {
-      let value = parseInt(e);
+      const value = parseInt(e);
 
       if (value < 1) {
         setGoToPage(1);
@@ -144,9 +147,9 @@ const Pager = forwardRef(
     // ·······························································
     // STYLES
 
-    const { classes, cx } = PagerStyles(
+    const { classes } = PagerStyles(
       { withGoTo, withControls, withEdges, disabled, hidePages: variant === 'infinity' },
-      { name: 'Pager' }
+      { name: 'Pager' },
     );
 
     return (
@@ -182,8 +185,8 @@ const Pager = forwardRef(
           withEdges={withEdges}
           page={page}
           onChange={(e) => onChangeHandler(e)}
-          getItemAriaLabel={(page) => {
-            switch (page) {
+          getItemAriaLabel={(p) => {
+            switch (p) {
               case 'dots':
                 return dotsAriaLabel;
               case 'prev':
@@ -194,6 +197,8 @@ const Pager = forwardRef(
                 return firstAriaLabel;
               case 'last':
                 return lastAriaLabel;
+              default:
+                return pagesSelectAriaLabel;
             }
           }}
         />
@@ -215,9 +220,10 @@ const Pager = forwardRef(
         )}
       </Stack>
     );
-  }
+  },
 );
 
+Pager.displayName = 'Pager';
 Pager.defaultProps = PAGER_DEFAULT_PROPS;
 Pager.propTypes = PAGER_PROP_TYPES;
 

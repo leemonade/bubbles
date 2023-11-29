@@ -2,8 +2,8 @@ import React, { forwardRef, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Menu as MantineMenu } from '@mantine/core';
-import { ActionButton } from '../../form';
 import { SettingMenuHorizontalIcon } from '@bubbles-ui/icons/solid';
+import { ActionButton } from '../../form/ActionButton';
 import { MenuStyles } from './Menu.styles';
 
 export const MENU_POSITIONS = [
@@ -37,17 +37,18 @@ export const MENU_PROP_TYPES = {
       disabled: PropTypes.bool,
       className: PropTypes.string,
       onClick: PropTypes.func,
-    })
+    }),
   ),
   position: PropTypes.oneOf(MENU_POSITIONS),
   offset: PropTypes.number,
   withArrow: PropTypes.bool,
   control: PropTypes.node,
   menuButtonLabel: PropTypes.string,
+  shadow: PropTypes.bool,
 };
 
 const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref) => {
-  const { classes, cx } = MenuStyles({});
+  const { classes } = MenuStyles({});
   const control = useMemo(() => {
     if (isEmpty(controlProp)) {
       return <ActionButton icon={<SettingMenuHorizontalIcon />} />;
@@ -55,13 +56,15 @@ const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref)
     return controlProp;
   }, [controlProp]);
 
-  const renderMenuItems = useCallback(() => {
-    return items.map((item, index) => {
-      if (item.divider) return <MantineMenu.Divider />;
-      if (!item.onClick) return <MantineMenu.Label {...item} key={index} />;
-      return <MantineMenu.Item {...item} key={index} />;
-    });
-  }, [items]);
+  const renderMenuItems = useCallback(
+    () =>
+      items.map((item, index) => {
+        if (item.divider) return <MantineMenu.Divider />;
+        if (!item.onClick) return <MantineMenu.Label {...item} key={index} />;
+        return <MantineMenu.Item {...item} key={index} />;
+      }),
+    [items],
+  );
 
   return (
     <MantineMenu {...props} ref={ref} classNames={classes}>
@@ -71,6 +74,7 @@ const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref)
   );
 });
 
+Menu.displayName = 'Menu';
 Menu.defaultProps = MENU_DEFAULT_PROPS;
 Menu.propTypes = MENU_PROP_TYPES;
 

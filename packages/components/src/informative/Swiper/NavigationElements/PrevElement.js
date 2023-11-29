@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSwiper } from 'swiper/react';
 import { ChevLeftIcon } from '@bubbles-ui/icons/outline/';
-import { Box } from '../../../layout';
+import { Box } from '../../../layout/Box';
 
 const PrevElement = ({ className, useAria, ariaLabel }) => {
   const swiper = useSwiper();
@@ -16,6 +17,12 @@ const PrevElement = ({ className, useAria, ariaLabel }) => {
       <ChevLeftIcon width={32} height={32} />
     </Box>
   );
+};
+
+PrevElement.propTypes = {
+  className: PropTypes.string,
+  useAria: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };
 
 export { PrevElement };

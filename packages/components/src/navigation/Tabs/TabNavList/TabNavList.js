@@ -38,7 +38,7 @@ function getNextTab(activeKey, tabs) {
 }
 
 // eslint-disable-next-line react/display-name
-export const TabNavList = forwardRef(
+const TabNavList = forwardRef(
   (
     {
       id,
@@ -48,10 +48,10 @@ export const TabNavList = forwardRef(
       position,
       orientation,
       children,
-      onTabClick,
-      onTabScroll,
       className,
       centerGrow,
+      onTabClick,
+      onTabScroll,
       ...props
     },
     ref,
@@ -237,6 +237,13 @@ export const TabNavList = forwardRef(
       { ...props, tabs },
     );
 
+    // ········································································
+    // Dropdown
+    const startHiddenTabs = tabs.slice(0, visibleStart);
+    const endHiddenTabs = tabs.slice(visibleEnd + 1);
+    const hiddenTabs = [...startHiddenTabs, ...endHiddenTabs];
+    const hasDropdown = !!hiddenTabs.length;
+
     const onListHolderResize = useRaf(() => {
       // Update wrapper records
       const offsetWidth = tabsWrapperRef.current?.offsetWidth || 0;
@@ -280,12 +287,6 @@ export const TabNavList = forwardRef(
     });
 
     // ········································································
-    // Dropdown
-    const startHiddenTabs = tabs.slice(0, visibleStart);
-    const endHiddenTabs = tabs.slice(visibleEnd + 1);
-    const hiddenTabs = [...startHiddenTabs, ...endHiddenTabs];
-
-    // ········································································
     // Link & Operations
     const activeTabOffset = tabOffsets.get(activeKey);
 
@@ -307,7 +308,6 @@ export const TabNavList = forwardRef(
 
     // ········································································
     // Render
-    const hasDropdown = !!hiddenTabs.length;
 
     const { classes, cx } = TabNavListStyles({ animated: animated.inkBar }, { name: 'TabNavList' });
     const nextTabCode = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
@@ -396,6 +396,7 @@ export const TabNavList = forwardRef(
   },
 );
 
+TabNavList.displayName = 'TabNavList';
 TabNavList.propTypes = {
   id: PropTypes.string,
   tabPosition: PropTypes.string, // left, right, etc
@@ -409,4 +410,11 @@ TabNavList.propTypes = {
   renderTabBar: PropTypes.any,
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
+  position: PropTypes.string,
+  orientation: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  centerGrow: PropTypes.bool,
 };
+
+export { TabNavList };

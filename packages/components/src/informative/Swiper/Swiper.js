@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { isFunction } from 'lodash';
 import { Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { Swiper as SwiperComp, SwiperSlide } from 'swiper/react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { SwiperStyles } from './Swiper.styles';
 import { NextElement, PrevElement } from './NavigationElements';
 import { SWIPER_DEFAULT_PROPS, SWIPER_PROP_TYPES } from './Swiper.constants';
-import 'swiper/css';
-import 'swiper/css/navigation';
 
 const Swiper = ({
   children,
-  variant,
   breakAt,
   selectable,
   deselectable,
@@ -26,7 +25,6 @@ const Swiper = ({
   prevButtonAriaLabel,
   useAria,
   className,
-  ...props
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(true);
@@ -45,12 +43,19 @@ const Swiper = ({
 
     if (shouldUpdate) {
       setSelectedIndex(newIndex);
-      isFunction(onSelectIndex) && onSelectIndex(newIndex);
+      if (isFunction(onSelectIndex)) {
+        onSelectIndex(newIndex);
+      }
     }
   };
 
-  const getSwiperSlides = () => {
-    return children.map((child, index) => {
+  const { classes, cx } = SwiperStyles(
+    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
+    { name: 'Swiper' },
+  );
+
+  const getSwiperSlides = () =>
+    children.map((child, index) => {
       const isSelected = selectedIndex === index;
       return (
         <SwiperSlide key={`slide${index}`}>
@@ -58,7 +63,7 @@ const Swiper = ({
             <Box
               className={cx(
                 classes.selectWrapper,
-                isSelected && !disableSelectedStyles ? classes.selectedSlide : ''
+                isSelected && !disableSelectedStyles ? classes.selectedSlide : '',
               )}
               onClick={() => onSelectIndexHandler(index)}
             >
@@ -70,12 +75,7 @@ const Swiper = ({
         </SwiperSlide>
       );
     });
-  };
 
-  const { classes, cx } = SwiperStyles(
-    { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
-    { name: 'Swiper' }
-  );
   return (
     <Box className={cx(classes.root, className)} style={styles}>
       <SwiperComp

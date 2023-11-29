@@ -19,7 +19,7 @@ export {
   Skeleton,
   keyframes,
   Navbar,
-  Highlight
+  Highlight,
 } from '@mantine/core';
 export * from '@mantine/spotlight';
 export {

@@ -14,9 +14,8 @@ const Progress = ({
   isText,
   isCurrent,
   isVisited,
-  ...props
 }) => {
-  const { classes, cx } = ProgressStyles(
+  const { classes } = ProgressStyles(
     { position, isButton, isActivity, isText, isCurrent, isVisited, state },
     { name: 'Progress' },
   );

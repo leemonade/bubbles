@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button, Tooltip } from '@mantine/core';
 import { useClickOutside } from '@mantine/hooks';
 import { MainNavItemStyles } from './MainNavItem.styles';
-import { ImageLoader } from './../../../misc';
-import { Box } from '../../../layout';
+import { ImageLoader } from '../../../misc/ImageLoader/ImageLoader';
+import { Box } from '../../../layout/Box';
 
 const Wrapper = ({ useRouter, item, children }) => {
   if (item.url) {
@@ -25,16 +25,13 @@ const Wrapper = ({ useRouter, item, children }) => {
   return children;
 };
 
-export const MainNavItem = ({
-  item,
-  itemWidth,
-  active,
-  onClick,
-  useRouter,
-  lightMode,
-  drawerColor,
-  ...props
-}) => {
+Wrapper.propTypes = {
+  useRouter: PropTypes.bool,
+  item: PropTypes.object,
+  children: PropTypes.node,
+};
+
+const MainNavItem = ({ item, itemWidth, active, onClick, useRouter, lightMode, drawerColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useClickOutside(() => setIsHovered(false));
 
@@ -77,7 +74,7 @@ export const MainNavItem = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {!!item.icon ? (
+            {item.icon ? (
               React.cloneElement(item.icon, { className: cx(classes.icon) })
             ) : (
               <ImageLoader
@@ -97,4 +94,12 @@ export const MainNavItem = ({
 
 MainNavItem.propTypes = {
   lightMode: PropTypes.bool,
+  item: PropTypes.object,
+  itemWidth: PropTypes.number,
+  active: PropTypes.bool,
+  useRouter: PropTypes.bool,
+  drawerColor: PropTypes.string,
+  onClick: PropTypes.func,
 };
+
+export { MainNavItem };

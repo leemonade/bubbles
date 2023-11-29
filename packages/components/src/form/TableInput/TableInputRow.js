@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Box } from '../../layout';
+import PropTypes from 'prop-types';
 import { get, isFunction } from 'lodash';
 import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { Controller, useForm } from 'react-hook-form';
 import { SortDragIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
 import { Draggable } from 'react-beautiful-dnd';
+import { Box } from '../../layout/Box';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
-import { ActionButton, TextInput } from '../../form';
+import { ActionButton } from '../ActionButton';
+import { TextInput } from '../TextInput';
 
 const TableInputRow = ({
   labels,
@@ -50,8 +52,8 @@ const TableInputRow = ({
 
   const getColumCellValue = (cell) => {
     if (editing && cell.column.editable !== false) {
-      const { column, row } = cell;
-      const fieldName = `${row.original.tableInputRowId}.${column.id}`;
+      const { column, row: _row } = cell;
+      const fieldName = `${_row.original.tableInputRowId}.${column.id}`;
       let node = null;
       let rules = [];
       let inputProps = {};
@@ -63,7 +65,7 @@ const TableInputRow = ({
       } else {
         node = column.input.node;
         rules = column.input.rules;
-        let { node: _, rules: __, ..._inputProps } = column.input;
+        const { node: _, rules: __, ..._inputProps } = column.input;
         inputProps = _inputProps;
       }
 
@@ -90,6 +92,11 @@ const TableInputRow = ({
     return <TableCell cell={cell} row={row} form={form} />;
   };
 
+  const cancelEditing = () => {
+    setEditing(false);
+    if (isFunction(onEditing)) onEditing(false);
+  };
+
   const handleOnEdit = async () => {
     const result = await trigger();
     if (result) {
@@ -107,11 +114,6 @@ const TableInputRow = ({
     if (isFunction(onEditing)) onEditing(true);
   };
 
-  const cancelEditing = () => {
-    setEditing(false);
-    if (isFunction(onEditing)) onEditing(false);
-  };
-
   return (
     <Draggable
       draggableId={row.original.tableInputRowId}
@@ -119,98 +121,118 @@ const TableInputRow = ({
       index={row.index}
       isDragDisabled={!sortable || _editing}
     >
-      {(provided, snapshot) => {
-        return (
-          <>
-            <tr
-              {...row.getRowProps({
-                className: cx(classes.row, {
-                  [tableClasses.tr]: index < totalRows - 1,
-                  [classes.rowDragging]: snapshot.isDragging,
-                }),
-              })}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              ref={provided.innerRef}
-            >
-              {sortable && (
-                <td>
-                  <Box
-                    className={classes.sortIcon}
-                    style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
-                  >
-                    <SortDragIcon />
-                  </Box>
-                </td>
-              )}
-              {row.cells.map((cell) => (
-                <td
-                  style={cell.column.cellTdStyle}
-                  {...cell.getCellProps({
-                    className: tableClasses.td,
-                  })}
+      {(provided, snapshot) => (
+        <>
+          <tr
+            {...row.getRowProps({
+              className: cx(classes.row, {
+                [tableClasses.tr]: index < totalRows - 1,
+                [classes.rowDragging]: snapshot.isDragging,
+              }),
+            })}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            {sortable && (
+              <td>
+                <Box
+                  className={classes.sortIcon}
+                  style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
                 >
-                  {getColumCellValue(cell)}
-                </td>
-              ))}
+                  <SortDragIcon />
+                </Box>
+              </td>
+            )}
+            {row.cells.map((cell, i) => (
               <td
-                style={{ textAlign: 'right' }}
-                className={cx(tableClasses.td, classes.actionCell)}
+                key={`rc-${i}`}
+                style={cell.column.cellTdStyle}
+                {...cell.getCellProps({
+                  className: tableClasses.td,
+                })}
               >
-                {editing ? (
+                {getColumCellValue(cell)}
+              </td>
+            ))}
+            <td style={{ textAlign: 'right' }} className={cx(tableClasses.td, classes.actionCell)}>
+              {editing ? (
+                <>
+                  <ActionButton
+                    icon={<CheckIcon />}
+                    tooltip={labels.accept || 'Accept'}
+                    onClick={handleOnEdit}
+                  />
+                  <ActionButton
+                    icon={<DeleteIcon />}
+                    tooltip={labels.cancel || 'Cancel'}
+                    onClick={cancelEditing}
+                  />
+                </>
+              ) : (
+                row.original.editable !== false && (
                   <>
-                    <ActionButton
-                      icon={<CheckIcon />}
-                      tooltip={labels.accept || 'Accept'}
-                      onClick={handleOnEdit}
-                    />
-                    <ActionButton
-                      icon={<DeleteIcon />}
-                      tooltip={labels.cancel || 'Cancel'}
-                      onClick={cancelEditing}
-                    />
+                    {addable && (
+                      <ActionButton
+                        icon={<AddCircleIcon />}
+                        tooltip={labels.add || 'Add'}
+                        onClick={() => onItemAdd(row)}
+                      />
+                    )}
+                    {editable && (
+                      <ActionButton
+                        icon={<EditWriteIcon />}
+                        tooltip={labels.edit || 'Edit'}
+                        onClick={initEditing}
+                      />
+                    )}
+                    {removable && (
+                      <ActionButton
+                        icon={<DeleteBinIcon />}
+                        tooltip={labels.remove || 'Remove'}
+                        onClick={() => onRemove(index)}
+                      />
+                    )}
                   </>
-                ) : (
-                  row.original.editable !== false && (
-                    <>
-                      {addable && (
-                        <ActionButton
-                          icon={<AddCircleIcon />}
-                          tooltip={labels.add || 'Add'}
-                          onClick={() => onItemAdd(row)}
-                        />
-                      )}
-                      {editable && (
-                        <ActionButton
-                          icon={<EditWriteIcon />}
-                          tooltip={labels.edit || 'Edit'}
-                          onClick={initEditing}
-                        />
-                      )}
-                      {removable && (
-                        <ActionButton
-                          icon={<DeleteBinIcon />}
-                          tooltip={labels.remove || 'Remove'}
-                          onClick={() => onRemove(index)}
-                        />
-                      )}
-                    </>
-                  )
-                )}
+                )
+              )}
+            </td>
+          </tr>
+          {rowsExpanded?.includes(row.id) ? (
+            <tr>
+              <td colSpan={visibleColumns.length + 1 + (sortable ? 1 : 0)}>
+                {renderRowSubComponent({ row })}
               </td>
             </tr>
-            {rowsExpanded?.includes(row.id) ? (
-              <tr>
-                <td colSpan={visibleColumns.length + 1 + (sortable ? 1 : 0)}>
-                  {renderRowSubComponent({ row })}
-                </td>
-              </tr>
-            ) : null}
-          </>
-        );
-      }}
+          ) : null}
+        </>
+      )}
     </Draggable>
   );
+};
+
+TableInputRow.propTypes = {
+  labels: PropTypes.object,
+  row: PropTypes.object,
+  index: PropTypes.number,
+  onItemAdd: PropTypes.func,
+  onRemove: PropTypes.func,
+  classes: PropTypes.object,
+  tableClasses: PropTypes.object,
+  visibleColumns: PropTypes.array,
+  cx: PropTypes.func,
+  totalRows: PropTypes.number,
+  sortable: PropTypes.bool,
+  editable: PropTypes.bool,
+  addable: PropTypes.bool,
+  removable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  rowsExpanded: PropTypes.array,
+  editing: PropTypes.bool,
+  onEditing: PropTypes.func,
+  onEdit: PropTypes.func,
+  renderRowSubComponent: PropTypes.func,
+  onChangeRow: PropTypes.func,
 };
 
 export { TableInputRow };

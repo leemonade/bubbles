@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
-import { ActionButton } from '../../form';
+import { ActionButton } from '../../form/ActionButton';
 import { pxToRem } from '../../theme.mixins';
 
 const defaultActions = {

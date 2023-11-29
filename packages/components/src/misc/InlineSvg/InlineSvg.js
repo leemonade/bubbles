@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '../../layout/Box';
 import { InlineSvgStyles } from './InlineSvg.styles';
 
-export const InlineSvg = ({
+const InlineSvg = ({
   src,
   className,
   strokeCurrent,
@@ -63,7 +63,7 @@ export const InlineSvg = ({
         { [classes.loaded]: isLoaded },
         { [classes.loading]: !isLoaded },
         { [classes.errored]: isErrored },
-        className
+        className,
       )}
       style={style}
       dangerouslySetInnerHTML={{ __html: goodSvg }}
@@ -72,8 +72,14 @@ export const InlineSvg = ({
 };
 
 InlineSvg.defaultProps = { ignoreFill: false, style: {} };
-
 InlineSvg.propTypes = {
   src: PropTypes.string.isRequired,
   className: PropTypes.string,
+  strokeCurrent: PropTypes.bool,
+  fillCurrent: PropTypes.bool,
+  ignoreFill: PropTypes.bool,
+  ignoreStroke: PropTypes.bool,
+  style: PropTypes.object,
 };
+
+export { InlineSvg };

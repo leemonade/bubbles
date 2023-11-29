@@ -1,5 +1,8 @@
 import React from 'react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
+import { Avatar } from '../../informative/Avatar';
+import { ImageLoader } from '../../misc/ImageLoader';
+import { TextClamp } from '../../typography/TextClamp';
 import { ScoreFronstageStyles } from './ScoreFronstage.styles';
 import {
   SCORE_FRONSTAGE_DEFAULT_PROPS,
@@ -7,9 +10,6 @@ import {
 } from './ScoreFronstage.constants';
 import { Average } from './Average';
 import { Item } from './Item';
-import { Avatar } from '../../informative';
-import { ImageLoader } from '../../misc';
-import { TextClamp } from '../../typography';
 
 const ScoreFronstage = ({
   title,
@@ -24,7 +24,7 @@ const ScoreFronstage = ({
   locale,
   ...props
 }) => {
-  const { classes, cx } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
+  const { classes } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
 
   return (
     <Box className={classes.root} {...props}>

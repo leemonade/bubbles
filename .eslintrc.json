@@ -44,6 +44,8 @@
     ],
     "import/no-names-as-default": "off",
     "import/prefer-default-export": "warn",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "radix": "off",
+    "no-unused-vars": "warn"
   }
 }

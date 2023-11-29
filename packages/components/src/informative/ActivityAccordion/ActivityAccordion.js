@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Accordion } from '@mantine/core';
-import { Box, Stack } from '../../layout';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
 import { Text } from '../../typography';
 import { ActivityAccordionStyles } from './ActivityAccordion.styles';
 import {
@@ -30,13 +32,21 @@ function AccordionLabel({ label, icon, rightSection, compact, classes }) {
   );
 }
 
+AccordionLabel.propTypes = {
+  label: PropTypes.string,
+  icon: PropTypes.node,
+  rightSection: PropTypes.any,
+  compact: PropTypes.bool,
+  classes: PropTypes.any,
+};
+
 const ActivityAccordion = ({ children, compact, ...props }) => {
   const { classes, cx } = ActivityAccordionStyles({ compact }, { name: 'ActivityAccordion' });
 
   return (
     <Accordion {...props} className={classes.root} classNames={classes} iconPosition="right">
       {React.Children.map(children, (child, index) => {
-        if (!child) return;
+        if (!child) return null;
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
           <Accordion.Item value={panelProps.itemValue || panelProps.label || `Panel ${index}`}>

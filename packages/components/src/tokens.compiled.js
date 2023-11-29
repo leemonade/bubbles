@@ -312,7 +312,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#B4E600",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1153,7 +1153,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#ffffff",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1234,8 +1234,17 @@ export default {
             "type": "color"
           },
           "hover--reverse-transparent": {
-            "value": "#ffffff26",
-            "type": "color"
+            "value": "#ffffff",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.15",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#F1FFBD",
@@ -2362,7 +2371,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#B4E600",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -4930,12 +4939,30 @@ export default {
       "color": {
         "primary": {
           "default": {
-            "value": "#4d535866",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "hover": {
-            "value": "#4d5358b3",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.7",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#4D5358",
