@@ -8,7 +8,7 @@ import { SelectItem } from './SelectItem';
 
 export const HEADINGS_TOOL_DEFAULT_PROPS = {
   labels: {
-    label: 'Format',
+    label: '',
     title1: 'Title 1',
     title2: 'Title 2',
     title3: 'Title 3',
@@ -80,7 +80,6 @@ const HeadingsTool = ({ labels }) => {
   return (
     <Box className={classes.root}>
       <Select
-        label={labels.label}
         data={VALUES}
         value={level}
         onChange={handleOnChange}

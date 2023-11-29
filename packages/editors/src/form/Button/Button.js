@@ -4,7 +4,6 @@ import { ActionButton } from '@bubbles-ui/components';
 import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_POSITIONS = ['start', 'center', 'end', 'default'];
-
 export const BUTTON_DEFAULT_PROPS = {
   label: '',
   actived: false,
