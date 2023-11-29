@@ -4,7 +4,8 @@ import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
 import { Popover } from '@bubbles-ui/components';
 import Link from '@tiptap/extension-link';
 import { useTextEditor } from '../../form/TextEditorProvider';
-import { Button, LinkModal } from '../../form/';
+import { Button } from '../../form/Button';
+import { LinkModal } from '../../form/LinkModal';
 import { LinkBubbleMenu } from './LinkBubbleMenu/LinkBubbleMenu';
 
 export const LINK_TOOL_DEFAULT_PROPS = {
@@ -59,17 +60,16 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
     closeToolModal,
   } = useTextEditor();
 
-  if (!editor) return;
+  if (!editor) return null;
   const { selection } = editor.state;
   const { from, to } = selection;
   const selectedText = editor.state.doc.textBetween(from, to, ' ');
 
-  const getLinkAttributes = (editor) => {
-    editor.chain().focus().extendMarkRange('link').run();
-    const { selection } = editor.state;
-    const { from, to } = selection;
-    const text = editor.state.doc.textBetween(from, to, ' ');
-    const href = editor.getAttributes('link').href;
+  const getLinkAttributes = (e) => {
+    e.chain().focus().extendMarkRange('link').run();
+    const { selection: s } = e.state;
+    const text = e.state.doc.textBetween(s.from, s.to, ' ');
+    const { href } = e.getAttributes('link');
     return { text, href };
   };
 
@@ -77,9 +77,9 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
     ({ text, link }) => {
       const numberOfCharacters = text.split('').length;
       const cursorPosition = editor.commands.command(({ state }) => {
-        const anchor = state.selection.anchor;
-        const from = state.selection.ranges[0].$from.pos;
-        return anchor !== from ? from : anchor;
+        const { anchor } = state.selection;
+        const selectFrom = state.selection.ranges[0].$from.pos;
+        return anchor !== selectFrom ? selectFrom : anchor;
       });
       const range = { from: cursorPosition, to: cursorPosition + numberOfCharacters };
 
@@ -93,7 +93,7 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
 
       closeToolModal();
     },
-    [editor]
+    [editor],
   );
 
   const handleOnClick = () => {
@@ -103,7 +103,7 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
 
   const linkModalOpened = useMemo(
     () => currentTool.type === 'link' && toolModalOpen,
-    [currentTool, toolModalOpen]
+    [currentTool, toolModalOpen],
   );
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const LinkTool = ({ labels, placeholders, errorMessages, ...props }) => {
         'link',
         { text, href },
         !!href,
-        <LinkBubbleMenu editor={editor} getLinkAttributes={getLinkAttributes} />
+        <LinkBubbleMenu editor={editor} getLinkAttributes={getLinkAttributes} />,
       );
     } else {
       closeBubbleMenu();

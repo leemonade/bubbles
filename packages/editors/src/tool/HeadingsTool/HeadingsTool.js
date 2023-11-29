@@ -1,7 +1,7 @@
-import React, { useMemo, useContext, useState, useEffect, forwardRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
-import { Select, Box, Text } from '@bubbles-ui/components';
+import { Select, Box } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { HeadingsToolStyles } from './HeadingsTool.styles';
 import { SelectItem } from './SelectItem';
@@ -51,11 +51,11 @@ const HeadingsTool = ({ labels }) => {
     }
   };
 
-  const handleOnSelection = ({ editor }) => {
+  const handleOnSelection = ({ editor: e }) => {
     let activeLevel = 0;
-    [1, 2, 3].every((level) => {
-      if (editor?.isActive('heading', { level: level })) {
-        activeLevel = level;
+    [1, 2, 3].every((item) => {
+      if (e?.isActive('heading', { level: item })) {
+        activeLevel = item;
         return false;
       }
       return true;

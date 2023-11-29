@@ -1,7 +1,7 @@
 import React from 'react';
 import { Node } from '@tiptap/core';
 
-export const Embed = Node.create({
+const Embed = Node.create({
   name: 'iframe',
   group: 'block',
   atom: true,
@@ -59,3 +59,5 @@ export const Embed = Node.create({
     };
   },
 });
+
+export { Embed };

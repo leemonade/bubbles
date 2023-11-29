@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
 import React, { useContext } from 'react';
-import { TextEditorContext } from '../../form/TextEditorProvider';
 import {
   EditorTextSize1Icon,
   EditorTextSize2Icon,
   EditorTextSize3Icon,
 } from '@bubbles-ui/icons/solid';
+import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 
 export const TITLE_TOOL_DEFAULT_PROPS = {
@@ -26,7 +26,7 @@ const TitleTool = ({ level, label, ...props }) => {
   }
 
   const onClickHandler = () => {
-    editor?.chain().focus().toggleHeading({ level: level }).run();
+    editor?.chain().focus().toggleHeading({ level }).run();
   };
 
   const getDefaultLabel = () => {
@@ -46,6 +46,7 @@ const TitleTool = ({ level, label, ...props }) => {
     if (level === 1) return <EditorTextSize1Icon height={16} width={16} />;
     if (level === 2) return <EditorTextSize2Icon height={16} width={16} />;
     if (level === 3) return <EditorTextSize3Icon height={16} width={16} />;
+    return null;
   };
 
   return (
@@ -53,7 +54,7 @@ const TitleTool = ({ level, label, ...props }) => {
       {...props}
       label={label || getDefaultLabel()}
       icon={getLevelIcon()}
-      actived={editor?.isActive('heading', { level: level })}
+      actived={editor?.isActive('heading', { level })}
       onClick={onClickHandler}
     ></Button>
   );

@@ -15,6 +15,9 @@ export const TOOLBAR_DEFAULT_PROPS = {
 export const TOOLBAR_PROP_TYPES = {
   useAria: PropTypes.bool,
   toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
+  children: PropTypes.node,
+  toolbarLabel: PropTypes.string,
+  className: PropTypes.string,
 };
 
 const Toolbar = ({ children, useAria, toolbarLabel, toolbarPosition, className, ...props }) => {
@@ -35,16 +38,16 @@ const Toolbar = ({ children, useAria, toolbarLabel, toolbarPosition, className, 
       childrenWidths.reduce(
         (prev, current, index) =>
           prev + (current || 0) + (index === childrenWidths.length - 1 ? 0 : 12),
-        0
+        0,
       ),
-    [childrenWidths]
+    [childrenWidths],
   );
 
   useEffect(() => {
     if (maxWidth === 0) return;
     if (!childrenWidths[0]) {
       setChildrenWidths(
-        originalChildren.map((child) => child.ref.current?.getBoundingClientRect().width)
+        originalChildren.map((child) => child.ref.current?.getBoundingClientRect().width),
       );
     }
   }, [maxWidth, originalChildren]);
@@ -53,8 +56,8 @@ const Toolbar = ({ children, useAria, toolbarLabel, toolbarPosition, className, 
     if (maxWidth === 0) return;
     const isAscending = prevMaxWidth.current < maxWidth;
     let currentWidth = dropdownChilds.length > 0 ? 40 : 0;
-    let newToolbarChilds = [];
-    let newDropdownChilds = [];
+    const newToolbarChilds = [];
+    const newDropdownChilds = [];
     originalChildren.forEach((child, index, array) => {
       const padding =
         (index === array.length - 1 && dropdownChilds.length <= 0) ||
@@ -89,7 +92,6 @@ const Toolbar = ({ children, useAria, toolbarLabel, toolbarPosition, className, 
 };
 
 Toolbar.defaultProps = TOOLBAR_DEFAULT_PROPS;
-
 Toolbar.propTypes = TOOLBAR_PROP_TYPES;
 
 export { Toolbar };
