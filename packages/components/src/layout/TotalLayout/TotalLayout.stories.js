@@ -4,7 +4,7 @@ import { Box } from '@mantine/core';
 import { PluginAssignmentsIcon } from '@bubbles-ui/icons/solid';
 import { ContextContainer } from '../ContextContainer';
 import { TotalLayout, useTotalLayout } from './TotalLayout';
-import { TotalLayoutHeader } from './TotalLayoutHeader';
+import { TotalLayoutHeader } from './TotalLayoutHeader/TotalLayoutHeader';
 import { TotalLayoutStepContainer as StepContainer } from './TotalLayoutStepContainer';
 import { Button, DropdownButton, InputWrapper, Switch, TextInput, Textarea } from '../../form';
 import { TOTAL_LAYOUT_DEFAULT_PROPS } from './TotalLayout.constants';
