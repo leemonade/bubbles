@@ -32,26 +32,27 @@ export const BUBBLES_THEME = {
 
 const THEME_PROVIDER_PROP_TYPES = {
   theme: PropTypes.object,
+  children: PropTypes.node,
 };
 const THEME_PROVIDER_DEFAULT_PROPS = {
   theme: BUBBLES_THEME,
+};
+
+const recursiveParse = (object) => {
+  if (!isObject(object)) return;
+  Object.keys(object).forEach((property) => {
+    if (object[property].value) {
+      object[property] = object[property].value;
+    } else {
+      recursiveParse(object[property]);
+    }
+  });
 };
 
 const parseTheme = (theme) => {
   if (isEmpty(theme.other)) return theme;
   recursiveParse(theme.other);
   return theme;
-};
-
-const recursiveParse = (object) => {
-  if (!isObject(object)) return;
-  for (const property in object) {
-    if (object[property].value) {
-      object[property] = object[property].value;
-    } else {
-      recursiveParse(object[property]);
-    }
-  }
 };
 
 const ThemeProvider = ({ children, theme }) => {

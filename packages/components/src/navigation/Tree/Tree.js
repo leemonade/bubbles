@@ -1,4 +1,12 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from 'react';
 import PropTypes from 'prop-types';
 import { find, isNil } from 'lodash';
 import { Tree as ReactTree } from '@leemonade/react-dnd-treeview';
@@ -17,48 +25,83 @@ const useTree = () => {
   const [initialSelected, setInitialSelected] = useState(null);
   const [openNode, setOpenNode] = useState(null);
   const [openAll, setOpenAll] = useState(null);
-  return { treeData, setTreeData, selectedNode, setSelectedNode, initialOpen, setInitialOpen, initialSelected, setInitialSelected, openNode, setOpenNode, openAll, setOpenAll };
+  return {
+    treeData,
+    setTreeData,
+    selectedNode,
+    setSelectedNode,
+    initialOpen,
+    setInitialOpen,
+    initialSelected,
+    setInitialSelected,
+    openNode,
+    setOpenNode,
+    openAll,
+    setOpenAll,
+  };
 };
 
 const Tree = ({
-                treeData,
-                setTreeData,
-                selectedNode,
-                setSelectedNode,
-                initialOpen,
-                setInitialOpen,
-                initialSelected,
-                setInitialSelected,
-                openNode, setOpenNode,
-                openAll, setOpenAll,
-                onSelect,
-                onAdd,
-                onDelete,
-                ...props
-              }) => {
+  treeData,
+  setTreeData,
+  selectedNode,
+  setSelectedNode,
+  initialOpen,
+  initialSelected,
+  setInitialOpen,
+  setInitialSelected,
+  openNode,
+  setOpenNode,
+  openAll,
+  setOpenAll,
+  onSelect,
+  onAdd,
+  onDelete,
+  ...props
+}) => {
   const [data, setData] = useState([]);
   const [currentNode, setCurrentNode] = useState(null);
   const [openNodes, setOpenNodes] = useState(null);
   const [selectedNodes, setSelectedNodes] = useState(null);
   const [openBranch, setOpenBranch] = useState(null);
   const [openTree, setOpenTree] = useState(null);
-  const state = {
-    selectedNode: selectedNode ?? currentNode,
-    setSelectedNode: setSelectedNode ?? setCurrentNode,
-    treeData: treeData ?? data,
-    setTreeData: setTreeData ?? setData,
-    initialOpen: initialOpen ?? openNodes,
-    setInitialOpen: setInitialOpen ?? setOpenNodes,
-    initialSelected: initialSelected ?? selectedNodes,
-    setInitialSelected: setInitialSelected ?? setSelectedNodes,
-    openNode: openNode ?? openBranch,
-    setOpenNode: setOpenNode ?? setOpenBranch,
-    openAll: openAll ?? openTree,
-    setOpenAll: setOpenAll ?? setOpenTree,
-    onDelete,
-    onAdd,
-    onSelect
-  };
+  const state = useMemo(
+    () => ({
+      selectedNode: selectedNode ?? currentNode,
+      setSelectedNode: setSelectedNode ?? setCurrentNode,
+      treeData: treeData ?? data,
+      setTreeData: setTreeData ?? setData,
+      initialOpen: initialOpen ?? openNodes,
+      setInitialOpen: setInitialOpen ?? setOpenNodes,
+      initialSelected: initialSelected ?? selectedNodes,
+      setInitialSelected: setInitialSelected ?? setSelectedNodes,
+      openNode: openNode ?? openBranch,
+      setOpenNode: setOpenNode ?? setOpenBranch,
+      openAll: openAll ?? openTree,
+      setOpenAll: setOpenAll ?? setOpenTree,
+      onDelete,
+      onAdd,
+      onSelect,
+    }),
+    [
+      selectedNode,
+      setSelectedNode,
+      treeData,
+      setTreeData,
+      initialOpen,
+      setInitialOpen,
+      initialSelected,
+      setInitialSelected,
+      openNode,
+      setOpenNode,
+      openAll,
+      setOpenAll,
+      onDelete,
+      onAdd,
+      onSelect,
+    ],
+  );
+
   return (
     <TreeContext.Provider value={state}>
       <TreeView {...props} />
@@ -67,20 +110,33 @@ const Tree = ({
 };
 
 const TreeView = ({
-                    allowDropOutside,
-                    allowMultipleOpen,
-                    allowDragParents,
-                    rootId,
-                    className,
-                    openOnSelect = false,
-                    canToggleItems = true,
-                    canSelectItems = true,
-                    ...props
-                  }) => {
+  allowDropOutside,
+  allowMultipleOpen,
+  allowDragParents,
+  rootId,
+  className,
+  openOnSelect = false,
+  canToggleItems = true,
+  canSelectItems = true,
+  ...props
+}) => {
   const [initialized, setInitialized] = useState(false);
   const currentNode = useRef(null);
-  const { treeData, setTreeData, selectedNode, setSelectedNode, initialOpen, initialSelected, openNode, setOpenNode, openAll, setOpenAll, onAdd, onDelete, onSelect } =
-    useContext(TreeContext);
+  const {
+    treeData,
+    setTreeData,
+    selectedNode,
+    setSelectedNode,
+    initialOpen,
+    initialSelected,
+    openNode,
+    setOpenNode,
+    openAll,
+    setOpenAll,
+    onAdd,
+    onDelete,
+    onSelect,
+  } = useContext(TreeContext);
 
   const treeRef = useRef(null);
 
@@ -94,29 +150,32 @@ const TreeView = ({
         treeRef.current.openBranch(
           nodeId,
           inclusive, // this open the pass node as well
-          replace // this replace the entire tree open Ids
+          replace, // this replace the entire tree open Ids
         );
       } else {
         console.info('Not TreeRef.current loaded');
       }
     },
-    [treeRef]
+    [treeRef],
   );
 
   useEffect(() => {
-    if(openNode) {
-      openBranch(openNode, true)
+    if (openNode) {
+      openBranch(openNode, true);
       setOpenNode(null);
     }
   }, [openNode]);
 
   useEffect(() => {
-    if(treeRef.current) {
-      if(openAll === false) {
+    if (treeRef.current) {
+      if (openAll === false) {
         treeRef.current.closeAll();
-      } else if(openAll === true) {
+      } else if (openAll === true) {
         // console.log('Open all tree nodes');
-        treeRef.current.open(treeData.map(({id}) => id), true);
+        treeRef.current.open(
+          treeData.map(({ id }) => id),
+          true,
+        );
       }
       setOpenAll(null);
     }
@@ -201,8 +260,8 @@ const TreeView = ({
             lowerSiblingsCount,
             hasOpenSiblings,
             siblingIndex,
-            isSelected
-          }
+            isSelected,
+          },
         ) => {
           const Renderer = node.render || NodeRenderer;
 
@@ -242,7 +301,7 @@ const TreeView = ({
           root: classes.tree,
           draggingSource: classes.treeDraggingSource,
           placeholder: classes.treePlaceholderContainer,
-          dropTarget: classes.treeDropTarget
+          dropTarget: classes.treeDropTarget,
         }}
         sort={false}
         insertDroppableFirst={false}
@@ -261,8 +320,19 @@ const TreeView = ({
   );
 };
 
+TreeView.propTypes = {
+  allowDropOutside: PropTypes.bool,
+  allowMultipleOpen: PropTypes.bool,
+  allowDragParents: PropTypes.bool,
+  rootId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  className: PropTypes.string,
+  openOnSelect: PropTypes.bool,
+  canToggleItems: PropTypes.bool,
+  canSelectItems: PropTypes.bool,
+};
+
 Tree.defaultProps = {
-  rootId: 0
+  rootId: 0,
 };
 
 Tree.propTypes = {
@@ -278,7 +348,13 @@ Tree.propTypes = {
   onSelect: PropTypes.func,
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
-  onEdit: PropTypes.func
+  onEdit: PropTypes.func,
+  setInitialOpen: PropTypes.func,
+  setInitialSelected: PropTypes.func,
+  openNode: PropTypes.string,
+  setOpenNode: PropTypes.func,
+  openAll: PropTypes.string,
+  setOpenAll: PropTypes.func,
 };
 
 export { Tree, useTree };

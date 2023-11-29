@@ -21,16 +21,14 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return (
-    <ModalZoom {...props}>
-      <img
-        src="https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
-        width="300"
-      />
-    </ModalZoom>
-  );
-};
+const Template = ({ ...props }) => (
+  <ModalZoom {...props}>
+    <img
+      src="https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80"
+      width="300"
+    />
+  </ModalZoom>
+);
 
 export const Playground = Template.bind({});
 

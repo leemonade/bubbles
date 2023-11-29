@@ -1,5 +1,115 @@
 # @bubbles-ui/leemons
 
+## 1.2.40
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.40
+  - @bubbles-ui/calendars@1.2.40
+  - @bubbles-ui/editors@1.2.40
+  - @bubbles-ui/icons@1.2.40
+
+## 1.2.39
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.39
+  - @bubbles-ui/calendars@1.2.39
+  - @bubbles-ui/editors@1.2.39
+  - @bubbles-ui/icons@1.2.39
+
+## 1.2.38
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.38
+  - @bubbles-ui/calendars@1.2.38
+  - @bubbles-ui/editors@1.2.38
+  - @bubbles-ui/icons@1.2.38
+
+## 1.2.37
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.37
+  - @bubbles-ui/calendars@1.2.37
+  - @bubbles-ui/editors@1.2.37
+  - @bubbles-ui/icons@1.2.37
+
+## 1.2.36
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.36
+  - @bubbles-ui/calendars@1.2.36
+  - @bubbles-ui/editors@1.2.36
+  - @bubbles-ui/icons@1.2.36
+
+## 1.2.35
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.35
+  - @bubbles-ui/calendars@1.2.35
+  - @bubbles-ui/editors@1.2.35
+  - @bubbles-ui/icons@1.2.35
+
+## 1.2.34
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.34
+  - @bubbles-ui/calendars@1.2.34
+  - @bubbles-ui/editors@1.2.34
+  - @bubbles-ui/icons@1.2.34
+
+## 1.2.33
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.33
+  - @bubbles-ui/calendars@1.2.33
+  - @bubbles-ui/editors@1.2.33
+  - @bubbles-ui/icons@1.2.33
+
+## 1.2.32
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.32
+  - @bubbles-ui/calendars@1.2.32
+  - @bubbles-ui/editors@1.2.32
+  - @bubbles-ui/icons@1.2.32
+
+## 1.2.31
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.31
+  - @bubbles-ui/calendars@1.2.31
+  - @bubbles-ui/editors@1.2.31
+  - @bubbles-ui/icons@1.2.31
+
 ## 1.2.30
 
 ### Patch Changes

@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { cloneDeep } from 'lodash';
-import { Box } from '../../layout';
-import { KanbanStyles } from './Kanban.styles';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { Box } from '../../layout/Box';
+import { KanbanStyles } from './Kanban.styles';
 import { Column } from './components/Column';
 import reorder, { reorderQuoteMap } from './helpers/reorder';
 
 export const KANBAN_DEFAULT_PROPS = {
-  itemRender: ({ value }) => {
-    return <>{value.title}</>;
-  },
+  itemRender: ({ value }) => <>{value.title}</>,
 };
 export const KANBAN_PROP_TYPES = {
   value: PropTypes.shape({
@@ -19,7 +17,7 @@ export const KANBAN_PROP_TYPES = {
         id: PropTypes.string,
         title: PropTypes.string,
         cards: PropTypes.arrayOf(PropTypes.object),
-      })
+      }),
     ),
   }),
   isCombineEnabled: PropTypes.bool,
@@ -28,8 +26,8 @@ export const KANBAN_PROP_TYPES = {
   itemRender: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
-const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props }) => {
-  const { classes, cx } = KanbanStyles({});
+const Kanban = ({ value, onChange, icon, itemRender }) => {
+  const { classes } = KanbanStyles({});
 
   const onDragEnd = (result) => {
     // dropped nowhere
@@ -37,8 +35,8 @@ const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props 
       return;
     }
 
-    const source = result.source;
-    const destination = result.destination;
+    const { source } = result;
+    const { destination } = result;
 
     // did not move anywhere - can bail early
     if (source.droppableId === destination.droppableId && source.index === destination.index) {
@@ -83,11 +81,7 @@ const Kanban = ({ value, isCombineEnabled, onChange, icon, itemRender, ...props 
     </Droppable>
   );
 
-  return (
-    <React.Fragment>
-      <DragDropContext onDragEnd={onDragEnd}>{board}</DragDropContext>
-    </React.Fragment>
-  );
+  return <DragDropContext onDragEnd={onDragEnd}>{board}</DragDropContext>;
 };
 
 Kanban.defaultProps = KANBAN_DEFAULT_PROPS;

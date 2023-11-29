@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Portal } from '@mantine/core';
 import { RemoveIcon, ZoomInIcon, ZoomOutIcon } from '@bubbles-ui/icons/outline';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { ModalZoomStyles } from './ModalZoom.styles';
 import { MODAL_ZOOM_DEFAULT_PROPS, MODAL_ZOOM_PROP_TYPES } from './ModalZoom.constants';
 
@@ -10,7 +10,7 @@ const ModalZoom = ({ children, canPlay, style }) => {
   const [open, setOpen] = useState(false);
   const center = useRef(null);
 
-  const { classes, cx } = ModalZoomStyles({}, { name: 'ModalZoom' });
+  const { classes } = ModalZoomStyles({}, { name: 'ModalZoom' });
 
   return (
     <>

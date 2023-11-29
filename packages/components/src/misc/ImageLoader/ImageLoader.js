@@ -5,7 +5,7 @@ import { Image } from '@mantine/core';
 import { InlineSvg } from '../InlineSvg';
 import { ImageLoaderStyles } from './ImageLoader.styles';
 
-export const ImageLoader = ({
+const ImageLoader = ({
   src: srcProp,
   alt,
   forceImage,
@@ -27,7 +27,7 @@ export const ImageLoader = ({
 
   const { classes, cx } = ImageLoaderStyles(
     { radius, imageStyles, height },
-    { name: 'ImageLoader' }
+    { name: 'ImageLoader' },
   );
 
   return isSvg ? (
@@ -38,8 +38,8 @@ export const ImageLoader = ({
       src={src}
       alt={alt}
       radius={radius}
-      height={height || '100%'}
-      width={width || '100%'}
+      height={height ?? '100%'}
+      width={width ?? '100%'}
       withPlaceholder={withPlaceholder}
       classNames={{
         root: classes.root,
@@ -62,4 +62,9 @@ ImageLoader.propTypes = {
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
   radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  imageStyles: PropTypes.object,
+  useAria: PropTypes.bool,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
+
+export { ImageLoader };

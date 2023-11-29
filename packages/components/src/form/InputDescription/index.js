@@ -1,3 +1,1 @@
-import { InputDescription } from './InputDescription';
-
-export { InputDescription };
+export * from './InputDescription';

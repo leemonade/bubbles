@@ -4,7 +4,7 @@ import { Box } from '../../../layout/Box';
 import TabContext from '../TabContext';
 import { TabPanelListStyles } from './TabPanelList.styles';
 
-export const TabPanelList = ({
+const TabPanelList = ({
   id,
   activeKey,
   animated,
@@ -14,8 +14,6 @@ export const TabPanelList = ({
   className,
   tabPanelListStyle,
   forceRender,
-  fullHeight,
-  children,
 }) => {
   const { tabs } = useContext(TabContext);
 
@@ -33,17 +31,17 @@ export const TabPanelList = ({
             : null
         }
       >
-        {tabs.map(({ node, key }) => {
-          return React.cloneElement(node, {
+        {tabs.map(({ node, key }) =>
+          React.cloneElement(node, {
             key,
             tabKey: key,
             id,
-            animated: animated,
+            animated,
             active: key === activeKey,
-            destroyInactiveTabPanel: destroyInactiveTabPanel,
-            forceRender: forceRender,
-          });
-        })}
+            destroyInactiveTabPanel,
+            forceRender,
+          }),
+        )}
       </Box>
     </Box>
   );
@@ -58,4 +56,9 @@ TabPanelList.propTypes = {
   destroyInactiveTabPanel: PropTypes.bool,
   forceRender: PropTypes.bool,
   fullHeight: PropTypes.bool,
+  tabPanelListStyle: PropTypes.object,
+  children: PropTypes.any,
+  className: PropTypes.string,
 };
+
+export { TabPanelList };

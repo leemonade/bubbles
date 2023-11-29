@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString, isNil } from 'lodash';
 import { CloudUploadIcon, UndoIcon } from '@bubbles-ui/icons/outline/';
-import { Box, Stack } from '../../layout';
-import { Button } from '../../form';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
+import { Button } from '../Button';
 import { ImageLoader } from '../../misc/ImageLoader';
 import { ImagePreviewInputStyles } from './ImagePreviewInput.styles';
 
@@ -24,6 +25,9 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   previewStyle: PropTypes.object,
   control: PropTypes.element,
   onChange: PropTypes.func,
+  readonly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  useAria: PropTypes.bool,
 };
 
 const ImagePreviewInput = ({
@@ -36,7 +40,6 @@ const ImagePreviewInput = ({
   readonly,
   disabled,
   useAria,
-  ...props
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
@@ -57,20 +60,20 @@ const ImagePreviewInput = ({
   }, [value]);
 
   const resetImage = () => {
-    isFunction(onChange) && onChange(null);
+    if (isFunction(onChange)) onChange(null);
     setImagePreview(null);
     setImageValue(null);
   };
 
   const openFileBrowser = () => {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (e) => {
       const file = e.target.files[0];
       file.path = file.name;
       setImageValue(file);
-      isFunction(onChange) && onChange(file);
+      if (isFunction(onChange)) onChange(file);
     };
     input.click();
   };

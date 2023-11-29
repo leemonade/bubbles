@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Editor } from '@tiptap/react';
-import { isEmpty } from 'lodash';
 import { TextEditorContext } from './context';
 
 export const TEXT_EDITOR_PROVIDER_DEFAULT_PROPS = {
@@ -11,6 +10,7 @@ export const TEXT_EDITOR_PROVIDER_DEFAULT_PROPS = {
 export const TEXT_EDITOR_PROVIDER_PROP_TYPES = {
   editor: PropTypes.instanceOf(Editor),
   readOnly: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 const TextEditorProvider = ({ editor, children, readOnly }) => {

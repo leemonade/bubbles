@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
-import { BubbleMenuStyles } from './BubbleMenu.styles';
+import React, { useContext, useEffect, useRef } from 'react';
 import { IconButton, Paper, Stack } from '@bubbles-ui/components';
-import { TextEditorContext } from '../../form/';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
+import { TextEditorContext } from '../TextEditorProvider';
+import { BubbleMenuStyles } from './BubbleMenu.styles';
 
 export const BUBBLEMENU_DEFAULT_PROPS = {};
-
 export const BUBBLEMENU_PROP_TYPES = {};
 
 const BubbleMenu = ({ ...props }) => {
@@ -17,18 +14,10 @@ const BubbleMenu = ({ ...props }) => {
 
   const tippyInstance = useRef();
 
-  const shouldShowHandler = ({ editor }) => {
-    if (editor.isActive('image')) {
-      return true;
-    }
-    if (editor.isActive('library') && !toolModalOpen) {
-      return true;
-    }
-    if (editor.isActive('link') && !toolModalOpen) {
-      return true;
-    }
-    return false;
-  };
+  const shouldShowHandler = ({ editor: e }) =>
+    e.isActive('image') ||
+    (e.isActive('library') && !toolModalOpen) ||
+    (e.isActive('link') && !toolModalOpen);
 
   const removeHandler = () => {
     if (editor.isActive('library')) {
@@ -39,7 +28,6 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('link')) {
       editor?.chain().focus().unsetLink().run();
       closeToolModal();
-      return;
     }
   };
 
@@ -49,7 +37,7 @@ const BubbleMenu = ({ ...props }) => {
       const { selection } = editor.state;
       const { from, to } = selection;
       const text = editor.state.doc.textBetween(from, to, ' ');
-      const href = editor.getAttributes('link').href;
+      const { href } = editor.getAttributes('link');
       editToolData('link', { text, href });
       return;
     }
@@ -57,7 +45,6 @@ const BubbleMenu = ({ ...props }) => {
     if (editor.isActive('library')) {
       const content = editor.getAttributes('library');
       editToolData('library', content);
-      return;
     }
   };
 

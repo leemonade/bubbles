@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const MESSAGE_TYPES = ['text'];
+export const MESSAGE_TYPES = ['text', 'img'];
 
 export const CHAT_MESSAGE_DEFAULT_PROPS = {
   isOwn: false,

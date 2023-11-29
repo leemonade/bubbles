@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { usePagination, useTable } from 'react-table';
-import { Box, Paper, Stack } from '../../layout';
-import { LoadingOverlay } from '../../overlay';
+import { Box } from '../../layout/Box';
+import { Paper } from '../../layout/Paper';
+import { Stack } from '../../layout/Stack';
+import { LoadingOverlay } from '../../overlay/LoadingOverlay';
 import { Pager, PAGER_VARIANTS } from '../../navigation/Pager';
 import { TableView } from './views/TableView';
 import { GridView } from './views/GridView';
@@ -43,8 +45,11 @@ export const PAGINATED_LIST_PROP_TYPES = {
   loading: PropTypes.bool,
   onSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
+  onStyleRow: PropTypes.func,
   useAria: PropTypes.bool,
   headerStyles: PropTypes.object,
+  style: PropTypes.object,
+  labels: PropTypes.object,
 };
 
 const PaginatedList = ({
@@ -99,7 +104,7 @@ const PaginatedList = ({
       // pageCount.
       pageCount: totalCount,
     },
-    usePagination
+    usePagination,
   );
 
   useEffect(() => {
@@ -120,7 +125,7 @@ const PaginatedList = ({
     onPageChange(val);
   };
 
-  const { classes, cx } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
+  const { classes } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
 
   return (
     <Box className={classes.root}>

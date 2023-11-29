@@ -1,6 +1,6 @@
 import { createStyles } from '@bubbles-ui/components';
 
-export const ButtonStyles = createStyles((theme, { actived, position, disabled }) => {
+const ButtonStyles = createStyles((theme, { actived, position, disabled }) => {
   const inputTheme = theme.other.input;
 
   const getBorder = () => {
@@ -33,6 +33,7 @@ export const ButtonStyles = createStyles((theme, { actived, position, disabled }
       height: 40,
       width: 40,
       ...getBorder(),
+      borderStyle: 'solid',
       borderColor: `${actived ? theme.colors.text02 : inputTheme.border.color.default} !important`,
       '&:hover': {
         backgroundColor: actived ? theme.colors.interactive02h : theme.colors.interactive03,
@@ -47,3 +48,5 @@ export const ButtonStyles = createStyles((theme, { actived, position, disabled }
     leftIcon: {},
   };
 });
+
+export { ButtonStyles };

@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FileIcon } from '@bubbles-ui/icons/outline';
 import { Link } from 'react-router-dom';
-import { Text, TextClamp } from '../../typography';
+import { Text } from '../../typography/Text';
+import { TextClamp } from '../../typography/TextClamp';
 import { Box } from '../../layout/Box';
 import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 

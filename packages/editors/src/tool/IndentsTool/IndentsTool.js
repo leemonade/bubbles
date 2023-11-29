@@ -23,15 +23,13 @@ export const INDENTS_TOOL_PROP_TYPES = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-const IndentsTool = ({ indent, outdent, labels, children }) => {
-  return (
-    <ButtonGroup>
-      {indent && <IndentTool label={labels.indent} />}
-      {outdent && <IndentTool type={'outdent'} label={labels.outdent} />}
-      {children}
-    </ButtonGroup>
-  );
-};
+const IndentsTool = ({ indent, outdent, labels, children }) => (
+  <ButtonGroup>
+    {indent && <IndentTool label={labels.indent} />}
+    {outdent && <IndentTool type={'outdent'} label={labels.outdent} />}
+    {children}
+  </ButtonGroup>
+);
 
 IndentsTool.defaultProps = INDENTS_TOOL_DEFAULT_PROPS;
 IndentsTool.propTypes = INDENTS_TOOL_PROP_TYPES;

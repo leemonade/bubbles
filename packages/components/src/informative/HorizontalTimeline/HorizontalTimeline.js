@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { isDate } from 'lodash';
-import { Box } from '../../layout';
+import { useElementSize } from '@mantine/hooks';
+import { Box } from '../../layout/Box';
 import { Text } from '../../typography';
 import { COLORS } from '../../theme.tokens';
 import { HorizontalTimelineStyles } from './HorizontalTimeline.styles';
@@ -8,9 +9,8 @@ import {
   HORIZONTAL_TIMELINE_DEFAULT_PROPS,
   HORIZONTAL_TIMELINE_PROP_TYPES,
 } from './HorizontalTimeline.constants';
-import { useElementSize } from '@mantine/hooks';
 
-const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ...props }) => {
+const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles }) => {
   const { ref: timelineRef, width: timelineWidth } = useElementSize();
   const [events, setEvents] = useState([]);
   const firstIndex = 0;
@@ -21,10 +21,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     locale = navigator.language || navigator.userLanguage;
   }
 
-  const getDaysBetween = (firstDate, lastDate) => {
-    const daysBetween = (firstDate - lastDate) / (1000 * 60 * 60 * 24);
-    return daysBetween;
-  };
+  const getDaysBetween = (firstDate, lastDate) => (firstDate - lastDate) / (1000 * 60 * 60 * 24);
 
   const getRealCompletionPercentage = (completionPercentage) => {
     if (completionPercentage < 0) return 0;
@@ -32,8 +29,13 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     return completionPercentage;
   };
 
+  const { classes, cx } = HorizontalTimelineStyles(
+    { color, EVENT_WIDTH, rootStyles },
+    { name: 'HTimeline' },
+  );
+
   const renderTimeline = () => {
-    if (events.length === 0) return;
+    if (events.length === 0) return null;
     let lastProgressWidth = 0;
     let progressWidth = 0;
     const currentDay = new Date();
@@ -97,7 +99,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     if (!timelineWidth) return;
 
     let newEvents = [];
-    let newData = data.map((item) => ({
+    const newData = data.map((item) => ({
       ...item,
       date: isDate(item.date) ? item.date : new Date(item.date),
     }));
@@ -118,7 +120,7 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
         x: availableWidth - EVENT_WIDTH,
       };
 
-      let offsetX = EVENT_WIDTH;
+      const offsetX = EVENT_WIDTH;
       availableWidth -= EVENT_WIDTH * 2;
       const dayStart = newData[firstIndex].date;
 
@@ -141,10 +143,6 @@ const HorizontalTimeline = ({ data, locale, color, rootClassname, rootStyles, ..
     setEvents(newEvents);
   }, [data, timelineWidth]);
 
-  const { classes, cx } = HorizontalTimelineStyles(
-    { color, EVENT_WIDTH, rootStyles },
-    { name: 'HTimeline' }
-  );
   return (
     <Box className={cx(classes.root, rootClassname)}>
       <Box ref={timelineRef} className={classes.timelineContainer}>

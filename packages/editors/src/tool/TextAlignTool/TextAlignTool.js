@@ -8,7 +8,9 @@ import {
   EditorCenterAlignIcon,
 } from '@bubbles-ui/icons/solid';
 import React, { useContext } from 'react';
-import { Button, ButtonGroup, TextEditorContext } from '../../form/';
+import { Button } from '../../form/Button';
+import { ButtonGroup } from '../../form/ButtonGroup';
+import { TextEditorContext } from '../../form/TextEditorProvider';
 
 export const TEXTALIGN_TOOL_DEFAULT_PROPS = {
   left: true,

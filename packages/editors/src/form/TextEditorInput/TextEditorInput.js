@@ -40,7 +40,7 @@ const TextEditorInput = ({
   const hasError = useMemo(() => !isEmpty(error), [error]);
   const { classes, cx } = TextEditorInputStyles(
     { hasError, editorStyles },
-    { name: 'TextEditorInput' }
+    { name: 'TextEditorInput' },
   );
 
   return (

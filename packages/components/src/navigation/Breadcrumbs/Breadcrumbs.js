@@ -4,10 +4,10 @@ import { isObject, isString } from 'lodash';
 import { Link } from 'react-router-dom';
 import { Breadcrumbs as MantineBreadcrumbs } from '@mantine/core';
 import { ChevRightIcon, ArrowLeftIcon } from '@bubbles-ui/icons/outline';
-import { BreadcrumbsStyles } from './Breadcrumbs.styles';
 import { Text } from '../../typography';
 import { Anchor } from '../Anchor';
-import { Stack } from '../../layout';
+import { Stack } from '../../layout/Stack';
+import { BreadcrumbsStyles } from './Breadcrumbs.styles';
 
 export const BREADCRUMBS_DEFAULT_PROPS = {
   useRouter: false,
@@ -20,33 +20,38 @@ export const BREADCRUMBS_PROP_TYPES = {
   backLabel: PropTypes.string,
 };
 
+const NavItem = ({ item, useRouter, ...itemProps }) => {
+  itemProps.role = 'expressive';
+
+  if (isString(item)) {
+    return <Text {...itemProps}>{item}</Text>;
+  }
+
+  if (isObject(item)) {
+    if (!item.href || item.ref === '') {
+      return <Text {...itemProps}>{item.label}</Text>;
+    }
+
+    if (useRouter) {
+      itemProps.as = Link;
+      itemProps.to = item.href;
+    } else {
+      itemProps.href = item.href;
+    }
+
+    return <Anchor {...itemProps}>{item.label}</Anchor>;
+  }
+
+  return null;
+};
+
+NavItem.propTypes = {
+  item: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  useRouter: PropTypes.bool,
+};
+
 const Breadcrumbs = ({ items, useRouter, backLabel, ...props }) => {
-  const { classes, cx } = BreadcrumbsStyles({});
-
-  const NavItem = ({ item, ...itemProps }) => {
-    itemProps.role = 'expressive';
-
-    if (isString(item)) {
-      return <Text {...itemProps}>{item}</Text>;
-    }
-
-    if (isObject(item)) {
-      if (!item.href || item.ref === '') {
-        return <Text {...itemProps}>{item.label}</Text>;
-      }
-
-      if (useRouter) {
-        itemProps.as = Link;
-        itemProps.to = item.href;
-      } else {
-        itemProps.href = item.href;
-      }
-
-      return <Anchor {...itemProps}>{item.label}</Anchor>;
-    }
-
-    return null;
-  };
+  const { classes } = BreadcrumbsStyles({});
 
   return (
     <Stack spacing={4}>

@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
-// import ListItem from '@tiptap/extension-list-item';
+import { EditorListBulletsIcon, EditorListNumbersIcon } from '@bubbles-ui/icons/solid';
 import { ListItemCustom } from './extension';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { EditorListBulletsIcon, EditorListNumbersIcon } from '@bubbles-ui/icons/solid';
 import { Button } from '../../form/Button/Button';
 
 export const LIST_TOOL_TYPES = ['ordered', 'unordered'];
