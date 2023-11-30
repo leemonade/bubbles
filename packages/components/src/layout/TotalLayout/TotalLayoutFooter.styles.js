@@ -3,6 +3,7 @@ import { createStyles } from '@mantine/styles';
 const TotalLayoutFooterStyles = createStyles((theme, { showFooterShadow, leftOffset }) => ({
   root: {},
   footer: {
+    minWidth: 928,
     maxWidth: 928,
     width: '100%',
     marginLeft: leftOffset,

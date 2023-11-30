@@ -13,7 +13,11 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollR
     justifyContent="center"
     fullWidth
     fullHeight
-    style={{ backgroundColor: '#f8f9fb', overflow: 'auto', position: 'relative' }}
+    style={{
+      backgroundColor: '#f8f9fb',
+      overflow: 'auto',
+      position: 'relative',
+    }}
   >
     {showStepper && (
       <Box
@@ -27,7 +31,7 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollR
         <VerticalStepper data={stepsInfo} currentStep={activeStep} />
       </Box>
     )}
-    <Box style={{ maxWidth: 928 }}>{children}</Box>
+    <Box style={{ width: 928 }}>{children}</Box>
   </Stack>
 );
 
