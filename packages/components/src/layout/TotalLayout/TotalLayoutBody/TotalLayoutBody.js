@@ -6,7 +6,7 @@ import {
 } from './TotalLayoutBody.constants';
 import { VerticalStepper } from '../../../navigation';
 
-const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, ...props }) => (
+const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep }) => (
   <Stack
     justifyContent="center"
     fullWidth

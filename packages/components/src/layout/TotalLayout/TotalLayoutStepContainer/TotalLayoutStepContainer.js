@@ -1,6 +1,9 @@
-import { ContextContainer } from '../ContextContainer';
-import { Stack } from '../Stack';
-import { TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES } from './TotalLayout.constants';
+import { ContextContainer } from '../../ContextContainer';
+import { Stack } from '../../Stack';
+import {
+  TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES,
+  TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS,
+} from './TotalLayoutStepContainer.constants';
 
 const TotalLayoutStepContainer = ({ stepName, children }) => (
   <ContextContainer title={stepName} style={{ padding: '24px 0 0 0 ', height: '100%' }}>
@@ -11,5 +14,6 @@ const TotalLayoutStepContainer = ({ stepName, children }) => (
 );
 
 TotalLayoutStepContainer.propTypes = TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES;
+TotalLayoutStepContainer.defaultProps = TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS;
 
 export { TotalLayoutStepContainer };

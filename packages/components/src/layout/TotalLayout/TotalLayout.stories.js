@@ -1,11 +1,13 @@
 import React from 'react';
 import { useForm, FormProvider, useFormContext, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box } from '@mantine/core';
 import { PluginAssignmentsIcon } from '@bubbles-ui/icons/solid';
 import { ContextContainer } from '../ContextContainer';
 import { TotalLayout, useTotalLayout } from './TotalLayout';
 import { TotalLayoutHeader } from './TotalLayoutHeader/TotalLayoutHeader';
-import { TotalLayoutStepContainer as StepContainer } from './TotalLayoutStepContainer';
+import { TotalLayoutStepContainer as StepContainer } from './TotalLayoutStepContainer/TotalLayoutStepContainer';
 import { Button, DropdownButton, InputWrapper, Switch, TextInput, Textarea } from '../../form';
 import { TOTAL_LAYOUT_DEFAULT_PROPS } from './TotalLayout.constants';
 import { Stack } from '../Stack';
@@ -54,12 +56,10 @@ const BasicDataForm = () => {
             </Stack>
             <Controller
               name="title"
-              rules={{ required: 'Field required' }}
               render={({ field }) => <TextInput label={'Título'} error={errors.title} {...field} />}
             />
             <Controller
               name="description"
-              // control={form.control}
               render={({ field }) => <Textarea label={'Descripción'} {...field} />}
             />
           </ContextContainer>
@@ -93,12 +93,10 @@ const BasicDataForm = () => {
           <ContextContainer title="Otros" spacing={4}>
             <Controller
               name="tags"
-              // control={form.control}
               render={({ field }) => <TextInput label={'Etiquetas'} {...field} />}
             />
             <Controller
               name="color"
-              // control={form.control}
               render={({ field }) => <Textarea label={'Color'} {...field} />}
             />
           </ContextContainer>
@@ -131,7 +129,6 @@ const ContentsForm = () => {
             </Stack>
             <Controller
               name="instructions"
-              rules={{ required: 'Field required' }}
               render={({ field }) => (
                 <Textarea label={'Texto del enunciado'} error={errors.instructions} {...field} />
               )}
@@ -159,6 +156,8 @@ const ContentsForm = () => {
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
 
+  // * Prepare Validation Objects
+
   // * Prepare Steps
   const stepsInfo = [
     {
@@ -166,7 +165,15 @@ const Template = () => {
       badge: null,
       status: null,
       fields: ['title', 'description', 'program', 'tags', 'color'], // All step fields
-      validationSchema: {},
+      validationSchema: z.object({
+        title: z
+          .string({ required_error: 'Title is required' })
+          .min(1, { message: 'NOOOOOO!!! ASÍ NO' }),
+        description: z.string().optional(),
+        program: z.string().optional(),
+        tags: z.string().optional(),
+        color: z.string().optional(),
+      }),
       stepComponent: null, // ? El elemento aquí. Too much?
     },
     {
@@ -174,12 +181,17 @@ const Template = () => {
       badge: null,
       status: null,
       fields: ['instructions', 'deliverables'],
-      validationSchema: {},
+      validationSchema: z.object({
+        instructions: z.string().min(1, { message: 'NEHHHH!!! ASÍ NO' }),
+        deliverables: z.boolean().optional(),
+      }),
       stepComponent: null, // ? El elemento aquí. Too much?
     },
   ];
 
-  const formMethods = useForm();
+  const formMethods = useForm({
+    resolver: zodResolver(stepsInfo[totalLayoutProps.activeStep].validationSchema),
+  });
   const formValues = formMethods.watch();
 
   // * Prepare Steps

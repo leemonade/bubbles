@@ -39,7 +39,8 @@ const TotalLayout = ({
   };
 
   const validateAndAct = async (action, ...actionArgs) => {
-    const isValidStep = await trigger(stepsInfo[activeStep].fields);
+    // const isValidStep = await trigger(stepsInfo[activeStep].fields);
+    const isValidStep = await trigger();
     if (isValidStep) {
       await action(...actionArgs);
     }
@@ -97,9 +98,8 @@ DONE:
 - cambiar titles por text para el tamaño -> Header
 - Header multifuncional?
 TODO:
+- Zod y Zod resolver libraries para validación.
 - cambiar titles por text para el tamaño -> BODY, no -> Steps container
-- Zod y Zod resolver libraries para validación. La función que recibe va a recibir el resolver del useform esté definida
-definida en el contexto para que no se haga re-render
 - Sombras del Header y Footer
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical
 - Tidy: una carpeta para cada componente con sus constants etc.
