@@ -49,6 +49,7 @@ const TotalLayout = ({
   React.useEffect(() => {
     const body = bodyRef.current;
     if (body) {
+      handleScroll();
       body.addEventListener('scroll', handleScroll);
       window.addEventListener('resize', handleScroll);
       return () => {
@@ -134,11 +135,11 @@ DONE:
 - Hacer pull de develop!!
 - cambiar titles por text para el tamaño -> Header
 - Header multifuncional?
-TODO:
 - Zod y Zod resolver libraries para validación.
+- Sombras del Header y Footer
+TODO:
 - arreglar footer en pequeñito
 - cambiar titles por text para el tamaño -> BODY, no -> Steps container
-- Sombras del Header y Footer
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical
 - Tidy: una carpeta para cada componente con sus constants etc.
 - La forma no debería poder modificarse al ir hacia atrás... ?
