@@ -4,7 +4,10 @@ import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
 import { Button } from '../../../form';
 import { Box } from '../../Box';
-import { TOTAL_LAYOUT_HEADER_PROP_TYPES } from '../TotalLayout.constants';
+import {
+  TOTAL_LAYOUT_HEADER_PROP_TYPES,
+  TOTAL_LAYOUT_HEADER_DEFAULT_PROPS,
+} from './TotalLayoutHeader.constants';
 
 const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compact = false }) => {
   const { watch } = useFormContext();
@@ -13,21 +16,21 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
   // Set styles
   const containerStyle = {
     padding: `${!children ? '16px' : '12px'} 24px`,
-    height: '72px',
+    minHeight: !children ? '72px' : '120px',
+    maxHeight: !children ? '72px' : '120px',
+    backgroundColor: 'white',
   };
-  if (!children) containerStyle.maxHeight = '72px';
-  else containerStyle.minHeight = '120px';
 
   const formTitleTextStyle = {
     fontSize: '18px',
   };
-  if (!compact) formTitleTextStyle.marginLeft = '32px';
+  if (!compact) formTitleTextStyle.marginLeft = '40px';
 
   return (
     <Stack id="total-layout-header" fullWidth fullHeight style={containerStyle} direction="column">
-      <Stack fullWidth justifyContent="space-between" style={{ height: '40px' }}>
+      <Stack fullWidth justifyContent="space-between" style={{ height: '40px', maxHeight: '40px' }}>
         {/* ICON & LABELS */}
-        <Stack spacing={1} alignItems="center">
+        <Stack alignItems="center">
           <Stack
             spacing={compact ? 2 : 0}
             justifyContent="center"
@@ -44,6 +47,7 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
                   width: '32px',
                   height: '32px',
                   textAlign: 'center',
+                  marginRight: '8px',
                 }}
               >
                 {icon}
@@ -66,11 +70,16 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
       </Stack>
 
       {/* CHILDREN */}
-      {children && <Stack style={{ height: '40px', marginTop: '12px' }}>{children}</Stack>}
+      {children && (
+        <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
+          {children}
+        </Stack>
+      )}
     </Stack>
   );
 };
 
+TotalLayoutHeader.defaultProps = TOTAL_LAYOUT_HEADER_DEFAULT_PROPS;
 TotalLayoutHeader.propTypes = TOTAL_LAYOUT_HEADER_PROP_TYPES;
 
 export { TotalLayoutHeader };

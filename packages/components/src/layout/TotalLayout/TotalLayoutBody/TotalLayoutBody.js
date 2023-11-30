@@ -1,7 +1,10 @@
-import { Stack } from '../Stack';
-import { Box } from '../Box';
-import { TOTAL_LAYOUT_BODY_PROP_TYPES } from './TotalLayout.constants';
-import { VerticalStepper } from '../../navigation';
+import { Stack } from '../../Stack';
+import { Box } from '../../Box';
+import {
+  TOTAL_LAYOUT_BODY_PROP_TYPES,
+  TOTAL_LAYOUT_BODY_DEFAULT_PROPS,
+} from './TotalLayoutBody.constants';
+import { VerticalStepper } from '../../../navigation';
 
 const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, ...props }) => (
   <Stack
@@ -19,7 +22,7 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, ...prop
           marginRight: 16,
         }}
       >
-        <VerticalStepper data={stepsInfo} currentStep={activeStep}></VerticalStepper>
+        <VerticalStepper data={stepsInfo} currentStep={activeStep} />
       </Box>
     )}
     <Box style={{ width: 928 }}>{children}</Box>
@@ -27,5 +30,6 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, ...prop
 );
 
 TotalLayoutBody.propTypes = TOTAL_LAYOUT_BODY_PROP_TYPES;
+TotalLayoutBody.defaultProps = TOTAL_LAYOUT_BODY_DEFAULT_PROPS;
 
 export default TotalLayoutBody;

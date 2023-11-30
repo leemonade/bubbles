@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { Box } from '@mantine/core';
 import { Stack } from '../Stack';
 import Footer from './TotalLayoutFooter';
-import Body from './TotalLayoutBody';
+import Body from './TotalLayoutBody/TotalLayoutBody';
 import { TotalLayoutStyles } from './TotalLayout.styles';
 import { TOTAL_LAYOUT_DEFAULT_PROPS, TOTAL_LAYOUT_PROP_TYPES } from './TotalLayout.constants';
 
@@ -93,13 +93,14 @@ DONE:
 - Mostrar mensajitos de error cuando la validación de un step falla
 - StepContainer Exportar a leemons -> en lugar de export default como constante y añadir al index
 - TotalLayoutHeader para exportar -> en lugar de export default como constante y añadir al index
-TODO:
 - Hacer pull de develop!!
-- cambiar titles por text para el tamaño
+- cambiar titles por text para el tamaño -> Header
 - Header multifuncional?
+TODO:
+- cambiar titles por text para el tamaño -> BODY, no -> Steps container
 - Zod y Zod resolver libraries para validación. La función que recibe va a recibir el resolver del useform esté definida
 definida en el contexto para que no se haga re-render
-
+- Sombras del Header y Footer
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical
 - Tidy: una carpeta para cada componente con sus constants etc.
 - La forma no debería poder modificarse al ir hacia atrás... ?

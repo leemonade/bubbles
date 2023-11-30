@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { PluginAssignmentsIcon } from '@bubbles-ui/icons/solid';
 
 import { TotalLayoutHeader } from './TotalLayoutHeader';
 import { TOTAL_LAYOUT_HEADER_DEFAULT_PROPS } from './TotalLayoutHeader.constants';
@@ -33,7 +32,7 @@ const Template = (props) => {
       <ContextContainer
         id="container-for-storybook"
         divided
-        style={{ width: '100wh', margin: '-16px' }}
+        style={{ width: '100wh', margin: '-16px', backgroundColor: '#d9d9d9' }}
       >
         <TotalLayoutHeader {...props} />
         <TotalLayoutHeader {...props}>
