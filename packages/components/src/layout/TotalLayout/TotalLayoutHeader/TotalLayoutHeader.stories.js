@@ -32,7 +32,7 @@ const Template = (props) => {
       <ContextContainer
         id="container-for-storybook"
         divided
-        style={{ width: '100wh', margin: '-16px', backgroundColor: '#d9d9d9' }}
+        style={{ height: '100vh', width: '100wh', margin: '-16px', backgroundColor: '#f8f9fb' }}
       >
         <TotalLayoutHeader {...props} />
         <TotalLayoutHeader {...props}>

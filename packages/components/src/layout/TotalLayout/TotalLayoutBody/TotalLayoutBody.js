@@ -27,7 +27,7 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollR
         <VerticalStepper data={stepsInfo} currentStep={activeStep} />
       </Box>
     )}
-    <Box style={{ width: 928 }}>{children}</Box>
+    <Box style={{ maxWidth: 928 }}>{children}</Box>
   </Stack>
 );
 

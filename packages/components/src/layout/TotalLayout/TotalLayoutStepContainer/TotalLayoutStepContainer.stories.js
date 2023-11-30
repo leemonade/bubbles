@@ -5,7 +5,6 @@ import mdx from './TotalLayoutStepContainer.mdx';
 import { ContextContainer } from '../../ContextContainer';
 import { TextInput, Textarea } from '../../../form';
 import { Stack } from '../../Stack';
-import { Box } from '../../Box';
 
 export default {
   title: 'Atoms/Layout/TotalLayout/TotalLayoutStepContainer',

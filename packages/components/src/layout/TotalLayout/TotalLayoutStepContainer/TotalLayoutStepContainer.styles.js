@@ -8,6 +8,11 @@ const TotalLayoutStepContainerStyles = createStyles((theme) => ({
     width: '928px',
   },
   formContainer: { backgroundColor: 'white', padding: '24px' },
+  stepName: {
+    fontSize: '23px',
+    fontWeight: 500,
+    lineHeight: '40px',
+  },
 }));
 
 export { TotalLayoutStepContainerStyles };

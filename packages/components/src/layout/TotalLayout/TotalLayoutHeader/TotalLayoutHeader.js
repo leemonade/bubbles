@@ -8,27 +8,22 @@ import {
   TOTAL_LAYOUT_HEADER_PROP_TYPES,
   TOTAL_LAYOUT_HEADER_DEFAULT_PROPS,
 } from './TotalLayoutHeader.constants';
+import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
 
 const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compact = false }) => {
   const { watch } = useFormContext();
   const formValues = watch();
-
-  // Set styles
-  const containerStyle = {
-    padding: `${!children ? '16px' : '12px'} 24px`,
-    minHeight: !children ? '72px' : '120px',
-    maxHeight: !children ? '72px' : '120px',
-    backgroundColor: 'white',
-  };
-
-  const formTitleTextStyle = {
-    fontSize: '18px',
-  };
-  if (!compact) formTitleTextStyle.marginLeft = '40px';
+  const { classes } = TotalLayoutHeaderStyles({ compact, children });
 
   return (
-    <Stack id="total-layout-header" fullWidth fullHeight style={containerStyle} direction="column">
-      <Stack fullWidth justifyContent="space-between" style={{ height: '40px', maxHeight: '40px' }}>
+    <Stack
+      id="total-layout-header"
+      fullWidth
+      fullHeight
+      className={classes.headerContainer}
+      direction="column"
+    >
+      <Stack fullWidth justifyContent="space-between" className={classes.header}>
         {/* ICON & LABELS */}
         <Stack alignItems="center">
           <Stack
@@ -38,25 +33,19 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
             direction={compact ? 'row' : 'column'}
           >
             <Stack alignItems="center">
-              <Box
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.4rem',
-                  width: '32px',
-                  height: '32px',
-                  textAlign: 'center',
-                  marginRight: '8px',
-                }}
+              <Box className={classes.iconContainer}>{icon}</Box>
+              <Text
+                as="h3"
+                className={classes.headerTitle}
+                color="primary"
+                strong
+                transform="uppercase"
               >
-                {icon}
-              </Box>
-              <Text as="h2" style={{ fontSize: '18px' }} color="primary" strong>
                 {compact ? `${title}:` : title}
               </Text>
             </Stack>
-            <Text as="h2" style={formTitleTextStyle} color="primary">
+
+            <Text as="h3" className={classes.headerSubtitle} color="primary">
               {formValues.title || formTitlePlaceholder}
             </Text>
           </Stack>

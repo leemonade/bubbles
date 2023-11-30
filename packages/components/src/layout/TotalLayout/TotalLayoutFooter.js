@@ -16,11 +16,13 @@ const TotalLayoutFooter = ({
   onFinishActions,
   showFooterShadow,
 }) => {
-  const { classes } = TotalLayoutFooterStyles({ showFooterShadow }, { name: 'TotalLayoutFooter' });
+  const { classes } = TotalLayoutFooterStyles(
+    { showFooterShadow, leftOffset },
+    { name: 'TotalLayoutFooter' },
+  );
 
   return (
     <Stack justifyContent="center" fullWidth>
-      {leftOffset > 0 && <div style={{ minWidth: `${leftOffset}px` }}></div>}
       <Box className={classes.footer}>
         <Stack fullWidth style={{ height: 72, padding: '16px 24px' }}>
           {activeStep > 0 && (

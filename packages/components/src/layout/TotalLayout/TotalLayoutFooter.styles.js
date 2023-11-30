@@ -1,11 +1,13 @@
 import { createStyles } from '@mantine/styles';
 
-const TotalLayoutFooterStyles = createStyles((theme, { showFooterShadow }) => ({
+const TotalLayoutFooterStyles = createStyles((theme, { showFooterShadow, leftOffset }) => ({
   root: {},
   footer: {
-    width: 928,
+    maxWidth: 928,
+    width: '100%',
+    marginLeft: leftOffset,
     backgroundColor: 'white',
-    boxShadow: showFooterShadow && '0 -8px 24px rgba(149, 157, 165, 0.2)',
+    borderTop: showFooterShadow && `1px solid ${theme.other.divider.background.color.default}`,
     zIndex: 1,
   },
 }));

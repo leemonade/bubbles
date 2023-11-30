@@ -1,0 +1,32 @@
+import { createStyles } from '@mantine/styles';
+
+const TotalLayoutHeaderStyles = createStyles((theme, { children, compact }) => ({
+  root: {},
+  headerContainer: {
+    padding: `${!children ? '16px' : '12px'} 24px`,
+    minHeight: !children ? '72px' : '120px',
+    maxHeight: !children ? '72px' : '120px',
+    backgroundColor: 'white',
+  },
+  header: { height: '40px', maxHeight: '40px' },
+  headerTools: { maxHeight: '40px', minHeight: '40px', marginTop: '12px' },
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.4rem',
+    width: '32px',
+    height: '32px',
+    textAlign: 'center',
+    marginRight: '8px',
+  },
+  headerTitle: { fontSize: '18px', fontWeight: 600, lineHeight: '24px' },
+  headerSubtitle: {
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: '24px',
+    marginLeft: !compact && '40px',
+  },
+}));
+
+export { TotalLayoutHeaderStyles };

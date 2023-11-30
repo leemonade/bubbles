@@ -23,7 +23,7 @@ const TotalLayout = ({
   activeStep = 0,
   setActiveStep = () => {},
 }) => {
-  const { trigger } = useFormContext();
+  const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
   const [showFooterShadow, setShowFooterShadow] = React.useState(false);
 
@@ -31,6 +31,8 @@ const TotalLayout = ({
   const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
   const bodyRef = React.useRef();
   const { classes } = TotalLayoutStyles({ topScroll }, { name: 'TotalLayout' });
+
+  // Define scroll and window resizing behavior
   const handleScroll = () => {
     const div = bodyRef.current;
     if (div) {
@@ -64,7 +66,7 @@ const TotalLayout = ({
     console.log('💣💥 RENDER!!!');
   });
 
-  // Sets and validate active step
+  // Set and validate active step
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
     window.scrollTo(0, 0, { behavior: 'smooth' });
@@ -74,14 +76,13 @@ const TotalLayout = ({
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
   const validateAndAct = async (action, ...actionArgs) => {
-    // const isValidStep = await trigger(stepsInfo[activeStep].fields);
-    const isValidStep = await trigger();
+    const isValidStep = await form.trigger();
     if (isValidStep) {
       await action(...actionArgs);
     }
   };
 
-  // Defines final actions
+  // Define final actions
   const finishActions = [
     { label: 'Publicar', onClick: () => validateAndAct(onPublish, false) },
     { label: 'Publicar y Assignar', onClick: () => validateAndAct(onPublish, false) },
@@ -91,11 +92,9 @@ const TotalLayout = ({
   return (
     <Box id="TotalLayout" style={{ height: '100vh' }}>
       <Stack fullWidth fullHeight direction="column">
-        {/* Header */}
         <Box className={classes.header} noFlex>
           <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
         </Box>
-        {/* Body */}
         <Box style={{ overflow: 'hidden' }}>
           <Body
             showStepper={showStepper}
@@ -106,7 +105,6 @@ const TotalLayout = ({
             {Steps[activeStep]}
           </Body>
         </Box>
-        {/* Footer */}
         <Box className={classes.footerContainer} noFlex>
           <Footer
             showFooterShadow={showFooterShadow}
@@ -130,27 +128,10 @@ TotalLayout.propTypes = TOTAL_LAYOUT_PROP_TYPES;
 export { TotalLayout, useTotalLayout };
 
 /*
-DONE:
-- Añadir un formulario (master form) en los steps, de tal forma que el
-- Validación por fases. Con el fin de no poder dar click on next si no se completa el step.
-- Mostrar mensajitos de error cuando la validación de un step falla
-- StepContainer Exportar a leemons -> en lugar de export default como constante y añadir al index
-- TotalLayoutHeader para exportar -> en lugar de export default como constante y añadir al index
-- Hacer pull de develop!!
-- cambiar titles por text para el tamaño -> Header
-- Header multifuncional?
-- Zod y Zod resolver libraries para validación.
-- Sombras del Header y Footer
 TODO:
 - arreglar footer en pequeñito
-- aplicar efectito a las sombras del header y footer
-- cambiar titles por text para el tamaño -> BODY, no -> Steps container
-- Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical
-- Tidy: una carpeta para cada componente con sus constants etc.
-- La forma no debería poder modificarse al ir hacia atrás... ?
+- aplicar efecto a las sombras del header
+- Vertical Stepper! Crear un TotalLayoutStepper a partir del VerticalStepper
+- Tidy: una carpeta para cada componente con sus constantes y estilos, etc.
 - Al final: P r o p s   d e    t o d o
-
-? TO ASK:
-- Al estar usar el context container para los títulos, no tenemos control sobre su tamaño. Hay cosillas
-  que no encajan con el figma en cuanto a la jerarquía de los títulos.
 */

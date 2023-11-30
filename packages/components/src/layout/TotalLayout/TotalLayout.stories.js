@@ -31,7 +31,7 @@ export default {
   },
 };
 
-// * Los steps deben usar useFormContext() hook o recibir la forma con props
+// Every step must use the useFormContext() hook in order to access the form state, (to show errors, i.e), and methods
 const BasicDataForm = () => {
   const {
     watch,
@@ -102,7 +102,6 @@ const BasicDataForm = () => {
     </StepContainer>
   );
 };
-
 const ContentsForm = () => {
   const {
     formState: { errors },
@@ -149,21 +148,18 @@ const ContentsForm = () => {
   );
 };
 
-//* La página es la responsable de crear el FormProvider y envolver al total layout
+// The page must take care of wrapping the TotalLayout within a FormProvider
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
 
-  // Prepare StepsIno & Form
+  // Prepare StepsInfo & Form
   const stepsInfo = [
     {
       label: 'Basic Data',
       badge: null,
       status: null,
-      fields: ['title', 'description', 'program', 'tags', 'color'], // All step fields
       validationSchema: z.object({
-        title: z
-          .string({ required_error: 'Title is required' })
-          .min(1, { message: 'NOOOOOO!!! ASÍ NO' }),
+        title: z.string({ required_error: 'Title is required' }).min(1),
         description: z.string().optional(),
         program: z.string().optional(),
         tags: z.string().optional(),
@@ -175,9 +171,8 @@ const Template = () => {
       label: 'Content',
       badge: null,
       status: null,
-      fields: ['instructions', 'deliverables'],
       validationSchema: z.object({
-        instructions: z.string().min(1, { message: 'NEHHHH!!! ASÍ NO' }),
+        instructions: z.string({ required_error: 'Instructions are required' }).min(1),
         deliverables: z.boolean().optional(),
       }),
       stepComponent: null, // ? El elemento aquí. Too much?
