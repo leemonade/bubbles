@@ -24,20 +24,50 @@ const TotalLayout = ({
   setActiveStep = () => {},
 }) => {
   const { trigger } = useFormContext();
-  const { classes } = TotalLayoutStyles({}, { name: 'TotalLayout' });
+  const [topScroll, setTopScroll] = React.useState(false);
+  const [showFooterBorder, setShowFooterBorder] = React.useState(false);
+
   const totalSteps = Steps.length;
   const footerLeftOffset = showStepper ? 192 + 16 : 16; // Stepper plus margin (16) : margin
+  const bodyRef = React.useRef();
 
+  // Sets scroll behaviour
+  const handleScroll = () => {
+    const div = bodyRef.current;
+    if (div) {
+      const { scrollTop, scrollHeight, clientHeight } = div;
+      if (scrollTop > 5 && !topScroll) setTopScroll(true);
+      else if (scrollTop === 0 && topScroll) setTopScroll(false);
+
+      // hayScroll ? footerConBorde : footerSinBorde
+      const atTheBottom = scrollHeight - scrollTop === clientHeight;
+      const isScrollable = scrollHeight > clientHeight;
+      if (isScrollable && !atTheBottom && !showFooterBorder) setShowFooterBorder(true);
+      else if (!isScrollable || atTheBottom || showFooterBorder) setShowFooterBorder(false);
+    }
+  };
+  React.useEffect(() => {
+    const body = bodyRef.current;
+    if (body) {
+      body.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+      return () => {
+        body.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }
+    return () => {};
+  }, [bodyRef.current, handleScroll]);
+
+  // Sets and validate active step
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
-
   const handlePrev = () => {
     setActiveStep(activeStep - 1);
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
-
   const validateAndAct = async (action, ...actionArgs) => {
     // const isValidStep = await trigger(stepsInfo[activeStep].fields);
     const isValidStep = await trigger();
@@ -46,27 +76,35 @@ const TotalLayout = ({
     }
   };
 
+  // Defines final actions
   const finishActions = [
     { label: 'Publicar', onClick: () => validateAndAct(onPublish, false) },
     { label: 'Publicar y Assignar', onClick: () => validateAndAct(onPublish, false) },
     { label: 'Vista previa', onClick: () => validateAndAct(onPreview) },
   ];
 
+  const { classes } = TotalLayoutStyles({ topScroll, showFooterBorder }, { name: 'TotalLayout' });
+
   return (
     <Box id="TotalLayout" style={{ height: '100vh' }}>
       <Stack fullWidth fullHeight direction="column">
         {/* Header */}
-        <Box noFlex>
+        <Box className={classes.header} noFlex>
           <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
         </Box>
         {/* Body */}
         <Box style={{ overflow: 'hidden' }}>
-          <Body showStepper={showStepper} stepsInfo={stepsInfo} activeStep={activeStep}>
+          <Body
+            showStepper={showStepper}
+            stepsInfo={stepsInfo}
+            activeStep={activeStep}
+            scrollRef={bodyRef}
+          >
             {Steps[activeStep]}
           </Body>
         </Box>
         {/* Footer */}
-        <Box style={{ backgroundColor: '#f8f9fb' }} noFlex>
+        <Box className={classes.footer} noFlex>
           <Footer
             leftOffset={footerLeftOffset}
             totalSteps={totalSteps}
@@ -99,6 +137,7 @@ DONE:
 - Header multifuncional?
 TODO:
 - Zod y Zod resolver libraries para validación.
+- arreglar footer en pequeñito
 - cambiar titles por text para el tamaño -> BODY, no -> Steps container
 - Sombras del Header y Footer
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical

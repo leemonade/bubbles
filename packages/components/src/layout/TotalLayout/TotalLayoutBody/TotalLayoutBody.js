@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stack } from '../../Stack';
 import { Box } from '../../Box';
 import {
@@ -6,8 +7,9 @@ import {
 } from './TotalLayoutBody.constants';
 import { VerticalStepper } from '../../../navigation';
 
-const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep }) => (
+const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollRef }) => (
   <Stack
+    ref={scrollRef}
     justifyContent="center"
     fullWidth
     fullHeight
