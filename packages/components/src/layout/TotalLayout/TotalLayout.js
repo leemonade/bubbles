@@ -60,6 +60,10 @@ const TotalLayout = ({
     return () => {};
   }, [bodyRef.current, handleScroll]);
 
+  React.useEffect(() => {
+    console.log('💣💥 RENDER!!!');
+  });
+
   // Sets and validate active step
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
@@ -139,6 +143,7 @@ DONE:
 - Sombras del Header y Footer
 TODO:
 - arreglar footer en pequeñito
+- aplicar efectito a las sombras del header y footer
 - cambiar titles por text para el tamaño -> BODY, no -> Steps container
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del vertical
 - Tidy: una carpeta para cada componente con sus constants etc.

@@ -49,5 +49,4 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...TOTAL_LAYOUT_HEADER_DEFAULT_PROPS,
-  padding: 3,
 };

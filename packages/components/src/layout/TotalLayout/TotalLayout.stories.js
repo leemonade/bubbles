@@ -38,8 +38,6 @@ const BasicDataForm = () => {
     formState: { errors },
   } = useFormContext();
   const formValues = watch();
-  // que cada step añada su validation scheema
-  // que cada step valide su parte de la forma seleccionando su validation scheema
 
   return (
     <StepContainer stepName={'Basic Data'}>
@@ -66,7 +64,6 @@ const BasicDataForm = () => {
           <ContextContainer title="Programas y Asignaturas" spacing={4}>
             <Controller
               name="program"
-              // control={form.control} NOT NEEDED when using FormProvider
               render={({ field }) => (
                 <InputWrapper label={'Programa'}>
                   <DropdownButton
