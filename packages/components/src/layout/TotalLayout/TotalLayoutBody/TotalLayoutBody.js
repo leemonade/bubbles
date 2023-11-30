@@ -18,7 +18,7 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollR
     {showStepper && (
       <Box
         style={{
-          width: 192,
+          minWidth: 192,
           position: 'sticky',
           top: 0,
           marginRight: 16,
