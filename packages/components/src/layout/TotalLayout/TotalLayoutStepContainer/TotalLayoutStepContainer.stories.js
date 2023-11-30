@@ -56,19 +56,13 @@ const MockStep = () => {
   );
 };
 
-const Template = (props) => {
-  const totalLayoutBodyStylesReplica = {
-    height: '100vh',
-    width: '928px',
-  };
-  return (
-    <Box style={{ ...totalLayoutBodyStylesReplica, margin: '-16px' }}>
-      <TotalLayoutStepContainer {...props}>
-        <MockStep />
-      </TotalLayoutStepContainer>
-    </Box>
-  );
-};
+const Template = (props) => (
+  <Stack fullWidth fulHeight style={{ margin: '-16px', background: '#f8f9fb' }}>
+    <TotalLayoutStepContainer {...props}>
+      <MockStep />
+    </TotalLayoutStepContainer>
+  </Stack>
+);
 
 export const Playground = Template.bind({});
 

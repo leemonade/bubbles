@@ -28,7 +28,7 @@ const TotalLayout = ({
   const [showFooterShadow, setShowFooterShadow] = React.useState(false);
 
   const totalSteps = Steps.length;
-  const footerLeftOffset = showStepper ? 192 + 16 : 16; // Stepper plus margin (16) : margin
+  const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
   const bodyRef = React.useRef();
   const { classes } = TotalLayoutStyles({ topScroll }, { name: 'TotalLayout' });
   const handleScroll = () => {

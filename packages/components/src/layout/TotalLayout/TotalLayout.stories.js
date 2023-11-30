@@ -153,9 +153,7 @@ const ContentsForm = () => {
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
 
-  // * Prepare Validation Objects
-
-  // * Prepare Steps
+  // Prepare StepsIno & Form
   const stepsInfo = [
     {
       label: 'Basic Data',
@@ -191,13 +189,12 @@ const Template = () => {
   });
   const formValues = formMethods.watch();
 
-  // * Prepare Steps
   const Steps = React.useMemo(
     () => [<BasicDataForm key={'basicDataForm'} />, <ContentsForm key={'contenidosForm'} />],
     [formMethods],
   );
 
-  // * Prepare Header
+  // Prepare Header
   const buildHeader = () => (
     <TotalLayoutHeader
       title={'Nueva Tarea'}
@@ -206,7 +203,7 @@ const Template = () => {
     />
   );
 
-  // * TotalLayout validates the form on every step and for every action
+  // Prepare Actions. TotalLayout validates the form on every step and for every action
   const handleOnSave = async () => {
     console.log('Form values to SAVE as draft', formValues);
   };

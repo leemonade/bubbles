@@ -4,5 +4,5 @@ export const TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES = {
   stepName: PropTypes.string,
 };
 export const TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS = {
-  stepName: 'Step name goes here',
+  stepName: '',
 };
