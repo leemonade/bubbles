@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SortableListStyles } from './SortableList.styles';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useId } from '@mantine/hooks';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { SortableListStyles } from './SortableList.styles';
 import { DroppableDefault } from './components/DroppableDefault';
 import { DraggableDefault } from './components/DraggableDefault';
 
@@ -24,8 +24,6 @@ export const SORTABLE_LIST_PROP_TYPES = {
   value: PropTypes.arrayOf(PropTypes.any),
   onChange: PropTypes.func,
   onRemove: PropTypes.func,
-  container: PropTypes.node,
-  item: PropTypes.node,
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
   onBeforeDragStart: PropTypes.func,
@@ -33,6 +31,8 @@ export const SORTABLE_LIST_PROP_TYPES = {
   useRefs: PropTypes.func,
   useAria: PropTypes.bool,
   removeLabel: PropTypes.string,
+  containerRender: PropTypes.func,
+  itemRender: PropTypes.func,
 };
 
 const SortableList = ({
@@ -45,11 +45,10 @@ const SortableList = ({
   dragDisabled,
   containerRender: Container,
   itemRender: Item,
-  useRefs,
   useAria,
   removeLabel,
 }) => {
-  const { classes, cx } = SortableListStyles({});
+  const { classes } = SortableListStyles({});
 
   const uuid = useId();
 
@@ -80,44 +79,37 @@ const SortableList = ({
       onDragEnd={_onDragEnd}
     >
       <Droppable droppableId={uuid}>
-        {(provided, snapshot) => {
-          return (
-            <Container provided={provided} snapshot={snapshot} useAria={useAria}>
-              {value.map((item, index) => {
-                return (
-                  <Draggable
-                    isDragDisabled={dragDisabled}
-                    key={index}
-                    draggableId={index.toString()}
+        {(provided, snapshot) => (
+          <Container provided={provided} snapshot={snapshot} useAria={useAria}>
+            {value.map((item, index) => (
+              <Draggable
+                isDragDisabled={dragDisabled}
+                key={index}
+                draggableId={index.toString()}
+                index={index}
+              >
+                {(_provided, _snapshot) => (
+                  <Item
+                    provided={_provided}
+                    snapshot={_snapshot}
+                    item={item}
                     index={index}
-                  >
-                    {(provided, snapshot) => {
-                      return (
-                        <Item
-                          provided={provided}
-                          snapshot={snapshot}
-                          item={item}
-                          index={index}
-                          removeItem={() => removeItem(index)}
-                          classes={classes}
-                          removeLabel={removeLabel}
-                        />
-                      );
-                    }}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
-            </Container>
-          );
-        }}
+                    removeItem={() => removeItem(index)}
+                    classes={classes}
+                    removeLabel={removeLabel}
+                  />
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </Container>
+        )}
       </Droppable>
     </DragDropContext>
   );
 };
 
 SortableList.defaultProps = SORTABLE_LIST_DEFAULT_PROPS;
-
 SortableList.propTypes = SORTABLE_LIST_PROP_TYPES;
 
 export { SortableList };

@@ -80,9 +80,10 @@ const TagifyInput = forwardRef(
       mixed,
       error,
       size,
+      ariaLabel,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
     const { classes, cx } = TagifyInputStyles({ size, error }, { name: 'TagifyInput' });
@@ -117,7 +118,6 @@ const TagifyInput = forwardRef(
           onDropdownUpdated={onDropdownUpdated}
           readOnly={readOnly}
           disabled={disabled}
-          children={children}
           settings={settings}
           InputMode={InputMode}
           autoFocus={autoFocus}
@@ -128,15 +128,17 @@ const TagifyInput = forwardRef(
           showDropdown={showDropdown}
           withSuggestions={withSuggestions}
           amountOfDuplicates={amountOfDuplicates}
-          ariaLabel={props.label || ariaLabel}
-        />
+          ariaLabel={props.label ?? ariaLabel}
+        >
+          {children}
+        </MixedTags>
       </InputWrapper>
     );
-  }
+  },
 );
 
+TagifyInput.displayName = 'TagifyInput';
 TagifyInput.defaultProps = TAGIFY_DEFAULT_PROPS;
-
 TagifyInput.propTypes = {
   ...INPUT_WRAPPER_PROP_TYPES,
   name: PropTypes.string,

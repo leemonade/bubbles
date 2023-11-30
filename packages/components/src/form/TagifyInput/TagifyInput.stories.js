@@ -20,9 +20,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <TagifyInput {...props} />;
-};
+const Template = ({ ...props }) => <TagifyInput {...props} />;
 
 export const Playground = Template.bind({});
 
@@ -32,7 +30,8 @@ Playground.args = {
   description: 'Include some tags in your text',
   error: '',
   help: 'To add a tag, type @ and a character to show the tag list',
-  value: '',
+  value:
+    'hola [[{"id":100,"value":"Subject:Numering","title":"Subject:Numering","prefix":"@"}]] ahh pues flipa [[{"id":105,"value":"Stage:Code","title":"Stage:Code","prefix":"@"}]]',
   settings: {
     mode: 'mix',
     pattern: /@/, // <- must define "patten" in mixed mode

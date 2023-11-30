@@ -1,7 +1,7 @@
 import { CheckIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { Text, TextClamp } from '../../typography';
 import {
   HORIZONTAL_STEPPER_DEFAULT_PROPS,
@@ -16,10 +16,11 @@ const HorizontalStepper = ({
   allowVisitedStepClick,
   visitedSteps: visitedStepsProp,
   data,
-  ...props
 }) => {
   const [currentStep, setCurrentStep] = useState(_currentStep);
-  const [visitedSteps, setVisitedSteps] = useState(Object.fromEntries([currentStep, ...(visitedStepsProp ?? [])]?.map(key => [key, true])));
+  const [visitedSteps, setVisitedSteps] = useState(
+    Object.fromEntries([currentStep, ...(visitedStepsProp ?? [])]?.map((key) => [key, true])),
+  );
 
   const onStepClickHandler = (stepIndex) => {
     const stepIsAlreadyVisited = !!visitedSteps[stepIndex];
@@ -27,17 +28,19 @@ const HorizontalStepper = ({
     if (!(allowStepClick || (allowVisitedStepClick && stepIsAlreadyVisited))) return;
 
     setCurrentStep(stepIndex);
-    setVisitedSteps(steps => ({ ...steps, [stepIndex]: true }));
-    isFunction(onStepClick) && onStepClick(stepIndex);
+    setVisitedSteps((steps) => ({ ...steps, [stepIndex]: true }));
+    if (isFunction(onStepClick)) onStepClick(stepIndex);
   };
 
-  const renderSteps = () => {
-    const steps = data.map(({ label, status }, index) => {
+  const { classes, cx } = HorizontalStepperStyles({}, { name: 'HorizontalStepper' });
+
+  const renderSteps = () =>
+    data.map(({ label, status }, index) => {
       const isStart = index === 0;
       const isEnd = index === data.length - 1;
       const isCurrent = index === currentStep;
       const isPrev = index < currentStep;
-      const isClickable = (allowStepClick || (allowVisitedStepClick && !!visitedSteps[index]));
+      const isClickable = allowStepClick || (allowVisitedStepClick && !!visitedSteps[index]);
 
       return (
         <Box
@@ -49,7 +52,7 @@ const HorizontalStepper = ({
             className={cx(
               classes.stepDot,
               { [classes.currentDot]: isCurrent },
-              { [classes.prevDot]: isPrev }
+              { [classes.prevDot]: isPrev },
             )}
           ></Box>
           <CheckIcon
@@ -64,27 +67,14 @@ const HorizontalStepper = ({
         </Box>
       );
     });
-    return steps;
-  };
 
   useEffect(() => {
     if (currentStep === _currentStep) return;
     setCurrentStep(_currentStep);
-    setVisitedSteps(steps => ({ ...steps, [_currentStep]: true }));
-
+    setVisitedSteps((steps) => ({ ...steps, [_currentStep]: true }));
   }, [_currentStep]);
 
-  const { classes, cx } = HorizontalStepperStyles(
-    {},
-    { name: 'HorizontalStepper' }
-  );
-  return (
-    <Box
-      className={classes.root}
-    >
-      {renderSteps()}
-    </Box>
-  );
+  return <Box className={classes.root}>{renderSteps()}</Box>;
 };
 
 HorizontalStepper.defaultProps = HORIZONTAL_STEPPER_DEFAULT_PROPS;

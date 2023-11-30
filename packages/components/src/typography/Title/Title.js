@@ -28,13 +28,16 @@ const Title = forwardRef(({ className, order, color, transform, highlighted, ...
   );
 });
 
+Title.displayName = 'Title';
 Title.defaultProps = TITLE_DEFAULT_PROPS;
-
 Title.propTypes = {
   order: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
   transform: PropTypes.oneOf(TITLE_TRANSFORMS),
   color: PropTypes.oneOf(TITLE_COLORS),
   highlighted: PropTypes.bool,
+  styles: PropTypes.object,
+  className: PropTypes.string,
+  classNames: PropTypes.any,
 };
 
 export { Title };

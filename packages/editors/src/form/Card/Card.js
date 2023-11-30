@@ -97,7 +97,6 @@ const Card = ({
 };
 
 Card.defaultProps = CARD_DEFAULT_PROPS;
-
 Card.propTypes = CARD_PROP_TYPES;
 
 export { Card };

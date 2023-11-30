@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { isString, trim } from 'lodash';
 import { Drawer as MantineDrawer } from '@mantine/core';
 import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { ActionButton } from '../../form';
-import { Box, Stack } from '../../layout';
+import { ActionButton } from '../../form/ActionButton';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
 import { DrawerStyles } from './Drawer.styles';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
@@ -43,6 +44,9 @@ export const DRAWER_PROP_TYPES = {
   empty: PropTypes.bool,
   shadow: PropTypes.bool,
   modalAriaLabel: PropTypes.string,
+  contentPadding: PropTypes.string,
+  children: PropTypes.node,
+  header: PropTypes.node,
 };
 
 const Drawer = ({
@@ -58,7 +62,7 @@ const Drawer = ({
   contentPadding,
   ...props
 }) => {
-  const { classes, cx } = DrawerStyles({ empty, shadow, contentPadding }, { name: 'Drawer' });
+  const { classes } = DrawerStyles({ empty, shadow, contentPadding }, { name: 'Drawer' });
 
   const justifyContent =
     (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
@@ -84,7 +88,7 @@ const Drawer = ({
               />
             ) : null}
 
-            {header ? header : null}
+            {header || null}
 
             {close ? (
               <ActionButton

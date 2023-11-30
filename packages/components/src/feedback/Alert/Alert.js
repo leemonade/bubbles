@@ -10,7 +10,8 @@ import {
 } from '@bubbles-ui/icons/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { AlertStyles } from './Alert.styles';
-import { Button, ActionButton } from '../../form';
+import { Button } from '../../form/Button';
+import { ActionButton } from '../../form/ActionButton';
 
 export const ALERT_SEVERITIES = ['info', 'success', 'warning', 'error'];
 export const ALERT_VARIANTS = ['inline', 'block'];
@@ -38,9 +39,9 @@ const Alert = ({
   severity = ALERT_SEVERITIES.includes(severity) ? severity : 'info';
   const isCloseable = useMemo(
     () => closeable && !isNil(closeable) && closeable !== '',
-    [closeable]
+    [closeable],
   );
-  const { classes, cx } = AlertStyles({ variant, severity }, { name: 'Alert' });
+  const { classes } = AlertStyles({ variant, severity }, { name: 'Alert' });
 
   return (
     <MantineAlert
@@ -75,6 +76,7 @@ const Alert = ({
   );
 };
 
+Alert.displayName = 'Alert';
 Alert.defaultProps = {
   variant: 'inline',
   severity: 'info',
@@ -99,6 +101,7 @@ Alert.propTypes = {
   onClose: PropTypes.func,
   /** Controls if Alert uses aria role */
   useAria: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export { Alert };

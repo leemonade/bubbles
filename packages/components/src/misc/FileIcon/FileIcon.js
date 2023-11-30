@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  // AssetBookmarkIcon,
-  AssetPathIcon,
-  // AssetTaskIcon,
-  // MeetingCameraIcon,
-  PluginCurriculumIcon,
-  // VolumeControlMediumIcon,
-} from '@bubbles-ui/icons/solid/';
+import { AssetPathIcon, PluginCurriculumIcon } from '@bubbles-ui/icons/solid/';
 import { FileIconStyles } from './FileIcon.styles';
 import { Box } from '../../layout/Box';
 import { Text } from '../../typography/Text';
@@ -41,12 +34,13 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} color={color} /> },
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
-    // { key: 'tests', value: <PluginTestIcon height={size} width={size} /> },
-    // { key: 'questionBank', value: <PluginTestIcon height={size} width={size} /> },
-    // { key: 'feedback', value: <PluginFeedbackIcon height={size} width={size} /> },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
+  let filename = label || '';
+  if (fileExtension) {
+    filename += `.${fileExtension}`;
+  }
 
   return (
     <Box className={classes.root}>
@@ -58,7 +52,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
       ) : (
         <FileItemDisplay
           {...props}
-          filename={`${label || ''}${fileExtension ? `.${fileExtension}` : ''}`}
+          filename={filename}
           size={18}
           showFileName={!!label}
           color={color}

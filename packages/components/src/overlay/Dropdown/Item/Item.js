@@ -1,17 +1,17 @@
 import React, { forwardRef } from 'react';
-import { ItemStyles } from './Item.styles';
-import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
-import { Box } from '../../../layout';
-import { Text } from '../../../typography';
-import { Avatar } from '../../../informative';
 import { CheckIcon } from '@bubbles-ui/icons/solid';
 import { isString } from 'lodash';
+import { Box } from '../../../layout/Box';
+import { Text } from '../../../typography';
+import { Avatar } from '../../../informative/Avatar';
 import { ImageLoader } from '../../../misc';
+import { ItemStyles } from './Item.styles';
+import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
 
 const Item = forwardRef(
   (
     { icon, image, label, group, value, className, 'data-selected': dataSelected, ...props },
-    ref
+    ref,
   ) => {
     const { classes } = ItemStyles({ group }, { name: 'Item' });
     return (
@@ -26,9 +26,10 @@ const Item = forwardRef(
         {dataSelected && <CheckIcon className={classes.check} />}
       </Box>
     );
-  }
+  },
 );
 
+Item.displayName = 'DropdownItem';
 Item.defaultProps = ITEM_DEFAULT_PROPS;
 Item.propTypes = ITEM_PROP_TYPES;
 

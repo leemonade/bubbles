@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import update from 'immutability-helper';
-import { isEmpty, isFunction } from 'lodash';
+import { map, forEach, isEmpty, isFunction } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { Box } from '../../layout/Box';
@@ -77,7 +77,7 @@ const TableInput = ({
 
   const parseItem = (item) => {
     const result = {};
-    _.forEach(props.columns, ({ accessor }) => {
+    forEach(props.columns, ({ accessor }) => {
       result[accessor] = item[accessor];
     });
     return result;
@@ -85,9 +85,7 @@ const TableInput = ({
 
   const handleOnAdd = async (item) => {
     if (unique) {
-      const values = _.map(tableData, (d) => {
-        return JSON.stringify(parseItem(d));
-      });
+      const values = map(tableData, (d) => JSON.stringify(parseItem(d)));
       if (values.includes(JSON.stringify(parseItem(item)))) {
         return;
       }

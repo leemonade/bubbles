@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box } from '../../layout';
-import { Text } from '../../typography';
 import { isFunction } from 'lodash';
 import { useElementSize } from '@mantine/hooks';
-import { ScoreInputStyles } from './ScoreInput.styles';
 import { ChevLeftIcon, ChevRightIcon } from '@bubbles-ui/icons/outline';
-import { InputWrapper, TextInput, NumberInput, Select } from '../';
+import { Box } from '../../layout';
+import { Text } from '../../typography';
+import { ScoreInputStyles } from './ScoreInput.styles';
+import { InputWrapper } from '../InputWrapper';
+import { TextInput } from '../TextInput';
+import { NumberInput } from '../NumberInput';
+import { Select } from '../Select';
 import { SCORE_INPUT_DEFAULT_PROPS, SCORE_INPUT_PROP_TYPES } from './ScoreInput.constants';
 
 const ScoreInput = ({
@@ -36,20 +39,25 @@ const ScoreInput = ({
   const maxGrades = Math.floor((inputWidth + 2) / 40);
   const hiddenGrades = useMemo(
     () => grades.length - (maxGrades - 1) - displacedGrades,
-    [maxGrades, displacedGrades]
+    [maxGrades, displacedGrades],
   );
   const isOverflowing = grades.length > maxGrades - 1;
   const selectedGradeIndex = grades.findIndex(({ score }) =>
-    showLetters ? score === grade.score : score === Math.round(grade.score)
+    showLetters ? score === grade.score : score === Math.round(grade.score),
   );
 
   if (!acceptCustom && value?.score && !grades.find(({ score }) => score === value?.score)) {
     acceptCustom = value?.letter ? 'text' : 'number';
   }
 
-  const onChangeHandler = (grade) => {
-    setGrade(grade);
-    isFunction(onChange) && onChange(grade);
+  const { classes, cx } = ScoreInputStyles(
+    { error, gradeWidth, selectedGradeIndex, displacedGrades, gradesLength: grades.length },
+    { name: 'ScoreInput' },
+  );
+
+  const onChangeHandler = (newGrade) => {
+    setGrade(newGrade);
+    if (isFunction(onChange)) onChange(newGrade);
   };
 
   const renderCustomInput = () => {
@@ -58,11 +66,11 @@ const ScoreInput = ({
         <TextInput
           contentClassName={classes.heightStyles}
           value={grade?.letter}
-          onChange={(value) =>
+          onChange={(newValue) =>
             onChangeHandler({
-              score: grades.find(({ letter }) => letter?.toLowerCase() === value.toLowerCase())
+              score: grades.find(({ letter }) => letter?.toLowerCase() === newValue.toLowerCase())
                 ?.score,
-              letter: value.toUpperCase(),
+              letter: newValue.toUpperCase(),
             })
           }
           ariaLabel={customLabel}
@@ -77,16 +85,17 @@ const ScoreInput = ({
           value={grade?.score}
           precision={decimalPrecision}
           decimalSeparator={decimalSeparator === 'dot' ? '.' : ','}
-          onChange={(value) =>
+          onChange={(newValue) =>
             onChangeHandler({
-              score: value,
-              letter: grades.find(({ score }) => score === value)?.letter || selectValue,
+              score: newValue,
+              letter: grades.find(({ score }) => score === newValue)?.letter || selectValue,
             })
           }
           ariaLabel={customLabel}
         />
       );
     }
+    return null;
   };
 
   const handleInputResize = () => {
@@ -102,12 +111,8 @@ const ScoreInput = ({
       if (parentWidth >= widthWithSpace) {
         if (inputMaxWidth !== widthWithSpace) setInputMaxWidth(widthWithSpace);
         if (hiddenGrades <= 0) setDisplacedGrades(displacedGrades + hiddenGrades - 1);
-      } else {
-        if (inputMaxWidth !== widthWithoutSpace) setInputMaxWidth(widthWithoutSpace);
-      }
-    } else {
-      if (inputMaxWidth !== 10000) setInputMaxWidth(10000);
-    }
+      } else if (inputMaxWidth !== widthWithoutSpace) setInputMaxWidth(widthWithoutSpace);
+    } else if (inputMaxWidth !== 10000) setInputMaxWidth(10000);
   };
 
   const handleDisplaceToLeftGrades = () => {
@@ -122,7 +127,7 @@ const ScoreInput = ({
     if (displacedGrades < maxGrades) {
       setDisplacedGrades(0);
     } else {
-      setDisplacedGrades((displacedGrades) => displacedGrades - maxGrades + 2);
+      setDisplacedGrades((newGrades) => newGrades - maxGrades + 2);
     }
   };
 
@@ -130,8 +135,9 @@ const ScoreInput = ({
     const isLeftToRight = direction === 'ltr';
 
     const sortedGrades = grades.sort((a, b) =>
-      !isLeftToRight ? b?.score - a?.score : a?.score - b?.score
+      !isLeftToRight ? (b?.score ?? 0) - (a?.score ?? 0) : (a?.score ?? 0) - (b?.score ?? 0),
     );
+
     const gradesToReturn = sortedGrades.map((arrayGrade) => {
       const isSelected = arrayGrade.score === grade.score;
       return (
@@ -162,7 +168,7 @@ const ScoreInput = ({
           role={useAria ? 'button' : undefined}
         >
           <ChevLeftIcon height={32} width={32} />
-        </Box>
+        </Box>,
       );
     }
     if (hiddenGrades > 0) {
@@ -177,20 +183,19 @@ const ScoreInput = ({
           role={useAria ? 'button' : undefined}
         >
           <ChevRightIcon height={32} width={32} />
-        </Box>
+        </Box>,
       );
     }
     return gradesToReturn;
   };
 
+  // --------------------------------------------------------------
+  // EFFECTS
+
   useEffect(() => {
     handleInputResize();
   }, [inputWidth, parentWidth, inputMaxWidth]);
 
-  const { classes, cx } = ScoreInputStyles(
-    { error, gradeWidth, selectedGradeIndex, displacedGrades, gradesLength: grades.length },
-    { name: 'ScoreInput' }
-  );
   return (
     <Box className={classes.root}>
       <InputWrapper {...props} error={error}>
@@ -207,13 +212,13 @@ const ScoreInput = ({
                     }))}
                     placeholder={placeholder}
                     value={selectValue}
-                    onChange={(value) => {
-                      const parsedValue = parseFloat(value);
+                    onChange={(val) => {
+                      const parsedValue = parseFloat(val);
                       onChangeHandler({
                         score: parsedValue,
                         letter: tags.find((tag) => tag.score === parsedValue)?.letter,
                       });
-                      setSelectValue(value);
+                      setSelectValue(val);
                     }}
                   />
                 </Box>

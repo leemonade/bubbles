@@ -76,7 +76,8 @@ const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 // eslint-disable-next-line default-param-last
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {
   const result = {
-    fontFamily: type === FONT_TYPES.EXPRESSIVE ? "'Lexend', sans-serif" : "'Inter', sans-serif",
+    fontFamily: "'Albert Sans', sans-serif",
+    // type === FONT_TYPES.EXPRESSIVE ? "'Alber Sans', sans-serif" : "'Alber Sans', sans-serif",
     lineHeight: 1.2,
   };
 

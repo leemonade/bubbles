@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import TextStyle from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
-import { Button } from '../../form/Button/Button';
 import { TypeCursorIcon } from '@bubbles-ui/icons/outline';
 import { EditorTextColorIcon } from '@bubbles-ui/icons/solid';
-import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Popover, Box, COLORS } from '@bubbles-ui/components';
+import { TextEditorContext } from '../../form/TextEditorProvider';
+import { Button } from '../../form/Button/Button';
 import { ColorToolStyles } from './ColorTool.styles';
 
 export const DEFAULT_SWATCHES = [
@@ -41,8 +41,8 @@ const ColorTool = ({ swatches, label, ...props }) => {
   const [isOpened, setIsOpened] = useState(false);
   const color = editor?.getAttributes('textStyle').color;
 
-  const onClickHandler = (color) => {
-    editor?.chain().focus().setColor(color).run();
+  const onClickHandler = (val) => {
+    editor?.chain().focus().setColor(val).run();
     setIsOpened(false);
   };
 
@@ -76,7 +76,7 @@ const ColorTool = ({ swatches, label, ...props }) => {
             style={{ backgroundColor: swatch }}
             onClick={() => onClickHandler(swatch)}
           >
-            {swatch === (color ? color : COLORS.text01) && (
+            {swatch === (color || COLORS.text01) && (
               <TypeCursorIcon className={classes.swatchIcon} />
             )}
           </Box>

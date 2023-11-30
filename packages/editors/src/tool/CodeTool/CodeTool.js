@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { lowlight } from 'lowlight/lib/core';
+import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
+import { ReactNodeViewRenderer } from '@tiptap/react';
 import { Button } from '../../form/Button/Button';
 import { TextEditorContext } from '../../form/TextEditorProvider';
-import { EditorProgrammingCodeIcon } from '@bubbles-ui/icons/solid';
-import { CodeBlockComponent } from '../../form';
-import { ReactNodeViewRenderer } from '@tiptap/react';
+import { CodeBlockComponent } from '../../form/CodeBlockComponent';
 
 export const CODE_TOOL_DEFAULT_PROPS = {
   label: 'Code block',

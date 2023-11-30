@@ -1,15 +1,15 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
-import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
-import { SELECT_PROP_TYPES, SELECT_DEFAULT_PROPS } from './Select.constants';
 import { useId } from '@mantine/hooks';
+import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
 import { InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
 import { Paragraph } from '../../typography';
 import { MultiSelect } from '../MultiSelect';
 import { Dropdown, Item } from '../../overlay/Dropdown';
+import { SELECT_PROP_TYPES, SELECT_DEFAULT_PROPS } from './Select.constants';
 
 const Select = forwardRef(
   (
@@ -48,7 +48,7 @@ const Select = forwardRef(
       withinPortal,
       ...props
     },
-    ref
+    ref,
   ) => {
     const data = map(_data, (d) => (isString(d) ? d : { ...d, value: d?.value.toString() }));
     const value = isNil(_value) ? _value : _value.toString();
@@ -98,9 +98,9 @@ const Select = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = SelectStyles(
+    const { classes } = SelectStyles(
       { size, rightEvents: isClearable && showClear, variant },
-      { name: 'Select' }
+      { name: 'Select' },
     );
 
     return valueComponent ? (
@@ -185,9 +185,10 @@ const Select = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+Select.displayName = 'Select';
 Select.defaultProps = SELECT_DEFAULT_PROPS;
 Select.propTypes = SELECT_PROP_TYPES;
 

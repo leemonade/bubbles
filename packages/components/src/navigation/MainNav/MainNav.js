@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useClickOutside } from '@mantine/hooks';
+import { openSpotlight } from '@mantine/spotlight';
 import { find, isArray, isFunction, isEmpty } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
@@ -10,12 +11,11 @@ import { MainNavItem } from './MainNavItem/MainNavItem';
 import { Avatar } from '../../informative';
 import { SubNav } from '../SubNav';
 import { Logo, ImageLoader } from '../../misc';
-import { Box } from '../../layout';
-import { ActionButton } from '../../form';
+import { Box } from '../../layout/Box';
+import { ActionButton } from '../../form/ActionButton';
 import { getActiveItem } from './helpers/getActiveItem';
 import { getUserFullName } from './helpers/getUserFullName';
 import { PALETTE } from '../../theme.constants';
-import { openSpotlight } from '../../navigation';
 
 export const MAIN_NAV_WIDTH = 52;
 export const MAIN_NAV_DEFAULT_PROPS = {
@@ -39,6 +39,17 @@ export const MAIN_NAV_PROP_TYPES = {
   logoUrl: PropTypes.string,
   useSpotlight: PropTypes.bool,
   spotlightTooltip: PropTypes.string,
+  onPin: PropTypes.func,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
+  onSearch: PropTypes.func,
+  onLogout: PropTypes.func,
+  onProfile: PropTypes.func,
+  session: PropTypes.any,
+  sessionMenu: PropTypes.any,
+  isLoading: PropTypes.bool,
+  subNavWidth: PropTypes.number,
+  menuData: PropTypes.array,
 };
 
 const MainNav = ({
@@ -50,7 +61,6 @@ const MainNav = ({
   isLoading,
   subNavWidth,
   pinned,
-  hideSubNavOnClose,
   useRouter,
   session,
   lightMode,
@@ -59,7 +69,6 @@ const MainNav = ({
   logoUrl,
   useSpotlight,
   spotlightTooltip,
-  ...props
 }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [activeSubItem, setActiveSubItem] = useState(null);
@@ -67,10 +76,23 @@ const MainNav = ({
   const [showSubNavToggle, setShowSubNavToggle] = useState(false);
   const [subNavPinned, setSubNavPinned] = useState(pinned);
 
-  const ref = useClickOutside(() => {
-    if (!subNavPinned) closeSubNav(true);
-    handleRouteChange();
-  });
+  // eslint-disable-next-line no-unused-vars
+  const closeSubNav = (_) => {
+    // if (hideSubNavOnClose) {
+    setShowSubNav(false);
+    setShowSubNavToggle(true);
+    setSubNavPinned(false);
+    // }
+    if (isFunction(onClose)) onClose();
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const openSubNav = (_) => {
+    setShowSubNav(true);
+    setShowSubNavToggle(false);
+    if (isFunction(onOpen)) onOpen();
+  };
+
   // ······································································
   // HANDLERS
 
@@ -108,8 +130,8 @@ const MainNav = ({
     }
 
     if (
-      (items && items.activeSubItem && !activeSubItem) ||
-      (items && items.activeSubItem && activeSubItem && items.activeSubItem.id !== activeSubItem.id)
+      (items?.activeSubItem && !activeSubItem) ||
+      (items?.activeSubItem && activeSubItem && items.activeSubItem.id !== activeSubItem.id)
     ) {
       setActiveSubItem(items.activeSubItem);
       if (!subNavPinned) {
@@ -118,20 +140,10 @@ const MainNav = ({
     }
   };
 
-  const openSubNav = () => {
-    setShowSubNav(true);
-    setShowSubNavToggle(false);
-    if (isFunction(onOpen)) onOpen();
-  };
-
-  const closeSubNav = () => {
-    // if (hideSubNavOnClose) {
-    setShowSubNav(false);
-    setShowSubNavToggle(true);
-    setSubNavPinned(false);
-    // }
-    if (isFunction(onClose)) onClose();
-  };
+  const ref = useClickOutside(() => {
+    if (!subNavPinned) closeSubNav(true);
+    handleRouteChange();
+  });
 
   const handleOnPin = () => {
     setSubNavPinned(!subNavPinned);
@@ -186,9 +198,9 @@ const MainNav = ({
   // ······································································
   // STYLES
 
-  const { classes, cx } = MainNavStyles(
+  const { classes } = MainNavStyles(
     { itemWidth: MAIN_NAV_WIDTH, subNavWidth, lightMode, mainColor },
-    { name: 'MainNav' }
+    { name: 'MainNav' },
   );
 
   return (
@@ -258,6 +270,7 @@ const MainNav = ({
           useRouter={useRouter}
           lightMode={lightMode}
           drawerColor={drawerColor}
+          itemWidth={MAIN_NAV_WIDTH}
         />
       )}
 

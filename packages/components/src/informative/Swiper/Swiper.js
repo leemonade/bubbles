@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import { isFunction } from 'lodash';
 import { Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { Swiper as SwiperComp, SwiperSlide } from 'swiper/react';
 import { Box } from '../../layout/Box';
 import { SwiperStyles } from './Swiper.styles';
 import { NextElement } from './NavigationElements/NextElement';
 import { PrevElement } from './NavigationElements/PrevElement';
 import { SWIPER_DEFAULT_PROPS, SWIPER_PROP_TYPES } from './Swiper.constants';
-import 'swiper/css';
-import 'swiper/css/navigation';
 
 const Swiper = ({
   children,

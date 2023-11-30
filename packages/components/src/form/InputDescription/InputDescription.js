@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text } from '@mantine/core';
+import { AlertInformationCircleIcon } from '@bubbles-ui/icons/solid';
+import { Box } from '../../layout/Box';
 import {
   INPUT_DESCRIPTION_DEFAULT_PROPS,
   INPUT_DESCRIPTION_PROP_TYPES,
 } from './InputDescription.constants';
 import { InputDescriptionStyles } from './InputDescription.styles';
-import { AlertInformationCircleIcon } from '@bubbles-ui/icons/solid';
-import { Box } from '../../layout';
 
-const InputDescription = ({ message, withIcon, ...props }) => {
-  const { classes, cx } = InputDescriptionStyles({ withIcon });
+const InputDescription = ({ message, withIcon }) => {
+  const { classes } = InputDescriptionStyles({ withIcon });
 
   return (
     <Box className={classes.container}>

@@ -1,5 +1,6 @@
-import React, { forwardRef, useState } from 'react';
-import { Box, Title, Group, Drawer as MantineDrawer, CloseIcon } from '@mantine/core';
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
+import { Box, Title, Group, Drawer as MantineDrawer } from '@mantine/core';
 import {
   DotsHorizontalIcon,
   PencilIcon,
@@ -8,10 +9,11 @@ import {
   TrashIcon,
   XIcon,
 } from '@heroicons/react/outline';
-import { ActionButton, Button } from '../../form';
+import { Button } from '../../form/Button';
+import { ActionButton } from '../../form/ActionButton';
 import { EditPanelStyles } from './EditPanel.styles';
 
-export const EditPanel = forwardRef(
+const EditPanel = forwardRef(
   ({ position, size, title, shadow, onClose, transitionDuration, ...props }, ref) => {
     const { classes, cx } = EditPanelStyles({});
 
@@ -25,7 +27,7 @@ export const EditPanel = forwardRef(
         transitionDuration={400}
         noOverlay
         noFocusTrap
-        onClose={() => setOpened(false)}
+        onClose={() => props.setOpened(false)}
         aria-labelledby="drawer-title"
         aria-describedby="drawer-body"
         closeButtonLabel="Close drawer"
@@ -123,5 +125,30 @@ export const EditPanel = forwardRef(
         </>
       </MantineDrawer>
     );
-  }
+  },
 );
+
+EditPanel.displayName = 'EditPanel';
+EditPanel.propTypes = {
+  position: PropTypes.string,
+  size: PropTypes.string,
+  title: PropTypes.string,
+  shadow: PropTypes.bool,
+  onClose: PropTypes.func,
+  transitionDuration: PropTypes.number,
+  children: PropTypes.node,
+  layoutButtonsRight: PropTypes.bool,
+  ActionBack: PropTypes.bool,
+  ActionExpand: PropTypes.bool,
+  ActionEdit: PropTypes.bool,
+  ActionDelete: PropTypes.bool,
+  ActionMore: PropTypes.bool,
+  LabelActionBack: PropTypes.string,
+  LabelActionEdit: PropTypes.string,
+  LabelActionDelete: PropTypes.string,
+  LabelActionMore: PropTypes.string,
+  EditPanelTitle: PropTypes.string,
+  setOpened: PropTypes.func,
+};
+
+export { EditPanel };

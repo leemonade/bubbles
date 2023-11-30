@@ -24,7 +24,7 @@ const AvatarsGroup = ({
       size,
       customAvatarMargin,
     },
-    { name: 'AvatarsGroup' }
+    { name: 'AvatarsGroup' },
   );
 
   const avatars = useMemo(() => {
@@ -39,7 +39,7 @@ const AvatarsGroup = ({
             avatarsArray.push({ color: '#696969', icon: <TeammateIcon />, type: 'cus-icon' });
             return false;
           }
-          avatarsArray.push({ ...avatar, type: 'avatar' });
+          return avatarsArray.push({ ...avatar, type: 'avatar' });
         });
       } else {
         avatarsArray.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));

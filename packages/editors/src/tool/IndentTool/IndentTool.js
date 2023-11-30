@@ -7,7 +7,6 @@ import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 
 export const INDENT_TOOL_TYPES = ['indent', 'outdent'];
-
 export const INDENT_TOOL_DEFAULT_PROPS = {
   type: 'indent',
 };

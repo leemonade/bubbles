@@ -20,6 +20,7 @@ export const TEXT_CLAMP_PROP_TYPES = {
   showMore: PropTypes.string,
   showLess: PropTypes.string,
   onShowMore: PropTypes.func,
+  children: PropTypes.node,
 };
 
 const TextClamp = ({

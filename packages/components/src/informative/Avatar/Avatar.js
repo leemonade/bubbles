@@ -26,7 +26,7 @@ const Avatar = forwardRef(
       alt,
       ...props
     },
-    ref
+    ref,
   ) => {
     const size = AVATAR_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const state = AVATAR_STATE.includes(stateProp) ? stateProp : 'normal';
@@ -66,11 +66,11 @@ const Avatar = forwardRef(
         </Indicator>
       </Box>
     );
-  }
+  },
 );
 
+Avatar.displayName = 'Avatar';
 Avatar.defaultProps = AVATAR_DEFAULT_PROPS;
-
 Avatar.propTypes = AVATAR_PROP_TYPES;
 
 export { Avatar };

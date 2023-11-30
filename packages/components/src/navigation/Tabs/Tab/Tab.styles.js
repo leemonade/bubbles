@@ -1,6 +1,7 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFocusStyles, getFontExpressive } from './../../../theme.mixins';
-import { errorIcon } from './../../../commons.mixins';
+import { pxToRem, getPaddings, getFocusStyles, getFontExpressive } from '../../../theme.mixins';
+import { errorIcon } from '../../../commons.mixins';
 
 export const TabStyles = createStyles((theme, { orientation, active, disabled }, getRef) => {
   const tabActive = { ref: getRef('tabActive') };

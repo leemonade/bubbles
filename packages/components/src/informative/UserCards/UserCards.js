@@ -50,7 +50,7 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
   const { isHorizontal, isVertical } = layoutStates;
   const { classes, cx } = UserCardsStyles(
     { variantStates, layoutStates, error, selected },
-    { name: 'UserCards' }
+    { name: 'UserCards' },
   );
   const { name, surnames, avatar, rol, email, number } = user;
 
@@ -63,7 +63,12 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
     layout = 'horizontal';
   }
 
-  const avatarSize = isLarge ? 'lg' : isVertical && (isFull || isSimple) ? 'md' : 'sm';
+  let avatarSize = 'sm';
+  if (isLarge) {
+    avatarSize = 'lg';
+  } else if (isVertical && (isFull || isSimple)) {
+    avatarSize = 'md';
+  }
 
   return (
     <Box {...props} className={classes.root}>
@@ -83,12 +88,14 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
           <Text color={'primary'} className={classes.name}>
             {name} {surnames}
           </Text>
-          {(isFull & isVertical || isContact) && <Text className={classes.number}>{number}</Text>}
+          {((isFull && isVertical) || isContact) && (
+            <Text className={classes.number}>{number}</Text>
+          )}
           <a color={'interactive'} className={classes.email} href={`mailto:${email}`}>
             {isVertical && (isFull || isSimple) && <PluginComunicaIcon />}
             {email}
           </a>
-          {!(isSimple & isHorizontal || isContact) && (
+          {!((isSimple && isHorizontal) || isContact) && (
             <Box className={classes.birthdayContainer}>
               <Text className={classes.birthday}>Cumpleaños</Text>
               <Box>
@@ -115,7 +122,6 @@ const UserCards = ({ user, variant, layout, error, selected, onChat, ...props })
 };
 
 UserCards.defaultProps = USER_CARDS_DEFAULT_PROPS;
-
 UserCards.propTypes = USER_CARDS_PROP_TYPES;
 
 export { UserCards };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { keysIn, max } from 'lodash';
+import { keysIn } from 'lodash';
 import { colord } from 'colord';
 import { HeroBgStyles } from './HeroBg.styles';
 import { lg, xMD, xSM, ySM, yXS, xLG } from './sizes';
@@ -58,10 +58,9 @@ const HeroBg = ({
       return accentColorProp;
     }
 
-    const color = colord(accentColorProp);
-    const brightness = color.brightness();
-    const newColor = color.alpha(Math.max(1 - (0.95 - brightness) * 2.5, 0.2)).toRgbString();
-    return newColor;
+    const aColor = colord(accentColorProp);
+    const brightness = aColor.brightness();
+    return aColor.alpha(Math.max(1 - (0.95 - brightness) * 2.5, 0.2)).toRgbString();
   }, [accentColorProp]);
 
   /*
@@ -70,11 +69,6 @@ const HeroBg = ({
     [containerColor]
   );
   */
-
-  useEffect(
-    () => initAnimation(),
-    [style, sizeProp, colorProp, className, animate, accentColor, containerColor, fillColor]
-  );
 
   const { classes, cx } = HeroBgStyles({ color, size });
 
@@ -97,7 +91,7 @@ const HeroBg = ({
     nodes.forEach(
       (node) =>
         (node.props.fill === 'currentColor' || node.props.stroke === 'currentColor') &&
-        yValues.push(node.props.y || '0')
+        yValues.push(node.props.y || '0'),
     );
     yValues = [...new Set(yValues)];
 
@@ -125,7 +119,7 @@ const HeroBg = ({
     currentNodes.sort(
       (a, b) =>
         parseFloat(a.props.y || a.type === 'path' ? '1000' : '0') -
-        parseFloat(b.props.y || b.type === 'path' ? '1000' : '0')
+        parseFloat(b.props.y || b.type === 'path' ? '1000' : '0'),
     );
 
     for (let i = 0, l = currentNodes.length; i < l; i++) {
@@ -185,6 +179,11 @@ const HeroBg = ({
     }
     doAnimation(true);
   };
+
+  useEffect(
+    () => initAnimation(),
+    [style, sizeProp, colorProp, className, animate, accentColor, containerColor, fillColor],
+  );
 
   useEffect(() => {
     initAnimation();

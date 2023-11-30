@@ -1,14 +1,14 @@
-import React, { useMemo, useContext, useState, useEffect, forwardRef } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Heading from '@tiptap/extension-heading';
-import { Select, Box, Text } from '@bubbles-ui/components';
+import { Select, Box } from '@bubbles-ui/components';
 import { TextEditorContext } from '../../form/TextEditorProvider';
 import { HeadingsToolStyles } from './HeadingsTool.styles';
 import { SelectItem } from './SelectItem';
 
 export const HEADINGS_TOOL_DEFAULT_PROPS = {
   labels: {
-    label: 'Format',
+    label: '',
     title1: 'Title 1',
     title2: 'Title 2',
     title3: 'Title 3',
@@ -51,11 +51,11 @@ const HeadingsTool = ({ labels }) => {
     }
   };
 
-  const handleOnSelection = ({ editor }) => {
+  const handleOnSelection = ({ editor: e }) => {
     let activeLevel = 0;
-    [1, 2, 3].every((level) => {
-      if (editor?.isActive('heading', { level: level })) {
-        activeLevel = level;
+    [1, 2, 3].every((item) => {
+      if (e?.isActive('heading', { level: item })) {
+        activeLevel = item;
         return false;
       }
       return true;
@@ -80,7 +80,6 @@ const HeadingsTool = ({ labels }) => {
   return (
     <Box className={classes.root}>
       <Select
-        label={labels.label}
         data={VALUES}
         value={level}
         onChange={handleOnChange}

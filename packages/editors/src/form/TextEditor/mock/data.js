@@ -1,6 +1,6 @@
-export const labels = {
+const labels = {
   headingsTool: {
-    label: 'Formato',
+    label: '',
     title1: 'Titulo 1',
     title2: 'Titulo 2',
     title3: 'Titulo 3',
@@ -53,3 +53,5 @@ export const labels = {
     subscript: 'Subíndice',
   },
 };
+
+export { labels };
