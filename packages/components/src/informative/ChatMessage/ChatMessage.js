@@ -29,7 +29,7 @@ const ChatMessage = ({
     <Box className={classes.root}>
       {showUser && !isOwn ? (
         <Box className={classes.avatar}>
-          <Avatar image={user.avatar} size="sm" state={user.state} />
+          <Avatar image={user.avatar} size="sm" state={user.state} fullName={fullName} />
         </Box>
       ) : null}
 

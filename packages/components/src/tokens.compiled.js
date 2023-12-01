@@ -312,7 +312,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#B4E600",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1153,7 +1153,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#ffffff26",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -2362,7 +2362,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#b4e600cc",
+          "color": "#B4E600",
           "type": "dropShadow"
         },
         "type": "boxShadow"

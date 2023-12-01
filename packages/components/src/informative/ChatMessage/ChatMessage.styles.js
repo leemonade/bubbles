@@ -10,12 +10,14 @@ export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmi
 
   return {
     root: {
+      marginTop: theme.spacing[4],
       padding: theme.spacing[2],
-      background: selected ? theme.other.global.background.color.primary.default : 'transparent',
+      background: selected ? '#E4F4E6' : 'transparent',
       display: 'flex',
-      justifyContent: 'end',
+      justifyContent: isOwn ? 'end' : 'start',
       alignItems: 'end',
       gap: theme.spacing[1],
+      transition: 'background 0.3s ease',
     },
     message: {
       color: theme.other.global.content.color.text.default,
@@ -26,15 +28,16 @@ export const ChatMessageStyles = createStyles((theme, { isOwn, isTeacher, isAdmi
       lineHeight: '20px',
     },
     messageBox: {
-      marginTop: theme.spacing[4],
       padding: theme.spacing[2],
       paddingLeft: theme.spacing[3],
-      borderRadius: '2px 4px 4px 2px',
+      borderRadius: '2px',
+      backgroundColor: '#FFFFFF',
       ...messageBox,
     },
     messageBoxInner: {
       display: 'flex',
       alignItems: 'end',
+      gap: theme.spacing[2],
     },
     messageDate: {
       display: 'block',
