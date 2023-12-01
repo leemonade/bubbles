@@ -10,7 +10,6 @@ export * from './Avatar';
 export * from './Kanban';
 export * from './Table';
 export * from './Badge';
-export * from './Swiper';
 export * from './Calification';
 export * from './HorizontalTimeline';
 export * from './ScoresBar';

@@ -1,5 +1,5 @@
 {
-  "name": "@bubbles-ui/notifications",
+  "name": "@bubbles-ui/extras",
   "version": "1.2.42",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/leemonade/bubbles.git",
-    "directory": "packages/notifications"
+    "directory": "packages/extras"
   },
   "bugs": "https://github.com/leemonade/bubbles/issues",
   "files": [
@@ -22,7 +22,7 @@
     "bubbles",
     "bubbles-notifications",
     "bubbles-design-system",
-    "notifications"
+    "external libs"
   ],
   "publishConfig": {
     "access": "public",
@@ -46,10 +46,11 @@
     "storybook:start": "start-storybook -p 9004"
   },
   "dependencies": {
-    "@mantine/notifications": "5.5.5",
+    "@yaireo/tagify": "^4.9.4",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
-    "react-transition-group": "^4.4.2"
+    "simplebar-react": "^2.3.6",
+    "swiper": "^8.1.4"
   },
   "peerDependencies": {
     "@bubbles-ui/components": "^1.2.42",
