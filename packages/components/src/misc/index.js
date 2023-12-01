@@ -8,3 +8,4 @@ export * from './FileIcon/AssetImageIcon';
 export * from './FileIcon/AssetBookmarkIcon';
 export * from './FileIcon/AssetVideoIcon';
 export * from './AvatarSubject';
+export * from './CardEmptyCover';

@@ -1,14 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { find, isFunction } from 'lodash';
-import { useTable, useExpanded } from 'react-table';
+import { useTable } from 'react-table';
 import { Controller } from 'react-hook-form';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
-import { Button } from '../Button';
 import { TableInputRow } from './TableInputRow';
 import { ActionButton } from '../ActionButton';
 
@@ -102,7 +101,7 @@ const TableInputDisplay = ({
 
       return null;
     },
-    [columns, disabled, errors, formValues]
+    [columns, disabled, errors, formValues],
   );
 
   const handleDragEnd = (result) => {
@@ -126,11 +125,12 @@ const TableInputDisplay = ({
     >
       <thead className={classes.tHead}>
         {!!showHeaders &&
-          headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps({})}>
+          headerGroups.map((headerGroup, i) => (
+            <tr key={`hg-${i}`} {...headerGroup.getHeaderGroupProps({})}>
               {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column, j) => (
                 <th
+                  key={`hgh-${j}`}
                   {...column.getHeaderProps({
                     className: cx(tableClasses.th, column.className),
                     style: { ...column.style, paddingLeft: 0 },
@@ -176,13 +176,14 @@ const TableInputDisplay = ({
         <Droppable droppableId="table-body">
           {(provided, snapshot) => (
             <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
-              {rows.map((row, i) => {
+              {rows.map((row, k) => {
                 prepareRow(row);
 
                 return (
                   <TableInputRow
+                    key={`row-${k}`}
                     {...row.getRowProps()}
-                    index={i}
+                    index={k}
                     row={row}
                     labels={labels}
                     onRemove={onRemove}

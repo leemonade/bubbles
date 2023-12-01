@@ -1,5 +1,86 @@
 # @bubbles-ui/calendars
 
+## 1.2.45
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.45
+  - @bubbles-ui/icons@1.2.45
+
+## 1.2.44
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.44
+  - @bubbles-ui/icons@1.2.44
+
+## 1.2.43
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.43
+  - @bubbles-ui/icons@1.2.43
+
+## 1.2.42
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.42
+  - @bubbles-ui/icons@1.2.42
+
+## 1.2.41
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.41
+  - @bubbles-ui/icons@1.2.41
+
+## 1.2.40
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.40
+  - @bubbles-ui/icons@1.2.40
+
+## 1.2.39
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.39
+  - @bubbles-ui/icons@1.2.39
+
+## 1.2.38
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.38
+  - @bubbles-ui/icons@1.2.38
+
+## 1.2.37
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.37
+  - @bubbles-ui/icons@1.2.37
+
 ## 1.2.36
 
 ### Patch Changes

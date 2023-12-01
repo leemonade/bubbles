@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isNil } from 'lodash';
 import { Box } from '../../layout/Box';
+import { Calification } from '../../informative/Calification';
 import { Step } from './Step/Step';
 import { VerticalStepperStyles } from './VerticalStepper.styles';
 import {
   VERTICAL_STEPPER_DEFAULT_PROPS,
   VERTICAL_STEPPER_PROP_TYPES,
 } from './VerticalStepper.constants';
-import { Calification } from '../../informative/Calification';
 
 const VerticalStepper = ({
   data,

@@ -1,10 +1,11 @@
-import React, { forwardRef, useState } from 'react';
-import { Box, Title, Button, Group, Drawer as MantineDrawer, CloseIcon } from '@mantine/core';
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
+import { Box, Title, Group, Drawer as MantineDrawer } from '@mantine/core';
 import { ChevronLeftIcon, ArrowsExpandIcon, XIcon } from '@heroicons/react/outline';
 import { ActionButton } from '../../form/ActionButton/ActionButton';
 import { DetailPanelStyles } from './DetailPanel.styles';
 
-export const DetailPanel = forwardRef(
+const DetailPanel = forwardRef(
   ({ position, size, title, shadow, onClose, transitionDuration, ...props }, ref) => {
     const { classes, cx } = DetailPanelStyles({});
 
@@ -14,7 +15,7 @@ export const DetailPanel = forwardRef(
         position="right"
         padding="md"
         size="640px"
-        onClose={() => setOpened(false)}
+        onClose={() => props.setOpened(false)}
         transitionDuration={400}
         hideCloseButton
         noOverlay
@@ -74,5 +75,23 @@ export const DetailPanel = forwardRef(
         </>
       </MantineDrawer>
     );
-  }
+  },
 );
+
+DetailPanel.displayName = 'DetailPanel';
+DetailPanel.propTypes = {
+  position: PropTypes.oneOf(['left', 'right']),
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
+  title: PropTypes.string,
+  shadow: PropTypes.bool,
+  onClose: PropTypes.func,
+  transitionDuration: PropTypes.number,
+  children: PropTypes.node,
+  ActionBack: PropTypes.bool,
+  ActionExpand: PropTypes.bool,
+  LabelActionBack: PropTypes.string,
+  layoutButtonsRight: PropTypes.bool,
+  DetailPanelTitle: PropTypes.string,
+  setOpened: PropTypes.func,
+};
+export { DetailPanel };

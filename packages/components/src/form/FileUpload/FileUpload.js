@@ -2,14 +2,16 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import { FileUploadStyles } from './FileUpload.styles';
-import { Stack, Box } from '../../layout/';
-import { FileItemDisplay } from '../../informative/FileItemDisplay';
-import { Alert } from '../../feedback/Alert';
-import { InputWrapper, INPUT_WRAPPER_PROP_TYPES, ActionButton, Button } from '../../form';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
 import { isEmpty, isFunction } from 'lodash';
+import { FileUploadStyles } from './FileUpload.styles';
+import { Stack, Box } from '../../layout';
+import { FileItemDisplay } from '../../informative/FileItemDisplay';
+import { Alert } from '../../feedback/Alert';
+import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
+import { ActionButton } from '../ActionButton';
+import { Button } from '../Button';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
@@ -69,14 +71,14 @@ const FileUpload = ({
 
   const onDropHandler = (acceptedFiles) => {
     const newFiles = [...files, ...acceptedFiles];
-    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    if (isFunction(onChange)) onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
     setFiles(newFiles);
     setError(false);
   };
 
   const removeFile = (index) => {
     const newFiles = files.filter((file, fileIndex) => fileIndex !== index);
-    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    if (isFunction(onChange)) onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
     setFiles(newFiles);
   };
 
@@ -94,7 +96,7 @@ const FileUpload = ({
 
   const { classes, cx } = FileUploadStyles(
     { disabled, single, files, hasError },
-    { name: 'FileUpload' }
+    { name: 'FileUpload' },
   );
   return (
     <Box className={classes.wrapper}>

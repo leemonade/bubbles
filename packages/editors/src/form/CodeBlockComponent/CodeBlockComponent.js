@@ -3,7 +3,7 @@ import { lowlight } from 'lowlight/lib/core';
 import { Box, IconButton, Paper, Select, Stack } from '@bubbles-ui/components';
 import { NodeViewContent, NodeViewWrapper } from '@tiptap/react';
 import { DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
-import { TextEditorContext } from '../';
+import { TextEditorContext } from '../TextEditorProvider';
 
 export const COMMON_LANGUAGE_LIST = [
   'javascript',
@@ -86,6 +86,15 @@ export const CodeBlockComponent = ({ ...props }) => {
     ...listLanguages().filter((lang) => COMMON_LANGUAGE_LIST.includes(lang)),
   ];
 
+  let opacityValue;
+  if (shouldShowMenu) {
+    opacityValue = 1;
+  } else if (dropdownOpened) {
+    opacityValue = 1;
+  } else {
+    opacityValue = 0;
+  }
+
   return (
     <NodeViewWrapper ref={codeBlockRef} className="code-block">
       <Box style={{ position: 'relative' }}>
@@ -96,7 +105,7 @@ export const CodeBlockComponent = ({ ...props }) => {
           padding={1}
           shadow="level100"
           style={{
-            opacity: shouldShowMenu ? 1 : dropdownOpened ? 1 : 0,
+            opacity: opacityValue,
             transition: 'opacity 0.2s',
             position: 'absolute',
             bottom: -45,

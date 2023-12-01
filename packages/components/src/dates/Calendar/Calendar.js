@@ -83,6 +83,7 @@ export const CALENDAR_PROP_TYPES = {
   firstDayOfWeek: PropTypes.oneOf(CALENDAR_FIRST_DAYS),
   minDate: PropTypes.instanceOf(Date),
   maxDate: PropTypes.instanceOf(Date),
+  size: PropTypes.string,
 };
 
 const Calendar = forwardRef(({ range, size, locale, ...props }, ref) => {
@@ -105,6 +106,7 @@ const Calendar = forwardRef(({ range, size, locale, ...props }, ref) => {
   return <Comp {...props} locale={currentLocale} ref={ref} classNames={classes} />;
 });
 
+Calendar.displayName = 'Calendar';
 Calendar.defaultProps = CALENDAR_DEFAULT_PROPS;
 Calendar.propTypes = CALENDAR_PROP_TYPES;
 

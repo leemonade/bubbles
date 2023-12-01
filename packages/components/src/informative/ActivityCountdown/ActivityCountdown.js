@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import useCountDown from 'react-countdown-hook';
 import { AlarmClockIcon } from '@bubbles-ui/icons/outline';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { Text } from '../../typography';
 import { ActivityCountdownStyles } from './ActivityCountdown.styles';
 import {
@@ -10,21 +9,12 @@ import {
   ACTIVITY_COUNTDOWN_PROP_TYPES,
 } from './ActivityCountdown.constants';
 
-const ActivityCountdown = ({
-  finish,
-  interval,
-  withIcon,
-  rootStyles,
-  rootClassname,
-  useAria,
-  ...props
-}) => {
+const ActivityCountdown = ({ finish, interval, withIcon, rootStyles, rootClassname, useAria }) => {
   const countDownMiliseconds = new Date(finish) - Date.now();
-  const [timeLeft, { start, pause, resume, reset }] = useCountDown(countDownMiliseconds, interval);
+  // timeLeft, { start, pause, resume, reset }
+  const [timeLeft, { start }] = useCountDown(countDownMiliseconds, interval);
 
-  const padTo2Digits = (number) => {
-    return number.toString().padStart(2, '0');
-  };
+  const padTo2Digits = (number) => number.toString().padStart(2, '0');
 
   const getCountdown = (miliSeconds) => {
     const seconds = Math.trunc((miliSeconds / 1000) % 60);

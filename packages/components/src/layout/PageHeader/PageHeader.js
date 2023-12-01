@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { capitalize, isArray, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
+import { capitalize, isEmpty, isFunction, isObject, isString, trim } from 'lodash';
 import { Controller, useForm } from 'react-hook-form';
 import { AddIcon, ChevronLeftIcon } from '@bubbles-ui/icons/outline';
 import { PageHeaderStyles } from './PageHeader.styles';
@@ -11,7 +11,9 @@ import {
 import { Box } from '../Box';
 import { Text, Title } from '../../typography';
 import { Stack } from '../Stack';
-import { Button, DropdownButton, ActionButton } from '../../form';
+import { Button } from '../../form/Button';
+import { DropdownButton } from '../../form/DropdownButton';
+import { ActionButton } from '../../form/ActionButton';
 import { ContentLegible } from '../ContentLegible';
 import { TitleTextInput } from './components/TitleTextInput/TitleTextInput';
 
@@ -38,7 +40,6 @@ const PageHeader = ({
   isEditMode,
   fullWidth,
   showBackButton,
-  ...props
 }) => {
   const {
     control,
@@ -70,14 +71,6 @@ const PageHeader = ({
     return loading === buttonName;
   };
 
-  // const getInputLabel = (name) => {
-  //   return getLabel(labels, name);
-  // };
-
-  const getInputPlaceholder = (name) => {
-    return getLabel(placeholders, name);
-  };
-
   const getErrorLabel = (field, rule, defaultLabel) => {
     if (!isObject(errorLabels)) return defaultLabel || '';
     if (!errorLabels[field]) return defaultLabel || '';
@@ -90,6 +83,8 @@ const PageHeader = ({
     if (!collection[field]) return capitalize(field);
     return collection[field];
   };
+
+  const getInputPlaceholder = (name) => getLabel(placeholders, name);
 
   const onPressButton = (btnFunction, e) => {
     if (isFunction(btnFunction)) {

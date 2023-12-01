@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { PluginComunicaIcon } from '@bubbles-ui/icons/solid/';
-import { AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid';
-import { Box } from '../../layout';
-import { Avatar } from '../Avatar/';
-import { Text, TextClamp, TEXT_ROLES } from '../../typography';
-import { UserDisplayItemStyles } from './UserDisplayItem.styles';
-import { COLORS } from '../../theme.tokens';
-import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
-import { AVATAR_STATE } from '../Avatar/Avatar.constants';
+import { PluginComunicaIcon, AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid/';
 import { Highlight } from '@mantine/core';
+import { Box } from '../../layout/Box';
+import { Avatar } from '../Avatar/Avatar';
+import { Text, TextClamp, TEXT_ROLES } from '../../typography';
+import { COLORS } from '../../theme.tokens';
+import { getUserFullName } from '../../helpers/getUserFullName';
+import { AVATAR_STATE } from '../Avatar/Avatar.constants';
+import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
@@ -70,16 +69,23 @@ const UserDisplayItem = (properties) => {
       noBreak,
       severity,
     },
-    { name: 'UserDisplayItem' }
+    { name: 'UserDisplayItem' },
   );
 
-  const avatarSize = !size ? (variant === 'email' ? 'sm' : 'md') : size;
+  let avatarSize = size;
+  if (!size) {
+    if (variant === 'email') {
+      avatarSize = 'sm';
+    } else {
+      avatarSize = 'md';
+    }
+  }
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
   const fullName = useMemo(
-    () => (['rol', 'inline'].includes(variant) ? `${surnames ? `${surnames}` : ''} ${name}` : name),
-    [name, surnames, variant]
+    () => (['rol', 'inline'].includes(variant) ? `${surnames || ''} ${name}` : name),
+    [name, surnames, variant],
   );
 
   const userFullName = getUserFullName(properties);
@@ -125,12 +131,17 @@ const UserDisplayItem = (properties) => {
           </>
         ) : (
           <>
-            <Text  className={classes.rol}>
+            <Text className={classes.rol}>
               <Highlight highlight={highlight}>{role}</Highlight>
               {variant === 'rol' ? Icon : null}
             </Text>
             {!isEmpty(surnames) && (
-              <Text highlight={highlight} color={textColor} className={classes.surnames} role={textRole}>
+              <Text
+                highlight={highlight}
+                color={textColor}
+                className={classes.surnames}
+                role={textRole}
+              >
                 {surnames}
               </Text>
             )}

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
-import { forEach, isFunction, isObject, isEqual } from 'lodash';
+import { forEach, isFunction, isEqual } from 'lodash';
 import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
@@ -21,7 +22,6 @@ export const TEXT_EDITOR_DEFAULT_PROPS = {
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
-  library: PropTypes.element,
   onChange: PropTypes.func,
   onSchemaChange: PropTypes.func,
   editorClassname: PropTypes.string,
@@ -32,9 +32,13 @@ export const TEXT_EDITOR_PROP_TYPES = {
     PropTypes.shape({
       type: PropTypes.string,
       updateWithoutContent: PropTypes.bool,
-    })
+    }),
   ),
   toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  children: PropTypes.node,
+  toolbarPortal: PropTypes.any,
 };
 
 const TextEditor = ({
@@ -50,6 +54,7 @@ const TextEditor = ({
   useSchema,
   acceptedTags = [],
   toolbarPosition,
+  toolbarPortal,
 }) => {
   const store = React.useRef({
     isFocus: false,
@@ -65,7 +70,7 @@ const TextEditor = ({
       Paragraph,
       Focus,
       History,
-      Placeholder.configure({ placeholder: placeholder }),
+      Placeholder.configure({ placeholder }),
       ...extensions,
     ],
     content: '',
@@ -74,46 +79,46 @@ const TextEditor = ({
   const ref = React.useRef(null);
   const contentChange = React.useRef(null);
 
-  const onUpdate = () => {
-    const defaultTags = ['paragraph', 'heading'];
-    const jsonContent = editor.getJSON();
-    let shouldUpdate = false;
-    for (const element of jsonContent.content) {
-      if (!element) break;
-      if (defaultTags.includes(element.type) && element.content) {
-        shouldUpdate = true;
-        break;
-      }
-      const currentCustomTag = acceptedTags.find((tag) => tag.type === element.type);
-      if (currentCustomTag && (currentCustomTag.updateWithoutContent || element.content)) {
-        shouldUpdate = true;
-        break;
-      }
-    }
-    if (!shouldUpdate) return null;
-
-    store.current.content = editor.getHTML();
-
-    if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
-    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
-  };
-
   const getEditorJson = () => {
     const originalHTML = document.getElementsByClassName('ProseMirror')[0];
     if (!originalHTML) return {};
     const htmlContent = [...originalHTML.getElementsByTagName('*')].filter(
-      (element) => element.tagName !== 'BR'
+      (element) => element.tagName !== 'BR',
     );
     const originalJSON = editor.getJSON();
 
-    const editorJSON = {
+    return {
       ...originalJSON,
       content: originalJSON.content.map((element, index) => {
         element.attrs = { ...element.attrs, index, html: htmlContent[index] };
         return element;
       }),
     };
-    return editorJSON;
+  };
+
+  const onUpdate = () => {
+    const defaultTags = ['paragraph', 'heading'];
+    const jsonContent = editor.getJSON();
+    let shouldUpdate = false;
+
+    jsonContent.content.forEach((element) => {
+      if (!element) return;
+      if (defaultTags.includes(element.type) && element.content) {
+        shouldUpdate = true;
+        return;
+      }
+      const currentCustomTag = acceptedTags.find((tag) => tag.type === element.type);
+      if (currentCustomTag && (currentCustomTag.updateWithoutContent || element.content)) {
+        shouldUpdate = true;
+      }
+    });
+
+    if (!shouldUpdate) return;
+
+    store.current.content = editor.getHTML();
+
+    if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
+    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
   };
 
   useEffect(() => {
@@ -126,7 +131,7 @@ const TextEditor = ({
 
   useEffect(() => {
     if (!editor) {
-      return undefined;
+      return;
     }
 
     editor.setEditable(!readOnly);
@@ -180,17 +185,44 @@ const TextEditor = ({
       editor.on('transaction', handleTransactions);
       return () => editor.off('transaction', handleTransactions);
     }
+    return () => {};
   }, [editor, handleTransactions]);
 
   useEffect(() => {
     if (editor) {
       const placeholderExtension = editor.extensionManager.extensions.find(
-        (extension) => extension.name === 'placeholder'
+        (extension) => extension.name === 'placeholder',
       );
-      placeholderExtension.options['placeholder'] = placeholder;
+      placeholderExtension.options.placeholder = placeholder;
       editor.view.dispatch(editor.state.tr);
     }
   }, [placeholder]);
+
+  const ToolbarComponent = React.useMemo(
+    () =>
+      toolbarPortal
+        ? () =>
+            createPortal(
+              <Toolbar
+                toolbarLabel={'Toolbar'}
+                className={toolbarClassname}
+                toolbarPosition={toolbarPosition}
+              >
+                {children}
+              </Toolbar>,
+              toolbarPortal,
+            )
+        : () => (
+            <Toolbar
+              toolbarLabel={'Toolbar'}
+              className={toolbarClassname}
+              toolbarPosition={toolbarPosition}
+            >
+              {children}
+            </Toolbar>
+          ),
+    [toolbarPortal],
+  );
 
   return (
     <Box
@@ -203,13 +235,7 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <Box style={{ zIndex: 1 }}>
-            <Toolbar
-              toolbarLabel={'Toolbar'}
-              className={toolbarClassname}
-              toolbarPosition={toolbarPosition}
-            >
-              {children}
-            </Toolbar>
+            <ToolbarComponent />
             <BubbleMenu />
           </Box>
         )}

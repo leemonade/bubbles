@@ -19,10 +19,8 @@ function useResizeObserver(debounce) {
     let resizeObserver;
     if (ref.current) {
       resizeObserver = new ResizeObserver((entries) => {
-        if (entries[0]) {
-          if (JSON.stringify(rect) !== JSON.stringify(entries[0].contentRect)) {
-            setRect(entries[0].contentRect);
-          }
+        if (entries[0] && JSON.stringify(rect) !== JSON.stringify(entries[0].contentRect)) {
+          setRect(entries[0].contentRect);
         }
       });
       resizeObserver.observe(ref.current);

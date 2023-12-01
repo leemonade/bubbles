@@ -8,11 +8,11 @@ const getPadding = (size, isMedium, image, severity) => {
   switch (size) {
     case 'xs':
       return `${pxToRem(isDefault ? 4 : 1)} ${pxToRem(9)} ${pxToRem(isDefault ? 4 : 1)} ${pxToRem(
-        9
+        9,
       )}`;
     case 'md':
       return `${pxToRem(isMediumImage ? 9 : 8)} ${pxToRem(12)} ${pxToRem(
-        isMediumImage ? 9 : 8
+        isMediumImage ? 9 : 8,
       )} ${pxToRem(12)}`;
     case 'lg':
       return `${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)} ${pxToRem(12)}`;
@@ -152,5 +152,5 @@ export const BadgeStyles = createStyles(
         },
       },
     };
-  }
+  },
 );

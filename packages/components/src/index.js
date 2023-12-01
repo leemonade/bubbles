@@ -19,7 +19,7 @@ export {
   Skeleton,
   keyframes,
   Navbar,
-  Highlight
+  Highlight,
 } from '@mantine/core';
 export * from '@mantine/spotlight';
 export {
@@ -44,6 +44,7 @@ export {
   getHtmlStyles,
   getBoxShadowFromToken,
 } from './theme.mixins';
+export { PALETTE } from './theme.constants';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';
 export { Helmet } from 'react-helmet';
@@ -54,6 +55,7 @@ export * from './informative';
 export * from './navigation';
 export * from './typography';
 export * from './feedback';
+export * from './helpers';
 export * from './overlay';
 export * from './layout';
 export * from './assets';

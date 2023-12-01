@@ -1,9 +1,8 @@
 import React from 'react';
-import { TextInput } from '../../../../form';
-
 import { createStyles } from '@mantine/styles';
+import { TextInput } from '../../../../form/TextInput';
 
-export const TitleTextInputStyles = createStyles((theme, {}) => {
+export const TitleTextInputStyles = createStyles((theme) => {
   const globalTheme = theme.other.global;
   return {
     input: {

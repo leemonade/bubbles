@@ -164,7 +164,7 @@ export const ButtonStyles = createStyles(
       hasLeftIcon,
       hasRightIcon,
       isSelected,
-    }
+    },
   ) => {
     const currentVariant = getVariant(variant, theme, color);
     const buttonTheme = theme.other.button;
@@ -235,5 +235,5 @@ export const ButtonStyles = createStyles(
         ...buttonTheme.content.typo,
       },
     };
-  }
+  },
 );

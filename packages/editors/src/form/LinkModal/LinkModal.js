@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, ContextContainer, Stack, TextInput } from '@bubbles-ui/components';
 import { HyperlinkIcon } from '@bubbles-ui/icons/outline';
-import { LinkModalStyles } from './LinkModal.styles';
 import { Controller, useForm } from 'react-hook-form';
 import { isFunction } from 'lodash';
-import { isValidURL } from '../../utils/';
+import { LinkModalStyles } from './LinkModal.styles';
+import { isValidURL } from '../../utils';
 import { useTextEditor } from '../TextEditorProvider';
 
 export const LINKMODAL_DEFAULT_PROPS = {
@@ -14,6 +14,7 @@ export const LINKMODAL_DEFAULT_PROPS = {
     link: '',
     cancel: '',
     add: '',
+    update: '',
   },
   placeholders: {
     title: '',
@@ -33,6 +34,7 @@ export const LINKMODAL_PROP_TYPES = {
     link: PropTypes.string,
     cancel: PropTypes.string,
     add: PropTypes.string,
+    update: PropTypes.string,
   }),
   placeholders: PropTypes.shape({
     text: PropTypes.string,
@@ -71,16 +73,14 @@ const LinkModal = ({
 
   const watchInputs = watch(['text', 'link']);
 
-  const submitCondition = () => {
-    return !watchInputs[0] || !watchInputs[1];
-  };
+  const submitCondition = () => !watchInputs[0] || !watchInputs[1];
 
   const submitHandler = (values) => {
-    isFunction(onChange) && onChange(values);
+    if (isFunction(onChange)) onChange(values);
   };
 
   const onCancelHandler = () => {
-    isFunction(onCancel) && onCancel();
+    if (isFunction(onCancel)) onCancel();
   };
 
   const { classes } = LinkModalStyles({});

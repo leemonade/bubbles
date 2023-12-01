@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { getFontExpressive } from '../../theme.mixins';
 import { COLORS } from '../../theme.tokens';
 import { ScoresBarStyles } from './ScoresBar.styles';
@@ -23,13 +23,12 @@ const ScoresBar = ({
   styles,
   graphAlt,
   className,
-  ...props
 }) => {
   const { classes, cx } = ScoresBarStyles({ withMarker, styles }, { name: 'ScoresBar' });
   const isMultiColor = variant === 'multicolor';
   const [bottomAxisSelector, setBottomAxisSelector] = React.useState(0);
 
-  const getData = () => {
+  const calculateData = () => {
     let highestPercentage = 0;
     let useLetter = false;
     const dataToShow = grades.map(({ number, letter }) => {
@@ -37,7 +36,7 @@ const ScoresBar = ({
         useLetter = true;
       }
       const gradeCount = scores.filter(
-        ({ score: studentScore }) => number === Math.round(studentScore)
+        ({ score: studentScore }) => number === Math.round(studentScore),
       ).length;
 
       const lastPercentage = (gradeCount / scores.length) * 10;
@@ -51,14 +50,17 @@ const ScoresBar = ({
         scoreValue: !showBarPercentage ? lastPercentage : gradeCount,
       };
     });
+    return { highestPercentage, dataToShow };
+  };
+
+  const getData = () => {
+    const { dataToShow, highestPercentage } = calculateData();
 
     if (highestPercentage <= 2.5) {
       if (bottomAxisSelector !== 0) setBottomAxisSelector(0);
     } else if (highestPercentage <= 5) {
       if (bottomAxisSelector !== 1) setBottomAxisSelector(1);
-    } else if (highestPercentage <= 10) {
-      if (bottomAxisSelector !== 2) setBottomAxisSelector(2);
-    }
+    } else if (highestPercentage <= 10 && bottomAxisSelector !== 2) setBottomAxisSelector(2);
 
     return dataToShow;
   };
@@ -66,18 +68,16 @@ const ScoresBar = ({
   const getMarkerValue = () => {
     if (grades[0].letter) {
       return grades[minimumGrade - 1].letter;
-    } else {
-      return minimumGrade - 1;
     }
+    return minimumGrade - 1;
   };
 
-  const getMaxValue = () => {
-    return !showBarPercentage
+  const getMaxValue = () =>
+    !showBarPercentage
       ? SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector][
           SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector].length - 1
         ]
       : scores.length;
-  };
 
   const getTickValues = () => {
     const tickValues = [];
@@ -89,18 +89,16 @@ const ScoresBar = ({
     return tickValues;
   };
 
-  const getAxisBottom = () => {
-    return !showBarPercentage
+  const getAxisBottom = () =>
+    !showBarPercentage
       ? {
           tickValues: SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector],
           format: (value) => `${value * 10}%`,
         }
       : { tickValues: getTickValues(), format: (value) => value.toFixed(0) };
-  };
 
-  const getXGridValues = () => {
-    return !showBarPercentage ? SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector] : getTickValues();
-  };
+  const getXGridValues = () =>
+    !showBarPercentage ? SCORES_BAR_BOTTOM_AXIS[bottomAxisSelector] : getTickValues();
 
   return (
     <Box className={cx(classes.root, className)}>

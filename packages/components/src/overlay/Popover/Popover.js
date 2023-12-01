@@ -1,18 +1,18 @@
 import React, { forwardRef } from 'react';
 import { Popover as MantinePopover } from '@mantine/core';
-import { PopoverStyles } from './Popover.styles';
-import { POPOVER_DEFAULT_PROPS, POPOVER_PROP_TYPES } from './Popover.constants';
-import { Box } from '../../layout';
-import { ActionButton } from '../../form';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
+import { PopoverStyles } from './Popover.styles';
+import { POPOVER_DEFAULT_PROPS, POPOVER_PROP_TYPES } from './Popover.constants';
+import { Box } from '../../layout/Box';
+import { ActionButton } from '../../form/ActionButton';
 
 const Popover = forwardRef(
   ({ padded, target, children, withArrow, withCloseButton, onClose, styles, ...props }, ref) => {
     const { classes } = PopoverStyles({ padded, styles });
 
     const onCloseHandler = () => {
-      isFunction(onClose) && onClose();
+      if (isFunction(onClose)) onClose();
     };
 
     return (
@@ -34,9 +34,10 @@ const Popover = forwardRef(
         </MantinePopover.Dropdown>
       </MantinePopover>
     );
-  }
+  },
 );
 
+Popover.displayName = 'Popover';
 Popover.defaultProps = POPOVER_DEFAULT_PROPS;
 Popover.propTypes = POPOVER_PROP_TYPES;
 
