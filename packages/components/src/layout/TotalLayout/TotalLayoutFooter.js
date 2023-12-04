@@ -15,7 +15,7 @@ const TotalLayoutFooter = ({
   onNext,
   finalActions,
   footerActionsLabels,
-  stepNumberForDraftSave,
+  minStepNumberForDraftSave,
   onSave,
 }) => {
   const { classes } = TotalLayoutFooterStyles(
@@ -56,11 +56,12 @@ const TotalLayoutFooter = ({
           <div></div>
           <Stack direction="row" spacing={2} noFlex>
             {/* SAVE? */}
-            {!Number.isNaN(stepNumberForDraftSave) && activeStep >= stepNumberForDraftSave && (
-              <Button variant="link" onClick={onSave}>
-                {footerActionsLabels.save}
-              </Button>
-            )}
+            {!Number.isNaN(minStepNumberForDraftSave) &&
+              activeStep >= minStepNumberForDraftSave && (
+                <Button variant="link" onClick={onSave}>
+                  {footerActionsLabels.save}
+                </Button>
+              )}
             {/* NEXT OR FINAL ACTIONS */}
             {renderFinalActions()}
           </Stack>

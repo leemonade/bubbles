@@ -243,8 +243,7 @@ const Template = () => {
           Steps={Steps}
           footerActionsLabels={footerActionsLabels}
           footerFinalActions={footerFinalActions}
-          // Pass the index of the step from wich a draft can be save. Don't pass the prop when no save functionality is needed
-          stepNumberForDraftSave={1}
+          minStepNumberForDraftSave={1}
           onSave={handleOnSave}
         />
       </Box>

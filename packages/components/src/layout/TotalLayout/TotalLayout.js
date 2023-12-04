@@ -19,7 +19,7 @@ const TotalLayout = ({
   stepsInfo,
   activeStep = 0,
   setActiveStep = () => {},
-  stepNumberForDraftSave,
+  minStepNumberForDraftSave,
   onSave,
   footerActionsLabels,
   footerFinalActions,
@@ -113,7 +113,7 @@ const TotalLayout = ({
             onNext={() => validateAndAct(handleNext)}
             finalActions={finalActions}
             footerActionsLabels={footerActionsLabels}
-            stepNumberForDraftSave={stepNumberForDraftSave}
+            minStepNumberForDraftSave={minStepNumberForDraftSave}
             onSave={() => validateAndAct(onSave)}
           />
         </Box>
