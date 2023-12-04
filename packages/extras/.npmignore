@@ -1,0 +1,8 @@
+**/__mocks__/**
+**/__tests__/**
+**/mocks/**
+**/examples/**
+**/tasks/**
+**/*-test.js
+**/*.mdx
+**/*.stories.js

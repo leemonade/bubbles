@@ -43,7 +43,7 @@ async function main() {
   console.log(' --- RUN THE FOLLOWING COMMAND IN YOUR PROJECT ---');
   console.log();
 
-  console.log(`yarn link  @bubbles-ui/${result.join(' @bubbles-ui/')}`);
+  console.log(`yarn link @bubbles-ui/${result.join(' @bubbles-ui/')}`);
   console.log();
   console.log();
 }

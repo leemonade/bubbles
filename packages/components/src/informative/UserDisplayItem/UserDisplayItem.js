@@ -7,7 +7,7 @@ import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar/Avatar';
 import { Text, TextClamp, TEXT_ROLES } from '../../typography';
 import { COLORS } from '../../theme.tokens';
-import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
+import { getUserFullName } from '../../helpers/getUserFullName';
 import { AVATAR_STATE } from '../Avatar/Avatar.constants';
 import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 

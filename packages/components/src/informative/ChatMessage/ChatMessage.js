@@ -2,7 +2,7 @@ import React from 'react';
 import { Highlight } from '@mantine/core';
 import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar';
-import { getUserFullName } from '../../navigation/MainNav/helpers/getUserFullName';
+import { getUserFullName } from '../../helpers/getUserFullName';
 import { ChatMessageStyles } from './ChatMessage.styles';
 import { CHAT_MESSAGE_DEFAULT_PROPS, CHAT_MESSAGE_PROP_TYPES } from './ChatMessage.constants';
 
@@ -28,7 +28,7 @@ const ChatMessage = ({
     <Box className={classes.root}>
       {showUser && !isOwn ? (
         <Box className={classes.avatar}>
-          <Avatar image={user.avatar} size="sm" state={user.state} />
+          <Avatar image={user.avatar} size="sm" state={user.state} fullName={fullName} />
         </Box>
       ) : null}
 
