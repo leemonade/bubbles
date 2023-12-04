@@ -24,17 +24,21 @@ const TotalLayoutFooter = ({
   );
 
   const renderFinalActions = () => {
-    if (activeStep < totalSteps - 1) {
+    // It's not the final step
+    if (activeStep < totalSteps - 1)
       return <Button onClick={onNext}>{footerActionsLabels.next}</Button>;
-    } else if (finalActions?.length > 1) {
+
+    // It's the final step and there's more than one final action
+    if (finalActions?.length > 1) {
       return (
         <DropdownButton data={finalActions}>
           {footerActionsLabels.dropdownLabel || 'Finalizar'}
         </DropdownButton>
       );
-    } else {
-      return <Button onClick={finalActions[0].onClick}>{finalActions[0].label}</Button>;
     }
+
+    // It's the final step and there's only one final action
+    return <Button onClick={finalActions[0].onClick}>{finalActions[0].label}</Button>;
   };
 
   return (
@@ -52,7 +56,7 @@ const TotalLayoutFooter = ({
           <div></div>
           <Stack direction="row" spacing={2} noFlex>
             {/* SAVE? */}
-            {!isNaN(stepNumberForDraftSave) && activeStep >= stepNumberForDraftSave && (
+            {!Number.isNaN(stepNumberForDraftSave) && activeStep >= stepNumberForDraftSave && (
               <Button variant="link" onClick={onSave}>
                 {footerActionsLabels.save}
               </Button>
