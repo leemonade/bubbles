@@ -10,16 +10,32 @@ const TotalLayoutFooter = ({
   leftOffset,
   totalSteps,
   activeStep,
+  showFooterShadow,
   onBack,
   onNext,
+  finalActions,
+  footerActionsLabels,
+  stepNumberForDraftSave,
   onSave,
-  onFinishActions,
-  showFooterShadow,
 }) => {
   const { classes } = TotalLayoutFooterStyles(
     { showFooterShadow, leftOffset },
-    { name: 'TotalLayoutFooter' },
+    { name: 'TotalLayoutFooter' }
   );
+
+  const renderFinalActions = () => {
+    if (activeStep < totalSteps - 1) {
+      return <Button onClick={onNext}>{footerActionsLabels.next}</Button>;
+    } else if (finalActions?.length > 1) {
+      return (
+        <DropdownButton data={finalActions}>
+          {footerActionsLabels.dropdownLabel || 'Finalizar'}
+        </DropdownButton>
+      );
+    } else {
+      return <Button onClick={finalActions[0].onClick}>{finalActions[0].label}</Button>;
+    }
+  };
 
   return (
     <Stack justifyContent="center" fullWidth>
@@ -27,21 +43,22 @@ const TotalLayoutFooter = ({
         <Stack fullWidth style={{ height: 72, padding: '16px 24px' }}>
           {activeStep > 0 && (
             <Box noFlex>
+              {/* BACK */}
               <Button variant="outline" onClick={onBack}>
-                Anterior
+                {footerActionsLabels.back}
               </Button>
             </Box>
           )}
           <div></div>
           <Stack direction="row" spacing={2} noFlex>
-            <Button variant="link" onClick={onSave}>
-              Guardar borrador
-            </Button>
-            {activeStep < totalSteps - 1 ? (
-              <Button onClick={onNext}>Siguiente</Button>
-            ) : (
-              <DropdownButton data={onFinishActions}>Finalizar</DropdownButton>
+            {/* SAVE? */}
+            {!isNaN(stepNumberForDraftSave) && activeStep >= stepNumberForDraftSave && (
+              <Button variant="link" onClick={onSave}>
+                {footerActionsLabels.save}
+              </Button>
             )}
+            {/* NEXT OR FINAL ACTIONS */}
+            {renderFinalActions()}
           </Stack>
         </Stack>
       </Box>

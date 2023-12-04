@@ -16,13 +16,7 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
   const { classes } = TotalLayoutHeaderStyles({ compact, children });
 
   return (
-    <Stack
-      id="total-layout-header"
-      fullWidth
-      fullHeight
-      className={classes.headerContainer}
-      direction="column"
-    >
+    <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
       <Stack fullWidth justifyContent="space-between" className={classes.header}>
         {/* ICON & LABELS */}
         <Stack alignItems="center">

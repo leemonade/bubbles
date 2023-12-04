@@ -165,7 +165,7 @@ const Template = () => {
         tags: z.string().optional(),
         color: z.string().optional(),
       }),
-      stepComponent: null, // ? El elemento aquí. Too much?
+      stepComponent: <BasicDataForm key={'basicDataForm'} />,
     },
     {
       label: 'Content',
@@ -175,7 +175,7 @@ const Template = () => {
         instructions: z.string({ required_error: 'Instructions are required' }).min(1),
         deliverables: z.boolean().optional(),
       }),
-      stepComponent: null, // ? El elemento aquí. Too much?
+      stepComponent: <ContentsForm key={'contentsForm'} />,
     },
   ];
 
@@ -183,11 +183,7 @@ const Template = () => {
     resolver: zodResolver(stepsInfo[totalLayoutProps.activeStep].validationSchema),
   });
   const formValues = formMethods.watch();
-
-  const Steps = React.useMemo(
-    () => [<BasicDataForm key={'basicDataForm'} />, <ContentsForm key={'contenidosForm'} />],
-    [formMethods],
-  );
+  const Steps = React.useMemo(() => stepsInfo.map((step) => step.stepComponent), [formMethods]);
 
   // Prepare Header
   const buildHeader = () => (
@@ -203,14 +199,38 @@ const Template = () => {
     console.log('Form values to SAVE as draft', formValues);
   };
 
-  const handlePublish = async (assign) => {
+  const handlePublish = async () => {
     console.log('Form values to PUBLISH:', formValues);
-    if (assign) console.log('...and ASSIGN!');
+  };
+
+  const handlePublishAndAssign = async () => {
+    console.log('Form values to PUBLISH AND ASSIGN:', formValues);
   };
 
   const handlePreview = async () => {
     console.log('Form values to PREVIEW:', formValues);
   };
+
+  // Define common footer action labels
+  const footerActionsLabels = {
+    back: 'Anterior',
+    save: 'Guardar borrador',
+    next: 'Siguiente',
+    dropdownLabel: 'Dropdown final',
+  };
+
+  // Footer Final actions: When more than one action is defined, a dropdown button will be shown
+  const footerFinalActions = [
+    { label: 'Publicar', action: handlePublish },
+    { label: 'Publicar y Asignar', action: handlePublishAndAssign },
+    { label: 'Vista previa', action: handlePreview },
+  ];
+
+  // Alternatively, define only one action for it to be shown as a button
+  // const handleFinalize = async () => {
+  //   console.log('FINALIZE WITH SINGLE ACTION, form values =>', formValues);
+  // };
+  // const footerFinalAction = [{ label: 'Finalize with single action', action: handleFinalize }];
 
   return (
     <FormProvider {...formMethods}>
@@ -221,9 +241,11 @@ const Template = () => {
           showStepper
           stepsInfo={stepsInfo}
           Steps={Steps}
+          footerActionsLabels={footerActionsLabels}
+          footerFinalActions={footerFinalActions}
+          // Pass the index of the step from wich a draft can be save. Don't pass the prop when no save functionality is needed
+          stepNumberForDraftSave={1}
           onSave={handleOnSave}
-          onPublish={handlePublish}
-          onPreview={handlePreview}
         />
       </Box>
     </FormProvider>

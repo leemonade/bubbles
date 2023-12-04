@@ -17,11 +17,12 @@ const TotalLayout = ({
   showStepper,
   Steps,
   stepsInfo,
-  onSave,
-  onPublish,
-  onPreview,
   activeStep = 0,
   setActiveStep = () => {},
+  stepNumberForDraftSave,
+  onSave,
+  footerActionsLabels,
+  footerFinalActions,
 }) => {
   const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
@@ -62,10 +63,6 @@ const TotalLayout = ({
     return () => {};
   }, [bodyRef.current, handleScroll]);
 
-  React.useEffect(() => {
-    console.log('💣💥 RENDER!!!');
-  });
-
   // Set and validate active step
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
@@ -82,12 +79,13 @@ const TotalLayout = ({
     }
   };
 
-  // Define final actions
-  const finishActions = [
-    { label: 'Publicar', onClick: () => validateAndAct(onPublish, false) },
-    { label: 'Publicar y Assignar', onClick: () => validateAndAct(onPublish, false) },
-    { label: 'Vista previa', onClick: () => validateAndAct(onPreview) },
-  ];
+  // Set final actions to pass validation before execution
+  const finalActions = [];
+  if (footerFinalActions?.length) {
+    footerFinalActions.forEach(({ label, action }) => {
+      finalActions.push({ label, onClick: () => validateAndAct(action) });
+    });
+  }
 
   return (
     <Box id="TotalLayout" style={{ height: '100vh' }}>
@@ -107,14 +105,16 @@ const TotalLayout = ({
         </Box>
         <Box className={classes.footerContainer} noFlex>
           <Footer
-            showFooterShadow={showFooterShadow}
             leftOffset={footerLeftOffset}
             totalSteps={totalSteps}
-            onNext={() => validateAndAct(handleNext)}
-            onBack={handlePrev}
             activeStep={activeStep}
+            showFooterShadow={showFooterShadow}
+            onBack={handlePrev}
+            onNext={() => validateAndAct(handleNext)}
+            finalActions={finalActions}
+            footerActionsLabels={footerActionsLabels}
+            stepNumberForDraftSave={stepNumberForDraftSave}
             onSave={() => validateAndAct(onSave)}
-            onFinishActions={finishActions}
           />
         </Box>
       </Stack>
@@ -128,10 +128,13 @@ TotalLayout.propTypes = TOTAL_LAYOUT_PROP_TYPES;
 export { TotalLayout, useTotalLayout };
 
 /*
-TODO:
+DONE:
 - arreglar footer en pequeñito
-- aplicar efecto a las sombras del header
+- save draft es dinámico. Pasar el stepNumberForDraftSave
+- Pasar labels dinámicamente -> para los botones de footer
+TODO:
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del VerticalStepper
+- aplicar efecto a las sombras del header
 - Tidy: una carpeta para cada componente con sus constantes y estilos, etc.
 - Al final: P r o p s   d e    t o d o
 */
