@@ -9,29 +9,60 @@ import { TOTAL_LAYOUT_DEFAULT_PROPS, TOTAL_LAYOUT_PROP_TYPES } from './TotalLayo
 
 const useTotalLayout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
-  return { activeStep, setActiveStep };
+  const [completedSteps, setCompletedSteps] = React.useState([]);
+  const [stepsInfo, setStepsInfo] = React.useState([]);
+  return {
+    activeStep,
+    setActiveStep,
+    completedSteps,
+    setCompletedSteps,
+    stepsInfo,
+    setStepsInfo,
+  };
 };
 
 const TotalLayout = ({
   Header,
   showStepper,
-  Steps,
-  stepsInfo,
+  initialStepsInfo,
   activeStep = 0,
   setActiveStep = () => {},
+  completedSteps = [],
+  setCompletedSteps = () => {},
   minStepNumberForDraftSave,
   onSave,
   footerActionsLabels,
   footerFinalActions,
+  stepsInfo,
+  setStepsInfo,
 }) => {
   const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
   const [showFooterShadow, setShowFooterShadow] = React.useState(false);
+  const [lastValidStep, setLastValidStep] = React.useState(false);
 
-  const totalSteps = Steps.length;
   const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
   const bodyRef = React.useRef();
   const { classes } = TotalLayoutStyles({ topScroll }, { name: 'TotalLayout' });
+
+  const Steps = React.useMemo(() => initialStepsInfo.map((step) => step.stepComponent), []);
+  const totalSteps = Steps.length;
+
+  // Get relevant info from initialStepsInfo when first rendering for further manipulation
+  React.useEffect(() => {
+    setStepsInfo(
+      initialStepsInfo.map(({ validationSchema, stepComponent, ...props }) => ({ ...props })),
+    );
+  }, []);
+
+  // Find the last valid step
+  React.useEffect(() => {
+    const lastValidStepIndex = stepsInfo.reduce(
+      (lastIndex, step, index) => (step.showStep ? index : lastIndex),
+      -1,
+    );
+    setLastValidStep(lastValidStepIndex);
+  }, [stepsInfo, activeStep]);
 
   // Define scroll and window resizing behavior
   const handleScroll = () => {
@@ -48,7 +79,6 @@ const TotalLayout = ({
         setShowFooterShadow(false);
     }
   };
-
   React.useEffect(() => {
     const body = bodyRef.current;
     if (body) {
@@ -64,12 +94,40 @@ const TotalLayout = ({
   }, [bodyRef.current, handleScroll]);
 
   // Set and validate active step
+  const getNextValidStep = (index) => {
+    while (index < totalSteps) {
+      if (stepsInfo[index].showStep) {
+        return index;
+      }
+      index += 1;
+    }
+    return index - 1;
+  };
+
+  const getPreviousValidStep = (index) => {
+    while (index >= 0) {
+      if (stepsInfo[index].showStep) {
+        return index;
+      }
+      index -= 1;
+    }
+    return index;
+  };
+
   const handleNext = async () => {
-    setActiveStep(activeStep + 1);
+    setCompletedSteps((prevCompletedSteps) => [...prevCompletedSteps, activeStep]);
+    setActiveStep((prevActiveStep) => getNextValidStep(prevActiveStep + 1));
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
-  const handlePrev = () => {
-    setActiveStep(activeStep - 1);
+  const handlePrev = async () => {
+    const isValidStep = await form.trigger();
+    if (!isValidStep && completedSteps.includes(activeStep)) {
+      setCompletedSteps((prevCompletedSteps) =>
+        prevCompletedSteps.filter((step) => step !== activeStep),
+      );
+    }
+
+    setActiveStep((prevActiveStep) => getPreviousValidStep(prevActiveStep - 1));
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
   const validateAndAct = async (action, ...actionArgs) => {
@@ -79,7 +137,7 @@ const TotalLayout = ({
     }
   };
 
-  // Set final actions to pass validation before execution
+  // Set final actions to be validated before execution
   const finalActions = [];
   if (footerFinalActions?.length) {
     footerFinalActions.forEach(({ label, action }) => {
@@ -99,6 +157,8 @@ const TotalLayout = ({
             stepsInfo={stepsInfo}
             activeStep={activeStep}
             scrollRef={bodyRef}
+            completedSteps={completedSteps}
+            lastValidStep={lastValidStep}
           >
             {Steps[activeStep]}
           </Body>
@@ -106,7 +166,6 @@ const TotalLayout = ({
         <Box className={classes.footerContainer} noFlex>
           <Footer
             leftOffset={footerLeftOffset}
-            totalSteps={totalSteps}
             activeStep={activeStep}
             showFooterShadow={showFooterShadow}
             onBack={handlePrev}
@@ -115,6 +174,7 @@ const TotalLayout = ({
             footerActionsLabels={footerActionsLabels}
             minStepNumberForDraftSave={minStepNumberForDraftSave}
             onSave={() => validateAndAct(onSave)}
+            isLastStep={lastValidStep === activeStep}
           />
         </Box>
       </Stack>
@@ -132,8 +192,11 @@ DONE:
 - arreglar footer en pequeñito
 - save draft es dinámico. Pasar el stepNumberForDraftSave
 - Pasar labels dinámicamente -> para los botones de footer
-TODO:
 - Vertical Stepper! Crear un TotalLayoutStepper a partir del VerticalStepper
+TODO:
+- Steps se muestran dinámicamente en el stepper
+- onCancel para el header y Modal. Genérica, reutilizable.
+- Toast de confirmación al guardar borrador.
 - aplicar efecto a las sombras del header
 - Tidy: una carpeta para cada componente con sus constantes y estilos, etc.
 - Al final: P r o p s   d e    t o d o

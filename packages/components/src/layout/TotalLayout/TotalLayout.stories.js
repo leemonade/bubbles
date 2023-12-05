@@ -1,17 +1,16 @@
 import React from 'react';
-import { useForm, FormProvider, useFormContext, Controller } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box } from '@mantine/core';
 import { PluginAssignmentsIcon } from '@bubbles-ui/icons/solid';
-import { ContextContainer } from '../ContextContainer';
 import { TotalLayout, useTotalLayout } from './TotalLayout';
 import { TotalLayoutHeader } from './TotalLayoutHeader/TotalLayoutHeader';
-import { TotalLayoutStepContainer as StepContainer } from './TotalLayoutStepContainer/TotalLayoutStepContainer';
-import { Button, DropdownButton, InputWrapper, Switch, TextInput, Textarea } from '../../form';
 import { TOTAL_LAYOUT_DEFAULT_PROPS } from './TotalLayout.constants';
-import { Stack } from '../Stack';
 import mdx from './TotalLayout.mdx';
+import BasicDataForm from './mock/BasicDataForm';
+import ContentForm from './mock/ContentForm';
+import OptionalForm from './mock/OptionalForm';
 
 export default {
   title: 'Molecules/Layout/TotalLayout',
@@ -31,133 +30,22 @@ export default {
   },
 };
 
-// Every step must use the useFormContext() hook in order to access the form state, (to show errors, i.e), and methods
-const BasicDataForm = () => {
-  const {
-    watch,
-    formState: { errors },
-  } = useFormContext();
-  const formValues = watch();
-
-  return (
-    <StepContainer stepName={'Basic Data'}>
-      <form>
-        <ContextContainer spacing={10}>
-          <ContextContainer title="Presentación" subtitle="Imagen destacada" spacing={4}>
-            <Stack direction="row" spacing={3}>
-              <Button variant={'link'} onClick={() => console.log('Showing library drawer')} noFlex>
-                Buscar en la biblioteca
-              </Button>
-              <Button variant={'link'} onClick={() => console.log('Subiendo imagen')} noFlex>
-                Subir Imagen
-              </Button>
-            </Stack>
-            <Controller
-              name="title"
-              render={({ field }) => <TextInput label={'Título'} error={errors.title} {...field} />}
-            />
-            <Controller
-              name="description"
-              render={({ field }) => <Textarea label={'Descripción'} {...field} />}
-            />
-          </ContextContainer>
-          <ContextContainer title="Programas y Asignaturas" spacing={4}>
-            <Controller
-              name="program"
-              render={({ field }) => (
-                <InputWrapper label={'Programa'}>
-                  <DropdownButton
-                    style={{ width: '30%' }}
-                    variant="outline"
-                    data={[
-                      {
-                        label: 'Program 1',
-                        onClick: () => console.log('Item 1 clicked', formValues),
-                      },
-                      {
-                        label: 'Program 2',
-                        onClick: () => console.log('Program 2 clicked', formValues),
-                      },
-                    ]}
-                    {...field}
-                  >
-                    Seleccionar Programa
-                  </DropdownButton>
-                </InputWrapper>
-              )}
-            />
-          </ContextContainer>
-          <ContextContainer title="Otros" spacing={4}>
-            <Controller
-              name="tags"
-              render={({ field }) => <TextInput label={'Etiquetas'} {...field} />}
-            />
-            <Controller
-              name="color"
-              render={({ field }) => <Textarea label={'Color'} {...field} />}
-            />
-          </ContextContainer>
-        </ContextContainer>
-      </form>
-    </StepContainer>
-  );
-};
-const ContentsForm = () => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  return (
-    <StepContainer stepName={'Contenidos'}>
-      <form>
-        <ContextContainer spacing={10}>
-          <ContextContainer title="Enunciado" subtitle="Imagen de apoyo" spacing={4}>
-            <Stack direction="row" spacing={3}>
-              <Button
-                variant={'link'}
-                onClick={() => console.log('Buscando imagen en biblioteca')}
-                noFlex
-              >
-                Buscar en la biblioteca
-              </Button>
-              <Button variant={'link'} onClick={() => console.log('Subiendo imagen')} noFlex>
-                Subir Imagen
-              </Button>
-            </Stack>
-            <Controller
-              name="instructions"
-              render={({ field }) => (
-                <Textarea label={'Texto del enunciado'} error={errors.instructions} {...field} />
-              )}
-            />
-            <Switch label="Añadir desarrollo" />
-          </ContextContainer>
-          <ContextContainer title="Entregables" spacing={4}>
-            <Controller
-              name="deliverables"
-              render={({ field }) => (
-                <Switch
-                  label="Esta tarea requiere de la entrega de algún tipo de archivo, documento o enlace"
-                  {...field}
-                />
-              )}
-            />
-          </ContextContainer>
-        </ContextContainer>
-      </form>
-    </StepContainer>
-  );
-};
-
 // The page must take care of wrapping the TotalLayout within a FormProvider
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
 
-  // Prepare StepsInfo & Form
-  const stepsInfo = [
+  // React.useEffect(() => {
+  //   if (totalLayoutProps.activeStep === 0) {
+  //     totalLayoutProps.setCompletedSteps([]);
+  //   }
+  // }, [totalLayoutProps.activeStep]);
+
+  const initialStepsInfo = [
     {
       label: 'Basic Data',
       badge: null,
       status: null,
+      showStep: true, // Define if by default this step must be shown, it's expected/recommended that the fisrt step is always set to true
       validationSchema: z.object({
         title: z.string({ required_error: 'Title is required' }).min(1),
         description: z.string().optional(),
@@ -165,25 +53,54 @@ const Template = () => {
         tags: z.string().optional(),
         color: z.string().optional(),
       }),
+      // Steps can use the any form methods with the useFormContext hook (from react-hook-form)
       stepComponent: <BasicDataForm key={'basicDataForm'} />,
     },
     {
       label: 'Content',
       badge: null,
       status: null,
+      showStep: true,
       validationSchema: z.object({
         instructions: z.string({ required_error: 'Instructions are required' }).min(1),
         deliverables: z.boolean().optional(),
       }),
-      stepComponent: <ContentsForm key={'contentsForm'} />,
+      stepComponent: <ContentForm key={'contentForm'} />,
+    },
+    {
+      label: 'Optional',
+      badge: null,
+      status: null,
+      showStep: false,
+      validationSchema: z.object({
+        optionalField: z.string().min(1),
+      }),
+      stepComponent: <OptionalForm key={'optionalForm'} />,
+    },
+    {
+      label: 'tal cosa',
+      badge: null,
+      status: null,
+      showStep: true,
+      validationSchema: z.object({}),
     },
   ];
 
+  // Prepare Form
   const formMethods = useForm({
-    resolver: zodResolver(stepsInfo[totalLayoutProps.activeStep].validationSchema),
+    resolver: zodResolver(initialStepsInfo[totalLayoutProps.activeStep]?.validationSchema),
   });
   const formValues = formMethods.watch();
-  const Steps = React.useMemo(() => stepsInfo.map((step) => step.stepComponent), [formMethods]);
+
+  React.useEffect(() => {
+    if (formValues.addOptionalStep !== undefined) {
+      const current = [...totalLayoutProps.stepsInfo];
+      const updatedStepsInfo = current.map((step, i) =>
+        i === 2 ? { ...step, showStep: formValues.addOptionalStep } : step,
+      );
+      totalLayoutProps.setStepsInfo(updatedStepsInfo);
+    }
+  }, [formValues.addOptionalStep]);
 
   // Prepare Header
   const buildHeader = () => (
@@ -239,12 +156,11 @@ const Template = () => {
           {...totalLayoutProps}
           Header={() => buildHeader()}
           showStepper
-          stepsInfo={stepsInfo}
-          Steps={Steps}
           footerActionsLabels={footerActionsLabels}
           footerFinalActions={footerFinalActions}
           minStepNumberForDraftSave={1}
           onSave={handleOnSave}
+          initialStepsInfo={initialStepsInfo}
         />
       </Box>
     </FormProvider>

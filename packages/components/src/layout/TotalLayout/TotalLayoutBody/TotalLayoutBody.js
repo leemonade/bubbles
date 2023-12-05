@@ -5,9 +5,17 @@ import {
   TOTAL_LAYOUT_BODY_PROP_TYPES,
   TOTAL_LAYOUT_BODY_DEFAULT_PROPS,
 } from './TotalLayoutBody.constants';
-import { VerticalStepper } from '../../../navigation';
+import { TotalLayoutStepper as Stepper } from '../../../navigation';
 
-const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollRef }) => (
+const TotalLayoutBody = ({
+  showStepper,
+  children,
+  stepsInfo,
+  activeStep,
+  completedSteps,
+  scrollRef,
+  lastValidStep,
+}) => (
   <Stack
     ref={scrollRef}
     justifyContent="center"
@@ -28,7 +36,12 @@ const TotalLayoutBody = ({ showStepper, children, stepsInfo, activeStep, scrollR
           marginRight: 16,
         }}
       >
-        <VerticalStepper data={stepsInfo} currentStep={activeStep} />
+        <Stepper
+          data={stepsInfo}
+          activeStep={activeStep}
+          completedSteps={completedSteps}
+          lastValidStep={lastValidStep}
+        />
       </Box>
     )}
     <Box style={{ width: 928 }}>{children}</Box>

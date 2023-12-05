@@ -1,5 +1,4 @@
 import { useFormContext } from 'react-hook-form';
-import { StarIcon } from '@bubbles-ui/icons/solid';
 import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
 import { Button } from '../../../form';
@@ -9,6 +8,7 @@ import {
   TOTAL_LAYOUT_HEADER_DEFAULT_PROPS,
 } from './TotalLayoutHeader.constants';
 import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
+import CrossIcon from './crossIcon';
 
 const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compact = false }) => {
   const { watch } = useFormContext();
@@ -46,7 +46,7 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button variant="link" type="button" leftIcon={<StarIcon />}>
+          <Button variant="link" type="button" leftIcon={<CrossIcon />}>
             Cancelar
           </Button>
         </Stack>

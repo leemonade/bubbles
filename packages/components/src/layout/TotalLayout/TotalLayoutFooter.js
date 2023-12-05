@@ -8,7 +8,6 @@ import { TOTAL_LAYOUT_FOOTER_PROP_TYPES } from './TotalLayout.constants';
 
 const TotalLayoutFooter = ({
   leftOffset,
-  totalSteps,
   activeStep,
   showFooterShadow,
   onBack,
@@ -17,16 +16,16 @@ const TotalLayoutFooter = ({
   footerActionsLabels,
   minStepNumberForDraftSave,
   onSave,
+  isLastStep,
 }) => {
   const { classes } = TotalLayoutFooterStyles(
     { showFooterShadow, leftOffset },
-    { name: 'TotalLayoutFooter' }
+    { name: 'TotalLayoutFooter' },
   );
 
   const renderFinalActions = () => {
     // It's not the final step
-    if (activeStep < totalSteps - 1)
-      return <Button onClick={onNext}>{footerActionsLabels.next}</Button>;
+    if (!isLastStep) return <Button onClick={onNext}>{footerActionsLabels.next}</Button>;
 
     // It's the final step and there's more than one final action
     if (finalActions?.length > 1) {

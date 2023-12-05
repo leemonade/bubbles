@@ -16,7 +16,7 @@ const TotalLayoutStepContainer = ({ stepName, children }) => {
           {stepName}
         </Text>
       )}
-      <Stack className={classes.formContainer} fullWidth>
+      <Stack className={classes.formContainer} fullWidth fullHeight>
         {children}
       </Stack>
     </Stack>
