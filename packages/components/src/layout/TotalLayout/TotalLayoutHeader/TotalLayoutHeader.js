@@ -9,8 +9,16 @@ import {
 } from './TotalLayoutHeader.constants';
 import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
 import CrossIcon from './crossIcon';
+import { useTotalLayout } from '../TotalLayout';
 
-const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compact = false }) => {
+const TotalLayoutHeader = ({
+  title,
+  icon,
+  formTitlePlaceholder,
+  children,
+  setOpenCancelModal,
+  compact = false,
+}) => {
   const { watch } = useFormContext();
   const formValues = watch();
   const { classes } = TotalLayoutHeaderStyles({ compact, children });
@@ -46,7 +54,12 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button variant="link" type="button" leftIcon={<CrossIcon />}>
+          <Button
+            variant="link"
+            type="button"
+            leftIcon={<CrossIcon />}
+            onClick={() => setOpenCancelModal(true)}
+          >
             Cancelar
           </Button>
         </Stack>

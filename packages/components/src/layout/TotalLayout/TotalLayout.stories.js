@@ -11,6 +11,10 @@ import mdx from './TotalLayout.mdx';
 import BasicDataForm from './mock/BasicDataForm';
 import ContentForm from './mock/ContentForm';
 import OptionalForm from './mock/OptionalForm';
+import { Modal } from '../../overlay';
+import { Paragraph } from '../../typography';
+import { Stack } from '../Stack';
+import { Button } from '../../form';
 
 export default {
   title: 'Molecules/Layout/TotalLayout',
@@ -33,12 +37,8 @@ export default {
 // The page must take care of wrapping the TotalLayout within a FormProvider
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
-
-  // React.useEffect(() => {
-  //   if (totalLayoutProps.activeStep === 0) {
-  //     totalLayoutProps.setCompletedSteps([]);
-  //   }
-  // }, [totalLayoutProps.activeStep]);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalContent, setModalContent] = React.useState({ title: '', body: '', action: null });
 
   const initialStepsInfo = [
     {
@@ -102,18 +102,54 @@ const Template = () => {
     }
   }, [formValues.addOptionalStep]);
 
-  // Prepare Header
+  // Prepare dynamic modal. Total Layout only handles the "global" cancel modal
+  const renderActionModal = ({ title, body, action }) => (
+    <Modal title={title} opened={openModal} onClose={() => setOpenModal(false)}>
+      <Box>
+        <Paragraph>{body}</Paragraph>
+      </Box>
+      <Stack fullWidth justifyContent="space-between" style={{ marginTop: 16 }}>
+        <Button variant="light" onClick={() => setOpenModal(false)}>
+          Cancel
+        </Button>
+        <Button
+          onClick={() => {
+            if (action) action();
+            setOpenModal(false);
+          }}
+        >
+          Confirm
+        </Button>
+      </Stack>
+    </Modal>
+  );
+
+  // Prepare Header. It is necesary to pass the setOpenCancelModal function to the header
+  const onCancel = () => {
+    console.log('Redirecting after cancel');
+  };
+
   const buildHeader = () => (
     <TotalLayoutHeader
       title={'Nueva Tarea'}
       icon={<PluginAssignmentsIcon />}
       formTitlePlaceholder={'Título de la tarea'}
+      setOpenCancelModal={totalLayoutProps.setOpenCancelModal}
     />
   );
 
   // Prepare Actions. TotalLayout validates the form on every step and for every action
-  const handleOnSave = async () => {
+  const saveDraft = async () => {
     console.log('Form values to SAVE as draft', formValues);
+  };
+
+  const handleOnSave = () => {
+    setModalContent({
+      title: 'Guardar Borrador',
+      body: 'Guardando Borrador',
+      action: saveDraft,
+    });
+    setOpenModal(true);
   };
 
   const handlePublish = async () => {
@@ -150,20 +186,25 @@ const Template = () => {
   // const footerFinalAction = [{ label: 'Finalize with single action', action: handleFinalize }];
 
   return (
-    <FormProvider {...formMethods}>
-      <Box style={{ margin: '-16px' }}>
-        <TotalLayout
-          {...totalLayoutProps}
-          Header={() => buildHeader()}
-          showStepper
-          footerActionsLabels={footerActionsLabels}
-          footerFinalActions={footerFinalActions}
-          minStepNumberForDraftSave={1}
-          onSave={handleOnSave}
-          initialStepsInfo={initialStepsInfo}
-        />
-      </Box>
-    </FormProvider>
+    <>
+      {/* Modal - Implemented at the page level */}
+      {renderActionModal(modalContent)}
+      <FormProvider {...formMethods}>
+        <Box style={{ margin: '-16px' }}>
+          <TotalLayout
+            {...totalLayoutProps}
+            Header={() => buildHeader()}
+            showStepper
+            footerActionsLabels={footerActionsLabels}
+            footerFinalActions={footerFinalActions}
+            minStepNumberForDraftSave={1}
+            onSave={handleOnSave}
+            initialStepsInfo={initialStepsInfo}
+            onCancel={onCancel}
+          />
+        </Box>
+      </FormProvider>
+    </>
   );
 };
 

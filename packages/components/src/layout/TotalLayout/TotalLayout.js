@@ -6,11 +6,15 @@ import Footer from './TotalLayoutFooter';
 import Body from './TotalLayoutBody/TotalLayoutBody';
 import { TotalLayoutStyles } from './TotalLayout.styles';
 import { TOTAL_LAYOUT_DEFAULT_PROPS, TOTAL_LAYOUT_PROP_TYPES } from './TotalLayout.constants';
+import { Modal } from '../../overlay';
+import { Button } from '../../form';
+import { Paragraph } from '../../typography';
 
 const useTotalLayout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completedSteps, setCompletedSteps] = React.useState([]);
   const [stepsInfo, setStepsInfo] = React.useState([]);
+  const [openCancelModal, setOpenCancelModal] = React.useState(false);
   return {
     activeStep,
     setActiveStep,
@@ -18,6 +22,8 @@ const useTotalLayout = () => {
     setCompletedSteps,
     stepsInfo,
     setStepsInfo,
+    openCancelModal,
+    setOpenCancelModal,
   };
 };
 
@@ -35,6 +41,9 @@ const TotalLayout = ({
   footerFinalActions,
   stepsInfo,
   setStepsInfo,
+  openCancelModal,
+  setOpenCancelModal,
+  onCancel,
 }) => {
   const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
@@ -147,6 +156,26 @@ const TotalLayout = ({
 
   return (
     <Box id="TotalLayout" style={{ height: '100vh' }}>
+      {/* Cancel Modal */}
+      <Modal title="Cancelando" opened={openCancelModal} onClose={() => setOpenCancelModal(false)}>
+        <Box>
+          <Paragraph>{'Seguro que desea salir? Todos sus cambios serán descartados.'}</Paragraph>
+        </Box>
+        <Stack fullWidth justifyContent="space-between" style={{ marginTop: 16 }}>
+          <Button variant="light" onClick={() => setOpenCancelModal(false)}>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              onCancel();
+              setOpenCancelModal(false);
+            }}
+          >
+            Confirm
+          </Button>
+        </Stack>
+      </Modal>
+
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
           <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
