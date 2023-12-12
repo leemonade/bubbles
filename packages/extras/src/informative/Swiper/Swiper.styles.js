@@ -5,7 +5,6 @@ const SwiperStyles = createStyles(
     theme,
     { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
   ) => {
-    console.log(theme);
     const buttonCommonStyles = {
       position: 'absolute',
       top: 0,
