@@ -4,7 +4,7 @@ export const PROGRESSRING_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 export const PROGRESS_RING_DEFAULT_PROPS = {
   sections: [{ value: 10, color: '#307AE8' }],
   label: '',
-  // rootColor: '#307AE8',
+  rootColor: '#DDE1E6',
   roundCaps: true,
   size: PROGRESSRING_SIZES[3],
   thickness: 10,

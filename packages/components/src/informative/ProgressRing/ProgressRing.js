@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { RingProgress } from '@mantine/core';
 import { ProgressRingStyles } from './ProgressRing.styles';
 import {
@@ -7,8 +7,8 @@ import {
   PROGRESSRING_SIZES,
 } from './ProgressRing.constants';
 
-const ProgressRing = ({ sections, label, roundCaps, size, thickness }) => {
-  const { classes } = ProgressRingStyles({}, { name: 'ProgressRing' });
+const ProgressRing = ({ sections, label, roundCaps, size, thickness, rootColor }) => {
+  const { classes } = ProgressRingStyles({ rootColor }, { name: 'ProgressRing' });
 
   const sizeValue = PROGRESSRING_SIZES.includes(size) ? size : PROGRESSRING_SIZES[2];
   const sizeHandler = {
