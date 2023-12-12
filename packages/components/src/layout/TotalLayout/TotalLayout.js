@@ -6,15 +6,12 @@ import Footer from './TotalLayoutFooter';
 import Body from './TotalLayoutBody/TotalLayoutBody';
 import { TotalLayoutStyles } from './TotalLayout.styles';
 import { TOTAL_LAYOUT_DEFAULT_PROPS, TOTAL_LAYOUT_PROP_TYPES } from './TotalLayout.constants';
-import { Modal } from '../../overlay';
-import { Button } from '../../form';
-import { Paragraph } from '../../typography';
 
 const useTotalLayout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completedSteps, setCompletedSteps] = React.useState([]);
   const [stepsInfo, setStepsInfo] = React.useState([]);
-  const [openCancelModal, setOpenCancelModal] = React.useState(false);
+  const formIsDirty = React.useRef(false);
   return {
     activeStep,
     setActiveStep,
@@ -22,8 +19,7 @@ const useTotalLayout = () => {
     setCompletedSteps,
     stepsInfo,
     setStepsInfo,
-    openCancelModal,
-    setOpenCancelModal,
+    formIsDirty,
   };
 };
 
@@ -41,9 +37,8 @@ const TotalLayout = ({
   footerFinalActions,
   stepsInfo,
   setStepsInfo,
-  openCancelModal,
-  setOpenCancelModal,
-  onCancel,
+  formIsDirty,
+  isLoading,
 }) => {
   const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
@@ -124,11 +119,15 @@ const TotalLayout = ({
   };
 
   const handleNext = async () => {
+    formIsDirty.current =
+      formIsDirty.current || Object.keys(form.formState.touchedFields).length > 0;
     setCompletedSteps((prevCompletedSteps) => [...prevCompletedSteps, activeStep]);
     setActiveStep((prevActiveStep) => getNextValidStep(prevActiveStep + 1));
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
   const handlePrev = async () => {
+    formIsDirty.current =
+      formIsDirty.current || Object.keys(form.formState.touchedFields).length > 0;
     const isValidStep = await form.trigger();
     if (!isValidStep && completedSteps.includes(activeStep)) {
       setCompletedSteps((prevCompletedSteps) =>
@@ -156,26 +155,6 @@ const TotalLayout = ({
 
   return (
     <Box id="TotalLayout" style={{ height: '100vh' }}>
-      {/* Cancel Modal */}
-      <Modal title="Cancelando" opened={openCancelModal} onClose={() => setOpenCancelModal(false)}>
-        <Box>
-          <Paragraph>{'Seguro que desea salir? Todos sus cambios serán descartados.'}</Paragraph>
-        </Box>
-        <Stack fullWidth justifyContent="space-between" style={{ marginTop: 16 }}>
-          <Button variant="light" onClick={() => setOpenCancelModal(false)}>
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              onCancel();
-              setOpenCancelModal(false);
-            }}
-          >
-            Confirm
-          </Button>
-        </Stack>
-      </Modal>
-
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
           <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
@@ -204,6 +183,7 @@ const TotalLayout = ({
             minStepNumberForDraftSave={minStepNumberForDraftSave}
             onSave={() => validateAndAct(onSave)}
             isLastStep={lastValidStep === activeStep}
+            isLoading={isLoading}
           />
         </Box>
       </Stack>
@@ -217,16 +197,7 @@ TotalLayout.propTypes = TOTAL_LAYOUT_PROP_TYPES;
 export { TotalLayout, useTotalLayout };
 
 /*
-DONE:
-- arreglar footer en pequeñito
-- save draft es dinámico. Pasar el stepNumberForDraftSave
-- Pasar labels dinámicamente -> para los botones de footer
-- Vertical Stepper! Crear un TotalLayoutStepper a partir del VerticalStepper
 TODO:
-- Steps se muestran dinámicamente en el stepper
-- onCancel para el header y Modal. Genérica, reutilizable.
-- Toast de confirmación al guardar borrador.
-- aplicar efecto a las sombras del header
 - Tidy: una carpeta para cada componente con sus constantes y estilos, etc.
 - Al final: P r o p s   d e    t o d o
 */

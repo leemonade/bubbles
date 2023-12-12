@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { PluginAssignmentsIcon as Icon } from '@bubbles-ui/icons/solid';
 

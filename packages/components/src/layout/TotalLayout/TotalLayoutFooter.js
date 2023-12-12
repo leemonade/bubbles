@@ -17,6 +17,7 @@ const TotalLayoutFooter = ({
   minStepNumberForDraftSave,
   onSave,
   isLastStep,
+  isLoading,
 }) => {
   const { classes } = TotalLayoutFooterStyles(
     { showFooterShadow, leftOffset },
@@ -30,7 +31,7 @@ const TotalLayoutFooter = ({
     // It's the final step and there's more than one final action
     if (finalActions?.length > 1) {
       return (
-        <DropdownButton data={finalActions}>
+        <DropdownButton data={finalActions} loading={isLoading} disabled={isLoading}>
           {footerActionsLabels.dropdownLabel || 'Finalizar'}
         </DropdownButton>
       );

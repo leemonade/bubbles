@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
-import { Button } from '../../../form';
+import { Button } from '../../../form/Button';
 import { Box } from '../../Box';
 import {
   TOTAL_LAYOUT_HEADER_PROP_TYPES,
@@ -9,14 +9,13 @@ import {
 } from './TotalLayoutHeader.constants';
 import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
 import CrossIcon from './crossIcon';
-import { useTotalLayout } from '../TotalLayout';
 
 const TotalLayoutHeader = ({
   title,
   icon,
   formTitlePlaceholder,
   children,
-  setOpenCancelModal,
+  onCancel,
   compact = false,
 }) => {
   const { watch } = useFormContext();
@@ -54,12 +53,7 @@ const TotalLayoutHeader = ({
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button
-            variant="link"
-            type="button"
-            leftIcon={<CrossIcon />}
-            onClick={() => setOpenCancelModal(true)}
-          >
+          <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
             Cancelar
           </Button>
         </Stack>

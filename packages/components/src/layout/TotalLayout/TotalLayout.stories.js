@@ -11,10 +11,6 @@ import mdx from './TotalLayout.mdx';
 import BasicDataForm from './mock/BasicDataForm';
 import ContentForm from './mock/ContentForm';
 import OptionalForm from './mock/OptionalForm';
-import { Modal } from '../../overlay';
-import { Paragraph } from '../../typography';
-import { Stack } from '../Stack';
-import { Button } from '../../form';
 
 export default {
   title: 'Molecules/Layout/TotalLayout',
@@ -37,8 +33,6 @@ export default {
 // The page must take care of wrapping the TotalLayout within a FormProvider
 const Template = () => {
   const totalLayoutProps = useTotalLayout();
-  const [openModal, setOpenModal] = React.useState(false);
-  const [modalContent, setModalContent] = React.useState({ title: '', body: '', action: null });
 
   const initialStepsInfo = [
     {
@@ -53,6 +47,13 @@ const Template = () => {
         tags: z.string().optional(),
         color: z.string().optional(),
       }),
+      initialValues: {
+        title: '',
+        description: '',
+        program: '',
+        tags: '',
+        color: '',
+      },
       // Steps can use the any form methods with the useFormContext hook (from react-hook-form)
       stepComponent: <BasicDataForm key={'basicDataForm'} />,
     },
@@ -65,6 +66,10 @@ const Template = () => {
         instructions: z.string({ required_error: 'Instructions are required' }).min(1),
         deliverables: z.boolean().optional(),
       }),
+      initialValues: {
+        instructions: '',
+        deliverables: false,
+      },
       stepComponent: <ContentForm key={'contentForm'} />,
     },
     {
@@ -88,6 +93,7 @@ const Template = () => {
 
   // Prepare Form
   const formMethods = useForm({
+    defaultValues: initialStepsInfo[totalLayoutProps.activeStep]?.initialValues,
     resolver: zodResolver(initialStepsInfo[totalLayoutProps.activeStep]?.validationSchema),
   });
   const formValues = formMethods.watch();
@@ -102,31 +108,17 @@ const Template = () => {
     }
   }, [formValues.addOptionalStep]);
 
-  // Prepare dynamic modal. Total Layout only handles the "global" cancel modal
-  const renderActionModal = ({ title, body, action }) => (
-    <Modal title={title} opened={openModal} onClose={() => setOpenModal(false)}>
-      <Box>
-        <Paragraph>{body}</Paragraph>
-      </Box>
-      <Stack fullWidth justifyContent="space-between" style={{ marginTop: 16 }}>
-        <Button variant="light" onClick={() => setOpenModal(false)}>
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            if (action) action();
-            setOpenModal(false);
-          }}
-        >
-          Confirm
-        </Button>
-      </Stack>
-    </Modal>
-  );
-
   // Prepare Header. It is necesary to pass the setOpenCancelModal function to the header
   const onCancel = () => {
     console.log('Redirecting after cancel');
+  };
+
+  const handleOnCancel = () => {
+    if (totalLayoutProps.formIsDirty) {
+      // Usar openConfirmationModal del plugin Layout(leemons)
+      return;
+    }
+    onCancel();
   };
 
   const buildHeader = () => (
@@ -134,7 +126,7 @@ const Template = () => {
       title={'Nueva Tarea'}
       icon={<PluginAssignmentsIcon />}
       formTitlePlaceholder={'Título de la tarea'}
-      setOpenCancelModal={totalLayoutProps.setOpenCancelModal}
+      onCancel={handleOnCancel}
     />
   );
 
@@ -186,25 +178,22 @@ const Template = () => {
   // const footerFinalAction = [{ label: 'Finalize with single action', action: handleFinalize }];
 
   return (
-    <>
-      {/* Modal - Implemented at the page level */}
-      {renderActionModal(modalContent)}
-      <FormProvider {...formMethods}>
-        <Box style={{ margin: '-16px' }}>
-          <TotalLayout
-            {...totalLayoutProps}
-            Header={() => buildHeader()}
-            showStepper
-            footerActionsLabels={footerActionsLabels}
-            footerFinalActions={footerFinalActions}
-            minStepNumberForDraftSave={1}
-            onSave={handleOnSave}
-            initialStepsInfo={initialStepsInfo}
-            onCancel={onCancel}
-          />
-        </Box>
-      </FormProvider>
-    </>
+    <FormProvider {...formMethods}>
+      <Box style={{ margin: '-16px' }}>
+        <TotalLayout
+          {...totalLayoutProps}
+          Header={() => buildHeader()}
+          showStepper
+          footerActionsLabels={footerActionsLabels}
+          footerFinalActions={footerFinalActions}
+          minStepNumberForDraftSave={1}
+          onSave={handleOnSave}
+          initialStepsInfo={initialStepsInfo}
+          onCancel={onCancel}
+          isLoading={false}
+        />
+      </Box>
+    </FormProvider>
   );
 };
 
