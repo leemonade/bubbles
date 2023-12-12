@@ -9,7 +9,7 @@ import { TOTAL_LAYOUT_FOOTER_PROP_TYPES } from './TotalLayout.constants';
 const TotalLayoutFooter = ({
   leftOffset,
   activeStep,
-  showFooterShadow,
+  showFooterBorder,
   onBack,
   onNext,
   finalActions,
@@ -20,7 +20,7 @@ const TotalLayoutFooter = ({
   isLoading,
 }) => {
   const { classes } = TotalLayoutFooterStyles(
-    { showFooterShadow, leftOffset },
+    { showFooterBorder, leftOffset },
     { name: 'TotalLayoutFooter' },
   );
 

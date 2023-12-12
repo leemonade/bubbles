@@ -42,7 +42,7 @@ const TotalLayout = ({
 }) => {
   const form = useFormContext();
   const [topScroll, setTopScroll] = React.useState(false);
-  const [showFooterShadow, setShowFooterShadow] = React.useState(false);
+  const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const [lastValidStep, setLastValidStep] = React.useState(false);
 
   const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
@@ -78,9 +78,9 @@ const TotalLayout = ({
 
       const atTheBottom = scrollHeight - scrollTop === clientHeight;
       const isScrollable = scrollHeight > clientHeight;
-      if (isScrollable && !atTheBottom && !showFooterShadow) setShowFooterShadow(true);
-      else if ((!isScrollable && showFooterShadow) || (atTheBottom && showFooterShadow))
-        setShowFooterShadow(false);
+      if (isScrollable && !atTheBottom && !showFooterBorder) setShowFooterBorder(true);
+      else if ((!isScrollable && showFooterBorder) || (atTheBottom && showFooterBorder))
+        setShowFooterBorder(false);
     }
   };
   React.useEffect(() => {
@@ -175,7 +175,7 @@ const TotalLayout = ({
           <Footer
             leftOffset={footerLeftOffset}
             activeStep={activeStep}
-            showFooterShadow={showFooterShadow}
+            showFooterBorder={showFooterBorder}
             onBack={handlePrev}
             onNext={() => validateAndAct(handleNext)}
             finalActions={finalActions}

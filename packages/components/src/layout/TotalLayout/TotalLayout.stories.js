@@ -135,15 +135,6 @@ const Template = () => {
     console.log('Form values to SAVE as draft', formValues);
   };
 
-  const handleOnSave = () => {
-    setModalContent({
-      title: 'Guardar Borrador',
-      body: 'Guardando Borrador',
-      action: saveDraft,
-    });
-    setOpenModal(true);
-  };
-
   const handlePublish = async () => {
     console.log('Form values to PUBLISH:', formValues);
   };
@@ -187,7 +178,7 @@ const Template = () => {
           footerActionsLabels={footerActionsLabels}
           footerFinalActions={footerFinalActions}
           minStepNumberForDraftSave={1}
-          onSave={handleOnSave}
+          onSave={saveDraft}
           initialStepsInfo={initialStepsInfo}
           onCancel={onCancel}
           isLoading={false}
