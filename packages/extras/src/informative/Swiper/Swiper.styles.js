@@ -77,6 +77,7 @@ const SwiperStyles = createStyles(
           left: 47,
           width: isBeginning ? 0 : pxToRem(48),
           height: '100%',
+          transform: 'rotate(180deg)',
           background: `linear-gradient(270deg, rgba(255, 255, 255, 0.75) -98.44%, rgba(255, 255, 255, 0.00) 85.94%)`,
         },
       },
