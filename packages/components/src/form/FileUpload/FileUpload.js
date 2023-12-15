@@ -91,8 +91,14 @@ const FileUpload = ({
   React.useEffect(() => {
     if (!initialFiles || (initialFiles && initialFiles.length === 0)) {
       removeFiles();
+    } else {
+      setFiles(initialFiles);
     }
   }, [initialFiles]);
+
+  React.useEffect(() => {
+    console.log('FILES DESDE FILEUPLOAD', files);
+  }, [files]);
 
   const { classes, cx } = FileUploadStyles(
     { disabled, single, files, hasError },
@@ -138,7 +144,7 @@ const FileUpload = ({
           {errorMessage.message}
         </Alert>
       )}
-      {!!files.length && (
+      {files.length > 0 && (
         <Stack className={classes.fileList} direction={'column'} fullWidth={true}>
           {files.map((file, index) => (
             <Box key={index} className={classes.droppedFile}>
