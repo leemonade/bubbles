@@ -96,10 +96,6 @@ const FileUpload = ({
     }
   }, [initialFiles]);
 
-  React.useEffect(() => {
-    console.log('FILES DESDE FILEUPLOAD', files);
-  }, [files]);
-
   const { classes, cx } = FileUploadStyles(
     { disabled, single, files, hasError },
     { name: 'FileUpload' },
