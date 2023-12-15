@@ -10,8 +10,8 @@ export const TOTAL_LAYOUT_HEADER_PROP_TYPES = {
 };
 
 export const TOTAL_LAYOUT_HEADER_DEFAULT_PROPS = {
-  title: 'Title',
+  title: '',
   icon: <Icon />,
-  formTitlePlaceholder: 'User input placeholder',
+  formTitlePlaceholder: '',
   compact: false,
 };
