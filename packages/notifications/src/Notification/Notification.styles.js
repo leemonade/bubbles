@@ -1,9 +1,8 @@
 import {
   createStyles,
-  pxToRem,
   getPaddings,
-  getFontExpressive,
   getFontProductive,
+  getFocusDefaultBorder,
 } from '@bubbles-ui/components';
 
 import { CONTEXT_TYPES } from '../NotificationProvider/context';
@@ -28,8 +27,9 @@ function getColor(theme, severity) {
   }[severity];
 }
 
-export const NotificationStyles = createStyles((theme, { hasIcon, severity, type }) => {
-  let root = {
+const NotificationStyles = createStyles((theme, { hasIcon, severity, type }) => {
+  const buttonActionTheme = theme.other.buttonAction;
+  const root = {
     boxShadow: theme.shadows.shadow04,
     backgroundColor: theme.colors.uiBackground05,
     ...getPaddings(theme.spacing[4], theme.spacing[3]),
@@ -44,21 +44,21 @@ export const NotificationStyles = createStyles((theme, { hasIcon, severity, type
     },
   };
 
-  let message = {
+  const message = {
     color: theme.colors.text08,
   };
 
-  let description = {
+  const description = {
     ...getFontProductive(theme.fontSizes[1]),
     color: theme.colors.text08,
   };
 
-  let title = {
+  const title = {
     ...getFontProductive(theme.fontSizes[2], 500),
     color: theme.colors.text07,
   };
 
-  let closeButton = {
+  const closeButton = {
     color: theme.colors.text05,
     '&:hover': {
       background: theme.colors.uiBackground03,
@@ -71,6 +71,17 @@ export const NotificationStyles = createStyles((theme, { hasIcon, severity, type
     description.color = 'black';
     title.color = 'black';
     closeButton.color = 'black';
+    closeButton['&:hover'] = {
+      background: buttonActionTheme.background.color.primary.hover,
+    };
+    closeButton['&:active'] = {
+      backgroundColor: buttonActionTheme.background.color.primary.pressed,
+    };
+    closeButton['&:focus-visible'] = {
+      backgroundColor: buttonActionTheme.background.color.primary.hover,
+      ...getFocusDefaultBorder(theme),
+      outline: 'none',
+    };
   }
 
   return {
@@ -84,3 +95,5 @@ export const NotificationStyles = createStyles((theme, { hasIcon, severity, type
     closeButton,
   };
 });
+
+export { NotificationStyles };

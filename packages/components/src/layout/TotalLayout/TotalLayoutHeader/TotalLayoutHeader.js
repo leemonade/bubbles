@@ -18,10 +18,12 @@ const TotalLayoutHeader = ({
   children,
   onCancel,
   compact = false,
+  direction = 'column',
+  cancelable = true,
 }) => {
   const { watch } = useFormContext();
   const formValues = watch();
-  const { classes } = TotalLayoutHeaderStyles({ compact, children });
+  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children });
 
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
@@ -54,14 +56,18 @@ const TotalLayoutHeader = ({
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
-            Cancelar
-          </Button>
+          {/* CHILDREN */}
+          {!!children && direction === 'row' && children}
+          {cancelable && (
+            <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
+              Cancelar
+            </Button>
+          )}
         </Stack>
       </Stack>
 
       {/* CHILDREN */}
-      {children && (
+      {!!children && direction === 'column' && (
         <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
           {children}
         </Stack>
