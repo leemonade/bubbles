@@ -15,6 +15,7 @@ const ImageLoader = ({
   radius,
   imageStyles,
   useAria,
+  bordered,
   ...props
 }) => {
   const [src, setSrc] = useState(srcProp);
@@ -26,7 +27,7 @@ const ImageLoader = ({
   }, [srcProp]);
 
   const { classes, cx } = ImageLoaderStyles(
-    { radius, imageStyles, height },
+    { radius, imageStyles, height, bordered },
     { name: 'ImageLoader' },
   );
 
@@ -53,6 +54,7 @@ const ImageLoader = ({
 
 ImageLoader.defaultProps = {
   forceImage: false,
+  bordered: false,
 };
 
 ImageLoader.propTypes = {
@@ -65,6 +67,7 @@ ImageLoader.propTypes = {
   imageStyles: PropTypes.object,
   useAria: PropTypes.bool,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bordered: PropTypes.bool,
 };
 
 export { ImageLoader };
