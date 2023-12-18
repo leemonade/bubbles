@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Select as MantineSelect } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-import { isEmpty, isFunction, isNil, isString, map } from 'lodash';
+import { find, isEmpty, isFunction, isNil, isString, map } from 'lodash';
 import { InputWrapper } from '../InputWrapper';
 import { ActionButton } from '../ActionButton';
 import { SelectStyles } from './Select.styles';
@@ -44,6 +44,7 @@ const Select = forwardRef(
       readOnly,
       variant,
       autoSelectOneOption,
+      cleanOnMissingValue,
       ariaLabel,
       withinPortal,
       ...props
@@ -94,6 +95,12 @@ const Select = forwardRef(
       if (data[0].value && data[0].value !== value)
         handleChange(valueComponent ? [data[0].value] : data[0].value);
     }, [autoSelectOneOption, data]);
+
+    useEffect(() => {
+      if (cleanOnMissingValue && !!value && !find(data, { value })) {
+        handleClear();
+      }
+    }, [data]);
 
     // ······················································
     // STYLES

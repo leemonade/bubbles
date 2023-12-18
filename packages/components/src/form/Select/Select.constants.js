@@ -22,6 +22,7 @@ export const SELECT_PROP_TYPES = {
   description: PropTypes.string,
   placeholder: PropTypes.string,
   data: PropTypes.any,
+  cleanOnMissingValue: PropTypes.bool,
   required: PropTypes.bool,
   size: PropTypes.oneOf(SELECT_SIZES),
   variant: PropTypes.oneOf(SELECT_VARIANTS),
