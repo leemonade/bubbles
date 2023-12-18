@@ -1,4 +1,5 @@
 export * from './HorizontalStepper';
+export * from './TotalLayoutStepper';
 export * from './VerticalStepper';
 export * from './Breadcrumbs';
 export * from './Spotlight';

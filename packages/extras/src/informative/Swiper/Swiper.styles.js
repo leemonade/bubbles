@@ -1,6 +1,6 @@
-import { createStyles } from '@bubbles-ui/components';
+import { createStyles, pxToRem } from '@bubbles-ui/components';
 
-export const SwiperStyles = createStyles(
+const SwiperStyles = createStyles(
   (
     theme,
     { slideStyles, buttonStyles, nextButtonStyles, prevButtonStyles, isBeginning, isEnd },
@@ -9,7 +9,7 @@ export const SwiperStyles = createStyles(
       position: 'absolute',
       top: 0,
       height: '100%',
-      backgroundColor: theme.colors.interactive03,
+      backgroundColor: theme.colors.mainWhite,
       marginTop: 0,
       borderRadius: 2,
       zIndex: 10,
@@ -21,7 +21,7 @@ export const SwiperStyles = createStyles(
       transition: 'width 0.3s ease-in-out',
       ...buttonStyles,
       '&:hover': {
-        backgroundColor: theme.colors.interactive03h,
+        backgroundColor: theme.colors.mainWhite,
       },
     };
 
@@ -41,8 +41,23 @@ export const SwiperStyles = createStyles(
         right: 0,
         width: isEnd ? 0 : 48,
         userSelect: 'none',
+
         ...buttonCommonStyles,
         ...nextButtonStyles,
+        '&:hover': {
+          '& > svg': {
+            backgroundColor: theme.other.button.content.color.terciary.default,
+          },
+        },
+        '&:before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: isEnd ? 0 : -48,
+          width: pxToRem(48),
+          height: '100%',
+          background: `linear-gradient(270deg, rgba(255, 255, 255, 0.75) -98.44%, rgba(255, 255, 255, 0.00) 85.94%)`,
+        },
       },
       prevButton: {
         left: 0,
@@ -50,6 +65,21 @@ export const SwiperStyles = createStyles(
         userSelect: 'none',
         ...buttonCommonStyles,
         ...prevButtonStyles,
+        '&:hover': {
+          '& > svg': {
+            backgroundColor: theme.other.button.content.color.terciary.default,
+          },
+        },
+        '&:after': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 47,
+          width: isBeginning ? 0 : pxToRem(48),
+          height: '100%',
+          transform: 'rotate(180deg)',
+          background: `linear-gradient(270deg, rgba(255, 255, 255, 0.75) -98.44%, rgba(255, 255, 255, 0.00) 85.94%)`,
+        },
       },
       selectWrapper: {
         height: '100%',
@@ -62,3 +92,6 @@ export const SwiperStyles = createStyles(
     };
   },
 );
+
+export default SwiperStyles;
+export { SwiperStyles };

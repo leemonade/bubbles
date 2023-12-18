@@ -91,6 +91,8 @@ const FileUpload = ({
   React.useEffect(() => {
     if (!initialFiles || (initialFiles && initialFiles.length === 0)) {
       removeFiles();
+    } else {
+      setFiles(initialFiles);
     }
   }, [initialFiles]);
 
@@ -138,7 +140,7 @@ const FileUpload = ({
           {errorMessage.message}
         </Alert>
       )}
-      {!!files.length && (
+      {files.length > 0 && (
         <Stack className={classes.fileList} direction={'column'} fullWidth={true}>
           {files.map((file, index) => (
             <Box key={index} className={classes.droppedFile}>

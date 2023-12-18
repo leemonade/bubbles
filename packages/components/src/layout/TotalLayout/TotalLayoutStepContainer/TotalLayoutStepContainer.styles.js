@@ -4,8 +4,8 @@ const TotalLayoutStepContainerStyles = createStyles((theme) => ({
   root: {},
   stepContainer: {
     padding: '24px 0 0 0 ',
-    height: '100%',
     width: '928px',
+    height: '100vh',
   },
   formContainer: { backgroundColor: 'white', padding: '24px' },
   stepName: {

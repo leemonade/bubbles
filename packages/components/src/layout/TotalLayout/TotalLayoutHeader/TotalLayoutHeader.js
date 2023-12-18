@@ -1,19 +1,29 @@
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { StarIcon } from '@bubbles-ui/icons/solid';
 import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
-import { Button } from '../../../form';
+import { Button } from '../../../form/Button';
 import { Box } from '../../Box';
 import {
   TOTAL_LAYOUT_HEADER_PROP_TYPES,
   TOTAL_LAYOUT_HEADER_DEFAULT_PROPS,
 } from './TotalLayoutHeader.constants';
 import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
+import CrossIcon from './crossIcon';
 
-const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compact = false }) => {
+const TotalLayoutHeader = ({
+  title,
+  icon,
+  formTitlePlaceholder,
+  children,
+  onCancel,
+  compact = false,
+  direction = 'column',
+  cancelable = true,
+}) => {
   const { watch } = useFormContext();
   const formValues = watch();
-  const { classes } = TotalLayoutHeaderStyles({ compact, children });
+  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children });
 
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
@@ -46,14 +56,18 @@ const TotalLayoutHeader = ({ title, icon, formTitlePlaceholder, children, compac
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button variant="link" type="button" leftIcon={<StarIcon />}>
-            Cancelar
-          </Button>
+          {/* CHILDREN */}
+          {!!children && direction === 'row' && children}
+          {cancelable && (
+            <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
+              Cancelar
+            </Button>
+          )}
         </Stack>
       </Stack>
 
       {/* CHILDREN */}
-      {children && (
+      {!!children && direction === 'column' && (
         <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
           {children}
         </Stack>

@@ -1,36 +1,36 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-const getColor = (theme, severity) => {
-  return {
+const getColor = (theme, severity) =>
+  ({
     success: {
-      background: `${theme.colors.fatic02v0} !important`,
+      background: `#E4F4E6 !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: theme.colors.fatic02,
+        color: '#368442',
       },
     },
     warning: {
-      background: `${theme.colors.fatic03v0} !important`,
+      background: `#FEF3E1 !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: theme.colors.fatic03,
+        color: '#BA7609',
       },
     },
     info: {
-      background: `${theme.colors.fatic04v0} !important`,
+      background: `#F1FFBD !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: theme.colors.fatic04,
+        color: '#98C200',
       },
     },
     error: {
-      background: `${theme.colors.fatic01v0} !important`,
+      background: `#F7DEDE !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: theme.colors.fatic01,
+        color: '#B52A2A',
       },
     },
-  }[severity];
-};
+  })[severity];
 
-export const AlertStyles = createStyles((theme, { variant, severity }) => {
+const AlertStyles = createStyles((theme, { variant, severity }) => {
+  const alertTheme = theme;
   return {
     root: {
       ...getFontExpressive(theme.fontSizes['2']),
@@ -38,10 +38,7 @@ export const AlertStyles = createStyles((theme, { variant, severity }) => {
       display: 'flex',
       alignItems: 'center',
       borderRadius: variant === 'block' ? pxToRem(2) : pxToRem(0),
-      padding:
-        variant === 'block'
-          ? `${pxToRem(8)} ${pxToRem(16)} ${pxToRem(12)} ${pxToRem(24)}`
-          : `${pxToRem(8)} ${pxToRem(16)} ${pxToRem(12)} ${pxToRem(24)}`,
+      padding: `${pxToRem(8)} ${pxToRem(16)} ${pxToRem(12)} ${pxToRem(24)}`,
     },
     message: {},
     wrapper: {
@@ -60,14 +57,15 @@ export const AlertStyles = createStyles((theme, { variant, severity }) => {
       gap: theme.spacing['2'],
     },
     title: {
-      ...getFontExpressive(theme.fontSizes['2'], 600),
+      ...getFontExpressive(theme.fontSizes['2'], 500),
+      color: '#4D5358',
       marginRight: pxToRem(15),
       lineHeight: 1.2,
       paddingTop: theme.spacing[2],
       paddingBottom: theme.spacing[2],
     },
     content: {
-      ...getFontProductive(theme.fontSizes['2'], 400),
+      ...getFontProductive(theme.fontSizes['2'], 500),
       flex: '1 1 100%',
       marginRight: variant === 'block' ? pxToRem(24) : pxToRem(28),
       lineHeight: 1.2,
@@ -93,3 +91,5 @@ export const AlertStyles = createStyles((theme, { variant, severity }) => {
     },
   };
 });
+
+export { AlertStyles };

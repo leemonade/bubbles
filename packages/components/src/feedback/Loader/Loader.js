@@ -4,6 +4,7 @@ import { isString } from 'lodash';
 import { Loader as MantineLoader } from '@mantine/core';
 import { ContextContainer, CONTEXT_CONTAINER_PROP_TYPES } from '../../layout';
 import { Text } from '../../typography';
+import { LoaderStyles } from './Loader.styles';
 
 export const LOADER_LABEL_POSITIONS = ['right', 'bottom'];
 
@@ -22,20 +23,23 @@ export const LOADER_PROP_TYPES = {
   labelPosition: PropTypes.oneOf(LOADER_LABEL_POSITIONS),
   /** Controls if Loader uses aria role */
   useAria: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 const Loader = ({ padded, label, labelPosition, useAria, ...props }) => {
   const direction = useMemo(() => (labelPosition === 'right' ? 'row' : 'column'), [labelPosition]);
+  const { classes, cx } = LoaderStyles({}, { name: 'Loader' });
 
   return (
     <ContextContainer
+      {...props}
+      className={cx(props.className, classes.root)}
       direction={direction}
       padded={padded}
       alignItems="center"
       justifyContent="center"
-      role={useAria ? 'progressbar' : undefined}
+      role={useAria ? 'progress' : undefined}
       aria-label={useAria ? 'BubblesLoader' : undefined}
-      {...props}
     >
       <MantineLoader />
       {isString(label) && <Text>{label}</Text>}

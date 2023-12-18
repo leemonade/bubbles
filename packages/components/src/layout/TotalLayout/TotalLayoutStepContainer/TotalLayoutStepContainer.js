@@ -1,3 +1,4 @@
+import React from 'react';
 import { Text } from '../../../typography';
 import { Stack } from '../../Stack';
 import {
@@ -16,7 +17,7 @@ const TotalLayoutStepContainer = ({ stepName, children }) => {
           {stepName}
         </Text>
       )}
-      <Stack className={classes.formContainer} fullWidth>
+      <Stack className={classes.formContainer} fullWidth fullHeight>
         {children}
       </Stack>
     </Stack>

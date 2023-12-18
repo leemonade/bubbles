@@ -9,8 +9,8 @@
     },
     "[javascript]": {
         "editor.codeActionsOnSave": {
-        "source.organizeImports": false,
-        "source.fixAll": true,
+            "source.organizeImports": "never",
+            "source.fixAll": "explicit"
         },
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"

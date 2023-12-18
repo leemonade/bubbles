@@ -6,11 +6,11 @@ import {
   ProSwitch,
   SegmentedControl,
   Select,
-  SubNav,
   Text,
 } from '@bubbles-ui/components';
-import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
+import { SubNav } from '@bubbles-ui/extras';
 import { forEach } from 'lodash';
+import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
 
 export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   messages: {
@@ -58,7 +58,7 @@ const CalendarSubNavFilters = ({
 }) => {
   const { classes, cx } = CalendarSubNavFiltersStyles(
     { mainColor, lightMode },
-    { name: 'SubnavFilters' }
+    { name: 'SubnavFilters' },
   );
 
   const [, setR] = useState();

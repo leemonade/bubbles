@@ -124,8 +124,6 @@ const Step = ({
 
   return (
     <Box className={getVariantClassName()}>
-      {!isChild && <Box className={classes.isVisitedBackground} />}
-      <Box className={classes.labelContainer}>{renderVariant()}</Box>
       <Progress
         state={state}
         position={position}
@@ -136,6 +134,8 @@ const Step = ({
         isCurrent={isChild ? state === 'current' : isActive}
         isVisited={isVisited}
       />
+      {!isChild && <Box className={classes.isVisitedBackground} />}
+      <Box className={classes.labelContainer}>{renderVariant()}</Box>
     </Box>
   );
 };

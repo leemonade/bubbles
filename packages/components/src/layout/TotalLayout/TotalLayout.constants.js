@@ -13,7 +13,7 @@ export const TOTAL_LAYOUT_PROP_TYPES = {
       status: PropTypes.oneOfType([null]), // must be null initially
       validationSchema: PropTypes.object, // must fit with the chosen validator
       stepComponent: PropTypes.node,
-    })
+    }),
   ),
   Steps: PropTypes.arrayOf(PropTypes.node),
   footerActionsLabels: PropTypes.shape({
@@ -26,7 +26,7 @@ export const TOTAL_LAYOUT_PROP_TYPES = {
     PropTypes.shape({
       label: PropTypes.string,
       action: PropTypes.func,
-    })
+    }),
   ),
   stepNumberForDraftSave: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([undefined])]), // skip when no save functionality is needed
   onSave: PropTypes.func, // only when draft saving is needed, can be undefined or not passed
