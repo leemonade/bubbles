@@ -103,7 +103,11 @@ const FileUpload = ({
     if ('File' in window && file instanceof File && file.type.indexOf('image') >= 0) {
       return URL.createObjectURL(file);
     }
-    return file?.url ?? '';
+    if (file?.url && file?.type?.indexOf('image') >= 0) {
+      return file.url;
+    }
+
+    return null;
   };
 
   return (
