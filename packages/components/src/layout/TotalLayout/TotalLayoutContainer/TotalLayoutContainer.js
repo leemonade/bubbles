@@ -1,0 +1,61 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Box } from '../../Box';
+import { Stack } from '../../Stack';
+import { TotalLayoutContainerStyles } from './TotalLayoutContainer.styles';
+
+const TotalLayoutContainer = ({ Header, Footer, scrollRef, children }) => {
+  const [topScroll, setTopScroll] = React.useState(false);
+  const { classes } = TotalLayoutContainerStyles({ topScroll }, { name: 'TotalLayoutContainer' });
+
+  // Define scroll and window resizing behavior
+  const handleScroll = () => {
+    const div = scrollRef?.current;
+    if (div) {
+      const { scrollTop } = div;
+      if (scrollTop > 5 && !topScroll) setTopScroll(true);
+      else if (scrollTop === 0 && topScroll) setTopScroll(false);
+    }
+  };
+  React.useEffect(() => {
+    const body = scrollRef?.current;
+    if (body) {
+      handleScroll();
+      body.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+      return () => {
+        body.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }
+    return () => {};
+  }, [scrollRef?.current, handleScroll]);
+
+  return (
+    <Box id="TotalLayout" style={{ height: '100vh' }}>
+      <Stack fullWidth fullHeight direction="column">
+        <Box className={classes.header} noFlex>
+          <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
+        </Box>
+        <Box style={{ overflow: 'hidden' }}>{children}</Box>
+        {!!Footer && (
+          <Box className={classes.footerContainer} noFlex>
+            {Footer}
+          </Box>
+        )}
+      </Stack>
+    </Box>
+  );
+};
+
+TotalLayoutContainer.defaultProps = {
+  Header: <div />,
+};
+TotalLayoutContainer.propTypes = {
+  Header: PropTypes.node,
+  Footer: PropTypes.node,
+  children: PropTypes.node,
+  scrollRef: PropTypes.object,
+};
+
+export { TotalLayoutContainer };

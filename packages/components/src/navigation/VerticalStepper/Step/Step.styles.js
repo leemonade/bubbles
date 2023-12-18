@@ -25,9 +25,20 @@ export const StepStyles = createStyles(
       isChildActive,
     }
   ) => {
+    const stepperTheme = theme.other.stepper ?? {};
     const stepHeight = getStepHeight(isButton, isText, isActivity);
     const childHeight = childRange ? 32 * (childRange[1] - childRange[0] + 1) : 0;
-
+    const getLabelColor = () => {
+      let color = stepperTheme.content?.color?.default;
+      if(isActivity) {
+        theme.colors.interactive01
+      } else if(isActive) {
+        color = stepperTheme.content?.color?.active;
+      } else if(isCompleted) {
+        color = stepperTheme.content?.color?.completed;
+      }
+      return color ?? '#000';
+    }
     return {
       root: {
         paddingLeft: !isChild ? 24 : 40,
@@ -79,7 +90,7 @@ export const StepStyles = createStyles(
       },
       labelContainer: {
         flex: 1,
-        paddingRight: 26,
+        paddingLeft: 10,
         lineHeight: '16px',
       },
       activityStep: {
@@ -100,12 +111,8 @@ export const StepStyles = createStyles(
         },
       },
       label: {
-        fontWeight: 500,
-        color: !isActive
-          ? theme.colors.text04
-          : isActivity
-          ? theme.colors.interactive01
-          : theme.colors.text01,
+        fontWeight: isActive ? 500 : 400,
+        color: getLabelColor(),
       },
       badge: {
         marginLeft: '12px',
@@ -121,7 +128,7 @@ export const StepStyles = createStyles(
           : 0,
         overflow: 'hidden',
         transition: 'height 0.2s ease-in-out',
-        backgroundColor: theme.colors.interactive03,
+        backgroundColor: theme.other.core.color.neutral['50'],
         zIndex: -1,
       },
     };

@@ -1,7 +1,7 @@
 import React from 'react';
+import { isFunction } from 'lodash';
 import { useFormContext } from 'react-hook-form';
-import { Box } from '@mantine/core';
-import { Stack } from '../Stack';
+import { TotalLayoutContainer } from './TotalLayoutContainer/TotalLayoutContainer';
 import Footer from './TotalLayoutFooter';
 import Body from './TotalLayoutBody/TotalLayoutBody';
 import { TotalLayoutStyles } from './TotalLayout.styles';
@@ -11,6 +11,7 @@ const useTotalLayout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completedSteps, setCompletedSteps] = React.useState([]);
   const [stepsInfo, setStepsInfo] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const formIsDirty = React.useRef(false);
   return {
     activeStep,
@@ -20,6 +21,8 @@ const useTotalLayout = () => {
     stepsInfo,
     setStepsInfo,
     formIsDirty,
+    isLoading,
+    setIsLoading,
   };
 };
 
@@ -39,15 +42,13 @@ const TotalLayout = ({
   setStepsInfo,
   formIsDirty,
   isLoading,
+  setIsLoading,
 }) => {
   const form = useFormContext();
-  const [topScroll, setTopScroll] = React.useState(false);
-  const [showFooterBorder, setShowFooterBorder] = React.useState(false);
-  const [lastValidStep, setLastValidStep] = React.useState(false);
-
-  const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
   const bodyRef = React.useRef();
-  const { classes } = TotalLayoutStyles({ topScroll }, { name: 'TotalLayout' });
+  const [lastValidStep, setLastValidStep] = React.useState(false);
+  const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
+  const { classes } = TotalLayoutStyles({}, { name: 'TotalLayout' });
 
   const Steps = React.useMemo(() => initialStepsInfo.map((step) => step.stepComponent), []);
   const totalSteps = Steps.length;
@@ -67,35 +68,6 @@ const TotalLayout = ({
     );
     setLastValidStep(lastValidStepIndex);
   }, [stepsInfo, activeStep]);
-
-  // Define scroll and window resizing behavior
-  const handleScroll = () => {
-    const div = bodyRef.current;
-    if (div) {
-      const { scrollTop, scrollHeight, clientHeight } = div;
-      if (scrollTop > 5 && !topScroll) setTopScroll(true);
-      else if (scrollTop === 0 && topScroll) setTopScroll(false);
-
-      const atTheBottom = scrollHeight - scrollTop === clientHeight;
-      const isScrollable = scrollHeight > clientHeight;
-      if (isScrollable && !atTheBottom && !showFooterBorder) setShowFooterBorder(true);
-      else if ((!isScrollable && showFooterBorder) || (atTheBottom && showFooterBorder))
-        setShowFooterBorder(false);
-    }
-  };
-  React.useEffect(() => {
-    const body = bodyRef.current;
-    if (body) {
-      handleScroll();
-      body.addEventListener('scroll', handleScroll);
-      window.addEventListener('resize', handleScroll);
-      return () => {
-        body.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleScroll);
-      };
-    }
-    return () => {};
-  }, [bodyRef.current, handleScroll]);
 
   // Set and validate active step
   const getNextValidStep = (index) => {
@@ -122,7 +94,16 @@ const TotalLayout = ({
     formIsDirty.current =
       formIsDirty.current || Object.keys(form.formState.touchedFields).length > 0;
     setCompletedSteps((prevCompletedSteps) => [...prevCompletedSteps, activeStep]);
-    setActiveStep((prevActiveStep) => getNextValidStep(prevActiveStep + 1));
+
+    // If the next step has an onNext method, call it
+    const nextStep = getNextValidStep(activeStep + 1);
+    if (isFunction(stepsInfo[nextStep].onNext)) {
+      setIsLoading(true);
+      await stepsInfo[nextStep].onNext(form);
+      setIsLoading(false);
+    }
+
+    setActiveStep(nextStep);
     window.scrollTo(0, 0, { behavior: 'smooth' });
   };
   const handlePrev = async () => {
@@ -154,40 +135,36 @@ const TotalLayout = ({
   }
 
   return (
-    <Box id="TotalLayout" style={{ height: '100vh' }}>
-      <Stack fullWidth fullHeight direction="column">
-        <Box className={classes.header} noFlex>
-          <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
-        </Box>
-        <Box style={{ overflow: 'hidden' }}>
-          <Body
-            showStepper={showStepper}
-            stepsInfo={stepsInfo}
-            activeStep={activeStep}
-            scrollRef={bodyRef}
-            completedSteps={completedSteps}
-            lastValidStep={lastValidStep}
-          >
-            {Steps[activeStep]}
-          </Body>
-        </Box>
-        <Box className={classes.footerContainer} noFlex>
-          <Footer
-            leftOffset={footerLeftOffset}
-            activeStep={activeStep}
-            showFooterBorder={showFooterBorder}
-            onBack={handlePrev}
-            onNext={() => validateAndAct(handleNext)}
-            finalActions={finalActions}
-            footerActionsLabels={footerActionsLabels}
-            minStepNumberForDraftSave={minStepNumberForDraftSave}
-            onSave={() => validateAndAct(onSave)}
-            isLastStep={lastValidStep === activeStep}
-            isLoading={isLoading}
-          />
-        </Box>
-      </Stack>
-    </Box>
+    <TotalLayoutContainer
+      scrollRef={bodyRef}
+      Header={Header}
+      Footer={
+        <Footer
+          leftOffset={footerLeftOffset}
+          activeStep={activeStep}
+          onBack={handlePrev}
+          scrollRef={bodyRef}
+          onNext={() => validateAndAct(handleNext)}
+          finalActions={finalActions}
+          footerActionsLabels={footerActionsLabels}
+          minStepNumberForDraftSave={minStepNumberForDraftSave}
+          onSave={() => validateAndAct(onSave)}
+          isLastStep={lastValidStep === activeStep}
+          isLoading={isLoading}
+        />
+      }
+    >
+      <Body
+        showStepper={showStepper}
+        stepsInfo={stepsInfo}
+        activeStep={activeStep}
+        scrollRef={bodyRef}
+        completedSteps={completedSteps}
+        lastValidStep={lastValidStep}
+      >
+        {Steps[activeStep]}
+      </Body>
+    </TotalLayoutContainer>
   );
 };
 

@@ -9,7 +9,7 @@ import { TOTAL_LAYOUT_FOOTER_PROP_TYPES } from './TotalLayout.constants';
 const TotalLayoutFooter = ({
   leftOffset,
   activeStep,
-  showFooterBorder,
+  scrollRef,
   onBack,
   onNext,
   finalActions,
@@ -19,10 +19,39 @@ const TotalLayoutFooter = ({
   isLastStep,
   isLoading,
 }) => {
+  const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const { classes } = TotalLayoutFooterStyles(
     { showFooterBorder, leftOffset },
     { name: 'TotalLayoutFooter' },
   );
+
+  // Define scroll and window resizing behavior
+  const handleScroll = () => {
+    const div = scrollRef.current;
+    if (div) {
+      const { scrollTop, scrollHeight, clientHeight } = div;
+      const atTheBottom = scrollHeight - scrollTop === clientHeight;
+      const isScrollable = scrollHeight > clientHeight;
+      if (isScrollable && !atTheBottom && !showFooterBorder) {
+        setShowFooterBorder(true);
+      } else if ((!isScrollable && showFooterBorder) || (atTheBottom && showFooterBorder)) {
+        setShowFooterBorder(false);
+      }
+    }
+  };
+  React.useEffect(() => {
+    const body = scrollRef.current;
+    if (body) {
+      handleScroll();
+      body.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
+      return () => {
+        body.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }
+    return () => {};
+  }, [scrollRef?.current, handleScroll]);
 
   const renderFinalActions = () => {
     // It's not the final step
