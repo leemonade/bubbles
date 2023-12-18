@@ -32,12 +32,12 @@ const TotalLayoutContainer = ({ Header, Footer, scrollRef, children }) => {
   }, [scrollRef?.current, handleScroll]);
 
   return (
-    <Box id="TotalLayout" style={{ height: '100vh' }}>
+    <Box id="TotalLayout" className={classes.root}>
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
           <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
         </Box>
-        <Box style={{ overflow: 'hidden' }}>{children}</Box>
+        {children}
         {!!Footer && (
           <Box className={classes.footerContainer} noFlex>
             {Footer}
@@ -52,9 +52,9 @@ TotalLayoutContainer.defaultProps = {
   Header: <div />,
 };
 TotalLayoutContainer.propTypes = {
-  Header: PropTypes.node,
-  Footer: PropTypes.node,
-  children: PropTypes.node,
+  Header: PropTypes.any,
+  Footer: PropTypes.any,
+  children: PropTypes.any,
   scrollRef: PropTypes.object,
 };
 

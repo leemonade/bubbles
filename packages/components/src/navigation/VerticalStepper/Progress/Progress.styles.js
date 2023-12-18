@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const ProgressStyles = createStyles(
+const ProgressStyles = createStyles(
   (theme, { position, isButton, isActivity, isText, isCurrent, isVisited, state }) => {
     const stepperTheme = theme.other.stepper ?? {};
     const isFirst = position === 'start';
@@ -10,9 +10,9 @@ export const ProgressStyles = createStyles(
 
     const getSolidBarHeight = () => {
       if (isBetween) {
-        return isButton || isActivity ? 55 : 55;
+        return isButton || isActivity ? 62 : 55;
       }
-      return isButton || isActivity ? 35 : 35;
+      return isButton || isActivity ? 42 : 35;
     };
 
     return {
@@ -110,5 +110,7 @@ export const ProgressStyles = createStyles(
         zIndex: 1,
       },
     };
-  }
+  },
 );
+
+export { ProgressStyles };
