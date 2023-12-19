@@ -39,6 +39,7 @@ export const TEXT_EDITOR_PROP_TYPES = {
   readOnly: PropTypes.bool,
   children: PropTypes.node,
   toolbarPortal: PropTypes.any,
+  scrollRef: PropTypes.any,
 };
 
 const TextEditor = ({
@@ -55,6 +56,7 @@ const TextEditor = ({
   acceptedTags = [],
   toolbarPosition,
   toolbarPortal,
+  scrollRef,
 }) => {
   const store = React.useRef({
     isFocus: false,
@@ -240,6 +242,7 @@ const TextEditor = ({
           </Box>
         )}
         <Box
+          ref={scrollRef}
           className={cx(classes.editorContainer, editorContainerClassname)}
           style={{ zIndex: 0 }}
         >
