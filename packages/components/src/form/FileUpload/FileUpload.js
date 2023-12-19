@@ -2,15 +2,13 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
-import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
-import { isEmpty, isFunction } from 'lodash';
+import { DeleteBinIcon, SynchronizeArrowIcon } from '@bubbles-ui/icons/outline/';
+import { isEmpty, isFunction, isString } from 'lodash';
 import { FileUploadStyles } from './FileUpload.styles';
 import { Stack, Box } from '../../layout';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { Alert } from '../../feedback/Alert';
 import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
-import { ActionButton } from '../ActionButton';
 import { Button } from '../Button';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
@@ -100,6 +98,18 @@ const FileUpload = ({
     { disabled, single, files, hasError },
     { name: 'FileUpload' },
   );
+
+  const getFileUrl = (file) => {
+    if ('File' in window && file instanceof File && file.type.indexOf('image') >= 0) {
+      return URL.createObjectURL(file);
+    }
+    if (file?.url && file?.type?.indexOf('image') >= 0) {
+      return file.url;
+    }
+
+    return null;
+  };
+
   return (
     <Box className={classes.wrapper}>
       <InputWrapper {...inputWrapperProps}>
@@ -141,14 +151,16 @@ const FileUpload = ({
         </Alert>
       )}
       {files.length > 0 && (
-        <Stack className={classes.fileList} direction={'column'} fullWidth={true}>
+        <Stack className={classes.fileList} direction={'column'}>
           {files.map((file, index) => (
-            <Box key={index} className={classes.droppedFile}>
-              <FileItemDisplay filename={file.name} metadata={file} />
-              <Box onClick={() => removeFile(index)}>
-                <ActionButton icon={<DeleteBinIcon height={16} width={16} />} />
+            <Stack key={index} alignItems="center" spacing={8} className={classes.droppedFile}>
+              <FileItemDisplay iconSize={30} filename={file.name} thumbnailUrl={getFileUrl(file)} />
+              <Box onClick={() => removeFile(index)} noFlex>
+                <Button variant="link" leftIcon={<DeleteBinIcon height={16} width={16} />}>
+                  Borrar
+                </Button>
               </Box>
-            </Box>
+            </Stack>
           ))}
         </Stack>
       )}

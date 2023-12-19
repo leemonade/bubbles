@@ -1,7 +1,11 @@
 import { createStyles } from '@mantine/styles';
 
-export const LoadingOverlayStyles = createStyles((theme, {}) => {
-  return {
-    root: {},
-  };
-});
+const LoadingOverlayStyles = createStyles((theme) => ({
+  root: {
+    svg: {
+      stroke: theme.other.core.color.primary['300'],
+    },
+  },
+}));
+
+export { LoadingOverlayStyles };

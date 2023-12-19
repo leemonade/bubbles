@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { isFunction } from 'lodash';
 import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
 import { Button } from '../../../form/Button';
@@ -21,8 +22,8 @@ const TotalLayoutHeader = ({
   direction = 'column',
   cancelable = true,
 }) => {
-  const { watch } = useFormContext();
-  const formValues = watch();
+  const formContext = useFormContext();
+  const formValues = isFunction(formContext?.watch) ? formContext.watch() : {};
   const { classes } = TotalLayoutHeaderStyles({ compact, direction, children });
 
   return (

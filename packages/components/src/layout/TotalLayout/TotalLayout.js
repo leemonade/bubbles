@@ -6,6 +6,7 @@ import Footer from './TotalLayoutFooter';
 import Body from './TotalLayoutBody/TotalLayoutBody';
 import { TotalLayoutStyles } from './TotalLayout.styles';
 import { TOTAL_LAYOUT_DEFAULT_PROPS, TOTAL_LAYOUT_PROP_TYPES } from './TotalLayout.constants';
+import { Box } from '../Box';
 
 const useTotalLayout = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -45,7 +46,7 @@ const TotalLayout = ({
   setIsLoading,
 }) => {
   const form = useFormContext();
-  const bodyRef = React.useRef();
+  const scrollRef = React.useRef();
   const [lastValidStep, setLastValidStep] = React.useState(false);
   const footerLeftOffset = showStepper && 192 + 16; // Stepper plus margin (16) : margin
   const { classes } = TotalLayoutStyles({}, { name: 'TotalLayout' });
@@ -97,9 +98,9 @@ const TotalLayout = ({
 
     // If the next step has an onNext method, call it
     const nextStep = getNextValidStep(activeStep + 1);
-    if (isFunction(stepsInfo[nextStep].onNext)) {
+    if (isFunction(stepsInfo[activeStep].onNext)) {
       setIsLoading(true);
-      await stepsInfo[nextStep].onNext(form);
+      await stepsInfo[activeStep].onNext(form);
       setIsLoading(false);
     }
 
@@ -136,14 +137,14 @@ const TotalLayout = ({
 
   return (
     <TotalLayoutContainer
-      scrollRef={bodyRef}
+      scrollRef={scrollRef}
       Header={Header}
       Footer={
         <Footer
           leftOffset={footerLeftOffset}
           activeStep={activeStep}
           onBack={handlePrev}
-          scrollRef={bodyRef}
+          scrollRef={scrollRef}
           onNext={() => validateAndAct(handleNext)}
           finalActions={finalActions}
           footerActionsLabels={footerActionsLabels}
@@ -154,16 +155,18 @@ const TotalLayout = ({
         />
       }
     >
-      <Body
-        showStepper={showStepper}
-        stepsInfo={stepsInfo}
-        activeStep={activeStep}
-        scrollRef={bodyRef}
-        completedSteps={completedSteps}
-        lastValidStep={lastValidStep}
-      >
-        {Steps[activeStep]}
-      </Body>
+      <Box style={{ overflow: 'hidden', display: 'flex', flex: 1 }}>
+        <Body
+          showStepper={showStepper}
+          stepsInfo={stepsInfo}
+          activeStep={activeStep}
+          scrollRef={scrollRef}
+          completedSteps={completedSteps}
+          lastValidStep={lastValidStep}
+        >
+          {Steps[activeStep]}
+        </Body>
+      </Box>
     </TotalLayoutContainer>
   );
 };

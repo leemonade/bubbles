@@ -7,5 +7,6 @@ export * from './FileIcon/AssetAudioIcon';
 export * from './FileIcon/AssetImageIcon';
 export * from './FileIcon/AssetBookmarkIcon';
 export * from './FileIcon/AssetVideoIcon';
+export * from './FileIcon/AssetMediaIcon';
 export * from './AvatarSubject';
 export * from './CardEmptyCover';

@@ -65,10 +65,7 @@ const TotalLayoutStepper = ({
   }, [completedStepsProp]);
 
   return (
-    <Stack
-      style={{ width: 192, height: '100vh', background: '#f8f9fb', paddingTop: 24 }}
-      direction="column"
-    >
+    <Stack style={{ width: 192, background: '#f8f9fb', paddingTop: 24 }} direction="column">
       {renderSteps()}
     </Stack>
   );

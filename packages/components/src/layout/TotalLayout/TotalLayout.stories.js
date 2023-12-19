@@ -158,8 +158,8 @@ const Template = () => {
   // Footer Final actions: When more than one action is defined, a dropdown button will be shown
   const footerFinalActions = [
     { label: 'Publicar', action: handlePublish },
-    { label: 'Publicar y Asignar', action: handlePublishAndAssign },
-    { label: 'Vista previa', action: handlePreview },
+    // { label: 'Publicar y Asignar', action: handlePublishAndAssign },
+    // { label: 'Vista previa', action: handlePreview },
   ];
 
   // Alternatively, define only one action for it to be shown as a button
