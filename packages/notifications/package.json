@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/notifications",
-  "version": "1.2.68",
+  "version": "1.2.69",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -52,8 +52,8 @@
     "react-transition-group": "^4.4.2"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.2.68",
-    "@bubbles-ui/icons": "^1.2.68",
+    "@bubbles-ui/components": "^1.2.69",
+    "@bubbles-ui/icons": "^1.2.69",
     "@mantine/core": "5.2.4",
     "@mantine/hooks": "5.2.4",
     "react": "^17.0.1",
