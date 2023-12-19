@@ -1,12 +1,12 @@
 import React from 'react';
+import { Box, ImageLoader } from '@bubbles-ui/components';
+import ReactPlayer from 'react-player';
 import {
   AUDIO_CARD_PLAYER_DEFAULT_PROPS,
   AUDIO_CARD_PLAYER_PROP_TYPES,
 } from './AudioCardPlayer.constants';
 import { AudioCardPlayerStyles } from './AudioCardPlayer.styles';
-import { Box, ImageLoader } from '@bubbles-ui/components';
 import { AudioProgressBar } from '../AudioProgressBar';
-import ReactPlayer from 'react-player';
 
 const AudioCardPlayer = ({
   url,

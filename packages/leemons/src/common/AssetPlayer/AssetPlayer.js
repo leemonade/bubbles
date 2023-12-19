@@ -1,6 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import { isFunction } from 'lodash';
+import { isFunction, isNil } from 'lodash';
 import {
   Box,
   ImageLoader,
@@ -10,15 +11,14 @@ import {
   ModalZoom,
   TextClamp,
 } from '@bubbles-ui/components';
+import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
+import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
 import { ProgressBar } from './components/ProgressBar';
-import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
-import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { Aframe } from './components/Aframe';
-import { isNil } from 'lodash';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -103,7 +103,7 @@ const AssetPlayer = ({
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
-    [fileType]
+    [fileType],
   );
 
   const mediaRatio = useMemo(() => {
@@ -131,9 +131,7 @@ const AssetPlayer = ({
   // ··································································
   // METHODS
 
-  const getDuration = () => {
-    return <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
-  };
+  const getDuration = () => <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
 
   const getTotalDuration = () => {
     const totalDuration = playerRef.current ? playerRef.current.getDuration() : 0;
@@ -238,7 +236,7 @@ const AssetPlayer = ({
             iconStyle: { backgroundColor: COLORS.interactive03h },
           })
         : null,
-    [asset.fileIcon]
+    [asset.fileIcon],
   );
 
   // ··································································
@@ -256,9 +254,9 @@ const AssetPlayer = ({
       showPlayer,
       useAudioCard,
       fullScreenMode,
-      framed: framed,
+      framed,
     },
-    { name: 'AssetPlayer' }
+    { name: 'AssetPlayer' },
   );
   return (
     <Box className={classes.rootWrapper}>

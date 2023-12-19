@@ -5055,7 +5055,7 @@ export default {
           "type": "color"
         },
         "muted": {
-          "value": "#878D96",
+          "value": "#4D5358",
           "type": "color"
         },
         "icon": {
@@ -5393,7 +5393,7 @@ export default {
           "type": "color"
         },
         "muted": {
-          "value": "#878D96",
+          "value": "#4D5358",
           "type": "color"
         },
         "icon": {
