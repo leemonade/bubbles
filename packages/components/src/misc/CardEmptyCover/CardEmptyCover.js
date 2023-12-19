@@ -17,6 +17,7 @@ import { AssetExpressTaskIcon } from '../FileIcon/AssetExpressTaskIcon';
 import { AssetModuleIcon } from '../FileIcon/AssetModuleIcon';
 import { AssetFeedbackIcon } from '../FileIcon/AssetFeedbackIcon';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
+import { AssetDocumentIcon } from '../FileIcon/AssetDocumentIcon';
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
   const pairColumnRef = useRef(null);
@@ -27,6 +28,7 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
     { key: 'image', value: <AssetImageIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'bookmark', value: <AssetBookmarkIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'feedback', value: <AssetFeedbackIcon height={24} width={24} color={'#878D96'} /> },
+    { key: 'document', value: <AssetDocumentIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'task', value: <AssetTaskIcon height={24} width={24} color={'#878D96'} /> },
     {
       key: 'taskexpress',
