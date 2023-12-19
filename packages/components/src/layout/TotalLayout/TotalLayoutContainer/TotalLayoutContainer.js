@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import { Box } from '../../Box';
 import { Stack } from '../../Stack';
 import { TotalLayoutContainerStyles } from './TotalLayoutContainer.styles';
@@ -35,12 +36,12 @@ const TotalLayoutContainer = ({ Header, Footer, scrollRef, children }) => {
     <Box id="TotalLayout" className={classes.root}>
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
-          <Header style={{ position: 'fixed', top: 0, height: '72px' }} />
+          {isFunction(Header) ? <Header /> : Header}
         </Box>
         {children}
         {!!Footer && (
           <Box className={classes.footerContainer} noFlex>
-            {Footer}
+            {isFunction(Footer) ? <Footer /> : Footer}
           </Box>
         )}
       </Stack>
