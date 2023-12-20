@@ -6,12 +6,10 @@ const TotalLayoutHeaderStyles = createStyles((theme, { children, direction, comp
     root: {},
     headerContainer: {
       padding: `${!expandedHeader ? '16px' : '12px'} 24px`,
-      minHeight: !expandedHeader ? '72px' : '120px',
-      maxHeight: !expandedHeader ? '72px' : '120px',
       backgroundColor: 'white',
     },
-    header: { height: '40px', maxHeight: '40px' },
-    headerTools: { maxHeight: '40px', minHeight: '40px', marginTop: '12px' },
+    header: { height: '40px' },
+    headerTools: { marginTop: '12px' },
     iconContainer: {
       display: 'flex',
       alignItems: 'center',

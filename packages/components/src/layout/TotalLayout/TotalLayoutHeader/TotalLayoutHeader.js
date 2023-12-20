@@ -71,9 +71,7 @@ const TotalLayoutHeader = ({
 
       {/* CHILDREN */}
       {!!children && direction === 'column' && (
-        <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
-          {children}
-        </Stack>
+        <Stack style={{ marginTop: '12px' }}>{children}</Stack>
       )}
     </Stack>
   );

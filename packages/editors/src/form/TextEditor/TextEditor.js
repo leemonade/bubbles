@@ -12,7 +12,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
-import { Toolbar, TOOLBAR_POSITIONS } from '../Toolbar';
+import { Toolbar, HeaderToolbar, TOOLBAR_POSITIONS } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
 
@@ -62,6 +62,7 @@ const TextEditor = ({
     isFocus: false,
     acceptedTags: acceptedTags.join('|'),
   });
+  const [isToolbarReady, setIsToolbarReady] = React.useState(false);
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
@@ -200,9 +201,15 @@ const TextEditor = ({
     }
   }, [placeholder]);
 
+  React.useEffect(() => {
+    if (toolbarPortal) {
+      setIsToolbarReady(true);
+    }
+  }, [toolbarPortal]);
+
   const ToolbarComponent = React.useMemo(
     () =>
-      toolbarPortal
+      isToolbarReady
         ? () =>
             createPortal(
               <Toolbar
@@ -223,7 +230,7 @@ const TextEditor = ({
               {children}
             </Toolbar>
           ),
-    [toolbarPortal],
+    [isToolbarReady],
   );
 
   return (
@@ -237,7 +244,7 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <Box style={{ zIndex: 1 }}>
-            <ToolbarComponent />
+            {isToolbarReady && <ToolbarComponent />}
             <BubbleMenu />
           </Box>
         )}
