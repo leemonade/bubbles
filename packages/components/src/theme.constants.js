@@ -1,6 +1,6 @@
 export const PALETTE = {
   mainPrimary: '#212B3D',
-  mainSecondary: '#4F96FF',
+  mainSecondary: '#B4E600',
   mainAccent: '#ECED67',
   mainWhite: '#FFFFFF',
   mainBlack: '#1A202B',
@@ -17,7 +17,7 @@ export const PALETTE = {
   primary10: '#F1F5F9',
   primary5: '#F7F8FA',
 
-  secondary100: '#3C72C2',
+  secondary100: '#B4E600',
   secondary40: '#82B4FF',
   secondary20: '#D8E8FF',
   secondary10: '#212B3D',
@@ -40,14 +40,14 @@ export const PALETTE = {
   interactive20: '#D8E8FF',
   interactive10: '#F1F7FF',
 
-  faticError: '#D13B3B',
-  faticErrorLight: '#FFF7F7',
-  faticSuccess: '#5CBC6A',
-  faticSuccessLight: '#F8FFEE',
-  faticWarning: '#E0914B',
-  faticWarningLight: '#FEFBE8',
-  faticInfo: '#384FE3',
-  faticInfoLight: '#D8E8FF',
+  faticError: '#B52A2A',
+  faticErrorLight: '#F7DEDE',
+  faticSuccess: '#368442',
+  faticSuccessLight: '#E4F4E6',
+  faticWarning: '#BA7609',
+  faticWarningLight: '#FEF3E1',
+  faticInfo: '#98C200',
+  faticInfoLight: '#F1FFBD',
   faticHighlight: '#FEFF8C',
 };
 

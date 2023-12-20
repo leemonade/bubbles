@@ -9,6 +9,7 @@ import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { AssetAudioIcon } from './AssetAudioIcon';
 import { AssetImageIcon } from './AssetImageIcon';
 import { AssetBookmarkIcon } from './AssetBookmarkIcon';
+import { AssetDocumentIconSmall } from './AssetDocumentIcon';
 
 export const FILE_ICON_DEFAULT_PROPS = {
   size: 16,
@@ -26,6 +27,7 @@ export const FILE_ICON_PROP_TYPES = {
 
 const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...props }) => {
   const { classes } = FileIconStyles({ size, color });
+  let filename = label || '';
 
   const FileTypeIcon = [
     { key: 'video', value: <AssetVideoIcon height={size} width={size} color={color} /> },
@@ -34,10 +36,23 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'bookmark', value: <AssetBookmarkIcon height={size} width={size} color={color} /> },
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
+    { key: 'document', value: <AssetDocumentIconSmall height={18} width={18} /> },
+    {
+      key: 'file',
+      value: (
+        <FileItemDisplay
+          {...props}
+          filename={filename}
+          size={18}
+          showFileName={!!label}
+          color={color}
+          iconStyle={iconStyle}
+        />
+      ),
+    },
   ];
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
-  let filename = label || '';
   if (fileExtension) {
     filename += `.${fileExtension}`;
   }

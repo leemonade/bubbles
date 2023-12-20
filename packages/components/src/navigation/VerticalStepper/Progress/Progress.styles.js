@@ -1,23 +1,18 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
-export const ProgressStyles = createStyles(
+
+const ProgressStyles = createStyles(
   (theme, { position, isButton, isActivity, isText, isCurrent, isVisited, state }) => {
+    const stepperTheme = theme.other.stepper ?? {};
     const isFirst = position === 'start';
     const isLast = position === 'end';
     const isBetween = position === 'between';
 
     const getSolidBarHeight = () => {
       if (isBetween) {
-        return isButton || isActivity ? 56 : 44;
+        return isButton || isActivity ? 62 : 55;
       }
-      return isButton || isActivity ? 38 : 32;
-    };
-
-    const getPendingBarHeight = () => {
-      if (isBetween) {
-        return isButton || isActivity ? 55 : 43;
-      }
-      return isButton || isActivity ? 33 : 27;
+      return isButton || isActivity ? 42 : 35;
     };
 
     return {
@@ -32,28 +27,27 @@ export const ProgressStyles = createStyles(
       },
       pendingBar: {
         position: 'absolute',
-        height: getPendingBarHeight(),
-        borderLeft: `1px dashed ${theme.colors.ui01}`,
-        zIndex: -1,
+        height: getSolidBarHeight(),
+        borderLeft: `1px solid ${stepperTheme.background?.color?.default}`,
+        zIndex: 0,
         top: isFirst && (isButton ? 4.5 : 4),
         bottom: isLast && (isButton ? 4.5 : 4),
       },
       solidBar: {
         position: 'absolute',
         height: getSolidBarHeight(),
-        borderLeft: `1px solid ${theme.colors.ui01}`,
-        backgroundColor: theme.colors.ui01,
-        zIndex: -1,
-        top: isFirst && 0,
+        borderLeft: `1px solid ${stepperTheme.background?.color?.default}`,
+        zIndex: 0,
+        top: isFirst ? 5 : -5,
         bottom: isLast && 0,
       },
-      pending: {
+      pendingIcon: {
         height: 12,
         width: 12,
         margin: 4,
+        zIndex: 1,
         borderRadius: '50%',
-        border: `1.5px solid ${theme.colors.text06}`,
-        backgroundColor: theme.colors.mainWhite,
+        backgroundColor: stepperTheme.background?.color?.default,
       },
       progressBar: {
         height: 34,
@@ -78,27 +72,45 @@ export const ProgressStyles = createStyles(
         backgroundColor: theme.colors.ui01,
         zIndex: -1,
       },
+      currentIconContainer: {
+        width: 16,
+        height: 16,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1,
+        borderRadius: '50%',
+        border: `2px solid ${stepperTheme.background?.color?.completed}`,
+        color: stepperTheme.color?.icon || '#0C1F22',
+        backgroundColor: theme.stepper?.background?.color?.['active--reverse'] || '#F1FFBD',
+      },
       currentIcon: {
-        color: theme.colors.interactive01,
-        backgroundColor: isVisited ? theme.colors.interactive03 : theme.colors.mainWhite,
+        zIndex: 2,
+        color: stepperTheme.color?.icon || '#0C1F22',
       },
       completedIcon: {
-        color: theme.colors.text06,
+        backgroundColor: stepperTheme.background?.color?.completed,
+        borderRadius: '50%',
+        zIndex: 1,
+        color: stepperTheme.color?.icon || '#0C1F22',
         padding: 4,
-        backgroundColor: theme.colors.interactive03,
       },
       OKIcon: {
         backgroundColor: theme.colors.fatic02,
         borderRadius: '50%',
         color: theme.colors.mainWhite,
         padding: 4,
+        zIndex: 1,
       },
       KOIcon: {
         backgroundColor: theme.colors.fatic01,
         borderRadius: '50%',
         color: theme.colors.mainWhite,
         padding: 4,
+        zIndex: 1,
       },
     };
-  }
+  },
 );
+
+export { ProgressStyles };

@@ -43,6 +43,7 @@ export {
   getPaddings,
   getHtmlStyles,
   getBoxShadowFromToken,
+  getFocusDefaultBorder,
 } from './theme.mixins';
 export { PALETTE } from './theme.constants';
 export { COLORS } from './theme.tokens';

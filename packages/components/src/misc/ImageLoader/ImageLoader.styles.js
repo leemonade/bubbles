@@ -1,16 +1,22 @@
 import { createStyles } from '@mantine/styles';
 
-export const ImageLoaderStyles = createStyles((theme, { radius, imageStyles = {}, height }) => {
-  return {
-    root: {
-      height,
-      ...imageStyles,
+const ImageLoaderStyles = createStyles((theme, { radius, bordered, imageStyles = {}, height }) => ({
+  root: {
+    height,
+    ...imageStyles,
+  },
+  imageWrapper: {
+    height,
+    borderRadius: bordered && radius,
+    img: {
+      borderRadius: bordered && radius,
+      border: bordered && `1px solid ${theme.other.dropzone.border.color.default}`,
     },
-    imageWrapper: {
-      height,
-    },
-    figure: {
-      height,
-    },
-  };
-});
+  },
+  figure: {
+    height,
+    borderRadius: bordered && radius,
+  },
+}));
+
+export { ImageLoaderStyles };

@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const InputDescriptionStyles = createStyles((theme, { withIcon }) => {
+const InputDescriptionStyles = createStyles((theme, { withIcon }) => {
   const labelTheme = theme.other.label;
   return {
     container: {
@@ -21,3 +21,5 @@ export const InputDescriptionStyles = createStyles((theme, { withIcon }) => {
     },
   };
 });
+
+export { InputDescriptionStyles };

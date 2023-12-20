@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { isFunction } from 'lodash';
 import { Stack } from '../../Stack';
 import { Text } from '../../../typography';
 import { Button } from '../../../form/Button';
@@ -18,10 +19,14 @@ const TotalLayoutHeader = ({
   children,
   onCancel,
   compact = false,
+  direction = 'column',
+  cancelable = true,
+  mainActionLabel = 'Cancelar',
+  ...props
 }) => {
-  const { watch } = useFormContext();
-  const formValues = watch();
-  const { classes } = TotalLayoutHeaderStyles({ compact, children });
+  const formContext = useFormContext();
+  const formValues = isFunction(formContext?.watch) ? formContext.watch() : {};
+  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children });
 
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
@@ -54,17 +59,19 @@ const TotalLayoutHeader = ({
         </Stack>
         {/* CANCEL BUTTON */}
         <Stack alingItems="center">
-          <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
-            Cancelar
-          </Button>
+          {/* CHILDREN */}
+          {!!children && direction === 'row' && children}
+          {cancelable && (
+            <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
+              {mainActionLabel}
+            </Button>
+          )}
         </Stack>
       </Stack>
 
       {/* CHILDREN */}
-      {children && (
-        <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
-          {children}
-        </Stack>
+      {!!children && direction === 'column' && (
+        <Stack style={{ marginTop: '12px' }}>{children}</Stack>
       )}
     </Stack>
   );

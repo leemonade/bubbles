@@ -16,16 +16,19 @@ import { AssetTaskIcon } from '../FileIcon/AssetTaskIcon';
 import { AssetExpressTaskIcon } from '../FileIcon/AssetExpressTaskIcon';
 import { AssetModuleIcon } from '../FileIcon/AssetModuleIcon';
 import { AssetFeedbackIcon } from '../FileIcon/AssetFeedbackIcon';
+import { FileItemDisplay } from '../../informative/FileItemDisplay';
+import { AssetDocumentIconSmall } from '../FileIcon/AssetDocumentIcon';
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
   const pairColumnRef = useRef(null);
-  const { canvasImage } = useHTMLToCanvas(pairColumnRef);
+  const { canvasImage } = useHTMLToCanvas(pairColumnRef, fileType);
   const FileTypeIcon = [
     { key: 'video', value: <AssetVideoIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'audio', value: <AssetAudioIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'image', value: <AssetImageIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'bookmark', value: <AssetBookmarkIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'feedback', value: <AssetFeedbackIcon height={24} width={24} color={'#878D96'} /> },
+    { key: 'document', value: <AssetDocumentIconSmall height={18} width={18} color={'#878D96'} /> },
     { key: 'task', value: <AssetTaskIcon height={24} width={24} color={'#878D96'} /> },
     {
       key: 'taskexpress',
@@ -36,8 +39,8 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
       value: <AssetModuleIcon height={24} width={24} color={'#878D96'} />,
     },
     {
-      key: 'learningpaths.module',
-      value: <AssetModuleIcon height={24} width={24} color={'#878D96'} />,
+      key: 'file',
+      value: <FileItemDisplay size={18} color={'#878D96'} />,
     },
   ];
 
@@ -77,5 +80,4 @@ CardEmptyCover.propTypes = CARD_EMPTY_COVER_PROP_TYPES;
 
 CardEmptyCover.displayName = 'CardEmptyCover';
 
-export default CardEmptyCover;
 export { CardEmptyCover };

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Text } from '../../../typography';
 import { Stack } from '../../Stack';
+import { Box } from '../../Box';
 import {
   TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES,
   TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS,
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, children }) => {
-  const { classes } = TotalLayoutStepContainerStyles();
+const TotalLayoutStepContainer = ({ stepName, children, Footer }) => {
+  const { classes } = TotalLayoutStepContainerStyles({ hasFooter: !!Footer });
 
   return (
     <Stack className={classes.stepContainer} direction="column">
@@ -17,9 +18,10 @@ const TotalLayoutStepContainer = ({ stepName, children }) => {
           {stepName}
         </Text>
       )}
-      <Stack className={classes.formContainer} fullWidth fullHeight>
+      <Stack className={classes.formContainer} fullWidth direction="column">
         {children}
       </Stack>
+      {!!Footer && <Box noFlex>{Footer}</Box>}
     </Stack>
   );
 };

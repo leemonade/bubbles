@@ -1,11 +1,20 @@
 import { createStyles } from '@mantine/styles';
 
-export const AnchorStyles = createStyles((theme, {}) => {
+const AnchorStyles = createStyles((theme) => {
+  const buttonTheme = theme.other.button;
   return {
     root: {
-      textDecoration: 'underline',
-      color: theme.colors.interactive01,
+      textDecoration: buttonTheme.textDecoration.underLine,
+      color: buttonTheme.content.color.secondary.default,
       cursor: 'pointer',
+      '&:hover': {
+        color: buttonTheme.content.color.primary.default,
+      },
+      '&:active': {
+        color: buttonTheme.content.color.secondary.pressed,
+      },
     },
   };
 });
+
+export { AnchorStyles };

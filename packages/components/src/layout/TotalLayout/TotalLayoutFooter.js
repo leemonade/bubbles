@@ -2,14 +2,14 @@ import React from 'react';
 import { Box } from '../Box';
 import { Button } from '../../form/Button';
 import { DropdownButton } from '../../form/DropdownButton';
-import { Stack } from '../Stack';
 import { TotalLayoutFooterStyles } from './TotalLayoutFooter.styles';
 import { TOTAL_LAYOUT_FOOTER_PROP_TYPES } from './TotalLayout.constants';
+import { TotalLayoutFooterContainer } from './TotalLayoutFooterContainer/TotalLayoutFooterContainer';
 
 const TotalLayoutFooter = ({
   leftOffset,
   activeStep,
-  showFooterBorder,
+  scrollRef,
   onBack,
   onNext,
   finalActions,
@@ -19,10 +19,7 @@ const TotalLayoutFooter = ({
   isLastStep,
   isLoading,
 }) => {
-  const { classes } = TotalLayoutFooterStyles(
-    { showFooterBorder, leftOffset },
-    { name: 'TotalLayoutFooter' },
-  );
+  const { classes } = TotalLayoutFooterStyles({}, { name: 'TotalLayoutFooter' });
 
   const renderFinalActions = () => {
     // It's not the final step
@@ -42,9 +39,11 @@ const TotalLayoutFooter = ({
   };
 
   return (
-    <Stack justifyContent="center" fullWidth>
-      <Box className={classes.footer}>
-        <Stack fullWidth style={{ height: 72, padding: '16px 24px' }}>
+    <TotalLayoutFooterContainer
+      leftOffset={leftOffset}
+      scrollRef={scrollRef}
+      leftZone={
+        <>
           {activeStep > 0 && (
             <Box noFlex>
               {/* BACK */}
@@ -53,21 +52,21 @@ const TotalLayoutFooter = ({
               </Button>
             </Box>
           )}
-          <div></div>
-          <Stack direction="row" spacing={2} noFlex>
-            {/* SAVE? */}
-            {!Number.isNaN(minStepNumberForDraftSave) &&
-              activeStep >= minStepNumberForDraftSave && (
-                <Button variant="link" onClick={onSave}>
-                  {footerActionsLabels.save}
-                </Button>
-              )}
-            {/* NEXT OR FINAL ACTIONS */}
-            {renderFinalActions()}
-          </Stack>
-        </Stack>
-      </Box>
-    </Stack>
+        </>
+      }
+      rightZone={
+        <>
+          {/* SAVE? */}
+          {!Number.isNaN(minStepNumberForDraftSave) && activeStep >= minStepNumberForDraftSave && (
+            <Button variant="link" onClick={onSave}>
+              {footerActionsLabels.save}
+            </Button>
+          )}
+          {/* NEXT OR FINAL ACTIONS */}
+          {renderFinalActions()}
+        </>
+      }
+    />
   );
 };
 

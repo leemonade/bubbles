@@ -1,5 +1,125 @@
 # @bubbles-ui/icons
 
+## 1.2.74
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.73
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.72
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.71
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.70
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.69
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.68
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.67
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.66
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.65
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.64
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.63
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.62
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.61
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.60
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.59
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.58
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.57
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.56
+
+### Patch Changes
+
+- Versions bump
+
+## 1.2.55
+
+### Patch Changes
+
+- Versions bump
+
 ## 1.2.54
 
 ### Patch Changes

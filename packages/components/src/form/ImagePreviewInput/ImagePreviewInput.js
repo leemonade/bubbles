@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString, isNil } from 'lodash';
-import { CloudUploadIcon, UndoIcon } from '@bubbles-ui/icons/outline/';
+import { CloudUploadIcon, DeleteBinIcon } from '@bubbles-ui/icons/outline/';
 import { Box } from '../../layout/Box';
 import { Stack } from '../../layout/Stack';
 import { Button } from '../Button';
@@ -20,14 +20,15 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
     uploadButton: PropTypes.string,
     changeImage: PropTypes.string,
   }),
-  value: PropTypes.instanceOf(File),
-  previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(File)]),
+  value: PropTypes.any,
+  previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   previewStyle: PropTypes.object,
   control: PropTypes.element,
   onChange: PropTypes.func,
   readonly: PropTypes.bool,
   disabled: PropTypes.bool,
   useAria: PropTypes.bool,
+  noPicker: PropTypes.bool,
 };
 
 const ImagePreviewInput = ({
@@ -40,6 +41,7 @@ const ImagePreviewInput = ({
   readonly,
   disabled,
   useAria,
+  noPicker,
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
@@ -79,14 +81,14 @@ const ImagePreviewInput = ({
   };
 
   const getControl = () => {
-    if (!control)
+    if (!control && !noPicker)
       return (
-        <Button variant="outline" leftIcon={<CloudUploadIcon />} onClick={openFileBrowser}>
+        <Button variant="link" leftIcon={<CloudUploadIcon />} onClick={openFileBrowser}>
           {labels.uploadButton}
         </Button>
       );
 
-    return React.cloneElement(control, { onClick: openFileBrowser });
+    return !noPicker ? React.cloneElement(control, { onClick: openFileBrowser }) : null;
   };
 
   useEffect(() => {
@@ -102,23 +104,23 @@ const ImagePreviewInput = ({
       {!imagePreview ? (
         getControl()
       ) : (
-        <Stack spacing={2} fullWidth>
+        <Stack spacing={2} fullWidth alignItems="flex-end">
           <ImageLoader
             src={imagePreview}
             height={132}
             width={224}
-            skipFlex
-            radius={8}
+            noFlex
+            radius={4}
             style={{ ...previewStyle }}
             useAria={useAria}
           />
           {!readonly && !disabled ? (
-            <Box skipFlex>
+            <Box noFlex>
               <Button
-                variant="light"
+                variant="link"
                 size="sm"
                 compact
-                leftIcon={<UndoIcon />}
+                leftIcon={<DeleteBinIcon />}
                 onClick={resetImage}
                 useAria={useAria}
               >

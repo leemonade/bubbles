@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoadingOverlay, LOADING_OVERLAY_DEFAULT_PROPS } from './LoadingOverlay';
 import mdx from './LoadingOverlay.mdx';
-import { Paper } from '../../layout';
+import { Box } from '../../layout';
 
 export default {
   title: 'Molecules/Overlay/LoadingOverlay',
@@ -21,13 +21,11 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return (
-    <Paper color="solid" style={{ position: 'relative' }}>
-      <LoadingOverlay {...props} visible={true} />
-    </Paper>
-  );
-};
+const Template = ({ ...props }) => (
+  <Box style={{ position: 'relative', height: '100vh' }}>
+    <LoadingOverlay {...props} visible={true} />
+  </Box>
+);
 
 export const Playground = Template.bind({});
 
