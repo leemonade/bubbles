@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/editors",
-  "version": "1.2.70",
+  "version": "1.2.71",
   "description": "The Bubbles Design System is Leemonade's open-source design system for products and experiences.",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -79,8 +79,8 @@
     "styled-icons": "^10.45.0"
   },
   "peerDependencies": {
-    "@bubbles-ui/components": "^1.2.70",
-    "@bubbles-ui/icons": "^1.2.70",
+    "@bubbles-ui/components": "^1.2.71",
+    "@bubbles-ui/icons": "^1.2.71",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "webpack": "*"
