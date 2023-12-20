@@ -21,7 +21,7 @@ import { AssetDocumentIcon } from '../FileIcon/AssetDocumentIcon';
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
   const pairColumnRef = useRef(null);
-  const { canvasImage } = useHTMLToCanvas(pairColumnRef);
+  const { canvasImage } = useHTMLToCanvas(pairColumnRef, fileType);
   const FileTypeIcon = [
     { key: 'video', value: <AssetVideoIcon height={24} width={24} color={'#878D96'} /> },
     { key: 'audio', value: <AssetAudioIcon height={24} width={24} color={'#878D96'} /> },
@@ -80,5 +80,4 @@ CardEmptyCover.propTypes = CARD_EMPTY_COVER_PROP_TYPES;
 
 CardEmptyCover.displayName = 'CardEmptyCover';
 
-export default CardEmptyCover;
 export { CardEmptyCover };

@@ -8,7 +8,7 @@ import { Paragraph, Title } from '../../typography';
 import { ContextContainerStyles } from './ContextContainer.styles';
 
 export const CONTEXT_CONTAINER_PADDED_TYPES = [true, false, 'vertical', 'horizontal'];
-
+const FLEX_ALIGNS = ['flex-start', 'center', 'flex-end'];
 export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   title: '',
   description: '',
@@ -23,6 +23,16 @@ export const CONTEXT_CONTAINER_PROP_TYPES = {
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
+  direction: PropTypes.oneOf(['row', 'column']),
+  fullHeight: PropTypes.bool,
+  alignItems: PropTypes.oneOf(FLEX_ALIGNS),
+  justifyContent: PropTypes.oneOf(FLEX_ALIGNS),
+  wrap: PropTypes.oneOf(['wrap', 'nowrap']),
+  alignContent: PropTypes.oneOf(FLEX_ALIGNS),
+  className: PropTypes.string,
+  style: PropTypes.object,
+  subtitle: PropTypes.any,
+  children: PropTypes.any,
 };
 
 const ContextContainer = ({
@@ -60,7 +70,7 @@ const ContextContainer = ({
               key={`d-${i}`}
               noFlex
               orientation={direction === 'row' ? 'vertical' : 'horizontal'}
-            />
+            />,
           );
         }
       });
@@ -72,7 +82,7 @@ const ContextContainer = ({
   return (
     <Stack
       direction="column"
-      spacing={5}
+      spacing={3}
       fullWidth
       className={cx(classes.root, className)}
       fullHeight={fullHeight}
@@ -83,18 +93,20 @@ const ContextContainer = ({
         <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
             <Box>
-              {typeof title === 'string' ? 
-                (<Title order={3} dangerouslySetInnerHTML={{ __html: title }} />)
-                : (subtitle)
-              }
+              {typeof title === 'string' ? (
+                <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
+              ) : (
+                subtitle
+              )}
             </Box>
           )}
           {hasSubtitle && (
             <Box>
-              {typeof subtitle === 'string' ? 
-                (<Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />)
-                : (subtitle)
-              }
+              {typeof subtitle === 'string' ? (
+                <Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />
+              ) : (
+                subtitle
+              )}
             </Box>
           )}
           {hasDescription && (
