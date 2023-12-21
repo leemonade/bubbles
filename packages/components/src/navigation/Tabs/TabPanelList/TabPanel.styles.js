@@ -1,11 +1,11 @@
 import { createStyles } from '@mantine/styles';
 
-export const TabPanelStyles = createStyles((theme, { active }, getRef) => {
-  return {
-    root: {
-      width: '100%',
-      flex: 'none',
-      display: 'flex',
-    },
-  };
-});
+const TabPanelStyles = createStyles((theme, { active }, getRef) => ({
+  root: {
+    width: '100%',
+    flex: 'none',
+    display: 'flex',
+  },
+}));
+
+export { TabPanelStyles };

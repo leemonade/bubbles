@@ -1,17 +1,17 @@
 import { createStyles } from '@mantine/styles';
 
-export const TabPanelListStyles = createStyles((theme, { position, animated }, getRef) => {
-  return {
-    root: {
-      flex: 'auto',
-      display: 'flex',
-      height: '100%',
-      maxWidth: '100%',
-    },
-    content: {
-      display: 'flex',
-      width: '100%',
-      maxWidth: '100%',
-    },
-  };
-});
+const TabPanelListStyles = createStyles((theme, { position, animated }, getRef) => ({
+  root: {
+    flex: 'auto',
+    display: 'flex',
+    height: '100%',
+    maxWidth: '100%',
+  },
+  content: {
+    display: 'flex',
+    width: '100%',
+    maxWidth: '100%',
+  },
+}));
+
+export { TabPanelListStyles };

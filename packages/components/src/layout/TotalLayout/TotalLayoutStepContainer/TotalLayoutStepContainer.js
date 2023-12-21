@@ -9,7 +9,10 @@ import {
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
 const TotalLayoutStepContainer = ({ stepName, children, Footer }) => {
-  const { classes } = TotalLayoutStepContainerStyles({ hasFooter: !!Footer });
+  const { classes } = TotalLayoutStepContainerStyles(
+    { hasFooter: !!Footer, clean: true },
+    { name: 'TotalLayoutStepContainer' },
+  );
 
   return (
     <Stack className={classes.stepContainer} direction="column">
