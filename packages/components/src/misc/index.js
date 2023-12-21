@@ -9,5 +9,6 @@ export * from './FileIcon/AssetBookmarkIcon';
 export * from './FileIcon/AssetVideoIcon';
 export * from './FileIcon/AssetMediaIcon';
 export * from './FileIcon/AssetDocumentIcon';
+export * from './FileIcon/AssetScormIcon';
 export * from './AvatarSubject';
 export * from './CardEmptyCover';
