@@ -18,6 +18,7 @@ import { AssetModuleIcon } from '../FileIcon/AssetModuleIcon';
 import { AssetFeedbackIcon } from '../FileIcon/AssetFeedbackIcon';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { AssetDocumentIconSmall } from '../FileIcon/AssetDocumentIcon';
+import { AssetScormIcon } from '../FileIcon/AssetScormIcon';
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
   const pairColumnRef = useRef(null);
@@ -37,6 +38,10 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
     {
       key: 'learningpaths.module',
       value: <AssetModuleIcon height={24} width={24} color={'#878D96'} />,
+    },
+    {
+      key: 'scorm',
+      value: <AssetScormIcon height={24} width={24} color={'#878D96'} />,
     },
     {
       key: 'file',
