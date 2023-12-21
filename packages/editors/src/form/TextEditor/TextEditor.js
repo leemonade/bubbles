@@ -244,7 +244,7 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <Box style={{ zIndex: 1 }}>
-            {isToolbarReady && <ToolbarComponent />}
+            <ToolbarComponent />
             <BubbleMenu />
           </Box>
         )}
