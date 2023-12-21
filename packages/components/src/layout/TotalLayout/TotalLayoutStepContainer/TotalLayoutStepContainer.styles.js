@@ -3,7 +3,7 @@ import { createStyles } from '@mantine/styles';
 const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }) => ({
   root: {},
   stepContainer: {
-    padding: '24px 0 0 0 ',
+    padding: '30px 0 0 0 ',
     width: 928,
     height: '100%',
   },
@@ -13,10 +13,7 @@ const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }
     paddingBottom: hasFooter ? 70 : 24,
   },
   stepName: {
-    fontSize: 23,
-    fontWeight: 500,
-    lineHeight: 40,
-    marginBottom: 8,
+    marginBottom: 12,
   },
 }));
 

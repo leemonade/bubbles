@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../../typography';
+import { Text, Title } from '../../../typography';
 import { Stack } from '../../Stack';
 import { Box } from '../../Box';
 import {
@@ -17,9 +17,9 @@ const TotalLayoutStepContainer = ({ stepName, children, Footer, clean }) => {
   return (
     <Stack className={classes.stepContainer} direction="column">
       {stepName && (
-        <Text className={classes.stepName} as="h1" color="primary">
+        <Title className={classes.stepName} order={2} noFlex>
           {stepName}
-        </Text>
+        </Title>
       )}
       <Stack className={classes.formContainer} fullWidth direction="column">
         {children}
