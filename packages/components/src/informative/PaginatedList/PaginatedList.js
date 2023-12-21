@@ -50,6 +50,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   headerStyles: PropTypes.object,
   style: PropTypes.object,
   labels: PropTypes.object,
+  hidePaper: PropTypes.bool,
 };
 
 const PaginatedList = ({
@@ -75,6 +76,7 @@ const PaginatedList = ({
   style,
   useAria,
   headerStyles,
+  hidePaper,
   ...props
 }) => {
   const {
@@ -127,44 +129,45 @@ const PaginatedList = ({
 
   const { classes } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
 
+  const table =
+    layout === PAGINATED_LIST_LAYOUTS[0] ? (
+      <TableView
+        {...props}
+        {...{
+          getTableProps,
+          getTableBodyProps,
+          headerGroups,
+          prepareRow,
+          rows,
+          selectable,
+          onSelect,
+          selected,
+          useAria,
+          headerStyles,
+          onStyleRow,
+        }}
+      />
+    ) : (
+      <GridView
+        {...props}
+        {...{
+          headerGroups,
+          prepareRow,
+          rows,
+          selectable,
+          selected,
+          onSelect,
+          useAria,
+          onStyleRow,
+        }}
+      />
+    );
+
   return (
     <Box className={classes.root}>
       <LoadingOverlay visible={loading} />
       <Stack direction="column" spacing={5} fullWidth>
-        <Paper {...paperProps}>
-          {layout === PAGINATED_LIST_LAYOUTS[0] ? (
-            <TableView
-              {...props}
-              {...{
-                getTableProps,
-                getTableBodyProps,
-                headerGroups,
-                prepareRow,
-                rows,
-                selectable,
-                onSelect,
-                selected,
-                useAria,
-                headerStyles,
-                onStyleRow,
-              }}
-            />
-          ) : (
-            <GridView
-              {...props}
-              {...{
-                headerGroups,
-                prepareRow,
-                rows,
-                selectable,
-                selected,
-                onSelect,
-                useAria,
-                onStyleRow,
-              }}
-            />
-          )}
-        </Paper>
+        {hidePaper ? table : <Paper {...paperProps}>{table}</Paper>}
 
         {totalPages > 1 && (
           <Stack fullWidth justifyContent={pagerPlace}>
