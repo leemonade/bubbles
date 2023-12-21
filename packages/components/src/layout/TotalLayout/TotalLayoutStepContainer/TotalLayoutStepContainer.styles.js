@@ -4,18 +4,19 @@ const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }
   root: {},
   stepContainer: {
     padding: '24px 0 0 0 ',
-    width: '928px',
+    width: 928,
     height: '100%',
   },
   formContainer: {
     backgroundColor: !clean && 'white',
-    padding: !clean && '24px',
-    paddingBottom: hasFooter ? '70px' : '24px',
+    padding: !clean && 24,
+    paddingBottom: hasFooter ? 70 : 24,
   },
   stepName: {
-    fontSize: '23px',
+    fontSize: 23,
     fontWeight: 500,
-    lineHeight: '40px',
+    lineHeight: 40,
+    marginBottom: 8,
   },
 }));
 

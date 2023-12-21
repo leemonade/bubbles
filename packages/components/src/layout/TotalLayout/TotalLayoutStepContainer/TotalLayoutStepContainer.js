@@ -8,16 +8,16 @@ import {
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, children, Footer }) => {
+const TotalLayoutStepContainer = ({ stepName, children, Footer, clean }) => {
   const { classes } = TotalLayoutStepContainerStyles(
-    { hasFooter: !!Footer, clean: true },
+    { hasFooter: !!Footer, clean },
     { name: 'TotalLayoutStepContainer' },
   );
 
   return (
     <Stack className={classes.stepContainer} direction="column">
       {stepName && (
-        <Text className={classes.stepName} style={{ marginBottom: '8px' }} as="h1" color="primary">
+        <Text className={classes.stepName} as="h1" color="primary">
           {stepName}
         </Text>
       )}
