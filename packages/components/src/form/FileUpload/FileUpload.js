@@ -155,8 +155,12 @@ const FileUpload = ({
           {files.map((file, index) => (
             <Stack key={index} alignItems="center" spacing={8} className={classes.droppedFile}>
               <FileItemDisplay iconSize={30} filename={file.name} thumbnailUrl={getFileUrl(file)} />
-              <Box onClick={() => removeFile(index)} noFlex>
-                <Button variant="link" leftIcon={<DeleteBinIcon height={16} width={16} />}>
+              <Box noFlex>
+                <Button
+                  onClick={() => removeFile(index)}
+                  variant="link"
+                  leftIcon={<DeleteBinIcon height={16} width={16} />}
+                >
                   Borrar
                 </Button>
               </Box>
