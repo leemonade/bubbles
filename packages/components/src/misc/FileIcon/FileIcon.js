@@ -10,6 +10,7 @@ import { AssetAudioIcon } from './AssetAudioIcon';
 import { AssetImageIcon } from './AssetImageIcon';
 import { AssetBookmarkIcon } from './AssetBookmarkIcon';
 import { AssetDocumentIconSmall } from './AssetDocumentIcon';
+import { AssetScormIcon } from './AssetScormIcon';
 
 export const FILE_ICON_DEFAULT_PROPS = {
   size: 16,
@@ -37,6 +38,7 @@ const FileIcon = ({ fileType, fileExtension, label, size, color, iconStyle, ...p
     { key: 'path', value: <AssetPathIcon height={size} width={size} /> },
     { key: 'curriculum', value: <PluginCurriculumIcon height={size} width={size} /> },
     { key: 'document', value: <AssetDocumentIconSmall height={18} width={18} /> },
+    { key: 'scorm', value: <AssetScormIcon height={18} width={18} /> },
     {
       key: 'file',
       value: (

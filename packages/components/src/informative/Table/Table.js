@@ -160,6 +160,7 @@ const Table = ({
                           style={defaultsDeep(
                             draggableProvided.draggableProps.style,
                             defaultsDeep(styleRow, onStyleRow({ row, theme })),
+                            row.original.trStyle,
                           )}
                           ref={draggableProvided.innerRef}
                         >

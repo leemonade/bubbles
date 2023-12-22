@@ -4,7 +4,7 @@ import { getFontExpressive } from '../../theme.mixins';
 export const TitleStyles = createStyles((theme, { order, transform, color, highlighted }) => {
   const globalContent = theme.other?.global?.content;
   const fontStyles = [];
-
+  
   if (globalContent?.typo) {
     fontStyles.push(
       globalContent.typo.heading.xlg,

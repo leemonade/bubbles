@@ -16,7 +16,6 @@ const TabPanelList = ({
   forceRender,
 }) => {
   const { tabs } = useContext(TabContext);
-
   const { classes, cx } = TabPanelListStyles({ position, animated }, { name: 'TabPanelList' });
 
   const activeIndex = tabs.findIndex((tab) => tab.key === activeKey);

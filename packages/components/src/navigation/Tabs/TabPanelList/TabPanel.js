@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '../../../layout/Box';
 import { TabPanelStyles } from './TabPanel.styles';
 
-export const TabPanel = ({
+const TabPanel = ({
   forceRender,
   className,
   style,
@@ -67,4 +67,8 @@ TabPanel.propTypes = {
   animated: PropTypes.bool,
   active: PropTypes.bool,
   destroyInactiveTabPanel: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.any,
 };
+export { TabPanel };

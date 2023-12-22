@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const TabsStyles = createStyles(
+const TabsStyles = createStyles(
   (theme, { direction, position, panelColor, fullHeight }, getRef) => {
     const rootProps = {
       display: 'flex',
@@ -26,5 +26,7 @@ export const TabsStyles = createStyles(
         overflowY: fullHeight && 'auto',
       },
     };
-  }
+  },
 );
+
+export { TabsStyles };
