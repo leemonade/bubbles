@@ -8,7 +8,7 @@ const AssetExpressTaskIcon = ({ width, height, color }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 24 24"
+    viewBox="0 0 16 18"
     fill="none"
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
