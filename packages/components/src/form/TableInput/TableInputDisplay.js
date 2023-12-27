@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, isFunction } from 'lodash';
+import { find, isFunction, noop } from 'lodash';
 import { useTable } from 'react-table';
 import { Controller } from 'react-hook-form';
 import { AddIcon } from '@bubbles-ui/icons/outline';
@@ -25,6 +25,7 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   onItemAdd: PropTypes.func,
   classes: PropTypes.any,
   showHeaders: PropTypes.bool,
+  renderActionButton: PropTypes.func,
 };
 
 const TableInputDisplay = ({
@@ -49,8 +50,9 @@ const TableInputDisplay = ({
   rowsExpanded,
   rowStyles,
   classes,
-  onChangeRow = () => {},
-  renderRowSubComponent = () => {},
+  renderActionButton,
+  onChangeRow = noop,
+  renderRowSubComponent = noop,
 }) => {
   const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
@@ -161,13 +163,14 @@ const TableInputDisplay = ({
               className={cx(tableClasses.td, classes.inputCell)}
               style={{ paddingLeft: 0, paddingBottom: 4 }}
             >
-              {!disabled && (
+              {!disabled && !isFunction(renderActionButton) && (
                 <ActionButton
                   disabled={disabledAddButton}
                   onClick={handleOnAdd}
                   icon={<AddIcon />}
                 />
               )}
+              {!disabled && isFunction(renderActionButton) && renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
             </th>
           </tr>
         )}

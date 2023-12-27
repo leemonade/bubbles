@@ -155,7 +155,7 @@ const TableInputRow = ({
                 {getColumCellValue(cell)}
               </td>
             ))}
-            <td style={{ textAlign: 'right' }} className={cx(tableClasses.td, classes.actionCell)}>
+            <td style={{ textAlign: 'right', textWrap: 'nowrap' }} className={cx(tableClasses.td, classes.actionCell)}>
               {editing ? (
                 <>
                   <ActionButton

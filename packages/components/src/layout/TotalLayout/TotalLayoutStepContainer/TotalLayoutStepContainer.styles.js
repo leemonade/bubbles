@@ -1,21 +1,22 @@
 import { createStyles } from '@mantine/styles';
 
-const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter }) => ({
+const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }) => ({
   root: {},
   stepContainer: {
-    padding: '24px 0 0 0 ',
-    width: '928px',
+    padding: '30px 0 0 0 ',
+    width: 928,
     height: '100%',
+    '@media (min-width: 1920px)': {
+      width: 1200,
+    },
   },
   formContainer: {
-    backgroundColor: 'white',
-    padding: '24px',
-    paddingBottom: hasFooter ? '100px' : '24px',
+    backgroundColor: !clean && 'white',
+    padding: !clean && 24,
+    paddingBottom: hasFooter ? 70 : 24,
   },
   stepName: {
-    fontSize: '23px',
-    fontWeight: 500,
-    lineHeight: '40px',
+    marginBottom: 12,
   },
 }));
 

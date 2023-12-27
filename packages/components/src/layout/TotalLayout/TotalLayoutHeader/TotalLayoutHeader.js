@@ -21,6 +21,8 @@ const TotalLayoutHeader = ({
   compact = false,
   direction = 'column',
   cancelable = true,
+  mainActionLabel = 'Cancelar',
+  ...props
 }) => {
   const formContext = useFormContext();
   const formValues = isFunction(formContext?.watch) ? formContext.watch() : {};
@@ -61,7 +63,7 @@ const TotalLayoutHeader = ({
           {!!children && direction === 'row' && children}
           {cancelable && (
             <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
-              Cancelar
+              {mainActionLabel}
             </Button>
           )}
         </Stack>
@@ -69,9 +71,7 @@ const TotalLayoutHeader = ({
 
       {/* CHILDREN */}
       {!!children && direction === 'column' && (
-        <Stack style={{ maxHeight: '40px', minHeight: '40px', marginTop: '12px' }}>
-          {children}
-        </Stack>
+        <Stack style={{ marginTop: '12px' }}>{children}</Stack>
       )}
     </Stack>
   );

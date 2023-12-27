@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../../../typography';
+import { Text, Title } from '../../../typography';
 import { Stack } from '../../Stack';
 import { Box } from '../../Box';
 import {
@@ -8,15 +8,18 @@ import {
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, children, Footer }) => {
-  const { classes } = TotalLayoutStepContainerStyles({ hasFooter: !!Footer });
+const TotalLayoutStepContainer = ({ stepName, children, Footer, clean }) => {
+  const { classes } = TotalLayoutStepContainerStyles(
+    { hasFooter: !!Footer, clean },
+    { name: 'TotalLayoutStepContainer' },
+  );
 
   return (
     <Stack className={classes.stepContainer} direction="column">
       {stepName && (
-        <Text className={classes.stepName} style={{ marginBottom: '8px' }} as="h1" color="primary">
+        <Title className={classes.stepName} order={2} noFlex>
           {stepName}
-        </Text>
+        </Title>
       )}
       <Stack className={classes.formContainer} fullWidth direction="column">
         {children}

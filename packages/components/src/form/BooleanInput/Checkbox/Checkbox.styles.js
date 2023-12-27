@@ -1,7 +1,10 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFontProductive } from '../../../theme.mixins';
+import { pxToRem, getFontProductive, getBoxShadowFromToken } from '../../../theme.mixins';
 
-export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) => {
+const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) => {
+  const checkboxTheme = theme.other.checkbox;
+  const labelTheme = theme.other.label;
+
   return {
     root: {
       gap: 8,
@@ -9,9 +12,24 @@ export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) 
     },
     input: {
       cursor: 'pointer',
+      backgroundColor: checkboxTheme.background.color.default,
+      borderColor: checkboxTheme.border.color.default,
+      borderWidth: 1,
       '&:checked': {
-        backgroundColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
-        borderColor: disabled ? theme.colors.ui01 : theme.colors.interactive01,
+        backgroundColor: checkboxTheme.background.color.default,
+        borderColor: checkboxTheme.border.color.select,
+      },
+      '&:hover': {
+        borderColor: checkboxTheme.border.color.select,
+        ...getBoxShadowFromToken(checkboxTheme.shadow.hover),
+      },
+      '&:focus': {
+        borderColor: checkboxTheme.border.color.selected,
+        borderWidth: 2,
+      },
+      '&:focus-visible': {
+        outline: `1px solid ${checkboxTheme.border.color.selected}`,
+        outlineOffset: 0,
       },
       borderRadius: 2,
     },
@@ -21,13 +39,16 @@ export const CheckboxStyles = createStyles((theme, { disabled, labelPosition }) 
     },
     icon: {
       width: 14,
+      color: `${checkboxTheme.content.color.icon} !important`,
     },
     label: {
       cursor: 'pointer',
-      color: theme.colors.text01,
-      ...getFontProductive(theme.fontSizes['2'], 500),
+      color: labelTheme.content.color.default,
+      ...labelTheme.content.typo['02'],
       lineHeight: pxToRem(17),
       padding: 0,
     },
   };
 });
+
+export { CheckboxStyles };

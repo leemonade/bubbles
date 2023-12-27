@@ -175,7 +175,7 @@ const TagsInput = forwardRef(
             />
           </Box>
           <Box skipFlex>
-            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={() => addTag()}>
+            <Button variant="link" size="sm" leftIcon={<AddCircleIcon />} onClick={() => addTag()}>
               {labels.addButton}
             </Button>
           </Box>

@@ -1,7 +1,8 @@
 import { createStyles } from '@mantine/styles';
 
-export const InputLabelStyles = createStyles((theme, {}) => {
+const InputLabelStyles = createStyles((theme) => {
   const labelTheme = theme.other.label;
+
   return {
     container: {
       display: 'flex',
@@ -10,7 +11,7 @@ export const InputLabelStyles = createStyles((theme, {}) => {
     },
     label: {
       color: labelTheme.content.color.default,
-      ...labelTheme.content.typo['01'],
+      ...labelTheme.content.typo['02'],
     },
     required: {
       marginLeft: labelTheme.spacing.gap.sm,
@@ -18,3 +19,5 @@ export const InputLabelStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { InputLabelStyles };

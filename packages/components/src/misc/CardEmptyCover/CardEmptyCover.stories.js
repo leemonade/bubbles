@@ -14,7 +14,7 @@ export default {
     },
   },
   argTypes: {
-    fileType: { options: ['audio', 'video', 'image', 'bookmark', 'noicon'], control: 'select' },
+    fileType: { options: ['audio', 'video', 'image', 'bookmark','file', 'noicon'], control: 'select' },
   },
 };
 

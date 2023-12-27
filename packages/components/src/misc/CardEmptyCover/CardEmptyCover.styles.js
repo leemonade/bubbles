@@ -21,12 +21,12 @@ export const CardEmptyCoverStyles = createStyles(() => ({
     paddingTop: pxToRem(24),
   },
   oddIcon: {
-    transform: 'rotate(23deg)',
+    transform: 'rotate(23deg) scale(0.75)',
     height: 'auto',
     opacity: 0.5,
   },
   evenIcon: {
-    transform: 'rotate(-23deg)',
+    transform: 'rotate(-23deg) scale(0.75)',
     height: 'auto',
     opacity: 0.5,
   },
@@ -34,5 +34,7 @@ export const CardEmptyCoverStyles = createStyles(() => ({
     backgroundColor: '#f8f9fb',
     height: '100%',
     width: '100%',
+    backgroundSize: '17%',
+    backgroundAttachment: 'local'
   },
 }));

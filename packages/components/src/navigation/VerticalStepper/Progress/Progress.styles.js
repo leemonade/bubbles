@@ -8,12 +8,22 @@ const ProgressStyles = createStyles(
     const isLast = position === 'end';
     const isBetween = position === 'between';
 
-    const getSolidBarHeight = () => {
+    const getBarHeight = () => {
+      let height = isButton || isActivity ? 42 : 35;
       if (isBetween) {
-        return isButton || isActivity ? 62 : 55;
+        height = isButton || isActivity ? 62 : 55;
       }
-      return isButton || isActivity ? 42 : 35;
+      return (isLast || isFirst) ? Math.round(height / 1.5) : height;
     };
+
+    const getBarPosition = () => {
+      let result = 'none';
+
+      if(isLast)result = 'translateY(-70%)';
+      if(isFirst) result = 'translateY(70%)';
+
+      return result;
+    }
 
     return {
       root: { minHeight: 20, minWidth: 20 },
@@ -27,19 +37,17 @@ const ProgressStyles = createStyles(
       },
       pendingBar: {
         position: 'absolute',
-        height: getSolidBarHeight(),
+        height: getBarHeight(),
         borderLeft: `1px solid ${stepperTheme.background?.color?.default}`,
         zIndex: 0,
-        top: isFirst && (isButton ? 4.5 : 4),
-        bottom: isLast && (isButton ? 4.5 : 4),
+        transform: getBarPosition(),
       },
       solidBar: {
         position: 'absolute',
-        height: getSolidBarHeight(),
+        height: getBarHeight(),
         borderLeft: `1px solid ${stepperTheme.background?.color?.default}`,
         zIndex: 0,
-        top: isFirst ? 5 : -5,
-        bottom: isLast && 0,
+        transform: getBarPosition(),
       },
       pendingIcon: {
         height: 12,
