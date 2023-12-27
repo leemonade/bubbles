@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SimpleBar from 'simplebar-react';
 import { isNil } from 'lodash';
 import { ComputerKeyboardPreviousIcon, PluginKimIcon } from '@bubbles-ui/icons/outline';
-import { Box, Stack, ActionButton, PALETTE, List } from '@bubbles-ui/components';
+import { ActionButton, Box, List, PALETTE, Stack } from '@bubbles-ui/components';
 import { SubNavItem } from './SubNavItem/SubNavItem';
 import { SubNavStyles } from './SubNav.styles';
 
@@ -54,6 +54,7 @@ export const SubNav = forwardRef(
       className,
       useRouter,
       children,
+      hideHeader,
       hideHeaderActions,
       style,
       lightMode,
@@ -74,30 +75,32 @@ export const SubNav = forwardRef(
         className={cx(classes.root, className, { [classes.open]: open })}
       >
         {/* Header */}
-        <Box className={classes.navHeader}>
-          {/* Close button */}
-          {!hideHeaderActions ? (
-            <Stack className={classes.navHeaderAction} justifyContent="end">
-              <ActionButton
-                icon={<PluginKimIcon />}
-                rounded
-                color={!lightMode && 'negative'}
-                active={pinned}
-                onClick={onPin}
-                tooltip={messages?.pinTooltip || null}
-              />
-              <ActionButton
-                icon={<ComputerKeyboardPreviousIcon />}
-                rounded
-                color={!lightMode && 'negative'}
-                onClick={onClose}
-                tooltip={messages?.closeTooltip || null}
-              />
-            </Stack>
-          ) : null}
+        {!hideHeader ? (
+          <Box className={classes.navHeader}>
+            {/* Close button */}
+            {!hideHeaderActions ? (
+              <Stack className={classes.navHeaderAction} justifyContent="end">
+                <ActionButton
+                  icon={<PluginKimIcon />}
+                  rounded
+                  color={!lightMode && 'negative'}
+                  active={pinned}
+                  onClick={onPin}
+                  tooltip={messages?.pinTooltip || null}
+                />
+                <ActionButton
+                  icon={<ComputerKeyboardPreviousIcon />}
+                  rounded
+                  color={!lightMode && 'negative'}
+                  onClick={onClose}
+                  tooltip={messages?.closeTooltip || null}
+                />
+              </Stack>
+            ) : null}
 
-          <Box className={classes.navHeaderLabel}>{item.label}</Box>
-        </Box>
+            <Box className={classes.navHeaderLabel}>{item.label}</Box>
+          </Box>
+        ) : null}
 
         {/* SubNav Items */}
         <SimpleBar className={classes.navBar}>

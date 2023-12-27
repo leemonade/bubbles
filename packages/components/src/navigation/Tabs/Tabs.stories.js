@@ -128,7 +128,7 @@ const SimpleTemplate = ({ position, disabled, ...props }) => (
             ))}
           </Box>
         </TabPanel>
-        <TabPanel label="Second" disabled>
+        <TabPanel label="Second">
           <Box>
             <Paragraph>Content of Second tab</Paragraph>
           </Box>

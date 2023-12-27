@@ -5,6 +5,7 @@ const cache = {};
 
 const useHTMLToCanvas = (ref, key) => {
   const [canvasImage, setCanvasImage] = useState();
+
   const renderCanvas = async () => {
     if (cache[key]?.data) {
       if (cache[key].data === 'pending') {
@@ -20,8 +21,7 @@ const useHTMLToCanvas = (ref, key) => {
     }
 
     cache[key] = { data: 'pending' };
-
-    const canvas = await html2canvas(ref.current);
+    const canvas = await html2canvas(ref.current, { scale: 3 });
     const response = canvas.toDataURL('image/png');
     cache[key] = { data: response };
 
@@ -32,8 +32,11 @@ const useHTMLToCanvas = (ref, key) => {
   };
 
   useEffect(() => {
-    renderCanvas();
-  }, [ref.current]);
+    if(ref.current && key) {
+      renderCanvas();
+    }
+  }, [ref.current, key]);
+
   return { canvasImage };
 };
 

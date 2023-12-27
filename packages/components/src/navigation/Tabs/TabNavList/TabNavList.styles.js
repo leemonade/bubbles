@@ -1,12 +1,15 @@
 import { createStyles } from '@mantine/styles';
 
-export const TabNavListStyles = createStyles((theme, {}, getRef) => {
+const TabNavListStyles = createStyles((theme, {}, getRef) => {
+  const tabTheme = theme.other.tab;
+  const coreTheme = theme.other.core;
+
   return {
     root: {
       display: 'flex',
       flex: 'none',
       position: 'relative',
-      borderBottom: `1px solid ${theme.colors.ui01}}`,
+      borderBottom: `1px solid ${coreTheme.color.neutral[200]}}`,
     },
     tabsResizer: {
       overflow: 'hidden',
@@ -28,7 +31,10 @@ export const TabNavListStyles = createStyles((theme, {}, getRef) => {
       transition: 'transform 0.3s',
       flex: 1,
       margin: 0,
-      gap: 2,
+      gap: 0
+      // gap: tabTheme.spacing.gap,
     },
   };
 });
+
+export { TabNavListStyles };
