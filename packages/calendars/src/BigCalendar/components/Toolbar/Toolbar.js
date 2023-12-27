@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Group,
-  IconButton,
   InputWrapper,
   Select,
   Switch,
@@ -109,16 +108,9 @@ const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton
-            color="primary"
-            size="lg"
-            rounded
-            onClick={addEventClick}
-            data-testid="add-event"
-            aria-label="add-event"
-          >
-            <PlusIcon />
-          </IconButton>
+          <Button leftIcon={<PlusIcon />} onClick={addEventClick}>
+            {messages.new}
+          </Button>
         ) : null}
         {toolbarRightNode}
       </Group>

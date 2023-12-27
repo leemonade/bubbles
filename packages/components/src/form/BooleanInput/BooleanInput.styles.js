@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 export const BooleanInputStyles = createStyles(
   (theme, { help, helpPosition, variant, isChecked, isPro, display, size }) => {
@@ -40,6 +40,40 @@ export const BooleanInputStyles = createStyles(
         marginLeft: isRight ? theme.spacing[4] : isSwitch ? getHelpMargin() : theme.spacing[6],
         marginTop: isBottom ? theme.spacing[1] : 2,
       },
+      switchInput: {
+        '&:checked+*>.mantine-Switch-thumb': {
+          left: 'calc(100% - 8px - 4px)!important',
+        },
+      },
+      switchThumb: {
+        backgroundColor: '#878D96!important',
+        width: '8px!important',
+        height: '8px!important',
+        left: '4px!important',
+      },
+      switchThumbChecked: {
+        backgroundColor: '#2F463F!important',
+        width: '8px!important',
+        height: '8px!important',
+      },
+      switchTrack: {
+        backgroundColor: 'transparent!important',
+        border: '1px solid #878D96!important',
+      },
+      switchTrackChecked: {
+        backgroundColor: 'transparent!important',
+        border: '1px solid #2F463F!important',
+      },
+      switchLabel: {
+        color: '#4D5358', // lightMode ? theme.colors.text01 : theme.colors.text07,
+        fontWeight: 400,
+        fontSize: '14px',
+      },
+      switchLabelChecked: {
+        color: '#2F463F', // lightMode ? theme.colors.text01 : theme.colors.text07,
+        fontWeight: 400,
+        fontSize: '14px',
+      },
     };
-  }
+  },
 );

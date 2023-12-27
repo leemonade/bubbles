@@ -1,13 +1,6 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  ImageLoader,
-  ProSwitch,
-  SegmentedControl,
-  Select,
-  Text,
-} from '@bubbles-ui/components';
+import { Box, Select, Switch, Text } from '@bubbles-ui/components';
 import { SubNav } from '@bubbles-ui/extras';
 import { forEach } from 'lodash';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
@@ -28,8 +21,8 @@ export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
   pageOnChange: () => {},
   onClose: () => {},
   showPageControl: false,
-  mainColor: '#212B3D',
-  drawerColor: '#333F56',
+  mainColor: '#ffffff',
+  drawerColor: '#ffffff',
   lightMode: false,
 };
 export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {
@@ -100,8 +93,9 @@ const CalendarSubNavFilters = ({
     <>
       <SubNav
         hideHeaderActions={true}
+        hideHeader={true}
         item={{ label: messages.title }}
-        style={{ position: 'static' }}
+        style={{ position: 'static', borderRight: '1px solid #EDEFF5' }}
         className={classes.subNav}
         subItems={[]}
         width={'100%'}
@@ -118,10 +112,12 @@ const CalendarSubNavFilters = ({
           })}
         >
           {showPageControl ? (
-            <SegmentedControl
+            <Select
               data={pages}
-              value={pageValue}
+              value={pageValue || pages[0].value}
               onChange={pageOnChange}
+
+              /*
               orientation={pages.length > 2 ? 'vertical' : 'horizontal'}
               classNames={{
                 root: pages.length > 2 ? classes.segmentRoot2 : classes.segmentRoot,
@@ -130,24 +126,28 @@ const CalendarSubNavFilters = ({
                 labelActive: classes.segmentLabelActive,
                 control: classes.segmentControl,
               }}
+
+               */
             />
           ) : null}
           {centers && centers.length > 1 ? (
             <Box
               sx={(theme) => ({
-                marginTop: theme.spacing[6],
+                marginTop: theme.spacing[4],
               })}
             >
               <Text
                 strong
-                size="xs"
-                sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+                size="sm"
+                sx={(theme) => ({
+                  color: '#0D2023' /* lightMode ? theme.colors.text05 : theme.colors.text08*/,
+                })}
               >
                 {messages.centers}
               </Text>
               <Box
                 sx={(theme) => ({
-                  marginTop: theme.spacing[5],
+                  marginTop: theme.spacing[2],
                 })}
               >
                 <Select data={centers} value={centerValue} onChange={centerOnChange} />
@@ -157,39 +157,40 @@ const CalendarSubNavFilters = ({
           {value.map(({ calendars, sectionName }, sectionIndex) => (
             <Box
               sx={(theme) => ({
-                marginTop: theme.spacing[6],
+                marginTop: theme.spacing[4],
               })}
               key={`${sectionName}-${sectionIndex}`}
             >
               <Box>
                 <Text
                   strong
-                  size="xs"
-                  sx={(theme) => ({ color: lightMode ? theme.colors.text05 : theme.colors.text08 })}
+                  size="sm"
+                  sx={(theme) => ({
+                    color:
+                      '#0D2023' /*color: lightMode ? theme.colors.text05 : theme.colors.text08*/,
+                  })}
                 >
                   {sectionName}
                 </Text>
               </Box>
               <Box
                 sx={(theme) => ({
-                  marginTop: theme.spacing[5],
+                  marginTop: theme.spacing[2],
                 })}
               >
                 {calendars.map((calendar, calendarIndex) => (
                   <Box
                     sx={(theme) => ({
-                      marginTop: theme.spacing[4],
-                      marginBottom: theme.spacing[4],
+                      // marginTop: theme.spacing[4],
+                      // marginBottom: theme.spacing[4],
                     })}
                     key={calendarIndex}
                   >
-                    <ProSwitch
-                      classNames={{
-                        label: classes.switchLabel,
-                      }}
+                    <Switch
                       label={calendar.name}
-                      color={calendar.bgColor}
+                      // color={calendar.bgColor}
                       checked={calendar.showEvents}
+                      /*
                       icon={
                         calendar.icon && ref.current[calendar.icon] ? (
                           <Box className={classes.icon}>
@@ -204,6 +205,8 @@ const CalendarSubNavFilters = ({
                           </Box>
                         ) : null
                       }
+
+                       */
                       onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
                     />
                   </Box>

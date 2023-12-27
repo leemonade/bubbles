@@ -80,7 +80,7 @@ const BooleanInput = forwardRef(
       isPro,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isChecked, setIsChecked] = useState(checked);
 
@@ -97,7 +97,7 @@ const BooleanInput = forwardRef(
 
     const { classes, cx } = BooleanInputStyles(
       { help, helpPosition, variant, isChecked, isPro, display, size },
-      { name: 'BooleanInput' }
+      { name: 'BooleanInput' },
     );
 
     return (
@@ -122,6 +122,12 @@ const BooleanInput = forwardRef(
           ) : (
             <Switch
               {...props}
+              classNames={{
+                input: classes.switchInput,
+                thumb: isChecked ? classes.switchThumbChecked : classes.switchThumb,
+                track: isChecked ? classes.switchTrackChecked : classes.switchTrack,
+                label: isChecked ? classes.switchLabelChecked : classes.switchLabel,
+              }}
               ref={ref}
               size={size}
               label={required ? `${label} *` : label}
@@ -140,7 +146,7 @@ const BooleanInput = forwardRef(
         </Box>
       </InputWrapper>
     );
-  }
+  },
 );
 
 BooleanInput.defaultProps = BOOLEAN_INPUT_DEFAULT_PROPS;

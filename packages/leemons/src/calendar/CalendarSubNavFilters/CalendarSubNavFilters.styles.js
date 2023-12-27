@@ -5,10 +5,6 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, { mainColor, lig
     subNav: {
       height: '100%',
     },
-    switchLabel: {
-      color: lightMode ? theme.colors.text01 : theme.colors.text07,
-      fontWeight: 500,
-    },
     segmentRoot: {
       height: '42px',
       padding: 2,
@@ -23,7 +19,7 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, { mainColor, lig
     },
     segmentLabel: {
       ...getFontExpressive(),
-      color: lightMode ? theme.colors.text05 : theme.colors.text06,
+      color: '#2F463F', // lightMode ? theme.colors.text05 : theme.colors.text06,
       boxSizing: 'border-box',
       alignItems: 'center',
       textAlign: 'center',
@@ -35,7 +31,7 @@ export const CalendarSubNavFiltersStyles = createStyles((theme, { mainColor, lig
       },
     },
     segmentLabelActive: {
-      color: lightMode ? `${theme.colors.text01}!important` : `${theme.colors.text07}!important`,
+      color: '#2F463F', // lightMode ? `${theme.colors.text01}!important` : `${theme.colors.text07}!important`,
     },
     segmentActive: {
       backgroundColor: lightMode ? theme.colors.mainWhite : 'rgba(255, 255, 255, 0.25)',
