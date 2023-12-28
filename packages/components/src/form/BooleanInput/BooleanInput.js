@@ -128,12 +128,6 @@ const BooleanInput = forwardRef(
           ) : (
             <Switch
               {...props}
-              classNames={{
-                input: classes.switchInput,
-                thumb: isChecked ? classes.switchThumbChecked : classes.switchThumb,
-                track: isChecked ? classes.switchTrackChecked : classes.switchTrack,
-                label: isChecked ? classes.switchLabelChecked : classes.switchLabel,
-              }}
               ref={ref}
               size={size}
               label={required ? `${label} *` : label}
