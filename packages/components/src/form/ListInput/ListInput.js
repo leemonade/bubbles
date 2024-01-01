@@ -179,7 +179,7 @@ const ListInput = ({
           </Box>
           {!hideAddButton ? (
             <Box style={{ flex: 0 }}>
-              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addItem}>
+              <Button variant="link" leftIcon={<AddCircleIcon />} onClick={addItem}>
                 {addButtonLabel}
               </Button>
             </Box>
