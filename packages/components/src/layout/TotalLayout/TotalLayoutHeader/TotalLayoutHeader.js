@@ -15,6 +15,7 @@ import CrossIcon from './crossIcon';
 const TotalLayoutHeader = ({
   title,
   icon,
+  iconLarge,
   formTitlePlaceholder,
   children,
   onCancel,
@@ -26,21 +27,21 @@ const TotalLayoutHeader = ({
 }) => {
   const formContext = useFormContext();
   const formValues = isFunction(formContext?.watch) ? formContext.watch() : {};
-  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children });
+  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children, hasIcon: !!icon, iconLarge });
 
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
       <Stack fullWidth justifyContent="space-between" className={classes.header}>
         {/* ICON & LABELS */}
         <Stack alignItems="center">
-          <Stack
+          <Stack>
+            <Box className={classes.iconContainer}>{icon}</Box>
+            <Stack
             spacing={compact ? 2 : 0}
             justifyContent="center"
             alignItems={compact ? 'center' : 'start'}
             direction={compact ? 'row' : 'column'}
-          >
-            <Stack alignItems="center">
-              <Box className={classes.iconContainer}>{icon}</Box>
+            >
               <Text
                 as="h3"
                 className={classes.headerTitle}
@@ -50,21 +51,21 @@ const TotalLayoutHeader = ({
               >
                 {compact ? `${title}:` : title}
               </Text>
+              
+              <Text as="h3" className={classes.headerSubtitle} color="primary">
+                {formValues.title || formTitlePlaceholder}
+              </Text>
             </Stack>
-
-            <Text as="h3" className={classes.headerSubtitle} color="primary">
-              {formValues.title || formTitlePlaceholder}
-            </Text>
           </Stack>
         </Stack>
         {/* CANCEL BUTTON */}
-        <Stack alingItems="center">
+        <Stack alignItems="center">
           {/* CHILDREN */}
           {!!children && direction === 'row' && children}
           {cancelable && (
-            <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel}>
-              {mainActionLabel}
-            </Button>
+              <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel} noFlex>
+                {mainActionLabel}
+              </Button>
           )}
         </Stack>
       </Stack>
