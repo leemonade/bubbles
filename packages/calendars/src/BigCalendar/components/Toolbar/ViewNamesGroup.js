@@ -24,15 +24,15 @@ const ViewNamesGroup = ({ messages, views, current, onChange, classes }) => {
   if (current && messages && views && data.length > 0) {
     return (
       <SegmentedControl
-        size="xl"
-        radius="xs"
         value={value}
         onChange={handleOnChange}
         data={data}
         classNames={{
           root: classes.viewItemGroup,
           label: classes.viewItemLabel,
-          active: classes.viewItemActive,
+          labelActive: classes.viewItemLabelActive,
+          control: classes.viewItemControl,
+          controlActive: classes.viewItemControlActive
         }}
       />
     );

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Select, Switch, Text } from '@bubbles-ui/components';
+import { Box, Select, Switch, Text, Stack, ScrollArea } from '@bubbles-ui/components';
 import { SubNav } from '@bubbles-ui/extras';
 import { forEach } from 'lodash';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
@@ -49,10 +49,7 @@ const CalendarSubNavFilters = ({
   lightMode,
   style,
 }) => {
-  const { classes, cx } = CalendarSubNavFiltersStyles(
-    { mainColor, lightMode },
-    { name: 'SubnavFilters' },
-  );
+  const { classes, cx } = CalendarSubNavFiltersStyles({},{ name: 'SubnavFilters' });
 
   const [, setR] = useState();
   const ref = useRef({});
@@ -90,133 +87,45 @@ const CalendarSubNavFilters = ({
   }, [JSON.stringify(value)]);
 
   return (
-    <>
-      <SubNav
-        hideHeaderActions={true}
-        hideHeader={true}
-        item={{ label: messages.title }}
-        style={{ position: 'static', borderRight: '1px solid #EDEFF5' }}
-        className={classes.subNav}
-        subItems={[]}
-        width={'100%'}
-        open={true}
-        messages={messages}
-        onClose={onClose}
-        drawerColor={drawerColor}
-        lightMode={lightMode}
-      >
-        <Box
-          sx={(theme) => ({
-            margin: theme.spacing[5],
-            paddingBottom: '80px',
-          })}
-        >
-          {showPageControl ? (
-            <Select
-              data={pages}
-              value={pageValue || pages[0].value}
-              onChange={pageOnChange}
+    <Stack className={classes.root} direction="column" spacing={5}>
+      {showPageControl ? (
+        <Select
+          data={pages}
+          value={pageValue || pages[0].value}
+          onChange={pageOnChange}
+        />
+      ) : null}
 
-              /*
-              orientation={pages.length > 2 ? 'vertical' : 'horizontal'}
-              classNames={{
-                root: pages.length > 2 ? classes.segmentRoot2 : classes.segmentRoot,
-                label: classes.segmentLabel,
-                active: classes.segmentActive,
-                labelActive: classes.segmentLabelActive,
-                control: classes.segmentControl,
-              }}
-
-               */
-            />
-          ) : null}
-          {centers && centers.length > 1 ? (
-            <Box
-              sx={(theme) => ({
-                marginTop: theme.spacing[4],
-              })}
-            >
-              <Text
-                strong
-                size="sm"
-                sx={(theme) => ({
-                  color: '#0D2023' /* lightMode ? theme.colors.text05 : theme.colors.text08*/,
-                })}
-              >
-                {messages.centers}
-              </Text>
-              <Box
-                sx={(theme) => ({
-                  marginTop: theme.spacing[2],
-                })}
-              >
-                <Select data={centers} value={centerValue} onChange={centerOnChange} />
+      {centers && centers.length > 1 ? (
+        <Stack direction="column" spacing={2}>
+          <Text className={classes.subtitle}>
+            {messages.centers}
+          </Text>
+          <Box>
+            <Select data={centers} value={centerValue} onChange={centerOnChange} />
+          </Box>
+        </Stack>
+      ) : null}
+      
+      {value.map(({ calendars, sectionName }, sectionIndex) => (
+        <Box key={`${sectionName}-${sectionIndex}`}>
+          <Text className={classes.subtitle}>
+            {sectionName}
+          </Text>
+          <Box>
+            {calendars.map((calendar, calendarIndex) => (
+              <Box key={calendarIndex} className={classes.switchWrapper}>
+                <Switch
+                  label={calendar.name}
+                  checked={calendar.showEvents}
+                  onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
+                />
               </Box>
-            </Box>
-          ) : null}
-          {value.map(({ calendars, sectionName }, sectionIndex) => (
-            <Box
-              sx={(theme) => ({
-                marginTop: theme.spacing[4],
-              })}
-              key={`${sectionName}-${sectionIndex}`}
-            >
-              <Box>
-                <Text
-                  strong
-                  size="sm"
-                  sx={(theme) => ({
-                    color:
-                      '#0D2023' /*color: lightMode ? theme.colors.text05 : theme.colors.text08*/,
-                  })}
-                >
-                  {sectionName}
-                </Text>
-              </Box>
-              <Box
-                sx={(theme) => ({
-                  marginTop: theme.spacing[2],
-                })}
-              >
-                {calendars.map((calendar, calendarIndex) => (
-                  <Box
-                    sx={(theme) => ({
-                      // marginTop: theme.spacing[4],
-                      // marginBottom: theme.spacing[4],
-                    })}
-                    key={calendarIndex}
-                  >
-                    <Switch
-                      label={calendar.name}
-                      // color={calendar.bgColor}
-                      checked={calendar.showEvents}
-                      /*
-                      icon={
-                        calendar.icon && ref.current[calendar.icon] ? (
-                          <Box className={classes.icon}>
-                            <ImageLoader
-                              height="12px"
-                              imageStyles={{
-                                width: 12,
-                              }}
-                              src={calendar.icon}
-                              forceImage
-                            />
-                          </Box>
-                        ) : null
-                      }
-
-                       */
-                      onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
-                    />
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          ))}
+            ))}
+          </Box>
         </Box>
-      </SubNav>
-    </>
+      ))}
+    </Stack>
   );
 };
 

@@ -37,14 +37,14 @@ const Template = (props) => {
   const { locale } = props;
   if (locale === 'es-ES') {
     messages = {
-      month: 'Mensual',
-      week: 'Semanal',
-      day: 'Diario',
+      month: 'Mes',
+      week: 'Semana',
+      day: 'Día',
       agenda: 'Agenda',
       today: 'Hoy',
       previous: 'Anterior',
       next: 'siguiente',
-      showWeekends: 'Mostrar fines de semana',
+      showWeekends: 'Fines de semana',
       display: 'Mostrar',
       entirePeriod: 'Periodo completo',
       onlyInitAndEnd: 'Solo mostrar inicio y final',

@@ -28,20 +28,22 @@ export default {
 const Template = ({ children, ...props }) => {
   const [state, setState] = React.useState(mock);
   return (
-    <Box style={{ width: '300px' }}>
-      <CalendarSubNavFilters
-        {...props}
-        value={state}
-        onChange={setState}
-        showPageControl={true}
-        centers={[
-          { label: 'Center 1', value: '1' },
-          { label: 'Center 2', value: '2' },
-        ]}
-        centerValue={1}
-      >
-        {children}
-      </CalendarSubNavFilters>
+    <Box style={{ margin: -16, height: '100vh', backgroundColor: '#FCFCFC' }}>
+      <Box style={{ width: '300px' }}>
+        <CalendarSubNavFilters
+          {...props}
+          value={state}
+          onChange={setState}
+          showPageControl={true}
+          centers={[
+            { label: 'Center 1', value: '1' },
+            { label: 'Center 2', value: '2' },
+          ]}
+          centerValue={1}
+        >
+          {children}
+        </CalendarSubNavFilters>
+      </Box>
     </Box>
   );
 };

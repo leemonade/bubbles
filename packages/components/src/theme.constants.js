@@ -51,7 +51,7 @@ export const PALETTE = {
   faticHighlight: '#FEFF8C',
 };
 
-export const SPACING = [0, 4, 8, 12, 16, 24, 28, 32, 40, 44, 48, 54, 60, 80];
+export const SPACING = [0, 4, 8, 12, 16, 22, 28, 32, 40, 44, 48, 54, 60, 80];
 
 export const FONT_SIZES = [0, 13, 14, 16, 18, 20, 23, 26, 29];
 
