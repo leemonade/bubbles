@@ -6,6 +6,7 @@ import { TOTAL_LAYOUT_HEADER_DEFAULT_PROPS } from './TotalLayoutHeader.constants
 import mdx from './TotalLayoutHeader.mdx';
 import { ContextContainer } from '../../ContextContainer';
 import { Stack } from '../../Stack';
+import { Box } from '../../Box';
 import { Button } from '../../../form/Button';
 
 export default {
@@ -44,22 +45,23 @@ const Template = (props) => {
 
   return (
     <FormProvider {...formMethods}>
-      <ContextContainer
-        id="container-for-storybook"
-        divided
-        padded
-        style={{ height: '100vh', width: '100wh', margin: '-16px', backgroundColor: '#f8f9fb' }}
-      >
-        <TotalLayoutHeader {...props} />
+      <Box style={{ height: '100vh', width: '100wh', margin: '-16px', backgroundColor: '#f8f9fb' }}>
+        <ContextContainer
+          id="container-for-storybook"
+          divided
+          padded
+        >
+          <TotalLayoutHeader {...props} />
 
-        <TotalLayoutHeader {...props}>
-          <MockComponent />
-        </TotalLayoutHeader>
+          <TotalLayoutHeader {...props}>
+            <MockComponent />
+          </TotalLayoutHeader>
 
-        <TotalLayoutHeader {...props} direction="row">
-          <OtherMockComponent />
-        </TotalLayoutHeader>
-      </ContextContainer>
+          <TotalLayoutHeader {...props} icon={null} direction="row">
+            <OtherMockComponent />
+          </TotalLayoutHeader>
+        </ContextContainer>
+      </Box>
     </FormProvider>
   );
 };

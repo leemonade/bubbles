@@ -7,6 +7,7 @@ export const TOTAL_LAYOUT_HEADER_PROP_TYPES = {
   formTitlePlaceholder: PropTypes.string,
   compact: PropTypes.bool,
   icon: PropTypes.element,
+  iconLarge: PropTypes.bool,
   onCancel: PropTypes.func,
   children: PropTypes.node,
   cancelable: PropTypes.bool,
@@ -16,6 +17,7 @@ export const TOTAL_LAYOUT_HEADER_PROP_TYPES = {
 export const TOTAL_LAYOUT_HEADER_DEFAULT_PROPS = {
   title: '',
   icon: <Icon />,
+  iconLarge: false,
   formTitlePlaceholder: '',
   compact: false,
   cancelable: true,
