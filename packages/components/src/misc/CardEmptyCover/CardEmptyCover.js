@@ -10,12 +10,13 @@ import { AssetTaskIcon } from '../FileIcon/AssetTaskIcon';
 import { AssetExpressTaskIcon } from '../FileIcon/AssetExpressTaskIcon';
 import { AssetModuleIcon } from '../FileIcon/AssetModuleIcon';
 import { AssetFeedbackIcon } from '../FileIcon/AssetFeedbackIcon';
-import { AssetAudioIcon } from '../FileIcon/AssetAudioIcon'
-import { AssetVideoIcon } from '../FileIcon/AssetVideoIcon'
-import { AssetImageIcon } from '../FileIcon/AssetImageIcon'
-import { AssetBookmarkIcon } from '../FileIcon/AssetBookmarkIcon'
+import { AssetAudioIcon } from '../FileIcon/AssetAudioIcon';
+import { AssetVideoIcon } from '../FileIcon/AssetVideoIcon';
+import { AssetImageIcon } from '../FileIcon/AssetImageIcon';
+import { AssetBookmarkIcon } from '../FileIcon/AssetBookmarkIcon';
 import { AssetDocumentIconSmall } from '../FileIcon/AssetDocumentIcon';
 import { AssetScormIcon } from '../FileIcon/AssetScormIcon';
+import { AssetTestIcon } from '../FileIcon/AssetTestIcon';
 import { Box } from '../../layout/Box';
 
 const CardEmptyCover = memo(({ icon, fileType }) => {
@@ -29,6 +30,7 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
     { key: 'feedback', value: <AssetFeedbackIcon height={18} width={18} color={'#878D96'} /> },
     { key: 'document', value: <AssetDocumentIconSmall height={18} width={18} color={'#878D96'} /> },
     { key: 'task', value: <AssetTaskIcon height={18} width={18} color={'#878D96'} /> },
+    { key: 'tests', value: <AssetTestIcon height={18} width={18} color={'#878D96'} /> },
     {
       key: 'taskexpress',
       value: <AssetExpressTaskIcon height={18} width={18} color={'#878D96'} />,
@@ -43,7 +45,9 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
     },
     {
       key: 'file',
-      value: <FileItemDisplay size={24} color={'#878D96'} iconStyle={{ backgroundColor: '#f8f9fb' }} />,
+      value: (
+        <FileItemDisplay size={24} color={'#878D96'} iconStyle={{ backgroundColor: '#f8f9fb' }} />
+      ),
     },
   ];
 
