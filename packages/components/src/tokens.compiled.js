@@ -5937,12 +5937,12 @@ export default {
             "type": "color"
           }
         },
-        "transparent": {
-          "value": "transparent",
-          "type": "color"
-        },
         "disabled": {
           "value": "#C1C7CD",
+          "type": "color"
+        },
+        "transparent": {
+          "value": "transparent",
           "type": "color"
         },
         "attention": {

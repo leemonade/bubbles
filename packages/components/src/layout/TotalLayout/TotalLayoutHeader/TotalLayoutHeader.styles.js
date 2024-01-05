@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-const TotalLayoutHeaderStyles = createStyles((theme, { children, direction, compact }) => {
+const TotalLayoutHeaderStyles = createStyles((theme, { children, direction, compact, hasIcon, iconLarge }) => {
   const expandedHeader = direction === 'column' && children;
   return {
     root: {},
@@ -14,18 +14,20 @@ const TotalLayoutHeaderStyles = createStyles((theme, { children, direction, comp
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: '1.4rem',
-      width: '32px',
-      height: '32px',
+      fontSize: iconLarge ? '2.8rem' : '1.4rem',
+      width: iconLarge ? 48 : 32,
+      height: iconLarge ? 48 : 32,
       textAlign: 'center',
-      marginRight: '8px',
+      marginRight: 16,
+      borderRadius: !hasIcon && 4,
+      backgroundColor: !hasIcon && '#C4C4C4'
     },
     headerTitle: { fontSize: '18px', fontWeight: 600, lineHeight: '24px' },
     headerSubtitle: {
       fontSize: '18px',
       fontWeight: 400,
       lineHeight: '24px',
-      marginLeft: !compact && '40px',
+      // marginLeft: !compact && '40px',
     },
   };
 });

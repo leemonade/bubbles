@@ -5,11 +5,11 @@ import {
   Box,
   Button,
   Group,
-  IconButton,
   InputWrapper,
   Select,
   Switch,
   Text,
+  Title,
 } from '@bubbles-ui/components';
 import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
 import {
@@ -38,18 +38,13 @@ const ToolBar = ({
   showToolbarViewSwitcher,
   addEventClick,
 }) => {
-  const { classes } = ToolbarStyles({});
+  const { classes } = ToolbarStyles({}, {name: 'CalendarToolbar'});
   return (
     <Group position="apart" mb={10}>
-      <Group>
+      <Group spacing={4}>
         <Group spacing={0}>
           <Box mr={10}>
-            <Button
-              size="sm"
-              variant="outline"
-              color="terciary"
-              onClick={() => onNavigate(navigate.TODAY)}
-            >
+            <Button className={classes.todayButton} variant="outline" onClick={() => onNavigate(navigate.TODAY)}>
               {messages.today}
             </Button>
           </Box>
@@ -66,16 +61,11 @@ const ToolBar = ({
             icon={<ChevronRightIcon className={classes.navIcon} />}
           />
         </Group>
-        <Box>
-          <Text size="xl">{capitalize(label)}</Text>
-        </Box>
+        <Title order={4}>{capitalize(label)}</Title>
       </Group>
 
       <Group style={{ gap: 12 }}>
-        <Box sx={() => ({ display: 'flex', alignItems: 'center' })}>
-          <Box sx={(theme) => ({ paddingTop: theme.spacing[2], paddingRight: theme.spacing[2] })}>
-            <InputWrapper label={messages.display} />
-          </Box>
+        <Box>
           <Select
             value={showType}
             ariaLabelledby="display"
@@ -109,16 +99,9 @@ const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton
-            color="primary"
-            size="lg"
-            rounded
-            onClick={addEventClick}
-            data-testid="add-event"
-            aria-label="add-event"
-          >
-            <PlusIcon />
-          </IconButton>
+          <Button leftIcon={<PlusIcon />} onClick={addEventClick}>
+            {messages.new}
+          </Button>
         ) : null}
         {toolbarRightNode}
       </Group>

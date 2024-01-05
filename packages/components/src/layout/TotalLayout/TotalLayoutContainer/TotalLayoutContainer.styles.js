@@ -7,7 +7,7 @@ const TotalLayoutContainerStyles = createStyles((theme, { topScroll }) => ({
   },
   header: {
     boxShadow: topScroll && '0 8px 24px rgba(149, 157, 165, 0.2)',
-    zIndex: 1,
+    zIndex: 99,
   },
   footerContainer: {
     backgroundColor: theme.other.core.color.neutral['50'],
