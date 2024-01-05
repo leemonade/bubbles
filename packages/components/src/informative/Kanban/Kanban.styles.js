@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { getFontProductive } from '../../theme.mixins';
 
 export const KanbanStyles = createStyles((theme, {}) => {
   return {
@@ -9,9 +8,9 @@ export const KanbanStyles = createStyles((theme, {}) => {
       height: '100%',
       maxHeight: '100%',
       padding: theme.spacing[2],
-      backgroundColor: '#EDEFF5',
+      backgroundColor: '#F8F9FB',
       gap: theme.spacing[2],
-      display: 'flex'
+      display: 'flex',
     },
     column: {
       height: '100%',
@@ -20,29 +19,31 @@ export const KanbanStyles = createStyles((theme, {}) => {
       width: '300px',
       minWidth: '300px',
       flexDirection: 'column',
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: theme.spacing[1]
+      backgroundColor: '#F2F4F8',
+      borderRadius: theme.spacing[1],
     },
     columnHeader: {
       paddingLeft: theme.spacing[4],
       paddingRight: theme.spacing[4],
       paddingTop: theme.spacing[3],
-      marginBottom: theme.spacing[4],
-      color: theme.colors.text05,
-      ...getFontProductive(theme.fontSizes['2'], 500),
+      color: '#4D5358',
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '24px',
+      fontFamily: 'Albert Sans',
       display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+      gap: theme.spacing[2],
+      alignItems: 'center',
     },
     scroll: {
-      padding: theme.spacing[2]
+      padding: theme.spacing[2],
     },
     listDraggingOver: {
       backgroundColor: '#EDEFF5',
-      borderRadius: 4
+      borderRadius: 4,
     },
     list: {
-      minHeight: '100px'
+      minHeight: '100px',
     },
     iconBig: {
       position: 'absolute',
@@ -50,8 +51,8 @@ export const KanbanStyles = createStyles((theme, {}) => {
       left: 20,
       zIndex: 0,
       img: {
-        filter: 'brightness(0) invert(1)'
-      }
-    }
+        filter: 'brightness(0) invert(1)',
+      },
+    },
   };
 });

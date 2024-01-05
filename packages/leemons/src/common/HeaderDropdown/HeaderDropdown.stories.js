@@ -35,8 +35,7 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...HEADER_DROPDOWN_DEFAULT_PROPS,
   placeholder: 'Search',
+  withSearchInput: false,
   data: DROPDOWN_DATA,
-  value: {
-    id: '',
-  },
+  value: DROPDOWN_DATA[0],
 };

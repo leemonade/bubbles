@@ -4,18 +4,17 @@ export const ClassroomHeaderBarStyles = createStyles((theme, {}) => {
   const globalTheme = theme.other.global;
   return {
     root: {
-      backgroundColor: globalTheme.background.color.surface.subtle,
-      paddingInline: 48,
+      backgroundColor: '#FFFFFF',
+      paddingInline: 24,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      height: 56,
+      height: 80,
     },
     root2: {
-      gap: 32,
+      gap: 8,
       display: 'flex',
       alignItems: 'center',
-      paddingInline: 48,
     },
     pinIcon: {
       minHeight: 14,
@@ -33,16 +32,24 @@ export const ClassroomHeaderBarStyles = createStyles((theme, {}) => {
       gap: 18,
       userSelect: 'none',
       svg: {
-        color: theme.other.buttonIcon.content.color.terciary['default--reverse'],
+        color: '#4D5358',
       },
-      paddingLeft: 12,
+      paddingLeft: 8,
+      paddingRight: 8,
     },
     clickable: {
       cursor: 'pointer',
     },
     label: {
-      ...globalTheme.content.typo.body['md--bold'],
-      color: globalTheme.content.color.text.default,
+      fontFamily: 'Albert Sans',
+      fontWeight: 400,
+      fontSize: 14,
+      color: '#4D5358',
+    },
+    separator: {
+      width: '1px',
+      height: '24px',
+      backgroundColor: '#DDE1E6',
     },
   };
 });

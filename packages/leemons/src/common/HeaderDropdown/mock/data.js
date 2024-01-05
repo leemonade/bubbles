@@ -3,7 +3,6 @@ export const DROPDOWN_DATA = [
     id: '1',
     color: '#4F96FF',
     label: 'Bases para el análisis y el tratamiento del Cáncer',
-    description: 'CFP594-22/001',
     icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Globe_icon_2.svg',
     image:
       'https://images.unsplash.com/photo-1502230831726-fe5549140034?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80',
