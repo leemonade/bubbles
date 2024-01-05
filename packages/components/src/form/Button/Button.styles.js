@@ -20,9 +20,17 @@ const getIsSelected = (isSelected, theme) => {
   };
 };
 
-const getPaddingIfIcon = (hasLeftIcon, hasRightIcon, theme) => {
+const getPaddingIfIcon = (hasLeftIcon, hasRightIcon, theme, onlyIcon) => {
   if (!hasLeftIcon && !hasRightIcon) return;
+
   const buttonPadding = theme.other.button.spacing.padding;
+
+  if (onlyIcon) {
+    return {
+      padding: `${buttonPadding.vertical.md} ${buttonPadding.horizontal.xs} ${buttonPadding.vertical.md} ${buttonPadding.horizontal.xs}`,
+    };
+  }
+
   const iconLeftPadding = hasLeftIcon ? buttonPadding.horizontal.xs : buttonPadding.horizontal.sm;
   const iconRightPadding = hasRightIcon ? buttonPadding.horizontal.xs : buttonPadding.horizontal.sm;
   return {
@@ -164,6 +172,7 @@ export const ButtonStyles = createStyles(
       hasLeftIcon,
       hasRightIcon,
       isSelected,
+      onlyIcon,
     },
   ) => {
     const currentVariant = getVariant(variant, theme, color);
@@ -201,7 +210,7 @@ export const ButtonStyles = createStyles(
         ...getSizes(size || 'md', theme),
         ...getVariant(variant, theme, color),
         ...styles,
-        ...getPaddingIfIcon(hasLeftIcon, hasRightIcon, theme),
+        ...getPaddingIfIcon(hasLeftIcon, hasRightIcon, theme, onlyIcon),
         ...getIsSelected(isSelected, theme),
         '&[data-loading]': {
           // borderColor: 'transparent',
@@ -221,11 +230,11 @@ export const ButtonStyles = createStyles(
       },
       rightIcon: {
         ...iconStyles,
-        marginLeft: buttonTheme.spacing.gap,
+        marginLeft: onlyIcon ? 0 : buttonTheme.spacing.gap,
       },
       leftIcon: {
         ...iconStyles,
-        marginRight: buttonTheme.spacing.gap,
+        marginRight: onlyIcon ? 0 : buttonTheme.spacing.gap,
       },
       inner: {
         height: 20,

@@ -6,10 +6,11 @@ import { Controller } from 'react-hook-form';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
+import { Box } from '../../layout/Box';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
 import { TableInputRow } from './TableInputRow';
-import { ActionButton } from '../ActionButton';
+import { Button } from '../Button';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
@@ -71,7 +72,7 @@ const TableInputDisplay = ({
 
   const formValues = watch();
 
-  const { classes: tableClasses, cx } = TableStyles({}, { name: 'Table' });
+  const { classes: tableClasses, cx } = TableStyles({ disabled }, { name: 'Table' });
 
   const getColumnInput = useCallback(
     (accessor) => {
@@ -80,7 +81,7 @@ const TableInputDisplay = ({
       }
 
       const column = find(columns, { accessor });
-      if (column && column.input) {
+      if (column?.input) {
         const { node, rules, ...inputProps } = column.input;
         return (
           <Controller
@@ -164,13 +165,13 @@ const TableInputDisplay = ({
               style={{ paddingLeft: 0, paddingBottom: 4 }}
             >
               {!disabled && !isFunction(renderActionButton) && (
-                <ActionButton
-                  disabled={disabledAddButton}
-                  onClick={handleOnAdd}
-                  icon={<AddIcon />}
-                />
+                <Button variant="link" disabled={disabledAddButton} onClick={handleOnAdd}>
+                  <AddIcon />
+                </Button>
               )}
-              {!disabled && isFunction(renderActionButton) && renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
+              {!disabled &&
+                isFunction(renderActionButton) &&
+                renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
             </th>
           </tr>
         )}

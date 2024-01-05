@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings } from '../../theme.mixins';
 
-export const TableStyles = createStyles((theme, { headerStyles = {} } = {}) => {
+const TableStyles = createStyles((theme, { disabled, headerStyles = {} } = {}) => {
   const reset = {
     margin: 0,
     padding: 0,
@@ -20,10 +20,13 @@ export const TableStyles = createStyles((theme, { headerStyles = {} } = {}) => {
     },
     tr: {
       ...reset,
-      '& td, & th': {
+      '& td': {
         borderBottom: `1px solid rgba(0, 0, 0, 0.05)`,
       },
-      '&:after': {
+      '& th': {
+        borderBottom: disabled && `1px solid rgba(0, 0, 0, 0.05)`,
+      },
+      '&:after': !disabled && {
         content: '"@"',
         display: 'block',
         lineHeight: '16px',
@@ -73,3 +76,5 @@ export const TableStyles = createStyles((theme, { headerStyles = {} } = {}) => {
     },
   };
 });
+
+export { TableStyles };

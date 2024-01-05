@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import update from 'immutability-helper';
-import { map, forEach, isEmpty, isFunction } from 'lodash';
+import { map, forEach, isEmpty, isFunction, noop } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { Box } from '../../layout/Box';
@@ -40,26 +40,23 @@ const TableInput = ({
   resetOnAdd,
   rowsExpanded,
   rowStyles,
-  onChange = () => {},
-  onChangeData = () => {},
-  onBeforeRemove = () => {},
-  onBeforeAdd = () => {},
-  onAdd = () => {},
-  onUpdate = () => {},
-  onRemove = () => {},
-  onItemAdd = () => {},
-  onSort = () => {},
-  renderRowSubComponent = () => {},
+  onChange = noop,
+  onChangeData = noop,
+  onBeforeRemove = noop,
+  onBeforeAdd = noop,
+  onAdd = noop,
+  onUpdate = noop,
+  onRemove = noop,
+  onItemAdd = noop,
+  onSort = noop,
+  renderRowSubComponent = noop,
+  disabled,
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
-  let form = formProp;
-
-  if (!form) {
-    form = useForm();
-  }
+  const form = formProp ?? useForm();
 
   useEffect(() => {
     const newData = serializeData(data);
@@ -141,13 +138,17 @@ const TableInput = ({
     handleOnChange(newData, { type: 'sort' });
   };
 
-  const { classes, cx } = TableInputStyles({ hasError, rowStyles }, { name: 'TableInput' });
+  const { classes, cx } = TableInputStyles(
+    { hasError, disabled, rowStyles },
+    { name: 'TableInput' },
+  );
 
   return (
     <Box>
       <Box className={classes.wrapper}>
         <TableInputDisplay
           {...props}
+          disabled={disabled}
           form={form}
           rowStyles={rowStyles}
           data={tableData}

@@ -1,8 +1,8 @@
 import { createStyles } from '@mantine/styles';
 import { getBoxShadowFromToken } from '../../theme.mixins';
-import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
+import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const DatePickerStyles = createStyles((theme, { size, date, range }) => {
+const DatePickerStyles = createStyles((theme, { size, date, range }) => {
   const checkDate = () => {
     if (range) {
       if (Array.isArray(date)) return date?.every((value) => !!value);
@@ -20,6 +20,7 @@ export const DatePickerStyles = createStyles((theme, { size, date, range }) => {
       ...getInputStyle(inputTheme, theme.other.global),
       textOverflow: 'ellipsis !important',
       paddingRight: checkDate() && 30,
+      minHeight: 40,
     },
     dropdown: {
       padding: `${calendarTheme.spacing.padding.vertical} ${calendarTheme.spacing.padding.horizontal}`,
@@ -37,3 +38,5 @@ export const DatePickerStyles = createStyles((theme, { size, date, range }) => {
     },
   };
 });
+
+export { DatePickerStyles };

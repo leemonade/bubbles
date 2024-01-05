@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const TimeInputStyles = createStyles((theme, { size }) => {
+const TimeInputStyles = createStyles((theme, { size }) => {
   const inputTheme = theme.other.input;
   const inputStyle = getInputStyle(inputTheme, theme.other.global);
   return {
@@ -9,6 +9,7 @@ export const TimeInputStyles = createStyles((theme, { size }) => {
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding),
       ...inputStyle,
+      minHeight: 40,
     },
     timeInput: {
       lineHeight: inputStyle.lineHeight,
@@ -19,3 +20,5 @@ export const TimeInputStyles = createStyles((theme, { size }) => {
     },
   };
 });
+
+export { TimeInputStyles };
