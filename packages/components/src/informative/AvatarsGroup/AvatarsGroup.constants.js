@@ -16,6 +16,6 @@ export const AVATARS_GROUP_PROP_TYPES = {
       color: PropTypes.string,
       initials: PropTypes.string,
       fullName: PropTypes.string,
-    })
+    }),
   ),
 };

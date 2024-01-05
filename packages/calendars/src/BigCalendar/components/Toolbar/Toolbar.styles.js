@@ -1,25 +1,24 @@
 /* eslint-disable import/prefer-default-export */
 import { createStyles, getFontExpressive, getBoxShadowFromToken } from '@bubbles-ui/components';
 
-export const ToolbarStyles = createStyles((theme, {}, getRef) => { 
+export const ToolbarStyles = createStyles((theme, {}, getRef) => {
   const scTheme = theme.other?.segmentedControl ?? {};
-  console.log('scTheme:', scTheme);
   return {
     root: {},
     todayButton: {
       maxHeight: 40,
       overflowY: 'hidden',
-      paddingTop: '9px !important'
+      paddingTop: '9px !important',
     },
     viewItemLabel: {
       ...(scTheme.content?.typo ?? {}),
       color: scTheme.content?.color?.default,
-      padding: 1
+      padding: 1,
     },
     viewItemLabelActive: {
       ...((scTheme.content ?? {})['typo--medium'] ?? {}),
       color: scTheme.content?.color?.selected,
-      padding: 1
+      padding: 1,
     },
     viewItemGroup: {
       background: scTheme.background?.color?.default,
@@ -61,7 +60,7 @@ export const ToolbarStyles = createStyles((theme, {}, getRef) => {
         borderWidth: '1px',
       },
       [`&+.${getRef('control')}`]: {
-        borderTopColor: `${scTheme.border?.color?.default} !important`
+        borderTopColor: `${scTheme.border?.color?.default} !important`,
       },
     },
     navIcon: {
