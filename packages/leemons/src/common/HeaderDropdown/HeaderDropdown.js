@@ -14,11 +14,11 @@ import {
   HEADER_DROPDOWN_DEFAULT_PROPS,
   HEADER_DROPDOWN_PROP_TYPES,
 } from './HeaderDropdown.constants';
-import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
+import { CheckIcon, ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 
 const normalizeString = (string) => {
   return string
-    .toLowerCase()
+    ?.toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '');
 };
@@ -31,13 +31,14 @@ const HeaderDropdown = ({
   value,
   readOnly,
   onChange,
+  withSearchInput = true,
   ...props
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
   const [selectedItem, setSelectedItem] = useState(
-    data.find((item) => item?.id === value?.id) || data[0] || {}
+    data.find((item) => item?.id === value?.id) || data[0] || {},
   );
   const headerRef = useRef(null);
 
@@ -61,40 +62,49 @@ const HeaderDropdown = ({
       ) : (
         <Box
           key={`${index} ${item?.id}`}
-          className={classes.itemComponent}
+          className={
+            selectedItem?.id === item?.id ? classes.itemComponentSelected : classes.itemComponent
+          }
           onClick={() => onChangeHandler(item)}
         >
-          {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon ? (
-            <ImageLoader height={56} width={56} radius="50%" src={item?.image} />
-          ) : null}
-          {!isNil(item?.icon) &&
-          !isEmpty(item?.icon) &&
-          !isNil(item?.color) &&
-          !isEmpty(item?.color) &&
-          item?.showIcon ? (
-            <Box className={classes.itemIcon} style={{ backgroundColor: item?.color }}>
-              <ImageLoader forceImage height={24} width={24} src={item?.icon} />
+          <Box className={classes.itemComponentContent}>
+            {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon ? (
+              <ImageLoader height={32} width={32} radius="50%" src={item?.image} />
+            ) : null}
+            {!isNil(item?.icon) &&
+            !isEmpty(item?.icon) &&
+            !isNil(item?.color) &&
+            !isEmpty(item?.color) &&
+            item?.showIcon ? (
+              <Box className={classes.itemIconSmall} style={{ backgroundColor: item?.color }}>
+                <ImageLoader forceImage height={16} width={16} src={item?.icon} />
+              </Box>
+            ) : null}
+            <Box className={classes.valueItemContent}>
+              <TextClamp lines={1} maxLines={1}>
+                <Text className={classes.itemComponentLabel} color="primary" strong>
+                  {item?.label}
+                </Text>
+              </TextClamp>
+              {item?.description ? (
+                <TextClamp lines={1} maxLines={1}>
+                  <Text
+                    className={classes.itemComponentDescription}
+                    role="productive"
+                    size="xs"
+                    stronger
+                  >
+                    {item?.description}
+                  </Text>
+                </TextClamp>
+              ) : null}
             </Box>
-          ) : null}
-          <Box className={classes.valueItemContent}>
-            <TextClamp lines={1} maxLines={1}>
-              <Text className={classes.itemComponentLabel} color="primary" strong>
-                {item?.label}
-              </Text>
-            </TextClamp>
-            <TextClamp lines={1} maxLines={1}>
-              <Text
-                className={classes.itemComponentDescription}
-                role="productive"
-                size="xs"
-                stronger
-              >
-                {item?.description}
-              </Text>
-            </TextClamp>
+          </Box>
+          <Box className={classes.itemComponentIcon}>
+            {selectedItem?.id === item?.id ? <CheckIcon /> : null}
           </Box>
         </Box>
-      )
+      ),
     );
   };
 
@@ -102,7 +112,15 @@ const HeaderDropdown = ({
     setSelectedItem(data.find((item) => item?.id === value?.id) || data[0] || {});
   }, [JSON.stringify(value)]);
 
-  const { classes, cx } = HeaderDropdownStyles({ isOpened, headerRef }, { name: 'HeaderDropdown' });
+  const { classes, cx } = HeaderDropdownStyles(
+    {
+      isOpened,
+      headerRef,
+      withSearchInput,
+    },
+    { name: 'HeaderDropdown' },
+  );
+
   return (
     <Box ref={ref} className={classes.root} {...props}>
       <Box ref={headerRef} className={classes.header}>
@@ -113,7 +131,7 @@ const HeaderDropdown = ({
             {!isNil(selectedItem?.image) &&
             !isEmpty(selectedItem?.image) &&
             !selectedItem?.showIcon ? (
-              <ImageLoader height={56} width={56} radius="50%" src={selectedItem?.image} />
+              <ImageLoader height={48} width={48} radius="50%" src={selectedItem?.image} />
             ) : null}
             {!isNil(selectedItem?.icon) &&
             !isEmpty(selectedItem?.icon) &&
@@ -121,14 +139,16 @@ const HeaderDropdown = ({
             !isEmpty(selectedItem?.color) &&
             selectedItem?.showIcon ? (
               <Box className={classes.itemIcon} style={{ backgroundColor: selectedItem?.color }}>
-                <ImageLoader forceImage height={24} width={24} src={selectedItem?.icon} />
+                <ImageLoader forceImage height={20} width={20} src={selectedItem?.icon} />
               </Box>
             ) : null}
             <Box className={classes.content}>
               <TextClamp lines={1} maxLines={1}>
                 <Text className={classes.title}>{selectedItem?.label}</Text>
               </TextClamp>
-              <Text className={classes.description}>{selectedItem?.description}</Text>
+              {classes.description ? (
+                <Text className={classes.description}>{selectedItem?.description}</Text>
+              ) : null}
             </Box>
           </Box>
         )}
@@ -150,14 +170,17 @@ const HeaderDropdown = ({
       </Box>
       {!readOnly && (
         <Box className={classes.dropDown}>
-          <Box className={classes.searchInput}>
-            <SearchInput
-              placeholder={placeholder}
-              variant="filled"
-              value={filter}
-              onChange={setFilter}
-            />
-          </Box>
+          {withSearchInput ? (
+            <Box className={classes.searchInput}>
+              <SearchInput
+                placeholder={placeholder}
+                variant="filled"
+                value={filter}
+                onChange={setFilter}
+              />
+            </Box>
+          ) : null}
+
           <Box className={classes.itemList}>{loadItemList()}</Box>
         </Box>
       )}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, TextClamp, HoverCard } from '@bubbles-ui/components';
+import { Box, HoverCard, Text, TextClamp } from '@bubbles-ui/components';
 import { SCHEDULE_PROPS } from '../../ClassroomHeaderBar.constants';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 import { find, forEach } from 'lodash';
@@ -40,7 +40,7 @@ const ScheduleItem = ({ schedule, scheduleLabel, locale, firstDayOfWeek = 1, cla
           let dayLabel = day.substring(0, 2);
           dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
           return { label: dayLabel, index: e.weekdays.indexOf(day), day: day };
-        })
+        }),
       );
     });
   }, [locale]);
@@ -49,7 +49,7 @@ const ScheduleItem = ({ schedule, scheduleLabel, locale, firstDayOfWeek = 1, cla
     <HoverCard offset={16}>
       <HoverCard.Target>
         <Box className={cx(classes.infoWrapper, classes.clickable)}>
-          <TimeClockCircleIcon height={20} width={20} style={{ minHeight: 20, minWidth: 20 }} />
+          <TimeClockCircleIcon height={15} width={15} style={{ minHeight: 15, minWidth: 15 }} />
           <TextClamp lines={1}>
             <Text color="interactive" className={classes.label}>
               {scheduleLabel}

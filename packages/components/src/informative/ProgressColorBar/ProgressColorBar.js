@@ -19,8 +19,14 @@ const ProgressColorBar = ({
   labelLeft,
   labelRight,
 }) => {
-  const { classes } = ProgressColorBarStyles();
-
+  const { classes, theme } = ProgressColorBarStyles();
+  if (value < 25) {
+    color = theme.other.progress.content.color.phatic.negative;
+  } else if (value < 75) {
+    color = theme.other.progress.content.color.phatic.attention;
+  } else {
+    color = theme.other.progress.content.color.phatic.positive;
+  }
   return (
     <Box>
       {labelLeft && labelRight && (

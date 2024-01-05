@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, UserDisplayItem } from '@bubbles-ui/components';
+import { Box, Button, UserDisplayItem } from '@bubbles-ui/components';
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
 import {
   CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
   CLASSROOM_HEADER_BAR_PROP_TYPES,
 } from './ClassroomHeaderBar.constants';
-import { AddressItem, ScheduleItem, VirtualClassItem, CalendarItem } from './components';
+import { AddressItem, CalendarItem, ScheduleItem, VirtualClassItem } from './components';
 import { PluginComunicaIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 
@@ -18,6 +18,7 @@ const ClassroomHeaderBar = ({
   onChat,
   showChat,
   rightSide,
+  leftSide,
 }) => {
   const { schedule, address, virtual_classroom, teacher, calendar } = classRoom;
 
@@ -28,9 +29,10 @@ const ClassroomHeaderBar = ({
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
+      {leftSide ? leftSide : null}
       <Box className={classes.root2}>
         {teacher ? (
-          <Box className={cx(classes.infoWrapper, classes.clickable)} onClick={onChatHandler}>
+          <Box className={cx(classes.infoWrapper, classes.clickable)}>
             <UserDisplayItem
               name={teacher.name}
               surnames={teacher.surnames}
@@ -39,13 +41,30 @@ const ClassroomHeaderBar = ({
               noBreak
               fullNameClassname={classes.label}
             />
-            {onChat && showChat && (
-              <PluginComunicaIcon height={20} width={20} style={{ minHeight: 20, minWidth: 20 }} />
-            )}
           </Box>
         ) : null}
 
-        {address ? <AddressItem address={address} classes={classes} cx={cx} /> : null}
+        {teacher &&
+        ((onChat && showChat) ||
+          virtual_classroom ||
+          address ||
+          calendar ||
+          (schedule && schedule.length)) ? (
+          <Box className={classes.separator} />
+        ) : null}
+
+        {onChat && showChat && (
+          <Button
+            leftIcon={
+              <PluginComunicaIcon height={15} width={15} style={{ minHeight: 15, minWidth: 15 }} />
+            }
+            variant="link"
+            onClick={onChatHandler}
+          >
+            {labels.chat}
+          </Button>
+        )}
+
         {virtual_classroom ? (
           <VirtualClassItem
             virtualClassroom={virtual_classroom}
@@ -55,6 +74,18 @@ const ClassroomHeaderBar = ({
             cx={cx}
           />
         ) : null}
+
+        {((onChat && showChat) || virtual_classroom) &&
+        (address || calendar || (schedule && schedule.length)) ? (
+          <Box className={classes.separator} />
+        ) : null}
+
+        {address ? <AddressItem address={address} classes={classes} cx={cx} /> : null}
+
+        {address && (calendar || (schedule && schedule.length)) ? (
+          <Box className={classes.separator} />
+        ) : null}
+
         {calendar && (
           <CalendarItem
             calendar={calendar}
@@ -73,8 +104,8 @@ const ClassroomHeaderBar = ({
             cx={cx}
           />
         ) : null}
+        {rightSide ? rightSide : null}
       </Box>
-      <Box>{rightSide ? rightSide : null}</Box>
     </Box>
   );
 };

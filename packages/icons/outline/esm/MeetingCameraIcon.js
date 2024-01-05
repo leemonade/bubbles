@@ -2,7 +2,7 @@ import * as React from "react";
 function MeetingCameraIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
-    viewBox: "0 0 16 16",
+    viewBox: "0 0 23 15",
     stroke: "currentColor",
     "aria-hidden": "true",
     width: "1em",
@@ -10,8 +10,8 @@ function MeetingCameraIcon(props) {
   }, props), /*#__PURE__*/React.createElement("path", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 2,
-    d: "M8.5 3.507h-6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2ZM12.5 10.007l2.277 1.138a.5.5 0 0 0 .723-.447V5.316a.499.499 0 0 0-.723-.447L12.5 6.007"
+    strokeWidth: 1.3,
+    d: "M3.837 1h8.513s2.838 0 2.838 2.837v7.094s0 2.838-2.838 2.838H3.838S1 13.769 1 10.93V3.838S1 1 3.837 1ZM18.025 10.222l3.23 1.614a.71.71 0 0 0 1.026-.634V3.566a.708.708 0 0 0-1.026-.634l-3.23 1.615"
   }));
 }
 export default MeetingCameraIcon;

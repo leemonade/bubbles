@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, Text, TextClamp } from '@bubbles-ui/components';
 import { MeetingCameraIcon } from '@bubbles-ui/icons/outline';
+import { Button } from '@bubbles-ui/components';
 
 const VirtualClassItem = ({
-  virtual_classroom,
+  virtualClassroom,
   virtualClassroomLabel,
   onVirtualClassroomOpen,
   classes,
@@ -12,20 +11,18 @@ const VirtualClassItem = ({
 }) => {
   const handleOpenVirtualClassroom = () => {
     onVirtualClassroomOpen();
-    window.open(virtual_classroom, '_blank');
+    window.open(virtualClassroom, '_blank');
   };
   return (
-    <Box
-      className={cx(classes.infoWrapper, classes.clickable)}
+    <Button
+      leftIcon={
+        <MeetingCameraIcon height={15} width={15} style={{ minHeight: 15, minWidth: 15 }} />
+      }
+      variant="link"
       onClick={handleOpenVirtualClassroom}
     >
-      <MeetingCameraIcon height={20} width={20} style={{ minHeight: 20, minWidth: 20 }} />
-      <TextClamp lines={1}>
-        <Text color="interactive" className={classes.label}>
-          {virtualClassroomLabel}
-        </Text>
-      </TextClamp>
-    </Box>
+      {virtualClassroomLabel}
+    </Button>
   );
 };
 
