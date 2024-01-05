@@ -72,7 +72,7 @@ const TableStyles = createStyles((theme, { disabled, headerStyles = {} } = {}) =
     sortIcon: {
       color: theme.colors.ui01,
       cursor: 'grab',
-      paddingTop: theme.spacing[2],
+      paddingTop: theme.spacing[3],
     },
   };
 });
