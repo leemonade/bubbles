@@ -43,7 +43,7 @@ const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, childre
     <Box
       className={className}
       sx={(theme) => ({
-        padding: usePaddedLayout && `0 ${theme.spacing[7]}px`,
+        padding: usePaddedLayout && `0 ${theme.other.global.spacing.padding.lg}`,
       })}
     >
       {children}
