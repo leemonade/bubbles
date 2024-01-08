@@ -27,7 +27,10 @@ const TotalLayoutHeader = ({
 }) => {
   const formContext = useFormContext();
   const formValues = isFunction(formContext?.watch) ? formContext.watch() : {};
-  const { classes } = TotalLayoutHeaderStyles({ compact, direction, children, hasIcon: !!icon, iconLarge });
+  const { classes } = TotalLayoutHeaderStyles(
+    { compact, direction, children, hasIcon: !!icon, iconLarge },
+    { name: 'TotalLayoutHeader' },
+  );
 
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
@@ -37,10 +40,10 @@ const TotalLayoutHeader = ({
           <Stack>
             <Box className={classes.iconContainer}>{icon}</Box>
             <Stack
-            spacing={compact ? 2 : 0}
-            justifyContent="center"
-            alignItems={compact ? 'center' : 'start'}
-            direction={compact ? 'row' : 'column'}
+              spacing={compact ? 2 : 0}
+              justifyContent="center"
+              alignItems={compact ? 'center' : 'start'}
+              direction={compact ? 'row' : 'column'}
             >
               <Text
                 as="h3"
@@ -51,7 +54,7 @@ const TotalLayoutHeader = ({
               >
                 {compact ? `${title}:` : title}
               </Text>
-              
+
               <Text as="h3" className={classes.headerSubtitle} color="primary">
                 {formValues.title || formTitlePlaceholder}
               </Text>
@@ -63,9 +66,9 @@ const TotalLayoutHeader = ({
           {/* CHILDREN */}
           {!!children && direction === 'row' && children}
           {cancelable && (
-              <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel} noFlex>
-                {mainActionLabel}
-              </Button>
+            <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel} noFlex>
+              {mainActionLabel}
+            </Button>
           )}
         </Stack>
       </Stack>
