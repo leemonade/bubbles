@@ -23,6 +23,7 @@ const GRID_VIEW_PROP_TYPES = {
   rows: PropTypes.array,
   headerGroups: PropTypes.array,
   prepareRow: PropTypes.func,
+  staticColumnWidth: PropTypes.bool,
 };
 
 const GridView = ({
@@ -64,6 +65,14 @@ const GridView = ({
       rows.length < columns
         ? `minmax(${itemMinWidth}px, ${itemMinWidth}px)`
         : `minmax(${itemMinWidth}px, 1fr)`;
+
+    if (props.staticColumnWidth)
+      return {
+        ...style,
+        display: 'grid',
+        gridTemplateColumns: `repeat(auto-fit, ${itemMinWidth})`,
+      };
+
     return {
       ...style,
       display: 'grid',
