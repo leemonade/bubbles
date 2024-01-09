@@ -1,5 +1,14 @@
 # @bubbles-ui/editors
 
+## 1.2.103
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.103
+  - @bubbles-ui/icons@1.2.103
+
 ## 1.2.102
 
 ### Patch Changes
