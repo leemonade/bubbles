@@ -1,8 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
-import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
+import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
+const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
   const inputTheme = theme.other.input;
   return {
     root: {},
@@ -10,6 +9,7 @@ export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
       ...getInputStyle(inputTheme, theme.other.global),
       paddingRight: 24,
+      minHeight: 40,
     },
     icon: {
       width: 32,
@@ -61,3 +61,5 @@ export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
     },
   };
 });
+
+export { NumberInputStyles };

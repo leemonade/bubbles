@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
@@ -30,6 +31,8 @@ export const TEXT_INPUT_PROP_TYPES = {
   onKeyDown: PropTypes.func,
   autoComplete: PropTypes.string,
   ariaLabel: PropTypes.string,
+  className: PropTypes.string,
+  classNames: PropTypes.object,
 };
 
 export const TEXT_INPUT_DEFAULT_PROPS = {
@@ -66,7 +69,7 @@ const TextInput = forwardRef(
       ariaLabel,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
 
@@ -118,9 +121,10 @@ const TextInput = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+TextInput.displayName = 'TextInput';
 TextInput.defaultProps = TEXT_INPUT_DEFAULT_PROPS;
 TextInput.propTypes = TEXT_INPUT_PROP_TYPES;
 

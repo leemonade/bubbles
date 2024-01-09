@@ -60,6 +60,7 @@ const Button = forwardRef(
         hasLeftIcon,
         hasRightIcon,
         isSelected,
+        onlyIcon: !children,
       },
       { name: 'Button' },
     );

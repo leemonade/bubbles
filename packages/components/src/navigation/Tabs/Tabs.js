@@ -34,13 +34,14 @@ function parseTabList(children, acc = []) {
   return acc;
 }
 
-const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children }) =>
+const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children, scrollRef }) =>
   usePageLayout ? (
-    <Box className={className}>
+    <Box ref={scrollRef} className={className}>
       <PageContainer fullWidth={fullWidth}>{children}</PageContainer>
     </Box>
   ) : (
     <Box
+      ref={scrollRef}
       className={className}
       sx={(theme) => ({
         padding: usePaddedLayout && `0 ${theme.other.global.spacing.padding.lg}`,
@@ -56,6 +57,7 @@ Wrapper.propTypes = {
   fullWidth: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node,
+  scrollRef: PropTypes.any,
 };
 
 const Tabs = forwardRef(
@@ -88,6 +90,8 @@ const Tabs = forwardRef(
   ) => {
     const tabs = parseTabList(children);
     const rtl = direction === 'rtl';
+    const scrollRef = React.useRef();
+    const [topScroll, setTopScroll] = React.useState(false);
 
     // ········································································
     // Active Key
@@ -132,6 +136,28 @@ const Tabs = forwardRef(
       if (isFunction(onChange)) onChange(key);
     }
 
+    const handleScroll = () => {
+      const div = scrollRef?.current;
+      if (div) {
+        const { scrollTop } = div;
+        if (scrollTop > 5 && !topScroll) setTopScroll(true);
+        else if (scrollTop === 0 && topScroll) setTopScroll(false);
+      }
+    };
+    React.useEffect(() => {
+      const body = scrollRef?.current;
+      if (body) {
+        handleScroll();
+        body.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        return () => {
+          body.removeEventListener('scroll', handleScroll);
+          window.removeEventListener('resize', handleScroll);
+        };
+      }
+      return () => {};
+    }, [scrollRef?.current, handleScroll]);
+
     // ········································································
     // Render
     const sharedProps = {
@@ -151,7 +177,7 @@ const Tabs = forwardRef(
     };
 
     const { classes, cx } = TabsStyles(
-      { direction, position, panelColor, fullHeight },
+      { direction, position, panelColor, fullHeight, topScroll },
       { name: 'Tabs' },
     );
 
@@ -164,11 +190,12 @@ const Tabs = forwardRef(
             usePageLayout={usePageLayout}
             usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}
-            className={classNames?.navList}
+            className={cx(classes.navList, classNames?.navList)}
           >
             <TabNavList {...tabNavBarProps} centerGrow={centerGrow} />
           </Wrapper>
           <Wrapper
+            scrollRef={scrollRef}
             usePageLayout={usePageLayout}
             usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}

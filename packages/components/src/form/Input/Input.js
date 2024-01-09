@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { Input as MantineInput } from '@mantine/core';
 import { InputStyles } from './Input.styles';
 
 export const INPUT_SIZES = ['sm', 'md'];
-export const Input = forwardRef(
+const Input = forwardRef(
   (
     {
       radius,
@@ -17,7 +18,7 @@ export const Input = forwardRef(
       classNames = {},
       ...props
     },
-    ref
+    ref,
   ) => {
     const hasIcon = !!icon;
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'md';
@@ -27,8 +28,6 @@ export const Input = forwardRef(
       <MantineInput
         {...props}
         ref={ref}
-        // variant={variant}
-        // size={size}
         invalid={invalid}
         icon={icon}
         disabled={disabled}
@@ -37,5 +36,20 @@ export const Input = forwardRef(
         autoComplete={autoComplete}
       />
     );
-  }
+  },
 );
+
+Input.displayName = 'Input';
+Input.propTypes = {
+  size: PropTypes.oneOf(INPUT_SIZES),
+  variant: PropTypes.any,
+  radius: PropTypes.any,
+  icon: PropTypes.node,
+  rightSection: PropTypes.node,
+  invalid: PropTypes.bool,
+  disabled: PropTypes.bool,
+  autoComplete: PropTypes.string,
+  classNames: PropTypes.any,
+};
+
+export { Input };

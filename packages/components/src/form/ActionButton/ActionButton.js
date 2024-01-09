@@ -50,7 +50,7 @@ const ActionButton = forwardRef(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const color = ACTION_BUTTON_COLORS.includes(colorProp)
       ? colorProp
@@ -67,7 +67,7 @@ const ActionButton = forwardRef(
         radius,
         active,
       },
-      { classNames, name: 'ActionButton' }
+      { classNames, name: 'ActionButton' },
     );
 
     return (
@@ -94,7 +94,7 @@ const ActionButton = forwardRef(
         </MantineButton>
       </TooltipComponent>
     );
-  }
+  },
 );
 
 ActionButton.defaultProps = ACTION_BUTTON_DEFAULT_PROPS;

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 
 const TabsStyles = createStyles(
-  (theme, { direction, position, panelColor, fullHeight }, getRef) => {
+  (theme, { direction, position, panelColor, fullHeight, topScroll }, getRef) => {
     const rootProps = {
       display: 'flex',
       flexDirection: 'column',
@@ -24,6 +24,10 @@ const TabsStyles = createStyles(
         flex: 1,
         height: fullHeight && '100%',
         overflowY: fullHeight && 'auto',
+      },
+      navList: {
+        boxShadow: topScroll && '0 8px 24px rgba(149, 157, 165, 0.2)',
+        zIndex: 99,
       },
     };
   },

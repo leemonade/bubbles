@@ -69,6 +69,11 @@ function TimeInput({ onChange, size, ...props }) {
   return <MantineTimeInput {...props} onChange={onChange} classNames={classes} size={size} />;
 }
 
+TimeInput.propTypes = {
+  size: PropTypes.oneOf(DATE_PICKER_SIZES),
+  onChange: PropTypes.func,
+};
+
 const DatePicker = forwardRef(
   (
     {
@@ -95,7 +100,7 @@ const DatePicker = forwardRef(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
     const [currentLocale, setCurrentLocale] = useState(locale);
@@ -196,9 +201,10 @@ const DatePicker = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+DatePicker.displayName = 'DatePicker';
 DatePicker.defaultProps = DATE_PICKER_DEFAULT_PROPS;
 DatePicker.propTypes = DATE_PICKER_PROP_TYPES;
 
