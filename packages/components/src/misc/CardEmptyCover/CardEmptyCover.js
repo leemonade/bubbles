@@ -1,11 +1,11 @@
-import React, { useRef, memo } from 'react';
+import React, { useRef, memo, useMemo, cloneElement } from 'react';
+import { FileIcon } from '@bubbles-ui/icons/outline';
 import { useHTMLToCanvas } from '../../hooks/useHTMLToCanvas';
 import { CardEmptyCoverStyles } from './CardEmptyCover.styles';
 import {
   CARD_EMPTY_COVER_DEFAULT_PROPS,
   CARD_EMPTY_COVER_PROP_TYPES,
 } from './CardEmptyCover.constants';
-import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { AssetTaskIcon } from '../FileIcon/AssetTaskIcon';
 import { AssetExpressTaskIcon } from '../FileIcon/AssetExpressTaskIcon';
 import { AssetModuleIcon } from '../FileIcon/AssetModuleIcon';
@@ -45,14 +45,17 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
     },
     {
       key: 'file',
-      value: (
-        <FileItemDisplay size={24} color={'#878D96'} iconStyle={{ backgroundColor: '#f8f9fb' }} />
-      ),
+      value: <FileIcon height={18} width={18} color={'#878D96'} />,
     },
   ];
 
+  const styledIcon = useMemo(() => {
+    if (!icon) return null;
+    return cloneElement(icon, { style: { color: '#878D96' }, color: '#878D96' }) || null;
+  }, [icon]);
+
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
-  const iconToShow = fileIcon?.value ?? icon;
+  const iconToShow = fileIcon?.value ?? styledIcon;
 
   const { classes } = CardEmptyCoverStyles();
 
