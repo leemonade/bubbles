@@ -7,7 +7,7 @@ const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }
     width: 928,
     height: '100%',
     '@media (min-width: 1920px)': {
-      width: 1200,
+      maxWidth: 1200,
     },
   },
   formContainer: {
