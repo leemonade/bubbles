@@ -1,12 +1,10 @@
 import { createStyles } from '@mantine/styles';
 
-export const LogoStyles = createStyles((theme, {}, getRef) => {
-  return {
-    positive: {
-      color: theme.colors.text01,
-    },
-    negative: {
-      color: theme.colors.text07,
-    },
-  };
-});
+export const LogoStyles = createStyles((theme, {}, getRef) => ({
+  positive: {
+    color: '#0D2023',
+  },
+  negative: {
+    color: 'white',
+  },
+}));

@@ -33,7 +33,7 @@ const TotalLayoutContainer = ({ Header, Footer, scrollRef, children }) => {
   }, [scrollRef?.current, handleScroll]);
 
   return (
-    <Box id="TotalLayout" className={classes.root}>
+    <Box className={classes.root}>
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
           {isFunction(Header) ? <Header /> : Header}
