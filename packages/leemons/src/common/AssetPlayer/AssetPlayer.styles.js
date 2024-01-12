@@ -1,9 +1,9 @@
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
-export const AssetPlayerStyles = createStyles(
+const AssetPlayerStyles = createStyles(
   (
     theme,
-    { width, media, styles, framed, viewPDF, mediaRatio, showPlayer, canPlay, useAudioCard }
+    { width, media, styles, framed, viewPDF, mediaRatio, showPlayer, canPlay, useAudioCard },
   ) => {
     const isWidthNum = /^\d+$/.test(width);
 
@@ -100,5 +100,7 @@ export const AssetPlayerStyles = createStyles(
         backgroundColor: 'transparent',
       },
     };
-  }
+  },
 );
+
+export { AssetPlayerStyles };

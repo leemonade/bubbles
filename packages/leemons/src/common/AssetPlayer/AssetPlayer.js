@@ -1,24 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
-import { isFunction } from 'lodash';
-import {
-  Box,
-  ImageLoader,
-  Text,
-  FileIcon,
-  COLORS,
-  ModalZoom,
-  TextClamp,
-} from '@bubbles-ui/components';
+import { isFunction, isNil } from 'lodash';
+import { Box, ImageLoader, Text, COLORS, ModalZoom, TextClamp } from '@bubbles-ui/components';
+import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
+import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
 import { ProgressBar } from './components/ProgressBar';
-import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
-import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { Aframe } from './components/Aframe';
-import { isNil } from 'lodash';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -103,7 +94,7 @@ const AssetPlayer = ({
       isURL: ['bookmark', 'url', 'link'].includes(fileType),
       isFile: !['video', 'audio', 'image', 'url'].includes(fileType),
     }),
-    [fileType]
+    [fileType],
   );
 
   const mediaRatio = useMemo(() => {
@@ -121,19 +112,17 @@ const AssetPlayer = ({
       return prev;
     }, mediaDimensions);
 
-    const { width, height } = mediaDimensions;
+    const { width: mWidth, height: mHeight } = mediaDimensions;
 
-    if (!width || !height) return 9 / 16;
+    if (!mWidth || !mHeight) return 9 / 16;
 
-    return height / width;
+    return mHeight / mWidth;
   }, [metadata, fileType]);
 
   // ··································································
   // METHODS
 
-  const getDuration = () => {
-    return <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
-  };
+  const getDuration = () => <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
 
   const getTotalDuration = () => {
     const totalDuration = playerRef.current ? playerRef.current.getDuration() : 0;
@@ -145,6 +134,10 @@ const AssetPlayer = ({
 
   const openPdfHandler = () => {
     window.open(url, '_blank', 'noreferrer');
+  };
+
+  const onEventHandler = (event, eventInfo) => {
+    if (isFunction(event)) event(eventInfo);
   };
 
   const handleOnProgress = (played, playedSeconds) => {
@@ -171,10 +164,6 @@ const AssetPlayer = ({
   const handleSeekMouseUp = (e) => {
     setSeeking(false);
     playerRef.current.seekTo(parseFloat(seekValue));
-  };
-
-  const onEventHandler = (event, eventInfo) => {
-    isFunction(event) && event(eventInfo);
   };
 
   const handleInitPlay = () => {
@@ -210,7 +199,7 @@ const AssetPlayer = ({
   }, [fullScreenMode]);
 
   useEffect(() => {
-    if (!rootRef.current) return;
+    if (!rootRef.current) return null;
     rootRef.current.addEventListener('fullscreenchange', (e) => {
       const isFullScreen = !!document.fullscreenElement;
       setFullScreenMode(isFullScreen);
@@ -238,7 +227,7 @@ const AssetPlayer = ({
             iconStyle: { backgroundColor: COLORS.interactive03h },
           })
         : null,
-    [asset.fileIcon]
+    [asset.fileIcon],
   );
 
   // ··································································
@@ -256,9 +245,9 @@ const AssetPlayer = ({
       showPlayer,
       useAudioCard,
       fullScreenMode,
-      framed: framed,
+      framed,
     },
-    { name: 'AssetPlayer' }
+    { name: 'AssetPlayer' },
   );
   return (
     <Box className={classes.rootWrapper}>
