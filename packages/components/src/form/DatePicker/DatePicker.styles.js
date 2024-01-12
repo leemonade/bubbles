@@ -2,6 +2,8 @@ import { createStyles } from '@mantine/styles';
 import { getBoxShadowFromToken } from '../../theme.mixins';
 import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
+// THIS COMPONENT TAKE STYLES FROM CALENDAR COMPONENT
+
 const DatePickerStyles = createStyles((theme, { size, date, range }) => {
   const checkDate = () => {
     if (range) {

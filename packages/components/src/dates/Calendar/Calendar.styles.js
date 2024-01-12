@@ -1,25 +1,27 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const CalendarStyles = createStyles((theme, {}) => {
+const CalendarStyles = createStyles((theme, {}) => {
   const calendarTheme = theme.other.calendar;
-
   const buttonStyles = {
     padding: `${calendarTheme.spacing.padding.vertical} ${calendarTheme.spacing.padding.horizontal}`,
-    color: calendarTheme.content.color.calendarButton.default,
+    // color: calendarTheme.content.color.calendarButton.default,
     backgroundColor: calendarTheme.background.color.calendarButton.default,
     borderRadius: calendarTheme.border.radius.md,
     ...calendarTheme.content.typo.md,
+    fontWeight: 400,
     '&:hover': {
       backgroundColor: calendarTheme.background.color.calendarButton.hover,
+      fontWeight: 500,
     },
     '&:active': {
       backgroundColor: calendarTheme.background.color.calendarButton.down,
+      fontWeight: 500,
     },
   };
 
   const activeButtonStyles = {
-    color: calendarTheme.content.color.calendarButton['default--reverse'],
+    color: calendarTheme.content.color.calendarButton.default,
+
     backgroundColor: calendarTheme.background.color.calendarButton['default--reverse'],
     '&:hover': {
       backgroundColor: calendarTheme.background.color.calendarButton['hover--reverse'],
@@ -38,7 +40,6 @@ export const CalendarStyles = createStyles((theme, {}) => {
       color: theme.colors.text05,
       '&:hover': {
         backgroundColor: theme.colors.ui03,
-        color: theme.colors.interactive01,
       },
       svg: {
         width: 20,
@@ -54,11 +55,10 @@ export const CalendarStyles = createStyles((theme, {}) => {
       color: calendarTheme.content.color.weekday.default,
       '&:hover': {
         backgroundColor: calendarTheme.background.color.weekday.hover,
-        color: calendarTheme.content.color.weekday.hover,
       },
       '&[data-selected]': {
         backgroundColor: calendarTheme.background.color.weekday.down,
-        color: calendarTheme.content.color.weekday.down,
+        color: calendarTheme.content.color.calendarButton.default,
       },
       '&[data-outside]': {
         color: '#ced4da',
@@ -68,7 +68,6 @@ export const CalendarStyles = createStyles((theme, {}) => {
       },
       '&[data-in-range]': {
         backgroundColor: calendarTheme.background.color.range.hover,
-        color: calendarTheme.content.color.weekday.hover,
       },
       '&[data-first-in-range]': {
         borderTopLeftRadius: calendarTheme.border.radius.rounded,
@@ -76,7 +75,6 @@ export const CalendarStyles = createStyles((theme, {}) => {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
         backgroundColor: calendarTheme.background.color.weekday.down,
-        color: calendarTheme.content.color.weekday.down,
       },
       '&[data-last-in-range]': {
         borderTopRightRadius: calendarTheme.border.radius.rounded,
@@ -84,7 +82,6 @@ export const CalendarStyles = createStyles((theme, {}) => {
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
         backgroundColor: calendarTheme.background.color.weekday.down,
-        color: calendarTheme.content.color.weekday.down,
       },
     },
     weekday: {
@@ -106,3 +103,6 @@ export const CalendarStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export default CalendarStyles;
+export { CalendarStyles };

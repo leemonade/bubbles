@@ -6,7 +6,11 @@ import { Box } from '../../../layout';
 const Badge = ({ score, minGrade, nonCalificable, ...props }) => {
   const { classes } = BadgeStyles({ score, minGrade, nonCalificable }, { name: 'Badge' });
 
-  return <Box className={classes.root}>{score.letter || score.number}</Box>;
+  return (
+    <Box className={classes.root}>
+      {score.letter || Number.isInteger(score.number) ? score.number : score.number.toFixed(2)}
+    </Box>
+  );
 };
 
 Badge.defaultProps = BADGE_DEFAULT_PROPS;
