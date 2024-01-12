@@ -88,7 +88,7 @@ const CalendarSubNavFilters = ({
   }, [JSON.stringify(value)]);
 
   return (
-    <Stack className={classes.root} direction="column" spacing={5} fullWidth>
+    <Box className={classes.root}>
       {topZone}
       {showPageControl ? (
         <Select data={pages} value={pageValue || pages[0].value} onChange={pageOnChange} />
@@ -114,7 +114,7 @@ const CalendarSubNavFilters = ({
                   label={calendar.name}
                   checked={calendar.showEvents}
                   bgColor={calendar.bgColor}
-                  borderColor={calendar.borderColor}
+                  borderColor={calendar.bgColor}
                   onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
                 />
               </Box>
@@ -122,7 +122,7 @@ const CalendarSubNavFilters = ({
           </Box>
         </Box>
       ))}
-    </Stack>
+    </Box>
   );
 };
 
