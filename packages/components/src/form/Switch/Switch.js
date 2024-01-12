@@ -8,10 +8,11 @@ import {
 export const SWITCH_DEFAULT_PROPS = BOOLEAN_INPUT_DEFAULT_PROPS;
 export const SWITCH_PROP_TYPES = BOOLEAN_INPUT_PROP_TYPES;
 
-const Switch = forwardRef(({ display, useAria, isPro, ...props }, ref) => {
-  return <BooleanInput {...props} display="switch" useAria={useAria} ref={ref} isPro={isPro} />;
-});
+const Switch = forwardRef(({ display, useAria, isPro, ...props }, ref) => (
+  <BooleanInput {...props} display="switch" useAria={useAria} ref={ref} isPro={isPro} />
+));
 
+Switch.displayName = 'Switch';
 Switch.defaultProps = SWITCH_DEFAULT_PROPS;
 Switch.propTypes = SWITCH_PROP_TYPES;
 

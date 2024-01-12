@@ -21,74 +21,80 @@ const getThumbLeft = (theme) => {
   return 'calc(100% - 16px - 2px)';
 };
 
-const SwitchStyles = createStyles((theme, { size, labelPosition, disabled }) => {
-  const switchTheme = theme.other.toggle;
-  const labelTheme = theme.other.label;
+const SwitchStyles = createStyles(
+  (theme, { size, labelPosition, disabled, borderColor, bgColor }) => {
+    const switchTheme = theme.other.toggle;
+    const labelTheme = theme.other.label;
 
-  return {
-    root: {
-      justifyContent: 'left',
-    },
-    labelWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      'label[data-disabled]': {
-        color: theme.other.global.content.color.disabled,
+    return {
+      root: {
+        justifyContent: 'left',
       },
-    },
-    label: {
-      color: labelTheme.content.color.default,
-      ...labelTheme.content.typo['02'],
-      paddingLeft: 0,
-      '&:hover': {
-        cursor: disabled ? 'not-allowed' : 'pointer',
-      },
-    },
-    body: {
-      flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
-      gap: switchTheme.spacing.gap,
-      '&:hover': {
-        cursor: disabled ? 'not-allowed' : 'pointer',
-      },
-    },
-    input: { display: 'none' },
-    track: {
-      ...getSizes(size, switchTheme),
-      cursor: 'pointer',
-      borderRadius: switchTheme.border.radius,
-      borderColor: switchTheme.border.color.default,
-      backgroundColor: switchTheme.background.color.default,
-      '&:hover': {
-        ...getBoxShadowFromToken(switchTheme.shadow.hover),
-      },
-      'input:checked + &': {
-        backgroundColor: switchTheme.background.color.default,
-        borderColor: switchTheme.border.color.select,
-        transition: `all 150ms ${theme.transitionTimingFunction}`,
-        '&:hover': {
-          ...getBoxShadowFromToken(switchTheme.shadow.hover),
+      labelWrapper: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        'label[data-disabled]': {
+          color: theme.other.global.content.color.disabled,
         },
       },
-      'input:disabled + &': {
-        backgroundColor: theme.other.global.background.color.disabled,
-        borderColor: theme.other.global.border.color.disabled.default,
+      label: {
+        color: labelTheme.content.color.default,
+        ...labelTheme.content.typo['02'],
+        paddingLeft: 0,
+        '&:hover': {
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        },
       },
-    },
-    thumb: {
-      ...getThumbSizes(size, switchTheme),
-      backgroundColor: switchTheme.content.color.default,
-      borderRadius: switchTheme.border.radius,
-      left: 4,
-      'input:checked + * > &': {
-        left: getThumbLeft(switchTheme),
-        backgroundColor: switchTheme.content.color.selected,
+      body: {
+        flexDirection: labelPosition === 'end' ? 'row' : 'row-reverse',
+        gap: switchTheme.spacing.gap,
+        '&:hover': {
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        },
       },
-      'input:disabled + * > &': {
-        backgroundColor: theme.other.global.content.color.disabled,
+      input: { display: 'none' },
+      track: {
+        ...getSizes(size, switchTheme),
+        cursor: 'pointer',
+        borderRadius: switchTheme.border.radius,
+        borderColor: switchTheme.border.color.default,
+        backgroundColor: switchTheme.background.color.default,
+        '&:hover': {
+          ...getBoxShadowFromToken(switchTheme.shadow.hover),
+          borderColor: borderColor ?? switchTheme.border.color.select,
+        },
+        'input:checked + &': {
+          backgroundColor: switchTheme.background.color.default,
+          borderColor: borderColor ?? switchTheme.border.color.select,
+          transition: `all 150ms ${theme.transitionTimingFunction}`,
+          '&:hover': {
+            ...getBoxShadowFromToken(switchTheme.shadow.hover),
+          },
+        },
+        'input:disabled + &': {
+          backgroundColor: theme.other.global.background.color.disabled,
+          borderColor: theme.other.global.border.color.disabled.default,
+        },
       },
-    },
-  };
-});
+      thumb: {
+        ...getThumbSizes(size, switchTheme),
+        backgroundColor: switchTheme.content.color.default,
+        borderRadius: switchTheme.border.radius,
+        left: 4,
+        '&:hover': {
+          backgroundColor: bgColor ?? switchTheme.content.color.selected,
+        },
+        'input:checked + * > &': {
+          left: getThumbLeft(switchTheme),
+          backgroundColor: bgColor ?? switchTheme.content.color.selected,
+        },
+        'input:disabled + * > &': {
+          backgroundColor: theme.other.global.content.color.disabled,
+        },
+      },
+    };
+  },
+);
 
 export { SwitchStyles };

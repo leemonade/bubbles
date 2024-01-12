@@ -5,8 +5,11 @@ import { Switch as MantineSwitch } from '@mantine/core';
 import { SwitchStyles } from './Switch.styles';
 
 const Switch = forwardRef(
-  ({ labelPosition, size, disabled, useAria, classNames, ...props }, ref) => {
-    const { classes } = SwitchStyles({ size, labelPosition, disabled }, { name: 'Switch' });
+  ({ labelPosition, size, disabled, useAria, classNames, borderColor, bgColor, ...props }, ref) => {
+    const { classes } = SwitchStyles(
+      { size, labelPosition, disabled, borderColor, bgColor },
+      { name: 'Switch' },
+    );
 
     const mergedClasses = mergeWith({ ...classes }, { ...classNames }, (obj, src) => {
       if (obj) return `${obj} ${src}`;
@@ -33,6 +36,8 @@ Switch.propTypes = {
   useAria: PropTypes.bool,
   classNames: PropTypes.any,
   disabled: PropTypes.bool,
+  borderColor: PropTypes.string,
+  bgColor: PropTypes.string,
 };
 
 export { Switch };

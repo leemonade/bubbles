@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Select, Switch, Text, Stack, ScrollArea } from '@bubbles-ui/components';
-import { SubNav } from '@bubbles-ui/extras';
-import { forEach } from 'lodash';
+import { Box, Select, Switch, Text, Stack } from '@bubbles-ui/components';
+import { forEach, noop } from 'lodash';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
 
 export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
@@ -16,25 +15,31 @@ export const CALENDAR_SUB_NAV_FILTERS_DEFAULT_PROPS = {
     { label: 'Schedule', value: 'schedule' },
   ],
   centers: [],
-  onChange: () => {},
-  centerOnChange: () => {},
-  pageOnChange: () => {},
-  onClose: () => {},
-  showPageControl: false,
-  mainColor: '#ffffff',
-  drawerColor: '#ffffff',
-  lightMode: false,
+  onChange: noop,
+  centerOnChange: noop,
+  pageOnChange: noop,
+  topZone: <></>,
 };
 export const CALENDAR_SUB_NAV_FILTERS_PROP_TYPES = {
   showPageControl: PropTypes.bool,
-  mainColor: PropTypes.string,
-  drawerColor: PropTypes.string,
-  lightMode: PropTypes.bool,
+  messages: PropTypes.shape({
+    title: PropTypes.string,
+    centers: PropTypes.string,
+    closeTooltip: PropTypes.string,
+  }),
+  pages: PropTypes.array,
+  pageValue: PropTypes.string,
+  pageOnChange: PropTypes.func,
+  centers: PropTypes.array,
+  centerValue: PropTypes.string,
+  centerOnChange: PropTypes.func,
+  value: PropTypes.array,
+  onChange: PropTypes.func,
+  topZone: PropTypes.node,
 };
 
 const CalendarSubNavFilters = ({
   messages,
-  onClose,
   value,
   onChange,
   pages,
@@ -44,13 +49,9 @@ const CalendarSubNavFilters = ({
   centerValue,
   centerOnChange,
   showPageControl,
-  mainColor,
-  drawerColor,
-  lightMode,
-  style,
+  topZone,
 }) => {
-  const { classes, cx } = CalendarSubNavFiltersStyles({},{ name: 'SubnavFilters' });
-
+  const { classes } = CalendarSubNavFiltersStyles({}, { name: 'SubnavFilters' });
   const [, setR] = useState();
   const ref = useRef({});
 
@@ -87,37 +88,33 @@ const CalendarSubNavFilters = ({
   }, [JSON.stringify(value)]);
 
   return (
-    <Stack className={classes.root} direction="column" spacing={5}>
+    <Stack className={classes.root} direction="column" spacing={5} fullWidth>
+      {topZone}
       {showPageControl ? (
-        <Select
-          data={pages}
-          value={pageValue || pages[0].value}
-          onChange={pageOnChange}
-        />
+        <Select data={pages} value={pageValue || pages[0].value} onChange={pageOnChange} />
       ) : null}
-
       {centers && centers.length > 1 ? (
         <Stack direction="column" spacing={2}>
-          <Text className={classes.subtitle}>
-            {messages.centers}
-          </Text>
+          <Text className={classes.subtitle}>{messages.centers}</Text>
           <Box>
             <Select data={centers} value={centerValue} onChange={centerOnChange} />
           </Box>
         </Stack>
       ) : null}
-      
       {value.map(({ calendars, sectionName }, sectionIndex) => (
         <Box key={`${sectionName}-${sectionIndex}`}>
-          <Text className={classes.subtitle}>
-            {sectionName}
-          </Text>
+          <Text className={classes.subtitle}>{sectionName}</Text>
           <Box>
             {calendars.map((calendar, calendarIndex) => (
-              <Box key={calendarIndex} className={classes.switchWrapper}>
+              <Box
+                key={calendar.id ?? calendar._id ?? calendarIndex}
+                className={classes.switchWrapper}
+              >
                 <Switch
                   label={calendar.name}
                   checked={calendar.showEvents}
+                  bgColor={calendar.bgColor}
+                  borderColor={calendar.borderColor}
                   onChange={(event) => _onChange(sectionIndex, calendarIndex, event)}
                 />
               </Box>

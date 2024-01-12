@@ -6,26 +6,34 @@ const getColor = (theme, severity) =>
     success: {
       background: `#E4F4E6 !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: '#368442',
+        color: '#5CBC6A',
       },
+      borderColor: `#90D19A !important`,
+      borderLeftColor: `#5CBC6A !important`,
     },
     warning: {
       background: `#FEF3E1 !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: '#BA7609',
+        color: '#F39C13',
       },
+      borderColor: `#FBDAA6 !important`,
+      borderLeftColor: `#F39C13 !important`,
     },
     info: {
-      background: `#F1FFBD !important`,
+      background: `#E8F0FC !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
-        color: '#98C200',
+        color: '#317AE7',
       },
+      borderColor: `#B1CDF6 !important`,
+      borderLeftColor: `#317AE7 !important`,
     },
     error: {
       background: `#F7DEDE !important`,
       '.mantine-Alert-icon, .mantine-Alert-action': {
         color: '#B52A2A',
       },
+      borderColor: `#DF7878 !important`,
+      borderLeftColor: `#B52A2A !important`,
     },
   })[severity];
 
@@ -37,8 +45,9 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       ...getColor(theme, severity),
       display: 'flex',
       alignItems: 'center',
-      borderRadius: variant === 'block' ? pxToRem(2) : pxToRem(0),
+      borderRadius: 4,
       padding: `${pxToRem(8)} ${pxToRem(16)} ${pxToRem(12)} ${pxToRem(24)}`,
+      borderLeftWidth: 4,
     },
     message: {},
     wrapper: {
