@@ -44,18 +44,17 @@ export function getInputStyle(theme, globalTheme, disabled) {
   };
 }
 
-export const getInputSizes = (size, padding, hasIcon) => {
-  return {
+export const getInputSizes = (size, padding, hasIcon) =>
+  ({
     sm: {
-      padding: `${padding.vertical.sm} ${padding.horizontal.md}`,
+      padding: `3px ${padding.horizontal.md}`,
       paddingLeft: hasIcon && `calc(24px + ${padding.horizontal.md}) !important`,
     },
     md: {
-      padding: `${padding.vertical.md} ${padding.horizontal.md}`,
+      padding: `3px ${padding.horizontal.md}`,
       paddingLeft: hasIcon && `calc(24px + ${padding.horizontal.md}) !important`,
     },
-  }[size];
-};
+  })[size];
 
 export const getSelectDividerStyle = (theme, globalTheme) => {
   const dropdownTheme = theme.other.dropdown;

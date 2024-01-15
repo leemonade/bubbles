@@ -11,6 +11,8 @@ const PasswordInputStyles = createStyles((theme, { size, hasIcon, disabled }) =>
       ...inputSizes,
       ...inputStyles,
       minHeight: 40,
+      display: 'flex',
+      alignItems: 'center',
     },
     innerInput: {
       ...inputSizes,

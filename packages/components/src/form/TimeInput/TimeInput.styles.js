@@ -9,7 +9,10 @@ const TimeInputStyles = createStyles((theme, { size }) => {
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding),
       ...inputStyle,
+      paddingTop: 0,
       minHeight: 40,
+      display: 'flex',
+      alignItems: 'center',
     },
     timeInput: {
       lineHeight: inputStyle.lineHeight,
