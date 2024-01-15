@@ -1,10 +1,12 @@
 import { createStyles } from '@mantine/styles';
 
-const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean }) => ({
+const TotalLayoutStepContainerStyles = createStyles((theme, { hasFooter, clean, fullWidth }) => ({
   root: {},
   stepContainer: {
     padding: '30px 0 0 0 ',
-    width: 928,
+    width: fullWidth ? '100%' : 928,
+    marginLeft: fullWidth ? theme.spacing[5] : 0,
+    marginRight: fullWidth ? theme.spacing[5] : 0,
     height: '100%',
     '@media (min-width: 1920px)': {
       maxWidth: 1200,

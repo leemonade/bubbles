@@ -157,6 +157,7 @@ const WithTotalLayoutTemplate = ({ ...props }) => {
           <TotalLayoutStepContainer
             style={{ backgroundColor: 'transparent', padding: 0, margin: 0 }}
             stepName="Actividades en Curso"
+            fullWidth
           >
             <Tabs
               {...props}
@@ -178,6 +179,7 @@ const WithTotalLayoutTemplate = ({ ...props }) => {
                   ))}
                   <TotalLayoutFooterContainer
                     fixed
+                    fullWidth
                     scrollRef={scrollRef}
                     rightZone={<Button variant="outline">Descargar</Button>}
                   />

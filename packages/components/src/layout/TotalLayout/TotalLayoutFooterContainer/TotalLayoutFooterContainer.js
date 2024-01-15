@@ -11,10 +11,11 @@ const TotalLayoutFooterContainer = ({
   leftZone,
   rightZone,
   children,
+  fullWidth,
 }) => {
   const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const { classes } = TotalLayoutFooterContainerStyles(
-    { showFooterBorder, leftOffset, fixed },
+    { showFooterBorder, leftOffset, fixed, fullWidth },
     { name: 'TotalLayoutFooterContainer' },
   );
 
@@ -72,6 +73,7 @@ TotalLayoutFooterContainer.propTypes = {
   rightZone: PropTypes.node,
   children: PropTypes.node,
   fixed: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 export { TotalLayoutFooterContainer };

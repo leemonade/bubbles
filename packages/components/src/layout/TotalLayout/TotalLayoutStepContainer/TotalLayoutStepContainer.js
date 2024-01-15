@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Title } from '../../../typography';
+import { Title } from '../../../typography';
 import { Stack } from '../../Stack';
 import { Box } from '../../Box';
 import {
@@ -8,9 +8,9 @@ import {
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, children, Footer, clean }) => {
+const TotalLayoutStepContainer = ({ stepName, fullWidth, children, Footer, clean }) => {
   const { classes } = TotalLayoutStepContainerStyles(
-    { hasFooter: !!Footer, clean },
+    { hasFooter: !!Footer, clean, fullWidth },
     { name: 'TotalLayoutStepContainer' },
   );
 

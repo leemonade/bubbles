@@ -6,6 +6,7 @@ export const TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES = {
   Footer: PropTypes.node,
   style: PropTypes.object,
   clean: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 export const TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS = {
   stepName: '',

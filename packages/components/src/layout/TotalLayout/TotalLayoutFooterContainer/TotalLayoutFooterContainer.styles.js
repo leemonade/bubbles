@@ -1,10 +1,10 @@
 import { createStyles } from '@mantine/styles';
 
 const TotalLayoutFooterContainerStyles = createStyles(
-  (theme, { showFooterBorder, leftOffset, fixed }) => ({
+  (theme, { showFooterBorder, leftOffset, fullWidth, fixed }) => ({
     root: {},
     footer: {
-      width: 928,
+      width: fullWidth ? '100%' : 928,
       marginLeft: leftOffset,
       backgroundColor: 'white',
       borderTop: showFooterBorder && `1px solid ${theme.other.divider.background.color.default}`,
