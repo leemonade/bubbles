@@ -344,9 +344,11 @@ const AssetPlayer = ({
         ) : (
           <>
             {media.isImage && (
-              <ModalZoom canPlay={canPlay}>
-                <ImageLoader height="100%" src={cover} alt={name} />
-              </ModalZoom>
+              <Box className={classes.coverWrapper}>
+                <ModalZoom canPlay={canPlay}>
+                  <ImageLoader height="100%" src={cover} alt={name} />
+                </ModalZoom>
+              </Box>
             )}
             {media.isAFrame3D && <Aframe asset={asset} compact={compact} />}
             {media.isURL && (

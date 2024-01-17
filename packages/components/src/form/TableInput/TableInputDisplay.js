@@ -51,6 +51,7 @@ const TableInputDisplay = ({
   rowsExpanded,
   rowStyles,
   classes,
+  canAdd,
   renderActionButton,
   onChangeRow = noop,
   renderRowSubComponent = noop,
@@ -72,7 +73,7 @@ const TableInputDisplay = ({
 
   const formValues = watch();
 
-  const { classes: tableClasses, cx } = TableStyles({ disabled }, { name: 'Table' });
+  const { classes: tableClasses, cx } = TableStyles({ disabled, canAdd }, { name: 'Table' });
 
   const getColumnInput = useCallback(
     (accessor) => {
@@ -130,13 +131,16 @@ const TableInputDisplay = ({
         {!!showHeaders &&
           headerGroups.map((headerGroup, i) => (
             <tr key={`hg-${i}`} {...headerGroup.getHeaderGroupProps({})}>
-              {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
+              {(sortable && !disabled) || forceSortable ? <th style={{ width: 40 }}></th> : null}
               {headerGroup.headers.map((column, j) => (
                 <th
                   key={`hgh-${j}`}
                   {...column.getHeaderProps({
                     className: cx(tableClasses.th, column.className),
-                    style: { ...column.style, paddingLeft: 0 },
+                    style: {
+                      ...column.style,
+                      paddingLeft: 0,
+                    },
                   })}
                 >
                   <Text size="xs" role="productive" color="primary" strong>
@@ -148,7 +152,7 @@ const TableInputDisplay = ({
             </tr>
           ))}
 
-        {(showHeaders || forceShowInputs) && (
+        {canAdd && (showHeaders || forceShowInputs) && (
           <tr style={rowStyles} className={rows.length > 0 ? tableClasses.tr : ''}>
             {(sortable && !disabled) || forceSortable ? <th></th> : null}
             {columns.map((column, i) => (

@@ -1,13 +1,19 @@
 import { createStyles } from '@mantine/styles';
 import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-const InputStyles = createStyles((theme, { size, disabled, hasIcon }) => {
+const InputStyles = createStyles((theme, { size, disabled, hasIcon, hasRightSection }) => {
   const inputTheme = theme.other.input;
+  const inputSizes = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
+
+  if (hasRightSection) {
+    inputSizes.paddingRight = 40;
+  }
+
   return {
     root: {},
     input: {
-      ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
       ...getInputStyle(inputTheme, theme.other.global, disabled),
+      ...inputSizes,
       height: 'auto',
       minHeight: 40,
     },

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getPaddings } from '../../theme.mixins';
 
-const TableStyles = createStyles((theme, { disabled, headerStyles = {} } = {}) => {
+const TableStyles = createStyles((theme, { disabled, canAdd, headerStyles = {} } = {}) => {
   const reset = {
     margin: 0,
     padding: 0,

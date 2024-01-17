@@ -3,10 +3,19 @@ import { createStyles, pxToRem } from '@bubbles-ui/components';
 const AssetPlayerStyles = createStyles(
   (
     theme,
-    { width, media, styles, framed, viewPDF, mediaRatio, showPlayer, canPlay, useAudioCard },
+    {
+      width,
+      height,
+      media,
+      styles,
+      framed,
+      viewPDF,
+      mediaRatio,
+      showPlayer,
+      canPlay,
+      useAudioCard,
+    },
   ) => {
-    const isWidthNum = /^\d+$/.test(width);
-
     let framedProps = {};
 
     if (framed) {
@@ -17,17 +26,18 @@ const AssetPlayerStyles = createStyles(
       };
     }
 
-    const useMediaRatio =
-      !media.isURL && !media.isImage && !media.isPDF && !(media.isAudio && useAudioCard);
+    const useMediaRatio = false;
+    // !media.isURL && !media.isImage && !media.isPDF && !(media.isAudio && useAudioCard);
 
     return {
       rootWrapper: {
-        width: isWidthNum ? pxToRem(width) : width,
-        height: media.isPDF && viewPDF && '100%',
+        width,
+        height: media.isPDF && viewPDF ? '100%' : height,
+        overflow: 'hidden',
       },
       root: {
         position: 'relative',
-        height: media.isPDF && viewPDF ? '100%' : useMediaRatio && 0,
+        height: '100%', // media.isPDF && viewPDF ? '100%' : useMediaRatio && 0,
         width: '100%',
         paddingBottom: useMediaRatio && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,

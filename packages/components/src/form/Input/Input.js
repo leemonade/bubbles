@@ -22,7 +22,10 @@ const Input = forwardRef(
   ) => {
     const hasIcon = !!icon;
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'md';
-    const { classes, cx } = InputStyles({ size, disabled, hasIcon });
+    const { classes, cx } = InputStyles(
+      { size, disabled, hasIcon, hasRightSection: !!rightSection },
+      { name: 'Input' },
+    );
 
     return (
       <MantineInput
