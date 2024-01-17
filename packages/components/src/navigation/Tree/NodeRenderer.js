@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid';
 import { useDragOver } from '@leemonade/react-dnd-treeview';
 import { Box } from '../../layout/Box';
 import { Button } from '../../form/Button';

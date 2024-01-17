@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { findIndex, isFunction, map } from 'lodash';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid';
 import { useId } from '@mantine/hooks';
 import { Box } from '../../layout';
 import { ListInputStyles } from './ListInput.styles';

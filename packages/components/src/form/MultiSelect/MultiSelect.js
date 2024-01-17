@@ -99,7 +99,7 @@ const MultiSelect = forwardRef(
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
     React.useEffect(() => {
-      if (!value || !value.length) {
+      if (!value?.length) {
         setShow(false);
         setTimeout(() => {
           setShow(true);

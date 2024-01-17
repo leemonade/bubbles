@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, isFunction } from 'lodash';
-import { CheckIcon, DeleteBinIcon, DeleteIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
+import {
+  CheckIcon,
+  DeleteBinIcon,
+  DeleteIcon,
+  EditWriteIcon,
+  AddCircleIcon,
+} from '@bubbles-ui/icons/solid';
 import { Controller, useForm } from 'react-hook-form';
-import { SortDragIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Draggable } from 'react-beautiful-dnd';
 import { Box } from '../../layout/Box';
 import { TableCell } from '../../informative/Table/TableCell/TableCell';
@@ -155,7 +161,10 @@ const TableInputRow = ({
                 {getColumCellValue(cell)}
               </td>
             ))}
-            <td style={{ textAlign: 'right', textWrap: 'nowrap' }} className={cx(tableClasses.td, classes.actionCell)}>
+            <td
+              style={{ textAlign: 'right', textWrap: 'nowrap' }}
+              className={cx(tableClasses.td, classes.actionCell)}
+            >
               {editing ? (
                 <>
                   <ActionButton

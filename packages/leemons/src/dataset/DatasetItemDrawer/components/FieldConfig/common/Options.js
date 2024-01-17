@@ -1,27 +1,25 @@
 import React, { useContext } from 'react';
 import { forEach, get, map } from 'lodash';
 import { Controller } from 'react-hook-form';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid';
 import { Box, Button, Col, Grid, SortableList, Text, TextInput } from '@bubbles-ui/components';
 import DatasetItemDrawerContext from '../../../context/DatasetItemDrawerContext';
 
-const OptionItem = ({ value, onChange }) => {
-  return (
-    <Box
-      sx={(theme) => ({
-        padding: theme.spacing[2],
-      })}
-    >
-      <TextInput
-        id={value.key}
-        value={value.value}
-        onChange={(e) => {
-          onChange({ ...value, value: e });
-        }}
-      />
-    </Box>
-  );
-};
+const OptionItem = ({ value, onChange }) => (
+  <Box
+    sx={(theme) => ({
+      padding: theme.spacing[2],
+    })}
+  >
+    <TextInput
+      id={value.key}
+      value={value.value}
+      onChange={(e) => {
+        onChange({ ...value, value: e });
+      }}
+    />
+  </Box>
+);
 
 const Options = ({ label, addOptionLabel }) => {
   const {
