@@ -8,9 +8,9 @@ import {
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, fullWidth, children, Footer, clean }) => {
+const TotalLayoutStepContainer = ({ stepName, fullWidth, noMargin, children, Footer, clean }) => {
   const { classes } = TotalLayoutStepContainerStyles(
-    { hasFooter: !!Footer, clean, fullWidth },
+    { hasFooter: !!Footer, clean, fullWidth, noMargin },
     { name: 'TotalLayoutStepContainer' },
   );
 

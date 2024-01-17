@@ -24,13 +24,14 @@ const Radio = forwardRef(
       size,
       useAria,
       onChange,
+      noRootPadding,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { classes, cx } = RadioStyles(
-      { checked, variant, help, helpPosition, icon, image, children, label },
-      { name: 'Radio' }
+      { checked, variant, help, helpPosition, icon, image, children, label, noRootPadding },
+      { name: 'Radio' },
     );
 
     const handleOnChange = () => {
@@ -73,7 +74,7 @@ const Radio = forwardRef(
         />
       </Box>
     );
-  }
+  },
 );
 
 Radio.defaultProps = {

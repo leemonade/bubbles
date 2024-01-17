@@ -33,6 +33,7 @@ export const CONTEXT_CONTAINER_PROP_TYPES = {
   style: PropTypes.object,
   subtitle: PropTypes.any,
   children: PropTypes.any,
+  titleRightZone: PropTypes.any,
 };
 
 const ContextContainer = ({
@@ -51,6 +52,7 @@ const ContextContainer = ({
   justifyContent,
   wrap,
   alignContent,
+  titleRightZone,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -92,12 +94,15 @@ const ContextContainer = ({
       {(hasTitle || hasSubtitle || hasDescription) && (
         <Stack direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
-            <Box>
-              {typeof title === 'string' ? (
-                <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
-              ) : (
-                subtitle
-              )}
+            <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Box>
+                {typeof title === 'string' ? (
+                  <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
+                ) : (
+                  subtitle
+                )}
+              </Box>
+              {titleRightZone ? <Box>{titleRightZone}</Box> : null}
             </Box>
           )}
           {hasSubtitle && (
