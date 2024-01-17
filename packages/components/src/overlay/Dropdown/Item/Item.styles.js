@@ -1,8 +1,9 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../../theme.mixins';
 
-export const ItemStyles = createStyles((theme, { group }) => {
+const ItemStyles = createStyles((theme, { group, disabled }) => {
   const dropdownTheme = theme.other.dropdown;
+
   return {
     root: {
       display: 'flex',
@@ -10,33 +11,40 @@ export const ItemStyles = createStyles((theme, { group }) => {
       padding: dropdownTheme.spacing.padding.md,
       gap: dropdownTheme.spacing.gap,
       borderRadius: dropdownTheme.border.radius,
-      backgroundColor: dropdownTheme.background.color.default,
+      backgroundColor: disabled
+        ? theme.other.global.background.color.disabled
+        : dropdownTheme.background.color.default,
       '&[data-hovered]': {
-        backgroundColor: dropdownTheme.background.color.hover
+        backgroundColor: !disabled && dropdownTheme.background.color.hover,
       },
       '&:hover': {
-        backgroundColor: dropdownTheme.background.color.hover
+        backgroundColor: !disabled && dropdownTheme.background.color.hover,
       },
       '&:active': {
-        backgroundColor: dropdownTheme.background.color.down
+        backgroundColor: !disabled && dropdownTheme.background.color.down,
       },
-      cursor: 'pointer'
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      pointerEvents: disabled ? 'none' : 'auto',
+      filter: disabled ? 'grayscale(1)' : 'none',
+      opacity: disabled ? 0.5 : 1,
     },
     label: {
       ...dropdownTheme.content.typo,
       color: dropdownTheme.content.color.default,
-      flex: 1
+      flex: 1,
     },
     iconWrapper: {
       position: 'relative',
       minWidth: pxToRem(16),
       minHeight: pxToRem(16),
-      color: dropdownTheme.content.color.default
+      color: dropdownTheme.content.color.default,
       // minHeight: theme.other.global.icon.size.md,
       // minWidth: theme.other.global.icon.size.md,
     },
     check: {
-      color: theme.other.global.content.color.positive.default
-    }
+      color: theme.other.global.content.color.positive.default,
+    },
   };
 });
+
+export { ItemStyles };

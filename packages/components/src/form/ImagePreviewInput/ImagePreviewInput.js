@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString, isNil } from 'lodash';
-import { CloudUploadIcon, DeleteBinIcon } from '@bubbles-ui/icons/outline/';
+import { CloudUploadIcon } from '@bubbles-ui/icons/outline/';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { Box } from '../../layout/Box';
 import { Stack } from '../../layout/Stack';
 import { Button } from '../Button';
@@ -98,7 +99,7 @@ const ImagePreviewInput = ({
     }
   }, [imageValue]);
 
-  const { classes, cx } = ImagePreviewInputStyles({});
+  const { classes } = ImagePreviewInputStyles({});
   return (
     <Box className={classes.root}>
       {!imagePreview ? (
@@ -113,6 +114,7 @@ const ImagePreviewInput = ({
             radius={4}
             style={{ ...previewStyle }}
             useAria={useAria}
+            bordered
           />
           {!readonly && !disabled ? (
             <Box noFlex>

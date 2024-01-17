@@ -179,6 +179,10 @@ export const ButtonStyles = createStyles(
     const buttonTheme = theme.other.button;
     const iconStyles = {
       padding: 3,
+      '& > svg': {
+        width: 18,
+        height: 18,
+      },
     };
 
     const getTextAlign = () => {

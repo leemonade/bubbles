@@ -1,6 +1,8 @@
 import React from 'react';
 import { LIST_INPUT_DEFAULT_PROPS, ListInput } from './ListInput';
 import mdx from './ListInput.mdx';
+import { Box } from '../../layout/Box';
+import { Button } from '../Button';
 
 export default {
   title: 'Molecules/Form/ListInput',
@@ -26,10 +28,16 @@ function ListInputRender({ t, ...props }) {
 }
 
 const Template = ({ children, ...props }) => {
+  const [showInput, setShowInput] = React.useState(false);
   return (
-    <ListInput {...props} canAdd>
-      {children}
-    </ListInput>
+    <Box>
+      <ListInput {...props} canAdd hideInput={!showInput}>
+        {children}
+      </ListInput>
+      <Button variant="outline" onClick={() => setShowInput(!showInput)}>
+        Toggle Input
+      </Button>
+    </Box>
   );
 };
 
@@ -39,4 +47,5 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...LIST_INPUT_DEFAULT_PROPS,
+  value: [{ value: 'Hola' }, { value: 'Mundo' }],
 };

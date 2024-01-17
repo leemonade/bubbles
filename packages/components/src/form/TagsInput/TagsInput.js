@@ -1,7 +1,7 @@
 import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import { isEmpty, isFunction, isString, trim, uniq } from 'lodash';
 import PropTypes from 'prop-types';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid/';
 import { useId, useMergedRef } from '@mantine/hooks';
 import { Box } from '../../layout/Box';
 import { Stack } from '../../layout/Stack';

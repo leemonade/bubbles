@@ -10,10 +10,21 @@ import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
 
 const Item = forwardRef(
   (
-    { icon, image, label, group, value, className, 'data-selected': dataSelected, ...props },
+    {
+      icon,
+      image,
+      label,
+      group,
+      value,
+      disabled,
+      className,
+      'data-selected': dataSelected,
+      ...props
+    },
     ref,
   ) => {
-    const { classes } = ItemStyles({ group }, { name: 'Item' });
+    const { classes } = ItemStyles({ group, disabled }, { name: 'Item' });
+
     return (
       <Box className={classes.root} ref={ref} {...props}>
         {image && <Avatar size="sm" image={image} />}
