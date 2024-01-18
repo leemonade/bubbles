@@ -1,8 +1,8 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { isFunction, isNil } from 'lodash';
 import { Box, ImageLoader, Text, COLORS, ModalZoom, TextClamp } from '@bubbles-ui/components';
-import { ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
@@ -10,6 +10,7 @@ import { ProgressBar } from './components/ProgressBar';
 import { AudioCardPlayer } from './components/AudioCardPlayer';
 import { PDFPlayer } from './components/PDFPlayer';
 import { Aframe } from './components/Aframe';
+import { ButtonIcon } from './components/ButtonIcon';
 
 const format = (seconds) => {
   const date = new Date(seconds * 1000);
@@ -333,8 +334,14 @@ const AssetPlayer = ({
               )}
               {(!showPlayer || media.isAudio) && (
                 <Box className={classes.coverWrapper} onClick={handleInitPlay}>
-                  <Box className={classes.coverShadow}>
-                    <ControlsPlayIcon height={32} width={32} className={classes.playIcon} />
+                  <Box
+                    className={classes.buttonIcon}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
+                  >
+                    <ButtonIcon fileType={'video'} />
                   </Box>
                   {cover && <ImageLoader height="100%" src={cover} alt={name} />}
                 </Box>
@@ -344,9 +351,14 @@ const AssetPlayer = ({
         ) : (
           <>
             {media.isImage && (
-              <ModalZoom canPlay={canPlay}>
-                <ImageLoader height="100%" src={cover} alt={name} />
-              </ModalZoom>
+              <Box className={classes.coverWrapper}>
+                <Box className={classes.buttonIcon}>
+                  <ButtonIcon fileType={'image'} />
+                </Box>
+                <ModalZoom canPlay={canPlay}>
+                  <ImageLoader height="100%" src={cover} alt={name} />
+                </ModalZoom>
+              </Box>
             )}
             {media.isAFrame3D && <Aframe asset={asset} compact={compact} />}
             {media.isURL && (
@@ -360,6 +372,9 @@ const AssetPlayer = ({
                   pointerEvents: !canPlay && 'none',
                 }}
               >
+                <Box className={classes.buttonIcon}>
+                  <ButtonIcon fileType={'document'} />
+                </Box>
                 <ImageLoader height="auto" src={cover} alt={name} />
                 {!hideURLInfo && (
                   <Box style={{ padding: 8 }}>
@@ -392,13 +407,17 @@ const AssetPlayer = ({
                 <PDFPlayer pdf={url} labels={pdfLabels} useSchema={useSchema} />
               ) : (
                 <Box className={classes.pdfCover}>
+                  <Box className={classes.buttonIcon} onClick={openPdfHandler}>
+                    <ButtonIcon fileType={'document'} />
+                  </Box>
                   <ImageLoader height="auto" src={cover} alt={name} />
-                  <DownloadIcon className={classes.pdfDownloadIcon} onClick={openPdfHandler} />
                 </Box>
               )
             ) : null}
             {!media.isImage && !media.isURL && !media.isPDF && !media.isAFrame3D && (
-              <Box className={classes.fileIcon}>{icon}</Box>
+              <Box className={classes.buttonIcon}>
+                <ButtonIcon fileType={'file'} />
+              </Box>
             )}
           </>
         )}

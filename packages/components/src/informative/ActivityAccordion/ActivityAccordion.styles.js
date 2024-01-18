@@ -3,7 +3,7 @@ import { pxToRem } from '../../theme.mixins';
 
 const BORDER_RADIUS = 8;
 
-export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
+const ActivityAccordionStyles = createStyles((theme, { compact }) => {
   const PANEL_COLORS = {
     default: theme.colors.uiBackground01,
     solid: theme.colors.interactive03h,
@@ -14,6 +14,9 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       display: 'flex',
       flexDirection: 'column',
       gap: theme.spacing[2],
+      '& .mantine-Accordion-control:hover': {
+        backgroundColor: 'transparent',
+      },
     },
     item: {
       backgroundColor: theme.colors.uiBackground01,
@@ -54,3 +57,5 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
     },
   };
 });
+
+export { ActivityAccordionStyles };

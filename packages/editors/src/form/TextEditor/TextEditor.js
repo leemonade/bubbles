@@ -124,11 +124,16 @@ const TextEditor = ({
     if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
   };
 
+  const dispatchSchema = () => {
+    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
+  };
+
   useEffect(() => {
     if (!editor) return;
     if (!isEqual(content, store.current.content)) {
       store.current.content = content;
       editor.commands.setContent(content || '');
+      dispatchSchema();
     }
   }, [editor, content]);
 

@@ -165,7 +165,7 @@ const Table = ({
                           ref={draggableProvided.innerRef}
                         >
                           {!!sortable && (
-                            <td>
+                            <td style={{ verticalAlign: 'middle' }}>
                               <Box
                                 className={classes.sortIcon}
                                 style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}

@@ -1,6 +1,6 @@
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
-export const ProgressBarStyles = createStyles((theme, {}) => {
+const ProgressBarStyles = createStyles((theme, {}) => {
   const globalTheme = theme.other.global;
 
   return {
@@ -10,12 +10,15 @@ export const ProgressBarStyles = createStyles((theme, {}) => {
       flexDirection: 'column',
       gap: globalTheme.spacing.gap.lg,
       padding: globalTheme.spacing.padding.md,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      left: 16,
+      right: 16,
+      bottom: 5,
       zIndex: 2,
-      background:
-        'linear-gradient(180deg, rgba(50, 50, 50, 0) 13.54%, rgba(54, 54, 54, 0.609375) 73.44%, #383838 100%)',
+      borderRadius: 4,
+      backgroundColor: theme.other.buttonIconCard.background.color.primary.default,
+      '&:hover': {
+        backgroundColor: theme.other.buttonIconCard.background.color.primary.hover,
+      },
     },
     progressBar: {
       WebkitAppearance: 'none',
@@ -25,6 +28,7 @@ export const ProgressBarStyles = createStyles((theme, {}) => {
       borderRadius: 4,
       overflow: 'hidden',
       position: 'relative',
+      marginRight: 14,
     },
     progressBarValue: {
       height: '100%',
@@ -86,3 +90,5 @@ export const ProgressBarStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { ProgressBarStyles };

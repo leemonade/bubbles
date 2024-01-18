@@ -13,6 +13,7 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   showHeaders: true,
   forceShowInputs: false,
   resetOnAdd: false,
+  canAdd: true,
 };
 
 export const TABLE_INPUT_PROP_TYPES = {
@@ -25,7 +26,7 @@ export const TABLE_INPUT_PROP_TYPES = {
         node: PropTypes.element,
         rules: PropTypes.object,
       }),
-    })
+    }),
   ),
   labels: PropTypes.shape({
     add: PropTypes.string,
@@ -39,4 +40,5 @@ export const TABLE_INPUT_PROP_TYPES = {
   showHeaders: PropTypes.bool,
   forceShowInputs: PropTypes.bool,
   resetOnAdd: PropTypes.bool,
+  canAdd: PropTypes.bool,
 };

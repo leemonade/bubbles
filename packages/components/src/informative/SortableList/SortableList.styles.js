@@ -1,10 +1,10 @@
 import { createStyles } from '@mantine/styles';
 
-export const SortableListStyles = createStyles((theme, {}) => {
-  return {
-    sortableIcon: {
-      height: theme.spacing[3],
-      color: theme.colors.text02,
-    },
-  };
-});
+const SortableListStyles = createStyles((theme, {}) => ({
+  sortableIcon: {
+    height: 16,
+    color: theme.other.buttonAction.content.color.primary.default,
+  },
+}));
+
+export { SortableListStyles };

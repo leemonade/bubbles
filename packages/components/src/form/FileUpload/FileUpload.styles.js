@@ -72,6 +72,7 @@ const FileUploadStyles = createStyles((theme, { disabled, single, files, hasErro
       color: dropzoneTheme.content.color['default--subtle'],
     },
     droppedFile: {
+      minWidth: 500,
       // padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
     },
     fileList: {
@@ -84,6 +85,15 @@ const FileUploadStyles = createStyles((theme, { disabled, single, files, hasErro
     },
     uploadButton: {
       marginTop: pxToRem(theme.spacing[4]),
+    },
+    fileItemDisplay: {
+      ...theme.other.global.content.typo.body['sm--semiBold'],
+      padding: '18px 8px',
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: theme.other.global.border.color.line.muted,
+      borderRadius: 4,
+      minWidth: '100%',
     },
   };
 });
