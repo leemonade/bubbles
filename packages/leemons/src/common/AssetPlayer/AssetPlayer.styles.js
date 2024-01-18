@@ -53,6 +53,17 @@ const AssetPlayerStyles = createStyles(
         pointerEvents: showPlayer && 'none',
         userSelect: 'none',
       },
+      reactPlayer: {
+        backgroundColor: 'black',
+      },
+      buttonIcon: {
+        position: 'absolute',
+        zIndex: 10,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        pointerEvents: 'none',
+      },
       coverShadow: {
         position: 'absolute',
         height: '100%',
