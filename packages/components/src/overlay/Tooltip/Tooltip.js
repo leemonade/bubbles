@@ -10,7 +10,7 @@ import {
 } from './Tooltip.constants';
 
 const Tooltip = ({ size, color, position, withArrow, useAria, withinPortal, ...props }) => {
-  size = TOOLTIP_SIZES.includes(size) ? size : 'xs';
+  size = TOOLTIP_SIZES.includes(size) ? size : 'sm';
   color = TOOLTIP_COLORS.includes(color) ? color : 'primary';
   position = TOOLTIP_POSITION.includes(position) ? position : 'top';
 

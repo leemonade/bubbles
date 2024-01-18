@@ -18,7 +18,7 @@ export const TOOLTIP_POSITION = [
 ];
 
 export const TOOLTIP_DEFAULT_PROPS = {
-  size: 'xs',
+  size: 'sm',
   color: 'primary',
   position: 'top',
   withArrow: true,
