@@ -1,8 +1,13 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import { DeleteBinIcon, SynchronizeArrowIcon } from '@bubbles-ui/icons/outline/';
+import {
+  DeleteBinIcon,
+  SynchronizeArrowIcon,
+  RemoveCircleIcon,
+  CheckCircleIcon,
+} from '@bubbles-ui/icons/outline/';
 import { isEmpty, isFunction, isString } from 'lodash';
 import { FileUploadStyles } from './FileUpload.styles';
 import { Stack, Box } from '../../layout';
@@ -10,6 +15,7 @@ import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { Alert } from '../../feedback/Alert';
 import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
 import { Button } from '../Button';
+import { Loader } from '../../../lib/feedback/Loader/Loader';
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
@@ -94,7 +100,7 @@ const FileUpload = ({
     }
   }, [initialFiles]);
 
-  const { classes, cx } = FileUploadStyles(
+  const { classes, theme } = FileUploadStyles(
     { disabled, single, files, hasError },
     { name: 'FileUpload' },
   );
@@ -151,10 +157,55 @@ const FileUpload = ({
         </Alert>
       )}
       {files.length > 0 && (
-        <Stack className={classes.fileList} direction={'column'}>
+        <Stack spacing={4} className={classes.fileList} direction={'column'}>
           {files.map((file, index) => (
-            <Stack key={index} alignItems="center" spacing={8} className={classes.droppedFile}>
-              <FileItemDisplay iconSize={30} filename={file.name} thumbnailUrl={getFileUrl(file)} />
+            <Stack key={index} alignItems="center" spacing={4} className={classes.droppedFile}>
+              <Stack
+                className={classes.fileItemDisplay}
+                spacing={4}
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <FileItemDisplay
+                  iconSize={20}
+                  filename={file.name}
+                  thumbnailUrl={getFileUrl(file)}
+                />
+                {file.status === 'loading' && (
+                  <Box sx={{ position: 'relative', width: 20, height: 20, minWidth: 20 }}>
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        left: -1,
+                        top: -7.5,
+                        width: 45,
+
+                        height: 40,
+                      }}
+                    >
+                      <Loader />
+                    </Box>
+                  </Box>
+                )}
+                {file.status === 'success' && (
+                  <Box sx={{ width: 20, height: 20 }}>
+                    <CheckCircleIcon
+                      color={theme.other.core.color.success['500']}
+                      width={20}
+                      height={20}
+                    />
+                  </Box>
+                )}
+                {file.status === 'error' && (
+                  <Box sx={{ width: 20, height: 20 }}>
+                    <RemoveCircleIcon
+                      color={theme.other.core.color.danger['500']}
+                      width={20}
+                      height={20}
+                    />
+                  </Box>
+                )}
+              </Stack>
               <Box noFlex>
                 <Button
                   onClick={() => removeFile(index)}
