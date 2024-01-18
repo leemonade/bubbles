@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 const BORDER_RADIUS = 8;
 
@@ -21,7 +21,7 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       border: 'none',
     },
     content: {
-      background: PANEL_COLORS.default,
+      // background: PANEL_COLORS.default,
       borderBottomRightRadius: BORDER_RADIUS,
       borderBottomLeftRadius: BORDER_RADIUS,
       wordBreak: 'normal',
