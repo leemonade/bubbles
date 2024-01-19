@@ -70,9 +70,8 @@ const TableStyles = createStyles((theme, { disabled, canAdd, headerStyles = {} }
       // display: 'inline-flex',
     },
     sortIcon: {
-      color: theme.colors.ui01,
+      color: theme.other.buttonAction.content.color.primary.default,
       cursor: 'grab',
-      paddingTop: theme.spacing[3],
     },
   };
 });

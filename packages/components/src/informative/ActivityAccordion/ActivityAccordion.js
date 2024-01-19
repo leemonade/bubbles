@@ -10,22 +10,28 @@ import {
   ACTIVITY_ACCORDION_PROP_TYPES,
 } from './ActivityAccordion.constants';
 
-function AccordionLabel({ label, icon, rightSection, compact, classes }) {
+function AccordionLabel({ label, title, icon, hideIcon, rightSection, compact, classes }) {
   return (
     <Stack fullWidth alignItems="center">
       <Stack fullWidth justifyContent="start" alignItems="center" spacing={4}>
-        <Box className={classes.iconWrapper}>
-          {icon
-            ? React.cloneElement(icon, {
-                width: compact ? 16 : 22,
-                height: compact ? 16 : 22,
-                className: classes.labelIcon,
-              })
-            : null}
-        </Box>
-        <Text size="md" strong color="primary" role="productive" className={classes.label}>
-          {label}
-        </Text>
+        {!hideIcon ? (
+          <Box className={classes.iconWrapper}>
+            {icon
+              ? React.cloneElement(icon, {
+                  width: compact ? 16 : 22,
+                  height: compact ? 16 : 22,
+                  className: classes.labelIcon,
+                })
+              : null}
+          </Box>
+        ) : null}
+
+        {label ? (
+          <Text size="md" strong color="primary" role="productive" className={classes.label}>
+            {label}
+          </Text>
+        ) : null}
+        {title || null}
       </Stack>
       <Box skipFlex>{rightSection || null}</Box>
     </Stack>
@@ -35,6 +41,8 @@ function AccordionLabel({ label, icon, rightSection, compact, classes }) {
 AccordionLabel.propTypes = {
   label: PropTypes.string,
   icon: PropTypes.node,
+  title: PropTypes.node,
+  hideIcon: PropTypes.bool,
   rightSection: PropTypes.any,
   compact: PropTypes.bool,
   classes: PropTypes.any,

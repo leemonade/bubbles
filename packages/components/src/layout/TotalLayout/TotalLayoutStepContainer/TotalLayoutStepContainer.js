@@ -3,14 +3,22 @@ import { Title } from '../../../typography';
 import { Stack } from '../../Stack';
 import { Box } from '../../Box';
 import {
-  TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES,
   TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS,
+  TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES,
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
 
-const TotalLayoutStepContainer = ({ stepName, fullWidth, noMargin, children, Footer, clean }) => {
+const TotalLayoutStepContainer = ({
+  stepName,
+  fullWidth,
+  noMargin,
+  children,
+  footerPadding,
+  Footer,
+  clean,
+}) => {
   const { classes } = TotalLayoutStepContainerStyles(
-    { hasFooter: !!Footer, clean, fullWidth, noMargin },
+    { hasFooter: !!Footer, clean, fullWidth, noMargin, footerPadding },
     { name: 'TotalLayoutStepContainer' },
   );
 

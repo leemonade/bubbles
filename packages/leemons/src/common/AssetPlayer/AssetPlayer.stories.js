@@ -90,6 +90,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...ASSET_PLAYER_DEFAULT_PROPS,
   test_asset: 'video',
+  height: 200,
+  width: 496,
   pdfLabels: {
     pageLabel: 'Página',
     paginatorLabel: 'de',
