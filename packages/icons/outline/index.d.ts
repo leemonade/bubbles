@@ -41,6 +41,7 @@ export { default as ComputerKeyboardPreviousIcon } from './ComputerKeyboardPrevi
 export { default as ComputerKeyboardReturnIcon } from './ComputerKeyboardReturnIcon'
 export { default as ComputerKeyboardIcon } from './ComputerKeyboardIcon'
 export { default as ComunicaIcon } from './ComunicaIcon'
+export { default as CursorPlayerIcon } from './CursorPlayerIcon'
 export { default as CursorIcon } from './CursorIcon'
 export { default as DataFileBarsQuestionIcon } from './DataFileBarsQuestionIcon'
 export { default as DeleteBinIcon } from './DeleteBinIcon'
