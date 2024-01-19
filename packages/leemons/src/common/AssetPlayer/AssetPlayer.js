@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { isFunction, isNil } from 'lodash';
 import { Box, ImageLoader, Text, COLORS, ModalZoom, TextClamp } from '@bubbles-ui/components';
-import { DownloadIcon } from '@bubbles-ui/icons/outline';
 import { AssetPlayerStyles } from './AssetPlayer.styles';
 import { ASSET_PLAYER_DEFAULT_PROPS, ASSET_PLAYER_PROP_TYPES } from './AssetPlayer.constants';
 import { ProgressBar } from './components/ProgressBar';
@@ -53,6 +52,8 @@ const AssetPlayer = ({
   useSchema,
   viewPDF,
   compact,
+  useAspectRatio,
+  showPlayButton,
   ...props
 }) => {
   const {
@@ -246,6 +247,7 @@ const AssetPlayer = ({
       showPlayer,
       useAudioCard,
       fullScreenMode,
+      useAspectRatio,
       framed,
     },
     { name: 'AssetPlayer' },
@@ -334,15 +336,17 @@ const AssetPlayer = ({
               )}
               {(!showPlayer || media.isAudio) && (
                 <Box className={classes.coverWrapper} onClick={handleInitPlay}>
-                  <Box
-                    className={classes.buttonIcon}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                    }}
-                  >
-                    <ButtonIcon fileType={'video'} />
-                  </Box>
+                  {showPlayButton && (
+                    <Box
+                      className={classes.buttonIcon}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                    >
+                      <ButtonIcon fileType={'video'} />
+                    </Box>
+                  )}
                   {cover && <ImageLoader height="100%" src={cover} alt={name} />}
                 </Box>
               )}
@@ -352,9 +356,11 @@ const AssetPlayer = ({
           <>
             {media.isImage && (
               <Box className={classes.coverWrapper}>
-                <Box className={classes.buttonIcon}>
-                  <ButtonIcon fileType={'image'} />
-                </Box>
+                {showPlayButton && (
+                  <Box className={classes.buttonIcon}>
+                    <ButtonIcon fileType={'image'} />
+                  </Box>
+                )}
                 <ModalZoom canPlay={canPlay}>
                   <ImageLoader height="100%" src={cover} alt={name} />
                 </ModalZoom>

@@ -26,6 +26,8 @@ export const ASSET_PLAYER_DEFAULT_PROPS = {
   useSchema: true,
   viewPDF: true,
   compact: false,
+  useAspectRatio: true,
+  showPlayButton: true,
 };
 export const ASSET_PLAYER_PROP_TYPES = {
   asset: ASSET_PROPS,
@@ -53,4 +55,6 @@ export const ASSET_PLAYER_PROP_TYPES = {
   useSchema: PropTypes.bool,
   viewPDF: PropTypes.bool,
   compact: PropTypes.bool,
+  useAspectRatio: PropTypes.bool,
+  showPlayButton: PropTypes.bool,
 };

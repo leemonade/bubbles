@@ -11,6 +11,7 @@ const AssetPlayerStyles = createStyles(
       framed,
       viewPDF,
       mediaRatio,
+      useAspectRatio,
       showPlayer,
       canPlay,
       useAudioCard,
@@ -26,25 +27,29 @@ const AssetPlayerStyles = createStyles(
       };
     }
 
-    const useMediaRatio = false;
-    // !media.isURL && !media.isImage && !media.isPDF && !(media.isAudio && useAudioCard);
+    const useMediaRatio =
+      useAspectRatio &&
+      !media.isURL &&
+      !media.isImage &&
+      !media.isPDF &&
+      !(media.isAudio && useAudioCard);
 
     return {
       rootWrapper: {
         width,
-        height: media.isPDF && viewPDF ? '100%' : height,
+        height: media.isPDF && viewPDF ? '100%' : !useAspectRatio && height,
         overflow: 'hidden',
       },
       root: {
         position: 'relative',
-        height: '100%', // media.isPDF && viewPDF ? '100%' : useMediaRatio && 0,
+        height: (media.isPDF && viewPDF) || !useAspectRatio ? '100%' : useMediaRatio && 0,
         width: '100%',
         paddingBottom: useMediaRatio && `${mediaRatio * 100}%`, // 16/9 aspect ratio
         ...styles,
         ...framedProps,
       },
       coverWrapper: {
-        position: 'absolute',
+        position: useAspectRatio ? 'relative' : 'absolute',
         cursor: canPlay && 'pointer',
         top: 0,
         bottom: 0,
