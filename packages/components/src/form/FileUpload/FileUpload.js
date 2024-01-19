@@ -123,6 +123,7 @@ const FileUpload = ({
           {...props}
           accept={accept}
           loading={loading}
+          disabled={disabled || loading}
           multiple={multipleUpload}
           onDrop={onDropHandler}
           classNames={classes}
@@ -206,22 +207,27 @@ const FileUpload = ({
                   </Box>
                 )}
               </Stack>
-              <Box noFlex>
-                <Button
-                  onClick={() => removeFile(index)}
-                  variant="link"
-                  leftIcon={<DeleteBinIcon height={16} width={16} />}
-                >
-                  Borrar
-                </Button>
-              </Box>
+              {!disabled && (
+                <Box noFlex>
+                  <Button
+                    disabled={disabled}
+                    onClick={() => removeFile(index)}
+                    variant="link"
+                    leftIcon={<DeleteBinIcon height={16} width={16} />}
+                  >
+                    Borrar
+                  </Button>
+                </Box>
+              )}
             </Stack>
           ))}
         </Stack>
       )}
       {!hideUploadButton && (
         <Box className={classes.uploadButton}>
-          <Button onClick={() => openRef.current()}>Upload</Button>
+          <Button onClick={() => openRef.current()} disabled={disabled || loading}>
+            Upload
+          </Button>
         </Box>
       )}
     </Box>
