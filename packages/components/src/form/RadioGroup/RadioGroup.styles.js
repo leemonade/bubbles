@@ -1,13 +1,15 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
-export const RadioGroupStyles = createStyles(
+const RadioGroupStyles = createStyles(
   (theme, { variant, value, direction, fullWidth, activePosition, hasError, rounded }) => {
     const isColumn = direction === 'column';
-    const isDefault = variant == 'default' || variant === 'image';
-    const isIcon = variant == 'icon';
+    const isDefault = variant === 'default' || variant === 'image';
+    const isIcon = variant === 'icon';
     const isBoxed = variant === 'boxed';
     const isImage = variant === 'image';
+
+    console.log('theme:', theme.other);
 
     return {
       root: {
@@ -35,7 +37,9 @@ export const RadioGroupStyles = createStyles(
         display: !value || isDefault ? 'none' : null,
         boxShadow:
           value && !isDefault
-            ? `inset 0 0 0 1px ${isIcon ? theme.colors.interactive01d : theme.colors.ui01}`
+            ? `inset 0 0 0 1px ${
+                isIcon ? theme.other.button.border.color.secondary.default : theme.colors.ui01
+              }`
             : null,
         borderRadius: rounded && !isImage ? 4 : 0,
         top: 4,
@@ -53,5 +57,7 @@ export const RadioGroupStyles = createStyles(
         },
       },
     };
-  }
+  },
 );
+
+export { RadioGroupStyles };

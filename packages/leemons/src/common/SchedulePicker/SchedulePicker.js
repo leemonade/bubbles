@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, forEach, isEmpty, isFunction } from 'lodash';
+import { find, forEach, isEmpty, isFunction, noop } from 'lodash';
 import {
   Badge,
   Box,
@@ -12,7 +12,7 @@ import {
   useId,
 } from '@bubbles-ui/components';
 import { PluginCalendarIcon } from '@bubbles-ui/icons/outline';
-import { ScheduleForm } from './ScheduleForm/';
+import { ScheduleForm } from './ScheduleForm';
 import { SchedulePickerStyles } from './SchedulePicker.styles';
 
 export const SCHEDULE_PICKER_DEFAULT_PROPS = {
@@ -44,6 +44,8 @@ export const SCHEDULE_PICKER_PROP_TYPES = {
   value: PropTypes.object,
   readOnly: PropTypes.bool,
   disabled: PropTypes.bool,
+  firstDayOfWeek: PropTypes.number,
+  onChange: PropTypes.func,
 };
 
 const SchedulePicker = forwardRef(
@@ -56,19 +58,19 @@ const SchedulePicker = forwardRef(
       placeholders,
       helps,
       errorMessages,
-      firstDayOfWeek = 1,
       locale,
       value,
-      onChange,
       readOnly,
       disabled,
+      firstDayOfWeek = 1,
+      onChange = noop,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [openForm, setOpenForm] = useState(false);
     const [canOpen, setCanOpen] = useState(!disabled);
-    const [localeWeekdays, setlocaleWeekdays] = useState([]);
+    const [localeWeekdays, setLocaleWeekdays] = useState([]);
     const [schedule, setSchedule] = useState(value || { days: [] });
     const inputRef = useRef(null);
 
@@ -84,17 +86,17 @@ const SchedulePicker = forwardRef(
       import(`dayjs/locale/${locale}.js`).then((e) => {
         orderedWeekdays = [...e.weekdays];
         if (firstDayOfWeek > 0) {
-          const e = [...Array(firstDayOfWeek).keys()];
-          forEach(e, () => {
+          const days = [...Array(firstDayOfWeek).keys()];
+          forEach(days, () => {
             orderedWeekdays.push(orderedWeekdays.shift());
           });
         }
-        setlocaleWeekdays(
+        setLocaleWeekdays(
           orderedWeekdays.map((day, index) => {
             let dayLabel = day.substring(0, 2);
             dayLabel = dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1);
-            return { label: dayLabel, value: { index: e.weekdays.indexOf(day) }, day: day };
-          })
+            return { label: dayLabel, value: { index: e.weekdays.indexOf(day) }, day };
+          }),
         );
       });
     }, [locale]);
@@ -102,7 +104,7 @@ const SchedulePicker = forwardRef(
     const handleOnChange = (e) => {
       // if (e.days.length === 0) return;
       setSchedule(e);
-      isFunction(onChange) && onChange(e);
+      onChange(e);
     };
 
     const uuid = useId();
@@ -133,9 +135,7 @@ const SchedulePicker = forwardRef(
                   onClose={() => {
                     setSchedule({
                       ...schedule,
-                      days: schedule.days.filter((item) => {
-                        return item.dayWeek !== day.dayWeek;
-                      }),
+                      days: schedule.days.filter((item) => item.dayWeek !== day.dayWeek),
                     });
                   }}
                 />
@@ -160,7 +160,7 @@ const SchedulePicker = forwardRef(
                   <Box className={classes.values}>
                     {!isEmpty(localeWeekdays) &&
                       schedule.days.map((day) => {
-                        const label = find(localeWeekdays, { value: { index: day.dayWeek } }).label;
+                        const { label } = find(localeWeekdays, { value: { index: day.dayWeek } });
                         return (
                           <Badge
                             key={day.dayWeek}
@@ -170,9 +170,7 @@ const SchedulePicker = forwardRef(
                             onClose={() => {
                               setSchedule({
                                 ...schedule,
-                                days: schedule.days.filter((item) => {
-                                  return item.dayWeek !== day.dayWeek;
-                                }),
+                                days: schedule.days.filter((item) => item.dayWeek !== day.dayWeek),
                               });
                             }}
                           />
@@ -212,9 +210,10 @@ const SchedulePicker = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+SchedulePicker.displayName = 'SchedulePicker';
 SchedulePicker.defaultProps = SCHEDULE_PICKER_DEFAULT_PROPS;
 SchedulePicker.propTypes = SCHEDULE_PICKER_PROP_TYPES;
 

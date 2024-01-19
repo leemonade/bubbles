@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontProductive } from '@bubbles-ui/components';
 
-export const SchedulePickerStyles = createStyles((theme, {}) => {
+const SchedulePickerStyles = createStyles((theme, {}) => {
   const inputLineHeight = theme.other.input.content.typo.lineHeight;
   return {
     root: {
@@ -14,7 +14,7 @@ export const SchedulePickerStyles = createStyles((theme, {}) => {
     wrapper: {
       display: 'flex',
       position: 'relative',
-      paddingRight: 10,
+      padding: 3,
       width: '100%',
     },
     values: {
@@ -43,3 +43,5 @@ export const SchedulePickerStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { SchedulePickerStyles };

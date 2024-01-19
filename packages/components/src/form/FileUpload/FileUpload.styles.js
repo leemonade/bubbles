@@ -29,7 +29,7 @@ const getDisabledStyles = (disabled, theme) => {
   };
 };
 
-const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError }) => {
+const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError, fullWidth }) => {
   const hideDropzone = single && files.length > 0;
   const dropzoneTheme = theme.other.dropzone;
 
@@ -72,13 +72,12 @@ const FileUploadStyles = createStyles((theme, { disabled, single, files, hasErro
       color: dropzoneTheme.content.color['default--subtle'],
     },
     droppedFile: {
-      minWidth: 500,
+      // minWidth: 500,
       // padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
     },
     fileList: {
       marginTop: !hideDropzone && pxToRem(theme.spacing[4]),
-      // border: `1px solid ${theme.colors.interactive01h}`,
-      // borderRadius: pxToRem(2),
+      width: 'min-content',
     },
     errorAlert: {
       marginTop: pxToRem(theme.spacing[4]),

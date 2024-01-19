@@ -1,14 +1,10 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
-import {
-  DeleteBinIcon,
-  SynchronizeArrowIcon,
-  RemoveCircleIcon,
-  CheckCircleIcon,
-} from '@bubbles-ui/icons/outline/';
-import { isEmpty, isFunction, isString } from 'lodash';
+import { SynchronizeArrowIcon, RemoveCircleIcon, CheckCircleIcon } from '@bubbles-ui/icons/outline';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { isEmpty, isFunction } from 'lodash';
 import { FileUploadStyles } from './FileUpload.styles';
 import { Stack, Box } from '../../layout';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
@@ -16,6 +12,16 @@ import { Alert } from '../../feedback/Alert';
 import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
 import { Button } from '../Button';
 import { Loader } from '../../../lib/feedback/Loader/Loader';
+
+function getRemoveButtonLabel(label) {
+  // return label or "Remove" in brower language
+  return label || navigator.language === 'es' ? 'Borrar' : 'Remove';
+}
+
+function getUploadButtonLabel(label) {
+  // return label or "Upload" in brower language
+  return label || navigator.language === 'es' ? 'Subir' : 'Upload';
+}
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
@@ -27,6 +33,8 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   initialFiles: [],
   inputWrapperProps: {},
   useAria: true,
+  fullWidth: false,
+  labels: {},
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -42,12 +50,17 @@ export const FILE_UPLOAD_PROP_TYPES = {
     title: PropTypes.string,
     message: PropTypes.string,
   }),
+  labels: PropTypes.shape({
+    removeButton: PropTypes.string,
+    uploadButton: PropTypes.string,
+  }),
   hideUploadButton: PropTypes.bool,
   single: PropTypes.bool,
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
   accept: PropTypes.arrayOf(PropTypes.string),
   useAria: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -66,6 +79,8 @@ const FileUpload = ({
   initialFiles,
   accept,
   useAria,
+  labels,
+  fullWidth,
   ...props
 }) => {
   const openRef = useRef();
@@ -101,7 +116,7 @@ const FileUpload = ({
   }, [initialFiles]);
 
   const { classes, theme } = FileUploadStyles(
-    { disabled, single, files, hasError },
+    { disabled, single, files, hasError, fullWidth },
     { name: 'FileUpload' },
   );
 
@@ -160,7 +175,12 @@ const FileUpload = ({
       {files.length > 0 && (
         <Stack spacing={4} className={classes.fileList} direction={'column'}>
           {files.map((file, index) => (
-            <Stack key={index} alignItems="center" spacing={4} className={classes.droppedFile}>
+            <Stack
+              key={`${file.name}-${index}`}
+              alignItems="center"
+              spacing={4}
+              className={classes.droppedFile}
+            >
               <Stack
                 className={classes.fileItemDisplay}
                 spacing={4}
@@ -213,9 +233,9 @@ const FileUpload = ({
                     disabled={disabled}
                     onClick={() => removeFile(index)}
                     variant="link"
-                    leftIcon={<DeleteBinIcon height={16} width={16} />}
+                    leftIcon={<DeleteBinIcon height={18} width={18} />}
                   >
-                    Borrar
+                    {getRemoveButtonLabel(labels?.removeButton)}
                   </Button>
                 </Box>
               )}
@@ -226,7 +246,7 @@ const FileUpload = ({
       {!hideUploadButton && (
         <Box className={classes.uploadButton}>
           <Button onClick={() => openRef.current()} disabled={disabled || loading}>
-            Upload
+            {getUploadButtonLabel(labels?.uploadButton)}
           </Button>
         </Box>
       )}
