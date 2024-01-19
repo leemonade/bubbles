@@ -18,7 +18,7 @@ import {
 import { TotalLayoutContainer } from '../TotalLayout/TotalLayoutContainer/TotalLayoutContainer';
 
 export default {
-  title: 'Atoms/Layout/VerticalStepperContainer',
+  title: 'Atoms/Layout/VerticalContainer',
   parameters: {
     component: VerticalContainer,
     docs: {
