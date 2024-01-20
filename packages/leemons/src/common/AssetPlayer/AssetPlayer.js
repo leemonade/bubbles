@@ -253,10 +253,6 @@ const AssetPlayer = ({
     { name: 'AssetPlayer' },
   );
 
-  console.log('AssetPlayer -> URL:', url);
-  console.log('AssetPlayer -> fileType:', fileType);
-  console.log('AssetPlayer -> media:', media);
-
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.root} ref={rootRef}>
