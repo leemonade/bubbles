@@ -6,7 +6,6 @@ import {
   LIBRARY_DETAIL_PLAYER_DEFAULT_PROPS,
   LIBRARY_DETAIL_PLAYER_PROP_TYPES,
 } from './LibraryDetailPlayer.constants';
-import { AssetPlayer } from '../../common';
 
 const LibraryDetailPlayer = ({
   name,
@@ -35,7 +34,7 @@ const LibraryDetailPlayer = ({
   const { classes, cx } = LibraryDetailPlayerStyles({ color }, { name: 'LibraryDetailPlayer' });
   return (
     <Box className={classes.root}>
-      <AssetPlayer height={height} asset={asset} hideURLInfo viewPDF={false} compact />
+      {/* <AssetPlayer height={height} asset={asset} hideURLInfo viewPDF={false} compact /> */}
       <Box className={classes.color} />
       <Box className={classes.titleRow}>
         <TextClamp lines={6}>
