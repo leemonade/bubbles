@@ -2445,6 +2445,14 @@
         "width": {
           "value": "{global.border.width.sm}",
           "type": "borderWidth"
+        },
+        "style": {
+          "value": {
+            "style": "dashed",
+            "width": "2px",
+            "color": "{dropzone.border.color.default}"
+          },
+          "type": "border"
         }
       }
     },
@@ -7295,8 +7303,8 @@
             "value": {
               "fontFamily": "{core.font.family.main}",
               "fontWeight": "{core.font.weight.medium}",
-              "lineHeight": "{core.font.lineHeight.600}px",
-              "fontSize": "48 px"
+              "lineHeight": "{core.font.lineHeight.500}px",
+              "fontSize": "40 px"
             },
             "type": "typography"
           },

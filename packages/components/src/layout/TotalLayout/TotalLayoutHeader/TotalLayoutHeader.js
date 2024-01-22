@@ -32,6 +32,16 @@ const TotalLayoutHeader = ({
     { name: 'TotalLayoutHeader' },
   );
 
+  function getTitle() {
+    if (!title) return null;
+    const separator = formValues.title || formTitlePlaceholder ? ':' : '';
+    return (
+      <Text as="h3" className={classes.headerTitle} color="primary" strong transform="uppercase">
+        {compact ? `${title}${separator}` : title}
+      </Text>
+    );
+  }
+
   return (
     <Stack fullWidth fullHeight className={classes.headerContainer} direction="column">
       <Stack fullWidth justifyContent="space-between" className={classes.header}>
@@ -45,16 +55,7 @@ const TotalLayoutHeader = ({
               alignItems={compact ? 'center' : 'start'}
               direction={compact ? 'row' : 'column'}
             >
-              <Text
-                as="h3"
-                className={classes.headerTitle}
-                color="primary"
-                strong
-                transform="uppercase"
-              >
-                {compact ? `${title}:` : title}
-              </Text>
-
+              {getTitle()}
               <Text as="h3" className={classes.headerSubtitle} color="primary">
                 {formValues.title || formTitlePlaceholder}
               </Text>

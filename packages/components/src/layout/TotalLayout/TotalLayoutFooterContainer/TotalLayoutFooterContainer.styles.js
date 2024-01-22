@@ -12,7 +12,7 @@ const TotalLayoutFooterContainerStyles = createStyles(
       position: fixed ? 'fixed' : 'relative',
       bottom: 0,
       '@media (min-width: 1920px)': {
-        maxWidth: 1200,
+        maxWidth: 1400,
       },
     },
   }),

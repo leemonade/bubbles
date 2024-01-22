@@ -10,7 +10,7 @@ const TotalLayoutStepContainerStyles = createStyles(
       marginRight: fullWidth && !noMargin ? theme.spacing[5] : 0,
       height: '100%',
       '@media (min-width: 1920px)': {
-        maxWidth: 1200,
+        maxWidth: 1400,
       },
     },
     formContainer: {

@@ -419,6 +419,14 @@ export default {
       "width": {
         "value": "1px",
         "type": "borderWidth"
+      },
+      "style": {
+        "value": {
+          "style": "dashed",
+          "width": "2px",
+          "color": "#DDE1E6"
+        },
+        "type": "border"
       }
     }
   },
@@ -1153,7 +1161,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#ffffff26",
+          "color": "#ffffff",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1234,8 +1242,17 @@ export default {
             "type": "color"
           },
           "hover--reverse-transparent": {
-            "value": "#ffffff26",
-            "type": "color"
+            "value": "#ffffff",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.15",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#F1FFBD",
@@ -4930,12 +4947,30 @@ export default {
       "color": {
         "primary": {
           "default": {
-            "value": "#4d535866",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "hover": {
-            "value": "#4d5358b3",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.7",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#4D5358",
@@ -5469,8 +5504,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 500,
-            "lineHeight": "40px",
-            "fontSize": "48 px"
+            "lineHeight": "32px",
+            "fontSize": "40 px"
           },
           "type": "typography"
         },
