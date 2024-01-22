@@ -65,7 +65,7 @@ const Textarea = forwardRef(
     const [labels, setLabels] = useState(counterLabels);
     const uuid = useId();
 
-    const { classes, cx } = TextareaStyles({ size }, { name: 'Textarea' });
+    const { classes, cx } = TextareaStyles({ size, textareaStyles }, { name: 'Textarea' });
 
     // ·············································································
     // LABELS
@@ -143,7 +143,6 @@ const Textarea = forwardRef(
               placeholder={placeholder}
               rightSection={rightSection}
               name={name}
-              style={textareaStyles}
               disabled={disabled}
               onBlur={onBlur}
               onChange={handleOnChange}
