@@ -9,6 +9,7 @@ import {
   ACTIVITY_ACCORDION_DEFAULT_PROPS,
   ACTIVITY_ACCORDION_PROP_TYPES,
 } from './ActivityAccordion.constants';
+import { Divider } from '../../../lib/layout/Divider/Divider';
 
 function AccordionLabel({ label, title, icon, hideIcon, rightSection, compact, classes }) {
   return (
@@ -48,7 +49,7 @@ AccordionLabel.propTypes = {
   classes: PropTypes.any,
 };
 
-const ActivityAccordion = ({ children, compact, ...props }) => {
+const ActivityAccordion = ({ children, compact, withoutDivider, ...props }) => {
   const { classes, cx } = ActivityAccordionStyles({ compact }, { name: 'ActivityAccordion' });
 
   return (
@@ -57,16 +58,19 @@ const ActivityAccordion = ({ children, compact, ...props }) => {
         if (!child) return null;
         const { children: panelContent, color, ...panelProps } = child.props;
         return (
-          <Accordion.Item value={panelProps.itemValue || panelProps.label || `Panel ${index}`}>
-            <Accordion.Control>
-              <AccordionLabel {...panelProps} compact={compact} classes={classes} />
-            </Accordion.Control>
-            <Accordion.Panel>
-              <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
-                {panelContent}
-              </Box>
-            </Accordion.Panel>
-          </Accordion.Item>
+          <>
+            <Accordion.Item value={panelProps.itemValue || panelProps.label || `Panel ${index}`}>
+              <Accordion.Control>
+                <AccordionLabel {...panelProps} compact={compact} classes={classes} />
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Box className={cx(classes.content, { [classes.contentSolid]: color === 'solid' })}>
+                  {panelContent}
+                </Box>
+              </Accordion.Panel>
+            </Accordion.Item>
+            {!withoutDivider && <Divider />}
+          </>
         );
       })}
     </Accordion>

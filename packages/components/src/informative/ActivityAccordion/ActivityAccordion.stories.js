@@ -26,48 +26,46 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return (
-    <Box sx={(theme) => ({ backgroundColor: theme.colors.ui02, padding: theme.spacing[9] })}>
-      <ActivityAccordion {...props}>
-        <ActivityAccordionPanel
-          label="Test 1"
-          color="solid"
-          icon={<AlarmBellCheckIcon />}
-          rightSection={<Badge label="35" size="md" color="stroke" closable={false} />}
-        >
-          <Box p={20}>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-          </Box>
-        </ActivityAccordionPanel>
+const Template = ({ ...props }) => (
+  <Box sx={(theme) => ({ padding: theme.spacing[9] })}>
+    <ActivityAccordion {...props}>
+      <ActivityAccordionPanel
+        label="Test 1"
+        color="solid"
+        icon={<AlarmBellCheckIcon />}
+        rightSection={<Badge label="35" size="md" color="stroke" closable={false} />}
+      >
+        <Box p={20}>
+          <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
+          </Paragraph>
+        </Box>
+      </ActivityAccordionPanel>
 
-        <ActivityAccordionPanel
-          label="Test 2"
-          icon={<BoardEducationIcon />}
-          rightSection={<Badge label="Optional" closable={false} />}
-        >
-          <Box p={20}>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-          </Box>
-        </ActivityAccordionPanel>
-      </ActivityAccordion>
-    </Box>
-  );
-};
+      <ActivityAccordionPanel
+        label="Test 2"
+        icon={<BoardEducationIcon />}
+        rightSection={<Badge label="Optional" closable={false} />}
+      >
+        <Box p={20}>
+          <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
+          </Paragraph>
+        </Box>
+      </ActivityAccordionPanel>
+    </ActivityAccordion>
+  </Box>
+);
 
 export const Playground = Template.bind({});
 
