@@ -4,7 +4,6 @@ export * from './HeaderBackground';
 export * from './HeaderDropdown';
 export * from './TaskDeadlineHeader';
 export * from './TaskHeader';
-export * from './AssetPlayer';
 export * from './TaskDeadline';
 export * from './ClassroomHeaderBar';
 export * from './UserDetailModal';

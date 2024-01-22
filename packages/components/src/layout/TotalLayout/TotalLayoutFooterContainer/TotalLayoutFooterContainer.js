@@ -13,6 +13,7 @@ const TotalLayoutFooterContainer = ({
   children,
   fullWidth,
   showFooterBorder: _showFooterBorder,
+  style,
 }) => {
   const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const { classes } = TotalLayoutFooterContainerStyles(
@@ -51,7 +52,7 @@ const TotalLayoutFooterContainer = ({
 
   return (
     <Stack justifyContent="center" fullWidth>
-      <Box className={classes.footer}>
+      <Box className={classes.footer} style={style}>
         <Stack fullWidth style={{ height: 72, padding: '16px 24px' }}>
           <Stack direction="row" spacing={2} noFlex>
             {leftZone}
@@ -75,6 +76,8 @@ TotalLayoutFooterContainer.propTypes = {
   children: PropTypes.node,
   fixed: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  showFooterBorder: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export { TotalLayoutFooterContainer };

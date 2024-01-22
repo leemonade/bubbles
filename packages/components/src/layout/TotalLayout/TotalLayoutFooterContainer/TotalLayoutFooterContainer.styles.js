@@ -4,7 +4,7 @@ const TotalLayoutFooterContainerStyles = createStyles(
   (theme, { showFooterBorder, leftOffset, fullWidth, fixed }) => ({
     root: {},
     footer: {
-      width: fullWidth ? '100%' : 928,
+      width: fullWidth ? 'calc(100% - 100px)' : 928,
       marginLeft: leftOffset,
       backgroundColor: 'white',
       borderTop: showFooterBorder && `1px solid ${theme.other.divider.background.color.default}`,

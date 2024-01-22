@@ -1,6 +1,4 @@
 import React from 'react';
-import { mock } from './mock/mock';
-import { TaskHeader, AssetPlayer } from '../../common';
 import { ChevLeftIcon } from '@bubbles-ui/icons/outline';
 import { TextEditorInput } from '@bubbles-ui/editors';
 import {
@@ -15,6 +13,8 @@ import {
   VerticalStepper,
   ContextContainer,
 } from '@bubbles-ui/components';
+import { TaskHeader } from '../../common';
+import { mock } from './mock/mock';
 
 import { TaskOngoingDetailStyles } from './TaskOngoingDetail.styles';
 import {
@@ -80,7 +80,7 @@ const TaskOngoingDetail = ({ ...props }) => {
             </ScoreFeedback>
           </ContextContainer>
           <ContextContainer title={mock.video}>
-            <AssetPlayer {...mock.assetPlayer} />
+            {/* <AssetPlayer {...mock.assetPlayer} /> */}
           </ContextContainer>
           <ContextContainer title={mock.score}>
             <ScoreInput {...mock.scoreInput} />

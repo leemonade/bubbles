@@ -14,7 +14,6 @@ import {
 import { capitalize, isEmpty, isFunction } from 'lodash';
 import { ControlsPauseIcon, ControlsPlayIcon } from '@bubbles-ui/icons/solid';
 import { DownloadIcon, OpenIcon, ExternalLinkIcon } from '@bubbles-ui/icons/outline';
-import { AssetPlayer } from '../../common';
 import { LibraryCardEmbedStyles } from './LibraryCardEmbed.styles';
 import {
   LIBRARY_CARD_EMBED_DEFAULT_PROPS,
@@ -109,8 +108,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
   const getMediaHeight = () => {
     if (!rootRef.current) return;
     const mediaRatio = getMediaRatio();
-    const mediaHeight = width / mediaRatio;
-    return mediaHeight;
+    return width / mediaRatio;
   };
 
   useEffect(() => {
@@ -121,7 +119,7 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
 
   const { classes, cx } = LibraryCardEmbedStyles(
     { showPlayer, fullScreenMode, color, variant, fileType },
-    { name: 'LibraryCardEmbed' }
+    { name: 'LibraryCardEmbed' },
   );
   return (
     <Box ref={rootRef} className={classes.root}>
@@ -185,7 +183,9 @@ const LibraryCardEmbed = ({ asset, variant, labels, onDownload, actionIcon, ...p
           </Box>
         </Stack>
       ) : (
-        <AssetPlayer asset={asset} playing={isPlaying} controlBar framed />
+        {
+          /* <AssetPlayer asset={asset} playing={isPlaying} controlBar framed /> */
+        }
       )}
     </Box>
   );

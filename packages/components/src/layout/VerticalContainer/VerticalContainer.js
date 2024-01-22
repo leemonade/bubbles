@@ -8,7 +8,7 @@ import {
 } from './VerticalContainer.constants';
 
 const VerticalContainer = forwardRef(({ children, scrollRef, leftZone, ...props }, ref) => {
-  const { classes } = VerticalContainerStyles({ name: 'VerticalStepperContainer' });
+  const { classes } = VerticalContainerStyles({ name: 'VerticalContainer' });
 
   return (
     <Box ref={ref} className={classes.root}>

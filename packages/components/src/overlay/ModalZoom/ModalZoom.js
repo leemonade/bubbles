@@ -1,31 +1,42 @@
 import React, { useState, useRef } from 'react';
 import { Portal } from '@mantine/core';
+import { noop } from 'lodash';
 import { RemoveIcon, ZoomInIcon, ZoomOutIcon } from '@bubbles-ui/icons/outline';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { Box } from '../../layout/Box';
 import { ModalZoomStyles } from './ModalZoom.styles';
 import { MODAL_ZOOM_DEFAULT_PROPS, MODAL_ZOOM_PROP_TYPES } from './ModalZoom.constants';
 
-const ModalZoom = ({ children, canPlay, style }) => {
-  const [open, setOpen] = useState(false);
+const ModalZoom = ({ children, canPlay, opened, hideButton, onClose = noop, style }) => {
+  const [open, setOpen] = useState(opened);
   const center = useRef(null);
 
   const { classes } = ModalZoomStyles({}, { name: 'ModalZoom' });
 
+  React.useEffect(() => {
+    if(opened !== open) {
+      setOpen(opened);
+      center.current?.call();
+    }
+  }, [opened])
+
   return (
     <>
-      <Box
-        style={{ cursor: canPlay && 'pointer', ...style }}
-        onClick={() => {
-          if (!canPlay) return;
-          if (center.current) {
-            center.current.call();
-          }
-          setOpen(true);
-        }}
-      >
-        {children}
-      </Box>
+      {!hideButton && (
+        <Box
+          style={{ cursor: canPlay && 'pointer', ...style }}
+          onClick={() => {
+            if (!canPlay) return;
+            if (center.current) {
+              center.current.call();
+            }
+            setOpen(true);
+          }}
+        >
+          {children}
+        </Box>
+      )}
+
       {open && (
         <Portal zIndex={99999}>
           <Box className={classes.modalWrapper}>
@@ -33,6 +44,7 @@ const ModalZoom = ({ children, canPlay, style }) => {
               className={classes.close}
               onClick={() => {
                 setOpen(false);
+                onClose();
               }}
             >
               <RemoveIcon />

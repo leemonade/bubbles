@@ -115,6 +115,7 @@ const ImagePreviewInput = ({
             style={{ ...previewStyle }}
             useAria={useAria}
             bordered
+            forceImage
           />
           {!readonly && !disabled ? (
             <Box noFlex>
