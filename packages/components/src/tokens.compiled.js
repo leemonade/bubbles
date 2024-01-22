@@ -419,6 +419,14 @@ export default {
       "width": {
         "value": "1px",
         "type": "borderWidth"
+      },
+      "style": {
+        "value": {
+          "style": "dashed",
+          "width": "2px",
+          "color": "#DDE1E6"
+        },
+        "type": "border"
       }
     }
   },
@@ -5469,8 +5477,8 @@ export default {
           "value": {
             "fontFamily": "Albert Sans",
             "fontWeight": 500,
-            "lineHeight": "40px",
-            "fontSize": "48 px"
+            "lineHeight": "32px",
+            "fontSize": "40 px"
           },
           "type": "typography"
         },
