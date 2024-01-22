@@ -100,22 +100,26 @@ const ActivityAnswersBar = ({
           colors={['#50B579', '#DC5571', '#B9BEC4']}
           animate={false}
           layers={['axes', 'bars', 'grid', 'markers', 'legends']}
-          legends={[
-            {
-              dataFrom: 'keys',
-              anchor: 'bottom-left',
-              direction: 'row',
-              justify: false,
-              translateX: withLegend ? 0 : -4000,
-              translateY: 70,
-              itemsSpacing: 2,
-              itemWidth: 100,
-              itemHeight: 20,
-              itemDirection: 'left-to-right',
-              symbolSize: 20,
-              symbolShape: CustomLegend,
-            },
-          ]}
+          legends={
+            !withLegend
+              ? []
+              : [
+                  {
+                    dataFrom: 'keys',
+                    anchor: 'bottom-left',
+                    direction: 'row',
+                    justify: false,
+                    translateX: -(longestKeyCharacters * MARGIN_FOR_CHAR + 18),
+                    translateY: 70,
+                    itemsSpacing: 2,
+                    itemWidth: 100,
+                    itemHeight: 20,
+                    itemDirection: 'left-to-right',
+                    symbolSize: 20,
+                    symbolShape: CustomLegend,
+                  },
+                ]
+          }
           legendLabel={getLegends}
           axisBottom={{ tickSize: 0, tickPadding: 10, tickValues: getMaxValue() }}
           axisLeft={{
