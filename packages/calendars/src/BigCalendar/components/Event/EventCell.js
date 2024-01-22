@@ -12,7 +12,7 @@ const emptyPixel =
 function eventCellStylesRoot(
   colors,
   {
-    zIndex = -1,
+    zIndex = 0,
     desaturateColor = true,
     rotate = 0,
     isAllDay,
@@ -25,7 +25,7 @@ function eventCellStylesRoot(
     leftArrow,
     printMode,
   },
-  imp
+  imp,
 ) {
   const data = {
     position: 'relative',
@@ -35,8 +35,8 @@ function eventCellStylesRoot(
         ? _.isArray(bgColor)
           ? bgColor[0]
           : desaturateColor
-          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-          : bgColor
+            ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+            : bgColor
         : colors.uiBackground01
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
@@ -132,10 +132,10 @@ const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, printMode) 
         ? '14px 0px 14px 4px'
         : '16px 0 16px 4px'
       : leftArrow
-      ? printMode
-        ? '14px 4px 14px 0px'
-        : '16px 4px 16px 0px'
-      : undefined,
+        ? printMode
+          ? '14px 4px 14px 0px'
+          : '16px 4px 16px 0px'
+        : undefined,
     borderColor: transparentBgColor
       ? 'transparent transparent transparent transparent'
       : `transparent ${leftArrow ? colord(bgColor).toRgbString() : 'transparent'} transparent ${
@@ -174,7 +174,7 @@ const eventCellStyles = createStyles(
       printMode,
       bgStartGradient,
       bgEndGradient,
-    }
+    },
   ) => {
     const root = eventCellStylesRoot(
       theme.colors,
@@ -192,7 +192,7 @@ const eventCellStyles = createStyles(
         leftArrow,
         printMode,
       },
-      true
+      true,
     );
     let item = {};
     if (!isMonthView) {
@@ -270,7 +270,7 @@ const eventCellStyles = createStyles(
         ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
     };
-  }
+  },
 );
 
 export function sameDay(d1, d2) {

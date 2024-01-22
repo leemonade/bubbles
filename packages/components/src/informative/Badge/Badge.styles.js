@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getFontProductive } from '../../theme.mixins';
+import { getFontProductive, pxToRem } from '../../theme.mixins';
 
 const getPadding = (size, isMedium, image, severity) => {
   const isMediumImage = !!image && isMedium;
@@ -61,7 +61,7 @@ const getColor = (theme, color) => {
 };
 
 export const BadgeStyles = createStyles(
-  (theme, { size, color, image, radius, severity, hasOnClick, labelStyles }) => {
+  (theme, { size, color, image, radius, severity, disableHover, hasOnClick, labelStyles }) => {
     const isLarge = size === 'lg';
     const isSmall = size === 'xs';
     const isMedium = size === 'md';
@@ -124,6 +124,7 @@ export const BadgeStyles = createStyles(
         paddingLeft: image && (isSmall ? pxToRem(29) : isMedium ? pxToRem(40) : null),
         height: 'auto',
         cursor: hasOnClick && 'pointer',
+        pointerEvents: disableHover ? 'none' : 'auto',
         ...getSeverity(),
       },
       inner: {

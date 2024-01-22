@@ -57,9 +57,10 @@ const Textarea = forwardRef(
       autoComplete,
       onKeyPress = () => {},
       rightSection,
+      textareaStyles,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [labels, setLabels] = useState(counterLabels);
     const uuid = useId();
@@ -142,6 +143,7 @@ const Textarea = forwardRef(
               placeholder={placeholder}
               rightSection={rightSection}
               name={name}
+              style={textareaStyles}
               disabled={disabled}
               onBlur={onBlur}
               onChange={handleOnChange}
@@ -160,7 +162,7 @@ const Textarea = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
 Textarea.defaultProps = TEXTAREA_DEFAULT_PROPS;
