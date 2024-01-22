@@ -53,6 +53,7 @@ const Badge = forwardRef(
       className,
       children,
       onClick,
+      disableHover,
       useAria,
       ...props
     },
@@ -66,7 +67,16 @@ const Badge = forwardRef(
     }
 
     const { classes, cx } = BadgeStyles(
-      { size, color, image, radius, severity, hasOnClick: isFunction(onClick), labelStyles },
+      {
+        size,
+        color,
+        image,
+        radius,
+        disableHover,
+        severity,
+        hasOnClick: isFunction(onClick),
+        labelStyles,
+      },
       { name: 'Badge' },
     );
 

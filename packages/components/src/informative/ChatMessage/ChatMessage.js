@@ -13,6 +13,7 @@ const ChatMessage = ({
   isOnline,
   locale,
   selected,
+  previoudMessageIsSameUser,
   highlight,
   showUser = true,
   showUserName = true,
@@ -20,7 +21,7 @@ const ChatMessage = ({
   isAdmin,
 }) => {
   const { classes } = ChatMessageStyles(
-    { isOwn, isTeacher, isAdmin, selected },
+    { isOwn, isTeacher, isAdmin, selected, previoudMessageIsSameUser },
     { name: 'ChatMessage' },
   );
   const fullName = getUserFullName(user);
