@@ -9,7 +9,7 @@ const Average = ({ label, score, minGrade, maxGrade, ...props }) => {
   const renderScore = () => (
     <>
       <span className={classes.score}>
-        {score.letter || Number.isInteger(score.number) ? score.number : score.number.toFixed(2)}
+        {score.letter || Number.isInteger(score.number) ? score.number : score.number?.toFixed(2)}
       </span>
       {!score.letter && <span>{`/${maxGrade}`}</span>}
     </>

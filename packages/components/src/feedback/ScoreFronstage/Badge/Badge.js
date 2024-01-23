@@ -8,7 +8,7 @@ const Badge = ({ score, minGrade, nonCalificable, ...props }) => {
 
   return (
     <Box className={classes.root}>
-      {score.letter || Number.isInteger(score.number) ? score.number : score.number.toFixed(2)}
+      {score.letter || Number.isInteger(score.number) ? score.number : score.number?.toFixed(2)}
     </Box>
   );
 };
