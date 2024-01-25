@@ -5,7 +5,6 @@ export const PROGRESSCOLORBAR_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export const PROGRESSCOLORBAR_DEFAULT_PROPS = {
   animate: false,
-  color: 'orange',
   label: '',
   labelLeft: 'labelLeft',
   labelRight: 'LabelRight',

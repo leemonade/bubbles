@@ -1,6 +1,7 @@
 import React from 'react';
 import { Progress as MantineProgress } from '@mantine/core';
 import { Box, Text } from '@bubbles-ui/components';
+import { isEmpty, trim } from 'lodash';
 import {
   PROGRESSCOLORBAR_DEFAULT_PROPS,
   PROGRESSCOLORBAR_PROP_TYPES,
@@ -10,7 +11,7 @@ import { ProgressColorBarStyles } from './ProgressColorBar.styles';
 const ProgressColorBar = ({
   animate,
   label,
-  color,
+  color: colorProp,
   radius,
   sections,
   size,
@@ -20,13 +21,17 @@ const ProgressColorBar = ({
   labelRight,
 }) => {
   const { classes, theme } = ProgressColorBarStyles();
-  if (value < 25) {
-    color = theme.other.progress.content.color.phatic.negative;
-  } else if (value < 75) {
-    color = theme.other.progress.content.color.phatic.attention;
-  } else {
-    color = theme.other.progress.content.color.phatic.positive;
-  }
+
+  const color = React.useMemo(() => {
+    if (value < 25) {
+      return theme.other.progress.content.color.phatic.negative;
+    }
+    if (value < 75) {
+      return theme.other.progress.content.color.phatic.attention;
+    }
+    return theme.other.progress.content.color.phatic.positive;
+  }, [value]);
+
   return (
     <Box>
       {labelLeft && labelRight && (
@@ -38,7 +43,7 @@ const ProgressColorBar = ({
       <MantineProgress
         value={value}
         label={label}
-        color={color}
+        color={trim(colorProp ?? '') !== '' ? colorProp : color}
         animate={animate}
         radius={radius}
         sections={sections}

@@ -1,9 +1,9 @@
 import { createStyles } from '@mantine/styles';
 
-const TotalLayoutContainerStyles = createStyles((theme, { topScroll }) => ({
+const TotalLayoutContainerStyles = createStyles((theme, { clean, topScroll }) => ({
   root: {
     height: '100vh',
-    backgroundColor: theme.other.core.color.neutral['50'],
+    backgroundColor: !clean && theme.other.core.color.neutral['50'],
     width: '100%',
   },
   header: {
@@ -11,7 +11,7 @@ const TotalLayoutContainerStyles = createStyles((theme, { topScroll }) => ({
     zIndex: 99,
   },
   footerContainer: {
-    backgroundColor: theme.other.core.color.neutral['50'],
+    backgroundColor: !clean && theme.other.core.color.neutral['50'],
   },
 }));
 

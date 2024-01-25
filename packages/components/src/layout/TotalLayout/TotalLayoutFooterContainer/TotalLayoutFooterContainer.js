@@ -14,10 +14,17 @@ const TotalLayoutFooterContainer = ({
   fullWidth,
   showFooterBorder: _showFooterBorder,
   style,
+  width,
 }) => {
   const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const { classes } = TotalLayoutFooterContainerStyles(
-    { showFooterBorder: showFooterBorder || _showFooterBorder, leftOffset, fixed, fullWidth },
+    {
+      showFooterBorder: showFooterBorder || _showFooterBorder,
+      leftOffset,
+      fixed,
+      fullWidth,
+      width,
+    },
     { name: 'TotalLayoutFooterContainer' },
   );
 
@@ -78,6 +85,7 @@ TotalLayoutFooterContainer.propTypes = {
   fullWidth: PropTypes.bool,
   showFooterBorder: PropTypes.bool,
   style: PropTypes.object,
+  width: PropTypes.number,
 };
 
 export { TotalLayoutFooterContainer };

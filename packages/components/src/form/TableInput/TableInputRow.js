@@ -168,12 +168,12 @@ const TableInputRow = ({
               {editing ? (
                 <>
                   <ActionButton
-                    icon={<CheckIcon />}
+                    icon={<CheckIcon width={18} height={18} />}
                     tooltip={labels.accept || 'Accept'}
                     onClick={handleOnEdit}
                   />
                   <ActionButton
-                    icon={<DeleteIcon />}
+                    icon={<DeleteIcon width={18} height={18} />}
                     tooltip={labels.cancel || 'Cancel'}
                     onClick={cancelEditing}
                   />
@@ -183,21 +183,21 @@ const TableInputRow = ({
                   <>
                     {addable && (
                       <ActionButton
-                        icon={<AddCircleIcon />}
+                        icon={<AddCircleIcon width={18} height={18} />}
                         tooltip={labels.add || 'Add'}
                         onClick={() => onItemAdd(row)}
                       />
                     )}
                     {editable && (
                       <ActionButton
-                        icon={<EditWriteIcon />}
+                        icon={<EditWriteIcon width={18} height={18} />}
                         tooltip={labels.edit || 'Edit'}
                         onClick={initEditing}
                       />
                     )}
                     {removable && (
                       <ActionButton
-                        icon={<DeleteBinIcon />}
+                        icon={<DeleteBinIcon width={18} height={18} />}
                         tooltip={labels.remove || 'Remove'}
                         onClick={() => onRemove(index)}
                       />
