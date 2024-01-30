@@ -85,9 +85,7 @@ const TextEditor = ({
   const getEditorJson = () => {
     const originalHTML = document.getElementsByClassName('ProseMirror')[0];
     if (!originalHTML) return {};
-    const htmlContent = [...originalHTML.getElementsByTagName('*')].filter(
-      (element) => element.tagName !== 'BR',
-    );
+    const htmlContent = [...originalHTML.childNodes].filter((element) => element.tagName !== 'BR');
     const originalJSON = editor.getJSON();
 
     return {
