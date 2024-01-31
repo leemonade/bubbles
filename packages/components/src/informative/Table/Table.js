@@ -17,6 +17,7 @@ export const TABLE_DEFAULT_PROPS = {
   useAria: true,
   headerStyles: {},
   sortable: false,
+  selectable: false,
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -32,6 +33,7 @@ export const TABLE_PROP_TYPES = {
   onClickRow: PropTypes.func,
   rowsExpanded: PropTypes.arrayOf(PropTypes.any),
   styleRow: PropTypes.object,
+  selectable: PropTypes.bool,
 };
 
 const Table = ({
@@ -48,6 +50,7 @@ const Table = ({
   sortable,
   useSticky,
   styleTable,
+  selectable,
 }) => {
   const plugins = [];
   if (useSticky) {
@@ -152,7 +155,10 @@ const Table = ({
                       <>
                         <tr
                           {...row.getRowProps({
-                            className: cx({ [classes.tr]: i < rows.length - 1 }),
+                            className: cx({
+                              [classes.tr]: i < rows.length - 1,
+                              [classes.trSelectable]: selectable,
+                            }),
                           })}
                           onClick={() => onClickRow(row)}
                           {...draggableProvided.draggableProps}
