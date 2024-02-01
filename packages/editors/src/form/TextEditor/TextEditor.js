@@ -10,11 +10,14 @@ import Focus from '@tiptap/extension-focus';
 import Text from '@tiptap/extension-text';
 import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
+import { EditorState } from '@tiptap/pm/state';
+import { EditorView } from '@tiptap/pm/view';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
 import { Toolbar, HeaderToolbar, TOOLBAR_POSITIONS } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
+import { PageBreak } from '../../tool/PageBreak/PageBreak';
 
 export const TEXT_EDITOR_DEFAULT_PROPS = {
   toolbarPosition: TOOLBAR_POSITIONS[0],
@@ -74,6 +77,7 @@ const TextEditor = ({
       Focus,
       History,
       Placeholder.configure({ placeholder }),
+      PageBreak,
       ...extensions,
     ],
     content: '',
@@ -95,6 +99,27 @@ const TextEditor = ({
         return element;
       }),
     };
+  };
+
+  const calculateHeightSinceLastBreak = (lastPageBreakPosition, contentJson) => {
+    const endPosition = contentJson.content.length;
+    const coordsStart = editor.view.coordsAtPos(lastPageBreakPosition);
+    const coordsEnd = editor.view.coordsAtPos(endPosition);
+    return coordsEnd.top - coordsStart.top;
+  };
+
+  const checkContentHeight = () => {
+    const contentJson = getEditorJson();
+    const lastPageBreak = contentJson.content.findLastIndex((node) => node.type === 'pageBreak');
+    let lastPageBreakPosition = 0;
+    if (lastPageBreak >= 0) {
+      lastPageBreakPosition = 0; // editor?.doc?.resolve(lastPageBreak + 1)?.pos;
+    }
+    const heightSinceLastBreak = calculateHeightSinceLastBreak(lastPageBreakPosition, contentJson);
+
+    if (heightSinceLastBreak > 50) {
+      editor.chain().focus().setPageBreak().run();
+    }
   };
 
   const onUpdate = () => {
@@ -120,6 +145,7 @@ const TextEditor = ({
 
     if (isFunction(onChange) && store.current.content !== content) onChange(store.current.content);
     if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
+    checkContentHeight();
   };
 
   const dispatchSchema = () => {
