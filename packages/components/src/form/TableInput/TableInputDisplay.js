@@ -138,8 +138,8 @@ const TableInputDisplay = ({
                   {...column.getHeaderProps({
                     className: cx(tableClasses.th, column.className),
                     style: {
-                      ...column.style,
                       paddingLeft: 0,
+                      ...column.style,
                     },
                   })}
                 >
