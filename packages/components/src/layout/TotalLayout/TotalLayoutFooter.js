@@ -28,7 +28,13 @@ const TotalLayoutFooter = ({
     // It's the final step and there's more than one final action
     if (finalActions?.length > 1) {
       return (
-        <DropdownButton data={finalActions} loading={isLoading} disabled={isLoading}>
+        <DropdownButton
+          chevronUp
+          width="auto"
+          data={finalActions}
+          loading={isLoading}
+          disabled={isLoading}
+        >
           {footerActionsLabels.dropdownLabel || 'Finalizar'}
         </DropdownButton>
       );
