@@ -5,7 +5,7 @@ import { CardEmptyCover } from './CardEmptyCover';
 import { CARD_EMPTY_COVER_DEFAULT_PROPS } from './CardEmptyCover.constants';
 
 export default {
-  title: 'leemons/Library/LibraryCardEmptyCover',
+  title: 'leemons/Library/CardEmptyCover',
   parameters: {
     component: CardEmptyCover,
     design: {
@@ -14,7 +14,10 @@ export default {
     },
   },
   argTypes: {
-    fileType: { options: ['audio', 'video', 'image', 'bookmark','file', 'noicon'], control: 'select' },
+    fileType: {
+      options: ['audio', 'video', 'image', 'bookmark', 'file', 'noicon'],
+      control: 'select',
+    },
   },
 };
 

@@ -9,8 +9,6 @@ const RadioGroupStyles = createStyles(
     const isBoxed = variant === 'boxed';
     const isImage = variant === 'image';
 
-    console.log('theme:', theme.other);
-
     return {
       root: {
         padding: 0,

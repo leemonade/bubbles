@@ -19,7 +19,7 @@ import { AssetScormIcon } from '../FileIcon/AssetScormIcon';
 import { AssetTestIcon } from '../FileIcon/AssetTestIcon';
 import { Box } from '../../layout/Box';
 
-const CardEmptyCover = memo(({ icon, fileType }) => {
+const CardEmptyCover = memo(({ icon, fileType, height }) => {
   const pairColumnRef = useRef(null);
   const { canvasImage } = useHTMLToCanvas(pairColumnRef, fileType);
   const FileTypeIcon = [
@@ -56,8 +56,7 @@ const CardEmptyCover = memo(({ icon, fileType }) => {
 
   const fileIcon = FileTypeIcon.find(({ key }) => key === fileType);
   const iconToShow = fileIcon?.value ?? styledIcon;
-
-  const { classes } = CardEmptyCoverStyles();
+  const { classes } = CardEmptyCoverStyles({ height });
 
   const pairCol = (
     <Box style={{ opacity: 0 }}>

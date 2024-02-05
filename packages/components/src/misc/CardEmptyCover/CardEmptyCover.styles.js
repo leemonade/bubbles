@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { createStyles, pxToRem } from '@bubbles-ui/components';
 
-export const CardEmptyCoverStyles = createStyles(() => ({
+export const CardEmptyCoverStyles = createStyles((theme, { height }) => ({
   emptyStateRoot: {
-    height: pxToRem(144),
+    height: height ? pxToRem(height) : pxToRem(144),
     width: 'auto',
     display: 'flex',
     overflow: 'hidden',
@@ -35,6 +35,6 @@ export const CardEmptyCoverStyles = createStyles(() => ({
     height: '100%',
     width: '100%',
     backgroundSize: '17%',
-    backgroundAttachment: 'local'
+    backgroundAttachment: 'local',
   },
 }));
