@@ -29,6 +29,10 @@ const CardEmptyCover = memo(({ icon, fileType, height }) => {
     { key: 'bookmark', value: <AssetBookmarkIcon height={18} width={18} color={'#878D96'} /> },
     { key: 'feedback', value: <AssetFeedbackIcon height={18} width={18} color={'#878D96'} /> },
     { key: 'document', value: <AssetDocumentIconSmall height={18} width={18} color={'#878D96'} /> },
+    {
+      key: 'content-creator',
+      value: <AssetDocumentIconSmall height={18} width={18} color={'#878D96'} />,
+    },
     { key: 'task', value: <AssetTaskIcon height={18} width={18} color={'#878D96'} /> },
     { key: 'tests', value: <AssetTestIcon height={18} width={18} color={'#878D96'} /> },
     {
