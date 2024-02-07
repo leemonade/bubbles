@@ -1,8 +1,8 @@
 import React from 'react';
+import { isDate, isFunction } from 'lodash';
 import { ItemStyles } from './Item.styles';
 import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
 import { Box } from '../../../layout';
-import { isDate, isFunction } from 'lodash';
 import { Badge } from '../Badge';
 
 const Item = ({

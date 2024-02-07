@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const ScoreFronstageStyles = createStyles((theme, {}) => {
+const ScoreFronstageStyles = createStyles((theme, {}) => {
   const scoreTheme = theme.other.score;
   const paddingLg = scoreTheme.spacing.padding.lg;
   return {
@@ -18,7 +18,7 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
     },
     header: {
       padding: `56px ${paddingLg} ${paddingLg} ${paddingLg}`,
-      backgroundColor: scoreTheme.background.color.neutral.subtle,
+      // backgroundColor: scoreTheme.background.color.neutral.subtle,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -42,3 +42,5 @@ export const ScoreFronstageStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { ScoreFronstageStyles };

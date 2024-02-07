@@ -20,6 +20,7 @@ export const AVATAR_DEFAULT_PROPS = {
   size: 'md',
   state: 'normal',
   showIconAndImage: false,
+  subjectColor: '#96D47F',
 };
 export const AVATAR_PROP_TYPES = {
   image: PropTypes.string,
@@ -32,4 +33,5 @@ export const AVATAR_PROP_TYPES = {
   fullName: PropTypes.string,
   icon: PropTypes.any,
   alt: PropTypes.string,
+  subjectColor: PropTypes.string,
 };
