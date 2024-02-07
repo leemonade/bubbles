@@ -64,7 +64,7 @@ const getIconWrapperStyles = (size, theme, badgeTheme) => {
 };
 
 export const AvatarStyles = createStyles(
-  (theme, { size, radius, color, state, activityStatus }) => {
+  (theme, { size, radius, color, state, activityStatus, subjectColor }) => {
     const avatarTheme = theme.other.avatar;
     const badgeTheme = theme.other.badge;
 
@@ -89,7 +89,7 @@ export const AvatarStyles = createStyles(
       iconWrapper: {
         display: size === 'sm' && 'none',
         boxSizing: 'content-box',
-        backgroundColor: badgeTheme.background.color.primary.default,
+        backgroundColor: subjectColor,
         borderRadius: radius ? badgeTheme.border.radius : 0,
         position: 'absolute',
         ...getIconWrapperStyles(size, theme, badgeTheme),
@@ -100,5 +100,5 @@ export const AvatarStyles = createStyles(
         },
       },
     };
-  }
+  },
 );
