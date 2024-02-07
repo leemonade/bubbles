@@ -39,9 +39,10 @@ const getColor = (theme, severity) =>
 
 const AlertStyles = createStyles((theme, { variant, severity }) => {
   const alertTheme = theme;
+  const titleSize = variant === 'block' ? 'md--bold' : 'sm--bold';
   return {
     root: {
-      ...getFontExpressive(theme.fontSizes['2']),
+      ...theme.other.global.content.typo.body.sm,
       ...getColor(theme, severity),
       display: 'flex',
       alignItems: 'center',
@@ -66,15 +67,16 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       gap: theme.spacing['2'],
     },
     title: {
-      ...getFontExpressive(theme.fontSizes['2'], 500),
-      color: '#4D5358',
+      ...theme.other.global.content.typo.body[titleSize],
+      color: theme.colors.text01, // theme.other.global.content.color.text.default,
       marginRight: pxToRem(15),
       lineHeight: 1.2,
       paddingTop: theme.spacing[2],
       paddingBottom: theme.spacing[2],
     },
     content: {
-      ...getFontProductive(theme.fontSizes['2'], 500),
+      ...theme.other.global.content.typo.body.sm,
+      color: theme.other.global.content.color.text.default,
       flex: '1 1 100%',
       marginRight: variant === 'block' ? pxToRem(24) : pxToRem(28),
       lineHeight: 1.2,
