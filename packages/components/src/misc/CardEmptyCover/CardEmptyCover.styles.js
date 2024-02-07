@@ -3,7 +3,7 @@ import { createStyles, pxToRem } from '@bubbles-ui/components';
 
 export const CardEmptyCoverStyles = createStyles((theme, { height }) => ({
   emptyStateRoot: {
-    height: height ? pxToRem(height) : pxToRem(144),
+    height: height ? `${height}px` : pxToRem(144),
     width: 'auto',
     display: 'flex',
     overflow: 'hidden',
