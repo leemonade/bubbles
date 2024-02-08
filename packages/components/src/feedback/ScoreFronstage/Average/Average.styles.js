@@ -12,15 +12,15 @@ const getBackgroundColor = (scoreTheme, score, minGrade) => {
   const variant = getVariant(score, minGrade);
 
   return {
-    labelBackground: scoreTheme.background.color[variant].default,
-    scoreBackground: scoreTheme.background.color[variant].emphasis,
+    labelBackground: scoreTheme.background.color[variant].muted,
+    scoreBackground: scoreTheme.background.color[variant].muted,
   };
 };
 
 const getStyles = (scoreTheme, score, minGrade) => {
   const fontColor = isUndefined(score)
     ? scoreTheme.content.color.muted
-    : scoreTheme.content.color['default--reverse'];
+    : scoreTheme.content.color.default;
 
   return {
     fontColor,
@@ -30,7 +30,6 @@ const getStyles = (scoreTheme, score, minGrade) => {
 
 export const AverageStyles = createStyles((theme, { score, minGrade }) => {
   const scoreTheme = theme.other.score;
-
   const styles = getStyles(scoreTheme, score, minGrade);
 
   return {
