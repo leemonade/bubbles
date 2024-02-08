@@ -22,6 +22,7 @@ const ScoreFronstage = ({
   maxGrade,
   values,
   locale,
+  subjectColor,
   ...props
 }) => {
   const { classes } = ScoreFronstageStyles({}, { name: 'ScoreFronstage' });
@@ -34,6 +35,7 @@ const ScoreFronstage = ({
           size="lg"
           icon={icon ? <ImageLoader src={icon} height={'100%'} forceImage /> : null}
           showIconAndImage
+          subjectColor={subjectColor}
         />
       </Box>
       <Box className={classes.header}>
