@@ -14,11 +14,11 @@ const ModalZoom = ({ children, canPlay, opened, hideButton, onClose = noop, styl
   const { classes } = ModalZoomStyles({}, { name: 'ModalZoom' });
 
   React.useEffect(() => {
-    if(opened !== open) {
+    if (opened !== open) {
       setOpen(opened);
       center.current?.call();
     }
-  }, [opened])
+  }, [opened]);
 
   return (
     <>

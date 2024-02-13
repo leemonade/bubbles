@@ -16,6 +16,7 @@ const Avatar = forwardRef(
       image,
       icon,
       color,
+      subjectColor,
       initials,
       fullName,
       radius = true,
@@ -43,7 +44,14 @@ const Avatar = forwardRef(
       }
     }
 
-    const { classes, theme } = AvatarStyles({ radius, color, size, state, activityStatus });
+    const { classes, theme } = AvatarStyles({
+      radius,
+      color,
+      size,
+      state,
+      activityStatus,
+      subjectColor,
+    });
 
     return (
       <Box className={classes.avatarWrapper}>
