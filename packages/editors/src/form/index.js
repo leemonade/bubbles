@@ -7,5 +7,4 @@ export * from './ButtonGroup';
 export * from './Card';
 export * from './LinkModal';
 export * from './CodeBlockComponent';
-export * from './MathBlockComponent';
 export * from './TextEditorInput';
