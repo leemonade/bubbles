@@ -175,6 +175,7 @@ export { default as SingleActionsGraduateMaleIcon } from './SingleActionsGraduat
 export { default as SingleActionsGraduateIcon } from './SingleActionsGraduateIcon'
 export { default as SmileyPinIcon } from './SmileyPinIcon'
 export { default as SortDragIcon } from './SortDragIcon'
+export { default as SquareRootIcon } from './SquareRootIcon'
 export { default as StopwatchIcon } from './StopwatchIcon'
 export { default as StudyDeskIcon } from './StudyDeskIcon'
 export { default as StudyVirtualClassroomIcon } from './StudyVirtualClassroomIcon'
