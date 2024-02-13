@@ -5,15 +5,15 @@ const getActive = (theme) => ({
   padding: pxToRem(25),
   border: `${theme.border.width} solid ${theme.border.color.hover}`,
   backgroundColor: theme.background.color.hover,
-  '.mantine-FileUpload-title': {
-    color: theme.content.color.hover,
-  },
-  '.mantine-FileUpload-subtitle': {
-    color: theme.content.color.hover,
-  },
-  '.mantine-FileUpload-icon': {
-    color: theme.content.color.hover,
-  },
+  // '.mantine-FileUpload-title': {
+  //   color: theme.content.color.hover,
+  // },
+  // '.mantine-FileUpload-subtitle': {
+  //   color: theme.content.color.hover,
+  // },
+  // '.mantine-FileUpload-icon': {
+  //   color: theme.content.color.hover,
+  // },
 });
 
 const getDisabledStyles = (disabled, theme) => {
