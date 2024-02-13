@@ -9,6 +9,7 @@ import {
 import { useId } from '@mantine/hooks';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { PluginCalendarIcon, TimeClockCircleIcon } from '@bubbles-ui/icons/outline';
 import { CalendarStyles } from '../../dates/Calendar/Calendar.styles';
 import { Stack } from '../../layout';
@@ -24,6 +25,31 @@ import { updateDate, updateTime } from './helpers';
 import { Paragraph } from '../../typography';
 
 dayjs.extend(localizedFormat);
+dayjs.extend(customParseFormat);
+function deduceDateFormat(locale) {
+  const date = new Date(Date.UTC(2022, 11, 20)); // Usar una fecha conocida
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const parts = formatter.formatToParts(date);
+  return parts
+    .map(({ type, value }) => {
+      switch (type) {
+        case 'day':
+          return 'DD';
+        case 'month':
+          return 'MM';
+        case 'year':
+          return 'YYYY';
+        default:
+          return value; // Para separadores y otros caracteres
+      }
+    })
+    .join('');
+}
 
 export const DATE_PICKER_SIZES = INPUT_WRAPPER_SIZES;
 export const DATE_PICKER_ORIENTATIONS = INPUT_WRAPPER_ORIENTATIONS;
@@ -103,13 +129,19 @@ const DatePicker = forwardRef(
     ref,
   ) => {
     const uuid = useId();
+    const [inputFormat, setInputFormat] = useState('--/--/----'); // Formato inicial
     const [currentLocale, setCurrentLocale] = useState(locale);
+    const dateFormat = deduceDateFormat(currentLocale);
     const { classes: calendarClasses } = CalendarStyles({ size });
     const Comp = range ? DateRangePicker : MantineDatePicker;
     const compProps = range ? { amountOfMonths: 2 } : {};
     const [ready, setReady] = useState(null);
     const [date, setDate] = useState(userValue);
     const { classes } = DatePickerStyles({ size, date, range });
+    useEffect(() => {
+      const format = deduceDateFormat(locale);
+      setInputFormat(format);
+    }, [locale]);
 
     function render() {
       setReady(new Date().getTime());
@@ -172,6 +204,9 @@ const DatePicker = forwardRef(
             <Comp
               {...props}
               {...compProps}
+              placeHolder={inputFormat}
+              allowFreeInput
+              dateParser={(value) => dayjs(value, dateFormat, currentLocale).toDate()}
               disabled={disabled}
               autoComplete={autoComplete}
               locale={currentLocale}
