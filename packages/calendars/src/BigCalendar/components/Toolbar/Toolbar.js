@@ -36,15 +36,20 @@ const ToolBar = ({
   showToolbarAddButton,
   showToolbarToggleWeekend,
   showToolbarViewSwitcher,
+  showToolbarPeriodSelector,
   addEventClick,
 }) => {
-  const { classes } = ToolbarStyles({}, {name: 'CalendarToolbar'});
+  const { classes } = ToolbarStyles({}, { name: 'CalendarToolbar' });
   return (
     <Group position="apart" mb={10}>
       <Group spacing={4}>
         <Group spacing={0}>
           <Box mr={10}>
-            <Button className={classes.todayButton} variant="outline" onClick={() => onNavigate(navigate.TODAY)}>
+            <Button
+              className={classes.todayButton}
+              variant="outline"
+              onClick={() => onNavigate(navigate.TODAY)}
+            >
               {messages.today}
             </Button>
           </Box>
@@ -66,17 +71,19 @@ const ToolBar = ({
 
       <Group style={{ gap: 12 }}>
         <Box>
-          <Select
-            value={showType}
-            ariaLabelledby="display"
-            ariaLabel="display"
-            onChange={setShowType}
-            data={[
-              { label: messages.entirePeriod, value: 'full' },
-              { label: messages.onlyInitAndEnd, value: 'startEnd' },
-              { label: messages.onlyEnd, value: 'onlyEnd' },
-            ]}
-          />
+          {showToolbarPeriodSelector ? (
+            <Select
+              value={showType}
+              ariaLabelledby="display"
+              ariaLabel="display"
+              onChange={setShowType}
+              data={[
+                { label: messages.entirePeriod, value: 'full' },
+                { label: messages.onlyInitAndEnd, value: 'startEnd' },
+                { label: messages.onlyEnd, value: 'onlyEnd' },
+              ]}
+            />
+          ) : null}
         </Box>
         {view !== RCBViews.DAY && showToolbarToggleWeekend ? (
           <Switch
