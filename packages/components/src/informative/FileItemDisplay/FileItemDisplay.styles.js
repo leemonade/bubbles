@@ -71,7 +71,7 @@ const FileItemDisplayStyles = createStyles(
         fontSize: pxToRem(size),
         color: color || theme.colors.text02,
         flexGrow: 1,
-        wordWrap: 'break-word',
+        overflowWrap: 'anywhere',
         ...linkStyles,
       },
       filetype: {
