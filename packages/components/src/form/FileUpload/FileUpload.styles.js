@@ -72,7 +72,7 @@ const FileUploadStyles = createStyles((theme, { disabled, single, files, hasErro
       color: dropzoneTheme.content.color['default--subtle'],
     },
     droppedFile: {
-      // minWidth: 500,
+      width: 468,
       // padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
     },
     fileList: {
