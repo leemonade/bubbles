@@ -22,13 +22,15 @@ const AvatarSubject = ({ color, icon, size, altText, isMultiSubject }) => {
       {isMultiSubject ? (
         <MultiSubjectIcon width={handleSize[size].height} height={handleSize[size].height} />
       ) : (
-        <ImageLoader
-          forceImage
-          height={handleSize[size].height}
-          imageStyles={handleSize[size].height}
-          src={iconToShow}
-          alt={altText}
-        />
+        !!iconToShow && (
+          <ImageLoader
+            forceImage
+            height={handleSize[size].height}
+            imageStyles={handleSize[size].height}
+            src={iconToShow}
+            alt={altText}
+          />
+        )
       )}
     </Box>
   );
