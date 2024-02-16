@@ -43,6 +43,20 @@ const EventWrapper = ({
   const { originalEvent } = event;
   const bgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
 
+  if (originalEvent.start && originalEvent.end) {
+    const startDate = new Date(originalEvent.start);
+    const endDate = new Date(originalEvent.end);
+    if (startDate.toDateString() !== endDate.toDateString()) {
+      label = `${startDate.toLocaleTimeString([], {
+        hour12: false,
+        timeStyle: 'short',
+      })} - ${endDate.toLocaleTimeString([], {
+        hour12: false,
+        timeStyle: 'short',
+      })}`;
+    }
+  }
+
   const eventStyle = isBackgroundEvent
     ? {
         ...userProps.style,
