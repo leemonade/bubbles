@@ -65,7 +65,7 @@ const EventWrapper = ({
         [rtl ? 'right' : 'left']: stringifyPercent(xOffset),
       };
 
-  const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
+  const eventIcon = event.icon || originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
   const avatar = {
     image: eventImage || null,
@@ -111,7 +111,7 @@ const EventWrapper = ({
           'rbc-selected': selected,
           'rbc-event-continues-earlier': continuesPrior,
           'rbc-event-continues-later': continuesAfter,
-        }
+        },
       )}
     >
       {event.component ? (

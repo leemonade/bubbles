@@ -1,5 +1,4 @@
 import React from 'react';
-import { EventDetailPanelStyles } from './EventDetailPanel.styles';
 import {
   Anchor,
   Box,
@@ -18,11 +17,12 @@ import {
   StopwatchIcon,
   StyleThreePinTableIcon,
 } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 import {
   EVENT_DETAIL_PANEL_DEFAULT_PROPS,
   EVENT_DETAIL_PANEL_PROP_TYPES,
 } from './EventDetailPanel.constants';
-import { isFunction } from 'lodash';
+import { EventDetailPanelStyles } from './EventDetailPanel.styles';
 
 const EventDetailPanel = ({
   opened,
@@ -35,25 +35,30 @@ const EventDetailPanel = ({
   ...props
 }) => {
   const handleOnClose = () => {
-    isFunction(onClose) && onClose();
+    if (isFunction(onClose)) onClose();
   };
 
   const handleOnControl = () => {
-    isFunction(onControl) && onControl();
+    if (isFunction(onControl)) onControl();
   };
 
   const renderDateRange = () => {
-    const dateString = `${event.dateRange[0].toLocaleDateString(locale, {
+    const longDay = event.startDate.toLocaleDateString(locale, {
       weekday: 'long',
-    })}, ${event.dateRange[0].toLocaleDateString(locale, {
+    });
+    const shortDay = event.startDate.toLocaleDateString(locale, {
       day: 'numeric',
-    })} ${event.dateRange[0].toLocaleDateString(locale, {
+    });
+    const monthYear = event.startDate.toLocaleDateString(locale, {
       month: 'short',
       year: 'numeric',
-    })} — ${event.dateRange[0].toLocaleTimeString(locale, {
+    });
+    const startHour = event.startDate.toLocaleTimeString(locale, {
       hour12: false,
       timeStyle: 'short',
-    })} - ${event.dateRange[1].toLocaleTimeString(locale, { hour12: false, timeStyle: 'short' })}`;
+    });
+    const endHour = event.endDate.toLocaleTimeString(locale, { hour12: false, timeStyle: 'short' });
+    const dateString = `${longDay}, ${shortDay} ${monthYear} — ${startHour} - ${endHour}`;
 
     return <Text role="productive">{`${dateString}`}</Text>;
   };
