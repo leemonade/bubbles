@@ -207,6 +207,18 @@ const ScheduleForm = ({
   }, [selectedDays, oneDayOnlyValue, startDate, endDate, useCustomDates]);
 
   useEffect(() => {
+    const allSchedulesAreEqual = savedSchedule.days.every(
+      (day, _, arr) => day.start === arr[0].start && day.end === arr[0].end,
+    );
+    if (allSchedulesAreEqual) {
+      setOneScheduleOnly(true);
+      setOneDayOnlyValue({
+        id: savedSchedule.days[0].id,
+        error: false,
+        start: new Date(`01/01/1970 ${savedSchedule.days[0].start}`),
+        end: new Date(`01/01/1970 ${savedSchedule.days[0].end}`),
+      });
+    }
     setSelectedDays(
       savedSchedule.days.map((day) => ({
         id: day.id,
