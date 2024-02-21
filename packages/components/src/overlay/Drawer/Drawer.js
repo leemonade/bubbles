@@ -22,9 +22,10 @@ export const DRAWER_DEFAULT_PROPS = {
   lockScroll: true,
   trapFocus: false,
   withOverlay: false,
-  overlayOpacity: 0.75,
+  overlayOpacity: 0.25,
   empty: false,
   shadow: true,
+  overlayColor: '#000000',
 };
 export const DRAWER_PROP_TYPES = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

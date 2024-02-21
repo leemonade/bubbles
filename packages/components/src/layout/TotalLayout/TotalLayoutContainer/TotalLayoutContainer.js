@@ -7,7 +7,10 @@ import { TotalLayoutContainerStyles } from './TotalLayoutContainer.styles';
 
 const TotalLayoutContainer = ({ Header, Footer, scrollRef, children, clean }) => {
   const [topScroll, setTopScroll] = React.useState(false);
-  const { classes } = TotalLayoutContainerStyles({ clean, topScroll }, { name: 'TotalLayoutContainer' });
+  const { classes } = TotalLayoutContainerStyles(
+    { clean, topScroll },
+    { name: 'TotalLayoutContainer' },
+  );
 
   // Define scroll and window resizing behavior
   const handleScroll = () => {
