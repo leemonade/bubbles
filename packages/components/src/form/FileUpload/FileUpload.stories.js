@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mantine/core';
 import { MIME_TYPES } from '@mantine/dropzone';
-import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
+import { CloudUploadIcon, DownloadIcon } from '@bubbles-ui/icons/outline';
 import { FileUpload, FILE_UPLOAD_DEFAULT_PROPS } from './FileUpload';
 import mdx from './FileUpload.mdx';
 
@@ -30,7 +30,7 @@ export const Playground = Template.bind({});
 
 Playground.args = {
   ...FILE_UPLOAD_DEFAULT_PROPS,
-  icon: <CloudUploadIcon height={32} width={32} />,
+  icon: <DownloadIcon height={32} width={32} />,
   title: 'Click to browse your file',
   subtitle: 'or drop here a file from your computer',
   errorMessage: { title: 'Error', message: 'File was rejected' },
@@ -54,7 +54,7 @@ WithLoaders.args = {
       status: 'error',
     },
   ],
-  icon: <CloudUploadIcon height={32} width={32} />,
+  icon: <DownloadIcon height={32} width={32} />,
   title: 'Click to browse your file',
   subtitle: 'or drop here a file from your computer',
   errorMessage: { title: 'Error', message: 'File was rejected' },
