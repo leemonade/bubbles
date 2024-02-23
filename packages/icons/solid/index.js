@@ -152,6 +152,7 @@ module.exports.PluginVirtualBlackboadIcon = require("./PluginVirtualBlackboadIco
 module.exports.ProgramIcon = require("./ProgramIcon.js")
 module.exports.PunctuableIcon = require("./PunctuableIcon.js")
 module.exports.RatingStarIcon = require("./RatingStarIcon.js")
+module.exports.RefreshIcon = require("./RefreshIcon.js")
 module.exports.RemoveBoldIcon = require("./RemoveBoldIcon.js")
 module.exports.ReorderDownIcon = require("./ReorderDownIcon.js")
 module.exports.SearchPlusIcon = require("./SearchPlusIcon.js")

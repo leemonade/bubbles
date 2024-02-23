@@ -1,66 +1,81 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Box, Text, HoverCard, Chip } from '@bubbles-ui/components';
-import { ChipsContainerStyles } from './ChipsContainer.styles';
+import { HoverCard } from '@mantine/core';
 import {
   CHIPS_CONTAINER_DEFAULT_PROPS,
   CHIPS_CONTAINER_PROP_TYPES,
 } from './ChipsContainer.constants';
+import { ChipsContainerStyles } from './ChipsContainer.styles';
+import { Box } from '../../layout/Box';
+import { Chip } from '../Chip/Chip';
+import { Text } from '../../typography';
 
-const ChipsContainer = ({ subjects, chipsToShow, isCollisionDetected, labels }) => {
+const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetected, labels, style }) => {
   const { classes } = ChipsContainerStyles({ isCollisionDetected }, { name: 'ChipsContainer' });
   const containerRef = useRef(null);
-  const chipRefs = useRef(subjects.map(() => React.createRef()));
-  const [hiddenChips, setHiddenChips] = useState(new Array(subjects.length).fill(false));
+  const chipRefs = useRef(items.map(() => React.createRef()));
+  const [hiddenChips, setHiddenChips] = useState(new Array(items.length).fill(false));
 
-  const moreChipRef = useRef(null);
-  const getHiddenSubjectsLabel = () => subjects.filter((_, index) => hiddenChips[index]);
-  const updateVisibleChips = () => {
+  const getHiddenSubjectsLabel = () => items.filter((_, index) => hiddenChips[index]);
+  
+  const updateVisibleChips = React.useCallback(() => {
     if (typeof chipsToShow === 'number') {
-      const newHiddenChips = subjects.map((_, index) => index >= chipsToShow);
+      const newHiddenChips = items.map((_, index) => index >= chipsToShow);
       setHiddenChips(newHiddenChips);
     } else {
-      const containerWidth = containerRef.current.offsetWidth;
       let totalWidth = 0;
-      const newHiddenChips = new Array(subjects.length).fill(true);
-      const moreChipWidth = moreChipRef.current ? moreChipRef.current.offsetWidth : 0;
+      const newHiddenChips = new Array(items.length).fill(true);
+      const containerWidth = containerRef.current?.offsetWidth ?? 0;
+      
+      try {
+        chipRefs.current.forEach((ref, index) => {
+          const chip = ref.current;
+          const chipWidth = chip?.offsetWidth ?? 0;
+          const fullChipWidth = chipWidth + 8;
 
-      chipRefs.current.forEach((ref, index) => {
-        const chip = ref.current;
-        const chipWidth = chip.offsetWidth;
-        const style = window.getComputedStyle(chip);
-        const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-        const fullChipWidth = chipWidth + margin;
+          if (totalWidth + fullChipWidth <= containerWidth) {
+            newHiddenChips[index] = false;
+            totalWidth += fullChipWidth;
+          }
+        });
+      } catch(e) {
+        console.error('ChipsContainer ERROR:')
+        console.error(e);
+      }
 
-        if (totalWidth + fullChipWidth + moreChipWidth <= containerWidth) {
-          newHiddenChips[index] = false;
-          totalWidth += fullChipWidth;
+      const hiddenCount = newHiddenChips.filter((isHidden) => isHidden).length;
+      if (hiddenCount > 0) {
+        for (let i = newHiddenChips.length - 1; i >= 0; i--) {
+          if (!newHiddenChips[i]) {
+            newHiddenChips[i] = true;
+            break;
+          }
         }
-      });
-
+      }
       setHiddenChips(newHiddenChips);
     }
-  };
+  }, [chipsToShow, containerRef.current, chipRefs.current]);
 
-  useEffect(() => {
-    updateVisibleChips();
-
-    const handleResize = () => {
-      if (typeof chipsToShow !== 'number') {
+  const handleResize = () => {
+      if (changeOnResize && typeof chipsToShow !== 'number') {
         updateVisibleChips();
       }
     };
 
-    window.addEventListener('resize', handleResize);
+  useEffect(() => {
+    updateVisibleChips();
+  }, [JSON.stringify(items)]);
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [subjects, chipsToShow]); // Dependencias del efecto
+  }, []);
 
   const hiddenCount = hiddenChips.filter((isHidden) => isHidden).length;
   return (
-    <Box ref={containerRef} className={classes.root}>
-      {subjects?.map((subject, index) => (
+    <Box ref={containerRef} className={classes.root} style={style}>
+      {items?.map((subject, index) => (
         <Chip
           key={index}
           subject={subject}
@@ -73,7 +88,6 @@ const ChipsContainer = ({ subjects, chipsToShow, isCollisionDetected, labels }) 
         <HoverCard withArrow position="top">
           <HoverCard.Target>
             <Text
-              ref={moreChipRef}
               className={classes.moreChip}
             >{`${labels?.and} ${hiddenCount} ${labels?.more}...`}</Text>
           </HoverCard.Target>

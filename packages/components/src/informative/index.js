@@ -15,6 +15,7 @@ export * from './Calification';
 export * from './HorizontalTimeline';
 export * from './ScoresBar';
 export * from './UserCards';
+export * from './UserDisplayItem';
 export * from './UserDisplayItemList';
 export * from './ChatMessage';
 export * from './ProgressColorBar';

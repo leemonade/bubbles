@@ -152,6 +152,7 @@ export { default as PluginVirtualBlackboadIcon } from './PluginVirtualBlackboadI
 export { default as ProgramIcon } from './ProgramIcon.js'
 export { default as PunctuableIcon } from './PunctuableIcon.js'
 export { default as RatingStarIcon } from './RatingStarIcon.js'
+export { default as RefreshIcon } from './RefreshIcon.js'
 export { default as RemoveBoldIcon } from './RemoveBoldIcon.js'
 export { default as ReorderDownIcon } from './ReorderDownIcon.js'
 export { default as SearchPlusIcon } from './SearchPlusIcon.js'

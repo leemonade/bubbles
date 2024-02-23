@@ -4,7 +4,6 @@ const ChipsContainerStyles = createStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   moreChip: {

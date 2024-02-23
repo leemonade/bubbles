@@ -1,15 +1,18 @@
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const CHIPS_CONTAINER_PROP_TYPES = {
-  subjects: propTypes.arrayOf(propTypes.string),
-  chipsToShow: propTypes.number || propTypes.object,
-  isCollisionDetected: propTypes.bool,
-  labels: propTypes.object,
+  items: PropTypes.arrayOf(PropTypes.string),
+  chipsToShow: PropTypes.number,
+  isCollisionDetected: PropTypes.bool,
+  labels: PropTypes.object,
+  style: PropTypes.object,
+  changeOnResize: PropTypes.bool,
 };
 
 export const CHIPS_CONTAINER_DEFAULT_PROPS = {
-  subjects: [],
+  items: [],
   chipsToShow: null,
   isCollisionDetected: false,
   labels: {},
+  changeOnResize: false,
 };

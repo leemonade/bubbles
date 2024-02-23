@@ -13,7 +13,7 @@ const ChipStyles = createStyles((theme, { isCollisionDetected }) => ({
     backgroundColor: isCollisionDetected
       ? theme.other.core.color.white
       : theme.other.chip.background.color.default,
-    marginLeft: 8,
+    marginRight: 8,
   },
   label: {
     ...theme.other.chip.content.typo.sm,

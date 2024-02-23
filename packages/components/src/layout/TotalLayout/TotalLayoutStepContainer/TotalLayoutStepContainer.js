@@ -10,6 +10,7 @@ import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.style
 
 const TotalLayoutStepContainer = ({
   stepName,
+  titleZone,
   fullWidth,
   noMargin,
   children,
@@ -29,6 +30,7 @@ const TotalLayoutStepContainer = ({
           {stepName}
         </Title>
       )}
+      {titleZone}
       <Stack className={classes.formContainer} fullWidth direction="column">
         {children}
       </Stack>
