@@ -971,7 +971,7 @@
             }
           },
           "disabled": {
-            "value": "{core.color.neutral.300}",
+            "value": "{core.color.neutral.600}",
             "type": "color"
           },
           "transparent": {
@@ -5424,7 +5424,12 @@
     "tooltip": {
       "content": {
         "typo": {
-          "value": "{global.content.typo.body.xsm}",
+          "value": {
+            "fontFamily": "{core.font.family.main}",
+            "fontWeight": "{core.font.weight.regular}",
+            "lineHeight": "{core.font.lineHeight.200}px",
+            "fontSize": "{core.font.size.50}px"
+          },
           "type": "typography"
         },
         "color": {
@@ -6497,6 +6502,36 @@
           "lg": {
             "value": "{global.spacing.gap.lg}",
             "type": "spacing"
+          }
+        }
+      },
+      "floatingButton": {
+        "spacing": {
+          "padding": {
+            "xsm": {
+              "value": "{global.spacing.padding.xsm}",
+              "type": "spacing"
+            }
+          }
+        },
+        "content": {
+          "color": {
+            "icon": {
+              "value": "{global.content.color.secondary.default}",
+              "type": "color"
+            }
+          }
+        },
+        "background": {
+          "color": {
+            "default": {
+              "value": "{global.background.color.primary.default}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{global.background.color.primary.default}",
+              "type": "color"
+            }
           }
         }
       }
