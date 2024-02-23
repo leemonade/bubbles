@@ -175,6 +175,7 @@ module.exports.SingleActionsGraduateMaleIcon = require("./SingleActionsGraduateM
 module.exports.SingleActionsGraduateIcon = require("./SingleActionsGraduateIcon.js")
 module.exports.SmileyPinIcon = require("./SmileyPinIcon.js")
 module.exports.SortDragIcon = require("./SortDragIcon.js")
+module.exports.SquareRootIcon = require("./SquareRootIcon.js")
 module.exports.StopwatchIcon = require("./StopwatchIcon.js")
 module.exports.StudyDeskIcon = require("./StudyDeskIcon.js")
 module.exports.StudyVirtualClassroomIcon = require("./StudyVirtualClassroomIcon.js")
