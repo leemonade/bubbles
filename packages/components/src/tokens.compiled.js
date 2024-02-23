@@ -3496,7 +3496,7 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 400,
-          "lineHeight": "16px",
+          "lineHeight": "20px",
           "fontSize": "12px"
         },
         "type": "typography"
@@ -4629,6 +4629,36 @@ export default {
         "lg": {
           "value": "16px",
           "type": "spacing"
+        }
+      }
+    },
+    "floatingButton": {
+      "spacing": {
+        "padding": {
+          "xsm": {
+            "value": "8px",
+            "type": "spacing"
+          }
+        }
+      },
+      "content": {
+        "color": {
+          "icon": {
+            "value": "#0C1F22",
+            "type": "color"
+          }
+        }
+      },
+      "background": {
+        "color": {
+          "default": {
+            "value": "#B4E600",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#B4E600",
+            "type": "color"
+          }
         }
       }
     }

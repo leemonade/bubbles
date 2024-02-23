@@ -27,6 +27,7 @@ export * from './Select';
 export * from './Switch';
 export * from './Input';
 export * from './Radio';
+export * from './Slider';
 export * from './TagsInput';
 export * from './Autocomplete';
 export * from './ImagePreviewInput';
