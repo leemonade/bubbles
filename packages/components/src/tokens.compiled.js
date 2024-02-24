@@ -5976,7 +5976,7 @@ export default {
           }
         },
         "disabled": {
-          "value": "#C1C7CD",
+          "value": "#697077",
           "type": "color"
         },
         "transparent": {
