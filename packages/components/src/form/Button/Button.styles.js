@@ -173,6 +173,7 @@ export const ButtonStyles = createStyles(
       hasRightIcon,
       isSelected,
       onlyIcon,
+      iconSize,
     },
   ) => {
     const currentVariant = getVariant(variant, theme, color);
@@ -180,8 +181,8 @@ export const ButtonStyles = createStyles(
     const iconStyles = {
       padding: 3,
       '& > svg': {
-        width: 18,
-        height: 18,
+        width: iconSize || 18,
+        height: iconSize || 18,
       },
     };
 

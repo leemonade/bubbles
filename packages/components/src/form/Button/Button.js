@@ -61,6 +61,7 @@ const Button = forwardRef(
         hasRightIcon,
         isSelected,
         onlyIcon: !children,
+        iconSize: props.iconSize,
       },
       { name: 'Button' },
     );
