@@ -45,8 +45,8 @@ const InlineSvg = ({
         !ignoreFill && (fillCurrent || (className && className.indexOf('fill-current') >= 0));
 
       let str = svg;
-      if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="currentColor"');
-      if (hasFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="currentColor"');
+      if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, `stroke="${strokeCurrent}"`);
+      if (hasFill) str = str.replaceAll(/fill=".+?"/gi, `fill="${fillCurrent}"`);
       if (ignoreFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="none"');
       if (ignoreStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="none"');
 
