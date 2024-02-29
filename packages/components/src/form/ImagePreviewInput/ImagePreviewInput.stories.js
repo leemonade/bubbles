@@ -44,6 +44,7 @@ Playground.args = {
   labels: {
     changeImage: 'Change image',
     uploadButton: 'Upload image',
+    removeButton: 'Remove',
   },
   previewURL:
     'https://images.unsplash.com/photo-1643892593347-d19c62b8cea5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NTExNDkyMg&ixlib=rb-1.2.1&q=80&w=1080',
