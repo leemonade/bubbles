@@ -16,6 +16,7 @@ const Input = forwardRef(
       size: sizeProp = 'md',
       autoComplete = 'off',
       classNames = {},
+      fullWidth,
       ...props
     },
     ref,
@@ -23,7 +24,7 @@ const Input = forwardRef(
     const hasIcon = !!icon;
     const size = INPUT_SIZES.includes(sizeProp) ? sizeProp : 'md';
     const { classes, cx } = InputStyles(
-      { size, disabled, hasIcon, hasRightSection: !!rightSection },
+      { size, disabled, hasIcon, hasRightSection: !!rightSection, fullWidth },
       { name: 'Input' },
     );
 
