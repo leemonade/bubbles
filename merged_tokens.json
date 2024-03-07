@@ -1137,7 +1137,7 @@
                 "fontFamily": "{core.font.family.main}",
                 "fontWeight": "{core.font.weight.semiBold}",
                 "lineHeight": "{core.font.lineHeight.300}px",
-                "fontSize": "{core.font.size.100}px"
+                "fontSize": "{core.font.size.75}"
               },
               "type": "typography"
             }
@@ -4659,6 +4659,50 @@
             "value": "{global.border.radius.md}",
             "type": "borderRadius"
           }
+        }
+      }
+    },
+    "AvatarSubjectIcon": {
+      "content": {
+        "color": {
+          "default": {
+            "value": "{global.content.color.icon.default--reverse}",
+            "type": "color"
+          }
+        }
+      },
+      "border": {
+        "radius": {
+          "rounded": {
+            "value": "{global.border.radius.rounded}",
+            "type": "borderRadius"
+          }
+        }
+      },
+      "size": {
+        "xxs": {
+          "value": "{global.control.size.50}",
+          "type": "sizing"
+        },
+        "xsm": {
+          "value": "{global.control.size.100}",
+          "type": "sizing"
+        },
+        "sm": {
+          "value": "{global.control.size.300}",
+          "type": "sizing"
+        },
+        "md": {
+          "value": "{global.control.size.500}",
+          "type": "sizing"
+        },
+        "xmd": {
+          "value": "{global.control.size.900}",
+          "type": "sizing"
+        },
+        "lg": {
+          "value": "{global.control.size.1000}",
+          "type": "sizing"
         }
       }
     },
