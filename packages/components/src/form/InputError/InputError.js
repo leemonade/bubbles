@@ -10,7 +10,7 @@ const InputError = ({ message }) => {
   const { classes } = InputErrorStyles({});
 
   return (
-    <Group spacing="xs">
+    <Group spacing="xs" className={classes.root}>
       <AlertWarningTriangleIcon className={classes.errorIcon} />
       <Text as="span" className={classes.error}>
         {isObjectLike(message) ? message.message : message}

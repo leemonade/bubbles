@@ -204,6 +204,7 @@ const DatePicker = forwardRef(
             <Comp
               {...props}
               {...compProps}
+              withinPortal
               placeHolder={inputFormat}
               allowFreeInput
               dateParser={(value) => dayjs(value, dateFormat, currentLocale).toDate()}
