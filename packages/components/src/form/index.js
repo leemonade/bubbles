@@ -15,6 +15,7 @@ export * from './FileUpload';
 export * from './RadioGroup';
 export * from './DatePicker';
 export * from './InputError';
+export * from './ImageProfilePicker';
 export * from './TableInput';
 export * from './TextInput';
 export * from './ListInput';

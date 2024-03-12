@@ -4399,6 +4399,42 @@ export default {
       }
     }
   },
+  "chipIcon": {
+    "border": {
+      "radius": {
+        "value": "4px",
+        "type": "borderRadius"
+      }
+    },
+    "content": {
+      "icon": {
+        "value": "#ffffff",
+        "type": "color"
+      }
+    },
+    "background": {
+      "color": {
+        "value": "#4D5358",
+        "type": "color"
+      }
+    },
+    "spacing": {
+      "padding": {
+        "horizontal": {
+          "sm": {
+            "value": "2px",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "sm": {
+            "value": "2px",
+            "type": "spacing"
+          }
+        }
+      }
+    }
+  },
   "toast": {
     "spacing": {
       "padding": {
@@ -6308,28 +6344,6 @@ export default {
       }
     }
   },
-  "chipIcon": {
-    "content": {
-      "color": {
-        "value": "#ffffff",
-        "type": "color"
-      }
-    },
-    "background": {
-      "color": {
-        "value": "#4D5358",
-        "type": "color"
-      }
-    },
-    "baclgound": {
-      "color": {
-        "default": {
-          "value": "#4D5358",
-          "type": "color"
-        }
-      }
-    }
-  },
   "buttonGhost": {
     "content": {
       "default": {
@@ -6351,6 +6365,24 @@ export default {
           "textDecoration": "underline"
         },
         "type": "typography"
+      }
+    }
+  },
+  "ChipIcon": {
+    "content": {
+      "color": {
+        "default": {
+          "value": "#4D5358",
+          "type": "color"
+        }
+      }
+    },
+    "background": {
+      "color": {
+        "default": {
+          "value": "#4D5358",
+          "type": "color"
+        }
       }
     }
   },
