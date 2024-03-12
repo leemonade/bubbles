@@ -45,10 +45,11 @@ export const MENU_PROP_TYPES = {
   control: PropTypes.node,
   menuButtonLabel: PropTypes.string,
   shadow: PropTypes.bool,
+  dropdownWidth: PropTypes.any,
 };
 
-const Menu = forwardRef(({ items, shadow, control: controlProp, ...props }, ref) => {
-  const { classes } = MenuStyles({});
+const Menu = forwardRef(({ items, shadow, control: controlProp, dropdownWidth, ...props }, ref) => {
+  const { classes } = MenuStyles({ dropdownWidth });
   const control = useMemo(() => {
     if (isEmpty(controlProp)) {
       return <ActionButton icon={<SettingMenuHorizontalIcon />} />;
