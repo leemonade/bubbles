@@ -1,6 +1,6 @@
 import { createStyles, getFontProductive, getHtmlStyles, pxToRem } from '@bubbles-ui/components';
 
-export const TextEditorStyles = createStyles((theme, {}) => {
+const TextEditorStyles = createStyles((theme, {}) => {
   const { root } = getHtmlStyles(theme);
 
   return {
@@ -70,3 +70,5 @@ export const TextEditorStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { TextEditorStyles };

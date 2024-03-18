@@ -1,8 +1,9 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { NumberInput as MantineNumberInput } from '@mantine/core';
+import { NumberInput as MantineNumberInput, ActionIcon as MantineActionIcon } from '@mantine/core';
 import { isEmpty } from 'lodash';
 import { useId } from '@mantine/hooks';
+import { Box } from '@bubbles-ui/components';
 import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SIZES,
@@ -17,6 +18,11 @@ export const NUMBER_INPUT_PROP_TYPES = {
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   size: PropTypes.oneOf(INPUT_WRAPPER_SIZES),
   autoComplete: PropTypes.string,
+  label: PropTypes.string,
+  description: PropTypes.string,
+  error: PropTypes.string,
+  required: PropTypes.bool,
+  customDesign: PropTypes.bool,
 };
 
 export const NUMBER_INPUT_DEFAULT_PROPS = {
@@ -27,6 +33,7 @@ export const NUMBER_INPUT_DEFAULT_PROPS = {
   error: '',
   required: false,
   autoComplete: 'off',
+  customDesign: false,
 };
 
 const NumberInput = forwardRef(
@@ -46,13 +53,18 @@ const NumberInput = forwardRef(
       headerClassName,
       contentClassName,
       ariaLabel,
+      customDesign,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
     const hasIcon = !!icon;
-    const { classes, cx } = NumberInputStyles({ size, hasIcon });
+    const { classes, cx } = NumberInputStyles(
+      { size, hasIcon, customDesign },
+      { name: 'NumberInput' },
+    );
+    const customDesignRef = useRef();
 
     return (
       <InputWrapper
@@ -72,21 +84,46 @@ const NumberInput = forwardRef(
         {readOnly ? (
           <Paragraph clean>{props.value || props.defaultValue || ''}</Paragraph>
         ) : (
-          <MantineNumberInput
-            {...props}
-            ref={ref}
-            icon={icon}
-            classNames={classes}
-            error={!isEmpty(error)}
-            aria-label={ariaLabel}
-          />
+          <Box className={customDesign && classes.customDesignRoot}>
+            {customDesign && (
+              <MantineActionIcon
+                size={42}
+                variant="transparent"
+                onClick={() => customDesignRef.current.decrement()}
+                className={classes.customDesignHandlerRemove}
+              >
+                –
+              </MantineActionIcon>
+            )}
+            <MantineNumberInput
+              {...props}
+              hideControls={customDesign || props.hideControls}
+              ref={ref}
+              handlersRef={customDesignRef}
+              icon={icon}
+              classNames={classes}
+              error={!isEmpty(error)}
+              aria-label={ariaLabel}
+            />
+            {customDesign && (
+              <MantineActionIcon
+                size={42}
+                variant="transparent"
+                onClick={() => customDesignRef.current.increment()}
+                className={classes.customDesignHandlerAdd}
+              >
+                +
+              </MantineActionIcon>
+            )}
+          </Box>
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
 NumberInput.propTypes = NUMBER_INPUT_PROP_TYPES;
 NumberInput.defaultProps = NUMBER_INPUT_DEFAULT_PROPS;
+NumberInput.displayName = 'NumberInput';
 
 export { NumberInput };

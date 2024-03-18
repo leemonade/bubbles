@@ -15,6 +15,8 @@ export const IMAGE_PREVIEW_INPUT_DEFAULT_PROPS = {
     uploadButton: '',
   },
   previewURL: '',
+  width: 224,
+  height: 132,
 };
 export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   labels: PropTypes.shape({
@@ -31,6 +33,9 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   disabled: PropTypes.bool,
   useAria: PropTypes.bool,
   noPicker: PropTypes.bool,
+  objectFit: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 const ImagePreviewInput = ({
@@ -45,6 +50,9 @@ const ImagePreviewInput = ({
   useAria,
   noPicker,
   onShowDrawer,
+  objectFit,
+  width,
+  height,
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
@@ -114,14 +122,15 @@ const ImagePreviewInput = ({
         <Stack spacing={2} fullWidth alignItems="flex-end">
           <ImageLoader
             src={imagePreview}
-            height={132}
-            width={224}
+            height={height}
+            width={width}
             noFlex
             radius={4}
             style={{ ...previewStyle }}
             useAria={useAria}
             bordered
             forceImage
+            objectFit={objectFit}
           />
           {!readonly && !disabled ? (
             <Box noFlex>

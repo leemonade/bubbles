@@ -21,9 +21,7 @@ export default {
   },
 };
 
-const Template = ({ ...props }) => {
-  return <NumberInput {...props} />;
-};
+const Template = ({ ...props }) => <NumberInput {...props} />;
 
 export const Playground = Template.bind({});
 
@@ -35,4 +33,5 @@ Playground.args = {
   help: 'Help text for number input',
   error: 'Descriptive text for error ',
   readOnly: false,
+  customDesign: false,
 };

@@ -7,10 +7,16 @@ const AnchorStyles = createStyles((theme) => {
       textDecoration: buttonTheme.textDecoration.underLine,
       color: buttonTheme.content.color.secondary.default,
       cursor: 'pointer',
+      '&:focus-visible': {
+        backgroundColor: buttonTheme.background.color.ghost.hover,
+      },
       '&:hover': {
         color: buttonTheme.content.color.primary.default,
+        backgroundColor: buttonTheme.background.color.ghost.hover,
       },
       '&:active': {
+        backgroundColor: buttonTheme.background.color.ghost.pressed,
+        border: 'none',
         color: buttonTheme.content.color.secondary.pressed,
       },
     },
