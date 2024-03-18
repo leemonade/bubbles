@@ -51,6 +51,8 @@ const TableInput = ({
   onSort = noop,
   renderRowSubComponent = noop,
   disabled,
+  isOneInput,
+  actionLabel,
   ...props
 }) => {
   const [tableData, setTableData] = useState([]);
@@ -139,7 +141,7 @@ const TableInput = ({
   };
 
   const { classes, cx } = TableInputStyles(
-    { hasError, disabled, rowStyles },
+    { hasError, disabled, rowStyles, isOneInput },
     { name: 'TableInput' },
   );
 
@@ -149,6 +151,7 @@ const TableInput = ({
         <TableInputDisplay
           {...props}
           disabled={disabled}
+          isOneInput={isOneInput}
           form={form}
           rowStyles={rowStyles}
           data={tableData}
@@ -162,6 +165,7 @@ const TableInput = ({
           forceShowInputs={forceShowInputs}
           classes={classes}
           renderRowSubComponent={renderRowSubComponent}
+          actionLabel={actionLabel}
         />
       </Box>
       {hasError && <InputError message={error} />}
