@@ -4457,6 +4457,50 @@
         }
       }
     },
+    "AvatarSubjectIcon": {
+      "content": {
+        "color": {
+          "default": {
+            "value": "{global.content.color.icon.default--reverse}",
+            "type": "color"
+          }
+        }
+      },
+      "border": {
+        "radius": {
+          "rounded": {
+            "value": "{global.border.radius.rounded}",
+            "type": "borderRadius"
+          }
+        }
+      },
+      "size": {
+        "xxs": {
+          "value": "{global.control.size.50}",
+          "type": "sizing"
+        },
+        "xsm": {
+          "value": "{global.control.size.100}",
+          "type": "sizing"
+        },
+        "sm": {
+          "value": "{global.control.size.300}",
+          "type": "sizing"
+        },
+        "md": {
+          "value": "{global.control.size.500}",
+          "type": "sizing"
+        },
+        "xmd": {
+          "value": "{global.control.size.900}",
+          "type": "sizing"
+        },
+        "lg": {
+          "value": "{global.control.size.1000}",
+          "type": "sizing"
+        }
+      }
+    },
     "colorPicker": {
       "background": {
         "color": {

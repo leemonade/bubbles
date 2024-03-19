@@ -1,11 +1,11 @@
 import { createStyles } from '@mantine/styles';
 
-const TableInputStyles = createStyles((theme, { hasError, disabled, rowStyles }) => ({
+const TableInputStyles = createStyles((theme, { hasError, disabled, rowStyles, isOneInput }) => ({
   root: {},
   tHead: {
     '&:after': !disabled && {
       content: '"@"',
-      display: 'block',
+      display: isOneInput ? 'none' : 'block',
       lineHeight: '16px',
       textIndent: -99999,
     },
@@ -23,6 +23,7 @@ const TableInputStyles = createStyles((theme, { hasError, disabled, rowStyles })
   },
   actionCell: {
     textAlign: 'center',
+    paddingRight: 16,
   },
   row: {
     backgroundColor: theme.colors.uiBackground01,
@@ -37,6 +38,14 @@ const TableInputStyles = createStyles((theme, { hasError, disabled, rowStyles })
     color: theme.colors.ui01,
     cursor: 'grab',
     paddingTop: theme.spacing[3],
+  },
+  oneInputContainer: {
+    width: '100%',
+    display: 'flex',
+  },
+  oneInput: {
+    width: '50%',
+    marginRight: 12,
   },
 }));
 

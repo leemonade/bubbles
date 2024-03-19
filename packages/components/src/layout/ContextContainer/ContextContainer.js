@@ -86,15 +86,18 @@ const ContextContainer = ({
       direction="column"
       spacing={3}
       fullWidth
-      className={cx(classes.root, className)}
+      className={cx(classes.root, className, 'section-wrapper')}
       fullHeight={fullHeight}
       style={style}
       {...props}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
-        <Stack direction="column" spacing={2} noFlex fullWidth>
+        <Stack className={'section-header-wrapper'} direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
-            <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box
+              className={'section-title'}
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
               <Box>
                 {typeof title === 'string' ? (
                   <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
@@ -106,7 +109,7 @@ const ContextContainer = ({
             </Box>
           )}
           {hasSubtitle && (
-            <Box>
+            <Box className={'section-subtitle'}>
               {typeof subtitle === 'string' ? (
                 <Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />
               ) : (
@@ -137,6 +140,7 @@ const ContextContainer = ({
         fullHeight={fullHeight}
         wrap={wrap}
         alignContent={alignContent}
+        className={'section-content-wrapper'}
       >
         {childrenNodes}
       </Stack>

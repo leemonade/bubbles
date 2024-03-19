@@ -1,12 +1,10 @@
 import React from 'react';
-import { Box } from '@mantine/core';
-import { TextInput, NumberInput, RadioGroup, Checkbox } from '../../form';
+import { TextInput } from '../../form';
 import {
   ContextContainer,
   CONTEXT_CONTAINER_DEFAULT_PROPS,
   CONTEXT_CONTAINER_PADDED_TYPES,
 } from './ContextContainer';
-import { Stack } from '../Stack';
 import mdx from './ContextContainer.mdx';
 
 export default {
@@ -29,21 +27,6 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  const RADIO_DATA = [
-    {
-      value: 'option1',
-      label: 'Label for option 1',
-    },
-    {
-      value: 'option2',
-      label: 'Label for option 2',
-    },
-    {
-      value: 'option3',
-      label: 'Label for option 3',
-    },
-  ];
-
   const headerInputStyle = { width: 300 };
 
   return (
@@ -57,8 +40,49 @@ const Template = ({ ...props }) => {
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
+  ...CONTEXT_CONTAINER_DEFAULT_PROPS,
+  title: 'Subjects',
+  subtitle: '',
+};
+
+const TemplateNested = ({ ...props }) => {
+  const headerInputStyle = { width: 300 };
+
+  return (
+    <ContextContainer>
+      <ContextContainer {...props}>
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 1" />
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 1" />
+      </ContextContainer>
+      <ContextContainer subtitle={'Without title - no extra margin'}>
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 2" />
+      </ContextContainer>
+      <ContextContainer {...props}>
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 3" />
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 3" />
+
+        <ContextContainer {...props} subtitle={'Third level - extra margin'}>
+          <TextInput headerStyle={headerInputStyle} label="Label for text field 4" />
+          <TextInput headerStyle={headerInputStyle} label="Label for text field 4" />
+        </ContextContainer>
+
+        <ContextContainer {...props} subtitle={'Third level - extra margin'}>
+          <TextInput headerStyle={headerInputStyle} label="Label for text field 5" />
+          <TextInput headerStyle={headerInputStyle} label="Label for text field 5" />
+        </ContextContainer>
+      </ContextContainer>
+      <ContextContainer {...props}>
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 6" />
+        <TextInput headerStyle={headerInputStyle} label="Label for text field 6" />
+      </ContextContainer>
+    </ContextContainer>
+  );
+};
+
+export const PlaygroundNested = TemplateNested.bind({});
+
+PlaygroundNested.args = {
   ...CONTEXT_CONTAINER_DEFAULT_PROPS,
   title: 'Subjects',
   subtitle: '',

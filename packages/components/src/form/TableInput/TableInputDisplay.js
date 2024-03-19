@@ -52,7 +52,9 @@ const TableInputDisplay = ({
   rowStyles,
   classes,
   canAdd,
+  isOneInput = true,
   renderActionButton,
+  actionLabel,
   onChangeRow = noop,
   renderRowSubComponent = noop,
 }) => {
@@ -85,21 +87,23 @@ const TableInputDisplay = ({
       if (column?.input) {
         const { node, rules, ...inputProps } = column.input;
         return (
-          <Controller
-            control={control}
-            name={accessor}
-            rules={rules}
-            render={({ field }) =>
-              React.cloneElement(node, {
-                placeholder: column.Header,
-                ...field,
-                ...inputProps,
-                formValues,
-                error: errors[accessor],
-                form,
-              })
-            }
-          />
+          <Box className={isOneInput && classes.oneInput}>
+            <Controller
+              control={control}
+              name={accessor}
+              rules={rules}
+              render={({ field }) =>
+                React.cloneElement(node, {
+                  placeholder: column.Header,
+                  ...field,
+                  ...inputProps,
+                  formValues,
+                  error: errors[accessor],
+                  form,
+                })
+              }
+            />
+          </Box>
         );
       }
 
@@ -148,7 +152,11 @@ const TableInputDisplay = ({
                   </Text>
                 </th>
               ))}
-              {!disabled ? <th style={{ width: '1%' }}></th> : null}
+              {!disabled ? (
+                <th style={{ width: actionLabel ? '10%' : '1%' }}>
+                  {actionLabel && labels.actions}
+                </th>
+              ) : null}
             </tr>
           ))}
 
@@ -158,22 +166,33 @@ const TableInputDisplay = ({
             {columns.map((column, i) => (
               <th
                 key={`in-${i}`}
-                className={cx(tableClasses.td, classes.inputCell)}
+                className={cx(
+                  tableClasses.td,
+                  classes.inputCell,
+                  isOneInput && classes.oneInputContainer,
+                )}
                 style={{ ...column.style, paddingLeft: 0 }}
               >
                 {getColumnInput(column.accessor)}
+                {isOneInput && !disabled && !isFunction(renderActionButton) && (
+                  <Button variant="link" disabled={disabledAddButton} onClick={handleOnAdd}>
+                    <AddIcon />
+                  </Button>
+                )}
+                {isOneInput &&
+                  !disabled &&
+                  isFunction(renderActionButton) &&
+                  renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
               </th>
             ))}
-            <th
-              className={cx(tableClasses.td, classes.inputCell)}
-              style={{ paddingLeft: 0, paddingBottom: 4 }}
-            >
-              {!disabled && !isFunction(renderActionButton) && (
+            <th className={cx()} style={{ paddingLeft: 0, paddingBottom: 4 }}>
+              {!isOneInput && !disabled && !isFunction(renderActionButton) && (
                 <Button variant="link" disabled={disabledAddButton} onClick={handleOnAdd}>
                   <AddIcon />
                 </Button>
               )}
-              {!disabled &&
+              {!isOneInput &&
+                !disabled &&
                 isFunction(renderActionButton) &&
                 renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
             </th>

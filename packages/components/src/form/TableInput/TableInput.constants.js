@@ -14,6 +14,8 @@ export const TABLE_INPUT_DEFAULT_PROPS = {
   forceShowInputs: false,
   resetOnAdd: false,
   canAdd: true,
+  isOneInput: false,
+  actionLabel: false,
 };
 
 export const TABLE_INPUT_PROP_TYPES = {
@@ -41,4 +43,5 @@ export const TABLE_INPUT_PROP_TYPES = {
   forceShowInputs: PropTypes.bool,
   resetOnAdd: PropTypes.bool,
   canAdd: PropTypes.bool,
+  isOneInput: PropTypes.bool,
 };
