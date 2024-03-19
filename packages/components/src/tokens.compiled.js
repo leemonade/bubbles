@@ -2436,50 +2436,6 @@ export default {
       }
     }
   },
-  "AvatarSubjectIcon": {
-    "content": {
-      "color": {
-        "default": {
-          "value": "#ffffff",
-          "type": "color"
-        }
-      }
-    },
-    "border": {
-      "radius": {
-        "rounded": {
-          "value": "99em",
-          "type": "borderRadius"
-        }
-      }
-    },
-    "size": {
-      "xxs": {
-        "value": "8 px",
-        "type": "sizing"
-      },
-      "xsm": {
-        "value": "16px",
-        "type": "sizing"
-      },
-      "sm": {
-        "value": "24px",
-        "type": "sizing"
-      },
-      "md": {
-        "value": "32px",
-        "type": "sizing"
-      },
-      "xmd": {
-        "value": "48px",
-        "type": "sizing"
-      },
-      "lg": {
-        "value": "56px",
-        "type": "sizing"
-      }
-    }
-  },
   "colorPicker": {
     "background": {
       "color": {
