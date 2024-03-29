@@ -80,7 +80,7 @@ export default {
       "default": {
         "value": {
           "fontFamily": "Albert Sans",
-          "fontWeight": 400,
+          "fontWeight": 500,
           "lineHeight": "20px",
           "fontSize": "14px"
         },
@@ -913,7 +913,7 @@ export default {
       "color": {
         "primary": {
           "default": {
-            "value": "#B4E600",
+            "value": "#ffffff",
             "type": "color"
           },
           "hover": {
@@ -971,8 +971,8 @@ export default {
       "default": {
         "value": {
           "fontFamily": "Albert Sans",
-          "fontWeight": 400,
-          "lineHeight": "24px",
+          "fontWeight": 500,
+          "lineHeight": "20px",
           "fontSize": "14px",
           "textDecoration": "underline"
         },
@@ -982,9 +982,8 @@ export default {
         "value": {
           "fontFamily": "Albert Sans",
           "fontWeight": 500,
-          "lineHeight": "24px",
-          "fontSize": "14px",
-          "textDecoration": "underline"
+          "lineHeight": "20px",
+          "fontSize": "14px"
         },
         "type": "typography"
       },
@@ -1306,6 +1305,24 @@ export default {
             "type": "color"
           }
         },
+        "link": {
+          "default": {
+            "value": "transparent",
+            "type": "color"
+          },
+          "hover": {
+            "value": "#F1FFBD",
+            "type": "color"
+          },
+          "pressed": {
+            "value": "#E2FF7A",
+            "type": "color"
+          },
+          "focus": {
+            "value": "#F1FFBD",
+            "type": "color"
+          }
+        },
         "secondary": {
           "default": {
             "value": "#0C1F22",
@@ -1527,7 +1544,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#ffffff26",
+          "color": "#ffffff",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1608,8 +1625,17 @@ export default {
             "type": "color"
           },
           "hover--reverse-transparent": {
-            "value": "#ffffff26",
-            "type": "color"
+            "value": "#ffffff",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.15",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#F1FFBD",
@@ -2436,50 +2462,6 @@ export default {
       }
     }
   },
-  "AvatarSubjectIcon": {
-    "content": {
-      "color": {
-        "default": {
-          "value": "#ffffff",
-          "type": "color"
-        }
-      }
-    },
-    "border": {
-      "radius": {
-        "rounded": {
-          "value": "99em",
-          "type": "borderRadius"
-        }
-      }
-    },
-    "size": {
-      "xxs": {
-        "value": "8 px",
-        "type": "sizing"
-      },
-      "xsm": {
-        "value": "16px",
-        "type": "sizing"
-      },
-      "sm": {
-        "value": "24px",
-        "type": "sizing"
-      },
-      "md": {
-        "value": "32px",
-        "type": "sizing"
-      },
-      "xmd": {
-        "value": "48px",
-        "type": "sizing"
-      },
-      "lg": {
-        "value": "56px",
-        "type": "sizing"
-      }
-    }
-  },
   "colorPicker": {
     "background": {
       "color": {
@@ -3002,11 +2984,15 @@ export default {
     "content": {
       "color": {
         "default": {
-          "value": "#0C1F22",
+          "value": "#4D5358",
           "type": "color"
         },
         "hover": {
-          "value": "#343A3F",
+          "value": "#0C1F22",
+          "type": "color"
+        },
+        "error": {
+          "value": "#b52a2a",
           "type": "color"
         },
         "down": {
@@ -3017,6 +3003,10 @@ export default {
       "typo": {
         "sm": {
           "value": "{global.content.typo.body.sm}",
+          "type": "typography"
+        },
+        "sm--medium": {
+          "value": "{global.content.typo.body.sm--medium}",
           "type": "typography"
         },
         "value": {
@@ -3030,20 +3020,16 @@ export default {
     },
     "border": {
       "color": {
+        "default": {
+          "value": "#DDE1E6",
+          "type": "color"
+        },
         "hover": {
           "value": "#DDE1E6",
           "type": "color"
         },
         "selected": {
           "value": "#B4E600",
-          "type": "color"
-        },
-        "content": {
-          "value": "#DDE1E6",
-          "type": "color"
-        },
-        "default": {
-          "value": "transparent",
           "type": "color"
         },
         "down": {
@@ -3105,7 +3091,7 @@ export default {
       },
       "horizontal": {
         "xsm": {
-          "value": "8px",
+          "value": "12px",
           "type": "spacing"
         }
       }
@@ -3648,7 +3634,11 @@ export default {
           "type": "spacing"
         },
         "horizontal--2xlg": {
-          "value": "40px",
+          "value": "32px",
+          "type": "spacing"
+        },
+        "horizontal--xxl": {
+          "value": "52px",
           "type": "spacing"
         }
       }
@@ -5305,12 +5295,30 @@ export default {
       "color": {
         "primary": {
           "default": {
-            "value": "#4d535866",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.4",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "hover": {
-            "value": "#4d5358b3",
-            "type": "color"
+            "value": "#4D5358",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0.7",
+                  "space": "lch"
+                }
+              }
+            }
           },
           "down": {
             "value": "#4D5358",
