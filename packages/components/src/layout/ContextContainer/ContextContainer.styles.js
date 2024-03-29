@@ -16,7 +16,7 @@ const ContextContainerStyles = createStyles((theme, { padded }) => {
       padding,
       '&.section-wrapper > .section-content-wrapper > .section-wrapper:not(:first-child):has(.section-title)':
         {
-          marginTop: '12px',
+          marginTop: '15px',
         },
     },
     description: {
