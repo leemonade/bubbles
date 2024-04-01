@@ -1,5 +1,37 @@
 # @bubbles-ui/components
 
+## 1.2.196
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/icons@1.2.196
+
+## 1.2.195
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/icons@1.2.195
+
+## 1.2.194
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/icons@1.2.194
+
+## 1.2.193
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/icons@1.2.193
+
 ## 1.2.192
 
 ### Patch Changes

@@ -33,6 +33,7 @@ export {
   useHover,
   useWindowScroll,
   useIdle,
+  useMediaQuery,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {

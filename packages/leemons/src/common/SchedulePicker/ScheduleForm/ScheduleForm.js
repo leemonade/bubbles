@@ -40,6 +40,7 @@ const dateToHoursAndMinutes = (date) =>
   date.toLocaleTimeString(navigator.language, {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   });
 
 function diffMinutes(dt2, dt1) {

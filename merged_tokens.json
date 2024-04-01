@@ -2150,7 +2150,7 @@
           }
         },
         "default": {
-          "value": "{global.content.typo.body.sm}",
+          "value": "{global.content.typo.body.sm--medium}",
           "type": "typography"
         },
         "hover": {
@@ -2955,7 +2955,7 @@
         "color": {
           "primary": {
             "default": {
-              "value": "{global.content.color.primary.default}",
+              "value": "{global.content.color.icon.default--reverse}",
               "type": "color"
             },
             "hover": {
@@ -3013,8 +3013,8 @@
         "default": {
           "value": {
             "fontFamily": "{core.font.family.main}",
-            "fontWeight": "{core.font.weight.regular}",
-            "lineHeight": "{core.font.lineHeight.300}px",
+            "fontWeight": "{core.font.weight.medium}",
+            "lineHeight": "{core.font.lineHeight.200}px",
             "fontSize": "{core.font.size.75}px",
             "textDecoration": "{underline}"
           },
@@ -3024,9 +3024,8 @@
           "value": {
             "fontFamily": "{core.font.family.main}",
             "fontWeight": "{core.font.weight.medium}",
-            "lineHeight": "{core.font.lineHeight.300}px",
-            "fontSize": "{core.font.size.75}px",
-            "textDecoration": "{underline}"
+            "lineHeight": "{core.font.lineHeight.200}px",
+            "fontSize": "{core.font.size.75}px"
           },
           "type": "typography"
         },
@@ -3340,6 +3339,24 @@
               "type": "color"
             },
             "selected": {
+              "value": "{global.background.color.primary.muted}",
+              "type": "color"
+            },
+            "focus": {
+              "value": "{global.background.color.primary.subtle}",
+              "type": "color"
+            }
+          },
+          "link": {
+            "default": {
+              "value": "{global.background.color.transparent}",
+              "type": "color"
+            },
+            "hover": {
+              "value": "{global.background.color.primary.subtle}",
+              "type": "color"
+            },
+            "pressed": {
               "value": "{global.background.color.primary.muted}",
               "type": "color"
             },
@@ -4933,11 +4950,15 @@
       "content": {
         "color": {
           "default": {
-            "value": "{global.content.color.secondary.default}",
+            "value": "{global.content.color.text.default}",
             "type": "color"
           },
           "hover": {
-            "value": "{global.content.color.text.emphasis}",
+            "value": "{global.content.color.secondary.default}",
+            "type": "color"
+          },
+          "error": {
+            "value": "{global.content.color.negative.emphasis}",
             "type": "color"
           },
           "down": {
@@ -4948,6 +4969,10 @@
         "typo": {
           "sm": {
             "value": "{global.content.typo.body.sm}",
+            "type": "typography"
+          },
+          "sm--medium": {
+            "value": "{global.content.typo.body.sm--medium}",
             "type": "typography"
           },
           "value": {
@@ -4961,20 +4986,16 @@
       },
       "border": {
         "color": {
+          "default": {
+            "value": "{global.border.color.line.subtle}",
+            "type": "color"
+          },
           "hover": {
             "value": "{global.border.color.line.subtle}",
             "type": "color"
           },
           "selected": {
             "value": "{global.border.color.primary.default}",
-            "type": "color"
-          },
-          "content": {
-            "value": "{global.border.color.line.subtle}",
-            "type": "color"
-          },
-          "default": {
-            "value": "{global.border.color.transparent}",
             "type": "color"
           },
           "down": {
@@ -5036,7 +5057,7 @@
         },
         "horizontal": {
           "xsm": {
-            "value": "{global.spacing.padding.xsm}",
+            "value": "{global.spacing.padding.sm}",
             "type": "spacing"
           }
         }
@@ -5565,7 +5586,11 @@
             "type": "spacing"
           },
           "horizontal--2xlg": {
-            "value": "{global.spacing.padding.2xlg}",
+            "value": "{global.spacing.padding.xlg}",
+            "type": "spacing"
+          },
+          "horizontal--xxl": {
+            "value": "{global.spacing.padding.3xlg} + {global.spacing.padding.2xsm}",
             "type": "spacing"
           }
         }

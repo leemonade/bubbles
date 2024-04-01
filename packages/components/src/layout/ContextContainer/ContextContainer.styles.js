@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const ContextContainerStyles = createStyles((theme, { padded }) => {
+const ContextContainerStyles = createStyles((theme, { padded }) => {
   let padding = 0;
 
   if (padded === true) {
@@ -16,7 +16,7 @@ export const ContextContainerStyles = createStyles((theme, { padded }) => {
       padding,
       '&.section-wrapper > .section-content-wrapper > .section-wrapper:not(:first-child):has(.section-title)':
         {
-          marginTop: '40px',
+          marginTop: '15px',
         },
     },
     description: {
@@ -24,3 +24,5 @@ export const ContextContainerStyles = createStyles((theme, { padded }) => {
     },
   };
 });
+
+export { ContextContainerStyles };
