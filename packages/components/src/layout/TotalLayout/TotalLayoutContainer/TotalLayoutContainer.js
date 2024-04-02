@@ -5,10 +5,10 @@ import { Box } from '../../Box';
 import { Stack } from '../../Stack';
 import { TotalLayoutContainerStyles } from './TotalLayoutContainer.styles';
 
-const TotalLayoutContainer = ({ Header, Footer, scrollRef, children, clean }) => {
+const TotalLayoutContainer = ({ Header, Footer, noHeaderShadow, scrollRef, children, clean }) => {
   const [topScroll, setTopScroll] = React.useState(false);
   const { classes } = TotalLayoutContainerStyles(
-    { clean, topScroll },
+    { clean, topScroll, noHeaderShadow },
     { name: 'TotalLayoutContainer' },
   );
 
@@ -60,6 +60,7 @@ TotalLayoutContainer.propTypes = {
   Footer: PropTypes.any,
   children: PropTypes.any,
   scrollRef: PropTypes.object,
+  noHeaderShadow: PropTypes.bool,
   clean: PropTypes.bool,
 };
 
