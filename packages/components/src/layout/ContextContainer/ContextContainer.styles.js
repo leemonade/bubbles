@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-export const ContextContainerStyles = createStyles((theme, { padded }) => {
+const ContextContainerStyles = createStyles((theme, { padded }) => {
   let padding = 0;
 
   if (padded === true) {
@@ -22,5 +22,10 @@ export const ContextContainerStyles = createStyles((theme, { padded }) => {
     description: {
       margin: 0,
     },
+    title: {
+      display: 'flex',
+    },
   };
 });
+
+export { ContextContainerStyles };
