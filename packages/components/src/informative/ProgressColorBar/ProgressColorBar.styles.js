@@ -1,8 +1,15 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem } from '../../theme.mixins';
 
-export const ProgressColorBarStyles = createStyles((theme) => {
+export const ProgressColorBarStyles = createStyles((theme, { trackColor }) => {
+  const root = {};
+
+  if (trackColor) {
+    root.backgroundColor = trackColor;
+  }
+
   return {
+    root,
     topLabelsContainer: {
       display: 'flex',
       justifyContent: 'space-between',
