@@ -148,7 +148,7 @@ const TableInputDisplay = ({
                   </Text>
                 </th>
               ))}
-              {!disabled ? <th style={{ width: '1%' }}></th> : null}
+              {!disabled ? <th style={{ width: '1%' }}>{labels?.actionHeader || ''}</th> : null}
             </tr>
           ))}
 

@@ -31,6 +31,7 @@ const InputWrapper = ({
   className,
   style,
   formValues,
+  showEmptyLabel,
   ...props
 }) => {
   const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'md';
@@ -46,7 +47,7 @@ const InputWrapper = ({
   return (
     <Box className={cx(classes.root, className)} style={style} {...props}>
       {/* Label & Description */}
-      {hasHeader && (
+      {(hasHeader || showEmptyLabel) && (
         <Stack
           direction="column"
           className={cx(classes.header, headerClassName)}
@@ -54,6 +55,7 @@ const InputWrapper = ({
         >
           <InputLabel
             label={label}
+            showEmptyLabel={showEmptyLabel}
             required={required}
             {...labelProps}
             description={description}

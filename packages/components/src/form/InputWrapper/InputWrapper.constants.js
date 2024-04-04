@@ -21,6 +21,7 @@ export const INPUT_WRAPPER_PROP_TYPES = {
   headerStyle: PropTypes.any,
   contentStyle: PropTypes.any,
   autoComplete: PropTypes.string,
+  showEmptyLabel: PropTypes.bool,
 };
 export const INPUT_WRAPPER_DEFAULT_PROPS = {
   label: '',
