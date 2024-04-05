@@ -22,6 +22,9 @@ const ContextContainerStyles = createStyles((theme, { padded }) => {
     description: {
       margin: 0,
     },
+    title: {
+      display: 'flex',
+    },
   };
 });
 

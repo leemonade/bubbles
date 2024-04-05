@@ -2,7 +2,10 @@ import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
 const RadioGroupStyles = createStyles(
-  (theme, { variant, value, direction, fullWidth, activePosition, hasError, rounded }) => {
+  (
+    theme,
+    { variant, value, direction, fullWidth, minWidth, activePosition, hasError, rounded },
+  ) => {
     const isColumn = direction === 'column';
     const isDefault = variant === 'default' || variant === 'image';
     const isIcon = variant === 'icon';
@@ -23,7 +26,7 @@ const RadioGroupStyles = createStyles(
       },
       label: {
         padding: 0,
-        paddingRight: isDefault ? pxToRem(24) : null,
+        paddingRight: isDefault && !minWidth ? pxToRem(24) : null,
         display: 'flex',
         justifyContent: isIcon && 'center',
         height: '100%',
@@ -48,6 +51,7 @@ const RadioGroupStyles = createStyles(
       },
       radio: {
         pointerEvents: 'none',
+        paddingRight: minWidth && 0,
       },
       control: {
         '&:not(:first-of-type)': {
