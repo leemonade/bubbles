@@ -37,13 +37,11 @@ const HeaderDropdown = ({
   const [isOpened, setIsOpened] = useState(false);
   const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
-  const [isOnlyOneItem, setIsOnlyOneItem] = useState(false);
   const [selectedItem, setSelectedItem] = useState(
     data.find((item) => item?.id === value?.id) || data[0] || {},
   );
-  React.useEffect(() => {
-    setIsOnlyOneItem(data.length === 1);
-  }, [data]);
+  
+  const isOnlyOneItem = data.length === 1;
 
   const { classes, cx } = HeaderDropdownStyles(
     {
