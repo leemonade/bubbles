@@ -29,7 +29,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   value: '',
   imageHeight: 100,
   fullWidth: false,
-  minWidth: false,
+  minWidth: 0,
   useAria: true,
 };
 export const RADIOGROUP_PROP_TYPES = {
