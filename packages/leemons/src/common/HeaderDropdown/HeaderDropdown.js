@@ -37,9 +37,13 @@ const HeaderDropdown = ({
   const [isOpened, setIsOpened] = useState(false);
   const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
+  const [isOnlyOneItem, setIsOnlyOneItem] = useState(false);
   const [selectedItem, setSelectedItem] = useState(
     data.find((item) => item?.id === value?.id) || data[0] || {},
   );
+  React.useEffect(() => {
+    setIsOnlyOneItem(data.length === 1);
+  }, [data]);
 
   const { classes, cx } = HeaderDropdownStyles(
     {
@@ -62,7 +66,6 @@ const HeaderDropdown = ({
       const filterValue = normalizeString(filter);
       return itemLabel?.includes(filterValue) || itemDescription?.includes(filterValue);
     });
-
     return itemListToReturn.map((item, index) =>
       itemComponent ? (
         React.cloneElement(itemComponent, [...item])
@@ -163,7 +166,7 @@ const HeaderDropdown = ({
                 </Box>
               </Box>
             )}
-            {!readOnly && (
+            {!readOnly && !isOnlyOneItem && (
               <Box>
                 <ActionButton
                   className={classes.dropDownIcon}
