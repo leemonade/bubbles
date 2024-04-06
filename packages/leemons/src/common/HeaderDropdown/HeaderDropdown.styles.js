@@ -12,21 +12,18 @@ const HeaderDropdownStyles = createStyles(
       alignItems: hasDescription ? 'flex-start' : 'center',
     },
     dropDown: {
-      // marginTop: 10,
       padding: 20,
       paddingRight: 0,
       zIndex: 999,
+      '&.mantine-Popover-dropdown': {
+        padding: 8,
+      },
     },
     dropDownContent: {
-      // padding: 10,
-      // paddingRight: 0,
       maxHeight: 300,
       maxWidth: 360,
     },
     itemList: {
-      // padding: 16,
-      // paddingBottom: 4,
-      paddingRight: 20,
       display: 'flex',
       flexDirection: 'column',
       overflowY: 'auto',
@@ -34,12 +31,10 @@ const HeaderDropdownStyles = createStyles(
       maxHeight: withSearchInput ? 230 : 290,
     },
     searchInput: {
-      // padding: 16,
       paddingRight: 20,
       paddingBottom: 20,
     },
     dropDownIcon: {
-      // color: theme.colors.text01,
       marginLeft: 16,
       alignSelf: 'baseline',
     },
@@ -73,7 +68,7 @@ const HeaderDropdownStyles = createStyles(
       alignItems: 'center',
     },
     itemComponentIcon: {
-      color: '#5CBC6A',
+      color: theme.other.global.content.color.positive.default,
       fontSize: 14,
     },
     itemComponentLabel: {
