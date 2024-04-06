@@ -32,6 +32,7 @@ const HeaderDropdown = ({
   readOnly,
   onChange,
   withSearchInput,
+  hideIcon,
   ...props
 }) => {
   const [isOpened, setIsOpened] = useState(false);
@@ -47,6 +48,8 @@ const HeaderDropdown = ({
     {
       withSearchInput,
       hasDescription: !isEmpty(selectedItem?.description),
+      itemSelectedFontSize: props.itemSelectedFontSize || '18px',
+      itemSelectedFontWeight: props.itemSelectedFontWeight || '600',
     },
     { name: 'HeaderDropdown' },
   );
@@ -76,14 +79,15 @@ const HeaderDropdown = ({
           onClick={() => onChangeHandler(item)}
         >
           <Box className={classes.itemComponentContent}>
-            {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon ? (
+            {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon && !hideIcon ? (
               <ImageLoader height={32} width={32} radius="50%" src={item?.image} />
             ) : null}
             {!isNil(item?.icon) &&
             !isEmpty(item?.icon) &&
             !isNil(item?.color) &&
             !isEmpty(item?.color) &&
-            item?.showIcon ? (
+            item?.showIcon &&
+            !hideIcon ? (
               <Box className={classes.itemIconSmall} style={{ backgroundColor: item?.color }}>
                 <ImageLoader forceImage height={16} width={16} src={item?.icon} />
               </Box>
@@ -139,14 +143,16 @@ const HeaderDropdown = ({
               <Box className={classes.valueComponent}>
                 {!isNil(selectedItem?.image) &&
                 !isEmpty(selectedItem?.image) &&
-                !selectedItem?.showIcon ? (
+                !selectedItem?.showIcon &&
+                !hideIcon ? (
                   <ImageLoader height={48} width={48} radius="50%" src={selectedItem?.image} />
                 ) : null}
                 {!isNil(selectedItem?.icon) &&
                 !isEmpty(selectedItem?.icon) &&
                 !isNil(selectedItem?.color) &&
                 !isEmpty(selectedItem?.color) &&
-                selectedItem?.showIcon ? (
+                selectedItem?.showIcon &&
+                !hideIcon ? (
                   <Box
                     className={classes.itemIcon}
                     style={{ backgroundColor: selectedItem?.color }}
@@ -170,9 +176,15 @@ const HeaderDropdown = ({
                   className={classes.dropDownIcon}
                   icon={
                     isOpened ? (
-                      <ChevUpIcon height={24} width={24} />
+                      <ChevUpIcon
+                        height={props.chevronSize || 24}
+                        width={props.chevronSize || 24}
+                      />
                     ) : (
-                      <ChevDownIcon height={24} width={24} />
+                      <ChevDownIcon
+                        height={props.chevronSize || 24}
+                        width={props.chevronSize || 24}
+                      />
                     )
                   }
                   onClick={() => setIsOpened(!isOpened)}
