@@ -1,5 +1,16 @@
 # @bubbles-ui/leemons
 
+## 1.2.200
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.200
+  - @bubbles-ui/calendars@1.2.200
+  - @bubbles-ui/editors@1.2.200
+  - @bubbles-ui/icons@1.2.200
+
 ## 1.2.199
 
 ### Patch Changes
