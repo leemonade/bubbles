@@ -59,6 +59,11 @@ export default {
         type: 'text',
       },
     },
+    trackColor: {
+      control: {
+        type: 'color',
+      },
+    },
   },
 };
 

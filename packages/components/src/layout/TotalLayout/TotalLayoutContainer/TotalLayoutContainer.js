@@ -5,10 +5,18 @@ import { Box } from '../../Box';
 import { Stack } from '../../Stack';
 import { TotalLayoutContainerStyles } from './TotalLayoutContainer.styles';
 
-const TotalLayoutContainer = ({ Header, Footer, scrollRef, children, clean }) => {
+const TotalLayoutContainer = ({
+  Header,
+  Footer,
+  noHeaderShadow,
+  scrollRef,
+  children,
+  clean,
+  styleRoot,
+}) => {
   const [topScroll, setTopScroll] = React.useState(false);
   const { classes } = TotalLayoutContainerStyles(
-    { clean, topScroll },
+    { clean, topScroll, noHeaderShadow },
     { name: 'TotalLayoutContainer' },
   );
 
@@ -36,7 +44,7 @@ const TotalLayoutContainer = ({ Header, Footer, scrollRef, children, clean }) =>
   }, [scrollRef?.current, handleScroll]);
 
   return (
-    <Box className={classes.root}>
+    <Box style={styleRoot} className={classes.root}>
       <Stack fullWidth fullHeight direction="column">
         <Box className={classes.header} noFlex>
           {isFunction(Header) ? <Header /> : Header}
@@ -60,7 +68,9 @@ TotalLayoutContainer.propTypes = {
   Footer: PropTypes.any,
   children: PropTypes.any,
   scrollRef: PropTypes.object,
+  noHeaderShadow: PropTypes.bool,
   clean: PropTypes.bool,
+  styleRoot: PropTypes.object,
 };
 
 export { TotalLayoutContainer };

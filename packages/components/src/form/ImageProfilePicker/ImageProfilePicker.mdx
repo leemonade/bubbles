@@ -1,0 +1,55 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import * as stories from './ImageProfilePicker.stories.js';
+import { ImageProfilePicker } from './ImageProfilePicker.js';
+import { Box } from '@mantine/core';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# Input
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/form/ImageProfilePicker/ImageProfilePicker.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+ImageProfilePicker is a picker to choose an image and resize to fit in a profile avatar.
+
+<ThemeProvider>
+  <ImageProfilePicker
+    fullName="John Doe"
+    labels={{
+      uploadImage: 'upload',
+      changeImage: 'change',
+      delete: 'delete',
+      cancel: 'cancel',
+      accept: 'accept',
+    }}
+  />
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="atoms-form-imageprofilepicker--playground" />
+</Preview>
+
+<Props of={ImageProfilePicker} />
+
+## References
+
+[MDN: ARIA ImageProfilePicker role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/imageprofilepicker_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/form/ImageProfilePicker/ImageProfilePicker.mdx)

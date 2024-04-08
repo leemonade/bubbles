@@ -44,7 +44,7 @@ const TotalLayoutBody = ({
         />
       </Box>
     )}
-    <Box style={{ width: 928 }}>{children}</Box>
+    <Box style={{ minWidth: 928 }}>{children}</Box>
   </Stack>
 );
 

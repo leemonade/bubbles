@@ -2,7 +2,7 @@ import React from 'react';
 import { find } from 'lodash';
 import { TableInput } from './TableInput';
 import { TABLE_INPUT_DEFAULT_PROPS } from './TableInput.constants';
-import { NumberInput, Select, TextInput } from '../../form';
+import { NumberInput, Select, TextInput } from '..';
 import { ContextContainer } from '../../layout/ContextContainer';
 import mdx from './TableInput.mdx';
 
@@ -24,9 +24,15 @@ export default {
 };
 
 const Template = ({ ...props }) => {
+  let columns;
+  if (props.isOneInput) {
+    columns = [props.columns[0]];
+  } else {
+    columns = props.columns;
+  }
   return (
     <ContextContainer title="Subjects" description="Standard duration of subjects">
-      <TableInput {...props} />
+      <TableInput {...props} columns={columns} />
     </ContextContainer>
   );
 };
@@ -67,7 +73,7 @@ Playground.args = {
         rules: { required: 'Required field' },
         data: PERIOD_TYPES,
       },
-      valueRender: (value) => find(PERIOD_TYPES, { value })['label'],
+      valueRender: (value) => find(PERIOD_TYPES, { value }).label,
       style: { width: '15%' },
     },
   ],
@@ -93,5 +99,6 @@ Playground.args = {
     edit: 'Edit',
     accept: 'Accept',
     cancel: 'Cancel',
+    actions: 'Actions',
   },
 };

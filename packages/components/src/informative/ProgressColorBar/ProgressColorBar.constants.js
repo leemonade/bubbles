@@ -26,4 +26,5 @@ export const PROGRESSCOLORBAR_PROP_TYPES = {
   size: propTypes.oneOf(PROGRESSCOLORBAR_SIZES),
   striped: propTypes.bool,
   value: propTypes.number,
+  trackColor: propTypes.string,
 };
