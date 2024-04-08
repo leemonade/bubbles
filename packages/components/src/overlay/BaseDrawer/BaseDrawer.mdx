@@ -1,0 +1,68 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { Box } from '@mantine/core';
+import * as stories from './BaseDrawer.stories.js';
+import { BaseDrawer } from './BaseDrawer.js';
+import { ThemeProvider } from './../../ThemeProvider';
+
+# BaseDrawer
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/overlay/BaseDrawer/BaseDrawer.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Drawer positions](#drawer-positions)
+- [Drawer sizes](#drawer-sizes)
+- [Drawer overlay and shadow](#drawer-overlay-and-shadow)
+- [Drawer back button](#drawer-back-button)
+- [Component API](#component-api)
+- [References](#references)
+- [Feedback](#feedback)
+
+## Overview
+
+Drawer is a component to display an area at any side of the screen. To explore all the props, go to the story.
+
+<ThemeProvider>
+  <BaseDrawer size={150} opened />
+</ThemeProvider>
+
+## Drawer positions
+
+Drawer can appear from 4 different positions: `left`, `right`, `top` or `bottom`.
+
+## Drawer sizes
+
+There are six different sizes: `xs`, 'sm', `md`, 'lg', `xl` and `full`. Also you can pass a number in `px` or a percentage of the screen.
+
+## Drawer overlay and shadow
+
+You can open the Drawer with an overlay for the rest of the screen with `withOverlay` and control the opacity with `overlayOpacity`.
+
+You can also choose to display a shadow or not with the `shadow` prop.
+
+## Drawer back button
+
+You can render a back button with the `back` prop.
+
+## Component API
+
+<Preview>
+  <Story id="molecules-overlay-drawer--playground" />
+</Preview>
+
+<Props of={Drawer} />
+
+## References
+
+[MDN: ARIA dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role)
+
+[W3: Role attribute](https://www.w3.org/WAI/PF/HTML/wiki/RoleAttribute)
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/overlay/BaseDrawer/BaseDrawer.mdx)
