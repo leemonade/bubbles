@@ -19,7 +19,6 @@ export {
   Skeleton,
   keyframes,
   Navbar,
-  Highlight,
 } from '@mantine/core';
 export * from '@mantine/spotlight';
 export {
@@ -34,6 +33,7 @@ export {
   useHover,
   useWindowScroll,
   useIdle,
+  useMediaQuery,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {

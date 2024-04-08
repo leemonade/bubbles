@@ -19,8 +19,9 @@ const ProgressColorBar = ({
   value,
   labelLeft,
   labelRight,
+  trackColor,
 }) => {
-  const { classes, theme } = ProgressColorBarStyles();
+  const { classes, theme } = ProgressColorBarStyles({ trackColor }, { name: 'ProgressColorBar' });
 
   const color = React.useMemo(() => {
     if (value < 25) {
@@ -41,6 +42,7 @@ const ProgressColorBar = ({
         </Box>
       )}
       <MantineProgress
+        classNames={{ root: classes.root }}
         value={value}
         label={label}
         color={trim(colorProp ?? '') !== '' ? colorProp : color}

@@ -5,12 +5,12 @@ const TotalLayoutStepContainerStyles = createStyles(
     root: {},
     stepContainer: {
       padding: clean ? 0 : '30px 0 0 0 ',
-      width: fullWidth ? '100%' : 928,
       marginLeft: fullWidth && !noMargin ? theme.spacing[5] : 0,
       marginRight: fullWidth && !noMargin ? theme.spacing[5] : 0,
       height: '100%',
+      width: fullWidth ? '100%' : 928,
       '@media (min-width: 1920px)': {
-        maxWidth: 1400,
+        width: 1400,
       },
     },
     formContainer: {

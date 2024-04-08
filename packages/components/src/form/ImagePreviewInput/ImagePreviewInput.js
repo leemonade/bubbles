@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString, isNil } from 'lodash';
-import { CloudUploadIcon } from '@bubbles-ui/icons/outline/';
+import { CloudUploadIcon, SynchronizeArrowsIcon } from '@bubbles-ui/icons/outline/';
 import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
 import { Box } from '../../layout/Box';
 import { Stack } from '../../layout/Stack';
@@ -22,6 +22,7 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   labels: PropTypes.shape({
     uploadButton: PropTypes.string,
     changeImage: PropTypes.string,
+    removeButton: PropTypes.string,
   }),
   value: PropTypes.any,
   previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
@@ -48,6 +49,7 @@ const ImagePreviewInput = ({
   disabled,
   useAria,
   noPicker,
+  onShowDrawer,
   objectFit,
   width,
   height,
@@ -87,6 +89,10 @@ const ImagePreviewInput = ({
       if (isFunction(onChange)) onChange(file);
     };
     input.click();
+  };
+
+  const handleShowDrawer = () => {
+    if (isFunction(onShowDrawer)) onShowDrawer(true);
   };
 
   const getControl = () => {
@@ -134,6 +140,16 @@ const ImagePreviewInput = ({
                 compact
                 leftIcon={<DeleteBinIcon />}
                 onClick={resetImage}
+                useAria={useAria}
+              >
+                {labels.removeButton}
+              </Button>
+              <Button
+                variant="link"
+                size="sm"
+                compact
+                leftIcon={<SynchronizeArrowsIcon />}
+                onClick={handleShowDrawer}
                 useAria={useAria}
               >
                 {labels.changeImage}
