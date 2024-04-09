@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isString, noop, trim } from 'lodash';
+import { noop } from 'lodash';
 import { Drawer as MantineDrawer } from '@mantine/core';
-import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { ActionButton } from '../../form/ActionButton';
-import { Box } from '../../layout/Box';
-import { Stack } from '../../layout/Stack';
 import { DrawerStyles } from './Drawer.styles';
 import { DrawerHeader } from './components/DrawerHeader';
 import { DrawerContent } from './components/DrawerContent';
