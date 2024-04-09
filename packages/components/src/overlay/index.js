@@ -1,6 +1,3 @@
-// export * from './DeleteConfirmation/DeleteConfirmation';
-// export * from './DetailPanel/DetailPanel';
-// export * from './EditPanel/EditPanel';
 export * from './LoadingOverlay';
 export * from './ModalsProvider';
 export * from './Tooltip';
@@ -9,3 +6,4 @@ export * from './Drawer';
 export * from './Modal';
 export * from './DrawerPush';
 export * from './ModalZoom';
+export * from './BaseDrawer';

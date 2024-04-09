@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/styles';
+import { TOTAL_LAYOUT_HEADER_HEIGHT } from './TotalLayoutHeader.constants';
 
 const TotalLayoutHeaderStyles = createStyles(
   (theme, { children, direction, compact, hasIcon, iconLarge }) => ({
@@ -6,7 +7,7 @@ const TotalLayoutHeaderStyles = createStyles(
     headerContainer: {
       padding: `12px 24px`,
       backgroundColor: 'white',
-      minHeight: 72,
+      minHeight: TOTAL_LAYOUT_HEADER_HEIGHT,
     },
     header: { height: '40px' },
     headerTools: { marginTop: '12px' },

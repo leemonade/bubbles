@@ -1,4 +1,5 @@
 import { createStyles } from '@mantine/styles';
+import { TOTAL_LAYOUT_HEADER_HEIGHT } from '../TotalLayoutHeader/TotalLayoutHeader.constants';
 
 const TotalLayoutStepContainerStyles = createStyles(
   (theme, { hasFooter, clean, fullWidth, noMargin, footerPadding }) => ({
@@ -16,7 +17,7 @@ const TotalLayoutStepContainerStyles = createStyles(
     formContainer: {
       backgroundColor: !clean && 'white',
       padding: !clean && 24,
-      paddingBottom: footerPadding || hasFooter ? 70 : 24,
+      paddingBottom: footerPadding ?? (hasFooter ? TOTAL_LAYOUT_HEADER_HEIGHT : 24),
     },
     stepName: {
       marginBottom: 12,
