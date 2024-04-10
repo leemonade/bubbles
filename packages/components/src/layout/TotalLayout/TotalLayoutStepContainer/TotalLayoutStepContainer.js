@@ -19,12 +19,18 @@ const TotalLayoutStepContainer = ({
   clean,
 }) => {
   const { classes } = TotalLayoutStepContainerStyles(
-    { hasFooter: !!Footer, clean, fullWidth, noMargin, footerPadding },
+    {
+      hasFooter: !!Footer,
+      clean,
+      fullWidth,
+      noMargin,
+      footerPadding,
+    },
     { name: 'TotalLayoutStepContainer' },
   );
 
   return (
-    <Stack className={classes.stepContainer} direction="column">
+    <Stack className={classes.stepContainer} fullHeight direction="column">
       {stepName && (
         <Title className={classes.stepName} order={2} noFlex>
           {stepName}

@@ -23,3 +23,5 @@ export const TOTAL_LAYOUT_HEADER_DEFAULT_PROPS = {
   cancelable: true,
   direction: 'column',
 };
+
+export const TOTAL_LAYOUT_HEADER_HEIGHT = 72;

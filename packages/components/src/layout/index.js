@@ -1,5 +1,6 @@
 export * from './HorizontalStepperContainer';
 export * from './TotalLayout';
+export * from './TLayout';
 export * from './VerticalStepperContainer';
 export * from './VerticalContainer';
 export * from './ContextContainer';
