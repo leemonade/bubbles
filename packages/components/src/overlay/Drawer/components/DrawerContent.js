@@ -17,7 +17,7 @@ const DrawerContent = ({ children, scrollRef }) => {
         ...FooterComponent.props,
         scrollRef,
         fixed: true,
-        style: { ...(FooterComponent.props?.style ?? {}), right: 0 },
+        style: { ...(FooterComponent.props?.style ?? {}), right: 0, zIndex: 100 },
       })
     : null;
 

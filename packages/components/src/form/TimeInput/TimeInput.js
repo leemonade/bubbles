@@ -1,13 +1,14 @@
 import React, { forwardRef } from 'react';
 import { useId } from '@mantine/hooks';
 import { isEmpty } from 'lodash';
+import { TimeInput as MantineTimeInput } from '@mantine/dates';
+import { ClockIcon } from '@bubbles-ui/icons/solid';
 import { TimeInputStyles } from './TimeInput.styles';
 import {
   InputWrapper,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_DEFAULT_PROPS,
 } from '../InputWrapper';
-import { TimeInput as MantineTimeInput } from '@mantine/dates';
 
 export const TIME_INPUT_DEFAULT_PROPS = {
   ...INPUT_WRAPPER_DEFAULT_PROPS,
@@ -32,7 +33,7 @@ const TimeInput = forwardRef(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { classes, cx } = TimeInputStyles({ size }, { name: 'TimeInput' });
 
@@ -54,6 +55,7 @@ const TimeInput = forwardRef(
       >
         <MantineTimeInput
           {...props}
+          icon={<ClockIcon width={16} height={16} />}
           id={uuid}
           ref={ref}
           size={size}
@@ -63,9 +65,10 @@ const TimeInput = forwardRef(
         />
       </InputWrapper>
     );
-  }
+  },
 );
 
+TimeInput.displayName = 'TimeInput';
 TimeInput.defaultProps = TIME_INPUT_DEFAULT_PROPS;
 TimeInput.propTypes = TIME_INPUT_PROP_TYPES;
 
