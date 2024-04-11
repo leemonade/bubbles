@@ -34,6 +34,7 @@ RightActions.propTypes = {
 
 DrawerFooter.LeftActions = LeftActions;
 DrawerFooter.RightActions = RightActions;
+DrawerFooter.displayName = 'DrawerFooter';
 DrawerFooter.propTypes = {
   children: PropTypes.node,
   leftZone: PropTypes.node,

@@ -6,11 +6,11 @@ const TotalLayoutStepContainerStyles = createStyles(
     root: {},
     stepContainer: {
       padding: clean ? 0 : '30px 0 0 0 ',
-      marginLeft: fullWidth && !noMargin ? theme.spacing[5] : 0,
-      marginRight: fullWidth && !noMargin ? theme.spacing[5] : 0,
+      marginLeft: fullWidth && !noMargin ? theme.spacing[8] : 0,
+      marginRight: fullWidth && !noMargin ? theme.spacing[8] : 0,
       height: '100%',
       maxWidth: fullWidth ? '100%' : 928,
-      '@media (min-width: 1920px)': {
+      '@media (min-width: 1720px)': {
         maxWidth: 1400,
       },
     },

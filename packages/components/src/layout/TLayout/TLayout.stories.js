@@ -59,7 +59,7 @@ const Template = ({ fullWidth }) => {
             ))}
           </ContextContainer>
         </TLayout.Content>
-        <TLayout.Footer fullWidth={fullWidth}>
+        <TLayout.Footer fullWidth={fullWidth} skipOffset>
           <TLayout.Footer.LeftActions>
             <Button variant="outline">Volver</Button>
           </TLayout.Footer.LeftActions>

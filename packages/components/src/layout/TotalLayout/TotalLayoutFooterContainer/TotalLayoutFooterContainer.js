@@ -16,6 +16,7 @@ const TotalLayoutFooterContainer = ({
   style,
   width,
   clean,
+  skipOffset,
 }) => {
   const [showFooterBorder, setShowFooterBorder] = React.useState(false);
   const { classes } = TotalLayoutFooterContainerStyles(
@@ -25,6 +26,7 @@ const TotalLayoutFooterContainer = ({
       fixed,
       fullWidth,
       width,
+      skipOffset,
     },
     { name: 'TotalLayoutFooterContainer' },
   );
@@ -88,6 +90,7 @@ TotalLayoutFooterContainer.propTypes = {
   style: PropTypes.object,
   width: PropTypes.number,
   clean: PropTypes.bool,
+  skipOffset: PropTypes.bool,
 };
 
 export { TotalLayoutFooterContainer };

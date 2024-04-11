@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DrawerFooter } from './DrawerFooter';
 import { Box, Stack, ContextContainer, TOTAL_LAYOUT_HEADER_HEIGHT } from '../../../layout';
+import { LoadingOverlay } from '../../LoadingOverlay';
 
-const DrawerContent = ({ children, scrollRef }) => {
+const DrawerContent = ({ loading, children, scrollRef }) => {
   const FooterComponent = React.Children.toArray(children).find(
     (child) => child.type === DrawerFooter,
   );
@@ -21,8 +22,21 @@ const DrawerContent = ({ children, scrollRef }) => {
       })
     : null;
 
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          position: 'relative',
+          height: `calc(100% - ${TOTAL_LAYOUT_HEADER_HEIGHT}px)`,
+        }}
+      >
+        <LoadingOverlay visible />
+      </Box>
+    );
+  }
+
   return (
-    <Stack fullHeight direction="column">
+    <Stack fullHeight direction="column" sx={{ position: 'relative' }}>
       <Box
         ref={scrollRef}
         sx={{
@@ -41,9 +55,11 @@ const DrawerContent = ({ children, scrollRef }) => {
   );
 };
 
+DrawerContent.displayName = 'DrawerContent';
 DrawerContent.propTypes = {
   children: PropTypes.node,
   scrollRef: PropTypes.any,
+  loading: PropTypes.bool,
 };
 
 export { DrawerContent };
