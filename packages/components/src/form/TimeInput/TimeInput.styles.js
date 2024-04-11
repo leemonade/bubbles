@@ -13,13 +13,23 @@ const TimeInputStyles = createStyles((theme, { size }) => {
       minHeight: 40,
       display: 'flex',
       alignItems: 'center',
+      paddingLeft: '30px !important',
     },
     timeInput: {
       lineHeight: inputStyle.lineHeight,
       border: 'none',
+      ...inputTheme.content.typo,
+      paddingTop: 4,
+      '&::placeholder': {
+        textAlign: 'center',
+      },
     },
     controls: {
       height: '100%',
+    },
+    icon: {
+      width: 32,
+      color: inputTheme.content.color.icon,
     },
   };
 });

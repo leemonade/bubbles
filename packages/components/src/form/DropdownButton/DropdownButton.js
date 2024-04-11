@@ -7,7 +7,7 @@ import {
   DROPDOWN_BUTTON_PROP_TYPES,
 } from './DropdownButton.constants';
 import { Button } from '../Button';
-import { Popover } from '../../overlay';
+import { Popover } from '../../overlay/Popover';
 import { Dropdown, Item } from '../../overlay/Dropdown';
 import { ImageLoader } from '../../misc';
 

@@ -218,7 +218,7 @@ const DatePicker = forwardRef(
               classNames={{ ...classes, ...calendarClasses }}
               error={!isEmpty(error)}
               onChange={(v) => (range ? setDate(v) : updateDate(v, date, setDate))}
-              icon={<PluginCalendarIcon />}
+              icon={<PluginCalendarIcon width={16} height={16} />}
               clearButtonLabel={clearButtonLabel}
             />
             {withTime && !range && (

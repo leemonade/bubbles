@@ -10,9 +10,9 @@ const TotalLayoutFooterContainerStyles = createStyles(
       zIndex: 1,
       position: fixed ? 'fixed' : 'relative',
       bottom: 0,
-      width: fullWidth ? 'calc(100% - 100px)' : width || 928,
+      width: fullWidth ? 'calc(100% - 59px)' : width ?? 928,
       '@media (min-width: 1920px)': {
-        width: width || 1400,
+        width: width ?? 1400,
       },
     },
   }),
