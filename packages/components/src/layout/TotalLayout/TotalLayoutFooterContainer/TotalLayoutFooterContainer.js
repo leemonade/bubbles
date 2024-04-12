@@ -16,8 +16,10 @@ const TotalLayoutFooterContainer = ({
   style,
   width,
   clean,
+  rectRef,
 }) => {
   const [showFooterBorder, setShowFooterBorder] = React.useState(false);
+  const [footerStyles, setFooterStyles] = React.useState({});
   const { classes } = TotalLayoutFooterContainerStyles(
     {
       showFooterBorder: showFooterBorder || _showFooterBorder,
@@ -58,9 +60,29 @@ const TotalLayoutFooterContainer = ({
     return () => {};
   }, [scrollRef?.current, handleScroll]);
 
+  React.useEffect(() => {
+    let animationFrameId;
+
+    const updateFooterStyles = () => {
+      const clientRect = rectRef?.current?.getBoundingClientRect();
+      // Aquí actualizamos el estado o hacemos lo que sea necesario con clientRect
+      // Por ejemplo, si necesitas actualizar el estado basado en clientRect, puedes hacerlo aquí.
+      // Asegúrate de tener un estado para almacenar los estilos que quieres actualizar.
+      setFooterStyles({ left: clientRect?.left, width: clientRect?.width });
+
+      animationFrameId = requestAnimationFrame(updateFooterStyles);
+    };
+
+    animationFrameId = requestAnimationFrame(updateFooterStyles);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [rectRef?.current]);
+
   return (
     <Stack justifyContent="center" fullWidth>
-      <Box className={classes.footer} style={style}>
+      <Box className={classes.footer} style={{ ...style, ...footerStyles }}>
         <Stack fullWidth style={{ height: 72, padding: clean ? 0 : '16px 24px' }}>
           <Stack direction="row" spacing={2} noFlex>
             {leftZone}
@@ -88,6 +110,7 @@ TotalLayoutFooterContainer.propTypes = {
   style: PropTypes.object,
   width: PropTypes.number,
   clean: PropTypes.bool,
+  rectRef: PropTypes.object,
 };
 
 export { TotalLayoutFooterContainer };
