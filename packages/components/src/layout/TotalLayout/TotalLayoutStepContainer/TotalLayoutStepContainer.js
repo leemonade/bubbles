@@ -7,6 +7,7 @@ import {
   TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES,
 } from './TotalLayoutStepContainer.constants';
 import { TotalLayoutStepContainerStyles } from './TotalLayoutStepContainer.styles';
+import { LoadingOverlay } from '../../../overlay/LoadingOverlay';
 
 const TotalLayoutStepContainer = ({
   stepName,
@@ -17,6 +18,7 @@ const TotalLayoutStepContainer = ({
   footerPadding,
   Footer,
   clean,
+  loading,
 }) => {
   const { classes } = TotalLayoutStepContainerStyles(
     {
@@ -28,6 +30,14 @@ const TotalLayoutStepContainer = ({
     },
     { name: 'TotalLayoutStepContainer' },
   );
+
+  if (loading) {
+    return (
+      <Stack className={classes.stepContainer} fullHeight direction="column">
+        <LoadingOverlay visible />
+      </Stack>
+    );
+  }
 
   return (
     <Stack className={classes.stepContainer} fullHeight direction="column">

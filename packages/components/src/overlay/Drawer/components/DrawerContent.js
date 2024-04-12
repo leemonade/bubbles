@@ -40,7 +40,7 @@ const DrawerContent = ({ loading, children, scrollRef }) => {
       <Box
         ref={scrollRef}
         sx={{
-          maxHeight: `calc(100% - ${
+          maxHeight: `calc(100vh - ${
             TOTAL_LAYOUT_HEADER_HEIGHT * (ScrollableFooterComponent ? 2 : 1)
           }px)`,
           overflowY: 'auto',
