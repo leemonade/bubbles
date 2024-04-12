@@ -9,7 +9,7 @@ import {
   ACTIVITY_ACCORDION_DEFAULT_PROPS,
   ACTIVITY_ACCORDION_PROP_TYPES,
 } from './ActivityAccordion.constants';
-import { Divider } from '../../../lib/layout/Divider/Divider';
+import { Divider } from '../../layout/Divider';
 
 function AccordionLabel({ label, title, icon, hideIcon, rightSection, compact, classes }) {
   return (

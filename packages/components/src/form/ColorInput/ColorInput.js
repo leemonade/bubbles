@@ -10,7 +10,7 @@ import { Paragraph } from '../../typography';
 import { Input } from '../Input';
 import { Popover } from '../../overlay';
 import { Box } from '../../layout';
-import { Stack } from '../../../lib/layout/Stack/Stack';
+import { Stack } from '../../layout/Stack';
 import { ActionButton } from '../ActionButton';
 import {
   INPUT_WRAPPER_ORIENTATIONS,

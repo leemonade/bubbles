@@ -11,7 +11,7 @@ import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { Alert } from '../../feedback/Alert';
 import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
 import { Button } from '../Button';
-import { Loader } from '../../../lib/feedback/Loader/Loader';
+import { Loader } from '../../feedback/Loader';
 
 function getRemoveButtonLabel(label) {
   // return label or "Remove" in brower language
