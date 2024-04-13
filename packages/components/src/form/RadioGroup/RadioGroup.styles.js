@@ -12,6 +12,14 @@ const RadioGroupStyles = createStyles(
     const isBoxed = variant === 'boxed';
     const isImage = variant === 'image';
 
+    const radioProps = {
+      pointerEvents: 'none'
+    };
+
+    if(minWidth && !isIcon) {
+      radioProps.paddingRight = 0;
+    }
+
     return {
       root: {
         padding: 0,
@@ -49,10 +57,7 @@ const RadioGroupStyles = createStyles(
         height: isColumn ? activePosition.height : 'auto',
         transitionTimingFunction: 'ease-out',
       },
-      radio: {
-        pointerEvents: 'none',
-        paddingRight: minWidth && 0,
-      },
+      radio: radioProps,
       control: {
         '&:not(:first-of-type)': {
           border: 'none',
