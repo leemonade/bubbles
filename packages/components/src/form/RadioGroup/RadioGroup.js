@@ -47,6 +47,7 @@ export const RADIOGROUP_PROP_TYPES = {
   value: PropTypes.any,
   imageHeight: PropTypes.number,
   useAria: PropTypes.bool,
+  noRootPadding: PropTypes.bool,
 };
 
 const RadioGroup = forwardRef(
@@ -69,6 +70,7 @@ const RadioGroup = forwardRef(
       minWidth,
       useAria,
       onChange = noop,
+      noRootPadding,
       ...props
     },
     ref,
@@ -165,6 +167,7 @@ const RadioGroup = forwardRef(
                   onChange={() => {}}
                   imageHeight={imageHeight}
                   useAria={useAria}
+                  noRootPadding={noRootPadding}
                 >
                   {itemLabel}
                 </Radio>
