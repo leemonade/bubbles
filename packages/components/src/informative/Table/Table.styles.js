@@ -63,6 +63,7 @@ const TableStyles = createStyles((theme, { disabled, canAdd, headerStyles = {} }
       ...reset,
       ...getPaddings(theme.spacing['2'], theme.spacing['3']),
       textAlign: 'left',
+      borderBottom: `1px solid rgba(0, 0, 0, 0.05)`,
     },
     td: {
       ...reset,

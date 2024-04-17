@@ -192,7 +192,7 @@ const FileUpload = ({
                   filename={file.name}
                   thumbnailUrl={getFileUrl(file)}
                 />
-                {file.status === 'loading' && (
+                {(file.status === 'loading' || loading) && (
                   <Box sx={{ position: 'relative', width: 20, height: 20, minWidth: 20 }}>
                     <Box
                       sx={{

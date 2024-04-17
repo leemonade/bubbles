@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, isArray, isFunction, noop } from 'lodash';
+import { find, isArray, noop } from 'lodash';
 import {
   Box,
   Button,
@@ -29,6 +29,8 @@ export const SCHEDULE_FORM_PROP_TYPES = {
   errorMessages: PropTypes.object,
   setOpenForm: PropTypes.func,
 };
+
+const TIME_INPUT_WIDTH = 85;
 
 // ------------------------------------------------------------------------------------------
 // HELPERS
@@ -128,9 +130,9 @@ const ScheduleForm = ({
         }
       }
     });
-    for (const position of errorPositions) {
+    errorPositions.forEach((position) => {
       selectedDays[position].error = true;
-    }
+    });
     if (
       useCustomDates &&
       (startDate > endDate || startDate === endDate || !startDate || !endDate)
@@ -244,7 +246,7 @@ const ScheduleForm = ({
                 <Box className={classes.scheduleRow}>
                   <TimeInput
                     size="xs"
-                    contentStyle={{ width: 70 }}
+                    contentStyle={{ width: TIME_INPUT_WIDTH }}
                     value={oneDayOnlyValue.start}
                     onChange={(e) => {
                       setOneDayOnlyValue({
@@ -258,7 +260,7 @@ const ScheduleForm = ({
                   </Text>
                   <TimeInput
                     size="xs"
-                    contentStyle={{ width: 70 }}
+                    contentStyle={{ width: TIME_INPUT_WIDTH }}
                     value={oneDayOnlyValue.end}
                     onChange={(e) =>
                       setOneDayOnlyValue({
@@ -280,7 +282,7 @@ const ScheduleForm = ({
                     <Box className={classes.scheduleRow}>
                       <TimeInput
                         size="xs"
-                        contentStyle={{ width: 70 }}
+                        contentStyle={{ width: TIME_INPUT_WIDTH }}
                         value={selectedDays[index].start}
                         onChange={(e) => {
                           selectedDays[index].start = e;
@@ -292,7 +294,7 @@ const ScheduleForm = ({
                       </Text>
                       <TimeInput
                         size="xs"
-                        contentStyle={{ width: 70 }}
+                        contentStyle={{ width: TIME_INPUT_WIDTH }}
                         value={selectedDays[index].end}
                         onChange={(e) => {
                           selectedDays[index].end = e;

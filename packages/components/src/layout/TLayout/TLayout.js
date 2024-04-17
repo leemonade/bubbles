@@ -6,8 +6,9 @@ import { TLayoutFooter } from './components/TLayoutFooter';
 import { TLayoutHeader } from './components/TLayoutHeader';
 import { TotalLayoutContainer } from '../TotalLayout';
 
-const TLayout = ({ children, onClose = noop, ...props }) => {
-  const scrollRef = React.useRef(null);
+const TLayout = ({ children, onClose = noop, scrollRef: scrollRefProp, ...props }) => {
+  const _scrollRef = React.useRef(null);
+  const scrollRef = scrollRefProp ?? _scrollRef;
 
   // ··························································
   // RENDER COMPONENTS
@@ -63,6 +64,7 @@ TLayout.propTypes = {
   clean: PropTypes.bool,
   children: PropTypes.node,
   onClose: PropTypes.func,
+  scrollRef: PropTypes.object,
 };
 
 export { TLayout };

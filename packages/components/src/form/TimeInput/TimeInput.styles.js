@@ -19,7 +19,6 @@ const TimeInputStyles = createStyles((theme, { size }) => {
       lineHeight: inputStyle.lineHeight,
       border: 'none',
       ...inputTheme.content.typo,
-      paddingTop: 4,
       '&::placeholder': {
         textAlign: 'center',
       },
