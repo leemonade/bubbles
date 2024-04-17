@@ -75,7 +75,10 @@ const TableInputDisplay = ({
 
   const formValues = watch();
 
-  const { classes: tableClasses, cx } = TableStyles({ disabled, canAdd }, { name: 'Table' });
+  const { classes: tableClasses, cx } = TableStyles(
+    { disabled, hideHeaderBorder: true, canAdd },
+    { name: 'Table' },
+  );
 
   const getColumnInput = useCallback(
     (accessor) => {
