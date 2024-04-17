@@ -36,6 +36,14 @@ export const ChatMessageStyles = createStyles(
         backgroundColor: '#FFFFFF',
         ...messageBox,
       },
+      messageBoxNoAvatar: {
+        marginLeft: 28,
+        padding: theme.spacing[2],
+        paddingLeft: theme.spacing[3],
+        borderRadius: '2px',
+        backgroundColor: '#FFFFFF',
+        ...messageBox,
+      },
       messageBoxInner: {
         display: 'flex',
         alignItems: 'end',
