@@ -2,13 +2,39 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Cropper from 'react-easy-crop';
 import { noop } from 'lodash';
-import { Stack, Avatar, Box, Button, Modal, Slider, Skeleton } from '@bubbles-ui/components';
 import { DeleteBinIcon, RefreshIcon } from '@bubbles-ui/icons/solid';
 import { CloudUploadIcon } from '@bubbles-ui/icons/outline';
 import { getCroppedCanvas } from './helpers/canvasUtils';
 import { ImageProfilePickerStyles } from './ImageProfilePiker.styles';
+import { SkeletonCompact } from './skeletons/SkeletonCompact';
+import { SkeletonDefault } from './skeletons/SkeletonDefault';
+import { Box, Stack } from '../../layout';
+import { Modal } from '../../overlay';
+import { Avatar } from '../../informative';
+import { Button } from '../Button';
+import { Slider } from '../Slider';
 
 const CROP_SIZE = 160;
+const VARIANTS = {
+  DEFAULT: 'default',
+  COMPACT: 'compact',
+};
+export const IMAGE_PROFILE_PICKER_VARIANTS = Object.values(VARIANTS);
+
+const variantLayoutProps = {
+  [VARIANTS.DEFAULT]: {
+    direction: 'column',
+    justifyContent: 'center',
+  },
+  [VARIANTS.COMPACT]: {
+    direction: 'row',
+  },
+};
+
+const avatarSize = {
+  [VARIANTS.DEFAULT]: 'xlg',
+  [VARIANTS.COMPACT]: 'lg',
+};
 
 function readFile(file) {
   return new Promise((resolve) => {
@@ -24,6 +50,7 @@ export default function ImageProfilePicker({
   onChange = noop,
   loading = false,
   labels = {},
+  variant = 'default',
 }) {
   const [imageSrc, setImageSrc] = React.useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -81,25 +108,22 @@ export default function ImageProfilePicker({
   };
 
   if (loading) {
-    return (
-      <Stack spacing={5} alignItems="center">
-        <Skeleton height={56} width={56} radius={30} />
-        <Skeleton height={26} width={120} radius={30} />
-      </Stack>
-    );
+    if (variant === VARIANTS.COMPACT) {
+      return <SkeletonCompact />;
+    }
+    return <SkeletonDefault />;
   }
 
   return (
     <>
       <Stack
+        {...variantLayoutProps[variant]}
         alignItems="center"
-        justifyContent="center"
-        direction="column"
         className={classes.root}
         spacing={2}
       >
         <Box>
-          <Avatar fullName={fullName} size="xlg" image={avatarUrl} />
+          <Avatar fullName={fullName} size={avatarSize[variant]} image={avatarUrl} />
         </Box>
         {!avatarUrl ? (
           <Button variant="link" onClick={handleButtonClick} leftIcon={<CloudUploadIcon />}>
@@ -180,4 +204,5 @@ ImageProfilePicker.propTypes = {
   url: PropTypes.string,
   onChange: PropTypes.func,
   loading: PropTypes.bool,
+  variant: PropTypes.oneOf(['default', 'compact']),
 };

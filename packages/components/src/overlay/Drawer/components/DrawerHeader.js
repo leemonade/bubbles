@@ -8,7 +8,11 @@ import { Box } from '../../../layout';
 import { ActionButton } from '../../../form/ActionButton';
 import { TOTAL_LAYOUT_HEADER_HEIGHT } from '../../../layout/TotalLayout';
 
-function DrawerHeader({ title, onClose = noop }) {
+const RightActions = ({ children }) => <>{children}</>;
+
+function DrawerHeader({ children, title, onClose = noop }) {
+  const childrenArray = React.Children.toArray(children);
+  const rightActions = childrenArray.find((child) => child.type === RightActions);
   return (
     <Stack
       fullWidth
@@ -21,14 +25,21 @@ function DrawerHeader({ title, onClose = noop }) {
       })}
     >
       <Title order={3}>{title}</Title>
-      <Box>
+      <Stack spacing={4} alignItems="center">
+        {rightActions}
         <ActionButton icon={<RemoveIcon />} onClick={onClose} />
-      </Box>
+      </Stack>
     </Stack>
   );
 }
 
+RightActions.propTypes = {
+  children: PropTypes.node,
+};
+DrawerHeader.RightActions = RightActions;
+DrawerHeader.displayName = 'DrawerHeader';
 DrawerHeader.propTypes = {
+  children: PropTypes.node,
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func,
 };

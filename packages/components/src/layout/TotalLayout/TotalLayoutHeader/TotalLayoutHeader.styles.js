@@ -19,7 +19,7 @@ const TotalLayoutHeaderStyles = createStyles(
       width: iconLarge ? 48 : 32,
       height: iconLarge ? 48 : 32,
       textAlign: 'center',
-      marginRight: 16,
+      marginRight: 8,
       borderRadius: !hasIcon && 4,
       backgroundColor: !hasIcon && '#C4C4C4',
     },
