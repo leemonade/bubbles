@@ -1,24 +1,24 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getPaddings, getFontExpressive } from '../../theme.mixins';
 
-const getSizes = (theme, size) => {
+const getSizes = (theme, size, autoHeight) => {
   const { spacing } = theme;
 
   return {
     xs: {
       fontSize: pxToRem(12),
-      height: pxToRem(spacing[5]),
+      height: !autoHeight && pxToRem(spacing[5]),
       ...getPaddings(spacing[1], spacing[2]),
     },
 
     sm: {
       fontSize: pxToRem(theme.fontSizes['1']),
-      height: pxToRem(spacing[7]),
+      height: !autoHeight && pxToRem(spacing[7]),
       ...getPaddings(spacing[1], spacing[3]),
     },
     md: {
       fontSize: pxToRem(theme.fontSizes['2']),
-      height: pxToRem(spacing[10]),
+      height: !autoHeight && pxToRem(spacing[10]),
       ...getPaddings(spacing[2], spacing[4]),
     },
   }[size];
@@ -50,7 +50,7 @@ const getColor = (theme, color) =>
     },
   })[color];
 
-const TooltipStyles = createStyles((theme, { color, size }) => ({
+const TooltipStyles = createStyles((theme, { color, size, autoHeight }) => ({
   root: {},
   arrow: {
     ...getColor(theme, color),
@@ -58,7 +58,7 @@ const TooltipStyles = createStyles((theme, { color, size }) => ({
   tooltip: {
     ...getFontExpressive(null, 400),
     ...getColor(theme, color),
-    ...getSizes(theme, size),
+    ...getSizes(theme, size, autoHeight),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
