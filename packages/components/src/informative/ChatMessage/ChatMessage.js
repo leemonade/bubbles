@@ -33,7 +33,7 @@ const ChatMessage = ({
         </Box>
       ) : null}
 
-      <Box className={classes.messageBox}>
+      <Box className={showUser && !isOwn ? classes.messageBox : classes.messageBoxNoAvatar}>
         {!isOwn && showUserName && fullName && (
           <Highlight className={classes.name} highlight={highlight}>
             {fullName}

@@ -16,7 +16,7 @@ export const ChatMessageStyles = createStyles(
         background: selected ? '#E4F4E6' : 'transparent',
         display: 'flex',
         justifyContent: isOwn ? 'end' : 'start',
-        alignItems: 'end',
+        alignItems: 'start',
         gap: theme.spacing[1],
         transition: 'background 0.3s ease',
         borderRadius: '4px 2px 2px 4px',
@@ -30,6 +30,14 @@ export const ChatMessageStyles = createStyles(
         lineHeight: '20px',
       },
       messageBox: {
+        padding: theme.spacing[2],
+        paddingLeft: theme.spacing[3],
+        borderRadius: '2px',
+        backgroundColor: '#FFFFFF',
+        ...messageBox,
+      },
+      messageBoxNoAvatar: {
+        marginLeft: 28,
         padding: theme.spacing[2],
         paddingLeft: theme.spacing[3],
         borderRadius: '2px',
