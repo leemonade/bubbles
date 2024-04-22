@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
-import { Stack } from '../../../../lib/layout/Stack/Stack';
+import { Stack } from '../../../layout';
 import { Title } from '../../../typography';
-import { Box } from '../../../layout';
 import { ActionButton } from '../../../form/ActionButton';
 import { TOTAL_LAYOUT_HEADER_HEIGHT } from '../../../layout/TotalLayout';
 
