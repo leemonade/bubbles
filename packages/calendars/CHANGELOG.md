@@ -1,5 +1,14 @@
 # @bubbles-ui/calendars
 
+## 1.2.215
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.215
+  - @bubbles-ui/icons@1.2.215
+
 ## 1.2.214
 
 ### Patch Changes
