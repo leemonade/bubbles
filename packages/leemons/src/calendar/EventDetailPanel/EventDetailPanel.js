@@ -34,7 +34,6 @@ const EventDetailPanel = ({
   onClickClassRoom = () => {},
   ...props
 }) => {
-  console.log('🚀 ~ event:', event);
   const handleOnClose = () => {
     isFunction(onClose) && onClose();
   };
