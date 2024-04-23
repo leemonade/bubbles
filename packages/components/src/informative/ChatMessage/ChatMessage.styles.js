@@ -12,7 +12,6 @@ export const ChatMessageStyles = createStyles(
     return {
       root: {
         marginTop: previoudMessageIsSameUser ? theme.spacing[1] : theme.spacing[2],
-        padding: theme.spacing[2],
         background: selected ? '#E4F4E6' : 'transparent',
         display: 'flex',
         justifyContent: isOwn ? 'end' : 'start',
