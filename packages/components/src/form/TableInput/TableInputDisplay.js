@@ -97,7 +97,7 @@ const TableInputDisplay = ({
               rules={rules}
               render={({ field }) =>
                 React.cloneElement(node, {
-                  placeholder: column.Header,
+                  placeholder: column.placeholder ?? column.Header,
                   ...field,
                   ...inputProps,
                   formValues,
