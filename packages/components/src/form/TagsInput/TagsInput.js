@@ -34,6 +34,7 @@ OptionRenderer.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   icon: PropTypes.string,
+  buttonLeftIcon: PropTypes.node,
 };
 
 const TagsInput = forwardRef(
