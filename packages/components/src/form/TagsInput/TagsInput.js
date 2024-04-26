@@ -13,7 +13,7 @@ import { TagsInputStyles } from './TagsInput.styles';
 import { TAGS_INPUT_DEFAULT_PROPS, TAGS_INPUT_PROP_TYPES } from './TagsInput.constants';
 import { ImageLoader } from '../../misc';
 
-const OptionRenderer = forwardRef(({ label, value, icon, ...props }, ref) => (
+const OptionRenderer = forwardRef(({ label, value, icon, buttonLeftIcon, ...props }, ref) => (
   <Box
     sx={(theme) => ({
       display: 'flex',
@@ -52,6 +52,7 @@ const TagsInput = forwardRef(
       canAddNewSuggestions = true,
       onChange = () => {},
       onSearch,
+      ButtonLeftIcon,
       ...props
     },
     ref,
@@ -175,7 +176,12 @@ const TagsInput = forwardRef(
             />
           </Box>
           <Box skipFlex>
-            <Button variant="link" size="sm" leftIcon={<AddCircleIcon />} onClick={() => addTag()}>
+            <Button
+              variant="link"
+              size="sm"
+              leftIcon={ButtonLeftIcon || <AddCircleIcon />}
+              onClick={() => addTag()}
+            >
               {labels.addButton}
             </Button>
           </Box>

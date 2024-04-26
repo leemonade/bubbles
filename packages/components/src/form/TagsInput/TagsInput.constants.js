@@ -25,4 +25,5 @@ export const TAGS_INPUT_PROP_TYPES = {
   onChange: PropTypes.func,
   onSearch: PropTypes.func,
   waitToSearch: PropTypes.number,
+  ButtonLeftIcon: PropTypes.node,
 };
