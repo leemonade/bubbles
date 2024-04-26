@@ -16,7 +16,7 @@ export const TEXTAREA_COUNTERS = ['char', 'word'];
 
 export const TEXTAREA_DEFAULT_PROPS = {
   ...TEXT_INPUT_DEFAULT_PROPS,
-  minRows: 2,
+  minRows: 3,
   size: TEXTAREA_SIZES[1],
   autosize: true,
   showCounter: false,
