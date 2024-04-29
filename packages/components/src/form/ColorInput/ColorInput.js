@@ -10,7 +10,7 @@ import { Paragraph } from '../../typography';
 import { Input } from '../Input';
 import { Popover } from '../../overlay';
 import { Box } from '../../layout';
-import { Stack } from '../../../lib/layout/Stack/Stack';
+import { Stack } from '../../layout/Stack';
 import { ActionButton } from '../ActionButton';
 import {
   INPUT_WRAPPER_ORIENTATIONS,
@@ -121,6 +121,7 @@ const ColorInput = forwardRef(
     const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const closeRef = useClickOutside(() => setOpened(false));
+    console.log('inputValue', inputValue);
 
     useEffect(() => {
       const isNullWhenClearable = clearable && value === null;
@@ -237,7 +238,7 @@ const ColorInput = forwardRef(
                 )}
               </Box>
             </Popover>
-            {clearable && (
+            {clearable && inputValue && (
               <Box
                 sx={{
                   display: 'flex',

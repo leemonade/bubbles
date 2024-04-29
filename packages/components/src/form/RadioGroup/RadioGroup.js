@@ -29,6 +29,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   value: '',
   imageHeight: 100,
   fullWidth: false,
+  minWidth: 0,
   useAria: true,
 };
 export const RADIOGROUP_PROP_TYPES = {
@@ -41,10 +42,12 @@ export const RADIOGROUP_PROP_TYPES = {
   direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
+  minWidth: PropTypes.number,
   onChange: PropTypes.func,
   value: PropTypes.any,
   imageHeight: PropTypes.number,
   useAria: PropTypes.bool,
+  noRootPadding: PropTypes.bool,
 };
 
 const RadioGroup = forwardRef(
@@ -64,8 +67,10 @@ const RadioGroup = forwardRef(
       direction,
       imageHeight,
       fullWidth,
+      minWidth,
       useAria,
       onChange = noop,
+      noRootPadding,
       ...props
     },
     ref,
@@ -82,7 +87,7 @@ const RadioGroup = forwardRef(
     }, [props.value]);
 
     const { classes, cx } = RadioGroupStyles(
-      { variant, value, direction, fullWidth, activePosition, hasError, rounded },
+      { variant, value, direction, fullWidth, minWidth, activePosition, hasError, rounded },
       { name: 'RadioGroup' },
     );
 
@@ -162,6 +167,7 @@ const RadioGroup = forwardRef(
                   onChange={() => {}}
                   imageHeight={imageHeight}
                   useAria={useAria}
+                  noRootPadding={noRootPadding}
                 >
                   {itemLabel}
                 </Radio>

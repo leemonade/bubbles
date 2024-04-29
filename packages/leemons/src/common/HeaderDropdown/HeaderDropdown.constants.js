@@ -5,6 +5,7 @@ export const HEADER_DROPDOWN_DEFAULT_PROPS = {
   placeholder: '',
   readOnly: false,
   withSearchInput: false,
+  hideIcon: false,
 };
 export const HEADER_DROPDOWN_PROP_TYPES = {
   data: PropTypes.arrayOf(PropTypes.object),
@@ -15,4 +16,5 @@ export const HEADER_DROPDOWN_PROP_TYPES = {
   readOnly: PropTypes.bool,
   onChange: PropTypes.func,
   withSearchInput: PropTypes.bool,
+  hideIcon: PropTypes.bool,
 };

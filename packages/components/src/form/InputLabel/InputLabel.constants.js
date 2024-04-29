@@ -5,10 +5,12 @@ export const INPUT_LABEL_DEFAULT_PROPS = {
   description: '',
   withDescriptionIcon: false,
   required: false,
+  showEmptyLabel: false,
 };
 export const INPUT_LABEL_PROP_TYPES = {
   label: PropTypes.string,
   description: PropTypes.string,
   withDescriptionIcon: PropTypes.bool,
   required: PropTypes.bool,
+  showEmptyLabel: PropTypes.bool,
 };

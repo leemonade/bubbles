@@ -1,4 +1,5 @@
 import React from 'react';
+import { noop } from 'lodash';
 import { Box } from '../Box';
 import { Button } from '../../form/Button';
 import { DropdownButton } from '../../form/DropdownButton';
@@ -10,12 +11,12 @@ const TotalLayoutFooter = ({
   leftOffset,
   activeStep,
   scrollRef,
-  onBack,
-  onNext,
+  onBack = noop,
+  onNext = noop,
+  onSave = noop,
   finalActions,
-  footerActionsLabels,
+  footerActionsLabels = {},
   minStepNumberForDraftSave,
-  onSave,
   isLastStep,
   isLoading,
 }) => {

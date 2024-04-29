@@ -1,3 +1,4 @@
+export * from './ImageProfilePicker';
 export * from './InputDescription';
 export * from './DropdownButton';
 export * from './PasswordInput';

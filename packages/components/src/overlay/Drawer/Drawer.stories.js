@@ -1,15 +1,9 @@
 import React from 'react';
-import { Drawer, DRAWER_DEFAULT_PROPS } from './Drawer';
+import { Drawer, DRAWER_DEFAULT_PROPS, DRAWERS_SIZES } from './Drawer';
 import mdx from './Drawer.mdx';
-import {
-  Box,
-  Stack,
-  TotalLayoutContainer,
-  TotalLayoutStepContainer,
-  TotalLayoutFooterContainer,
-} from '../../layout';
-import { Title, Paragraph } from '../../typography';
-import { ActionButton } from '../../form';
+import { ContextContainer, Stack } from '../../layout';
+import { Paragraph } from '../../typography';
+import { Button } from '../../form';
 
 export default {
   title: 'Molecules/Overlay/Drawer',
@@ -24,160 +18,100 @@ export default {
     },
   },
   argTypes: {
-    // myBooleanProp: { control: { type: 'boolean' } },
-    // mySelectProp: { options: ['Hello', 'World'], control: { type: 'select' } },
-    close: { control: { type: 'text' } },
+    size: {
+      options: DRAWERS_SIZES,
+      control: { type: 'select' },
+    },
+    contentLoading: {
+      control: { type: 'boolean' },
+    },
   },
 };
 
-const Template = ({ children, ...props }) => <Drawer {...props}>{children}</Drawer>;
+const Template = ({ contentLoading, ...props }) => {
+  const [opened, setOpened] = React.useState(props.opened);
+
+  React.useEffect(() => {
+    setOpened(props.opened);
+  }, [props.opened]);
+
+  return (
+    <>
+      <Stack>
+        <Button onClick={() => setOpened(true)}>Open Drawer</Button>
+      </Stack>
+      <Drawer {...props} opened={opened} onClose={() => setOpened(false)}>
+        <Drawer.Header title="Drawer Title">
+          <Drawer.Header.RightActions>
+            <span>Holaa</span>
+          </Drawer.Header.RightActions>
+        </Drawer.Header>
+        <Drawer.Content loading={contentLoading}>
+          <ContextContainer title="Drawer Content - Part I">
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Paragraph>
+          </ContextContainer>
+          <ContextContainer title="Drawer Content - Part II">
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Paragraph>
+          </ContextContainer>
+          <ContextContainer title="Drawer Content - Part III">
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Paragraph>
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Paragraph>
+            <Paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </Paragraph>
+          </ContextContainer>
+        </Drawer.Content>
+        <Drawer.Footer>
+          <Drawer.Footer.LeftActions>
+            <Button variant="outline">Cancel</Button>
+          </Drawer.Footer.LeftActions>
+          <Drawer.Footer.RightActions>
+            <Button>Accept</Button>
+          </Drawer.Footer.RightActions>
+        </Drawer.Footer>
+      </Drawer>
+    </>
+  );
+};
 
 export const Playground = Template.bind({});
 
 Playground.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
-  opened: true,
-  modalAriaLabel: 'Example of a Drawer',
-  ...DRAWER_DEFAULT_PROPS,
-};
-
-const WithTotalLayoutTemplate = ({ children, ...props }) => {
-  const scrollRef = React.useRef(null);
-  return (
-    <Drawer {...props}>
-      <TotalLayoutContainer
-        scrollRef={scrollRef}
-        Header={
-          <Stack fullWidth sx={() => ({ padding: 20, minHeight: 70, background: 'white' })}>
-            <Box>
-              <Title order={3}>Header</Title>
-            </Box>
-            <Box noFlex>
-              <ActionButton variant="text" size="small">
-                Close
-              </ActionButton>
-            </Box>
-          </Stack>
-        }
-      >
-        <Stack ref={scrollRef} fullWidth fullHeight sx={() => ({ overflowY: 'auto' })}>
-          <TotalLayoutStepContainer
-            clean
-            Footer={
-              <TotalLayoutFooterContainer
-                scrollRef={scrollRef}
-                clean
-                fixed
-                width={props.size}
-                style={{ right: 0 }}
-              >
-                <Box>
-                  <Title order={3}>Footer</Title>
-                </Box>
-                <Box noFlex>
-                  <ActionButton variant="text" size="small">
-                    Close
-                  </ActionButton>
-                </Box>
-              </TotalLayoutFooterContainer>
-            }
-          >
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </Paragraph>
-          </TotalLayoutStepContainer>
-        </Stack>
-      </TotalLayoutContainer>
-    </Drawer>
-  );
-};
-
-export const WithTotalLayout = WithTotalLayoutTemplate.bind({});
-
-WithTotalLayout.args = {
-  // myBooleanProp: false,
-  // mySelectProp: 'Hello'
   ...DRAWER_DEFAULT_PROPS,
   opened: true,
-  empty: true,
-  close: false,
   modalAriaLabel: 'Example of a Drawer',
+  contentLoading: false,
 };

@@ -9,12 +9,21 @@ import {
   TOOLTIP_POSITION,
 } from './Tooltip.constants';
 
-const Tooltip = ({ size, color, position, withArrow, useAria, withinPortal, ...props }) => {
+const Tooltip = ({
+  size,
+  color,
+  position,
+  withArrow,
+  useAria,
+  withinPortal,
+  autoHeight,
+  ...props
+}) => {
   size = TOOLTIP_SIZES.includes(size) ? size : 'sm';
   color = TOOLTIP_COLORS.includes(color) ? color : 'primary';
   position = TOOLTIP_POSITION.includes(position) ? position : 'top';
 
-  const { classes, cx } = TooltipStyles({ size, color });
+  const { classes, cx } = TooltipStyles({ size, color, autoHeight });
 
   return (
     <MantineTooltip

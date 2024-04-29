@@ -8,6 +8,7 @@ export const TOTAL_LAYOUT_STEP_CONTAINER_PROP_TYPES = {
   clean: PropTypes.bool,
   fullWidth: PropTypes.bool,
   titleZone: PropTypes.node,
+  loading: PropTypes.bool,
 };
 export const TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS = {
   stepName: '',

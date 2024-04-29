@@ -1,5 +1,212 @@
 # @bubbles-ui/notifications
 
+## 1.2.220
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.220
+  - @bubbles-ui/icons@1.2.220
+
+## 1.2.219
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.219
+  - @bubbles-ui/icons@1.2.219
+
+## 1.2.218
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.218
+  - @bubbles-ui/icons@1.2.218
+
+## 1.2.217
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.217
+  - @bubbles-ui/icons@1.2.217
+
+## 1.2.216
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.216
+  - @bubbles-ui/icons@1.2.216
+
+## 1.2.215
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.215
+  - @bubbles-ui/icons@1.2.215
+
+## 1.2.214
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.214
+  - @bubbles-ui/icons@1.2.214
+
+## 1.2.213
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.213
+  - @bubbles-ui/icons@1.2.213
+
+## 1.2.212
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.212
+  - @bubbles-ui/icons@1.2.212
+
+## 1.2.211
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.211
+  - @bubbles-ui/icons@1.2.211
+
+## 1.2.210
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.210
+  - @bubbles-ui/icons@1.2.210
+
+## 1.2.209
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.209
+  - @bubbles-ui/icons@1.2.209
+
+## 1.2.208
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.208
+  - @bubbles-ui/icons@1.2.208
+
+## 1.2.207
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.207
+  - @bubbles-ui/icons@1.2.207
+
+## 1.2.206
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.206
+  - @bubbles-ui/icons@1.2.206
+
+## 1.2.205
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.205
+  - @bubbles-ui/icons@1.2.205
+
+## 1.2.204
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.204
+  - @bubbles-ui/icons@1.2.204
+
+## 1.2.203
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.203
+  - @bubbles-ui/icons@1.2.203
+
+## 1.2.202
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.202
+  - @bubbles-ui/icons@1.2.202
+
+## 1.2.201
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.201
+  - @bubbles-ui/icons@1.2.201
+
+## 1.2.200
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.200
+  - @bubbles-ui/icons@1.2.200
+
+## 1.2.199
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.199
+  - @bubbles-ui/icons@1.2.199
+
+## 1.2.198
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.198
+  - @bubbles-ui/icons@1.2.198
+
 ## 1.2.197
 
 ### Patch Changes

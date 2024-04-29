@@ -19,7 +19,6 @@ const ModalZoom = ({ children, canPlay, opened, hideButton, onClose = noop, styl
       center.current?.call();
     }
   }, [opened]);
-
   return (
     <>
       {!hideButton && (
@@ -58,10 +57,20 @@ const ModalZoom = ({ children, canPlay, opened, hideButton, onClose = noop, styl
                 return (
                   <React.Fragment>
                     <Box className={classes.tools}>
-                      <Box onClick={() => zoomIn()}>
+                      <Box
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          zoomIn();
+                        }}
+                      >
                         <ZoomInIcon />
                       </Box>
-                      <Box onClick={() => zoomOut()}>
+                      <Box
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          zoomOut();
+                        }}
+                      >
                         <ZoomOutIcon />
                       </Box>
                     </Box>

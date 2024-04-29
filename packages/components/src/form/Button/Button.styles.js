@@ -143,6 +143,43 @@ const getVariant = (variant, theme, color) => {
         },
       },
     },
+    linkInline: {
+      primary: {
+        color: buttonTheme.content.color.secondary.default,
+        padding: 0,
+        border: 'none',
+        textAlign: 'center',
+        textDecoration: buttonTheme.textDecoration.underLine,
+        backgroundColor: buttonTheme.background.color.ghost.default,
+        // ...commonLinkStyles,
+        '&:focus-visible': {
+          backgroundColor: buttonTheme.background.color.ghost.hover,
+          ...getFocusDefaultBorder(theme),
+          outline: 'none',
+          '& > div > span': {
+            ...buttonTypoHover,
+            fontSize: 'inherit',
+          },
+        },
+        '&:hover': {
+          color: buttonTheme.content.color.primary.default,
+          backgroundColor: buttonTheme.background.color.ghost.hover,
+          '& > div > span': {
+            ...buttonTypoHover,
+            fontSize: 'inherit',
+          },
+        },
+        '&:active': {
+          backgroundColor: buttonTheme.background.color.ghost.pressed,
+          border: 'none',
+          color: buttonTheme.content.color.secondary.pressed,
+          '& > div > span': {
+            ...buttonTypoDefault,
+            fontSize: 'inherit',
+          },
+        },
+      },
+    },
     light: {
       primary: {
         color: buttonTheme.content.color.terciary['default--reverse'],
@@ -173,6 +210,7 @@ export const ButtonStyles = createStyles(
       hasRightIcon,
       isSelected,
       onlyIcon,
+      iconSize,
     },
   ) => {
     const currentVariant = getVariant(variant, theme, color);
@@ -180,8 +218,8 @@ export const ButtonStyles = createStyles(
     const iconStyles = {
       padding: 3,
       '& > svg': {
-        width: 18,
-        height: 18,
+        width: iconSize || 18,
+        height: iconSize || 18,
       },
     };
 
@@ -246,6 +284,7 @@ export const ButtonStyles = createStyles(
       },
       label: {
         ...buttonTheme.content.typo,
+        fontSize: variant === 'linkInline' ? 'inherit' : null,
       },
     };
   },

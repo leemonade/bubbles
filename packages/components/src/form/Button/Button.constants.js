@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const BUTTON_SIZES = ['sm', 'md'];
 // export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'light'];
-export const BUTTON_VARIANTS = ['filled', 'outline', 'link'];
+export const BUTTON_VARIANTS = ['filled', 'outline', 'link', 'linkInline'];
 // export const BUTTON_COLORS = ['primary', 'secondary', 'terciary', 'phatic'];
 export const BUTTON_COLORS = ['primary'];
 // export const BUTTON_TEXT_ALIGN = ['left', 'center', 'right', 'appart'];

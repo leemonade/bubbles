@@ -1544,7 +1544,7 @@ export default {
           "y": 0,
           "blur": 4,
           "spread": 0,
-          "color": "#ffffff",
+          "color": "#ffffff26",
           "type": "dropShadow"
         },
         "type": "boxShadow"
@@ -1625,17 +1625,8 @@ export default {
             "type": "color"
           },
           "hover--reverse-transparent": {
-            "value": "#ffffff",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.15",
-                  "space": "lch"
-                }
-              }
-            }
+            "value": "#ffffff26",
+            "type": "color"
           },
           "down": {
             "value": "#F1FFBD",
@@ -5295,30 +5286,12 @@ export default {
       "color": {
         "primary": {
           "default": {
-            "value": "#4D5358",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.4",
-                  "space": "lch"
-                }
-              }
-            }
+            "value": "#4d535866",
+            "type": "color"
           },
           "hover": {
-            "value": "#4D5358",
-            "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "alpha",
-                  "value": "0.7",
-                  "space": "lch"
-                }
-              }
-            }
+            "value": "#4d5358b3",
+            "type": "color"
           },
           "down": {
             "value": "#4D5358",
