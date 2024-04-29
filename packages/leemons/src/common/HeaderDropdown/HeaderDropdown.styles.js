@@ -70,6 +70,7 @@ const HeaderDropdownStyles = createStyles(
     itemComponentIcon: {
       color: theme.other.global.content.color.positive.default,
       fontSize: 14,
+      marginLeft: 24,
     },
     itemComponentLabel: {
       fontFamily: 'Albert Sans',

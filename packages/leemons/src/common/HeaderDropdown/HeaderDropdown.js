@@ -100,7 +100,7 @@ const HeaderDropdown = ({
                   {item?.label}
                 </Text>
               </TextClamp>
-              {item?.description ? (
+              {/* {item?.description ? (
                 <TextClamp lines={1} maxLines={1}>
                   <Text
                     className={classes.itemComponentDescription}
@@ -111,7 +111,7 @@ const HeaderDropdown = ({
                     {item?.description}
                   </Text>
                 </TextClamp>
-              ) : null}
+              ) : null} */}
             </Box>
           </Box>
           <Box className={classes.itemComponentIcon}>
