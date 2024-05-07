@@ -25,6 +25,7 @@ const Avatar = forwardRef(
       activityStatus,
       showIconAndImage,
       alt,
+      customSize,
       ...props
     },
     ref,
@@ -51,6 +52,7 @@ const Avatar = forwardRef(
       state,
       activityStatus,
       subjectColor,
+      customSize,
     });
 
     return (
