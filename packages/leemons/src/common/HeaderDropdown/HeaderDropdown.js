@@ -64,7 +64,6 @@ const HeaderDropdown = ({
 
   const loadItemList = () => {
     const itemListToReturn = data.filter((item) => {
-      console.log('item', item);
       const itemLabel = normalizeString(item?.label);
       const itemDescription = normalizeString(item?.description);
       const filterValue = normalizeString(filter);
