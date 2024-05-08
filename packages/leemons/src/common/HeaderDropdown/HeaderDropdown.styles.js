@@ -60,7 +60,7 @@ const HeaderDropdownStyles = createStyles(
       cursor: 'pointer',
       padding: 8,
       borderRadius: 4,
-      backgroundColor: '#E7F7B0',
+      backgroundColor: theme.other.buttonAction.background.color.primary.down,
     },
     itemComponentContent: {
       display: 'flex',
