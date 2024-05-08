@@ -51,6 +51,10 @@ const CardEmptyCover = memo(({ icon, fileType, height }) => {
       key: 'file',
       value: <FileIcon height={18} width={18} color={'#878D96'} />,
     },
+    {
+      key: 'application',
+      value: <FileIcon height={18} width={18} color={'#878D96'} />,
+    },
   ];
 
   const styledIcon = useMemo(() => {
