@@ -18,6 +18,7 @@ export const TABLE_DEFAULT_PROPS = {
   headerStyles: {},
   sortable: false,
   selectable: false,
+  isAssetList: false,
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -34,6 +35,7 @@ export const TABLE_PROP_TYPES = {
   rowsExpanded: PropTypes.arrayOf(PropTypes.any),
   styleRow: PropTypes.object,
   selectable: PropTypes.bool,
+  isAssetList: PropTypes.bool,
 };
 
 const Table = ({
@@ -51,6 +53,7 @@ const Table = ({
   useSticky,
   styleTable,
   selectable,
+  isAssetList,
 }) => {
   const plugins = [];
   if (useSticky) {
@@ -98,7 +101,23 @@ const Table = ({
     onChangeData({ newData });
   };
 
-  const { theme, classes, cx } = TableStyles({ headerStyles }, { name: 'Table' });
+  const { theme, classes, cx } = TableStyles({ headerStyles, isAssetList }, { name: 'Table' });
+
+  const getCellClass = (index, totalCells, isSortable) => {
+    if (isSortable) {
+      if (index === totalCells - 1) {
+        return classes.assetBorderBoxRight;
+      }
+      return classes.assetBorderBoxCenter;
+    }
+    if (index === 0) {
+      return classes.assetBorderBoxLeft;
+    }
+    if (index === totalCells - 1) {
+      return classes.assetBorderBoxRight;
+    }
+    return classes.assetBorderBoxCenter;
+  };
 
   // Render the UI for your table
   return (
@@ -156,8 +175,8 @@ const Table = ({
                         <tr
                           {...row.getRowProps({
                             className: cx({
-                              [classes.tr]: i < rows.length - 1,
-                              [classes.trSelectable]: selectable,
+                              [classes.tr]: !isAssetList && i < rows.length - 1,
+                              [classes.trSelectable]: !isAssetList && selectable,
                             }),
                           })}
                           onClick={() => onClickRow(row)}
@@ -171,7 +190,10 @@ const Table = ({
                           ref={draggableProvided.innerRef}
                         >
                           {!!sortable && (
-                            <td style={{ verticalAlign: 'middle' }}>
+                            <td
+                              style={{ verticalAlign: 'middle' }}
+                              className={classes.assetBorderBoxLeft}
+                            >
                               <Box
                                 className={classes.sortIcon}
                                 style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
@@ -187,6 +209,7 @@ const Table = ({
                                 className: classes.td,
                                 style: cell.column.tdStyle,
                               })}
+                              className={getCellClass(k, row.cells.length, sortable)}
                             >
                               <TableCell
                                 cell={cell}
