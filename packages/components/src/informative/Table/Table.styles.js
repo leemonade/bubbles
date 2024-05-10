@@ -46,7 +46,7 @@ const TableStyles = createStyles(
       tr: {
         ...reset,
         '& td': {
-          borderBottom: isAssetList ? undefined : `1px solid rgba(0, 0, 0, 0.5)`,
+          borderBottom: isAssetList ? undefined : `1px solid rgba(0, 0, 0, 0.05)`,
           alignContent: 'center',
         },
         '& th': {
