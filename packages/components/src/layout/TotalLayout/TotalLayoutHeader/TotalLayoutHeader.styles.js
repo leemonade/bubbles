@@ -28,6 +28,7 @@ const TotalLayoutHeaderStyles = createStyles(
       fontSize: '18px',
       fontWeight: 400,
       lineHeight: '24px',
+      width: compact ? '40vw' : '45vw',
       // marginLeft: !compact && '40px',
     },
   }),
