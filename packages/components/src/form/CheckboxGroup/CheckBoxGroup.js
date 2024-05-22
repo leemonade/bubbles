@@ -5,7 +5,6 @@ import { useDidUpdate, useId } from '@mantine/hooks';
 import { BOOLEAN_INPUT_VARIANTS } from '../BooleanInput';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Stack, STACK_DIRECTIONS } from '../../layout/Stack';
-import { Box } from '../../layout/Box';
 
 import { CheckBoxGroupStyles } from './CheckBoxGroup.styles';
 import {
@@ -80,7 +79,7 @@ const CheckBoxGroup = ({
   const uuid = useId();
   const hasError = useMemo(() => !isEmpty(error), [error]);
 
-  const { classes, cx } = CheckBoxGroupStyles(
+  const { classes } = CheckBoxGroupStyles(
     { direction, variant, fullWidth, hasError },
     { name: 'CheckBoxGroup' },
   );
@@ -137,7 +136,7 @@ const CheckBoxGroup = ({
             variant={variant}
             checked={selectedValues.includes(item.value)}
             onChange={() => {
-              item.onChange && item.onChange(item.value);
+              if (item.onChange) item.onChange(item.value);
               handleOnChange(item.value);
             }}
             useAria={useAria}

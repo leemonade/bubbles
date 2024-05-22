@@ -100,7 +100,7 @@ const ScheduleForm = ({
   displayCustomDays,
   onChange = noop,
 }) => {
-  const { classes, cx } = ScheduleFormStyles({});
+  const { classes } = ScheduleFormStyles({}, { name: 'ScheduleForm' });
 
   const [selectedDays, setSelectedDays] = useState([]);
   const [useCustomDates, setUseCustomDates] = useState(savedSchedule.useCustomDates || false);
