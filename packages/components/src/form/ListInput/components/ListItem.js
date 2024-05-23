@@ -57,7 +57,7 @@ const ListItem = forwardRef(
       errorRequiredMessage,
       index,
       withBorder,
-      labels,
+      labels: _labels,
     },
     ref,
   ) => {
@@ -66,14 +66,14 @@ const ListItem = forwardRef(
     const [hasError, setHasError] = useState(false);
 
     const focusTrapRef = useFocusTrap();
-
     const InputRender = getRenderComponent(IInputRender);
     const ItemContainerRender = getRenderComponent(IItemContainerRender);
     const ItemValueRender = getRenderComponent(IItemValueRender);
-    if (!labels) {
+    let labels = _labels;
+    if (!_labels) {
       labels = {
-        discard: 'Cancel',
-        saveChanges: 'Save changes',
+        cancel: labels?.cancel ?? 'Cancel',
+        saveChanges: labels?.saveChanges ?? 'Save changes',
       };
     }
     function update() {
@@ -153,7 +153,7 @@ const ListItem = forwardRef(
                   stopEdit();
                 }}
               >
-                {labels.discard}
+                {labels.cancel}
               </Button>
               <Button variant="outline" icon={<CheckIcon />} onClick={update}>
                 {labels.saveChanges}
