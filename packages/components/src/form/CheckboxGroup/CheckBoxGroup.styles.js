@@ -16,7 +16,7 @@ const CheckBoxGroupStyles = createStyles((theme, { direction, variant, fullWidth
       alignItems: isRow ? alignIsBoxed : null,
       position: 'relative',
       '> div:not(:last-of-type)': {
-        marginRight: isDefault && isRow && pxToRem(theme.spacing[4]),
+        marginRight: isDefault && isRow && pxToRem(theme.spacing[1]),
       },
       '> div:not(:first-of-type)': {
         marginLeft: isBoxed && isRow && '-1px',
