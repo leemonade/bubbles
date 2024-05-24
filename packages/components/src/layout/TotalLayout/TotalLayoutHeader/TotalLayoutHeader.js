@@ -11,6 +11,7 @@ import {
 } from './TotalLayoutHeader.constants';
 import { TotalLayoutHeaderStyles } from './TotalLayoutHeader.styles';
 import CrossIcon from './crossIcon';
+import { TextClamp } from '../../../typography/TextClamp';
 
 const TotalLayoutHeader = ({
   title,
@@ -56,9 +57,11 @@ const TotalLayoutHeader = ({
               direction={compact ? 'row' : 'column'}
             >
               {getTitle()}
-              <Text as="h3" className={classes.headerSubtitle} color="primary">
-                {formValues.title || formTitlePlaceholder}
-              </Text>
+              <TextClamp lines={1}>
+                <Text as="h3" className={classes.headerSubtitle} color="primary">
+                  {formValues.title || formTitlePlaceholder}
+                </Text>
+              </TextClamp>
             </Stack>
           </Stack>
         </Stack>
