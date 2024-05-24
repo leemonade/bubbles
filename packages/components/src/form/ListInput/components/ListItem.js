@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { RemoveIcon, SortDragIcon } from '@bubbles-ui/icons/outline';
 import { CheckIcon, DeleteBinIcon, EditWriteIcon } from '@bubbles-ui/icons/solid';
 import { isFunction } from 'lodash';
+import { useFocusTrap } from '@mantine/hooks';
+import { ListItemStyles } from './ListItem.styles';
 import { Box, Stack } from '../../../layout';
 import { ActionButton } from '../../ActionButton';
+import { Button } from '../../Button';
 
 const ItemValueRender2 = ({ item }) => (
   <Box sx={() => ({ width: '100%' })} dangerouslySetInnerHTML={{ __html: item }} />
@@ -54,16 +57,25 @@ const ListItem = forwardRef(
       errorRequiredMessage,
       index,
       withBorder,
+      labels: _labels,
     },
     ref,
   ) => {
+    const { classes: itemClasses } = ListItemStyles();
     const [value, setValue] = useState(item[valueKey]);
     const [hasError, setHasError] = useState(false);
 
+    const focusTrapRef = useFocusTrap();
     const InputRender = getRenderComponent(IInputRender);
     const ItemContainerRender = getRenderComponent(IItemContainerRender);
     const ItemValueRender = getRenderComponent(IItemValueRender);
-
+    let labels = _labels;
+    if (!_labels) {
+      labels = {
+        cancel: labels?.cancel ?? 'Cancel',
+        saveChanges: labels?.saveChanges ?? 'Save changes',
+      };
+    }
     function update() {
       if (value) {
         onChange(value);
@@ -78,7 +90,7 @@ const ListItem = forwardRef(
     }, [item]);
 
     const renderSortableIcon = () => (
-      <Box key={1} sx={(theme) => ({ marginRight: theme.spacing[4] })}>
+      <Box key={1} className={itemClasses.sortableIcon}>
         <SortDragIcon className={classes.sortableIcon} />
       </Box>
     );
@@ -111,29 +123,43 @@ const ListItem = forwardRef(
 
       if (editingKey === item.__key) {
         children = [
-          renderSortableIcon(),
-          <Box sx={(theme) => ({ width: '100%', marginRight: theme.spacing[4] })} key={2}>
-            {React.cloneElement(InputRender, {
-              value,
-              onChange: (event) => {
-                setValue(event);
-                if (event) setHasError(false);
-              },
-              index,
-              required: true,
-              error: hasError ? errorRequiredMessage : null,
-            })}
+          <Box key={1} className={itemClasses.root}>
+            <Box className={itemClasses.inputContainer}>
+              {renderSortableIcon()}
+              <Box className={itemClasses.input} key={2} ref={focusTrapRef}>
+                {React.cloneElement(InputRender, {
+                  value,
+                  onChange: (event) => {
+                    setValue(event);
+                    if (event) setHasError(false);
+                  },
+                  onKeyDown: (event) => {
+                    if (event.key === 'Enter') {
+                      update();
+                    }
+                  },
+                  index,
+                  required: true,
+                  error: hasError ? errorRequiredMessage : null,
+                })}
+              </Box>
+            </Box>
+            <Box className={itemClasses.buttonsContainer}>
+              <Button
+                variant="link"
+                icon={<RemoveIcon />}
+                onClick={() => {
+                  setValue(item.value);
+                  stopEdit();
+                }}
+              >
+                {labels.cancel}
+              </Button>
+              <Button variant="outline" icon={<CheckIcon />} onClick={update}>
+                {labels.saveChanges}
+              </Button>
+            </Box>
           </Box>,
-          <Stack key={3}>
-            <ActionButton icon={<CheckIcon />} onClick={update} />
-            <ActionButton
-              icon={<RemoveIcon />}
-              onClick={() => {
-                setValue(item.value);
-                stopEdit();
-              }}
-            />
-          </Stack>,
         ];
       }
 
@@ -176,6 +202,7 @@ ListItem.propTypes = {
   errorRequiredMessage: PropTypes.any,
   index: PropTypes.any,
   withBorder: PropTypes.bool,
+  labels: PropTypes.any,
 };
 
 export { ListItem };
