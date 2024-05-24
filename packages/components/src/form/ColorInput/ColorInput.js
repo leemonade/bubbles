@@ -121,7 +121,6 @@ const ColorInput = forwardRef(
     const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const closeRef = useClickOutside(() => setOpened(false));
-    console.log('inputValue', inputValue);
 
     useEffect(() => {
       const isNullWhenClearable = clearable && value === null;
