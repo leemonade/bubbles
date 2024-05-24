@@ -86,7 +86,7 @@ const UserDisplayItem = (properties) => {
   const fullName = useMemo(
     () =>
       ['rol', 'inline'].includes(variant)
-        ? `${surnames || ''}${!surnames ? '' : ', '} ${name}`
+        ? `${surnames || ''}${!surnames ? '' : ', '}${name}`
         : name,
     [name, surnames, variant],
   );
