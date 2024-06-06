@@ -1,22 +1,14 @@
 {
-    "files.exclude": {
-        "**/.git": false,
-        "**/.svn": false,
-        "**/.hg": false,
-        "**/CVS": false,
-        "**/.DS_Store": false,
-        "**/Thumbs.db": false,
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never",
+      "source.fixAll": "explicit"
     },
-    "[javascript]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "never",
-            "source.fixAll": "explicit"
-        },
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "sonarlint.connectedMode.project": {
-        "connectionId": "leemons",
-        "projectKey": "leemonade_bubbles"
-    },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "leemons",
+    "projectKey": "leemonade_bubbles"
+  }
 }
