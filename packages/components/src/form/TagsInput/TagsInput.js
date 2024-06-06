@@ -126,9 +126,13 @@ const TagsInput = forwardRef(
           if (!valueIsSuggestion && !canAddNewSuggestions) {
             return;
           }
-
-          setTags((prevTags) => [...prevTags, newTag]);
-          if (isFunction(onChange)) onChange(tags);
+          setTags((prevTags) => {
+            const updatedTags = [...prevTags, newTag];
+            if ((0, isFunction)(onChange)) {
+              onChange(updatedTags);
+            }
+            return updatedTags;
+          });
         }
       });
 
