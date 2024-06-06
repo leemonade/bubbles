@@ -2,8 +2,8 @@ import React from 'react';
 import { createStyles } from '@mantine/styles';
 import { AlertWarningTriangleIcon } from '@bubbles-ui/icons/solid';
 
-const getSizes = (size, avatarSizes) => {
-  const avatarSize = avatarSizes[size];
+const getSizes = (size, avatarSizes, customSize) => {
+  const avatarSize = customSize ?? avatarSizes[size];
   return {
     height: avatarSize,
     width: avatarSize,
@@ -64,14 +64,14 @@ const getIconWrapperStyles = (size, theme, badgeTheme) => {
 };
 
 export const AvatarStyles = createStyles(
-  (theme, { size, radius, color, state, activityStatus }) => {
+  (theme, { size, radius, color, state, activityStatus, subjectColor, customSize }) => {
     const avatarTheme = theme.other.avatar;
     const badgeTheme = theme.other.badge;
 
     return {
       root: {
         borderRadius: radius ? avatarTheme.border.radius.circle : 0,
-        ...getSizes(size || 'md', avatarTheme.size),
+        ...getSizes(size || 'md', avatarTheme.size, customSize),
       },
       placeholder: {
         color: avatarTheme.content.color.default,
@@ -89,7 +89,7 @@ export const AvatarStyles = createStyles(
       iconWrapper: {
         display: size === 'sm' && 'none',
         boxSizing: 'content-box',
-        backgroundColor: badgeTheme.background.color.secondary.default,
+        backgroundColor: subjectColor,
         borderRadius: radius ? badgeTheme.border.radius : 0,
         position: 'absolute',
         ...getIconWrapperStyles(size, theme, badgeTheme),
@@ -100,5 +100,5 @@ export const AvatarStyles = createStyles(
         },
       },
     };
-  }
+  },
 );

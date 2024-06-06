@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Badge as MantineBadge, Box } from '@mantine/core';
-import { BadgeStyles } from './Badge.styles';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
-import { Avatar } from '../Avatar/Avatar';
 import { isFunction } from 'lodash';
+import { BadgeStyles } from './Badge.styles';
+import { Avatar } from '../Avatar/Avatar';
 
 export const BADGE_SIZES = ['xs', 'md', 'lg'];
 export const BADGE_COLORS = ['solid', 'stroke'];
@@ -33,6 +33,8 @@ export const BADGE_PROP_TYPES = {
   closable: PropTypes.bool,
   className: PropTypes.string,
   useAria: PropTypes.bool,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
 };
 
 const Badge = forwardRef(
@@ -51,10 +53,11 @@ const Badge = forwardRef(
       className,
       children,
       onClick,
+      disableHover,
       useAria,
       ...props
     },
-    ref
+    ref,
   ) => {
     if (radius === 'default') {
       image = null;
@@ -64,12 +67,21 @@ const Badge = forwardRef(
     }
 
     const { classes, cx } = BadgeStyles(
-      { size, color, image, radius, severity, hasOnClick: isFunction(onClick), labelStyles },
-      { name: 'Badge' }
+      {
+        size,
+        color,
+        image,
+        radius,
+        disableHover,
+        severity,
+        hasOnClick: isFunction(onClick),
+        labelStyles,
+      },
+      { name: 'Badge' },
     );
 
     const onClickHandler = () => {
-      isFunction(onClick) && onClick();
+      if (isFunction(onClick)) onClick();
     };
 
     return (
@@ -89,9 +101,10 @@ const Badge = forwardRef(
         </MantineBadge>
       </Box>
     );
-  }
+  },
 );
 
+Badge.displayName = 'Badge';
 Badge.defaultProps = BADGE_DEFAULT_PROPS;
 Badge.propTypes = BADGE_PROP_TYPES;
 

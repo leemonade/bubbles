@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const INPUT_WRAPPER_SIZES = ['sm', 'md'];
+export const INPUT_WRAPPER_SIZES = ['xs', 'sm', 'md'];
 export const INPUT_WRAPPER_ORIENTATIONS = ['horizontal', 'vertical'];
 
 export const INPUT_WRAPPER_SHARED_PROPS = {
@@ -21,6 +21,7 @@ export const INPUT_WRAPPER_PROP_TYPES = {
   headerStyle: PropTypes.any,
   contentStyle: PropTypes.any,
   autoComplete: PropTypes.string,
+  showEmptyLabel: PropTypes.bool,
 };
 export const INPUT_WRAPPER_DEFAULT_PROPS = {
   label: '',

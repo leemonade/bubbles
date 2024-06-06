@@ -1,57 +1,65 @@
 import React, { useMemo, useState } from 'react';
+import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
+import { noop } from 'lodash';
 import { DropdownButtonStyles } from './DropdownButton.styles';
 import {
   DROPDOWN_BUTTON_DEFAULT_PROPS,
   DROPDOWN_BUTTON_PROP_TYPES,
 } from './DropdownButton.constants';
 import { Button } from '../Button';
-import { ChevDownIcon } from '@bubbles-ui/icons/outline';
-import { Popover } from '../../overlay';
+import { Popover } from '../../overlay/Popover';
 import { Dropdown, Item } from '../../overlay/Dropdown';
 import { ImageLoader } from '../../misc';
-import { isFunction } from 'lodash';
 
-const DropdownButton = ({ itemComponent, data, ...props }) => {
+const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => {
   const [opened, setOpened] = useState(false);
 
-  const handleOnOption = (onOption) => {
-    return () => {
-      isFunction(onOption) && onOption();
+  const handleOnOption =
+    (onOption = noop) =>
+    () => {
+      onOption();
       setOpened(false);
     };
-  };
 
   function renderIcon(icon) {
-    if (!icon) return;
+    if (!icon) return null;
     if (typeof icon === 'string') {
       return <ImageLoader className={classes.icon} src={icon} fillCurrent />;
     }
     return icon;
   }
 
-  const handledData = useMemo(() => {
-    return data.map((item) => {
-      const handledOnClick = handleOnOption(item.onClick);
-      return { ...item, onClick: handledOnClick };
-    });
-  }, [data]);
+  const handledData = useMemo(
+    () =>
+      data.map((item) => {
+        const handledOnClick = handleOnOption(item.onClick);
+        return { ...item, onClick: handledOnClick };
+      }),
+    [data],
+  );
 
   const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
   return (
     <Popover
       opened={opened}
-      offset={0}
+      offset={4}
       target={
         <Button
           {...props}
-          rightIcon={<ChevDownIcon height={18} width={18} />}
+          rightIcon={
+            chevronUp ? (
+              <ChevUpIcon height={18} width={18} />
+            ) : (
+              <ChevDownIcon height={18} width={18} />
+            )
+          }
           onClick={() => setOpened(!opened)}
           textAlign="appart"
         />
       }
-      width="target"
+      width={width}
       closeOnEscape
-      closeOnClickOutside
+      closeOnClickOutside={true}
       onClose={() => setOpened(false)}
       trapFocus
       styles={{ boxShadow: 'none', border: 'none' }}

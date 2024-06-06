@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box } from '../../layout/Box';
 import { InlineSvgStyles } from './InlineSvg.styles';
 
-export const InlineSvg = ({
+const InlineSvg = ({
   src,
   className,
   strokeCurrent,
@@ -45,8 +45,8 @@ export const InlineSvg = ({
         !ignoreFill && (fillCurrent || (className && className.indexOf('fill-current') >= 0));
 
       let str = svg;
-      if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="currentColor"');
-      if (hasFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="currentColor"');
+      if (hasStroke) str = str.replaceAll(/stroke=".+?"/gi, `stroke="${strokeCurrent}"`);
+      if (hasFill) str = str.replaceAll(/fill=".+?"/gi, `fill="${fillCurrent}"`);
       if (ignoreFill) str = str.replaceAll(/fill=".+?"/gi, 'fill="none"');
       if (ignoreStroke) str = str.replaceAll(/stroke=".+?"/gi, 'stroke="none"');
 
@@ -63,7 +63,7 @@ export const InlineSvg = ({
         { [classes.loaded]: isLoaded },
         { [classes.loading]: !isLoaded },
         { [classes.errored]: isErrored },
-        className
+        className,
       )}
       style={style}
       dangerouslySetInnerHTML={{ __html: goodSvg }}
@@ -72,8 +72,14 @@ export const InlineSvg = ({
 };
 
 InlineSvg.defaultProps = { ignoreFill: false, style: {} };
-
 InlineSvg.propTypes = {
   src: PropTypes.string.isRequired,
   className: PropTypes.string,
+  strokeCurrent: PropTypes.bool,
+  fillCurrent: PropTypes.bool,
+  ignoreFill: PropTypes.bool,
+  ignoreStroke: PropTypes.bool,
+  style: PropTypes.object,
 };
+
+export { InlineSvg };

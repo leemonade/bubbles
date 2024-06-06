@@ -1,30 +1,34 @@
 import React, { forwardRef, useEffect, useMemo, useRef } from 'react';
-import { MultiSelectStyles } from './MultiSelect.styles';
+import Proptypes from 'prop-types';
 import { find, isArray, isEmpty, isFunction, isString } from 'lodash';
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
-import { ActionButton } from '../ActionButton';
 import { ChevDownIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { InputWrapper } from '../InputWrapper';
 import { useId } from '@mantine/hooks';
-import { Badge } from '../../informative';
+import { ActionButton } from '../ActionButton';
+import { InputWrapper } from '../InputWrapper';
+import { Badge } from '../../informative/Badge';
+import { Box } from '../../layout/Box';
+import { Dropdown, Item } from '../../overlay/Dropdown';
+import { MultiSelectStyles } from './MultiSelect.styles';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
   MULTI_SELECT_ORIENTATIONS,
   MULTI_SELECT_PROP_TYPES,
   MULTI_SELECT_SIZES,
 } from './MultiSelect.constants';
-import { Box } from '../../layout';
-import { Dropdown, Item } from '../../overlay/Dropdown';
 
 const GetValueComponent = forwardRef(
-  ({ others: { Component, classNames, onRemove, ...others } }, ref) => {
-    return (
-      <Box ref={ref} {...others}>
-        <Component {...others} onRemove={onRemove} />
-      </Box>
-    );
-  }
+  ({ others: { Component, classNames, onRemove, ...others } }, ref) => (
+    <Box ref={ref} {...others}>
+      <Component {...others} onRemove={onRemove} />
+    </Box>
+  ),
 );
+
+GetValueComponent.displayName = 'GetValueComponent';
+GetValueComponent.propTypes = {
+  others: Proptypes.any,
+};
 
 const MultiSelect = forwardRef(
   (
@@ -56,7 +60,7 @@ const MultiSelect = forwardRef(
       style,
       ...props
     },
-    ref
+    ref,
   ) => {
     const hasIcon = !!icon;
     const [show, setShow] = React.useState(true);
@@ -95,7 +99,7 @@ const MultiSelect = forwardRef(
 
     // TODO: MEGATODO Por culpa de maxSelectedValues hemos tenido que repintar el MultiSelect de mantine.
     React.useEffect(() => {
-      if (!value || !value.length) {
+      if (!value?.length) {
         setShow(false);
         setTimeout(() => {
           setShow(true);
@@ -115,9 +119,9 @@ const MultiSelect = forwardRef(
     // ······················································
     // STYLES
 
-    const { classes, cx } = MultiSelectStyles(
+    const { classes } = MultiSelectStyles(
       { size, multiple, rightEvents: isClearable && showClear, hasIcon },
-      { name: 'MultiSelect' }
+      { name: 'MultiSelect' },
     );
 
     return (
@@ -139,10 +143,9 @@ const MultiSelect = forwardRef(
                   const data = find(props.data, { value: v });
                   if (data) {
                     if (ValueComponent) {
-                      return <ValueComponent {...data} />;
-                    } else {
-                      return <Badge label={data?.label} closable={false} />;
+                      return <ValueComponent key={v} {...data} />;
                     }
+                    return <Badge key={v} label={data?.label} closable={false} />;
                   }
                   //
                   return null;
@@ -200,9 +203,10 @@ const MultiSelect = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+MultiSelect.displayName = 'MultiSelect';
 MultiSelect.defaultProps = MULTI_SELECT_DEFAULT_PROPS;
 MultiSelect.propTypes = MULTI_SELECT_PROP_TYPES;
 

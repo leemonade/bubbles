@@ -1,0 +1,153 @@
+import { Story, Props, Source, Preview } from '@storybook/addon-docs';
+import { ThemeProvider, Box, Paper, Text } from '@bubbles-ui/components';
+import * as stories from './Swiper.stories.js';
+import { Swiper } from './Swiper.js';
+
+# Swiper
+
+[Source code](https://github.com/leemonade/bubbles/tree/main/packages/components/src/informative/Swiper/Swiper.js)
+
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Overview](#overview)
+- [Selected and selected styles](#selected-and-selected-styles)
+- [Deselectable](#deselectable)
+- [Component API](#component-api)
+- [Feedback](#feedback)
+
+## Overview
+
+Swiper is a component to display a elements in a swiper. You will need the `breakAt` prop
+to control how many elements are shown and the space between them, something like this:
+
+```js
+breakAt: {
+  1200: { slidesPerView: 4, spaceBetween: 20 },
+  940: { slidesPerView: 3, spaceBetween: 20 },
+  520: { slidesPerView: 2, spaceBetween: 30 },
+  360: { slidesPerView: 1, spaceBetween: 40 },
+},
+```
+
+<ThemeProvider>
+  <Swiper
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Hello world</Text>
+    </Paper>
+  </Swiper>
+</ThemeProvider>
+
+## Selected and selected styles
+
+Swiper allows you to select the elements with the `selectable` prop, but you can disable the styles of the selected element with `disableSelectedStyles`.
+
+<ThemeProvider>
+  <Swiper
+    selectable
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+  </Swiper>
+  <Box style={{ marginTop: 16 }} />
+  <Swiper
+    selectable
+    disableSelectedStyles
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable without styles</Text>
+    </Paper>
+  </Swiper>
+</ThemeProvider>
+
+## Deselectable
+
+With the `deselectable` prop you can control if the element is unselected when you click it again
+
+<ThemeProvider>
+  <Swiper
+    selectable
+    deselectable={false}
+    breakAt={{
+      1200: { slidesPerView: 4, spaceBetween: 20 },
+      940: { slidesPerView: 3, spaceBetween: 20 },
+      520: { slidesPerView: 2, spaceBetween: 30 },
+      360: { slidesPerView: 1, spaceBetween: 40 },
+    }}
+  >
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+    <Paper fullWidth>
+      <Text>Im selectable</Text>
+    </Paper>
+  </Swiper>
+</ThemeProvider>
+
+## Component API
+
+<Preview>
+  <Story id="molecules-informative-swiper--playground" />
+</Preview>
+
+<Props of={Swiper} />
+
+## Feedback
+
+Help us improve this component by providing feedback, asking questions on Slack, or updating this file on
+[GitHub](https://github.com/leemonade/bubbles/edit/main/packages/components/src/informative/Swiper/Swiper.mdx)

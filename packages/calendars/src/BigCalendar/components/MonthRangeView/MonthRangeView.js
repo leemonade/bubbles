@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Box, Text } from '@bubbles-ui/components';
-import { MonthRangeViewStyles } from './MonthRangeView.styles';
-import { inRange } from 'react-big-calendar/lib/utils/eventLevels';
-import { MonthView } from '../MonthView/MonthView';
 import { capitalize } from 'lodash';
+import { MonthRangeViewStyles } from './MonthRangeView.styles';
+import { MonthView } from '../MonthView/MonthView';
+import { MONTHRANGEVIEW_DEFAULT_PROPS, MONTHRANGEVIEW_PROPTYPES } from './MonthRangeView.constants';
 
-const eventsForWeek = (evts, start, end, accessors, localizer) =>
-  evts.filter((e) => inRange(e, start, end, accessors, localizer));
+// const eventsForWeek = (evts, start, end, accessors, localizer) =>
+//   evts.filter((e) => inRange(e, start, end, accessors, localizer));
 
 const MonthRangeView = ({ ...props }) => {
-  let { dateMonthRange, localizer, onRangeChange, events, printMode } = props;
+  const { dateMonthRange, localizer, onRangeChange, printMode } = props;
 
   const years = [];
   if (dateMonthRange) {
@@ -18,7 +18,7 @@ const MonthRangeView = ({ ...props }) => {
     }
   }
 
-  const { classes, cx } = MonthRangeViewStyles({ printMode });
+  const { classes } = MonthRangeViewStyles({ printMode });
 
   useEffect(() => {
     onRangeChange({
@@ -68,16 +68,18 @@ const MonthRangeView = ({ ...props }) => {
   );
 };
 
-MonthRangeView.range = (date, { localizer, ...rest }) => {
+MonthRangeView.range = (date, { localizer }) => {
   const start = localizer.firstVisibleDay(date, localizer);
   const end = localizer.lastVisibleDay(date, localizer);
   return { start, end };
 };
 
-MonthRangeView.navigate = (date) => {
-  return date;
-};
+MonthRangeView.navigate = (date) => date;
 
 MonthRangeView.title = (date, { localizer }) => localizer.format(date, 'monthHeaderFormat');
 
+MonthRangeView.defaultProps = MONTHRANGEVIEW_DEFAULT_PROPS;
+MonthRangeView.propTypes = MONTHRANGEVIEW_PROPTYPES;
+
+export default MonthRangeView;
 export { MonthRangeView };

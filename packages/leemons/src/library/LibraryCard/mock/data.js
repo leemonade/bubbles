@@ -55,9 +55,8 @@ export const VIDEO_ASSET = {
   tags: ['Rome', 'Docu'],
   cover:
     'https://images.unsplash.com/photo-1627552245715-77d79bbf6fe2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80',
-  url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
+  url: 'https://www.rickydelgado.es/wp-content/uploads/2020/01/Ricky-Delgado-Felicitación-navideña-Olipes-2018.mp4',
 };
-
 export const IMAGE_ASSET = {
   color: '#DC5571',
   name: 'El ritmo de la guerra',

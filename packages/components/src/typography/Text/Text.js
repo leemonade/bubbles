@@ -49,7 +49,7 @@ export const Text = forwardRef(
       highlight,
       ...props
     },
-    ref
+    ref,
   ) => {
     const transform = TEXT_TRANSFORMS.includes(transformProp)
       ? transformProp
@@ -72,7 +72,7 @@ export const Text = forwardRef(
       highlighted,
     });
 
-    const Comp = isString(highlight) ? Highlight : MantineText
+    const Comp = isString(highlight) ? Highlight : MantineText;
 
     return (
       <Comp
@@ -87,11 +87,11 @@ export const Text = forwardRef(
         {children}
       </Comp>
     );
-  }
+  },
 );
 
+Text.displayName = 'Text';
 Text.defaultProps = TEXT_DEFAULT_PROPS;
-
 Text.propTypes = {
   size: PropTypes.oneOf(TEXT_SIZES),
   transform: PropTypes.oneOf(TEXT_TRANSFORMS),
@@ -103,4 +103,9 @@ Text.propTypes = {
   styles: PropTypes.object,
   highlighted: PropTypes.bool,
   highlight: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  classNames: PropTypes.any,
+  ariaRole: PropTypes.string,
+  as: PropTypes.string,
 };

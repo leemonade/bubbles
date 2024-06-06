@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React, { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useResizeObserver } from '@mantine/hooks';
@@ -36,7 +37,8 @@ function getNextTab(activeKey, tabs) {
   return active;
 }
 
-export const TabNavList = forwardRef(
+// eslint-disable-next-line react/display-name
+const TabNavList = forwardRef(
   (
     {
       id,
@@ -46,12 +48,13 @@ export const TabNavList = forwardRef(
       position,
       orientation,
       children,
+      className,
+      centerGrow,
       onTabClick,
       onTabScroll,
-      className,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { tabs } = useContext(TabContext);
     const tabsWrapperRef = useRef();
@@ -125,11 +128,7 @@ export const TabNavList = forwardRef(
 
     useTouchMove(tabsWrapperRef, (offsetX, offsetY) => {
       function doMove(setState, offset) {
-        setState((value) => {
-          const newValue = alignInRange(value + offset);
-
-          return newValue;
-        });
+        setState((value) => alignInRange(value + offset));
       }
 
       if (tabPositionTopOrBottom) {
@@ -235,8 +234,15 @@ export const TabNavList = forwardRef(
         width: 0,
         height: 36,
       },
-      { ...props, tabs }
+      { ...props, tabs },
     );
+
+    // ········································································
+    // Dropdown
+    const startHiddenTabs = tabs.slice(0, visibleStart);
+    const endHiddenTabs = tabs.slice(visibleEnd + 1);
+    const hiddenTabs = [...startHiddenTabs, ...endHiddenTabs];
+    const hasDropdown = !!hiddenTabs.length;
 
     const onListHolderResize = useRaf(() => {
       // Update wrapper records
@@ -257,7 +263,7 @@ export const TabNavList = forwardRef(
       const isOperationHidden = !hasDropdown;
       setWrapperContentWidth(newWrapperScrollWidth - (isOperationHidden ? 0 : newOperationWidth));
       setWrapperContentHeight(
-        newWrapperScrollHeight - (isOperationHidden ? 0 : newOperationHeight)
+        newWrapperScrollHeight - (isOperationHidden ? 0 : newOperationHeight),
       );
 
       // Update buttons records only at first time
@@ -281,12 +287,6 @@ export const TabNavList = forwardRef(
     });
 
     // ········································································
-    // Dropdown
-    const startHiddenTabs = tabs.slice(0, visibleStart);
-    const endHiddenTabs = tabs.slice(visibleEnd + 1);
-    const hiddenTabs = [...startHiddenTabs, ...endHiddenTabs];
-
-    // ········································································
     // Link & Operations
     const activeTabOffset = tabOffsets.get(activeKey);
 
@@ -308,12 +308,10 @@ export const TabNavList = forwardRef(
 
     // ········································································
     // Render
-    const hasDropdown = !!hiddenTabs.length;
 
     const { classes, cx } = TabNavListStyles({ animated: animated.inkBar }, { name: 'TabNavList' });
     const nextTabCode = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
     const previousTabCode = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
-
     const handleKeyDown = (event) => {
       if (event.nativeEvent.code === nextTabCode) {
         event.preventDefault();
@@ -352,34 +350,35 @@ export const TabNavList = forwardRef(
                 transition: lockAnimation ? 'none' : undefined,
               }}
             >
-              {tabs.map((tab) => {
-                return (
-                  <Tab
-                    id={id}
-                    key={tab.key}
-                    tab={tab}
-                    active={tab.key === activeKey}
-                    renderWrapper={children}
-                    onKeyDown={handleKeyDown}
-                    ref={getBtnRef(tab.key)}
-                    onClick={(e) => {
-                      onTabClick(tab.key, e);
-                    }}
-                    onFocus={() => {
-                      scrollToTab(tab.key);
-                      doLockAnimation();
-                      if (!tabsWrapperRef.current) {
-                        return;
-                      }
-                      // Focus element will make scrollLeft change which we should reset back
-                      if (!rtl) {
-                        tabsWrapperRef.current.scrollLeft = 0;
-                      }
-                      tabsWrapperRef.current.scrollTop = 0;
-                    }}
-                  />
-                );
-              })}
+              {tabs.map((tab) => (
+                <Tab
+                  id={id}
+                  style={
+                    centerGrow ? { display: 'flex', justifyContent: 'center', flexGrow: 1 } : {}
+                  }
+                  key={tab.key}
+                  tab={tab}
+                  active={tab.key === activeKey}
+                  renderWrapper={children}
+                  onKeyDown={handleKeyDown}
+                  ref={getBtnRef(tab.key)}
+                  onClick={(e) => {
+                    onTabClick(tab.key, e);
+                  }}
+                  onFocus={() => {
+                    scrollToTab(tab.key);
+                    doLockAnimation();
+                    if (!tabsWrapperRef.current) {
+                      return;
+                    }
+                    // Focus element will make scrollLeft change which we should reset back
+                    if (!rtl) {
+                      tabsWrapperRef.current.scrollLeft = 0;
+                    }
+                    tabsWrapperRef.current.scrollTop = 0;
+                  }}
+                />
+              ))}
             </Group>
           </Box>
         </Box>
@@ -394,9 +393,10 @@ export const TabNavList = forwardRef(
         )}
       </Box>
     );
-  }
+  },
 );
 
+TabNavList.displayName = 'TabNavList';
 TabNavList.propTypes = {
   id: PropTypes.string,
   tabPosition: PropTypes.string, // left, right, etc
@@ -410,4 +410,11 @@ TabNavList.propTypes = {
   renderTabBar: PropTypes.any,
   onTabClick: PropTypes.func,
   onTabScroll: PropTypes.func,
+  position: PropTypes.string,
+  orientation: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  centerGrow: PropTypes.bool,
 };
+
+export { TabNavList };

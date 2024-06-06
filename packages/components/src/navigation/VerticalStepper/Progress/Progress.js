@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box } from '../../../layout';
-import { ProgressStyles } from './Progress.styles';
 import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
 import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
+import { Box } from '../../../layout/Box';
+import { ProgressStyles } from './Progress.styles';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
 
 const Progress = ({
@@ -14,11 +14,10 @@ const Progress = ({
   isText,
   isCurrent,
   isVisited,
-  ...props
 }) => {
-  const { classes, cx } = ProgressStyles(
+  const { classes } = ProgressStyles(
     { position, isButton, isActivity, isText, isCurrent, isVisited, state },
-    { name: 'Progress' }
+    { name: 'Progress' },
   );
 
   const renderState = () => {
@@ -43,28 +42,33 @@ const Progress = ({
         return (
           <Box className={classes.progressContainer}>
             <Box className={classes.pendingBar} />
-            <Box className={classes.pending} />
+            <Box className={classes.pendingIcon} />
           </Box>
         );
       case 'current':
         return (
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar} />
-            <TimeClockCircleIcon height={20} width={20} className={classes.currentIcon} />
+            <Box height={16} width={16} className={classes.currentIconContainer}>
+              <svg
+                className={classes.currentIcon}
+                width="6"
+                height="6"
+                viewBox="0 0 6 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="3" cy="3" r="3" fill="#0C1F22" />
+              </svg>
+            </Box>
           </Box>
         );
       case 'completed':
-        return (
-          <Box className={classes.progressContainer}>
-            <Box className={classes.solidBar} />
-            <CheckIcon height={20} width={20} className={classes.completedIcon} />
-          </Box>
-        );
       case 'OK':
         return (
           <Box className={classes.progressContainer}>
-            <Box className={classes.solidBar}></Box>
-            <CheckIcon height={20} width={20} className={classes.OKIcon} />
+            <Box className={classes.solidBar} />
+            <CheckIcon height={16} width={16} className={classes.completedIcon} />
           </Box>
         );
       case 'KO':
@@ -74,7 +78,10 @@ const Progress = ({
             <RemoveBoldIcon height={20} width={20} className={classes.KOIcon} />
           </Box>
         );
+      default:
+        break;
     }
+    return null;
   };
 
   return <Box className={classes.root}>{renderState()}</Box>;

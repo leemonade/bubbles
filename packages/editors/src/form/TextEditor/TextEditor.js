@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Box } from '@bubbles-ui/components';
 import PropTypes from 'prop-types';
-import { forEach, isFunction, isObject, isEqual } from 'lodash';
+import { forEach, isFunction, isEqual } from 'lodash';
 import History from '@tiptap/extension-history';
 import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
@@ -11,7 +12,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Paragraph from '@tiptap/extension-paragraph';
 import { useExtensions } from '../../utils';
 import { BubbleMenu } from '../BubbleMenu';
-import { Toolbar, TOOLBAR_POSITIONS } from '../Toolbar';
+import { Toolbar, HeaderToolbar, TOOLBAR_POSITIONS } from '../Toolbar';
 import { TextEditorProvider } from '../TextEditorProvider';
 import { TextEditorStyles } from './TextEditor.styles';
 
@@ -21,7 +22,6 @@ export const TEXT_EDITOR_DEFAULT_PROPS = {
 
 export const TEXT_EDITOR_PROP_TYPES = {
   content: PropTypes.string,
-  library: PropTypes.element,
   onChange: PropTypes.func,
   onSchemaChange: PropTypes.func,
   editorClassname: PropTypes.string,
@@ -32,9 +32,14 @@ export const TEXT_EDITOR_PROP_TYPES = {
     PropTypes.shape({
       type: PropTypes.string,
       updateWithoutContent: PropTypes.bool,
-    })
+    }),
   ),
   toolbarPosition: PropTypes.oneOf(TOOLBAR_POSITIONS),
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  children: PropTypes.node,
+  toolbarPortal: PropTypes.any,
+  scrollRef: PropTypes.any,
 };
 
 const TextEditor = ({
@@ -50,11 +55,14 @@ const TextEditor = ({
   useSchema,
   acceptedTags = [],
   toolbarPosition,
+  toolbarPortal,
+  scrollRef,
 }) => {
   const store = React.useRef({
     isFocus: false,
     acceptedTags: acceptedTags.join('|'),
   });
+  const [isToolbarReady, setIsToolbarReady] = React.useState(false);
   const extensions = useExtensions(children);
   const { classes, cx } = TextEditorStyles({}, { name: 'TextEditor' });
   const editor = useEditor({
@@ -65,7 +73,7 @@ const TextEditor = ({
       Paragraph,
       Focus,
       History,
-      Placeholder.configure({ placeholder: placeholder }),
+      Placeholder.configure({ placeholder }),
       ...extensions,
     ],
     content: '',
@@ -74,23 +82,39 @@ const TextEditor = ({
   const ref = React.useRef(null);
   const contentChange = React.useRef(null);
 
+  const getEditorJson = () => {
+    const originalHTML = document.getElementsByClassName('ProseMirror')[0];
+    if (!originalHTML) return {};
+    const htmlContent = [...originalHTML.childNodes].filter((element) => element.tagName !== 'BR');
+    const originalJSON = editor.getJSON();
+
+    return {
+      ...originalJSON,
+      content: originalJSON.content.map((element, index) => {
+        element.attrs = { ...element.attrs, index, html: htmlContent[index] };
+        return element;
+      }),
+    };
+  };
+
   const onUpdate = () => {
     const defaultTags = ['paragraph', 'heading'];
     const jsonContent = editor.getJSON();
     let shouldUpdate = false;
-    for (const element of jsonContent.content) {
-      if (!element) break;
+
+    jsonContent.content.forEach((element) => {
+      if (!element) return;
       if (defaultTags.includes(element.type) && element.content) {
         shouldUpdate = true;
-        break;
+        return;
       }
       const currentCustomTag = acceptedTags.find((tag) => tag.type === element.type);
       if (currentCustomTag && (currentCustomTag.updateWithoutContent || element.content)) {
         shouldUpdate = true;
-        break;
       }
-    }
-    if (!shouldUpdate) return null;
+    });
+
+    if (!shouldUpdate) return;
 
     store.current.content = editor.getHTML();
 
@@ -98,22 +122,8 @@ const TextEditor = ({
     if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
   };
 
-  const getEditorJson = () => {
-    const originalHTML = document.getElementsByClassName('ProseMirror')[0];
-    if (!originalHTML) return {};
-    const htmlContent = [...originalHTML.getElementsByTagName('*')].filter(
-      (element) => element.tagName !== 'BR'
-    );
-    const originalJSON = editor.getJSON();
-
-    const editorJSON = {
-      ...originalJSON,
-      content: originalJSON.content.map((element, index) => {
-        element.attrs = { ...element.attrs, index, html: htmlContent[index] };
-        return element;
-      }),
-    };
-    return editorJSON;
+  const dispatchSchema = () => {
+    if (isFunction(onSchemaChange) && useSchema) onSchemaChange(getEditorJson());
   };
 
   useEffect(() => {
@@ -121,12 +131,13 @@ const TextEditor = ({
     if (!isEqual(content, store.current.content)) {
       store.current.content = content;
       editor.commands.setContent(content || '');
+      dispatchSchema();
     }
   }, [editor, content]);
 
   useEffect(() => {
     if (!editor) {
-      return undefined;
+      return;
     }
 
     editor.setEditable(!readOnly);
@@ -180,17 +191,50 @@ const TextEditor = ({
       editor.on('transaction', handleTransactions);
       return () => editor.off('transaction', handleTransactions);
     }
+    return () => {};
   }, [editor, handleTransactions]);
 
   useEffect(() => {
     if (editor) {
       const placeholderExtension = editor.extensionManager.extensions.find(
-        (extension) => extension.name === 'placeholder'
+        (extension) => extension.name === 'placeholder',
       );
-      placeholderExtension.options['placeholder'] = placeholder;
+      placeholderExtension.options.placeholder = placeholder;
       editor.view.dispatch(editor.state.tr);
     }
   }, [placeholder]);
+
+  React.useEffect(() => {
+    if (toolbarPortal) {
+      setIsToolbarReady(true);
+    }
+  }, [toolbarPortal]);
+
+  const ToolbarComponent = React.useMemo(
+    () =>
+      isToolbarReady
+        ? () =>
+            createPortal(
+              <Toolbar
+                toolbarLabel={'Toolbar'}
+                className={toolbarClassname}
+                toolbarPosition={toolbarPosition}
+              >
+                {children}
+              </Toolbar>,
+              toolbarPortal,
+            )
+        : () => (
+            <Toolbar
+              toolbarLabel={'Toolbar'}
+              className={toolbarClassname}
+              toolbarPosition={toolbarPosition}
+            >
+              {children}
+            </Toolbar>
+          ),
+    [isToolbarReady],
+  );
 
   return (
     <Box
@@ -203,17 +247,12 @@ const TextEditor = ({
       <TextEditorProvider editor={editor} readOnly={readOnly}>
         {readOnly ? null : (
           <Box style={{ zIndex: 1 }}>
-            <Toolbar
-              toolbarLabel={'Toolbar'}
-              className={toolbarClassname}
-              toolbarPosition={toolbarPosition}
-            >
-              {children}
-            </Toolbar>
+            <ToolbarComponent />
             <BubbleMenu />
           </Box>
         )}
         <Box
+          ref={scrollRef}
           className={cx(classes.editorContainer, editorContainerClassname)}
           style={{ zIndex: 0 }}
         >

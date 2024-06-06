@@ -1,14 +1,14 @@
 import React from 'react';
-import { Box } from '../../layout';
-import { ContextHelpStyles } from './ContextHelp.styles';
-import { CONTEXT_HELP_DEFAULT_PROPS, CONTEXT_HELP_PROP_TYPES } from './ContextHelp.constants';
-import { Button } from '../../form';
 import { isFunction } from 'lodash';
 import { HoverCard } from '@mantine/core';
+import { Box } from '../../layout/Box';
+import { Button } from '../../form/Button';
+import { ContextHelpStyles } from './ContextHelp.styles';
+import { CONTEXT_HELP_DEFAULT_PROPS, CONTEXT_HELP_PROP_TYPES } from './ContextHelp.constants';
 
 const ContextHelp = ({ target, title, content, link, onLink, ...props }) => {
   const onLinkHandler = () => {
-    isFunction(onLink) && onLink();
+    if (isFunction(onLink)) onLink();
   };
 
   const { classes, cx } = ContextHelpStyles({}, { name: 'ContextHelp' });

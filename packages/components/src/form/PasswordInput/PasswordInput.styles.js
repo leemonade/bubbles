@@ -1,8 +1,7 @@
 import { createStyles } from '@mantine/styles';
-import { getBoxShadowFromToken, getFocusStyles, getPaddings } from '../../theme.mixins';
-import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
+import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disabled }) => {
+const PasswordInputStyles = createStyles((theme, { size, hasIcon, disabled }) => {
   const inputTheme = theme.other.input;
   const inputSizes = getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon);
   const inputStyles = getInputStyle(inputTheme, theme.other.global);
@@ -11,7 +10,10 @@ export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disable
     input: {
       ...inputSizes,
       ...inputStyles,
-      // padding: 0,
+      paddingRight: 40,
+      minHeight: 40,
+      display: 'flex',
+      alignItems: 'center',
     },
     innerInput: {
       ...inputSizes,
@@ -27,7 +29,7 @@ export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disable
       backgroundColor: 'inherit !important',
       boxShadow: 'none !important',
     },
-    // rightSection: { ...getRightSection(theme) },
+    rightSection: { paddingRight: 6 },
     visibilityToggle: {
       color: '#495057',
     },
@@ -37,3 +39,5 @@ export const PasswordInputStyles = createStyles((theme, { size, hasIcon, disable
     },
   };
 });
+
+export { PasswordInputStyles };

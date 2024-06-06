@@ -2,7 +2,7 @@ import * as React from "react";
 function PluginComunicaIcon(props) {
   return /*#__PURE__*/React.createElement("svg", Object.assign({
     fill: "none",
-    viewBox: "0 0 27 27",
+    viewBox: "0 0 23 23",
     stroke: "currentColor",
     "aria-hidden": "true",
     width: "1em",
@@ -10,8 +10,11 @@ function PluginComunicaIcon(props) {
   }, props), /*#__PURE__*/React.createElement("path", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    strokeWidth: 2,
-    d: "M13.5 1.5A12 12 0 0 0 3.267 19.77l-1.714 4.573a.857.857 0 0 0 .957 1.143l5.988-1.09a11.828 11.828 0 0 0 5 1.104 12 12 0 0 0 0-24v0ZM9.213 13.59a1.714 1.714 0 0 1-1.715 1.624h-.09a1.714 1.714 0 1 1 1.805-1.625v0Zm6 0a1.714 1.714 0 0 1-1.715 1.624h-.09a1.713 1.713 0 0 1-1.624-1.807 1.714 1.714 0 0 1 2.986-1.054 1.697 1.697 0 0 1 .443 1.236Zm6 0a1.714 1.714 0 0 1-1.715 1.624h-.092a1.713 1.713 0 0 1-1.051-2.987 1.73 1.73 0 0 1 1.234-.441 1.713 1.713 0 0 1 1.624 1.803Z"
+    strokeWidth: 1.3,
+    d: "M12.34 1a9.901 9.901 0 0 0-8.672 5.095 9.924 9.924 0 0 0 .245 10.062L1 22.281l6.118-2.917a9.918 9.918 0 0 0 14.784-5.714 9.94 9.94 0 0 0-1.63-8.71A9.925 9.925 0 0 0 12.34 1Z"
+  }), /*#__PURE__*/React.createElement("path", {
+    strokeWidth: 1.3,
+    d: "M12.35 11.286a.355.355 0 1 1 0-.71M12.35 11.286a.355.355 0 1 0 0-.71M8.094 11.286a.355.355 0 0 1 0-.71M8.094 11.286a.355.355 0 0 0 0-.71M16.606 11.286a.355.355 0 0 1 0-.71M16.606 11.286a.355.355 0 1 0 0-.71"
   }));
 }
 export default PluginComunicaIcon;

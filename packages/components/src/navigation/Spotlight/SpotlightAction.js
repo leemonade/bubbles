@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createStyles } from '@mantine/styles';
 import { Link } from 'react-router-dom';
-import { closeSpotlight } from '.';
-import { Box, Stack } from '../../layout';
+import { closeSpotlight } from '@mantine/spotlight';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
 import { Text } from '../../typography';
 import { ImageLoader } from '../../misc';
 
@@ -55,21 +57,28 @@ const useStyles = createStyles((theme, { isGroup, isChild }) => {
 const SpotlightAction = ({ action, styles, classNames, hovered, onTrigger, query, ...props }) => {
   const { classes, cx } = useStyles(
     { isGroup: action.isGroup, isChild: action.isChild },
-    { styles, classNames, name: 'SpotlightAction' }
+    { styles, classNames, name: 'SpotlightAction' },
   );
 
-  const Wrapper = action.isGroup ? Box : action.useRouter ? Link : 'a';
-  const wrapperProps = action.isGroup
-    ? {}
-    : action.useRouter
-    ? { to: action.url }
-    : { href: action.url };
+  let Wrapper;
+  if (action.isGroup) {
+    Wrapper = Box;
+  } else if (action.useRouter) {
+    Wrapper = Link;
+  } else {
+    Wrapper = 'a';
+  }
+
+  let wrapperProps = {};
+  if (!action.isGroup) {
+    wrapperProps = action.useRouter ? { to: action.url } : { href: action.url };
+  }
 
   return (
     <Wrapper
       className={cx(classes.action, { [classes.actionHovered]: !action.isGroup && hovered })}
       tabIndex={-1}
-      onClick={(event) => {
+      onClick={() => {
         if (action.isChild || !action.isGroup) {
           closeSpotlight();
         }
@@ -101,6 +110,15 @@ const SpotlightAction = ({ action, styles, classNames, hovered, onTrigger, query
       </Stack>
     </Wrapper>
   );
+};
+
+SpotlightAction.propTypes = {
+  action: PropTypes.object,
+  hovered: PropTypes.bool,
+  onTrigger: PropTypes.func,
+  query: PropTypes.string,
+  styles: PropTypes.object,
+  classNames: PropTypes.object,
 };
 
 export { SpotlightAction };

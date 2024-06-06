@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
@@ -9,15 +10,16 @@ import * as TimeSlotUtils from 'react-big-calendar/lib/utils/TimeSlots';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
 
 import { notify } from 'react-big-calendar/lib/utils/helpers';
-import * as DayEventLayout from './DayEventLayout';
 import TimeSlotGroup from 'react-big-calendar/lib/TimeSlotGroup';
 import TimeGridEvent from 'react-big-calendar/lib/TimeGridEvent';
 import { DayLayoutAlgorithmPropType } from 'react-big-calendar/lib/utils/propTypes';
 
 import DayColumnWrapper from 'react-big-calendar/lib/DayColumnWrapper';
+import * as DayEventLayout from './DayEventLayout';
 
 class DayColumn extends React.Component {
   state = { selecting: false, timeIndicatorPosition: null };
+
   intervalTriggered = false;
 
   constructor(...args) {
@@ -113,13 +115,13 @@ class DayColumn extends React.Component {
       accessors,
       localizer,
       getters: { dayProp, ...getters },
-      components: { eventContainerWrapper: EventContainer, ...components }
+      components: { eventContainerWrapper: EventContainer, ...components },
     } = this.props;
 
-    let { slotMetrics } = this;
-    let { selecting, top, height, startDate, endDate } = this.state;
+    const { slotMetrics } = this;
+    const { selecting, top, height, startDate, endDate } = this.state;
 
-    let selectDates = { start: startDate, end: endDate };
+    const selectDates = { start: startDate, end: endDate };
 
     const { className, style } = dayProp(max);
 
@@ -135,7 +137,7 @@ class DayColumn extends React.Component {
           'rbc-time-column',
           isNow && 'rbc-now',
           isNow && 'rbc-today', // WHY
-          selecting && 'rbc-slot-selecting'
+          selecting && 'rbc-slot-selecting',
         )}
         slotMetrics={slotMetrics}
       >
@@ -159,20 +161,20 @@ class DayColumn extends React.Component {
           <div className={clsx('rbc-events-container', rtl && 'rtl')}>
             {this.renderEvents({
               events: this.props.backgroundEvents,
-              isBackgroundEvent: true
+              isBackgroundEvent: true,
             })}
             {this.renderEvents({ events: this.props.events })}
           </div>
         </EventContainer>
 
         {selecting && (
-          <div className='rbc-slot-selection' style={{ top, height }}>
+          <div className="rbc-slot-selection" style={{ top, height }}>
             <span>{localizer.format(selectDates, 'selectRangeFormat')}</span>
           </div>
         )}
         {isNow && this.intervalTriggered && (
           <div
-            className='rbc-current-time-indicator'
+            className="rbc-current-time-indicator"
             style={{ top: `${this.state.timeIndicatorPosition}%` }}
           />
         )}
@@ -181,7 +183,7 @@ class DayColumn extends React.Component {
   }
 
   renderEvents = ({ events, isBackgroundEvent }) => {
-    let {
+    const {
       rtl,
       selected,
       accessors,
@@ -191,23 +193,25 @@ class DayColumn extends React.Component {
       step,
       timeslots,
       dayLayoutAlgorithm,
-      resizable
+      resizable,
     } = this.props;
 
     const { slotMetrics } = this;
     const { messages } = localizer;
 
-    let styledEvents = DayEventLayout.getStyledEvents({
+    const styledEvents = DayEventLayout.getStyledEvents({
       events,
       accessors,
       slotMetrics,
-      minimumStartDifference: _.isNumber(components.minimumStartDifference) ? components.minimumStartDifference : Math.ceil((step * timeslots) / 2),
-      dayLayoutAlgorithm
+      minimumStartDifference: _.isNumber(components.minimumStartDifference)
+        ? components.minimumStartDifference
+        : Math.ceil((step * timeslots) / 2),
+      dayLayoutAlgorithm,
     });
 
     return styledEvents.map(({ event, style }, idx) => {
-      let end = accessors.end(event);
-      let start = accessors.start(event);
+      const end = accessors.end(event);
+      const start = accessors.start(event);
       let format = 'eventTimeRangeFormat';
       let label;
 
@@ -220,15 +224,15 @@ class DayColumn extends React.Component {
       if (startsBeforeDay && startsAfterDay) label = messages.allDay;
       else label = localizer.format({ start, end }, format);
 
-      let continuesPrior = startsBeforeDay || slotMetrics.startsBefore(start);
-      let continuesAfter = startsAfterDay || slotMetrics.startsAfter(end);
+      const continuesPrior = startsBeforeDay || slotMetrics.startsBefore(start);
+      const continuesAfter = startsAfterDay || slotMetrics.startsAfter(end);
 
       return (
         <TimeGridEvent
           style={style}
           event={event}
           label={label}
-          key={'evt_' + idx}
+          key={`evt_${idx}`}
           getters={getters}
           rtl={rtl}
           components={components}
@@ -247,17 +251,17 @@ class DayColumn extends React.Component {
   };
 
   _selectable = () => {
-    let node = findDOMNode(this);
+    const node = findDOMNode(this);
     const { longPressThreshold, localizer } = this.props;
-    let selector = (this._selector = new Selection(() => findDOMNode(this), {
-      longPressThreshold: longPressThreshold
+    const selector = (this._selector = new Selection(() => findDOMNode(this), {
+      longPressThreshold,
     }));
 
-    let maybeSelect = (box) => {
-      let onSelecting = this.props.onSelecting;
-      let current = this.state || {};
-      let state = selectionState(box);
-      let { startDate: start, endDate: end } = state;
+    const maybeSelect = (box) => {
+      const { onSelecting } = this.props;
+      const current = this.state || {};
+      const state = selectionState(box);
+      const { startDate: start, endDate: end } = state;
 
       if (onSelecting) {
         if (
@@ -293,7 +297,7 @@ class DayColumn extends React.Component {
 
       const selectRange = this.slotMetrics.getRange(
         localizer.min(initialSlot, currentSlot),
-        localizer.max(initialSlot, currentSlot)
+        localizer.max(initialSlot, currentSlot),
       );
 
       return {
@@ -301,18 +305,18 @@ class DayColumn extends React.Component {
         selecting: true,
 
         top: `${selectRange.top}%`,
-        height: `${selectRange.height}%`
+        height: `${selectRange.height}%`,
       };
     };
 
-    let selectorClicksHandler = (box, actionType) => {
+    const selectorClicksHandler = (box, actionType) => {
       if (!isEvent(findDOMNode(this), box)) {
         const { startDate, endDate } = selectionState(box);
         this._selectSlot({
           startDate,
           endDate,
           action: actionType,
-          box
+          box,
         });
       }
       this.setState({ selecting: false });
@@ -352,8 +356,8 @@ class DayColumn extends React.Component {
   };
 
   _selectSlot = ({ startDate, endDate, action, bounds, box }) => {
-    let current = startDate,
-      slots = [];
+    let current = startDate;
+    const slots = [];
 
     while (this.props.localizer.lte(current, endDate)) {
       slots.push(current);
@@ -367,7 +371,7 @@ class DayColumn extends React.Component {
       resourceId: this.props.resource,
       action,
       bounds,
-      box
+      box,
     });
   };
 
@@ -421,12 +425,12 @@ DayColumn.propTypes = {
   dragThroughEvents: PropTypes.bool,
   resource: PropTypes.any,
 
-  dayLayoutAlgorithm: DayLayoutAlgorithmPropType
+  dayLayoutAlgorithm: DayLayoutAlgorithmPropType,
 };
 
 DayColumn.defaultProps = {
   dragThroughEvents: true,
-  timeslots: 2
+  timeslots: 2,
 };
 
 export default DayColumn;

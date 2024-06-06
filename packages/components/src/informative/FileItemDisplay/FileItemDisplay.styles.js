@@ -9,44 +9,47 @@ const getExtensionPosition = (size) => {
       bottom: '-4%',
       left: '16%',
     };
-  } else if (size >= 80) {
+  }
+  if (size >= 80) {
     return {
       padding: pxToRem(3),
       paddingLeft: pxToRem(5),
       bottom: '-2%',
       left: '15%',
     };
-  } else if (size >= 64) {
+  }
+  if (size >= 64) {
     return {
       padding: pxToRem(2),
       paddingLeft: pxToRem(4),
       bottom: '-2%',
       left: '14%',
     };
-  } else if (size >= 32) {
+  }
+  if (size >= 32) {
     return {
       padding: pxToRem(2),
       paddingLeft: pxToRem(3),
       bottom: '2%',
       left: '14%',
     };
-  } else if (size >= 16) {
+  }
+  if (size >= 16) {
     return {
       padding: pxToRem(2),
       bottom: '4%',
       left: '14%',
     };
-  } else {
-    return {
-      padding: pxToRem(1),
-      bottom: '10%',
-      left: '10%',
-    };
   }
+  return {
+    padding: pxToRem(1),
+    bottom: '10%',
+    left: '10%',
+  };
 };
 
-export const FileItemDisplayStyles = createStyles(
-  (theme, { size, calculatedSize, color, iconStyle, url }) => {
+const FileItemDisplayStyles = createStyles(
+  (theme, { size, calculatedSize, iconSize, color, iconStyle, url }) => {
     const linkStyles = url
       ? {
           textDecoration: 'underline',
@@ -68,7 +71,7 @@ export const FileItemDisplayStyles = createStyles(
         fontSize: pxToRem(size),
         color: color || theme.colors.text02,
         flexGrow: 1,
-        wordWrap: 'break-word',
+        overflowWrap: 'anywhere',
         ...linkStyles,
       },
       filetype: {
@@ -81,14 +84,16 @@ export const FileItemDisplayStyles = createStyles(
       iconFiletype: {
         textTransform: 'uppercase',
         backgroundColor: theme.colors.uiBackground01,
-        fontSize: pxToRem(calculatedSize),
+        fontSize: iconSize ? pxToRem(iconSize / 3) : pxToRem(calculatedSize),
         position: 'absolute',
         lineHeight: 1,
         userSelect: 'none',
-        ...getExtensionPosition(size),
+        ...getExtensionPosition(iconSize),
         color: color || theme.colors.text02,
         ...iconStyle,
       },
     };
-  }
+  },
 );
+
+export { FileItemDisplayStyles };

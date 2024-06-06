@@ -1,9 +1,9 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 const BORDER_RADIUS = 8;
 
-export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
+const ActivityAccordionStyles = createStyles((theme, { compact }) => {
   const PANEL_COLORS = {
     default: theme.colors.uiBackground01,
     solid: theme.colors.interactive03h,
@@ -14,6 +14,9 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       display: 'flex',
       flexDirection: 'column',
       gap: theme.spacing[2],
+      '& .mantine-Accordion-control:hover': {
+        backgroundColor: 'transparent',
+      },
     },
     item: {
       backgroundColor: theme.colors.uiBackground01,
@@ -21,7 +24,7 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
       border: 'none',
     },
     content: {
-      background: PANEL_COLORS.default,
+      // background: PANEL_COLORS.default,
       borderBottomRightRadius: BORDER_RADIUS,
       borderBottomLeftRadius: BORDER_RADIUS,
       wordBreak: 'normal',
@@ -54,3 +57,5 @@ export const ActivityAccordionStyles = createStyles((theme, { compact }) => {
     },
   };
 });
+
+export { ActivityAccordionStyles };

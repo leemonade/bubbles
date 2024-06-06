@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, map } from 'lodash';
+import { isEmpty, map, noop } from 'lodash';
 import { Box, SegmentedControl as MantineSegmentedControl } from '@mantine/core';
 import { useId } from '@mantine/hooks';
 import { RadioGroupStyles } from './RadioGroup.styles';
@@ -11,7 +11,6 @@ import {
   INPUT_WRAPPER_SIZES,
   InputWrapper,
 } from '../InputWrapper';
-import { isFunction } from 'lodash';
 
 export const RADIOGROUP_DIRECTIONS = ['column', 'row'];
 
@@ -30,6 +29,7 @@ export const RADIOGROUP_DEFAULT_PROPS = {
   value: '',
   imageHeight: 100,
   fullWidth: false,
+  minWidth: 0,
   useAria: true,
 };
 export const RADIOGROUP_PROP_TYPES = {
@@ -42,10 +42,12 @@ export const RADIOGROUP_PROP_TYPES = {
   direction: PropTypes.oneOf(RADIOGROUP_DIRECTIONS),
   orientation: PropTypes.oneOf(INPUT_WRAPPER_ORIENTATIONS),
   fullWidth: PropTypes.bool,
+  minWidth: PropTypes.number,
   onChange: PropTypes.func,
   value: PropTypes.any,
   imageHeight: PropTypes.number,
   useAria: PropTypes.bool,
+  noRootPadding: PropTypes.bool,
 };
 
 const RadioGroup = forwardRef(
@@ -65,10 +67,13 @@ const RadioGroup = forwardRef(
       direction,
       imageHeight,
       fullWidth,
+      minWidth,
       useAria,
+      onChange = noop,
+      noRootPadding,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [value, setValue] = useState(props.value);
     const [activePosition, setActivePosition] = useState({ height: 0, translate: 0 });
@@ -82,8 +87,8 @@ const RadioGroup = forwardRef(
     }, [props.value]);
 
     const { classes, cx } = RadioGroupStyles(
-      { variant, value, direction, fullWidth, activePosition, hasError, rounded },
-      { name: 'RadioGroup' }
+      { variant, value, direction, fullWidth, minWidth, activePosition, hasError, rounded },
+      { name: 'RadioGroup' },
     );
 
     if (!direction) {
@@ -97,11 +102,11 @@ const RadioGroup = forwardRef(
       direction = 'row';
     }
 
-    const onChange = (value) => {
-      const item = data.find((item) => item.value === value);
-      if (!props.disabled && !item.disabled) {
-        isFunction(props.onChange) && props.onChange(value);
-        setValue(value);
+    const handleOnChange = (val) => {
+      const option = data.find((item) => item.value === val);
+      if (!props.disabled && !option.disabled) {
+        onChange(val);
+        setValue(val);
       }
     };
 
@@ -141,11 +146,11 @@ const RadioGroup = forwardRef(
             ref={ref}
             id={uuid}
             size={size}
-            onChange={onChange}
+            onChange={handleOnChange}
             classNames={classes}
-            defaultValue={defaultValue ? defaultValue : ' '}
+            defaultValue={defaultValue || ' '}
             value={value}
-            data={map(data, ({ label, ...item }, index) => ({
+            data={map(data, ({ label: itemLabel, ...item }, index) => ({
               value: item.value,
               label: (
                 <Radio
@@ -162,8 +167,9 @@ const RadioGroup = forwardRef(
                   onChange={() => {}}
                   imageHeight={imageHeight}
                   useAria={useAria}
+                  noRootPadding={noRootPadding}
                 >
-                  {label}
+                  {itemLabel}
                 </Radio>
               ),
             }))}
@@ -171,9 +177,10 @@ const RadioGroup = forwardRef(
         </Box>
       </InputWrapper>
     );
-  }
+  },
 );
 
+RadioGroup.displayName = 'RadioGroup';
 RadioGroup.propTypes = RADIOGROUP_PROP_TYPES;
 RadioGroup.defaultProps = RADIOGROUP_DEFAULT_PROPS;
 

@@ -36,7 +36,12 @@ const NOTIFICATION_PROVIDER_PROP_TYPES = {
 
   /** Notification type */
   type: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  position: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
 };
+
 export const NOTIFICATION_PROVIDER_DEFAULT_PROPS = {
   autoClose: 4000,
   transitionDuration: 250,
@@ -74,16 +79,17 @@ const NotificationProvider = ({
     clean,
     cleanQueue,
   } = useNotificationsState({ limit });
+
   const reduceMotion = useReducedMotion();
   const duration = reduceMotion ? 1 : transitionDuration;
   const { classes, cx, theme } = NotificationProviderStyles(
     {},
-    { name: `NotificationProvider_${type}` }
+    { name: `NotificationProvider_${type}` },
   );
 
   let positioning = 'bottom-left'.split('-');
   let zIndex = Math.min(zIndexProp, getDefaultZIndex('overlay'));
-  let Provider = NotificationsContext.Provider;
+  let { Provider } = NotificationsContext;
 
   if (type === CONTEXT_TYPES.CHAT) {
     positioning = 'bottom-right'.split('-');
@@ -142,7 +148,7 @@ const NotificationProvider = ({
               positioning,
               containerWidth,
               theme.spacing.md,
-              Math.max(leftOffset, xOffset)
+              Math.max(leftOffset, xOffset),
             ),
           }}
         >

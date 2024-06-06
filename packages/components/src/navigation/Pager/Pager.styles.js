@@ -28,10 +28,9 @@ export const PagerStyles = createStyles(
       },
       item: {
         ...getFontExpressive(theme.fontSizes['2'], 300),
-        color: disabled ? theme.colors.text05 : theme.colors.text01,
-        backgroundColor: 'transparent',
+        color: theme.other.pager?.content?.color?.default,
+        backgroundColor: theme.other.pager?.background?.color?.default,
         border: 'none',
-        borderRadius: '50%',
         height: pxToRem(48),
         width: pxToRem(48),
         maxWidth: pxToRem(48),
@@ -49,7 +48,8 @@ export const PagerStyles = createStyles(
         },
 
         '&:hover': {
-          backgroundColor: disabled ? 'none' : 'rgba(0, 0, 0, 0.03)',
+          backgroundColor: theme.other.pager.background.color.hover,
+          border: theme.other.pager.border.hover,
         },
 
         '&:active:not(:disabled):not(.mantine-ref_dots_1)': {
@@ -62,14 +62,13 @@ export const PagerStyles = createStyles(
         },
         '&[data-active]': {
           fontWeight: !disabled && 700,
-          color: disabled ? theme.colors.text05 : theme.colors.text01,
-          backgroundColor: 'transparent',
-          border: disabled ? 'none' : `1px solid ${theme.colors.ui01}`,
-          borderRadius: '50%',
+          color: theme.other.pager?.content?.color?.default,
+          backgroundColor: theme.other.core.color.primary['200'],
+          border: disabled ? 'none' : theme.other.pager.border.color.selected,
           pointerEvents: 'none',
         },
         '&[data-dots]': {
-          color: theme.colors.text05,
+          color: theme.other.pager?.content?.color?.default,
           // transform: `translateY(${pxToRem(4)})`,
         },
       },
@@ -108,5 +107,5 @@ export const PagerStyles = createStyles(
         width: 120,
       },
     };
-  }
+  },
 );

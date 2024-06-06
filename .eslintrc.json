@@ -1,39 +1,51 @@
 {
   "env": {
     "browser": true,
+    "commonjs": true,
     "es2021": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
   "globals": {
     "leemons": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb-base",
-    "prettier"
-  ],
-  "parser": "babel-eslint",
+  "extends": ["plugin:react/recommended", "plugin:sonarjs/recommended", "airbnb-base", "prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      "presets": ["@babel/preset-env"],
+      "plugins": ["@babel/plugin-syntax-jsx"]
+    },
+    "ecmaVersion": 2020,
     "ecmaFeatures": {
       "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    }
   },
-  "plugins": [
-    "react",
-    "import",
-    "prettier"
-  ],
+  "plugins": ["react", "sonarjs", "import", "prettier"],
   "rules": {
     "no-plusplus": "off",
     "import/no-dynamic-requires": "off",
     "import/no-extraneous-dependencies": "off",
     "react/react-in-jsx-scope": "off",
     "no-underscore-dangle": "off",
-    "prettier/prettier": ["error", {}, {
-      "usePrettierrc": true
-    }]
+    "prettier/prettier": [
+      2,
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ],
+    "import/no-names-as-default": "off",
+    "import/prefer-default-export": "warn",
+    "no-param-reassign": "off",
+    "radix": "off",
+    "no-unused-vars": "warn"
   }
 }

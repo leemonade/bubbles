@@ -3,7 +3,7 @@ import { StarIcon } from '@bubbles-ui/icons/solid';
 import { RemoveIcon } from '@bubbles-ui/icons/outline';
 import { Stack, Box } from '../../layout';
 import { UserDisplayItem } from '../../informative';
-import { ActionButton } from '../../form';
+import { ActionButton } from '../ActionButton';
 import { MultiSelect } from './MultiSelect';
 import {
   MULTI_SELECT_DEFAULT_PROPS,
@@ -34,19 +34,17 @@ export default {
 };
 
 const Template = ({ children, data, useValueComponent, onChange, showIcon, ...props }) => {
-  const CustomValueComponent = forwardRef(({ label, onRemove }, ref) => {
+  const CustomValueComponent = forwardRef(({ label, onRemove }, ref) => (
     // return <UserDisplayItem name={label} size="xs" />;
-    return (
-      <Stack sx={(theme) => ({ paddingRight: theme.spacing[1] })}>
-        <UserDisplayItem name={label} size="xs" />
-        {onRemove ? (
-          <Box>
-            <ActionButton icon={<RemoveIcon />} onClick={() => onRemove(value)} />
-          </Box>
-        ) : null}
-      </Stack>
-    );
-  });
+    <Stack sx={(theme) => ({ paddingRight: theme.spacing[1] })}>
+      <UserDisplayItem name={label} size="xs" />
+      {onRemove ? (
+        <Box>
+          <ActionButton icon={<RemoveIcon />} onClick={() => onRemove(value)} />
+        </Box>
+      ) : null}
+    </Stack>
+  ));
 
   const [state, setState] = useState([]);
   const [value, setValue] = useState([]);
@@ -102,6 +100,7 @@ Playground.args = {
       value: 'Homer Simpson',
       description: 'Overweight, lazy, and often ignorant',
       group: 'Group 1',
+      disabled: true,
     },
     {
       image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',

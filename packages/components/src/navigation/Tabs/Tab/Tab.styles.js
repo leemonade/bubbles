@@ -1,27 +1,28 @@
+/* eslint-disable import/prefer-default-export */
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFocusStyles, getFontExpressive } from './../../../theme.mixins';
-import { errorIcon } from './../../../commons.mixins';
+import { pxToRem, getPaddings, getFocusStyles, getFontExpressive } from '../../../theme.mixins';
+import { errorIcon } from '../../../commons.mixins';
 
 export const TabStyles = createStyles((theme, { orientation, active, disabled }, getRef) => {
   const tabActive = { ref: getRef('tabActive') };
+  const tabTheme = theme.other?.tab;
 
   return {
     root: {
       ...getFocusStyles(theme),
-      ...getPaddings(theme.spacing['4'], theme.spacing['4']),
-      ...getFontExpressive(),
+      ...tabTheme.content.typo,
+      padding: tabTheme.spacing.padding,
       WebkitTapHighlightColor: 'transparent',
       boxSizing: 'border-box',
       display: 'block',
       backgroundColor: 'transparent',
       border: 0,
-      fontSize: pxToRem(theme.fontSizes['2']),
       cursor: 'pointer',
       width: orientation === 'vertical' ? '100%' : 'auto',
 
       '&:disabled': {
         cursor: 'not-allowed',
-        color: theme.colors.text06,
+        color: tabTheme.content.color.default,
       },
     },
     default: {
@@ -31,11 +32,15 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
       '&:hover': {
         '&:not(:disabled)': {
           [`&:not(.${tabActive.ref})`]: {
+            backgroundColor: tabTheme.background.color.hover,
             span: {
-              color: theme.colors.text01,
+              color: tabTheme.content.color.hover,
+              fontWeight: 500,
             },
+            /*
             [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']:
-              theme.colors.text02,
+              tabTheme.border.color.hover,
+            */
           },
         },
       },
@@ -43,9 +48,10 @@ export const TabStyles = createStyles((theme, { orientation, active, disabled },
       [`&.${tabActive.ref}`]: {
         [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']: theme.colors.ui01,
         '&:not(:disabled)': {
-          color: theme.colors.text01,
+          color: tabTheme.content.color.default,
+          fontWeight: 500,
           [orientation === 'vertical' ? 'borderRightColor' : 'borderBottomColor']:
-            theme.colors.interactive01,
+            tabTheme.border.color.selected,
         },
       },
     },

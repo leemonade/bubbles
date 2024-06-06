@@ -1,13 +1,24 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
-export const RadioGroupStyles = createStyles(
-  (theme, { variant, value, direction, fullWidth, activePosition, hasError, rounded }) => {
+const RadioGroupStyles = createStyles(
+  (
+    theme,
+    { variant, value, direction, fullWidth, minWidth, activePosition, hasError, rounded },
+  ) => {
     const isColumn = direction === 'column';
-    const isDefault = variant == 'default' || variant === 'image';
-    const isIcon = variant == 'icon';
+    const isDefault = variant === 'default' || variant === 'image';
+    const isIcon = variant === 'icon';
     const isBoxed = variant === 'boxed';
     const isImage = variant === 'image';
+
+    const radioProps = {
+      pointerEvents: 'none'
+    };
+
+    if(minWidth && !isIcon) {
+      radioProps.paddingRight = 0;
+    }
 
     return {
       root: {
@@ -23,7 +34,7 @@ export const RadioGroupStyles = createStyles(
       },
       label: {
         padding: 0,
-        paddingRight: isDefault ? pxToRem(24) : null,
+        paddingRight: isDefault && !minWidth ? pxToRem(24) : null,
         display: 'flex',
         justifyContent: isIcon && 'center',
         height: '100%',
@@ -35,7 +46,9 @@ export const RadioGroupStyles = createStyles(
         display: !value || isDefault ? 'none' : null,
         boxShadow:
           value && !isDefault
-            ? `inset 0 0 0 1px ${isIcon ? theme.colors.interactive01d : theme.colors.ui01}`
+            ? `inset 0 0 0 1px ${
+                isIcon ? theme.other.button.border.color.secondary.default : theme.colors.ui01
+              }`
             : null,
         borderRadius: rounded && !isImage ? 4 : 0,
         top: 4,
@@ -44,14 +57,14 @@ export const RadioGroupStyles = createStyles(
         height: isColumn ? activePosition.height : 'auto',
         transitionTimingFunction: 'ease-out',
       },
-      radio: {
-        pointerEvents: 'none',
-      },
+      radio: radioProps,
       control: {
         '&:not(:first-of-type)': {
           border: 'none',
         },
       },
     };
-  }
+  },
 );
+
+export { RadioGroupStyles };

@@ -1,7 +1,6 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const ContextContainerStyles = createStyles((theme, { padded }) => {
+const ContextContainerStyles = createStyles((theme, { padded }) => {
   let padding = 0;
 
   if (padded === true) {
@@ -15,9 +14,18 @@ export const ContextContainerStyles = createStyles((theme, { padded }) => {
   return {
     root: {
       padding,
+      '&.section-wrapper > .section-content-wrapper > .section-wrapper:not(:first-child):has(.section-title)':
+        {
+          marginTop: '15px',
+        },
     },
     description: {
       margin: 0,
     },
+    title: {
+      display: 'flex',
+    },
   };
 });
+
+export { ContextContainerStyles };

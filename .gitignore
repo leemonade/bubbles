@@ -3,3 +3,13 @@ docs-build
 *.d.ts
 *.d.ts.map
 build-storybook.log
+.idea
+
+# Coverage directory used by tools like istanbul
+
+coverage
+\*.lcov
+
+# nyc test coverage
+
+.nyc_output

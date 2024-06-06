@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defaultsDeep, isFunction } from 'lodash';
 import { useTable } from 'react-table';
+import { useSticky as useStickyPlugin } from 'react-table-sticky';
 import update from 'immutability-helper';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { SortDragIcon } from '@bubbles-ui/icons/outline';
 import { Text } from '../../typography';
-import { Box } from '../../layout';
+import { Box } from '../../layout/Box';
 import { TableCell } from './TableCell/TableCell';
 import { TableStyles } from './Table.styles';
-import { useSticky as useStickyPlugin } from 'react-table-sticky';
 
 export const TABLE_DEFAULT_PROPS = {
   columns: [],
@@ -17,6 +17,7 @@ export const TABLE_DEFAULT_PROPS = {
   useAria: true,
   headerStyles: {},
   sortable: false,
+  selectable: false,
 };
 export const TABLE_PROP_TYPES = {
   columns: PropTypes.arrayOf(PropTypes.any),
@@ -25,6 +26,14 @@ export const TABLE_PROP_TYPES = {
   useAria: PropTypes.bool,
   headerStyles: PropTypes.object,
   sortable: PropTypes.bool,
+  useSticky: PropTypes.bool,
+  styleTable: PropTypes.object,
+  renderRowSubComponent: PropTypes.func,
+  onStyleRow: PropTypes.func,
+  onClickRow: PropTypes.func,
+  rowsExpanded: PropTypes.arrayOf(PropTypes.any),
+  styleRow: PropTypes.object,
+  selectable: PropTypes.bool,
 };
 
 const Table = ({
@@ -41,6 +50,7 @@ const Table = ({
   sortable,
   useSticky,
   styleTable,
+  selectable,
 }) => {
   const plugins = [];
   if (useSticky) {
@@ -52,7 +62,7 @@ const Table = ({
         columns,
         data,
       },
-      ...plugins
+      ...plugins,
     );
 
   const onChangeCell = (oldCell, newCell) => {
@@ -100,15 +110,17 @@ const Table = ({
       role={useAria ? 'table' : undefined}
     >
       <thead>
-        {headerGroups.map((headerGroup) => (
+        {headerGroups.map((headerGroup, i) => (
           <tr
+            key={`hg-${i}`}
             {...headerGroup.getHeaderGroupProps({
               className: cx(classes.tr, classes.trHeader),
             })}
           >
             {!!sortable && <th style={{ width: 20 }} />}
-            {headerGroup.headers.map((column) => (
+            {headerGroup.headers.map((column, j) => (
               <th
+                key={`hgh-${j}`}
                 {...column.getHeaderProps({
                   className: cx(classes.th, column.className),
                   style: column.style,
@@ -143,19 +155,23 @@ const Table = ({
                       <>
                         <tr
                           {...row.getRowProps({
-                            className: cx({ [classes.tr]: i < rows.length - 1 }),
+                            className: cx({
+                              [classes.tr]: i < rows.length - 1,
+                              [classes.trSelectable]: selectable,
+                            }),
                           })}
                           onClick={() => onClickRow(row)}
                           {...draggableProvided.draggableProps}
                           {...draggableProvided.dragHandleProps}
                           style={defaultsDeep(
                             draggableProvided.draggableProps.style,
-                            defaultsDeep(styleRow, onStyleRow({ row, theme }))
+                            defaultsDeep(styleRow, onStyleRow({ row, theme })),
+                            row.original.trStyle,
                           )}
                           ref={draggableProvided.innerRef}
                         >
                           {!!sortable && (
-                            <td>
+                            <td style={{ verticalAlign: 'middle' }}>
                               <Box
                                 className={classes.sortIcon}
                                 style={{ paddingLeft: snapshot.isDragging ? 10 : 0 }}
@@ -164,22 +180,21 @@ const Table = ({
                               </Box>
                             </td>
                           )}
-                          {row.cells.map((cell, index) => {
-                            return (
-                              <td
-                                {...cell.getCellProps({
-                                  className: classes.td,
-                                  style: cell.column.tdStyle,
-                                })}
-                              >
-                                <TableCell
-                                  cell={cell}
-                                  onChangeCell={onChangeCell}
-                                  useAria={useAria}
-                                />
-                              </td>
-                            );
-                          })}
+                          {row.cells.map((cell, k) => (
+                            <td
+                              key={`rc-${k}`}
+                              {...cell.getCellProps({
+                                className: classes.td,
+                                style: cell.column.tdStyle,
+                              })}
+                            >
+                              <TableCell
+                                cell={cell}
+                                onChangeCell={onChangeCell}
+                                useAria={useAria}
+                              />
+                            </td>
+                          ))}
                         </tr>
                         {rowsExpanded?.includes(row.id) ? (
                           <tr>

@@ -45,14 +45,12 @@ const CardExtension = Node.create({
     return {
       setCard:
         (attributes) =>
-        ({ commands }) => {
-          return commands.insertContent({ type: this.name, attrs: attributes });
-        },
+        ({ commands }) =>
+          commands.insertContent({ type: this.name, attrs: attributes }),
       unsetCard:
         (attributes) =>
-        ({ commands }) => {
-          return commands.deleteSelection();
-        },
+        ({ commands }) =>
+          commands.deleteSelection(),
     };
   },
 

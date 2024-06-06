@@ -1,15 +1,23 @@
 import { createStyles } from '@mantine/styles';
-import { getPaddings, getFocusStyles, getSpacing } from '../../theme.mixins';
-import { getInputStyle, getRightSection, getInputSizes } from '../mixins/fieldStyles.mixins';
+import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
-export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
+const NumberInputStyles = createStyles((theme, { size, hasIcon, customDesign }) => {
   const inputTheme = theme.other.input;
+  const customDesignProps = {
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'center',
+  };
   return {
-    root: {},
+    root: {
+      position: 'relative',
+    },
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding, hasIcon),
       ...getInputStyle(inputTheme, theme.other.global),
       paddingRight: 24,
+      minHeight: 40,
+      ...(customDesign && customDesignProps),
     },
     icon: {
       width: 32,
@@ -59,5 +67,23 @@ export const NumberInputStyles = createStyles((theme, { size, hasIcon }) => {
         transform: 'translateX(-1px)',
       },
     },
+    customDesignRoot: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: 'fit-content',
+      position: 'relative',
+    },
+    customDesignHandlerAdd: {
+      position: 'absolute',
+      right: 0,
+    },
+    customDesignHandlerRemove: {
+      position: 'absolute',
+      left: 0,
+      zIndex: 10,
+    },
   };
 });
+
+export { NumberInputStyles };

@@ -4,7 +4,6 @@ import { ActionButton } from '@bubbles-ui/components';
 import { ButtonStyles } from './Button.styles';
 
 export const BUTTON_POSITIONS = ['start', 'center', 'end', 'default'];
-
 export const BUTTON_DEFAULT_PROPS = {
   label: '',
   actived: false,
@@ -17,6 +16,10 @@ export const BUTTON_PROP_TYPES = {
   actived: PropTypes.bool,
   position: PropTypes.oneOf(BUTTON_POSITIONS),
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  classNames: PropTypes.object,
+  children: PropTypes.node,
+  ariaLabel: PropTypes.string,
 };
 
 const Button = forwardRef(
@@ -36,9 +39,10 @@ const Button = forwardRef(
         {children}
       </ActionButton>
     );
-  }
+  },
 );
 
+Button.displayName = 'Button';
 Button.defaultProps = BUTTON_DEFAULT_PROPS;
 Button.propTypes = BUTTON_PROP_TYPES;
 

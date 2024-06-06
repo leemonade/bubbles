@@ -16,7 +16,7 @@ export const TEXTAREA_COUNTERS = ['char', 'word'];
 
 export const TEXTAREA_DEFAULT_PROPS = {
   ...TEXT_INPUT_DEFAULT_PROPS,
-  minRows: 2,
+  minRows: 3,
   size: TEXTAREA_SIZES[1],
   autosize: true,
   showCounter: false,
@@ -56,14 +56,16 @@ const Textarea = forwardRef(
       counterLabels,
       autoComplete,
       onKeyPress = () => {},
+      rightSection,
+      textareaStyles,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [labels, setLabels] = useState(counterLabels);
     const uuid = useId();
 
-    const { classes, cx } = TextareaStyles({ size }, { name: 'Textarea' });
+    const { classes, cx } = TextareaStyles({ size, textareaStyles }, { name: 'Textarea' });
 
     // ·············································································
     // LABELS
@@ -139,6 +141,7 @@ const Textarea = forwardRef(
               minRows={minRows}
               onKeyPress={onKeyPress}
               placeholder={placeholder}
+              rightSection={rightSection}
               name={name}
               disabled={disabled}
               onBlur={onBlur}
@@ -158,7 +161,7 @@ const Textarea = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
 Textarea.defaultProps = TEXTAREA_DEFAULT_PROPS;

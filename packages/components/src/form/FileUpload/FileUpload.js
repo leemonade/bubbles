@@ -2,14 +2,26 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Group, Text } from '@mantine/core';
 import { Dropzone as MantineDropzone } from '@mantine/dropzone';
+import { SynchronizeArrowIcon, RemoveCircleIcon, CheckCircleIcon } from '@bubbles-ui/icons/outline';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
+import { isEmpty, isFunction } from 'lodash';
 import { FileUploadStyles } from './FileUpload.styles';
-import { Stack, Box } from '../../layout/';
+import { Stack, Box } from '../../layout';
 import { FileItemDisplay } from '../../informative/FileItemDisplay';
 import { Alert } from '../../feedback/Alert';
-import { InputWrapper, INPUT_WRAPPER_PROP_TYPES, ActionButton, Button } from '../../form';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
-import { SynchronizeArrowIcon } from '@bubbles-ui/icons/outline';
-import { isEmpty, isFunction } from 'lodash';
+import { InputWrapper, INPUT_WRAPPER_PROP_TYPES } from '../InputWrapper';
+import { Button } from '../Button';
+import { Loader } from '../../feedback/Loader';
+
+function getRemoveButtonLabel(label) {
+  // return label or "Remove" in brower language
+  return label || navigator.language === 'es' ? 'Borrar' : 'Remove';
+}
+
+function getUploadButtonLabel(label) {
+  // return label or "Upload" in brower language
+  return label || navigator.language === 'es' ? 'Subir' : 'Upload';
+}
 
 export const FILE_UPLOAD_DEFAULT_PROPS = {
   disabled: false,
@@ -21,6 +33,8 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   initialFiles: [],
   inputWrapperProps: {},
   useAria: true,
+  fullWidth: false,
+  labels: {},
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -36,12 +50,17 @@ export const FILE_UPLOAD_PROP_TYPES = {
     title: PropTypes.string,
     message: PropTypes.string,
   }),
+  labels: PropTypes.shape({
+    removeButton: PropTypes.string,
+    uploadButton: PropTypes.string,
+  }),
   hideUploadButton: PropTypes.bool,
   single: PropTypes.bool,
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
   accept: PropTypes.arrayOf(PropTypes.string),
   useAria: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -60,6 +79,8 @@ const FileUpload = ({
   initialFiles,
   accept,
   useAria,
+  labels,
+  fullWidth,
   ...props
 }) => {
   const openRef = useRef();
@@ -69,14 +90,14 @@ const FileUpload = ({
 
   const onDropHandler = (acceptedFiles) => {
     const newFiles = [...files, ...acceptedFiles];
-    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    if (isFunction(onChange)) onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
     setFiles(newFiles);
     setError(false);
   };
 
   const removeFile = (index) => {
     const newFiles = files.filter((file, fileIndex) => fileIndex !== index);
-    isFunction(onChange) && onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
+    if (isFunction(onChange)) onChange(newFiles.length === 1 ? newFiles[0] : newFiles);
     setFiles(newFiles);
   };
 
@@ -89,13 +110,27 @@ const FileUpload = ({
   React.useEffect(() => {
     if (!initialFiles || (initialFiles && initialFiles.length === 0)) {
       removeFiles();
+    } else {
+      setFiles(initialFiles);
     }
   }, [initialFiles]);
 
-  const { classes, cx } = FileUploadStyles(
-    { disabled, single, files, hasError },
-    { name: 'FileUpload' }
+  const { classes, theme } = FileUploadStyles(
+    { disabled, single, files, hasError, fullWidth },
+    { name: 'FileUpload' },
   );
+
+  const getFileUrl = (file) => {
+    if ('File' in window && file instanceof File && file.type.indexOf('image') >= 0) {
+      return URL.createObjectURL(file);
+    }
+    if (file?.url && file?.type?.indexOf('image') >= 0) {
+      return file.url;
+    }
+
+    return null;
+  };
+
   return (
     <Box className={classes.wrapper}>
       <InputWrapper {...inputWrapperProps}>
@@ -103,6 +138,7 @@ const FileUpload = ({
           {...props}
           accept={accept}
           loading={loading}
+          disabled={disabled || loading}
           multiple={multipleUpload}
           onDrop={onDropHandler}
           classNames={classes}
@@ -136,21 +172,82 @@ const FileUpload = ({
           {errorMessage.message}
         </Alert>
       )}
-      {!!files.length && (
-        <Stack className={classes.fileList} direction={'column'} fullWidth={true}>
+      {files.length > 0 && (
+        <Stack spacing={4} className={classes.fileList} direction={'column'}>
           {files.map((file, index) => (
-            <Box key={index} className={classes.droppedFile}>
-              <FileItemDisplay filename={file.name} metadata={file} />
-              <Box onClick={() => removeFile(index)}>
-                <ActionButton icon={<DeleteBinIcon height={16} width={16} />} />
-              </Box>
-            </Box>
+            <Stack
+              key={`${file.name}-${index}`}
+              alignItems="center"
+              spacing={4}
+              className={classes.droppedFile}
+            >
+              <Stack
+                className={classes.fileItemDisplay}
+                spacing={4}
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <FileItemDisplay
+                  iconSize={20}
+                  filename={file.name}
+                  thumbnailUrl={getFileUrl(file)}
+                />
+                {(file.status === 'loading' || loading) && (
+                  <Box sx={{ position: 'relative', width: 20, height: 20, minWidth: 20 }}>
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        left: -1,
+                        top: -7.5,
+                        width: 45,
+
+                        height: 40,
+                      }}
+                    >
+                      <Loader />
+                    </Box>
+                  </Box>
+                )}
+                {file.status === 'success' && (
+                  <Box sx={{ width: 20, height: 20 }}>
+                    <CheckCircleIcon
+                      color={theme.other.core.color.success['500']}
+                      width={20}
+                      height={20}
+                    />
+                  </Box>
+                )}
+                {file.status === 'error' && (
+                  <Box sx={{ width: 20, height: 20 }}>
+                    <RemoveCircleIcon
+                      color={theme.other.core.color.danger['500']}
+                      width={20}
+                      height={20}
+                    />
+                  </Box>
+                )}
+              </Stack>
+              {!disabled && (
+                <Box noFlex>
+                  <Button
+                    disabled={disabled}
+                    onClick={() => removeFile(index)}
+                    variant="link"
+                    leftIcon={<DeleteBinIcon height={18} width={18} />}
+                  >
+                    {getRemoveButtonLabel(labels?.removeButton)}
+                  </Button>
+                </Box>
+              )}
+            </Stack>
           ))}
         </Stack>
       )}
       {!hideUploadButton && (
         <Box className={classes.uploadButton}>
-          <Button onClick={() => openRef.current()}>Upload</Button>
+          <Button onClick={() => openRef.current()} disabled={disabled || loading}>
+            {getUploadButtonLabel(labels?.uploadButton)}
+          </Button>
         </Box>
       )}
     </Box>

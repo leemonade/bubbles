@@ -1,6 +1,8 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { Box, Button, ColorInput, DatePicker, Select, TextInput } from '@bubbles-ui/components';
-import { BigCalendar, BIGCALENDAR_VIEWS } from './BigCalendar';
+import { BigCalendar } from './BigCalendar';
+import { BIGCALENDAR_VIEWS } from './BigCalendar.constants';
 import mdx from './BigCalendar.mdx';
 import EVENTS from './mocks/events';
 
@@ -9,8 +11,8 @@ export default {
   parameters: {
     component: BigCalendar,
     docs: {
-      page: mdx
-    }
+      page: mdx,
+    },
     // design: {
     //  type: 'figma',
     //  url: 'https://www.figma.com/file/kcSXz3QZFByFDTumNgzPpV/?node-id=2962%3A31342',
@@ -24,29 +26,32 @@ export default {
     onSelectDay: { action: 'Day selected' },
     onRangeChange: { action: 'Range changed' },
     onSelectEvent: { action: 'Event selected' },
-    addEventClick: { action: 'Add Event clicked' }
-  }
+    addEventClick: { action: 'Add Event clicked' },
+  },
 };
 
+const heightValue = 'calc(100vh - 40px)';
+
 const Template = (props) => {
-  let messages = undefined;
-  if (props.locale === 'es-ES') {
+  let messages;
+  const { locale } = props;
+  if (locale === 'es-ES') {
     messages = {
-      month: 'Mensual',
-      week: 'Semanal',
-      day: 'Diario',
+      month: 'Mes',
+      week: 'Semana',
+      day: 'Día',
       agenda: 'Agenda',
       today: 'Hoy',
       previous: 'Anterior',
       next: 'siguiente',
-      showWeekends: 'Mostrar fines de semana',
+      showWeekends: 'Fines de semana',
       display: 'Mostrar',
       entirePeriod: 'Periodo completo',
       onlyInitAndEnd: 'Solo mostrar inicio y final',
-      onlyEnd: 'Solo mostrar fecha límite'
+      onlyEnd: 'Solo mostrar fecha límite',
     };
   }
-  return <BigCalendar {...props} messages={messages} style={{ height: 'calc(100vh - 40px)' }} />;
+  return <BigCalendar {...props} messages={messages} style={{ height: heightValue }} />;
 };
 
 export const Playground = Template.bind({});
@@ -55,24 +60,10 @@ Playground.args = {
   events: EVENTS,
   currentView: BIGCALENDAR_VIEWS[0],
   locale: 'es-ES',
-  /*
-  minWeekDay: 0,
-  maxWeekDay: 3,
-  timeslots: 1,
-  hideToolbar: true,
-  timeslotHeight: 100,
-  forceBgColorToEvents: true,
-  hideAllDayCells: true,
-  minHour: '12:15',
-  maxHour: '13:15',
-
-   */
-  defaultDate: EVENTS[0].start
+  defaultDate: EVENTS[0].start,
 };
 
-const MonthRangeTemplate = (props) => {
-  return <BigCalendar {...props} style={{ height: 'calc(100vh - 40px)' }} />;
-};
+const MonthRangeTemplate = (props) => <BigCalendar {...props} style={{ height: heightValue }} />;
 
 export const MonthRangeView = MonthRangeTemplate.bind({});
 
@@ -85,18 +76,19 @@ MonthRangeView.args = {
     startYear: 2022,
     startMonth: 8,
     endYear: 2022,
-    endMonth: 11
+    endMonth: 11,
   },
-  printMode: false
+  printMode: false,
 };
 
 const EventCreationTemplate = (props) => {
-  const [events, setEvents] = React.useState([]);
-  const [eventTitle, setEventTitle] = React.useState('');
-  const [borderStyle, setBorderStyle] = React.useState('');
-  const [eventColor, setEventColor] = React.useState('#000000');
-  const [borderColor, setBorderColor] = React.useState('#000000');
-  const [eventRange, setEventRange] = React.useState([undefined, undefined]);
+  const [events, setEvents] = useState([]);
+  const [eventTitle, setEventTitle] = useState('');
+  const [borderStyle, setBorderStyle] = useState('');
+  const [eventColor, setEventColor] = useState('#000000');
+  const [borderColor, setBorderColor] = useState('#000000');
+  const [eventStart, setEventStart] = useState(null);
+  const [eventEnd, setEventEnd] = useState(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -104,11 +96,11 @@ const EventCreationTemplate = (props) => {
     const newEvent = {
       title: eventTitle,
       allDay: true,
-      start: eventRange[0],
-      end: eventRange[1] || eventRange[0],
+      start: eventStart,
+      end: eventEnd,
       originalEvent: {
-        calendar: { bgColor: eventColor, borderStyle: borderStyle, borderColor: borderColor }
-      }
+        calendar: { bgColor: eventColor, borderStyle, borderColor },
+      },
     };
 
     setEvents([...events, newEvent]);
@@ -116,11 +108,12 @@ const EventCreationTemplate = (props) => {
     setBorderStyle('');
     setBorderColor('#000000');
     setEventColor('#000000');
-    setEventRange([undefined, undefined]);
+    setEventStart(null);
+    setEventEnd(null);
   };
 
   return (
-    <Box style={{ height: 'calc(100vh - 40px)', display: 'flex' }}>
+    <Box style={{ height: heightValue, display: 'flex' }}>
       <Box style={{ maxWidth: 620, overflow: 'scroll' }}>
         <BigCalendar events={events} {...props} style={{ height: '100%' }} />
       </Box>
@@ -129,17 +122,20 @@ const EventCreationTemplate = (props) => {
           onSubmit={submitHandler}
           style={{ display: 'flex', flexDirection: 'column', gap: 24 }}
         >
-          <TextInput label='Event title' value={eventTitle} onChange={setEventTitle} />
+          <TextInput label="Event title" value={eventTitle} onChange={setEventTitle} />
           <Select
-            label='Border style'
+            label="Border style"
             data={['solid', 'dashed', 'dotted']}
             value={borderStyle}
             onChange={setBorderStyle}
           />
-          <ColorInput label='Event color' value={eventColor} onChange={setEventColor} />
-          <ColorInput label='Border color' value={borderColor} onChange={setBorderColor} />
-          <DatePicker label='Event range' value={eventRange} range onChange={setEventRange} />
-          <Button type='submit' rounded>
+          <Box style={{ display: 'flex', gap: 8 }}>
+            <ColorInput label="Event color" value={eventColor} onChange={setEventColor} />
+            <ColorInput label="Border color" value={borderColor} onChange={setBorderColor} />
+          </Box>
+          <DatePicker label="Event start" value={eventStart} onChange={setEventStart} />
+          <DatePicker label="Event end" value={eventEnd} onChange={setEventEnd} />
+          <Button type="submit" rounded>
             Añadir evento
           </Button>
         </form>
@@ -154,5 +150,5 @@ EventCreationForm.args = {
   currentView: BIGCALENDAR_VIEWS[4],
   locale: 'es-ES',
   defaultDate: EVENTS[0].start,
-  monthRange: { startYear: 2022, endYear: 2022, startMonth: 0, endMonth: 11 }
+  monthRange: { startYear: 2022, endYear: 2022, startMonth: 0, endMonth: 11 },
 };

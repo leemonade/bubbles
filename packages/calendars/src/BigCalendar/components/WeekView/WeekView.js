@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'react-big-calendar/lib/utils/constants';
-
-import TimeGrid from '../TimeGrid/TimeGrid';
 import _ from 'lodash';
+import TimeGrid from '../TimeGrid/TimeGrid';
 
 class WeekView extends React.Component {
   componentDidMount() {
     this.props.onRangeChange({
       start: this.props.localizer.startOf(this.props.date, 'week'),
-      end: this.props.localizer.endOf(this.props.date, 'week')
+      end: this.props.localizer.endOf(this.props.date, 'week'),
     });
   }
 
@@ -19,7 +18,7 @@ class WeekView extends React.Component {
      * using our localizer. This is necessary until such time
      * as TimeGrid is converted to a functional component.
      */
-    let {
+    const {
       date,
       localizer,
       min = localizer.startOf(new Date(), 'day'),
@@ -29,18 +28,13 @@ class WeekView extends React.Component {
     } = this.props;
     let range = WeekView.range(date, this.props);
 
-    const { showWeekends, minHour, maxHour, weekDays, firstDayOfWeek } =
-      this.props.components;
+    const { showWeekends, minHour, maxHour, weekDays } = this.props.components;
 
     if (_.isArray(weekDays)) {
-      range = _.filter(range, (date) => {
-        return weekDays.includes(date.getDay());
-      });
+      range = _.filter(range, (dateW) => weekDays.includes(dateW.getDay()));
     }
     if (!showWeekends && !_.isArray(weekDays)) {
-      range = _.filter(range, (date) => {
-        return date.getDay() !== 0 && date.getDay() !== 6;
-      });
+      range = _.filter(range, (dateD) => dateD.getDay() !== 0 && dateD.getDay() !== 6);
     }
 
     if (minHour) {
@@ -71,7 +65,9 @@ WeekView.propTypes = {
   localizer: PropTypes.any,
   min: PropTypes.instanceOf(Date),
   max: PropTypes.instanceOf(Date),
-  scrollToTime: PropTypes.instanceOf(Date)
+  scrollToTime: PropTypes.instanceOf(Date),
+  onRangeChange: PropTypes.func,
+  components: PropTypes.object,
 };
 
 WeekView.defaultProps = TimeGrid.defaultProps;
@@ -90,16 +86,16 @@ WeekView.navigate = (date, action, { localizer }) => {
 };
 
 WeekView.range = (date, { localizer }) => {
-  let firstOfWeek = localizer.startOfWeek();
-  let start = localizer.startOf(date, 'week', firstOfWeek);
-  let end = localizer.endOf(date, 'week', firstOfWeek);
+  const firstOfWeek = localizer.startOfWeek();
+  const start = localizer.startOf(date, 'week', firstOfWeek);
+  const end = localizer.endOf(date, 'week', firstOfWeek);
 
   return localizer.range(start, end);
 };
 
 WeekView.title = (date, { localizer }) => {
-  let [start, ...rest] = WeekView.range(date, { localizer });
+  const [start, ...rest] = WeekView.range(date, { localizer });
   return localizer.format({ start, end: rest.pop() }, 'dayRangeHeaderFormat');
 };
-
+export default WeekView;
 export { WeekView };

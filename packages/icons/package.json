@@ -1,6 +1,6 @@
 {
   "name": "@bubbles-ui/icons",
-  "version": "1.2.0",
+  "version": "1.2.225",
   "description": "The Bubbles Design System icons library.",
   "license": "MIT",
   "repository": {
@@ -49,6 +49,6 @@
     "svgo": "^2.8.0"
   },
   "peerDependencies": {
-    "react": ">= 16"
+    "react": ">=17"
   }
 }

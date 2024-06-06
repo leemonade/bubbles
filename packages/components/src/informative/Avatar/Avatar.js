@@ -16,6 +16,7 @@ const Avatar = forwardRef(
       image,
       icon,
       color,
+      subjectColor,
       initials,
       fullName,
       radius = true,
@@ -24,9 +25,10 @@ const Avatar = forwardRef(
       activityStatus,
       showIconAndImage,
       alt,
+      customSize,
       ...props
     },
-    ref
+    ref,
   ) => {
     const size = AVATAR_SIZES.includes(sizeProp) ? sizeProp : 'sm';
     const state = AVATAR_STATE.includes(stateProp) ? stateProp : 'normal';
@@ -43,7 +45,15 @@ const Avatar = forwardRef(
       }
     }
 
-    const { classes, theme } = AvatarStyles({ radius, color, size, state, activityStatus });
+    const { classes, theme } = AvatarStyles({
+      radius,
+      color,
+      size,
+      state,
+      activityStatus,
+      subjectColor,
+      customSize,
+    });
 
     return (
       <Box className={classes.avatarWrapper}>
@@ -66,11 +76,11 @@ const Avatar = forwardRef(
         </Indicator>
       </Box>
     );
-  }
+  },
 );
 
+Avatar.displayName = 'Avatar';
 Avatar.defaultProps = AVATAR_DEFAULT_PROPS;
-
 Avatar.propTypes = AVATAR_PROP_TYPES;
 
 export { Avatar };

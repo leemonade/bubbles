@@ -1,12 +1,10 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
-export const ItemStyles = createStyles((theme, {}) => {
+const ItemStyles = createStyles((theme, {}) => {
   const scoreTheme = theme.other.score;
   return {
     root: {
       borderTop: `${scoreTheme.border.width} solid ${scoreTheme.border.color.neutral.emphasis}`,
-      backgroundColor: scoreTheme.background.color.neutral.subtle,
       padding: scoreTheme.spacing.padding.md,
       '&:hover': {
         backgroundColor: scoreTheme.background.color.neutral.hover,
@@ -41,3 +39,5 @@ export const ItemStyles = createStyles((theme, {}) => {
     },
   };
 });
+
+export { ItemStyles };

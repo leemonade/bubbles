@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mantine/core';
-import { Switch } from '../../form';
-import { ProSwitchStyles } from './ProSwitch.styles';
 import { isFunction } from 'lodash';
+import { Switch } from '../Switch';
+import { ProSwitchStyles } from './ProSwitch.styles';
 
 export const PRO_SWITCH_DEFAULT_PROPS = {
   onChange: () => {},
@@ -17,6 +17,8 @@ export const PRO_SWITCH_PROP_TYPES = {
   checked: PropTypes.bool,
   ariaLabel: PropTypes.string,
   useAria: PropTypes.bool,
+  onChange: PropTypes.func,
+  classNames: PropTypes.any,
 };
 
 const ProSwitch = forwardRef(
@@ -31,9 +33,9 @@ const ProSwitch = forwardRef(
 
     const [state, setState] = React.useState(checked);
 
-    const handleOnChange = (checked) => {
-      setState(checked);
-      isFunction(onChange) && onChange(checked);
+    const handleOnChange = (isChecked) => {
+      setState(isChecked);
+      if (isFunction(onChange)) onChange(isChecked);
     };
 
     React.useEffect(() => {
@@ -64,9 +66,10 @@ const ProSwitch = forwardRef(
         />
       </Box>
     );
-  }
+  },
 );
 
+ProSwitch.displayName = 'ProSwitch';
 ProSwitch.defaultProps = PRO_SWITCH_DEFAULT_PROPS;
 ProSwitch.propTypes = PRO_SWITCH_PROP_TYPES;
 

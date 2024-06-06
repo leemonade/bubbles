@@ -4,12 +4,12 @@ import { Calification } from '../../informative';
 import { ScoreFeedbackStyles } from './ScoreFeedback.styles';
 import { SCORE_FEEDBACK_DEFAULT_PROPS, SCORE_FEEDBACK_PROP_TYPES } from './ScoreFeedback.constants';
 
-const ScoreFeedback = ({ calification, children, styles, className, useAria, ...props }) => {
+const ScoreFeedback = ({ calification, children, styles, className, useAria }) => {
   const { classes, cx } = ScoreFeedbackStyles({ styles }, { name: 'ScoreFeedback' });
 
   return (
     // Role is left empty, it should be 'comment' but the role is proposed for WAI-ARIA 1.3, which is still being drafted.
-    <Box className={cx(classes.root, className)} role={useAria ? '' : ''}>
+    <Box className={cx(classes.root, className)} role={useAria ? 'comment' : ''}>
       <Calification
         {...calification}
         inverted={true}

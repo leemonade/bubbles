@@ -1,41 +1,39 @@
-import React, { forwardRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
 import { VerticalStepperContainerStyles } from './VerticalStepperContainer.styles';
 import { Box } from '../Box';
-import { VerticalStepper } from '../../navigation/VerticalStepper';
+import { Stack } from '../Stack';
+import { VerticalStepper } from '../../navigation/VerticalStepper/VerticalStepper';
 import {
   VERTICAL_STEPPER_CONTAINER_DEFAULT_PROPS,
   VERTICAL_STEPPER_CONTAINER_PROP_TYPES,
-  parseWidth,
 } from './VerticalStepperContainer.constants';
-import { ContentLegible } from './ContentLegible';
 
-const VerticalStepperContainer = forwardRef(
-  (
-    { children, disableContentPadding, navWidth: navWidthProp, stickyAt, legible, ...props },
-    ref
-  ) => {
-    const navWidth = useMemo(() => parseWidth(navWidthProp), [navWidthProp]);
-    const { classes, cx } = VerticalStepperContainerStyles(
-      { disableContentPadding, navWidth, stickyAt },
-      { name: 'VerticalStepperContainer' }
-    );
+const VerticalStepperContainer = forwardRef(({ children, scrollRef, ...props }, ref) => {
+  const { classes } = VerticalStepperContainerStyles({ name: 'VerticalStepperContainer' });
 
-    const ContentWrapper = useMemo(() => (legible ? ContentLegible : Box), [legible]);
-
-    return (
-      <Box ref={ref} className={classes.root}>
+  return (
+    <Box ref={ref} className={classes.root}>
+      <Stack
+        ref={scrollRef}
+        justifyContent="center"
+        fullWidth
+        fullHeight
+        style={{
+          backgroundColor: '#f8f9fb',
+          overflow: 'auto',
+          position: 'relative',
+        }}
+      >
         <Box className={classes.stepper}>
           <VerticalStepper {...props} />
         </Box>
-        <Box className={classes.content}>
-          <ContentWrapper navWidth={navWidth}>{children}</ContentWrapper>
-        </Box>
-      </Box>
-    );
-  }
-);
+        <Box className={classes.content}>{children}</Box>
+      </Stack>
+    </Box>
+  );
+});
 
+VerticalStepperContainer.displayName = 'VerticalStepperContainer';
 VerticalStepperContainer.defaultProps = VERTICAL_STEPPER_CONTAINER_DEFAULT_PROPS;
 VerticalStepperContainer.propTypes = VERTICAL_STEPPER_CONTAINER_PROP_TYPES;
 

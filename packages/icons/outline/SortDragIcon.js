@@ -9,7 +9,7 @@ function SortDragIcon(props) {
     height: "1em"
   }, props), /*#__PURE__*/React.createElement("path", {
     strokeWidth: 2,
-    d: "M2 14h19.5M2 10h19.5"
+    d: "M2 16h19.5M2 8h19.5"
   }));
 }
 module.exports = SortDragIcon;

@@ -5,11 +5,11 @@ import {
   Box,
   Button,
   Group,
-  IconButton,
   InputWrapper,
   Select,
   Switch,
   Text,
+  Title,
 } from '@bubbles-ui/components';
 import { navigate, views as RCBViews } from 'react-big-calendar/lib/utils/constants';
 import {
@@ -19,8 +19,9 @@ import {
 } from '@bubbles-ui/icons/outline';
 import { ToolbarStyles } from './Toolbar.styles';
 import { ViewNamesGroup } from './ViewNamesGroup';
+import { TOOLBAR_PROPTYPES } from './Toolbar.constants';
 
-export const ToolBar = ({
+const ToolBar = ({
   localizer: { messages },
   label,
   view,
@@ -35,54 +36,54 @@ export const ToolBar = ({
   showToolbarAddButton,
   showToolbarToggleWeekend,
   showToolbarViewSwitcher,
+  showToolbarPeriodSelector,
   addEventClick,
-  ...props
 }) => {
-  const { classes, cx } = ToolbarStyles({});
+  const { classes } = ToolbarStyles({}, { name: 'CalendarToolbar' });
   return (
     <Group position="apart" mb={10}>
-      <Group>
+      <Group spacing={4}>
         <Group spacing={0}>
           <Box mr={10}>
             <Button
-              size="sm"
+              className={classes.todayButton}
               variant="outline"
-              color="terciary"
               onClick={() => onNavigate(navigate.TODAY)}
             >
               {messages.today}
             </Button>
           </Box>
           <ActionButton
+            data-testid="chevron-left"
             onClick={() => onNavigate(navigate.PREVIOUS)}
             tooltip={messages.previous}
             icon={<ChevronLeftIcon className={classes.navIcon} />}
           />
           <ActionButton
+            data-testid="chevron-right"
             onClick={() => onNavigate(navigate.NEXT)}
             tooltip={messages.next}
             icon={<ChevronRightIcon className={classes.navIcon} />}
           />
         </Group>
-        <Box>
-          <Text size="xl">{capitalize(label)}</Text>
-        </Box>
+        <Title order={4}>{capitalize(label)}</Title>
       </Group>
 
       <Group style={{ gap: 12 }}>
-        <Box sx={() => ({ display: 'flex', alignItems: 'center' })}>
-          <Box sx={(theme) => ({ paddingTop: theme.spacing[2], paddingRight: theme.spacing[2] })}>
-            <InputWrapper label={messages.display} />
-          </Box>
-          <Select
-            value={showType}
-            onChange={setShowType}
-            data={[
-              { label: messages.entirePeriod, value: 'full' },
-              { label: messages.onlyInitAndEnd, value: 'startEnd' },
-              { label: messages.onlyEnd, value: 'onlyEnd' },
-            ]}
-          />
+        <Box>
+          {showToolbarPeriodSelector ? (
+            <Select
+              value={showType}
+              ariaLabelledby="display"
+              ariaLabel="display"
+              onChange={setShowType}
+              data={[
+                { label: messages.entirePeriod, value: 'full' },
+                { label: messages.onlyInitAndEnd, value: 'startEnd' },
+                { label: messages.onlyEnd, value: 'onlyEnd' },
+              ]}
+            />
+          ) : null}
         </Box>
         {view !== RCBViews.DAY && showToolbarToggleWeekend ? (
           <Switch
@@ -105,12 +106,17 @@ export const ToolBar = ({
         ) : null}
 
         {showToolbarAddButton ? (
-          <IconButton color="primary" size="lg" rounded onClick={addEventClick}>
-            <PlusIcon />
-          </IconButton>
+          <Button leftIcon={<PlusIcon />} onClick={addEventClick}>
+            {messages.new}
+          </Button>
         ) : null}
         {toolbarRightNode}
       </Group>
     </Group>
   );
 };
+
+ToolBar.propTypes = TOOLBAR_PROPTYPES;
+
+export default ToolBar;
+export { ToolBar };

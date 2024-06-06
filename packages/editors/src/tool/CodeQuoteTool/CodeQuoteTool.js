@@ -24,15 +24,13 @@ export const CODEQUOTE_TOOL_PROP_TYPES = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-const CodeQuoteTool = ({ code, blockquote, labels, children }) => {
-  return (
-    <ButtonGroup>
-      {code && <CodeTool label={labels.code} />}
-      {blockquote && <BlockquoteTool label={labels.blockquote} />}
-      {children}
-    </ButtonGroup>
-  );
-};
+const CodeQuoteTool = ({ code, blockquote, labels, children }) => (
+  <ButtonGroup>
+    {code && <CodeTool label={labels.code} />}
+    {blockquote && <BlockquoteTool label={labels.blockquote} />}
+    {children}
+  </ButtonGroup>
+);
 
 CodeQuoteTool.defaultProps = CODEQUOTE_TOOL_DEFAULT_PROPS;
 CodeQuoteTool.propTypes = CODEQUOTE_TOOL_PROP_TYPES;

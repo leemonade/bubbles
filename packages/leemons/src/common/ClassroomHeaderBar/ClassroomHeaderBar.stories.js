@@ -2,6 +2,7 @@ import React from 'react';
 import { ClassroomHeaderBar } from './ClassroomHeaderBar';
 import { CLASSROOM_HEADER_BAR_DEFAULT_PROPS } from './ClassroomHeaderBar.constants';
 import mdx from './ClassroomHeaderBar.mdx';
+import { Box } from '@mantine/core';
 
 export default {
   title: 'leemons/Common/ClassroomHeaderBar',
@@ -21,7 +22,7 @@ export default {
 };
 
 const Template = ({ ...props }) => {
-  return <ClassroomHeaderBar {...props} />;
+  return <ClassroomHeaderBar leftSide={<Box>Test</Box>} {...props} />;
 };
 
 export const Playground = Template.bind({});
@@ -29,6 +30,8 @@ export const Playground = Template.bind({});
 Playground.args = {
   ...CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
   locale: 'en',
+  showChat: true,
+  onChat: () => {},
   labels: {
     virtualClassroom: 'Clase virtual',
     schedule: 'Horario',
@@ -64,6 +67,7 @@ Playground.args = {
     ],
     address: 'Aula B01. Edificio Norte.',
     virtual_classroom: 'https://www.leemons.io/es',
+
     teacher: {
       name: 'Willy',
       surnames: 'Teacher',

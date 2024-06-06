@@ -31,7 +31,7 @@ export const SEARCH_INPUT_PROP_TYPES = {
 };
 
 const SearchInput = React.forwardRef(
-  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }) => {
+  ({ wait, minChars, value: valueProp, onChange = () => {}, ariaLabel, ...props }, ref) => {
     const [value, setValue] = useState(valueProp);
     const [debounced] = useDebouncedValue(value, wait);
 
@@ -46,6 +46,7 @@ const SearchInput = React.forwardRef(
     return (
       <TextInput
         {...props}
+        ref={ref}
         value={value}
         onChange={(e) => setValue(e)}
         icon={<SearchIcon />}

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
@@ -10,17 +9,15 @@ import { inRange } from 'react-big-calendar/lib/utils/eventLevels';
 import { isSelected } from 'react-big-calendar/lib/utils/selection';
 import { Avatar, Box, COLORS, ImageLoader, Text } from '@bubbles-ui/components';
 import { colord } from 'colord';
-import { eventCellStylesIcon, eventCellStylesRoot } from '../Event/EventCell';
 import { omit } from 'lodash';
+import { eventCellStylesIcon, eventCellStylesRoot } from '../Event/EventCell';
+import { emptyPixel } from '../EventWrapper.constants';
+import { AGENDA_PROP_TYPES, AGENDA_DEFAULT_PROPS } from './AgentView.constants';
 
-const emptyPixel =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
-let customInRange = (event, day, localizer) => {
+const customInRange = (event, day, localizer) => {
   const eStart = event.start;
   const eEnd = event.end;
-  const dayIsRange = day >= eStart && day <= eEnd;
-  return dayIsRange;
+  return day >= eStart && day <= eEnd;
 };
 
 function Agenda({
@@ -67,20 +64,20 @@ function Agenda({
     events = events.filter((e) => customInRange(e, day, localizer));
 
     return events.map((event, idx) => {
-      let title = accessors.title(event);
-      let end = accessors.end(event);
-      let start = accessors.start(event);
+      const title = accessors.title(event);
+      const end = accessors.end(event);
+      const start = accessors.start(event);
 
       const userProps = getters.eventProp(event, start, end, isSelected(event, selected));
 
-      let dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
+      const dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat');
       const dates = {};
       if (idx === 0) {
         dates.day = localizer.format(day, 'dd');
         dates.dayOfWeek = localizer.format(day, 'ccc');
         dates.month = localizer.format(day, 'LLL');
       }
-      let first =
+      const first =
         idx === 0 ? (
           <td rowSpan={events.length} className="rbc-agenda-date-cell">
             <Box className="rbc-agenda-td-data">
@@ -109,7 +106,7 @@ function Agenda({
         bgColor: event.originalEvent.bgColor || event.originalEvent.calendar.bgColor,
       };
 
-      let root = eventCellStylesRoot(COLORS, styleData);
+      const root = eventCellStylesRoot(COLORS, styleData);
       let icon = eventCellStylesIcon(COLORS, styleData);
       icon = omit(icon, 'img');
 
@@ -120,6 +117,7 @@ function Agenda({
             <ImageLoader
               height="12px"
               width="12px"
+              alt="event icon"
               imageStyles={{
                 position: 'absolute',
                 left: '50%',
@@ -143,7 +141,7 @@ function Agenda({
       }
 
       return (
-        <tr key={dayKey + '_' + idx} className={userProps.className} style={userProps.style}>
+        <tr key={`${dayKey}_${idx}`} className={userProps.className} style={userProps.style}>
           {first}
           <td className="rbc-agenda-time-cell">
             <Box className="rbc-agenda-td-data">{timeRangeLabel(day, event)}</Box>
@@ -167,7 +165,7 @@ function Agenda({
                     paddingBottom: '6px',
                   }}
                 >
-                  <Avatar mx="auto" size="xs" {...avatar} />
+                  <Avatar mx="auto" size="sm" {...avatar} />
                   <Text color="primary" role="productive" strong style={{ marginLeft: 4 }}>
                     {title}
                   </Text>
@@ -181,12 +179,12 @@ function Agenda({
   };
 
   const timeRangeLabel = (day, event) => {
-    let labelClass = '',
-      TimeComponent = components.time,
-      label = localizer.messages.allDay;
+    let labelClass = '';
+    const TimeComponent = components.time;
+    let label = localizer.messages.allDay;
 
-    let end = accessors.end(event);
-    let start = accessors.start(event);
+    const end = accessors.end(event);
+    const start = accessors.start(event);
 
     if (!accessors.allDay(event)) {
       if (localizer.eq(start, end)) {
@@ -240,35 +238,35 @@ function Agenda({
   const _adjustHeader = () => {
     if (!tbodyRef.current) return;
 
-    let header = headerRef.current;
-    let firstRow = tbodyRef.current.firstChild;
+    const header = headerRef.current;
+    const firstRow = tbodyRef.current.firstChild;
 
     if (!firstRow) return;
 
-    let isOverflowing = contentRef.current.scrollHeight > contentRef.current.clientHeight;
+    const isOverflowing = contentRef.current.scrollHeight > contentRef.current.clientHeight;
 
     let _widths = [];
-    let widths = _widths;
+    const widths = _widths;
 
     _widths = [getWidth(firstRow.children[0]), getWidth(firstRow.children[1])];
 
     if (widths[0] !== _widths[0] || widths[1] !== _widths[1]) {
-      dateColRef.current.style.width = _widths[0] + 'px';
-      timeColRef.current.style.width = _widths[1] + 'px';
+      dateColRef.current.style.width = `${_widths[0]}px`;
+      timeColRef.current.style.width = `${_widths[1]}px`;
     }
 
     if (isOverflowing) {
       addClass(header, 'rbc-header-overflowing');
-      header.style.marginRight = scrollbarSize() + 'px';
+      header.style.marginRight = `${scrollbarSize()}px`;
     } else {
       removeClass(header, 'rbc-header-overflowing');
     }
   };
 
-  let { messages } = localizer;
-  let end = localizer.add(date, length, 'day');
+  const { messages } = localizer;
+  const end = localizer.add(date, length, 'day');
 
-  let range = localizer.range(date, end, 'day');
+  const range = localizer.range(date, end, 'day');
 
   events = events.filter((event) =>
     inRange(
@@ -312,25 +310,11 @@ function Agenda({
   );
 }
 
-Agenda.propTypes = {
-  accessors: PropTypes.object.isRequired,
-  components: PropTypes.object.isRequired,
-  date: PropTypes.instanceOf(Date),
-  events: PropTypes.array,
-  getters: PropTypes.object.isRequired,
-  length: PropTypes.number.isRequired,
-  localizer: PropTypes.object.isRequired,
-  onSelectEvent: PropTypes.func,
-  onDoubleClickEvent: PropTypes.func,
-  selected: PropTypes.object,
-};
-
-Agenda.defaultProps = {
-  length: 30,
-};
+Agenda.propTypes = AGENDA_PROP_TYPES;
+Agenda.defaultProps = AGENDA_DEFAULT_PROPS;
 
 Agenda.range = (start, { length = Agenda.defaultProps.length, localizer }) => {
-  let end = localizer.add(start, length, 'day');
+  const end = localizer.add(start, length, 'day');
   return { start, end };
 };
 
@@ -348,7 +332,7 @@ Agenda.navigate = (date, action, { length = Agenda.defaultProps.length, localize
 };
 
 Agenda.title = (start, { length = Agenda.defaultProps.length, localizer }) => {
-  let end = localizer.add(start, length, 'day');
+  const end = localizer.add(start, length, 'day');
   return localizer.format({ start, end }, 'agendaHeaderFormat');
 };
 

@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Box } from '../../layout';
+import { isFunction } from 'lodash';
+import { Box } from '../../layout/Box';
 import { Text } from '../../typography';
-import { AvatarsGroup, UserDisplayItem } from '../..';
+import { AvatarsGroup } from '../AvatarsGroup';
+import { UserDisplayItem } from '../UserDisplayItem';
 import { UserDisplayItemListStyles } from './UserDisplayItemList.styles';
 import {
   USER_DISPLAY_ITEM_LIST_DEFAULT_PROPS,
   USER_DISPLAY_ITEM_LIST_PROP_TYPES,
 } from './UserDisplayItemList.constants';
-import { isFunction } from 'lodash';
 
 const UserDisplayItemList = ({
   data,
@@ -19,7 +20,6 @@ const UserDisplayItemList = ({
   onShrink,
   notExpandable,
   useAria,
-  ...props
 }) => {
   const [isOpen, setIsOpen] = useState(expanded);
   const visibleData = useMemo(() => {
@@ -28,47 +28,45 @@ const UserDisplayItemList = ({
   }, [data, limit, isOpen]);
   const hiddenData = useMemo(() => {
     if (isOpen && !notExpandable) return [];
-    return data.slice(limit).map(({ name, surnames, avatar }) => {
-      return { fullName: `${name} ${surnames}`, avatar };
-    });
+    return data
+      .slice(limit)
+      .map(({ name, surnames, avatar }) => ({ fullName: `${name} ${surnames}`, avatar }));
   }, [data, limit, isOpen]);
 
   const allVisible = limit >= data.length;
 
   const expandList = () => {
-    isFunction(onExpand) && onExpand();
+    if (isFunction(onExpand)) onExpand();
     setIsOpen(true);
-    isFunction(onChange) && onChange(true);
+    if (isFunction(onChange)) onChange(true);
   };
 
   const shrinkList = () => {
-    isFunction(onShrink) && onShrink();
+    if (isFunction(onShrink)) onShrink();
     setIsOpen(false);
-    isFunction(onChange) && onChange(false);
+    if (isFunction(onChange)) onChange(false);
   };
 
   useEffect(() => {
     if (expanded !== isOpen) {
       setIsOpen(expanded);
-      isFunction(onChange) && onChange(expanded);
+      if (isFunction(onChange)) onChange(expanded);
     }
   }, [expanded]);
 
-  const { classes, cx } = UserDisplayItemListStyles({}, { name: 'UserDisplayItemList' });
+  const { classes } = UserDisplayItemListStyles({}, { name: 'UserDisplayItemList' });
   return (
     <Box className={classes.root}>
       <Box className={classes.userList} role={useAria ? 'list' : undefined}>
-        {visibleData.map((user, index) => {
-          return (
-            <UserDisplayItem
-              key={index}
-              {...user}
-              size="xs"
-              textRole="productive"
-              role={useAria ? 'listitem' : undefined}
-            />
-          );
-        })}
+        {visibleData.map((user, index) => (
+          <UserDisplayItem
+            key={index}
+            {...user}
+            size="xs"
+            textRole="productive"
+            role={useAria ? 'listitem' : undefined}
+          />
+        ))}
       </Box>
       <Box className={classes.hiddenData}>
         {hiddenData.length > 0 && <AvatarsGroup data={hiddenData} size="xs" />}

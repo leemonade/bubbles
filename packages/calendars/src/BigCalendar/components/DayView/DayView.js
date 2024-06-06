@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'react-big-calendar/lib/utils/constants';

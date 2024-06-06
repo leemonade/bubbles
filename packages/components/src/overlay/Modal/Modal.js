@@ -9,6 +9,7 @@ const Modal = forwardRef(({ centerTitle, empty, size, ...props }, ref) => {
   return <MantineModal {...props} size={size} ref={ref} classNames={classes} />;
 });
 
+Modal.displayName = 'Modal';
 Modal.defaultProps = MODAL_DEFAULT_PROPS;
 Modal.propTypes = MODAL_PROP_TYPES;
 

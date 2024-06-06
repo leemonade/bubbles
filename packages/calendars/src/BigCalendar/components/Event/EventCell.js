@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Avatar, Box, createStyles, ImageLoader, Tooltip } from '@bubbles-ui/components';
@@ -11,7 +12,7 @@ const emptyPixel =
 function eventCellStylesRoot(
   colors,
   {
-    zIndex = -1,
+    zIndex = 0,
     desaturateColor = true,
     rotate = 0,
     isAllDay,
@@ -24,7 +25,7 @@ function eventCellStylesRoot(
     leftArrow,
     printMode,
   },
-  imp
+  imp,
 ) {
   const data = {
     position: 'relative',
@@ -34,8 +35,8 @@ function eventCellStylesRoot(
         ? _.isArray(bgColor)
           ? bgColor[0]
           : desaturateColor
-          ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
-          : bgColor
+            ? colord(bgColor).desaturate(0.2).alpha(0.2).toRgbString()
+            : bgColor
         : colors.uiBackground01
     }${imp ? '!important' : ''}`,
     color: `${colors.text01}${imp ? '!important' : ''}`,
@@ -61,7 +62,7 @@ function eventCellStylesRoot(
       `${printMode ? '24px' : '32px'}${imp ? '!important' : ''}`,
     transform: isMonthView && `rotate(${rotate}deg)`,
     overflow: !leftArrow && !rightArrow && 'hidden',
-    zIndex: zIndex,
+    zIndex,
     borderRight: isMonthView && rightArrow && 'none!important',
     borderLeft: isMonthView && leftArrow && 'none!important',
   };
@@ -87,7 +88,7 @@ function eventCellStylesRoot(
   return data;
 }
 
-function eventCellStylesIcon(colors, { isAllDay, bgColor }, imp) {
+function eventCellStylesIcon(colors, { bgColor }, imp) {
   return {
     borderRadius: '50%',
     color: `${colors.text07}${imp ? '!important' : ''}`,
@@ -131,10 +132,10 @@ const getArrowStyles = (rightArrow, leftArrow, bgColor, borderColor, printMode) 
         ? '14px 0px 14px 4px'
         : '16px 0 16px 4px'
       : leftArrow
-      ? printMode
-        ? '14px 4px 14px 0px'
-        : '16px 4px 16px 0px'
-      : undefined,
+        ? printMode
+          ? '14px 4px 14px 0px'
+          : '16px 4px 16px 0px'
+        : undefined,
     borderColor: transparentBgColor
       ? 'transparent transparent transparent transparent'
       : `transparent ${leftArrow ? colord(bgColor).toRgbString() : 'transparent'} transparent ${
@@ -173,7 +174,7 @@ const eventCellStyles = createStyles(
       printMode,
       bgStartGradient,
       bgEndGradient,
-    }
+    },
   ) => {
     const root = eventCellStylesRoot(
       theme.colors,
@@ -191,7 +192,7 @@ const eventCellStyles = createStyles(
         leftArrow,
         printMode,
       },
-      true
+      true,
     );
     let item = {};
     if (!isMonthView) {
@@ -269,7 +270,7 @@ const eventCellStyles = createStyles(
         ...getArrowStyles(rightArrow, leftArrow, bgColor, borderColor, printMode),
       },
     };
-  }
+  },
 );
 
 export function sameDay(d1, d2) {
@@ -281,7 +282,7 @@ export function sameDay(d1, d2) {
 }
 
 function EventCell(thisprops) {
-  let {
+  const {
     style,
     className,
     event,
@@ -305,7 +306,7 @@ function EventCell(thisprops) {
   } = thisprops;
   delete props.resizable;
 
-  const originalEvent = event.originalEvent;
+  const { originalEvent } = event;
 
   const title = accessors.title(event);
   const tooltip = accessors.tooltip(event);
@@ -328,8 +329,8 @@ function EventCell(thisprops) {
   const eventIcon = originalEvent.icon || originalEvent.calendar.icon;
   const eventImage = originalEvent.image;
 
-  const rightArrow = event.originalEvent.calendar.rightArrow;
-  const leftArrow = event.originalEvent.calendar.leftArrow;
+  const { rightArrow } = event.originalEvent.calendar;
+  const { leftArrow } = event.originalEvent.calendar;
 
   const eventBgColor = originalEvent.bgColor || originalEvent.calendar.bgColor;
   const eventzIndex = originalEvent.zIndex || originalEvent.calendar.zIndex;
@@ -360,6 +361,7 @@ function EventCell(thisprops) {
         <Box className={classes.icon}>
           <ImageLoader
             width="12px"
+            alt="event icon"
             height="12px"
             imageStyles={{
               position: 'absolute',
@@ -391,19 +393,19 @@ function EventCell(thisprops) {
     if (isOnStartWeek && event.showType !== 'onlyEnd' && !event.endSide) {
       lAvatar = (
         <Box className={classes.fRightArrow}>
-          <Avatar style={{ zIndex: 2 }} mx="auto" size="xs" {...avatar} />
+          <Avatar style={{ zIndex: 2 }} mx="auto" size="sm" {...avatar} />
         </Box>
       );
     }
     if (isOnEndWeek && !event.startSide) {
       rAvatar = (
         <Box className={classes.fLeftArrow}>
-          <Avatar style={{ zIndex: 2 }} mx="auto" size="xs" {...avatar} />
+          <Avatar style={{ zIndex: 2 }} mx="auto" size="sm" {...avatar} />
         </Box>
       );
     }
   } else {
-    lAvatar = <Avatar mx="auto" size="xs" {...avatar} />;
+    lAvatar = <Avatar mx="auto" size="sm" {...avatar} />;
   }
 
   const content = (
@@ -498,7 +500,7 @@ function EventCell(thisprops) {
     </Box>
   );
 
-  let finalContent = withTooltip ? (
+  const finalContent = withTooltip ? (
     <Tooltip label={title} color="secondary">
       {eventElement}
     </Tooltip>
@@ -508,8 +510,8 @@ function EventCell(thisprops) {
 
   let arr = [];
   if (oneDayStyle) {
-    let goodStart = DateTime.fromJSDate(event.start < slotStart ? slotStart : event.start);
-    let goodEnd = DateTime.fromJSDate(event.end > slotEnd ? slotEnd : event.end);
+    const goodStart = DateTime.fromJSDate(event.start < slotStart ? slotStart : event.start);
+    const goodEnd = DateTime.fromJSDate(event.end > slotEnd ? slotEnd : event.end);
     let sum = 1;
     if (event.end > slotEnd) {
       sum = 0;
@@ -527,30 +529,29 @@ function EventCell(thisprops) {
     <EventWrapper {...thisprops} type="date">
       {oneDayStyle ? (
         <Box style={{ width: '100%', height: '100%', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-          {arr.map((i) => {
-            return (
+          {arr.map((i, index) => (
+            <Box
+              key={index}
+              style={{
+                position: 'relative',
+                height: '100%',
+                width: `${100 / arr.length}%`,
+                display: 'inline-block',
+              }}
+            >
               <Box
                 style={{
-                  position: 'relative',
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  width: '100%',
                   height: '100%',
-                  width: 100 / arr.length + '%',
-                  display: 'inline-block',
                 }}
               >
-                <Box
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    width: '100%',
-                    height: '100%',
-                  }}
-                >
-                  {finalContent}
-                </Box>
+                {finalContent}
               </Box>
-            );
-          })}
+            </Box>
+          ))}
         </Box>
       ) : (
         finalContent

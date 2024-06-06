@@ -1,105 +1,114 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isString, trim } from 'lodash';
+import { noop } from 'lodash';
 import { Drawer as MantineDrawer } from '@mantine/core';
-import { ChevronLeftIcon, RemoveIcon } from '@bubbles-ui/icons/outline';
-import { ActionButton } from '../../form';
-import { Box, Stack } from '../../layout';
 import { DrawerStyles } from './Drawer.styles';
+import { DrawerHeader } from './components/DrawerHeader';
+import { DrawerContent } from './components/DrawerContent';
+import { DrawerFooter } from './components/DrawerFooter';
+import { TotalLayoutContainer } from '../../layout';
 
 export const DRAWER_POSITIONS = ['left', 'right', 'top', 'bottom'];
-export const DRAWERS_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'full'];
+export const DRAWERS_SIZES = ['xs', 'sm', 'md', 'xl', 'full'];
+
+const DRAWER_WIDTHS = {
+  xs: 360,
+  sm: 400,
+  md: 576,
+  xl: 728,
+  full: '100%',
+};
 
 export const DRAWER_DEFAULT_PROPS = {
   size: 'md',
   opened: false,
-  position: 'right',
-  back: '',
-  close: true,
   closeOnClickOutside: true,
   closeOnEscape: true,
   lockScroll: true,
   trapFocus: false,
-  withOverlay: false,
-  overlayOpacity: 0.75,
-  empty: false,
   shadow: true,
+  withOverlay: true,
+  overlayOpacity: 0.25,
+  overlayColor: '#000000',
 };
 export const DRAWER_PROP_TYPES = {
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  shadow: PropTypes.bool,
   opened: PropTypes.bool,
   onClose: PropTypes.func,
-  onBack: PropTypes.func,
+  withOverlay: PropTypes.bool,
   overlayColor: PropTypes.string,
   overlayOpacity: PropTypes.number,
-  position: PropTypes.oneOf(DRAWER_POSITIONS),
   closeOnClickOutside: PropTypes.bool,
   closeOnEscape: PropTypes.bool,
   lockScroll: PropTypes.bool,
   trapFocus: PropTypes.bool,
-  withOverlay: PropTypes.bool,
-  back: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  close: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  empty: PropTypes.bool,
-  shadow: PropTypes.bool,
   modalAriaLabel: PropTypes.string,
+  children: PropTypes.node,
 };
 
-const Drawer = ({
-  close,
-  onClose,
-  onBack,
-  children,
-  back,
-  header,
-  empty,
-  shadow,
-  modalAriaLabel,
-  contentPadding,
-  ...props
-}) => {
-  const { classes, cx } = DrawerStyles({ empty, shadow, contentPadding }, { name: 'Drawer' });
+const Drawer = ({ children, shadow, modalAriaLabel, onClose = noop, ...props }) => {
+  const { classes } = DrawerStyles({ shadow }, { name: 'Drawer' });
+  const scrollRef = React.useRef(null);
 
-  const justifyContent =
-    (!back || back === '') && (close || close !== '') ? 'flex-end' : 'space-between';
+  const drawerWidth = DRAWER_WIDTHS[props.size] || DRAWER_WIDTHS.md;
+
+  // ··························································
+  // RENDER COMPONENTS
+
+  const childArray = React.Children.toArray(children);
+  const HeaderComponent = childArray.find((child) => child.type === DrawerHeader);
+  const ContentComponent = childArray.find((child) => child.type === DrawerContent);
+  const FooterComponent = childArray.find((child) => child.type === DrawerFooter);
+
+  const ScrollableHeaderComponent = HeaderComponent
+    ? React.cloneElement(HeaderComponent, {
+        ...HeaderComponent.props,
+        scrollRef,
+        onClose,
+      })
+    : null;
+
+  const ScrollableContentComponent = ContentComponent
+    ? React.cloneElement(
+        ContentComponent,
+        {
+          ...ContentComponent.props,
+          scrollRef,
+        },
+        [
+          // Pass all the original children of ContentComponent
+          ...React.Children.toArray(ContentComponent.props.children),
+          FooterComponent &&
+            React.cloneElement(FooterComponent, {
+              ...FooterComponent.props,
+              width: drawerWidth,
+            }),
+        ].filter(Boolean),
+      )
+    : null; // The filter(Boolean) is used to remove any false values that may exist, such as a non-existent FooterComponent
 
   return (
     <MantineDrawer
       {...props}
+      size={drawerWidth}
       onClose={onClose}
+      position="right"
       shadow={false}
       withCloseButton={false}
       classNames={classes}
       aria-label={modalAriaLabel}
     >
-      {(close || back) && (
-        <Box className={classes.header}>
-          <Stack fullWidth justifyContent={justifyContent}>
-            {back && back !== '' ? (
-              <ActionButton
-                icon={<ChevronLeftIcon />}
-                label={back}
-                onClick={onBack}
-                tooltip={back}
-              />
-            ) : null}
-
-            {header ? header : null}
-
-            {close ? (
-              <ActionButton
-                icon={<RemoveIcon />}
-                onClick={onClose}
-                tooltip={isString(close) && trim(close) !== '' ? close : null}
-              />
-            ) : null}
-          </Stack>
-        </Box>
-      )}
-      <Box className={classes.content}>{children}</Box>
+      <TotalLayoutContainer scrollRef={scrollRef} clean Header={ScrollableHeaderComponent}>
+        {ScrollableContentComponent}
+      </TotalLayoutContainer>
     </MantineDrawer>
   );
 };
+
+Drawer.Header = DrawerHeader;
+Drawer.Content = DrawerContent;
+Drawer.Footer = DrawerFooter;
 
 Drawer.defaultProps = DRAWER_DEFAULT_PROPS;
 Drawer.propTypes = DRAWER_PROP_TYPES;

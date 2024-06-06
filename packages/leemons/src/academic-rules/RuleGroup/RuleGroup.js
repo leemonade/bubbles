@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
-import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
-import { DuplicateIcon, SwitchHorizontalIcon, AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { DeleteBinIcon, AddCircleIcon } from '@bubbles-ui/icons/solid';
+import { DuplicateIcon, SwitchHorizontalIcon } from '@bubbles-ui/icons/outline';
 import { Paper, Box, Text, Button, Stack, Select, Menu } from '@bubbles-ui/components';
-import { RuleCondition } from '../RuleCondition/';
+import { RuleCondition } from '../RuleCondition';
 import { LOGIC_OPERATORS } from '../ProgramRules';
 import { RuleGroupStyles } from './RuleGroup.styles';
 
@@ -160,13 +160,12 @@ const RuleGroup = ({
           }}
         />
       );
-    } else {
-      return (
-        <Box m={10}>
-          <Text role="productive">{parentOperator.label}</Text>
-        </Box>
-      );
     }
+    return (
+      <Box m={10}>
+        <Text role="productive">{parentOperator.label}</Text>
+      </Box>
+    );
   };
 
   const removeGroup = () => {
@@ -263,7 +262,7 @@ const RuleGroup = ({
                     }}
                     placeholders={placeholders}
                   />
-                )
+                ),
               )}
               {provided.placeholder}
             </Box>

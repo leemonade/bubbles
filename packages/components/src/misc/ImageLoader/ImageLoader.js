@@ -5,7 +5,7 @@ import { Image } from '@mantine/core';
 import { InlineSvg } from '../InlineSvg';
 import { ImageLoaderStyles } from './ImageLoader.styles';
 
-export const ImageLoader = ({
+const ImageLoader = ({
   src: srcProp,
   alt,
   forceImage,
@@ -15,6 +15,8 @@ export const ImageLoader = ({
   radius,
   imageStyles,
   useAria,
+  bordered,
+  objectFit,
   ...props
 }) => {
   const [src, setSrc] = useState(srcProp);
@@ -26,8 +28,8 @@ export const ImageLoader = ({
   }, [srcProp]);
 
   const { classes, cx } = ImageLoaderStyles(
-    { radius, imageStyles, height },
-    { name: 'ImageLoader' }
+    { radius, imageStyles, height, bordered, objectFit },
+    { name: 'ImageLoader' },
   );
 
   return isSvg ? (
@@ -38,8 +40,8 @@ export const ImageLoader = ({
       src={src}
       alt={alt}
       radius={radius}
-      height={height || '100%'}
-      width={width || '100%'}
+      height={height ?? '100%'}
+      width={width ?? '100%'}
       withPlaceholder={withPlaceholder}
       classNames={{
         root: classes.root,
@@ -53,6 +55,7 @@ export const ImageLoader = ({
 
 ImageLoader.defaultProps = {
   forceImage: false,
+  bordered: false,
 };
 
 ImageLoader.propTypes = {
@@ -62,4 +65,11 @@ ImageLoader.propTypes = {
   forceImage: PropTypes.bool,
   withPlaceholder: PropTypes.bool,
   radius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  imageStyles: PropTypes.object,
+  useAria: PropTypes.bool,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bordered: PropTypes.bool,
+  objectFit: PropTypes.string,
 };
+
+export { ImageLoader };

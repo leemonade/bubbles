@@ -1,19 +1,26 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
+import { Box } from '../../layout/Box';
+import { Text } from '../../typography/Text';
+import { InputDescription } from '../InputDescription';
 import { InputLabelStyles } from './InputLabel.styles';
 import { INPUT_LABEL_DEFAULT_PROPS, INPUT_LABEL_PROP_TYPES } from './InputLabel.constants';
-import { Text } from '../../typography';
-import { InputDescription } from '../InputDescription';
-import { isEmpty } from 'lodash';
-import { Box } from '../../layout';
 
-const InputLabel = ({ label, description, withDescriptionIcon, required, ...props }) => {
-  const { classes, cx } = InputLabelStyles({}, { name: 'InputLabel' });
+const InputLabel = ({
+  label,
+  description,
+  withDescriptionIcon,
+  required,
+  showEmptyLabel,
+  ...props
+}) => {
+  const { classes } = InputLabelStyles({}, { name: 'InputLabel' });
 
   return (
     <Box className={classes.container}>
-      {!isEmpty(label) && (
+      {(!isEmpty(label) || showEmptyLabel) && (
         <Text as="label" className={classes.label} {...props}>
-          {label}
+          {!isEmpty(label) ? label : <span dangerouslySetInnerHTML={{ __html: '&nbsp;' }} />}
           {required && <span className={classes.required}>*</span>}
         </Text>
       )}

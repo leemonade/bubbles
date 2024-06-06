@@ -32,6 +32,7 @@ jobs:
           '@bubbles-ui/calendars': patch
           '@bubbles-ui/editors': patch
           '@bubbles-ui/leemons': patch
+          '@bubbles-ui/extras': patch
           '@bubbles-ui/icons': patch
           ---
 

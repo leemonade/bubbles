@@ -1,20 +1,20 @@
 import React from 'react';
-import { Box } from '../../../layout';
-import { Button } from '../../../form';
-import { Text } from '../../../typography';
+import isFunction from 'lodash/isFunction';
+import { Box } from '../../../layout/Box';
+import { Button } from '../../../form/Button';
+import { Text } from '../../../typography/Text';
 import { StepperButtonStyles } from './StepperButton.styles';
 import { STEPPER_BUTTON_DEFAULT_PROPS, STEPPER_BUTTON_PROP_TYPES } from './StepperButton.constants';
-import isFunction from 'lodash/isFunction';
 import { Progress } from '../Progress';
 
-const StepperButton = ({ label, active, state, position, onClick, ...props }) => {
+const StepperButton = ({ label, active, state, position, onClick }) => {
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
 
   const onClickHandler = () => {
-    isFunction(onClick) && onClick();
+    if (isFunction(onClick)) onClick();
   };
 
-  const { classes, cx } = StepperButtonStyles({ isCompleted }, { name: 'Button' });
+  const { classes } = StepperButtonStyles({ isCompleted }, { name: 'Button' });
   return (
     <Box className={classes.root}>
       <Box className={classes.isCompletedBackground} />

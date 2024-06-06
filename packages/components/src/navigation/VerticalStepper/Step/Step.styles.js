@@ -8,7 +8,7 @@ const getStepHeight = (isButton, isText, isActivity) => {
   return 44;
 };
 
-export const StepStyles = createStyles(
+const StepStyles = createStyles(
   (
     theme,
 
@@ -23,14 +23,25 @@ export const StepStyles = createStyles(
       isVisited,
       isCompleted,
       isChildActive,
-    }
+    },
   ) => {
+    const stepperTheme = theme.other.stepper ?? {};
     const stepHeight = getStepHeight(isButton, isText, isActivity);
     const childHeight = childRange ? 32 * (childRange[1] - childRange[0] + 1) : 0;
-
+    const getLabelColor = () => {
+      let color = stepperTheme.content?.color?.default;
+      if (isActivity) {
+        theme.colors.interactive01;
+      } else if (isActive) {
+        color = stepperTheme.content?.color?.active;
+      } else if (isCompleted) {
+        color = stepperTheme.content?.color?.completed;
+      }
+      return color ?? '#000';
+    };
     return {
       root: {
-        paddingLeft: !isChild ? 24 : 40,
+        paddingLeft: !isChild ? 0 : 40,
         paddingTop: !isChild ? (isText ? 6 : isActivity ? 4 : 12) : 4,
         paddingBottom: isText ? 6 : isActivity ? 4 : 12,
         paddingRight: 8,
@@ -44,7 +55,7 @@ export const StepStyles = createStyles(
         display: isChild && !showChild ? 'none' : 'flex',
         paddingRight: 8,
         position: 'relative',
-        paddingLeft: isChild ? 40 : 24,
+        paddingLeft: isChild ? 40 : 0,
         paddingTop: isChild ? 4 : 12,
         paddingBottom: 12,
       },
@@ -54,7 +65,7 @@ export const StepStyles = createStyles(
         paddingRight: 8,
         alignItems: 'center',
         position: 'relative',
-        paddingLeft: 24,
+        paddingLeft: 0,
         paddingTop: 12,
         paddingBottom: 12,
       },
@@ -79,7 +90,7 @@ export const StepStyles = createStyles(
       },
       labelContainer: {
         flex: 1,
-        paddingRight: 26,
+        paddingLeft: 10,
         lineHeight: '16px',
       },
       activityStep: {
@@ -100,12 +111,8 @@ export const StepStyles = createStyles(
         },
       },
       label: {
-        fontWeight: 500,
-        color: !isActive
-          ? theme.colors.text04
-          : isActivity
-          ? theme.colors.interactive01
-          : theme.colors.text01,
+        fontWeight: isActive ? 500 : 400,
+        color: getLabelColor(),
       },
       badge: {
         marginLeft: '12px',
@@ -121,9 +128,11 @@ export const StepStyles = createStyles(
           : 0,
         overflow: 'hidden',
         transition: 'height 0.2s ease-in-out',
-        backgroundColor: theme.colors.interactive03,
+        backgroundColor: theme.other.core.color.neutral['50'],
         zIndex: -1,
       },
     };
-  }
+  },
 );
+
+export { StepStyles };

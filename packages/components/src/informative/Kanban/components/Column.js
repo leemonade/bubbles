@@ -3,7 +3,6 @@ import { Box } from '../../../layout/Box';
 import { KanbanStyles } from '../Kanban.styles';
 import { Draggable } from 'react-beautiful-dnd';
 import { QuoteList } from './QuoteList';
-import { Text } from '../../../typography';
 import { ImageLoader } from '../../../misc';
 import { ScrollArea } from '@mantine/core';
 
@@ -28,11 +27,9 @@ const Column = ({ value, index, isScrollable, isCombineEnabled, itemRender, icon
           ) : null}
           <Box className={classes.columnHeader}>
             <Box {...provided.dragHandleProps}>
-              <Text role="productive" strong>
-                {value.title}
-              </Text>
+              <Box>{value.title}</Box>
             </Box>
-            <Text color="primary">{value.cards.length}</Text>
+            <Box>{value.cards.length}</Box>
           </Box>
           <ScrollArea className={classes.scroll} style={{ width: '100%', height: '100%' }}>
             <QuoteList

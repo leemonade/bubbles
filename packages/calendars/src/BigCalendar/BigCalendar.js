@@ -1,8 +1,9 @@
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable prefer-const */
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { forEach, isArray, isNil } from 'lodash';
 import { Box } from '@mantine/core';
-import { Calendar, Views } from 'react-big-calendar';
+import { Calendar } from 'react-big-calendar';
 import { DateTime, Interval } from 'luxon';
 import { RRule } from 'rrule';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -16,14 +17,14 @@ import { DayView } from './components/DayView/DayView';
 import { MonthRangeView } from './components/MonthRangeView/MonthRangeView';
 import { EventWrapper } from './components/EventWrapper';
 import Agenda from './components/AgentView/AgentView';
+import {
+  MONTH_RANGE,
+  BIG_CALENDAR_DEFAULT_PROPS,
+  firstDayOfWeek,
+  BIG_CALENDAR_PROP_TYPES,
+} from './BigCalendar.constants';
 
-const TIMEZONE = DateTime.local().zoneName;
-const TODAY = DateTime.local().toJSDate();
-const MONTH_RANGE = 'monthRange';
-
-export const BIGCALENDAR_VIEWS = [Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA, MONTH_RANGE];
-
-export const BigCalendar = forwardRef(
+const BigCalendar = forwardRef(
   (
     {
       timezone,
@@ -50,6 +51,7 @@ export const BigCalendar = forwardRef(
       showToolbarAddButton = true,
       showToolbarToggleWeekend = true,
       showToolbarViewSwitcher = true,
+      showToolbarPeriodSelector = true,
       showWeekends: showWeekendsProp,
       printMode,
       dateClick = () => {},
@@ -57,30 +59,38 @@ export const BigCalendar = forwardRef(
       onRangeChange = () => {},
       onSelectEvent = () => {},
       eventClick = () => {},
-      backgroundEventClick = () => {},
       addEventClick = () => {},
-      ...props
     },
-    ref
+    ref,
   ) => {
     const [showType, setShowType] = useState('full');
     const [showWeekends, setShowWeekends] = useState(showWeekendsProp);
     const [dateRange, setDateRange] = useState(null);
-    const [date, setDate] = useState(new Date());
     const [hooksCreated, setHooksCreated] = useState(false);
 
     useEffect(() => setShowWeekends(showWeekendsProp), [showWeekendsProp]);
 
-    let { availableViews, showToolbar } = useMemo(() => {
-      let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
-      let showToolbar = true;
+    // let { availableViews, showToolbar } = useMemo(() => {
+    //   let views = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
+    //   showToolbar = true;
 
-      if (currentView === MONTH_RANGE) {
-        views = { monthRange: MonthRangeView };
-        showToolbar = false;
-      }
-      return { availableViews: views, showToolbar };
-    }, [currentView]);
+    //   if (currentView === MONTH_RANGE) {
+    //     views = { monthRange: MonthRangeView };
+    //     showToolbar = false;
+    //   }
+    //   return { availableViews: views, showToolbar };
+    // }, [currentView]);
+
+    let availableViews;
+    let showToolbar;
+
+    if (currentView === MONTH_RANGE) {
+      availableViews = { monthRange: MonthRangeView };
+      showToolbar = false;
+    } else {
+      availableViews = { month: MonthView, week: WeekView, day: DayView, agenda: Agenda };
+      showToolbar = true;
+    }
 
     if (hideToolbar) {
       showToolbar = false;
@@ -89,25 +99,15 @@ export const BigCalendar = forwardRef(
     // ·················································
     // TIMEZONE CONFIG
 
-    const firstDayOfWeek = 1;
-
-    const { localizer, defaultDate, scrollToTime, getNow } = useMemo(() => {
-      // Settings.defaultZone = timezone;
-      return {
+    const { localizer, defaultDate, scrollToTime, getNow } = useMemo(
+      () => ({
         localizer: luxonLocalizer(DateTime, { firstDayOfWeek }),
         defaultDate: defaultDateProp,
         scrollToTime: DateTime.local().toJSDate(),
         getNow: () => DateTime.local().toJSDate(),
-      };
-    }, [timezone]);
-
-    /*
-    useEffect(() => {
-      return () => {
-        Settings.defaultZone = timezone; // reset to browser TZ on unmount
-      };
-    }, []);
-     */
+      }),
+      [timezone],
+    );
 
     // ·················································
     // INTERACTION HANDLE
@@ -118,7 +118,7 @@ export const BigCalendar = forwardRef(
         forEach(eventsProp, (ev) => {
           if (ev.rrule) {
             const diff = DateTime.fromJSDate(ev.end).diff(
-              DateTime.fromJSDate(ev.start)
+              DateTime.fromJSDate(ev.start),
             ).milliseconds;
 
             const rule = new RRule({
@@ -130,8 +130,8 @@ export const BigCalendar = forwardRef(
                   dateRange.start.getDate(),
                   dateRange.start.getHours(),
                   dateRange.start.getMinutes(),
-                  dateRange.start.getSeconds()
-                )
+                  dateRange.start.getSeconds(),
+                ),
               ),
               until: new Date(
                 Date.UTC(
@@ -140,8 +140,8 @@ export const BigCalendar = forwardRef(
                   dateRange.end.getDate(),
                   dateRange.end.getHours(),
                   dateRange.end.getMinutes(),
-                  dateRange.end.getSeconds()
-                )
+                  dateRange.end.getSeconds(),
+                ),
               ),
             });
             const dates = rule.all();
@@ -157,12 +157,12 @@ export const BigCalendar = forwardRef(
           } else {
             const range = Interval.fromDateTimes(
               DateTime.fromJSDate(dateRange.start),
-              DateTime.fromJSDate(dateRange.end)
+              DateTime.fromJSDate(dateRange.end),
             );
 
             const e = Interval.fromDateTimes(
               DateTime.fromJSDate(ev.start),
-              DateTime.fromJSDate(ev.end)
+              DateTime.fromJSDate(ev.end),
             );
 
             if (range.e >= e.s && range.s <= e.e) {
@@ -183,29 +183,30 @@ export const BigCalendar = forwardRef(
     };
 
     const handleRangeChange = (range) => {
-      if (isArray(range) && range.length > 1) {
-        const end = range[range.length - 1];
+      let newRange = range;
+      if (isArray(newRange) && newRange.length > 1) {
+        const end = newRange[newRange.length - 1];
         end.setHours(23, 59, 59);
-        range = {
-          start: range[0],
-          end: end,
-        };
-      } else if (isArray(range) && range.length === 1) {
-        const end = new Date(range[0]);
-        end.setHours(23, 59, 59);
-        range = {
-          start: range[0],
+        newRange = {
+          start: newRange[0],
           end,
         };
-      } else if (isArray(range)) {
-        range = null;
+      } else if (isArray(newRange) && newRange.length === 1) {
+        const end = new Date(newRange[0]);
+        end.setHours(23, 59, 59);
+        newRange = {
+          start: newRange[0],
+          end,
+        };
+      } else if (isArray(newRange)) {
+        newRange = null;
       }
 
-      if (range) {
-        range.end.setHours(23, 59, 59, 59);
-        range.start.setHours(0, 0, 0, 0);
-        onRangeChange(range);
-        setDateRange(range);
+      if (newRange) {
+        newRange.end.setHours(23, 59, 59, 59);
+        newRange.start.setHours(0, 0, 0, 0);
+        onRangeChange(newRange);
+        setDateRange(newRange);
       }
     };
 
@@ -248,6 +249,7 @@ export const BigCalendar = forwardRef(
     return (
       <Box className={cx(classes.root, className)} style={style}>
         <Calendar
+          ref={ref}
           components={{
             showType,
             eventWrapper: EventWrapper,
@@ -264,6 +266,7 @@ export const BigCalendar = forwardRef(
                     showToolbarAddButton={showToolbarAddButton}
                     showToolbarToggleWeekend={showToolbarToggleWeekend}
                     showToolbarViewSwitcher={showToolbarViewSwitcher}
+                    showToolbarPeriodSelector={showToolbarPeriodSelector}
                   />
                 )
               : false,
@@ -298,60 +301,13 @@ export const BigCalendar = forwardRef(
         />
       </Box>
     );
-  }
+  },
 );
 
-BigCalendar.defaultProps = {
-  timezone: TIMEZONE,
-  defaultDate: TODAY,
-  currentView: Views.MONTH,
-  showWeekends: true,
-  locale: 'en-EN',
-  messages: {
-    month: 'Monthly',
-    week: 'Weekly',
-    day: 'Day',
-    agenda: 'Agenda',
-    today: 'Today',
-    previous: 'Previous',
-    next: 'Next',
-    showWeekends: 'View weekends',
-    allDay: 'All day',
-    init: 'Init',
-    end: 'End',
-  },
-};
+BigCalendar.defaultProps = BIG_CALENDAR_DEFAULT_PROPS;
+BigCalendar.propTypes = BIG_CALENDAR_PROP_TYPES;
 
-BigCalendar.propTypes = {
-  timezone: PropTypes.string,
-  currentView: PropTypes.oneOf(BIGCALENDAR_VIEWS),
-  defaultDate: PropTypes.instanceOf(Date),
-  locale: PropTypes.string,
-  events: PropTypes.array,
-  messages: PropTypes.shape({
-    month: PropTypes.string,
-    week: PropTypes.string,
-    day: PropTypes.string,
-    agenda: PropTypes.string,
-    today: PropTypes.string,
-    previous: PropTypes.string,
-    next: PropTypes.string,
-    showWeekends: PropTypes.string,
-    allDay: PropTypes.string,
-    init: PropTypes.string,
-    end: PropTypes.string,
-  }),
-  validRange: PropTypes.shape({
-    start: PropTypes.instanceOf(Date),
-    end: PropTypes.instanceOf(Date),
-  }),
-  hooks: PropTypes.func,
-  showWeekends: PropTypes.bool,
-  dateClick: PropTypes.func,
-  onSelectDay: PropTypes.func,
-  onRangeChange: PropTypes.func,
-  onSelectEvent: PropTypes.func,
-  eventClick: PropTypes.func,
-  backgroundEventClick: PropTypes.func,
-  addEventClick: PropTypes.func,
-};
+export default BigCalendar;
+export { BigCalendar };
+
+BigCalendar.displayName = 'BigCalendar';

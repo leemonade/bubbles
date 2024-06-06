@@ -1,9 +1,16 @@
 function round25(x) {
-  let nums = String(x).split('.');
+  const nums = String(x).split('.');
   const intPart = nums.shift();
   const floatPart = (nums.pop() || '0').padEnd(2, '0');
-  return parseFloat(intPart + '.' + String(Math.round(parseInt(floatPart) / 25) * 25));
+  return parseFloat(`${intPart}.${String(Math.round(parseInt(floatPart, 10) / 25) * 25)}`);
 }
+
+export const getFocusDefaultBorder = (theme) => {
+  const focusDefaultBorder = theme.other.global.focus['default-border'];
+  return {
+    border: `${focusDefaultBorder.width} ${focusDefaultBorder.style} ${focusDefaultBorder.color}`,
+  };
+};
 
 export function pxToRem(val, rounded25) {
   const PX_TO_REM = 0.063;
@@ -25,10 +32,9 @@ export function getPaddings(vertical, horizontal, rounded = false) {
 export function getSpacing(spaces) {
   let spacing = {};
 
-  spacing = Object.assign(
-    {},
-    spaces.map((val) => pxToRem(val, true))
-  );
+  spacing = {
+    ...spaces.map((val) => pxToRem(val, true)),
+  };
 
   return spacing;
 }
@@ -59,26 +65,28 @@ export function getBoxShadowFromToken(tokens) {
     });
     const boxShadowString = boxShadows.join(',');
     return { boxShadow: boxShadowString };
-  } else {
-    const { x, y, blur, spread, color } = tokens;
-    return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color}` };
   }
+  const { x, y, blur, spread, color, type } = tokens;
+  const typeInset = type === 'innerShadow' ? 'inset' : '';
+  return { boxShadow: `${x}px ${y}px ${blur}px ${spread}px ${color} ${typeInset}` };
 }
 
 const FONT_TYPES = { EXPRESSIVE: 'expressive', PRODUCTIVE: 'productive' };
 
+// eslint-disable-next-line default-param-last
 function getFontFamily(type = FONT_TYPES.EXPRESSIVE, size, weight) {
   const result = {
-    fontFamily: type === FONT_TYPES.EXPRESSIVE ? "'Lexend', sans-serif" : "'Inter', sans-serif",
+    fontFamily: "'Albert Sans', sans-serif",
+    // type === FONT_TYPES.EXPRESSIVE ? "'Alber Sans', sans-serif" : "'Alber Sans', sans-serif",
     lineHeight: 1.2,
   };
 
   if (size) {
-    result['fontSize'] = size;
+    result.fontSize = size;
   }
 
   if (weight) {
-    result['fontWeight'] = weight;
+    result.fontWeight = weight;
   }
 
   return result;
@@ -94,6 +102,7 @@ export function getFontProductive(size, weight) {
 
 export function getHtmlStyles(theme) {
   const headings = Object.keys(theme.headings.sizes).reduce((acc, h) => {
+    // eslint-disable-next-line radix
     const order = parseInt(h.substring(1, 2));
 
     acc[`& ${h}`] = {

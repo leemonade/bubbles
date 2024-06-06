@@ -18,9 +18,7 @@ export default {
   argTypes: {},
 };
 
-const Template = ({ ...props }) => {
-  return <InputLabel {...props} />;
-};
+const Template = ({ ...props }) => <InputLabel {...props} />;
 
 export const Playground = Template.bind({});
 

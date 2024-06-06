@@ -1,16 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, isFunction } from 'lodash';
-import { useTable, useExpanded } from 'react-table';
+import { find, isFunction, noop } from 'lodash';
+import { useTable } from 'react-table';
 import { Controller } from 'react-hook-form';
 import { AddIcon } from '@bubbles-ui/icons/outline';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { Text } from '../../typography/Text';
+import { Box } from '../../layout/Box';
 import { TableStyles } from '../../informative/Table/Table.styles';
 import { TABLE_INPUT_DEFAULT_PROPS, TABLE_INPUT_PROP_TYPES } from './TableInput.constants';
-import { Button } from '../Button';
 import { TableInputRow } from './TableInputRow';
-import { ActionButton } from '../ActionButton';
+import { Button } from '../Button';
 
 export const TABLE_INPUT_DISPLAY_DEFAULT_PROPS = {
   ...TABLE_INPUT_DEFAULT_PROPS,
@@ -26,6 +26,7 @@ export const TABLE_INPUT_DISPLAY_PROP_TYPES = {
   onItemAdd: PropTypes.func,
   classes: PropTypes.any,
   showHeaders: PropTypes.bool,
+  renderActionButton: PropTypes.func,
 };
 
 const TableInputDisplay = ({
@@ -50,8 +51,12 @@ const TableInputDisplay = ({
   rowsExpanded,
   rowStyles,
   classes,
-  onChangeRow = () => {},
-  renderRowSubComponent = () => {},
+  canAdd,
+  isOneInput = true,
+  renderActionButton,
+  actionLabel,
+  onChangeRow = noop,
+  renderRowSubComponent = noop,
 }) => {
   const [editing, setEditing] = useState(false);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, visibleColumns } =
@@ -70,7 +75,10 @@ const TableInputDisplay = ({
 
   const formValues = watch();
 
-  const { classes: tableClasses, cx } = TableStyles({}, { name: 'Table' });
+  const { classes: tableClasses, cx } = TableStyles(
+    { disabled, hideHeaderBorder: true, canAdd },
+    { name: 'Table' },
+  );
 
   const getColumnInput = useCallback(
     (accessor) => {
@@ -79,30 +87,32 @@ const TableInputDisplay = ({
       }
 
       const column = find(columns, { accessor });
-      if (column && column.input) {
+      if (column?.input) {
         const { node, rules, ...inputProps } = column.input;
         return (
-          <Controller
-            control={control}
-            name={accessor}
-            rules={rules}
-            render={({ field }) =>
-              React.cloneElement(node, {
-                placeholder: column.Header,
-                ...field,
-                ...inputProps,
-                formValues,
-                error: errors[accessor],
-                form,
-              })
-            }
-          />
+          <Box className={isOneInput && classes.oneInput}>
+            <Controller
+              control={control}
+              name={accessor}
+              rules={rules}
+              render={({ field }) =>
+                React.cloneElement(node, {
+                  placeholder: column.placeholder ?? column.Header,
+                  ...field,
+                  ...inputProps,
+                  formValues,
+                  error: errors[accessor],
+                  form,
+                })
+              }
+            />
+          </Box>
         );
       }
 
       return null;
     },
-    [columns, disabled, errors, formValues]
+    [columns, disabled, errors, formValues],
   );
 
   const handleDragEnd = (result) => {
@@ -126,14 +136,18 @@ const TableInputDisplay = ({
     >
       <thead className={classes.tHead}>
         {!!showHeaders &&
-          headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps({})}>
-              {(sortable && !disabled) || forceSortable ? <th style={{ width: 20 }}></th> : null}
-              {headerGroup.headers.map((column) => (
+          headerGroups.map((headerGroup, i) => (
+            <tr key={`hg-${i}`} {...headerGroup.getHeaderGroupProps({})}>
+              {(sortable && !disabled) || forceSortable ? <th style={{ width: 40 }}></th> : null}
+              {headerGroup.headers.map((column, j) => (
                 <th
+                  key={`hgh-${j}`}
                   {...column.getHeaderProps({
                     className: cx(tableClasses.th, column.className),
-                    style: { ...column.style, paddingLeft: 0 },
+                    style: {
+                      paddingLeft: 0,
+                      ...column.style,
+                    },
                   })}
                 >
                   <Text size="xs" role="productive" color="primary" strong>
@@ -141,33 +155,49 @@ const TableInputDisplay = ({
                   </Text>
                 </th>
               ))}
-              {!disabled ? <th style={{ width: '1%' }}></th> : null}
+              {!disabled ? (
+                <th style={{ width: actionLabel ? '10%' : '1%' }}>
+                  {actionLabel && labels.actions}
+                </th>
+              ) : null}
             </tr>
           ))}
 
-        {(showHeaders || forceShowInputs) && (
+        {canAdd && (showHeaders || forceShowInputs) && (
           <tr style={rowStyles} className={rows.length > 0 ? tableClasses.tr : ''}>
             {(sortable && !disabled) || forceSortable ? <th></th> : null}
             {columns.map((column, i) => (
               <th
                 key={`in-${i}`}
-                className={cx(tableClasses.td, classes.inputCell)}
+                className={cx(
+                  tableClasses.td,
+                  classes.inputCell,
+                  isOneInput && classes.oneInputContainer,
+                )}
                 style={{ ...column.style, paddingLeft: 0 }}
               >
                 {getColumnInput(column.accessor)}
+                {isOneInput && !disabled && !isFunction(renderActionButton) && (
+                  <Button variant="link" disabled={disabledAddButton} onClick={handleOnAdd}>
+                    <AddIcon />
+                  </Button>
+                )}
+                {isOneInput &&
+                  !disabled &&
+                  isFunction(renderActionButton) &&
+                  renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
               </th>
             ))}
-            <th
-              className={cx(tableClasses.td, classes.inputCell)}
-              style={{ paddingLeft: 0, paddingBottom: 4 }}
-            >
-              {!disabled && (
-                <ActionButton
-                  disabled={disabledAddButton}
-                  onClick={handleOnAdd}
-                  icon={<AddIcon />}
-                />
+            <th className={cx()} style={{ paddingLeft: 0, paddingBottom: 4 }}>
+              {!isOneInput && !disabled && !isFunction(renderActionButton) && (
+                <Button variant="link" disabled={disabledAddButton} onClick={handleOnAdd}>
+                  <AddIcon />
+                </Button>
               )}
+              {!isOneInput &&
+                !disabled &&
+                isFunction(renderActionButton) &&
+                renderActionButton({ disabled: disabledAddButton, onAdd: handleOnAdd })}
             </th>
           </tr>
         )}
@@ -176,13 +206,14 @@ const TableInputDisplay = ({
         <Droppable droppableId="table-body">
           {(provided, snapshot) => (
             <tbody ref={provided.innerRef} {...provided.droppableProps} {...getTableBodyProps()}>
-              {rows.map((row, i) => {
+              {rows.map((row, k) => {
                 prepareRow(row);
 
                 return (
                   <TableInputRow
+                    key={`row-${k}`}
                     {...row.getRowProps()}
-                    index={i}
+                    index={k}
                     row={row}
                     labels={labels}
                     onRemove={onRemove}

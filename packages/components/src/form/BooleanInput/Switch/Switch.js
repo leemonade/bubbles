@@ -1,11 +1,15 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
+import { mergeWith } from 'lodash';
 import { Switch as MantineSwitch } from '@mantine/core';
 import { SwitchStyles } from './Switch.styles';
-import { mergeWith } from 'lodash';
 
 const Switch = forwardRef(
-  ({ labelPosition, size, disabled, useAria, classNames, ...props }, ref) => {
-    const { classes, cx } = SwitchStyles({ size, labelPosition, disabled }, { name: 'Switch' });
+  ({ labelPosition, size, disabled, useAria, classNames, borderColor, bgColor, ...props }, ref) => {
+    const { classes } = SwitchStyles(
+      { size, labelPosition, disabled, borderColor, bgColor },
+      { name: 'Switch' },
+    );
 
     const mergedClasses = mergeWith({ ...classes }, { ...classNames }, (obj, src) => {
       if (obj) return `${obj} ${src}`;
@@ -22,7 +26,18 @@ const Switch = forwardRef(
         role={useAria ? 'switch' : undefined}
       />
     );
-  }
+  },
 );
+
+Switch.displayName = 'BooleanSwitch';
+Switch.propTypes = {
+  labelPosition: PropTypes.string,
+  size: PropTypes.any,
+  useAria: PropTypes.bool,
+  classNames: PropTypes.any,
+  disabled: PropTypes.bool,
+  borderColor: PropTypes.string,
+  bgColor: PropTypes.string,
+};
 
 export { Switch };

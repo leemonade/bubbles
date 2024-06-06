@@ -1,37 +1,23 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty, isFunction, noop } from 'lodash';
 import { colord } from 'colord';
 import { useClickOutside, useId } from '@mantine/hooks';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid';
 import { ColorSwatch } from '../ColorPicker/ColorSwatch/ColorSwatch';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { Paragraph } from '../../typography';
-import { Input } from '../../form/Input';
+import { Input } from '../Input';
 import { Popover } from '../../overlay';
 import { Box } from '../../layout';
+import { Stack } from '../../layout/Stack';
+import { ActionButton } from '../ActionButton';
 import {
   INPUT_WRAPPER_ORIENTATIONS,
   INPUT_WRAPPER_SHARED_PROPS,
   INPUT_WRAPPER_SIZES,
   InputWrapper,
 } from '../InputWrapper';
-import { ColorInputStyles } from './ColorInput.styles';
-
-const SWATCH_SIZES = {
-  xs: 16,
-  sm: 18,
-  md: 22,
-  lg: 28,
-  xl: 36,
-};
-
-const ARROW_OFFSET = {
-  xs: 12,
-  sm: 15,
-  md: 17,
-  lg: 21,
-  xl: 25,
-};
 
 export const COLOR_INPUT_PROP_TYPES = {
   ...INPUT_WRAPPER_SHARED_PROPS,
@@ -55,18 +41,20 @@ export const COLOR_INPUT_PROP_TYPES = {
   compact: PropTypes.bool,
   /** Controls if color dropdown uses manual inputs */
   manual: PropTypes.bool,
-  /** Controls if only shows light colors when using useHsl*/
+  /** Controls if only shows light colors when using useHsl */
   lightOnly: PropTypes.bool,
   /** Custom color picker component */
   colorPickerCompoennt: PropTypes.node,
   /** Controls if ColorInput uses aria role */
   useAria: PropTypes.bool,
+  /** Controls if ColorInput shows a clear button to remove the color */
+  clearable: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 export const COLOR_INPUT_DEFAULT_PROPS = {
   label: '',
   description: '',
-  size: INPUT_WRAPPER_SIZES[1],
   orientation: INPUT_WRAPPER_ORIENTATIONS[1],
   error: '',
   required: false,
@@ -78,6 +66,7 @@ export const COLOR_INPUT_DEFAULT_PROPS = {
   manual: false,
   lightOnly: false,
   useAria: true,
+  clearable: false,
 };
 
 const ColorInput = forwardRef(
@@ -95,13 +84,14 @@ const ColorInput = forwardRef(
       contentStyle,
       headerClassName,
       contentClassName,
+      inputClassName,
       disabled,
       value,
       icon,
       placeholder,
-      onFocus = () => {},
-      onBlur = () => {},
-      onChange = () => {},
+      onFocus = noop,
+      onBlur = noop,
+      onChange = noop,
       format,
       withSwatches,
       swatches,
@@ -122,25 +112,28 @@ const ColorInput = forwardRef(
       ariaHueValue,
       colorPickerComponent,
       useAria,
+      clearable,
       ...props
     },
-    ref
+    ref,
   ) => {
     const uuid = useId();
     const [opened, setOpened] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const closeRef = useClickOutside(() => setOpened(false));
-    const { classes, cx, theme } = ColorInputStyles({ size }, { name: 'ColorInput' });
+    console.log('inputValue', inputValue);
 
     useEffect(() => {
-      if (value !== inputValue && colord(value).isValid()) {
-        setInputValue(value);
+      const isNullWhenClearable = clearable && value === null;
+
+      if (value !== inputValue && (colord(value).isValid() || isNullWhenClearable)) {
+        setInputValue(value || '');
       }
     }, [value]);
 
     useEffect(() => {
-      if (colord(inputValue).isValid()) {
-        isFunction(onChange) && onChange(inputValue);
+      if (colord(inputValue).isValid() || inputValue === '') {
+        onChange(inputValue);
       }
     }, [inputValue]);
 
@@ -149,7 +142,7 @@ const ColorInput = forwardRef(
     };
 
     const handleInputFocus = (event) => {
-      isFunction(onFocus) && onFocus(event);
+      onFocus(event);
       setOpened(true);
     };
 
@@ -176,74 +169,98 @@ const ColorInput = forwardRef(
         {readOnly ? (
           <Paragraph clean>{value || ''}</Paragraph>
         ) : (
-          <Popover
-            opened={opened}
-            onClose={() => setOpened(false)}
-            target={
-              <Input
-                id={uuid}
-                ref={ref}
-                size={size}
-                value={inputValue}
-                disabled={disabled}
-                placeholder={placeholder}
-                invalid={!isEmpty(error)}
-                autoComplete="off"
-                icon={
-                  icon || (
-                    <ColorSwatch color={inputValue} onClick={() => setOpened(!opened)} size={18} />
-                  )
-                }
-                onFocus={handleInputFocus}
-                onChange={handleInputChange}
-                onKeyDown={handleInputKeyDown}
-                spellCheck={false}
-              />
-            }
-            width={colorPickerComponent ? undefined : 200}
-            position="bottom-start"
-            withArrow
-            trapFocus
-          >
-            <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }} ref={closeRef}>
-              {!colorPickerComponent ? (
-                <ColorPicker
-                  color={inputValue}
-                  format={format}
-                  withSwatches={withSwatches}
-                  compact={compact}
-                  fullWidth
-                  swatchesForGama={swatchesForGama}
-                  swatchesPerRow={swatchesPerRow}
-                  spacing={spacing}
-                  useHsl={useHsl}
-                  lightOnly={lightOnly}
-                  saturation={saturation}
-                  lightness={lightness}
-                  manual={manual}
-                  output="hex"
-                  ariaSaturationLabel={ariaSaturationLabel}
-                  ariaSliderLabel={ariaSliderLabel}
-                  ariaColorFormat={ariaColorFormat}
-                  ariaColorValue={ariaColorValue}
-                  ariaHueValue={ariaHueValue}
-                  onChange={setInputValue}
-                  role={useAria ? 'input' : undefined}
+          <Stack alignItems="center" spacing={2}>
+            <Popover
+              opened={opened}
+              onClose={() => setOpened(false)}
+              target={
+                <Input
+                  id={uuid}
+                  ref={ref}
+                  size={size}
+                  value={inputValue}
+                  disabled={disabled}
+                  placeholder={placeholder}
+                  invalid={!isEmpty(error)}
+                  autoComplete="off"
+                  icon={
+                    icon || (
+                      <ColorSwatch
+                        color={inputValue}
+                        onClick={() => setOpened(!opened)}
+                        size={18}
+                      />
+                    )
+                  }
+                  onFocus={handleInputFocus}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputKeyDown}
+                  spellCheck={false}
+                  classNames={{ input: inputClassName }}
+                  fullWidth={fullWidth}
                 />
-              ) : (
-                React.createElement(colorPickerComponent, {
-                  inputValue: inputValue,
-                  onChange: setInputValue,
-                })
-              )}
-            </Box>
-          </Popover>
+              }
+              width={colorPickerComponent ? undefined : 200}
+              position="bottom-start"
+              withArrow
+              trapFocus
+            >
+              <Box style={{ display: 'flex', position: 'relative', zIndex: 999 }} ref={closeRef}>
+                {!colorPickerComponent ? (
+                  <ColorPicker
+                    color={inputValue}
+                    format={format}
+                    withSwatches={withSwatches}
+                    compact={compact}
+                    fullWidth
+                    swatchesForGama={swatchesForGama}
+                    swatchesPerRow={swatchesPerRow}
+                    spacing={spacing}
+                    useHsl={useHsl}
+                    lightOnly={lightOnly}
+                    saturation={saturation}
+                    lightness={lightness}
+                    manual={manual}
+                    output="hex"
+                    ariaSaturationLabel={ariaSaturationLabel}
+                    ariaSliderLabel={ariaSliderLabel}
+                    ariaColorFormat={ariaColorFormat}
+                    ariaColorValue={ariaColorValue}
+                    ariaHueValue={ariaHueValue}
+                    onChange={setInputValue}
+                    role={useAria ? 'input' : undefined}
+                  />
+                ) : (
+                  React.createElement(colorPickerComponent, {
+                    inputValue,
+                    onChange: setInputValue,
+                  })
+                )}
+              </Box>
+            </Popover>
+            {clearable && inputValue && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <ActionButton
+                  leftIcon={<DeleteBinIcon width={18} height={18} />}
+                  onClick={() => setInputValue('')}
+                  disabled={disabled}
+                />
+              </Box>
+            )}
+          </Stack>
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+ColorInput.displayName = 'ColorInput';
 ColorInput.defaultProps = COLOR_INPUT_DEFAULT_PROPS;
 ColorInput.propTypes = COLOR_INPUT_PROP_TYPES;
 

@@ -1,20 +1,23 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
 const getActive = (theme) => ({
-  padding: pxToRem(24),
-  border: `${pxToRem(2)} solid ${theme.colors.interactive01}`,
-  backgroundColor: theme.colors.interactive01v1,
-  '.mantine-FileUpload-title': {
-    color: theme.colors.interactive01,
-  },
-  '.mantine-FileUpload-icon': {
-    color: theme.colors.interactive01d,
-  },
+  padding: pxToRem(25),
+  border: `${theme.border.width} solid ${theme.border.color.hover}`,
+  backgroundColor: theme.background.color.hover,
+  // '.mantine-FileUpload-title': {
+  //   color: theme.content.color.hover,
+  // },
+  // '.mantine-FileUpload-subtitle': {
+  //   color: theme.content.color.hover,
+  // },
+  // '.mantine-FileUpload-icon': {
+  //   color: theme.content.color.hover,
+  // },
 });
 
 const getDisabledStyles = (disabled, theme) => {
-  if (!disabled) return;
+  if (!disabled) return {};
   return {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2],
@@ -26,8 +29,9 @@ const getDisabledStyles = (disabled, theme) => {
   };
 };
 
-export const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError }) => {
+const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError, fullWidth }) => {
   const hideDropzone = single && files.length > 0;
+  const dropzoneTheme = theme.other.dropzone;
 
   return {
     root: {
@@ -36,14 +40,14 @@ export const FileUploadStyles = createStyles((theme, { disabled, single, files, 
       justifyContent: 'center',
       padding: pxToRem(25),
       border: hasError
-        ? `1px solid ${theme.colors.fatic01}`
-        : `${pxToRem(1)} solid ${theme.colors.interactive01d}`,
-      borderRadius: pxToRem(2),
-      '&:hover': { ...getActive(theme) },
+        ? `${dropzoneTheme.border.width} solid ${theme.colors.fatic01}`
+        : `${dropzoneTheme.border.width} solid ${dropzoneTheme.border.color.default}`,
+      borderRadius: dropzoneTheme.border.radius,
+      '&:hover': { ...getActive(dropzoneTheme) },
       ...getDisabledStyles(disabled, theme),
     },
     active: {
-      ...getActive(theme),
+      ...getActive(dropzoneTheme),
     },
     groupContainer: {
       pointerEvents: 'none',
@@ -55,30 +59,25 @@ export const FileUploadStyles = createStyles((theme, { disabled, single, files, 
       textAlign: 'center',
     },
     icon: {
-      color: theme.colors.interactive01h,
+      color: dropzoneTheme.content.color.icon,
     },
     title: {
-      ...getFontExpressive(theme.fontSizes['2']),
+      ...(dropzoneTheme.content['text--medium'] ?? {}),
       marginTop: pxToRem(9),
-      color: theme.colors.text01,
+      color: dropzoneTheme.content.color.default,
     },
     subtitle: {
-      ...getFontProductive(theme.fontSizes['2']),
+      ...(dropzoneTheme.content.text ?? {}),
       marginTop: pxToRem(8),
-      color: theme.colors.text02,
+      color: dropzoneTheme.content.color['default--subtle'],
     },
     droppedFile: {
-      padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
-      display: 'flex',
-      justifyContent: 'space-between',
-      button: {
-        color: theme.colors.text05,
-      },
+      width: 468,
+      // padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
     },
     fileList: {
       marginTop: !hideDropzone && pxToRem(theme.spacing[4]),
-      border: `1px solid ${theme.colors.interactive01h}`,
-      borderRadius: pxToRem(2),
+      width: 'min-content',
     },
     errorAlert: {
       marginTop: pxToRem(theme.spacing[4]),
@@ -86,5 +85,16 @@ export const FileUploadStyles = createStyles((theme, { disabled, single, files, 
     uploadButton: {
       marginTop: pxToRem(theme.spacing[4]),
     },
+    fileItemDisplay: {
+      ...theme.other.global.content.typo.body['sm--semiBold'],
+      padding: '18px 8px',
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: theme.other.global.border.color.line.muted,
+      borderRadius: 4,
+      minWidth: '100%',
+    },
   };
 });
+
+export { FileUploadStyles };

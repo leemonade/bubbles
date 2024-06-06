@@ -16,6 +16,9 @@ export {
   Progress,
   ScrollArea,
   HoverCard,
+  Skeleton,
+  keyframes,
+  Navbar,
 } from '@mantine/core';
 export * from '@mantine/spotlight';
 export {
@@ -30,6 +33,7 @@ export {
   useHover,
   useWindowScroll,
   useIdle,
+  useMediaQuery,
 } from '@mantine/hooks';
 export { createStyles } from '@mantine/styles';
 export {
@@ -39,7 +43,9 @@ export {
   getPaddings,
   getHtmlStyles,
   getBoxShadowFromToken,
+  getFocusDefaultBorder,
 } from './theme.mixins';
+export { PALETTE } from './theme.constants';
 export { COLORS } from './theme.tokens';
 export { colord } from 'colord';
 export { Helmet } from 'react-helmet';
@@ -50,6 +56,7 @@ export * from './informative';
 export * from './navigation';
 export * from './typography';
 export * from './feedback';
+export * from './helpers';
 export * from './overlay';
 export * from './layout';
 export * from './assets';

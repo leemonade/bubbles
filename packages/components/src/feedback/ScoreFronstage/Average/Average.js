@@ -6,14 +6,14 @@ import { Box } from '../../../layout';
 const Average = ({ label, score, minGrade, maxGrade, ...props }) => {
   const { classes, cx } = AverageStyles({ score, minGrade }, { name: 'Average' });
 
-  const renderScore = () => {
-    return (
-      <>
-        <span className={classes.score}>{score.letter || score.number}</span>
-        {!score.letter && <span>{`/${maxGrade}`}</span>}
-      </>
-    );
-  };
+  const renderScore = () => (
+    <>
+      <span className={classes.score}>
+        {score.letter || (Number.isInteger(score.number) ? score.number : score.number?.toFixed(2))}
+      </span>
+      {!score.letter && <span>{`/${maxGrade}`}</span>}
+    </>
+  );
 
   return (
     <Box className={classes.root}>

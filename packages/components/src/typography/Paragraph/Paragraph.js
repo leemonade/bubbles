@@ -31,17 +31,21 @@ const Paragraph = forwardRef(
         {children}
       </Text>
     );
-  }
+  },
 );
 
+Paragraph.displayName = 'Paragraph';
 Paragraph.defaultProps = PARAGRAPH_DEFAULT_PROPS;
-
 Paragraph.propTypes = {
   size: PropTypes.oneOf(PARAGRAPH_SIZES),
   align: PropTypes.oneOf(PARAGRAPH_ALIGNS),
   transform: PropTypes.oneOf(PARAGRAPH_TRANSFORMS),
   color: PropTypes.oneOf(PARAGRAPH_COLORS),
   clean: PropTypes.bool,
+  styles: PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  classNames: PropTypes.any,
 };
 
 export { Paragraph };

@@ -27,9 +27,7 @@ export default {
 };
 
 const Template = ({ value: valueProp, useValueComponent, onChange, data, ...props }) => {
-  const CustomValueComponent = forwardRef(({ label }, ref) => {
-    return <UserDisplayItem name={label} />;
-  });
+  const CustomValueComponent = forwardRef(({ label }, ref) => <UserDisplayItem name={label} />);
   const [value, setValue] = React.useState(valueProp);
   return (
     <Box>
@@ -62,6 +60,7 @@ Playground.args = {
   creatable: false,
   readOnly: false,
   autoSelectOneOption: false,
+  cleanOnMissingValue: false,
   clearable: 'Clear select field',
   error: 'Descriptive text for error ',
   value: 'Carol Miller',

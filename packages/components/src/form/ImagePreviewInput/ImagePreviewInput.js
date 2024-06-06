@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isString, isNil } from 'lodash';
-import { CloudUploadIcon, UndoIcon } from '@bubbles-ui/icons/outline/';
-import { Box, Stack } from '../../layout';
-import { Button } from '../../form';
+import { CloudUploadIcon, SynchronizeArrowsIcon } from '@bubbles-ui/icons/outline/';
+import { DeleteBinIcon } from '@bubbles-ui/icons/solid/';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
+import { Button } from '../Button';
 import { ImageLoader } from '../../misc/ImageLoader';
 import { ImagePreviewInputStyles } from './ImagePreviewInput.styles';
 
@@ -13,17 +15,27 @@ export const IMAGE_PREVIEW_INPUT_DEFAULT_PROPS = {
     uploadButton: '',
   },
   previewURL: '',
+  width: 224,
+  height: 132,
 };
 export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   labels: PropTypes.shape({
     uploadButton: PropTypes.string,
     changeImage: PropTypes.string,
+    removeButton: PropTypes.string,
   }),
-  value: PropTypes.instanceOf(File),
-  previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(File)]),
+  value: PropTypes.any,
+  previewURL: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   previewStyle: PropTypes.object,
   control: PropTypes.element,
   onChange: PropTypes.func,
+  readonly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  useAria: PropTypes.bool,
+  noPicker: PropTypes.bool,
+  objectFit: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 const ImagePreviewInput = ({
@@ -36,7 +48,11 @@ const ImagePreviewInput = ({
   readonly,
   disabled,
   useAria,
-  ...props
+  noPicker,
+  onShowDrawer,
+  objectFit,
+  width,
+  height,
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
@@ -57,33 +73,37 @@ const ImagePreviewInput = ({
   }, [value]);
 
   const resetImage = () => {
-    isFunction(onChange) && onChange(null);
+    if (isFunction(onChange)) onChange(null);
     setImagePreview(null);
     setImageValue(null);
   };
 
   const openFileBrowser = () => {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
     input.onchange = (e) => {
       const file = e.target.files[0];
       file.path = file.name;
       setImageValue(file);
-      isFunction(onChange) && onChange(file);
+      if (isFunction(onChange)) onChange(file);
     };
     input.click();
   };
 
+  const handleShowDrawer = () => {
+    if (isFunction(onShowDrawer)) onShowDrawer(true);
+  };
+
   const getControl = () => {
-    if (!control)
+    if (!control && !noPicker)
       return (
-        <Button variant="outline" leftIcon={<CloudUploadIcon />} onClick={openFileBrowser}>
+        <Button variant="link" leftIcon={<CloudUploadIcon />} onClick={openFileBrowser}>
           {labels.uploadButton}
         </Button>
       );
 
-    return React.cloneElement(control, { onClick: openFileBrowser });
+    return !noPicker ? React.cloneElement(control, { onClick: openFileBrowser }) : null;
   };
 
   useEffect(() => {
@@ -93,30 +113,43 @@ const ImagePreviewInput = ({
     }
   }, [imageValue]);
 
-  const { classes, cx } = ImagePreviewInputStyles({});
+  const { classes } = ImagePreviewInputStyles({});
   return (
     <Box className={classes.root}>
       {!imagePreview ? (
         getControl()
       ) : (
-        <Stack spacing={2} fullWidth>
+        <Stack spacing={2} fullWidth alignItems="flex-end">
           <ImageLoader
             src={imagePreview}
-            height={132}
-            width={224}
-            skipFlex
-            radius={8}
+            height={height}
+            width={width}
+            noFlex
+            radius={4}
             style={{ ...previewStyle }}
             useAria={useAria}
+            bordered
+            forceImage
+            objectFit={objectFit}
           />
           {!readonly && !disabled ? (
-            <Box skipFlex>
+            <Box noFlex>
               <Button
-                variant="light"
+                variant="link"
                 size="sm"
                 compact
-                leftIcon={<UndoIcon />}
+                leftIcon={<DeleteBinIcon />}
                 onClick={resetImage}
+                useAria={useAria}
+              >
+                {labels.removeButton}
+              </Button>
+              <Button
+                variant="link"
+                size="sm"
+                compact
+                leftIcon={<SynchronizeArrowsIcon />}
+                onClick={handleShowDrawer}
                 useAria={useAria}
               >
                 {labels.changeImage}

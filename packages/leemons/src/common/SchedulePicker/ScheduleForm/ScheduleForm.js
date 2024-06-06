@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { find, isArray, isFunction } from 'lodash';
+import { find, isArray, noop } from 'lodash';
 import {
   Box,
   Button,
@@ -20,7 +20,17 @@ export const SCHEDULE_FORM_DEFAULT_PROPS = {
 };
 export const SCHEDULE_FORM_PROP_TYPES = {
   displayCustomDays: PropTypes.bool,
+  onChange: PropTypes.func,
+  savedSchedule: PropTypes.any,
+  firstDayOfWeek: PropTypes.number,
+  localeWeekdays: PropTypes.array,
+  labels: PropTypes.object,
+  placeholders: PropTypes.object,
+  errorMessages: PropTypes.object,
+  setOpenForm: PropTypes.func,
 };
+
+const TIME_INPUT_WIDTH = 85;
 
 // ------------------------------------------------------------------------------------------
 // HELPERS
@@ -28,12 +38,12 @@ export const SCHEDULE_FORM_PROP_TYPES = {
 const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 const NOW = new Date();
 
-const dateToHoursAndMinutes = (date) => {
-  return date.toLocaleTimeString(navigator.language, {
+const dateToHoursAndMinutes = (date) =>
+  date.toLocaleTimeString(navigator.language, {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   });
-};
 
 function diffMinutes(dt2, dt1) {
   let diff = (dt2.getTime() - dt1.getTime()) / 1000;
@@ -85,13 +95,12 @@ const ScheduleForm = ({
   errorMessages,
   localeWeekdays,
   setOpenForm,
-  onChange,
   firstDayOfWeek,
   savedSchedule,
   displayCustomDays,
-  ...props
+  onChange = noop,
 }) => {
-  const { classes, cx } = ScheduleFormStyles({});
+  const { classes } = ScheduleFormStyles({}, { name: 'ScheduleForm' });
 
   const [selectedDays, setSelectedDays] = useState([]);
   const [useCustomDates, setUseCustomDates] = useState(savedSchedule.useCustomDates || false);
@@ -100,7 +109,7 @@ const ScheduleForm = ({
   const [invalidDates, setInvalidDates] = useState(false);
   const [schedule, setSchedule] = useState(savedSchedule || { days: [] });
   const [oneScheduleOnly, setOneScheduleOnly] = useState(
-    !hasMultipleSchedules(savedSchedule?.days)
+    !hasMultipleSchedules(savedSchedule?.days),
   );
   const [oneDayOnlyValue, setOneDayOnlyValue] = useState({
     start: NOW,
@@ -121,14 +130,15 @@ const ScheduleForm = ({
         }
       }
     });
-    for (const position of errorPositions) {
+    errorPositions.forEach((position) => {
       selectedDays[position].error = true;
-    }
-    if (useCustomDates) {
-      if (startDate > endDate || startDate === endDate || !startDate || !endDate) {
-        isValid = false;
-        setInvalidDates(true);
-      }
+    });
+    if (
+      useCustomDates &&
+      (startDate > endDate || startDate === endDate || !startDate || !endDate)
+    ) {
+      isValid = false;
+      setInvalidDates(true);
     }
     setSelectedDays([...selectedDays]);
     return isValid;
@@ -136,7 +146,7 @@ const ScheduleForm = ({
 
   const handleOnChange = (sendEmpty) => {
     if (sendEmpty) {
-      isFunction(onChange) && onChange({ days: [] });
+      onChange({ days: [] });
       setOneDayOnlyValue({
         start: new Date(),
         end: new Date(),
@@ -146,7 +156,7 @@ const ScheduleForm = ({
     } else {
       if (!validateSchedule()) return;
 
-      isFunction(onChange) && onChange(schedule);
+      onChange(schedule);
       setOpenForm(false);
     }
   };
@@ -157,37 +167,37 @@ const ScheduleForm = ({
         ...day,
         start: day.start || oneDayOnlyValue.start,
         end: day.end || oneDayOnlyValue.end,
-      }))
+      })),
     );
   }, [oneScheduleOnly]);
 
   useEffect(() => {
-    oneScheduleOnly
-      ? setSchedule({
-          days: selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue, firstDayOfWeek)),
-          startDate,
-          endDate,
-          useCustomDates,
-        })
-      : setSchedule({
-          days: selectedDays.map((day) => dayToSchedule(day, day, firstDayOfWeek)),
-          startDate,
-          endDate,
-          useCustomDates,
-        });
+    if (oneScheduleOnly) {
+      setSchedule({
+        days: selectedDays.map((day) => dayToSchedule(day, oneDayOnlyValue, firstDayOfWeek)),
+        startDate,
+        endDate,
+        useCustomDates,
+      });
+    } else {
+      setSchedule({
+        days: selectedDays.map((day) => dayToSchedule(day, day, firstDayOfWeek)),
+        startDate,
+        endDate,
+        useCustomDates,
+      });
+    }
   }, [selectedDays, oneDayOnlyValue, startDate, endDate, useCustomDates]);
 
   useEffect(() => {
     setSelectedDays(
-      savedSchedule.days.map((day) => {
-        return {
-          id: day.id,
-          start: new Date(`01/01/1970 ${day.start}`),
-          end: new Date(`01/01/1970 ${day.end}`),
-          error: false,
-          index: day.dayWeek, //(day.dayWeek + firstDayOfWeek) % 6,
-        };
-      })
+      savedSchedule.days.map((day) => ({
+        id: day.id,
+        start: new Date(`01/01/1970 ${day.start}`),
+        end: new Date(`01/01/1970 ${day.end}`),
+        error: false,
+        index: day.dayWeek, // (day.dayWeek + firstDayOfWeek) % 6,
+      })),
     );
   }, [savedSchedule]);
 
@@ -197,29 +207,25 @@ const ScheduleForm = ({
         <CheckBoxGroup
           size="xs"
           label={labels.groupLabel}
-          variant={'boxed'}
-          data={localeWeekdays.map((day) => {
-            return {
-              ...day,
-              checked: schedule.days.some((savedDay) => savedDay.dayWeek === day.value.index),
-            };
-          })}
+          // variant={'boxed'}
+          data={localeWeekdays.map((day) => ({
+            ...day,
+            checked: schedule.days.some((savedDay) => savedDay.dayWeek === day.value.index),
+          }))}
           onChange={(e) => {
-            const orderedDays = e.map((day) => {
-              return {
-                ...day,
-                id:
-                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.id ||
-                  undefined,
-                start:
-                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.start ||
-                  oneDayOnlyValue.start,
-                end:
-                  selectedDays.find((selectedDay) => selectedDay.index === day.index)?.end ||
-                  oneDayOnlyValue.end,
-                error: false,
-              };
-            });
+            const orderedDays = e.map((day) => ({
+              ...day,
+              id:
+                selectedDays.find((selectedDay) => selectedDay.index === day.index)?.id ||
+                undefined,
+              start:
+                selectedDays.find((selectedDay) => selectedDay.index === day.index)?.start ||
+                oneDayOnlyValue.start,
+              end:
+                selectedDays.find((selectedDay) => selectedDay.index === day.index)?.end ||
+                oneDayOnlyValue.end,
+              error: false,
+            }));
             orderedDays.sort(compareWeekdays);
             setSelectedDays([...orderedDays]);
           }}
@@ -240,7 +246,7 @@ const ScheduleForm = ({
                 <Box className={classes.scheduleRow}>
                   <TimeInput
                     size="xs"
-                    contentStyle={{ width: 70 }}
+                    contentStyle={{ width: TIME_INPUT_WIDTH }}
                     value={oneDayOnlyValue.start}
                     onChange={(e) => {
                       setOneDayOnlyValue({
@@ -254,7 +260,7 @@ const ScheduleForm = ({
                   </Text>
                   <TimeInput
                     size="xs"
-                    contentStyle={{ width: 70 }}
+                    contentStyle={{ width: TIME_INPUT_WIDTH }}
                     value={oneDayOnlyValue.end}
                     onChange={(e) =>
                       setOneDayOnlyValue({
@@ -268,39 +274,37 @@ const ScheduleForm = ({
               </Stack>
             ) : (
               <ContextContainer direction="row" wrap="wrap" fullWidth={false}>
-                {selectedDays.map((day, index) => {
-                  return (
-                    <Stack direction="column" spacing={2} key={localeWeekdays[index].day}>
-                      <Text size="xs" role="productive" color="primary" strong>{`${
-                        labels.schedule
-                      } ${find(localeWeekdays, { value: { index: day.index } })?.day}`}</Text>
-                      <Box className={classes.scheduleRow}>
-                        <TimeInput
-                          size="xs"
-                          contentStyle={{ width: 70 }}
-                          value={selectedDays[index].start}
-                          onChange={(e) => {
-                            selectedDays[index].start = e;
-                            setSelectedDays([...selectedDays]);
-                          }}
-                        />
-                        <Text size="xs" role="productive" className={classes.divider}>
-                          {labels.divider}
-                        </Text>
-                        <TimeInput
-                          size="xs"
-                          contentStyle={{ width: 70 }}
-                          value={selectedDays[index].end}
-                          onChange={(e) => {
-                            selectedDays[index].end = e;
-                            setSelectedDays([...selectedDays]);
-                          }}
-                        />
-                      </Box>
-                      {day.error && <InputError message={errorMessages.invalidSchedule} />}
-                    </Stack>
-                  );
-                })}
+                {selectedDays.map((day, index) => (
+                  <Stack direction="column" spacing={2} key={localeWeekdays[index].day}>
+                    <Text size="xs" role="productive" color="primary" strong>{`${labels.schedule} ${
+                      find(localeWeekdays, { value: { index: day.index } })?.day
+                    }`}</Text>
+                    <Box className={classes.scheduleRow}>
+                      <TimeInput
+                        size="xs"
+                        contentStyle={{ width: TIME_INPUT_WIDTH }}
+                        value={selectedDays[index].start}
+                        onChange={(e) => {
+                          selectedDays[index].start = e;
+                          setSelectedDays([...selectedDays]);
+                        }}
+                      />
+                      <Text size="xs" role="productive" className={classes.divider}>
+                        {labels.divider}
+                      </Text>
+                      <TimeInput
+                        size="xs"
+                        contentStyle={{ width: TIME_INPUT_WIDTH }}
+                        value={selectedDays[index].end}
+                        onChange={(e) => {
+                          selectedDays[index].end = e;
+                          setSelectedDays([...selectedDays]);
+                        }}
+                      />
+                    </Box>
+                    {day.error && <InputError message={errorMessages.invalidSchedule} />}
+                  </Stack>
+                ))}
               </ContextContainer>
             )}
           </>
@@ -333,14 +337,16 @@ const ScheduleForm = ({
           </>
         )}
       </ContextContainer>
-      <Stack justifyContent="end" fullWidth>
-        <Button variant="light" color="secondary" size="sm" onClick={() => handleOnChange(true)}>
-          {labels.clear}
-        </Button>
-        <Button variant="light" size="sm" onClick={() => handleOnChange(false)}>
-          {labels.apply}
-        </Button>
-      </Stack>
+      <Box sx={(theme) => ({ padding: `0 ${theme.spacing[4]}px ${theme.spacing[4]}px 0` })}>
+        <Stack justifyContent="end" fullWidth spacing={4}>
+          <Button variant="link" color="secondary" size="sm" onClick={() => handleOnChange(true)}>
+            {labels.clear}
+          </Button>
+          <Button size="sm" onClick={() => handleOnChange(false)}>
+            {labels.apply}
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 };

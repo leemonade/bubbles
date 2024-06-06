@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { usePagination, useTable } from 'react-table';
-import { Box, Paper, Stack } from '../../layout';
-import { LoadingOverlay } from '../../overlay';
+import { Box } from '../../layout/Box';
+import { Paper } from '../../layout/Paper';
+import { Stack } from '../../layout/Stack';
+import { LoadingOverlay } from '../../overlay/LoadingOverlay';
 import { Pager, PAGER_VARIANTS } from '../../navigation/Pager';
 import { TableView } from './views/TableView';
 import { GridView } from './views/GridView';
@@ -45,8 +47,12 @@ export const PAGINATED_LIST_PROP_TYPES = {
   loading: PropTypes.bool,
   onSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
+  onStyleRow: PropTypes.func,
   useAria: PropTypes.bool,
   headerStyles: PropTypes.object,
+  style: PropTypes.object,
+  labels: PropTypes.object,
+  hidePaper: PropTypes.bool,
 };
 
 const PaginatedList = ({
@@ -73,6 +79,7 @@ const PaginatedList = ({
   style,
   useAria,
   headerStyles,
+  hidePaper,
   ...props
 }) => {
   const {
@@ -102,7 +109,7 @@ const PaginatedList = ({
       // pageCount.
       pageCount: totalCount,
     },
-    usePagination
+    usePagination,
   );
 
   useEffect(() => {
@@ -123,46 +130,47 @@ const PaginatedList = ({
     onPageChange(val);
   };
 
-  const { classes, cx } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
+  const { classes } = PaginatedListStyles({ style }, { name: 'PaginatedList' });
+
+  const table =
+    layout === PAGINATED_LIST_LAYOUTS[0] ? (
+      <TableView
+        {...props}
+        {...{
+          getTableProps,
+          getTableBodyProps,
+          headerGroups,
+          prepareRow,
+          rows,
+          selectable,
+          onSelect,
+          selected,
+          useAria,
+          headerStyles,
+          onStyleRow,
+        }}
+      />
+    ) : (
+      <GridView
+        {...props}
+        {...{
+          headerGroups,
+          prepareRow,
+          rows,
+          selectable,
+          selected,
+          onSelect,
+          useAria,
+          onStyleRow,
+        }}
+      />
+    );
 
   return (
     <Box className={classes.root}>
       <LoadingOverlay visible={loading} />
       <Stack direction="column" spacing={5} fullWidth>
-        <Paper {...paperProps}>
-          {layout === PAGINATED_LIST_LAYOUTS[0] ? (
-            <TableView
-              {...props}
-              {...{
-                getTableProps,
-                getTableBodyProps,
-                headerGroups,
-                prepareRow,
-                rows,
-                selectable,
-                onSelect,
-                selected,
-                useAria,
-                headerStyles,
-                onStyleRow,
-              }}
-            />
-          ) : (
-            <GridView
-              {...props}
-              {...{
-                headerGroups,
-                prepareRow,
-                rows,
-                selectable,
-                selected,
-                onSelect,
-                useAria,
-                onStyleRow,
-              }}
-            />
-          )}
-        </Paper>
+        {hidePaper ? table : <Paper {...paperProps}>{table}</Paper>}
 
         {totalPages > 1 && (
           <Stack fullWidth justifyContent={pagerPlace}>
@@ -171,7 +179,7 @@ const PaginatedList = ({
               labels={labels}
               page={page}
               totalPages={Math.ceil(totalPages)}
-              withSize={true}
+              withSize={false}
               size={size}
               sizes={sizes}
               onSizeChange={handleSizeChange}

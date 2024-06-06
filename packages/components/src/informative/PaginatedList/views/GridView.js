@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
-import { Stack } from '../../../layout';
-import { GridItemRender } from './GridItemRender';
 import { useElementSize } from '@mantine/hooks';
-import { TableStyles } from '../../Table';
+import { Stack } from '../../../layout/Stack';
+import { GridItemRender } from './GridItemRender';
+import { TableStyles } from '../../Table/Table.styles';
 
 const GRID_VIEW_DEFAULT_PROPS = {
   itemRender: ({ key, ...props }) => <GridItemRender key={key} {...props} />,
@@ -15,6 +15,15 @@ const GRID_VIEW_PROP_TYPES = {
   itemRender: PropTypes.func,
   itemMinWidth: PropTypes.number,
   style: PropTypes.any,
+  useAria: PropTypes.bool,
+  onStyleRow: PropTypes.func,
+  onSelect: PropTypes.func,
+  selectable: PropTypes.bool,
+  selected: PropTypes.any,
+  rows: PropTypes.array,
+  headerGroups: PropTypes.array,
+  prepareRow: PropTypes.func,
+  staticColumnWidth: PropTypes.bool,
 };
 
 const GridView = ({
@@ -56,6 +65,14 @@ const GridView = ({
       rows.length < columns
         ? `minmax(${itemMinWidth}px, ${itemMinWidth}px)`
         : `minmax(${itemMinWidth}px, 1fr)`;
+
+    if (props.staticColumnWidth)
+      return {
+        ...style,
+        display: 'grid',
+        gridTemplateColumns: `repeat(auto-fit, ${itemMinWidth})`,
+      };
+
     return {
       ...style,
       display: 'grid',

@@ -4,7 +4,7 @@ import { Button } from '../../form';
 import { Spotlight, openSpotlight } from '.';
 import { SPOTLIGHT_DEFAULT_PROPS } from './Spotlight.constants';
 import mdx from './Spotlight.mdx';
-import { MENU_DATA } from '../MainNav/mocks/menu';
+import { MENU_DATA } from './mocks/menu';
 
 export default {
   title: 'Molecules/Navigation/Spotlight',

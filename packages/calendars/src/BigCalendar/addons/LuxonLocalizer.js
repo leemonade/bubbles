@@ -1,28 +1,30 @@
+/* eslint-disable default-param-last */
 import { DateLocalizer } from 'react-big-calendar/lib/localizer';
 import { capitalize } from 'lodash';
 
 function pluralizeUnit(unit) {
-  return /s$/.test(unit) ? unit : unit + 's';
+  return /s$/.test(unit) ? unit : `${unit}s`;
 }
 
 const weekRangeFormat = ({ start, end }, culture, local) => {
   const sameMonth = local.eq(start, end, 'month');
   const monthFormat = sameMonth ? 'MMMM' : 'MMM';
-  return `${capitalize(local.format(start, `${monthFormat} dd`, culture))} - ${capitalize(
-    local.format(end, sameMonth ? 'dd' : `${monthFormat} dd`, culture)
+  const monthFormatTemplate = `${monthFormat} dd`;
+  return `${capitalize(local.format(start, monthFormatTemplate, culture))} - ${capitalize(
+    local.format(end, sameMonth ? 'dd' : monthFormatTemplate, culture),
   )}`;
 };
 
 const dateRangeFormat = ({ start, end }, culture, local) =>
-  local.format(start, 'D', culture) + ' – ' + local.format(end, 'D', culture);
+  `${local.format(start, 'D', culture)} – ${local.format(end, 'D', culture)}`;
 
 const timeRangeFormat = ({ start, end }, culture, local) =>
-  local.format(start, 't', culture) + ' – ' + local.format(end, 't', culture);
+  `${local.format(start, 't', culture)} – ${local.format(end, 't', culture)}`;
 
 const timeRangeStartFormat = ({ start }, culture, local) =>
-  local.format(start, 't', culture) + ' – ';
+  `${local.format(start, 't', culture)} – `;
 
-const timeRangeEndFormat = ({ end }, culture, local) => ' – ' + local.format(end, 't', culture);
+const timeRangeEndFormat = ({ end }, culture, local) => ` – ${local.format(end, 't', culture)}`;
 
 export const formats = {
   dateFormat: 'dd',
@@ -70,7 +72,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     return DateTime.fromJSDate(value).setLocale(culture).toFormat(format);
   }
 
-  /*** BEGIN localized date arithmetic methods with Luxon ***/
+  /** * BEGIN localized date arithmetic methods with Luxon ** */
   function defineComparators(a, b, unit) {
     const datePart = fixUnit(unit);
     const dtA = datePart ? DateTime.fromJSDate(a).startOf(datePart) : DateTime.fromJSDate(a);
@@ -83,22 +85,24 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
   // the start of the week differently
   // depending on locale, the firstDayOfWeek could also be Saturday, Sunday or Monday
   function startOfDTWeek(dtObj) {
-    const weekday = dtObj.weekday;
+    const { weekday } = dtObj;
     if (weekday === firstDayOfWeek) {
       return dtObj.startOf('day'); // already beginning of week
-    } else if (firstDayOfWeek === 1) {
+    }
+    if (firstDayOfWeek === 1) {
       return dtObj.startOf('week'); // fow is Monday, which is Luxon default
     }
-    const diff = firstDayOfWeek === 7 ? weekday : weekday + (7 - firstDayOfWeek);
-    return dtObj.minus({ day: diff }).startOf('day');
+    const diffDays = firstDayOfWeek === 7 ? weekday : weekday + (7 - firstDayOfWeek);
+    return dtObj.minus({ day: diffDays }).startOf('day');
   }
 
   function endOfDTWeek(dtObj) {
-    const weekday = dtObj.weekday;
+    const { weekday } = dtObj;
     const eow = firstDayOfWeek === 1 ? 7 : firstDayOfWeek - 1;
     if (weekday === eow) {
       return dtObj.endOf('day'); // already last day of the week
-    } else if (firstDayOfWeek === 1) {
+    }
+    if (firstDayOfWeek === 1) {
       return dtObj.endOf('week'); // use Luxon default (Sunday)
     }
     const fromDate = firstDayOfWeek > eow ? dtObj.plus({ day: firstDayOfWeek - eow }) : dtObj;
@@ -140,6 +144,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
 
   function eq(a, b, unit) {
     const [dtA, dtB] = defineComparators(a, b, unit);
+    // eslint-disable-next-line eqeqeq
     return +dtA == +dtB;
   }
 
@@ -167,11 +172,11 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     return +dtA <= +dtB;
   }
 
-  function inRange(day, min, max, unit = 'day') {
+  function inRange(day, minRange, maxRange, unit = 'day') {
     const datePart = fixUnit(unit);
     const mDay = startOfDT(day, datePart);
-    const mMin = startOfDT(min, datePart);
-    const mMax = startOfDT(max, datePart);
+    const mMin = startOfDT(minRange, datePart);
+    const mMax = startOfDT(maxRange, datePart);
     return +mDay >= +mMin && +mDay <= +mMax;
   }
 
@@ -237,7 +242,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     const dtA = DateTime.fromJSDate(a);
     const dtB = DateTime.fromJSDate(b);
     return Math.round(
-      dtB.diff(dtA, datePart, { conversionAccuracy: 'longterm' }).toObject()[datePart]
+      dtB.diff(dtA, datePart, { conversionAccuracy: 'longterm' }).toObject()[datePart],
     );
   }
 
@@ -264,7 +269,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     return days;
   }
 
-  /*** END localized date arithmetic methods with moment ***/
+  /** * END localized date arithmetic methods with moment ** */
 
   /**
    * Moved from TimeSlots.js, this method overrides the method of the same name
@@ -289,7 +294,7 @@ export default function LuxonLocalizer(DateTime, { firstDayOfWeek = 7 } = {}) {
     const dayStart = startOfDT(start, 'day');
     const day = DateTime.fromJSDate(start);
     return Math.round(
-      day.diff(dayStart, 'minutes', { conversionAccuracy: 'longterm' }).toObject().minutes
+      day.diff(dayStart, 'minutes', { conversionAccuracy: 'longterm' }).toObject().minutes,
     );
   }
 

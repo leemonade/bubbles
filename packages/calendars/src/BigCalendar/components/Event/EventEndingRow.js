@@ -6,51 +6,55 @@ import { Box, Anchor } from '@bubbles-ui/components';
 
 import EventRowMixin from './EventRowMixin';
 
-let isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot;
-let eventsInSlot = (segments, slot) => segments.filter((seg) => isSegmentInSlot(seg, slot)).length;
+const isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot;
+const eventsInSlot = (segments, slot) =>
+  segments.filter((seg) => isSegmentInSlot(seg, slot)).length;
 
 class EventEndingRow extends React.Component {
   render() {
-    let {
+    const {
       segments,
       slotMetrics: { slots },
     } = this.props;
     const rowSegments = eventLevels(segments).levels[0];
 
-    let current = 1,
-      lastEnd = 1,
-      row = [];
+    let current = 1;
+    let lastEnd = 1;
+    const row = [];
 
     while (current <= slots) {
-      const key = '_lvl_' + current;
+      const key = `_lvl_${current}`;
 
-      let { event, left, right, span } =
+      const { event, left, right, span } =
         rowSegments.filter((seg) => isSegmentInSlot(seg, current))[0] || {}; //eslint-disable-line
 
       if (!event) {
         current++;
+        // eslint-disable-next-line no-continue
         continue;
       }
 
       const gap = Math.max(0, left - lastEnd);
 
       if (this.canRenderSlotEvent(left, span)) {
-        let content = EventRowMixin.renderEvent(this.props, event);
+        const content = EventRowMixin.renderEvent(this.props, event);
 
         if (gap) {
-          row.push(EventRowMixin.renderSpan(slots, gap, key + '_gap'));
+          row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
         }
 
         row.push(EventRowMixin.renderSpan(slots, span, key, content));
 
+        // eslint-disable-next-line no-multi-assign
         lastEnd = current = right + 1;
       } else {
         if (gap) {
-          row.push(EventRowMixin.renderSpan(slots, gap, key + '_gap'));
+          row.push(EventRowMixin.renderSpan(slots, gap, `${key}_gap`));
         }
 
         row.push(EventRowMixin.renderSpan(slots, 1, key, this.renderShowMore(segments, current)));
-        lastEnd = current = current + 1;
+        // eslint-disable-next-line no-multi-assign
+        lastEnd = current += 1;
       }
     }
 
@@ -62,22 +66,22 @@ class EventEndingRow extends React.Component {
   }
 
   canRenderSlotEvent(slot, span) {
-    let { segments } = this.props;
+    const { segments } = this.props;
 
     return range(slot, slot + span).every((s) => {
-      let count = eventsInSlot(segments, s);
+      const count = eventsInSlot(segments, s);
 
       return count === 1;
     });
   }
 
   renderShowMore(segments, slot) {
-    let { localizer } = this.props;
-    let count = eventsInSlot(segments, slot);
+    const { localizer } = this.props;
+    const count = eventsInSlot(segments, slot);
 
     return count ? (
       <Anchor
-        key={'sm_' + slot}
+        key={`sm_${slot}`}
         href="#"
         className={'rbc-show-more'}
         onClick={(e) => this.showMore(slot, e)}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { OpenIcon } from '@bubbles-ui/icons/outline';
-import { Stack, Box } from '../../layout';
+import { Stack } from '../../layout/Stack';
 import { Text, TEXT_ROLES } from '../../typography';
 import { AnchorStyles } from './Anchor.styles';
 
@@ -12,6 +12,7 @@ export const ANCHOR_PROP_TYPES = {
   external: PropTypes.bool,
   children: PropTypes.node,
   useAria: PropTypes.bool,
+  className: PropTypes.string,
 };
 export const ANCHOR_DEFAULT_PROPS = {
   as: 'a',

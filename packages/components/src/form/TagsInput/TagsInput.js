@@ -1,23 +1,41 @@
 import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import { isEmpty, isFunction, isString, trim, uniq } from 'lodash';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline/';
+import PropTypes from 'prop-types';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid/';
 import { useId, useMergedRef } from '@mantine/hooks';
-import { Box, Stack } from '../../layout';
-import { Badge } from '../../informative';
-import { Autocomplete, Button } from '../../form';
+import { Box } from '../../layout/Box';
+import { Stack } from '../../layout/Stack';
+import { Badge } from '../../informative/Badge';
+import { Autocomplete } from '../Autocomplete';
+import { Button } from '../Button';
 import { InputWrapper } from '../InputWrapper';
 import { TagsInputStyles } from './TagsInput.styles';
 import { TAGS_INPUT_DEFAULT_PROPS, TAGS_INPUT_PROP_TYPES } from './TagsInput.constants';
 import { ImageLoader } from '../../misc';
 
-const OptionRenderer = forwardRef(({ label, value, icon, ...props }, ref) => {
-  return <Box sx={theme => ({ display: 'flex', alignItems: 'center', gap: theme.other.global.spacing.gap.sm })} ref={ref} {...props}>
-    {!!icon && (
-      <ImageLoader width={12} height={12} src={icon} />
-    )}
+const OptionRenderer = forwardRef(({ label, value, icon, buttonLeftIcon, ...props }, ref) => (
+  <Box
+    sx={(theme) => ({
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.other.global.spacing.gap.sm,
+    })}
+    ref={ref}
+    {...props}
+  >
+    {!!icon && <ImageLoader width={12} height={12} src={icon} />}
     {value}
   </Box>
-});
+));
+
+OptionRenderer.displayName = 'OptionRenderer';
+
+OptionRenderer.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.string,
+  icon: PropTypes.string,
+  buttonLeftIcon: PropTypes.node,
+};
 
 const TagsInput = forwardRef(
   (
@@ -33,11 +51,12 @@ const TagsInput = forwardRef(
       required,
       suggestions,
       canAddNewSuggestions = true,
-      onChange = () => { },
+      onChange = () => {},
       onSearch,
+      ButtonLeftIcon,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [tags, setTags] = useState(value);
     const [inputValue, setInputValue] = useState('');
@@ -48,51 +67,53 @@ const TagsInput = forwardRef(
     const uuid = useId();
 
     const parsedSuggestions = useMemo(() => {
-      const suggestionsByValue = {}
-      suggestions.forEach(suggestion => {
+      const suggestionsByValue = {};
+      suggestions.forEach((suggestion) => {
         if (isString(suggestion)) {
           suggestionsByValue[suggestion] = {
             value: suggestion,
             id: suggestion,
             original: suggestion,
-          }
+          };
         } else {
-
           suggestionsByValue[suggestion.value] = {
             value: suggestion.label,
             id: suggestion.value,
             icon: suggestion.icon,
-            original: suggestion
+            original: suggestion,
+          };
+        }
+      });
+
+      return suggestionsByValue;
+    }, [suggestions]);
+
+    const tagsNotInSuggestions = useMemo(
+      () =>
+        tags.filter((tag) => {
+          if (isString(tag)) {
+            return !parsedSuggestions[tag];
           }
-        }
-      })
 
-      return suggestionsByValue
-    }, [suggestions])
-
-    const tagsNotInSuggestions = useMemo(() => {
-      return tags.filter(tag => {
-        if (isString(tag)) {
-          return !parsedSuggestions[tag]
-        }
-
-        return !parsedSuggestions[tag.id]
-      })
-    }, [parsedSuggestions, tags])
+          return !parsedSuggestions[tag.id];
+        }),
+      [parsedSuggestions, tags],
+    );
 
     React.useEffect(() => {
       setTags(value);
     }, [value]);
 
     const addTag = (_value) => {
-      const value = _value || inputValue;
+      const newValue = _value || inputValue;
 
-      if (!value) {
+      if (!newValue) {
         return;
       }
 
-      const valueIsSuggestion = selectedSuggestion && value === parsedSuggestions[selectedSuggestion].value;
-      const newTag = valueIsSuggestion ? parsedSuggestions[selectedSuggestion].id : trim(value);
+      const valueIsSuggestion =
+        selectedSuggestion && newValue === parsedSuggestions[selectedSuggestion].value;
+      const newTag = valueIsSuggestion ? parsedSuggestions[selectedSuggestion].id : trim(newValue);
 
       if (!tags.includes(newTag)) {
         if (!valueIsSuggestion && !canAddNewSuggestions) {
@@ -100,7 +121,7 @@ const TagsInput = forwardRef(
         }
 
         const newTags = [...tags, newTag];
-        isFunction(onChange) && onChange(newTags);
+        if (isFunction(onChange)) onChange(newTags);
         setTags(newTags);
       }
       setInputValue('');
@@ -111,14 +132,14 @@ const TagsInput = forwardRef(
     const removeTag = (tag) => {
       const newTags = tags.filter((t) => t !== tag);
       setTags(newTags);
-      isFunction(onChange) && onChange(newTags);
+      if (isFunction(onChange)) onChange(newTags);
     };
 
     // ················································································
     // HANDLERS
 
-    const handleItemSubmit = (value) => {
-      setSelectedSuggestion(value.id);
+    const handleItemSubmit = (newValue) => {
+      setSelectedSuggestion(newValue.id);
     };
 
     const handleKeyDown = (e) => {
@@ -156,7 +177,12 @@ const TagsInput = forwardRef(
             />
           </Box>
           <Box skipFlex>
-            <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={() => addTag()}>
+            <Button
+              variant="link"
+              size="sm"
+              leftIcon={ButtonLeftIcon || <AddCircleIcon />}
+              onClick={() => addTag()}
+            >
               {labels.addButton}
             </Button>
           </Box>
@@ -178,9 +204,10 @@ const TagsInput = forwardRef(
         )}
       </InputWrapper>
     );
-  }
+  },
 );
 
+TagsInput.displayName = 'TagsInput';
 TagsInput.defaultProps = TAGS_INPUT_DEFAULT_PROPS;
 TagsInput.propTypes = TAGS_INPUT_PROP_TYPES;
 

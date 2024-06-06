@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import { TextEditorContext } from '../../form/TextEditorProvider';
 import { StarIcon } from '@bubbles-ui/icons/solid';
+import { TextEditorContext } from '../../form/TextEditorProvider';
 import { Button } from '../../form/Button/Button';
 
 export const PARAGRAPH_TOOL_DEFAULT_PROPS = {

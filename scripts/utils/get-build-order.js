@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
 const { getPackagesList } = require('./get-package-list');
 
 async function getPackageBuildOrder(packages, pkg, order = {}) {
@@ -24,7 +27,7 @@ async function getPackageBuildOrder(packages, pkg, order = {}) {
   }
 
   await Promise.all(
-    dependencies.map((dependency) => getPackageBuildOrder(packages, dependency, order))
+    dependencies.map((dependency) => getPackageBuildOrder(packages, dependency, order)),
   );
 
   order[name] =

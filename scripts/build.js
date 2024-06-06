@@ -1,9 +1,8 @@
-const fs = require('fs-extra');
-const path = require('path');
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 const execa = require('execa');
 const chalk = require('chalk');
 const yargs = require('yargs/yargs');
-const madge = require('madge');
 const spawn = require('better-spawn');
 const Logger = require('./utils/Logger');
 const { getPackagesBuildOrder } = require('./utils/get-build-order');
@@ -11,20 +10,19 @@ const { getPackagesBuildOrder } = require('./utils/get-build-order');
 const logger = new Logger('build-package');
 
 async function main() {
-  const argv = yargs(process.argv).argv;
+  const { argv } = yargs(process.argv);
   const toInclude = Object.keys(argv).filter(
-    (key) => !['_', '$0', 'all', 'nomadge', 'notypes'].includes(key)
+    (key) => !['_', '$0', 'all', 'nomadge', 'notypes'].includes(key),
   );
-  const packages = (await getPackagesBuildOrder()).filter((package) => {
+  const packages = (await getPackagesBuildOrder()).filter((packageUnit) => {
     if (toInclude.length === 0) {
       return true;
     }
 
     let found = false;
     toInclude.forEach((item) => {
-      if (package.packageJson.name.indexOf(item) > 0) {
+      if (packageUnit.packageJson.name.indexOf(item) > 0) {
         found = true;
-        return;
       }
     });
 
@@ -38,9 +36,10 @@ async function main() {
       logger.info(`Building package ${chalk.cyan(item.packageJson.name)}`);
 
       const startTime = Date.now();
+      const itemPath = `${item.path}/src`;
 
       if (!argv.nomadge) {
-        spawn(`yarn madge:circular ${item.path + '/src'}`);
+        spawn(`yarn madge:circular ${itemPath}`);
       }
 
       try {
@@ -53,8 +52,8 @@ async function main() {
 
         logger.info(
           `Package ${chalk.cyan(item.packageJson.name)} built in ${chalk.green(
-            `${((Date.now() - startTime) / 1000).toFixed(2)}s`
-          )}`
+            `${((Date.now() - startTime) / 1000).toFixed(2)}s`,
+          )}`,
         );
       } catch (err) {
         logger.error(`Failed to compile package: ${chalk.cyan(item.packageJson.name)}`);

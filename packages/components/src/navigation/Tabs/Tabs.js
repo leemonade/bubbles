@@ -1,5 +1,5 @@
 // Accessibility https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isFunction, isNil } from 'lodash';
 import { Box } from '../../layout/Box';
@@ -27,31 +27,40 @@ function parseTabList(children, acc = []) {
         key,
         node: child,
       });
-    } else {
-      if (child?.props?.children && child?.type?.displayName !== 'Tabs') {
-        parseTabList(child.props.children, acc);
-      }
+    } else if (child?.props?.children && child?.type?.displayName !== 'Tabs') {
+      parseTabList(child.props.children, acc);
     }
   });
   return acc;
 }
 
-const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children }) => {
-  return usePageLayout ? (
-    <Box className={className}>
+const Wrapper = ({ usePageLayout, usePaddedLayout, fullWidth, className, children, scrollRef }) =>
+  usePageLayout ? (
+    <Box ref={scrollRef} className={className}>
       <PageContainer fullWidth={fullWidth}>{children}</PageContainer>
     </Box>
   ) : (
     <Box
+      ref={scrollRef}
       className={className}
-      sx={(theme) => ({ padding: usePaddedLayout && `0 ${theme.spacing[7]}px` })}
+      sx={(theme) => ({
+        padding: usePaddedLayout && `0 ${theme.other.global.spacing.padding.lg}`,
+      })}
     >
       {children}
     </Box>
   );
+
+Wrapper.propTypes = {
+  usePageLayout: PropTypes.bool,
+  usePaddedLayout: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  scrollRef: PropTypes.any,
 };
 
-export const Tabs = forwardRef(
+const Tabs = forwardRef(
   (
     {
       id,
@@ -74,12 +83,15 @@ export const Tabs = forwardRef(
       usePaddedLayout,
       panelColor,
       forceRender,
+      centerGrow,
       tabPanelListStyle,
     },
-    ref
+    ref,
   ) => {
     const tabs = parseTabList(children);
     const rtl = direction === 'rtl';
+    const scrollRef = React.useRef();
+    const [topScroll, setTopScroll] = React.useState(false);
 
     // ········································································
     // Active Key
@@ -88,7 +100,7 @@ export const Tabs = forwardRef(
       defaultValue: defaultActiveKey,
     });
     const [activeIndex, setActiveIndex] = useState(() =>
-      tabs.findIndex((tab) => tab.key === mergedActiveKey)
+      tabs.findIndex((tab) => tab.key === mergedActiveKey),
     );
 
     // Reset active key if not exist anymore
@@ -124,6 +136,28 @@ export const Tabs = forwardRef(
       if (isFunction(onChange)) onChange(key);
     }
 
+    const handleScroll = () => {
+      const div = scrollRef?.current;
+      if (div) {
+        const { scrollTop } = div;
+        if (scrollTop > 5 && !topScroll) setTopScroll(true);
+        else if (scrollTop === 0 && topScroll) setTopScroll(false);
+      }
+    };
+    React.useEffect(() => {
+      const body = scrollRef?.current;
+      if (body) {
+        handleScroll();
+        body.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        return () => {
+          body.removeEventListener('scroll', handleScroll);
+          window.removeEventListener('resize', handleScroll);
+        };
+      }
+      return () => {};
+    }, [scrollRef?.current, handleScroll]);
+
     // ········································································
     // Render
     const sharedProps = {
@@ -143,22 +177,25 @@ export const Tabs = forwardRef(
     };
 
     const { classes, cx } = TabsStyles(
-      { direction, position, panelColor, fullHeight },
-      { name: 'Tabs' }
+      { direction, position, panelColor, fullHeight, topScroll },
+      { name: 'Tabs' },
     );
 
+    const value = useMemo(() => ({ tabs }), [tabs]);
+
     return (
-      <TabContext.Provider value={{ tabs }}>
+      <TabContext.Provider value={value}>
         <Box ref={ref} id={id} className={cx(classes.root, classNames?.root, className)}>
           <Wrapper
             usePageLayout={usePageLayout}
             usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}
-            className={classNames?.navList}
+            className={cx(classes.navList, classNames?.navList)}
           >
-            <TabNavList {...tabNavBarProps} />
+            <TabNavList {...tabNavBarProps} centerGrow={centerGrow} />
           </Wrapper>
           <Wrapper
+            scrollRef={scrollRef}
             usePageLayout={usePageLayout}
             usePaddedLayout={usePaddedLayout}
             fullWidth={fullWidth}
@@ -169,13 +206,14 @@ export const Tabs = forwardRef(
               tabPanelListStyle={tabPanelListStyle}
               forceRender={forceRender}
               destroyInactiveTabPanel={destroyInactiveTabPanel}
-              children={children}
-            />
+            >
+              {children}
+            </TabPanelList>
           </Wrapper>
         </Box>
       </TabContext.Provider>
     );
-  }
+  },
 );
 
 Tabs.displayName = 'Tabs';
@@ -186,6 +224,7 @@ Tabs.defaultProps = {
   fullHeight: false,
   fullWidth: false,
   panelColor: 'default',
+  centerGrow: false,
 };
 
 Tabs.propTypes = {
@@ -205,4 +244,13 @@ Tabs.propTypes = {
   fullHeight: PropTypes.bool,
   fullWidth: PropTypes.bool,
   forceRender: PropTypes.bool,
+  centerGrow: PropTypes.bool,
+  children: PropTypes.node,
+  classNames: PropTypes.any,
+  styles: PropTypes.any,
+  tabPanelListStyle: PropTypes.any,
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  className: PropTypes.string,
 };
+
+export { Tabs };

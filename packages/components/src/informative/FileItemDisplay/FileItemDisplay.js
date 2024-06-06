@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FileIcon } from '@bubbles-ui/icons/outline';
-import { Text, TextClamp } from '../../typography';
-import { Box } from '../../layout';
-import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 import { Link } from 'react-router-dom';
+import { Text } from '../../typography/Text';
+import { TextClamp } from '../../typography/TextClamp';
+import { Box } from '../../layout/Box';
+import { ImageLoader } from '../../misc/ImageLoader';
+import { FileItemDisplayStyles } from './FileItemDisplay.styles';
 
 export const FILE_ITEM_DISPLAY_DEFAULT_PROPS = {
   showFileName: true,
@@ -24,9 +26,12 @@ export const FILE_ITEM_DISPLAY_PROP_TYPES = {
   showFileName: PropTypes.bool,
   color: PropTypes.string,
   size: PropTypes.number,
+  iconSize: PropTypes.number,
   url: PropTypes.string,
   useRouter: PropTypes.bool,
   noBreak: PropTypes.bool,
+  iconStyle: PropTypes.object,
+  thumbnailUrl: PropTypes.string,
 };
 
 const FileItemDisplay = ({
@@ -35,12 +40,14 @@ const FileItemDisplay = ({
   metadata,
   showFileName,
   size,
+  iconSize,
   color,
   hideExtension,
   url,
   iconStyle,
   useRouter,
   noBreak,
+  thumbnailUrl,
   ...props
 }) => {
   const calculatedSize = size / 3;
@@ -64,30 +71,44 @@ const FileItemDisplay = ({
     return filename;
   }, [filename, hideExtension, hasExtension]);
 
-  const { classes, cx } = FileItemDisplayStyles(
+  const { classes } = FileItemDisplayStyles(
     {
       size,
+      iconSize,
       calculatedSize,
       color,
       url,
       iconStyle,
     },
-    { name: 'FileItemDisplay' }
+    { name: 'FileItemDisplay' },
   );
+
   const fileItemDisplay = (
     <Box className={classes.root} {...props}>
-      <Box className={classes.iconWrapper}>
-        <Text strong className={classes.iconFiletype}>
-          {fileExtension || 'FILE'}
-        </Text>
-        <FileIcon height={size} width={size} className={classes.icon} />
-      </Box>
+      {thumbnailUrl ? (
+        <ImageLoader
+          bordered
+          src={thumbnailUrl}
+          height={56}
+          width={72}
+          skipFlex
+          radius={4}
+          useAria
+        />
+      ) : (
+        <Box className={classes.iconWrapper}>
+          <Text strong className={classes.iconFiletype}>
+            {fileExtension || 'FILE'}
+          </Text>
+          <FileIcon height={iconSize ?? size} width={iconSize ?? size} className={classes.icon} />
+        </Box>
+      )}
       {showFileName && name && (
-          <TextClamp lines={noBreak ? 1 : 100}>
-            <Text {...linkProps} className={classes.filename}>
-              {name}
-            </Text>
-          </TextClamp>
+        <TextClamp lines={noBreak ? 1 : 100}>
+          <Text {...linkProps} className={classes.filename}>
+            {name}
+          </Text>
+        </TextClamp>
       )}
     </Box>
   );

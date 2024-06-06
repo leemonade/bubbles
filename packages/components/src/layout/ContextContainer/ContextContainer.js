@@ -8,7 +8,7 @@ import { Paragraph, Title } from '../../typography';
 import { ContextContainerStyles } from './ContextContainer.styles';
 
 export const CONTEXT_CONTAINER_PADDED_TYPES = [true, false, 'vertical', 'horizontal'];
-
+const FLEX_ALIGNS = ['flex-start', 'center', 'flex-end'];
 export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   title: '',
   description: '',
@@ -16,6 +16,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   divided: false,
   spacing: 5,
   direction: 'column',
+  required: false,
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
@@ -23,6 +24,18 @@ export const CONTEXT_CONTAINER_PROP_TYPES = {
   padded: PropTypes.oneOf(CONTEXT_CONTAINER_PADDED_TYPES),
   divided: PropTypes.bool,
   spacing: PropTypes.number,
+  direction: PropTypes.oneOf(['row', 'column']),
+  fullHeight: PropTypes.bool,
+  alignItems: PropTypes.oneOf(FLEX_ALIGNS),
+  justifyContent: PropTypes.oneOf(FLEX_ALIGNS),
+  wrap: PropTypes.oneOf(['wrap', 'nowrap']),
+  alignContent: PropTypes.oneOf(FLEX_ALIGNS),
+  className: PropTypes.string,
+  style: PropTypes.object,
+  subtitle: PropTypes.any,
+  children: PropTypes.any,
+  titleRightZone: PropTypes.any,
+  required: PropTypes.bool,
 };
 
 const ContextContainer = ({
@@ -41,6 +54,8 @@ const ContextContainer = ({
   justifyContent,
   wrap,
   alignContent,
+  titleRightZone,
+  required,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -60,7 +75,7 @@ const ContextContainer = ({
               key={`d-${i}`}
               noFlex
               orientation={direction === 'row' ? 'vertical' : 'horizontal'}
-            />
+            />,
           );
         }
       });
@@ -72,29 +87,40 @@ const ContextContainer = ({
   return (
     <Stack
       direction="column"
-      spacing={5}
+      spacing={3}
       fullWidth
-      className={cx(classes.root, className)}
+      className={cx(classes.root, className, 'section-wrapper')}
       fullHeight={fullHeight}
       style={style}
       {...props}
     >
       {(hasTitle || hasSubtitle || hasDescription) && (
-        <Stack direction="column" spacing={2} noFlex fullWidth>
+        <Stack className={'section-header-wrapper'} direction="column" spacing={2} noFlex fullWidth>
           {hasTitle && (
-            <Box>
-              {typeof title === 'string' ? 
-                (<Title order={3} dangerouslySetInnerHTML={{ __html: title }} />)
-                : (subtitle)
-              }
+            <Box
+              className={'section-title'}
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <Box>
+                {typeof title === 'string' ? (
+                  <Box className={classes.title}>
+                    <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
+                    {required && <Box>*</Box>}
+                  </Box>
+                ) : (
+                  subtitle
+                )}
+              </Box>
+              {titleRightZone ? <Box>{titleRightZone}</Box> : null}
             </Box>
           )}
           {hasSubtitle && (
-            <Box>
-              {typeof subtitle === 'string' ? 
-                (<Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />)
-                : (subtitle)
-              }
+            <Box className={'section-subtitle'}>
+              {typeof subtitle === 'string' ? (
+                <Title order={5} dangerouslySetInnerHTML={{ __html: subtitle }} />
+              ) : (
+                subtitle
+              )}
             </Box>
           )}
           {hasDescription && (
@@ -120,6 +146,7 @@ const ContextContainer = ({
         fullHeight={fullHeight}
         wrap={wrap}
         alignContent={alignContent}
+        className={'section-content-wrapper'}
       >
         {childrenNodes}
       </Stack>

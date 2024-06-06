@@ -1,5 +1,4 @@
 import React from 'react';
-import { EventDetailPanelStyles } from './EventDetailPanel.styles';
 import {
   Anchor,
   Box,
@@ -18,11 +17,12 @@ import {
   StopwatchIcon,
   StyleThreePinTableIcon,
 } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 import {
   EVENT_DETAIL_PANEL_DEFAULT_PROPS,
   EVENT_DETAIL_PANEL_PROP_TYPES,
 } from './EventDetailPanel.constants';
-import { isFunction } from 'lodash';
+import { EventDetailPanelStyles } from './EventDetailPanel.styles';
 
 const EventDetailPanel = ({
   opened,
@@ -64,90 +64,93 @@ const EventDetailPanel = ({
   if (event) {
     const { title, period, classGroup, subject, teacher, classroom, location } = event;
     inside = (
-      <Box style={{ margin: -16 }}>
-        <ContextContainer title={title} divided>
-          <Box className={classes.section}>
-            <Box className={classes.sectionRow}>
-              <StopwatchIcon height={16} width={16} className={classes.icon} />
-              {renderDateRange()}
-            </Box>
-            <Box className={classes.sectionRow}>
-              <RedoIcon height={16} width={16} className={classes.icon} />
-              <Text role="productive">{period}</Text>
-            </Box>
-            <Box className={classes.sectionRow}>
-              <PluginClassesIcon height={16} width={16} className={classes.icon} />
-              <Text role="productive" color="primary">
-                {classGroup}
-              </Text>
-            </Box>
-            <Box className={classes.sectionRow}>
-              {subject.icon ? (
-                <ImageLoader
-                  className={classes.subjectIcon}
-                  height={16}
-                  width={16}
-                  src={subject.icon}
-                />
-              ) : null}
-              <Text role="productive" color="primary">
-                {subject.name}
-              </Text>
-            </Box>
-            <Box className={classes.sectionRow}>
-              <SchoolTeacherMaleIcon height={16} width={16} className={classes.icon} />
-              <UserDisplayItem
-                textRole="productive"
-                noBreak
-                size="xs"
-                name={teacher.name}
-                surnames={teacher.surnames}
-                avatar={teacher.image}
-              />
-              <Text role="productive" size="xs" color="soft">
-                {labels.mainTeacher}
-              </Text>
-            </Box>
-            <Button
-              style={{ marginBlock: 8 }}
-              fullWidth
-              position="center"
-              onClick={handleOnControl}
-            >
-              {labels.attendanceControl}
-            </Button>
-          </Box>
-          <Box className={classes.section}>
-            {classroom ? (
-              <Box className={classes.sectionRow}>
-                <MeetingCameraIcon height={16} width={16} className={classes.icon} />
-                <Anchor
-                  style={{ textDecoration: 'none' }}
-                  onClick={onClickClassRoom}
-                  role="productive"
-                >
-                  {classroom}
-                </Anchor>
-              </Box>
-            ) : null}
-
-            {location ? (
-              <Box className={classes.sectionRow}>
-                <StyleThreePinTableIcon height={16} width={16} className={classes.icon} />
-                <Text role="productive" color="primary">
-                  {location}
-                </Text>
-              </Box>
-            ) : null}
+      <ContextContainer>
+        <ContextContainer title={labels.subjectTitle}>
+          <Box className={classes.sectionRow}>
+            <Text role="productive">{title}</Text>
           </Box>
         </ContextContainer>
-      </Box>
+
+        <ContextContainer title={labels.subjectDates}>
+          <Box className={classes.sectionRow}>{renderDateRange()}</Box>
+          <Box className={classes.sectionRow}>
+            <Text role="productive">{period}</Text>
+          </Box>
+        </ContextContainer>
+        <ContextContainer title={labels.subjectName}>
+          <Box className={classes.sectionRow}>
+            <Text role="productive" color="primary">
+              {classGroup}
+            </Text>
+          </Box>
+          <Box className={classes.sectionRow}>
+            {subject.icon ? (
+              <ImageLoader
+                className={classes.subjectIcon}
+                height={16}
+                width={16}
+                src={subject.icon}
+              />
+            ) : null}
+            <Text role="productive" color="primary">
+              {subject.name}
+            </Text>
+          </Box>
+        </ContextContainer>
+        <ContextContainer title={labels.subjectTeacher}>
+          <Box className={classes.sectionRow}>
+            <UserDisplayItem
+              textRole="productive"
+              noBreak
+              size="xs"
+              name={teacher.name}
+              surnames={teacher.surnames}
+              avatar={teacher.image}
+            />
+            <Text role="productive" size="xs" color="soft">
+              {labels.mainTeacher}
+            </Text>
+          </Box>
+        </ContextContainer>
+
+        {classroom || location ? (
+          <ContextContainer title={labels.subjectClassroom}>
+            <Box className={classes.section}>
+              {classroom ? (
+                <Box className={classes.sectionRow}>
+                  <Anchor
+                    style={{ textDecoration: 'none' }}
+                    onClick={onClickClassRoom}
+                    role="productive"
+                  >
+                    {classroom}
+                  </Anchor>
+                </Box>
+              ) : null}
+
+              {location ? (
+                <Box className={classes.sectionRow}>
+                  <Text role="productive" color="primary">
+                    {location}
+                  </Text>
+                </Box>
+              ) : null}
+            </Box>
+          </ContextContainer>
+        ) : null}
+      </ContextContainer>
     );
   }
 
   return (
     <Drawer opened={opened} onClose={handleOnClose} className={classes.root} size={500}>
-      {inside}
+      <Drawer.Header title={labels.detailEvent} />
+      <Drawer.Content>{inside}</Drawer.Content>
+      <Drawer.Footer>
+        <Button style={{ marginBlock: 8 }} fullWidth position="center" onClick={handleOnControl}>
+          {labels.attendanceControl}
+        </Button>
+      </Drawer.Footer>
     </Drawer>
   );
 };

@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { getInputSizes, getInputStyle, getSelectDividerStyle } from '../mixins/fieldStyles.mixins';
 
-export const SelectStyles = createStyles((theme, { size, rightEvents, variant, hasIcon }) => {
+const SelectStyles = createStyles((theme, { size, rightEvents, variant, hasIcon }) => {
   const inputTheme = theme.other.input;
   return {
     input: {
@@ -9,6 +9,7 @@ export const SelectStyles = createStyles((theme, { size, rightEvents, variant, h
       ...getInputStyle(inputTheme, theme.other.global),
       paddingRight: 30,
       textOverflow: 'ellipsis',
+      minHeight: 40,
     },
     icon: {
       width: 32,
@@ -26,3 +27,5 @@ export const SelectStyles = createStyles((theme, { size, rightEvents, variant, h
     ...getSelectDividerStyle(theme, theme.other.global),
   };
 });
+
+export { SelectStyles };

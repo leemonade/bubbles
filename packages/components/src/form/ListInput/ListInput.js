@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { findIndex, isFunction, map } from 'lodash';
-import { AddCircleIcon } from '@bubbles-ui/icons/outline';
+import { AddCircleIcon } from '@bubbles-ui/icons/solid';
+import { useId } from '@mantine/hooks';
 import { Box } from '../../layout';
 import { ListInputStyles } from './ListInput.styles';
 import { InputWrapper } from '../InputWrapper';
-import { useId } from '@mantine/hooks';
 import { TextInput } from '../TextInput';
 import { Button } from '../Button';
 import { SortableList } from '../../informative';
-import { ListItem } from './components/ListItem';
+import { ListItem, ItemWrapperWithBorder } from './components/ListItem';
 
 export const LIST_INPUT_DEFAULT_PROPS = {
-  inputRender: (props) => {
-    return <TextInput {...props} style={{ flex: 1 }} />;
-  },
+  inputRender: (props) => <TextInput {...props} style={{ flex: 1 }} />,
   listRender: <ListItem />,
   onChange: () => {},
   valueKey: 'value',
@@ -23,10 +21,32 @@ export const LIST_INPUT_DEFAULT_PROPS = {
   errorRequiredMessage: 'Required',
   hideAddButton: false,
   useAria: true,
+  hideInput: false,
+  withItemBorder: false,
+  withInputBorder: false,
 };
 export const LIST_INPUT_PROP_TYPES = {
   hideAddButton: PropTypes.bool,
   useAria: PropTypes.bool,
+  valueKey: PropTypes.string,
+  addButtonLabel: PropTypes.string,
+  errorRequiredMessage: PropTypes.string,
+  inputRender: PropTypes.func,
+  listRender: PropTypes.func,
+  onChange: PropTypes.func,
+  required: PropTypes.bool,
+  readonly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  canAdd: PropTypes.bool,
+  size: PropTypes.any,
+  value: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.string,
+  help: PropTypes.string,
+  description: PropTypes.string,
+  label: PropTypes.string,
+  hideInput: PropTypes.bool,
+  withItemBorder: PropTypes.bool,
+  withInputBorder: PropTypes.bool,
 };
 
 const ListInput = ({
@@ -48,6 +68,9 @@ const ListInput = ({
   value: originalValue,
   onChange,
   useAria,
+  hideInput,
+  withItemBorder,
+  withInputBorder,
 }) => {
   const { classes, cx } = ListInputStyles({});
 
@@ -64,7 +87,7 @@ const ListInput = ({
           ...item,
           __key: uuidv4(),
         }))
-      : []
+      : [],
   );
 
   const uuid = useId();
@@ -101,7 +124,7 @@ const ListInput = ({
         ...item,
         __key: uuidv4(),
       })),
-      true
+      true,
     );
   }, [originalValue]);
 
@@ -114,6 +137,8 @@ const ListInput = ({
       setEditingKey(null);
     }
   }, [value]);
+
+  const ListInputWrapper = withInputBorder ? ItemWrapperWithBorder : React.Fragment;
 
   return (
     <InputWrapper
@@ -130,24 +155,25 @@ const ListInput = ({
           value={value}
           onChange={setValue}
           dragDisabled={!!editingKey}
-          itemRender={(props) => {
-            return React.cloneElement(ListRender, {
-              ...props,
+          itemRender={(itemProps) =>
+            React.cloneElement(ListRender, {
+              ...itemProps,
               readonly,
+              withBorder: withItemBorder,
               inputRender: InputRender,
               editingKey,
               valueKey,
               errorRequiredMessage,
-              editItem: () => editItem(props.item),
+              editItem: () => editItem(itemProps.item),
               stopEdit: () => setEditingKey(null),
               onChange: (event) => {
-                const index = findIndex(value, { __key: props.item.__key });
+                const index = findIndex(value, { __key: itemProps.item.__key });
                 value[index][valueKey] = event;
                 setValue([...value]);
                 setEditingKey(null);
               },
-            });
-          }}
+            })
+          }
           useAria={useAria}
         />
       </Box>
@@ -158,32 +184,36 @@ const ListInput = ({
               ? {
                   display: 'flex',
                   flexDirection: 'row',
-                  gap: theme.spacing[4],
+                  gap: theme.spacing[2],
                   width: '100%',
                   flex: 1,
                 }
               : {}
           }
         >
-          <Box style={{ width: '100%' }}>
-            {React.cloneElement(InputRender, {
-              value: valueKey ? activeItem[valueKey] : activeItem,
-              onChange: (event) => {
-                setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
-                if (event) setHasError(false);
-              },
-              required: true,
-              error: hasError ? errorRequiredMessage : null,
-              addItem,
-            })}
-          </Box>
-          {!hideAddButton ? (
-            <Box style={{ flex: 0 }}>
-              <Button variant="light" size="sm" leftIcon={<AddCircleIcon />} onClick={addItem}>
-                {addButtonLabel}
-              </Button>
-            </Box>
-          ) : null}
+          {hideInput ? null : (
+            <ListInputWrapper>
+              <Box style={{ width: '100%' }}>
+                {React.cloneElement(InputRender, {
+                  value: valueKey ? activeItem[valueKey] : activeItem,
+                  onChange: (event) => {
+                    setActiveItem(valueKey ? { ...activeItem, [valueKey]: event } : event);
+                    if (event) setHasError(false);
+                  },
+                  required: true,
+                  error: hasError ? errorRequiredMessage : null,
+                  addItem,
+                })}
+              </Box>
+              {!hideAddButton ? (
+                <Box style={{ flex: 0, textAlign: 'right' }}>
+                  <Button variant="link" leftIcon={<AddCircleIcon />} onClick={addItem}>
+                    {addButtonLabel}
+                  </Button>
+                </Box>
+              ) : null}
+            </ListInputWrapper>
+          )}
         </Box>
       ) : null}
     </InputWrapper>

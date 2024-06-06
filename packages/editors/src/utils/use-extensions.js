@@ -1,7 +1,7 @@
 import { Children, isValidElement } from 'react';
 
-export const useExtensions = (children) => {
-  const extensions = Children.toArray(children)
+const useExtensions = (children) =>
+  Children.toArray(children)
     .filter((child) => isValidElement(child))
     .reduce((stack, current) => {
       if (current.props.children) {
@@ -15,5 +15,4 @@ export const useExtensions = (children) => {
     }, [])
     .filter((extension, index, stack) => stack.indexOf(extension) === index);
 
-  return extensions;
-};
+export { useExtensions };
