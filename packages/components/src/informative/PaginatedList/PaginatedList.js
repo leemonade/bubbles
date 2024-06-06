@@ -25,6 +25,7 @@ export const PAGINATED_LIST_DEFAULT_PROPS = {
   selectable: false,
   pagerPlace: PAGINATED_LIST_PAGER_PLACES[1],
   loading: false,
+  pagerProps: { withSize: false },
   useAria: true,
 };
 export const PAGINATED_LIST_PROP_TYPES = {
@@ -33,6 +34,7 @@ export const PAGINATED_LIST_PROP_TYPES = {
   variant: PropTypes.oneOf(PAGINATED_LIST_VARIANTS),
   pagerPlace: PropTypes.oneOf(PAGINATED_LIST_PAGER_PLACES),
   paperProps: PropTypes.any,
+  pagerProps: PropTypes.any,
   selectable: PropTypes.bool,
   onSelect: PropTypes.func,
   selected: PropTypes.string,
@@ -63,6 +65,7 @@ const PaginatedList = ({
   totalCount,
   totalPages,
   paperProps,
+  pagerProps,
   selectable,
   selected,
   variant,
@@ -172,6 +175,7 @@ const PaginatedList = ({
         {totalPages > 1 && (
           <Stack fullWidth justifyContent={pagerPlace}>
             <Pager
+              {...pagerProps}
               labels={labels}
               page={page}
               totalPages={Math.ceil(totalPages)}
