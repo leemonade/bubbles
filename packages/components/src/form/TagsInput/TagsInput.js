@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { isEmpty, isFunction, isString, trim, uniq } from 'lodash';
 import PropTypes from 'prop-types';
 import { AddCircleIcon } from '@bubbles-ui/icons/solid/';
@@ -63,6 +63,7 @@ const TagsInput = forwardRef(
     const [selectedSuggestion, setSelectedSuggestion] = useState(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const autoCompleteRef = useRef(null);
+    const buttonRef = useRef(null);
     const mergedRef = useMergedRef(ref, autoCompleteRef);
     const uuid = useId();
 
@@ -111,22 +112,28 @@ const TagsInput = forwardRef(
         return;
       }
 
-      const valueIsSuggestion =
-        selectedSuggestion && newValue === parsedSuggestions[selectedSuggestion].value;
-      const newTag = valueIsSuggestion ? parsedSuggestions[selectedSuggestion].id : trim(newValue);
+      const splitValues = newValue
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== '');
 
-      if (!tags.includes(newTag)) {
-        if (!valueIsSuggestion && !canAddNewSuggestions) {
-          return;
+      splitValues.forEach((word) => {
+        const valueIsSuggestion =
+          selectedSuggestion && word === parsedSuggestions[selectedSuggestion].value;
+        const newTag = valueIsSuggestion ? parsedSuggestions[selectedSuggestion].id : trim(word);
+
+        if (!tags.includes(newTag)) {
+          if (!valueIsSuggestion && !canAddNewSuggestions) {
+            return;
+          }
+
+          setTags((prevTags) => [...prevTags, newTag]);
+          if (isFunction(onChange)) onChange(tags);
         }
+      });
 
-        const newTags = [...tags, newTag];
-        if (isFunction(onChange)) onChange(newTags);
-        setTags(newTags);
-      }
       setInputValue('');
       if (isFunction(onSearch)) onSearch('');
-      autoCompleteRef.current.deleteValues();
     };
 
     const removeTag = (tag) => {
@@ -147,6 +154,11 @@ const TagsInput = forwardRef(
         e.stopPropagation();
         setTimeout(() => {
           addTag(e.target.value);
+          if (document?.activeElement) {
+            document.activeElement.blur();
+          } else {
+            buttonRef.current?.focus();
+          }
         }, 50);
       }
     };
@@ -176,7 +188,8 @@ const TagsInput = forwardRef(
               itemComponent={OptionRenderer}
             />
           </Box>
-          <Box skipFlex>
+
+          <Box skipFlex ref={buttonRef}>
             <Button
               variant="link"
               size="sm"
