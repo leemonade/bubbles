@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import { isEmpty, isFunction, isString, trim, uniq } from 'lodash';
 import PropTypes from 'prop-types';
 import { AddCircleIcon } from '@bubbles-ui/icons/solid/';
