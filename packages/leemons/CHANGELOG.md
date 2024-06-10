@@ -1,5 +1,38 @@
 # @bubbles-ui/leemons
 
+## 1.2.228
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.228
+  - @bubbles-ui/calendars@1.2.228
+  - @bubbles-ui/editors@1.2.228
+  - @bubbles-ui/icons@1.2.228
+
+## 1.2.227
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.227
+  - @bubbles-ui/calendars@1.2.227
+  - @bubbles-ui/editors@1.2.227
+  - @bubbles-ui/icons@1.2.227
+
+## 1.2.226
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.226
+  - @bubbles-ui/calendars@1.2.226
+  - @bubbles-ui/editors@1.2.226
+  - @bubbles-ui/icons@1.2.226
+
 ## 1.2.225
 
 ### Patch Changes

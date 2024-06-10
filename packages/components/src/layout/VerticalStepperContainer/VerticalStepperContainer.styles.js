@@ -21,7 +21,7 @@ const VerticalStepperContainerStyles = createStyles((theme) => {
     },
     content: {
       width: 928,
-      '@media (min-width: 1920px)': {
+      '@media (min-width: 1720px)': {
         width: 1400,
       },
     },

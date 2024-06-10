@@ -47,5 +47,6 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...LIST_INPUT_DEFAULT_PROPS,
+  withItemBorder: true,
   value: [{ value: 'Hola' }, { value: 'Mundo' }],
 };

@@ -1,9 +1,7 @@
 function getUserFullName(user) {
-  return (
-    (user.name ? user.name : '') +
-    (user.surnames ? ` ${user.surnames}` : '') +
-    (user.secondSurname ? ` ${user.secondSurname}` : '')
-  );
+  return `${user.secondSurname ? `${user.secondSurname} ` : ''}${
+    user.surnames ? user.surnames : ''
+  }${user.secondSurname || user.surnames ? ', ' : ''}${user.name}`;
 }
 
 export { getUserFullName };
