@@ -53,7 +53,7 @@ function Agenda({
   });
 
   const renderDay = (day, events, dayKey) => {
-    const { event: Event, date: AgendaDate } = components;
+    const { event: Event, date: AgendaDate, showType } = components;
 
     // Se estaba utilizando esta funcion pero por algun motivo no determinaba bien que el final del evento tambien
     // estaba dentro del rango
@@ -61,7 +61,20 @@ function Agenda({
     // events = events.filter((e) =>
     //   inRange(e, localizer.startOf(day, 'day'), localizer.endOf(day, 'day'), accessors, localizer)
     // );
-    events = events.filter((e) => customInRange(e, day, localizer));
+    if (showType === 'startEnd') {
+      events = events.filter((e) => {
+        const startDay = localizer.startOf(accessors.start(e), 'day');
+        const endDay = localizer.startOf(accessors.end(e), 'day');
+        return localizer.isSameDate(day, startDay) || localizer.isSameDate(day, endDay);
+      });
+    } else if (showType === 'full') {
+      events = events.filter((e) => customInRange(e, day, localizer));
+    } else if (showType === 'onlyEnd') {
+      events = events.filter((e) => {
+        const endDay = localizer.startOf(accessors.end(e), 'day');
+        return localizer.isSameDate(day, endDay);
+      });
+    }
 
     return events.map((event, idx) => {
       const title = accessors.title(event);
@@ -144,7 +157,7 @@ function Agenda({
         <tr key={`${dayKey}_${idx}`} className={userProps.className} style={userProps.style}>
           {first}
           <td className="rbc-agenda-time-cell">
-            <Box className="rbc-agenda-td-data">{timeRangeLabel(day, event)}</Box>
+            <Box className="rbc-agenda-td-data">{timeRangeLabel(day, event)} </Box>
           </td>
           <td
             className="rbc-agenda-event-cell"
@@ -274,8 +287,8 @@ function Agenda({
       localizer.startOf(date, 'day'),
       localizer.endOf(end, 'day'),
       accessors,
-      localizer
-    )
+      localizer,
+    ),
   );
 
   events.sort((a, b) => +accessors.start(a) - +accessors.start(b));
