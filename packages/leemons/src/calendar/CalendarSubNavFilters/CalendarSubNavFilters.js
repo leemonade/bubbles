@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Select, Switch, Text, Stack } from '@bubbles-ui/components';
+import { Box, Select, Switch, Text, Stack, TextClamp } from '@bubbles-ui/components';
 import { forEach, noop } from 'lodash';
 import { CalendarSubNavFiltersStyles } from './CalendarSubNavFilters.styles';
 
@@ -111,7 +111,11 @@ const CalendarSubNavFilters = ({
                 className={classes.switchWrapper}
               >
                 <Switch
-                  label={calendar.name}
+                  label={
+                    <TextClamp lines={1}>
+                      <Text>{calendar.name}</Text>
+                    </TextClamp>
+                  }
                   checked={calendar.showEvents}
                   bgColor={calendar.bgColor}
                   borderColor={calendar.bgColor}
