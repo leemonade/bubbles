@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/styles';
 import { pxToRem, getFontExpressive } from '../../theme.mixins';
 
-export const ModalStyles = createStyles((theme, { centerTitle, empty, size }) => {
+const ModalStyles = createStyles((theme, { centerTitle, empty, size, padding = 4 }) => {
   let titleProps = {};
   const header = {};
 
@@ -32,7 +32,7 @@ export const ModalStyles = createStyles((theme, { centerTitle, empty, size }) =>
     },
     header,
     modal: {
-      padding: empty ? '0px !important' : `${pxToRem(theme.spacing[4])} !important`,
+      padding: empty ? '0px !important' : `${pxToRem(theme.spacing[padding])} !important`,
       borderRadius: '2px !important',
       boxShadow: theme.shadows.shadow05,
       width: getModalSize(),
@@ -42,3 +42,5 @@ export const ModalStyles = createStyles((theme, { centerTitle, empty, size }) =>
     },
   };
 });
+
+export { ModalStyles };
