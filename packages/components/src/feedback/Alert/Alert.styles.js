@@ -73,6 +73,7 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       lineHeight: 1.2,
       paddingTop: theme.spacing[2],
       paddingBottom: theme.spacing[2],
+      whiteSpace: variant === 'inline' ? 'nowrap' : 'normal',
     },
     content: {
       ...theme.other.global.content.typo.body.sm,
