@@ -1,5 +1,7 @@
+import { isDate } from 'lodash';
+
 function getDate(date) {
-  if (!date) {
+  if (!isDate(date)) {
     return getDate(new Date());
   }
 
@@ -11,7 +13,7 @@ function getDate(date) {
 }
 
 function getTime(date) {
-  if (!date) {
+  if (!isDate(date)) {
     return '';
   }
 
@@ -22,7 +24,7 @@ function getTime(date) {
 }
 
 export function updateDate(value, date, setDate) {
-  if (!value) {
+  if (!isDate(value)) {
     return setDate(null);
   }
   const year = value.getFullYear();
@@ -30,7 +32,7 @@ export function updateDate(value, date, setDate) {
   const day = value.getDate();
 
   const newDate = new Date(`${year}/${month}/${day} ${getTime(date)}`);
-  setDate(newDate);
+  return setDate(newDate);
 }
 
 export function updateTime(value, date, setDate) {
