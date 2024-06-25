@@ -30,6 +30,8 @@ const Swiper = ({
   className,
   spaceBetween,
   watchOverflow,
+  slidesPerView,
+  ...props
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(true);
@@ -83,6 +85,8 @@ const Swiper = ({
   return (
     <Box className={cx(classes.root, className)} style={styles}>
       <SwiperComp
+        {...props}
+        slidesPerView={slidesPerView}
         modules={[Navigation]}
         breakpoints={breakAt}
         shortSwipes={false}
