@@ -16,7 +16,16 @@ const AvatarSubject = ({ color, icon, size, isMultiSubject, name }) => {
     md: { height: '12px' },
     lg: { height: '18px' },
     xlg: { height: '30px' },
-    xxlg: { height: '48px' },
+    xxlg: { height: '24px' },
+  };
+
+  const handleInitialsSize = {
+    xs: 'xs',
+    sm: 'sm',
+    md: 'xs',
+    lg: 'sm',
+    xlg: 'xl',
+    xxlg: 'xl',
   };
 
   const texts = name ? name.split(' ') : [];
@@ -25,29 +34,28 @@ const AvatarSubject = ({ color, icon, size, isMultiSubject, name }) => {
       ? `${texts[0][0].toUpperCase()}${texts[1] ? texts[1][0].toUpperCase() : ''}`
       : '';
 
-  const IconOrInitalsComp = icon ? (
-    <ImageLoader
-      forceImage
-      height={handleSize[size].height}
-      imageStyles={handleSize[size].height}
-      src={iconToShow}
-    />
-  ) : (
-    <Text size="lg" className={classes.text}>
-      {name ? initials : ''}
-    </Text>
-  );
+  const itemsWithoutIcon = size === 'xs' || size === 'sm';
+
+  const IconOrInitalsComp =
+    icon && size ? (
+      <ImageLoader
+        forceImage
+        height={handleSize[size].height}
+        imageStyles={handleSize[size].height}
+        src={iconToShow}
+      />
+    ) : (
+      <Text size={handleInitialsSize[size]} className={classes.text}>
+        {itemsWithoutIcon ? '' : name && initials}
+      </Text>
+    );
 
   return (
     <Box className={classes.bubble} style={{ backgroundColor: handleColor }}>
       {isMultiSubject ? (
         <MultiSubjectIcon width={handleSize[size].height} height={handleSize[size].height} />
       ) : (
-        <Stack>
-          <Text size="lg" className={classes.text}>
-            {IconOrInitalsComp}
-          </Text>
-        </Stack>
+        <Stack>{IconOrInitalsComp}</Stack>
       )}
     </Box>
   );

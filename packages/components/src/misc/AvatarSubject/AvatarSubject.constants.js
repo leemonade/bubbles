@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const AVATAR_SUBJECT_DEFAULT_PROPS = {
   color: 'transparent',
-  size: 'xxlg',
+  size: 'lg',
   isMultiSubject: false,
   name: '',
 };

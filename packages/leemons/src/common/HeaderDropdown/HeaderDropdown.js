@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActionButton,
+  AvatarSubject,
   Box,
-  ImageLoader,
   SearchInput,
   Text,
   TextClamp,
 } from '@bubbles-ui/components';
 import { Popover } from '@mantine/core';
-import { isEmpty, isFunction, isNil } from 'lodash';
+import { isEmpty, isFunction } from 'lodash';
 import { useClickOutside } from '@mantine/hooks';
 import { CheckIcon, ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
@@ -46,7 +46,7 @@ const HeaderDropdown = ({
     setIsOnlyOneItem(data.length === 1);
   }, [data]);
 
-  const { classes, cx } = HeaderDropdownStyles(
+  const { classes } = HeaderDropdownStyles(
     {
       withSearchInput,
       hasDescription: !isEmpty(selectedItem?.description),
@@ -81,17 +81,9 @@ const HeaderDropdown = ({
           onClick={() => onChangeHandler(item)}
         >
           <Box className={classes.itemComponentContent}>
-            {!isNil(item?.image) && !isEmpty(item?.image) && !item?.showIcon && !hideIcon ? (
-              <ImageLoader height={32} width={32} radius="50%" src={item?.image} />
-            ) : null}
-            {!isNil(item?.icon) &&
-            !isEmpty(item?.icon) &&
-            !isNil(item?.color) &&
-            !isEmpty(item?.color) &&
-            item?.showIcon &&
-            !hideIcon ? (
+            {!hideIcon ? (
               <Box className={classes.itemIconSmall} style={{ backgroundColor: item?.color }}>
-                <ImageLoader forceImage height={16} width={16} src={item?.icon} />
+                <AvatarSubject color={item?.color} icon={item?.icon} size="lg" name={item?.label} />
               </Box>
             ) : null}
             <Box className={classes.valueItemContent}>
@@ -143,24 +135,13 @@ const HeaderDropdown = ({
               React.cloneElement(valueComponent, [...selectedItem])
             ) : (
               <Box className={classes.valueComponent}>
-                {!isNil(selectedItem?.image) &&
-                !isEmpty(selectedItem?.image) &&
-                !selectedItem?.showIcon &&
-                !hideIcon ? (
-                  <ImageLoader height={48} width={48} radius="50%" src={selectedItem?.image} />
-                ) : null}
-                {!isNil(selectedItem?.icon) &&
-                !isEmpty(selectedItem?.icon) &&
-                !isNil(selectedItem?.color) &&
-                !isEmpty(selectedItem?.color) &&
-                selectedItem?.showIcon &&
-                !hideIcon ? (
-                  <Box
-                    className={classes.itemIcon}
-                    style={{ backgroundColor: selectedItem?.color }}
-                  >
-                    <ImageLoader forceImage height={20} width={20} src={selectedItem?.icon} />
-                  </Box>
+                {!hideIcon ? (
+                  <AvatarSubject
+                    color={selectedItem?.color}
+                    icon={selectedItem?.icon}
+                    size="lg"
+                    name={selectedItem?.label}
+                  />
                 ) : null}
                 <Box className={classes.content}>
                   <TextClamp lines={1} maxLines={1}>
