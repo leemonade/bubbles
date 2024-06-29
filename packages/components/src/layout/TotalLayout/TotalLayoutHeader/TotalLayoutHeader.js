@@ -24,6 +24,7 @@ const TotalLayoutHeader = ({
   direction = 'column',
   cancelable = true,
   mainActionLabel = 'Cancelar',
+  rightZone = null,
   ...props
 }) => {
   const formContext = useFormContext();
@@ -69,6 +70,8 @@ const TotalLayoutHeader = ({
         <Stack alignItems="center">
           {/* CHILDREN */}
           {!!children && direction === 'row' && children}
+          {/* RIGHT ZONE */}
+          {rightZone}
           {cancelable && (
             <Button variant="link" type="button" leftIcon={<CrossIcon />} onClick={onCancel} noFlex>
               {mainActionLabel}
