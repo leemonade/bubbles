@@ -34,6 +34,7 @@ const SwiperStyles = createStyles(
         },
         '.swiper-slide': {
           height: '100%',
+          width: 'auto',
           ...slideStyles,
         },
       },

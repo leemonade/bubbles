@@ -34,6 +34,12 @@ const getBubbleSize = (theme, size) =>
       minHeight: theme.spacing['11'],
       maxHeight: theme.spacing['11'],
     },
+    xxlg: {
+      minWidth: theme.spacing['10'],
+      maxWidth: theme.spacing['10'],
+      minHeight: theme.spacing['10'],
+      maxHeight: theme.spacing['10'],
+    },
   })[size];
 
 const getIconSize = (theme, size) =>
@@ -43,6 +49,7 @@ const getIconSize = (theme, size) =>
     md: { height: theme.spacing['4'] },
     lg: { height: theme.spacing['5'] },
     xlg: { height: theme.spacing['8'] },
+    xxlg: { height: theme.spacing['13'] },
   })[size];
 
 export const AvatarSubjectStyles = createStyles((theme, { size }) => {
@@ -61,6 +68,9 @@ export const AvatarSubjectStyles = createStyles((theme, { size }) => {
         filter: 'brightness(0) invert(1)',
         ...iconSize,
       },
+    },
+    text: {
+      color: theme.other.core.color.white,
     },
   };
 });
