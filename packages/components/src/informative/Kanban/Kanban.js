@@ -9,6 +9,8 @@ import reorder, { reorderQuoteMap } from './helpers/reorder';
 
 export const KANBAN_DEFAULT_PROPS = {
   itemRender: ({ value }) => <>{value.title}</>,
+  showNewOnFirstColumn: true,
+  newItemLabel: 'Add new item',
 };
 export const KANBAN_PROP_TYPES = {
   value: PropTypes.shape({
@@ -22,11 +24,22 @@ export const KANBAN_PROP_TYPES = {
   }),
   isCombineEnabled: PropTypes.bool,
   onChange: PropTypes.func,
+  onNew: PropTypes.func,
   icon: PropTypes.node,
   itemRender: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  showNewOnFirstColumn: PropTypes.bool,
+  newItemLabel: PropTypes.string,
 };
 
-const Kanban = ({ value, onChange, icon, itemRender }) => {
+const Kanban = ({
+  value,
+  onChange,
+  icon,
+  itemRender,
+  showNewOnFirstColumn,
+  onNew,
+  newItemLabel,
+}) => {
   const { classes } = KanbanStyles({});
 
   const onDragEnd = (result) => {
@@ -73,6 +86,9 @@ const Kanban = ({ value, onChange, icon, itemRender }) => {
               index={index}
               itemRender={itemRender}
               icon={icon}
+              showNew={showNewOnFirstColumn && index === 0}
+              onNew={onNew}
+              newItemLabel={newItemLabel}
             />
           ))}
           {provided.placeholder}
