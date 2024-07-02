@@ -82,8 +82,6 @@ if (process.env.NODE_ENV !== 'production') {
     multiple: PropTypes.bool,
     autofocus: PropTypes.bool,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
     label: PropTypes.string,
     rawErrors: PropTypes.array,
     placeholder: PropTypes.string,
