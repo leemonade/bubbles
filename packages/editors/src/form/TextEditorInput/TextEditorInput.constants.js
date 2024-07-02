@@ -94,4 +94,5 @@ export const TEXT_EDITOR_INPUT_PROP_TYPES = {
   }),
   editorStyles: PropTypes.object,
   editorClassname: PropTypes.string,
+  readOnly: PropTypes.bool,
 };

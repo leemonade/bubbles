@@ -1,4 +1,5 @@
-export * from './FormWithTheme';
 import { transformErrors as transformErrorsFromAjv } from './helpers/transformErrors';
+import { getValidateSchema } from './helpers/getValidateSchema';
 
-export { transformErrorsFromAjv };
+export * from './FormWithTheme';
+export { transformErrorsFromAjv, getValidateSchema };

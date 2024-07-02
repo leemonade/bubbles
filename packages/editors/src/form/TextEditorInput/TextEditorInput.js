@@ -31,6 +31,7 @@ const TextEditorInput = ({
   children,
   editorStyles,
   editorClassname,
+  readOnly,
   ...props
 }) => {
   const uuid = useId();
@@ -39,7 +40,7 @@ const TextEditorInput = ({
   // STYLES
   const hasError = useMemo(() => !isEmpty(error), [error]);
   const { classes, cx } = TextEditorInputStyles(
-    { hasError, editorStyles },
+    { hasError, editorStyles, readOnly },
     { name: 'TextEditorInput' },
   );
 
@@ -55,6 +56,7 @@ const TextEditorInput = ({
       <Box className={classes.root}>
         <TextEditor
           {...props}
+          readOnly={readOnly}
           placeholder={placeholder}
           content={value}
           onChange={onChange}

@@ -1,6 +1,6 @@
 import { forIn } from 'lodash';
 
-export function getValidateSchema(jsonSchema) {
+function getValidateSchema(jsonSchema) {
   const schema = {
     type: 'object',
     additionalProperties: false,
@@ -44,8 +44,9 @@ export function getValidateSchema(jsonSchema) {
         };
       }
     });
-
   }
 
   return schema;
 }
+
+export { getValidateSchema };

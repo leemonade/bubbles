@@ -14,7 +14,6 @@ import CheckboxWidget from './components/widgets/CheckboxWidget';
 import StringField from './components/fields/StringField';
 import ObjectField from './components/fields/ObjectField';
 import SchemaField from './components/fields/SchemaField';
-import { FormWithThemeStyles } from './FormWithTheme.styles';
 import WysiwygWidget from './components/widgets/WysiwygWidget';
 import { FormContext } from './FormContext';
 
@@ -23,17 +22,17 @@ export const FORM_WITH_THEME_PROP_TYPES = {};
 
 export const FORM_WITH_THEME_REGEX = {
   numbers: /^\d+$/,
-  phone: /^.*$/ // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
+  phone: /^.*$/, // /^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9\s]{3}[-\s\.]?[0-9\s]{4,8}$/,
 };
 
-const FormWithTheme = (schema, ui, conditions, props = {}, {
-  t = () => {
-  }, translations = {},
-  fields = {},
-  widgets = {},
-  customValidateSchema
-} = {}, context = {}) => {
-  const { classes, cx } = FormWithThemeStyles({});
+const FormWithTheme = (
+  schema,
+  ui,
+  conditions,
+  props = {},
+  { t = () => {}, translations = {}, fields = {}, widgets = {}, customValidateSchema } = {},
+  context = {},
+) => {
   const ref = useRef();
 
   const validateSchema = React.useMemo(() => getValidateSchema(schema), [schema]);
@@ -46,7 +45,7 @@ const FormWithTheme = (schema, ui, conditions, props = {}, {
           StringField,
           ObjectField,
           SchemaField,
-          ...fields
+          ...fields,
         },
         widgets: {
           BaseInput,
@@ -57,20 +56,20 @@ const FormWithTheme = (schema, ui, conditions, props = {}, {
           CheckboxesWidget,
           toggle: ToggleWidget,
           wysiwyg: WysiwygWidget,
-          ...widgets
+          ...widgets,
         },
         validateSchema: customValidateSchema || validateSchema,
-        transformAjvErrors
+        transformAjvErrors,
       }),
-    [validateSchema, customValidateSchema]
+    [validateSchema, customValidateSchema],
   );
 
   const customFormats = React.useMemo(
     () => ({
       numbers: FORM_WITH_THEME_REGEX.numbers,
-      phone: FORM_WITH_THEME_REGEX.phone
+      phone: FORM_WITH_THEME_REGEX.phone,
     }),
-    []
+    [],
   );
 
   const form = React.useMemo(
@@ -93,45 +92,38 @@ const FormWithTheme = (schema, ui, conditions, props = {}, {
           </ThemeForm>
         </FormContext.Provider>
       ) : null,
-    [
-      schema,
-      ui,
-      JSON.stringify(props),
-      JSON.stringify(translations)
-    ]
+    [schema, ui, JSON.stringify(props), JSON.stringify(translations)],
   );
 
   return [
     form,
     {
       isLoaded: () => !!ref.current,
-      submit: () => {
-        return new Promise((resolve) => {
+      submit: () =>
+        new Promise((resolve) => {
           ref.current.formElement.dispatchEvent(
             new Event('submit', {
               cancelable: true,
-              bubbles: true
-            })
+              bubbles: true,
+            }),
           );
           setTimeout(() => {
             resolve();
           }, 100);
-        });
-      },
+        }),
       getRef: () => ref.current,
       getErrors: () => ref.current.state.errors || [],
       getValues: () => ref.current.state.formData,
       setValue: (key, value) =>
         ref.current.onChange({
           ...ref.current.state.formData,
-          [key]: value
-        })
-    }
+          [key]: value,
+        }),
+    },
   ];
 };
 
 FormWithTheme.defaultProps = FORM_WITH_THEME_DEFAULT_PROPS;
-
 FormWithTheme.propTypes = FORM_WITH_THEME_PROP_TYPES;
 
 export { FormWithTheme };
