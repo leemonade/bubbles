@@ -7,9 +7,9 @@ function transformAjvErrors(errors) {
 
   return errors.map((e) => {
     const { dataPath, keyword, message, params, schemaPath } = e;
-    const regex = /(?<=#\/properties\/)[\w-]+(?=\/required)/;
+    const regex = /(?<=#\/properties\/)[\w-]+(?=\/)/;
     const match = schemaPath.match(regex);
-    let property = match[0];
+    let property = match?.[0];
 
     if (!property) {
       property = `${dataPath.split('.')[1]}`;

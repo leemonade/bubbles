@@ -35,7 +35,10 @@ const FormWithTheme = (
 ) => {
   const ref = useRef();
 
-  const validateSchema = React.useMemo(() => getValidateSchema(schema), [schema]);
+  const validateSchema = React.useMemo(
+    () => customValidateSchema ?? getValidateSchema(schema),
+    [schema, customValidateSchema],
+  );
 
   const ThemeForm = React.useMemo(
     () =>
@@ -58,10 +61,10 @@ const FormWithTheme = (
           wysiwyg: WysiwygWidget,
           ...widgets,
         },
-        validateSchema: customValidateSchema || validateSchema,
+        validateSchema,
         transformAjvErrors,
       }),
-    [validateSchema, customValidateSchema],
+    [validateSchema],
   );
 
   const customFormats = React.useMemo(
@@ -88,6 +91,7 @@ const FormWithTheme = (
             transformErrors={(e) => transformErrors(e, t)}
             customFormats={customFormats}
           >
+            {/* Need an empty React Fragment in order to hide the default "submitButton" */}
             <></>
           </ThemeForm>
         </FormContext.Provider>
