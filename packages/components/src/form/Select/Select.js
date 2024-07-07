@@ -84,7 +84,11 @@ const Select = forwardRef(
 
       const found = data.find((d) => d.value === value);
 
-      return found ? found.label : '';
+      // If found return the label, otherwise return the value if is readonly or empty
+      if (found) {
+        return found.label;
+      }
+      return readOnly ? value : '';
     }, [data, value]);
 
     // ······················································

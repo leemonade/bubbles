@@ -23,31 +23,40 @@ function SelectWidget(props) {
   const { enumOptions, enumDisabled } = options;
   const emptyValue = multiple ? [] : '';
 
-  const help = options.help;
-  const description = schema.description;
+  const { help } = options;
+  const { description } = schema;
 
   const Field = multiple ? MultiSelect : Select;
+
+  const handleChange = (event) => {
+    (() =>
+      multiple
+        ? onChange(map(event, (d) => ({ value: d })))
+        : onChange({ ...props.value, value: event }))();
+  };
+
+  const fieldValue = React.useMemo(() => {
+    if (typeof value === 'undefined') {
+      return emptyValue;
+    }
+    return multiple ? map(value, 'value') : value?.value;
+  }, [value, multiple, emptyValue]);
 
   return (
     <Field
       id={id}
-      value={
-        typeof value === 'undefined' ? emptyValue : multiple ? map(value, 'value') : value?.value
-      }
+      value={fieldValue}
       required={required}
       placeholder={placeholder}
-      disabled={disabled || readonly}
+      disabled={disabled}
+      readOnly={readonly}
       help={help}
       description={description}
       autoFocus={autofocus}
       data={enumOptions || []}
       label={label}
       error={rawErrors ? rawErrors[0] : null}
-      onChange={(event) => {
-        multiple
-          ? onChange(map(event, (d) => ({ value: d })))
-          : onChange({ ...props.value, value: event });
-      }}
+      onChange={handleChange}
     />
   );
 }
@@ -62,6 +71,9 @@ if (process.env.NODE_ENV !== 'production') {
     id: PropTypes.string.isRequired,
     options: PropTypes.shape({
       enumOptions: PropTypes.array,
+      enumDisabled: PropTypes.array,
+      help: PropTypes.string,
+      description: PropTypes.string,
     }).isRequired,
     value: PropTypes.any,
     required: PropTypes.bool,
@@ -70,8 +82,9 @@ if (process.env.NODE_ENV !== 'production') {
     multiple: PropTypes.bool,
     autofocus: PropTypes.bool,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
+    label: PropTypes.string,
+    rawErrors: PropTypes.array,
+    placeholder: PropTypes.string,
   };
 }
 
