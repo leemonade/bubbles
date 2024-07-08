@@ -18,9 +18,8 @@ function TextareaWidget(props) {
     label,
     rawErrors,
   } = props;
-  const _onChange = (value) => {
-    return onChange({ ...props.value, value: value === '' ? options.emptyValue : value });
-  };
+  const _onChange = (val) =>
+    onChange({ ...props.value, value: val === '' ? options.emptyValue : val });
 
   return (
     <TextEditorInput
@@ -31,7 +30,7 @@ function TextareaWidget(props) {
       placeholder={placeholder}
       required={required}
       disabled={disabled}
-      readonly={readonly}
+      readOnly={readonly}
       autoFocus={autofocus}
       rows={options.rows}
       onBlur={onBlur && ((event) => onBlur(id, event.target.value))}
@@ -48,11 +47,11 @@ TextareaWidget.defaultProps = {
 
 if (process.env.NODE_ENV !== 'production') {
   TextareaWidget.propTypes = {
-    schema: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     options: PropTypes.shape({
       rows: PropTypes.number,
+      emptyValue: PropTypes.string,
     }),
     value: PropTypes.string,
     required: PropTypes.bool,
@@ -62,6 +61,8 @@ if (process.env.NODE_ENV !== 'production') {
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
+    label: PropTypes.string,
+    rawErrors: PropTypes.array,
   };
 }
 

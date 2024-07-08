@@ -1,13 +1,19 @@
 import { isArray } from 'lodash';
 
-export function transformAjvErrors(errors) {
+function transformAjvErrors(errors) {
   if (!isArray(errors)) {
     return [];
   }
 
   return errors.map((e) => {
     const { dataPath, keyword, message, params, schemaPath } = e;
-    const property = `${dataPath.split('.')[1]}`;
+    const regex = /(?<=#\/properties\/)[\w-]+(?=\/)/;
+    const match = schemaPath.match(regex);
+    let property = match?.[0];
+
+    if (!property) {
+      property = `${dataPath.split('.')[1]}`;
+    }
 
     // put data in expected format
     return {
@@ -16,7 +22,8 @@ export function transformAjvErrors(errors) {
       message,
       params, // specific to ajv
       stack: `${property} ${message}`.trim(),
-      schemaPath
+      schemaPath,
     };
   });
 }
+export { transformAjvErrors };
