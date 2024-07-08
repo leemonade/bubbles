@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { shouldRender, parseDateString, toDateString, pad } from '../../utils';
 
 function rangeOptions(start, stop) {
-  let options = [];
+  const options = [];
   for (let i = start; i <= stop; i++) {
     options.push({ value: i, label: pad(i, 2) });
   }
@@ -16,7 +17,7 @@ function readyForChange(state) {
 function DateElement(props) {
   const { type, range, value, select, rootId, disabled, readonly, autofocus, registry, onBlur } =
     props;
-  const id = rootId + '_' + type;
+  const id = `${rootId}_${type}`;
   const { SelectWidget } = registry.widgets;
   return (
     <SelectWidget
@@ -29,7 +30,7 @@ function DateElement(props) {
       disabled={disabled}
       readonly={readonly}
       autofocus={autofocus}
-      onChange={(value) => select(type, value)}
+      onChange={(val) => select(type, val)}
       onBlur={onBlur}
     />
   );
@@ -105,7 +106,7 @@ class AltDateWidget extends Component {
       data.push(
         { type: 'hour', range: [0, 23], value: hour },
         { type: 'minute', range: [0, 59], value: minute },
-        { type: 'second', range: [0, 59], value: second }
+        { type: 'second', range: [0, 59], value: second },
       );
     }
     return data;
@@ -149,6 +150,18 @@ class AltDateWidget extends Component {
 }
 
 if (process.env.NODE_ENV !== 'production') {
+  DateElement.propTypes = {
+    type: PropTypes.string.isRequired,
+    range: PropTypes.array.isRequired,
+    value: PropTypes.number.isRequired,
+    select: PropTypes.func.isRequired,
+    rootId: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+    readonly: PropTypes.bool,
+    autofocus: PropTypes.bool,
+    registry: PropTypes.any,
+    onBlur: PropTypes.func,
+  };
   AltDateWidget.propTypes = {
     schema: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
@@ -161,8 +174,8 @@ if (process.env.NODE_ENV !== 'production') {
     onBlur: PropTypes.func,
     time: PropTypes.bool,
     options: PropTypes.object,
+    registry: PropTypes.any,
   };
 }
 
 export default AltDateWidget;
-import { shouldRender, parseDateString, toDateString, pad } from '../../utils';

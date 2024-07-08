@@ -6,46 +6,50 @@ import { MultiSubjectIcon } from './MultiSubjectIcon/MultiSubjectIcon';
 import { ImageLoader } from '../ImageLoader';
 import { Text } from '../../typography';
 
-const AvatarSubject = ({ color, icon, size, isMultiSubject, name }) => {
+const SIZES = {
+  xs: { height: '0px' },
+  sm: { height: '9px' },
+  md: { height: '12px' },
+  lg: { height: '18px' },
+  xlg: { height: '30px' },
+  xxlg: { height: '24px' },
+};
+
+const INIT_SIZES = {
+  xs: 'xs',
+  sm: 'sm',
+  md: 'xs',
+  lg: 'sm',
+  xlg: 'xl',
+  xxlg: 'xl',
+};
+
+const getInitials = (texts) => {
+  if (texts.length === 0) return '';
+  const firstInitial = texts[0][0].toUpperCase();
+  const secondInitial = texts[1] ? texts[1][0].toUpperCase() : '';
+  return `${firstInitial}${secondInitial}`;
+};
+
+const verifySize = (size) => (size in SIZES ? size : 'lg');
+
+const AvatarSubject = ({ color, icon, size: sizeProp, isMultiSubject, name }) => {
+  const size = verifySize(sizeProp);
   const { classes } = AvatarSubjectStyles({ size });
   const iconToShow = icon || null;
   const handleColor = isMultiSubject ? '#878D96' : color;
-  const handleSize = {
-    xs: { height: '0px' },
-    sm: { height: '9px' },
-    md: { height: '12px' },
-    lg: { height: '18px' },
-    xlg: { height: '30px' },
-    xxlg: { height: '24px' },
-  };
-
-  const handleInitialsSize = {
-    xs: 'xs',
-    sm: 'sm',
-    md: 'xs',
-    lg: 'sm',
-    xlg: 'xl',
-    xxlg: 'xl',
-  };
 
   const texts = name ? name.split(' ') : [];
-  const initials =
-    texts.length >= 1
-      ? `${texts[0][0].toUpperCase()}${texts[1] ? texts[1][0].toUpperCase() : ''}`
-      : '';
+  const initials = getInitials(texts);
 
   const itemsWithoutIcon = size === 'xs' || size === 'sm';
+  const iconSize = SIZES[size]?.height ?? SIZES[AVATAR_SUBJECT_DEFAULT_PROPS.size].height;
 
   const IconOrInitalsComp =
     icon && size ? (
-      <ImageLoader
-        forceImage
-        height={handleSize[size].height}
-        imageStyles={handleSize[size].height}
-        src={iconToShow}
-      />
+      <ImageLoader forceImage height={iconSize} imageStyles={iconSize} src={iconToShow} />
     ) : (
-      <Text size={handleInitialsSize[size]} className={classes.text}>
+      <Text size={INIT_SIZES[size]} className={classes.text}>
         {itemsWithoutIcon ? '' : name && initials}
       </Text>
     );
@@ -53,7 +57,7 @@ const AvatarSubject = ({ color, icon, size, isMultiSubject, name }) => {
   return (
     <Box className={classes.bubble} style={{ backgroundColor: handleColor }}>
       {isMultiSubject ? (
-        <MultiSubjectIcon width={handleSize[size].height} height={handleSize[size].height} />
+        <MultiSubjectIcon width={iconSize} height={iconSize} />
       ) : (
         <Stack>{IconOrInitalsComp}</Stack>
       )}

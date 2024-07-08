@@ -1,6 +1,6 @@
-import { forIn } from 'lodash';
+import { flatten, forIn, uniq } from 'lodash';
 
-export function getValidateSchema(jsonSchema) {
+function getValidateSchema(jsonSchema) {
   const schema = {
     type: 'object',
     additionalProperties: false,
@@ -31,10 +31,9 @@ export function getValidateSchema(jsonSchema) {
           },
         };
       } else {
-        schema.properties[key] = {
+        const property = {
           type: 'object',
           additionalProperties: false,
-          required: isRequired ? ['value'] : [],
           properties: {
             id: {
               type: 'string',
@@ -42,10 +41,23 @@ export function getValidateSchema(jsonSchema) {
             value,
           },
         };
+
+        if (isRequired) {
+          property.required = ['value'];
+        } else {
+          property.properties.value.type = uniq([
+            ...flatten([property.properties.value.type]),
+            'null',
+          ]);
+          // property.properties.value.nullable = true;
+        }
+
+        schema.properties[key] = property;
       }
     });
-
   }
 
   return schema;
 }
+
+export { getValidateSchema };
