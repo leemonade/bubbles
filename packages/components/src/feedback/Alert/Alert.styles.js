@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
+import { pxToRem } from '../../theme.mixins';
 
 const getColor = (theme, severity) =>
   ({
@@ -37,8 +37,7 @@ const getColor = (theme, severity) =>
     },
   })[severity];
 
-const AlertStyles = createStyles((theme, { variant, severity }) => {
-  const alertTheme = theme;
+const AlertStyles = createStyles((theme, { variant, severity, isCloseable }) => {
   const titleSize = variant === 'block' ? 'md--bold' : 'sm--bold';
   return {
     root: {
@@ -47,7 +46,8 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       display: 'flex',
       alignItems: 'center',
       borderRadius: 4,
-      padding: `${pxToRem(6)} ${pxToRem(16)} ${pxToRem(6)} ${pxToRem(16)}`,
+      padding: pxToRem(6),
+      paddingLeft: pxToRem(16),
       borderLeftWidth: 4,
     },
     message: {},
@@ -63,7 +63,6 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       flex: '1 1 100%',
       display: 'flex',
       flexDirection: variant === 'block' ? 'column' : null,
-      // transform: variant === 'block' ? 'translateY(-2px)' : 'translateY(4px)',
       gap: theme.spacing['1'],
     },
     title: {
@@ -81,25 +80,16 @@ const AlertStyles = createStyles((theme, { variant, severity }) => {
       flex: '1 1 100%',
       marginRight: variant === 'block' ? pxToRem(24) : pxToRem(28),
       lineHeight: 1.2,
-      // marginTop: pxToRem(4),
-      // paddingTop: pxToRem(3.6),
       paddingTop: theme.spacing[2],
       paddingBottom: theme.spacing[2],
     },
     action: {
-      marginRight: pxToRem(30),
-      // marginTop: variant === 'block' ? pxToRem(5) : null,
-      // paddingTop: variant === 'block' ? null : pxToRem(3),
+      marginRight: isCloseable ? pxToRem(30) : null,
     },
-    closeButton: {
-      // color: theme.colors.text05,
-      // transform: 'translateY(3px)',
-    },
+    closeButton: {},
     icon: {
       marginRight: pxToRem(8),
       transform: 'translateY(2px)',
-      // marginTop: pxToRem(3),
-      // paddingTop: pxToRem(2),
     },
   };
 });
