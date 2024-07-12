@@ -32,6 +32,7 @@ const TextEditorInput = ({
   editorStyles,
   editorClassname,
   readOnly,
+  showToolbarHeading,
   ...props
 }) => {
   const uuid = useId();
@@ -62,7 +63,9 @@ const TextEditorInput = ({
           onChange={onChange}
           editorClassname={cx(classes.editor, editorClassname)}
         >
-          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
+          {toolbars.heading && showToolbarHeading && (
+            <HeadingsTool labels={toolLabels.headingsTool} />
+          )}
           {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
           {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
           {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}
