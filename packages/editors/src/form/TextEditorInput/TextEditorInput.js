@@ -4,6 +4,8 @@ import { Box, InputWrapper, useId } from '@bubbles-ui/components';
 import {
   TEXT_EDITOR_INPUT_DEFAULT_PROPS,
   TEXT_EDITOR_INPUT_PROP_TYPES,
+  TEXT_EDITOR_DEFAULT_TOOLBARS,
+  TEXT_EDITOR_TEXTAREA_TOOLBARS,
 } from './TextEditorInput.constants';
 import { TextEditorInputStyles } from './TextEditorInput.styles';
 import { TextEditor } from '../TextEditor';
@@ -27,12 +29,12 @@ const TextEditorInput = ({
   value,
   onChange,
   placeholder,
-  toolbars,
+  toolbars: propToolbars,
   children,
   editorStyles,
   editorClassname,
   readOnly,
-  showToolbarHeading,
+  preset,
   ...props
 }) => {
   const uuid = useId();
@@ -44,6 +46,20 @@ const TextEditorInput = ({
     { hasError, editorStyles, readOnly },
     { name: 'TextEditorInput' },
   );
+
+  const presetToolbars = useMemo(() => {
+    if (preset === 'textArea') {
+      return TEXT_EDITOR_TEXTAREA_TOOLBARS;
+    }
+    return TEXT_EDITOR_DEFAULT_TOOLBARS;
+  }, [preset]);
+
+  const toolbars = useMemo(() => {
+    if (preset) {
+      return presetToolbars;
+    }
+    return propToolbars;
+  }, [preset, presetToolbars, propToolbars]);
 
   return (
     <InputWrapper
@@ -63,9 +79,7 @@ const TextEditorInput = ({
           onChange={onChange}
           editorClassname={cx(classes.editor, editorClassname)}
         >
-          {toolbars.heading && showToolbarHeading && (
-            <HeadingsTool labels={toolLabels.headingsTool} />
-          )}
+          {toolbars.heading && <HeadingsTool labels={toolLabels.headingsTool} />}
           {toolbars.color && <ColorTool label={toolLabels.colorTool} />}
           {toolbars.style && <TransformsTool labels={toolLabels.transformsTool} />}
           {toolbars.align && <TextAlignTool labels={toolLabels.textAlignTool} />}

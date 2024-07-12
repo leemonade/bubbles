@@ -11,6 +11,17 @@ export const TEXT_EDITOR_DEFAULT_TOOLBARS = {
   link: true,
 };
 
+export const TEXT_EDITOR_TEXTAREA_TOOLBARS = {
+  style: true,
+  heading: false,
+  align: true,
+  list: true,
+  history: true,
+  color: true,
+  formulation: false,
+  link: true,
+};
+
 export const TEXT_EDITOR_INPUT_DEFAULT_PROPS = {
   placeholder: '',
   toolbars: TEXT_EDITOR_DEFAULT_TOOLBARS,
@@ -21,7 +32,6 @@ export const TEXT_EDITOR_INPUT_DEFAULT_PROPS = {
   error: '',
   editorStyles: {},
   toolLabels: {},
-  showToolbarHeading: true,
 };
 export const TEXT_EDITOR_INPUT_PROP_TYPES = {
   placeholder: PropTypes.string,
@@ -96,5 +106,4 @@ export const TEXT_EDITOR_INPUT_PROP_TYPES = {
   editorStyles: PropTypes.object,
   editorClassname: PropTypes.string,
   readOnly: PropTypes.bool,
-  showToolbarHeading: PropTypes.bool,
 };
