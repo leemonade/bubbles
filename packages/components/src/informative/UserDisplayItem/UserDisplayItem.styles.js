@@ -8,23 +8,19 @@ function infoFromSize(size, theme) {
     rol: {},
   };
 
-  switch (size) {
-    case 'xs':
-      result = {
-        root: {},
-        rol: {
-          fontSize: pxToRem(11),
-          lineHeight: 1.2,
-        },
-        name: {
-          fontSize: theme.fontSizes[1],
-          lineHeight: 1.2,
-          marginTop: 2,
-        },
-      };
-      break;
-    default:
-      break;
+  if (size === 'xs') {
+    result = {
+      root: {},
+      rol: {
+        fontSize: pxToRem(11),
+        lineHeight: 1.2,
+      },
+      name: {
+        fontSize: theme.fontSizes[1],
+        lineHeight: 1.2,
+        marginTop: 2,
+      },
+    };
   }
 
   return result;
@@ -42,7 +38,7 @@ const getColor = (theme, severity) => {
   }[severity];
 };
 
-export const UserDisplayItemStyles = createStyles(
+const UserDisplayItemStyles = createStyles(
   (theme, { variant, layout, size, noBreak, severity }) => {
     const isBlock = variant === 'block';
     const isRol = variant === 'rol';
@@ -57,12 +53,31 @@ export const UserDisplayItemStyles = createStyles(
         }
       : {};
 
+    function getNameLineHeight() {
+      if (isBlock) return pxToRem(18.5);
+      if (isRol) return pxToRem(20);
+      return pxToRem(24);
+    }
+
+    function getUserInfoFlexProps() {
+      if (isEmail) {
+        return {
+          flexDirection: isRight ? 'row-reverse' : 'row',
+          alignItems: 'center',
+        };
+      }
+      return {
+        flexDirection: 'column',
+        alignItems: isRight ? 'flex-end' : null,
+      };
+    }
+
     return {
       root: {
         display: 'flex',
         alignItems: 'center',
         flexDirection: isRight && 'row-reverse',
-        gap: pxToRem(8),
+        gap: pxToRem(isRol ? 16 : 8),
         ...inf.root,
         ...getColor(theme, severity),
         padding: theme.spacing[1],
@@ -72,7 +87,7 @@ export const UserDisplayItemStyles = createStyles(
         verticalAlign: 'middle',
       },
       name: {
-        lineHeight: isBlock ? pxToRem(18.5) : isRol ? pxToRem(20) : pxToRem(24),
+        lineHeight: getNameLineHeight(),
         fontWeight: isBlock && 600,
         ...inf.name,
         // ...breakProps,
@@ -106,9 +121,10 @@ export const UserDisplayItemStyles = createStyles(
       },
       userInfo: {
         display: 'flex',
-        flexDirection: isEmail ? (isRight ? 'row-reverse' : 'row') : 'column',
-        alignItems: isEmail ? 'center' : isRight ? 'flex-end' : null,
+        ...getUserInfoFlexProps(),
       },
     };
-  }
+  },
 );
+
+export { UserDisplayItemStyles };
