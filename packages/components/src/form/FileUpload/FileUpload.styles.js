@@ -29,72 +29,73 @@ const getDisabledStyles = (disabled, theme) => {
   };
 };
 
-const FileUploadStyles = createStyles((theme, { disabled, single, files, hasError, fullWidth }) => {
-  const hideDropzone = single && files.length > 0;
-  const dropzoneTheme = theme.other.dropzone;
+const FileUploadStyles = createStyles(
+  (theme, { disabled, single, files, hasError, hideDropzone: _hideDropzone }) => {
+    const hideDropzone = _hideDropzone || (single && files.length > 0);
+    const dropzoneTheme = theme.other.dropzone;
 
-  return {
-    root: {
-      ...getFontExpressive(theme.fontSizes['2']),
-      display: hideDropzone ? 'none' : 'flex',
-      justifyContent: 'center',
-      padding: pxToRem(25),
-      border: hasError
-        ? `${dropzoneTheme.border.width} solid ${theme.colors.fatic01}`
-        : `${dropzoneTheme.border.width} solid ${dropzoneTheme.border.color.default}`,
-      borderRadius: dropzoneTheme.border.radius,
-      '&:hover': { ...getActive(dropzoneTheme) },
-      ...getDisabledStyles(disabled, theme),
-    },
-    active: {
-      ...getActive(dropzoneTheme),
-    },
-    groupContainer: {
-      pointerEvents: 'none',
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      textAlign: 'center',
-    },
-    icon: {
-      color: dropzoneTheme.content.color.icon,
-    },
-    title: {
-      ...(dropzoneTheme.content['text--medium'] ?? {}),
-      marginTop: pxToRem(9),
-      color: dropzoneTheme.content.color.default,
-    },
-    subtitle: {
-      ...(dropzoneTheme.content.text ?? {}),
-      marginTop: pxToRem(8),
-      color: dropzoneTheme.content.color['default--subtle'],
-    },
-    droppedFile: {
-      width: 468,
-      // padding: `${pxToRem(28)} ${pxToRem(16)} ${pxToRem(28)} ${pxToRem(28)}`,
-    },
-    fileList: {
-      marginTop: !hideDropzone && pxToRem(theme.spacing[4]),
-      width: 'min-content',
-    },
-    errorAlert: {
-      marginTop: pxToRem(theme.spacing[4]),
-    },
-    uploadButton: {
-      marginTop: pxToRem(theme.spacing[4]),
-    },
-    fileItemDisplay: {
-      ...theme.other.global.content.typo.body['sm--semiBold'],
-      padding: '18px 8px',
-      borderWidth: 1,
-      borderStyle: 'solid',
-      borderColor: theme.other.global.border.color.line.muted,
-      borderRadius: 4,
-      minWidth: '100%',
-    },
-  };
-});
+    return {
+      root: {
+        ...getFontExpressive(theme.fontSizes['2']),
+        display: hideDropzone ? 'none' : 'flex',
+        justifyContent: 'center',
+        padding: pxToRem(25),
+        border: hasError
+          ? `${dropzoneTheme.border.width} solid ${theme.colors.fatic01}`
+          : `${dropzoneTheme.border.width} solid ${dropzoneTheme.border.color.default}`,
+        borderRadius: dropzoneTheme.border.radius,
+        '&:hover': { ...getActive(dropzoneTheme) },
+        ...getDisabledStyles(disabled, theme),
+      },
+      active: {
+        ...getActive(dropzoneTheme),
+      },
+      groupContainer: {
+        pointerEvents: 'none',
+      },
+      container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        textAlign: 'center',
+      },
+      icon: {
+        color: dropzoneTheme.content.color.icon,
+      },
+      title: {
+        ...(dropzoneTheme.content['text--medium'] ?? {}),
+        marginTop: pxToRem(9),
+        color: dropzoneTheme.content.color.default,
+      },
+      subtitle: {
+        ...(dropzoneTheme.content.text ?? {}),
+        marginTop: pxToRem(8),
+        color: dropzoneTheme.content.color['default--subtle'],
+      },
+      droppedFile: {
+        width: 468,
+      },
+      fileList: {
+        marginTop: !hideDropzone && pxToRem(theme.spacing[4]),
+        width: 'min-content',
+      },
+      errorAlert: {
+        marginTop: pxToRem(theme.spacing[4]),
+      },
+      uploadButton: {
+        marginTop: pxToRem(theme.spacing[4]),
+      },
+      fileItemDisplay: {
+        ...theme.other.global.content.typo.body['sm--semiBold'],
+        padding: '18px 8px',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: theme.other.global.border.color.line.muted,
+        borderRadius: 4,
+        minWidth: '100%',
+      },
+    };
+  },
+);
 
 export { FileUploadStyles };

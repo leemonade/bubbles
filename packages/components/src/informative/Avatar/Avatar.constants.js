@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const AVATAR_SIZES = ['sm', 'md', 'lg', 'xlg'];
+export const AVATAR_SIZES = ['sm', 'md', 'xmd', 'lg', 'xlg'];
 export const AVATAR_STATE = ['normal', 'alert', 'notifications', 'error', 'activity'];
 export const AVATAR_COLORS = [
   '#DC5571',

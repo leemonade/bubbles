@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextEditorInput } from './TextEditorInput';
 import {
   TEXT_EDITOR_INPUT_DEFAULT_PROPS,
@@ -26,7 +26,7 @@ export default {
 
 const Template = ({ ...props }) => {
   const [value, setValue] = useState(
-    '<p style="margin-left: 0px!important;"><strong>Hola Mundo</strong></p>'
+    '<p style="margin-left: 0px!important;"><strong>Hola Mundo</strong></p>',
   );
 
   return (

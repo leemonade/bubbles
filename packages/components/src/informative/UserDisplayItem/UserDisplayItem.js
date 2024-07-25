@@ -13,7 +13,7 @@ import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
-export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm'];
+export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm', 'xmd', 'lg'];
 
 export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   variant: 'inline',
@@ -83,13 +83,12 @@ const UserDisplayItem = (properties) => {
   const textColor = variant === 'block' ? 'secondary' : 'primary';
 
   const role = useMemo(() => (!isEmpty(center) ? `${rol} · ${center}` : rol), [rol, center]);
-  const fullName = useMemo(
-    () =>
-      ['rol', 'inline'].includes(variant)
-        ? `${surnames || ''}${!surnames ? '' : ', '}${name}`
-        : name,
-    [name, surnames, variant],
-  );
+  const fullName = useMemo(() => {
+    if (['rol', 'inline'].includes(variant)) {
+      return `${surnames || ''}${surnames ? ', ' : ''}${name}`;
+    }
+    return name;
+  }, [name, surnames, variant]);
 
   const userFullName = getUserFullName(properties);
 
