@@ -29,6 +29,7 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   multipleUpload: true,
   showError: false,
   hideUploadButton: false,
+  hideDropzone: false,
   single: false,
   initialFiles: [],
   inputWrapperProps: {},
@@ -55,6 +56,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
     uploadButton: PropTypes.string,
   }),
   hideUploadButton: PropTypes.bool,
+  hideDropzone: PropTypes.bool,
   single: PropTypes.bool,
   inputWrapperProps: PropTypes.shape(INPUT_WRAPPER_PROP_TYPES),
   initialFiles: PropTypes.arrayOf(PropTypes.object),
@@ -74,6 +76,7 @@ const FileUpload = ({
   showError,
   errorMessage,
   hideUploadButton,
+  hideDropzone,
   single,
   inputWrapperProps = {},
   initialFiles,
@@ -116,7 +119,7 @@ const FileUpload = ({
   }, [initialFiles]);
 
   const { classes, theme } = FileUploadStyles(
-    { disabled, single, files, hasError, fullWidth },
+    { disabled, single, files, hasError, hideDropzone },
     { name: 'FileUpload' },
   );
 
@@ -154,6 +157,7 @@ const FileUpload = ({
           </Group>
         </MantineDropzone>
       </InputWrapper>
+
       {showError && error && (
         <Alert
           className={classes.errorAlert}
@@ -243,7 +247,7 @@ const FileUpload = ({
           ))}
         </Stack>
       )}
-      {!hideUploadButton && (
+      {!hideUploadButton && !(single && files.length > 0) && (
         <Box className={classes.uploadButton}>
           <Button onClick={() => openRef.current()} disabled={disabled || loading}>
             {getUploadButtonLabel(labels?.uploadButton)}
