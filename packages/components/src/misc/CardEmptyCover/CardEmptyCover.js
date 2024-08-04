@@ -18,6 +18,7 @@ import { AssetDocumentIconSmall } from '../FileIcon/AssetDocumentIcon';
 import { AssetScormIcon } from '../FileIcon/AssetScormIcon';
 import { AssetTestIcon } from '../FileIcon/AssetTestIcon';
 import { Box } from '../../layout/Box';
+import { AssetCommunityIcon } from '../FileIcon/AsssetCommunityIcon';
 
 const CardEmptyCover = memo(({ icon, fileType, height }) => {
   const pairColumnRef = useRef(null);
@@ -54,6 +55,10 @@ const CardEmptyCover = memo(({ icon, fileType, height }) => {
     {
       key: 'application',
       value: <FileIcon height={18} width={18} color={'#878D96'} />,
+    },
+    {
+      key: 'community',
+      value: <AssetCommunityIcon height={20} width={20} color={'#878D96'} />,
     },
   ];
 
