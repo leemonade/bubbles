@@ -22,9 +22,15 @@ export const TEXT_EDITOR_TEXTAREA_TOOLBARS = {
   link: true,
 };
 
-export const TEXT_EDITOR_COMMENT_TOOLBARS = {
-  ...TEXT_EDITOR_DEFAULT_TOOLBARS,
-  formulation: true,
+export const TEXT_EDITOR_NO_HEADINGS_TOOLBARS = {
+  style: true,
+  heading: false,
+  align: true,
+  list: true,
+  history: true,
+  color: true,
+  formulation: false,
+  link: true,
 };
 
 export const TEXT_EDITOR_INPUT_DEFAULT_PROPS = {
