@@ -19,8 +19,6 @@ const TotalLayoutStepContainer = ({
   Footer,
   clean,
   loading,
-  TopZone = null,
-  forceNotMaxWidth = false,
 }) => {
   const { classes } = TotalLayoutStepContainerStyles(
     {
@@ -29,8 +27,6 @@ const TotalLayoutStepContainer = ({
       fullWidth,
       noMargin,
       footerPadding,
-      forceNotMaxWidth,
-      TopZone,
     },
     { name: 'TotalLayoutStepContainer' },
   );
@@ -44,20 +40,17 @@ const TotalLayoutStepContainer = ({
   }
 
   return (
-    <Stack direction="column">
-      {TopZone && <Stack className={classes.topZone}>{TopZone}</Stack>}
-      <Stack className={classes.stepContainer} fullHeight direction="column">
-        {stepName && (
-          <Title className={classes.stepName} order={2} noFlex>
-            {stepName}
-          </Title>
-        )}
-        {titleZone}
-        <Stack className={classes.formContainer} fullWidth direction="column">
-          {children}
-        </Stack>
-        {!!Footer && <Box noFlex>{Footer}</Box>}
+    <Stack className={classes.stepContainer} fullHeight direction="column">
+      {stepName && (
+        <Title className={classes.stepName} order={2} noFlex>
+          {stepName}
+        </Title>
+      )}
+      {titleZone}
+      <Stack className={classes.formContainer} fullWidth direction="column">
+        {children}
       </Stack>
+      {!!Footer && <Box noFlex>{Footer}</Box>}
     </Stack>
   );
 };
