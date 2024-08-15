@@ -17,6 +17,7 @@ export const CONTEXT_CONTAINER_DEFAULT_PROPS = {
   spacing: 5,
   direction: 'column',
   required: false,
+  level: 0,
 };
 export const CONTEXT_CONTAINER_PROP_TYPES = {
   title: PropTypes.string,
@@ -36,6 +37,7 @@ export const CONTEXT_CONTAINER_PROP_TYPES = {
   children: PropTypes.any,
   titleRightZone: PropTypes.any,
   required: PropTypes.bool,
+  level: PropTypes.number,
 };
 
 const ContextContainer = ({
@@ -56,6 +58,7 @@ const ContextContainer = ({
   alignContent,
   titleRightZone,
   required,
+  level = 0,
   ...props
 }) => {
   const { classes, cx } = ContextContainerStyles({ padded });
@@ -104,7 +107,7 @@ const ContextContainer = ({
               <Box>
                 {typeof title === 'string' ? (
                   <Box className={classes.title}>
-                    <Title order={3} dangerouslySetInnerHTML={{ __html: title }} />
+                    <Title order={3 + level} dangerouslySetInnerHTML={{ __html: title }} />
                     {required && <Box>*</Box>}
                   </Box>
                 ) : (
