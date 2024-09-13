@@ -10,6 +10,7 @@ import { ImageLoader } from '../../misc/ImageLoader';
 import { ImagePreviewInputStyles } from './ImagePreviewInput.styles';
 
 export const IMAGE_PREVIEW_INPUT_DEFAULT_PROPS = {
+  hideChangeButton: false,
   labels: {
     changeImage: '',
     uploadButton: '',
@@ -36,6 +37,8 @@ export const IMAGE_PREVIEW_INPUT_PROP_TYPES = {
   objectFit: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  hideChangeButton: PropTypes.bool,
+  onShowDrawer: PropTypes.func,
 };
 
 const ImagePreviewInput = ({
@@ -53,6 +56,7 @@ const ImagePreviewInput = ({
   objectFit,
   width,
   height,
+  hideChangeButton,
 }) => {
   const [imagePreview, setImagePreview] = useState(previewURL);
   const [imageValue, setImageValue] = useState(value);
@@ -144,16 +148,18 @@ const ImagePreviewInput = ({
               >
                 {labels.removeButton}
               </Button>
-              <Button
-                variant="link"
-                size="sm"
-                compact
-                leftIcon={<SynchronizeArrowsIcon />}
-                onClick={handleShowDrawer}
-                useAria={useAria}
-              >
-                {labels.changeImage}
-              </Button>
+              {!hideChangeButton && (
+                <Button
+                  variant="link"
+                  size="sm"
+                  compact
+                  leftIcon={<SynchronizeArrowsIcon />}
+                  onClick={handleShowDrawer}
+                  useAria={useAria}
+                >
+                  {labels.changeImage}
+                </Button>
+              )}
             </Box>
           ) : null}
         </Stack>
