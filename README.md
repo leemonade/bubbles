@@ -4,6 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/leemonade/bubbles)](https://github.com/leemonade/bubbles/graphs/contributors)
 [![npm](https://img.shields.io/npm/v/@bubbles-ui/components)](https://www.npmjs.com/package/@bubbles-ui/components)
 [![npm](https://img.shields.io/npm/dm/@bubbles-ui/components)](https://www.npmjs.com/package/@bubbles-ui/components)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fleemonade%2Fbubbles.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fleemonade%2Fbubbles?ref=badge_shield)
 
 ## Packages
 
@@ -21,3 +22,6 @@
 ## License
 
 MIT
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fleemonade%2Fbubbles.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fleemonade%2Fbubbles?ref=badge_large)
