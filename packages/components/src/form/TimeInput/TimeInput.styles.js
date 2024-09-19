@@ -9,10 +9,10 @@ const TimeInputStyles = createStyles((theme, { size }) => {
     input: {
       ...getInputSizes(size || 'md', inputTheme.spacing.padding),
       ...inputStyle,
-      paddingTop: 0,
       minHeight: 40,
       display: 'flex',
       alignItems: 'center',
+      paddingTop: '3px !important',
       paddingLeft: '30px !important',
     },
     timeInput: {
@@ -25,6 +25,9 @@ const TimeInputStyles = createStyles((theme, { size }) => {
     },
     controls: {
       height: '100%',
+      '& > div': {
+        paddingBottom: 3,
+      },
     },
     icon: {
       width: 32,

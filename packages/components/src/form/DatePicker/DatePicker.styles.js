@@ -4,8 +4,9 @@ import { getInputStyle, getInputSizes } from '../mixins/fieldStyles.mixins';
 
 // THIS COMPONENT TAKE STYLES FROM CALENDAR COMPONENT
 
-const DatePickerStyles = createStyles((theme, { size, date, range }) => {
+const DatePickerStyles = createStyles((theme, { size, date, clearable, range }) => {
   const checkDate = () => {
+    if (!clearable) return false;
     if (range) {
       if (Array.isArray(date)) return date?.every((value) => !!value);
       return false;
