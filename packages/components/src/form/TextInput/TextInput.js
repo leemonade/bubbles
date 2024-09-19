@@ -93,7 +93,7 @@ const TextInput = forwardRef(
     }, [variant]);
 
     return (
-      <InputWrapper {...props} uuid={uuid} size={size} error={error}>
+      <InputWrapper {...props} readOnly={readOnly} uuid={uuid} size={size} error={error}>
         {readOnly ? (
           <Paragraph clean>{value || defaultValue || ''}</Paragraph>
         ) : (

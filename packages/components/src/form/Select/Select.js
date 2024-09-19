@@ -144,7 +144,7 @@ const Select = forwardRef(
         {...props}
       ></MultiSelect>
     ) : (
-      <InputWrapper {...props} uuid={uuid} size={size} error={error}>
+      <InputWrapper {...props} readOnly={readOnly} uuid={uuid} size={size} error={error}>
         {readOnly ? (
           <Paragraph clean>{dataValue}</Paragraph>
         ) : (

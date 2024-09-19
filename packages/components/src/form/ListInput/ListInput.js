@@ -149,6 +149,7 @@ const ListInput = ({
       size={size}
       error={error}
       required={required}
+      readOnly={readonly}
     >
       <Box>
         <SortableList

@@ -191,6 +191,7 @@ const DatePicker = forwardRef(
         headerStyle={headerStyle}
         contentStyle={contentStyle}
         style={style}
+        readOnly={readOnly}
       >
         {readOnly ? (
           <Paragraph clean>
