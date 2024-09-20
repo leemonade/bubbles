@@ -41,7 +41,7 @@ const Alert = ({
     () => closeable && !isNil(closeable) && closeable !== '',
     [closeable],
   );
-  const { classes } = AlertStyles({ variant, severity }, { name: 'Alert' });
+  const { classes } = AlertStyles({ variant, severity, isCloseable }, { name: 'Alert' });
 
   return (
     <MantineAlert

@@ -124,6 +124,7 @@ const Textarea = forwardRef(
     return (
       <InputWrapper
         {...props}
+        readOnly={readOnly}
         uuid={uuid}
         size={size}
         error={error}

@@ -32,6 +32,7 @@ const InputWrapper = ({
   style,
   formValues,
   showEmptyLabel,
+  readOnly,
   ...props
 }) => {
   const size = INPUT_WRAPPER_SIZES.includes(sizeProp) ? sizeProp : 'md';
@@ -60,6 +61,7 @@ const InputWrapper = ({
             {...labelProps}
             description={description}
             withDescriptionIcon={withDescriptionIcon}
+            readOnly={readOnly}
           />
         </Stack>
       )}

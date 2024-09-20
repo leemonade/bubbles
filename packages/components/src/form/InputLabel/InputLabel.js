@@ -12,9 +12,10 @@ const InputLabel = ({
   withDescriptionIcon,
   required,
   showEmptyLabel,
+  readOnly,
   ...props
 }) => {
-  const { classes } = InputLabelStyles({}, { name: 'InputLabel' });
+  const { classes } = InputLabelStyles({ readOnly }, { name: 'InputLabel' });
 
   return (
     <Box className={classes.container}>

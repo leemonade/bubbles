@@ -15,6 +15,7 @@ const TotalLayoutFooterContainer = ({
   showFooterBorder: _showFooterBorder,
   style,
   width,
+  height = 72,
   clean,
   rectRef,
   skipOffset,
@@ -86,7 +87,7 @@ const TotalLayoutFooterContainer = ({
   return (
     <Stack justifyContent="center" fullWidth>
       <Box className={classes.footer} style={{ ...style, ...footerStyles }}>
-        <Stack fullWidth style={{ height: 72, padding: clean ? 0 : '16px 24px' }}>
+        <Stack fullWidth style={{ height, padding: clean ? 0 : '16px 24px' }}>
           <Stack direction="row" spacing={2} noFlex>
             {leftZone}
           </Stack>
@@ -100,7 +101,9 @@ const TotalLayoutFooterContainer = ({
   );
 };
 
-TotalLayoutFooterContainer.defaultProps = {};
+TotalLayoutFooterContainer.defaultProps = {
+  height: 72,
+};
 TotalLayoutFooterContainer.propTypes = {
   leftOffset: PropTypes.number,
   scrollRef: PropTypes.any,
@@ -112,6 +115,7 @@ TotalLayoutFooterContainer.propTypes = {
   showFooterBorder: PropTypes.bool,
   style: PropTypes.object,
   width: PropTypes.number,
+  height: PropTypes.number,
   clean: PropTypes.bool,
   rectRef: PropTypes.object,
   skipOffset: PropTypes.bool,
