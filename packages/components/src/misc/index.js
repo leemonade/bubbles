@@ -15,5 +15,6 @@ export * from './FileIcon/AssetTaskIcon';
 export * from './FileIcon/AssetExpressTaskIcon';
 export * from './FileIcon/AssetModuleIcon';
 export * from './FileIcon/AssetFeedbackIcon';
+export * from './FileIcon/AssetSessionIcon';
 export * from './AvatarSubject';
 export * from './CardEmptyCover';

@@ -19,6 +19,7 @@ const Select = forwardRef(
       error,
       size,
       clearable,
+      forceShowClear,
       onChange,
       itemComponent,
       valueComponent,
@@ -60,7 +61,7 @@ const Select = forwardRef(
     // ······················································
     // HANDLERS
 
-    const [showClear, setShowClear] = useState(false);
+    const [showClear, setShowClear] = useState(!!(forceShowClear && value));
 
     const handleChange = (ev) => {
       setShowClear(!isNil(ev));
