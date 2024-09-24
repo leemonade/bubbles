@@ -107,7 +107,7 @@
     "load-styles": "^2.0.0",
     "npm-which": "^3.0.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.58.0",
+    "rollup": "^3.29.5",
     "rollup-plugin-import-css": "^3.0.2",
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-styles": "^3.14.1",
