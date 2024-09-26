@@ -12,7 +12,7 @@ const SIZES = {
   md: { height: '12px' },
   lg: { height: '18px' },
   xlg: { height: '30px' },
-  xxlg: { height: '24px' },
+  xxlg: { height: '22px' },
 };
 
 const INIT_SIZES = {
@@ -21,7 +21,7 @@ const INIT_SIZES = {
   md: 'xs',
   lg: 'sm',
   xlg: 'xl',
-  xxlg: 'xl',
+  xxlg: 'lg',
 };
 
 const getInitials = (texts) => {
