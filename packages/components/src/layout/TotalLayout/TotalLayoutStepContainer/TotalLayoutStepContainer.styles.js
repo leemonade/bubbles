@@ -5,7 +5,7 @@ const TotalLayoutStepContainerStyles = createStyles(
   (theme, { hasFooter, clean, fullWidth, noMargin, footerPadding, TopZone, forceNotMaxWidth }) => ({
     root: {},
     stepContainer: {
-      padding: clean ? 0 : '30px 0 0 0 ',
+      padding: clean || TopZone ? 0 : '30px 0 0 0 ',
       marginLeft: fullWidth && !noMargin ? theme.spacing[8] : 0,
       marginRight: fullWidth && !noMargin ? theme.spacing[8] : 0,
       height: '100%',
