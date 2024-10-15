@@ -12,6 +12,7 @@ import { LoadingOverlay } from '../../../overlay/LoadingOverlay';
 const TotalLayoutStepContainer = ({
   stepName,
   titleZone,
+  TopZone,
   fullWidth,
   noMargin,
   children,
@@ -27,6 +28,7 @@ const TotalLayoutStepContainer = ({
       fullWidth,
       noMargin,
       footerPadding,
+      TopZone,
     },
     { name: 'TotalLayoutStepContainer' },
   );
@@ -41,6 +43,7 @@ const TotalLayoutStepContainer = ({
 
   return (
     <Stack className={classes.stepContainer} fullHeight direction="column">
+      {TopZone}
       {stepName && (
         <Title className={classes.stepName} order={2} noFlex>
           {stepName}
