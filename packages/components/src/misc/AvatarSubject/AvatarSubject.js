@@ -35,7 +35,7 @@ const verifySize = (size) => (size in SIZES ? size : 'lg');
 
 const AvatarSubject = ({ color, icon, size: sizeProp, isMultiSubject, name }) => {
   const size = verifySize(sizeProp);
-  const { classes } = AvatarSubjectStyles({ size });
+  const { classes } = AvatarSubjectStyles({ size }, { name: 'AvatarSubject' });
   const iconToShow = icon || null;
   const handleColor = isMultiSubject ? '#878D96' : color;
 
