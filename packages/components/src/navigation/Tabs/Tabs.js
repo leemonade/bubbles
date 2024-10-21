@@ -85,12 +85,14 @@ const Tabs = forwardRef(
       forceRender,
       centerGrow,
       tabPanelListStyle,
+      scrollRef: scrollRefProp,
     },
     ref,
   ) => {
     const tabs = parseTabList(children);
     const rtl = direction === 'rtl';
-    const scrollRef = React.useRef();
+    const newScrollRef = React.useRef();
+    const scrollRef = scrollRefProp || newScrollRef;
     const [topScroll, setTopScroll] = React.useState(false);
 
     // ········································································
@@ -251,6 +253,7 @@ Tabs.propTypes = {
   tabPanelListStyle: PropTypes.any,
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
   className: PropTypes.string,
+  scrollRef: PropTypes.any,
 };
 
 export { Tabs };
