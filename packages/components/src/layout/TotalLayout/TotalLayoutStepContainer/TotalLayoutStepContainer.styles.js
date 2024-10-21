@@ -18,6 +18,7 @@ const TotalLayoutStepContainerStyles = createStyles(
       backgroundColor: !clean && 'white',
       padding: !clean && 24,
       paddingBottom: footerPadding ?? (hasFooter ? TOTAL_LAYOUT_HEADER_HEIGHT : 24),
+      height: hasFooter ? '100%' : undefined,
     },
     stepName: {
       marginBottom: 12,
