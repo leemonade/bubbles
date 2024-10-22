@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 import { noop } from 'lodash';
 import { DropdownButtonStyles } from './DropdownButton.styles';
@@ -11,8 +11,10 @@ import { Popover } from '../../overlay/Popover';
 import { Dropdown, Item } from '../../overlay/Dropdown';
 import { ImageLoader } from '../../misc';
 
-const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => {
+const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) => {
   const [opened, setOpened] = useState(false);
+  const [buttonWidth, setButtonWidth] = useState(0);
+  const buttonRef = useRef(null);
 
   const handleOnOption =
     (onOption = noop) =>
@@ -20,6 +22,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => 
       onOption();
       setOpened(false);
     };
+  const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
 
   function renderIcon(icon) {
     if (!icon) return null;
@@ -38,13 +41,20 @@ const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => 
     [data],
   );
 
-  const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
+  useEffect(() => {
+    if (buttonRef.current) {
+      setButtonWidth(buttonRef.current.offsetWidth - 10);
+    }
+  }, []);
+
   return (
     <Popover
       opened={opened}
       offset={4}
+      position={position}
       target={
         <Button
+          ref={buttonRef}
           {...props}
           rightIcon={
             chevronUp ? (
@@ -54,15 +64,20 @@ const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => 
             )
           }
           onClick={() => setOpened(!opened)}
-          textAlign="appart"
+          textAlign="apart"
         />
       }
-      width={width}
       closeOnEscape
       closeOnClickOutside={true}
       onClose={() => setOpened(false)}
       trapFocus
-      styles={{ boxShadow: 'none', border: 'none' }}
+      // width={buttonWidth || null}
+      styles={{
+        dropdown: {
+          minWidth: buttonWidth,
+          maxWidth: 150,
+        },
+      }}
     >
       <Dropdown>
         {handledData.map((item, index) => (
@@ -70,6 +85,10 @@ const DropdownButton = ({ itemComponent, data, chevronUp, width, ...props }) => 
             key={item.id || `DropdownButton Item ${index}`}
             {...item}
             icon={renderIcon(item.icon)}
+            style={{
+              minWidth: buttonWidth,
+              maxWidth: 200,
+            }}
           />
         ))}
       </Dropdown>
