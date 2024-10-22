@@ -71,7 +71,6 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
       closeOnClickOutside={true}
       onClose={() => setOpened(false)}
       trapFocus
-      // width={buttonWidth || null}
       styles={{
         dropdown: {
           minWidth: buttonWidth,
