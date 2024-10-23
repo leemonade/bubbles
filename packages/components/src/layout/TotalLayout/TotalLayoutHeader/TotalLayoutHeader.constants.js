@@ -13,7 +13,6 @@ export const TOTAL_LAYOUT_HEADER_PROP_TYPES = {
   cancelable: PropTypes.bool,
   direction: PropTypes.oneOf(['row', 'column']),
   rightZone: PropTypes.node,
-  noIcon: PropTypes.bool,
 };
 
 export const TOTAL_LAYOUT_HEADER_DEFAULT_PROPS = {
@@ -25,7 +24,6 @@ export const TOTAL_LAYOUT_HEADER_DEFAULT_PROPS = {
   cancelable: true,
   direction: 'column',
   rightZone: null,
-  noIcon: false,
 };
 
 export const TOTAL_LAYOUT_HEADER_HEIGHT = 72;
