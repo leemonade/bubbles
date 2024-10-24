@@ -25,6 +25,7 @@ const TotalLayoutHeader = ({
   cancelable = true,
   mainActionLabel = 'Cancelar',
   rightZone = null,
+  noIcon = false,
   ...props
 }) => {
   const formContext = useFormContext();
@@ -50,7 +51,7 @@ const TotalLayoutHeader = ({
         {/* ICON & LABELS */}
         <Stack alignItems="center">
           <Stack>
-            <Box className={classes.iconContainer}>{icon}</Box>
+            {!noIcon && <Box className={classes.iconContainer}>{icon}</Box>}
             <Stack
               spacing={compact ? 2 : 0}
               justifyContent="center"
