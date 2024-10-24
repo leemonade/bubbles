@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   ActionButton,
   AvatarSubject,
@@ -9,7 +9,7 @@ import {
 } from '@bubbles-ui/components';
 import { Popover } from '@mantine/core';
 import { isEmpty, isFunction } from 'lodash';
-import { useClickOutside } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { CheckIcon, ChevDownIcon, ChevUpIcon } from '@bubbles-ui/icons/outline';
 import { HeaderDropdownStyles } from './HeaderDropdown.styles';
 import {
@@ -36,12 +36,13 @@ const HeaderDropdown = ({
   ...props
 }) => {
   const [isOpened, setIsOpened] = useState(false);
-  const ref = useClickOutside(() => setIsOpened(false));
   const [filter, setFilter] = useState('');
   const [isOnlyOneItem, setIsOnlyOneItem] = useState(false);
   const [selectedItem, setSelectedItem] = useState(
     data.find((item) => item?.id === value?.id) || data[0] || {},
   );
+  const headerRef = useRef(null);
+  const dropdownId = useId();
   React.useEffect(() => {
     setIsOnlyOneItem(data.length === 1);
   }, [data]);
@@ -62,6 +63,13 @@ const HeaderDropdown = ({
     setIsOpened(false);
   };
 
+  const handleItemKeyDown = (event, item) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onChangeHandler(item);
+      event.preventDefault();
+    }
+  };
+
   const loadItemList = () => {
     const itemListToReturn = data.filter((item) => {
       const itemLabel = normalizeString(item?.label);
@@ -79,6 +87,10 @@ const HeaderDropdown = ({
             selectedItem?.id === item?.id ? classes.itemComponentSelected : classes.itemComponent
           }
           onClick={() => onChangeHandler(item)}
+          tabIndex={0}
+          role="option"
+          aria-selected={selectedItem?.id === item?.id}
+          onKeyDown={(e) => handleItemKeyDown(e, item)}
         >
           <Box className={classes.itemComponentContent}>
             {!hideIcon ? (
@@ -118,8 +130,15 @@ const HeaderDropdown = ({
     setSelectedItem(data.find((item) => item?.id === value?.id) || data[0] || {});
   }, [JSON.stringify(value)]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      setIsOpened(!isOpened);
+      event.preventDefault();
+    }
+  };
+
   return (
-    <Box ref={ref} className={classes.root} {...props}>
+    <Box ref={headerRef} className={classes.root} {...props}>
       <Popover
         opened={isOpened}
         onClose={() => setIsOpened(false)}
@@ -128,9 +147,20 @@ const HeaderDropdown = ({
         shadow="lg"
         withinPortal
         classNames={{ dropdown: classes.dropDown }}
+        trapFocus
+        returnFocus
       >
         <Popover.Target>
-          <Box className={classes.header}>
+          <Box
+            className={classes.header}
+            onClick={() => !readOnly && setIsOpened(!isOpened)}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded={isOpened}
+            aria-controls={dropdownId}
+          >
             {valueComponent ? (
               React.cloneElement(valueComponent, [...selectedItem])
             ) : (
@@ -173,6 +203,7 @@ const HeaderDropdown = ({
                   onClick={() => setIsOpened(!isOpened)}
                   color="primary"
                   active={isOpened}
+                  aria-hidden="true"
                 />
               </Box>
             )}
