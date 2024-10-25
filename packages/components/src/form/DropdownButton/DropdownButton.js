@@ -64,7 +64,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
             )
           }
           onClick={() => setOpened(!opened)}
-          textAlign="apart"
+          textAlign="appart"
         />
       }
       closeOnEscape
