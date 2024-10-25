@@ -386,6 +386,10 @@ function EventCell(thisprops) {
     avatar.image = emptyPixel;
   }
 
+  if (originalEvent.bgColor !== originalEvent.calendar.bgColor) {
+    avatar.fullName = originalEvent.calendarName;
+  }
+
   let lAvatar = null;
   let rAvatar = null;
 
