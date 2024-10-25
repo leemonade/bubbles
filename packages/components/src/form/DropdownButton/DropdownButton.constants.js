@@ -4,7 +4,7 @@ export const DROPDOWN_BUTTON_DEFAULT_PROPS = {
   children: '',
   chevronUp: false,
   data: [],
-  width: 'target',
+  position: 'bottom-end',
 };
 export const DROPDOWN_BUTTON_PROP_TYPES = {
   children: PropTypes.node,
