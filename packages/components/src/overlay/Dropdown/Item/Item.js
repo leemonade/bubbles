@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { CheckIcon } from '@bubbles-ui/icons/solid';
 import { isString } from 'lodash';
 import { Box } from '../../../layout/Box';
-import { Text } from '../../../typography';
+import { Text, TextClamp } from '../../../typography';
 import { Avatar } from '../../../informative/Avatar';
 import { ImageLoader } from '../../../misc';
 import { ItemStyles } from './Item.styles';
@@ -33,7 +33,9 @@ const Item = forwardRef(
             {isString(icon) ? <ImageLoader src={icon} height={16} width={16} /> : icon}
           </Box>
         )}
-        <Text className={classes.label}>{label}</Text>
+        <TextClamp lines={1}>
+          <Text className={classes.label}>{label}</Text>
+        </TextClamp>
         {dataSelected && <CheckIcon className={classes.check} />}
       </Box>
     );
