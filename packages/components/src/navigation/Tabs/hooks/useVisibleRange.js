@@ -1,18 +1,19 @@
 import { useMemo } from 'react';
 
 const DEFAULT_SIZE = { width: 0, height: 0, left: 0, top: 0, right: 0 };
+const TOLERANCE = 5; // píxeles de tolerancia
 
 export const useVisibleRange = (
   tabOffsets, // Map<React.Key, { width: number, height: number, left: number, top: number }>
   containerSize, // { width: number, height: number, left: number, top: number },
   tabContentNodeSize, // { width: number, height: number },
   addNodeSize, // { width: number, height: number },
-  { tabs, rtl }
+  { tabs, rtl },
 ) => {
   // { tabs: Tab[] } & TabNavListProps
-  let unit = 'width'; // 'width' | 'height';
-  let position = rtl ? 'right' : 'left'; // 'left' | 'top' | 'right';
-  let transformSize = Math.abs(containerSize.left); // number;
+  const unit = 'width'; // 'width' | 'height';
+  const position = rtl ? 'right' : 'left'; // 'left' | 'top' | 'right';
+  const transformSize = Math.abs(containerSize.left); // number;
 
   const basicSize = containerSize[unit];
   const tabContentSize = tabContentNodeSize[unit];
@@ -29,7 +30,7 @@ export const useVisibleRange = (
     }
 
     const len = tabs.length;
-    let endIndex = len;
+    let endIndex = len - 1;
     for (let i = 0; i < len; i += 1) {
       const offset = tabOffsets.get(tabs[i].key) || DEFAULT_SIZE;
       if (offset[position] + offset[unit] > transformSize + mergedBasicSize) {
@@ -39,10 +40,10 @@ export const useVisibleRange = (
     }
 
     let startIndex = 0;
-    for (let i = len - 1; i >= 0; i -= 1) {
+    for (let i = 0; i < len; i += 1) {
       const offset = tabOffsets.get(tabs[i].key) || DEFAULT_SIZE;
-      if (offset[position] < transformSize) {
-        startIndex = i + 1;
+      if (offset[position] + offset[unit] >= transformSize) {
+        startIndex = i;
         break;
       }
     }
