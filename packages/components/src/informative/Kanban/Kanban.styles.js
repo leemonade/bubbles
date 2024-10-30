@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-const KanbanStyles = createStyles((theme) => ({
+const KanbanStyles = createStyles((theme, { clean }) => ({
   root: {
     display: 'flex',
     overflow: 'auto',
@@ -9,8 +9,8 @@ const KanbanStyles = createStyles((theme) => ({
     maxHeight: '100%',
     gap: theme.spacing[2],
     alignItems: 'stretch',
-    padding: theme.spacing[2],
-    backgroundColor: '#F8F9FB',
+    padding: clean ? 0 : theme.spacing[2],
+    backgroundColor: clean ? 'transparent' : '#F8F9FB',
   },
   column: {
     display: 'inline-flex',
