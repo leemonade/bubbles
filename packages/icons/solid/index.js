@@ -179,6 +179,7 @@ module.exports.TravelPlacesTheaterMaskIcon = require("./TravelPlacesTheaterMaskI
 module.exports.TwitchIcon = require("./TwitchIcon.js")
 module.exports.TwitterIcon = require("./TwitterIcon.js")
 module.exports.UnarchiveIcon = require("./UnarchiveIcon.js")
+module.exports.UndeleteIcon = require("./UndeleteIcon.js")
 module.exports.UnlockIcon = require("./UnlockIcon.js")
 module.exports.UserGroupIcon = require("./UserGroupIcon.js")
 module.exports.VideoEditCcTitlesIcon = require("./VideoEditCcTitlesIcon.js")
