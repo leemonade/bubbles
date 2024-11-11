@@ -11,6 +11,7 @@ export const KANBAN_DEFAULT_PROPS = {
   itemRender: ({ value }) => <>{value.title}</>,
   showNewOnFirstColumn: true,
   newItemLabel: 'Add new item',
+  clean: false,
 };
 export const KANBAN_PROP_TYPES = {
   value: PropTypes.shape({
@@ -29,6 +30,7 @@ export const KANBAN_PROP_TYPES = {
   itemRender: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   showNewOnFirstColumn: PropTypes.bool,
   newItemLabel: PropTypes.string,
+  clean: PropTypes.bool,
 };
 
 const Kanban = ({
@@ -39,8 +41,9 @@ const Kanban = ({
   showNewOnFirstColumn,
   onNew,
   newItemLabel,
+  clean,
 }) => {
-  const { classes } = KanbanStyles({});
+  const { classes } = KanbanStyles({ clean }, { name: 'Kanban' });
 
   const onDragEnd = (result) => {
     // dropped nowhere

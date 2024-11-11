@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const PROGRESSRING_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
+export const PROGRESSRING_SIZES = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'];
 export const PROGRESS_RING_DEFAULT_PROPS = {
   sections: [{ value: 10, color: '#307AE8' }],
   label: '',

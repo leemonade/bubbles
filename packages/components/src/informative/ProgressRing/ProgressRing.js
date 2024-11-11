@@ -12,6 +12,7 @@ const ProgressRing = ({ sections, label, roundCaps, size, thickness, rootColor }
 
   const sizeValue = PROGRESSRING_SIZES.includes(size) ? size : PROGRESSRING_SIZES[2];
   const sizeHandler = {
+    xxs: 28,
     xs: 56,
     sm: 82,
     md: 92,

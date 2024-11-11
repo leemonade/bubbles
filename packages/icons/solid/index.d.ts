@@ -179,6 +179,7 @@ export { default as TravelPlacesTheaterMaskIcon } from './TravelPlacesTheaterMas
 export { default as TwitchIcon } from './TwitchIcon'
 export { default as TwitterIcon } from './TwitterIcon'
 export { default as UnarchiveIcon } from './UnarchiveIcon'
+export { default as UndeleteIcon } from './UndeleteIcon'
 export { default as UnlockIcon } from './UnlockIcon'
 export { default as UserGroupIcon } from './UserGroupIcon'
 export { default as VideoEditCcTitlesIcon } from './VideoEditCcTitlesIcon'
