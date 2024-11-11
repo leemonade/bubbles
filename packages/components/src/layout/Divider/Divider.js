@@ -13,7 +13,7 @@ export const DIVIDER_PROP_TYPES = {
 };
 
 const Divider = ({ orientation, ...props }) => {
-  const { classes, cx } = DividerStyles({ orientation });
+  const { classes } = DividerStyles({ orientation });
 
   return (
     <MantineDivider

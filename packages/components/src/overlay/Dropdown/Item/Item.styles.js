@@ -3,17 +3,14 @@ import { pxToRem } from '../../../theme.mixins';
 
 const ItemStyles = createStyles((theme, { group, disabled }) => {
   const dropdownTheme = theme.other.dropdown;
+  const globalTheme = theme.other.global;
 
-  return {
-    root: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: dropdownTheme.spacing.padding.md,
-      gap: dropdownTheme.spacing.gap,
-      borderRadius: dropdownTheme.border.radius,
-      backgroundColor: disabled
-        ? theme.other.global.background.color.disabled
-        : dropdownTheme.background.color.default,
+  let itemProps = {
+    pointerEvents: 'none',
+  };
+
+  if (group !== true) {
+    itemProps = {
       '&[data-hovered]': {
         backgroundColor: !disabled && dropdownTheme.background.color.hover,
       },
@@ -25,13 +22,33 @@ const ItemStyles = createStyles((theme, { group, disabled }) => {
       },
       cursor: disabled ? 'not-allowed' : 'pointer',
       pointerEvents: disabled ? 'none' : 'auto',
+    };
+  }
+
+  return {
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: dropdownTheme.spacing.padding.md,
+      gap: dropdownTheme.spacing.gap,
+      borderRadius: dropdownTheme.border.radius,
+      backgroundColor: disabled
+        ? theme.other.global.background.color.disabled
+        : dropdownTheme.background.color.default,
       filter: disabled ? 'grayscale(1)' : 'none',
       opacity: disabled ? 0.5 : 1,
+      ...itemProps,
     },
     label: {
       ...dropdownTheme.content.typo,
+      lineHeight: '1.1em',
       color: dropdownTheme.content.color.default,
-      flex: 1,
+      flex: !group ? 1 : 'unset',
+    },
+    description: {
+      ...globalTheme.content.typo.body.xsm,
+      color: globalTheme.content.color.text.muted,
+      flex: !group ? 1 : 'unset',
     },
     iconWrapper: {
       position: 'relative',

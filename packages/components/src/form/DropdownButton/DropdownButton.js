@@ -8,10 +8,11 @@ import {
 } from './DropdownButton.constants';
 import { Button } from '../Button';
 import { Popover } from '../../overlay/Popover';
-import { Dropdown, Item } from '../../overlay/Dropdown';
+import { Dropdown } from '../../overlay/Dropdown/Dropdown';
+import { Item } from '../../overlay/Dropdown/Item';
 import { ImageLoader } from '../../misc';
 
-const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) => {
+const DropdownButton = ({ itemComponent, data, chevronUp, position, maxWidth, ...props }) => {
   const [opened, setOpened] = useState(false);
   const [buttonWidth, setButtonWidth] = useState(0);
   const buttonRef = useRef(null);
@@ -22,7 +23,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
       onOption();
       setOpened(false);
     };
-  const { classes, cx } = DropdownButtonStyles({}, { name: 'DropdownButton' });
+  const { classes } = DropdownButtonStyles({}, { name: 'DropdownButton' });
 
   function renderIcon(icon) {
     if (!icon) return null;
@@ -49,6 +50,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
 
   return (
     <Popover
+      clean
       opened={opened}
       offset={4}
       position={position}
@@ -74,7 +76,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
       styles={{
         dropdown: {
           minWidth: buttonWidth,
-          maxWidth: 150,
+          maxWidth: maxWidth - 50,
         },
       }}
     >
@@ -86,7 +88,7 @@ const DropdownButton = ({ itemComponent, data, chevronUp, position, ...props }) 
             icon={renderIcon(item.icon)}
             style={{
               minWidth: buttonWidth,
-              maxWidth: 200,
+              maxWidth,
             }}
           />
         ))}

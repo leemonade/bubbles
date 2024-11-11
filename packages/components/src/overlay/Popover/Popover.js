@@ -8,8 +8,11 @@ import { Box } from '../../layout/Box';
 import { ActionButton } from '../../form/ActionButton';
 
 const Popover = forwardRef(
-  ({ padded, target, children, withArrow, withCloseButton, onClose, styles, ...props }, ref) => {
-    const { classes } = PopoverStyles({ padded, styles });
+  (
+    { padded, target, children, withArrow, withCloseButton, onClose, styles, clean, ...props },
+    ref,
+  ) => {
+    const { classes } = PopoverStyles({ padded, clean, styles });
 
     const onCloseHandler = () => {
       if (isFunction(onClose)) onClose();

@@ -7,3 +7,4 @@ export * from './Modal';
 export * from './DrawerPush';
 export * from './ModalZoom';
 export * from './BaseDrawer';
+export * from './Dropdown';
