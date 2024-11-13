@@ -31,18 +31,29 @@ const AvatarsGroup = ({
     const avatarsArray = [];
 
     if (!isEmpty(data)) {
-      const index = findIndex(data, ({ permissions }) => permissions?.includes('owner'));
-      data.unshift(data.splice(index, 1)[0]);
+      const processedData = data.map((item) => {
+        if (item.surnames && item.name) {
+          return {
+            ...item,
+            fullName: `${item.surnames}, ${item.name}`,
+          };
+        }
+        return item;
+      });
+
+      const index = findIndex(processedData, ({ permissions }) => permissions?.includes('owner'));
+      processedData.unshift(processedData.splice(index, 1)[0]);
+
       if (moreThanUsersAsMulti) {
-        forEach(data, (avatar, i) => {
-          if (i + 1 >= moreThanUsersAsMulti && i + 1 < data.length) {
+        forEach(processedData, (avatar, i) => {
+          if (i + 1 >= moreThanUsersAsMulti && i + 1 < processedData.length) {
             avatarsArray.push({ color: '#696969', icon: <TeammateIcon />, type: 'cus-icon' });
             return false;
           }
           return avatarsArray.push({ ...avatar, type: 'avatar' });
         });
       } else {
-        avatarsArray.push(...data.map((avatar) => ({ ...avatar, type: 'avatar' })));
+        avatarsArray.push(...processedData.map((avatar) => ({ ...avatar, type: 'avatar' })));
       }
     }
 
@@ -85,7 +96,7 @@ const AvatarsGroup = ({
       if (n) {
         n = (
           <Box>
-            <Text className={classes.numberUsers}>{n <= 99 ? `(${n})` : '+99'}</Text>
+            <Text className={classes.numberUsers}>{n <= 99 ? `${n}` : '+99'}</Text>
           </Box>
         );
       }
