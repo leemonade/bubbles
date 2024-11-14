@@ -95,6 +95,8 @@ const VerticalStepper = ({
 
   const getStepState = (step, index) => {
     if (index === activeIndex) return 'current';
+
+    if (step.isBlocked) return 'blocked';
     if (step.isChild) {
       if (step.siblingsRange.every((childIndex) => completedSteps.includes(childIndex)))
         return 'completed';

@@ -29,6 +29,7 @@ const Step = ({
   const isText = !!text;
   const isActivity = !!completion;
   const isCompleted = state === 'completed' || state === 'OK' || state === 'KO';
+  const isBlocked = state === 'blocked';
 
   const { classes } = StepStyles(
     {
@@ -47,7 +48,7 @@ const Step = ({
   );
 
   const onClickHandler = () => {
-    if (isFunction(onClick)) {
+    if (isFunction(onClick) && !isBlocked) {
       onClick();
     }
   };

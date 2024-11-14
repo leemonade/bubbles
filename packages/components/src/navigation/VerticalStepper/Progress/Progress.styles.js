@@ -1,5 +1,4 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../../theme.mixins';
 
 const ProgressStyles = createStyles(
   (theme, { position, isButton, isActivity, isText, isCurrent, isVisited, state }) => {
@@ -13,17 +12,17 @@ const ProgressStyles = createStyles(
       if (isBetween) {
         height = isButton || isActivity ? 62 : 55;
       }
-      return (isLast || isFirst) ? Math.round(height / 1.5) : height;
+      return isLast || isFirst ? Math.round(height / 1.5) : height;
     };
 
     const getBarPosition = () => {
       let result = 'none';
 
-      if(isLast)result = 'translateY(-70%)';
-      if(isFirst) result = 'translateY(70%)';
+      if (isLast) result = 'translateY(-70%)';
+      if (isFirst) result = 'translateY(70%)';
 
       return result;
-    }
+    };
 
     return {
       root: { minHeight: 20, minWidth: 20 },
@@ -116,6 +115,19 @@ const ProgressStyles = createStyles(
         color: theme.colors.mainWhite,
         padding: 4,
         zIndex: 1,
+      },
+      blockedIconContainer: {
+        width: 16,
+        height: 16,
+        paddingTop: 2,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1,
+        background: theme.colors.mainWhite,
+      },
+      blockedIcon: {
+        color: stepperTheme.background?.color?.default,
       },
     };
   },

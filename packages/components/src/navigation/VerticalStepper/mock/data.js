@@ -46,6 +46,13 @@ export const DATA = [
     },
     status: 'KO',
   },
+  {
+    label: 'Paso bloqueado',
+    onClick: () => {
+      console.log('Click on paso bloqueado');
+    },
+    isBlocked: true,
+  },
 ];
 
 export const SIMPLE_DATA = [
@@ -76,5 +83,12 @@ export const SIMPLE_DATA = [
       console.log('Click on pruebas 2');
     },
     status: 'KO',
+  },
+  {
+    label: 'Paso bloqueado',
+    onClick: () => {
+      console.log('Click on paso bloqueado');
+    },
+    isBlocked: true,
   },
 ];

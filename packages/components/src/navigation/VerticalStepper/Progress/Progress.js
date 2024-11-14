@@ -1,6 +1,5 @@
 import React from 'react';
-import { TimeClockCircleIcon } from '@bubbles-ui/icons/outline/';
-import { CheckIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
+import { CheckIcon, LockIcon, RemoveBoldIcon } from '@bubbles-ui/icons/solid';
 import { Box } from '../../../layout/Box';
 import { ProgressStyles } from './Progress.styles';
 import { PROGRESS_DEFAULT_PROPS, PROGRESS_PROP_TYPES } from './Progress.constants';
@@ -37,6 +36,7 @@ const Progress = ({
         </Box>
       );
     }
+
     switch (state) {
       case 'pending':
         return (
@@ -76,6 +76,15 @@ const Progress = ({
           <Box className={classes.progressContainer}>
             <Box className={classes.solidBar}></Box>
             <RemoveBoldIcon height={20} width={20} className={classes.KOIcon} />
+          </Box>
+        );
+      case 'blocked':
+        return (
+          <Box className={classes.progressContainer}>
+            <Box className={classes.solidBar} />
+            <Box className={classes.blockedIconContainer}>
+              <LockIcon height={16} width={16} className={classes.blockedIcon} />
+            </Box>
           </Box>
         );
       default:
