@@ -36,6 +36,7 @@ export const FILE_UPLOAD_DEFAULT_PROPS = {
   useAria: true,
   fullWidth: false,
   labels: {},
+  showItemsToUpload: true,
 };
 
 export const FILE_UPLOAD_PROP_TYPES = {
@@ -63,6 +64,7 @@ export const FILE_UPLOAD_PROP_TYPES = {
   accept: PropTypes.arrayOf(PropTypes.string),
   useAria: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  showItemsToUpload: PropTypes.bool,
 };
 
 const FileUpload = ({
@@ -84,6 +86,7 @@ const FileUpload = ({
   useAria,
   labels,
   fullWidth,
+  showItemsToUpload = true,
   ...props
 }) => {
   const openRef = useRef();
@@ -176,7 +179,7 @@ const FileUpload = ({
           {errorMessage.message}
         </Alert>
       )}
-      {files.length > 0 && (
+      {files.length > 0 && showItemsToUpload && (
         <Stack spacing={4} className={classes.fileList} direction={'column'}>
           {files.map((file, index) => (
             <Stack
