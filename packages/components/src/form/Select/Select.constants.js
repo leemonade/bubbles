@@ -40,4 +40,5 @@ export const SELECT_PROP_TYPES = {
   autoComplete: PropTypes.string,
   readOnly: PropTypes.bool,
   autoSelectOneOption: PropTypes.bool,
+  withinPortal: PropTypes.bool,
 };

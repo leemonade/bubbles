@@ -9,14 +9,23 @@ import { Box } from '../../layout/Box';
 import { Chip } from '../Chip/Chip';
 import { Text } from '../../typography';
 
-const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetected, labels, style }) => {
+const ChipsContainer = ({
+  items,
+  changeOnResize,
+  chipsToShow,
+  isCollisionDetected,
+  labels,
+  style,
+  truncate,
+  truncateLines,
+}) => {
   const { classes } = ChipsContainerStyles({ isCollisionDetected }, { name: 'ChipsContainer' });
   const containerRef = useRef(null);
   const chipRefs = useRef(items.map(() => React.createRef()));
   const [hiddenChips, setHiddenChips] = useState(new Array(items.length).fill(false));
 
   const getHiddenSubjectsLabel = () => items.filter((_, index) => hiddenChips[index]);
-  
+
   const updateVisibleChips = React.useCallback(() => {
     if (typeof chipsToShow === 'number') {
       const newHiddenChips = items.map((_, index) => index >= chipsToShow);
@@ -25,7 +34,7 @@ const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetecte
       let totalWidth = 0;
       const newHiddenChips = new Array(items.length).fill(true);
       const containerWidth = containerRef.current?.offsetWidth ?? 0;
-      
+
       try {
         chipRefs.current.forEach((ref, index) => {
           const chip = ref.current;
@@ -37,8 +46,8 @@ const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetecte
             totalWidth += fullChipWidth;
           }
         });
-      } catch(e) {
-        console.error('ChipsContainer ERROR:')
+      } catch (e) {
+        console.error('ChipsContainer ERROR:');
         console.error(e);
       }
 
@@ -56,10 +65,10 @@ const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetecte
   }, [chipsToShow, containerRef.current, chipRefs.current]);
 
   const handleResize = () => {
-      if (changeOnResize && typeof chipsToShow !== 'number') {
-        updateVisibleChips();
-      }
-    };
+    if (changeOnResize && typeof chipsToShow !== 'number') {
+      updateVisibleChips();
+    }
+  };
 
   useEffect(() => {
     updateVisibleChips();
@@ -82,6 +91,8 @@ const ChipsContainer = ({ items, changeOnResize, chipsToShow, isCollisionDetecte
           ref={chipRefs.current[index]}
           isHidden={hiddenChips[index]}
           isCollisionDetected={isCollisionDetected}
+          truncate={truncate}
+          truncateLines={truncateLines}
         />
       ))}
       {hiddenCount > 0 && (

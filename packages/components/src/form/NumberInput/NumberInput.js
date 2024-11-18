@@ -80,6 +80,7 @@ const NumberInput = forwardRef(
         contentStyle={contentStyle}
         headerClassName={headerClassName}
         contentClassName={contentClassName}
+        readOnly={readOnly}
       >
         {readOnly ? (
           <Paragraph clean>{props.value || props.defaultValue || ''}</Paragraph>

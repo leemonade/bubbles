@@ -32,4 +32,5 @@ Playground.args = {
   subject: 'Mo, 10:30-11:30',
   isHidden: false,
   isCollisionDetected: false,
+  truncateLines: 1,
 };

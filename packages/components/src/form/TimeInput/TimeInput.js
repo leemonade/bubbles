@@ -31,6 +31,7 @@ const TimeInput = forwardRef(
       contentStyle,
       autoComplete,
       style,
+      readOnly,
       ...props
     },
     ref,
@@ -52,6 +53,7 @@ const TimeInput = forwardRef(
         headerStyle={headerStyle}
         contentStyle={contentStyle}
         style={style}
+        readOnly={readOnly}
       >
         <MantineTimeInput
           {...props}

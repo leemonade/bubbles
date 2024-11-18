@@ -35,6 +35,7 @@ const Button = forwardRef(
       compact, // UNUSED
       gradient, // UNUSED
       radius, // UNUSED
+      truncated,
       ...props
     },
     ref,
@@ -62,6 +63,7 @@ const Button = forwardRef(
         isSelected,
         onlyIcon: !children,
         iconSize: props.iconSize,
+        truncated,
       },
       { name: 'Button' },
     );

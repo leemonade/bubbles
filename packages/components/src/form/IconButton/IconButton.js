@@ -34,7 +34,7 @@ const IconButton = forwardRef(
     const variant = ICON_BUTTON_VARIANTS.includes(variantProp)
       ? variantProp
       : ICON_BUTTON_DEFAULT_PROPS.variant;
-    const { classes } = IconButtonStyles({ color, size, variant });
+    const { classes, cx } = IconButtonStyles({ color, size, variant });
 
     return (
       <MantineActionIcon
@@ -44,7 +44,7 @@ const IconButton = forwardRef(
         variant={variant}
         radius={radius}
         size={size}
-        className={classes.root}
+        className={cx(classes.root, className)}
         ref={ref}
         role={useAria ? 'button' : undefined}
       >

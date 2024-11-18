@@ -3,7 +3,7 @@ import { TotalLayoutStepContainer } from './TotalLayoutStepContainer';
 import { TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS } from './TotalLayoutStepContainer.constants';
 import mdx from './TotalLayoutStepContainer.mdx';
 import { ContextContainer } from '../../ContextContainer';
-import { TextInput, Textarea } from '../../../form';
+import { Button, TextInput, Textarea } from '../../../form';
 import { Stack } from '../../Stack';
 
 export default {
@@ -69,4 +69,5 @@ Playground.args = {
   // myBooleanProp: false,
   // mySelectProp: 'Hello'
   ...TOTAL_LAYOUT_STEP_CONTAINER_DEFAULT_PROPS,
+  TopZone: <Button variant="linkInline">Volver atrás</Button>,
 };

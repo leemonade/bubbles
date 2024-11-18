@@ -163,6 +163,7 @@ const ColorInput = forwardRef(
         contentStyle={contentStyle}
         headerClassName={headerClassName}
         contentClassName={contentClassName}
+        readOnly={readOnly}
         {...props}
       >
         {readOnly ? (

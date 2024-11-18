@@ -7,6 +7,8 @@ export const CHIPS_CONTAINER_PROP_TYPES = {
   labels: PropTypes.object,
   style: PropTypes.object,
   changeOnResize: PropTypes.bool,
+  truncate: PropTypes.bool,
+  truncateLines: PropTypes.number,
 };
 
 export const CHIPS_CONTAINER_DEFAULT_PROPS = {
@@ -15,4 +17,6 @@ export const CHIPS_CONTAINER_DEFAULT_PROPS = {
   isCollisionDetected: false,
   labels: {},
   changeOnResize: false,
+  truncate: false,
+  truncateLines: 1,
 };

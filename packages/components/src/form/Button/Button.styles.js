@@ -211,6 +211,7 @@ export const ButtonStyles = createStyles(
       isSelected,
       onlyIcon,
       iconSize,
+      truncated,
     },
   ) => {
     const currentVariant = getVariant(variant, theme, color);
@@ -239,6 +240,17 @@ export const ButtonStyles = createStyles(
           variant === 'outline'
             ? `${buttonTheme.border.width} solid ${theme.other.global.border.color.disabled.default}`
             : 'none',
+      };
+    }
+
+    let truncateProps = {};
+    if (truncated) {
+      truncateProps = {
+        display: 'inline-block',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        width: '100%',
       };
     }
 
@@ -285,6 +297,7 @@ export const ButtonStyles = createStyles(
       label: {
         ...buttonTheme.content.typo,
         fontSize: variant === 'linkInline' ? 'inherit' : null,
+        ...truncateProps,
       },
     };
   },

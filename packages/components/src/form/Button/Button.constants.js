@@ -18,6 +18,7 @@ export const BUTTON_DEFAULT_PROPS = {
   textAlign: BUTTON_TEXT_ALIGN[0],
   useAria: true,
   isSelected: false,
+  truncated: false,
 };
 
 export const BUTTON_PROP_TYPES = {
@@ -49,4 +50,6 @@ export const BUTTON_PROP_TYPES = {
   ariaLabel: PropTypes.string,
   /** Controls if Button is selected */
   isSelected: PropTypes.bool,
+  /** Controls if Button is truncated */
+  truncated: PropTypes.bool,
 };

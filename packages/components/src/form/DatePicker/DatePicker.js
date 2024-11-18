@@ -124,6 +124,7 @@ const DatePicker = forwardRef(
       clearButtonLabel,
       readOnly,
       style,
+      clearable,
       ...props
     },
     ref,
@@ -137,7 +138,7 @@ const DatePicker = forwardRef(
     const compProps = range ? { amountOfMonths: 2 } : {};
     const [ready, setReady] = useState(null);
     const [date, setDate] = useState(userValue);
-    const { classes } = DatePickerStyles({ size, date, range });
+    const { classes } = DatePickerStyles({ size, date, range, clearable });
     useEffect(() => {
       const format = deduceDateFormat(locale);
       setInputFormat(format);
@@ -191,6 +192,7 @@ const DatePicker = forwardRef(
         headerStyle={headerStyle}
         contentStyle={contentStyle}
         style={style}
+        readOnly={readOnly}
       >
         {readOnly ? (
           <Paragraph clean>
@@ -204,6 +206,7 @@ const DatePicker = forwardRef(
             <Comp
               {...props}
               {...compProps}
+              clearable={clearable}
               withinPortal
               placeHolder={inputFormat}
               allowFreeInput

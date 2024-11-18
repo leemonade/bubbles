@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { PluginComunicaIcon, AlertWarningTriangleIcon, BlockIcon } from '@bubbles-ui/icons/solid/';
-import { Highlight } from '@mantine/core';
+import { Highlight } from '../../typography/Highlight';
 import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar/Avatar';
 import { Text, TextClamp, TEXT_ROLES } from '../../typography';
@@ -13,13 +13,14 @@ import { UserDisplayItemStyles } from './UserDisplayItem.styles';
 
 export const USER_DISPLAY_ITEM_VARIANTS = ['inline', 'block', 'rol', 'email'];
 export const USER_DISPLAY_ITEM_LAYOUT = ['left', 'right'];
-export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm', 'xmd', 'lg'];
+export const USER_DISPLAY_ITEM_SIZES = ['xs', 'sm', 'xsm', 'md', 'lg'];
 
 export const USER_DISPLAY_ITEM_DEFAULT_PROPS = {
   variant: 'inline',
   layout: 'left',
   noBreak: false,
   textRole: 'expressive',
+  highlight: '',
 };
 export const USER_DISPLAY_ITEM_SEVERITIES = ['warning', 'error'];
 
@@ -38,6 +39,7 @@ export const USER_DISPLAY_ITEM_PROP_TYPES = {
   textRole: PropTypes.oneOf(TEXT_ROLES),
   onChat: PropTypes.func,
   noBreak: PropTypes.bool,
+  highlight: PropTypes.string,
 };
 
 const UserDisplayItem = (properties) => {

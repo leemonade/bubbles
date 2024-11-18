@@ -1,5 +1,247 @@
 # @bubbles-ui/leemons
 
+## 1.2.266
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.266
+  - @bubbles-ui/calendars@1.2.266
+  - @bubbles-ui/editors@1.2.266
+  - @bubbles-ui/icons@1.2.266
+
+## 1.2.265
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.265
+  - @bubbles-ui/calendars@1.2.265
+  - @bubbles-ui/editors@1.2.265
+  - @bubbles-ui/icons@1.2.265
+
+## 1.2.264
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.264
+  - @bubbles-ui/calendars@1.2.264
+  - @bubbles-ui/editors@1.2.264
+  - @bubbles-ui/icons@1.2.264
+
+## 1.2.263
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.263
+  - @bubbles-ui/calendars@1.2.263
+  - @bubbles-ui/editors@1.2.263
+  - @bubbles-ui/icons@1.2.263
+
+## 1.2.262
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.262
+  - @bubbles-ui/calendars@1.2.262
+  - @bubbles-ui/editors@1.2.262
+  - @bubbles-ui/icons@1.2.262
+
+## 1.2.261
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.261
+  - @bubbles-ui/calendars@1.2.261
+  - @bubbles-ui/editors@1.2.261
+  - @bubbles-ui/icons@1.2.261
+
+## 1.2.260
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.260
+  - @bubbles-ui/calendars@1.2.260
+  - @bubbles-ui/editors@1.2.260
+  - @bubbles-ui/icons@1.2.260
+
+## 1.2.259
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.259
+  - @bubbles-ui/calendars@1.2.259
+  - @bubbles-ui/editors@1.2.259
+  - @bubbles-ui/icons@1.2.259
+
+## 1.2.258
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.258
+  - @bubbles-ui/calendars@1.2.258
+  - @bubbles-ui/editors@1.2.258
+  - @bubbles-ui/icons@1.2.258
+
+## 1.2.257
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.257
+  - @bubbles-ui/calendars@1.2.257
+  - @bubbles-ui/editors@1.2.257
+  - @bubbles-ui/icons@1.2.257
+
+## 1.2.256
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.256
+  - @bubbles-ui/calendars@1.2.256
+  - @bubbles-ui/editors@1.2.256
+  - @bubbles-ui/icons@1.2.256
+
+## 1.2.255
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.255
+  - @bubbles-ui/calendars@1.2.255
+  - @bubbles-ui/editors@1.2.255
+  - @bubbles-ui/icons@1.2.255
+
+## 1.2.254
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.254
+  - @bubbles-ui/calendars@1.2.254
+  - @bubbles-ui/editors@1.2.254
+  - @bubbles-ui/icons@1.2.254
+
+## 1.2.253
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.253
+  - @bubbles-ui/calendars@1.2.253
+  - @bubbles-ui/editors@1.2.253
+  - @bubbles-ui/icons@1.2.253
+
+## 1.2.252
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.252
+  - @bubbles-ui/calendars@1.2.252
+  - @bubbles-ui/editors@1.2.252
+  - @bubbles-ui/icons@1.2.252
+
+## 1.2.251
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.251
+  - @bubbles-ui/calendars@1.2.251
+  - @bubbles-ui/editors@1.2.251
+  - @bubbles-ui/icons@1.2.251
+
+## 1.2.250
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.250
+  - @bubbles-ui/calendars@1.2.250
+  - @bubbles-ui/editors@1.2.250
+  - @bubbles-ui/icons@1.2.250
+
+## 1.2.249
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.249
+  - @bubbles-ui/calendars@1.2.249
+  - @bubbles-ui/editors@1.2.249
+  - @bubbles-ui/icons@1.2.249
+
+## 1.2.248
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.248
+  - @bubbles-ui/calendars@1.2.248
+  - @bubbles-ui/editors@1.2.248
+  - @bubbles-ui/icons@1.2.248
+
+## 1.2.247
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.247
+  - @bubbles-ui/calendars@1.2.247
+  - @bubbles-ui/editors@1.2.247
+  - @bubbles-ui/icons@1.2.247
+
+## 1.2.246
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.246
+  - @bubbles-ui/calendars@1.2.246
+  - @bubbles-ui/editors@1.2.246
+  - @bubbles-ui/icons@1.2.246
+
+## 1.2.245
+
+### Patch Changes
+
+- Versions bump
+- Updated dependencies
+  - @bubbles-ui/components@1.2.245
+  - @bubbles-ui/calendars@1.2.245
+  - @bubbles-ui/editors@1.2.245
+  - @bubbles-ui/icons@1.2.245
+
 ## 1.2.244
 
 ### Patch Changes

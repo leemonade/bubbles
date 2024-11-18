@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/styles';
 
-const InputLabelStyles = createStyles((theme) => {
+const InputLabelStyles = createStyles((theme, { readOnly }) => {
   const labelTheme = theme.other.label;
 
   return {
@@ -12,6 +12,7 @@ const InputLabelStyles = createStyles((theme) => {
     label: {
       color: labelTheme.content.color.default,
       ...labelTheme.content.typo['02'],
+      fontWeight: readOnly ? 'bold' : 'normal',
     },
     required: {
       marginLeft: labelTheme.spacing.gap.sm,
