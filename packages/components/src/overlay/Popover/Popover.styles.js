@@ -1,10 +1,20 @@
 import { createStyles } from '@mantine/styles';
 
-export const PopoverStyles = createStyles((theme, { padded, styles }) => {
+const PopoverStyles = createStyles((theme, { padded, clean, styles }) => {
+  let shadowProps = {};
+
+  if (clean) {
+    shadowProps = {
+      boxShadow: 'none',
+      border: 'none',
+    };
+  }
+
   return {
     dropdown: {
       padding: padded ? theme.spacing[padded] : 0,
       boxShadow: theme.shadows.shadow03,
+      ...shadowProps,
       ...styles,
     },
     closeButton: {
@@ -15,3 +25,5 @@ export const PopoverStyles = createStyles((theme, { padded, styles }) => {
     },
   };
 });
+
+export { PopoverStyles };

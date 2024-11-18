@@ -7,6 +7,7 @@ import { Avatar } from '../../../informative/Avatar';
 import { ImageLoader } from '../../../misc';
 import { ItemStyles } from './Item.styles';
 import { ITEM_DEFAULT_PROPS, ITEM_PROP_TYPES } from './Item.constants';
+import { Divider } from '../../../layout/Divider';
 
 const Item = forwardRef(
   (
@@ -19,6 +20,7 @@ const Item = forwardRef(
       disabled,
       className,
       'data-selected': dataSelected,
+      description,
       ...props
     },
     ref,
@@ -27,16 +29,29 @@ const Item = forwardRef(
 
     return (
       <Box className={classes.root} ref={ref} {...props}>
-        {image && <Avatar size="sm" image={image} />}
-        {!image && icon && (
-          <Box className={classes.iconWrapper}>
-            {isString(icon) ? <ImageLoader src={icon} height={16} width={16} /> : icon}
-          </Box>
+        {group === true ? (
+          <Divider label={label} sx={{ width: '100%' }} />
+        ) : (
+          <>
+            {image && <Avatar size="sm" image={image} />}
+            {!image && icon && (
+              <Box className={classes.iconWrapper}>
+                {isString(icon) ? <ImageLoader src={icon} height={16} width={16} /> : icon}
+              </Box>
+            )}
+            <Box>
+              <TextClamp lines={1}>
+                <Text className={classes.label}>{label}</Text>
+              </TextClamp>
+              {!!description && (
+                <TextClamp lines={1}>
+                  <Text className={classes.description}>{description}</Text>
+                </TextClamp>
+              )}
+            </Box>
+            {dataSelected && <CheckIcon className={classes.check} />}
+          </>
         )}
-        <TextClamp lines={1}>
-          <Text className={classes.label}>{label}</Text>
-        </TextClamp>
-        {dataSelected && <CheckIcon className={classes.check} />}
       </Box>
     );
   },

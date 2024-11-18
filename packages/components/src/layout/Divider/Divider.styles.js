@@ -1,15 +1,20 @@
 import { createStyles } from '@mantine/styles';
-import { pxToRem, getPaddings, getFontExpressive, getFontProductive } from '../../theme.mixins';
 
-export const DividerStyles = createStyles((theme, { orientation }) => {
-  const dividerTheme = theme.other.divider;
+const DividerStyles = createStyles((theme, { orientation }) => {
+  const globalTheme = theme.other.global;
+
   return {
     root: {
-      borderColor: dividerTheme.background.color.default,
       height: orientation === 'vertical' && 'auto',
     },
     label: {
-      ...getFontProductive(null),
+      ...globalTheme.content.typo.body.xsm,
+      color: globalTheme.border.color.line.default,
+      '&:after': {
+        borderColor: globalTheme.border.color.line.subtle,
+      },
     },
   };
 });
+
+export { DividerStyles };

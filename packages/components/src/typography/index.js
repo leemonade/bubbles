@@ -4,3 +4,4 @@ export * from './Text';
 export * from './TextClamp';
 export * from './HtmlText';
 export * from './Highlight';
+export * from './Typing';

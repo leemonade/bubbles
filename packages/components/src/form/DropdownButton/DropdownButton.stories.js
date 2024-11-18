@@ -37,7 +37,11 @@ Playground.args = {
   ...DROPDOWN_BUTTON_DEFAULT_PROPS,
   children: 'Click me',
   data: [
-    { label: 'Item with very long label', onClick: () => console.log('Item 1 clicked') },
+    {
+      label: 'Item with very long label',
+      description: '10/05/2024',
+      onClick: () => console.log('Item 1 clicked'),
+    },
     { label: 'Item 2', onClick: () => console.log('Item 2 clicked') },
     { label: 'Item 3', onClick: () => console.log('Item 3 clicked') },
   ],
