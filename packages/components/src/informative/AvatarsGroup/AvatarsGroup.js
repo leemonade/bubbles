@@ -6,6 +6,7 @@ import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar/Avatar';
 import { AvatarsGroupStyles } from './AvatarsGroup.styles';
 import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './AvatarsGroup.constants';
+import { getUserFullName } from '../../helpers';
 
 const AvatarsGroup = ({
   data,
@@ -35,7 +36,7 @@ const AvatarsGroup = ({
         if (item.surnames && item.name) {
           return {
             ...item,
-            fullName: `${item.surnames}, ${item.name}`,
+            fullName: getUserFullName(item, { singleSurname: true }),
           };
         }
         return item;
