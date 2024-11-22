@@ -92,7 +92,7 @@ const UserDisplayItem = (properties) => {
     return name;
   }, [name, surnames, variant]);
 
-  const userFullName = getUserFullName(properties);
+  const userFullName = getUserFullName(properties, { singleSurname: true });
 
   const Icon = (
     <>
