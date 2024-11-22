@@ -16,6 +16,7 @@ export const SELECT_DEFAULT_PROPS = {
   autoSelectOneOption: false,
   dropdownPosition: SELECT_DROPDOWN_POSITIONS[2],
   withinPortal: true,
+  searchable: true,
 };
 export const SELECT_PROP_TYPES = {
   label: PropTypes.string,
