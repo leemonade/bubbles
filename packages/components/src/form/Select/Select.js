@@ -11,6 +11,13 @@ import { MultiSelect } from '../MultiSelect';
 import { Dropdown, Item } from '../../overlay/Dropdown';
 import { SELECT_PROP_TYPES, SELECT_DEFAULT_PROPS } from './Select.constants';
 
+function defaultFilter(value, item) {
+  if (!value) {
+    return true;
+  }
+  return item.label?.toLowerCase().trim().includes(value?.toLowerCase().trim());
+}
+
 const Select = forwardRef(
   (
     {
@@ -193,6 +200,7 @@ const Select = forwardRef(
             error={!isEmpty(error)}
             aria-label={ariaLabel}
             withinPortal={withinPortal}
+            filter={props.filter || defaultFilter}
           />
         )}
       </InputWrapper>
