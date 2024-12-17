@@ -93,6 +93,9 @@ const NotificationStyles = createStyles((theme, { hasIcon, severity, type }) => 
     description,
     title,
     closeButton,
+    loader: {
+      stroke: theme.other.core.color.primary['300'],
+    },
   };
 });
 
