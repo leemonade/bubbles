@@ -12,7 +12,15 @@ function formatTime(time) {
   return time;
 }
 
-const ScheduleItem = ({ schedule, scheduleLabel, locale, firstDayOfWeek = 1, classes, cx }) => {
+const ScheduleItem = ({
+  schedule,
+  scheduleLabel,
+  CustomPeriodComponent,
+  locale,
+  firstDayOfWeek = 1,
+  classes,
+  cx,
+}) => {
   const [weekDays, setWeekDays] = useState([]);
 
   const renderSchedule = (scheduleParam) => {
@@ -59,6 +67,7 @@ const ScheduleItem = ({ schedule, scheduleLabel, locale, firstDayOfWeek = 1, cla
       </HoverCard.Target>
       <HoverCard.Dropdown>
         <Box className={classes.scheduleContainer}>
+          {CustomPeriodComponent && <CustomPeriodComponent />}
           {schedule.map((scheduleElem) => renderSchedule(scheduleElem))}
         </Box>
       </HoverCard.Dropdown>
@@ -70,6 +79,7 @@ ScheduleItem.defaultProps = {};
 ScheduleItem.propTypes = {
   schedule: PropTypes.arrayOf(SCHEDULE_PROPS),
   scheduleLabel: PropTypes.string,
+  CustomPeriodComponent: PropTypes.func,
   locale: PropTypes.string,
   firstDayOfWeek: PropTypes.number,
   classes: PropTypes.object,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Button, UserDisplayItem } from '@bubbles-ui/components';
+import { PluginComunicaIcon } from '@bubbles-ui/icons/outline';
+import { isFunction } from 'lodash';
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
 import {
   CLASSROOM_HEADER_BAR_DEFAULT_PROPS,
   CLASSROOM_HEADER_BAR_PROP_TYPES,
 } from './ClassroomHeaderBar.constants';
 import { AddressItem, CalendarItem, ScheduleItem, VirtualClassItem } from './components';
-import { PluginComunicaIcon } from '@bubbles-ui/icons/outline';
-import { isFunction } from 'lodash';
 
 const ClassroomHeaderBar = ({
   classRoom,
@@ -20,7 +20,8 @@ const ClassroomHeaderBar = ({
   rightSide,
   leftSide,
 }) => {
-  const { schedule, address, virtual_classroom, teacher, calendar } = classRoom;
+  const { schedule, address, virtual_classroom, teacher, calendar, CustomPeriodComponent } =
+    classRoom;
 
   const onChatHandler = () => {
     isFunction(onChat) && onChat();
@@ -29,7 +30,7 @@ const ClassroomHeaderBar = ({
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
   return (
     <Box className={classes.root}>
-      {leftSide ? leftSide : null}
+      {leftSide || null}
       <Box className={classes.root2}>
         {teacher ? (
           <Box className={cx(classes.infoWrapper, classes.clickable)}>
@@ -96,6 +97,7 @@ const ClassroomHeaderBar = ({
         )}
         {schedule && schedule.length ? (
           <ScheduleItem
+            CustomPeriodComponent={CustomPeriodComponent}
             schedule={schedule}
             scheduleLabel={labels.schedule}
             locale={locale}
@@ -104,7 +106,7 @@ const ClassroomHeaderBar = ({
             cx={cx}
           />
         ) : null}
-        {rightSide ? rightSide : null}
+        {rightSide || null}
       </Box>
     </Box>
   );
