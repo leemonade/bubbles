@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction, isNil } from 'lodash';
 import {
@@ -87,6 +87,7 @@ export const DATE_PICKER_PROP_TYPES = {
   autoComplete: PropTypes.string,
   readOnly: PropTypes.bool,
   clearButtonLabel: PropTypes.string,
+  initialMonth: PropTypes.instanceOf(Date),
 };
 
 function TimeInput({ onChange, size, ...props }) {
@@ -125,6 +126,7 @@ const DatePicker = forwardRef(
       readOnly,
       style,
       clearable,
+      initialMonth,
       ...props
     },
     ref,
@@ -177,6 +179,20 @@ const DatePicker = forwardRef(
       };
     }, [locale]);
 
+    const defaultInitialMonth = useMemo(() => {
+      if (initialMonth) return initialMonth;
+      const today = dayjs();
+
+      if (props?.minDate && dayjs(props?.minDate).isAfter(today)) {
+        return dayjs(props?.minDate).toDate();
+      }
+      if (props?.maxDate && dayjs(props?.maxDate).isBefore(today)) {
+        return dayjs(props?.maxDate).toDate();
+      }
+
+      return today.toDate();
+    }, [props?.minDate, props?.maxDate, initialMonth]);
+
     return (
       <InputWrapper
         uuid={uuid}
@@ -206,6 +222,7 @@ const DatePicker = forwardRef(
             <Comp
               {...props}
               {...compProps}
+              initialMonth={defaultInitialMonth}
               clearable={clearable}
               withinPortal
               placeHolder={inputFormat}
