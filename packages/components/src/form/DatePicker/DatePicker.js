@@ -180,6 +180,7 @@ const DatePicker = forwardRef(
     }, [locale]);
 
     const defaultInitialMonth = useMemo(() => {
+      if (initialMonth) return initialMonth;
       const today = dayjs();
 
       if (props?.minDate && dayjs(props?.minDate).isAfter(today)) {
@@ -190,7 +191,7 @@ const DatePicker = forwardRef(
       }
 
       return today.toDate();
-    }, [props?.minDate, props?.maxDate]);
+    }, [props?.minDate, props?.maxDate, initialMonth]);
 
     return (
       <InputWrapper
@@ -221,7 +222,7 @@ const DatePicker = forwardRef(
             <Comp
               {...props}
               {...compProps}
-              initialMonth={initialMonth || defaultInitialMonth}
+              initialMonth={defaultInitialMonth}
               clearable={clearable}
               withinPortal
               placeHolder={inputFormat}
