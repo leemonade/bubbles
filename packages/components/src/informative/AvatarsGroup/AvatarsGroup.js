@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
 import { findIndex, forEach, isEmpty, isNumber } from 'lodash';
 import { ModuleThreeIcon, TeammateIcon } from '@bubbles-ui/icons/outline';
+import { HoverCard } from '@mantine/core';
 import { Text } from '../../typography/Text';
 import { Box } from '../../layout/Box';
 import { Avatar } from '../Avatar/Avatar';
 import { AvatarsGroupStyles } from './AvatarsGroup.styles';
 import { AVATARS_GROUP_DEFAULT_PROPS, AVATARS_GROUP_PROP_TYPES } from './AvatarsGroup.constants';
 import { getUserFullName } from '../../helpers';
+import { Stack } from '../../../lib/layout/Stack/Stack';
 
 const AvatarsGroup = ({
   data,
@@ -18,6 +20,7 @@ const AvatarsGroup = ({
   total,
   moreThanUsersAsMulti,
   numberFromClassesAndData,
+  showItemsListOnHover,
   ...props
 }) => {
   const { classes, cx, theme } = AvatarsGroupStyles(
@@ -74,12 +77,29 @@ const AvatarsGroup = ({
   }, [data, classesData, limit, moreThanUsersAsMulti]);
 
   const overflow = useMemo(() => {
-    let d = data.length;
-    if (moreThanUsersAsMulti && d >= moreThanUsersAsMulti) d = moreThanUsersAsMulti;
-    const limitDiff = d - avatars.length;
+    let dataLength = data.length;
+    if (moreThanUsersAsMulti && dataLength >= moreThanUsersAsMulti) {
+      dataLength = moreThanUsersAsMulti;
+    }
+    const limitDiff = dataLength - avatars.length;
     const totalDiff = (total || 0) - avatars.length;
     return Math.max(limitDiff, totalDiff);
   }, [data, avatars, total]);
+
+  const hoverInfo = useMemo(() => {
+    // Not intendend to show hover card info when moreThanUsersAsMulti is passed. (For now)
+    if (!showItemsListOnHover || moreThanUsersAsMulti || !data?.length) {
+      return [];
+    }
+
+    // Intended for user avatars only (for now)
+    return data
+      .filter((user) => user?.name && user?.surnames)
+      .map((user) => ({
+        ...user,
+        fullName: getUserFullName(user, { singleSurname: true }),
+      }));
+  }, [overflow, data, showItemsListOnHover, moreThanUsersAsMulti]);
 
   const numberToPrint = useMemo(() => {
     if (numberFromClassesAndData) {
@@ -106,88 +126,109 @@ const AvatarsGroup = ({
     return null;
   }, [numberFromClassesAndData, data, classesData]);
 
-  return (
-    <>
-      <Box {...props} className={classes.root}>
-        {avatars.map((item, index) => {
-          if (item.type === 'avatar') {
-            return (
-              <Avatar
-                key={`k-${index}`}
-                fullName={item.fullName}
-                image={item.avatar}
-                size={size}
-                styles={{
-                  root: {
-                    zIndex: zIndexInverted ? 50 - index : index,
-                  },
-                }}
-                alt={`Avatar of ${item.fullName}`}
-              />
-            );
-          }
+  const avatarsGroupContent = (
+    <Box {...props} className={classes.root}>
+      {avatars.map((item, index) => {
+        if (item.type === 'avatar') {
+          return (
+            <Avatar
+              key={`k-${index}`}
+              fullName={item.fullName}
+              image={item.avatar}
+              size={size}
+              styles={{
+                root: {
+                  zIndex: zIndexInverted ? 50 - index : index,
+                },
+              }}
+              alt={`Avatar of ${item.fullName}`}
+            />
+          );
+        }
 
-          if (item.type === 'cus-icon') {
-            return (
-              <Avatar
-                key={`k-${index}`}
-                icon={item.icon}
-                color={item.color}
-                size={size}
-                styles={{
-                  root: {
-                    backgroundColor: item.color,
-                    display: 'flex',
-                    zIndex: zIndexInverted ? 50 - index : index,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  },
-                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
-                }}
-              />
-            );
-          }
+        if (item.type === 'cus-icon') {
+          return (
+            <Avatar
+              key={`k-${index}`}
+              icon={item.icon}
+              color={item.color}
+              size={size}
+              styles={{
+                root: {
+                  backgroundColor: item.color,
+                  display: 'flex',
+                  zIndex: zIndexInverted ? 50 - index : index,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+                image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
+              }}
+            />
+          );
+        }
 
-          if (item.type === 'icon') {
-            return (
-              <Avatar
-                key={`k-${index}`}
-                fullName={item.fullName}
-                image={item.avatar}
-                size={size}
-                styles={{
-                  root: {
-                    backgroundColor: item.color,
-                    display: 'flex',
-                    zIndex: zIndexInverted ? 50 - index : index,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  },
-                  image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
-                }}
-                alt={`Icon of ${item.fullName}`}
-              />
-            );
+        if (item.type === 'icon') {
+          return (
+            <Avatar
+              key={`k-${index}`}
+              fullName={item.fullName}
+              image={item.avatar}
+              size={size}
+              styles={{
+                root: {
+                  backgroundColor: item.color,
+                  display: 'flex',
+                  zIndex: zIndexInverted ? 50 - index : index,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+                image: { width: '70%', height: '70%', filter: 'brightness(0) invert(1)' },
+              }}
+              alt={`Icon of ${item.fullName}`}
+            />
+          );
+        }
+        return null;
+      })}
+      {overflow > 0 && (
+        <Avatar
+          size={size}
+          color={theme.colors.ui02}
+          styles={{
+            root: {
+              zIndex: zIndexInverted ? 50 - avatars.length : avatars.length,
+            },
+          }}
+          icon={
+            <Text
+              size={size}
+              strong
+              className={{ [classes.overflow]: size === 'xs' }}
+            >{`+${overflow}`}</Text>
           }
-          return null;
-        })}
-        {overflow > 0 && (
-          <Avatar
-            size={size}
-            color={theme.colors.ui02}
-            icon={
-              <Text
-                size={size}
-                strong
-                className={{ [classes.overflow]: size === 'xs' }}
-              >{`+${overflow}`}</Text>
-            }
-          />
-        )}
-        {numberToPrint}
-      </Box>
-    </>
+        />
+      )}
+      {numberToPrint}
+    </Box>
   );
+
+  if (showItemsListOnHover && hoverInfo?.length) {
+    return (
+      <HoverCard withArrow position="top">
+        <HoverCard.Target>{avatarsGroupContent}</HoverCard.Target>
+        <HoverCard.Dropdown className={classes.dropdown}>
+          <Stack direction="column">
+            {hoverInfo.map((user) => (
+              <Text className={classes.labelTooltip} key={user.id} size="xs">
+                {user.fullName}
+              </Text>
+            ))}
+          </Stack>
+        </HoverCard.Dropdown>
+      </HoverCard>
+    );
+  }
+  return avatarsGroupContent;
 };
 
 AvatarsGroup.defaultProps = AVATARS_GROUP_DEFAULT_PROPS;

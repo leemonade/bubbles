@@ -18,4 +18,5 @@ export const AVATARS_GROUP_PROP_TYPES = {
       fullName: PropTypes.string,
     }),
   ),
+  showItemsListOnHover: PropTypes.bool,
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, UserDisplayItem } from '@bubbles-ui/components';
+import { AvatarsGroup, Box, Button, UserDisplayItem } from '@bubbles-ui/components';
 import { PluginComunicaIcon } from '@bubbles-ui/icons/outline';
 import { isFunction } from 'lodash';
 import { ClassroomHeaderBarStyles } from './ClassroomHeaderBar.styles';
@@ -20,20 +20,60 @@ const ClassroomHeaderBar = ({
   rightSide,
   leftSide,
 }) => {
-  const { schedule, address, virtual_classroom, teacher, calendar, CustomPeriodComponent } =
-    classRoom;
+  const {
+    schedule,
+    address,
+    virtual_classroom,
+    teacher,
+    calendar,
+    CustomPeriodComponent,
+    secondaryTeachers,
+  } = classRoom;
 
   const onChatHandler = () => {
     isFunction(onChat) && onChat();
   };
 
   const { classes, cx } = ClassroomHeaderBarStyles({}, { name: 'ClassroomHeaderBar' });
+
+  const renderSecondaryTeachers = () => {
+    if (secondaryTeachers.length > 1) {
+      return (
+        <AvatarsGroup
+          style={{ marginRight: 16 }}
+          size="sm"
+          data={secondaryTeachers}
+          limit={4}
+          total={secondaryTeachers.length}
+          showItemsListOnHover
+        />
+      );
+    }
+
+    if (secondaryTeachers.length === 1) {
+      const secondaryTeacher = secondaryTeachers[0];
+
+      return (
+        <UserDisplayItem
+          name={secondaryTeacher.name}
+          surnames={secondaryTeacher.surnames}
+          avatar={secondaryTeacher.avatar}
+          size="sm"
+          noBreak
+          fullNameClassname={classes.label}
+        />
+      );
+    }
+
+    return null;
+  };
+
   return (
     <Box className={classes.root}>
       {leftSide || null}
       <Box className={classes.root2}>
         {teacher ? (
-          <Box className={cx(classes.infoWrapper, classes.clickable)}>
+          <Box className={cx(classes.infoWrapper, classes.clickableƒ)}>
             <UserDisplayItem
               name={teacher.name}
               surnames={teacher.surnames}
@@ -42,6 +82,7 @@ const ClassroomHeaderBar = ({
               noBreak
               fullNameClassname={classes.label}
             />
+            {renderSecondaryTeachers()}
           </Box>
         ) : null}
 
