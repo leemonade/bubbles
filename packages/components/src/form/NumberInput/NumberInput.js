@@ -23,6 +23,7 @@ export const NUMBER_INPUT_PROP_TYPES = {
   error: PropTypes.string,
   required: PropTypes.bool,
   customDesign: PropTypes.bool,
+  hideControls: PropTypes.bool,
 };
 
 export const NUMBER_INPUT_DEFAULT_PROPS = {
@@ -54,14 +55,15 @@ const NumberInput = forwardRef(
       contentClassName,
       ariaLabel,
       customDesign,
+      hideControls,
       ...props
     },
     ref,
   ) => {
     const uuid = useId();
     const hasIcon = !!icon;
-    const { classes, cx } = NumberInputStyles(
-      { size, hasIcon, customDesign },
+    const { classes } = NumberInputStyles(
+      { size, hasIcon, customDesign, hideControls },
       { name: 'NumberInput' },
     );
     const customDesignRef = useRef();
@@ -98,7 +100,7 @@ const NumberInput = forwardRef(
             )}
             <MantineNumberInput
               {...props}
-              hideControls={customDesign || props.hideControls}
+              hideControls={customDesign || hideControls}
               ref={ref}
               handlersRef={customDesignRef}
               icon={icon}

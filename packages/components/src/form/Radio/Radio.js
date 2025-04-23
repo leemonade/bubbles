@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Radio as MantineRadio } from '@mantine/core';
+import { isFunction } from 'lodash';
 import { RadioStyles } from './Radio.styles';
 import { ImageLoader } from '../../misc';
-import { isFunction } from 'lodash';
 
 export const RADIO_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'];
 export const RADIO_HELP_POSITIONS = ['right', 'bottom'];
@@ -51,6 +51,7 @@ const Radio = forwardRef(
         )}
         <MantineRadio
           {...props}
+          name={label}
           size={size}
           checked={checked}
           ref={ref}
@@ -77,6 +78,7 @@ const Radio = forwardRef(
   },
 );
 
+Radio.displayName = 'Radio';
 Radio.defaultProps = {
   variant: RADIO_VARIANTS[0],
   size: 'md',
@@ -101,6 +103,20 @@ Radio.propTypes = {
   disabled: PropTypes.bool,
   /** Controls if Radio uses aria role */
   useAria: PropTypes.bool,
+  /** Controls the radio image */
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  /** Controls the radio image height */
+  imageHeight: PropTypes.number,
+  /** Controls the radio size */
+  size: PropTypes.oneOf(RADIO_SIZES),
+  /** Controls the radio label */
+  label: PropTypes.string,
+  /** Controls the radio checked state */
+  checked: PropTypes.bool,
+  /** Controls the radio onChange event */
+  onChange: PropTypes.func,
+  /** Controls the radio noRootPadding state */
+  noRootPadding: PropTypes.bool,
 };
 
 export { Radio };

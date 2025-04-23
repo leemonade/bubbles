@@ -34,4 +34,5 @@ Playground.args = {
   error: 'Descriptive text for error ',
   readOnly: false,
   customDesign: false,
+  precision: 2,
 };
