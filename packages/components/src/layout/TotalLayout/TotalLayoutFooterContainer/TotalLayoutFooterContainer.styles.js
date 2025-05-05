@@ -10,7 +10,7 @@ const TotalLayoutFooterContainerStyles = createStyles(
         marginLeft: leftOffset,
         backgroundColor: 'white',
         borderTop: showFooterBorder && `1px solid ${theme.other.divider.background.color.default}`,
-        zIndex: 1,
+        zIndex: 999,
         position: fixed ? 'fixed' : 'relative',
         bottom: 0,
         width: fullWidth ? `calc(100% - ${rightOffset}px)` : width ?? 928,
